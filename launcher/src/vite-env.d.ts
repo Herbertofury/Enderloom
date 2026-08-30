@@ -4,6 +4,7 @@ type EnderloomUnlisten = () => void;
 
 interface EnderloomLauncherBridge {
   readonly embedded: true;
+  readonly selfTest: boolean;
   invoke<T>(command: string, args?: Record<string, unknown>): Promise<T>;
   listen<T>(
     event: string,

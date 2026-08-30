@@ -52,6 +52,7 @@ let activeId = CATALOG_ID;
 let splitMode = false;
 let splitRatio = 0.46;
 let splitSide = 'catalog-left';
+let splitWorkspaceId = CATALOG_ID;
 let utilityHeight = 0;
 const galleryCache = new Map();
 const mediaCache = new Map();
@@ -140,10 +141,11 @@ function scheduleSave() {
     try {
       const payload = {
         activeUrl: activeId === CATALOG_ID || activeId === LAUNCHER_ID ? null : getTab(activeId)?.url || null,
-        activeWorkspace: activeId === LAUNCHER_ID ? LAUNCHER_ID : CATALOG_ID,
+        activeWorkspace: activeId === LAUNCHER_ID ? LAUNCHER_ID : activeId === CATALOG_ID ? CATALOG_ID : splitWorkspaceId,
         splitMode,
         splitRatio,
         splitSide,
+        splitWorkspaceId,
         statusBarCollapsed,
         tabs: tabs.slice(0, 16).map(t => ({ url: t.url, title: t.title }))
       };
@@ -207,12 +209,14 @@ function stateSnapshot() {
     workspace: true,
     loading: launcherService.snapshot().state === 'starting',
   };
-  const activeWorkspace = activeId === LAUNCHER_ID ? launcherTab : catalogTab;
+  const workspaceId = splitMode ? splitWorkspaceId : activeId === LAUNCHER_ID ? LAUNCHER_ID : CATALOG_ID;
+  const activeWorkspace = workspaceId === LAUNCHER_ID ? launcherTab : catalogTab;
   return {
     activeId,
     splitMode,
     splitRatio: splitGeometry().ratio,
     splitSide,
+    splitWorkspaceId: workspaceId,
     splitDividerX: splitGeometry().left,
     splitDividerWidth: DIVIDER_W,
     splitAvailableWidth: splitGeometry().available,
@@ -288,7 +292,7 @@ function raiseProtectedOverlays() {
   if (!win || win.isDestroyed()) return;
   try {
     const ordered=[];
-    if (splitterView && splitMode && activeId !== CATALOG_ID && activeTab()) ordered.push(splitterView);
+    if (splitterView && splitMode && activeTab()) ordered.push(splitterView);
     if (statusView) ordered.push(statusView);
     if (chromeView) ordered.push(chromeView);
     const children=win.contentView.children||[];
@@ -360,7 +364,7 @@ function setupStatusOverlay() {
 }
 function layoutSplitterOverlay() {
   if (!splitterView || !win || win.isDestroyed()) return;
-  if (!splitMode || activeId === CATALOG_ID || !activeTab()) {
+  if (!splitMode || !activeTab()) {
     setViewVisible(splitterView,false);
     return;
   }
@@ -449,11 +453,12 @@ function layoutViews() {
     const rightX = leftWidth + DIVIDER_W;
     const rightWidth = Math.max(1, w - rightX);
     const t = activeTab();
+    const workspaceView = splitWorkspaceId === LAUNCHER_ID ? launcherView : catalogView;
     if (splitSide === 'web-left') {
       place(t.view, { x: 0, y: top, width: leftWidth, height });
-      place(catalogView, { x: rightX, y: top, width: rightWidth, height });
+      place(workspaceView, { x: rightX, y: top, width: rightWidth, height });
     } else {
-      place(catalogView, { x: 0, y: top, width: leftWidth, height });
+      place(workspaceView, { x: 0, y: top, width: leftWidth, height });
       place(t.view, { x: rightX, y: top, width: rightWidth, height });
     }
   } else if (activeId === CATALOG_ID) {
@@ -584,14 +589,22 @@ function closeTab(id) {
   closedTabs = closedTabs.slice(0, 20);
   detach(t.view);
   try { t.view.webContents.close(); } catch {}
-  if (activeId === id) activeId = tabs[Math.max(0, i - 1)]?.id || CATALOG_ID;
+  if (activeId === id) activeId = tabs[Math.max(0, i - 1)]?.id || splitWorkspaceId;
   if (!tabs.length) splitMode = false;
   layoutViews(); publishState(); scheduleSave();
 }
 function activateTab(id) {
   if (id !== CATALOG_ID && id !== LAUNCHER_ID && !getTab(id)) return;
+  if ((id === CATALOG_ID || id === LAUNCHER_ID) && splitMode && activeTab()) {
+    splitWorkspaceId = id;
+    layoutViews(); publishState(); scheduleSave();
+    return;
+  }
   activeId = id;
-  if (id === CATALOG_ID || id === LAUNCHER_ID) splitMode = false;
+  if (id === CATALOG_ID || id === LAUNCHER_ID) {
+    splitMode = false;
+    splitWorkspaceId = id;
+  }
   layoutViews(); publishState(); scheduleSave();
 }
 async function loadCatalogRuntime(runtimePath) {
@@ -642,6 +655,7 @@ function setupLauncher() {
       webSecurity: true,
       allowRunningInsecureContent: false,
       backgroundThrottling: false,
+      additionalArguments: testMode ? ['--enderloom-self-test=1'] : [],
     }
   });
   launcherView.setBackgroundColor('#08090d');
@@ -829,7 +843,10 @@ function restoreSession() {
   } else if (saved.activeWorkspace === LAUNCHER_ID) {
     activeId = LAUNCHER_ID;
   }
-  splitMode = !!saved.splitMode && activeId !== CATALOG_ID && activeId !== LAUNCHER_ID;
+  splitWorkspaceId = saved.splitWorkspaceId === LAUNCHER_ID || saved.activeWorkspace === LAUNCHER_ID
+    ? LAUNCHER_ID
+    : CATALOG_ID;
+  splitMode = !!saved.splitMode && !!activeTab();
   splitRatio = Number.isFinite(Number(saved.splitRatio)) ? Number(saved.splitRatio) : .46;
   splitSide = saved.splitSide === 'web-left' ? 'web-left' : 'catalog-left';
   statusBarCollapsed = !!saved.statusBarCollapsed;
@@ -848,7 +865,17 @@ async function command(name, payload) {
     case 'back': if (t) navBack(t.view.webContents); break;
     case 'forward': if (t) navForward(t.view.webContents); break;
     case 'reload': if (t) t.loading ? t.view.webContents.stop() : t.view.webContents.reload(); else if (activeId === LAUNCHER_ID) launcherView?.webContents.reload(); else catalogView.webContents.reload(); break;
-    case 'split': if (t) { splitMode = !splitMode; layoutViews(); publishState(); scheduleSave(); } break;
+    case 'split': {
+      if (t) {
+        splitMode = !splitMode;
+      } else if (tabs.length > 0) {
+        splitWorkspaceId = activeId === LAUNCHER_ID ? LAUNCHER_ID : CATALOG_ID;
+        activeId = tabs[tabs.length - 1].id;
+        splitMode = true;
+      }
+      layoutViews(); publishState(); scheduleSave();
+      break;
+    }
     case 'split-resize': if (t && splitMode) { splitRatio = Number(payload?.ratio); layoutViews(); publishState(); scheduleSave(); } break;
     case 'split-reset': if (t && splitMode) { splitRatio = .5; layoutViews(); publishState(); scheduleSave(); } break;
     case 'split-swap': if (t && splitMode) { splitSide = splitSide === 'catalog-left' ? 'web-left' : 'catalog-left'; layoutViews(); publishState(); scheduleSave(); } break;
@@ -2085,25 +2112,42 @@ function catalogSender(event) {
     throw new Error('Catalog integration is only available to the Enderloom Catalog');
   }
 }
-function modrinthCatalogProject(raw) {
-  const kinds = new Map([
+function catalogLauncherProject(raw) {
+  const modrinthKinds = new Map([
     ['mod', 'mods'],
     ['modpack', 'modpacks'],
     ['resourcepack', 'resourcepacks'],
-    ['shader', 'shaders'],
+    ['shader', 'shaderpacks'],
     ['datapack', 'datapacks'],
   ]);
+  const curseforgeKinds = new Map([
+    ['mc-mods', 'mods'],
+    ['modpacks', 'modpacks'],
+    ['texture-packs', 'resourcepacks'],
+    ['shaders', 'shaderpacks'],
+    ['data-packs', 'datapacks'],
+  ]);
   const urls = (Array.isArray(raw?.urls) ? raw.urls : []).map(safeHttpUrl).filter(Boolean).slice(0, 16);
-  for (const sourceUrl of urls) {
+  const ranked = [...urls].sort((a, b) => Number(/modrinth\.com/i.test(b)) - Number(/modrinth\.com/i.test(a)));
+  for (const sourceUrl of ranked) {
     let parsed;
     try { parsed = new URL(sourceUrl); } catch { continue; }
-    if (!/(^|\.)modrinth\.com$/i.test(parsed.hostname)) continue;
     const parts = parsed.pathname.split('/').filter(Boolean).map(part => decodeURIComponent(part));
-    const kind = kinds.get(String(parts[0] || '').toLowerCase());
-    const projectId = String(parts[1] || '');
+    let provider;
+    let kind;
+    let projectId;
+    if (/(^|\.)modrinth\.com$/i.test(parsed.hostname)) {
+      provider = 'modrinth';
+      kind = modrinthKinds.get(String(parts[0] || '').toLowerCase());
+      projectId = String(parts[1] || '');
+    } else if (/(^|\.)curseforge\.com$/i.test(parsed.hostname) && String(parts[0] || '').toLowerCase() === 'minecraft') {
+      provider = 'curseforge';
+      kind = curseforgeKinds.get(String(parts[1] || '').toLowerCase());
+      projectId = String(parts[2] || '');
+    }
     if (!kind || !/^[a-z0-9_-]{1,128}$/i.test(projectId)) continue;
     return {
-      provider: 'modrinth',
+      provider,
       projectId,
       kind,
       title: String(raw?.name || projectId).trim().slice(0, 256) || projectId,
@@ -2306,12 +2350,55 @@ ipcMain.handle('launcher:window-command', async (event, request) => {
 ipcMain.handle('command', (_e, req) => command(req?.name, req?.payload));
 ipcMain.handle('catalog:install-to-launcher', async (event, project) => {
   catalogSender(event);
-  const request = modrinthCatalogProject(project);
-  if (!request) throw new Error('This Catalog entry does not have a supported Modrinth project home yet');
+  const request = catalogLauncherProject(project);
+  if (!request) throw new Error('This Catalog entry does not have a supported Modrinth or CurseForge project home yet');
   activateTab(LAUNCHER_ID);
   if (!launcherView || launcherView.webContents.isDestroyed()) throw new Error('The Mod Manager is unavailable');
   launcherView.webContents.send('launcher:event', { event: 'catalog:project', payload: request });
   return { opened: true, provider: request.provider, projectId: request.projectId, kind: request.kind };
+});
+ipcMain.handle('catalog:open-provider-launcher', async (event, project) => {
+  catalogSender(event);
+  const request = catalogLauncherProject(project);
+  if (!request) throw new Error('That provider project URL is not supported');
+  if (request.provider === 'modrinth') {
+    const route = request.kind === 'modpacks' ? 'modpack' : 'mod';
+    await shell.openExternal(`modrinth://${route}/${encodeURIComponent(request.projectId)}`);
+    return { opened: true, provider: request.provider };
+  }
+
+  let addonId = /^\d+$/.test(request.projectId) ? request.projectId : '';
+  if (!addonId) {
+    const query = {
+      query: request.projectId.replace(/[-_]+/g, ' '),
+      game_versions: [],
+      loaders: [],
+      categories: [],
+      environment: null,
+      open_source_only: false,
+      sort: 'relevance',
+      offset: 0,
+      limit: 50,
+    };
+    try {
+      const page = await launcherService.request('search_content', {
+        provider: 'curseforge',
+        kind: request.kind,
+        query,
+      });
+      const exact = (page?.hits || []).find(hit =>
+        String(hit?.slug || '').toLowerCase() === request.projectId.toLowerCase()
+        || String(hit?.title || '').toLowerCase() === request.title.toLowerCase()
+      );
+      addonId = /^\d+$/.test(String(exact?.id || '')) ? String(exact.id) : '';
+    } catch {}
+  }
+  if (addonId) {
+    await shell.openExternal(`curseforge://install?addonId=${encodeURIComponent(addonId)}`);
+  } else {
+    await shell.openExternal(request.sourceUrl);
+  }
+  return { opened: true, provider: request.provider };
 });
 ipcMain.on('catalog:open-here', (_e, u) => { const target = safeHttpUrl(u); if (target) createBrowserTab(target, true); });
 ipcMain.on('catalog:open-external', (_e, u) => { const target = safeHttpUrl(u); if (target) shell.openExternal(target); });
@@ -2462,6 +2549,17 @@ async function runSelfTest() {
   const launcherProjectEvent = await catalogProjectReceived;
   check('Catalog project handoff resolves a real Modrinth project', catalogLauncherHandoff?.opened===true && catalogLauncherHandoff?.provider==='modrinth' && catalogLauncherHandoff?.projectId==='sodium' && catalogLauncherHandoff?.kind==='mods', JSON.stringify(catalogLauncherHandoff));
   check('Catalog handoff activates the in-app Mod Manager project workflow', activeId===LAUNCHER_ID && launcherProjectEvent?.projectId==='sodium' && launcherProjectEvent?.title==='Sodium', JSON.stringify({activeId,launcherProjectEvent}));
+  await new Promise(resolve => setTimeout(resolve, 180));
+  const catalogInstallUi = await launcherView.webContents.executeJavaScript(`({
+    dialogTitle:document.querySelector('[role="dialog"] #catalog-install-title')?.textContent?.trim()||'',
+    hasInstanceSearch:!![...document.querySelectorAll('input')].find(input=>input.placeholder==='Search instances'),
+    bodyText:document.body.innerText
+  })`, true);
+  check(
+    'Catalog handoff renders the multi-instance compatibility picker',
+    catalogInstallUi?.dialogTitle==='Install project' && catalogInstallUi?.hasInstanceSearch===true && /compatible instance|Checking every instance/i.test(catalogInstallUi?.bodyText||''),
+    JSON.stringify({dialogTitle:catalogInstallUi?.dialogTitle,hasInstanceSearch:catalogInstallUi?.hasInstanceSearch}),
+  );
   const catalogResearchReceived = catalogView.webContents.executeJavaScript(`new Promise(resolve => {
     let settled=false;
     const off=window.mobCompanion.onResearch(payload => { if(!settled){settled=true;off();resolve(payload)} });
@@ -2549,8 +2647,17 @@ async function runSelfTest() {
   stage('browser-navigation');
   check('navigation', /\/two$/.test(t.view.webContents.getURL()), t.view.webContents.getURL());
   check('back history', navCanBack(t.view.webContents), 'no back history');
-  await navBack(t.view.webContents);
-  await new Promise(resolve => setTimeout(resolve, 120));
+  const backNavigation = new Promise(resolve => {
+    let timer;
+    const complete = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+    t.view.webContents.once('did-finish-load', complete);
+    timer = setTimeout(complete, 1800);
+  });
+  navBack(t.view.webContents);
+  await backNavigation;
   stage('browser-history');
   check('back works', /\/$/.test(t.view.webContents.getURL()), t.view.webContents.getURL());
   splitMode = true; splitRatio = .61; splitSide = 'catalog-left'; layoutViews();
@@ -2567,6 +2674,15 @@ async function runSelfTest() {
   splitSide = 'web-left'; layoutViews();
   check('split side swap', splitSide === 'web-left');
   splitSide = 'catalog-left';
+  splitWorkspaceId = LAUNCHER_ID; layoutViews();
+  const managerSplitBounds = launcherView?.getBounds?.() || {};
+  check(
+    'Mod Manager and web share the native split workspace',
+    launcherView?.getVisible?.() === true && catalogView?.getVisible?.() === false &&
+      t.view.getVisible() === true && managerSplitBounds.width === splitGeometry().left,
+    JSON.stringify({ managerSplitBounds, webBounds: t.view.getBounds(), splitWorkspaceId }),
+  );
+  splitWorkspaceId = CATALOG_ID; layoutViews();
   stage('split-layout');
   const quickStarted=Date.now(); const quickMedia=await discoverProjectMedia(`http://127.0.0.1:${port}/`, { force:true, deep:false }); const quickElapsed=Date.now()-quickStarted;
   check('quick live media path', quickMedia.gallery.length >= 1 && quickElapsed < 3000, JSON.stringify({quickElapsed,quickMedia}));

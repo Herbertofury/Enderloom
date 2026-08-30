@@ -227,6 +227,15 @@ export interface ContentItem {
 
 export type SearchProvider = "modrinth" | "curseforge";
 
+export interface CatalogProjectPayload {
+  provider: SearchProvider;
+  projectId: string;
+  kind: ContentKind;
+  title: string;
+  sourceUrl: string;
+  catalogId: string;
+}
+
 export type SortOrder = "relevance" | "downloads" | "follows" | "newest" | "updated";
 
 export type Environment = "client" | "server";

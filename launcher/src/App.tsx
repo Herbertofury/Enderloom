@@ -14,6 +14,7 @@ import { TitleBar } from "./components/TitleBar";
 import { WindowFrame } from "./components/WindowFrame";
 import { UpdateNotifications } from "./components/UpdateNotifications";
 import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
+import { CatalogInstallModal } from "./components/CatalogInstallModal";
 import { Toaster } from "sonner";
 import { AccountsView } from "./views/AccountsView";
 import { HomeView } from "./views/HomeView";
@@ -59,6 +60,8 @@ function App() {
   const settings = useStore((s) => s.settings);
   const servers = useStore((s) => s.servers);
   const serverRunning = useStore((s) => s.serverRunning);
+  const catalogInstallRequest = useStore((s) => s.catalogInstallRequest);
+  const dismissCatalogInstall = useStore((s) => s.dismissCatalogInstall);
 
   const [maximized, setMaximized] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -142,6 +145,10 @@ function App() {
         }}
       />
       <UpdateNotifications />
+      <CatalogInstallModal
+        request={catalogInstallRequest}
+        onClose={dismissCatalogInstall}
+      />
       {!ready ? (
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
           <TitleBar />

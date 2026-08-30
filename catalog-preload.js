@@ -24,6 +24,15 @@ contextBridge.exposeInMainWorld('mobCompanion', {
     type: safe(project?.type).slice(0, 80),
     loader: safe(project?.loader).slice(0, 160),
     minecraftVersions: safe(project?.minecraftVersions).slice(0, 256),
+  }),
+  openProviderLauncher: project => ipcRenderer.invoke('catalog:open-provider-launcher', {
+    id: safe(project?.id).slice(0, 256),
+    name: safe(project?.name).slice(0, 256),
+    urls: (Array.isArray(project?.urls) ? project.urls : []).map(safe).filter(Boolean).slice(0, 2),
+    edition: safe(project?.edition).slice(0, 80),
+    type: safe(project?.type).slice(0, 80),
+    loader: safe(project?.loader).slice(0, 160),
+    minecraftVersions: safe(project?.minecraftVersions).slice(0, 256),
   })
 });
 

@@ -12,6 +12,9 @@ assert(main.includes("splitterView.webContents.loadFile(path.join(ROOT,'splitter
 assert(main.includes('function layoutSplitterOverlay()'),'splitter layout missing');
 assert(main.includes('width:DIVIDER_W'),'splitter native hit lane is not DIVIDER_W');
 assert(main.includes('splitAvailableWidth: splitGeometry().available'),'splitter does not publish stable drag geometry');
+assert(main.includes('splitWorkspaceId === LAUNCHER_ID ? launcherView : catalogView'),'split cannot pair the Mod Manager with a web tab');
+assert(main.includes('splitWorkspaceId: workspaceId'),'split workspace identity is not published to native chrome');
+assert(shell.includes("state.splitWorkspaceId==='launcher'?'Mod Manager':'Catalog'"),'split UI does not label the active workspace');
 assert(main.includes('if (splitterView && splitMode'),'protected z-order does not include splitter');
 assert(shell.includes("classList.add('native-splitter-managed')"),'legacy shell splitter is not suppressed');
 assert(css.includes('html.native-splitter-managed .split-divider{display:none!important}'),'legacy splitter can still steal/duplicate visuals');

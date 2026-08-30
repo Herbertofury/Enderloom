@@ -43,6 +43,7 @@ window.addEventListener('drop', (event) => {
 
 contextBridge.exposeInMainWorld('enderloomLauncher', {
   embedded: true,
+  selfTest: process.argv.includes('--enderloom-self-test=1'),
   invoke: (command, args) => ipcRenderer.invoke('launcher:invoke', { command, args }),
   listen: async (event, callback) => subscribe(String(event), callback),
   openDialog: (options) => ipcRenderer.invoke('launcher:open-dialog', options),

@@ -51,7 +51,8 @@ function renderTabs() {
   const el = $('tabs'); el.innerHTML = '';
   for (const tab of appState?.tabs || []) {
     const b = document.createElement('button');
-    b.className = 'tab' + (tab.id === appState.activeId ? ' active' : '') + (tab.catalog ? ' catalog-tab' : '') + (tab.launcher ? ' launcher-tab' : '');
+    const splitCompanion = !!appState.splitMode && tab.id === appState.splitWorkspaceId;
+    b.className = 'tab' + (tab.id === appState.activeId ? ' active' : '') + (splitCompanion ? ' split-companion' : '') + (tab.catalog ? ' catalog-tab' : '') + (tab.launcher ? ' launcher-tab' : '');
     b.dataset.id = tab.id; b.setAttribute('role','tab'); b.setAttribute('aria-selected', tab.id === appState.activeId ? 'true':'false');
     const icon = document.createElement('span'); icon.className='tab-icon';
     if (tab.favicon && !tab.catalog) { const img=document.createElement('img'); img.src=tab.favicon; img.alt=''; icon.appendChild(img); }
@@ -67,7 +68,7 @@ function renderCatalogPicker(){
   select.innerHTML='';
   for(const c of appState?.catalogs||[]){const o=document.createElement('option');o.value=c.id;o.textContent=`${c.name} (${c.entries})`;select.appendChild(o)}
   select.value=appState?.activeCatalogId||activeCatalog().id||before;
-  const c=activeCatalog(), launcher=appState?.activeId==='launcher';
+  const c=activeCatalog(), launcher=appState?.activeId==='launcher'||(appState?.splitMode&&appState?.splitWorkspaceId==='launcher');
   $('brandName').textContent=launcher?'Enderloom':c.name||'Catalog';
   $('brandMark').textContent=launcher?'EL':catalogMark(c.name);
   select.disabled=launcher;
@@ -82,19 +83,21 @@ function renderState(state) {
   $('address').placeholder = launcher ? 'Mod Manager · instances, content, accounts, servers and diagnostics' : catalog ? `Search ${c.name||'the catalog'} with / or Ctrl+K` : 'Search the web or enter an address';
   $('back').disabled = workspace || !a.canBack; $('forward').disabled = workspace || !a.canForward;
   $('reload').textContent = a.loading ? '×' : '↻'; $('reload').title = a.loading ? 'Stop' : 'Reload · Ctrl+R';
-  $('external').disabled = workspace; $('copyUrl').disabled = workspace; $('findToggle').disabled = workspace; $('translatorToggle').disabled=workspace; $('split').disabled = workspace;
+  const browserTabs=(state.tabs||[]).filter(tab=>!tab.catalog&&!tab.launcher);
+  $('external').disabled = workspace; $('copyUrl').disabled = workspace; $('findToggle').disabled = workspace; $('translatorToggle').disabled=workspace; $('split').disabled = workspace && browserTabs.length===0;
   $('securityMark').textContent = catalog ? '✦' : launcher ? '◈' : (String(a.url).startsWith('https:') ? '◆' : '◇');
   $('securityMark').className = 'security-mark ' + (workspace ? 'local' : String(a.url).startsWith('https:') ? 'secure' : 'plain');
   $('statusText').textContent = launcher ? `Mod Manager · Rust ${state.launcherService?.state||'starting'}` : catalog ? `${c.name||'Catalog'} · ${c.sync?.label||'snapshot ready'}` : (a.loading ? `Loading ${safeHost(a.url)}…` : `${safeHost(a.url)} · ready`);
   $('statusDot').className='status-dot '+(c.sync?.state==='error'?'attention':c.sync?.state==='watching'?'watching':'');
   const splitPct=Math.round((state.splitRatio||.46)*100);
-  $('splitStatus').textContent = state.splitMode ? `${state.splitSide==='web-left'?'Site':'Catalog'} ${splitPct}% · ${state.splitSide==='web-left'?'Catalog':'Site'} ${100-splitPct}%` : 'Full view';
+  const splitWorkspace=state.splitWorkspaceId==='launcher'?'Mod Manager':'Catalog';
+  $('splitStatus').textContent = state.splitMode ? `${state.splitSide==='web-left'?'Web':splitWorkspace} ${splitPct}% · ${state.splitSide==='web-left'?splitWorkspace:'Web'} ${100-splitPct}%` : 'Full view';
   const divider=$('splitDivider'); divider.hidden=!state.splitMode;
   if(state.splitMode){divider.style.left=`${Math.round(state.splitDividerX||window.innerWidth*(state.splitRatio||.46))}px`;divider.setAttribute('aria-valuenow',String(splitPct));divider.setAttribute('aria-valuetext',`${splitPct}% left pane`);divider.dataset.side=state.splitSide||'catalog-left';}
   $('splitSwap').disabled=!state.splitMode; $('splitReset').disabled=!state.splitMode;
   $('runtimeStatus').textContent = state.runtime || 'Chromium';
   $('statusBarToggle').textContent = state.statusBarCollapsed ? 'Expand bottom status bar' : 'Collapse bottom status bar';
-  $('catalogStatus').textContent = launcher ? `Enderloom core ${state.launcherService?.version||'1.0.0'} · ${state.launcherService?.state||'starting'}` : `${c.entries||0} entries · ${c.assets||0} live-media projects · ${c.sync?.label||'snapshot'}`;
+  $('catalogStatus').textContent = (launcher||state.splitWorkspaceId==='launcher'&&state.splitMode) ? `Enderloom core ${state.launcherService?.version||'1.0.0'} · ${state.launcherService?.state||'starting'}` : `${c.entries||0} entries · ${c.assets||0} live-media projects · ${c.sync?.label||'snapshot'}`;
   document.body.classList.toggle('split-active', !!state.splitMode); $('zoomReset').textContent = `${Math.round((a.zoom||1)*100)}%`;
   const tr=state.translator||{}; $('translatorService').value=tr.service||'bing'; $('translatorTarget').value=tr.targetLanguage||'en'; $('translatorAuto').checked=!!tr.autoForActive; $('translatorVersion').textContent=`upstream ${tr.upstreamVersion||'10.2.1.0'} · ${tr.update?.updateState||'idle'}`; document.body.classList.toggle('translator-active',!!tr.autoForActive);
 

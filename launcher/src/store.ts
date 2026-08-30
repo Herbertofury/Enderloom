@@ -17,6 +17,7 @@ import { log } from "./lib/log";
 import type {
   AccountView,
   AppUpdateStatus,
+  CatalogProjectPayload,
   ConsoleLine,
   ContentKind,
   ContentUpdate,
@@ -95,15 +96,6 @@ interface AuthPayload {
   status: "success" | "error";
   account?: AccountView;
   message?: string;
-}
-
-interface CatalogProjectPayload {
-  provider: SearchProvider;
-  projectId: string;
-  kind: ContentKind;
-  title: string;
-  sourceUrl: string;
-  catalogId: string;
 }
 
 interface LogPayload {
@@ -214,6 +206,8 @@ interface AppStore {
   taskOrder: string[];
   appUpdateStatus: AppUpdateStatus | null;
   selectedInstanceId: string | null;
+  catalogInstallRequest: CatalogProjectPayload | null;
+  dismissCatalogInstall: () => void;
 
   setView: (view: View) => void;
   creatingInstance: boolean;
@@ -466,6 +460,35 @@ function pushStack(stack: View[], current: View, target: View): View[] {
   return [...stack.filter((view) => view !== current), current].slice(-3);
 }
 
+async function connectDetectedExternalProfiles(): Promise<{
+  connected: number;
+  failed: number;
+}> {
+  let connected = 0;
+  let failed = 0;
+  const sources = await api.detectLaunchers().catch(() => []);
+  const supported = sources
+    .filter((source) => source.kind === "modrinth" || source.kind === "curseforge")
+    .sort((a, b) => Number(a.kind === "curseforge") - Number(b.kind === "curseforge"));
+
+  for (const source of supported) {
+    try {
+      const scan = await api.scanLauncher(source.kind, source.root);
+      const ids = scan.candidates
+        .filter((candidate) => candidate.importable && !candidate.imported)
+        .map((candidate) => candidate.id);
+      if (ids.length === 0) continue;
+      const outcome = await api.connectInstancesInPlace(source.kind, source.root, ids);
+      connected += outcome.connected.length;
+      failed += outcome.failed.length;
+    } catch (cause) {
+      failed += 1;
+      log.warn("migration", `automatic ${source.label} discovery failed: ${String(cause)}`);
+    }
+  }
+  return { connected, failed };
+}
+
 function pruneInstances(ids: string[]) {
   const gone = new Set(ids);
   return (s: AppStore): Partial<AppStore> => {
@@ -556,6 +579,9 @@ export const useStore = create<AppStore>((set) => ({
   tasks: {},
   taskOrder: [],
   appUpdateStatus: null,
+  catalogInstallRequest: null,
+
+  dismissCatalogInstall: () => set({ catalogInstallRequest: null }),
 
   setView: (view) => set({ view, viewStack: [] }),
 
@@ -872,6 +898,10 @@ export const useStore = create<AppStore>((set) => ({
       track(await listen<CatalogProjectPayload>("catalog:project", (e) => {
         const project = e.payload;
         const current = useStore.getState();
+        if (project.kind !== "modpacks" && project.kind !== "datapacks") {
+          set({ catalogInstallRequest: project });
+          return;
+        }
         const target = current.selectedInstanceId ?? current.instances[0]?.id ?? null;
         current.setDiscoverTarget(target);
         current.openProject(project.provider, project.projectId, project.kind, project.title);
@@ -1042,6 +1072,12 @@ export const useStore = create<AppStore>((set) => ({
     }
 
     try {
+      // Modrinth and CurseForge profiles are first-class Enderloom instances. The
+      // connection stores only metadata and keeps every profile in its original
+      // directory; the migration screen remains available for explicit cloning.
+      const externalSync = window.enderloomLauncher?.selfTest
+        ? { connected: 0, failed: 0 }
+        : await connectDetectedExternalProfiles();
       const [
         settings,
         instances,
@@ -1158,6 +1194,17 @@ export const useStore = create<AppStore>((set) => ({
         instances: instances.length,
         accounts: accounts.length,
       });
+      if (externalSync.connected > 0) {
+        toast.success(
+          `${externalSync.connected} launcher profile${externalSync.connected === 1 ? "" : "s"} connected in place`,
+          {
+            description:
+              externalSync.failed > 0
+                ? `${externalSync.failed} unavailable or invalid profile${externalSync.failed === 1 ? " was" : "s were"} left untouched.`
+                : "Modrinth and CurseForge can keep using the same folders.",
+          },
+        );
+      }
       void useStore.getState().refreshLogs();
       void useStore.getState().syncActiveSkin();
     } catch (e) {
