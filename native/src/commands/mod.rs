@@ -1,0 +1,41 @@
+use crate::{
+    config::Instance,
+    error::{Error, Result},
+    servers::Server,
+    state::AppState,
+};
+
+pub(crate) mod accounts;
+pub(crate) mod app;
+pub(crate) mod captures;
+pub(crate) mod content_commands;
+pub(crate) mod datapacks;
+pub(crate) mod instances;
+pub(crate) mod launch_commands;
+pub(crate) mod locations;
+pub(crate) mod logging_commands;
+pub(crate) mod migrate_commands;
+pub(crate) mod pack_commands;
+pub(crate) mod servers;
+pub(crate) mod skins;
+pub(crate) mod snapshots;
+pub(crate) mod stats;
+pub(crate) mod storage;
+pub(crate) mod tasks;
+pub(crate) mod worlds;
+
+pub(crate) fn find_instance(state: &AppState, instance_id: &str) -> Result<Instance> {
+    state
+        .db
+        .list_instances(&state.files)?
+        .into_iter()
+        .find(|i| i.id == instance_id)
+        .ok_or_else(|| Error::NotFound(format!("instance {instance_id}")))
+}
+
+pub(crate) fn find_server(state: &AppState, server_id: &str) -> Result<Server> {
+    state
+        .db
+        .server(&state.paths, server_id)?
+        .ok_or_else(|| Error::NotFound(format!("server {server_id}")))
+}

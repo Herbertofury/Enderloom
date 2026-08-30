@@ -1,0 +1,32 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const os=require('os');
+const path=require('path');
+const {createTranslatorUpdater}=require('../src/translator-updater');
+(async()=>{
+  const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'mcc-twp-updater-'));
+  let applied=null;
+  const translator={status:()=>({upstreamVersion:'10.2.1.0'}),setRecipes:r=>{applied=r}};
+  const updater=createTranslatorUpdater({userDataDir:tmp,translator,testMode:true});
+  const fixture=fs.readFileSync(path.join(__dirname,'fixtures','twp-update-fixture.zip'));
+  const result=await updater.installSourceArchive(fixture,'10.9.8.7',{tag_name:'v10.9.8.7'});
+  assert.equal(result.version,'10.9.8.7');
+  assert.equal(applied.upstreamVersion,'10.9.8.7');
+  assert.equal(new URL(applied.bing.url).hostname,'edge.microsoft.com');
+  assert.equal(new URL(applied.google.url).hostname,'translate-pa.googleapis.com');
+  assert.equal(new URL(applied.yandex.url).hostname,'translate.yandex.net');
+  assert.equal(new URL(applied.deepl.url).hostname,'oneshot-free.www.deepl.com');
+  assert(!JSON.stringify(applied).includes('evil.example'),'untrusted endpoint escaped allowlist');
+  for(const rel of ['LICENSE','chrome_manifest.json','background/translationService.js','contentScript/pageTranslator.js','contentScript/showOriginal.js','contentScript/showTranslated.js','contentScript/translateSelected.js','background/translationCache.js','MCC-INTEGRATION.json'])assert(fs.existsSync(path.join(result.path,...rel.split('/'))),`missing retained upstream file ${rel}`);
+  const receipt=JSON.parse(fs.readFileSync(path.join(result.path,'MCC-INTEGRATION.json'),'utf8'));
+  assert.equal(receipt.repo,'FilipePS/Traduzir-paginas-web');
+  assert.equal(receipt.version,'10.9.8.7');
+  assert(/^[0-9a-f]{64}$/.test(receipt.archiveSha256));
+  assert(/audited Electron adapter/i.test(receipt.executionPolicy));
+  // Test mode must not perform a network check unless explicitly forced.
+  const skipped=await updater.checkForUpdate();
+  assert.equal(skipped.updateState,'test-skip');
+  updater.dispose();fs.rmSync(tmp,{recursive:true,force:true});
+  console.log(JSON.stringify({passed:true,version:result.version,archiveSha256:result.digest,retainedUpstreamFiles:9,endpointAllowlist:true,testModeNetworkSkip:true}));
+})().catch(e=>{console.error(e);process.exit(1)});

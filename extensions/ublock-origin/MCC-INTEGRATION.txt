@@ -1,0 +1,6 @@
+Upstream: uBlock Origin 1.74.0 Chromium MV2, Raymond Hill & contributors
+Upstream archive SHA-256: 29a475e82688b304f2a9b2c0577c2655a8aaf75ce363fe02d720d389bbb9f451
+Source: https://github.com/gorhill/uBlock
+Local change: js/electron-compat.js is injected before upstream background startup to fill Chrome APIs absent from Electron. Upstream files otherwise remain intact.
+License: GPL-3.0; see LICENSE.txt.
+Minecraft Catalog Companion manages package updates from official gorhill/uBlock GitHub releases; uBO manages its own filter-list updates.

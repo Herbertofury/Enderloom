@@ -1,0 +1,84 @@
+{
+  "name": "enderloom",
+  "productName": "Enderloom",
+  "version": "2.9.5",
+  "description": "Enderloom combines the protected Minecraft Catalog Companion 2.9.5 research workspace with Basalt's real launcher and mod-management core.",
+  "main": "main.js",
+  "author": "Herbertofury",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node scripts/run.js",
+    "build:launcher": "npm --prefix launcher run build:frontend",
+    "build:launcher-service": "cargo build --manifest-path native/Cargo.toml --bin enderloom-service",
+    "build:integration": "npm run build:launcher && npm run build:launcher-service",
+    "launcher-integration-qa": "node scripts/launcher-integration-qa.js",
+    "launcher-command-coverage-qa": "node scripts/launcher-command-coverage-qa.js",
+    "self-test": "node scripts/catalog-qa.js",
+    "catalog-qa": "node scripts/catalog-qa.js",
+    "electron-self-test": "node scripts/run.js --self-test",
+    "portable": "node scripts/render-portable.js",
+    "shell-contract": "node scripts/shell-contract-qa.js",
+    "drag-overlay-qa": "node scripts/drag-overlay-qa.js",
+    "native-chrome-qa": "node scripts/native-chrome-qa.js",
+    "media-transport-qa": "node scripts/media-transport-qa.js",
+    "splitter-qa": "node scripts/splitter-qa.js",
+    "provider-media-qa": "node scripts/provider-media-qa.js",
+    "curseforge-gallery-anchor-qa": "node scripts/curseforge-gallery-anchor-qa.js",
+    "adblock-qa": "node scripts/adblock-qa.js",
+    "gallery-hit-qa": "node scripts/gallery-hit-qa.js",
+    "release-qa": "node scripts/release-qa.js",
+    "media-performance-qa": "node scripts/media-performance-qa.js",
+    "parallel-race-qa": "node scripts/parallel-race-qa.js",
+    "native-network-race-qa": "node scripts/native-network-race-qa.js",
+    "rust-native-qa": "node scripts/rust-native-qa.js",
+    "progressive-media-qa": "node scripts/progressive-media-qa.js",
+    "media-stress-qa": "node scripts/media-stress-qa.js",
+    "impit-native-qa": "node scripts/impit-native-qa.js",
+    "multi-transport-race-qa": "node scripts/multi-transport-race-qa.js",
+    "provider-universe-qa": "node scripts/provider-universe-qa.js",
+    "catalog-provider-coverage-qa": "node scripts/catalog-provider-coverage-qa.js",
+    "hedged-bandwidth-qa": "node scripts/hedged-bandwidth-qa.js",
+    "provider-api-fastlane-qa": "node scripts/provider-api-fastlane-qa.js",
+    "provider-api-race-qa": "node scripts/provider-api-race-qa.js",
+    "parser-pool-qa": "node scripts/parser-pool-qa.js",
+    "translator-qa": "node scripts/translator-qa.js",
+    "instant-frontier-qa": "node scripts/instant-frontier-qa.js",
+    "site-adapter-registry-qa": "node scripts/site-adapter-registry-qa.js",
+    "site-adapter-author-qa": "node scripts/site-adapter-author-qa.js",
+    "afdian-post-media-qa": "node scripts/afdian-post-media-qa.js",
+    "structured-post-media-qa": "node scripts/structured-post-media-qa.js",
+    "parallel-author-lane-qa": "node scripts/parallel-author-lane-qa.js",
+    "post-media-render-qa": "node scripts/post-media-render-qa.js",
+    "curseforge-scoped-negative-qa": "node scripts/curseforge-scoped-negative-qa.js",
+    "curseforge-description-link-media-qa": "node scripts/curseforge-description-link-media-qa.js",
+    "curseforge-gallery-dom-rescue-qa": "node scripts/curseforge-gallery-dom-rescue-qa.js"
+  },
+  "mccNativeTransport": {
+    "name": "wreq-js",
+    "version": "3.2.0",
+    "engine": "Rust wreq + BoringSSL",
+    "source": "official GitHub Actions native binding"
+  },
+  "mccNativeTransports": {
+    "wreq": {
+      "name": "wreq-js",
+      "version": "3.2.0",
+      "engine": "Rust wreq + BoringSSL",
+      "source": "official GitHub Actions native binding"
+    },
+    "impit": {
+      "name": "impit",
+      "version": "0.14.4",
+      "engine": "Rust browser impersonation + HTTP/3",
+      "browser": "chrome151",
+      "source": "official GitHub Actions native binding"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.0.0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@tauri-apps/api/core": ["src/compat/tauri-core.ts"],
+      "@tauri-apps/api/event": ["src/compat/tauri-event.ts"],
+      "@tauri-apps/api/window": ["src/compat/tauri-window.ts"],
+      "@tauri-apps/api/webview": ["src/compat/tauri-webview.ts"],
+      "@tauri-apps/plugin-dialog": ["src/compat/tauri-dialog.ts"],
+      "@tauri-apps/plugin-opener": ["src/compat/tauri-opener.ts"]
+    },
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

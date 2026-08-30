@@ -1,0 +1,488 @@
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
+
+use crate::{
+    config::Instance,
+    download::{self, DownloadSpec},
+    error::{Error, Result},
+    files::FileManager,
+    install, java,
+    network::NetworkManager,
+    paths::{DataRoot, Paths},
+    state::AppState,
+};
+use serde::Deserialize;
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Loader {
+    Fabric,
+    Quilt,
+    Neoforge,
+    Forge,
+}
+
+impl Loader {
+    pub fn parse(value: &str) -> Result<Self> {
+        match value {
+            "fabric" => Ok(Loader::Fabric),
+            "quilt" => Ok(Loader::Quilt),
+            "neoforge" => Ok(Loader::Neoforge),
+            "forge" => Ok(Loader::Forge),
+            other => Err(Error::other(format!("unknown loader {other}"))),
+        }
+    }
+}
+
+#[derive(Deserialize)]
+struct FabricLoaderEntry {
+    loader: FabricLoaderVersion,
+}
+
+#[derive(Deserialize)]
+struct FabricLoaderVersion {
+    version: String,
+}
+
+#[derive(Deserialize)]
+struct NeoforgeVersions {
+    versions: Vec<String>,
+}
+
+#[derive(Deserialize)]
+struct ForgePromotions {
+    promos: HashMap<String, String>,
+}
+
+async fn fetch_json<T: serde::de::DeserializeOwned>(
+    client: &NetworkManager,
+    url: &str,
+) -> Result<T> {
+    client
+        .send(client.get(url))
+        .await?
+        .error_for_status()?
+        .json()
+        .await
+}
+
+fn neoforge_prefix(game_version: &str) -> String {
+    match game_version.strip_prefix("1.") {
+        Some(rest) if rest.contains('.') => format!("{rest}."),
+        Some(rest) => format!("{rest}.0."),
+        None => format!("{game_version}."),
+    }
+}
+
+#[tracing::instrument(skip(client), fields(loader = ?loader), err)]
+pub async fn list_loader_versions(
+    client: &NetworkManager,
+    loader: Loader,
+    game_version: &str,
+) -> Result<Vec<String>> {
+    match loader {
+        Loader::Fabric => {
+            let url = format!("https://meta.fabricmc.net/v2/versions/loader/{game_version}");
+            let entries: Vec<FabricLoaderEntry> = fetch_json(client, &url).await?;
+            Ok(entries.into_iter().map(|e| e.loader.version).collect())
+        }
+        Loader::Quilt => {
+            let url = format!("https://meta.quiltmc.org/v3/versions/loader/{game_version}");
+            let entries: Vec<FabricLoaderEntry> = fetch_json(client, &url).await?;
+            Ok(entries.into_iter().map(|e| e.loader.version).collect())
+        }
+        Loader::Neoforge => {
+            let data: NeoforgeVersions = fetch_json(
+                client,
+                "https://maven.neoforged.net/api/maven/versions/releases/net/neoforged/neoforge",
+            )
+            .await?;
+            let prefix = neoforge_prefix(game_version);
+            let mut versions: Vec<String> = data
+                .versions
+                .into_iter()
+                .filter(|v| v.starts_with(&prefix))
+                .collect();
+            versions.reverse();
+            Ok(versions)
+        }
+        Loader::Forge => {
+            let data: ForgePromotions = fetch_json(
+                client,
+                "https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json",
+            )
+            .await?;
+            let mut versions = Vec::new();
+            if let Some(v) = data.promos.get(&format!("{game_version}-recommended")) {
+                versions.push(v.clone());
+            }
+            if let Some(v) = data.promos.get(&format!("{game_version}-latest")) {
+                if !versions.contains(v) {
+                    versions.push(v.clone());
+                }
+            }
+            Ok(versions)
+        }
+    }
+}
+
+#[tracing::instrument(skip(state), err)]
+async fn install_profile_json(state: &AppState, url: &str) -> Result<String> {
+    let profile: serde_json::Value = fetch_json(&state.network, url).await?;
+    let id = profile
+        .get("id")
+        .and_then(|v| v.as_str())
+        .ok_or_else(|| Error::other("loader profile has no id"))?
+        .to_string();
+    state
+        .files
+        .write_atomic_async(
+            state.paths.version_json(&id),
+            serde_json::to_vec_pretty(&profile)?,
+        )
+        .await?;
+    tracing::info!(version_id = %id, "loader profile written");
+    Ok(id)
+}
+
+fn installer_target(paths: &Paths, expected_id: &str) -> PathBuf {
+    if paths.versions() == paths.default_for(DataRoot::Versions)
+        && paths.libraries() == paths.default_for(DataRoot::Libraries)
+    {
+        paths.root.clone()
+    } else {
+        paths.cache().join("installers").join(expected_id)
+    }
+}
+
+fn stage_installer_target(
+    files: &FileManager,
+    paths: &Paths,
+    target: &Path,
+    version_id: &str,
+) -> Result<()> {
+    let profiles = target.join("launcher_profiles.json");
+    if !files.exists(&profiles)? {
+        files.write_atomic(&profiles, b"{\"profiles\":{}}")?;
+    }
+    if target == paths.root {
+        return Ok(());
+    }
+
+    let staged = target.join("versions").join(version_id);
+    for (source, destination) in [
+        (
+            paths.version_json(version_id),
+            staged.join(format!("{version_id}.json")),
+        ),
+        (
+            paths.version_jar(version_id),
+            staged.join(format!("{version_id}.jar")),
+        ),
+    ] {
+        if files.is_file(&source)? {
+            files.link_or_copy(&source, &destination)?;
+        }
+    }
+    tracing::info!(
+        version_id,
+        target = %target.display(),
+        "staged the game version for the loader installer"
+    );
+    Ok(())
+}
+
+fn adopt_tree(files: &FileManager, source: &Path, destination: &Path) -> Result<()> {
+    if !files.exists(source)? {
+        return Ok(());
+    }
+    for entry in files.read_dir(source)? {
+        let Some(name) = entry.file_name() else {
+            continue;
+        };
+        let target = destination.join(name);
+        if files.metadata(&entry)?.is_dir() {
+            adopt_tree(files, &entry, &target)?;
+        } else {
+            files.link_or_copy(&entry, &target)?;
+        }
+    }
+    Ok(())
+}
+
+fn adopt_installer_output(
+    files: &FileManager,
+    paths: &Paths,
+    target: &Path,
+    version_id: &str,
+) -> Result<()> {
+    if target == paths.root {
+        return Ok(());
+    }
+
+    adopt_tree(
+        files,
+        &target.join("versions").join(version_id),
+        &paths.version_dir(version_id),
+    )?;
+    adopt_tree(files, &target.join("libraries"), &paths.libraries())?;
+    files.remove_managed_dir_all_if_exists(target)?;
+    tracing::info!(
+        version_id,
+        "moved the loader installer output into the managed folders"
+    );
+    Ok(())
+}
+
+#[tracing::instrument(skip_all, fields(installer = installer_name, expected_id), err)]
+async fn run_installer(
+    state: &AppState,
+    instance: &Instance,
+    installer_url: &str,
+    installer_name: &str,
+    expected_id: &str,
+    task: &crate::tasks::TaskHandle,
+) -> Result<String> {
+    install::install_version(state, &instance.id, &instance.version_id, task).await?;
+
+    task.stage("loader-installer");
+
+    let installer_dir = state.paths.cache().join("installers");
+    let installer_path = installer_dir.join(installer_name);
+    download::download_one(
+        &state.network,
+        &state.files,
+        &DownloadSpec {
+            url: installer_url.to_string(),
+            dest: installer_path.clone(),
+            sha1: None,
+            sha256: None,
+            size: None,
+        },
+    )
+    .await?;
+
+    let target = installer_target(&state.paths, expected_id);
+    let files = state.files.clone();
+    let paths = state.paths.clone();
+    let staged_target = target.clone();
+    let staged_version = instance.version_id.clone();
+    tokio::task::spawn_blocking(move || {
+        stage_installer_target(&files, &paths, &staged_target, &staged_version)
+    })
+    .await
+    .map_err(|error| Error::other(format!("staging task failed: {error}")))??;
+
+    let vanilla = install::load_merged_version(state, &instance.version_id).await?;
+    let java = java::find_for_major(&state.files, vanilla.required_java_major(), None)
+        .await
+        .ok_or_else(|| Error::other("No Java found to run the loader installer."))?;
+
+    tracing::info!(java = %java.path, installer = %installer_path.display(), "running loader installer");
+    let output = tokio::process::Command::new(&java.path)
+        .arg("-jar")
+        .arg(&installer_path)
+        .arg("--installClient")
+        .arg(&target)
+        .current_dir(&installer_dir)
+        .output()
+        .await?;
+
+    let files = state.files.clone();
+    let paths = state.paths.clone();
+    let installed = expected_id.to_string();
+    tokio::task::spawn_blocking(move || {
+        adopt_installer_output(&files, &paths, &target, &installed)
+    })
+    .await
+    .map_err(|error| Error::other(format!("adoption task failed: {error}")))??;
+
+    if !state.files.is_file(state.paths.version_json(expected_id))? {
+        let mut text = String::from_utf8_lossy(&output.stdout).into_owned();
+        text.push_str(&String::from_utf8_lossy(&output.stderr));
+        let tail: String = text
+            .lines()
+            .rev()
+            .take(12)
+            .collect::<Vec<_>>()
+            .into_iter()
+            .rev()
+            .collect::<Vec<_>>()
+            .join("\n");
+        tracing::error!(
+            expected_id,
+            path = %state.paths.version_json(expected_id).display(),
+            "loader installer produced no version json:\n{tail}"
+        );
+        return Err(Error::other(format!(
+            "Loader installer failed for {expected_id}:\n{tail}"
+        )));
+    }
+
+    tracing::info!(version_id = expected_id, "loader installed");
+    Ok(expected_id.to_string())
+}
+
+#[tracing::instrument(
+    skip_all,
+    fields(instance_id = %instance.id, loader = ?instance.loader, loader_version = ?instance.loader_version),
+    err
+)]
+pub async fn install_loader(
+    state: &AppState,
+    instance: &Instance,
+    task: &crate::tasks::TaskHandle,
+) -> Result<String> {
+    let loader = Loader::parse(
+        instance
+            .loader
+            .as_deref()
+            .ok_or_else(|| Error::other("instance has no loader"))?,
+    )?;
+    let loader_version = instance
+        .loader_version
+        .clone()
+        .ok_or_else(|| Error::other("instance has no loader version"))?;
+    let game = &instance.version_id;
+
+    task.stage("loader-profile");
+
+    match loader {
+        Loader::Fabric => {
+            let url = format!(
+                "https://meta.fabricmc.net/v2/versions/loader/{game}/{loader_version}/profile/json"
+            );
+            install_profile_json(state, &url).await
+        }
+        Loader::Quilt => {
+            let url = format!(
+                "https://meta.quiltmc.org/v3/versions/loader/{game}/{loader_version}/profile/json"
+            );
+            install_profile_json(state, &url).await
+        }
+        Loader::Neoforge => {
+            let url = format!(
+                "https://maven.neoforged.net/releases/net/neoforged/neoforge/{loader_version}/neoforge-{loader_version}-installer.jar"
+            );
+            let name = format!("neoforge-{loader_version}-installer.jar");
+            let expected = format!("neoforge-{loader_version}");
+            run_installer(state, instance, &url, &name, &expected, task).await
+        }
+        Loader::Forge => {
+            let full = format!("{game}-{loader_version}");
+            let url = format!(
+                "https://maven.minecraftforge.net/net/minecraftforge/forge/{full}/forge-{full}-installer.jar"
+            );
+            let name = format!("forge-{full}-installer.jar");
+            let expected = format!("{game}-forge-{loader_version}");
+            run_installer(state, instance, &url, &name, &expected, task).await
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::BTreeMap;
+    use std::path::PathBuf;
+
+    use super::{
+        adopt_installer_output, installer_target, neoforge_prefix, stage_installer_target,
+    };
+    use crate::files::FileManager;
+    use crate::paths::{DataRoot, Paths};
+
+    fn relocated(slots: &[DataRoot]) -> (PathBuf, Paths, FileManager) {
+        let base = std::env::temp_dir().join(format!("basalt-loaders-{}", uuid::Uuid::new_v4()));
+        let root = base.join("data");
+        let overrides = slots
+            .iter()
+            .map(|slot| (*slot, base.join("elsewhere").join(slot.directory())))
+            .collect::<BTreeMap<_, _>>();
+        for path in overrides.values() {
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        }
+        let paths = Paths::relocated(root, overrides);
+        let files = FileManager::new(paths.clone()).unwrap();
+        (base, paths, files)
+    }
+
+    #[test]
+    fn neoforge_prefixes() {
+        assert_eq!(neoforge_prefix("1.21.1"), "21.1.");
+        assert_eq!(neoforge_prefix("1.21"), "21.0.");
+        assert_eq!(neoforge_prefix("26.1.2"), "26.1.2.");
+    }
+
+    #[test]
+    fn installs_into_the_launcher_root_by_default() {
+        let root = std::env::temp_dir().join(format!("basalt-loaders-{}", uuid::Uuid::new_v4()));
+        let paths = Paths::plain(root.clone());
+        let files = FileManager::new(paths.clone()).unwrap();
+        let id = "neoforge-26.2.0.59";
+        let target = installer_target(&paths, id);
+        assert_eq!(target, paths.root);
+
+        stage_installer_target(&files, &paths, &target, "26.2").unwrap();
+        files.write_atomic(paths.version_json(id), b"{}").unwrap();
+        adopt_installer_output(&files, &paths, &target, id).unwrap();
+
+        assert!(files
+            .is_file(paths.root.join("launcher_profiles.json"))
+            .unwrap());
+        assert!(files.is_file(paths.version_json(id)).unwrap());
+        std::fs::remove_dir_all(root).ok();
+    }
+
+    #[test]
+    fn adopts_installer_output_when_folders_are_relocated() {
+        let (base, paths, files) = relocated(&[DataRoot::Versions, DataRoot::Libraries]);
+        let id = "neoforge-26.2.0.59";
+        let target = installer_target(&paths, id);
+        assert_ne!(target, paths.root);
+
+        files
+            .write_atomic(paths.version_json("26.2"), b"{}")
+            .unwrap();
+        files
+            .write_atomic(paths.version_jar("26.2"), b"minecraft")
+            .unwrap();
+        stage_installer_target(&files, &paths, &target, "26.2").unwrap();
+
+        let staged = target.join("versions").join("26.2");
+        assert_eq!(files.read(staged.join("26.2.json")).unwrap(), b"{}");
+        assert_eq!(files.read(staged.join("26.2.jar")).unwrap(), b"minecraft");
+        assert!(files
+            .is_file(target.join("launcher_profiles.json"))
+            .unwrap());
+
+        files
+            .write_atomic(
+                target.join("versions").join(id).join(format!("{id}.json")),
+                b"{\"id\":\"neoforge-26.2.0.59\"}",
+            )
+            .unwrap();
+        files
+            .write_atomic(
+                target.join("libraries/net/neoforged/neoforge/26.2.0.59/neoforge-26.2.0.59.jar"),
+                b"loader",
+            )
+            .unwrap();
+
+        adopt_installer_output(&files, &paths, &target, id).unwrap();
+
+        assert!(files.is_file(paths.version_json(id)).unwrap());
+        assert_eq!(
+            files
+                .read(
+                    paths
+                        .libraries()
+                        .join("net/neoforged/neoforge/26.2.0.59/neoforge-26.2.0.59.jar")
+                )
+                .unwrap(),
+            b"loader"
+        );
+        assert!(!files.exists(&target).unwrap());
+        std::fs::remove_dir_all(base).ok();
+    }
+}

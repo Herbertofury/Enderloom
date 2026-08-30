@@ -1,0 +1,35 @@
+# Local source/reference checkouts used during the Enderloom integration.
+.upstream/
+
+# Dependency and compiler output.
+node_modules/
+launcher/node_modules/
+launcher/dist/
+native/**/target/
+target/
+
+# Catalog/Enderloom generated output.
+dist/
+release/
+artifacts/
+qa-output/
+*.log
+
+# Source archives are verified inputs, not repository content.
+/*.zip
+
+# Local runtime state, credentials, databases, and caches must never be committed.
+.enderloom-runtime/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.key
+*.pem
+
+# Editors and operating-system noise.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

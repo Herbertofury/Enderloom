@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self'; script-src 'self';">
+<title>Catalog Center</title>
+<link rel="stylesheet" href="shell.css"><link rel="stylesheet" href="source-center.css">
+</head>
+<body class="source-center-window">
+<main class="source-window-shell">
+  <section class="source-dialog source-window-panel">
+    <div class="source-head"><div><span class="eyebrow">Catalog Center</span><h2>Catalogs, sources &amp; sync health</h2><p>Hot-drop local research files or track private Google Sheets/Docs/Drive sources. Structured sources own rows; Docs/PDFs stay narrative/reference layers.</p></div><button id="sourceClose" aria-label="Close">×</button></div>
+    <div class="source-actions"><label>Import behavior<select id="importMode"><option value="smart">Smart: sheet/data → new catalog</option><option value="attach">Attach to active catalog</option><option value="new">Start a new catalog</option></select></label><button id="importLocal">＋ Import local files</button><button id="refreshSources">⟳ Refresh active sources</button><button id="refreshAllCatalogs">⟳ Refresh all catalogs</button><button id="revealCatalogData">↗ Open catalog data folder</button></div>
+    <div class="google-add"><input id="googleUrl" type="url" placeholder="Paste private Google Sheet, Doc, or Drive PDF URL"><input id="googleCatalogName" placeholder="New catalog name (optional)"><select id="googleRole" aria-label="Google source role"><option value="">Auto role</option><option value="primary">Structured / rows</option><option value="narrative">Narrative</option><option value="fixed">Fixed reference</option></select><select id="googleMode" aria-label="Google add mode"><option value="attach">Attach to active</option><option value="new">Create new catalog</option></select><button id="addGoogle">Track Google source</button></div>
+    <div id="sourceBody"></div>
+  </section>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="source-center.js"></script>
+</body></html>

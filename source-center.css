@@ -1,0 +1,16 @@
+html,body.source-center-window{height:100%;overflow:auto;background:var(--bg)}
+.source-center-window{min-width:0}
+.source-window-shell{min-height:100%;padding:18px;background:linear-gradient(145deg,rgba(183,162,255,.035),rgba(125,227,215,.025))}
+.source-window-panel{width:100%;max-width:none;max-height:none;overflow:visible;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:18px;box-shadow:var(--shadow)}
+.source-head{position:sticky;top:0;z-index:4;margin:-18px -18px 10px;padding:18px;background:linear-gradient(180deg,var(--panel) 80%,rgba(16,19,31,.96));border-bottom:1px solid var(--line)}
+.source-head>button{width:36px;height:36px;cursor:pointer;border-radius:10px!important}
+.source-actions select,.google-add input,.google-add select{min-height:36px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:10px;padding:6px 9px}
+.google-add{display:grid;grid-template-columns:minmax(220px,2fr) minmax(150px,1fr) minmax(120px,.7fr) minmax(130px,.7fr) auto;gap:8px;margin:4px 0 14px}
+.source-list{display:grid;gap:9px;margin-top:12px}
+.source-card{border:1px solid var(--line);background:var(--panel2);border-radius:13px;padding:12px;display:grid;gap:8px}
+.source-card.error,.source-card.sign-in-required{border-color:rgba(255,123,154,.35)}
+.source-card-head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}.source-card-head>div{display:flex;flex-direction:column;gap:2px}.source-card-head span,.source-card small{color:var(--muted);font-size:10px}.source-card code{word-break:break-all;color:var(--accent2);font-size:10px}.source-state{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent2)}
+.source-error{margin:0;color:#ff9db4}.source-card-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.source-toggle{margin-right:auto;color:var(--muted);font-size:10px}.danger-link{color:#ff9db4!important;border-color:rgba(255,123,154,.3)!important}
+.source-health.attention{border-color:rgba(255,123,154,.35)}
+.toast{position:fixed;bottom:18px}
+@media(max-width:900px){.google-add{grid-template-columns:1fr 1fr}.google-add input:first-child{grid-column:1/-1}}

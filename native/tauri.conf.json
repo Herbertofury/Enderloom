@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Enderloom",
+  "identifier": "com.herbertofury.enderloom",
+  "build": {
+    "beforeDevCommand": "bun run dev:frontend",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build:frontend",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Enderloom",
+        "width": 1460,
+        "height": 850,
+        "minWidth": 1080,
+        "minHeight": 700,
+        "center": true,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPDATA/media/**", "$APPDATA/instances/*/screenshots/**"]
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaW5pIHB1YmxpYyBrZXk6IDI2NDIwMUFEMzlFRDVBN0UKUldSK1d1MDVyUUZDSmxtYzgrVUE4cmpLbnE4Q1AwaFNzUnRVa0lQRE81L0lKMlQrMHpoOEhtTmgK"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": false,
+    "targets": "all",
+    "publisher": "Herbertofury",
+    "homepage": "https://github.com/Herbertofury/Enderloom",
+    "copyright": "Copyright © 2026 MegalithOfficial and Herbertofury",
+    "category": "Game",
+    "shortDescription": "A polished, functional Minecraft launcher.",
+    "longDescription": "Enderloom combines a premium Minecraft research catalog with native launcher and mod-management workflows.",
+    "linux": {
+      "deb": {
+        "desktopTemplate": "linux/single-main-window.desktop.hbs"
+      },
+      "rpm": {
+        "desktopTemplate": "linux/single-main-window.desktop.hbs"
+      }
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

@@ -1,0 +1,1320 @@
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowDown,
+  ArrowUp,
+  Boxes,
+  Check,
+  ClipboardCopy,
+  Copy,
+  MoreVertical,
+  FileArchive,
+  Folder,
+  FolderOpen,
+  FolderPlus,
+  LayoutGrid,
+  List,
+  ListChecks,
+  Pencil,
+  RotateCw,
+  Trash2,
+  Plus,
+  Search,
+  SearchX,
+  Star,
+  Tag,
+  TriangleAlert,
+} from "lucide-react";
+import { toast } from "sonner";
+
+import { Button, EmptyState } from "../components/ui";
+import { Select } from "../components/Select";
+import { Banner } from "../components/Banner";
+import { ContextMenu, useContextMenu, type MenuItem } from "../components/ContextMenu";
+import { CreateInstanceModal } from "../components/CreateInstanceModal";
+import { UploadModal } from "../components/UploadModal";
+import { ConfirmDialog } from "../components/ConfirmDialog";
+import { EditInstanceModal } from "../components/EditInstanceModal";
+import { ImportPackModal } from "../components/ImportPackModal";
+import { cn } from "../lib/cn";
+import { api } from "../lib/api";
+import { openFolder } from "../lib/reveal";
+import { loaderLabel } from "../lib/loader";
+import { logoSrc } from "../lib/media";
+import {
+  instanceTaskLabel,
+  taskFraction,
+  useActiveTasksByInstance,
+} from "../lib/useTasks";
+import { formatPlaytime, relativeTime } from "../lib/time";
+import type { PackImportSource } from "../lib/packs";
+import type { Instance, InstanceGroup, InstanceTag, Task, VersionMedia } from "../lib/types";
+import { PlayButton } from "../components/PlayButton";
+import { useStore } from "../store";
+
+type ViewMode = "list" | "grid";
+
+const SORTS = ["Last played", "Most played", "Name", "Recently added"] as const;
+type SortMode = (typeof SORTS)[number];
+
+function sortInstances(list: Instance[], mode: SortMode): Instance[] {
+  const sorted = [...list];
+  switch (mode) {
+    case "Name":
+      return sorted.sort((a, b) =>
+        a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+      );
+    case "Recently added":
+      return sorted.sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      );
+    case "Most played":
+      return sorted.sort((a, b) => b.playtime_secs - a.playtime_secs);
+    default:
+      return sorted.sort((a, b) => (b.last_played_at ?? 0) - (a.last_played_at ?? 0));
+  }
+}
+
+function Artwork({ media, className }: { media: VersionMedia | null; className?: string }) {
+  if (!media) {
+    return (
+      <div className={cn("grid place-items-center bg-surface-3 text-content-faint", className)}>
+        <Boxes className="size-6" />
+      </div>
+    );
+  }
+  return (
+    <Banner media={media} still className={className} />
+  );
+}
+
+function ProgressStrip({ task }: { task: Task }) {
+  const fraction = taskFraction(task);
+  return (
+    <div className="h-0.5 w-full overflow-hidden bg-surface-3">
+      <div
+        className={cn(
+          "h-full",
+          task.retry_note ? "bg-warn" : "bg-(--accent)",
+          fraction == null ? "w-1/3 animate-pulse" : "transition-[width] duration-300",
+        )}
+        style={fraction == null ? undefined : { width: `${fraction * 100}%` }}
+      />
+    </div>
+  );
+}
+
+function StatusLine({ instance, task }: { instance: Instance; task?: Task }) {
+  if (task) {
+    return task.retry_note ? (
+      <span className="text-warn">Retrying</span>
+    ) : (
+      <span className="capitalize text-(--accent)">{instanceTaskLabel(task)}</span>
+    );
+  }
+  const played = formatPlaytime(instance.playtime_secs);
+  if (instance.last_played_at) {
+    return (
+      <span>
+        Played {relativeTime(instance.last_played_at)}
+        {played ? ` · ${played}` : ""}
+      </span>
+    );
+  }
+  return <span>Never played</span>;
+}
+
+function RowActions({
+  onEdit,
+  onMenu,
+  floating,
+}: {
+  onEdit: () => void;
+  onMenu: (event: React.MouseEvent) => void;
+  floating?: boolean;
+}) {
+  const base = cn(
+    "grid size-8 place-items-center rounded-lg transition-colors",
+    floating
+      ? "bg-black/55 text-white/80 backdrop-blur hover:bg-black/75 hover:text-white"
+      : "text-content-faint hover:bg-surface-3 hover:text-content",
+  );
+  return (
+    <>
+      <button onClick={onEdit} aria-label="Edit instance" title="Edit instance" className={base}>
+        <Pencil className="size-4" />
+      </button>
+      <button onClick={onMenu} aria-label="More actions" title="More actions" className={base}>
+        <MoreVertical className="size-4" />
+      </button>
+    </>
+  );
+}
+
+function PickOverlay({
+  instance,
+  checked,
+  onToggle,
+}: {
+  instance: Instance;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      aria-pressed={checked}
+      aria-label={`Select ${instance.name}`}
+      className="absolute inset-0 z-20 flex items-start justify-start bg-void/20 p-3"
+    >
+      <span
+        className={cn(
+          "grid size-5 place-items-center rounded-md border transition-colors",
+          checked
+            ? "border-(--accent) bg-(--accent) text-black"
+            : "border-white/50 bg-black/60",
+        )}
+      >
+        {checked && <Check className="size-3.5" />}
+      </span>
+    </button>
+  );
+}
+
+export function InstancesView() {
+  const busyTasks = useActiveTasksByInstance();
+  const instances = useStore((s) => s.instances);
+  const organization = useStore((s) => s.instanceOrganization);
+  const deleteInstance = useStore((s) => s.deleteInstance);
+  const deleteInstances = useStore((s) => s.deleteInstances);
+  const duplicateInstance = useStore((s) => s.duplicateInstance);
+  const createInstanceGroup = useStore((s) => s.createInstanceGroup);
+  const renameInstanceGroup = useStore((s) => s.renameInstanceGroup);
+  const deleteInstanceGroup = useStore((s) => s.deleteInstanceGroup);
+  const moveInstanceToGroup = useStore((s) => s.moveInstanceToGroup);
+  const refreshInstances = useStore((s) => s.refreshInstances);
+  const creatingInstance = useStore((s) => s.creatingInstance);
+  const endInstanceCreate = useStore((s) => s.endInstanceCreate);
+  const reorderInstanceGroups = useStore((s) => s.reorderInstanceGroups);
+  const setInstanceFavorite = useStore((s) => s.setInstanceFavorite);
+  const createInstanceTag = useStore((s) => s.createInstanceTag);
+  const renameInstanceTag = useStore((s) => s.renameInstanceTag);
+  const deleteInstanceTag = useStore((s) => s.deleteInstanceTag);
+  const setInstanceTag = useStore((s) => s.setInstanceTag);
+  const reorderInstanceTags = useStore((s) => s.reorderInstanceTags);
+  const mediaMap = useStore((s) => s.media);
+  const loadMedia = useStore((s) => s.loadMedia);
+  const openInstance = useStore((s) => s.openInstance);
+  const { menu, open: openMenu, close: closeMenu } = useContextMenu();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [packSource, setPackSource] = useState<PackImportSource | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [editing, setEditing] = useState<Instance | null>(null);
+  const [removing, setRemoving] = useState<Instance | null>(null);
+  const [selecting, setSelecting] = useState(false);
+  const [picked, setPicked] = useState<Set<string>>(new Set());
+  const [removingPicked, setRemovingPicked] = useState(false);
+  const [removingGroup, setRemovingGroup] = useState<InstanceGroup | null>(null);
+  const [creatingGroup, setCreatingGroup] = useState(false);
+  const [groupName, setGroupName] = useState("");
+  const [editingGroupId, setEditingGroupId] = useState<string | null>(null);
+  const [editingGroupName, setEditingGroupName] = useState("");
+  const [creatingTag, setCreatingTag] = useState(false);
+  const [tagName, setTagName] = useState("");
+  const [editingTagId, setEditingTagId] = useState<string | null>(null);
+  const [editingTagName, setEditingTagName] = useState("");
+  const [removingTag, setRemovingTag] = useState<InstanceTag | null>(null);
+  const [active, setActive] = useState<string>(
+    () => localStorage.getItem("instances-group") ?? "all",
+  );
+  const [launchError, setLaunchError] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState<string | null>(null);
+  const [dragging, setDragging] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [viewMode, setViewMode] = useState<ViewMode>(
+    () => (localStorage.getItem("instances-view") as ViewMode) ?? "grid",
+  );
+  const [sort, setSort] = useState<SortMode>(() => {
+    const stored = localStorage.getItem("instances-sort") as SortMode | null;
+    return stored && SORTS.includes(stored) ? stored : "Last played";
+  });
+
+  const placements = useMemo(
+    () => new Map(organization.placements.map((item) => [item.instance_id, item])),
+    [organization.placements],
+  );
+  const groups = useMemo(
+    () => [...organization.groups].sort((a, b) => a.sort_order - b.sort_order),
+    [organization.groups],
+  );
+  const favorites = useMemo(() => new Set(organization.favorites), [organization.favorites]);
+  const tags = useMemo(
+    () => [...organization.tags].sort((a, b) => a.sort_order - b.sort_order),
+    [organization.tags],
+  );
+  const tagIdsByInstance = useMemo(() => {
+    const result = new Map<string, Set<string>>();
+    for (const tagging of organization.taggings) {
+      const assigned = result.get(tagging.instance_id) ?? new Set<string>();
+      assigned.add(tagging.tag_id);
+      result.set(tagging.instance_id, assigned);
+    }
+    return result;
+  }, [organization.taggings]);
+  const tagsByInstance = (instanceId: string) =>
+    tags.filter((tag) => tagIdsByInstance.get(instanceId)?.has(tag.id));
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLocaleLowerCase();
+    return needle
+      ? instances.filter((instance) =>
+          [
+            instance.name,
+            instance.version_id,
+            instance.loader,
+            instance.loader_version,
+            instance.pack_provider,
+            ...tags
+              .filter((tag) => tagIdsByInstance.get(instance.id)?.has(tag.id))
+              .map((tag) => tag.name),
+          ].some((value) => value?.toLocaleLowerCase().includes(needle)),
+        )
+      : instances;
+  }, [instances, query, tags, tagIdsByInstance]);
+  const groupOf = useMemo(() => {
+    const valid = new Set(groups.map((group) => group.id));
+    return (instance: Instance) => {
+      const assigned = placements.get(instance.id)?.group_id ?? null;
+      return assigned && valid.has(assigned) ? assigned : null;
+    };
+  }, [groups, placements]);
+
+  const counts = useMemo(() => {
+    const tally = new Map<string, number>();
+    for (const instance of instances) {
+      const key = groupOf(instance) ?? "ungrouped";
+      tally.set(key, (tally.get(key) ?? 0) + 1);
+    }
+    return tally;
+  }, [instances, groupOf]);
+
+  const tagCounts = useMemo(() => {
+    const tally = new Map<string, number>();
+    for (const tagging of organization.taggings) {
+      tally.set(tagging.tag_id, (tally.get(tagging.tag_id) ?? 0) + 1);
+    }
+    return tally;
+  }, [organization.taggings]);
+
+  const shown = useMemo(() => {
+    const scoped =
+      active === "all"
+        ? filtered
+        : active === "favorites"
+          ? filtered.filter((instance) => favorites.has(instance.id))
+          : active.startsWith("tag:")
+            ? filtered.filter((instance) =>
+                tagIdsByInstance.get(instance.id)?.has(active.slice(4)),
+              )
+            : filtered.filter((instance) => (groupOf(instance) ?? "ungrouped") === active);
+    return sortInstances(scoped, sort);
+  }, [filtered, active, groupOf, sort, favorites, tagIdsByInstance]);
+
+  const pickedInstances = useMemo(
+    () => instances.filter((instance) => picked.has(instance.id)),
+    [instances, picked],
+  );
+
+  const togglePicked = (id: string) =>
+    setPicked((current) => {
+      const next = new Set(current);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
+
+  const leaveSelecting = () => {
+    setSelecting(false);
+    setPicked(new Set());
+  };
+
+  const movePicked = async (groupId: string | null) => {
+    const failures: string[] = [];
+    for (const instance of pickedInstances) {
+      if ((placements.get(instance.id)?.group_id ?? null) === groupId) continue;
+      try {
+        await moveInstanceToGroup(instance.id, groupId);
+      } catch (error) {
+        failures.push(`${instance.name}: ${String(error)}`);
+      }
+    }
+    leaveSelecting();
+    if (failures.length > 0) {
+      toast.error(`Could not move ${failures.length} instances`, {
+        description: failures.join("\n"),
+      });
+    }
+  };
+
+  const removePicked = async () => {
+    const ids = pickedInstances.map((instance) => instance.id);
+    const failures = await deleteInstances(ids);
+    setRemovingPicked(false);
+    leaveSelecting();
+    if (failures.length > 0) {
+      toast.error(`Could not delete ${failures.length} of ${ids.length}`, {
+        description: failures.join("\n"),
+      });
+    }
+  };
+
+  const toolbarMenu = (): MenuItem[] => [
+    {
+      label: selecting ? "Exit selection" : "Select instances",
+      icon: ListChecks,
+      disabled: instances.length === 0,
+      onSelect: () => (selecting ? leaveSelecting() : setSelecting(true)),
+    },
+    {
+      label: "New group",
+      icon: FolderPlus,
+      onSelect: () => setCreatingGroup(true),
+    },
+    {
+      label: "New tag",
+      icon: Tag,
+      onSelect: () => setCreatingTag(true),
+    },
+    {
+      label: "Import from file",
+      icon: FileArchive,
+      separated: true,
+      onSelect: choosePack,
+    },
+    {
+      label: "Refresh instances",
+      icon: RotateCw,
+      onSelect: () =>
+        void refreshInstances().catch((error) =>
+          toast.error("Could not refresh instances", { description: String(error) }),
+        ),
+    },
+  ];
+
+  const moveMenu = (): MenuItem[] => [
+    {
+      label: "Ungrouped",
+      icon: Folder,
+      onSelect: () => void movePicked(null),
+    },
+    ...groups.map((group) => ({
+      label: group.name,
+      icon: Folder,
+      onSelect: () => void movePicked(group.id),
+    })),
+  ];
+
+  const instanceMenu = (instance: Instance): MenuItem[] => {
+    const current = placements.get(instance.id)?.group_id ?? null;
+    const assignedTags = tagIdsByInstance.get(instance.id) ?? new Set<string>();
+    return [
+      { label: "Open", icon: Boxes, onSelect: () => openInstance(instance.id) },
+      {
+        label: "Open folder",
+        icon: FolderOpen,
+        onSelect: () => openFolder(instance.dir),
+      },
+      { label: "Edit", icon: Pencil, onSelect: () => setEditing(instance) },
+      { label: "Duplicate", icon: Copy, onSelect: () => void duplicate(instance) },
+      {
+        label: favorites.has(instance.id) ? "Remove from favorites" : "Add to favorites",
+        icon: Star,
+        onSelect: () => void toggleFavorite(instance),
+      },
+      {
+        label: "Copy launch command",
+        icon: ClipboardCopy,
+        onSelect: () => {
+          api
+            .getInstanceLaunchCommand(instance.id)
+            .then(async (option) => {
+              await navigator.clipboard.writeText(option);
+              toast.success("Copied launch command", { description: option });
+            })
+            .catch((error) =>
+              toast.error("Could not copy the launch command", { description: String(error) }),
+            );
+        },
+      },
+      ...(groups.length > 0
+        ? [
+            {
+              label: "Move to Ungrouped",
+              icon: Folder,
+              separated: true,
+              disabled: current === null,
+              onSelect: () => void move(instance, null),
+            },
+            ...groups.map((group) => ({
+              label: `Move to ${group.name}`,
+              icon: Folder,
+              disabled: current === group.id,
+              onSelect: () => void move(instance, group.id),
+            })),
+          ]
+        : []),
+      ...tags.map((tag) => ({
+        label: `${assignedTags.has(tag.id) ? "Remove" : "Add"} tag: ${tag.name}`,
+        icon: Tag,
+        separated: tags[0]?.id === tag.id,
+        onSelect: () => void toggleTag(instance, tag),
+      })),
+      {
+        label: instance.external ? "Disconnect from Enderloom" : "Delete instance",
+        icon: Trash2,
+        danger: true,
+        separated: true,
+        onSelect: () => setRemoving(instance),
+      },
+    ];
+  };
+
+  const groupMenu = (group: InstanceGroup, index: number): MenuItem[] => [
+    {
+      label: "Rename",
+      icon: Pencil,
+      onSelect: () => {
+        setEditingGroupId(group.id);
+        setEditingGroupName(group.name);
+      },
+    },
+    {
+      label: "Move up",
+      icon: ArrowUp,
+      disabled: index === 0,
+      onSelect: () => void shiftGroup(group.id, -1),
+    },
+    {
+      label: "Move down",
+      icon: ArrowDown,
+      disabled: index === groups.length - 1,
+      onSelect: () => void shiftGroup(group.id, 1),
+    },
+    {
+      label: "Delete group",
+      icon: Trash2,
+      danger: true,
+      separated: true,
+      onSelect: () => setRemovingGroup(group),
+    },
+  ];
+
+  const tagMenu = (tag: InstanceTag, index: number): MenuItem[] => [
+    {
+      label: "Rename",
+      icon: Pencil,
+      onSelect: () => {
+        setEditingTagId(tag.id);
+        setEditingTagName(tag.name);
+      },
+    },
+    {
+      label: "Move up",
+      icon: ArrowUp,
+      disabled: index === 0,
+      onSelect: () => void shiftTag(tag.id, -1),
+    },
+    {
+      label: "Move down",
+      icon: ArrowDown,
+      disabled: index === tags.length - 1,
+      onSelect: () => void shiftTag(tag.id, 1),
+    },
+    {
+      label: "Delete tag",
+      icon: Trash2,
+      danger: true,
+      separated: true,
+      onSelect: () => setRemovingTag(tag),
+    },
+  ];
+
+  const duplicate = async (instance: Instance) => {
+    try {
+      await duplicateInstance(instance.id);
+    } catch (error) {
+      toast.error(`Could not duplicate ${instance.name}`, { description: String(error) });
+    }
+  };
+
+  const move = async (instance: Instance, groupId: string | null) => {
+    try {
+      await moveInstanceToGroup(instance.id, groupId);
+    } catch (error) {
+      toast.error(`Could not move ${instance.name}`, { description: String(error) });
+      throw error;
+    }
+  };
+
+  const toggleFavorite = async (instance: Instance) => {
+    try {
+      await setInstanceFavorite(instance.id, !favorites.has(instance.id));
+    } catch (error) {
+      toast.error(`Could not update ${instance.name}`, { description: String(error) });
+    }
+  };
+
+  const toggleTag = async (instance: Instance, tag: InstanceTag) => {
+    try {
+      const enabled = !tagIdsByInstance.get(instance.id)?.has(tag.id);
+      await setInstanceTag(instance.id, tag.id, enabled);
+    } catch (error) {
+      toast.error(`Could not update ${tag.name}`, { description: String(error) });
+    }
+  };
+
+  const submitGroup = async () => {
+    const name = groupName.trim();
+    if (!name) return;
+    try {
+      await createInstanceGroup(name);
+      setGroupName("");
+      setCreatingGroup(false);
+    } catch (error) {
+      toast.error("Could not create group", { description: String(error) });
+    }
+  };
+
+  const submitTag = async () => {
+    const name = tagName.trim();
+    if (!name) return;
+    try {
+      const tag = await createInstanceTag(name);
+      setTagName("");
+      setCreatingTag(false);
+      pickGroup(`tag:${tag.id}`);
+    } catch (error) {
+      toast.error("Could not create tag", { description: String(error) });
+    }
+  };
+
+  const submitRename = async (group: InstanceGroup) => {
+    const name = editingGroupName.trim();
+    if (!name) return;
+    try {
+      await renameInstanceGroup(group.id, name);
+      setEditingGroupId(null);
+    } catch (error) {
+      toast.error("Could not rename group", { description: String(error) });
+    }
+  };
+
+  const submitTagRename = async (tag: InstanceTag) => {
+    const name = editingTagName.trim();
+    if (!name) return;
+    try {
+      await renameInstanceTag(tag.id, name);
+      setEditingTagId(null);
+    } catch (error) {
+      toast.error("Could not rename tag", { description: String(error) });
+    }
+  };
+
+  const pickGroup = (id: string) => {
+    setActive(id);
+    localStorage.setItem("instances-group", id);
+  };
+
+  const shiftGroup = async (id: string, direction: -1 | 1) => {
+    const index = groups.findIndex((group) => group.id === id);
+    const target = index + direction;
+    if (index < 0 || target < 0 || target >= groups.length) return;
+    const ids = groups.map((group) => group.id);
+    [ids[index], ids[target]] = [ids[target], ids[index]];
+    try {
+      await reorderInstanceGroups(ids);
+    } catch (error) {
+      toast.error("Could not reorder groups", { description: String(error) });
+    }
+  };
+
+  const shiftTag = async (id: string, direction: -1 | 1) => {
+    const index = tags.findIndex((tag) => tag.id === id);
+    const target = index + direction;
+    if (index < 0 || target < 0 || target >= tags.length) return;
+    const ids = tags.map((tag) => tag.id);
+    [ids[index], ids[target]] = [ids[target], ids[index]];
+    try {
+      await reorderInstanceTags(ids);
+    } catch (error) {
+      toast.error("Could not reorder tags", { description: String(error) });
+    }
+  };
+
+  const dropOnGroup = async (event: React.DragEvent, groupId: string | null) => {
+    event.preventDefault();
+    const instanceId = event.dataTransfer.getData("application/x-basalt-instance");
+    const instance = instances.find((item) => item.id === instanceId);
+    if (instance && (placements.get(instance.id)?.group_id ?? null) !== groupId) {
+      await move(instance, groupId);
+    }
+  };
+
+  const dropOnTag = async (event: React.DragEvent, tag: InstanceTag) => {
+    event.preventDefault();
+    const instanceId = event.dataTransfer.getData("application/x-basalt-instance");
+    const instance = instances.find((item) => item.id === instanceId);
+    if (instance && !tagIdsByInstance.get(instance.id)?.has(tag.id)) {
+      try {
+        await setInstanceTag(instance.id, tag.id, true);
+      } catch (error) {
+        toast.error(`Could not tag ${instance.name}`, { description: String(error) });
+      }
+    }
+  };
+
+  const choosePack = () => setPicking(true);
+
+  const switchSort = (mode: SortMode) => {
+    setSort(mode);
+    localStorage.setItem("instances-sort", mode);
+  };
+
+  const switchView = (mode: ViewMode) => {
+    setViewMode(mode);
+    localStorage.setItem("instances-view", mode);
+  };
+
+  useEffect(() => {
+    instances.forEach((i) => loadMedia(i.id));
+  }, [instances, loadMedia]);
+
+  useEffect(() => {
+    if (!creatingInstance) return;
+    setModalOpen(true);
+    endInstanceCreate();
+  }, [creatingInstance, endInstanceCreate]);
+
+  useEffect(() => {
+    if (active === "all" || active === "ungrouped" || active === "favorites") return;
+    if (active.startsWith("tag:")) {
+      if (!tags.some((tag) => `tag:${tag.id}` === active)) pickGroup("all");
+      return;
+    }
+    if (!groups.some((group) => group.id === active)) pickGroup("all");
+  }, [groups, tags, active]);
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="flex items-center justify-between gap-4 border-b border-border-soft px-8 py-3.5">
+        <div className="flex items-baseline gap-3">
+          <h1 className="font-display text-[1rem] font-semibold tracking-tight text-content">
+            Instances
+          </h1>
+          {instances.length > 0 && (
+            <span className="text-xs text-content-faint">
+              {query.trim()
+                ? `${filtered.length} of ${instances.length} instances`
+                : `${instances.length} ${instances.length === 1 ? "instance" : "instances"}`}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {instances.length > 0 && (
+            <div className="relative w-56">
+              <Search className="absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-content-faint" />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search instances"
+                aria-label="Search instances"
+                className="h-9 w-full rounded-lg border border-border-soft bg-surface-2/60 pl-9 pr-3 text-xs text-content outline-none transition-colors placeholder:text-content-faint focus:border-(--accent)"
+              />
+            </div>
+          )}
+          {instances.length > 1 && (
+            <div className="w-44">
+              <Select
+                value={sort}
+                options={[...SORTS]}
+                onChange={(value) => switchSort(value as SortMode)}
+              />
+            </div>
+          )}
+          <div className="flex rounded-lg border border-border-soft bg-surface-2/60 p-0.5">
+            {(
+              [
+                { mode: "grid", icon: LayoutGrid },
+                { mode: "list", icon: List },
+              ] as const
+            ).map(({ mode, icon: Icon }) => (
+              <button
+                key={mode}
+                onClick={() => switchView(mode)}
+                aria-label={`${mode} view`}
+                aria-pressed={viewMode === mode}
+                className={cn(
+                  "grid size-8 place-items-center rounded-md transition-colors",
+                  viewMode === mode
+                    ? "bg-surface-3 text-content"
+                    : "text-content-faint hover:text-content-muted",
+                )}
+              >
+                <Icon className="size-4" />
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={(event) => openMenu(event, toolbarMenu(), undefined, { below: true })}
+            aria-label="More actions"
+            title="More actions"
+            className={cn(
+              "grid size-8 place-items-center rounded-lg border transition-colors",
+              selecting || creatingGroup
+                ? "border-(--accent)/40 bg-(--accent)/10 text-(--accent)"
+                : "border-border-soft bg-surface-2/60 text-content-faint hover:text-content",
+            )}
+          >
+            <MoreVertical className="size-4" />
+          </button>
+          <Button onClick={() => setModalOpen(true)}>
+            <Plus className="size-4" />
+            New instance
+          </Button>
+        </div>
+      </div>
+
+      {selecting && (
+        <div className="flex items-center gap-3 border-b border-border-soft bg-surface-2/40 px-8 py-2.5">
+          <span className="text-xs font-medium text-content">{picked.size} selected</span>
+          <button
+            onClick={() => setPicked(new Set(shown.map((instance) => instance.id)))}
+            className="text-xs text-content-muted transition-colors hover:text-content"
+          >
+            Select all {shown.length}
+          </button>
+          {picked.size > 0 && (
+            <button
+              onClick={() => setPicked(new Set())}
+              className="text-xs text-content-muted transition-colors hover:text-content"
+            >
+              Clear
+            </button>
+          )}
+          <div className="ml-auto flex items-center gap-2">
+            <button
+              onClick={leaveSelecting}
+              className="rounded-lg px-3 py-1.5 text-xs font-medium text-content-muted transition-colors hover:text-content"
+            >
+              Done
+            </button>
+            <button
+              onClick={(event) => openMenu(event, moveMenu(), "Move to", { below: true })}
+              disabled={picked.size === 0 || groups.length === 0}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-2 px-3 py-1.5 text-xs font-medium text-content transition-colors hover:bg-surface-3 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Folder className="size-3.5" />
+              Move to
+            </button>
+            <button
+              onClick={() => setRemovingPicked(true)}
+              disabled={picked.size === 0}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-danger/15 px-3 py-1.5 text-xs font-semibold text-danger transition-colors hover:bg-danger/25 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Trash2 className="size-3.5" />
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
+
+      {launchError && (
+        <div className="mx-8 mt-4 flex items-start gap-2 rounded-xl border border-danger/30 bg-danger/10 px-4 py-2.5 text-sm text-danger">
+          <TriangleAlert className="mt-0.5 size-4 shrink-0" />
+          <span className="wrap-break-word">{launchError}</span>
+        </div>
+      )}
+
+      {instances.length === 0 ? (
+        <EmptyState
+          icon={<Boxes className="size-6" />}
+          title="No instances yet"
+          description="Create an instance to choose a Minecraft version and start playing."
+          action={
+            <Button onClick={() => setModalOpen(true)}>
+              <Plus className="size-4" />
+              Create your first instance
+            </Button>
+          }
+        />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={<SearchX className="size-6" />}
+          title="No matching instances"
+          description={`Nothing matches “${query.trim()}”.`}
+          action={
+            <Button variant="ghost" onClick={() => setQuery("")}>
+              Clear search
+            </Button>
+          }
+        />
+      ) : (
+        <div className="min-h-0 flex-1 overflow-y-auto px-8 pb-6">
+          {(instances.length > 0 || groups.length > 0 || tags.length > 0 || creatingGroup || creatingTag) && (
+            <div className="sticky top-0 z-10 -mx-8 flex flex-wrap items-center gap-1.5 bg-void/95 px-8 py-3 backdrop-blur">
+              {[
+                { id: "all", name: "All", group: undefined as InstanceGroup | undefined, tag: undefined as InstanceTag | undefined, kind: "all" },
+                { id: "favorites", name: "Favorites", group: undefined, tag: undefined, kind: "favorite" },
+                ...groups.map((group) => ({ id: group.id, name: group.name, group, tag: undefined, kind: "group" })),
+                { id: "ungrouped", name: "Ungrouped", group: undefined, tag: undefined, kind: "group" },
+                ...tags.map((tag) => ({ id: `tag:${tag.id}`, name: tag.name, group: undefined, tag, kind: "tag" })),
+              ].map((chip) => {
+                const selected = active === chip.id;
+                const count =
+                  chip.id === "all"
+                    ? instances.length
+                    : chip.id === "favorites"
+                      ? favorites.size
+                      : chip.tag
+                        ? (tagCounts.get(chip.tag.id) ?? 0)
+                        : (counts.get(chip.id) ?? 0);
+                const droppable = (chip.kind === "group" || chip.kind === "tag") && dragging !== null;
+                if (chip.id === "ungrouped" && count === 0 && !droppable) return null;
+                if (editingGroupId && chip.group?.id === editingGroupId) {
+                  return (
+                    <form
+                      key={chip.id}
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        void submitRename(chip.group!);
+                      }}
+                    >
+                      <input
+                        autoFocus
+                        value={editingGroupName}
+                        onChange={(event) => setEditingGroupName(event.target.value)}
+                        onBlur={() => setEditingGroupId(null)}
+                        maxLength={64}
+                        className="h-8 w-40 rounded-lg border border-(--accent)/50 bg-surface-2 px-2.5 text-xs font-medium text-content outline-none"
+                      />
+                    </form>
+                  );
+                }
+                if (editingTagId && chip.tag?.id === editingTagId) {
+                  return (
+                    <form
+                      key={chip.id}
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        void submitTagRename(chip.tag!);
+                      }}
+                    >
+                      <input
+                        autoFocus
+                        value={editingTagName}
+                        onChange={(event) => setEditingTagName(event.target.value)}
+                        onBlur={() => setEditingTagId(null)}
+                        maxLength={64}
+                        className="h-8 w-40 rounded-lg border border-(--accent)/50 bg-surface-2 px-2.5 text-xs font-medium text-content outline-none"
+                      />
+                    </form>
+                  );
+                }
+                return (
+                  <button
+                    key={chip.id}
+                    onClick={() => pickGroup(chip.id)}
+                    onContextMenu={(event) =>
+                      chip.group
+                        ? openMenu(
+                            event,
+                            groupMenu(chip.group, groups.findIndex((g) => g.id === chip.group!.id)),
+                            chip.name,
+                          )
+                        : chip.tag
+                          ? openMenu(
+                              event,
+                              tagMenu(chip.tag, tags.findIndex((item) => item.id === chip.tag!.id)),
+                              chip.name,
+                            )
+                          : undefined
+                    }
+                    onDragOver={(event) => {
+                      if (!droppable) return;
+                      event.preventDefault();
+                      if (dragOver !== chip.id) setDragOver(chip.id);
+                    }}
+                    onDragLeave={() =>
+                      setDragOver((current) => (current === chip.id ? null : current))
+                    }
+                    onDrop={(event) => {
+                      setDragOver(null);
+                      if (!droppable) return;
+                      if (chip.tag) void dropOnTag(event, chip.tag);
+                      else void dropOnGroup(event, chip.id === "ungrouped" ? null : chip.id);
+                    }}
+                    className={cn(
+                      "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-colors",
+                      dragOver === chip.id && droppable
+                        ? "border-(--accent) bg-(--accent)/15 text-content"
+                        : selected
+                          ? "border-(--accent)/40 bg-(--accent)/10 text-content"
+                          : "border-border-soft bg-surface-2/60 text-content-muted hover:border-border hover:text-content",
+                    )}
+                  >
+                    {chip.group && <Folder className="size-3.5 shrink-0" />}
+                    {chip.kind === "favorite" && <Star className="size-3.5 shrink-0" />}
+                    {chip.tag && <Tag className="size-3.5 shrink-0" />}
+                    <span className="max-w-40 truncate">{chip.name}</span>
+                    <span className="tabular-nums text-content-faint">{count}</span>
+                  </button>
+                );
+              })}
+
+              {creatingGroup ? (
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    void submitGroup();
+                  }}
+                >
+                  <input
+                    autoFocus
+                    value={groupName}
+                    onChange={(event) => setGroupName(event.target.value)}
+                    onBlur={() => {
+                      setCreatingGroup(false);
+                      setGroupName("");
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape") {
+                        setCreatingGroup(false);
+                        setGroupName("");
+                      }
+                    }}
+                    placeholder="Group name"
+                    maxLength={64}
+                    className="h-8 w-40 rounded-lg border border-(--accent)/50 bg-surface-2 px-2.5 text-xs font-medium text-content outline-none placeholder:text-content-faint"
+                  />
+                </form>
+              ) : (
+                <button
+                  onClick={() => setCreatingGroup(true)}
+                  className="grid size-8 shrink-0 place-items-center rounded-lg border border-dashed border-border text-content-faint transition-colors hover:border-(--accent)/50 hover:text-content"
+                  aria-label="New group"
+                  title="New group"
+                >
+                  <Plus className="size-3.5" />
+                </button>
+              )}
+
+              {creatingTag ? (
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    void submitTag();
+                  }}
+                >
+                  <input
+                    autoFocus
+                    value={tagName}
+                    onChange={(event) => setTagName(event.target.value)}
+                    onBlur={() => {
+                      setCreatingTag(false);
+                      setTagName("");
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape") {
+                        setCreatingTag(false);
+                        setTagName("");
+                      }
+                    }}
+                    placeholder="Tag name"
+                    maxLength={64}
+                    className="h-8 w-40 rounded-lg border border-(--accent)/50 bg-surface-2 px-2.5 text-xs font-medium text-content outline-none placeholder:text-content-faint"
+                  />
+                </form>
+              ) : (
+                <button
+                  onClick={() => setCreatingTag(true)}
+                  className="grid size-8 shrink-0 place-items-center rounded-lg border border-dashed border-border text-content-faint transition-colors hover:border-(--accent)/50 hover:text-content"
+                  aria-label="New tag"
+                  title="New tag"
+                >
+                  <Tag className="size-3.5" />
+                </button>
+              )}
+            </div>
+          )}
+
+          <div className="pt-1">
+            {viewMode === "list" ? (
+              <div className="flex flex-col gap-2">
+                {shown.map((it) => {
+                  const task = busyTasks.get(it.id);
+                  return (
+                    <div
+                      key={it.id}
+                      draggable
+                      onDragStart={(event) => {
+                        event.dataTransfer.effectAllowed = "move";
+                        event.dataTransfer.setData("application/x-basalt-instance", it.id);
+                        setDragging(it.id);
+                      }}
+                      onDragEnd={() => {
+                        setDragging(null);
+                        setDragOver(null);
+                      }}
+                      onContextMenu={(event) => openMenu(event, instanceMenu(it), it.name)}
+                      className={cn(
+                        "relative isolate flex items-center gap-4 overflow-hidden rounded-2xl border bg-surface-2/60 p-3 transition-colors",
+                        picked.has(it.id)
+                          ? "border-(--accent)"
+                          : "border-border-soft hover:border-border",
+                        dragging === it.id && "opacity-40",
+                      )}
+                    >
+                      {selecting && (
+                        <PickOverlay
+                          instance={it}
+                          checked={picked.has(it.id)}
+                          onToggle={() => togglePicked(it.id)}
+                        />
+                      )}
+                      <button
+                        onClick={() => openInstance(it.id)}
+                        aria-label={`Open ${it.name}`}
+                        className="relative size-16 shrink-0 overflow-hidden rounded-xl"
+                      >
+                        <Artwork media={mediaMap[it.id] ?? null} className="size-full" />
+                        {logoSrc(it.logo) && (
+                          <img src={logoSrc(it.logo)!} alt="" draggable={false} className="absolute inset-0 size-full object-cover" />
+                        )}
+                      </button>
+                      <button onClick={() => openInstance(it.id)} className="min-w-0 flex-1 text-left">
+                        <div className="truncate font-display font-semibold text-content">{it.name}</div>
+                        <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                          <span className="rounded border border-border-soft bg-surface-2 px-1.5 py-0.5 font-pixel text-[10px] text-content-muted">{it.version_id}</span>
+                          {it.loader && <span className="rounded border border-border-soft bg-surface-2 px-1.5 py-0.5 text-[10px] font-medium text-content-muted">{loaderLabel(it)}</span>}
+                          {it.external && <span className="rounded border border-(--accent)/30 bg-(--accent-glow) px-1.5 py-0.5 text-[10px] font-semibold text-(--accent-bright)">Connected</span>}
+                          {tagsByInstance(it.id).map((tag) => <span key={tag.id} className="inline-flex items-center gap-1 rounded border border-(--accent)/20 bg-(--accent)/5 px-1.5 py-0.5 text-[10px] font-medium text-content-muted"><Tag className="size-2.5" />{tag.name}</span>)}
+                          <span className="text-[11px] text-content-faint"><StatusLine instance={it} task={task} /></span>
+                        </div>
+                      </button>
+                      <div className="flex shrink-0 items-center gap-1">
+                        <button
+                          onClick={() => void toggleFavorite(it)}
+                          aria-label={favorites.has(it.id) ? `Remove ${it.name} from favorites` : `Add ${it.name} to favorites`}
+                          title={favorites.has(it.id) ? "Remove from favorites" : "Add to favorites"}
+                          className={cn("grid size-8 place-items-center rounded-lg transition-colors hover:bg-surface-3", favorites.has(it.id) ? "text-(--accent)" : "text-content-faint hover:text-content")}
+                        >
+                          <Star className={cn("size-4", favorites.has(it.id) && "fill-current")} />
+                        </button>
+                        <PlayButton instance={it} onError={setLaunchError} />
+                        <RowActions
+                          onEdit={() => setEditing(it)}
+                          onMenu={(event) => openMenu(event, instanceMenu(it), it.name)}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="grid auto-rows-min grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] content-start gap-4">
+                {shown.map((it) => {
+                  const task = busyTasks.get(it.id);
+                  return (
+                    <div
+                      key={it.id}
+                      draggable
+                      onDragStart={(event) => {
+                        event.dataTransfer.effectAllowed = "move";
+                        event.dataTransfer.setData("application/x-basalt-instance", it.id);
+                        setDragging(it.id);
+                      }}
+                      onDragEnd={() => {
+                        setDragging(null);
+                        setDragOver(null);
+                      }}
+                      onContextMenu={(event) => openMenu(event, instanceMenu(it), it.name)}
+                      className={cn(
+                        "group relative isolate flex flex-col overflow-hidden rounded-2xl border bg-surface-2/60 transition-colors",
+                        picked.has(it.id)
+                          ? "border-(--accent)"
+                          : "border-border-soft hover:border-border",
+                        dragging === it.id && "opacity-40",
+                      )}
+                    >
+                      {selecting && (
+                        <PickOverlay
+                          instance={it}
+                          checked={picked.has(it.id)}
+                          onToggle={() => togglePicked(it.id)}
+                        />
+                      )}
+                      <div className="relative aspect-16/10 w-full overflow-hidden">
+                        <Artwork media={mediaMap[it.id] ?? null} className="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-105" />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
+                        <button onClick={() => openInstance(it.id)} aria-label={`Open ${it.name}`} className="absolute inset-0" />
+                        {logoSrc(it.logo) && <img src={logoSrc(it.logo)!} alt="" draggable={false} className="pointer-events-none absolute left-3 top-3 size-10 rounded-xl border border-white/15 bg-black/40 object-cover shadow-lg backdrop-blur" />}
+                        <div className="pointer-events-none absolute inset-x-3 bottom-3">
+                          <div className="truncate font-display text-[1rem] font-semibold text-white drop-shadow">{it.name}</div>
+                          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                            <span className="rounded bg-black/55 px-1.5 py-0.5 font-pixel text-[10px] text-white/80 backdrop-blur">{it.version_id}</span>
+                            {it.loader && <span className="rounded bg-black/55 px-1.5 py-0.5 text-[10px] font-medium text-white/80 backdrop-blur">{loaderLabel(it)}</span>}
+                            {it.external && <span className="rounded border border-(--accent)/30 bg-black/55 px-1.5 py-0.5 text-[10px] font-semibold text-(--accent-bright) backdrop-blur">Connected</span>}
+                          </div>
+                        </div>
+                        <div className="absolute right-2 top-2 flex items-center gap-1 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
+                          <button
+                            onClick={() => void toggleFavorite(it)}
+                            aria-label={favorites.has(it.id) ? `Remove ${it.name} from favorites` : `Add ${it.name} to favorites`}
+                            title={favorites.has(it.id) ? "Remove from favorites" : "Add to favorites"}
+                            className={cn("grid size-8 place-items-center rounded-lg bg-black/55 text-white/80 backdrop-blur transition-colors hover:bg-black/75 hover:text-white", favorites.has(it.id) && "text-(--accent)")}
+                          >
+                            <Star className={cn("size-4", favorites.has(it.id) && "fill-current")} />
+                          </button>
+                          <RowActions
+                            floating
+                            onEdit={() => setEditing(it)}
+                            onMenu={(event) => openMenu(event, instanceMenu(it), it.name)}
+                          />
+                        </div>
+                      </div>
+                      {task && <ProgressStrip task={task} />}
+                      <div className="flex items-center justify-between gap-2 px-3 py-2.5">
+                        <div className="min-w-0">
+                          <div className="truncate text-[11px] text-content-faint"><StatusLine instance={it} task={task} /></div>
+                          {tagsByInstance(it.id).length > 0 && <div className="mt-1 flex flex-wrap gap-1">{tagsByInstance(it.id).map((tag) => <span key={tag.id} className="inline-flex items-center gap-1 rounded border border-(--accent)/20 bg-(--accent)/5 px-1.5 py-0.5 text-[9px] font-medium text-content-muted"><Tag className="size-2.5" />{tag.name}</span>)}</div>}
+                        </div>
+                        <PlayButton instance={it} compact onError={setLaunchError} />
+                      </div>
+                    </div>
+                  );
+                })}
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="group flex min-h-52 flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border text-content-faint transition-colors hover:border-(--accent)/50 hover:bg-surface-2/40 hover:text-content"
+                >
+                  <span className="grid size-11 place-items-center rounded-full border border-border-soft bg-surface-2 transition-colors group-hover:border-(--accent)/40"><Plus className="size-5" /></span>
+                  <span className="text-xs font-medium">New instance</span>
+                </button>
+              </div>
+            )}
+
+            {shown.length === 0 && (
+              <div className="grid min-h-40 place-items-center text-sm text-content-faint">
+                {active === "favorites"
+                  ? "No favorites yet. Use the star on any instance to keep it close."
+                  : active.startsWith("tag:")
+                    ? "Nothing has this tag yet. Drag an instance onto the tag chip or use its menu."
+                    : "Nothing in this group yet. Drag an instance onto its chip to file it here."}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <ContextMenu menu={menu} onClose={closeMenu} />
+
+      <CreateInstanceModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreated={() => {}}
+        onImportFile={choosePack}
+        onImportPackwiz={setPackSource}
+      />
+      <UploadModal
+        open={picking}
+        onClose={() => setPicking(false)}
+        title="Import a modpack"
+        subtitle="An .mrpack, CurseForge zip, or local pack.toml"
+        extensions={["mrpack", "zip", "toml"]}
+        filterName="Modpack"
+        confirmLabel="Import"
+        onConfirm={(paths) => {
+          setPicking(false);
+          setPackSource({ kind: "file", value: paths[0] });
+        }}
+      />
+
+      <ImportPackModal
+        source={packSource}
+        onClose={() => setPackSource(null)}
+      />
+      <EditInstanceModal instance={editing} onClose={() => setEditing(null)} />
+
+      <ConfirmDialog
+        open={!!removingTag}
+        title={removingTag ? `Delete ${removingTag.name}?` : ""}
+        description="The tag will be removed from every instance. No instance or game files will be deleted."
+        confirmLabel="Delete tag"
+        onConfirm={async () => {
+          if (!removingTag) return;
+          try {
+            await deleteInstanceTag(removingTag.id);
+          } catch (error) {
+            toast.error("Could not delete tag", { description: String(error) });
+          }
+          setRemovingTag(null);
+        }}
+        onCancel={() => setRemovingTag(null)}
+      />
+
+      <ConfirmDialog
+        open={!!removingGroup}
+        title={removingGroup ? `Delete ${removingGroup.name}?` : ""}
+        description="The instances in this group will move to Ungrouped. No instance files will be deleted."
+        confirmLabel="Delete group"
+        onConfirm={async () => {
+          if (!removingGroup) return;
+          try {
+            await deleteInstanceGroup(removingGroup.id);
+          } catch (error) {
+            toast.error("Could not delete group", { description: String(error) });
+          }
+          setRemovingGroup(null);
+        }}
+        onCancel={() => setRemovingGroup(null)}
+      />
+
+      <ConfirmDialog
+        open={removingPicked}
+        title={`Remove ${picked.size} ${picked.size === 1 ? "instance" : "instances"}?`}
+        description={
+          pickedInstances.some((instance) => instance.external)
+            ? "Connected profiles are only disconnected and their launcher folders stay untouched. Enderloom-managed instances in this selection are permanently deleted from disk."
+            : "Every selected instance folder is removed from disk, including its worlds, mods, configs and screenshots. This cannot be undone."
+        }
+        confirmLabel={`Remove ${picked.size}`}
+        requireText="delete"
+        onConfirm={removePicked}
+        onCancel={() => setRemovingPicked(false)}
+      >
+        <ul className="max-h-40 space-y-1 overflow-y-auto text-xs text-content-muted">
+          {pickedInstances.map((instance) => (
+            <li key={instance.id} className="wrap-break-word">
+              {instance.name}
+            </li>
+          ))}
+        </ul>
+      </ConfirmDialog>
+
+      <ConfirmDialog
+        open={!!removing}
+        title={removing ? `${removing.external ? "Disconnect" : "Delete"} ${removing.name}?` : ""}
+        description={
+          removing?.external
+            ? "Enderloom removes only its connection and local metadata. The launcher profile and every game file remain untouched."
+            : "The whole instance folder is removed from disk, including its worlds, mods, configs and screenshots. This cannot be undone."
+        }
+        confirmLabel={removing?.external ? "Disconnect only" : "Delete instance"}
+        requireText={removing?.name}
+        onConfirm={async () => {
+          if (removing) await deleteInstance(removing.id);
+          setRemoving(null);
+        }}
+        onCancel={() => setRemoving(null)}
+      />
+    </div>
+  );
+}

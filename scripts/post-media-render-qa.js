@@ -1,0 +1,11 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const src=fs.readFileSync(path.join(__dirname,'..','catalog','enhance.js'),'utf8');
+assert(/id="mvGalleryVideo"[^>]*controls[^>]*playsinline/i.test(src),'lightbox must contain a real video player');
+assert(/mediaType==='video'/.test(src),'card renderer must distinguish direct video media');
+assert(/posterUrl/.test(src),'video poster/preview role must survive into renderer');
+assert(/\.pause\(\)/.test(src),'video playback must stop when media/lightbox changes');
+assert(/mediaType/.test(src)&&/previewUrl/.test(src),'media type and preview metadata must be retained by cleanItem');
+console.log(JSON.stringify({passed:true,videoLightbox:true,poster:true,gifViaImage:true},null,2));

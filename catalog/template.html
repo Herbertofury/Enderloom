@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light">
+<meta name="description" content="Searchable research catalog explorer"><title>__TITLE__</title>
+<style>__STYLES__</style>
+</head>
+<body>
+<a class="skip-link" href="#results">Skip to results</a><div class="ambient" aria-hidden="true"></div>
+<header class="hero shell">
+  <div class="hero-topline">
+    <div class="brand-lockup"><div class="brand-mark" aria-hidden="true">__BRAND__</div><div><div class="eyebrow">Research catalog browser</div><h1>__HEADING__ <span>Explorer</span></h1><p class="lede">__LEDE__</p></div></div>
+    <div class="hero-actions"><button id="themeToggle" class="icon-button" type="button" title="Toggle theme" aria-label="Toggle theme">☾</button><button id="helpButton" class="button ghost" type="button">Search help</button><a class="button source-button" id="masterSheetLink" target="_blank" rel="noreferrer">Master Sheet ↗</a></div>
+  </div>
+  <div class="source-strip" id="sourceStrip"></div>
+  <section class="kpi-grid" aria-label="Dataset summary">
+    <article class="kpi"><span>Entries</span><strong id="kpiProjects">—</strong><small>unique curated entries</small></article>
+    <article class="kpi"><span>Collections</span><strong id="kpiCollections">—</strong><small>organized category views</small></article>
+    <article class="kpi"><span>Top score</span><strong id="kpiTopScore">—</strong><small>highest overall score</small></article>
+    <article class="kpi"><span>Visual coverage</span><strong id="kpiVisuals">—</strong><small>projects with live source media</small></article>
+  </section>
+  <div class="search-wrap"><div class="search-box"><span class="search-glyph" aria-hidden="true">⌕</span><input id="searchInput" autocomplete="off" spellcheck="false" placeholder="Search names, tags, authors, loaders, versions...  Try: tag:aquatic rank<=25"><button id="clearSearch" class="clear-search" type="button" aria-label="Clear search">×</button><kbd>/</kbd></div><div id="queryHints" class="query-hints" aria-live="polite"></div></div>
+  <nav class="quick-filters" aria-label="Quick filters"><button class="quick-chip active" data-preset="all">All</button><button class="quick-chip" data-preset="top25">★ Top 25</button><button class="quick-chip" data-preset="fourth">Fourth Scour</button><button class="quick-chip" data-preset="java">Java</button><button class="quick-chip" data-preset="bedrock">Bedrock</button><button class="quick-chip" data-preset="active">Active 2026</button><button class="quick-chip" data-preset="gallery">Live gallery</button><button class="quick-chip" data-preset="favorites">♥ Favorites</button><button class="quick-chip" data-preset="recent">◷ Recent</button></nav>
+</header>
+<main class="shell main-grid">
+  <aside class="filters-panel"><div class="panel-heading"><div><span class="eyebrow">Refine</span><h2>Filters</h2></div><button id="resetFilters" class="text-button">Reset all</button></div>
+    <label class="field">Primary category<select id="categoryFilter"><option value="">All categories</option></select></label>
+    <label class="field">Collection tab<select id="collectionFilter"><option value="">All collections</option></select></label>
+    <div class="field-grid"><label class="field">Edition<select id="editionFilter"><option value="">All</option></select></label><label class="field">Type<select id="typeFilter"><option value="">All</option></select></label></div>
+    <div class="field-grid"><label class="field">Scour<select id="scourFilter"><option value="">All</option></select></label><label class="field">Status<select id="statusFilter"><option value="">All</option></select></label></div>
+    <label class="field">Loader / channel<input id="loaderFilter" placeholder="Forge, Fabric, Add-On…"></label>
+    <label class="field">Minimum overall score<div class="range-line"><input id="scoreFilter" type="range" min="0" max="10" step="0.1" value="0"><output id="scoreOutput">Any</output></div></label>
+    <div class="check-stack"><label><input id="galleryFilter" type="checkbox"> Only with live source media</label><label><input id="multiSourceFilter" type="checkbox"> Only with 2+ verified homes</label><label><input id="favoriteFilter" type="checkbox"> Favorites only</label></div>
+    <section class="mini-insights"><div class="panel-heading compact"><div><span class="eyebrow">At a glance</span><h3>Current slice</h3></div></div><div id="sliceStats"></div></section>
+    <div class="sidebar-links"><a id="masterDocLink" target="_blank" rel="noreferrer">Open master guide ↗</a><a id="masterPdfLink" target="_blank" rel="noreferrer">Open PDF ↗</a><a id="historyLink" target="_blank" rel="noreferrer">Browse History ↗</a></div>
+  </aside>
+  <section class="results-panel">
+    <div class="results-toolbar"><div><span class="eyebrow">Browse</span><h2><span id="resultCount">0</span> entries <small id="resultContext"></small></h2></div><div class="toolbar-actions">
+      <label class="compact-select">Sort<select id="sortSelect"><option value="rank">Best rank</option><option value="score">Highest score</option><option value="name">Name A–Z</option><option value="freshness">Freshness</option><option value="variety">Variety</option><option value="depth">Depth</option><option value="polish">Polish</option><option value="scour">Newest scour</option></select></label>
+      <div class="segmented"><button id="cardViewButton" class="active" title="Card view">▦</button><button id="tableViewButton" title="Table view">☷</button><button id="galleryViewButton" title="Visual gallery">▧</button></div><button id="randomButton" class="button ghost">Surprise me</button><button id="exportButton" class="button ghost">Export CSV</button><button id="shareButton" class="button ghost">Copy view</button>
+    </div></div>
+    <div class="active-filter-row" id="activeFilters"></div><div id="results" class="card-grid" tabindex="-1"></div><div id="emptyState" class="empty-state" hidden><div class="empty-icon">?</div><h3>No entries match that combination.</h3><p>Clear a filter or broaden the search—nothing was deleted.</p><button id="emptyReset" class="button">Reset filters</button></div>
+  </section>
+</main>
+<div id="compareTray" class="compare-tray" hidden><div><strong><span id="compareCount">0</span> selected</strong><span>Compare up to 4 entries</span></div><div class="compare-tray-actions"><button id="clearCompare" class="button ghost">Clear</button><button id="openCompare" class="button">Compare</button></div></div>
+<div id="modalBackdrop" class="modal-backdrop" hidden></div><section id="projectModal" class="modal" role="dialog" aria-modal="true" hidden></section><section id="compareModal" class="modal wide" role="dialog" aria-modal="true" hidden></section><section id="helpModal" class="modal help" role="dialog" aria-modal="true" hidden></section>
+<div id="toast" class="toast" role="status" aria-live="polite"></div><div id="selfTestReport" hidden></div>
+<script>window.MOB_VARIETY_BUILD=__BUILD_JSON__;window.MOB_VARIETY_ASSETS=__ASSETS_JSON__;window.MOB_VARIETY_DATA=__DATA_JSON__;</script><script>__APP_JS__</script>
+<script>__ENHANCE_JS__</script>
+</body></html>

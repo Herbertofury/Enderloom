@@ -1,0 +1,1328 @@
+use std::path::PathBuf;
+
+use serde::{Deserialize, Serialize};
+use tauri::{AppHandle, Emitter, State};
+
+use crate::{
+    error::{Error, Result},
+    servers::{
+        config, content,
+        files::{FileKind, ServerEntry, ServerText},
+        import::{self, ServerFolder},
+        jvmargs, pack, players, provision, rescan, runtime, software, zippack, Server, TextProblem,
+    },
+    state::AppState,
+    tasks::{TaskKind, TaskSpec},
+};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ServerProperty {
+    pub key: String,
+    pub value: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+struct ServerScriptMemoryPrompt {
+    server_id: String,
+    server_name: String,
+    min_memory_mb: u32,
+    max_memory_mb: u32,
+}
+
+#[derive(Debug, Clone, Serialize)]
+struct ServerFileChanged {
+    server_id: String,
+    path: String,
+}
+
+fn emit_server_file_changed(app: &AppHandle, server_id: &str, path: &str) {
+    let changed = ServerFileChanged {
+        server_id: server_id.to_string(),
+        path: path.to_string(),
+    };
+    if let Err(error) = app.emit("server:file-changed", changed) {
+        tracing::warn!(%error, server_id, path, "could not refresh the changed server file");
+    }
+}
+
+pub(crate) fn reachable(server: &Server) -> Result<PathBuf> {
+    let dir = PathBuf::from(&server.dir);
+    if !dir.is_dir() {
+        return Err(Error::other(format!(
+            "Enderloom cannot reach {}. Plug the drive back in or remove the server.",
+            server.dir
+        )));
+    }
+    Ok(dir)
+}
+
+pub(crate) fn cache_config(
+    state: &AppState,
+    server: &Server,
+    config: &config::Config,
+) -> Result<()> {
+    state.db.cache_server_properties(
+        &server.id,
+        config.port,
+        config.motd.as_deref(),
+        config.max_players,
+    )
+}
+
+pub(crate) fn properties_of(config: config::Config) -> Vec<ServerProperty> {
+    config
+        .entries
+        .into_iter()
+        .map(|entry| ServerProperty {
+            key: entry.key,
+            value: entry.value,
+        })
+        .collect()
+}
+
+fn offer_script_memory_prompt(
+    app: &AppHandle,
+    state: &AppState,
+    server: &Server,
+    default_min_memory_mb: u32,
+    default_max_memory_mb: u32,
+) -> Result<()> {
+    if server.launch_script.is_none() {
+        return Ok(());
+    }
+    let Some(text) = jvmargs::read(&state.files, &PathBuf::from(&server.dir)) else {
+        return Ok(());
+    };
+    let (min, max) = jvmargs::declared_memory(&text);
+    if min.is_some() && max.is_some() {
+        return Ok(());
+    }
+    if !state.db.claim_server_script_memory_prompt(&server.id)? {
+        return Ok(());
+    }
+
+    let prompt = ServerScriptMemoryPrompt {
+        server_id: server.id.clone(),
+        server_name: server.name.clone(),
+        min_memory_mb: server.min_memory_mb.unwrap_or(default_min_memory_mb),
+        max_memory_mb: server.max_memory_mb.unwrap_or(default_max_memory_mb),
+    };
+    if let Err(error) = app.emit("server:script-memory-missing", prompt) {
+        state.db.release_server_script_memory_prompt(&server.id)?;
+        tracing::warn!(%error, server_id = %server.id, "could not show the script memory prompt");
+    }
+    Ok(())
+}
+
+#[tauri::command]
+#[tracing::instrument(skip_all, err)]
+pub fn list_servers(app: AppHandle, state: State<AppState>) -> Result<Vec<Server>> {
+    let servers = state.db.list_servers(&state.paths)?;
+    let settings = state.runtime_settings()?;
+    for server in &servers {
+        offer_script_memory_prompt(
+            &app,
+            &state,
+            server,
+            settings.server_min_memory_mb,
+            settings.server_max_memory_mb,
+        )?;
+    }
+    Ok(servers)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip_all)]
+pub fn list_server_software() -> Vec<software::Spec> {
+    software::specs()
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn list_server_flavor_versions(
+    state: State<'_, AppState>,
+    flavor: String,
+    version_id: String,
+) -> Result<Vec<String>> {
+    software::find(&flavor)?
+        .versions(&state.network, &version_id)
+        .await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn create_server(
+    state: State<AppState>,
+    name: String,
+    flavor: String,
+    version_id: String,
+    flavor_version: Option<String>,
+    accept_eula: bool,
+) -> Result<Server> {
+    create_server_core(
+        &state,
+        &name,
+        &flavor,
+        &version_id,
+        flavor_version,
+        accept_eula,
+    )
+}
+
+pub(crate) fn create_server_core(
+    state: &AppState,
+    name: &str,
+    flavor: &str,
+    version_id: &str,
+    flavor_version: Option<String>,
+    accept_eula: bool,
+) -> Result<Server> {
+    let name = name.trim();
+    if name.is_empty() {
+        return Err(Error::other("Give the server a name first."));
+    }
+    let flavor = software::find(flavor)?;
+    if !flavor.native() && !accept_eula {
+        return Err(Error::other(
+            "The Minecraft EULA has to be accepted before a server can be created.",
+        ));
+    }
+
+    let id = uuid::Uuid::new_v4().to_string();
+    let dir = state
+        .paths
+        .server_dir_checked(&id)
+        .ok_or_else(|| Error::other("invalid server id"))?;
+    state.files.ensure_dir(&dir)?;
+    if !flavor.native() {
+        provision::write_eula(&state.files, &dir)?;
+    }
+
+    let server = Server {
+        id,
+        name: name.to_string(),
+        flavor,
+        version_id: version_id.to_string(),
+        created_at: chrono::Utc::now(),
+        managed: true,
+        dir: dir.display().to_string(),
+        available: true,
+        flavor_version,
+        launch_jar: None,
+        launch_argfiles: Vec::new(),
+        min_memory_mb: None,
+        max_memory_mb: None,
+        java_path: None,
+        jvm_args: None,
+        jvm_args_mode: None,
+        stop_timeout_secs: None,
+        eula_accepted_at: Some(chrono::Utc::now().timestamp()),
+        installed_at: None,
+        last_started_at: None,
+        uptime_secs: 0,
+        port: None,
+        motd: None,
+        max_players: None,
+        notes: None,
+        launch_script: None,
+        skip_launch_script: false,
+        pack_provider: None,
+        pack_project_id: None,
+        pack_version_id: None,
+        import_source: None,
+        import_source_id: None,
+    };
+    state.db.insert_server(&server)?;
+    tracing::info!(server_id = %server.id, flavor = flavor.id(), version = %server.version_id, "server created");
+    Ok(server)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn inspect_server_folder(state: State<AppState>, path: String) -> Result<ServerFolder> {
+    inspect_server_folder_core(&state, &path)
+}
+
+pub(crate) fn inspect_server_folder_core(state: &AppState, path: &str) -> Result<ServerFolder> {
+    let dir = import::validate(&state.paths, &PathBuf::from(path.trim()))?;
+    Ok(import::inspect(&dir))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn import_server(
+    state: State<AppState>,
+    path: String,
+    name: String,
+    flavor: String,
+    version_id: String,
+    flavor_version: Option<String>,
+    accept_eula: bool,
+) -> Result<Server> {
+    import_server_core(
+        &state,
+        &path,
+        &name,
+        &flavor,
+        &version_id,
+        flavor_version,
+        accept_eula,
+    )
+}
+
+pub(crate) fn import_server_core(
+    state: &AppState,
+    path: &str,
+    name: &str,
+    flavor: &str,
+    version_id: &str,
+    flavor_version: Option<String>,
+    accept_eula: bool,
+) -> Result<Server> {
+    let name = name.trim();
+    if name.is_empty() {
+        return Err(Error::other("Give the server a name first."));
+    }
+    let dir = import::validate(&state.paths, &PathBuf::from(path.trim()))?;
+    if state
+        .db
+        .imported_server_dirs()?
+        .iter()
+        .any(|known| known == &dir)
+    {
+        return Err(Error::other("That folder is already in Enderloom."));
+    }
+    let folder = import::inspect(&dir);
+    if !folder.eula_accepted && !accept_eula {
+        return Err(Error::other(
+            "The Minecraft EULA has to be accepted before this server can run.",
+        ));
+    }
+
+    let server = Server {
+        id: uuid::Uuid::new_v4().to_string(),
+        name: name.to_string(),
+        flavor: software::find(flavor)?,
+        version_id: version_id.to_string(),
+        created_at: chrono::Utc::now(),
+        managed: false,
+        dir: dir.display().to_string(),
+        available: true,
+        flavor_version,
+        launch_jar: folder.launch_jar,
+        launch_argfiles: folder.launch_argfiles,
+        min_memory_mb: None,
+        max_memory_mb: None,
+        java_path: None,
+        jvm_args: None,
+        jvm_args_mode: None,
+        stop_timeout_secs: None,
+        eula_accepted_at: Some(chrono::Utc::now().timestamp()),
+        installed_at: Some(chrono::Utc::now().timestamp()),
+        last_started_at: None,
+        uptime_secs: 0,
+        port: folder.port,
+        motd: None,
+        max_players: None,
+        notes: None,
+        launch_script: None,
+        skip_launch_script: false,
+        pack_provider: None,
+        pack_project_id: None,
+        pack_version_id: None,
+        import_source: Some("folder".to_string()),
+        import_source_id: Some(dir.display().to_string()),
+    };
+    state.db.insert_server(&server)?;
+    crate::servers::adopt_imported_dirs(&state)?;
+    if !folder.eula_accepted {
+        provision::write_eula(&state.files, &dir)?;
+    }
+    tracing::info!(server_id = %server.id, dir = %server.dir, "server imported");
+    Ok(server)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+pub async fn install_server(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<Server> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    let task = state.tasks.start(
+        &app,
+        TaskKind::ServerInstall,
+        TaskSpec {
+            title: server.name.clone(),
+            subtitle: Some(format!("{} {}", server.flavor.label(), server.version_id)),
+            server_id: Some(server.id.clone()),
+            total: 1,
+            ..Default::default()
+        },
+    )?;
+    let result = install_server_with_task(&state, &server, &task).await;
+    task.finish(&result);
+    result
+}
+
+async fn install_server_with_task(
+    state: &AppState,
+    server: &Server,
+    task: &crate::tasks::TaskHandle,
+) -> Result<Server> {
+    let provisioned = provision::install(state, server, task).await?;
+    state.db.set_server_launch(
+        &server.id,
+        provisioned.launch_jar.as_deref(),
+        &provisioned.launch_argfiles,
+        provisioned.flavor_version.as_deref(),
+        chrono::Utc::now().timestamp(),
+    )?;
+    super::find_server(state, &server.id)
+}
+
+pub(crate) async fn install_server_ipc(state: &AppState, server_id: &str) -> Result<Server> {
+    let server = super::find_server(state, server_id)?;
+    reachable(&server)?;
+    let task = state.tasks.start_ipc(
+        TaskKind::ServerInstall,
+        TaskSpec {
+            title: server.name.clone(),
+            subtitle: Some(format!("{} {}", server.flavor.label(), server.version_id)),
+            server_id: Some(server.id.clone()),
+            total: 1,
+            ..Default::default()
+        },
+    )?;
+    let result = install_server_with_task(state, &server, &task).await;
+    task.finish(&result);
+    result
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+#[allow(clippy::too_many_arguments)]
+pub fn update_server_settings(
+    app: AppHandle,
+    state: State<AppState>,
+    server_id: String,
+    name: String,
+    version_id: String,
+    flavor_version: Option<String>,
+    min_memory_mb: Option<u32>,
+    max_memory_mb: Option<u32>,
+    java_path: Option<String>,
+    jvm_args: Option<String>,
+    jvm_args_mode: Option<String>,
+    stop_timeout_secs: Option<u32>,
+    notes: Option<String>,
+) -> Result<Server> {
+    let name = name.trim();
+    if name.is_empty() {
+        return Err(Error::other("Give the server a name first."));
+    }
+    let version_id = version_id.trim();
+    if version_id.is_empty() {
+        return Err(Error::other("Pick a Minecraft version first."));
+    }
+    if let (Some(min), Some(max)) = (min_memory_mb, max_memory_mb) {
+        crate::config::MemoryLimits::new(min, max)?;
+    }
+    let current = super::find_server(&state, &server_id)?;
+    let reinstall = current.version_id != version_id
+        || current.flavor_version.as_deref() != flavor_version.as_deref();
+    if reinstall && current.pack_project_id.is_some() {
+        return Err(Error::other(
+            "This server's Minecraft and loader versions come from its modpack. Update the pack instead.",
+        ));
+    }
+    if reinstall
+        && state
+            .servers
+            .lock()
+            .unwrap()
+            .get(&server_id)
+            .is_some_and(runtime::ServerHandle::live)
+    {
+        return Err(Error::other("Stop the server before changing its version."));
+    }
+    let manages_script_memory = state.db.server_manages_script_memory(&server_id)?;
+    if manages_script_memory {
+        let settings = state.runtime_settings()?;
+        let memory = crate::config::MemoryLimits::new(
+            min_memory_mb.unwrap_or(settings.server_min_memory_mb),
+            max_memory_mb.unwrap_or(settings.server_max_memory_mb),
+        )?;
+        jvmargs::apply(&state.files, &reachable(&current)?, memory)?;
+    }
+    state.db.update_server_settings(
+        &server_id,
+        name,
+        version_id,
+        flavor_version,
+        min_memory_mb,
+        max_memory_mb,
+        java_path,
+        jvm_args,
+        jvm_args_mode,
+        stop_timeout_secs,
+        notes,
+    )?;
+    if reinstall {
+        state.db.clear_server_launch(&server_id)?;
+    }
+    if manages_script_memory {
+        emit_server_file_changed(&app, &server_id, jvmargs::FILE);
+    }
+    super::find_server(&state, &server_id)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn get_server_launch_command(
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<String> {
+    let server = super::find_server(&state, &server_id)?;
+    runtime::launch_preview(&state, &server).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn accept_server_eula(state: State<AppState>, server_id: String) -> Result<Server> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    provision::write_eula(&state.files, &dir)?;
+    state
+        .db
+        .accept_server_eula(&server_id, chrono::Utc::now().timestamp())?;
+    super::find_server(&state, &server_id)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn delete_server(state: State<AppState>, server_id: String, delete_files: bool) -> Result<()> {
+    delete_server_core(&state, &server_id, delete_files)
+}
+
+const SERVER_DELETE_PENDING: &str = ".delete-server-pending-";
+const SERVER_DELETE_COMMITTED: &str = ".delete-server-committed-";
+
+pub(crate) fn recover_committed_server_deletions(state: &AppState) -> Result<usize> {
+    let root = state.paths.servers();
+    let mut removed = 0;
+    for path in state.files.read_dir(&root).unwrap_or_default() {
+        let name = path.file_name().unwrap_or_default().to_string_lossy();
+        if !name.starts_with(SERVER_DELETE_COMMITTED) {
+            continue;
+        }
+        let metadata = state.files.symlink_metadata(&path)?;
+        if metadata.file_type().is_symlink() {
+            return Err(Error::other(format!(
+                "refusing unsafe server deletion recovery link: {}",
+                path.display()
+            )));
+        }
+        if state.files.remove_managed_dir_all_if_exists(&path)? {
+            removed += 1;
+        }
+    }
+    Ok(removed)
+}
+
+pub(crate) fn delete_server_core(
+    state: &AppState,
+    server_id: &str,
+    delete_files: bool,
+) -> Result<()> {
+    let server = super::find_server(state, server_id)?;
+    if state
+        .servers
+        .lock()
+        .unwrap()
+        .get(server_id)
+        .is_some_and(runtime::ServerHandle::live)
+    {
+        return Err(Error::other("Stop the server before deleting it."));
+    }
+    if delete_files && !server.managed {
+        return Err(Error::other(
+            "Enderloom does not own this folder, so it will not delete it.",
+        ));
+    }
+
+    let mut quarantined = None;
+    if delete_files {
+        let live = PathBuf::from(&server.dir);
+        if state.paths.server_dir_checked(server_id).as_deref() != Some(live.as_path()) {
+            return Err(Error::other(
+                "managed server path does not match its identity",
+            ));
+        }
+        if state.files.exists(&live)? {
+            let pending = state.paths.servers().join(format!(
+                "{SERVER_DELETE_PENDING}{server_id}-{}",
+                uuid::Uuid::new_v4()
+            ));
+            state.files.rename(&live, &pending)?;
+            quarantined = Some((live, pending));
+        }
+    }
+
+    let database = (|| {
+        state.db.forget_server_content(server_id)?;
+        state.db.delete_server(server_id)
+    })();
+    if let Err(error) = database {
+        if let Some((live, pending)) = &quarantined {
+            if let Err(rollback) = state.files.rename(pending, live) {
+                return Err(Error::other(format!(
+                    "{error}; server files remain recoverable at {} because rollback failed: {rollback}",
+                    pending.display()
+                )));
+            }
+        }
+        return Err(error);
+    }
+
+    if let Some((_, pending)) = quarantined {
+        let committed = state.paths.servers().join(format!(
+            "{SERVER_DELETE_COMMITTED}{server_id}-{}",
+            uuid::Uuid::new_v4()
+        ));
+        state.files.rename(&pending, &committed).map_err(|error| {
+            Error::other(format!(
+                "server metadata was removed; files remain recoverable at {}: {error}",
+                pending.display()
+            ))
+        })?;
+        state.files.remove_managed_dir_all_if_exists(committed)?;
+    }
+    runtime::forget(state, server_id);
+    if !server.managed {
+        state.files.release_exact_root(PathBuf::from(&server.dir));
+    }
+    let mut refresh_error = None;
+    for _ in 0..20 {
+        match crate::servers::adopt_imported_dirs(state) {
+            Ok(()) => {
+                refresh_error = None;
+                break;
+            }
+            Err(error) => {
+                refresh_error = Some(error);
+                std::thread::sleep(std::time::Duration::from_millis(50));
+            }
+        }
+    }
+    if let Some(error) = refresh_error {
+        return Err(Error::other(format!(
+            "server metadata was removed, but external folder access could not refresh yet; restart Enderloom: {error}"
+        )));
+    }
+    tracing::info!(server_id = %server_id, delete_files, "server removed");
+    Ok(())
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+pub async fn start_server(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<runtime::ServerRunningInfo> {
+    let server = super::find_server(&state, &server_id)?;
+    runtime::start(&app, &state, &server).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+pub async fn stop_server(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    runtime::stop(&app, &state, &server).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+pub async fn restart_server(
+    app: AppHandle,
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<runtime::ServerRunningInfo> {
+    let server = super::find_server(&state, &server_id)?;
+    if state
+        .servers
+        .lock()
+        .unwrap()
+        .get(&server_id)
+        .is_some_and(runtime::ServerHandle::live)
+    {
+        runtime::stop(&app, &state, &server).await?;
+    }
+    runtime::start(&app, &state, &server).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn force_stop_server(state: State<AppState>, server_id: String) -> Result<()> {
+    runtime::force_stop(&state, &server_id)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn get_server_disk_usage(state: State<AppState>, server_id: String) -> Result<u64> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    Ok(crate::storage::directory_size(&state.files, &dir))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn send_server_command(
+    state: State<'_, AppState>,
+    server_id: String,
+    line: String,
+) -> Result<()> {
+    if line.trim().is_empty() {
+        return Ok(());
+    }
+    runtime::send_command(&state, &server_id, &line).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip_all)]
+pub fn get_server_console(state: State<AppState>, server_id: String) -> Vec<runtime::ConsoleLine> {
+    runtime::console(&state, &server_id)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip_all)]
+pub fn list_running_servers(state: State<AppState>) -> Vec<runtime::ServerRunningInfo> {
+    runtime::running(&state)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn get_server_properties(
+    state: State<AppState>,
+    server_id: String,
+) -> Result<Vec<ServerProperty>> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    let config = config::read(&state.files, &server)?;
+    cache_config(&state, &server, &config)?;
+    Ok(properties_of(config))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state, changes), err)]
+pub fn set_server_properties(
+    state: State<AppState>,
+    server_id: String,
+    changes: Vec<ServerProperty>,
+    removed: Vec<String>,
+) -> Result<Vec<ServerProperty>> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    let edits = changes
+        .into_iter()
+        .map(|property| config::Entry {
+            key: property.key,
+            value: property.value,
+        })
+        .collect::<Vec<_>>();
+    let config = config::write(&state.files, &server, &edits, &removed)?;
+    cache_config(&state, &server, &config)?;
+    Ok(properties_of(config))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn list_server_content(
+    state: State<'_, AppState>,
+    server_id: String,
+    reconcile: Option<bool>,
+) -> Result<Vec<crate::content::ContentItem>> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    if let Err(error) = zippack::link_curseforge_content(&state, &server).await {
+        tracing::warn!(%error, server_id = %server.id, "could not restore the server pack's CurseForge mod links");
+    }
+    if reconcile.unwrap_or(false) {
+        crate::search::identify::reconcile(
+            &state,
+            crate::search::resolve::Target::Server(&server),
+            "mods",
+        )
+        .await?;
+    }
+    let mut items = content::list(&state.files, &server)?;
+    let mut sources: std::collections::HashMap<String, crate::db::ContentFile> = state
+        .db
+        .server_content_files(&server.id, "mods")?
+        .into_iter()
+        .map(|file| (file.file_name.clone(), file))
+        .collect();
+    let mut updates: std::collections::HashMap<String, crate::db::ContentUpdate> = state
+        .db
+        .server_content_updates(&server.id)?
+        .into_iter()
+        .map(|update| (update.file_name.clone(), update))
+        .collect();
+    for item in &mut items {
+        item.source = sources.remove(&item.file_name);
+        item.update = updates.remove(&item.file_name);
+    }
+    Ok(items)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn toggle_server_content(
+    state: State<AppState>,
+    server_id: String,
+    file_name: String,
+) -> Result<bool> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    content::toggle(&state.files, &server, &file_name)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn delete_server_content(
+    state: State<AppState>,
+    server_id: String,
+    file_name: String,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    content::delete(&state.files, &server, &file_name)?;
+    state
+        .db
+        .delete_server_content_file(&server.id, "mods", &file_name)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn add_server_content(
+    state: State<AppState>,
+    server_id: String,
+    sources: Vec<String>,
+) -> Result<usize> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    content::add(&state.files, &server, &sources)
+}
+
+fn is_live(state: &AppState, server_id: &str) -> bool {
+    state
+        .servers
+        .lock()
+        .unwrap()
+        .get(server_id)
+        .is_some_and(runtime::ServerHandle::live)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn list_server_players(
+    state: State<AppState>,
+    server_id: String,
+    list: String,
+) -> Result<Vec<players::PlayerEntry>> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    Ok(players::read(
+        &state.files,
+        &dir,
+        players::PlayerList::parse(&list)?,
+    ))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn add_server_player(
+    state: State<'_, AppState>,
+    server_id: String,
+    list: String,
+    name: String,
+    reason: Option<String>,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    let list = players::PlayerList::parse(&list)?;
+
+    if is_live(&state, &server_id) {
+        return runtime::send_command(
+            &state,
+            &server_id,
+            &players::command_to_add(list, name.trim(), reason.as_deref()),
+        )
+        .await;
+    }
+
+    let (uuid, resolved) = players::look_up(&state.network, &name).await?;
+    let mut entries = players::read(&state.files, &dir, list);
+    if entries
+        .iter()
+        .any(|entry| entry.uuid.eq_ignore_ascii_case(&uuid))
+    {
+        return Err(Error::other(format!("{resolved} is already on this list.")));
+    }
+    entries.push(players::entry_for(list, uuid, resolved, reason));
+    players::write(&state.files, &dir, list, &entries)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn remove_server_player(
+    state: State<'_, AppState>,
+    server_id: String,
+    list: String,
+    name: String,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    let list = players::PlayerList::parse(&list)?;
+
+    if is_live(&state, &server_id) {
+        return runtime::send_command(
+            &state,
+            &server_id,
+            &players::command_to_remove(list, name.trim()),
+        )
+        .await;
+    }
+
+    let mut entries = players::read(&state.files, &dir, list);
+    let before = entries.len();
+    entries.retain(|entry| {
+        !entry.name.eq_ignore_ascii_case(name.trim())
+            && !entry.uuid.eq_ignore_ascii_case(name.trim())
+    });
+    if entries.len() == before {
+        return Err(Error::other(format!("{name} is not on this list.")));
+    }
+    players::write(&state.files, &dir, list, &entries)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn get_server_script_memory(
+    state: State<AppState>,
+    server_id: String,
+) -> Result<Option<(Option<String>, Option<String>)>> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    Ok(jvmargs::read(&state.files, &dir).map(|text| jvmargs::declared_memory(&text)))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn apply_server_script_memory(
+    app: AppHandle,
+    state: State<AppState>,
+    server_id: String,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    if server.launch_script.is_none() {
+        return Err(Error::other(
+            "This server does not have a modpack compatibility script.",
+        ));
+    }
+    let dir = reachable(&server)?;
+    let settings = state.runtime_settings()?;
+    let memory = crate::config::MemoryLimits::new(
+        server
+            .min_memory_mb
+            .unwrap_or(settings.server_min_memory_mb),
+        server
+            .max_memory_mb
+            .unwrap_or(settings.server_max_memory_mb),
+    )?;
+    jvmargs::apply(&state.files, &dir, memory)?;
+    state.db.manage_server_script_memory(&server_id)?;
+    emit_server_file_changed(&app, &server_id, jvmargs::FILE);
+    Ok(())
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn rescan_server(state: State<AppState>, server_id: String) -> Result<rescan::Rescan> {
+    let server = super::find_server(&state, &server_id)?;
+    rescan::run(&state.db, &server)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn set_server_launch_script(
+    state: State<AppState>,
+    server_id: String,
+    use_script: bool,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    if server.pack_provider.as_deref() != Some("curseforge") || server.launch_script.is_none() {
+        return Err(Error::other(
+            "Only a CurseForge server pack with a start script can change this setting.",
+        ));
+    }
+    if !use_script && server.launch_jar.is_none() && server.launch_argfiles.is_empty() {
+        return Err(Error::other(
+            "Run the pack's script once, then rescan the server before turning it off. The pack has not installed its loader yet.",
+        ));
+    }
+    state
+        .db
+        .set_server_skip_launch_script(&server_id, !use_script)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn set_server_whitelist(
+    state: State<'_, AppState>,
+    server_id: String,
+    enabled: bool,
+) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    if server.flavor.native() {
+        return Err(Error::other(format!(
+            "A {} server keeps this in {}.",
+            server.flavor.label(),
+            server.flavor.config_file()
+        )));
+    }
+
+    if is_live(&state, &server_id) {
+        let line = if enabled {
+            "whitelist on"
+        } else {
+            "whitelist off"
+        };
+        runtime::send_command(&state, &server_id, line).await?;
+    }
+
+    let entry = config::Entry {
+        key: "white-list".to_string(),
+        value: enabled.to_string(),
+    };
+    config::write(&state.files, &server, &[entry], &[])?;
+    Ok(())
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+pub async fn install_server_pack(
+    app: tauri::AppHandle,
+    state: State<'_, AppState>,
+    provider: String,
+    project_id: String,
+    version_id: String,
+    manual_sources: Option<Vec<crate::modpack::ManualDownloadSource>>,
+) -> Result<Server> {
+    let manual_sources = manual_sources.unwrap_or_default();
+    let provider = crate::search::Provider::parse(&provider)?;
+    let task = state.tasks.start(
+        &app,
+        TaskKind::ServerInstall,
+        TaskSpec {
+            title: "Modpack server".to_string(),
+            subtitle: None,
+            icon_url: None,
+            instance_id: None,
+            server_id: None,
+            project_id: Some(project_id.clone()),
+            total: 0,
+            total_bytes: 0,
+        },
+    )?;
+
+    match pack::install(
+        &app,
+        &state,
+        provider,
+        &project_id,
+        &version_id,
+        &manual_sources,
+        &task,
+    )
+    .await
+    {
+        Ok(server) => {
+            task.succeed();
+            Ok(server)
+        }
+        Err(error) => {
+            task.fail(error.to_string());
+            Err(error)
+        }
+    }
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(app, state), err)]
+#[allow(clippy::too_many_arguments)]
+pub async fn install_server_zip(
+    app: tauri::AppHandle,
+    state: State<'_, AppState>,
+    name: String,
+    url: Option<String>,
+    local_path: Option<String>,
+    file_name: String,
+    sha1: Option<String>,
+    size: Option<u64>,
+    game_version: Option<String>,
+    provider: String,
+    project_id: String,
+    pack_version_id: String,
+) -> Result<Server> {
+    let task = state.tasks.start(
+        &app,
+        TaskKind::ServerInstall,
+        TaskSpec {
+            title: name.clone(),
+            subtitle: Some("server pack".to_string()),
+            icon_url: None,
+            instance_id: None,
+            server_id: None,
+            project_id: None,
+            total: 0,
+            total_bytes: 0,
+        },
+    )?;
+    let source = zippack::Source {
+        url,
+        local_path,
+        file_name,
+        sha1,
+        size,
+        provider,
+        project_id,
+        version_id: pack_version_id,
+    };
+    match zippack::install(&state, &name, &source, game_version.as_deref(), &task).await {
+        Ok(server) => {
+            task.succeed();
+            Ok(server)
+        }
+        Err(error) => {
+            task.fail(error.to_string());
+            Err(error)
+        }
+    }
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn check_server_pack_update(
+    state: State<'_, AppState>,
+    server_id: String,
+) -> Result<Option<crate::modpack::ModpackUpgrade>> {
+    let server = super::find_server(&state, &server_id)?;
+    let (Some(provider), Some(project_id), Some(current)) = (
+        server.pack_provider.as_deref(),
+        server.pack_project_id.as_deref(),
+        server.pack_version_id.as_deref(),
+    ) else {
+        return Ok(None);
+    };
+    crate::modpack::update_between(
+        &state,
+        crate::search::Provider::parse(provider)?,
+        project_id,
+        current,
+        None,
+    )
+    .await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn plan_server_content_removal(
+    state: State<AppState>,
+    server_id: String,
+    file_name: String,
+) -> Result<crate::search::resolve::RemovalPlan> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    Ok(crate::search::resolve::plan_removal(
+        &state,
+        crate::search::resolve::Target::Server(&server),
+        crate::search::ContentKind::Mod,
+        &file_name,
+    ))
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn check_server_content_updates(
+    state: State<'_, AppState>,
+    server_id: String,
+    force: Option<bool>,
+) -> Result<Vec<crate::db::ContentUpdate>> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    let checked_at = state.db.server_updates_checked_at(&server_id)?;
+    if !force.unwrap_or(false) && !crate::search::updates::is_stale(checked_at) {
+        return state.db.server_content_updates(&server_id);
+    }
+    crate::search::updates::check_server(&state, &server).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub async fn plan_server_content_install(
+    state: State<'_, AppState>,
+    server_id: String,
+    provider: String,
+    project_id: String,
+    version_id: Option<String>,
+) -> Result<crate::search::resolve::InstallPlan> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    crate::search::resolve::plan(
+        &state,
+        crate::search::Provider::parse(&provider)?,
+        &project_id,
+        crate::search::resolve::Target::Server(&server),
+        crate::search::ContentKind::Mod,
+        &server.version_id,
+        Some(server.flavor.id()),
+        version_id.as_deref(),
+        true,
+    )
+    .await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state, app), err)]
+pub async fn install_server_content(
+    app: tauri::AppHandle,
+    state: State<'_, AppState>,
+    server_id: String,
+    provider: String,
+    project_id: String,
+    version_id: Option<String>,
+    with_dependencies: Option<bool>,
+) -> Result<Vec<crate::search::resolve::InstalledItem>> {
+    let server = super::find_server(&state, &server_id)?;
+    reachable(&server)?;
+    let provider = crate::search::Provider::parse(&provider)?;
+    let kind = crate::search::ContentKind::Mod;
+    let target = crate::search::resolve::Target::Server(&server);
+    let plan = crate::search::resolve::plan(
+        &state,
+        provider,
+        &project_id,
+        target,
+        kind,
+        &server.version_id,
+        Some(server.flavor.id()),
+        version_id.as_deref(),
+        with_dependencies.unwrap_or(true),
+    )
+    .await?;
+    crate::search::resolve::apply(Some(&app), &state, &plan, provider, target, kind, None).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn list_server_files(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+) -> Result<Vec<ServerEntry>> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::entries(&state.files, &dir, &path)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn read_server_file(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+) -> Result<ServerText> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::read_text(&state.files, &dir, &path)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state, text), err)]
+pub fn write_server_file(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+    text: String,
+) -> Result<Option<TextProblem>> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    let problem = crate::servers::files::write_text(&state.files, &dir, &path, &text)?;
+    if problem.is_none() && path.trim_matches('/') == server.flavor.config_file() {
+        let config = config::read(&state.files, &server)?;
+        cache_config(&state, &server, &config)?;
+    }
+    Ok(problem)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip_all)]
+pub fn check_server_file(path: String, text: String) -> Option<TextProblem> {
+    crate::servers::files::validate(FileKind::of(&path), &text)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn create_server_folder(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+    name: String,
+) -> Result<String> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::create_dir(&state.files, &dir, &path, &name)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn rename_server_entry(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+    name: String,
+) -> Result<String> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::rename(&state.files, &dir, &path, &name)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn delete_server_entry(state: State<AppState>, server_id: String, path: String) -> Result<()> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::delete(&state.files, &dir, &path)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn upload_server_files(
+    state: State<AppState>,
+    server_id: String,
+    path: String,
+    sources: Vec<String>,
+) -> Result<usize> {
+    let server = super::find_server(&state, &server_id)?;
+    let dir = reachable(&server)?;
+    crate::servers::files::upload(&state.files, &dir, &path, &sources)
+}

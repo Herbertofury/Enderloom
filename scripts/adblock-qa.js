@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('assert');const fs=require('fs');const path=require('path');
+const {verifyExtension,compareVersions,OFFICIAL_REPO}=require('../src/adblock');
+const {NativeFilterEngine,DEFAULT_SOURCES}=require('../src/native-adblock');
+const root=path.join(__dirname,'..','extensions','ublock-origin');const m=verifyExtension(root);
+assert.equal(m.name,'uBlock Origin');assert.equal(m.version,'1.74.0');assert.equal(m.manifest_version,2);assert(m.permissions.includes('webRequestBlocking'));
+const bg=fs.readFileSync(path.join(root,'background.html'),'utf8');const shim=bg.indexOf('js/electron-compat.js'),start=bg.indexOf('js/start.js');assert(shim>=0&&shim<start,'Electron shim must load before uBO start');
+const compat=fs.readFileSync(path.join(root,'js','electron-compat.js'),'utf8');for(const api of ['alarms','browserAction','contextMenus','webNavigation','windows','privacy'])assert(compat.includes(api),`missing ${api} compatibility`);
+const manager=fs.readFileSync(path.join(__dirname,'..','src','adblock.js'),'utf8');assert(manager.includes("Extensions','uBlockOrigin"),'stable userData path missing');assert(manager.includes('releases/latest'),'official updater missing');assert(manager.includes('createNativeAdblock'),'native verified filtering fallback missing');assert.equal(OFFICIAL_REPO,'gorhill/uBlock');assert(compareVersions('1.74.0','1.72.0')>0);assert(compareVersions('1.74.0','1.74.0')===0);
+const engine=new NativeFilterEngine();for(const src of DEFAULT_SOURCES){const text=fs.readFileSync(path.join(root,...src.fallback.split('/')),'utf8');for(const line of text.split(/\r?\n/))engine.addRule(line)}engine.finalize();
+assert(engine.stats.parsed>100000,`too few parsed uBO/EasyList rules: ${engine.stats.parsed}`);
+const ctx={resourceType:'script',referrer:'https://www.planetminecraft.com/'};
+for(const url of ['https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js','https://securepubads.g.doubleclick.net/tag/js/gpt.js','https://ib.adnxs.com/ttj?id=123','https://www.googleadservices.com/pagead/conversion.js']) assert.equal(engine.decision(url,ctx).block,true,`expected ad URL blocked: ${url}`);
+assert.equal(engine.decision('https://www.planetminecraft.com/',{resourceType:'mainFrame',referrer:''}).block,false,'Planet Minecraft itself must not be blocked');
+const status=fs.readFileSync(path.join(__dirname,'..','status.js'),'utf8');assert(status.includes('filteringVerified'),'status bar still treats extension load as proof of ad blocking');
+console.log(JSON.stringify({passed:true,name:m.name,version:m.version,shimBeforeStartup:true,officialRepo:OFFICIAL_REPO,nativeRules:engine.stats.parsed,domainRules:engine.stats.domain,genericRules:engine.stats.generic,verifiedPlanetMinecraftAdBlocking:true}));

@@ -1,0 +1,966 @@
+use std::collections::{HashMap, HashSet};
+
+use serde::Serialize;
+use tauri::AppHandle;
+
+use super::{download_url, fetch_version, model::*, resolve_projects};
+use crate::{
+    content,
+    db::ContentFile,
+    download::{self, DownloadSpec},
+    error::Result,
+    state::AppState,
+    tasks::{TaskKind, TaskSpec},
+};
+
+const MAX_DEPTH: u8 = 5;
+
+fn ensure_loader_for(kind: ContentKind, loader: Option<&str>) -> Result<()> {
+    if kind == ContentKind::Mod && loader.is_none() {
+        return Err(crate::error::Error::other(
+            "Mods cannot be installed to a vanilla instance. Add a mod loader first.",
+        ));
+    }
+    Ok(())
+}
+
+#[derive(Clone, Copy)]
+pub enum Target<'a> {
+    Instance(&'a str),
+    Server(&'a crate::servers::Server),
+}
+
+impl<'a> Target<'a> {
+    pub fn pack_provider(self, state: &AppState) -> Option<Provider> {
+        let provider = match self {
+            Target::Instance(id) => state.db.instance_pack_provider(id).ok()?,
+            Target::Server(server) => server.pack_provider.clone(),
+        }?;
+        Provider::parse(&provider).ok()
+    }
+
+    pub fn instance_id(self) -> Option<&'a str> {
+        match self {
+            Target::Instance(id) => Some(id),
+            Target::Server(_) => None,
+        }
+    }
+
+    pub fn server_id(self) -> Option<&'a str> {
+        match self {
+            Target::Instance(_) => None,
+            Target::Server(server) => Some(&server.id),
+        }
+    }
+
+    fn supports(self, state: &AppState, kind: ContentKind) -> Result<()> {
+        match self {
+            Target::Instance(id) => {
+                let instance = state
+                    .db
+                    .list_instances(&state.files)?
+                    .into_iter()
+                    .find(|instance| instance.id == id)
+                    .ok_or_else(|| crate::error::Error::NotFound(format!("instance {id}")))?;
+                ensure_loader_for(kind, instance.loader.as_deref())
+            }
+            Target::Server(server) => {
+                if kind != ContentKind::Mod {
+                    return Err(crate::error::Error::other(format!(
+                        "A server takes no {}.",
+                        kind.as_str()
+                    )));
+                }
+                crate::servers::content::dir_of(server).map(|_| ())
+            }
+        }
+    }
+
+    pub fn dir(self, state: &AppState, kind: ContentKind) -> Result<std::path::PathBuf> {
+        match self {
+            Target::Instance(id) => content::dir_for(&state.paths, id, kind.as_str()),
+            Target::Server(server) => crate::servers::content::dir_of(server),
+        }
+    }
+
+    pub fn installed(self, state: &AppState, kind: ContentKind) -> Vec<ContentFile> {
+        match self {
+            Target::Instance(id) => state.db.content_files(id, kind.as_str()),
+            Target::Server(server) => state.db.server_content_files(&server.id, kind.as_str()),
+        }
+        .unwrap_or_default()
+    }
+
+    pub fn record(self, state: &AppState, kind: ContentKind, file: &ContentFile) -> Result<()> {
+        match self {
+            Target::Instance(id) => state.db.record_content_file(id, kind.as_str(), file),
+            Target::Server(server) => {
+                state
+                    .db
+                    .record_server_content_file(&server.id, kind.as_str(), file)
+            }
+        }
+    }
+
+    fn forget(self, state: &AppState, kind: ContentKind, file_name: &str) -> Result<()> {
+        match self {
+            Target::Instance(id) => state.db.delete_content_file(id, kind.as_str(), file_name),
+            Target::Server(server) => {
+                state
+                    .db
+                    .delete_server_content_file(&server.id, kind.as_str(), file_name)
+            }
+        }
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    pub fn merge_identity(
+        self,
+        state: &AppState,
+        kind: ContentKind,
+        file_name: &str,
+        sha1: Option<&str>,
+        sha512: Option<&str>,
+        murmur2: Option<i64>,
+        mod_id: Option<&str>,
+        mod_version: Option<&str>,
+    ) -> Result<()> {
+        match self {
+            Target::Instance(id) => state.db.merge_identity(
+                id,
+                kind.as_str(),
+                file_name,
+                sha1,
+                sha512,
+                murmur2,
+                mod_id,
+                mod_version,
+            ),
+            Target::Server(server) => state.db.merge_server_identity(
+                &server.id,
+                kind.as_str(),
+                file_name,
+                sha1,
+                sha512,
+                murmur2,
+                mod_id,
+                mod_version,
+            ),
+        }
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    pub fn merge_provider_identity(
+        self,
+        state: &AppState,
+        kind: ContentKind,
+        file_name: &str,
+        provider: &str,
+        project_id: &str,
+        version_id: Option<&str>,
+        title: Option<&str>,
+        icon_url: Option<&str>,
+    ) -> Result<()> {
+        match self {
+            Target::Instance(id) => state.db.merge_provider_identity(
+                id,
+                kind.as_str(),
+                file_name,
+                provider,
+                project_id,
+                version_id,
+                title,
+                icon_url,
+            ),
+            Target::Server(server) => state.db.merge_server_provider_identity(
+                &server.id,
+                kind.as_str(),
+                file_name,
+                provider,
+                project_id,
+                version_id,
+                title,
+                icon_url,
+            ),
+        }
+    }
+
+    pub fn set_fallback_title(
+        self,
+        state: &AppState,
+        kind: ContentKind,
+        file_name: &str,
+        title: &str,
+    ) -> Result<()> {
+        match self {
+            Target::Instance(id) => {
+                state
+                    .db
+                    .set_fallback_title(id, kind.as_str(), file_name, title)
+            }
+            Target::Server(server) => {
+                state
+                    .db
+                    .set_server_fallback_title(&server.id, kind.as_str(), file_name, title)
+            }
+        }
+    }
+
+    fn name(self, state: &AppState) -> Option<String> {
+        match self {
+            Target::Instance(id) => state
+                .db
+                .list_instances(&state.files)
+                .ok()
+                .and_then(|list| list.into_iter().find(|entry| entry.id == id))
+                .map(|entry| entry.name),
+            Target::Server(server) => Some(server.name.clone()),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct InstalledItem {
+    pub file_name: String,
+    pub title: String,
+    pub icon_url: Option<String>,
+    pub is_dependency: bool,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PlannedFile {
+    pub project_id: String,
+    pub version_id: String,
+    pub title: String,
+    pub icon_url: Option<String>,
+    pub file_name: String,
+    pub version_name: String,
+    pub url: String,
+    pub sha1: Option<String>,
+    pub sha512: Option<String>,
+    pub size: Option<u64>,
+    pub is_dependency: bool,
+    pub replaces: Option<String>,
+    pub dependencies: Vec<VersionDependency>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct SkippedProject {
+    pub project_id: String,
+    pub title: String,
+    pub icon_url: Option<String>,
+    pub reason: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct Conflict {
+    pub project_id: String,
+    pub title: String,
+    pub file_name: Option<String>,
+    pub reason: String,
+}
+
+#[derive(Debug, Clone, Serialize, Default)]
+pub struct InstallPlan {
+    pub primary: Option<PlannedFile>,
+    pub dependencies: Vec<PlannedFile>,
+    pub already_present: Vec<ProjectSummary>,
+    pub skipped: Vec<SkippedProject>,
+    pub conflicts: Vec<Conflict>,
+    pub total_bytes: u64,
+}
+
+impl InstallPlan {
+    pub fn files(&self) -> Vec<&PlannedFile> {
+        self.primary
+            .iter()
+            .chain(self.dependencies.iter())
+            .collect()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.primary.is_none() && self.dependencies.is_empty()
+    }
+}
+
+fn is_trailing_noise(part: &str) -> bool {
+    if part.chars().next().is_some_and(|c| c.is_ascii_digit()) {
+        return true;
+    }
+    if let Some(rest) = part.strip_prefix("mc") {
+        if rest.chars().next().is_some_and(|c| c.is_ascii_digit()) {
+            return true;
+        }
+    }
+    matches!(
+        part,
+        "fabric" | "forge" | "neoforge" | "quilt" | "mc" | "universal" | "release"
+    )
+}
+
+pub fn normalize_stem(file_name: &str) -> String {
+    let base = file_name
+        .rsplit_once('.')
+        .map(|(stem, _)| stem)
+        .unwrap_or(file_name)
+        .to_lowercase();
+
+    let mut parts: Vec<&str> = base
+        .split(['-', '_', '+'])
+        .filter(|p| !p.is_empty())
+        .collect();
+    while parts.len() > 1 && is_trailing_noise(parts[parts.len() - 1]) {
+        parts.pop();
+    }
+
+    if parts.is_empty() {
+        base
+    } else {
+        parts.join("-")
+    }
+}
+
+struct InstalledIndex {
+    by_project: HashMap<String, ContentFile>,
+    mod_ids: HashSet<String>,
+    stems: HashSet<String>,
+}
+
+fn index_installed(state: &AppState, target: Target, kind: ContentKind) -> InstalledIndex {
+    let files = target.installed(state, kind);
+
+    let mut by_project = HashMap::new();
+    let mut mod_ids = HashSet::new();
+    let mut stems = HashSet::new();
+
+    for file in files {
+        if let Some(project_id) = &file.project_id {
+            by_project.insert(project_id.clone(), file.clone());
+        }
+        if let Some(mod_id) = &file.mod_id {
+            mod_ids.insert(mod_id.to_lowercase());
+        }
+        stems.insert(normalize_stem(&file.file_name));
+    }
+
+    InstalledIndex {
+        by_project,
+        mod_ids,
+        stems,
+    }
+}
+
+fn planned_from(
+    version: &ProjectVersion,
+    summary: Option<&ProjectSummary>,
+    project_id: &str,
+    is_dependency: bool,
+    replaces: Option<String>,
+) -> Result<PlannedFile> {
+    let (url, file) = download_url(version)?;
+    Ok(PlannedFile {
+        project_id: project_id.to_string(),
+        version_id: version.id.clone(),
+        title: summary
+            .map(|s| s.title.clone())
+            .unwrap_or_else(|| version.name.clone()),
+        icon_url: summary.and_then(|s| s.icon_url.clone()),
+        file_name: file.file_name.clone(),
+        version_name: version.name.clone(),
+        url,
+        sha1: file.sha1.clone(),
+        sha512: file.sha512.clone(),
+        size: file.size,
+        is_dependency,
+        replaces,
+        dependencies: version.dependencies.clone(),
+    })
+}
+
+pub fn rollback_written(files: &crate::files::FileManager, task: &crate::tasks::TaskHandle) {
+    let paths = std::mem::take(&mut *task.written().lock().unwrap());
+    for path in paths {
+        let _ = files.remove_file_if_exists(path);
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+pub async fn plan(
+    state: &AppState,
+    provider: Provider,
+    project_id: &str,
+    target: Target<'_>,
+    kind: ContentKind,
+    game_version: &str,
+    loader: Option<&str>,
+    version_id: Option<&str>,
+    with_dependencies: bool,
+) -> Result<InstallPlan> {
+    target.supports(state, kind)?;
+
+    let installed = index_installed(state, target, kind);
+    let mut plan = InstallPlan::default();
+
+    let version = fetch_version(
+        state,
+        provider,
+        project_id,
+        kind,
+        game_version,
+        loader,
+        version_id,
+    )
+    .await?;
+
+    let summaries = resolve_projects(state, provider, &[project_id.to_string()])
+        .await
+        .unwrap_or_default();
+    let summary = summaries.first();
+
+    let replaces = installed
+        .by_project
+        .get(project_id)
+        .map(|f| f.file_name.clone())
+        .filter(|name| name != &version.file_name);
+
+    plan.primary = Some(planned_from(
+        &version, summary, project_id, false, replaces,
+    )?);
+
+    if !with_dependencies || !kind.uses_loaders() {
+        plan.total_bytes = plan.files().iter().filter_map(|f| f.size).sum();
+        return Ok(plan);
+    }
+
+    let mut visited: HashSet<String> = HashSet::new();
+    visited.insert(project_id.to_string());
+
+    let mut planned_stems: HashSet<String> = HashSet::new();
+    planned_stems.insert(normalize_stem(&version.file_name));
+
+    let mut queue: Vec<(VersionDependency, u8)> = version
+        .dependencies
+        .iter()
+        .cloned()
+        .map(|d| (d, 1u8))
+        .collect();
+
+    while let Some((dependency, depth)) = queue.pop() {
+        if depth > MAX_DEPTH {
+            continue;
+        }
+
+        if dependency.dependency_type == "incompatible" {
+            if let Some(existing) = installed.by_project.get(&dependency.project_id) {
+                let title = existing
+                    .title
+                    .clone()
+                    .unwrap_or_else(|| existing.file_name.clone());
+                plan.conflicts.push(Conflict {
+                    project_id: dependency.project_id.clone(),
+                    title,
+                    file_name: Some(existing.file_name.clone()),
+                    reason: "Declared incompatible with this project".to_string(),
+                });
+            }
+            continue;
+        }
+
+        if dependency.dependency_type != "required" {
+            continue;
+        }
+        if !visited.insert(dependency.project_id.clone()) {
+            continue;
+        }
+
+        let info = resolve_projects(
+            state,
+            provider,
+            std::slice::from_ref(&dependency.project_id),
+        )
+        .await
+        .ok()
+        .and_then(|mut list| list.pop());
+
+        if let Some(existing) = installed.by_project.get(&dependency.project_id) {
+            if let Some(summary) = info.clone() {
+                plan.already_present.push(summary);
+            } else {
+                let _ = existing;
+            }
+            continue;
+        }
+
+        let title = info
+            .as_ref()
+            .map(|i| i.title.clone())
+            .unwrap_or_else(|| dependency.project_id.clone());
+
+        let dependency_version = fetch_version(
+            state,
+            provider,
+            &dependency.project_id,
+            kind,
+            game_version,
+            loader,
+            dependency.version_id.as_deref(),
+        )
+        .await;
+
+        let dependency_version = match dependency_version {
+            Ok(v) => v,
+            Err(e) => {
+                plan.skipped.push(SkippedProject {
+                    project_id: dependency.project_id.clone(),
+                    title,
+                    icon_url: info.and_then(|i| i.icon_url),
+                    reason: e.to_string(),
+                });
+                continue;
+            }
+        };
+
+        let stem = normalize_stem(&dependency_version.file_name);
+        if installed.stems.contains(&stem) || !planned_stems.insert(stem) {
+            if let Some(summary) = info {
+                plan.already_present.push(summary);
+            }
+            continue;
+        }
+
+        match planned_from(
+            &dependency_version,
+            info.as_ref(),
+            &dependency.project_id,
+            true,
+            None,
+        ) {
+            Ok(file) => {
+                queue.extend(
+                    dependency_version
+                        .dependencies
+                        .iter()
+                        .cloned()
+                        .map(|d| (d, depth + 1)),
+                );
+                plan.dependencies.push(file);
+            }
+            Err(e) => plan.skipped.push(SkippedProject {
+                project_id: dependency.project_id.clone(),
+                title,
+                icon_url: info.and_then(|i| i.icon_url),
+                reason: e.to_string(),
+            }),
+        }
+    }
+
+    for mod_id in &installed.mod_ids {
+        let _ = mod_id;
+    }
+
+    plan.total_bytes = plan.files().iter().filter_map(|f| f.size).sum();
+    Ok(plan)
+}
+
+pub async fn apply(
+    app: Option<&AppHandle>,
+    state: &AppState,
+    plan: &InstallPlan,
+    provider: Provider,
+    target: Target<'_>,
+    kind: ContentKind,
+    pack_version_id: Option<&str>,
+) -> Result<Vec<InstalledItem>> {
+    apply_inner(
+        app,
+        false,
+        state,
+        plan,
+        provider,
+        target,
+        kind,
+        pack_version_id,
+    )
+    .await
+}
+
+pub async fn apply_ipc(
+    state: &AppState,
+    plan: &InstallPlan,
+    provider: Provider,
+    target: Target<'_>,
+    kind: ContentKind,
+    pack_version_id: Option<&str>,
+) -> Result<Vec<InstalledItem>> {
+    apply_inner(
+        None,
+        true,
+        state,
+        plan,
+        provider,
+        target,
+        kind,
+        pack_version_id,
+    )
+    .await
+}
+
+#[allow(clippy::too_many_arguments)]
+async fn apply_inner(
+    app: Option<&AppHandle>,
+    ipc: bool,
+    state: &AppState,
+    plan: &InstallPlan,
+    provider: Provider,
+    target: Target<'_>,
+    kind: ContentKind,
+    pack_version_id: Option<&str>,
+) -> Result<Vec<InstalledItem>> {
+    target.supports(state, kind)?;
+
+    if plan.is_empty() {
+        return Ok(Vec::new());
+    }
+
+    let dir = target.dir(state, kind)?;
+    state.files.ensure_dir(&dir)?;
+
+    let files = plan.files();
+    let total = files.len();
+    let specs: Vec<DownloadSpec> = files
+        .iter()
+        .map(|f| DownloadSpec {
+            url: f.url.clone(),
+            dest: dir.join(&f.file_name),
+            sha1: f.sha1.clone(),
+            sha256: None,
+            size: f.size,
+        })
+        .collect();
+
+    let task = if app.is_some() || ipc {
+        let target_name = target.name(state);
+        let spec = TaskSpec {
+            title: plan
+                .primary
+                .as_ref()
+                .map(|f| f.title.clone())
+                .unwrap_or_else(|| "Content".to_string()),
+            subtitle: target_name.map(|name| format!("into {name}")),
+            icon_url: plan.primary.as_ref().and_then(|f| f.icon_url.clone()),
+            instance_id: target.instance_id().map(str::to_owned),
+            server_id: target.server_id().map(str::to_owned),
+            project_id: plan.primary.as_ref().map(|f| f.project_id.clone()),
+            total: total as u64,
+            total_bytes: plan.total_bytes,
+        };
+        Some(if let Some(app) = app {
+            state.tasks.start(
+                app,
+                match pack_version_id {
+                    Some(_) => TaskKind::ModpackInstall,
+                    None => TaskKind::ContentInstall,
+                },
+                spec,
+            )?
+        } else {
+            state.tasks.start_ipc(
+                match pack_version_id {
+                    Some(_) => TaskKind::ModpackInstall,
+                    None => TaskKind::ContentInstall,
+                },
+                spec,
+            )?
+        })
+    } else {
+        None
+    };
+
+    if let Some(task) = &task {
+        task.stage("downloading");
+    }
+
+    let retry_hook = task
+        .as_ref()
+        .map(|t| move |attempt: u32, max: u32, reason: &str| t.note_retry(attempt, max, reason));
+
+    let concurrency = state.db.load_settings()?.concurrent_downloads;
+    let outcome = {
+        let task_ref = task.as_ref();
+        download::download_many_cancellable(
+            &state.network,
+            &state.files,
+            specs,
+            concurrency,
+            move |progress| {
+                if let Some(task) = task_ref {
+                    task.progress(
+                        progress.completed as u64,
+                        progress.total as u64,
+                        progress.downloaded_bytes,
+                        progress.total_bytes,
+                    );
+                }
+            },
+            task.as_ref().map(|t| t.token()),
+            task.as_ref().map(|t| t.written()),
+            retry_hook
+                .as_ref()
+                .map(|h| h as &(dyn Fn(u32, u32, &str) + Send + Sync)),
+        )
+        .await
+    };
+
+    if let Err(e) = outcome {
+        if let Some(task) = &task {
+            rollback_written(&state.files, task);
+            match &e {
+                crate::error::Error::Cancelled => task.cancelled(),
+                other => task.fail(other),
+            }
+        }
+        return Err(e);
+    }
+
+    if let Some(task) = &task {
+        task.stage("recording");
+    }
+
+    let now = chrono::Utc::now().timestamp();
+    let mut written = Vec::with_capacity(total);
+
+    for file in files {
+        if let Some(old) = &file.replaces {
+            let _ = content::delete_in(&state.files, &dir, old);
+            target.forget(state, kind, old)?;
+        }
+
+        let record = ContentFile {
+            file_name: file.file_name.clone(),
+            sha1: file.sha1.clone(),
+            sha512: file.sha512.clone(),
+            murmur2: None,
+            provider: Some(provider.as_str().to_string()),
+            project_id: Some(file.project_id.clone()),
+            version_id: Some(file.version_id.clone()),
+            title: Some(file.title.clone()),
+            icon_url: file.icon_url.clone(),
+            mod_id: None,
+            mod_version: None,
+            dependencies: serde_json::to_string(&file.dependencies).ok(),
+            origin: if pack_version_id.is_some() {
+                "pack".to_string()
+            } else if file.is_dependency {
+                "dependency".to_string()
+            } else {
+                "user".to_string()
+            },
+            pack_version_id: pack_version_id.map(str::to_owned),
+            installed_at: now,
+        };
+        target.record(state, kind, &record)?;
+        written.push(InstalledItem {
+            file_name: file.file_name.clone(),
+            title: file.title.clone(),
+            icon_url: file.icon_url.clone(),
+            is_dependency: file.is_dependency,
+        });
+    }
+
+    if let Some(task) = &task {
+        task.succeed();
+    }
+
+    Ok(written)
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct OrphanFile {
+    pub file_name: String,
+    pub title: String,
+    pub icon_url: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct RemovalPlan {
+    pub dependents: Vec<String>,
+    pub from_pack: bool,
+    pub orphans: Vec<OrphanFile>,
+}
+
+fn required_project_ids(file: &crate::db::ContentFile) -> Vec<String> {
+    file.dependencies
+        .as_deref()
+        .and_then(|raw| serde_json::from_str::<Vec<VersionDependency>>(raw).ok())
+        .unwrap_or_default()
+        .into_iter()
+        .filter(|d| d.dependency_type == "required")
+        .map(|d| d.project_id)
+        .collect()
+}
+
+fn requires(file: &crate::db::ContentFile, project_id: &str) -> bool {
+    required_project_ids(file).iter().any(|id| id == project_id)
+}
+
+pub fn plan_removal(
+    state: &AppState,
+    target: Target<'_>,
+    kind: ContentKind,
+    file_name: &str,
+) -> RemovalPlan {
+    let files = target.installed(state, kind);
+
+    let Some(target) = files.iter().find(|f| f.file_name == file_name).cloned() else {
+        return RemovalPlan {
+            dependents: Vec::new(),
+            from_pack: false,
+            orphans: Vec::new(),
+        };
+    };
+
+    let dependents = target
+        .project_id
+        .as_deref()
+        .map(|project_id| {
+            files
+                .iter()
+                .filter(|f| {
+                    f.file_name != file_name
+                        && f.project_id.as_deref() != Some(project_id)
+                        && requires(f, project_id)
+                })
+                .map(|f| f.title.clone().unwrap_or_else(|| f.file_name.clone()))
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default();
+
+    let from_pack = target.origin == "pack";
+    let mut removing: std::collections::HashSet<String> =
+        std::collections::HashSet::from([file_name.to_string()]);
+    let mut orphans = Vec::new();
+    let mut queue = vec![target];
+
+    while let Some(current) = queue.pop() {
+        for project_id in required_project_ids(&current) {
+            let Some(candidate) = files.iter().find(|f| {
+                f.origin == "dependency"
+                    && f.project_id.as_deref() == Some(project_id.as_str())
+                    && !removing.contains(&f.file_name)
+            }) else {
+                continue;
+            };
+
+            let still_needed = files.iter().any(|f| {
+                f.file_name != candidate.file_name
+                    && !removing.contains(&f.file_name)
+                    && requires(f, &project_id)
+            });
+            if still_needed {
+                continue;
+            }
+
+            removing.insert(candidate.file_name.clone());
+            orphans.push(OrphanFile {
+                file_name: candidate.file_name.clone(),
+                title: candidate
+                    .title
+                    .clone()
+                    .unwrap_or_else(|| candidate.file_name.clone()),
+                icon_url: candidate.icon_url.clone(),
+            });
+            queue.push(candidate.clone());
+        }
+    }
+
+    RemovalPlan {
+        dependents,
+        from_pack,
+        orphans,
+    }
+}
+
+pub fn dependents_of(
+    state: &AppState,
+    target: Target<'_>,
+    kind: ContentKind,
+    project_id: &str,
+) -> Vec<String> {
+    target
+        .installed(state, kind)
+        .into_iter()
+        .filter(|file| {
+            file.project_id.as_deref() != Some(project_id)
+                && file
+                    .dependencies
+                    .as_deref()
+                    .and_then(|raw| serde_json::from_str::<Vec<VersionDependency>>(raw).ok())
+                    .is_some_and(|deps| {
+                        deps.iter()
+                            .any(|d| d.dependency_type == "required" && d.project_id == project_id)
+                    })
+        })
+        .map(|file| file.title.unwrap_or(file.file_name))
+        .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{ensure_loader_for, normalize_stem};
+    use crate::search::ContentKind;
+
+    #[test]
+    fn vanilla_instances_reject_mod_installs() {
+        let error = ensure_loader_for(ContentKind::Mod, None).unwrap_err();
+        assert_eq!(
+            error.to_string(),
+            "Mods cannot be installed to a vanilla instance. Add a mod loader first."
+        );
+        assert!(ensure_loader_for(ContentKind::Mod, Some("fabric")).is_ok());
+        assert!(ensure_loader_for(ContentKind::ResourcePack, None).is_ok());
+    }
+
+    #[test]
+    fn stems_ignore_version_and_loader_suffixes() {
+        assert_eq!(normalize_stem("fabric-api-0.92.2+1.20.1.jar"), "fabric-api");
+        assert_eq!(normalize_stem("sodium-fabric-0.5.8.jar"), "sodium");
+        assert_eq!(normalize_stem("jei-1.20.1-forge-15.3.0.4.jar"), "jei");
+        assert_eq!(normalize_stem("Iris-1.7.0.jar"), "iris");
+    }
+
+    #[test]
+    fn mc_prefixed_version_tags_are_stripped() {
+        assert_eq!(
+            normalize_stem("sodium-fabric-0.8.12+mc1.21.1.jar"),
+            "sodium"
+        );
+        assert_eq!(
+            normalize_stem("lithium-fabric-mc1.21.1-0.13.1.jar"),
+            "lithium"
+        );
+        assert_eq!(normalize_stem("mcmod-helper-1.0.jar"), "mcmod-helper");
+    }
+
+    #[test]
+    fn different_mods_keep_different_stems() {
+        assert_ne!(
+            normalize_stem("sodium-0.5.8.jar"),
+            normalize_stem("lithium-0.11.2.jar")
+        );
+    }
+
+    #[test]
+    fn versionless_names_survive() {
+        assert_eq!(normalize_stem("cloth-config.jar"), "cloth-config");
+        assert_eq!(normalize_stem("1.20.1.jar"), "1.20.1");
+    }
+
+    #[test]
+    fn leading_loader_words_are_kept() {
+        assert_eq!(normalize_stem("fabric-api-0.92.2.jar"), "fabric-api");
+        assert_eq!(
+            normalize_stem("forge-config-api-port-9.0.jar"),
+            "forge-config-api-port"
+        );
+    }
+}

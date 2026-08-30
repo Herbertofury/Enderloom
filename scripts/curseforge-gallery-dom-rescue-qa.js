@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+'use strict';
+const assert=require('assert');const fs=require('fs');const path=require('path');
+const root=path.resolve(__dirname,'..'),main=fs.readFileSync(path.join(root,'main.js'),'utf8'),provider=fs.readFileSync(path.join(root,'src','provider-media.js'),'utf8'),enhancer=fs.readFileSync(path.join(root,'catalog','enhance.js'),'utf8'),pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+assert.equal(pkg.version,'2.9.5','release version mismatch');
+assert(main.includes("version:14, policy:'adapter-role-bound-provider-owned-post-media-author-parallel-curseforge-gallery-live-order-full-html-dom-rescue-live-http-urls-only'"),'cache v14 policy missing');
+assert(main.includes('if (Number(raw?.version || 0) < 14) return;'),'pre-2.9.5 media cache must be invalidated');
+assert(main.includes('async function extractCurseForgeGalleryDomQuick'),'exact CurseForge gallery DOM rescue helper missing');
+assert(main.includes('async function extractCurseForgeGalleryHtmlFull'),'exact CurseForge gallery full-HTML rescue helper missing');
+assert(main.includes("startBackgroundPrimeEnrichment(job,state,url,chromiumGalleryFlow,'chromium-gallery-full-html')"),'prime pipeline does not retain the exact Chromium gallery full body');
+assert(main.includes("tasks.push(extractCurseForgeGalleryHtmlFull(mediaUrl,context"),'deep discovery does not race exact CurseForge gallery full HTML');
+assert(main.includes("tasks.push(discoverFastHtmlMedia(mediaUrl,context,7600,force)"),'deep discovery lost Node full-HTML gallery fallback');
+assert(main.includes("tasks.push(extractCurseForgeGalleryDomQuick(mediaUrl,context"),'deep discovery lost CurseForge DOM rescue fallback');
+assert(main.includes("startBackgroundPrimeEnrichment(job,state,url,nodeGalleryFullFlow,'node-gallery-full-html')"),'prime pipeline lost Node exact-gallery full-body fallback');
+assert(main.includes("provider==='curseforge'){const exactGallery=curseForgeGalleryUrl(deepUrl)"),'deep discovery does not synthesize exact CurseForge gallery fallback');
+assert(main.includes("directCurseForgeGallery=afterHeading"),'direct attachment anchors are not ownership-bound after the project H1');
+assert(main.includes("there.pathname.replace(/\\/$/,'')===`${base}/gallery`"),'exact same-project CurseForge gallery nav link is not allowed through nav filtering');
+assert(main.includes("check('CurseForge exact gallery full-HTML live-order rescue'"),'native Electron self-test lacks the full-HTML live-order acceptance gate');
+assert(main.includes('<a href="/minecraft/mc-mods/boks-butterflies">Description</a>')&&main.includes('Gallery (11)')&&main.includes('relations/dependencies'),'native fixture does not mirror Description/Files -> Gallery -> Relations live order');
+assert(provider.includes("if(pos>=0&&(pathIsGallery||pos<descriptionAt)"),'exact gallery parser still fences Gallery behind Description');
+assert(provider.includes("let end=pathIsGallery?text.length:descriptionAt"),'exact gallery parser still terminates at Description');
+assert(provider.includes("if(!pathIsGallery&&descriptionAt<text.length)"),'exact gallery route still mis-parses Description navigation as Description content');
+assert(enhancer.includes("if((s.gallery.length||s.galleryAbsent)&&s.quickLoaded"),'cached icon/author must not suppress a missing-gallery live prime');
+assert(!enhancer.includes("if((s.gallery.length||s.icon||s.galleryAbsent)&&s.quickLoaded"),'stale icon/author-only cache short-circuit returned');
+assert(!main.includes("Bok's Banging Butterflies',gallery:["),'production code must not hard-code Bok media URLs');
+console.log(JSON.stringify({passed:true,version:pkg.version,cacheSchema:14,liveTabOrderFix:true,exactGalleryFullHtml:true,exactGalleryDomRescue:true,deepTripleRescue:true,nativeElectronFixture:true}));

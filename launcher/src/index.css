@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* Self-hosted Minecraft-style pixel font (OFL 1.1) */
+@font-face {
+  font-family: "Monocraft";
+  src: url("/fonts/Monocraft.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-pixel: "Monocraft", "JetBrains Mono Variable", monospace;
+
+  --color-void: #000000;
+  --color-surface: #0c0e12;
+  --color-surface-2: #15171d;
+  --color-surface-3: #1e2128;
+  --color-border: #282c35;
+  --color-border-soft: #181b21;
+
+  --color-content: #e8eaf0;
+  --color-content-muted: #9aa1b0;
+  --color-content-faint: #5e6472;
+
+  --color-lava: #ff6a2b;
+  --color-lava-bright: #ff8554;
+  --color-lava-deep: #d9480f;
+  --color-ember: #ffb066;
+
+  --color-ok: #46c08a;
+  --color-warn: #e9b949;
+  --color-danger: #e5484d;
+  --color-debug: #5fb2d6;
+  --color-trace: #9b8cf0;
+}
+
+@layer base {
+  :root {
+    --accent: #ff6a2b;
+    --accent-bright: #ff8554;
+    --accent-deep: #d9480f;
+    --accent-glow: rgba(255, 106, 43, 0.28);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    background: transparent;
+  }
+
+  body {
+    margin: 0;
+    background-color: transparent;
+    color: var(--color-content);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  img,
+  svg {
+    -webkit-user-drag: none;
+  }
+
+  input,
+  textarea,
+  select,
+  [contenteditable="true"],
+  .selectable {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--color-content);
+  }
+
+  .prose-basalt {
+    color: var(--color-content-muted);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  .prose-basalt h1,
+  .prose-basalt h2,
+  .prose-basalt h3,
+  .prose-basalt h4 {
+    color: var(--color-content);
+    font-family: var(--font-display);
+    font-weight: 650;
+    margin: 1.4em 0 0.5em;
+    line-height: 1.25;
+  }
+  .prose-basalt h1 { font-size: 1.4rem; }
+  .prose-basalt h2 { font-size: 1.2rem; }
+  .prose-basalt h3 { font-size: 1.05rem; }
+  .prose-basalt p { margin: 0.7em 0; }
+  .prose-basalt a {
+    color: var(--accent, var(--color-lava));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-basalt img {
+    max-width: 100%;
+    border-radius: 0.75rem;
+    margin: 0.75em 0;
+  }
+  .prose-basalt ul,
+  .prose-basalt ol {
+    padding-left: 1.4em;
+    margin: 0.7em 0;
+  }
+  .prose-basalt ul { list-style: disc; }
+  .prose-basalt ol { list-style: decimal; }
+  .prose-basalt code {
+    background: var(--color-surface-2);
+    border-radius: 0.3rem;
+    padding: 0.1em 0.35em;
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+  }
+  .prose-basalt pre {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border-soft);
+    border-radius: 0.75rem;
+    padding: 0.9em 1em;
+    overflow-x: auto;
+    margin: 0.9em 0;
+  }
+  .prose-basalt pre code { background: transparent; padding: 0; }
+  .prose-basalt blockquote {
+    border-left: 3px solid var(--color-border);
+    padding-left: 1em;
+    margin: 0.9em 0;
+    color: var(--color-content-faint);
+  }
+  .prose-basalt hr {
+    border: 0;
+    border-top: 1px solid var(--color-border-soft);
+    margin: 1.4em 0;
+  }
+  .prose-basalt table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.9em 0;
+    font-size: 0.85em;
+  }
+  .prose-basalt th,
+  .prose-basalt td {
+    border: 1px solid var(--color-border-soft);
+    padding: 0.4em 0.7em;
+    text-align: left;
+  }
+  .prose-basalt iframe,
+  .prose-basalt video {
+    max-width: 100%;
+    border-radius: 0.75rem;
+  }
+  .prose-basalt h1:first-child,
+  .prose-basalt h2:first-child,
+  .prose-basalt p:first-child { margin-top: 0; }
+
+  /* Themed thin scrollbars for the console + lists */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-3);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border);
+    background-clip: padding-box;
+  }
+}

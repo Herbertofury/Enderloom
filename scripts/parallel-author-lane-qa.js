@@ -1,0 +1,15 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const main=fs.readFileSync(path.join(__dirname,'..','main.js'),'utf8');
+const deliverStart=main.indexOf('function deliverPrimeCandidate');
+const deliverEnd=main.indexOf('function startBackgroundPrimeEnrichment',deliverStart);
+const block=main.slice(deliverStart,deliverEnd);
+assert(deliverStart>=0&&deliverEnd>deliverStart,'deliverPrimeCandidate contract missing');
+const sendAt=block.indexOf('sendPrimeResult('),authorAt=block.indexOf('scheduleIndependentAuthorPrime(');
+assert(sendAt>=0&&authorAt>sendAt,'gallery/project media must be delivered before the independent author lane is scheduled');
+assert(/queueMicrotask\(\(\)=>\{\s*discoverIndependentAuthor/.test(main),'author profile enrichment must be asynchronous and non-blocking');
+assert(/const key=`\$\{target\}\|\$\{String\(context\.author\|\|''\)\.trim\(\)\.toLowerCase\(\)\}`/.test(main),'author cache key must fan out by creator identity rather than project title');
+assert(/const independentAuthorInflight = new Map\(\)/.test(main),'duplicate creator profile requests must single-flight');
+console.log(JSON.stringify({passed:true,deliveryBeforeAuthor:true,authorMicrotask:true,creatorFanout:true},null,2));

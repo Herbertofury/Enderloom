@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('assert');
+const {supportedProviders,authorPathMatch,exactProjectIdentityFloor,ownedMediaMarker,mediaKind,providerFullAndPreview}=require('../src/site-adapters');
+const providers=supportedProviders();
+assert.strictEqual(providers.length,23,'all 23 first-class provider families must stay registered');
+for(const name of ['curseforge','modrinth','github','gitlab','hangar','spigot','bukkit','builtbybit','nexusmods','moddb','polymart','planetminecraft','mcpedl','modbay','afdian','patreon','minecraft-marketplace','booth','fourthwall','kofi','itch','gumroad','alltheysm'])assert(providers.includes(name),`missing provider adapter ${name}`);
+assert(authorPathMatch('planetminecraft','https://www.planetminecraft.com/member/redstonae/'));
+assert(authorPathMatch('afdian','https://afdian.com/a/omomomomomomo'));
+assert(authorPathMatch('spigot','https://www.spigotmc.org/members/test.123/'));
+assert(authorPathMatch('builtbybit','https://builtbybit.com/members/test.123/'));
+assert.strictEqual(exactProjectIdentityFloor('afdian','https://afdian.com/p/5900810e484a11f18e785254001e7c00'),92);
+const transformed='https://pic1.afdiancdn.com/user/x/common/post.png?imageView2/3/w/320/h/320%7Cwatermark/2/text/demo';
+const pair=providerFullAndPreview('afdian',transformed);assert.strictEqual(pair.url,'https://pic1.afdiancdn.com/user/x/common/post.png');assert.strictEqual(pair.previewUrl,transformed);
+assert(ownedMediaMarker('afdian',`<img class="vm-pic img-pre" src="${transformed}">`,'https://afdian.com/p/5900810e484a11f18e785254001e7c00'));
+assert.strictEqual(mediaKind('https://cdn.example/test.gif'),'gif');assert.strictEqual(mediaKind('https://cdn.example/test.webm'),'video');
+console.log(JSON.stringify({passed:true,providers:providers.length,afdianOriginal:pair.url,afdianPreview:pair.previewUrl},null,2));

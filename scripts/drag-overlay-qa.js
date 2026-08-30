@@ -1,0 +1,16 @@
+'use strict';
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve(__dirname,'..');
+const js=fs.readFileSync(path.join(root,'shell.js'),'utf8');
+const css=fs.readFileSync(path.join(root,'shell.css'),'utf8');
+const main=fs.readFileSync(path.join(root,'main.js'),'utf8');
+assert(js.includes("$('addressForm').onsubmit=e=>{e.preventDefault();clearDropOverlay();"),'direct address navigation path must clear drag UI before IPC navigation');
+assert(main.includes("ipcMain.on('catalog:open-here'"),'catalog project navigation path missing');
+assert(main.includes("case 'navigate':"),'direct navigation IPC command missing');
+assert(js.includes('setTimeout(clearDropOverlay,450)'),'watchdog timeout missing');
+assert(js.includes("window.addEventListener('blur'"),'WebContentsView focus handoff recovery missing');
+assert(js.includes("window.addEventListener('dragend'"),'drag-end recovery missing');
+assert(css.includes('bottom:2px'),'drop feedback must live in statusbar zone');
+assert(css.includes('backdrop-filter:none'),'drop feedback must never blur app chrome');
+assert(!css.includes('backdrop-filter:blur(15px)'),'legacy full-screen blur returned');
+console.log(JSON.stringify({passed:true,directNavigationClearsOverlay:true,catalogNavigationPreserved:true,watchdogMs:450,fullScreenBlurRemoved:true},null,2));

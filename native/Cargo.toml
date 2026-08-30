@@ -1,0 +1,74 @@
+[package]
+name = "enderloom-core"
+version = "1.0.0"
+description = "Enderloom's native Minecraft launcher and mod-management core"
+authors = ["MegalithOfficial", "Herbertofury"]
+edition = "2021"
+license = "GPL-3.0-only"
+repository = "https://github.com/Herbertofury/Enderloom"
+readme = "../README.md"
+keywords = ["minecraft", "launcher", "electron", "modrinth", "curseforge"]
+categories = ["games"]
+publish = false
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "basalt_launcher_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+
+tauri = { version = "2", features = ["protocol-asset", "image-png"] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2.7.1"
+tauri-plugin-single-window = "1.2.0"
+tauri-plugin-updater = "2"
+
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "process", "fs", "io-util", "sync", "time"] }
+tokio-util = { version = "0.7.19", features = ["rt"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "form", "query", "stream", "multipart", "socks"] }
+rustls = { version = "0.23", default-features = false, features = ["ring"] }
+futures = "0.3"
+cap-std = "4.0.2"
+bytes = "1"
+httpdate = "1"
+cesu8 = "1"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+rusqlite = { version = "0.32", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v3", "v4", "serde"] }
+
+zip = { version = "2", default-features = false, features = ["flate2", "deflate-flate2"] }
+flate2 = "1"
+zstd = "0.13"
+tar = "0.4"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "gif"] }
+base64 = "0.22"
+sha1_smol = "1"
+sha2 = "0.10"
+md-5 = "0.10"
+semver = "1"
+
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+keyring = "4.1.6"
+
+sysinfo = { version = "0.33.1", default-features = false, features = ["system", "disk"] }
+tauri-plugin-clipboard-manager = "2.3.2"
+clap = { version = "4.6.6", features = ["derive"] }
+yaml-rust2 = "0.11.0"
+toml_edit = { version = "0.25.13", features = ["parse"] }
+
+[profile.release]
+strip = "symbols"

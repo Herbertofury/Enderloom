@@ -1,0 +1,13 @@
+'use strict';
+const assert=require('assert');const fs=require('fs');const path=require('path');
+const src=fs.readFileSync(path.join(__dirname,'..','catalog','enhance.js'),'utf8');
+assert(src.includes('.mv-gallery-open{position:absolute;inset:0'), 'full-size zoom target geometry moved or removed');
+assert(/\.mv-gallery-open\{[^}]*pointer-events:none/.test(src),'transparent full-card zoom layer must not steal pointer input');
+assert(/\.mv-gallery-nav,\.mv-gallery-badge\{pointer-events:auto\}/.test(src),'visible gallery controls must remain clickable');
+assert(/\.project-card \.card-actions\{[^}]*z-index:6!important;pointer-events:auto!important/.test(src),'favorite/compare actions must stay above gallery UI');
+assert(src.includes("const root=e.target.closest?.('.live-gallery-slot')"),'background-click gallery delegation missing');
+assert(src.includes("button,a,input,select,textarea,[role=\"button\"],.card-actions,[data-action]"),'interactive-control exclusion missing from gallery click delegation');
+assert(src.includes('function openGallery(root)'), 'lightbox zoom must remain available');
+assert(src.includes(".live-media-image.media-zoomable"),'hover magnifier/zoom must remain available');
+assert(src.includes('cursor:zoom-in'),'zoom affordance must remain');
+console.log(JSON.stringify({passed:true,zoomPreserved:true,transparentOverlayHitTesting:false,cardActionsProtected:true}));
