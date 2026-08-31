@@ -1,0 +1,21 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const {descriptionImages,modrinthProjectMedia}=require('../src/modrinth-batch');
+
+const raw='https://cdn.modrinth.com/data/vRO5Udz3/images/37b6cfe46f4d51359ad535e08f80881a57c893e1.png';
+const preview='https://cdn.modrinth.com/data/vRO5Udz3/images/37b6cfe46f4d51359ad535e08f80881a57c893e1_350.webp';
+const postOne='https://cdn.modrinth.com/data/cached_images/44bf58495077e64a4f1be199c7721d66edc46465.png';
+const postTwo='https://cdn.modrinth.com/data/cached_images/f231a9102ecd6bfd5ce30154ca9c8c5d49a7f8da.png';
+const project={title:'EpicFight: TouhouLittleMaid',gallery:[{url:preview,raw_url:raw,title:'Combat preview'}],body:`![Feature overview](${postOne})\n<img src="${postTwo}" alt="Maid combat">\n![duplicate](${preview})\n![external](https://ads.example/banner.png)`};
+const media=modrinthProjectMedia(project);
+assert.equal(media.length,3,'formal gallery plus every description image must be retained without duplicates or caps');
+assert.equal(media[0].url,raw);assert.equal(media[0].previewUrl,preview);
+assert.deepEqual(new Set(media.slice(1).map(x=>x.url)),new Set([postOne,postTwo]));
+assert.equal(descriptionImages(project.body).filter(x=>x.url.includes('ads.example')).length,0,'non-Modrinth embedded advertising was admitted');
+const main=fs.readFileSync(path.resolve(__dirname,'../main.js'),'utf8');
+assert(main.includes('modrinthProjectMedia(project)'),'main process does not consume full Modrinth project media');
+assert(main.includes('/members`'),'Modrinth team members endpoint is not the valid /members route');
+assert(main.includes('deep||force||!!context.author'),'author avatar enrichment is not requested for author-bearing Catalog entries');
+console.log(JSON.stringify({passed:true,project:'epicfight_touhoulittlemaid',gallery:media.length,formalRaw:true,descriptionImages:2,authorEndpoint:'team/members'}));

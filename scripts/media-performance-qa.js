@@ -83,11 +83,11 @@ const {modrinthSlugFromUrl,chunkSlugsByUrlLength}=require('../src/modrinth-batch
     const enhance=fs.readFileSync(path.resolve(__dirname,'../catalog/enhance.js'),'utf8');
     const preload=fs.readFileSync(path.resolve(__dirname,'../catalog-preload.js'),'utf8');
     assert(main.includes("name:'chromium-head'")&&main.includes("name:'chromium-media'")&&main.includes("name:'node-media'")&&main.includes("name:'rust-media'")&&main.includes("name:'chromium-index-prefix'")&&main.includes('publicRequestProgressiveTextShared')&&main.includes('chromiumProgressiveTextShared'),'prime pipeline does not race content-sensitive direct media and collection-prefix media across native transports');
-    assert(main.includes('mediaStorageKey(url,contextKey)')&&main.includes('version:14')&&main.includes('version || 0) < 14'),'persistent media cache is not project-context-aware or v14 stale-negative invalidation regressed');
+    assert(main.includes('mediaStorageKey(url,contextKey)')&&main.includes('version:15')&&main.includes('version || 0) < 15'),'persistent media cache is not project-context-aware or v15 promotion-quarantine invalidation regressed');
     assert(main.includes("ipcMain.handle('catalog:cached-media-batch'")&&preload.includes('cachedMediaBatch'),'cache lookup still uses per-card IPC');
     assert(main.includes("ipcMain.on('catalog:prime-media'")&&preload.includes('primeMedia'),'catalog-wide priority media scheduler missing');
     assert(main.includes('async function fetchAndParseProviderHtml('),'fast provider parser helper missing from packaged main process');
-    assert(main.includes('discoverModrinthMedia(url,context,deep||force)'),'Modrinth quick path still waits on team/author enrichment before first image');
+    assert(main.includes('discoverModrinthMedia(url,context,deep||force||!!context.author)'),'Modrinth project/author API enrichment route regressed');
     assert(main.includes('warmModrinthProjectBatches(rows)')&&main.includes('/v2/projects?ids='),'Modrinth projects are not bulk-primed through the provider-native endpoint');
     assert(main.includes('Author-profile discovery is deliberately NOT on the first-image critical path'),'author enrichment regressed onto the first-image critical path');
     assert(enhance.includes("if((s.gallery.length||s.icon||s.galleryAbsent)&&!s.cacheStale)s.quickLoaded=true"),'definitive no-gallery cache is not recognized');

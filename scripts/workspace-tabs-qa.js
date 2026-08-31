@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const read=name=>fs.readFileSync(path.resolve(__dirname,'..',name),'utf8');
+const main=read('main.js'),shell=read('shell.js'),html=read('shell.html'),detached=read('detached.html'),preload=read('detached-preload.js');
+assert(main.includes('function detachTab(')&&main.includes('function reattachTab(')&&main.includes('function reorderTab(')&&main.includes('function setTabGroup('),'native tab workspace lifecycle is incomplete');
+assert(main.includes('child.contentView.addChildView(view)'),'detach created another app instead of moving the existing WebContentsView');
+assert(main.includes("ipcMain.handle('detached:command'")&&preload.includes("ipcRenderer.invoke('detached:command'"),'detached window IPC boundary is missing');
+assert(shell.includes("application/x-enderloom-tab")&&shell.includes("cmd('reorder-tab'")&&shell.includes("cmd('detach-tab'"),'shell tabs are not draggable/reorderable/detachable');
+assert(html.includes('workspaceFullscreen')&&html.includes('popoutMenu')&&detached.includes('reattach')&&detached.includes('fullscreen'),'fullscreen/pop-out/reattach controls are incomplete');
+assert(main.includes("groups=['Research','Mods','Reference']")&&shell.includes('tab-group-label'),'workspace groups are not wired end to end');
+const title=read('launcher/src/components/TitleBar.tsx'),app=read('launcher/src/App.tsx');
+assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manager title remains');
+assert(app.includes('(!embedded || hasContextHeader)'),'embedded manager still reserves the empty title row');
+console.log(JSON.stringify({passed:true,dragReorder:true,groups:true,detachReattach:true,fullscreen:true,compactManager:true}));

@@ -29,7 +29,7 @@ const guardStart=main.indexOf('function scheduleChromeGuard()'),guardEnd=main.in
 assert(main.includes('never hide/re-show it just to update bounds'),'attached remote views can still lose DOM focus during layout');
 assert(main.includes("case 'chrome-overlay-height'"),'overlay utility expansion command missing');
 assert(main.includes('const CHROME_OVERLAY_MAX = 430'),'chrome overlay has no hard non-modal height cap');
-assert(!main.includes('payload?.full'),'full-window chrome overlay path still exists');
+assert(!/chrome-overlay-height[^\n]{0,180}payload\?\.full/.test(main),'full-window chrome overlay path still exists');
 assert(main.includes("chromeView.setBackgroundColor('#00000000')"),'chrome overlay is not configured for transparent utility expansion');
 assert(main.includes("chromeView.webContents.setBackgroundThrottling(false)"),'native chrome overlay throttling guard missing');
 assert(main.includes('wc.setBackgroundThrottling(false)'),'BrowserWindow shell throttling guard missing');

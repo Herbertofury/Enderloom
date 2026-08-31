@@ -14,6 +14,8 @@ let translatorOpen = false;
 let errorOpen = false;
 let dragDepth = 0;
 let dragOverlayTimer = null;
+let draggingTabId = '';
+let tabDropHandled = false;
 
 function toast(message) {
   const el = $('toast'); el.textContent = message; el.classList.add('show');
@@ -49,19 +51,33 @@ function formatWhen(value){if(!value)return 'Not checked yet';const d=new Date(v
 
 function renderTabs() {
   const el = $('tabs'); el.innerHTML = '';
+  let lastGroup = null;
   for (const tab of appState?.tabs || []) {
+    const group=tab.group||'';
+    if(group&&group!==lastGroup){const label=document.createElement('span');label.className='tab-group-label';label.textContent=group;label.title=`${group} tab group`;el.appendChild(label)}
+    lastGroup=group||null;
     const b = document.createElement('button');
     const splitCompanion = !!appState.splitMode && tab.id === appState.splitWorkspaceId;
-    b.className = 'tab' + (tab.id === appState.activeId ? ' active' : '') + (splitCompanion ? ' split-companion' : '') + (tab.catalog ? ' catalog-tab' : '') + (tab.launcher ? ' launcher-tab' : '');
+    b.className = 'tab' + (tab.id === appState.activeId ? ' active' : '') + (splitCompanion ? ' split-companion' : '') + (tab.catalog ? ' catalog-tab' : '') + (tab.launcher ? ' launcher-tab' : '') + (tab.detached?' detached':'');
     b.dataset.id = tab.id; b.setAttribute('role','tab'); b.setAttribute('aria-selected', tab.id === appState.activeId ? 'true':'false');
+    b.draggable=true;b.title=tab.detached?`${tab.title} · in its own window · right-click for options`:`${tab.title} · drag to reorder or pull out · right-click for groups`;
     const icon = document.createElement('span'); icon.className='tab-icon';
     if (tab.favicon && !tab.catalog) { const img=document.createElement('img'); img.src=tab.favicon; img.alt=''; icon.appendChild(img); }
     else icon.textContent = tab.catalog ? '✦' : tab.launcher ? '◈' : '◆';
     const title = document.createElement('span'); title.className='tab-title'; title.textContent=tab.title || (tab.catalog?'Catalog':'New tab');
     b.append(icon,title);
+    if(tab.detached){const pop=document.createElement('span');pop.className='tab-popout';pop.textContent='↗';b.appendChild(pop)}
     if (!tab.catalog && !tab.launcher) { const x=document.createElement('span'); x.className='tab-close'; x.textContent='×'; x.title='Close tab'; b.appendChild(x); }
     el.appendChild(b);
   }
+}
+function clearTabDropMarks(){$('tabs').querySelectorAll('.drop-before').forEach(tab=>tab.classList.remove('drop-before'))}
+function bindTabDragging(){
+  const el=$('tabs');
+  el.addEventListener('dragstart',event=>{const tab=event.target.closest('.tab');if(!tab)return;draggingTabId=tab.dataset.id||'';tabDropHandled=false;tab.classList.add('dragging');event.dataTransfer.effectAllowed='move';event.dataTransfer.setData('application/x-enderloom-tab',draggingTabId);event.dataTransfer.setData('text/plain',draggingTabId)});
+  el.addEventListener('dragover',event=>{if(!draggingTabId)return;event.preventDefault();event.dataTransfer.dropEffect='move';clearTabDropMarks();const target=event.target.closest('.tab');if(target&&target.dataset.id!==draggingTabId)target.classList.add('drop-before')});
+  el.addEventListener('drop',event=>{if(!draggingTabId)return;event.preventDefault();tabDropHandled=true;const target=event.target.closest('.tab');cmd('reorder-tab',{id:draggingTabId,beforeId:target?.dataset.id||''}).catch(()=>{});clearTabDropMarks()});
+  el.addEventListener('dragend',event=>{const id=draggingTabId;draggingTabId='';event.target.closest('.tab')?.classList.remove('dragging');clearTabDropMarks();const bounds=el.getBoundingClientRect(),inside=event.clientX>=bounds.left&&event.clientX<=bounds.right&&event.clientY>=bounds.top&&event.clientY<=bounds.bottom;if(id&&!tabDropHandled&&!inside)cmd('detach-tab',{id}).catch(()=>{});tabDropHandled=false});
 }
 function renderCatalogPicker(){
   const select=$('catalogSelect'); const before=select.value;
@@ -162,12 +178,14 @@ function bindDrop(){
 
 function bind(){
   $('tabs').onclick=e=>{const close=e.target.closest('.tab-close'),tab=e.target.closest('.tab');if(!tab)return;if(close){e.stopPropagation();cmd('close-tab',{id:tab.dataset.id}).catch(()=>{})}else cmd('activate',{id:tab.dataset.id}).catch(()=>{})};
+  $('tabs').oncontextmenu=e=>{const tab=e.target.closest('.tab');if(!tab)return;e.preventDefault();cmd('tab-menu',{id:tab.dataset.id,x:e.clientX,y:e.clientY}).catch(()=>{})};
+  bindTabDragging();
   $('newTab').onclick=()=>cmd('new-tab').catch(()=>{}); $('reopenTab').onclick=()=>cmd('reopen-tab').catch(()=>{}); $('catalogButton').onclick=()=>cmd('catalog').catch(()=>{}); $('launcherButton').onclick=()=>cmd('launcher').catch(()=>{});
   $('catalogSelect').onchange=e=>action('catalog-activate',{id:e.target.value},`Switched to ${e.target.selectedOptions[0]?.textContent||'catalog'}`).catch(()=>{});
   $('catalogRefresh').onclick=async()=>{const b=$('catalogRefresh');b.disabled=true;try{await action('catalog-refresh',{},'Catalog sources checked')}finally{b.disabled=false}};
   $('back').onclick=()=>cmd('back').catch(()=>{}); $('forward').onclick=()=>cmd('forward').catch(()=>{}); $('reload').onclick=()=>{hideError();cmd('reload').catch(()=>{})};
   $('addressForm').onsubmit=e=>{e.preventDefault();clearDropOverlay();const v=$('address').value.trim();if(v)cmd('navigate',{value:v}).catch(()=>{})}; $('address').onfocus=e=>e.target.select();
-  $('split').onclick=()=>cmd('split').catch(()=>{}); $('translatorToggle').onclick=()=>showTranslator(); $('external').onclick=()=>cmd('external').catch(()=>{}); $('copyUrl').onclick=async()=>{await cmd('copy-url');toast('URL copied')};
+  $('split').onclick=()=>cmd('split').catch(()=>{}); $('popout').onclick=()=>cmd('detach-tab',{id:active().id}).catch(()=>{}); $('translatorToggle').onclick=()=>showTranslator(); $('external').onclick=()=>cmd('external').catch(()=>{}); $('copyUrl').onclick=async()=>{await cmd('copy-url');toast('URL copied')};
   $('findToggle').onclick=()=>showFind(); $('findClose').onclick=()=>showFind(false); $('findInput').oninput=e=>cmd('find',{text:e.target.value,forward:true,findNext:false}).catch(()=>{});
   $('findNext').onclick=()=>cmd('find',{text:$('findInput').value,forward:true,findNext:true}).catch(()=>{}); $('findPrev').onclick=()=>cmd('find',{text:$('findInput').value,forward:false,findNext:true}).catch(()=>{});
   $('translatorService').onchange=()=>cmd('translator-config',{service:$('translatorService').value,targetLanguage:$('translatorTarget').value}).catch(()=>{}); $('translatorTarget').onchange=()=>cmd('translator-config',{service:$('translatorService').value,targetLanguage:$('translatorTarget').value}).catch(()=>{});
@@ -178,6 +196,7 @@ function bind(){
   const updateTranslator=async()=>{try{const r=await cmd('translator-update');toast(r?.message||'Translator update check complete')}catch(e){toast(e?.message||String(e))}}; $('translatorUpdate').onclick=updateTranslator;
   $('downloadsToggle').onclick=()=>showDownloads(); $('downloadsFolder').onclick=()=>cmd('downloads-folder').catch(()=>{}); $('downloadList').onclick=e=>{const r=e.target.closest('.download-row');if(r?.dataset.path)cmd('open-download',{path:r.dataset.path}).catch(()=>{})};
   $('moreToggle').onclick=()=>showMore(); $('zoomIn').onclick=()=>cmd('zoom',{mode:'in'}).catch(()=>{}); $('zoomOut').onclick=()=>cmd('zoom',{mode:'out'}).catch(()=>{}); $('zoomReset').onclick=()=>cmd('zoom',{mode:'reset'}).catch(()=>{});
+  $('popoutMenu').onclick=()=>{showMore(false);cmd('detach-tab',{id:active().id}).catch(()=>{})};$('workspaceFullscreen').onclick=()=>{showMore(false);cmd('window-fullscreen').catch(()=>{})};
   $('sourceCenter').onclick=()=>{showMore(false);cmd('source-center').catch(err=>toast(err?.message||String(err)))}; $('splitSwap').onclick=()=>{showMore(false);cmd('split-swap').catch(()=>{})}; $('splitReset').onclick=()=>{showMore(false);cmd('split-reset').catch(()=>{})}; $('devtools').onclick=()=>{showMore(false);cmd('devtools').catch(()=>{})};
   $('adblockUpdate').onclick=async()=>{showMore(false);try{const r=await cmd('adblock-update');toast(r?.message||'uBlock Origin update check complete')}catch(err){toast(err?.message||String(err))}};
   $('translatorUpdateMenu').onclick=async()=>{showMore(false);try{const r=await cmd('translator-update');toast(r?.message||'Translate Web Pages update check complete')}catch(err){toast(err?.message||String(err))}};
@@ -196,6 +215,7 @@ function bind(){
     else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='m'){e.preventDefault();cmd('launcher').catch(()=>{})}
     else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='o'){e.preventDefault();cmd('source-center').catch(()=>{})}
     else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='b'){e.preventDefault();cmd('statusbar-toggle').catch(()=>{})}
+    else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='f'){e.preventDefault();cmd('window-fullscreen').catch(()=>{})}
     else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='f'){e.preventDefault();showFind(true)}
     else if((e.ctrlKey||e.metaKey)&&e.key==='\\'){e.preventDefault();cmd('split').catch(()=>{})}
     else if(e.altKey&&e.key.toLowerCase()==='t'){e.preventDefault();if(active().id!=='catalog')cmd('translator-page',{service:$('translatorService').value,targetLanguage:$('translatorTarget').value}).catch(err=>toast(err?.message||String(err)))}

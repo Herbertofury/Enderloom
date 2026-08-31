@@ -7,6 +7,8 @@ This checkpoint describes the locally runnable source build in `C:\Users\Owner\D
 - Installed CurseForge Windows `1.317.0-37682`: Electron ASAR inspected read-only, including its real My Modpacks view state, Tiles/Table/List render paths, tile-size state, grouped/flat organization, navigation and native-agent boundary. No proprietary source or credentials were copied.
 - Installed Modrinth App `0.19.1`: executable version matched to official tag `v0.19.1`, commit `5d47594302b8b9eb66348f3d76e4894e35542aa3`; its Rust instance/content/install/recovery/account/skin/world/server APIs and Vue library organizer were inspected read-only.
 - CurseForge API contract: Enderloom uses the official `https://api.curseforge.com/v1` endpoints and `x-api-key` authentication. It does not extract or reuse CurseForge's private embedded credentials.
+- CurseForge native handoff: the installed app's registered Windows protocol command and packaged handler were inspected read-only. Enderloom now detects the real registration and uses the supported `curseforge://install?addonId=...` route after resolving the public Project ID; if the site withholds that ID it opens the installed client and retains the canonical project in Enderloom instead of showing the misleading download-the-app page.
+- Modrinth source contract: formal project gallery media, raw originals, description/post images and `/team/{id}/members` author avatars are merged without a result cap. The live `epicfight_touhoulittlemaid` API check returned one formal gallery image, two post images and the project owner's CDN avatar.
 
 ## Acceptance results
 
@@ -20,21 +22,25 @@ This checkpoint describes the locally runnable source build in `C:\Users\Owner\D
 - CurseForge connection: native Playwright/Electron passed the selectable CurseForge provider and inline secure key setup surface. Validation uses the real taxonomy endpoint before enabling browse/install; storage is delegated to Windows Credential Manager.
 - Catalog provider links: native Playwright/Electron audited the first 40 visible cards with zero duplicate top-level CurseForge/Modrinth/GitHub homes. All additional distinct sources remained in More menus.
 - Catalog live media: `28/30` initially sampled card galleries had decoded provider/CDN images after the bounded wait; the remaining cards continued the uncapped asynchronous discovery pipeline. There were zero Catalog console errors and zero request failures during the audit.
-- Full Catalog release gate: passed all `41` regression suites.
+- Catalog layout/compositor acceptance: native Playwright/Electron rendered all `312` Mob Girl entries in Cards, Table and Gallery. Gallery used a five-column CSS Grid, had zero overflowing tiles, no surviving hover surface, a compact `36.48px` heading and a `1500px` shell inside a `1520px` viewport. The legacy multi-column/backdrop-filter surface that produced the cyan/purple Windows compositor corruption is no longer active.
+- Workspace window acceptance: the existing live Mod Manager `WebContentsView` detached into a resizable/maximizable native window, preserved the same renderer/state, and reattached to the main shell without spawning a second launcher app. Drag reorder, pull-out, named groups, right-click actions and main/detached fullscreen routes have static and native gates.
+- Full Catalog and shell release gate: passed all `45` regression suites.
 - Combined Electron self-test: passed with Electron `44.0.0`, Chromium `152.0.7977.54`, three browser tabs and zero failures.
+- Native Electron UI acceptance: passed Cards/Table/Gallery layout and detached/reattached Mod Manager behavior.
 
 ## Built artifact SHA-256
 
 ```text
-8E5AAB003CCE5A40262EC03206F9623FA75EBF2A77298FAC17FE090ED8F91F84  native/target/debug/enderloom-service.exe
-4F09BB1F83B60CE8E48FDBA1756CE4ADA4CA8D7FB8E533459A568B2C53B97B5A  launcher/dist/index.html
-B006E790653E4F1A6DE4CA8DBEF3655641E9203FA831468F6191E8D47CC3B6B9  launcher/dist/assets/index-6EZnwfnJ.js
-B2A73014ACD930C98EE89F2EDA633202116BB32178F9DC3D614A71152A8CF313  launcher/dist/assets/index-BhkghpOD.css
-00D0856D2C6754680254222ABB1ED3FDAC119CD55EB1A2318FC8B218366A14EB  main.js
-EE37CE6734B6658CEC0224CF6C3BB6A37AD52E4CDBB566A7A250AF97E5E60A1F  catalog/app.js
-8139A79494F5E9C27194B725F164E1C1CE2C18E184147BCCB6112941353C0BB6  launcher/src/views/InstancesView.tsx
-D94A34DFA783A01D5EA155E81596B0F7D2F95FC12D14B74315E321EE43181E11  launcher/src/views/InstanceView.tsx
-C2A18F0144A96D044D3985244531BBA0FE407DAAAC5096DE13A21723C4CFE6C8  launcher/src/views/DiscoverView.tsx
+444B12E31BE60F1C521E101821B0AEFCA5387957944E34019EC678C329AA1ABF  native/target/debug/enderloom-service.exe
+EF33D7A0DB7F086DA83CF700C7146370C3F32D21F38064A88076E48DA7D6AAB7  launcher/dist/index.html
+0A157634D542CEE67F893A9871B13A4BA20849548554E42464240CDEF9BB895C  launcher/dist/assets/index-C57zyLxP.js
+E4BEE70C3D9EB658237C195DB33107E122BDD777051078BB091D6ADE84FA991A  launcher/dist/assets/index-D2B7Sndv.css
+A0C45981FD68AA06B256E91C567BB9F9D58697984BD45777E93E4D21F65E2ADA  main.js
+6FA1302E6DADA5760BD36441D0B0C95FA478917A436D781A8FF4E6C3ECD4C130  catalog/app.js
+76EA61FA9327AC4CFEB674595C299F62E2199218CA88DC6EE6BF3675629B3E01  catalog/enhance.js
+B12643B2E2AEBDBE1A0695BCB8211F166875FD30CB1B7DAB11702D1C3CB187BE  catalog/modern.css
+088EE88D06F342B620FFEE4C30B3B9CAD03F55D66C3B20E045407986823F1D1C  src/modrinth-batch.js
+9E3A6F17F606A31F37F11520BCB36FAA02B01C8AFF9C334CCECF08905CA22F70  src/provider-launcher-handoff.js
 3BD6C0609FD36A84A58604693FDDF84466EABB5D8F5CAD261B3DE7C0ECC7EEC6  package-lock.json
 ```
 

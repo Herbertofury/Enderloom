@@ -21,7 +21,8 @@ const { createProviderParserPool } = require('./src/provider-parser-pool');
 const { createTranslator } = require('./src/translator');
 const { createTranslatorUpdater } = require('./src/translator-updater');
 const pageTranslator = require('./src/page-translator-agent');
-const { modrinthSlugFromUrl, chunkSlugsByUrlLength, indexProjects } = require('./src/modrinth-batch');
+const { modrinthSlugFromUrl, chunkSlugsByUrlLength, indexProjects, modrinthProjectMedia } = require('./src/modrinth-batch');
+const { canonicalCurseForgeProjectUrl, parseCurseForgeProjectId, curseForgeInstallation } = require('./src/provider-launcher-handoff');
 const rustHttp = require('./src/rust-http');
 const impitHttp3 = require('./src/impit-http3');
 const { hasMedia:startRaceHasMedia, startParallelRace } = require('./src/parallel-media-race');
@@ -45,6 +46,7 @@ let chromeView = null;
 let statusView = null;
 let splitterView = null;
 let sourceCenterWin = null;
+const detachedWindows = new Map();
 let chromeOverlayHeight = BASE_TOP;
 let statusBarCollapsed = false;
 let catalogView = null;
@@ -101,9 +103,12 @@ let translatorStatus = {name:'TWP Engine',enabled:true,upstreamVersion:'10.2.1.0
 let translatorUpdateStatus = {updateState:'idle',message:'TWP updater idle'};
 let adblockStatus = { enabled:true, loaded:false, name:'uBlock Origin', version:'', updateState:'idle', message:'Starting ad blocker…' };
 let nextTab = 1;
+let tabOrder = [CATALOG_ID, LAUNCHER_ID];
+const tabGroups = new Map();
 let saveTimer = null;
 let testMode = process.argv.includes('--self-test');
-if (testMode) app.setPath('userData', fs.mkdtempSync(path.join(os.tmpdir(), 'minecraft-catalog-companion-test-')));
+const uiAcceptanceMode = process.argv.includes('--ui-acceptance');
+if (testMode || uiAcceptanceMode) app.setPath('userData', fs.mkdtempSync(path.join(os.tmpdir(), 'minecraft-catalog-companion-test-')));
 const launcherService = new LauncherService({
   rootDir: ROOT,
   dataDir: path.join(app.getPath('userData'), 'launcher'),
@@ -149,13 +154,26 @@ function scheduleSave() {
         splitSide,
         splitWorkspaceId,
         statusBarCollapsed,
-        tabs: tabs.slice(0, 16).map(t => ({ url: t.url, title: t.title }))
+        tabs: tabs.slice(0, 16).map(t => ({ url: t.url, title: t.title, group:tabGroups.get(t.id)||'' })),
+        tabSequence:tabOrder.map(id=>id===CATALOG_ID||id===LAUNCHER_ID?id:(getTab(id)?.url?`web:${getTab(id).url}`:'')).filter(Boolean),
+        workspaceGroups:{catalog:tabGroups.get(CATALOG_ID)||'',launcher:tabGroups.get(LAUNCHER_ID)||''}
       };
       fs.writeFileSync(sessionPath(), JSON.stringify(payload, null, 2));
     } catch {}
   }, 250);
 }
 function getTab(id) { return tabs.find(t => t.id === id); }
+function viewForTabId(id) { return id===CATALOG_ID?catalogView:id===LAUNCHER_ID?launcherView:getTab(id)?.view||null; }
+function tabTitle(id) { return id===CATALOG_ID?(activeCatalogSummary().name||'Catalog'):id===LAUNCHER_ID?'Mod Manager':getTab(id)?.title||'Browser tab'; }
+function tabIsDetached(id) { return detachedWindows.has(id); }
+function viewIsDetached(view) { return [...detachedWindows.values()].some(entry=>entry.view===view); }
+function orderedTabIds() {
+  const valid=new Set([CATALOG_ID,LAUNCHER_ID,...tabs.map(t=>t.id)]),out=[];
+  for(const id of tabOrder)if(valid.has(id)&&!out.includes(id))out.push(id);
+  for(const id of valid)if(!out.includes(id))out.push(id);
+  tabOrder=out;
+  return out;
+}
 function navCanBack(wc) { return wc?.navigationHistory?.canGoBack?.() ?? wc?.canGoBack?.() ?? false; }
 function navCanForward(wc) { return wc?.navigationHistory?.canGoForward?.() ?? wc?.canGoForward?.() ?? false; }
 function navBack(wc) { if (wc?.navigationHistory?.canGoBack?.()) return wc.navigationHistory.goBack(); if (wc?.canGoBack?.()) return wc.goBack(); }
@@ -213,6 +231,15 @@ function stateSnapshot() {
   };
   const workspaceId = splitMode ? splitWorkspaceId : activeId === LAUNCHER_ID ? LAUNCHER_ID : CATALOG_ID;
   const activeWorkspace = workspaceId === LAUNCHER_ID ? launcherTab : catalogTab;
+  const allTabs=new Map([
+    [CATALOG_ID,{...catalogTab,group:tabGroups.get(CATALOG_ID)||'',detached:tabIsDetached(CATALOG_ID)}],
+    [LAUNCHER_ID,{...launcherTab,group:tabGroups.get(LAUNCHER_ID)||'',detached:tabIsDetached(LAUNCHER_ID)}],
+    ...tabs.map(t=>[t.id,{
+      id:t.id,title:t.title||'New tab',url:t.view.webContents.getURL()||t.url,loading:t.loading,
+      canBack:navCanBack(t.view.webContents),canForward:navCanForward(t.view.webContents),favicon:t.favicon||'',
+      group:tabGroups.get(t.id)||'',detached:tabIsDetached(t.id)
+    }])
+  ]);
   return {
     activeId,
     splitMode,
@@ -224,19 +251,7 @@ function stateSnapshot() {
     splitAvailableWidth: splitGeometry().available,
     statusBarCollapsed,
     statusBarHeight: statusBarCollapsed ? STATUS_COLLAPSED_H : STATUS_H,
-    tabs: [
-      catalogTab,
-      launcherTab,
-      ...tabs.map(t => ({
-        id: t.id,
-        title: t.title || 'New tab',
-        url: t.view.webContents.getURL() || t.url,
-        loading: t.loading,
-        canBack: navCanBack(t.view.webContents),
-        canForward: navCanForward(t.view.webContents),
-        favicon: t.favicon || ''
-      }))
-    ],
+    tabs:orderedTabIds().map(id=>allTabs.get(id)).filter(Boolean),
     active: active ? {
       id: active.id,
       title: active.title,
@@ -255,7 +270,12 @@ function stateSnapshot() {
     runtime: `Electron ${process.versions.electron} · Chromium ${process.versions.chrome} · Rust ${launcherService.snapshot().state}`
   };
 }
-function publishState() { send('state', stateSnapshot()); }
+function detachedState(id,entry=detachedWindows.get(id)) {
+  if(!entry?.window||entry.window.isDestroyed())return null;
+  return {id,title:tabTitle(id),group:tabGroups.get(id)||'',maximized:entry.window.isMaximized(),fullscreen:entry.window.isFullScreen(),closable:id!==CATALOG_ID&&id!==LAUNCHER_ID};
+}
+function publishDetachedState(id,entry=detachedWindows.get(id)){const state=detachedState(id,entry);if(state)entry.window.webContents.send('detached:state',state)}
+function publishState() { send('state', stateSnapshot()); for(const [id,entry] of detachedWindows)publishDetachedState(id,entry); }
 launcherService.on('event', message => {
   if (launcherView && !launcherView.webContents.isDestroyed()) {
     launcherView.webContents.send('launcher:event', message);
@@ -278,6 +298,67 @@ function attach(view) {
 function detach(view) {
   if (!view || !win || win.isDestroyed()) return;
   try { win.contentView.removeChildView(view); } catch {}
+}
+function removeViewFromOwner(owner,view){if(!owner||owner.isDestroyed?.()||!view)return;try{owner.contentView.removeChildView(view)}catch{}}
+function layoutDetachedWindow(id) {
+  const entry=detachedWindows.get(id);if(!entry?.window||entry.window.isDestroyed())return;
+  const [width,height]=entry.window.getContentSize();
+  try{entry.view.setBounds({x:0,y:42,width:Math.max(1,width),height:Math.max(1,height-42)})}catch{}
+  setViewVisible(entry.view,true);
+  publishDetachedState(id,entry);
+}
+function attachedFallback(exclude='') {
+  const ids=orderedTabIds().filter(id=>id!==exclude&&!tabIsDetached(id));
+  return ids.includes(splitWorkspaceId)?splitWorkspaceId:ids[0]||CATALOG_ID;
+}
+function disposeDetachedWindow(id,{reattach=false,activate=true}={}) {
+  const entry=detachedWindows.get(id);if(!entry)return false;
+  entry.destroying=true;
+  removeViewFromOwner(entry.window,entry.view);
+  detachedWindows.delete(id);
+  try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}
+  if(reattach&&win&&!win.isDestroyed()){
+    activeId=activate?id:activeId;
+    attach(entry.view);
+    layoutViews();publishState();scheduleSave();
+  }
+  return true;
+}
+function reattachTab(id,{activate=true}={}) { return disposeDetachedWindow(id,{reattach:true,activate}); }
+function detachTab(id,{maximize=false,fullscreen=false}={}) {
+  if(!viewForTabId(id))return false;
+  const existing=detachedWindows.get(id);
+  if(existing?.window&&!existing.window.isDestroyed()){
+    existing.window.show();existing.window.focus();
+    if(maximize)existing.window.maximize();if(fullscreen)existing.window.setFullScreen(true);
+    return true;
+  }
+  const view=viewForTabId(id);if(!view)return false;
+  if(splitWorkspaceId===id||activeId===id){splitMode=false;activeId=attachedFallback(id);if(splitWorkspaceId===id)splitWorkspaceId=activeId===LAUNCHER_ID?LAUNCHER_ID:CATALOG_ID}
+  detach(view);
+  const child=new BrowserWindow({width:1260,height:820,minWidth:720,minHeight:480,show:false,frame:false,thickFrame:true,movable:true,resizable:true,minimizable:true,maximizable:true,title:`${tabTitle(id)} — Enderloom`,backgroundColor:'#090a12',icon:APP_ICON,webPreferences:{preload:path.join(ROOT,'detached-preload.js'),nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
+  const entry={id,view,window:child,destroying:false};detachedWindows.set(id,entry);
+  try{child.contentView.addChildView(view)}catch{}
+  child.loadFile(path.join(ROOT,'detached.html')).catch(()=>{});
+  child.on('resize',()=>layoutDetachedWindow(id));
+  child.on('maximize',()=>publishDetachedState(id));child.on('unmaximize',()=>publishDetachedState(id));
+  child.on('enter-full-screen',()=>publishDetachedState(id));child.on('leave-full-screen',()=>publishDetachedState(id));
+  child.on('close',event=>{if(!entry.destroying&&!shutdownPromise){event.preventDefault();reattachTab(id,{activate:true})}});
+  child.on('closed',()=>{if(detachedWindows.get(id)===entry)detachedWindows.delete(id);publishState()});
+  child.once('ready-to-show',()=>{layoutDetachedWindow(id);child.show();if(maximize)child.maximize();if(fullscreen)child.setFullScreen(true);child.focus()});
+  layoutDetachedWindow(id);layoutViews();publishState();scheduleSave();
+  return true;
+}
+function reorderTab(id,beforeId='') {
+  if(!viewForTabId(id))return false;
+  const ids=orderedTabIds().filter(value=>value!==id),target=ids.indexOf(beforeId);
+  ids.splice(target<0?ids.length:target,0,id);tabOrder=ids;publishState();scheduleSave();return true;
+}
+function setTabGroup(id,rawGroup='') {
+  if(!viewForTabId(id))return false;
+  const group=String(rawGroup||'').replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,32);
+  if(group)tabGroups.set(id,group);else tabGroups.delete(id);
+  publishState();scheduleSave();return true;
 }
 function setViewVisible(view, visible) {
   if (!view) return;
@@ -447,7 +528,7 @@ function layoutViews() {
   const bottomInset = statusBarHeight();
   const height = Math.max(120, h - top - bottomInset);
   const visible = new Set();
-  const place = (view, bounds) => { if (!view) return; visible.add(view); showView(view, bounds); };
+  const place = (view, bounds) => { if (!view||viewIsDetached(view)) return; visible.add(view); showView(view, bounds); };
 
   if (splitMode && activeId !== CATALOG_ID && activeTab()) {
     const g = splitGeometry();
@@ -473,9 +554,9 @@ function layoutViews() {
 
   // Hide only views that are genuinely inactive. Never hide the active view first and
   // reveal it again; that was the input-focus regression in 2.0.4.
-  for (const t of tabs) if (!visible.has(t.view)) setViewVisible(t.view, false);
-  if (catalogView && !visible.has(catalogView)) setViewVisible(catalogView, false);
-  if (launcherView && !visible.has(launcherView)) setViewVisible(launcherView, false);
+  for (const t of tabs) if (!visible.has(t.view)&&!viewIsDetached(t.view)) setViewVisible(t.view, false);
+  if (catalogView && !visible.has(catalogView)&&!viewIsDetached(catalogView)) setViewVisible(catalogView, false);
+  if (launcherView && !visible.has(launcherView)&&!viewIsDetached(launcherView)) setViewVisible(launcherView, false);
   layoutSplitterOverlay();
   layoutStatusOverlay();
   layoutChromeOverlay();
@@ -551,6 +632,7 @@ function createBrowserTab(rawUrl, activate = true) {
   try { view.setBounds({ x: 0, y: BASE_TOP, width: 1, height: 1 }); } catch {}
   const t = { id, url, title: 'Loading…', loading: true, favicon: '', view };
   tabs.push(t);
+  tabOrder.push(id);
   view.webContents.setWindowOpenHandler(details => {
     const target = safeHttpUrl(details.url);
     if (target) createBrowserTab(target, true);
@@ -586,6 +668,8 @@ function closeTab(id) {
   const i = tabs.findIndex(t => t.id === id);
   if (i < 0) return;
   const [t] = tabs.splice(i, 1);
+  if(tabIsDetached(id))disposeDetachedWindow(id,{reattach:false});
+  tabOrder=tabOrder.filter(value=>value!==id);tabGroups.delete(id);
   stopTabTranslatorTimer(t);
   closedTabs.unshift({ url: t.view.webContents.getURL() || t.url, title: t.title });
   closedTabs = closedTabs.slice(0, 20);
@@ -597,6 +681,7 @@ function closeTab(id) {
 }
 function activateTab(id) {
   if (id !== CATALOG_ID && id !== LAUNCHER_ID && !getTab(id)) return;
+  if(tabIsDetached(id)){const child=detachedWindows.get(id)?.window;if(child&&!child.isDestroyed()){child.show();child.focus()}return}
   if ((id === CATALOG_ID || id === LAUNCHER_ID) && splitMode && activeTab()) {
     splitWorkspaceId = id;
     layoutViews(); publishState(); scheduleSave();
@@ -818,6 +903,7 @@ function createWindow({ show = true } = {}) {
   try { win.webContents.setBackgroundThrottling(false); } catch {}
   win.loadFile(path.join(ROOT, 'shell.html'));
   win.on('resize', () => { layoutViews(); publishState(); refreshShellChrome(); });
+  win.on('close',()=>{for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}});
   win.on('focus', refreshShellChrome);
   win.webContents.on('blur', refreshShellChrome);
   win.webContents.on('focus', refreshShellChrome);
@@ -833,13 +919,19 @@ function createWindow({ show = true } = {}) {
 }
 function restoreSession() {
   const saved = readSavedSession();
-  const unique = [];
+  const unique = [],restoredByUrl=new Map();
   for (const entry of saved.tabs || []) {
     const u = safeHttpUrl(entry.url);
-    if (u && !unique.includes(u)) unique.push(u);
+    if (u && !unique.some(row=>row.url===u)) unique.push({url:u,group:String(entry.group||'').slice(0,32)});
     if (unique.length >= 12) break;
   }
-  for (const u of unique) createBrowserTab(u, false);
+  for (const row of unique){const tab=createBrowserTab(row.url,false);restoredByUrl.set(row.url,tab.id);if(row.group)tabGroups.set(tab.id,row.group)}
+  for(const [id,group] of Object.entries(saved.workspaceGroups||{}))if((id===CATALOG_ID||id===LAUNCHER_ID)&&group)tabGroups.set(id,String(group).slice(0,32));
+  if(Array.isArray(saved.tabSequence)){
+    const restored=[];
+    for(const key of saved.tabSequence){if(key===CATALOG_ID||key===LAUNCHER_ID)restored.push(key);else if(String(key).startsWith('web:')){const id=restoredByUrl.get(String(key).slice(4));if(id)restored.push(id)}}
+    tabOrder=[...restored,...orderedTabIds().filter(id=>!restored.includes(id))];
+  }
   if (saved.activeUrl) {
     const found = tabs.find(t => t.url === saved.activeUrl);
     if (found) activeId = found.id;
@@ -862,6 +954,27 @@ async function command(name, payload) {
     case 'new-tab': createBrowserTab(payload?.url || 'https://www.google.com/', true); break;
     case 'close-tab': closeTab(payload?.id || activeId); break;
     case 'reopen-tab': { const x = closedTabs.shift(); if (x) createBrowserTab(x.url, true); break; }
+    case 'reorder-tab': reorderTab(String(payload?.id||''),String(payload?.beforeId||'')); break;
+    case 'tab-group': setTabGroup(String(payload?.id||''),String(payload?.group||'')); break;
+    case 'detach-tab': detachTab(String(payload?.id||activeId),{maximize:!!payload?.maximize,fullscreen:!!payload?.fullscreen}); break;
+    case 'reattach-tab': reattachTab(String(payload?.id||''),{activate:payload?.activate!==false}); break;
+    case 'tab-menu': {
+      const id=String(payload?.id||activeId);if(!viewForTabId(id))break;
+      const currentGroup=tabGroups.get(id)||'',groups=['Research','Mods','Reference'];
+      const template=[
+        {label:tabIsDetached(id)?'Attach to Enderloom':'Move tab to new window',click:()=>tabIsDetached(id)?reattachTab(id):detachTab(id)},
+        {label:'Open in maximized window',click:()=>detachTab(id,{maximize:true})},
+        {label:'Open in fullscreen window',click:()=>detachTab(id,{fullscreen:true})},
+        {type:'separator'},
+        {label:'Add to group',submenu:[...groups.map(group=>({label:group,type:'radio',checked:currentGroup===group,click:()=>setTabGroup(id,group)})),{type:'separator'},{label:'No group',type:'radio',checked:!currentGroup,click:()=>setTabGroup(id,'')}]},
+      ];
+      if(id!==CATALOG_ID&&id!==LAUNCHER_ID)template.push({type:'separator'},{label:'Close tab',click:()=>closeTab(id)});
+      const popupOptions={window:win};
+      if(Number.isFinite(Number(payload?.x)))popupOptions.x=Math.max(0,Math.round(Number(payload.x)));
+      if(Number.isFinite(Number(payload?.y)))popupOptions.y=Math.max(0,Math.round(Number(payload.y)));
+      Menu.buildFromTemplate(template).popup(popupOptions);
+      break;
+    }
     case 'catalog': activateTab(CATALOG_ID); break;
     case 'launcher': activateTab(LAUNCHER_ID); break;
     case 'navigate': if (t) t.view.webContents.loadURL(normalizeAddress(payload?.value)); else createBrowserTab(payload?.value, true); break;
@@ -910,6 +1023,7 @@ async function command(name, payload) {
     case 'focus-active-content': { const target=activeTab()?.view?.webContents || (activeId===CATALOG_ID ? catalogView?.webContents : activeId===LAUNCHER_ID ? launcherView?.webContents : null); setTimeout(()=>{ try { if(target&&!target.isDestroyed()) target.focus(); } catch {} }, 40); break; }
     case 'window-minimize': win.minimize(); break;
     case 'window-maximize': win.isMaximized() ? win.unmaximize() : win.maximize(); break;
+    case 'window-fullscreen': win.setFullScreen(!win.isFullScreen()); publishState(); break;
     case 'window-close': win.close(); break;
     case 'catalog-list': return catalogCenterSummary();
     case 'catalog-switch':
@@ -951,6 +1065,12 @@ function sanitizeMediaItem(raw, role = 'gallery') {
   if (!raw) return null;
   const url = safeHttpUrl(typeof raw === 'string' ? raw : raw.url);
   if (!url) return null;
+  const promotionalHay = `${url} ${raw.alt || ''} ${raw.source || ''} ${raw.provider || ''}`;
+  // Provider-wide promotions are not project media. CurseForge currently places a
+  // PUBG UGC/prize-pool campaign before the project boundary on otherwise valid pages;
+  // quarantine those assets again at the final cache boundary so no transport lane or
+  // stale parser result can turn advertising into a Catalog gallery/image.
+  if (/(?:scorecardresearch|doubleclick|nitropay|battlegrounds[^?#]{0,80}(?:ugc|contest|prize)|pubg[^?#]{0,80}(?:ugc|contest|prize|campaign)|ugc[ _-]?contest|prize[ _-]?pool|(?:advertisement|sponsored)[ _-]?(?:banner|campaign))/i.test(promotionalHay)) return null;
   const width = Number(raw.width) || 0, height = Number(raw.height) || 0;
   const previewUrl=safeHttpUrl(raw.previewUrl)||'',posterUrl=safeHttpUrl(raw.posterUrl)||'';
   const mediaType=String(raw.mediaType||mediaKind(url)||'image');
@@ -1001,7 +1121,7 @@ function sanitizeMediaRecord(raw, sourceUrl = '') {
 function loadMediaCache() {
   try {
     const raw = JSON.parse(fs.readFileSync(mediaCachePath(), 'utf8'));
-    if (Number(raw?.version || 0) < 14) return;
+    if (Number(raw?.version || 0) < 15) return;
     for (const [storedKey, value] of Object.entries(raw?.entries || {})) {
       const clean = sanitizeMediaRecord(value, value?.sourceUrl || String(storedKey).split('\u241f')[0]);
       if (!clean) continue;
@@ -1016,7 +1136,7 @@ function saveMediaCacheSoon() {
   mediaCacheSaveTimer = setTimeout(() => {
     try {
       const entries = Object.fromEntries([...mediaCache.entries()].map(([key, value]) => [key, sanitizeMediaRecord(value, value?.sourceUrl || String(key).split('\u241f')[0])]).filter(([, value]) => value));
-      fs.writeFileSync(mediaCachePath(), JSON.stringify({ version:14, policy:'adapter-role-bound-provider-owned-post-media-author-parallel-curseforge-gallery-live-order-full-html-dom-rescue-live-http-urls-only', updatedAt:new Date().toISOString(), entries }, null, 2));
+      fs.writeFileSync(mediaCachePath(), JSON.stringify({ version:15, policy:'adapter-role-bound-provider-owned-post-media-author-parallel-curseforge-gallery-live-order-full-html-dom-rescue-live-http-urls-only-promotion-quarantine', updatedAt:new Date().toISOString(), entries }, null, 2));
     } catch {}
   }, 120);
 }
@@ -1100,7 +1220,8 @@ const PROJECT_MEDIA_EXTRACT_SCRIPT = '(' + function () {
     const alt = String(meta.alt||''), cls = String(meta.cls||''), parent = String(meta.parent||''), anchor = String(meta.anchor||'');
     const mediaType=String(meta.mediaType||(/\.gif(?:$|[?#])/i.test(url)?'gif':(/\.(?:mp4|webm|ogv|mov|m4v|m3u8)(?:$|[?#])/i.test(url)||String(meta.tag||'').toLowerCase()==='video'?'video':'image')));
     const posterUrl=normalize(meta.poster||'')||'';
-    const hay = `${url} ${alt} ${cls} ${parent} ${anchor}`;
+    const hay = `${url} ${alt} ${cls} ${parent} ${anchor} ${String(meta.nearText||'').slice(0,360)}`;
+    if (/(?:battlegrounds[^?#]{0,80}(?:ugc|contest|prize)|pubg[^?#]{0,80}(?:ugc|contest|prize|campaign)|ugc[ _-]?contest|prize[ _-]?pool|(?:advertisement|sponsored)[ _-]?(?:banner|campaign)|nitropay|scorecardresearch|doubleclick)/i.test(hay)) return;
     const w = Number(meta.w)||0, h = Number(meta.h)||0;
     const nearAuthor = !!meta.nearAuthor || (authorUrl && anchor === authorUrl) || /(?:author|creator|owner|profile|avatar|member)/i.test(`${cls} ${parent}`);
     let galleryScore = 0, iconScore = 0, authorScore = 0;
@@ -1134,7 +1255,8 @@ const PROJECT_MEDIA_EXTRACT_SCRIPT = '(' + function () {
     const parent = img.closest('[class],[data-testid],[aria-label]');
     const anchor = img.closest('a[href]');
     const anchorUrl = normalize(anchor?.getAttribute('href') || anchor?.href || '');
-    const meta = { alt:img.alt||'', cls:typeof img.className==='string'?img.className:'', parent:parent?.className || parent?.getAttribute?.('data-testid') || parent?.getAttribute?.('aria-label') || '', anchor:anchorUrl || '', nearAuthor:!!(anchorUrl && authorUrl && anchorUrl===authorUrl), w:img.naturalWidth || Number(img.getAttribute('width')) || 0, h:img.naturalHeight || Number(img.getAttribute('height')) || 0 };
+    const nearby=img.closest('a,figure,article,section,header,[role="banner"],[class*="banner" i],[class*="promo" i]');
+    const meta = { alt:img.alt||'', cls:typeof img.className==='string'?img.className:'', parent:parent?.className || parent?.getAttribute?.('data-testid') || parent?.getAttribute?.('aria-label') || '', nearText:String(nearby?.textContent||'').replace(/\s+/g,' ').trim(), anchor:anchorUrl || '', nearAuthor:!!(anchorUrl && authorUrl && anchorUrl===authorUrl), w:img.naturalWidth || Number(img.getAttribute('width')) || 0, h:img.naturalHeight || Number(img.getAttribute('height')) || 0 };
     srcs.forEach(src => add(src, meta));
   });
   document.querySelectorAll('video').forEach(video=>{if(!afterProjectHeading(video))return;if(video.closest('nav,aside,footer,[class*="comment" i],[class*="related" i],[class*="recommend" i],[class*="advert" i],[class*="sponsor" i]'))return;const parent=video.closest('[class],[data-testid],[aria-label]');const poster=video.poster||video.getAttribute('poster')||'';const meta={alt:video.getAttribute('aria-label')||video.title||ctx.title||'project post video',cls:typeof video.className==='string'?video.className:'',parent:parent?.className||parent?.getAttribute?.('data-testid')||'',w:video.videoWidth||Number(video.getAttribute('width'))||0,h:video.videoHeight||Number(video.getAttribute('height'))||0,mediaType:'video',tag:'video',poster};[video.currentSrc,video.src,...[...video.querySelectorAll('source[src]')].map(x=>x.src)].filter(Boolean).forEach(src=>add(src,meta));});
@@ -1400,6 +1522,27 @@ async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foregrou
   }
 }
 
+async function resolveCurseForgeAddonId(rawUrl, fallback='') {
+  if(/^\d{4,12}$/.test(String(fallback||'')))return String(fallback);
+  const url=canonicalCurseForgeProjectUrl(rawUrl);if(!url)return '';
+  // Reuse both public and signed-in Chromium transports. The project ID is public,
+  // so native handoff never depends on reading another launcher's private credential.
+  try{
+    const chromium=chromiumProgressiveTextShared(url,{timeoutMs:4800,cacheTtlMs:120000,bypassCache:false,headMaxBytes:256*1024,mediaMaxBytes:384*1024,prefixMaxBytes:2*1024*1024,stopAfterMedia:false,stopAfterPrefix:false,headers:{Accept:'text/html,application/xhtml+xml;q=0.9,*/*;q=0.2'}});
+    const sources=await Promise.allSettled([
+      publicRequestTextShared(url,{timeoutMs:5200,cacheTtlMs:120000,headers:{Accept:'text/html,application/xhtml+xml;q=0.9,*/*;q=0.2'}}),
+      chromium.full,
+    ]);
+    for(const source of sources){if(source.status!=='fulfilled')continue;const id=parseCurseForgeProjectId(source.value?.text||source.value);if(id)return id}
+  }catch{}
+  // Cloudflare can withhold SSR from fetch while rendering normally in the existing
+  // persistent session. Read the visible public ID as the final resolver.
+  try{
+    const script=`(()=>{const joined=[document.body?.innerText||'',document.documentElement?.innerHTML||'',...[...document.scripts].map(x=>x.textContent||'')].join('\\n');const patterns=[/\\bProject\\s*ID\\b\\s*[:#-]?\\s*(\\d{4,12})\\b/i,/["']projectId["']\\s*:\\s*["']?(\\d{4,12})\\b/i,/["']project_id["']\\s*:\\s*["']?(\\d{4,12})\\b/i];for(const re of patterns){const id=re.exec(joined)?.[1];if(id)return id}return ''})()`;
+    return String(await extractLivePageMediaQuick(url,script,{timeoutMs:7200,foreground:true})||'');
+  }catch{return ''}
+}
+
 
 async function extractCurseForgeGalleryDomQuick(url, context={}, { timeoutMs=5200, foreground=false } = {}) {
   const target=safeHttpUrl(url);if(!target)return null;const targetProvider=providerForUrl(target),contextProvider=providerForUrl(context?.primaryUrl||'');if((targetProvider!=='curseforge'&&!(testMode&&contextProvider==='curseforge'))||!/\/gallery\/?$/i.test(new URL(target).pathname))return null;
@@ -1602,10 +1745,10 @@ async function discoverModrinthMedia(url, context={}, includeAuthor=false) {
   const parts=u.pathname.split('/').filter(Boolean); if(parts.length<2||!['mod','plugin','datapack','shader','resourcepack','modpack'].includes(parts[0]))return null;
   const slug=parts[1]; const project=await getModrinthProject(slug);if(!project)return null;
   const identity=pageIdentityConfidence({expectedTitle:context.title||'',actualTitle:project?.title||'',sourceUrl:url});if(context.title&&identity<48)return null;
-  const gallery=(Array.isArray(project?.gallery)?project.gallery:[]).map(x=>sanitizeMediaItem({url:x?.url,alt:x?.title||x?.description||project?.title||slug,width:0,height:0,source:'modrinth-api',provider:'modrinth',confidence:100,identity},'gallery')).filter(Boolean);
+  const gallery=modrinthProjectMedia(project).map(x=>sanitizeMediaItem({...x,identity},'gallery')).filter(Boolean);
   const icon=sanitizeMediaItem({url:project?.icon_url,alt:`${project?.title||slug} project icon`,source:'modrinth-api',provider:'modrinth',confidence:100,identity},'icon');
   let author=null,authorUrl='';
-  if(includeAuthor&&project?.team){try{const team=await fetchJsonLive(`https://api.modrinth.com/v2/team/${encodeURIComponent(project.team)}`);const members=Array.isArray(team)?team:[];const owner=members.find(x=>String(x?.role||'').toLowerCase()==='owner')||members.find(x=>x?.accepted!==false)||members[0];const user=owner?.user;if(user?.username)authorUrl=`https://modrinth.com/user/${encodeURIComponent(user.username)}`;author=sanitizeMediaItem({url:user?.avatar_url,alt:user?.username?`${user.username} profile avatar`:'Modrinth creator avatar',source:'modrinth-api',provider:'modrinth',confidence:100,identity},'author')}catch{}}
+  if(includeAuthor&&project?.team){try{const team=await fetchJsonLive(`https://api.modrinth.com/v2/team/${encodeURIComponent(project.team)}/members`);const members=Array.isArray(team)?team:[];const owner=members.find(x=>x?.is_owner===true)||members.find(x=>String(x?.role||'').toLowerCase()==='owner')||members.find(x=>x?.accepted!==false)||members[0];const user=owner?.user;if(user?.username)authorUrl=`https://modrinth.com/user/${encodeURIComponent(user.username)}`;author=sanitizeMediaItem({url:user?.avatar_url,alt:user?.username?`${user.username} profile avatar`:'Modrinth creator avatar',source:'modrinth-api',provider:'modrinth',confidence:100,identity},'author')}catch{}}
   return {sourceUrl:url,title:String(project?.title||''),gallery,images:gallery,icon,author,authorUrl,provider:'modrinth',identity,exclusive:true,discoveredAt:new Date().toISOString(),cachedAt:Date.now(),error:'',liveOnly:true};
 }
 function mergeDiscoveredMedia(target, extra) {
@@ -1659,7 +1802,7 @@ async function discoverProjectMedia(rawUrl, { force=false, deep=false, context={
         ? extractLivePageMedia(url,contextScript,{scroll:true,timeoutMs:11000,foreground:!!force}).catch(()=>null) : null;
       const seedMedia=provider==='github'?discoverGithubSeedMedia(url,context):null;
       if(seedMedia)mergeDiscoveredMedia(result,seedMedia);
-      const providerTask=provider==='modrinth'?discoverModrinthMedia(url,context,deep||force).catch(()=>null):Promise.resolve(null);
+      const providerTask=provider==='modrinth'?discoverModrinthMedia(url,context,deep||force||!!context.author).catch(()=>null):Promise.resolve(null);
       // GitHub has a deterministic, exact live repository preview + owner avatar. Paint
       // that immediately on quick discovery, then let deep discovery enrich it from DOM.
       // This avoids holding the card behind a full github.com HTML round trip.
@@ -2483,6 +2626,18 @@ ipcMain.handle('launcher:window-command', async (event, request) => {
 });
 
 ipcMain.handle('command', (_e, req) => command(req?.name, req?.payload));
+ipcMain.handle('detached:command', (event, req) => {
+  const found=[...detachedWindows.entries()].find(([,entry])=>entry.window?.webContents===event.sender);
+  if(!found)throw new Error('Detached workspace IPC is unavailable');
+  const [id,entry]=found,action=String(req?.action||'');
+  if(action==='reattach')return reattachTab(id,{activate:true});
+  if(action==='minimize'){entry.window.minimize();return true}
+  if(action==='maximize'){entry.window.isMaximized()?entry.window.unmaximize():entry.window.maximize();return true}
+  if(action==='fullscreen'){entry.window.setFullScreen(!entry.window.isFullScreen());return true}
+  if(action==='close-tab'&&id!==CATALOG_ID&&id!==LAUNCHER_ID){closeTab(id);return true}
+  if(action==='group'){setTabGroup(id,req?.group);return true}
+  return false;
+});
 ipcMain.handle('catalog:enrich-project-links', async (event, project) => {
   catalogSender(event);
   return enrichCatalogProjectLinks(project);
@@ -2506,6 +2661,7 @@ ipcMain.handle('catalog:open-provider-launcher', async (event, project) => {
     return { opened: true, provider: request.provider };
   }
 
+  const nativeApp=curseForgeInstallation();
   let addonId = /^\d+$/.test(request.projectId) ? request.projectId : '';
   if (!addonId) {
     const query = {
@@ -2532,12 +2688,21 @@ ipcMain.handle('catalog:open-provider-launcher', async (event, project) => {
       addonId = /^\d+$/.test(String(exact?.id || '')) ? String(exact.id) : '';
     } catch {}
   }
+  if(!addonId)addonId=await resolveCurseForgeAddonId(request.sourceUrl,request.projectId);
   if (addonId) {
     await shell.openExternal(`curseforge://install?addonId=${encodeURIComponent(addonId)}`);
+  } else if(nativeApp.installed) {
+    // The desktop app is present: do not send the user to CurseForge's misleading
+    // "download the app" web route. Open the registered client and keep the canonical
+    // project page in Enderloom for a retry when CurseForge exposes its public ID.
+    await shell.openExternal('curseforge://');
+    const canonical=canonicalCurseForgeProjectUrl(request.sourceUrl);
+    if(canonical)createBrowserTab(canonical,true);
+    send('status','CurseForge opened; the project remains open in Enderloom because its public Project ID was not exposed yet.');
   } else {
-    await shell.openExternal(request.sourceUrl);
+    await shell.openExternal(canonicalCurseForgeProjectUrl(request.sourceUrl)||request.sourceUrl);
   }
-  return { opened: true, provider: request.provider };
+  return { opened: true, provider: request.provider, addonId, installed:nativeApp.installed, route:addonId?'native-install':nativeApp.installed?'native-app':'web' };
 });
 ipcMain.on('catalog:open-here', (_e, u) => { const target = safeHttpUrl(u); if (target) createBrowserTab(target, true); });
 ipcMain.on('catalog:open-external', (_e, u) => { const target = safeHttpUrl(u); if (target) shell.openExternal(target); });
@@ -2644,6 +2809,12 @@ async function runSelfTest() {
   check('top-level Mod Manager workspace activates in place', activeId===LAUNCHER_ID && launcherView?.getVisible?.()===true && catalogView?.getVisible?.()===false, JSON.stringify({activeId,launcherVisible:launcherView?.getVisible?.(),catalogVisible:catalogView?.getVisible?.()}));
   check('launcher workspace stays below protected chrome and above status', launcherBounds.y>=BASE_TOP && launcherBounds.x===0 && launcherBounds.width===launcherW && launcherBounds.y+launcherBounds.height===launcherH-STATUS_H, JSON.stringify({launcherBounds,launcherW,launcherH}));
   await command('catalog');
+  check('Mod Manager can detach into a native workspace window',detachTab(LAUNCHER_ID)===true&&tabIsDetached(LAUNCHER_ID),'detach failed');
+  const detachedLauncher=detachedWindows.get(LAUNCHER_ID),detachedPreferences=detachedLauncher?.window?.webContents?.getLastWebPreferences?.()||{};
+  await new Promise(resolve=>setTimeout(resolve,120));
+  check('detached workspace owns the existing live WebContentsView without a second launcher app',detachedLauncher?.view===launcherView&&detachedLauncher?.window?.contentView?.children?.includes?.(launcherView)===true&&!isAttached(launcherView),JSON.stringify({detached:!!detachedLauncher,children:detachedLauncher?.window?.contentView?.children?.length||0}));
+  check('detached workspace chrome is sandboxed',detachedPreferences.sandbox===true&&detachedPreferences.nodeIntegration===false&&detachedPreferences.contextIsolation===true,JSON.stringify(detachedPreferences));
+  check('Mod Manager reattaches to the original shell view',reattachTab(LAUNCHER_ID,{activate:false})===true&&isAttached(launcherView)&&!tabIsDetached(LAUNCHER_ID),'reattach failed');
   stage('launcher-boundary');
   check('uBlock Origin extension package loaded', adblockStatus.loaded===true && adblockStatus.name==='uBlock Origin' && /^\d+(?:\.\d+)+$/.test(String(adblockStatus.version||'')), JSON.stringify(adblockStatus));
   const adTest=adblockManager?.testDecision('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',{resourceType:'script',referrer:'https://www.planetminecraft.com/'});
@@ -2889,6 +3060,7 @@ function shutdownApplication(code=0){
     try { adblockManager?.dispose(); } catch {}
     try { translatorUpdater?.dispose(); } catch {}
     try { translator?.dispose(); } catch {}
+    for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}
     for(const slot of mediaViewPool.splice(0)){try{slot.view?.webContents?.close()}catch{}}
     mediaViewWaiters.length=0;
     await Promise.allSettled([

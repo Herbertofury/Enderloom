@@ -63,6 +63,7 @@ function App() {
   const serverRunning = useStore((s) => s.serverRunning);
   const catalogInstallRequest = useStore((s) => s.catalogInstallRequest);
   const dismissCatalogInstall = useStore((s) => s.dismissCatalogInstall);
+  const hasContextHeader = useStore((s) => s.viewStack.length > 0);
 
   const [maximized, setMaximized] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -172,7 +173,7 @@ function App() {
       <Sidebar />
       <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
         <TitleBar immersive={immersive} />
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col pt-9">
+        <main className={cn("flex min-h-0 min-w-0 flex-1 flex-col", (!embedded || hasContextHeader) && "pt-9")}>
         <MinecraftNav />
         <RecoveryBanner />
         {error ? (

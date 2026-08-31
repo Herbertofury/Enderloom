@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+  <title>Enderloom workspace</title><link rel="stylesheet" href="detached.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="identity"><img src="launcher/public/logo.png" alt=""><span class="workspace-mark">◈</span><strong id="title">Enderloom workspace</strong><span id="group" class="group" hidden></span></div>
+    <div class="actions">
+      <select id="groupSelect" title="Tab group"><option value="">No group</option><option>Research</option><option>Mods</option><option>Reference</option></select>
+      <button id="reattach" class="attach" title="Attach this workspace back to Enderloom">⇲ <span>Attach</span></button>
+      <button id="fullscreen" title="Toggle fullscreen">⛶</button>
+      <button id="closeTab" title="Close this browser tab" hidden>Close tab</button>
+      <button id="minimize" title="Minimize">—</button><button id="maximize" title="Maximize">□</button><button id="close" class="close" title="Close window and attach back">×</button>
+    </div>
+  </header>
+  <script src="detached.js"></script>
+</body>
+</html>

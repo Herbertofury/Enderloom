@@ -17,7 +17,7 @@ assert(main.includes('dialog.showMessageBox(win'),'permission/confirmation promp
 assert(main.includes('function openSourceCenterWindow()'),'dedicated Catalog Center child surface missing');
 assert(main.includes("loadFile(path.join(ROOT, 'source-center.html'))"),'Catalog Center is not isolated from top chrome');
 assert(main.includes('const CHROME_OVERLAY_MAX = 430'),'top native chrome lacks a hard maximum overlay height');
-assert(!main.includes('payload?.full'),'full-window top chrome expansion still exists');
+assert(!/chrome-overlay-height[^\n]{0,180}payload\?\.full/.test(main),'full-window top chrome expansion still exists');
 assert(!js.includes('showModal(')&&!js.includes('{full:true}'),'shell can still create full-window HTML modal overlays');
 assert(!html.includes('<dialog'),'top chrome still contains HTML modal dialogs');
 assert(!css.includes('backdrop-filter:blur(8px)'),'old full-window dialog blur still exists');

@@ -1,0 +1,20 @@
+'use strict';
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const {canonicalCurseForgeProjectUrl,parseCurseForgeProjectId,registryProtocolCommand,executableFromCommand,curseForgeInstallation}=require('../src/provider-launcher-handoff');
+
+const install='https://www.curseforge.com/minecraft/mc-mods/lovely-robot-reboot/install?utm_source=enderloom';
+assert.equal(canonicalCurseForgeProjectUrl(install),'https://www.curseforge.com/minecraft/mc-mods/lovely-robot-reboot');
+assert.equal(parseCurseForgeProjectId('<span>Project ID</span><strong>1620292</strong>'),'1620292');
+assert.equal(parseCurseForgeProjectId('{"projectId":1620292,"name":"Lovely Robot"}'),'1620292');
+const command='"C:\\Users\\Owner\\AppData\\Local\\Programs\\CurseForge Windows\\CurseForge.exe" "%1"';
+const run=(_file,args)=>({status:args[1].startsWith('HKCU')?0:1,stdout:`    (Default)    REG_SZ    ${command}\r\n`,stderr:''});
+assert.equal(registryProtocolCommand('curseforge',{platform:'win32',run}),command);
+assert.equal(executableFromCommand(command),'C:\\Users\\Owner\\AppData\\Local\\Programs\\CurseForge Windows\\CurseForge.exe');
+assert.equal(curseForgeInstallation({platform:'win32',localAppData:'',run}).installed,true,'registered CurseForge protocol was not treated as an installed app');
+const main=fs.readFileSync(path.resolve(__dirname,'../main.js'),'utf8');
+assert(main.includes('resolveCurseForgeAddonId(request.sourceUrl'),'native CurseForge handoff does not resolve public project IDs');
+assert(main.includes('curseforge://install?addonId='),'verified CurseForge install protocol contract is missing');
+assert(!/else\s*\{\s*await shell\.openExternal\(request\.sourceUrl\);\s*\}/.test(main),'old misleading /install website fallback remains');
+console.log(JSON.stringify({passed:true,protocol:'curseforge',canonical:true,publicProjectId:true,registeredAppDetection:true}));

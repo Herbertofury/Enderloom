@@ -1,5 +1,7 @@
 import { useStore } from "../store";
 import { cn } from "../lib/cn";
+import { ActivityCenter } from "./ActivityCenter";
+import { RunningPill } from "./RunningPill";
 
 const workspaceViews = new Set([
   "instances",
@@ -68,6 +70,10 @@ export function MinecraftNav() {
           )}
         </button>
       ))}
+      <div className="ml-auto flex h-full items-center pb-0.5">
+        <RunningPill />
+        <ActivityCenter immersive={false} />
+      </div>
     </nav>
   );
 }

@@ -1,0 +1,291 @@
+/* Enderloom wide/compact catalog contract.
+   Kept separate from the legacy snapshot skin so compositor-sensitive layout changes
+   remain reviewable and every generated catalog receives the same stable overrides. */
+:root {
+  --shell: min(1920px, calc(100vw - 20px));
+}
+
+html {
+  overflow-x: clip;
+}
+
+.hero {
+  padding: 14px 0 10px;
+}
+
+.hero-topline {
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.brand-lockup {
+  gap: 12px;
+  max-width: 1100px;
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+}
+
+h1 {
+  margin: .12rem 0 .35rem;
+  font-size: clamp(1.55rem, 2.4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.lede {
+  max-width: 1000px;
+  font-size: .88rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.hero-actions,
+.toolbar-actions {
+  gap: 6px;
+}
+
+.button {
+  padding: 7px 10px;
+  border-radius: 9px;
+  font-size: .78rem;
+}
+
+.icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.source-strip {
+  margin: 9px 0 7px;
+  gap: 6px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+}
+
+.source-pill {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  font-size: .72rem;
+}
+
+.kpi-grid {
+  gap: 8px;
+  margin: 7px 0 9px;
+}
+
+.kpi {
+  padding: 9px 11px;
+  border-radius: 13px;
+}
+
+.kpi span {
+  font-size: .64rem;
+}
+
+.kpi strong {
+  margin: .08rem 0;
+  font-size: 1.3rem;
+}
+
+.kpi small {
+  font-size: .7rem;
+}
+
+.search-wrap {
+  margin: 8px 0 4px;
+}
+
+.search-box {
+  border-radius: 13px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+}
+
+.search-box input {
+  padding: 11px 0;
+  font-size: .96rem;
+}
+
+.quick-filters {
+  gap: 6px;
+  padding: 5px 0;
+}
+
+.quick-chip {
+  padding: 6px 9px;
+  font-size: .75rem;
+}
+
+.main-grid {
+  grid-template-columns: 245px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.filters-panel,
+.results-panel {
+  border-radius: 16px;
+  /* Avoid Windows Chromium repaint corruption when many live images update. */
+  backdrop-filter: none;
+}
+
+.filters-panel {
+  top: 8px;
+  max-height: calc(100vh - 16px);
+  padding: 13px;
+}
+
+.results-panel {
+  min-width: 0;
+  padding: 13px;
+}
+
+.results-toolbar {
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.results-toolbar > div:first-child {
+  flex: 0 1 auto;
+  min-width: 150px;
+}
+
+.results-toolbar h2 {
+  font-size: 1.15rem;
+}
+
+.toolbar-actions {
+  margin-left: auto;
+}
+
+.compact-select select,
+.segmented button {
+  padding: 7px 9px;
+}
+
+.segmented button {
+  min-width: 34px;
+}
+
+.card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 9px;
+}
+
+.project-card {
+  min-width: 0;
+  min-height: 300px;
+  border-radius: 14px;
+}
+
+/* Chromium on Windows can corrupt a multi-column masonry layer nested in a
+   translucent WebContentsView. Grid gives the same dense visual browser without
+   generating the giant cyan/purple composited surface seen in the broken view. */
+.gallery-results {
+  display: block;
+  min-width: 0;
+  isolation: isolate;
+}
+
+.visual-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+  align-items: start;
+  gap: 10px;
+  columns: auto;
+  column-gap: normal;
+}
+
+.visual-tile {
+  min-width: 0;
+  margin: 0;
+  break-inside: auto;
+  border-radius: 14px;
+  contain: layout paint;
+}
+
+.visual-image-button {
+  position: relative;
+  height: clamp(150px, 15vw, 250px);
+  overflow: hidden;
+}
+
+.visual-image-button img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+}
+
+.visual-quick-actions {
+  flex-wrap: wrap;
+}
+
+.table-wrap {
+  max-width: 100%;
+}
+
+@media (min-width: 1800px) {
+  .main-grid {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  }
+
+  .visual-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  .results-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .toolbar-actions {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-panel {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --shell: calc(100vw - 12px);
+  }
+
+  .hero-actions .source-button,
+  .kpi small {
+    display: none;
+  }
+
+  .visual-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 7px;
+  }
+
+  .visual-image-button {
+    height: 150px;
+  }
+}

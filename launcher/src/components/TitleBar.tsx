@@ -48,6 +48,10 @@ export function TitleBar({ immersive = false }: { immersive?: boolean }) {
   const canGoBack = useStore((s) => s.viewStack.length > 0);
   const goBack = useStore((s) => s.goBack);
 
+  // The Electron shell already owns the product title and window controls. Keep a
+  // compact contextual row only on detail pages where Back/Breadcrumbs are useful.
+  if (embedded && !canGoBack) return null;
+
   return (
     <div
       data-tauri-drag-region
@@ -84,21 +88,23 @@ export function TitleBar({ immersive = false }: { immersive?: boolean }) {
         <Breadcrumbs immersive={immersive} />
       </div>
 
-      <div
-        data-tauri-drag-region
-        className={cn(
-          "pointer-events-none absolute inset-x-0 text-center font-pixel text-[11px] tracking-[0.35em]",
-          immersive
-            ? "text-white/70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]"
-            : "text-content-faint",
-        )}
-      >
-        {embedded ? "ENDERLOOM · BASALT CORE" : "BASALT"}
-      </div>
+      {!embedded && (
+        <div
+          data-tauri-drag-region
+          className={cn(
+            "pointer-events-none absolute inset-x-0 text-center font-pixel text-[11px] tracking-[0.35em]",
+            immersive
+              ? "text-white/70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]"
+              : "text-content-faint",
+          )}
+        >
+          BASALT
+        </div>
+      )}
 
       <div data-tauri-drag-region className="relative flex shrink-0 items-center">
-        <RunningPill immersive={immersive} />
-        <ActivityCenter immersive={immersive} />
+        {!embedded && <RunningPill immersive={immersive} />}
+        {!embedded && <ActivityCenter immersive={immersive} />}
         {!embedded && (
           <>
             <Control label="Minimize" immersive={immersive} onClick={() => win.minimize()}>
