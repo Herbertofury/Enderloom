@@ -41,10 +41,25 @@ export function Banner({
     return <div className={cn("bg-surface-2", className)} />;
   }
 
+  if (failed) {
+    return (
+      <div
+        className={cn(
+          "bg-[radial-gradient(circle_at_25%_20%,var(--accent-glow),transparent_55%),linear-gradient(135deg,var(--surface-2),var(--void))]",
+          className,
+        )}
+      />
+    );
+  }
+
   return (
     <img
       src={src}
       draggable={false}
+      onError={() => {
+        setFailed(true);
+        log.warn("media", `the launcher could not display ${src}`);
+      }}
       className={cn("object-cover", !media.local && "[image-rendering:pixelated]", className)}
     />
   );

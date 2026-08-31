@@ -11,6 +11,8 @@ import {
   Copy,
   FolderOpen,
   Loader2,
+  LayoutGrid,
+  List,
   MoreVertical,
   Pin,
   PinOff,
@@ -21,6 +23,7 @@ import {
   Search,
   SearchX,
   Share,
+  Table2,
   Trash2,
   Wrench,
 } from "lucide-react";
@@ -108,6 +111,7 @@ function isContentTab(tab: InstanceTab): tab is ContentKind {
 const NO_UPDATES: ContentUpdate[] = [];
 const EMPTY_ITEMS: ContentItem[] = [];
 const ALL_KINDS = ["mods", "resourcepacks", "shaderpacks", "schematics"];
+const PROVIDER_KINDS = ["mods", "resourcepacks", "shaderpacks"];
 
 type Dialog =
   | { kind: "edit" }
@@ -126,6 +130,7 @@ type Dialog =
 
 type ContentView = "all" | "enabled" | "disabled" | "updates" | "unlinked";
 type ContentSort = "name" | "recent" | "size" | "updates" | "disabled";
+type ContentLayout = "tiles" | "table" | "list";
 
 const VIEWS: Array<{ id: ContentView; label: string }> = [
   { id: "all", label: "All" },
@@ -220,6 +225,14 @@ export function InstanceView() {
   const [sort, setSort] = useState<ContentSort>(
     () => (localStorage.getItem("content-sort") as ContentSort) ?? "name",
   );
+  const [contentLayout, setContentLayout] = useState<ContentLayout>(() => {
+    const stored = localStorage.getItem("content-layout");
+    return stored === "tiles" || stored === "table" || stored === "list" ? stored : "tiles";
+  });
+  const [contentTileSize, setContentTileSize] = useState(() => {
+    const value = Number(localStorage.getItem("content-tile-size") ?? 1);
+    return Number.isFinite(value) ? Math.max(0, Math.min(4, Math.round(value))) : 1;
+  });
   const [checkingUpdates, setCheckingUpdates] = useState(false);
   const [updatingAll, setUpdatingAll] = useState(false);
   const [updatingFile, setUpdatingFile] = useState<string | null>(null);
@@ -266,7 +279,7 @@ export function InstanceView() {
         setItemsByTab(bundle);
         for (const kind of ALL_KINDS) void refreshContentSources(id, kind);
         void (async () => {
-          for (const kind of ALL_KINDS) {
+          for (const kind of PROVIDER_KINDS) {
             try {
               const reconciled = await api.listInstanceContent(id, kind, true);
               if (!live) return;
@@ -916,8 +929,8 @@ export function InstanceView() {
   };
 
   return (
-    <div className="-mt-9 flex min-h-0 flex-1 flex-col">
-      <div className="relative h-68 shrink-0 overflow-hidden">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="relative h-40 shrink-0 overflow-hidden border-b border-border-soft">
         {media ? (
           <Banner media={media} className="absolute inset-0 h-full w-full" />
         ) : (
@@ -937,7 +950,7 @@ export function InstanceView() {
               />
             )}
             <div className="min-w-0">
-            <h1 className="truncate font-display text-3xl font-bold tracking-tight text-white drop-shadow">
+            <h1 className="truncate font-display text-2xl font-bold tracking-tight text-white drop-shadow">
               {instance.name}
             </h1>
             <div className="mt-1.5 flex items-center gap-2 text-[11px] text-white/60">
@@ -1001,7 +1014,7 @@ export function InstanceView() {
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-4 border-b border-border-soft px-6 pt-4">
+      <div className="flex items-center justify-between gap-4 border-b border-border-soft px-6 pt-1">
         <div className="flex gap-1">
           {allTabs.map((t) => {
             const count = updates.filter((u) => u.kind === t.kind).length;
@@ -1177,6 +1190,53 @@ export function InstanceView() {
               />
             </div>
 
+            <div className="flex shrink-0 rounded-lg border border-border-soft bg-surface-2/60 p-0.5" aria-label="Content layout">
+              {(
+                [
+                  { mode: "tiles", icon: LayoutGrid },
+                  { mode: "table", icon: Table2 },
+                  { mode: "list", icon: List },
+                ] as const
+              ).map(({ mode, icon: Icon }) => (
+                <button
+                  key={mode}
+                  onClick={() => {
+                    setContentLayout(mode);
+                    localStorage.setItem("content-layout", mode);
+                  }}
+                  aria-label={`${mode} view`}
+                  aria-pressed={contentLayout === mode}
+                  className={cn(
+                    "grid size-8 place-items-center rounded-md transition-colors",
+                    contentLayout === mode
+                      ? "bg-surface-3 text-content"
+                      : "text-content-faint hover:text-content-muted",
+                  )}
+                >
+                  <Icon className="size-4" />
+                </button>
+              ))}
+            </div>
+
+            {contentLayout === "tiles" && (
+              <label className="flex h-9 shrink-0 items-center gap-2 rounded-lg border border-border-soft bg-surface-2/60 px-2.5 text-[10px] font-semibold text-content-faint">
+                Tile size
+                <input
+                  type="range"
+                  min={0}
+                  max={4}
+                  step={1}
+                  value={contentTileSize}
+                  onChange={(event) => {
+                    const next = Number(event.target.value);
+                    setContentTileSize(next);
+                    localStorage.setItem("content-tile-size", String(next));
+                  }}
+                  className="w-20 accent-(--accent)"
+                />
+              </label>
+            )}
+
             <span className="ml-auto shrink-0 text-xs tabular-nums text-content-faint">
               {shownItems.length === items.length
                 ? `${items.length} ${items.length === 1 ? "file" : "files"}`
@@ -1258,7 +1318,27 @@ export function InstanceView() {
             )}
           </>
         ) : (
-          <div className="flex flex-col gap-1.5">
+          <div
+            className={cn(
+              contentLayout === "tiles" && "grid auto-rows-min gap-2.5",
+              contentLayout === "table" && "overflow-hidden rounded-xl border border-border-soft bg-surface-2/40",
+              contentLayout === "list" && "flex flex-col gap-1.5",
+            )}
+            style={
+              contentLayout === "tiles"
+                ? { gridTemplateColumns: `repeat(auto-fill,minmax(${[9.5, 11.5, 14, 17, 21][contentTileSize]}rem,1fr))` }
+                : undefined
+            }
+          >
+            {contentLayout === "table" && (
+              <div className="grid grid-cols-[minmax(15rem,2fr)_7rem_7rem_6rem_auto] items-center gap-3 border-b border-border-soft bg-surface-2/80 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-content-faint">
+                <span>Content</span>
+                <span>Provider</span>
+                <span>Version</span>
+                <span>Size</span>
+                <span className="pr-2 text-right">Actions</span>
+              </div>
+            )}
             {shownItems.map((item) => {
               const source = item.source;
               const busy =
@@ -1269,6 +1349,7 @@ export function InstanceView() {
                 <ContentItemCard
                   key={item.file_name}
                   item={item}
+                  layout={contentLayout}
                   busy={busy}
                   disabled={busyWithTask}
                   disabledReason={

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import {
   Check,
   ChevronLeft,
@@ -6,6 +7,8 @@ import {
   ChevronsRight,
   ChevronRight,
   Download,
+  ExternalLink,
+  KeyRound,
   Loader2,
   Package,
   Search,
@@ -127,6 +130,7 @@ export function DiscoverView() {
   const sources = allSources[`${serverId ?? targetId}:${kind}`];
   const refreshContentSources = useStore((s) => s.refreshContentSources);
   const refreshServerContentSources = useStore((s) => s.refreshServerContentSources);
+  const settings = useStore((s) => s.settings);
   const hasCfKey = useStore((s) => !!s.settings?.curseforge_api_key || s.bundledCurseforgeKey);
 
   const browse = useStore((s) => s.discoverBrowse);
@@ -165,6 +169,8 @@ export function DiscoverView() {
   const [targetWorlds, setTargetWorlds] = useState<WorldSummary[]>([]);
   const [installingPack, setInstallingPack] = useState<string | null>(null);
   const [needsTarget, setNeedsTarget] = useState<ProjectSummary | null>(null);
+  const [curseForgeKey, setCurseForgeKey] = useState("");
+  const [connectingCurseForge, setConnectingCurseForge] = useState(false);
   const contentInstaller = useContentInstaller();
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -176,12 +182,11 @@ export function DiscoverView() {
   const modsBlocked = kind === "mods" && !!target && !target.loader;
 
   useEffect(() => {
-    if (provider === "curseforge" && !hasCfKey) setProvider("modrinth");
-  }, [provider, hasCfKey]);
-
-  useEffect(() => {
     let live = true;
     setTaxonomy(null);
+    if (provider === "curseforge" && !hasCfKey) return () => {
+      live = false;
+    };
     api
       .getFilterTaxonomy(provider, kind)
       .then((t) => live && setTaxonomy(t))
@@ -255,6 +260,13 @@ export function DiscoverView() {
   const firstRun = useRef(true);
 
   useEffect(() => {
+    if (provider === "curseforge" && !hasCfKey) {
+      clearTimeout(debounceRef.current);
+      setPage(null);
+      setSearching(false);
+      setError(null);
+      return;
+    }
     const restored = firstRun.current && browse.page !== null && browse.signature === signature;
     firstRun.current = false;
     if (restored) {
@@ -290,7 +302,32 @@ export function DiscoverView() {
       }
     }, 300);
     return () => clearTimeout(debounceRef.current);
-  }, [provider, kind, query, sort, filters, offset]);
+  }, [provider, kind, query, sort, filters, offset, hasCfKey]);
+
+  const connectCurseForge = async () => {
+    const key = curseForgeKey.trim();
+    if (!settings || !key || connectingCurseForge) return;
+    setConnectingCurseForge(true);
+    setError(null);
+    const configured = { ...settings, curseforge_api_key: key };
+    try {
+      await api.updateSettings(configured);
+      await api.getFilterTaxonomy("curseforge", kind);
+      const fresh = await api.getSettings();
+      useStore.setState({ settings: fresh });
+      setCurseForgeKey("");
+      setNotice("CurseForge connected. Search, dependencies, versions, updates, and verified downloads are ready.");
+    } catch (cause) {
+      await api
+        .updateSettings({ ...settings, curseforge_api_key: null })
+        .catch(() => undefined);
+      const fresh = await api.getSettings().catch(() => settings);
+      useStore.setState({ settings: fresh });
+      setError(`CurseForge could not validate that API key: ${String(cause)}`);
+    } finally {
+      setConnectingCurseForge(false);
+    }
+  };
 
   useEffect(() => {
     const node = scrollRef.current;
@@ -544,19 +581,16 @@ export function DiscoverView() {
 
         <div className="flex shrink-0 rounded-lg border border-border bg-surface-2 p-0.5">
           {PROVIDERS.map((p) => {
-            const disabled = p.id === "curseforge" && !hasCfKey;
             return (
               <button
                 key={p.id}
-                onClick={() => !disabled && setProvider(p.id)}
-                disabled={disabled}
-                title={disabled ? "Add a CurseForge API key in Settings" : undefined}
+                onClick={() => setProvider(p.id)}
+                title={p.id === "curseforge" && !hasCfKey ? "Connect the official CurseForge API" : undefined}
                 className={cn(
                   "rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                   provider === p.id
                     ? "bg-surface-3 text-content"
                     : "text-content-faint hover:text-content-muted",
-                  disabled && "cursor-not-allowed opacity-40",
                 )}
               >
                 {p.label}
@@ -601,6 +635,53 @@ export function DiscoverView() {
         </div>
       )}
 
+      {provider === "curseforge" && !hasCfKey && (
+        <div className="mx-6 mb-3 rounded-xl border border-[#f16436]/35 bg-[#f16436]/8 p-4">
+          <div className="flex items-start gap-3">
+            <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#f16436]/15 text-[#ff8a61]">
+              <KeyRound className="size-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-sm font-semibold text-content">Connect the official CurseForge API</div>
+              <p className="mt-1 max-w-3xl text-xs leading-relaxed text-content-faint">
+                This enables native CurseForge search, project pages, compatible files, dependency plans,
+                updates, modpacks, server packs, and checksum-verified installs. The key is stored in Windows
+                Credential Manager and is never written into Enderloom's settings database.
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <input
+                  type="password"
+                  value={curseForgeKey}
+                  onChange={(event) => setCurseForgeKey(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") void connectCurseForge();
+                  }}
+                  autoComplete="off"
+                  spellCheck={false}
+                  placeholder="Paste CurseForge API key"
+                  aria-label="CurseForge API key"
+                  className="h-9 min-w-64 flex-1 rounded-lg border border-border bg-void px-3 font-mono text-xs text-content outline-none transition-colors focus:border-[#f16436]"
+                />
+                <button
+                  onClick={() => void connectCurseForge()}
+                  disabled={!curseForgeKey.trim() || connectingCurseForge}
+                  className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#f16436] px-3 text-xs font-semibold text-white transition-colors hover:bg-[#ff7448] disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  {connectingCurseForge ? <Loader2 className="size-3.5 animate-spin" /> : <Check className="size-3.5" />}
+                  Validate & connect
+                </button>
+                <button
+                  onClick={() => void openUrl("https://console.curseforge.com/")}
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-surface-2 px-3 text-xs font-medium text-content-muted transition-colors hover:bg-surface-3 hover:text-content"
+                >
+                  Get an API key <ExternalLink className="size-3" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex min-h-0 flex-1">
         {showFilters && (
           <FilterRail
@@ -613,7 +694,12 @@ export function DiscoverView() {
         )}
 
         <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 pb-6">
-          {modsBlocked ? (
+          {provider === "curseforge" && !hasCfKey ? (
+            <div className="flex flex-col items-center gap-2 py-16 text-center text-sm text-content-faint">
+              <KeyRound className="size-6 text-[#ff8a61]" />
+              Connect CurseForge above to browse its complete Minecraft library.
+            </div>
+          ) : modsBlocked ? (
             <div className="flex flex-col items-center gap-3 py-20 text-center">
               <div className="grid size-12 place-items-center rounded-2xl border border-warn/30 bg-warn/10 text-warn">
                 <TriangleAlert className="size-6" />

@@ -47,7 +47,7 @@ export function DiscordPreview({
           )}
         >
           {showLogo ? (
-            <img src="/logo.png" alt="" draggable={false} className="size-9 object-contain" />
+            <img src="./logo.png" alt="" draggable={false} className="size-9 object-contain" />
           ) : (
             <span className="font-pixel text-[8px] tracking-wider text-content-faint">B</span>
           )}

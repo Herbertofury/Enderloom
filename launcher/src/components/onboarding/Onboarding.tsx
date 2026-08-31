@@ -266,7 +266,7 @@ export function Onboarding() {
             >
               {step === "welcome" && (
                 <motion.img
-                  src="/logo.png"
+                  src="./logo.png"
                   alt=""
                   draggable={false}
                   initial={{ opacity: 0, scale: 0.86, y: 12 }}

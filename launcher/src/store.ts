@@ -372,6 +372,7 @@ interface AppStore {
 
 let listenersBound = false;
 let initializing = false;
+let externalDiscoveryStarted = false;
 let batching = false;
 let installsInFlight = 0;
 let unlisteners: Array<() => void> = [];
@@ -1072,12 +1073,6 @@ export const useStore = create<AppStore>((set) => ({
     }
 
     try {
-      // Modrinth and CurseForge profiles are first-class Enderloom instances. The
-      // connection stores only metadata and keeps every profile in its original
-      // directory; the migration screen remains available for explicit cloning.
-      const externalSync = window.enderloomLauncher?.selfTest
-        ? { connected: 0, failed: 0 }
-        : await connectDetectedExternalProfiles();
       const [
         settings,
         instances,
@@ -1194,19 +1189,33 @@ export const useStore = create<AppStore>((set) => ({
         instances: instances.length,
         accounts: accounts.length,
       });
-      if (externalSync.connected > 0) {
-        toast.success(
-          `${externalSync.connected} launcher profile${externalSync.connected === 1 ? "" : "s"} connected in place`,
-          {
-            description:
-              externalSync.failed > 0
-                ? `${externalSync.failed} unavailable or invalid profile${externalSync.failed === 1 ? " was" : "s were"} left untouched.`
-                : "Modrinth and CurseForge can keep using the same folders.",
-          },
-        );
-      }
       void useStore.getState().refreshLogs();
       void useStore.getState().syncActiveSkin();
+
+      // External launcher discovery can inspect dozens of profiles and must never
+      // hold the first usable frame hostage. Connect metadata in the background,
+      // then reconcile the normal instance list without copying source folders.
+      if (!window.enderloomLauncher?.selfTest && !externalDiscoveryStarted) {
+        externalDiscoveryStarted = true;
+        void connectDetectedExternalProfiles()
+          .then(async (externalSync) => {
+            await useStore.getState().refreshInstances();
+            if (externalSync.connected > 0) {
+              toast.success(
+                `${externalSync.connected} launcher profile${externalSync.connected === 1 ? "" : "s"} connected in place`,
+                {
+                  description:
+                    externalSync.failed > 0
+                      ? `${externalSync.failed} unavailable or invalid profile${externalSync.failed === 1 ? " was" : "s were"} left untouched.`
+                      : "Modrinth and CurseForge can keep using the same folders.",
+                },
+              );
+            }
+          })
+          .catch((cause) =>
+            log.warn("migration", `background launcher discovery failed: ${String(cause)}`),
+          );
+      }
     } catch (e) {
       log.error("app", `startup failed: ${String(e)}`);
       set({ error: String(e), ready: true });

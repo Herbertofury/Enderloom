@@ -387,7 +387,7 @@ export function Sidebar() {
         className="group relative size-10 shrink-0 overflow-hidden rounded-xl transition-transform hover:scale-105 active:scale-95"
       >
         <img
-          src="/logo.png"
+          src="./logo.png"
           alt="Enderloom"
           className="size-full object-contain"
           draggable={false}

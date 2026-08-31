@@ -459,7 +459,7 @@ export function SettingsView() {
             <div className="flex min-w-0 items-center gap-6">
               <div className="size-20 shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-(color:--accent-glow)">
                 <img
-                  src="/logo.png"
+                  src="./logo.png"
                   alt=""
                   className="size-full object-contain"
                   draggable={false}

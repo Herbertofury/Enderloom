@@ -6,7 +6,7 @@ Enderloom combines the protected **Minecraft Catalog Companion** research browse
 
 On this Windows workspace, double-click `START_ENDERLOOM.cmd`. It uses the already-built launcher and native service, starts the integrated application, and only builds a missing prerequisite when necessary. From a terminal, use `npm start`.
 
-The launcher discovers CurseForge and Modrinth profiles in place. Connecting a profile does not copy it; changes from the external launcher are reconciled safely, junction-backed duplicates are identified by physical path, and Clone remains an explicit operation. See `docs/LAUNCHER_PARITY_MATRIX.md` and `docs/RELEASE_EVIDENCE_2026-08-30.md` for the code-audited release contract and acceptance evidence.
+The launcher discovers CurseForge and Modrinth profiles in place. Connecting a profile does not copy it; changes from the external launcher are reconciled safely, junction-backed duplicates are identified by physical path, and Clone remains an explicit operation. See `docs/LAUNCHER_PARITY_MATRIX.md` and `docs/RELEASE_EVIDENCE_2026-08-31.md` for the code-audited release contract and acceptance evidence.
 
 ## Built-in test catalogs
 

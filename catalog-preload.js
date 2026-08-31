@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 const safe = value => typeof value === 'string' ? value : '';
 contextBridge.exposeInMainWorld('mobCompanion', {
+  appIcon: 'enderloom-asset://local/app-icon',
+  selfTest: process.argv.includes('--enderloom-self-test=1'),
   openHere: url => ipcRenderer.send('catalog:open-here', safe(url)),
   openExternal: url => ipcRenderer.send('catalog:open-external', safe(url)),
   openMany: (urls, title) => ipcRenderer.send('catalog:open-many', { urls: Array.isArray(urls) ? urls : [], title: safe(title) }),
@@ -16,6 +18,15 @@ contextBridge.exposeInMainWorld('mobCompanion', {
   onMedia: cb => { const fn=(_e,payload)=>cb(payload);ipcRenderer.on('catalog:media-result',fn);return()=>ipcRenderer.removeListener('catalog:media-result',fn); },
   onResearch: cb => { const fn=(_e,payload)=>cb(payload);ipcRenderer.on('catalog:research',fn);return()=>ipcRenderer.removeListener('catalog:research',fn); },
   visited: id => ipcRenderer.send('catalog:visited', safe(id)),
+  enrichProjectLinks: project => ipcRenderer.invoke('catalog:enrich-project-links', {
+    id: safe(project?.id).slice(0, 256),
+    name: safe(project?.name).slice(0, 256),
+    urls: (Array.isArray(project?.urls) ? project.urls : []).map(safe).filter(Boolean).slice(0, 16),
+    edition: safe(project?.edition).slice(0, 80),
+    type: safe(project?.type).slice(0, 80),
+    loader: safe(project?.loader).slice(0, 160),
+    minecraftVersions: safe(project?.minecraftVersions).slice(0, 256),
+  }),
   installToLauncher: project => ipcRenderer.invoke('catalog:install-to-launcher', {
     id: safe(project?.id).slice(0, 256),
     name: safe(project?.name).slice(0, 256),

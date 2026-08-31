@@ -21,6 +21,7 @@ import {
   Search,
   SearchX,
   Star,
+  Table2,
   Tag,
   TriangleAlert,
 } from "lucide-react";
@@ -51,7 +52,8 @@ import type { Instance, InstanceGroup, InstanceTag, Task, VersionMedia } from ".
 import { PlayButton } from "../components/PlayButton";
 import { useStore } from "../store";
 
-type ViewMode = "list" | "grid";
+type ViewMode = "tiles" | "table" | "list";
+type OrganizationMode = "groups" | "flat";
 
 const SORTS = ["Last played", "Most played", "Name", "Recently added"] as const;
 type SortMode = (typeof SORTS)[number];
@@ -231,9 +233,19 @@ export function InstancesView() {
   const [dragOver, setDragOver] = useState<string | null>(null);
   const [dragging, setDragging] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-  const [viewMode, setViewMode] = useState<ViewMode>(
-    () => (localStorage.getItem("instances-view") as ViewMode) ?? "grid",
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    const stored = localStorage.getItem("instances-view");
+    return stored === "list" || stored === "table" || stored === "tiles"
+      ? stored
+      : "tiles";
+  });
+  const [organizationMode, setOrganizationMode] = useState<OrganizationMode>(
+    () => (localStorage.getItem("instances-organization-view") === "flat" ? "flat" : "groups"),
   );
+  const [tileSize, setTileSize] = useState(() => {
+    const value = Number(localStorage.getItem("instances-tile-size") ?? 1);
+    return Number.isFinite(value) ? Math.max(0, Math.min(4, Math.round(value))) : 1;
+  });
   const [sort, setSort] = useState<SortMode>(() => {
     const stored = localStorage.getItem("instances-sort") as SortMode | null;
     return stored && SORTS.includes(stored) ? stored : "Last played";
@@ -683,6 +695,16 @@ export function InstancesView() {
     localStorage.setItem("instances-view", mode);
   };
 
+  const switchOrganization = (mode: OrganizationMode) => {
+    setOrganizationMode(mode);
+    localStorage.setItem("instances-organization-view", mode);
+  };
+
+  const switchTileSize = (value: number) => {
+    setTileSize(value);
+    localStorage.setItem("instances-tile-size", String(value));
+  };
+
   useEffect(() => {
     instances.forEach((i) => loadMedia(i.id));
   }, [instances, loadMedia]);
@@ -704,10 +726,10 @@ export function InstancesView() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex items-center justify-between gap-4 border-b border-border-soft px-8 py-3.5">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-soft px-6 py-2.5">
         <div className="flex items-baseline gap-3">
           <h1 className="font-display text-[1rem] font-semibold tracking-tight text-content">
-            Instances
+            My Modpacks
           </h1>
           {instances.length > 0 && (
             <span className="text-xs text-content-faint">
@@ -717,7 +739,7 @@ export function InstancesView() {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           {instances.length > 0 && (
             <div className="relative w-56">
               <Search className="absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-content-faint" />
@@ -742,7 +764,8 @@ export function InstancesView() {
           <div className="flex rounded-lg border border-border-soft bg-surface-2/60 p-0.5">
             {(
               [
-                { mode: "grid", icon: LayoutGrid },
+                { mode: "tiles", icon: LayoutGrid },
+                { mode: "table", icon: Table2 },
                 { mode: "list", icon: List },
               ] as const
             ).map(({ mode, icon: Icon }) => (
@@ -762,6 +785,37 @@ export function InstancesView() {
               </button>
             ))}
           </div>
+          <div className="flex rounded-lg border border-border-soft bg-surface-2/60 p-0.5" aria-label="Organization view">
+            {(["groups", "flat"] as const).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => switchOrganization(mode)}
+                aria-pressed={organizationMode === mode}
+                className={cn(
+                  "h-8 rounded-md px-2.5 text-[11px] font-semibold capitalize transition-colors",
+                  organizationMode === mode
+                    ? "bg-surface-3 text-content"
+                    : "text-content-faint hover:text-content-muted",
+                )}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+          {viewMode === "tiles" && (
+            <label className="flex h-9 items-center gap-2 rounded-lg border border-border-soft bg-surface-2/60 px-2.5 text-[10px] font-semibold text-content-faint">
+              Tile size
+              <input
+                type="range"
+                min={0}
+                max={4}
+                step={1}
+                value={tileSize}
+                onChange={(event) => switchTileSize(Number(event.target.value))}
+                className="w-20 accent-(--accent)"
+              />
+            </label>
+          )}
           <button
             onClick={(event) => openMenu(event, toolbarMenu(), undefined, { below: true })}
             aria-label="More actions"
@@ -775,9 +829,23 @@ export function InstancesView() {
           >
             <MoreVertical className="size-4" />
           </button>
+          <button
+            onClick={() => setPicking(true)}
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-surface-2 px-3 text-xs font-semibold text-content transition-colors hover:bg-surface-3"
+          >
+            <FileArchive className="size-3.5" />
+            Import
+          </button>
+          <button
+            onClick={() => setCreatingGroup(true)}
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-surface-2 px-3 text-xs font-semibold text-content transition-colors hover:bg-surface-3"
+          >
+            <FolderPlus className="size-3.5" />
+            Create group
+          </button>
           <Button onClick={() => setModalOpen(true)}>
             <Plus className="size-4" />
-            New instance
+            Create
           </Button>
         </div>
       </div>
@@ -863,8 +931,12 @@ export function InstancesView() {
               {[
                 { id: "all", name: "All", group: undefined as InstanceGroup | undefined, tag: undefined as InstanceTag | undefined, kind: "all" },
                 { id: "favorites", name: "Favorites", group: undefined, tag: undefined, kind: "favorite" },
-                ...groups.map((group) => ({ id: group.id, name: group.name, group, tag: undefined, kind: "group" })),
-                { id: "ungrouped", name: "Ungrouped", group: undefined, tag: undefined, kind: "group" },
+                ...(organizationMode === "groups"
+                  ? [
+                      ...groups.map((group) => ({ id: group.id, name: group.name, group, tag: undefined, kind: "group" })),
+                      { id: "ungrouped", name: "Ungrouped", group: undefined, tag: undefined, kind: "group" },
+                    ]
+                  : []),
                 ...tags.map((tag) => ({ id: `tag:${tag.id}`, name: tag.name, group: undefined, tag, kind: "tag" })),
               ].map((chip) => {
                 const selected = active === chip.id;
@@ -1045,6 +1117,41 @@ export function InstancesView() {
             </div>
           )}
 
+          {organizationMode === "groups" && active === "all" && (
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-2 pb-3 pt-1">
+              {[
+                { id: "favorites", name: "Favorites", count: favorites.size, group: undefined as InstanceGroup | undefined, icon: Star },
+                ...groups.map((group) => ({ id: group.id, name: group.name, count: counts.get(group.id) ?? 0, group, icon: Folder })),
+                { id: "ungrouped", name: "Ungrouped", count: counts.get("ungrouped") ?? 0, group: undefined, icon: FolderOpen },
+              ]
+                .filter((entry) => entry.count > 0 || !!entry.group)
+                .map((entry) => {
+                  const Icon = entry.icon;
+                  return (
+                    <button
+                      key={entry.id}
+                      onClick={() => pickGroup(entry.id)}
+                      onContextMenu={(event) =>
+                        entry.group
+                          ? openMenu(
+                              event,
+                              groupMenu(entry.group, groups.findIndex((group) => group.id === entry.group!.id)),
+                              entry.name,
+                            )
+                          : undefined
+                      }
+                      className="group flex h-12 items-center gap-3 rounded-lg border border-border-soft bg-surface-2/70 px-3 text-left transition-colors hover:border-(--accent)/40 hover:bg-surface-2"
+                    >
+                      <Icon className="size-4 text-content-faint transition-colors group-hover:text-(--accent)" />
+                      <span className="min-w-0 flex-1 truncate text-xs font-semibold text-content">{entry.name}</span>
+                      <span className="text-[10px] tabular-nums text-content-faint">{entry.count}</span>
+                      {entry.group && <MoreVertical className="size-3.5 text-content-faint" />}
+                    </button>
+                  );
+                })}
+            </div>
+          )}
+
           <div className="pt-1">
             {viewMode === "list" ? (
               <div className="flex flex-col gap-2">
@@ -1118,10 +1225,80 @@ export function InstancesView() {
                   );
                 })}
               </div>
-            ) : (
-              <div className="grid auto-rows-min grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] content-start gap-4">
+            ) : viewMode === "table" ? (
+              <div className="overflow-hidden rounded-xl border border-border-soft bg-surface-2/45">
+                <div className="grid grid-cols-[minmax(16rem,2fr)_7rem_7rem_minmax(10rem,1fr)_auto] items-center gap-3 border-b border-border-soft bg-surface-2/80 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-content-faint">
+                  <span>Modpack</span>
+                  <span>Version</span>
+                  <span>Loader</span>
+                  <span>Status</span>
+                  <span className="pr-2 text-right">Actions</span>
+                </div>
                 {shown.map((it) => {
                   const task = busyTasks.get(it.id);
+                  const logo = logoSrc(it.logo);
+                  return (
+                    <div
+                      key={it.id}
+                      draggable
+                      onDragStart={(event) => {
+                        event.dataTransfer.effectAllowed = "move";
+                        event.dataTransfer.setData("application/x-basalt-instance", it.id);
+                        setDragging(it.id);
+                      }}
+                      onDragEnd={() => {
+                        setDragging(null);
+                        setDragOver(null);
+                      }}
+                      onContextMenu={(event) => openMenu(event, instanceMenu(it), it.name)}
+                      className={cn(
+                        "relative grid grid-cols-[minmax(16rem,2fr)_7rem_7rem_minmax(10rem,1fr)_auto] items-center gap-3 border-b border-border-soft/70 px-3 py-2 last:border-0 hover:bg-surface-2",
+                        picked.has(it.id) && "bg-(--accent)/5",
+                        dragging === it.id && "opacity-40",
+                      )}
+                    >
+                      {selecting && (
+                        <PickOverlay instance={it} checked={picked.has(it.id)} onToggle={() => togglePicked(it.id)} />
+                      )}
+                      <button onClick={() => openInstance(it.id)} className="flex min-w-0 items-center gap-2.5 text-left">
+                        <span className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-surface-3">
+                          {logo ? (
+                            <img src={logo} alt="" draggable={false} className="size-full object-cover" />
+                          ) : (
+                            <Artwork media={mediaMap[it.id] ?? null} className="size-full" />
+                          )}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-xs font-semibold text-content">{it.name}</span>
+                          <span className="block truncate text-[10px] text-content-faint">{it.external ? "Connected in place" : "Enderloom instance"}</span>
+                        </span>
+                      </button>
+                      <span className="font-pixel text-[10px] text-content-muted">{it.version_id}</span>
+                      <span className="text-[11px] text-content-muted">{loaderLabel(it)}</span>
+                      <span className="truncate text-[11px] text-content-faint"><StatusLine instance={it} task={task} /></span>
+                      <div className="flex items-center justify-end gap-1">
+                        <button
+                          onClick={() => void toggleFavorite(it)}
+                          aria-label={favorites.has(it.id) ? `Remove ${it.name} from favorites` : `Add ${it.name} to favorites`}
+                          className={cn("grid size-8 place-items-center rounded-lg hover:bg-surface-3", favorites.has(it.id) ? "text-(--accent)" : "text-content-faint")}
+                        >
+                          <Star className={cn("size-3.5", favorites.has(it.id) && "fill-current")} />
+                        </button>
+                        <PlayButton instance={it} compact onError={setLaunchError} />
+                        <RowActions onEdit={() => setEditing(it)} onMenu={(event) => openMenu(event, instanceMenu(it), it.name)} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div
+                className="grid auto-rows-min content-start gap-2.5"
+                style={{ gridTemplateColumns: `repeat(auto-fill,minmax(${[10.5, 12.5, 15, 18, 22][tileSize]}rem,1fr))` }}
+              >
+                {shown.map((it) => {
+                  const task = busyTasks.get(it.id);
+                  const logo = logoSrc(it.logo);
                   return (
                     <div
                       key={it.id}
@@ -1151,11 +1328,14 @@ export function InstancesView() {
                           onToggle={() => togglePicked(it.id)}
                         />
                       )}
-                      <div className="relative aspect-16/10 w-full overflow-hidden">
-                        <Artwork media={mediaMap[it.id] ?? null} className="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-105" />
+                      <div className="relative aspect-square w-full overflow-hidden">
+                        {logo ? (
+                          <img src={logo} alt="" draggable={false} className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        ) : (
+                          <Artwork media={mediaMap[it.id] ?? null} className="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-105" />
+                        )}
                         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-black/90 via-black/45 to-transparent" />
                         <button onClick={() => openInstance(it.id)} aria-label={`Open ${it.name}`} className="absolute inset-0" />
-                        {logoSrc(it.logo) && <img src={logoSrc(it.logo)!} alt="" draggable={false} className="pointer-events-none absolute left-3 top-3 size-10 rounded-xl border border-white/15 bg-black/40 object-cover shadow-lg backdrop-blur" />}
                         <div className="pointer-events-none absolute inset-x-3 bottom-3">
                           <div className="truncate font-display text-[1rem] font-semibold text-white drop-shadow">{it.name}</div>
                           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
@@ -1193,7 +1373,7 @@ export function InstancesView() {
                 })}
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="group flex min-h-52 flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border text-content-faint transition-colors hover:border-(--accent)/50 hover:bg-surface-2/40 hover:text-content"
+                  className="group flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border text-content-faint transition-colors hover:border-(--accent)/50 hover:bg-surface-2/40 hover:text-content"
                 >
                   <span className="grid size-11 place-items-center rounded-full border border-border-soft bg-surface-2 transition-colors group-hover:border-(--accent)/40"><Plus className="size-5" /></span>
                   <span className="text-xs font-medium">New instance</span>

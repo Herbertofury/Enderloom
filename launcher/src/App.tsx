@@ -15,6 +15,7 @@ import { WindowFrame } from "./components/WindowFrame";
 import { UpdateNotifications } from "./components/UpdateNotifications";
 import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
 import { CatalogInstallModal } from "./components/CatalogInstallModal";
+import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
 import { AccountsView } from "./views/AccountsView";
 import { HomeView } from "./views/HomeView";
@@ -115,7 +116,7 @@ function App() {
 
 
   const Current = VIEWS[view];
-  const immersive = view === "instance" || view === "project";
+  const immersive = view === "project";
 
   return (
     <ContentInstallerProvider>
@@ -154,7 +155,7 @@ function App() {
           <TitleBar />
           <div className="grid flex-1 place-items-center pt-9">
             <img
-              src="/logo.png"
+              src="./logo.png"
               alt=""
               draggable={false}
               className="size-12 animate-pulse object-contain opacity-60"
@@ -172,6 +173,7 @@ function App() {
       <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
         <TitleBar immersive={immersive} />
         <main className="flex min-h-0 min-w-0 flex-1 flex-col pt-9">
+        <MinecraftNav />
         <RecoveryBanner />
         {error ? (
           <div className="grid flex-1 place-items-center px-8 text-center">

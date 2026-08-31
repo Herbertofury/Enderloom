@@ -56,8 +56,14 @@ contextBridge.exposeInMainWorld('enderloomLauncher', {
     kind: String(request?.kind || '').slice(0, 32),
   }),
   revealInFolder: (filePath) => ipcRenderer.invoke('launcher:reveal', filePath),
-  assetUrl: (filePath) =>
-    `enderloom-asset://local/${Buffer.from(String(filePath), 'utf8').toString('base64url')}`,
+  assetUrl: (filePath) => {
+    const encoded = Buffer.from(String(filePath), 'utf8')
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/g, '');
+    return `enderloom-asset://local/${encoded}`;
+  },
   windowCommand: (command, payload) =>
     ipcRenderer.invoke('launcher:window-command', { command, payload }),
   onDragDrop: async (callback) => {

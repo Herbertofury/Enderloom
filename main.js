@@ -29,7 +29,9 @@ function startRaceHasUsefulState(value){ return !!(startRaceHasMedia(value) || v
 
 const APP_TITLE = 'Enderloom';
 const ROOT = __dirname;
+const APP_ICON = path.join(ROOT, 'launcher', 'public', 'logo.png');
 const PARTITION = 'persist:minecraft-catalog-live';
+const LAUNCHER_PARTITION = 'persist:enderloom-launcher-ui';
 const CATALOG_ID = 'catalog';
 const LAUNCHER_ID = 'launcher';
 const BASE_TOP = 94;
@@ -625,7 +627,8 @@ function setupCatalog() {
       sandbox: true,
       webSecurity: true,
       allowRunningInsecureContent: false,
-      backgroundThrottling: false
+      backgroundThrottling: false,
+      additionalArguments: testMode ? ['--enderloom-self-test=1'] : [],
     }
   });
   catalogView.setBackgroundColor('#0b0d15');
@@ -647,7 +650,7 @@ function setupCatalog() {
 function setupLauncher() {
   launcherView = new WebContentsView({
     webPreferences: {
-      session: session.fromPartition('persist:enderloom-launcher-ui'),
+      session: session.fromPartition(LAUNCHER_PARTITION),
       preload: path.join(ROOT, 'launcher-preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
@@ -751,7 +754,7 @@ function openSourceCenterWindow() {
     parent: win,
     width: 1040, height: 760, minWidth: 760, minHeight: 560,
     show: false, modal: false, autoHideMenuBar: true,
-    title: `${APP_TITLE} - Catalog Center`, backgroundColor: '#10131f',
+    title: `${APP_TITLE} - Catalog Center`, backgroundColor: '#10131f', icon: APP_ICON,
     webPreferences: {
       preload: path.join(ROOT, 'preload.js'), nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, backgroundThrottling: false
     }
@@ -807,7 +810,7 @@ function configureLiveSession() {
 function createWindow({ show = true } = {}) {
   win = new BrowserWindow({
     width: 1520, height: 940, minWidth: 980, minHeight: 640,
-    show, frame: false, thickFrame: true, movable: true, resizable: true, minimizable: true, maximizable: true, title: APP_TITLE, backgroundColor: '#090a12',
+    show, frame: false, thickFrame: true, movable: true, resizable: true, minimizable: true, maximizable: true, title: APP_TITLE, backgroundColor: '#090a12', icon: APP_ICON,
     webPreferences: {
       preload: path.join(ROOT, 'preload.js'), nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, backgroundThrottling: false
     }
@@ -2163,6 +2166,121 @@ function catalogLauncherProject(raw) {
   }
   return null;
 }
+function normalizedProjectName(value) {
+  return String(value || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+function catalogProviderProjectUrl(provider, kind, slug) {
+  if (!/^[a-z0-9_-]{1,128}$/i.test(String(slug || ''))) return '';
+  if (provider === 'modrinth') {
+    const route = { mods:'mod', modpacks:'modpack', resourcepacks:'resourcepack', shaderpacks:'shader', datapacks:'datapack' }[kind];
+    return route ? `https://modrinth.com/${route}/${encodeURIComponent(slug)}` : '';
+  }
+  if (provider === 'curseforge') {
+    const route = { mods:'mc-mods', modpacks:'modpacks', resourcepacks:'texture-packs', shaderpacks:'shaders', datapacks:'data-packs' }[kind];
+    return route ? `https://www.curseforge.com/minecraft/${route}/${encodeURIComponent(slug)}` : '';
+  }
+  return '';
+}
+function githubProjectHome(value) {
+  const url = safeHttpUrl(value); if (!url) return '';
+  try {
+    const parsed = new URL(url);
+    if (!/(^|\.)github\.com$/i.test(parsed.hostname)) return '';
+    const parts = parsed.pathname.split('/').filter(Boolean);
+    if (parts.length < 2 || ['features','marketplace','topics','collections','orgs','users'].includes(parts[0].toLowerCase())) return '';
+    return `https://github.com/${encodeURIComponent(decodeURIComponent(parts[0]))}/${encodeURIComponent(decodeURIComponent(parts[1]).replace(/\.git$/i,''))}`;
+  } catch { return ''; }
+}
+function exactCatalogSearchHit(page, expected, slug = '') {
+  const name = normalizedProjectName(expected), wantedSlug = String(slug || '').toLowerCase();
+  const hits = Array.isArray(page?.hits) ? page.hits : [];
+  return hits.find(hit => wantedSlug && String(hit?.slug || '').toLowerCase() === wantedSlug)
+    || hits.find(hit => normalizedProjectName(hit?.title) === name)
+    || hits.find(hit => name.length >= 5 && titleSimilarity(expected, hit?.title || '') >= .985)
+    || null;
+}
+async function searchCatalogProvider(provider, kind, title, slug = '') {
+  const page = await launcherService.request('search_content', {
+    provider, kind,
+    query: {
+      query: title,
+      game_versions: [], loaders: [], categories: [], environment: null,
+      open_source_only: false, sort: 'relevance', offset: 0, limit: 40,
+    },
+  });
+  return exactCatalogSearchHit(page, title, slug);
+}
+async function resolveCatalogProviderDetails(request) {
+  let projectId = request.projectId;
+  if (request.provider === 'curseforge' && !/^\d+$/.test(projectId)) {
+    const hit = await searchCatalogProvider('curseforge', request.kind, request.title, projectId);
+    if (!hit) throw new Error('Exact CurseForge project was not found');
+    projectId = String(hit.id || '');
+  }
+  const details = await launcherService.request('get_project_details', {
+    provider: request.provider,
+    projectId,
+  });
+  const slug = String(details?.slug || request.projectId || projectId);
+  const projectUrl = safeHttpUrl(details?.website_url)
+    || catalogProviderProjectUrl(request.provider, request.kind, slug);
+  return { provider:request.provider, kind:request.kind, projectId, slug, projectUrl, details };
+}
+function officialCatalogLinks(resolved) {
+  const rows = [];
+  const add = (url, label, source) => {
+    const clean = safeHttpUrl(url); if (!clean) return;
+    rows.push({ url: githubProjectHome(clean) || clean, label:String(label || 'Official link').slice(0,80), source });
+  };
+  add(resolved.projectUrl, resolved.provider === 'modrinth' ? 'Modrinth' : 'CurseForge', `${resolved.provider}-project`);
+  for (const link of resolved.details?.links || []) add(link?.url, link?.label, `${resolved.provider}-metadata`);
+  add(resolved.details?.website_url, 'Website', `${resolved.provider}-metadata`);
+  const body = String(resolved.details?.body || '');
+  for (const match of body.match(/https?:\/\/[^\s<>"')\]]+/gi) || []) {
+    const clean = match.replace(/[.,;:!?]+$/, '');
+    if (githubProjectHome(clean) || catalogLauncherProject({ urls:[clean] })) add(clean, 'Official project link', `${resolved.provider}-description`);
+  }
+  const unique = new Map();
+  for (const row of rows) if (!unique.has(row.url)) unique.set(row.url, row);
+  return [...unique.values()];
+}
+async function enrichCatalogProjectLinks(raw) {
+  const project = {
+    id:String(raw?.id || '').slice(0,256),
+    name:String(raw?.name || '').trim().slice(0,256),
+    urls:(Array.isArray(raw?.urls) ? raw.urls : []).map(safeHttpUrl).filter(Boolean).slice(0,16),
+    edition:String(raw?.edition || '').slice(0,80), type:String(raw?.type || '').slice(0,80),
+    loader:String(raw?.loader || '').slice(0,160), minecraftVersions:String(raw?.minecraftVersions || '').slice(0,256),
+  };
+  const known = new Map();
+  for (const url of project.urls) {
+    const request = catalogLauncherProject({ ...project, urls:[url] });
+    if (request && !known.has(request.provider)) known.set(request.provider, request);
+  }
+  if (!known.size) return { links:project.urls.map(url => ({url,label:'Source',source:'catalog'})), providers:[] };
+  const resolved = [];
+  for (const request of known.values()) {
+    try { resolved.push(await resolveCatalogProviderDetails(request)); } catch {}
+  }
+  const kind = resolved[0]?.kind || known.values().next().value?.kind;
+  const canonicalTitle = resolved[0]?.details?.title || project.name;
+  for (const provider of ['modrinth','curseforge']) {
+    if (known.has(provider) || !kind) continue;
+    try {
+      const hit = await searchCatalogProvider(provider, kind, canonicalTitle);
+      if (!hit) continue;
+      const slug = String(hit.slug || hit.id || '');
+      const request = { provider, kind, projectId:slug, title:canonicalTitle };
+      known.set(provider, request);
+      resolved.push(await resolveCatalogProviderDetails(request));
+    } catch {}
+  }
+  const links = project.urls.map(url => ({url:githubProjectHome(url)||url,label:'Catalog source',source:'catalog'}));
+  for (const item of resolved) links.push(...officialCatalogLinks(item));
+  const unique = new Map();
+  for (const row of links) if (row?.url && !unique.has(row.url)) unique.set(row.url, row);
+  return { links:[...unique.values()].slice(0,40), providers:[...known.keys()] };
+}
 function launcherDialogOptions(raw = {}, save = false) {
   const options = {
     title: typeof raw.title === 'string' ? raw.title.slice(0, 160) : undefined,
@@ -2199,28 +2317,45 @@ function launcherAssetRoots() {
       roots.push(`${String.fromCharCode(code)}:\\Minecraft\\Curseforge`);
     }
   }
-  return roots.filter(root => root && fs.existsSync(root)).map(root => {
-    try { return fs.realpathSync.native(root); } catch { return path.resolve(root); }
-  });
+  return [...new Set(roots.filter(root => root && fs.existsSync(root)).map(root => path.resolve(root)))];
 }
 function setupLauncherAssetProtocol() {
   const allowedExtensions = new Set(['.png','.jpg','.jpeg','.webp','.gif','.bmp','.ico']);
-  protocol.handle('enderloom-asset', request => {
+  const handler = request => {
     try {
       const encoded = new URL(request.url).pathname.replace(/^\/+/, '');
+      if (encoded === 'app-icon') return net.fetch(pathToFileURL(APP_ICON).toString());
       const decoded = Buffer.from(encoded, 'base64url').toString('utf8');
       if (!path.isAbsolute(decoded) || !allowedExtensions.has(path.extname(decoded).toLowerCase())) {
         return new Response('Forbidden', { status: 403 });
       }
-      const target = fs.realpathSync.native(decoded);
-      if (!launcherAssetRoots().some(root => isWithinPath(root, target))) {
+      const target = path.resolve(decoded);
+      const root = launcherAssetRoots().find(candidate => isWithinPath(candidate, target));
+      if (!root) {
         return new Response('Forbidden', { status: 403 });
       }
+      // Keep the lexical allow-list usable under Windows packaged-app file
+      // virtualization, where realpath(file) can jump into LocalCache while
+      // realpath(parent) does not. Reject explicit symlink/reparse escapes on
+      // the way to the file before serving the original trusted path.
+      let cursor = root;
+      for (const part of path.relative(root, target).split(path.sep).filter(Boolean)) {
+        cursor = path.join(cursor, part);
+        const stat = fs.lstatSync(cursor);
+        if (stat.isSymbolicLink()) return new Response('Forbidden', { status: 403 });
+      }
+      if (!fs.statSync(target).isFile()) return new Response('Not found', { status: 404 });
       return net.fetch(pathToFileURL(target).toString());
     } catch {
       return new Response('Not found', { status: 404 });
     }
-  });
+  };
+  // Protocol handlers are session-scoped. Register with every Enderloom UI
+  // partition so uploaded logos/banners work in the sandboxed launcher and
+  // catalog instead of falling through to ERR_UNKNOWN_URL_SCHEME.
+  protocol.handle('enderloom-asset', handler);
+  session.fromPartition(PARTITION).protocol.handle('enderloom-asset', handler);
+  session.fromPartition(LAUNCHER_PARTITION).protocol.handle('enderloom-asset', handler);
 }
 
 ipcMain.handle('launcher:invoke', async (event, request) => {
@@ -2348,6 +2483,10 @@ ipcMain.handle('launcher:window-command', async (event, request) => {
 });
 
 ipcMain.handle('command', (_e, req) => command(req?.name, req?.payload));
+ipcMain.handle('catalog:enrich-project-links', async (event, project) => {
+  catalogSender(event);
+  return enrichCatalogProjectLinks(project);
+});
 ipcMain.handle('catalog:install-to-launcher', async (event, project) => {
   catalogSender(event);
   const request = catalogLauncherProject(project);
@@ -2517,6 +2656,7 @@ async function runSelfTest() {
   check('public metadata API seed routes', /hangar\.papermc\.io\/api\/v1\/projects\/ViaVersion/.test(hangarApi?.apiUrl||'') && /api\.spiget\.org\/v2\/resources\/53036/.test(spigotApi?.apiUrl||''), JSON.stringify({hangarApi,spigotApi}));
   check('browser-only marketplace policy', builtPolicy?.browserOnly===true && builtPolicy.browserNavigationOnly===true && builtPolicy.disabled.has('node') && builtPolicy.disabled.has('chromium') && builtPolicy.disabled.has('wreq') && builtPolicy.disabled.has('impit'), JSON.stringify({browserOnly:builtPolicy?.browserOnly}));
   check('catalog and live discovery share Chromium session', catalogView?.webContents?.session===liveNetworkSession(), 'catalog image cache/preconnect partition mismatch');
+  stage('catalog-preflight');
   const dragUi = await win.webContents.executeJavaScript(`(() => {
     const overlay=document.getElementById('dropOverlay'), form=document.getElementById('addressForm'), address=document.getElementById('address');
     if(!overlay||!form||!address)return {present:false};
@@ -2526,16 +2666,21 @@ async function runSelfTest() {
   })()`, true);
   check('direct navigation clears stale drag overlay', dragUi?.present===true && dragUi?.hiddenAfterDirectSubmit===true, JSON.stringify(dragUi));
   check('drop indicator cannot blur browser chrome', /none|^$/i.test(dragUi?.dropBackdrop||''), JSON.stringify(dragUi));
+  stage('catalog-shell-checks');
   let center = catalogStore.summary();
   check('catalog registry seeds', center.catalogs.length >= 2, JSON.stringify(center.catalogs.map(x=>[x.id,x.entries])));
   const variety = center.catalogs.find(x=>x.id==='mob-variety');
   check('Mob Variety seed', variety?.entries===293 && variety?.assets===293 && variety?.collections===19, JSON.stringify(variety));
   await catalogStore.activate('mob-girl');
   await new Promise(resolve => setTimeout(resolve, 180));
+  stage('catalog-switched');
   center = catalogStore.summary();
   const girl = center.catalogs.find(x=>x.id==='mob-girl');
   check('Mob Girl hot switch', center.activeCatalogId==='mob-girl' && girl?.entries===312, JSON.stringify(girl));
-  const catalogTest = await catalogView.webContents.executeJavaScript('window.__mobExplorerTest ? window.__mobExplorerTest() : ({passed:false,tests:[{name:"missing self test",ok:false}]})', true);
+  const catalogTest = await catalogView.webContents.executeJavaScript(`(() => {
+    try { return window.__mobExplorerTest ? window.__mobExplorerTest() : ({passed:false,tests:[{name:'missing self test',ok:false}]}); }
+    catch (error) { return {passed:false,error:String(error),stack:String(error?.stack||'')}; }
+  })()`, true);
   check('active catalog renderer self-test', catalogTest?.passed===true, JSON.stringify(catalogTest));
   const catalogProjectReceived = launcherView.webContents.executeJavaScript(`new Promise(resolve => {
     let settled=false;
@@ -2702,6 +2847,7 @@ async function runSelfTest() {
   setTimeout(() => { void shutdownApplication(result.passed ? 0 : 1); }, 50);
 }
 
+app.setAppUserModelId('com.herbertofury.enderloom');
 app.whenReady().then(async () => {
   setupLauncherAssetProtocol();
   providerParserPool = createProviderParserPool();
