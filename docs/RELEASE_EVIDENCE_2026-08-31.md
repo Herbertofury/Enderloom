@@ -22,9 +22,10 @@ This checkpoint describes the locally runnable source build in `C:\Users\Owner\D
 - CurseForge connection: native Playwright/Electron passed the selectable CurseForge provider and inline secure key setup surface. Validation uses the real taxonomy endpoint before enabling browse/install; storage is delegated to Windows Credential Manager.
 - Catalog provider links: native Playwright/Electron audited the first 40 visible cards with zero duplicate top-level CurseForge/Modrinth/GitHub homes. All additional distinct sources remained in More menus.
 - Catalog live media: `28/30` initially sampled card galleries had decoded provider/CDN images after the bounded wait; the remaining cards continued the uncapped asynchronous discovery pipeline. There were zero Catalog console errors and zero request failures during the audit.
+- Exact Modrinth card regression: native Playwright/Electron searched for `EpicFight: TouhouLittleMaid` through the visible Catalog input from a cold profile, preserved its authoritative `epicfight_touhoulittlemaid` project URL even though the imported `authorUrl` initially pointed to that same project home, decoded the real project banner/icon/owner avatar, retained all `3` formal-gallery plus description/post images, and advanced the visible card from image `1` to image `2`. Replacement card DOM created by provider-link enrichment now immediately rehydrates retained live-media state, and background enrichment no longer disables navigation for an already-loaded gallery.
 - Catalog layout/compositor acceptance: native Playwright/Electron rendered all `312` Mob Girl entries in Cards, Table and Gallery. Gallery used a five-column CSS Grid, had zero overflowing tiles, no surviving hover surface, a compact `36.48px` heading and a `1500px` shell inside a `1520px` viewport. The legacy multi-column/backdrop-filter surface that produced the cyan/purple Windows compositor corruption is no longer active.
 - Workspace window acceptance: the existing live Mod Manager `WebContentsView` detached into a resizable/maximizable native window, preserved the same renderer/state, and reattached to the main shell without spawning a second launcher app. Drag reorder, pull-out, named groups, right-click actions and main/detached fullscreen routes have static and native gates.
-- Full Catalog and shell release gate: passed all `45` regression suites.
+- Full Catalog and shell release gate: passed all `44` bundled regression suites, plus the separate live-network native Modrinth card acceptance above.
 - Combined Electron self-test: passed with Electron `44.0.0`, Chromium `152.0.7977.54`, three browser tabs and zero failures.
 - Native Electron UI acceptance: passed Cards/Table/Gallery layout and detached/reattached Mod Manager behavior.
 
@@ -36,12 +37,15 @@ EF33D7A0DB7F086DA83CF700C7146370C3F32D21F38064A88076E48DA7D6AAB7  launcher/dist/
 0A157634D542CEE67F893A9871B13A4BA20849548554E42464240CDEF9BB895C  launcher/dist/assets/index-C57zyLxP.js
 E4BEE70C3D9EB658237C195DB33107E122BDD777051078BB091D6ADE84FA991A  launcher/dist/assets/index-D2B7Sndv.css
 A0C45981FD68AA06B256E91C567BB9F9D58697984BD45777E93E4D21F65E2ADA  main.js
-6FA1302E6DADA5760BD36441D0B0C95FA478917A436D781A8FF4E6C3ECD4C130  catalog/app.js
-76EA61FA9327AC4CFEB674595C299F62E2199218CA88DC6EE6BF3675629B3E01  catalog/enhance.js
+3982732D63F62A91D728A1DCB8D727467B02FFAE206667A8B0E6BAAB7D26785D  catalog/app.js
+908BF59D04BAB231175206B411D04E4E69BE608914674E6F4A556E1DBC558208  catalog/enhance.js
 B12643B2E2AEBDBE1A0695BCB8211F166875FD30CB1B7DAB11702D1C3CB187BE  catalog/modern.css
 088EE88D06F342B620FFEE4C30B3B9CAD03F55D66C3B20E045407986823F1D1C  src/modrinth-batch.js
 9E3A6F17F606A31F37F11520BCB36FAA02B01C8AFF9C334CCECF08905CA22F70  src/provider-launcher-handoff.js
 3BD6C0609FD36A84A58604693FDDF84466EABB5D8F5CAD261B3DE7C0ECC7EEC6  package-lock.json
+0882C1D27FFC04B4D0F566A5D91DCB5A9BB5E26EA1D059FF1D3D7C1320E4A2B7  package.json
+93D8BF0A6383C48FCA9E75858EEDC41545E822D90A23AB7777D12E07B50F40A9  scripts/modrinth-card-live-qa.js
+A866B032EEE7016B41787CCCC6C09CD11E7C6B090B775C8F47405B252209A6D9  scripts/modrinth-project-media-qa.js
 ```
 
 ## Launch
