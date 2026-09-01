@@ -399,6 +399,16 @@ pub async fn plan(
     target.supports(state, kind)?;
 
     let installed = index_installed(state, target, kind);
+    if let Target::Instance(instance_id) = target {
+        let locked = state
+            .db
+            .locked_content_projects(instance_id, kind.as_str())?;
+        if installed.by_project.contains_key(project_id) && locked.contains(project_id) {
+            return Err(crate::error::Error::other(
+                "Frozen content cannot change versions. Unfreeze it first.",
+            ));
+        }
+    }
     let mut plan = InstallPlan::default();
 
     let version = fetch_version(

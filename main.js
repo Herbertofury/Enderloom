@@ -10,6 +10,7 @@ const v8 = require('v8');
 const { pathToFileURL } = require('url');
 const { LauncherService } = require('./src/launcher-service');
 const { CatalogStore } = require('./src/catalog-store');
+const { cleanName:cleanCatalogExportName, normalizeRows:normalizeCatalogExportRows, html:catalogExportHtml, bytesFor:catalogExportBytes, writeAtomic:writeCatalogExportAtomic } = require('./src/catalog-export');
 const { requestText: publicRequestText, requestJson: publicRequestJson, requestHeadTextShared: publicRequestHeadTextShared, requestProgressiveTextShared: publicRequestProgressiveTextShared, requestTextShared: publicRequestTextShared, requestJsonShared: publicRequestJsonShared } = require('./src/public-http');
 const { providerForUrl, contextFingerprint, pageIdentityConfidence, titleSimilarity, parsePlanetMinecraftHtml, parsePlanetMinecraftAuthorHtml, parseCurseForgeAuthorProjectHtml, parseProviderAuthorHtml, parseGenericProjectHtml, parseProviderHeadMedia, parseCurseForgeGalleryStreamSeed, resolveProviderProjectLinks, isProviderCollectionUrl, curseForgeFullAndPreview } = require('./src/provider-media');
 const { firstTrustedMediaUrl:streamFirstTrustedMediaUrl, mediaMarkerMatched:streamMediaMarkerMatched, providerOriginHints, allProviderOriginHints, transportPolicy } = require('./src/provider-fastlane');
@@ -1043,6 +1044,26 @@ async function command(name, payload) {
     }
     case 'catalog-import-paths': await catalogStore.addLocalFiles(payload?.paths || [], { mode:payload?.mode || 'smart' }); break;
     case 'catalog-add-google': await catalogStore.addGoogleSource(payload?.url, { catalogId:payload?.catalogId || catalogStore.registry.activeCatalogId, role:payload?.role, mode:payload?.mode || 'attach', name:payload?.name }); break;
+    case 'catalog-import-current-page': {
+      const current = activeTab();
+      const url = [
+        current?.view?.webContents?.getURL?.(),
+        current?.url,
+        payload?.url,
+      ].find(candidate => /^https:\/\/(?:docs|drive)\.google\.com\//i.test(String(candidate || ''))) || '';
+      if (!/^https:\/\/(?:docs|drive)\.google\.com\//i.test(url)) throw new Error('Open a Google Sheet, Doc, or Drive PDF in an Enderloom browser tab first');
+      const result = await catalogStore.addGoogleSource(url, {
+        catalogId: payload?.catalogId || catalogStore.registry.activeCatalogId,
+        mode: payload?.mode || 'new',
+        role: payload?.role,
+        name: payload?.name,
+      });
+      activeId = CATALOG_ID;
+      splitMode = false;
+      layoutViews();
+      publishState();
+      return result;
+    }
     case 'catalog-toggle-source': await catalogStore.toggleSource(payload?.catalogId || catalogStore.registry.activeCatalogId, payload?.sourceId, payload?.enabled); break;
     case 'catalog-remove-source': await catalogStore.removeSource(payload?.catalogId || catalogStore.registry.activeCatalogId, payload?.sourceId); break;
     case 'catalog-google-signin': createBrowserTab('https://accounts.google.com/', true); break;
@@ -2641,6 +2662,42 @@ ipcMain.handle('detached:command', (event, req) => {
 ipcMain.handle('catalog:enrich-project-links', async (event, project) => {
   catalogSender(event);
   return enrichCatalogProjectLinks(project);
+});
+ipcMain.handle('catalog:export', async (event, payload) => {
+  catalogSender(event);
+  const format = ['xlsx','csv','json','html','pdf'].includes(String(payload?.format || '').toLowerCase())
+    ? String(payload.format).toLowerCase()
+    : 'xlsx';
+  const rows = normalizeCatalogExportRows(payload?.rows);
+  if (!rows.length) throw new Error('There are no catalog rows to export');
+  const title = cleanCatalogExportName(payload?.name);
+  const extension = format;
+  const filterName = format === 'xlsx' ? 'Excel workbook' : format === 'html' ? 'Web document' : format.toUpperCase();
+  const picked = await dialog.showSaveDialog(win, {
+    title: `Save ${title}`,
+    defaultPath: path.join(app.getPath('downloads'), `${title} - Enderloom enriched.${extension}`),
+    filters: [{ name: filterName, extensions: [extension] }],
+  });
+  if (picked.canceled || !picked.filePath) return { saved:false };
+
+  let bytes;
+  if (format === 'pdf') {
+    const staging = path.join(app.getPath('temp'), `enderloom-catalog-export-${crypto.randomUUID()}.html`);
+    const printWindow = new BrowserWindow({ show:false, webPreferences:{ sandbox:true, contextIsolation:true, nodeIntegration:false } });
+    try {
+      await writeCatalogExportAtomic(staging, Buffer.from(catalogExportHtml(rows, title)));
+      await printWindow.loadFile(staging);
+      bytes = await printWindow.webContents.printToPDF({ printBackground:true, landscape:true, pageSize:'A4', preferCSSPageSize:true });
+    } finally {
+      if (!printWindow.isDestroyed()) printWindow.destroy();
+      try { fs.rmSync(staging, { force:true }); } catch {}
+    }
+  } else {
+    bytes = await catalogExportBytes(format, rows, title);
+  }
+  await writeCatalogExportAtomic(picked.filePath, bytes);
+  send('status', `Saved ${rows.length} enriched catalog entries to ${path.basename(picked.filePath)}`);
+  return { saved:true, path:picked.filePath, format, rows:rows.length };
 });
 ipcMain.handle('catalog:install-to-launcher', async (event, project) => {
   catalogSender(event);

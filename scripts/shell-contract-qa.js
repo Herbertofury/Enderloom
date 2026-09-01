@@ -8,7 +8,7 @@ const sourceControls=['importMode','importLocal','refreshSources','refreshAllCat
 const missing=[];
 for(const id of controls){if(!html.includes(`id="${id}"`))missing.push(`${id}:missing-html`);if(!js.includes(`$('${id}')`))missing.push(`${id}:missing-handler-reference`)}
 for(const id of sourceControls){if(!sourceHtml.includes(`id="${id}"`))missing.push(`${id}:missing-source-html`);if(!sourceJs.includes(`$('${id}')`))missing.push(`${id}:missing-source-handler-reference`)}
-for(const command of ['catalog-list','catalog-switch','catalog-activate','catalog-refresh','catalog-refresh-all','catalog-reveal','catalog-source-refresh','catalog-import-dialog','catalog-import-paths','catalog-add-google','catalog-toggle-source','catalog-remove-source','catalog-google-signin','source-center','source-center-close','clear-data-confirm'])if(!main.includes(`case '${command}'`))missing.push(`${command}:missing-main-command`);
+for(const command of ['catalog-list','catalog-switch','catalog-activate','catalog-refresh','catalog-refresh-all','catalog-reveal','catalog-source-refresh','catalog-import-dialog','catalog-import-paths','catalog-add-google','catalog-import-current-page','catalog-toggle-source','catalog-remove-source','catalog-google-signin','source-center','source-center-close','clear-data-confirm'])if(!main.includes(`case '${command}'`))missing.push(`${command}:missing-main-command`);
 assert(main.includes('const DIVIDER_W = 18'),'split hit lane regressed below 18px');
 assert(main.includes("const PARTITION = 'persist:minecraft-catalog-live'"),'1.2 persistent Chromium partition continuity lost');
 assert(main.includes("buttons: ['Block', 'Allow once', 'Allow this session']"),'native permission choices missing');

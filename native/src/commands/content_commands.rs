@@ -48,9 +48,15 @@ pub(crate) async fn list_instance_content_core(
         .filter(|u| u.kind == kind)
         .map(|u| (u.file_name.clone(), u))
         .collect();
+    let locked = state.db.locked_content_projects(instance_id, kind)?;
 
     for item in &mut items {
         item.source = sources.remove(&item.file_name);
+        item.frozen = item
+            .source
+            .as_ref()
+            .and_then(|source| source.project_id.as_ref())
+            .is_some_and(|project_id| locked.contains(project_id));
         item.update = updates.remove(&item.file_name);
     }
     Ok(items)
@@ -107,9 +113,15 @@ pub(crate) async fn list_instance_content_bundle_core(
             .filter(|u| u.kind == kind)
             .map(|u| (u.file_name.clone(), u.clone()))
             .collect();
+        let locked = state.db.locked_content_projects(instance_id, &kind)?;
 
         for item in &mut items {
             item.source = sources.remove(&item.file_name);
+            item.frozen = item
+                .source
+                .as_ref()
+                .and_then(|source| source.project_id.as_ref())
+                .is_some_and(|project_id| locked.contains(project_id));
             item.update = updates.remove(&item.file_name);
         }
         bundle.insert(kind, items);
@@ -146,6 +158,28 @@ pub fn toggle_instance_content(
     let enabled = content::toggle(&state.files, &instance_id, &kind, &file_name)?;
     tracing::info!(enabled, "content toggled");
     Ok(enabled)
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
+pub fn set_instance_content_frozen(
+    state: State<AppState>,
+    instance_id: String,
+    kind: String,
+    file_name: String,
+    frozen: bool,
+) -> Result<bool> {
+    find_instance(&state, &instance_id)?;
+    let result = state
+        .db
+        .set_content_locked(&instance_id, &kind, &file_name, frozen)?;
+    if frozen {
+        state
+            .db
+            .remove_content_update(&instance_id, &kind, &file_name)?;
+    }
+    tracing::info!(frozen = result, "content version freeze changed");
+    Ok(result)
 }
 
 #[tauri::command]

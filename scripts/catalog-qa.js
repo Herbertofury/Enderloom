@@ -1,5 +1,6 @@
 'use strict';
 const fs=require('fs');const os=require('os');const path=require('path');const assert=require('assert');
+const ExcelJS=require('exceljs');
 const {CatalogStore,inferGoogle}=require('../src/catalog-store');
 const {parseSourceBuffer,ACCEPTED_EXTENSIONS}=require('../src/ingest');
 const root=path.resolve(__dirname,'..'),fixtures=path.join(__dirname,'fixtures');
@@ -20,9 +21,19 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  check('Unique stable IDs',()=>{for(const x of [mv,mg])assert.equal(new Set(x.items.map(i=>i.id)).size,x.items.length)});
  check('Exact HTTP primary links',()=>{for(const x of [mv,mg])assert(x.items.every(i=>/^https?:\/\//.test(i.primaryUrl||'')))});
  check('Google URL inference',()=>{const x=inferGoogle('https://docs.google.com/spreadsheets/d/abc_DEF-123/edit');assert.equal(x.format,'xlsx');assert.equal(x.id,'abc_DEF-123')});
+ check('JetSetCraft Google URL inference',()=>{const x=inferGoogle('https://docs.google.com/spreadsheets/d/1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68/edit?gid=349919569#gid=349919569');assert.equal(x.id,'1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68');assert.equal(x.exportUrl,'https://docs.google.com/spreadsheets/d/1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68/export?format=xlsx')});
  check('Declared ingest extensions',()=>{for(const ext of ['.xlsx','.xlsm','.csv','.tsv','.json','.docx','.pdf','.md','.markdown','.txt','.html','.htm','.zip'])assert(ACCEPTED_EXTENSIONS.has(ext),ext)});
  const tinyXlsx=parseSourceBuffer(fixture('tiny-catalog.xlsx'),{filePath:'tiny-catalog.xlsx'});
  check('XLSX ingest fixture',()=>{assert.equal(tinyXlsx.items.length,2);assert.equal(tinyXlsx.items[0].rank,1);assert.equal(tinyXlsx.items[0].overallScore,9.5);assert.equal(tinyXlsx.items[1].primaryUrl,'https://example.com/beta')});
+ const atlasBook=new ExcelJS.Workbook(),atlasMaster=atlasBook.addWorksheet('01 Master Rankings'),atlasDashboard=atlasBook.addWorksheet('00 Dashboard'),atlasScour=atlasBook.addWorksheet('15 Scour Additions');
+ const atlasHeaders=['Overall Rank','Category Rank','Tier','Name','Research Type','Category','Subcategory','Edition / Platform','Loader / Runtime','Version / Era','Creator / Team','Primary Link','Source / Repo','Freshness / Status','Mechanics / Assets Worth Studying','JetSetCraft Opportunity / Why It Matters','Overall Score'];
+ atlasMaster.addRow(['Atlas']);atlasMaster.addRow(['Two unique references']);atlasMaster.addRow([]);atlasMaster.addRow(atlasHeaders);
+ atlasMaster.addRow([1,1,'S','Atlas Alpha','Mod reference','Movement','Grinding','Java','Fabric','1.20.1','Alpha Team','https://modrinth.com/mod/atlas-alpha','https://github.com/example/atlas-alpha','Active','Grinding mechanics','Direct production fit',9.8]);
+ atlasMaster.addRow([2,1,'A','Atlas Beta','Tool','Assets','Models','All','Desktop','Current','Beta Team','https://example.com/atlas-beta','https://example.com/atlas-beta/docs','Current','Model pipeline','Asset workflow',8.4]);
+ atlasDashboard.addRow(atlasHeaders);atlasDashboard.addRow([1,1,'S','Atlas Alpha','Mod reference','Movement','Grinding','Java','Fabric','1.20.1','Alpha Team','https://modrinth.com/mod/atlas-alpha','https://github.com/example/atlas-alpha','Active','Grinding mechanics','Direct production fit',9.8]);
+ atlasScour.addRow(atlasHeaders);atlasScour.addRow(atlasHeaders.map((header,index)=>index===3?'Reference':header));atlasScour.addRow([2,1,'A','Atlas Beta','Tool','Assets','Models','All','Desktop','Current','Beta Team','https://example.com/atlas-beta','https://example.com/atlas-beta/docs','Current','Model pipeline','Asset workflow',8.4]);
+ const atlasParsed=parseSourceBuffer(Buffer.from(await atlasBook.xlsx.writeBuffer()),{filePath:'atlas.xlsx'});
+ check('Multi-sheet research atlas fidelity',()=>{assert.equal(atlasParsed.meta.primarySheet,'01 Master Rankings');assert.equal(atlasParsed.items.length,2);assert.equal(atlasParsed.items[0].rank,1);assert.equal(atlasParsed.items[0].primaryCategory,'Movement');assert.equal(atlasParsed.items[0].loader,'Fabric');assert.equal(atlasParsed.items[0].minecraftVersions,'1.20.1');assert.equal(atlasParsed.items[0].githubUrl,'https://github.com/example/atlas-alpha');assert.equal(atlasParsed.items[0].overallScore,9.8);assert(atlasParsed.items[0].collections.includes('00 Dashboard'));assert(!atlasParsed.items.some(item=>item.name==='Reference'))});
  const tinyDoc=parseSourceBuffer(fixture('tiny-guide.docx'),{filePath:'tiny-guide.docx'});
  check('DOCX narrative ingest fixture',()=>{assert.equal(tinyDoc.documents.length,1);assert(tinyDoc.documents[0].text.includes('Narrative context'))});
  const tinyPdf=parseSourceBuffer(fixture('tiny-guide.pdf'),{filePath:'tiny-guide.pdf'});
@@ -35,6 +46,7 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  check('Markdown narrative ingest fixture',()=>assert(parseSourceBuffer(Buffer.from('# Guide\nNarrative markdown'),{filePath:'x.md'}).documents[0].text.includes('Narrative markdown')));
  const fake={cookies:{get:async()=>[{name:'SID',value:'fixture'}]}};
  const fakeGoogleRequest=async(_url,opts={})=>{const dynamic=await opts.headersForUrl?.('https://docs.google.com/spreadsheets/d/fixture_sheet/export?format=xlsx');assert(/SID=fixture/.test(dynamic?.Cookie||''));return{status:200,headers:{'content-type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','etag':'"fixture-v1"'},buffer:fixture('tiny-catalog.xlsx')}};
+ const authTmp=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-google-auth-')),authStore=new CatalogStore({rootDir:root,userDataDir:authTmp,liveSession:{cookies:{get:async()=>[]}},googleRequest:async()=>({status:401,headers:{},buffer:Buffer.alloc(0)}),testMode:true});await authStore.init();const authResult=await authStore.addGoogleSource('https://docs.google.com/spreadsheets/d/private_fixture/edit',{mode:'new'});check('Private Google source reports sign-in without inventing data',()=>{assert.equal(authResult.status,'sign-in-required');const source=authStore.entry(authResult.catalogId).sources[0];assert.equal(source.status,'sign-in-required');assert.equal(authStore.loadSnapshot(authResult.catalogId).items.length,0)});authStore.dispose();
  const legacyTmp=fs.mkdtempSync(path.join(os.tmpdir(),'catalog-companion-legacy-')),legacyDir=path.join(legacyTmp,'catalog-workspace'),legacyData=path.join(legacyDir,'data');fs.mkdirSync(legacyData,{recursive:true});
  const legacyCsv=path.join(legacyTmp,'legacy.csv');fs.writeFileSync(legacyCsv,'Name,Primary URL\nLegacy Project,https://example.com/legacy\n');
  const legacyCustom=path.join(legacyData,'legacy-custom.json');fs.writeFileSync(legacyCustom,JSON.stringify({id:'legacy-custom',title:'Legacy Custom',items:[{id:'legacy-1',name:'Legacy Project',primaryUrl:'https://example.com/legacy'}],assets:{},documents:[]}));

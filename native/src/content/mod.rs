@@ -14,6 +14,7 @@ pub struct ContentItem {
     pub file_name: String,
     pub size: u64,
     pub enabled: bool,
+    pub frozen: bool,
     pub source: Option<ContentFile>,
     pub update: Option<crate::db::ContentUpdate>,
 }
@@ -82,6 +83,7 @@ pub fn list_in(files: &FileManager, dir: &std::path::Path) -> Result<Vec<Content
             file_name,
             size: meta.len(),
             enabled,
+            frozen: false,
             source: None,
             update: None,
         });

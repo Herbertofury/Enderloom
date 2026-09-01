@@ -1,4 +1,13 @@
-import { ArrowUpCircle, FileBox, Loader2, Search, Trash2 } from "lucide-react";
+import {
+  ArrowLeftRight,
+  ArrowUpCircle,
+  FileBox,
+  Loader2,
+  Lock,
+  MoreVertical,
+  Search,
+  Trash2,
+} from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { formatBytes } from "../../lib/format";
@@ -60,6 +69,7 @@ export function ContentItemCard({
   onOpenProject,
   onOpenCatalog,
   onUpdate,
+  onSwitchVersion,
   onToggle,
   onRemove,
   onContextMenu,
@@ -72,6 +82,7 @@ export function ContentItemCard({
   onOpenProject?: (provider: SearchProvider, projectId: string, title?: string) => void;
   onOpenCatalog?: () => void;
   onUpdate: () => void;
+  onSwitchVersion?: () => void;
   onToggle: () => void;
   onRemove: () => void;
   onContextMenu?: (event: React.MouseEvent) => void;
@@ -108,6 +119,11 @@ export function ContentItemCard({
       {source?.provider && <Tag>{source.provider}</Tag>}
       {source?.origin === "pack" && <Tag tone="accent">pack</Tag>}
       {source?.origin === "dependency" && <Tag>dependency</Tag>}
+      {item.frozen && (
+        <span title="Version frozen">
+          <Lock className="size-3 text-(--accent)" />
+        </span>
+      )}
       {!linked && source?.mod_id && (
         <Tag title="Identified from the file itself, not linked to a provider">local</Tag>
       )}
@@ -140,6 +156,17 @@ export function ContentItemCard({
           <Search className="size-4" />
         </button>
       )}
+      {onSwitchVersion && (
+        <button
+          onClick={onSwitchVersion}
+          disabled={busy || disabled}
+          aria-label={`Switch version of ${displayName}`}
+          title="Switch version"
+          className="grid size-8 shrink-0 place-items-center rounded-lg text-content-faint transition-colors hover:bg-surface-3 hover:text-content disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ArrowLeftRight className="size-4" />
+        </button>
+      )}
       <Toggle on={item.enabled} disabled={disabled} onClick={onToggle} />
       <button
         onClick={onRemove}
@@ -150,6 +177,16 @@ export function ContentItemCard({
       >
         <Trash2 className="size-4" />
       </button>
+      {onContextMenu && (
+        <button
+          onClick={onContextMenu}
+          aria-label={`More actions for ${displayName}`}
+          title="More actions"
+          className="grid size-8 shrink-0 place-items-center rounded-lg text-content-faint transition-colors hover:bg-surface-3 hover:text-content"
+        >
+          <MoreVertical className="size-4" />
+        </button>
+      )}
     </div>
   );
 

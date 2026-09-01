@@ -20,6 +20,7 @@
     "self-test": "node scripts/catalog-qa.js",
     "catalog-qa": "node scripts/catalog-qa.js",
     "catalog-layout-qa": "node scripts/catalog-layout-qa.js",
+    "catalog-export-qa": "node scripts/catalog-export-qa.js",
     "electron-self-test": "node scripts/run.js --self-test",
     "electron-ui-acceptance-qa": "node scripts/electron-ui-acceptance-qa.js",
     "modrinth-card-live-qa": "node scripts/modrinth-card-live-qa.js",
@@ -84,5 +85,8 @@
   "devDependencies": {
     "electron": "^44.0.0",
     "playwright": "^1.62.1"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
   }
 }

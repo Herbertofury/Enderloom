@@ -221,6 +221,7 @@ export interface ContentItem {
   file_name: string;
   size: number;
   enabled: boolean;
+  frozen: boolean;
   source: ContentFile | null;
   update: ContentUpdate | null;
 }

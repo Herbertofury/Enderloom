@@ -1482,6 +1482,50 @@ function runOfflineReset(executable, root, deep = false) {
     listedContent.some((item) => item.source?.project_id === installPlan.primary.project_id),
     'installed provider metadata was not persisted with the managed file',
   );
+  assert.equal(
+    await service.request('set_instance_content_frozen', {
+      instanceId: modded.id,
+      kind: 'mods',
+      fileName: installPlan.primary.file_name,
+      frozen: true,
+    }),
+    true,
+    'content version could not be frozen',
+  );
+  assert(
+    (await service.request('list_instance_content', {
+      instanceId: modded.id,
+      kind: 'mods',
+      reconcile: false,
+    })).some((item) => item.file_name === installPlan.primary.file_name && item.frozen),
+    'frozen content state was not returned to the launcher',
+  );
+  await assert.rejects(
+    service.request('plan_content_install', {
+      ...installArgs,
+      versionId: sodiumVersions[0].id,
+    }, { timeoutMs:120000 }),
+    /Frozen content cannot change versions/i,
+    'the Rust install planner allowed a frozen project to change versions',
+  );
+  const frozenUpdates = await service.request('check_content_updates', {
+    instanceId: modded.id,
+    force: true,
+  }, { timeoutMs: 120000 });
+  assert(
+    !frozenUpdates.some((update) => update.file_name === installPlan.primary.file_name),
+    'a frozen content version was still offered an automatic update',
+  );
+  assert.equal(
+    await service.request('set_instance_content_frozen', {
+      instanceId: modded.id,
+      kind: 'mods',
+      fileName: installPlan.primary.file_name,
+      frozen: false,
+    }),
+    false,
+    'content version could not be unfrozen',
+  );
   const installTaskEvents = serviceEvents
     .filter((message) => message.event === 'task:update' && message.payload?.instance_id === modded.id)
     .map((message) => message.payload);
@@ -1945,6 +1989,7 @@ function runOfflineReset(executable, root, deep = false) {
       taskEvents: installTaskEvents.length,
       olderVersionUpdatedInPlace: true,
       updateMetadataCommitted: true,
+      versionFreezeEnforced: true,
     },
     processSupervision: {
       started: true,

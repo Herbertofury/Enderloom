@@ -523,6 +523,24 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
             &required_string(args, "kind")?,
             &required_string(args, "fileName")?,
         )?),
+        "set_instance_content_frozen" => {
+            let instance_id = required_string(args, "instanceId")?;
+            let kind = required_string(args, "kind")?;
+            let file_name = required_string(args, "fileName")?;
+            crate::commands::find_instance(state, &instance_id)?;
+            let frozen = state.db.set_content_locked(
+                &instance_id,
+                &kind,
+                &file_name,
+                required_bool(args, "frozen")?,
+            )?;
+            if frozen {
+                state
+                    .db
+                    .remove_content_update(&instance_id, &kind, &file_name)?;
+            }
+            value(frozen)
+        }
         "delete_instance_content" => {
             let instance_id = required_string(args, "instanceId")?;
             let kind = required_string(args, "kind")?;

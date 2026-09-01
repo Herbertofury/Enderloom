@@ -2,7 +2,7 @@ use rusqlite::{params, Connection};
 
 use crate::error::Result;
 
-pub(super) const SCHEMA_VERSION: i64 = 19;
+pub(super) const SCHEMA_VERSION: i64 = 20;
 
 fn column_exists(conn: &Connection, table: &str, column: &str) -> Result<bool> {
     let mut stmt = conn.prepare(&format!("PRAGMA table_info({table})"))?;
@@ -85,6 +85,13 @@ pub(super) fn migrate(conn: &Connection) -> Result<()> {
         CREATE INDEX IF NOT EXISTS content_files_project
             ON content_files(instance_id, kind, project_id);
         CREATE INDEX IF NOT EXISTS content_files_sha1 ON content_files(sha1);
+        CREATE TABLE IF NOT EXISTS content_locks(
+            instance_id TEXT NOT NULL,
+            kind TEXT NOT NULL,
+            project_id TEXT NOT NULL,
+            locked_at INTEGER NOT NULL,
+            PRIMARY KEY (instance_id, kind, project_id)
+        );
         CREATE TABLE IF NOT EXISTS content_updates(
             instance_id TEXT NOT NULL,
             kind TEXT NOT NULL,
@@ -388,6 +395,7 @@ mod tests {
         assert!(column_exists(&conn, "instances", "pack_provider").unwrap());
         assert!(column_exists(&conn, "instances", "loader").unwrap());
         assert!(column_exists(&conn, "content_files", "origin").unwrap());
+        assert!(super::table_exists(&conn, "content_locks").unwrap());
         assert!(super::table_exists(&conn, "api_cache").unwrap());
         assert!(super::table_exists(&conn, "active_runs").unwrap());
         assert!(column_exists(&conn, "active_runs", "checkpointed_at").unwrap());

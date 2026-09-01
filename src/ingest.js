@@ -254,17 +254,18 @@ function parseDrawingImages(zip, sheetPath) {
 const HEADER_GROUPS = {
   name: ['name', 'project', 'title', 'mod', 'addon', 'add on'],
   category: ['primary category', 'category', 'class', 'role archetype', 'role'],
-  edition: ['edition', 'platform'],
-  type: ['type', 'project type'],
-  versions: ['minecraft versions', 'minecraft version s', 'minecraft version', 'versions', 'version'],
-  loader: ['loader channel', 'loader', 'channel'],
-  status: ['status', 'maintenance'],
+  edition: ['edition platform', 'edition', 'platform'],
+  type: ['research type', 'type', 'project type'],
+  versions: ['version era', 'minecraft versions', 'minecraft version s', 'minecraft version', 'versions', 'version'],
+  loader: ['loader runtime', 'loader channel', 'loader', 'channel'],
+  status: ['freshness status', 'status', 'maintenance'],
   tags: ['tags', 'tag'],
-  why: ['why it matters', 'why it earned a spot', 'summary', 'reason', 'description'],
+  why: ['jetsetcraft opportunity why it matters', 'why it matters', 'why it earned a spot', 'mechanics assets worth studying', 'summary', 'reason', 'description'],
   caution: ['caution', 'remove update safety', 'safety', 'world save impact'],
   variety: ['variety'], depth: ['depth'], polish: ['polish'], freshness: ['freshness'],
-  score: ['overall score', 'score'], rank: ['rank 1 best', 'rank'],
-  primaryUrl: ['primary url', 'project url', 'url', 'source'],
+  score: ['overall score', 'score snapshot', 'score'], rank: ['overall rank', 'rank snapshot', 'rank 1 best', 'rank'],
+  primaryUrl: ['primary link', 'primary url', 'project url', 'url', 'source'],
+  secondaryUrl: ['source repo', 'repo secondary', 'secondary link'],
   curseforge: ['curseforge url', 'curse forge url'], modrinth: ['modrinth url'], github: ['github url'], other: ['other url'],
   evidence: ['evidence', 'notes', 'last checked'], author: ['author', 'creator'],
   direct: ['direct version download', 'direct download', 'download'],
@@ -294,6 +295,8 @@ function headerIndex(sheet, headerRow) {
   return map;
 }
 function findCol(headers, aliases) {
+  const normalized = aliases.map(normHeader);
+  for (const [col, h] of headers) if (normalized.includes(h)) return col;
   for (const [col, h] of headers) if (aliasMatch(h, aliases)) return col;
   return 0;
 }
@@ -310,17 +313,19 @@ function genericRowsFromSheet(sheet, sourceKey, assets, workbookSheets) {
   const scourMembership = workbookSheets.scourMembership || new Map();
   const items = [];
   const usedIds = new Set();
+  const headerTerms = new Set(Object.values(HEADER_GROUPS).flat().map(normHeader));
   for (const [r, row] of sheet.parsed.rows) {
     if (r <= headerRow) continue;
+    if ([...row.values()].filter(cell => headerTerms.has(normHeader(cell.value))).length >= 4) continue;
     const nameCell = cellAt(row, cols.name);
     const name = String(nameCell.value || '').trim();
     if (!name || aliasMatch(name, HEADER_GROUPS.name)) continue;
     const urlsFor = col => { const c = cellAt(row, col); return [...new Set([c.url, ...urlsFromText(c.value)].map(safeUrl).filter(Boolean))]; };
     const explicit = {
       primary: urlsFor(cols.primaryUrl), curseforge: urlsFor(cols.curseforge), modrinth: urlsFor(cols.modrinth),
-      github: urlsFor(cols.github), other: urlsFor(cols.other), direct: urlsFor(cols.direct)
+      github: urlsFor(cols.github), secondary: urlsFor(cols.secondaryUrl), other: urlsFor(cols.other), direct: urlsFor(cols.direct)
     };
-    const rowUrls = [...explicit.primary, ...explicit.curseforge, ...explicit.modrinth, ...explicit.github, ...explicit.other, ...explicit.direct];
+    const rowUrls = [...explicit.primary, ...explicit.curseforge, ...explicit.modrinth, ...explicit.github, ...explicit.secondary, ...explicit.other, ...explicit.direct];
     if (nameCell.url) rowUrls.unshift(nameCell.url);
     if (!rowUrls.length) {
       for (const [col, cell] of row.entries()) {
@@ -434,17 +439,52 @@ function deriveSheetMemberships(sheets) {
 function parseXlsx(buffer, options = {}) {
   const zip = readZip(buffer);
   const sheets = parseWorkbook(zip);
-  const primary = sheets.find(s => /^master index$/i.test(s.name)) || sheets.find(s => detectHeaderRow(s)) || sheets[0];
-  if (!primary) throw new Error('Workbook has no readable worksheets');
+  if (!sheets.length) throw new Error('Workbook has no readable worksheets');
   const derived = deriveSheetMemberships(sheets);
   const assets = {};
   const ctx = { zip, memberships: derived.memberships, scourMembership: derived.scourMembership };
-  const out = genericRowsFromSheet(primary, options.sourceKey || 'xlsx', assets, ctx);
-  for (const item of out.items) if (!item.scour && /^master index$/i.test(primary.name) && sheets.some(s => /scour.*addition/i.test(s.name))) item.scour = 'Foundation / First Pass';
+  const parsedSheets = sheets.map(sheet => ({ sheet, out:genericRowsFromSheet(sheet, options.sourceKey || 'xlsx', assets, ctx) })).filter(row => row.out.items.length);
+  const preferred = parsedSheets.find(row => /(?:^|\b)master (?:index|rankings)(?:\b|$)/i.test(row.sheet.name))
+    || parsedSheets.slice().sort((a,b) => b.out.items.length - a.out.items.length)[0];
+  if (!preferred) throw new Error('Workbook has no project-bearing worksheets');
+  const ordered = parsedSheets.filter(row => row !== preferred);
+  const items = preferred.out.items.slice();
+  const byName = new Map();
+  const byUrl = new Map();
+  for (const [index, item] of items.entries()) {
+    const nameKey = normText(item.name);
+    if (nameKey && !byName.has(nameKey)) byName.set(nameKey, index);
+    if (item.primaryUrl && !byUrl.has(item.primaryUrl)) byUrl.set(item.primaryUrl, index);
+  }
+  const union = (a, b) => [...new Set([...(a || []), ...(b || [])].filter(Boolean))];
+  const mergeText = (a, b) => union(String(a || '').split(' | '), String(b || '').split(' | ')).join(' | ');
+  for (const { out } of ordered) for (const item of out.items) {
+    const nameKey = normText(item.name);
+    const index = byName.get(nameKey) ?? byUrl.get(item.primaryUrl);
+    if (index === undefined) {
+      const newIndex = items.push(item) - 1;
+      if (nameKey && !byName.has(nameKey)) byName.set(nameKey, newIndex);
+      if (item.primaryUrl && !byUrl.has(item.primaryUrl)) byUrl.set(item.primaryUrl, newIndex);
+      continue;
+    }
+    const current = items[index];
+    for (const field of ['edition','type','minecraftVersions','loader','varietyCount','status','author','authorUrl','scour','iconAsset','authorAsset','galleryAsset','curseForgeUrl','modrinthUrl','githubUrl','otherUrl']) {
+      if (!current[field] && item[field]) current[field] = item[field];
+    }
+    if ((!current.primaryCategory || current.primaryCategory === 'Uncategorized') && item.primaryCategory) current.primaryCategory = item.primaryCategory;
+    for (const field of ['rank','overallScore','variety','depth','polish','freshness']) if (current[field] === null || current[field] === undefined || current[field] === '') current[field] = item[field];
+    for (const field of ['whyItMatters','caution','evidence']) current[field] = mergeText(current[field], item[field]);
+    current.tags = union(current.tags, item.tags);
+    current.collections = union(current.collections, item.collections);
+    current.provenance = union(current.provenance, item.provenance);
+    current.sources = union(current.sources?.map(source => source.url), item.sources?.map(source => source.url)).map((url, index) => ({ provider:providerLabel(url), label:providerLabel(url), url, kind:index === 0 ? 'primary' : 'project', verified:false }));
+    current.extra = { ...(item.extra || {}), ...(current.extra || {}) };
+  }
+  for (const item of items) if (!item.scour && /master (?:index|rankings)/i.test(preferred.sheet.name) && sheets.some(s => /scour.*addition/i.test(s.name))) item.scour = 'Foundation / First Pass';
   return {
-    kind: 'structured', format: 'xlsx', title: options.title || primary.name,
-    items: out.items, assets, documents: [],
-    meta: { sheetCount: sheets.length, primarySheet: primary.name, headerRow: out.headerRow, sourceMediaCount: out.imageCount, sheetNames: sheets.map(s => s.name), headers: out.headers, collections: [...new Set(out.items.flatMap(x => x.collections || []))], mediaCount: out.items.reduce((n,x)=>n+(x.iconAsset?1:0)+(x.authorAsset?1:0)+(x.galleryAsset?1:0),0) }
+    kind: 'structured', format: 'xlsx', title: options.title || preferred.sheet.name,
+    items, assets, documents: [],
+    meta: { sheetCount: sheets.length, primarySheet: preferred.sheet.name, headerRow: preferred.out.headerRow, sourceMediaCount: parsedSheets.reduce((n,row)=>n+row.out.imageCount,0), sheetNames: sheets.map(s => s.name), sheetRows:Object.fromEntries(parsedSheets.map(row=>[row.sheet.name,row.out.items.length])), headers: preferred.out.headers, collections: [...new Set(items.flatMap(x => x.collections || []))], mediaCount: items.reduce((n,x)=>n+(x.iconAsset?1:0)+(x.authorAsset?1:0)+(x.galleryAsset?1:0),0) }
   };
 }
 

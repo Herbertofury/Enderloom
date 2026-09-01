@@ -1,4 +1,5 @@
 use rusqlite::{params, OptionalExtension};
+use std::collections::HashSet;
 
 use crate::{
     config::Instance,
@@ -323,6 +324,15 @@ impl Db {
         file_name: &str,
     ) -> Result<()> {
         let conn = self.0.lock().unwrap();
+        let project_id: Option<String> = conn
+            .query_row(
+                "SELECT project_id FROM content_files
+                 WHERE instance_id = ?1 AND kind = ?2 AND file_name = ?3",
+                params![instance_id, kind, file_name],
+                |row| row.get(0),
+            )
+            .optional()?
+            .flatten();
         conn.execute(
             "DELETE FROM content_files
              WHERE instance_id = ?1 AND kind = ?2 AND file_name = ?3",
@@ -333,12 +343,88 @@ impl Db {
              WHERE instance_id = ?1 AND kind = ?2 AND file_name = ?3",
             params![instance_id, kind, file_name],
         )?;
+        if let Some(project_id) = project_id {
+            conn.execute(
+                "DELETE FROM content_locks
+                 WHERE instance_id = ?1 AND kind = ?2 AND project_id = ?3
+                   AND NOT EXISTS (
+                     SELECT 1 FROM content_files
+                     WHERE instance_id = ?1 AND kind = ?2 AND project_id = ?3
+                   )",
+                params![instance_id, kind, project_id],
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn locked_content_projects(
+        &self,
+        instance_id: &str,
+        kind: &str,
+    ) -> Result<HashSet<String>> {
+        let conn = self.0.lock().unwrap();
+        let mut statement = conn
+            .prepare("SELECT project_id FROM content_locks WHERE instance_id = ?1 AND kind = ?2")?;
+        let rows =
+            statement.query_map(params![instance_id, kind], |row| row.get::<_, String>(0))?;
+        Ok(rows.collect::<std::result::Result<HashSet<_>, _>>()?)
+    }
+
+    pub fn set_content_locked(
+        &self,
+        instance_id: &str,
+        kind: &str,
+        file_name: &str,
+        locked: bool,
+    ) -> Result<bool> {
+        let conn = self.0.lock().unwrap();
+        let project_id: Option<String> = conn
+            .query_row(
+                "SELECT project_id FROM content_files
+                 WHERE instance_id = ?1 AND kind = ?2 AND file_name = ?3",
+                params![instance_id, kind, file_name],
+                |row| row.get(0),
+            )
+            .optional()?
+            .flatten();
+        let project_id = project_id.ok_or_else(|| {
+            Error::other("Only content linked to Modrinth or CurseForge can be frozen.")
+        })?;
+        if locked {
+            conn.execute(
+                "INSERT INTO content_locks(instance_id, kind, project_id, locked_at)
+                 VALUES (?1, ?2, ?3, ?4)
+                 ON CONFLICT(instance_id, kind, project_id) DO UPDATE SET locked_at = excluded.locked_at",
+                params![instance_id, kind, project_id, chrono::Utc::now().timestamp()],
+            )?;
+        } else {
+            conn.execute(
+                "DELETE FROM content_locks
+                 WHERE instance_id = ?1 AND kind = ?2 AND project_id = ?3",
+                params![instance_id, kind, project_id],
+            )?;
+        }
+        Ok(locked)
+    }
+
+    pub fn remove_content_update(
+        &self,
+        instance_id: &str,
+        kind: &str,
+        file_name: &str,
+    ) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "DELETE FROM content_updates
+             WHERE instance_id = ?1 AND kind = ?2 AND file_name = ?3",
+            params![instance_id, kind, file_name],
+        )?;
         Ok(())
     }
 
     pub fn delete_instance_content_files(&self, instance_id: &str) -> Result<()> {
         let conn = self.0.lock().unwrap();
-        for table in ["content_files", "content_updates"] {
+        for table in ["content_files", "content_updates", "content_locks"] {
             conn.execute(
                 &format!("DELETE FROM {table} WHERE instance_id = ?1"),
                 params![instance_id],
@@ -381,6 +467,12 @@ impl Db {
              SELECT ?2, kind, file_name, latest_version_id, latest_name,
                     latest_file_name, checked_at
              FROM content_updates WHERE instance_id = ?1",
+            params![source_id, destination_id],
+        )?;
+        transaction.execute(
+            "INSERT INTO content_locks(instance_id, kind, project_id, locked_at)
+             SELECT ?2, kind, project_id, locked_at
+             FROM content_locks WHERE instance_id = ?1",
             params![source_id, destination_id],
         )?;
         transaction.commit()?;

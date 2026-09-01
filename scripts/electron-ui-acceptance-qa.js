@@ -48,6 +48,53 @@ async function inspectCatalog() {
   });
 }
 
+async function inspectCatalogExports() {
+  const exportDir = path.join(userDataDir, 'ui-export-acceptance');
+  fs.mkdirSync(exportDir, { recursive:true });
+  await electronApp.evaluate(({ dialog }, folder) => {
+    dialog.showSaveDialog = async (_parent, options) => {
+      const extension = options?.filters?.[0]?.extensions?.[0] || 'bin';
+      return { canceled:false, filePath:`${folder}\\catalog.${extension}` };
+    };
+  }, exportDir);
+  const results = await electronApp.evaluate(async ({ webContents }) => {
+    let catalog;
+    for (const wc of webContents.getAllWebContents()) {
+      if (wc.isDestroyed()) continue;
+      try {
+        if (await wc.executeJavaScript("typeof window.mobCompanion?.exportCatalog === 'function'", true)) {
+          catalog = wc;
+          break;
+        }
+      } catch {}
+    }
+    if (!catalog) throw new Error('Catalog export bridge was not found');
+    return catalog.executeJavaScript(`(async()=>{
+      const rows=[{
+        Name:'Enderloom export acceptance',
+        'Primary URL':'https://modrinth.com/mod/sodium',
+        'Icon URL':'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+        'Gallery URLs':'https://cdn.modrinth.com/data/AANobbMI/images/example.png',
+        Notes:'renderer-to-main export contract'
+      }];
+      const output={};
+      for(const format of ['xlsx','csv','html','json','pdf']) output[format]=await window.mobCompanion.exportCatalog({name:'Enderloom acceptance',format,rows});
+      return output;
+    })()`, true);
+  });
+  const files = Object.fromEntries(['xlsx','csv','html','json','pdf'].map((format) => {
+    const file = path.join(exportDir, `catalog.${format}`);
+    assert(fs.existsSync(file), `${format} export was not written`);
+    const bytes = fs.readFileSync(file);
+    assert(bytes.length > (format === 'xlsx' || format === 'pdf' ? 500 : 40), `${format} export was unexpectedly small`);
+    return [format, { bytes:bytes.length, prefix:bytes.subarray(0, 4).toString(format === 'pdf' ? 'ascii' : 'hex') }];
+  }));
+  assert.equal(files.xlsx.prefix, '504b0304', 'XLSX export is not an OOXML ZIP');
+  assert.equal(files.pdf.prefix, '%PDF', 'PDF export signature is invalid');
+  assert(fs.readFileSync(path.join(exportDir, 'catalog.html'), 'utf8').includes('https://modrinth.com/mod/sodium'));
+  return { results, files };
+}
+
 async function inspectDetachedWorkspace() {
   return electronApp.evaluate(async ({ BrowserWindow }) => {
     const shell = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && /shell\.html/i.test(w.webContents.getURL()) && !/detached\.html/i.test(w.webContents.getURL()));
@@ -86,9 +133,10 @@ async function inspectDetachedWorkspace() {
   assert(catalog.titlePx <= 44, 'Catalog title remains oversized');
   assert.equal(catalog.overflowingTiles, 0, 'gallery tiles overflow the viewport');
   assert.equal(catalog.selfTest?.passed, true, JSON.stringify(catalog.selfTest));
+  const exports = await inspectCatalogExports();
   const detached = await inspectDetachedWorkspace();
   assert(detached.resizable && detached.maximizable && detached.visible, 'detached Mod Manager is not a normal production-grade window');
-  console.log(JSON.stringify({ passed:true, catalog, detached }, null, 2));
+  console.log(JSON.stringify({ passed:true, catalog, exports, detached }, null, 2));
 })().catch(error => {
   console.error(JSON.stringify({ passed:false, error:error.stack }, null, 2));
   process.exitCode = 1;

@@ -13,6 +13,8 @@ import {
   Loader2,
   LayoutGrid,
   List,
+  Lock,
+  LockOpen,
   MoreVertical,
   Pin,
   PinOff,
@@ -35,6 +37,7 @@ import { InstallPlanPrompt } from "../components/InstallPlanPrompt";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { SuggestedContent } from "../components/SuggestedContent";
 import { ContentItemCard } from "../components/content/ContentItemCard";
+import { ContentVersionModal } from "../components/content/ContentVersionModal";
 import { useCurseforgeDownloads } from "../components/CurseForgeDownloadModal";
 import { Select } from "../components/Select";
 import { PlayButton } from "../components/PlayButton";
@@ -51,7 +54,7 @@ import { cn } from "../lib/cn";
 import { api } from "../lib/api";
 import { log } from "../lib/log";
 import { notifyRemoved } from "../lib/notify";
-import { openFolder } from "../lib/reveal";
+import { openFile, openFolder } from "../lib/reveal";
 import { loaderLabel } from "../lib/loader";
 import { logoSrc } from "../lib/media";
 import { formatPlaytime, relativeTime } from "../lib/time";
@@ -210,6 +213,7 @@ export function InstanceView() {
 
   const [tab, setTab] = useState<InstanceTab>("mods");
   const [dialog, setDialog] = useState<Dialog | null>(null);
+  const [versionItem, setVersionItem] = useState<ContentItem | null>(null);
   const [worldRefresh, setWorldRefresh] = useState(0);
   const [worldsLoading, setWorldsLoading] = useState(false);
   const [addingFiles, setAddingFiles] = useState(false);
@@ -667,6 +671,37 @@ export function InstanceView() {
       );
   };
 
+  const contentPath = (item: ContentItem) =>
+    `${instance.dir.replace(/[\\/]+$/, "")}/${tab}/${item.file_name}${item.enabled ? "" : ".disabled"}`;
+
+  const copyProviderLink = async (item: ContentItem) => {
+    const source = item.source;
+    if (!source?.provider || !source.project_id) return;
+    try {
+      const details = await api.getProjectDetails(source.provider, source.project_id);
+      const fallback = source.provider === "modrinth"
+        ? `https://modrinth.com/${tab === "mods" ? "mod" : tab === "resourcepacks" ? "resourcepack" : "shader"}/${details.slug ?? source.project_id}`
+        : `https://www.curseforge.com/minecraft/${tab === "mods" ? "mc-mods" : tab === "resourcepacks" ? "texture-packs" : "shaders"}`;
+      await navigator.clipboard.writeText(details.website_url ?? fallback);
+      toast.success("Project link copied");
+    } catch (cause) {
+      toast.error("Could not copy project link", { description: String(cause) });
+    }
+  };
+
+  const setFrozen = async (item: ContentItem, frozen: boolean) => {
+    if (!isContentTab(tab)) return;
+    try {
+      await api.setInstanceContentFrozen(instance.id, tab, item.file_name, frozen);
+      toast.success(frozen ? "Version frozen" : "Version unfrozen", {
+        description: frozen ? "Automatic update checks will leave this project alone." : "This project can receive updates again.",
+      });
+      await refresh();
+    } catch (cause) {
+      toast.error("Could not change version freeze", { description: String(cause) });
+    }
+  };
+
   const contentMenu = (item: ContentItem): MenuItem[] => {
     const source = item.source;
     const entries: MenuItem[] = [];
@@ -689,11 +724,24 @@ export function InstanceView() {
       onSelect: () => openCatalogResearch(item),
     });
     entries.push({
-      label: "Show instance folder",
+      label: "Show file",
       icon: FolderOpen,
       separated: true,
-      onSelect: () => openFolder(instance.dir),
+      onSelect: () => openFile(contentPath(item)),
     });
+    if (source?.provider && source.project_id) {
+      entries.push({
+        label: "Copy link",
+        icon: ClipboardCopy,
+        onSelect: () => void copyProviderLink(item),
+      });
+      entries.push({
+        label: item.frozen ? "Unfreeze version" : "Freeze version",
+        icon: item.frozen ? LockOpen : Lock,
+        separated: true,
+        onSelect: () => void setFrozen(item, !item.frozen),
+      });
+    }
     entries.push({
       label: item.enabled ? "Disable" : "Enable",
       icon: item.enabled ? PinOff : Pin,
@@ -1360,11 +1408,17 @@ export function InstanceView() {
                   }
                   onOpenCatalog={() => openCatalogResearch(item)}
                   onUpdate={() => updateOne(item)}
+                  onSwitchVersion={
+                    source?.provider && source.project_id ? () => setVersionItem(item) : undefined
+                  }
                   onToggle={() => toggle(item)}
                   onRemove={() => askRemove(item)}
-                  onContextMenu={(event) =>
-                    openMenu(event, contentMenu(item), item.source?.title ?? item.file_name)
-                  }
+                  onContextMenu={(event) => openMenu(
+                    event,
+                    contentMenu(item),
+                    item.source?.title ?? item.file_name,
+                    event.type === "click" ? { fromElement: true } : undefined,
+                  )}
                 />
               );
             })}
@@ -1373,6 +1427,15 @@ export function InstanceView() {
           </div>
         )}
       </div>
+
+      <ContentVersionModal
+        open={versionItem !== null && isContentTab(tab)}
+        item={versionItem}
+        instance={instance}
+        kind={isContentTab(tab) ? tab : "mods"}
+        onClose={() => setVersionItem(null)}
+        onSwitched={() => refresh()}
+      />
 
       <ConfirmDialog
         open={!!removal}

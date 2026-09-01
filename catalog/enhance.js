@@ -290,6 +290,13 @@
   // Do not add an artificial 90 ms floor before live discovery. States already exist after
   // upgradeAll(), so start prime/cache work at the next microtask while first paint continues.
   queueMicrotask(backgroundWarm);
+  window.__enderloomMediaExport=()=>[...states.values()].map(s=>({
+    id:s.id,
+    sourceUrl:s.url||'',
+    iconUrl:s.icon?.url||'',
+    authorImageUrl:s.author?.url||'',
+    galleryUrls:(s.gallery||[]).map(item=>item.url).filter(isHttp),
+  }));
   window.addEventListener('beforeunload',()=>{try{primeUnsubscribe?.()}catch{}},{once:true});
   window.__mobGalleryEnhancerTest=()=>({passed:!!document.querySelector('.mv-gallery-lightbox')&&!!document.querySelector('.mv-media-hover')&&document.querySelectorAll('[data-live-media-role="gallery"]').length>0,liveSlots:document.querySelectorAll('[data-live-media-role]').length,authorSlots:document.querySelectorAll('[data-live-media-role="author"]').length,liveDiscoveryAvailable:typeof window.mobCompanion?.discoverMedia==='function',cacheBatchAvailable:typeof window.mobCompanion?.cachedMediaBatch==='function',primePipelineAvailable:primeAvailable(),quickConcurrency:MAX_QUICK_JOBS,deepConcurrency:MAX_DEEP_JOBS,embeddedDataImages:[...document.images].filter(img=>String(img.src||'').startsWith('data:')).length});
 })();

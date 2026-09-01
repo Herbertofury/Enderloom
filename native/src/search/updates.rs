@@ -158,10 +158,18 @@ pub async fn check(
         .unwrap_or(false);
     let mut all = Vec::new();
     for kind in KINDS {
-        let files = state
+        let locked = state.db.locked_content_projects(instance_id, kind)?;
+        let files: Vec<_> = state
             .db
             .content_files(instance_id, kind)
-            .unwrap_or_default();
+            .unwrap_or_default()
+            .into_iter()
+            .filter(|file| {
+                file.project_id
+                    .as_ref()
+                    .is_none_or(|project_id| !locked.contains(project_id))
+            })
+            .collect();
         all.extend(modrinth_updates(state, &files, kind, game_version, loader, include_pack).await);
         all.extend(
             curseforge_updates(state, &files, kind, game_version, loader, include_pack).await,

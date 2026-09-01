@@ -208,6 +208,12 @@ export const api = {
     }),
   toggleInstanceContent: (instanceId: string, kind: string, fileName: string) =>
     call<boolean>("toggle_instance_content", { instanceId, kind, fileName }),
+  setInstanceContentFrozen: (
+    instanceId: string,
+    kind: string,
+    fileName: string,
+    frozen: boolean,
+  ) => call<boolean>("set_instance_content_frozen", { instanceId, kind, fileName, frozen }),
   deleteInstanceContent: (instanceId: string, kind: string, fileName: string) =>
     call<void>("delete_instance_content", { instanceId, kind, fileName }),
   addInstanceContent: (instanceId: string, kind: string, sources: string[]) =>

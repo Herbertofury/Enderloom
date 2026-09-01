@@ -294,6 +294,7 @@ pub fn run() {
             commands::content_commands::list_instance_content,
             commands::content_commands::list_instance_content_bundle,
             commands::content_commands::toggle_instance_content,
+            commands::content_commands::set_instance_content_frozen,
             commands::content_commands::delete_instance_content,
             commands::content_commands::add_instance_content,
             commands::worlds::list_instance_worlds,
