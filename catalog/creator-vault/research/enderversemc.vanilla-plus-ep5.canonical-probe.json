@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "status": "research-only-not-loaded",
+  "updatedAt": "2026-09-05T08:24:00Z",
+  "sourceCommit": "9ed6e759c10287b629c31a3a1bfcfc84fc8efd13",
+  "githubActionsRun": 33954684888,
+  "currentVault": {
+    "videos": 24,
+    "recommendations": 431,
+    "uniqueProjects": 372,
+    "verifiedProjects": 370,
+    "providerDestinations": 586,
+    "multiProviderProjects": 192,
+    "unresolvedProjects": 2
+  },
+  "candidateAccounting": {
+    "publishedTopLevelLabels": 39,
+    "expandedCandidateLabels": 43,
+    "matchedExistingCanonicalProjects": 3,
+    "matched": [
+      {
+        "sourceName": "Hold My Items",
+        "canonicalProjectId": "hold-my-items",
+        "canonicalName": "Hold My Items",
+        "existingLinks": 2,
+        "providers": ["CurseForge", "Modrinth"]
+      },
+      {
+        "sourceName": "V-Tweaks",
+        "canonicalProjectId": "v-tweaks",
+        "canonicalName": "V-Tweaks",
+        "existingLinks": 2,
+        "providers": ["CurseForge", "Modrinth"]
+      },
+      {
+        "sourceName": "Multi mine",
+        "canonicalProjectId": "multi-mine",
+        "canonicalName": "Multi Mine",
+        "existingLinks": 1,
+        "providers": ["CurseForge"]
+      }
+    ],
+    "notes": "Exact-name/alias probe against the live 372-project registry. Unmatched labels remain genuinely new unless a later evidence pass proves an alias or excludes a non-mod/sponsor row."
+  },
+  "resolvedPublishedOnlyEvidence": {
+    "Rain Particle": {
+      "canonicalTarget": "Particle Rain",
+      "suggestedCanonicalProjectId": "particle-rain",
+      "projectType": "mod",
+      "aliases": ["Rain Particle"],
+      "verifiedHomes": [
+        {"provider":"Modrinth","url":"https://modrinth.com/mod/particle-rain"},
+        {"provider":"CurseForge","url":"https://www.curseforge.com/minecraft/mc-mods/particle-rain"},
+        {"provider":"GitHub","url":"https://github.com/PigCart/particle-rain","label":"Source"}
+      ],
+      "notes": "Public project identity is Particle Rain (mod id particlerain), supporting Fabric/Forge/NeoForge across its published project homes."
+    },
+    "Tripo3D": {
+      "classification": "non-Minecraft-mod / AI 3D generation service",
+      "ingestAsCanonicalProject": false,
+      "notes": "Do not create a Minecraft project card. Preserve the published-list occurrence in research evidence until the final-video sponsor/non-recommendation boundary is independently confirmed."
+    }
+  },
+  "remainingProductionGates": [
+    "Recover creator-authored Episode 5 chapter timestamps, or explicitly adopt an ordered-source/no-fabricated-timestamp contract for this video if no timestamp-bearing first-party evidence survives.",
+    "Confirm the final-video boundary for Tripo3D before excluding it from the loaded recommendation source.",
+    "Resolve the final-video semantics of Farmer’s Delight's addons: one grouped recommendation versus individual child projects actually presented.",
+    "Run all-provider closure for the final included projects; the January 10 Drive worksheet establishes at least one direct home for most draft/final overlaps but does not prove every provider home.",
+    "Only then create recommendation-sources/enderversemc.vanilla-plus-ep5.chunk10.json and provider-closure-10* shards."
+  ]
+}
