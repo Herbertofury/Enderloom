@@ -23,34 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat official RSS probe
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json, urllib.request, xml.etree.ElementTree as ET
-          url='https://www.youtube.com/feeds/videos.xml?channel_id=UC0E_vIe1e1lVeojYOgVg_5Q'
-          try:
-              req=urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
-              with urllib.request.urlopen(req, timeout=20) as r:
-                  raw=r.read()
-              root=ET.fromstring(raw)
-              ns={'atom':'http://www.w3.org/2005/Atom','yt':'http://www.youtube.com/xml/schemas/2015','media':'http://search.yahoo.com/mrss/'}
-              rows=[]
-              for entry in root.findall('atom:entry', ns):
-                  rows.append({
-                      'videoId': entry.findtext('yt:videoId', default='', namespaces=ns),
-                      'title': entry.findtext('atom:title', default='', namespaces=ns),
-                      'published': entry.findtext('atom:published', default='', namespaces=ns),
-                      'updated': entry.findtext('atom:updated', default='', namespaces=ns),
-                      'url': next((x.attrib.get('href') for x in entry.findall('atom:link',ns) if x.attrib.get('rel')=='alternate'), None),
-                      'description': entry.findtext('media:group/media:description', default='', namespaces=ns)
-                  })
-              print('AHS_RSS_BEGIN')
-              print(json.dumps(rows, ensure_ascii=False, indent=2))
-              print('AHS_RSS_END')
-          except Exception as e:
-              print(f'AHS_RSS_FAIL {type(e).__name__}: {e}')
-          PY
+      - name: AsianHalfSquat batch 11 canonical probe
+        run: node scripts/creator-vault-ahs11-canonical-probe.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
