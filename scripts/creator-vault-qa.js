@@ -69,12 +69,15 @@ assert(ahs);
 assert.equal(ahs.coverage.expectedVideos, 350, 'official channel evidence advances the stale 349-video target to 350');
 assert.equal(ahs.coverage.indexedVideos, 19);
 assert.equal(ahs.coverage.recommendationCount, 248);
+assert.equal(ahs.coverage.verifiedProjectHomes, 248, 'all currently indexed AsianHalfSquat mentions have verified direct project homes');
 const ahsVideos = vault.videos.filter(video => video.creatorId === ahs.id);
 assert.equal(ahsVideos.length, 19);
 const ahsMods = ahsVideos.flatMap(video => video.mods);
 assert.equal(ahsMods.length, 248);
 const ahsLinkedMentions = ahsMods.filter(mod => mod.providerLinks.length > 0).length;
 const ahsLinkedCanonical = new Set(ahsMods.filter(mod => mod.providerLinks.length > 0).map(mod => mod.canonicalProjectId)).size;
+assert.equal(ahsLinkedMentions, 248, 'all 248 indexed AsianHalfSquat mentions must resolve to a verified project home');
+assert.equal(ahsLinkedCanonical, 192, 'AsianHalfSquat linked mentions must collapse to exactly 192 canonical projects');
 
 const freshIds = ['youtube:suH-0zIiLU4', 'youtube:VW9z8XZaOqU', 'youtube:_zcMnVEWhfQ'];
 const fresh = freshIds.map(id => ahsVideos.find(video => video.id === id));
