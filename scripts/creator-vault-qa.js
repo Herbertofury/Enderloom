@@ -8,32 +8,31 @@ const { loadCreatorVault } = require('../src/creator-vault');
 const { renderCatalog } = require('../src/catalog-renderer');
 
 const root = path.resolve(__dirname, '..');
-const sourcePath = path.join(root, 'catalog', 'creator-vault', 'recommendation-sources', 'asianhalfsquat.history-batch16.json');
-const providerPaths = 'ab'.split('').map(suffix => path.join(root, 'catalog', 'creator-vault', 'project-sources', `provider-closure-16${suffix}-asianhalfsquat.json`));
-const chunk16Paths = [sourcePath, ...providerPaths];
+const sourcePath = path.join(root, 'catalog', 'creator-vault', 'recommendation-sources', 'asianhalfsquat.history-batch17.json');
+const providerPaths = 'abc'.split('').map(suffix => path.join(root, 'catalog', 'creator-vault', 'project-sources', `provider-closure-17${suffix}-asianhalfsquat.json`));
+const chunk17Paths = [sourcePath, ...providerPaths];
 const creatorsPath = path.join(root, 'catalog', 'creator-vault', 'creators.json');
-const chunk15CreatorsBaselinePath = path.join(root, 'catalog', 'creator-vault', 'research', 'creators.chunk15-baseline.json');
+const chunk16CreatorsBaselinePath = path.join(root, 'catalog', 'creator-vault', 'research', 'creators.chunk16-baseline.json');
 
-// Prove chunk 15 byte-for-byte first. Its wrapper recursively proves every
-// older checkpoint. Hide only chunk 16, swap only the creator ledger, and
-// restore every mutation in finally before asserting the current contract.
-const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-ahs16-qa-'));
+// Freeze every older acceptance checkpoint: hide only chunk 17, swap only the
+// chunk-16 creator ledger, run the exact frozen chunk-16 wrapper, then restore.
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-ahs17-qa-'));
 const moved = [];
 let currentCreatorsBackup = null;
 try {
-  for (const file of chunk16Paths) {
-    assert(fs.existsSync(file), `AsianHalfSquat chunk 16 production file missing: ${path.relative(root, file)}`);
+  for (const file of chunk17Paths) {
+    assert(fs.existsSync(file), `AsianHalfSquat chunk 17 production file missing: ${path.relative(root, file)}`);
     const target = path.join(tempDir, path.basename(file));
     fs.renameSync(file, target);
     moved.push([file, target]);
   }
   assert(fs.existsSync(creatorsPath), 'current creators ledger must exist');
-  assert(fs.existsSync(chunk15CreatorsBaselinePath), 'chunk 15 creators baseline must exist');
+  assert(fs.existsSync(chunk16CreatorsBaselinePath), 'chunk 16 creators baseline must exist');
   currentCreatorsBackup = path.join(tempDir, 'creators.current.json');
   fs.renameSync(creatorsPath, currentCreatorsBackup);
-  fs.copyFileSync(chunk15CreatorsBaselinePath, creatorsPath);
-  const legacy = spawnSync(process.execPath, [path.join(__dirname, 'creator-vault-qa-chunk15.js')], { cwd: root, stdio: 'inherit' });
-  assert.equal(legacy.status, 0, 'chunk 15 baseline regression suite must remain green byte-for-byte');
+  fs.copyFileSync(chunk16CreatorsBaselinePath, creatorsPath);
+  const legacy = spawnSync(process.execPath, [path.join(__dirname, 'creator-vault-qa-chunk16.js')], { cwd: root, stdio: 'inherit' });
+  assert.equal(legacy.status, 0, 'chunk 16 baseline regression suite must remain green byte-for-byte');
 } finally {
   if (currentCreatorsBackup && fs.existsSync(currentCreatorsBackup)) {
     if (fs.existsSync(creatorsPath)) fs.rmSync(creatorsPath, { force: true });
@@ -45,113 +44,157 @@ try {
 
 const vault = loadCreatorVault(root);
 assert.equal(vault.schemaVersion, 1);
-assert.equal(vault.videos.length, 38, '3 Kreksu + 29 AsianHalfSquat + 6 EnderVerse videos');
-assert.equal(vault.stats.recommendations, 629, '611 prior mentions + 18 AsianHalfSquat history batch 16 mentions');
-assert.equal(vault.stats.uniqueProjects, 507);
-assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 629, 'every source mention survives canonicalization');
-assert.equal(vault.stats.verifiedProjects, 505);
+assert.equal(vault.videos.length, 40, '3 Kreksu + 31 AsianHalfSquat + 6 EnderVerse videos');
+assert.equal(vault.stats.recommendations, 674, '629 prior mentions + 45 AsianHalfSquat history batch 17 mentions');
+assert.equal(vault.stats.uniqueProjects, 520);
+assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 674, 'every source mention survives canonicalization');
+assert.equal(vault.stats.verifiedProjects, 518);
 assert.equal(vault.stats.unresolvedProjects, 2);
-assert.equal(vault.stats.multiProviderProjects, 322);
-assert.equal(vault.stats.providerDestinations, 897);
-assert.equal(vault.stats.nativeRecommendationSources, 12);
+assert.equal(vault.stats.multiProviderProjects, 337);
+assert.equal(vault.stats.providerDestinations, 930);
+assert.equal(vault.stats.nativeRecommendationSources, 13);
 assert.deepEqual(vault.projects.filter(project => !project.providerLinks.length).map(project => project.name).sort(), ['Better Book Recipe', 'Plank and Junk']);
 assert.equal(vault.diagnostics.filter(item => item.level === 'error').length, 0);
 
 const ahs = vault.creators.find(creator => creator.id === 'youtube:asianhalfsquat');
 assert(ahs);
 assert.equal(ahs.coverage.expectedVideos, 350);
-assert.equal(ahs.coverage.indexedVideos, 29);
-assert.equal(ahs.coverage.recommendationCount, 370);
-assert.equal(ahs.coverage.verifiedProjectHomes, 370);
+assert.equal(ahs.coverage.indexedVideos, 31);
+assert.equal(ahs.coverage.recommendationCount, 415);
+assert.equal(ahs.coverage.verifiedProjectHomes, 415);
 const ahsVideos = vault.videos.filter(video => video.creatorId === ahs.id);
 const ahsMods = ahsVideos.flatMap(video => video.mods);
-assert.equal(ahsVideos.length, 29);
-assert.equal(ahsMods.length, 370);
+assert.equal(ahsVideos.length, 31);
+assert.equal(ahsMods.length, 415);
 const ahsLinkedMentions = ahsMods.filter(mod => mod.providerLinks.length > 0).length;
 const ahsLinkedCanonical = new Set(ahsMods.filter(mod => mod.providerLinks.length > 0).map(mod => mod.canonicalProjectId)).size;
-assert.equal(ahsLinkedMentions, 370);
-assert.equal(ahsLinkedCanonical, 273);
+assert.equal(ahsLinkedMentions, 415);
+assert.equal(ahsLinkedCanonical, 289);
 
-const may17 = ahsVideos.find(video => video.id === 'youtube:HtuPWLLol-k');
-const may6 = ahsVideos.find(video => video.id === 'youtube:GvZCVqJtse0');
-assert(may17 && may6, 'both chunk 16 videos must load');
-assert.deepEqual([may17.publishedAt, may6.publishedAt], ['2025-05-17', '2025-05-06']);
-assert.deepEqual([may17.mods.length, may6.mods.length], [10, 8]);
-const freshMods = [...may17.mods, ...may6.mods];
-assert.equal(freshMods.length, 18);
+const cinematic = ahsVideos.find(video => video.id === 'youtube:kxfhfZ0lMEA');
+const terrain = ahsVideos.find(video => video.id === 'youtube:hLPMBnmi324');
+assert(cinematic && terrain, 'both chunk 17 videos must load');
+assert.deepEqual([cinematic.publishedAt, terrain.publishedAt], ['2025-04-27', '2025-04-09']);
+assert.deepEqual([cinematic.mods.length, terrain.mods.length], [26, 19]);
+const freshMods = [...cinematic.mods, ...terrain.mods];
+assert.equal(freshMods.length, 45);
 for (const mod of freshMods) {
   assert(mod.name && mod.canonicalProjectId, `canonical project required: ${mod.name}`);
   assert(mod.providerLinks.length > 0, `verified direct project home required: ${mod.name}`);
 }
 
-const may17Times = [20, 50, 70, 95, 115, 133, 152, 185, 216, 236];
-assert.deepEqual(may17.mods.map(mod => mod.timestampSeconds), may17Times);
-for (const mod of may17.mods) assert(mod.videoLink.includes(`t=${mod.timestampSeconds}s`), `timestamp deep link required: ${mod.name}`);
-const loader = name => may17.mods.find(mod => mod.name === name).loader;
-assert.deepEqual(loader('Mine Cells'), ['Fabric']);
-assert.deepEqual(loader('Scout'), ['Fabric']);
-assert.deepEqual(loader('Gliders'), ['Forge', 'Fabric']);
-assert.deepEqual(loader('Stamina'), ['Forge']);
-assert.deepEqual(loader("Archer's Paradox"), ['Forge']);
-assert.deepEqual(loader("YUNG's Cave Biomes"), ['Forge', 'Fabric']);
-assert.deepEqual(loader("Alex's Caves"), ['Forge']);
-assert.deepEqual(loader('Tetra'), ['Forge']);
-assert.deepEqual(loader('Speed Building'), ['Forge']);
-assert.deepEqual(loader('Ribbits'), ['Forge', 'Fabric']);
-for (const mod of may6.mods) {
-  assert.equal(mod.timestampSeconds, null, `May 6 timestamp must remain absent: ${mod.name}`);
-  assert.equal(mod.videoLink, may6.url, `untimestamped May 6 source must use base video URL: ${mod.name}`);
-  assert(!mod.videoLink.includes('t=0s'), `fake zero-second deep link forbidden: ${mod.name}`);
+// The cinematic source gives no MODS timestamp for Sodium/Iris; all other
+// cinematic recommendations inherit only their creator-authored section time.
+assert.equal(cinematic.mods.find(mod => mod.name === 'Sodium').timestampSeconds, null);
+assert.equal(cinematic.mods.find(mod => mod.name === 'Iris').timestampSeconds, null);
+for (const name of ['Sodium', 'Iris']) {
+  const mod = cinematic.mods.find(item => item.name === name);
+  assert.equal(mod.videoLink, cinematic.url);
+  assert(!mod.videoLink.includes('t=0s'));
+}
+const cinematicGroups = new Map([
+  [96, ['Tectonic','Larion World Generation',"William Wyther's Overhauled Overworld","Countered's Terrain Slabs"]],
+  [164, ['Distant Horizons']],
+  [194, ['Complementary Shaders','Photon','BSL']],
+  [273, ['Vanilla Mashup','SPBR',"dronko's alternative Bushy Leaves",'Cubic Leaves','Fresh Animations']],
+  [401, ['Camera Overhaul','Camera Utils','AutoHUD','Hold My Items']],
+  [520, ['AmbientSounds','Presence Footsteps']],
+  [550, ['Particle Rain','Unobtrusive Weather','Gentler Weather Sounds']],
+  [606, ['Falling Leaves','Particle Interactions']]
+]);
+for (const [seconds, names] of cinematicGroups) for (const name of names) {
+  const mod = cinematic.mods.find(item => item.name === name);
+  assert(mod, `cinematic source missing ${name}`);
+  assert.equal(mod.timestampSeconds, seconds, `cinematic section timestamp: ${name}`);
+  assert(mod.videoLink.includes(`t=${seconds}s`), `cinematic deep link: ${name}`);
+}
+
+const terrainGroups = new Map([
+  [49, ['Geophilic','Blooming Biosphere',"William Wyther's Overhauled Overworld"]],
+  [141, ['Cascades','Tectonic','Larion','Terralith','Terra']],
+  [313, ["Nature's Spirit","Biomes O' Plenty",'Regions Unexplored',"Oh The Biomes We've Gone"]]
+]);
+for (const [seconds, names] of terrainGroups) for (const name of names) {
+  const mod = terrain.mods.find(item => item.name === name);
+  assert(mod, `terrain source missing ${name}`);
+  assert.equal(mod.timestampSeconds, seconds, `terrain section timestamp: ${name}`);
+  assert(mod.videoLink.includes(`t=${seconds}s`), `terrain deep link: ${name}`);
+}
+for (const name of ['Better Clouds','Distant Horizons','Fresh Player Animations','MakeUp - Ultra Fast','Particle Rain',"Sildur's Enhanced Default Shaders",'SimplyWalk']) {
+  const mod = terrain.mods.find(item => item.name === name);
+  assert(mod, `terrain support source missing ${name}`);
+  assert.equal(mod.timestampSeconds, null, `terrain support timestamp must remain absent: ${name}`);
+  assert.equal(mod.videoLink, terrain.url, `untimestamped terrain support must use base video URL: ${name}`);
+  assert(!mod.videoLink.includes('t=0s'));
 }
 
 const canonical = name => freshMods.find(mod => mod.name === name).canonicalProjectId;
-const expectedCanonical = new Map([
-  ['Mine Cells','minecells'], ['Scout','scout'], ['Gliders','gliders'], ['Stamina','stamina'], ["Archer's Paradox",'archers-paradox'],
-  ["YUNG's Cave Biomes",'yung-s-cave-biomes'], ["Alex's Caves",'alexs-caves'], ['Tetra','tetra'], ['Speed Building','speed-building'], ['Ribbits','ribbits'],
-  ['Conquest Reforged Modpack','conquest-reforged-modpack'], ['Ambient Sounds','ambientsounds'], ['Auto HUD','auto-hud'], ['Camera Utils','camera-utils'],
-  ['Camera Overhaul','cameraoverhaul'], ['First-person Model','first-person-model'], ["Leawind's Third Person",'leawind-third-person'], ['Passable Foliage','passable-foliage']
+const requiredMappings = new Map([
+  ["William Wyther's Overhauled Overworld", 'william-wythers-overhauled-overworld'],
+  ['Larion', 'larion-world-generation'],
+  ['Larion World Generation', 'larion-world-generation'],
+  ["Countered's Terrain Slabs", 'countereds-terrain-slabs'],
+  ["dronko's alternative Bushy Leaves", 'dronkos-alternative-bushy-leaves'],
+  ['Cubic Leaves', 'cubic-leaves'],
+  ['Unobtrusive Weather', 'unobtrusive-weather'],
+  ['Falling Leaves', 'fallingleaves'],
+  ['Particle Interactions', 'particle-interactions'],
+  ['Blooming Biosphere', 'blooming-biosphere'],
+  ["Nature's Spirit", 'natures-spirit'],
+  ["Biomes O' Plenty", 'biomes-o-plenty'],
+  ['Regions Unexplored', 'regions-unexplored'],
+  ["Oh The Biomes We've Gone", 'oh-the-biomes-weve-gone'],
+  ["Sildur's Enhanced Default Shaders", 'sildurs-enhanced-default-shaders'],
+  ['SimplyWalk', 'simplywalk'],
+  ['Photon', 'photon-shader'],
+  ['BSL', 'bsl-shaders'],
+  ['Vanilla Mashup', 'vanilla-mashup-pbr'],
+  ['AutoHUD', 'auto-hud'],
+  ['Fresh Player Animations', 'trailer-player-animations'],
+  ['MakeUp - Ultra Fast', 'makeup-ultra-fast'],
+  ['Terra', 'terra'],
+  ['SPBR', 'spbr']
 ]);
-for (const [name, id] of expectedCanonical) assert.equal(canonical(name), id, `canonical identity: ${name}`);
+for (const [name, id] of requiredMappings) assert.equal(canonical(name), id, `canonical identity: ${name}`);
 
 const project = id => vault.projects.find(item => item.id === id);
 const links = id => project(id).providerLinks;
 const providers = id => new Set(links(id).map(link => link.provider));
 const hasUrl = (id, url) => links(id).some(link => link.url === url);
-for (const id of ['minecells','scout','gliders','alexs-caves','tetra','ribbits','cameraoverhaul']) {
+for (const id of ['countereds-terrain-slabs','biomes-o-plenty','oh-the-biomes-weve-gone']) {
   const p = providers(id);
   assert(p.has('Modrinth') && p.has('CurseForge') && p.has('GitHub'), `${id} must expose Modrinth + CurseForge + GitHub`);
 }
-assert.deepEqual([...providers('stamina')].sort(), ['CurseForge','GitHub']);
-assert(providers('archers-paradox').has('Modrinth') && providers('archers-paradox').has('CurseForge'));
-assert(hasUrl('speed-building', 'https://www.curseforge.com/minecraft/mc-mods/scaffolding-behavior'));
-assert.equal(links('conquest-reforged-modpack').length, 4);
-assert.equal(links('conquest-reforged-modpack').filter(link => link.provider === 'Modrinth').length, 2);
-assert.equal(links('conquest-reforged-modpack').filter(link => link.provider === 'CurseForge').length, 2);
-assert(hasUrl('conquest-reforged-modpack', 'https://modrinth.com/modpack/conquest-reforged-modpack'));
-assert(hasUrl('conquest-reforged-modpack', 'https://modrinth.com/modpack/conquest-reforged-modpack-%28forge%29'));
-assert(hasUrl('first-person-model', 'https://modrinth.com/mod/first-person-model'));
-assert(hasUrl('first-person-model', 'https://github.com/tr7zw/FirstPersonModel'));
-assert(hasUrl('yung-s-cave-biomes', 'https://www.curseforge.com/minecraft/mc-mods/yungs-cave-biomes-fabric'));
-assert(hasUrl('alexs-caves', 'https://github.com/AlexModGuy/AlexsCaves'));
-assert(!links('alexs-caves').some(link => /continued|unofficial|rad/i.test(link.url + ' ' + link.label)), 'Alexs Caves forks must not merge');
-assert(!links('gliders').some(link => /\/mod\/gliding\/?$/i.test(link.url)), 'Gliding must not merge into Gliders');
-assert(!links('cameraoverhaul').some(link => /camera-overhaul-forge/i.test(link.url)), 'old separate Camera Overhaul Forge port must not merge');
+for (const id of ['dronkos-alternative-bushy-leaves','cubic-leaves','particle-interactions','blooming-biosphere','natures-spirit','regions-unexplored','sildurs-enhanced-default-shaders','simplywalk']) {
+  const p = providers(id);
+  assert(p.has('Modrinth') && p.has('CurseForge'), `${id} must expose Modrinth + CurseForge`);
+}
+assert.deepEqual([...providers('unobtrusive-weather')], ['Modrinth']);
+assert.deepEqual([...providers('fallingleaves')].sort(), ['CurseForge','GitHub','Modrinth']);
+assert(hasUrl('fallingleaves', 'https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge'));
+assert(hasUrl('makeup-ultra-fast', 'https://modrinth.com/shader/makeup-ultra-fast-shaders'));
+assert(hasUrl('makeup-ultra-fast', 'https://github.com/javiergcim/MakeUpUltraFast'));
+assert(hasUrl('terra', 'https://github.com/PolyhedralDev/Terra'));
+assert(hasUrl('spbr', 'https://github.com/ShulkerSakura/SPBR'));
+assert(hasUrl('william-wythers-overhauled-overworld', 'https://modrinth.com/mod/wwoo'));
+assert(hasUrl('larion-world-generation', 'https://github.com/ViciousBadger/larion-world-generation'));
+assert(!vault.projects.some(item => item.name === 'Aspect Ratio'), 'Aspect Ratio setup must never become a project card');
+assert.equal(vault.projects.filter(item => item.id === 'william-wythers-overhauled-overworld').length, 1);
+assert.equal(vault.projects.filter(item => item.id === 'larion-world-generation').length, 1);
 
 const raw = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 const related = raw.videos.flatMap(video => video.relatedLinkedEvidence || []);
 assert.equal(related.length, 1);
-assert.equal(related[0].sourceLabel, 'Custom Maps by RedRangerBuilds');
-assert.equal(related[0].url, 'https://www.planetminecraft.com/member/redrangerbuilds/');
-assert.equal(related[0].status, 'related-content-not-canonicalized');
-assert.deepEqual(related[0].names, ['Miremouth','Ager Aureus','Elderglen','Silverbough Forest','Willowmarsh','Evervale']);
+assert.equal(related[0].sourceLabel, 'Aspect Ratio');
+assert.equal(related[0].timestampSeconds, 16);
+assert.equal(related[0].status, 'non-project-setting');
 
-const rendered = renderCatalog({ id:'creator-vault-qa-ahs16', name:'Creator Vault QA AsianHalfSquat 16', items:[], assets:{}, documents:[], sources:[] }, root);
+const rendered = renderCatalog({ id:'creator-vault-qa-ahs17', name:'Creator Vault QA AsianHalfSquat 17', items:[], assets:{}, documents:[], sources:[] }, root);
 for (const needle of [
-  'youtube:HtuPWLLol-k','Mine Cells','Scout','Gliders',"Archer's Paradox","Alex's Caves",'Tetra','Ribbits',
-  'youtube:GvZCVqJtse0','Conquest Reforged Modpack','Camera Overhaul','First-person Model',
-  'https://github.com/mim1q/MineCells','https://github.com/Cynosphere-mc/Scout','https://github.com/AlexModGuy/AlexsCaves',
-  'https://github.com/yungnickyoung/Ribbits','https://www.curseforge.com/minecraft/mc-mods/yungs-cave-biomes-fabric',
-  'https://modrinth.com/modpack/conquest-reforged-modpack','Find in Enderloom'
-]) assert(rendered.html.includes(needle), `rendered AsianHalfSquat chunk 16 output missing ${needle}`);
+  'youtube:kxfhfZ0lMEA',"Countered's Terrain Slabs",'Unobtrusive Weather','Particle Interactions',
+  'youtube:hLPMBnmi324','Blooming Biosphere',"Nature's Spirit","Biomes O' Plenty",'Regions Unexplored',"Oh The Biomes We've Gone",'SimplyWalk',
+  'https://github.com/Coun7ered/terrain_slabs_multiloader','https://github.com/Glitchfiend/BiomesOPlenty','https://github.com/Potion-Studios/Oh-The-Biomes-Weve-Gone',
+  'https://github.com/javiergcim/MakeUpUltraFast','https://github.com/PolyhedralDev/Terra','https://github.com/ShulkerSakura/SPBR','Find in Enderloom'
+]) assert(rendered.html.includes(needle), `rendered AsianHalfSquat chunk 17 output missing ${needle}`);
 
-console.log(`Creator Vault AsianHalfSquat chunk 16 QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved. AHS linked mentions=${ahsLinkedMentions}/370 across ${ahsLinkedCanonical} canonical projects; six RedRangerBuilds maps remain related source evidence only.`);
+console.log(`Creator Vault AsianHalfSquat chunk 17 QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved. AHS linked mentions=${ahsLinkedMentions}/415 across ${ahsLinkedCanonical} canonical projects; Aspect Ratio remains non-project setup evidence only.`);
