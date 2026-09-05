@@ -1,0 +1,11 @@
+'use strict';
+const assert = require('assert');
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
+const vm = require('vm');
+const { loadCreatorVault } = require('../../src/creator-vault');
+const { renderCatalog } = require('../../src/catalog-renderer');
+const root = path.resolve(__dirname, '../..');
+const vault = loadCreatorVault(root);
+module.exports = { assert, crypto, fs, path, vm, renderCatalog, root, vault };
