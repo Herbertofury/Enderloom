@@ -3,7 +3,7 @@ name: Creator Vault QA
 on:
   push:
     branches:
-      - feature/creator-vault-kreksu-chunk-1
+      - 'feature/creator-vault-kreksu-chunk-*'
   workflow_dispatch:
 
 permissions:
