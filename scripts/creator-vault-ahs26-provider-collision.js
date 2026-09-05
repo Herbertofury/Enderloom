@@ -11,8 +11,8 @@ if (!postSource && (vault.stats.recommendations !== 804 || vault.stats.uniquePro
   console.error(JSON.stringify({error:'chunk26 pre-production collision gate requires untouched chunk25 baseline',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
-if (postSource && (vault.stats.recommendations !== 814 || vault.stats.uniqueProjects !== 586)) {
-  console.error(JSON.stringify({error:'chunk26 post-source collision gate requires observed 814/586 merged identity state',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
+if (postSource && (vault.stats.recommendations !== 814 || vault.stats.uniqueProjects !== 585)) {
+  console.error(JSON.stringify({error:'chunk26 post-source collision gate requires observed 814/585 state after Remove Loading Screen aliases to existing RRLS',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
 const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
