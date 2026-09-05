@@ -27,8 +27,8 @@ jobs:
         run: node scripts/creator-vault-ahs23-provider-collision.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
-      - name: AsianHalfSquat chunk 23 post-merge diagnostic
-        run: node scripts/creator-vault-ahs23-postmerge-probe.js
+      - name: Focused Creator Vault recursive QA
+        run: npm run creator-vault-qa
       - name: Catalog regression QA
         run: npm run catalog-qa
       - name: Render portable catalogs
