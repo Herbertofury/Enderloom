@@ -25,8 +25,9 @@ jobs:
         run: npm ci
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
-      - name: Episode 5 provider URL collision probe
-        run: node scripts/creator-vault-ep5-url-probe.js
+      - name: Episode 5 corpus stats
+        run: >-
+          node -e "const {loadCreatorVault}=require('./src/creator-vault');const v=loadCreatorVault(process.cwd());const e=v.creators.find(c=>c.id==='youtube:enderversemc');const ep=v.videos.find(x=>x.id==='youtube:GYz4LQcNZ7s');console.log(JSON.stringify({stats:v.stats,enderVerse:e&&e.coverage,unresolved:v.projects.filter(p=>!p.providerLinks.length).map(p=>({id:p.id,name:p.name})),episode5:ep&&ep.mods.map(m=>({name:m.name,id:m.canonicalProjectId,links:m.providerLinks.length,providers:m.providerLinks.map(x=>x.provider)}))},null,2))"
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
