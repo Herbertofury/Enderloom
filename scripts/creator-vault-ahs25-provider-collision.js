@@ -1,14 +1,21 @@
 'use strict';
+const fs = require('fs');
 const path = require('path');
 const { loadCreatorVault } = require('../src/creator-vault');
 const candidates = require('../catalog/creator-vault/research/asianhalfsquat.chunk25-provider-candidates.json');
 const root = path.resolve(__dirname, '..');
+const sourcePath = path.join(root,'catalog','creator-vault','recommendation-sources','asianhalfsquat.history-batch25.json');
 const vault = loadCreatorVault(root);
-const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
-if (vault.stats.recommendations !== 794 || vault.stats.uniqueProjects !== 573) {
-  console.error(JSON.stringify({error:'chunk25 collision gate must run against untouched chunk24 production baseline',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
+const postSource = fs.existsSync(sourcePath);
+if (!postSource && (vault.stats.recommendations !== 794 || vault.stats.uniqueProjects !== 573)) {
+  console.error(JSON.stringify({error:'chunk25 pre-production collision gate requires untouched chunk24 baseline',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
+if (postSource && vault.stats.recommendations !== 804) {
+  console.error(JSON.stringify({error:'chunk25 post-source collision gate requires all ten source mentions',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
+  process.exit(2);
+}
+const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
 const byUrl = new Map();
 for (const project of vault.projects) {
   for (const link of project.providerLinks || []) {
@@ -31,5 +38,5 @@ for (const entry of candidates.entries || []) {
     if (key && !seenCandidate.has(key)) seenCandidate.set(key,id);
   }
 }
-console.log(JSON.stringify({candidateProjects:(candidates.entries||[]).length,destinations,collisions},null,2));
+console.log(JSON.stringify({phase:postSource?'post-source':'pre-production',candidateProjects:(candidates.entries||[]).length,destinations,collisions},null,2));
 if ((candidates.entries||[]).length !== 7 || destinations !== 14 || collisions.length) process.exitCode = 2;
