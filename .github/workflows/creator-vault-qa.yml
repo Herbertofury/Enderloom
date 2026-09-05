@@ -23,9 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat chunk 13 post-merge stats
-        run: >-
-          node -e "const {loadCreatorVault}=require('./src/creator-vault');const v=loadCreatorVault(process.cwd());const a=v.creators.find(c=>c.id==='youtube:asianhalfsquat');const videos=v.videos.filter(x=>x.creatorId===a.id);const mods=videos.flatMap(x=>x.mods);console.log(JSON.stringify({stats:v.stats,ahs:{coverage:a.coverage,videos:videos.length,mentions:mods.length,linkedMentions:mods.filter(m=>m.providerLinks.length).length,linkedCanonical:new Set(mods.filter(m=>m.providerLinks.length).map(m=>m.canonicalProjectId)).size},unresolved:v.projects.filter(p=>!p.providerLinks.length).map(p=>p.name),sourceLevelUnresolved:require('./catalog/creator-vault/recommendation-sources/asianhalfsquat.history-batch13.json').unresolvedSourceEvidence},null,2))"
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
