@@ -23,6 +23,30 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Episode 5 YouTube metadata probe
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check --quiet yt-dlp
+          python -m yt_dlp --skip-download --dump-single-json --no-warnings 'https://www.youtube.com/watch?v=GYz4LQcNZ7s' > /tmp/ep5-youtube.json
+          python - <<'PY'
+          import json
+          with open('/tmp/ep5-youtube.json', 'r', encoding='utf-8') as f:
+              d=json.load(f)
+          keep={
+              'id':d.get('id'),
+              'title':d.get('title'),
+              'upload_date':d.get('upload_date'),
+              'duration':d.get('duration'),
+              'channel':d.get('channel'),
+              'channel_id':d.get('channel_id'),
+              'description':d.get('description'),
+              'chapters':d.get('chapters'),
+              'availability':d.get('availability'),
+          }
+          print('EP5_YOUTUBE_METADATA_BEGIN')
+          print(json.dumps(keep, ensure_ascii=False, indent=2))
+          print('EP5_YOUTUBE_METADATA_END')
+          PY
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
