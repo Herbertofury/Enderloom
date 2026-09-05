@@ -21,6 +21,7 @@
     "catalog-qa": "node scripts/catalog-qa.js",
     "catalog-layout-qa": "node scripts/catalog-layout-qa.js",
     "catalog-export-qa": "node scripts/catalog-export-qa.js",
+    "creator-vault-qa": "node scripts/creator-vault-qa.js",
     "electron-self-test": "node scripts/run.js --self-test",
     "electron-ui-acceptance-qa": "node scripts/electron-ui-acceptance-qa.js",
     "modrinth-card-live-qa": "node scripts/modrinth-card-live-qa.js",
