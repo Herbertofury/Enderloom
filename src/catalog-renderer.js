@@ -2,12 +2,16 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { loadCreatorVault } = require('./creator-vault');
 
 function htmlEscape(value) {
   return String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch]));
 }
 function jsonForScript(value) {
   return JSON.stringify(value).replace(/<\//g, '<\\/').replace(/<!--/g, '<\\!--');
+}
+function optionalText(file) {
+  try { return fs.readFileSync(file, 'utf8'); } catch { return ''; }
 }
 function countAssets(items) {
   const counts = { icon:0, author:0, gallery:0 };
@@ -74,13 +78,19 @@ function brandFor(name) {
 }
 function renderCatalog(snapshot, rootDir) {
   const catalogDir = path.join(rootDir, 'catalog');
+  const creatorVaultDir = path.join(catalogDir, 'creator-vault');
   const template = fs.readFileSync(path.join(catalogDir, 'template.html'), 'utf8');
+  const creatorVaultCss = optionalText(path.join(creatorVaultDir, 'creator-vault.css'));
   const styles = [
     fs.readFileSync(path.join(catalogDir, 'styles.css'), 'utf8'),
-    fs.readFileSync(path.join(catalogDir, 'modern.css'), 'utf8')
-  ].join('\n');
+    fs.readFileSync(path.join(catalogDir, 'modern.css'), 'utf8'),
+    creatorVaultCss
+  ].filter(Boolean).join('\n');
   const appJs = fs.readFileSync(path.join(catalogDir, 'app.js'), 'utf8');
   const enhanceJs = fs.readFileSync(path.join(catalogDir, 'enhance.js'), 'utf8');
+  const creatorVaultJs = optionalText(path.join(creatorVaultDir, 'creator-vault.js'));
+  const creatorVault = loadCreatorVault(rootDir);
+  const creatorVaultBootstrap = `window.ENDERLOOM_CREATOR_VAULT=${jsonForScript(creatorVault)};\n${creatorVaultJs}`;
   const data = normalizeSnapshot(snapshot);
   let html = template
     .replaceAll('__TITLE__', htmlEscape(`${data.name} - Explorer`))
@@ -92,7 +102,7 @@ function renderCatalog(snapshot, rootDir) {
     .replace('__ASSETS_JSON__', jsonForScript(data.assets))
     .replace('__DATA_JSON__', jsonForScript(data.items))
     .replace('__APP_JS__', appJs)
-    .replace('__ENHANCE_JS__', enhanceJs);
+    .replace('__ENHANCE_JS__', `${enhanceJs}\n${creatorVaultBootstrap}`);
   return { html, snapshot:data };
 }
 function writeCatalog(snapshot, outputPath, rootDir) {
