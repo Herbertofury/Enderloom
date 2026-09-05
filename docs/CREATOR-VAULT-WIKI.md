@@ -1,207 +1,173 @@
 # Enderloom Creator Vault Wiki
 
 Status: active development  
-Chunk: legacy creator native import, chunk 4  
+Current branch: `feature/creator-vault-enderverse-chunk-5`  
 Strategy: full-history-first, incremental-after  
-Data contract: evidence-first; never fabricate provider URLs, chapters, timestamps, or creator recommendations.
+Data contract: evidence-first; never fabricate creator recommendations, chapters, timestamps, loader labels, or provider URLs.
 
-## What Creator Vault is
+## Purpose
 
-Creator Vault is Enderloom's creator-recommendation layer. It tracks Minecraft creators across YouTube and TikTok, records the exact source videos/posts and evidence available for each recommendation, and exposes the catalog directly inside Enderloom's existing UI. The addon remains additive and fail-soft through `src/catalog-renderer.js`; launcher internals and active mod JAR locations are not changed by this work.
+Creator Vault is Enderloom's native creator-recommendation layer. It catalogs Minecraft projects surfaced by tracked YouTube/TikTok creators, keeps the source video/post and evidence attached, and exposes the data through Enderloom's existing searchable UI. It remains additive and fail-soft; this work does not move active mod JARs or rewrite launcher internals.
 
-## Chunk 4 checkpoint
-
-Repository: `Herbertofury/Enderloom`  
-Branch: `feature/creator-vault-kreksu-chunk-4`
-
-Current native totals:
+## Current native totals - chunk 5
 
 - 14 creators retained in the canonical ledger
-- 2 creators with native recommendation data: Kreksu + AsianHalfSquat
-- 19 source videos
-- 246 recommendation mentions
+- 3 creators with native recommendation data: Kreksu, AsianHalfSquat, EnderVerse
+- 21 source videos
+- 311 recommendation mentions
 - 31 verified direct project homes
 - 1 pinned legacy catalog import
+- 2 native recommendation source documents (primary Kreksu data + EnderVerse chunk 5)
 - 5 recurring Kreksu setup/resource packs
 
-### AsianHalfSquat native import
+## Evidence / provider contract
 
-A newer reconciled Minecraft Mod Vault snapshot superseded the older 11-video / 93-recommendation checkpoint. Creator Vault now imports the newer snapshot natively:
+Creator evidence and provider identity are separate gates.
 
-- 16 exact source videos
-- 216 evidence-backed recommendation mentions
-- 349-video verified channel-history target retained
-- 1 independently verified creator-owned project home
-- 215 recommendation mentions deliberately remain without a provider URL rather than receiving guessed links
-- canonical Drive source file ID: `1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh`
-- original Drive snapshot SHA-256: `6e49a5154e1a757df75c4ab7371f91632250b551f9e1e3b00781db035b43a9e1`
-- full compact snapshot SHA-256: `4e45e92fed3171175fcf50b37d9dcfd91b88217582fe9a924f405397eea649e8`
-
-The repo snapshot is stored as six deterministic JSON shards under one logical import. This makes changes reviewable without changing the logical provenance contract. Each shard has its own pinned SHA-256 and expected video/recommendation counts in `catalog/creator-vault/imports.json`.
-
-The one verified AsianHalfSquat project is:
-
-- `Satisfaction Guaranteed`
-- project type: modpack
-- provider: CurseForge
-- project ID: `1490741`
-- exact home: `https://www.curseforge.com/minecraft/modpacks/satisfaction-guaranteed`
-- evidence: creator-controlled video description points viewers to the modpack and the provider record identifies AsianHalfSquat as owner
-
-The importer normalizes the legacy lowercase `curseforge` provider label to canonical `CurseForge` without manufacturing any missing provider identity.
-
-### Kreksu remains intact
-
-Chunk 3's Kreksu provider closure remains unchanged:
-
-- 3 source-verified videos
-- 30 source-backed recommendations
-- 30/30 independently verified Modrinth/CurseForge project homes
-- 5 recurring setup/resource packs tracked separately
-- one discovered animation-mod video remains queued because its full original chapter list still has not passed the source-verification gate
-
-A materially different recovery pass was attempted for the queued animation video in chunk 4. It still did not yield the original full chapter list, so Creator Vault did not ingest partial mirror summaries or guess chapter names.
-
-## Native import architecture
-
-Chunk 4 adds a scalable offline import layer:
-
-- `catalog/creator-vault/imports.json` is the logical import registry.
-- `catalog/creator-vault/sources/*.json` holds deterministic offline source shards.
-- `src/creator-vault.js` loads native recommendations plus registered imports, merges them through collision-safe platform-prefixed video IDs, and fails soft with diagnostics.
-- import paths are constrained to the Creator Vault directory so a malformed registry entry cannot traverse outside the catalog root.
-- imported videos receive visible `legacy-catalog` provenance.
-- provider labels are normalized only from an explicit provider value or a real verified provider URL.
-- missing provider homes remain empty and continue to use the UI's `Find in Enderloom` fallback.
-- stats now expose indexed creators, verified homes, and imported-catalog count.
-
-The import mechanism supports a single file or a deterministic shard list, preserving compatibility with future legacy creator bundles.
-
-## Creator Vault user experience
-
-The native Creator Vault panel continues to provide creator cards and pinning, platform/creator filters, recommendation search, source/evidence badges, video-grouped cards, exact timestamp links when source timestamps exist, provider/project-type badges, direct verified provider actions, `Find in Enderloom` fallback, per-video verified-home counts, verified-home KPI, copy-all names, and separately tracked recurring setup packs.
-
-AsianHalfSquat's imported videos and recommendations flow through the same native UI automatically; no separate legacy browser is required.
+1. Recommendation identity must come from source-verifiable creator evidence.
+2. Timestamps/loaders are stored only when stated by the source.
+3. A Modrinth/CurseForge/project URL is added only after the exact project identity is independently known.
+4. Missing provider homes remain empty; the UI keeps `Find in Enderloom` as the unresolved handoff.
+5. Legacy imports preserve their lineage with `legacy-catalog` provenance; fresh creator batches remain native source shards.
+6. Tests/fixtures are never promoted into recommendation evidence.
 
 ## Creator coverage ledger
 
-| Creator | Platform | Role | Current state | Goal / next evidence gate |
+| Creator | Platform | Role | Current state | Next evidence gate |
 | --- | --- | --- | --- | --- |
-| AsianHalfSquat (`@AsianHalfSquat`) | YouTube | protected core | **Native import active: 16 exact videos / 216 recommendation mentions / 1 verified home; target 349 videos** | Continue the same reconciled lineage toward full history; verify provider homes individually instead of guessing |
-| EnderVerse (`@EnderVerseMC`) | YouTube | protected core | Protected legacy creator; exact native bundle not yet recovered | Recover the actual legacy records from the old source archives and import through the same pinned mechanism |
-| Kreksu (`@KreksuMinecraft`) | YouTube | curated core | **3 verified videos / 30 recommendations / 30 verified homes** | Continue bounded source-verifiable history; queued animation video requires original full chapters |
+| AsianHalfSquat (`@AsianHalfSquat`) | YouTube | protected core | **16 exact videos / 216 recommendations / 1 verified home; target 349 videos** | Continue source lineage toward 349; verify provider homes individually |
+| EnderVerse (`@EnderVerseMC`) | YouTube | protected core | **Active native ingestion: 2 exact videos / 65 chapter recommendations / 0 verified homes** | Resolve exact provider homes, then continue the 200-mod Vanilla+ series/history |
+| Kreksu (`@KreksuMinecraft`) | YouTube | curated core | **3 exact videos / 30 recommendations / 30 verified homes** | Continue new source-verifiable history; queued animation video still requires original full chapters |
 | Kizamiringo (`@kizamiringo`) | TikTok | protected core | Legacy pipeline; live gate pending | Full-history enumeration + real text-only extraction parity |
-| Katsumi (`@its_katsumi`) | TikTok | curated core | Legacy ready; link refresh pending | Refresh public link-hub child destinations, then ingest posts |
-| SpeedyChunks (`@speedychunks`) | TikTok | curated core | Queued from legacy source ledger | Import legacy evidence, then full-history scan |
-| NoxusMinecraft (`@noxusminecraft`) | TikTok | required | Queued from legacy source ledger | Import legacy evidence, then full-history scan |
-| UnyxYT (`@unyxyt`) | TikTok | required | Queued from legacy source ledger | Import legacy evidence, then full-history scan |
-| CurseForge (`@curseforge`) | TikTok | curated core | Queued from legacy source ledger | Import legacy evidence while keeping creator identity distinct from provider identity |
-| HendyVideos (`@hendyvideos`) | TikTok | curated core | Queued from legacy source ledger | Import legacy evidence, then full-history scan |
-| Knarfy (`@itsknarfy`) | TikTok | recommended discovery source | Tracked | Promote only evidence-backed Minecraft recommendations |
-| The Breakdown (`@thebreakdownxyz`) | TikTok | recommended discovery source | Tracked | Promote only evidence-backed Minecraft recommendations |
-| The Crimson Gaming (`@thecrimsongaming`) | TikTok | recommended discovery source | Tracked | Promote only evidence-backed Minecraft recommendations |
-| laveOrc (`@ygz207`) | TikTok | recommended discovery source | Tracked | Promote only evidence-backed Minecraft recommendations |
+| Katsumi (`@its_katsumi`) | TikTok | curated core | Legacy ready; link refresh pending | Refresh public link-hub children, then ingest posts |
+| SpeedyChunks (`@speedychunks`) | TikTok | curated core | Queued | Import legacy evidence, then full-history scan |
+| NoxusMinecraft (`@noxusminecraft`) | TikTok | required | Queued | Import legacy evidence, then full-history scan |
+| UnyxYT (`@unyxyt`) | TikTok | required | Queued | Import legacy evidence, then full-history scan |
+| CurseForge (`@curseforge`) | TikTok | curated core | Queued | Import legacy evidence while keeping creator/provider identity distinct |
+| HendyVideos (`@hendyvideos`) | TikTok | curated core | Queued | Import legacy evidence, then full-history scan |
+| Knarfy (`@itsknarfy`) | TikTok | recommended discovery | Tracked | Promote only evidence-backed Minecraft recommendations |
+| The Breakdown (`@thebreakdownxyz`) | TikTok | recommended discovery | Tracked | Promote only evidence-backed Minecraft recommendations |
+| The Crimson Gaming (`@thecrimsongaming`) | TikTok | recommended discovery | Tracked | Promote only evidence-backed Minecraft recommendations |
+| laveOrc (`@ygz207`) | TikTok | recommended discovery | Tracked | Promote only evidence-backed Minecraft recommendations |
 
-## Kreksu indexed videos
+## EnderVerse - chunk 5
 
-### 2026-04-05 - These Underrated Minecraft Mods are Actually Insane!
+### Legacy recovery truth
 
-Source: `https://www.youtube.com/watch?v=Hg1_20vRrZM`
+The archived Minecraft Mod Vault v0.7.0 creator-archive checkpoint was recovered and inspected before native ingestion. Its canonical status says the exhaustive creator archive implementation for AsianHalfSquat/EnderVerse was built and tested, but the runtime could not resolve YouTube/GitHub DNS and therefore **did not pre-populate the actual public-channel corpus**. Release/source archives contain implementation code/tests but no persisted real EnderVerse corpus. Deterministic test fixtures are therefore not valid creator evidence and were not imported.
 
-Apocalyptic Bosses; Chris's Additions; Envelope; Cascades; Curiosities!; Starcatcher; [BUB] Gender; Simply Bows; Shutter Up!; ShellBound for AirShip. All ten have exact verified project homes. Cascades remains truthfully typed as a data pack while creator-stated loader evidence is preserved separately.
+EnderVerse moved from the misleading `legacy-catalog-ready` state to fresh source-verified ingestion from the actual channel.
 
-### 2026-04-09 - HIDDEN GEM Minecraft Mods That Are Actually INSANE!
+### 2025-12-06 - Top 25 of the Year
 
-Source: `https://www.youtube.com/watch?v=iTsP0Xsdcv8`
+Video: `https://www.youtube.com/watch?v=JF6FITETMLM`  
+Title: `TOP 25 Minecraft Mods OF THE YEAR 2025 | 1.21.x / 1.20.1 (Forge & Fabric)`
 
-Legionary; Draconic Spells; Threateningly Mobs; Wings Of Fire!; ByteBuddies; Better Fishtanks; Feastful; ReCased; Bountiful Fares; Even Better Nether. All ten have exact verified project homes.
+25 exact chapter recommendations from the original YouTube description (sponsor chapter excluded):
 
-### 2026-05-07 - These New Underrated Minecraft Mods are Actually Insane!
+Etherology; protomanly's weather; Unusual Prehistory 2; Clockwork; Improved Village Placement; Oceanic Realms; Overgeared; Enderling Invaders; Orbital Railgun; Fang's Textiles and Trinkets ✦ Annihilation Update; The Day Of The Beast; Warium; Better Combat Particle; Wayfinder; Crow's Weapon Classes; Fancy Toasts | Better Advancements; Saint's Dragons; Etheria; Kilt; Adorable Hamster Pets; More Critters; harpy express; Kaleidoscope Cookery; Valley & Sky; Wonderous Sea - An Endless Ocean Adventure.
 
-Source: `https://www.youtube.com/watch?v=fgu7ssEVzAA`
+Creator-stated loader labels are preserved. In particular, `harpy express` remains `Quilt / Fabric`.
 
-Craftics - Grid Based Tactical RPG; Gateway to Doom; Boundless & Endless; Iden's Decor; Nimbu's: Pocket Dimensions; Better Horse/Mount Steering; Keybind Atlas; Lazy Tools; Happy Ghast Inventory; Jaki Versatile Structures: Sails & Sea. All ten have exact verified project homes. Better Horse/Mount Steering keeps Kreksu's chapter wording while resolving through the creator-listed Better Mount Steering alias.
+### 2024-10-19 - Vanilla+ 200 series, episode 4
 
-## AsianHalfSquat imported videos
+Video: `https://www.youtube.com/watch?v=kxXz-FbvhAA`  
+Title: `TOP 200 Vanilla+ Minecraft Mods EP. 4 (Forge & Fabric) | 1.21 & Older`
 
-The reconciled offline snapshot contributes these 16 exact source records, including two currently known videos whose public snapshot contained no resolved recommendation identity:
+40 exact chapter recommendations from the original YouTube description:
 
-1. `_h-2powUiRs` — An Amazing Minecraft Mod That Makes Grass Look Like This — 2026-07-15 — 0 resolved recommendations
-2. `Y8HmNvkfbTo` — Top 10 Minecraft Mods (26.1.2) - June 2026 — 2026-06-25 — 0 resolved recommendations
-3. `QWfiGE0lTLk` — One of The Most Unique Minecraft Shaders I’ve Seen — 2026-05-21 — 11
-4. `0AqzzgZZUfo` — Top 10 Minecraft Mods (26.1.2) - 2026 — 2026-05-02 — 15
-5. `irE4tcDtUIg` — The Most Realistic Minecraft Terrain Generator I’ve Ever Seen — 2026-04-20 — 18
-6. `ayvwcfV34OA` — The Most Impressive Minecraft Physics Mods — 2026-04-10 — 18
-7. `F8KhlI-W7WM` — Making Minecraft As Satisfying As Possible With Mods 3.0 — 2026-04-01 — 1
-8. `yypjdKNxRk4` — Top 10 Minecraft Mods (1.21.11) - 2026 — 2026-03-24 — 12
-9. `1MLnVFc9CDg` — Awesome New Minecraft Mods You Should Try Today — 2026-03-17 — 12
-10. `6OcWD3Xn8Jo` — Minecraft Mod Combinations That Work Perfectly Together #9 — 2026-03-12 — 28
-11. `BIw9cJRraNs` — Hardware Accelerated Ray Tracing in Minecraft With the RTX 5090 — 2026-03-03 — 13
-12. `rjb_PMTAHwA` — Minecraft Mods You Have Probably Never Heard Of - 2026 — 2026-02-07 — 11
-13. `4su6oCiJpCY` — 10 Unique Minecraft Resource Packs You Have Probably Never Heard Of — 2025-10-07 — 15
-14. `Z50_ryPNNAc` — Top 10 Minecraft Mods — 2024-02-23 — 11
-15. `KqS27JcbrCQ` — Making Minecraft As Satisfying As Possible With Mods 2.0 — 2023-05-06 — 20
-16. `WFtQadz_bgM` — Making Minecraft As Satisfying As Possible With Mods — 2022-10-21 — 31
+MoreVanillaArmor; Merged Elytra; Patriot Structures; Aileron; Remove Reloading Screen; Tiny Item Animations; EXP Counter; Snowy Sniffer; Straw Golem Rebaled: Ported; Decorative Storage; Buttercup's Shrines; Bookshelf Inspector; Asian food cart; Items Displayed; Old fisherman swamp house; Better Than Mending; Wither Spawn Animation; Simple Uncrafting Table; Plank and Junk; Re:Deco; Dunes and Drought; Jake's Build Tools; Water Condenser; YUNG's Cave Biomes; Geysers; Dungeons and Taverns: Nether Fortress Overhaul; Endless Music; Extra Dungeons; Better F1 Reborn; fapdos' Nether Mobs: Recrafted; Dynamites Overhaul; Curious Lanterns; Mutated Items; Musket Mod; Mo Glass; You Thief: Remastered Edition; Better Lily Pads; Horseman; Sooty Chimneys; Reacharound.
 
-These sum to 216 recommendation mentions. The snapshot contains 155 mod mentions, 34 shader mentions, 23 resource-pack mentions, 3 data-pack mentions, and 1 modpack mention.
+`Straw Golem Rebaled: Ported` preserves the creator's chapter spelling. `EXP Counter` preserves the creator-stated `Fabric / Forge / NeoForge` label. No other loader labels are guessed.
 
-## Evidence and provider rules
+### Native source architecture
 
-Creator evidence and provider identity remain separate gates:
+Fresh creator batches now live under `catalog/creator-vault/recommendation-sources/*.json` instead of continually rewriting the primary Kreksu `recommendations.json` file. Chunk 5 adds `enderversemc.chunk5.json` as a compact source document with shared evidence defaults and timestamp/name rows. `src/creator-vault.js` expands compact rows at load time, merges sorted native source documents, and keeps the previous legacy import pipeline intact.
 
-1. Recommendation identity must come from creator/source evidence already captured in the source lineage.
-2. A direct Modrinth/CurseForge/project URL is attached only after that provider identity is independently known.
-3. Legacy imports preserve their source kinds and add `legacy-catalog`; they do not upgrade a recommendation's provider confidence merely because the project name looks familiar.
-4. Missing provider URLs stay missing.
-5. The UI can search and hand unresolved names back to Enderloom without manufacturing an external project home.
+EnderVerse chunk-5 source SHA-256: `9a1330c4cd48f8729d59e24d1f0258da2f971ffadc1d023938f62e1fd5bed27b`.
 
-## Files added/changed in chunk 4
+All 65 EnderVerse records intentionally have no provider URL yet. That is a correctness feature, not missing work hidden by guessed links.
 
-- `catalog/creator-vault/imports.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-01.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-02.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-03.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-04.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-05.json`
-- `catalog/creator-vault/sources/asianhalfsquat.creator-catalog.part-06.json`
-- `src/creator-vault.js`
-- `catalog/creator-vault/creators.json`
-- `scripts/creator-vault-qa.js`
+## Kreksu preserved state
+
+Chunk 3's provider closure remains intact:
+
+- `youtube:Hg1_20vRrZM` — 2026-04-05 — 10 recommendations / 10 verified homes
+- `youtube:iTsP0Xsdcv8` — 2026-04-09 — 10 / 10
+- `youtube:fgu7ssEVzAA` — 2026-05-07 — 10 / 10
+- total: 30 / 30 exact provider homes
+- 5 recurring animation/resource packs remain separately tracked
+- queued `TOP +10 Best Animation Mods...` video remains un-ingested because its original full chapter list has not passed the source gate
+
+A materially different recovery pass in chunk 4/5 still did not surface the queued video's complete original chapters, so partial mirrors were not used.
+
+## AsianHalfSquat preserved state
+
+Chunk 4 imported the newer reconciled Minecraft Mod Vault snapshot, superseding the earlier 11-video / 93-recommendation checkpoint:
+
+- 16 exact videos
+- 216 evidence-backed recommendation mentions
+- verified channel-history target: 349 videos
+- 1 independently verified creator-owned project home
+- 215 provider homes intentionally unresolved
+- canonical Drive source ID: `1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh`
+- original Drive SHA-256: `6e49a5154e1a757df75c4ab7371f91632250b551f9e1e3b00781db035b43a9e1`
+- compact logical snapshot SHA-256: `4e45e92fed3171175fcf50b37d9dcfd91b88217582fe9a924f405397eea649e8`
+- six deterministic repo shards with per-shard hashes/count contracts
+
+Verified home: `Satisfaction Guaranteed`, CurseForge modpack, project ID `1490741`, `https://www.curseforge.com/minecraft/modpacks/satisfaction-guaranteed`.
+
+## UI / behavior
+
+Creator Vault continues to provide creator cards/pins, platform and creator filtering, recommendation search, evidence/source badges, video grouping, timestamp deep links, provider/project-type badges, direct verified provider actions, unresolved `Find in Enderloom`, per-video verified-home counts, overall verified-home KPI, copy-all names, and separately tracked recurring creator setup packs.
+
+Imported AsianHalfSquat and fresh EnderVerse data flow through the same UI as Kreksu; no separate legacy browser is required.
+
+## Chunk 5 changed surface
+
+- new `catalog/creator-vault/recommendation-sources/enderversemc.chunk5.json`
+- `src/creator-vault.js` adds compact native recommendation-source loading/expansion
+- `catalog/creator-vault/creators.json` corrects EnderVerse legacy state and records 2/65/0 coverage
+- `scripts/creator-vault-qa.js` adds EnderVerse and aggregate gates
+- `.github/workflows/creator-vault-qa.yml` now covers `feature/creator-vault-*-chunk-*` branches rather than Kreksu-only chunk branches
 - this wiki
 
-Existing Kreksu recommendation data and Creator Vault UI/CSS remain unchanged in chunk 4.
+The primary Kreksu `catalog/creator-vault/recommendations.json` remains unchanged in chunk 5.
 
-## Acceptance gate through chunk 4
+## Acceptance gate through chunk 5
 
-Focused QA now requires:
+Focused QA requires:
 
-- exactly 14 creator identities, all unique;
-- 2 indexed creators;
-- 19 videos and 246 recommendation mentions total;
-- 31 verified project homes total;
-- 1 imported legacy catalog;
-- all chunk-3 Kreksu 30/30 URL/provenance/timestamp contracts remain intact;
-- AsianHalfSquat coverage pins target 349 / imported 16 / recommendations 216 / Drive source identity;
-- all six AsianHalfSquat shards match their exact SHA-256 values and expected video/recommendation counts;
-- all 16 imported video IDs are platform-namespaced and include `legacy-catalog` provenance;
-- all 216 imported recommendation mentions retain name/evidence and `catalog` provenance;
-- exactly 1 AsianHalfSquat recommendation has a provider URL and exactly 215 do not;
-- Satisfaction Guaranteed remains a CurseForge modpack with project ID 1490741 and its exact provider home;
-- renderer embeds both creator identities, imported AsianHalfSquat recommendations, the verified modpack home, existing Kreksu homes, and the unresolved `Find in Enderloom` path.
+- exactly 14 unique creators;
+- 3 indexed creators;
+- 21 videos / 311 recommendations / 31 verified homes;
+- 1 pinned AsianHalfSquat legacy import;
+- 2 native recommendation source documents;
+- all 30 Kreksu provider/timestamp/provenance contracts unchanged;
+- all six AsianHalfSquat shard hashes/counts unchanged; 16/216 with exactly 1 verified home and 215 unresolved;
+- EnderVerse coverage exactly 2 videos / 65 chapter recommendations / 0 verified homes;
+- 2025 EnderVerse video exactly 25 recommendations, first `Etherology`, last `Wonderous Sea - An Endless Ocean Adventure`;
+- 2024 EnderVerse video exactly 40 recommendations, first `MoreVanillaArmor`, last `Reacharound`;
+- both EnderVerse videos preserve `youtube-description` + `chapters` provenance, numeric strictly ordered timestamps, exact deep links, and empty provider URLs/identities;
+- creator-stated loader checks for `harpy express` and `EXP Counter`;
+- rendered catalog embeds Kreksu, AsianHalfSquat, EnderVerse, the verified Asian modpack home, existing Kreksu homes, and the unresolved-provider handoff.
 
-Observed locally in this chunk:
+Observed locally after the compact-source conversion:
 
 - PASS — `src/creator-vault.js` syntax gate.
-- PASS — focused Creator Vault QA: **14 creators / 2 indexed creators / 19 videos / 246 recommendations / 31 verified homes / 1 imported catalog / 5 setup packs**.
-- PASS — fresh portable Creator Vault preview built from the updated harness: `creator-vault-chunk4-preview.html`, 124,833 bytes.
-- No browser visual-runtime pass is claimed in this chunk.
-- Full repository checkout/CI is still not claimed here because this runtime cannot resolve `github.com`, and API-authored workflow commits do not recursively trigger Actions. The committed workflow remains the broader gate for the next normal checkout/push/manual dispatch.
+- PASS — focused Creator Vault QA: **14 creators / 3 indexed creators / 21 videos / 311 recommendations / 31 verified homes / 1 imported catalog / 5 setup packs**.
+- PASS — `nativeRecommendationSources = 2`.
+- PASS — fresh portable preview: `creator-vault-chunk5-preview.html`, **147,966 bytes**, SHA-256 `fee43cc10f68d1f8c788f203dea223b704af52993e4d67d9887d45a5a34acc6d`.
+- No browser visual-runtime pass is claimed in chunk 5.
+- Full repository checkout/CI is not claimed in this chat because the current runtime cannot resolve `github.com`; API-authored commits also do not recursively trigger Actions. The workflow is committed as the broad gate for the next normal push/manual dispatch.
 
 ## Exact next action
 
-1. Recover EnderVerse's actual legacy creator records from the existing old Minecraft Mod Vault source archives and import them through the same pinned offline mechanism; do not synthesize a replacement catalog.
-2. Then continue AsianHalfSquat toward the 349-video target and/or resume a new bounded Kreksu source-verifiable history batch without reopening the failed animation-chapter search family unless new source evidence appears.
-3. Continue the protected TikTok ledger after the YouTube legacy import boundary, preserving existing live gates.
-4. On the next normal project checkout/push, run the committed Creator Vault workflow and record the run/job identity.
+1. Resolve EnderVerse chunk-5 provider homes only where project identity is exact.
+2. Continue source-verified EnderVerse history, with the remaining `TOP 200 Vanilla+` episodes as a strong bounded family.
+3. Continue AsianHalfSquat from 16 toward the verified 349-video target.
+4. Then progress the protected TikTok creator ledger while preserving its existing live gates.
+5. Do not reopen the failed Kreksu queued-animation search family unless new source evidence appears.
+6. On the next normal checkout/push/manual dispatch, run the broader committed Creator Vault workflow and record the run/job identity.
 
 No active mod JAR moves are part of Creator Vault work.
