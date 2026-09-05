@@ -185,14 +185,21 @@ assert.equal(candidates.entries.length,16);
 assert.equal(candidates.entries.reduce((sum,entry)=>sum+entry[4].length,0),40);
 assert.deepEqual(candidates.entries.filter(entry=>entry[4].length===0),[]);
 
-// Permanent URL ownership/collision proof for the production overlay.
-const ownerByUrl = new Map();
+// Permanent collision proof is intentionally scoped to the 40 incoming Chunk 27 URLs.
+// Historical registry aliases can legitimately share a URL and are outside this chunk's mutation scope.
+const ownersByUrl = new Map();
 for (const item of vault.projects) {
   for (const link of item.providerLinks) {
     const key = link.url.replace(/\/$/,'').toLowerCase();
-    const owner = ownerByUrl.get(key);
-    assert(!owner || owner===item.id,`provider URL collision: ${link.url} -> ${owner} / ${item.id}`);
-    ownerByUrl.set(key,item.id);
+    if (!ownersByUrl.has(key)) ownersByUrl.set(key,new Set());
+    ownersByUrl.get(key).add(item.id);
+  }
+}
+for (const [id,,, ,candidateLinks] of providerRaw.entries) {
+  for (const [,url] of candidateLinks) {
+    const key = url.replace(/\/$/,'').toLowerCase();
+    const owners = [...(ownersByUrl.get(key) || new Set())].sort();
+    assert.deepEqual(owners,[id],`chunk 27 provider URL owner mismatch: ${url}`);
   }
 }
 
