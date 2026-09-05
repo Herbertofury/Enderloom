@@ -71,9 +71,16 @@ function loadProjectRegistry(dir, diagnostics) {
     const name=cleanText(raw && raw.name); const id=cleanText(raw && raw.id)||projectSlug(name);
     if(!id||!name){diagnostics.push({level:'warning',source:'projects.json',message:'Skipped canonical project missing id or name.'});continue;}
     const row={...raw,id,name,aliases:unique((Array.isArray(raw.aliases)?raw.aliases:[]).map(cleanText)),projectType:cleanText(raw.projectType||'mod'),links:mergeProviderLinks(Array.isArray(raw.links)?raw.links:[])};
-    if(byId.has(id)){diagnostics.push({level:'error',source:'projects.json',message:`Duplicate canonical project id: ${id}`});continue;}
-    byId.set(id,row); projects.push(row);
-    for(const alias of [row.name,...row.aliases]){const key=projectNameKey(alias); if(key && !byName.has(key)) byName.set(key,row); else if(key && byName.get(key)!==row) diagnostics.push({level:'warning',source:'projects.json',message:`Ambiguous canonical project alias: ${alias}`});}
+    let target=byId.get(id);
+    if(target){
+      if(projectNameKey(target.name)!==projectNameKey(row.name)) target.aliases=unique([...target.aliases,row.name]);
+      target.aliases=unique([...target.aliases,...row.aliases]);
+      target.links=mergeProviderLinks(target.links,row.links);
+      if(!target.projectType&&row.projectType) target.projectType=row.projectType;
+    }else{
+      target=row; byId.set(id,target); projects.push(target);
+    }
+    for(const alias of [target.name,...target.aliases]){const key=projectNameKey(alias); if(key && !byName.has(key)) byName.set(key,target); else if(key && byName.get(key)!==target) diagnostics.push({level:'warning',source:'projects.json',message:`Ambiguous canonical project alias: ${alias}`});}
   }
   return {schemaVersion:1,updatedAt:docs.map(doc=>cleanText(doc.updatedAt)).filter(Boolean).sort().pop()||'',strategy:docs.map(doc=>cleanText(doc.strategy)).find(Boolean)||'',projects,byId,byName};
 }
