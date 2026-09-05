@@ -17,12 +17,13 @@ assert.equal(new Set(vault.creators.map(c => c.id)).size, 14, 'creator ids must 
 assert.equal(vault.stats.indexedCreators, 3, 'Kreksu, AsianHalfSquat and EnderVerse must be indexed');
 assert.equal(vault.videos.length, 21, '3 Kreksu + 16 AsianHalfSquat + 2 EnderVerse videos');
 assert.equal(vault.stats.recommendations, 311, 'all creator recommendation mentions must survive canonicalization');
-assert.equal(vault.stats.uniqueProjects, 265, '311 mentions must merge to the established 265 canonical projects');
+assert.equal(vault.stats.uniqueProjects, 264, '311 mentions must merge to the established 264 canonical projects');
 assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 311, 'canonical project index must preserve every mention');
-assert(vault.stats.verifiedProjects >= 116, 'chunk 6 must keep at least 116 projects with verified direct homes');
-assert.equal(vault.stats.unresolvedProjects, vault.stats.uniqueProjects - vault.stats.verifiedProjects, 'unresolved count must be derived from canonical projects');
-assert(vault.stats.multiProviderProjects >= 32, 'multi-provider coverage must not regress');
-assert(vault.stats.providerDestinations >= 151, 'all verified direct destinations must be counted');
+assert.equal(vault.stats.verifiedProjects, 263, 'all public-project identities except the single no-public-page record must have direct homes');
+assert.equal(vault.stats.unresolvedProjects, 1, 'exactly one source label has no discoverable public project page');
+assert.equal(vault.stats.multiProviderProjects, 100, 'multi-provider coverage contract');
+assert.equal(vault.stats.providerDestinations, 366, 'all verified direct destinations must be counted');
+assert.deepEqual(vault.projects.filter(project => !project.providerLinks.length).map(project => project.name), ['Plank and Junk'], 'Plank and Junk is the sole explicit no-public-project-page exception');
 assert.equal(vault.stats.importedCatalogs, 1, 'AsianHalfSquat pinned legacy import remains active');
 assert.equal(vault.stats.nativeRecommendationSources, 2, 'primary recommendations + EnderVerse native source shard');
 assert.equal(vault.channelSetupPacks.length, 5, 'Kreksu recurring setup packs remain separate');
@@ -57,6 +58,9 @@ assert(complementary && complementary.mentionCount === 5, 'Complementary aliases
 const leawind = vault.projects.find(project => project.id === 'leawind-third-person');
 assert(leawind && leawind.mentionCount === 3, 'Leawind aliases must merge to one three-mention card');
 assert.deepEqual(new Set(leawind.providerLinks.map(link => link.provider)), new Set(['Modrinth','CurseForge']), 'Leawind must expose both provider homes');
+const physics = vault.projects.find(project => project.id === 'physics-mod');
+assert(physics && physics.mentionCount === 3, 'Physics Mod and Physics Mod Pro must merge to one three-mention project');
+assert(physics.aliases.includes('Physics Mod Pro'), 'Physics Mod Pro remains searchable as an alias');
 const eating = vault.projects.find(project => project.id === 'eating-animation');
 assert(eating && eating.providerLinks.length === 4, 'Eating Animation must keep all four loader/provider destinations');
 assert(eating.providerLinks.some(link => link.provider === 'Modrinth' && link.label === 'Fabric'), 'Eating Animation Modrinth Fabric link');
@@ -65,6 +69,10 @@ assert(eating.providerLinks.some(link => link.provider === 'Modrinth' && link.la
 assert(eating.providerLinks.some(link => link.provider === 'CurseForge' && link.label === 'Forge/NeoForge'), 'Eating Animation CurseForge Forge/NeoForge link');
 const connectible = vault.projects.find(project => project.id === 'connectible-chains');
 assert(connectible && connectible.providerLinks.filter(link => link.provider === 'CurseForge').length === 2, 'Connectible Chains loader-specific CurseForge homes must both survive');
+const valleySky = vault.projects.find(project => project.id === 'valley-and-sky');
+assert(valleySky && valleySky.providerLinks.some(link => link.provider === 'Official' && /patreon\.com\/cw\/ValleyandSky/.test(link.url)), 'Valley & Sky WIP must link its real official project page rather than inventing a provider build');
+const caztoon = vault.projects.find(project => project.id === 'caztoon');
+assert(caztoon && caztoon.providerLinks.some(link => /cazfps\.com\/caztoon-info/.test(link.url)), 'CazToon must expose its creator-controlled project page');
 
 // Kreksu source contracts and the original 30 direct homes remain intact.
 const kreksu = vault.creators.find(c => c.id === 'youtube:kreksuminecraft');
@@ -187,8 +195,10 @@ assert(rendered.html.includes('youtube:kreksuminecraft'));
 assert(rendered.html.includes('youtube:asianhalfsquat'));
 assert(rendered.html.includes('youtube:enderversemc'));
 assert(rendered.html.includes('Solas Shader'));
+assert(rendered.html.includes('Physics Mod Pro'));
 assert(rendered.html.includes('https://modrinth.com/mod/eating-animation'));
 assert(rendered.html.includes('https://www.curseforge.com/minecraft/mc-mods/eating-animation-forge'));
-assert(rendered.html.includes('Find in Enderloom'), 'unresolved canonical projects must retain safe fallback');
+assert(rendered.html.includes('https://www.patreon.com/cw/ValleyandSky'));
+assert(rendered.html.includes('Find in Enderloom'), 'sole unresolved project must retain safe fallback');
 
-console.log(`Creator Vault QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked projects / ${vault.stats.providerDestinations} direct destinations / ${vault.stats.multiProviderProjects} multi-provider.`);
+console.log(`Creator Vault QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked projects / ${vault.stats.providerDestinations} direct destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved.`);
