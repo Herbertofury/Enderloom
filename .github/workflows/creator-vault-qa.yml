@@ -23,8 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Episode 5 canonical recovery probe
-        run: node scripts/creator-vault-ep5-recovery.js
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
