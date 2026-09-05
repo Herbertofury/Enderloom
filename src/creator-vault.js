@@ -175,11 +175,56 @@ function loadImportedVideos(dir, diagnostics) {
   }
   return { videos, imports, updatedAt: cleanText(importsDoc.updatedAt) };
 }
+function expandRecommendationDocument(doc) {
+  if (!doc || typeof doc !== 'object') return { videos:[], channelSetupPacks:[], queuedDiscoveries:[] };
+  const defaults = doc.defaults && typeof doc.defaults === 'object' ? doc.defaults : {};
+  const videos = (Array.isArray(doc.videos) ? doc.videos : []).map(rawVideo => {
+    if (!Array.isArray(rawVideo && rawVideo.entries)) return rawVideo;
+    const video = { ...rawVideo, creatorId:cleanText(rawVideo.creatorId || defaults.creatorId), platform:cleanText(rawVideo.platform || defaults.platform || 'youtube') };
+    video.mods = rawVideo.entries.map(row => {
+      const values = Array.isArray(row) ? row : [];
+      return {
+        name: cleanText(values[0]),
+        timestamp: cleanText(values[1]),
+        timestampSeconds: Number(values[2]),
+        loader: Array.isArray(values[3]) ? values[3] : [],
+        projectType: cleanText(defaults.projectType || 'mod'),
+        evidence: cleanText(defaults.evidence),
+        sourceKinds: Array.isArray(defaults.sourceKinds) ? defaults.sourceKinds : [],
+        confidence: Number.isFinite(Number(defaults.confidence)) ? Number(defaults.confidence) : null
+      };
+    });
+    delete video.entries;
+    return video;
+  });
+  return { ...doc, videos };
+}
+function loadRecommendationDocuments(dir, diagnostics) {
+  const docs = [];
+  const primaryFile = path.join(dir, 'recommendations.json');
+  docs.push({ source:'recommendations.json', doc:expandRecommendationDocument(readJson(primaryFile, { videos:[], channelSetupPacks:[], queuedDiscoveries:[] }, diagnostics, 'recommendations.json')) });
+  const sourceDir = path.join(dir, 'recommendation-sources');
+  if (fs.existsSync(sourceDir)) {
+    for (const name of fs.readdirSync(sourceDir).filter(name => name.toLowerCase().endsWith('.json')).sort()) {
+      const relative = path.join('recommendation-sources', name).replace(/\\/g, '/');
+      docs.push({ source:relative, doc:expandRecommendationDocument(readJson(path.join(sourceDir, name), { videos:[], channelSetupPacks:[], queuedDiscoveries:[] }, diagnostics, relative)) });
+    }
+  }
+  return {
+    videos: docs.flatMap(({ doc }) => Array.isArray(doc.videos) ? doc.videos : []),
+    channelSetupPacks: docs.flatMap(({ doc }) => Array.isArray(doc.channelSetupPacks) ? doc.channelSetupPacks : []),
+    queuedDiscoveries: docs.flatMap(({ doc }) => Array.isArray(doc.queuedDiscoveries) ? doc.queuedDiscoveries : []),
+    updatedAt: docs.map(({ doc }) => cleanText(doc.updatedAt)).filter(Boolean).sort().pop() || '',
+    strategy: docs.map(({ doc }) => cleanText(doc.strategy)).find(Boolean) || '',
+    sources: docs.map(({ source }) => source)
+  };
+}
+
 function loadCreatorVault(rootDir) {
   const diagnostics = [];
   const dir = path.join(rootDir, 'catalog', 'creator-vault');
   const creatorsDoc = readJson(path.join(dir, 'creators.json'), { creators:[] }, diagnostics, 'creators.json');
-  const recDoc = readJson(path.join(dir, 'recommendations.json'), { videos:[], channelSetupPacks:[] }, diagnostics, 'recommendations.json');
+  const recDoc = loadRecommendationDocuments(dir, diagnostics);
   const imported = loadImportedVideos(dir, diagnostics);
   const creators = dedupeById((Array.isArray(creatorsDoc.creators) ? creatorsDoc.creators : []).map(normalizeCreator), diagnostics, 'creators.json');
   const nativeVideos = (Array.isArray(recDoc.videos) ? recDoc.videos : []).map(normalizeVideo);
@@ -212,10 +257,11 @@ function loadCreatorVault(rootDir) {
       recommendations: recommendationCount,
       verifiedHomes: videos.flatMap(video => video.mods).filter(mod => mod.url).length,
       importedCatalogs: imported.imports.length,
+      nativeRecommendationSources: recDoc.sources.length,
       setupPacks: channelSetupPacks.length
     },
     diagnostics
   };
 }
 
-module.exports = { SCHEMA_VERSION, loadCreatorVault, normalizeCreator, normalizeVideo, normalizeMod, normalizeProvider, normalizeImportedVideo, loadImportedVideos, timestampUrl };
+module.exports = { SCHEMA_VERSION, loadCreatorVault, loadRecommendationDocuments, expandRecommendationDocument, normalizeCreator, normalizeVideo, normalizeMod, normalizeProvider, normalizeImportedVideo, loadImportedVideos, timestampUrl };
