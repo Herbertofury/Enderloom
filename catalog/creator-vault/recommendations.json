@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-05T01:08:00Z",
+  "strategy": "evidence-first/no-fabricated-provider-links",
+  "videos": [
+    {
+      "id": "youtube:iTsP0Xsdcv8",
+      "creatorId": "youtube:kreksuminecraft",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=iTsP0Xsdcv8",
+      "title": "HIDDEN GEM Minecraft Mods That Are Actually INSANE! [1.20.1, 1.21.1 | Forge / Fabric]",
+      "publishedAt": "2026-04-09",
+      "evidenceKinds": ["youtube-description", "chapters"],
+      "mods": [
+        {"name":"Legionary","projectType":"mod","loader":["Forge"],"timestamp":"00:07","timestampSeconds":7,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Draconic Spells","projectType":"mod","loader":["Forge"],"timestamp":"01:09","timestampSeconds":69,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Threateningly Mobs","projectType":"mod","loader":["Forge"],"timestamp":"01:59","timestampSeconds":119,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Wings Of Fire!","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"02:58","timestampSeconds":178,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"ByteBuddies","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"03:43","timestampSeconds":223,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Better Fishtanks","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"04:48","timestampSeconds":288,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Feastful","projectType":"mod","loader":["Forge"],"timestamp":"05:51","timestampSeconds":351,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"ReCased","projectType":"mod","loader":["Forge"],"timestamp":"06:37","timestampSeconds":397,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Bountiful Fares","projectType":"mod","loader":["Fabric","NeoForge"],"timestamp":"07:36","timestampSeconds":456,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Even Better Nether","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"08:27","timestampSeconds":507,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1}
+      ]
+    },
+    {
+      "id": "youtube:fgu7ssEVzAA",
+      "creatorId": "youtube:kreksuminecraft",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=fgu7ssEVzAA",
+      "title": "These New Underrated Minecraft Mods are Actually Insane! [+1.20.1, +1.21.1 | Forge / Fabric]",
+      "publishedAt": "2026-05-07",
+      "evidenceKinds": ["youtube-description", "chapters"],
+      "mods": [
+        {"name":"Craftics - Grid Based Tactical RPG","projectType":"mod","loader":["Fabric"],"timestamp":"00:06","timestampSeconds":6,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Gateway to Doom","projectType":"mod","loader":["Fabric","NeoForge"],"timestamp":"02:08","timestampSeconds":128,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Boundless & Endless","projectType":"mod","loader":["Forge"],"timestamp":"02:54","timestampSeconds":174,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Iden's Decor","projectType":"mod","loader":["NeoForge"],"timestamp":"03:44","timestampSeconds":224,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Nimbu's: Pocket Dimensions","projectType":"mod","loader":["Fabric"],"timestamp":"04:30","timestampSeconds":270,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Better Horse/Mount Steering","projectType":"mod","loader":["Forge"],"timestamp":"05:32","timestampSeconds":332,"evidence":"Listed in Kreksu's YouTube description chapters; the link label below the chapters says Better Mount Steering.","sourceKinds":["description","chapter"],"confidence":1,"aliases":["Better Mount Steering"]},
+        {"name":"Keybind Atlas","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"06:10","timestampSeconds":370,"evidence":"Listed in Kreksu's YouTube description chapters; the project page independently showcases Kreksu's video.","sourceKinds":["description","chapter","project-showcase"],"confidence":1,"url":"https://modrinth.com/mod/keybind-atlas"},
+        {"name":"Lazy Tools","projectType":"mod","loader":["NeoForge"],"timestamp":"06:50","timestampSeconds":410,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Happy Ghast Inventory","projectType":"mod","loader":["Fabric","Forge","NeoForge"],"timestamp":"08:10","timestampSeconds":490,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Jaki Versatile Structures: Sails & Sea","projectType":"mod","loader":["Fabric","Forge"],"timestamp":"08:42","timestampSeconds":522,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1}
+      ]
+    }
+  ],
+  "channelSetupPacks": [
+    {"creatorId":"youtube:kreksuminecraft","name":"Detailed Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations: Player Extension","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Joyful Motion","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Silly Moves","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]}
+  ],
+  "queuedDiscoveries": [
+    {"creatorId":"youtube:kreksuminecraft","title":"TOP +10 Best Animation Mods in Minecraft! [+1.20.1, +1.21.1 | Forge / Fabric / NeoForge]","state":"awaiting-source-verifiable-chapters","discoveredAt":"2026-09-05"}
+  ]
+}
