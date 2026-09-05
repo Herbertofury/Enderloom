@@ -23,6 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Missing timestamp regression QA
+        run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
