@@ -26,6 +26,17 @@ function timestampUrl(videoUrl, seconds) {
     return parsed.toString();
   } catch { return url; }
 }
+function normalizeProvider(value, url) {
+  const raw = cleanText(value);
+  const key = raw.toLowerCase();
+  if (key === 'curseforge') return 'CurseForge';
+  if (key === 'modrinth') return 'Modrinth';
+  if (raw) return raw;
+  const target = cleanText(url);
+  if (/curseforge\.com/i.test(target)) return 'CurseForge';
+  if (/modrinth\.com/i.test(target)) return 'Modrinth';
+  return '';
+}
 function normalizeCreator(raw) {
   const creator = raw && typeof raw === 'object' ? raw : {};
   return {
@@ -45,11 +56,13 @@ function normalizeCreator(raw) {
 function normalizeMod(raw, video) {
   const mod = raw && typeof raw === 'object' ? raw : {};
   const seconds = Number(mod.timestampSeconds);
+  const url = cleanText(mod.url);
   return {
     ...mod,
     name: cleanText(mod.name),
     projectType: cleanText(mod.projectType || 'mod'),
-    url: cleanText(mod.url),
+    url,
+    provider: normalizeProvider(mod.provider, url),
     loader: unique(Array.isArray(mod.loader) ? mod.loader.map(cleanText) : []),
     timestamp: cleanText(mod.timestamp),
     timestampSeconds: Number.isFinite(seconds) && seconds >= 0 ? seconds : null,
@@ -93,13 +106,84 @@ function dedupeById(rows, diagnostics, source) {
   }
   return out;
 }
+function normalizeImportedVideo(raw, entry) {
+  const platform = cleanText(raw && raw.platform || 'youtube').toLowerCase() || 'youtube';
+  const sourceId = cleanText(raw && raw.id);
+  const mods = Array.isArray(raw && raw.mods) ? raw.mods : [];
+  const sourceEvidenceKinds = unique(mods.flatMap(mod => Array.isArray(mod && mod.sourceKinds) ? mod.sourceKinds.map(cleanText) : []));
+  return normalizeVideo({
+    ...(raw || {}),
+    id: sourceId ? `${platform}:${sourceId}` : '',
+    creatorId: cleanText(entry.creatorId),
+    platform,
+    evidenceKinds: unique([...(Array.isArray(raw && raw.evidenceKinds) ? raw.evidenceKinds : []), ...sourceEvidenceKinds, 'legacy-catalog']),
+    importId: cleanText(entry.id),
+    importSourceSystem: cleanText(entry.sourceSystem),
+    importSourceDriveFileId: cleanText(entry.sourceDriveFileId)
+  });
+}
+function loadImportedVideos(dir, diagnostics) {
+  const importsDoc = readJson(path.join(dir, 'imports.json'), { imports:[] }, diagnostics, 'imports.json');
+  const videos = [];
+  const imports = [];
+  for (const rawEntry of Array.isArray(importsDoc.imports) ? importsDoc.imports : []) {
+    const entry = rawEntry && typeof rawEntry === 'object' ? { ...rawEntry } : {};
+    const importId = cleanText(entry.id);
+    const creatorId = cleanText(entry.creatorId);
+    const fileRows = Array.isArray(entry.files) && entry.files.length
+      ? entry.files.map(row => typeof row === 'string' ? { file:row } : row)
+      : (cleanText(entry.file) ? [{ file:entry.file }] : []);
+    if (!importId || !creatorId || !fileRows.length) {
+      diagnostics.push({ level:'warning', source:'imports.json', message:'Skipped creator import missing id, creatorId, or file(s).' });
+      continue;
+    }
+    const imported = [];
+    let failed = false;
+    for (const fileRow of fileRows) {
+      const relativeFile = cleanText(fileRow && fileRow.file);
+      const absolute = path.resolve(dir, relativeFile);
+      const safeRoot = path.resolve(dir) + path.sep;
+      if (!relativeFile || !absolute.startsWith(safeRoot)) {
+        diagnostics.push({ level:'error', source:'imports.json', message:`Rejected creator import outside Creator Vault directory: ${relativeFile}` });
+        failed = true;
+        continue;
+      }
+      if (!fs.existsSync(absolute)) {
+        diagnostics.push({ level:'error', source:'imports.json', message:`Creator import file is missing: ${relativeFile}` });
+        failed = true;
+        continue;
+      }
+      const catalog = readJson(absolute, null, diagnostics, relativeFile);
+      if (!catalog || !Array.isArray(catalog.videos)) { failed = true; continue; }
+      imported.push(...catalog.videos.map(video => normalizeImportedVideo(video, entry)).filter(video => video.id));
+    }
+    if (failed) continue;
+    videos.push(...imported);
+    imports.push({
+      id: importId,
+      creatorId,
+      files: fileRows.map(row => ({ file:cleanText(row.file), sha256:cleanText(row.sha256), videos:Number(row.videos)||0, recommendations:Number(row.recommendations)||0 })),
+      sourceSystem: cleanText(entry.sourceSystem),
+      sourceDriveFileId: cleanText(entry.sourceDriveFileId),
+      sourceUpdatedAt: cleanText(entry.sourceUpdatedAt),
+      sourceDriveSha256: cleanText(entry.sourceDriveSha256),
+      sourceSnapshotSha256: cleanText(entry.sourceSnapshotSha256),
+      expectedVideos: Number.isFinite(Number(entry.expectedVideos)) ? Number(entry.expectedVideos) : null,
+      videos: imported.length,
+      recommendations: imported.reduce((sum, video) => sum + video.mods.length, 0)
+    });
+  }
+  return { videos, imports, updatedAt: cleanText(importsDoc.updatedAt) };
+}
 function loadCreatorVault(rootDir) {
   const diagnostics = [];
   const dir = path.join(rootDir, 'catalog', 'creator-vault');
   const creatorsDoc = readJson(path.join(dir, 'creators.json'), { creators:[] }, diagnostics, 'creators.json');
   const recDoc = readJson(path.join(dir, 'recommendations.json'), { videos:[], channelSetupPacks:[] }, diagnostics, 'recommendations.json');
+  const imported = loadImportedVideos(dir, diagnostics);
   const creators = dedupeById((Array.isArray(creatorsDoc.creators) ? creatorsDoc.creators : []).map(normalizeCreator), diagnostics, 'creators.json');
-  const videos = dedupeById((Array.isArray(recDoc.videos) ? recDoc.videos : []).map(normalizeVideo), diagnostics, 'recommendations.json');
+  const nativeVideos = (Array.isArray(recDoc.videos) ? recDoc.videos : []).map(normalizeVideo);
+  const videos = dedupeById([...nativeVideos, ...imported.videos], diagnostics, 'creator-vault videos');
   const creatorIds = new Set(creators.map(x => x.id));
   for (const video of videos) if (video.creatorId && !creatorIds.has(video.creatorId)) diagnostics.push({ level:'warning', source:'recommendations.json', message:`Video ${video.id} references unknown creator ${video.creatorId}.` });
   const channelSetupPacks = (Array.isArray(recDoc.channelSetupPacks) ? recDoc.channelSetupPacks : []).map(pack => ({
@@ -112,23 +196,26 @@ function loadCreatorVault(rootDir) {
   })).filter(pack => pack.name);
   const recommendationCount = videos.reduce((sum, video) => sum + video.mods.length, 0);
   const indexedCreators = new Set(videos.map(video => video.creatorId).filter(Boolean)).size;
-  const updatedAt = [cleanText(creatorsDoc.updatedAt), cleanText(recDoc.updatedAt)].filter(Boolean).sort().pop() || '';
+  const updatedAt = [cleanText(creatorsDoc.updatedAt), cleanText(recDoc.updatedAt), cleanText(imported.updatedAt)].filter(Boolean).sort().pop() || '';
   return {
     schemaVersion: SCHEMA_VERSION,
     updatedAt,
     strategy: cleanText(creatorsDoc.strategy || recDoc.strategy || 'full-history-first/incremental-after'),
     creators,
     videos,
+    imports: imported.imports,
     channelSetupPacks,
     stats: {
       creators: creators.length,
       indexedCreators,
       videos: videos.length,
       recommendations: recommendationCount,
+      verifiedHomes: videos.flatMap(video => video.mods).filter(mod => mod.url).length,
+      importedCatalogs: imported.imports.length,
       setupPacks: channelSetupPacks.length
     },
     diagnostics
   };
 }
 
-module.exports = { SCHEMA_VERSION, loadCreatorVault, normalizeCreator, normalizeVideo, normalizeMod, timestampUrl };
+module.exports = { SCHEMA_VERSION, loadCreatorVault, normalizeCreator, normalizeVideo, normalizeMod, normalizeProvider, normalizeImportedVideo, loadImportedVideos, timestampUrl };
