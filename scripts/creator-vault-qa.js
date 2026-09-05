@@ -14,17 +14,17 @@ assert.equal(vault.schemaVersion, 1);
 assert.equal(vault.creators.length, 14, 'all tracked creators must remain present');
 assert.equal(new Set(vault.creators.map(c => c.id)).size, 14, 'creator ids must be unique');
 assert.equal(vault.stats.indexedCreators, 3);
-assert.equal(vault.videos.length, 23, '3 Kreksu + 16 AsianHalfSquat + 4 EnderVerse videos');
-assert.equal(vault.stats.recommendations, 391, '351 prior mentions + 40 EnderVerse episode 2 mentions');
-assert.equal(vault.stats.uniqueProjects, 334, '391 mentions must merge to exactly 334 canonical projects');
-assert.equal(vault.projects.reduce((sum,p)=>sum+p.mentionCount,0),391,'all source mentions survive canonicalization');
-assert.equal(vault.stats.verifiedProjects, 333, 'all canonical projects except Plank and Junk have a verified public destination');
-assert.equal(vault.stats.unresolvedProjects, 1);
-assert.equal(vault.stats.multiProviderProjects, 163);
-assert.equal(vault.stats.providerDestinations, 515);
-assert.deepEqual(vault.projects.filter(p=>!p.providerLinks.length).map(p=>p.name),['Plank and Junk']);
+assert.equal(vault.videos.length, 24, '3 Kreksu + 16 AsianHalfSquat + 5 EnderVerse videos');
+assert.equal(vault.stats.recommendations, 431, '391 prior mentions + 40 EnderVerse episode 3 mentions');
+assert.equal(vault.stats.uniqueProjects, 372, '431 mentions must merge to exactly 372 canonical projects');
+assert.equal(vault.projects.reduce((sum,p)=>sum+p.mentionCount,0),431,'all source mentions survive canonicalization');
+assert.equal(vault.stats.verifiedProjects, 370, 'all canonical projects except the two source-backed no-public-page exceptions have a verified direct destination');
+assert.equal(vault.stats.unresolvedProjects, 2);
+assert.equal(vault.stats.multiProviderProjects, 192);
+assert.equal(vault.stats.providerDestinations, 586);
+assert.deepEqual(vault.projects.filter(p=>!p.providerLinks.length).map(p=>p.name).sort(),['Better Book Recipe','Plank and Junk']);
 assert.equal(vault.stats.importedCatalogs,1);
-assert.equal(vault.stats.nativeRecommendationSources,4,'primary + EnderVerse chunk5 + EnderVerse episodes 1 and 2');
+assert.equal(vault.stats.nativeRecommendationSources,5,'primary + EnderVerse chunk5 + EnderVerse episodes 1, 2, and 3');
 assert.equal(vault.channelSetupPacks.length,5);
 assert.equal(vault.diagnostics.filter(x=>x.level==='error').length,0);
 
@@ -60,12 +60,14 @@ const imp=vault.imports.find(x=>x.creatorId===asian.id); assert(imp); assert.equ
 const shardCounts=[[4,26],[4,49],[4,64],[2,26],[1,20],[1,31]]; assert.equal(imp.files.length,6); imp.files.forEach((row,i)=>{const p=path.join(root,'catalog','creator-vault',row.file);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex'),row.sha256);assert.deepEqual([row.videos,row.recommendations],shardCounts[i]);});
 const asianMods=vault.videos.filter(v=>v.creatorId===asian.id).flatMap(v=>v.mods); assert.equal(asianMods.length,216); assert(asianMods.every(m=>m.name&&m.evidence&&m.sourceKinds.includes('catalog')&&m.canonicalProjectId)); const satisfaction=asianMods.find(m=>m.name==='Satisfaction Guaranteed'); assert(satisfaction&&satisfaction.projectId==='1490741'&&satisfaction.url==='https://www.curseforge.com/minecraft/modpacks/satisfaction-guaranteed');
 
-// EnderVerse exact source evidence, including Vanilla+ Episodes 1 and 2.
-const ender=vault.creators.find(c=>c.id==='youtube:enderversemc'); assert(ender&&ender.coverage.legacyRecovery==='no-public-corpus-prepopulated'); assert.equal(ender.coverage.indexedVideos,4); assert.equal(ender.coverage.recommendationCount,145); assert.equal(ender.coverage.verifiedProjectHomes,144);
-const enderVideos=vault.videos.filter(v=>v.creatorId===ender.id); assert.equal(enderVideos.length,4); assert.equal(enderVideos.reduce((s,v)=>s+v.mods.length,0),145);
+// EnderVerse exact source evidence, including Vanilla+ Episodes 1, 2, and 3.
+const ender=vault.creators.find(c=>c.id==='youtube:enderversemc'); assert(ender&&ender.coverage.legacyRecovery==='no-public-corpus-prepopulated'); assert.equal(ender.coverage.indexedVideos,5); assert.equal(ender.coverage.recommendationCount,185); assert.equal(ender.coverage.verifiedProjectHomes,183);
+const enderVideos=vault.videos.filter(v=>v.creatorId===ender.id); assert.equal(enderVideos.length,5); assert.equal(enderVideos.reduce((s,v)=>s+v.mods.length,0),185);
 const y2025=enderVideos.find(v=>v.id==='youtube:JF6FITETMLM'); assert(y2025&&y2025.mods.length===25&&y2025.mods[0].name==='Etherology'&&y2025.mods.at(-1).name==='Wonderous Sea - An Endless Ocean Adventure');
 const ep4=enderVideos.find(v=>v.id==='youtube:kxXz-FbvhAA'); assert(ep4&&ep4.mods.length===40&&ep4.mods[0].name==='MoreVanillaArmor'&&ep4.mods.at(-1).name==='Reacharound');
 const ep1=enderVideos.find(v=>v.id==='youtube:vniY9L4EbgM'); assert(ep1,'Vanilla+ Episode 1 must load'); assert.equal(ep1.title,'TOP 200 Vanilla+ Minecraft Mods For 1.20.4 / 1.20 | Ep. 1 (2024) [Forge/Fabric]'); assert.equal(ep1.publishedAt,'2024-01-16'); assert.equal(ep1.mods.length,40); assert.equal(ep1.mods[0].name,"Leawind's Third Person"); assert.equal(ep1.mods.at(-1).name,"Yung's Better Jungle Temples");
+const ep2=enderVideos.find(v=>v.id==='youtube:AbkSa8oXDpU'); assert(ep2,'Vanilla+ Episode 2 must load'); assert.equal(ep2.title,'TOP 200 Vanilla+ Minecraft Mods For 1.20 | EP. 2 (2024) [Forge/Fabric]'); assert.equal(ep2.publishedAt,'2024-03-10'); assert.equal(ep2.mods.length,40); assert.equal(ep2.mods[0].name,'Carry On'); assert.equal(ep2.mods.at(-1).name,'Visual Workbench');
+const ep3=enderVideos.find(v=>v.id==='youtube:6dx2t_lD1gw'); assert(ep3,'Vanilla+ Episode 3 must load'); assert.equal(ep3.title,'TOP 200 Vanilla+ Minecraft Mods For 1.21→ 1.19.2 | EP. 3 (2024) [Forge/Fabric]'); assert.equal(ep3.publishedAt,'2024-06-16'); assert.equal(ep3.mods.length,40); assert.equal(ep3.mods[0].name,'Revamped Piles'); assert.equal(ep3.mods.at(-1).name,'Andromeda');
 for(const v of enderVideos){assert(v.evidenceKinds.includes('youtube-description')&&v.evidenceKinds.includes('chapters'));const s=v.mods.map(m=>m.timestampSeconds);assert(s.every(Number.isFinite)&&s.every((n,i)=>i===0||n>s[i-1]));for(const m of v.mods){assert(m.name&&m.evidence&&m.canonicalProjectId);assert(m.sourceKinds.includes('description')&&m.sourceKinds.includes('chapter'));assert(m.videoLink.includes(`t=${m.timestampSeconds}s`));}}
 assert.deepEqual(y2025.mods.find(m=>m.name==='harpy express').loader,['Quilt','Fabric']); assert.deepEqual(ep4.mods.find(m=>m.name==='EXP Counter').loader,['Fabric','Forge','NeoForge']);
 assert.deepEqual(ep1.mods.find(m=>m.name==='Spawn Animations').loader,['All Loaders']); assert.deepEqual(ep1.mods.find(m=>m.name==='Basic Weapons').loader,['All Mod Loaders']); assert.deepEqual(ep1.mods.find(m=>m.name==='Inspecio').loader,['Quilt']); assert.deepEqual(ep1.mods.find(m=>m.name==='Nvidium').loader,['Quilt','Fabric']);
@@ -76,7 +78,6 @@ const itemBorders=vault.projects.find(p=>p.id==='item-borders'); assert(itemBord
 const merchant=vault.projects.find(p=>p.id==='merchant-markers'); assert(merchant&&merchant.providerLinks.length===3);
 assert.deepEqual(vault.projects.find(p=>p.id==='voxelmap').providerLinks.map(x=>x.provider),['CurseForge']); assert.deepEqual(vault.projects.find(p=>p.id==='nvidium').providerLinks.map(x=>x.provider),['Modrinth']);
 
-const ep2=enderVideos.find(v=>v.id==='youtube:AbkSa8oXDpU'); assert(ep2,'Vanilla+ Episode 2 must load'); assert.equal(ep2.title,'TOP 200 Vanilla+ Minecraft Mods For 1.20 | EP. 2 (2024) [Forge/Fabric]'); assert.equal(ep2.publishedAt,'2024-03-10'); assert.equal(ep2.mods.length,40); assert.equal(ep2.mods[0].name,'Carry On'); assert.equal(ep2.mods.at(-1).name,'Visual Workbench');
 assert.deepEqual(ep2.mods.find(m=>m.name==='Wanted').loader,['Forge','Fabric','DataPack']); assert.deepEqual(ep2.mods.find(m=>m.name==='Talking Villager').loader,['Fabric','Resource Pack']); assert.deepEqual(ep2.mods.find(m=>m.name==='More Mobs').loader,['Forge','Fabric','DataPack']);
 assert(ep2.mods.every(m=>m.providerLinks.length>0),'all Episode 2 recommendations must have a verified direct destination');
 assert.equal(ep2.mods.find(m=>m.name==='Immersive Portals').canonicalProjectId,'immersive-portals'); assert.equal(ep2.mods.find(m=>m.name==='Better Combat').canonicalProjectId,'better-combat'); assert.equal(ep2.mods.find(m=>m.name==='Shoulder surfing reloaded').canonicalProjectId,'shoulder-surfing-reloaded'); assert.equal(ep2.mods.find(m=>m.name==='Sleep Overhaul 2').canonicalProjectId,'sleeping-overhaul-2'); assert.equal(ep2.mods.find(m=>m.name==='Geophilic - Vanilla Biome Overhauls').canonicalProjectId,'geophilic'); assert.equal(ep2.mods.find(m=>m.name==='Visual Workbench').canonicalProjectId,'visual-workbench');
@@ -84,7 +85,24 @@ const immersive=vault.projects.find(p=>p.id==='immersive-portals'); assert(immer
 const farmers=vault.projects.find(p=>p.id==='farmers-delight'); assert(farmers&&farmers.providerLinks.length===4&&farmers.providerLinks.some(x=>x.label==='Fabric port')&&farmers.providerLinks.some(x=>x.label==='Forge/NeoForge'));
 const moreMobs=vault.projects.find(p=>p.id==='more-mobs-tschipcraft'); assert(moreMobs&&moreMobs.providerLinks.length===3);
 
+// Episode 3 identity, source, and provider closure contracts.
+assert.deepEqual(ep3.mods.find(m=>m.name==='Revamped Piles').loader,['NeoForge']);
+assert.deepEqual(ep3.mods.find(m=>m.name==='Immersive UI').loader,['NeoForge','Fabric']);
+assert.deepEqual(ep3.mods.find(m=>m.name==='3D Skin Layer').loader,['Fabric','Forge']);
+const ep3Unlinked=ep3.mods.filter(m=>m.providerLinks.length===0); assert.deepEqual(ep3Unlinked.map(m=>m.name),['Better Book Recipe']);
+assert.equal(ep3.mods.filter(m=>m.providerLinks.length>0).length,39,'Episode 3 must retain 39 verified project homes and one explicit no-public-page exception');
+assert.equal(ep3.mods.find(m=>m.name==='Bridging').canonicalProjectId,'bridging-mod');
+assert.equal(ep3.mods.find(m=>m.name==='Fancy Block Particles Renewed').canonicalProjectId,'fbp-renewed');
+assert.equal(ep3.mods.find(m=>m.name==="HT's Treechop").canonicalProjectId,'treechop');
+assert.equal(ep3.mods.find(m=>m.name==='Minecraft Earth Mobs').canonicalProjectId,'earth-mobs-mod');
+assert.equal(ep3.mods.find(m=>m.name==='3D Skin Layer').canonicalProjectId,'3d-skin-layers');
+assert.equal(ep3.mods.find(m=>m.name==="YUNG's Better Witch Huts").canonicalProjectId,'yungs-better-witch-huts');
+assert.equal(vault.projects.find(p=>p.id==='better-book-recipe').providerLinks.length,0);
+assert.equal(vault.projects.find(p=>p.id==='better-villages').providerLinks.length,4);
+assert.equal(vault.projects.find(p=>p.id==='repurposed-structures').providerLinks.length,4);
+assert.equal(vault.projects.find(p=>p.id==='yungs-better-witch-huts').providerLinks.length,3);
+
 // UI / renderer regression gate.
 const addonJs=fs.readFileSync(path.join(root,'catalog','creator-vault','creator-vault.js'),'utf8'); new vm.Script(addonJs,{filename:'creator-vault.js'}); const css=fs.readFileSync(path.join(root,'catalog','creator-vault','creator-vault.css'),'utf8'); assert(addonJs.includes('Duplicate-free search')&&addonJs.includes('Every source mention')&&addonJs.includes('providerActions(project,project.name)')&&addonJs.includes('link.label?')); assert(css.includes('.cv-merged-card')&&css.includes('.cv-project-grid'));
-const rendered=renderCatalog({id:'creator-vault-qa',name:'Creator Vault QA',items:[],assets:{},documents:[],sources:[]},root); for(const needle of ['youtube:kreksuminecraft','youtube:asianhalfsquat','youtube:enderversemc','Snowy Spirit',"Pufferfish's Skills",'Carry On',"Farmer's Delight",'https://modrinth.com/mod/farmers-delight-refabricated','https://www.curseforge.com/minecraft/mc-mods/chisels-bits-for-fabric','Find in Enderloom']) assert(rendered.html.includes(needle),`rendered output missing ${needle}`);
+const rendered=renderCatalog({id:'creator-vault-qa',name:'Creator Vault QA',items:[],assets:{},documents:[],sources:[]},root); for(const needle of ['youtube:kreksuminecraft','youtube:asianhalfsquat','youtube:enderversemc','youtube:6dx2t_lD1gw','Snowy Spirit',"Pufferfish's Skills",'Carry On',"Farmer's Delight",'Revamped Piles','Better Book Recipe','https://modrinth.com/mod/farmers-delight-refabricated','https://www.curseforge.com/minecraft/mc-mods/chisels-bits-for-fabric','Find in Enderloom']) assert(rendered.html.includes(needle),`rendered output missing ${needle}`);
 console.log(`Creator Vault QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved.`);

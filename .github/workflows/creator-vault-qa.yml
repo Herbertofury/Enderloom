@@ -23,9 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Creator Vault corpus stats
-        run: >-
-          node -e "const {loadCreatorVault}=require('./src/creator-vault');const v=loadCreatorVault(process.cwd());const e=v.videos.find(x=>x.id==='youtube:6dx2t_lD1gw');console.log(JSON.stringify({stats:v.stats,unresolved:v.projects.filter(p=>!p.providerLinks.length).map(p=>({id:p.id,name:p.name})),episode3:e&&e.mods.map(m=>({name:m.name,id:m.canonicalProjectId,links:m.providerLinks.length}))},null,2))"
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
