@@ -11,6 +11,10 @@ Final acceptance commit: `d8616229527162700994708fada783fc1aa14817`
 Pre-production provider collision run: `33998094176`
 Post-merge diagnostic run: `33998227785`
 Final hard-acceptance run: `33998380559`
+Pre-Drive repo checkpoint: `e52174bb7949b3ec9723359bff51f6b9f570173a`
+Canonical Drive wiki: `https://docs.google.com/document/d/1PW9sebwH5UYZ1YAW8-NfV00Zto6-yMQcutVT2-6mLrk/edit`
+Drive wiki revision: `ANLCKQmKidlKpnTFQPbqMVYzHIRxWiRyIekp-G8VtaQDarySHZ9GLSyQP7mIUxBk26a7ODpXiQMw5G2mdb-B_DeNo9J9Cu8iH3D7ft4u-RU`
+Drive read-back verified marker: `Final hard-acceptance run: 33998380559`
 
 ## Scope and chronology
 
@@ -186,6 +190,10 @@ Permanent Chunk 27 acceptance locks:
 - complete recursive Chunk 26 and older acceptance
 
 The first final-contract run `33998305413` exposed one QA-only overreach: a new global provider-URL uniqueness assertion tripped on a pre-existing William Wythers historical alias pair unrelated to Chunk 27. No production data changed. Commit `d8616229527162700994708fada783fc1aa14817` scopes the check correctly to the forty incoming Chunk 27 URLs. Replacement hard-acceptance run `33998380559` is fully green across timestamp QA, recursive Creator Vault QA, catalog regression, and portable rendering.
+
+## Drive persistence
+
+The canonical Creator Vault Drive wiki was appended under revision guard from the exact chunk-26 revision and then read back successfully. The persisted Chunk 27 marker is `Final hard-acceptance run: 33998380559` and the resulting revision is `ANLCKQmKidlKpnTFQPbqMVYzHIRxWiRyIekp-G8VtaQDarySHZ9GLSyQP7mIUxBk26a7ODpXiQMw5G2mdb-B_DeNo9J9Cu8iH3D7ft4u-RU`.
 
 ## Next bounded action
 
