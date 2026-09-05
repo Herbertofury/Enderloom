@@ -1,200 +1,241 @@
-# Creator Vault — AsianHalfSquat Chunk 26
+# Creator Vault - AsianHalfSquat History Chunk 26
 
-## Checkpoint
+Status: corrected hard-acceptance checkpoint
+Date: 2026-09-05
+Repository: `Herbertofury/Enderloom`
+Branch: `feature/creator-vault-asianhalfsquat-chunk-26`
+Base durable chunk-25 checkpoint: `c972d4c00d6d95c543f2176a36d6f1dd003f0213`
+Corrected final contract commit: `9fcaf2a87217c7995a2832ef4fc40c35cf80264f`
+Corrected final hard-acceptance run: `33992612693`
+Corrected baseline collision proof run: `33992567911`
+Corrected post-merge diagnostic run: `33992346887`
+Canonical research run: `33991498364`
 
-- Repository: `Herbertofury/Enderloom`
-- Branch: `feature/creator-vault-asianhalfsquat-chunk-26`
-- Base durable chunk-25 checkpoint: `c972d4c00d6d95c543f2176a36d6f1dd003f0213`
-- Research staging commit: `b52297bc2c4ad88418bb6217cc0e69d7e9b3f392`
-- Provider research commit: `58c98ea27838a0f41abda9971252592f892c1e76`
-- Production promotion commit: `e8719148c0d4e0ae53a4b2c7e0e77006a061d2c5`
-- Pinned green acceptance commit: `d7bd13c67425ad58819b85568833d040126b734b`
-- Canonical probe run: `33991498364`
-- Pre-production collision run: `33991682792`
-- Post-merge diagnostic run: `33991787295`
-- Final hard acceptance run: `33991922893`
+## Scope and chronology
 
-## Source chronology
+Chunk 26 continues strictly older than the sealed 2024-09-24 history boundary and does not rescan the 43 AsianHalfSquat video IDs already accepted through chunk 25.
 
-Chunk 26 continues strictly backward from the sealed 2024-09-24 boundary without rescanning any of the 43 previously indexed AsianHalfSquat video IDs.
+Independent channel chronology establishes two ordinary upload slots immediately below the chunk-25 boundary:
 
-Independent chronology proves an ordinary AsianHalfSquat upload exists on **2024-09-06**, between the sealed September 24 upload and the fully recovered September 4 upload. The available indexed analytics surface exposes only the truncated title fragment `The Best Minecraft Mods T..` plus 243,130 views / 10,811 likes / 391 comments. A bounded challenge pass did not recover a trustworthy exact first-party video ID, full title, or creator description. That slot is therefore preserved as `source-identity-pending` in research and is **not** fabricated into production.
+- 2024-09-06 - analytics index exposes only the truncated title fragment `The Best Minecraft Mods T..`.
+- 2024-09-04 - fully source-resolved as `youtube:bd83XKp65jw`, `Top 10 Minecraft Mods (1.21.1) - 2024`.
 
-The fully source-resolved upload promoted in this chunk is:
+The 2024-09-06 entry remains deliberately `source-identity-pending`. Its bounded archival challenge pass did not recover a trustworthy exact video ID, full title, or creator-authored description. The research ledger preserves the independent analytics observations of 243130 views, 10811 likes, and 391 comments without inventing an identity. Chunk 27 must resolve this gap before progressing to uploads older than 2024-09-04.
 
-- 2024-09-04 — `bd83XKp65jw`
-- `Top 10 Minecraft Mods (1.21.1) - 2024`
-- `https://www.youtube.com/watch?v=bd83XKp65jw`
+## Exact 2024-09-04 creator source
 
-Exactly ten creator-authored chapter recommendations are preserved:
+Video: `https://www.youtube.com/watch?v=bd83XKp65jw`
 
-| # | Project | Timestamp | Seconds | Creator-stated loaders |
-|---:|---|---:|---:|---|
-| 1 | Dungeons and Taverns | 0:14 | 14 | NeoForge, Fabric |
-| 2 | Relics | 0:38 | 38 | NeoForge |
-| 3 | Cascades | 1:09 | 69 | NeoForge, Fabric |
-| 4 | Remove Loading Screen | 1:31 | 91 | NeoForge, Fabric |
-| 5 | Chalk | 1:58 | 118 | NeoForge |
-| 6 | Laser Bridges & Doors | 2:20 | 140 | NeoForge, Fabric |
-| 7 | Solar Cooker | 2:41 | 161 | NeoForge, Fabric |
-| 8 | Antique Atlas 4 | 3:07 | 187 | NeoForge, Fabric |
-| 9 | Particular | 3:44 | 224 | Fabric |
-| 10 | The Undergarden | 4:09 | 249 | NeoForge |
+Exactly ten creator-authored Top 10 chapters are promoted, preserving the creator timestamps and loader labels:
 
-Every production recommendation uses the exact creator timestamp and generated YouTube deep link. No finer timestamp is invented.
+1. Dungeons and Taverns - `0:14` / 14s - NeoForge, Fabric
+2. Relics - `0:38` / 38s - NeoForge
+3. Cascades - `1:09` / 69s - NeoForge, Fabric
+4. Remove Loading Screen - `1:31` / 91s - NeoForge, Fabric
+5. Chalk - `1:58` / 118s - NeoForge
+6. Laser Bridges & Doors - `2:20` / 140s - NeoForge, Fabric
+7. Solar Cooker - `2:41` / 161s - NeoForge, Fabric
+8. Antique Atlas 4 - `3:07` / 187s - NeoForge, Fabric
+9. Particular - `3:44` / 224s - Fabric
+10. The Undergarden - `4:09` / 249s - NeoForge
 
-Excluded/source-only evidence:
+Every runtime video link is the exact base video plus the creator chapter second, for example `https://www.youtube.com/watch?v=bd83XKp65jw&t=91s` for Remove Loading Screen.
 
-- `Bliss Shaders` — `supporting-project-not-top10`; listed after the completed Top 10/outro, so it is not promoted as an eleventh recommendation.
-- `Minecraft Forge` — generic `platform-link-not-project`.
-- `Fabric` — generic `platform-link-not-project`.
-- `Minecraft Volume Beta - Aria Math` — music / `non-project`.
+Excluded source evidence remains explicit:
 
-## Canonicalization
+- Bliss Shaders - supporting/setup project after the completed Top 10, not an eleventh recommendation.
+- Minecraft Forge - generic platform link, not a recommendation identity.
+- Fabric - generic platform link, not a recommendation identity.
+- Minecraft Volume Beta - Aria Math - music attribution, not a Minecraft project recommendation.
 
-The untouched chunk-25 baseline was exactly **804 recommendation mentions / 580 canonical projects**.
+Research source: `catalog/creator-vault/research/asianhalfsquat.chunk26-source.json`
+Production source: `catalog/creator-vault/recommendation-sources/asianhalfsquat.history-batch26.json`
 
-Canonical probe run `33991498364` measured the ten September 4 source mentions as:
+## Canonicalization: corrected 5-new / 5-reuse result
 
-- **4 existing global identities**: Dungeons and Taverns, Cascades, Chalk, Particular.
-- **6 genuinely new canonical families**: Relics, Remove Loading Screen, Laser Bridges & Doors, Solar Cooker, Antique Atlas 4, The Undergarden.
+The untouched chunk-25 runtime is exactly 804 mentions / 580 canonical projects.
 
-Production therefore advances **580 → 586** canonical projects.
+The first exact-name probe reported four directly matching existing labels and six unmatched labels. Provider/lineage research then proved the creator's historical `Remove Loading Screen` wording is an alias of the already-existing global `remove-reloading-screen` / Remove Reloading Screen (RRLS) canonical project. The frozen chunk-25 runtime itself contains RRLS before chunk 26 is applied.
 
-AsianHalfSquat itself advances from 355 to **363 total canonical identities**. Of those, **362** have verified direct homes in the current AHS corpus; the single source-backed AHS canonical identity without a verified home is Remove Loading Screen.
+Final reuse identities:
 
-## Provider closure
+- Dungeons and Taverns -> `dungeons-and-taverns`
+- Cascades -> `cascades`
+- Remove Loading Screen -> existing `remove-reloading-screen`
+- Chalk -> `chalk`
+- Particular -> `particular`
 
-Provider research was bounded to the six new names plus the underlinked existing Cascades card.
+Final globally new identities:
 
-Pre-production run `33991682792` proved:
+- Relics -> `relics`
+- Laser Bridges & Doors -> `laser-bridges-and-doors`
+- Solar Cooker -> `solar-cooker`
+- Antique Atlas 4 -> `antique-atlas-4`
+- The Undergarden -> `the-undergarden`
 
-- 7 candidate/enrichment entries
-- 16 verified candidate destinations
-- exactly one zero-provider project: `remove-loading-screen`
-- 0 cross-project URL collisions
-- full recursive chunk-25 baseline green with production untouched
-- timestamp regression green
-- catalog QA green
-- portable render green
+Therefore chunk 26 adds five global canonical projects, not six, and advances the registry from 580 to 585.
 
-Exact provider decisions:
+## Remove Loading Screen / RRLS identity correction
 
-### Relics
-- Modrinth: `https://modrinth.com/mod/relics-mod`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/relics-mod`
-- Source: `https://github.com/Octo-Studios/relics`
+The corrected mapping is:
 
-### Remove Loading Screen
-No provider URL is attached. The creator explicitly labels the September 2024 recommendation **NeoForge & Fabric**. KennyTV's similarly purposed `forcecloseworldloadingscreen` project is Fabric-only and current ecosystem records distinguish it from Remove Loading Screen. It is intentionally not merged or substituted.
+- creator historical source label: `Remove Loading Screen`
+- canonical project: `Remove Reloading Screen`
+- canonical ID: `remove-reloading-screen`
+- alias retained: `Remove Loading Screen`
 
-### Laser Bridges & Doors
-- Modrinth: `https://modrinth.com/mod/laser-bridges-and-doors`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/laser-bridges-doors`
-- Source: `https://github.com/Mars-The-Planet/Laser-Bridges-And-Doors`
+Direct verified homes:
 
-### Solar Cooker
-- Modrinth: `https://modrinth.com/mod/solar-cooker`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/solar-cooker`
-- Source: `https://github.com/cech12/SolarCooker`
+- Modrinth: `https://modrinth.com/mod/rrls`
+- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/rrls`
+- Source: `https://github.com/dima-dencep/rrls`
 
-### Antique Atlas 4
-- Modrinth: `https://modrinth.com/mod/antique-atlas-4`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/antique-atlas-4`
-- Source: `https://github.com/sleepingdragoninn/antique-atlas`
+The identity is supported by contemporaneous RRLS 1.21 v5.0.1 releases for both Fabric and NeoForge, matching the creator's loader labels, plus 1.21-era pack metadata that uses the shorthand `Remove Loading Screen` while embedding the exact Remove Reloading Screen v5.0.1 artifact.
 
-The fourth-generation lineage is pinned explicitly; unrelated forks/copies are excluded.
+Permanent anti-false-merge guards reject:
 
-### The Undergarden
-- Modrinth: `https://modrinth.com/mod/the-undergarden`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/the-undergarden`
-- Source: `https://github.com/quek04/undergarden`
+- KennyTV / Force Close Loading Screen: `forcecloseworldloadingscreen`
+- the unrelated newer `No loading screen` project
+- creation of a duplicate `remove-loading-screen` canonical card
 
-### Cascades enrichment
-- Existing canonical Modrinth identity remains `https://modrinth.com/datapack/hybrid-beta`.
-- Exact upstream source added: `https://github.com/Crystalis7/Hybrid-Beta`.
-- Later CurseForge `Cascades - CF Reupload` / `hybrid-terrain` is explicitly excluded as a reupload rather than original upstream.
+## Bounded provider closure
 
-## Observed post-merge runtime
+Candidate/production closure contains exactly seven cards / 19 direct destinations:
 
-Diagnostic run `33991787295` measured the actual production state rather than inferring it:
+- Relics - CurseForge + Modrinth + GitHub
+- Remove Reloading Screen - CurseForge + Modrinth + GitHub
+- Cascades - existing Modrinth + GitHub source enrichment
+- Laser Bridges & Doors - CurseForge + Modrinth + GitHub
+- Solar Cooker - CurseForge + Modrinth + GitHub
+- Antique Atlas 4 - CurseForge + Modrinth + GitHub
+- The Undergarden - CurseForge + Modrinth + GitHub
 
-- 14 creators
-- 3 indexed creators
-- 53 source videos
-- **814 recommendation mentions**
-- **586 canonical projects**
-- **583 linked canonical projects**
-- **3 unresolved canonical projects**
-- **400 multi-provider projects**
-- **1,098 exact direct destinations**
+Corrected baseline collision proof run `33992567911` hides chunk-26 production source/provider files, restores the exact frozen chunk-25 creator ledger, and proves against the untouched 804/580 registry:
+
+- candidateProjects: 7
+- destinations: 19
+- zeroProviderProjects: []
+- collisions: []
+
+The normal post-source collision gate proves the same 7 / 19 / 0 result after merge.
+
+Runtime provider deduplication yields 1099 distinct provider destinations because RRLS already existed in the frozen registry with provider coverage; candidate-overlay destination count must not be arithmetically added to the old runtime total.
+
+Additional anti-false-merge rules:
+
+- Cascades retains the existing Hybrid Beta identity at `https://modrinth.com/datapack/hybrid-beta` and gains only `https://github.com/Crystalis7/Hybrid-Beta`. The later 2026 CurseForge `Cascades - CF Reupload` / `hybrid-terrain` is excluded.
+- Antique Atlas 4 remains on the established fourth-generation `sleepingdragoninn/antique-atlas` lineage; unrelated forks/copies are excluded.
+
+Research candidates: `catalog/creator-vault/research/asianhalfsquat.chunk26-provider-candidates.json`
+Production overlay: `catalog/creator-vault/project-sources/provider-closure-26a-asianhalfsquat.json`
+
+## Corrected observed runtime
+
+The corrected post-merge diagnostic measured, rather than inferred:
+
+- creators: 14
+- indexed creators: 3
+- videos: 53
+- recommendation mentions: 814
+- canonical projects: 585
+- verified projects: 583
+- unresolved projects: 2
+- multi-provider projects: 400
+- provider destinations: 1099
+- verified homes: 583
 - native recommendation sources: 22
-- setup packs: 5
 
-Unresolved exactly:
+The only unresolved projects remain exactly:
 
-1. Better Book Recipe
-2. Plank and Junk
-3. Remove Loading Screen
+- Better Book Recipe
+- Plank and Junk
 
-AsianHalfSquat actual production state:
+AsianHalfSquat coverage is now:
 
-- **44 / 350 videos indexed**
-- **555 recommendation mentions**
-- **554 / 555 mentions linked**
-- **363 total AHS canonical projects**
-- **362 linked AHS canonical projects**
+- expected videos: 350
+- indexed videos: 44
+- mentions: 555
+- linked mentions: 555 / 555
+- canonical projects represented: 363
+- linked canonical projects: 363
+
+The AHS distinct-canonical count advances from 355 to 363 because this source introduces eight identities new to the AHS corpus even though only five are globally new.
 
 ## Zero-loss QA architecture
 
-Chunk 25 is frozen byte-for-byte using the original accepted blobs:
+Chunk 25 is frozen exactly as:
 
-- `scripts/creator-vault-qa-chunk25.js` — original blob `a67b93e2c4b7002bf03406c9d0c0ee0458da3eab`
-- `catalog/creator-vault/research/creators.chunk25-baseline.json` — original blob `676d14ac2ab40e5d7354370196ab7545747c9b30`
+- `scripts/creator-vault-qa-chunk25.js`
+- `catalog/creator-vault/research/creators.chunk25-baseline.json`
 
-Chunk 26's permanent wrapper hides only its source/provider production files, swaps only the exact frozen chunk-25 creator ledger, runs chunk 25 unchanged (which recursively proves every older checkpoint), restores current state in `finally`, then enforces chunk 26.
+Frozen chunk-25 blobs remain:
 
-Permanent QA hard-locks:
+- QA: `a67b93e2c4b7002bf03406c9d0c0ee0458da3eab`
+- creators: `676d14ac2ab40e5d7354370196ab7545747c9b30`
 
-- 814 / 586 / 583 / 1098 / 400 / 3 aggregate totals
-- AHS 44 / 350, 555 mentions, 554 linked, 363 total canonical, 362 linked canonical
-- all ten source-label → canonical-ID mappings
-- all ten exact creator timestamps and YouTube deep links
-- all ten exact creator loader arrays
-- 6-new / 4-reuse canonicalization
-- exact provider families and representative URLs
-- Remove Loading Screen zero-provider truth and KennyTV anti-false-merge
-- Cascades upstream source and later CF reupload exclusion
-- Antique Atlas 4 source lineage
-- Bliss/platform/music exclusions
-- exact September 6 `source-identity-pending` chronology record
-- seven provider entries / sixteen destinations / one deliberate zero-link identity
-- recursive chunk-25 proof
+Permanent `scripts/creator-vault-qa.js`:
 
-The temporary post-merge diagnostic script is removed from the final contract.
+1. Requires chunk-26 production source/provider files.
+2. Hides only chunk-26 production source/provider files.
+3. Swaps the current creator ledger for the exact frozen chunk-25 ledger.
+4. Loads the untouched 804/580 runtime and proves RRLS already exists there.
+5. Executes the exact frozen chunk-25 QA recursively.
+6. Restores current state in `finally`.
+7. Locks the corrected 814/585/583/1099/400/2 runtime.
+8. Locks AHS 44 videos, 555 mentions, 555 linked, 363 canonical.
+9. Locks all ten source-label -> canonical-ID mappings, timestamps, loaders, and deep links.
+10. Locks the RRLS alias and all ten provider sets/direct URLs.
+11. Locks the 2024-09-06 chronology gap and its observed analytics values without guessing an identity.
+12. Locks excluded Bliss/platform/music evidence.
+13. Locks candidate and production provider files to exactly 7 entries / 19 destinations / zero zero-provider entries.
+14. Renders the catalog and requires the expected names/source URLs.
 
-## Real acceptance proof
+The temporary post-merge and corrected pre-production proof harnesses are absent from the final contract tree.
 
-Final GitHub Actions run `33991922893` completed all substantive gates successfully on pinned acceptance commit `d7bd13c67425ad58819b85568833d040126b734b`:
+Final permanent workflow has only:
 
-1. provider URL collision gate
-2. missing-timestamp regression QA
-3. focused recursive Creator Vault QA
-4. catalog regression QA
-5. portable catalog render
+1. AsianHalfSquat chunk 26 provider URL collision gate
+2. Missing timestamp regression QA
+3. Focused Creator Vault recursive QA
+4. Catalog regression QA
+5. Render portable catalogs
 
-Exact success line:
+Corrected final success line:
 
-`Creator Vault AsianHalfSquat chunk 26 QA passed: 814 mentions -> 586 canonical projects; 583 linked / 1098 destinations / 400 multi-provider / 3 unresolved. AHS linked mentions=554/555 across 362 linked canonical projects / 363 total; all 10 creator chapter timestamps/deep links, 6-new/4-reuse canonicalization, Remove Loading Screen zero-provider truth, Sep-6 chronology gap, and recursive chunk-25 baseline are locked.`
+`Creator Vault AsianHalfSquat chunk 26 QA passed: 814 mentions -> 585 canonical projects; 583 linked / 1099 destinations / 400 multi-provider / 2 unresolved. AHS linked mentions=555/555 across 363 canonical projects; all 10 creator chapter timestamps/deep links, 5-new/5-reuse canonicalization with Remove Loading Screen -> existing RRLS, Sep-6 chronology gap, 7-card/19-destination provider closure, and recursive chunk-25 baseline are locked.`
 
-The GitHub runner's Node 20 deprecation warning refers to the internals of `actions/checkout@v4` and `actions/setup-node@v4`; the workflow's requested runtime is Node 22 and the acceptance gates passed.
+## Commit / proof chain
 
-## Exact next action — chunk 27
+- chunk-25 durable base: `c972d4c00d6d95c543f2176a36d6f1dd003f0213`
+- chunk-26 research staging: `b52297bc2c4ad88418bb6217cc0e69d7e9b3f392`
+- provisional provider research: `58c98ea27838a0f41abda9971252592f892c1e76`
+- provisional production/diagnostic: `e8719148c0d4e0ae53a4b2c7e0e77006a061d2c5`
+- provisional old acceptance: `d7bd13c67425ad58819b85568833d040126b734b` - superseded by RRLS identity correction
+- provisional old docs: `7667aac19b14bcdde5882caf7d76243e23b4a4b2` - superseded
+- RRLS correction: `0f4a5a386724788bbd9d0a7ceb6d2dcaedc0532d`
+- corrected diagnostic expectation: `81492c07045bdabde08c7e53fe642ba36d429871`
+- corrected permanent QA/ledger acceptance candidate: `227abbff3af4760262701488c3d3d94519051f5b`
+- corrected baseline collision proof: `311d9eae094394266a6e8588ac88995bb4f2783a`
+- corrected clean final contract: `9fcaf2a87217c7995a2832ef4fc40c35cf80264f`
 
-Create `feature/creator-vault-asianhalfsquat-chunk-27` from the durable chunk-26 checkpoint.
+Proof runs:
 
-**Do not progress to uploads older than 2024-09-04 until the unresolved ordinary upload dated 2024-09-06 is source-resolved.** Start with the preserved chronology evidence and use genuinely different first-party/archive/index routes to recover its exact YouTube ID, full title, creator description, and creator-authored recommendation list. Do not guess from the truncated `The Best Minecraft Mods T..` fragment.
+- canonical research: `33991498364`
+- corrected post-merge diagnostic: `33992346887`
+- corrected permanent QA candidate: `33992506907`
+- corrected frozen-baseline collision proof: `33992567911`
+- corrected clean final hard acceptance: `33992612693`
 
-If the September 6 identity is recovered, ingest only that bounded upload, canonicalize its named mentions against the frozen **814-mention / 586-project** chunk-26 registry, research providers only for genuine new/underlinked identities, run collision + missing-timestamp + recursive Creator Vault QA + catalog QA + portable render, checkpoint GitHub + Drive, and stop at a clean chunk-27 boundary.
+The earlier provisional chunk-26 acceptance run `33991922893` is superseded and must not be used as the authoritative checkpoint because it treated Remove Loading Screen as a new zero-provider card.
 
-If genuinely new evidence routes still cannot resolve September 6, preserve the gap explicitly and do not silently jump to older uploads.
+## Exact next action for chunk 27
+
+1. Branch from the durable chunk-26 docs checkpoint created after this hard acceptance.
+2. Do not progress to any upload older than 2024-09-04 until the 2024-09-06 `The Best Minecraft Mods T..` chronology gap is resolved to trustworthy first-party identity/evidence.
+3. Exclude all 44 already indexed AsianHalfSquat video IDs.
+4. If the September 6 upload is recovered, stage research-only evidence first and canonical-probe it against the frozen corrected chunk-26 baseline of 814 mentions / 585 canonical projects.
+5. Preserve exact creator timestamps/aliases; never manufacture missing timestamps or IDs.
+6. Research providers only after canonical existing/new split is proven.
+7. Run pre-production collision QA before provider production mutation.
+8. Freeze exact chunk-26 QA + creator ledger, diagnose the merged runtime, then lock chunk-27 permanent recursive QA from observed values.
+9. Persist the next durable GitHub + Google Drive checkpoint and stop at the next clean bounded boundary.
