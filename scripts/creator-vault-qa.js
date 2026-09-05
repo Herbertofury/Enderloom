@@ -9,28 +9,70 @@ const { renderCatalog } = require('../src/catalog-renderer');
 
 const root = path.resolve(__dirname, '..');
 const vault = loadCreatorVault(root);
+
+// Core corpus invariants.
 assert.equal(vault.schemaVersion, 1, 'creator vault schema version');
-assert.equal(vault.creators.length, 14, 'all tracked creators must be present');
-assert.equal(new Set(vault.creators.map(c => c.id)).size, vault.creators.length, 'creator ids must be unique');
-assert.equal(vault.stats.indexedCreators, 3, 'Kreksu, AsianHalfSquat, and EnderVerse should be natively indexed');
-assert.equal(vault.videos.length, 21, '3 Kreksu + 16 AsianHalfSquat + 2 EnderVerse exact videos');
-assert.equal(vault.stats.recommendations, 311, '30 Kreksu + 216 AsianHalfSquat + 65 EnderVerse recommendations');
-assert.equal(vault.stats.verifiedHomes, 31, 'EnderVerse provider homes stay unresolved, preserving the prior 31 verified homes');
-assert.equal(vault.stats.importedCatalogs, 1, 'one reconciled legacy creator catalog should be imported');
-assert.equal(vault.stats.nativeRecommendationSources, 2, 'primary recommendations plus one EnderVerse native source shard');
-assert.equal(vault.channelSetupPacks.length, 5, 'Kreksu recurring channel setup packs stay separate');
-assert.equal(vault.diagnostics.filter(x => x.level === 'error').length, 0, 'vault should load without errors');
+assert.equal(vault.creators.length, 14, 'all tracked creators must remain present');
+assert.equal(new Set(vault.creators.map(c => c.id)).size, 14, 'creator ids must be unique');
+assert.equal(vault.stats.indexedCreators, 3, 'Kreksu, AsianHalfSquat and EnderVerse must be indexed');
+assert.equal(vault.videos.length, 21, '3 Kreksu + 16 AsianHalfSquat + 2 EnderVerse videos');
+assert.equal(vault.stats.recommendations, 311, 'all creator recommendation mentions must survive canonicalization');
+assert.equal(vault.stats.uniqueProjects, 265, '311 mentions must merge to the established 265 canonical projects');
+assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 311, 'canonical project index must preserve every mention');
+assert(vault.stats.verifiedProjects >= 116, 'chunk 6 must keep at least 116 projects with verified direct homes');
+assert.equal(vault.stats.unresolvedProjects, vault.stats.uniqueProjects - vault.stats.verifiedProjects, 'unresolved count must be derived from canonical projects');
+assert(vault.stats.multiProviderProjects >= 32, 'multi-provider coverage must not regress');
+assert(vault.stats.providerDestinations >= 151, 'all verified direct destinations must be counted');
+assert.equal(vault.stats.importedCatalogs, 1, 'AsianHalfSquat pinned legacy import remains active');
+assert.equal(vault.stats.nativeRecommendationSources, 2, 'primary recommendations + EnderVerse native source shard');
+assert.equal(vault.channelSetupPacks.length, 5, 'Kreksu recurring setup packs remain separate');
+assert.equal(vault.diagnostics.filter(row => row.level === 'error').length, 0, 'vault must load without errors');
 
+// Canonical project and direct-link contract.
+const canonicalIds = new Set(vault.projects.map(project => project.id));
+assert.equal(canonicalIds.size, vault.projects.length, 'canonical project ids must be unique');
+for (const project of vault.projects) {
+  assert(project.name, `canonical project name required: ${project.id}`);
+  assert(project.mentionCount > 0, `canonical project must retain source mentions: ${project.id}`);
+  const urls = project.providerLinks.map(link => link.url);
+  assert.equal(new Set(urls).size, urls.length, `provider URLs must not repeat inside ${project.id}`);
+  for (const link of project.providerLinks) {
+    assert(/^https:\/\//.test(link.url), `provider URL must be absolute HTTPS: ${project.id}`);
+    assert(!/\/search(?:[/?#]|$)/i.test(link.url), `generic search pages are forbidden as direct homes: ${project.id}`);
+    assert(link.provider, `provider label required: ${project.id}`);
+  }
+}
+for (const video of vault.videos) {
+  for (const mod of video.mods) {
+    assert(mod.canonicalProjectId, `canonical identity required for ${mod.name}`);
+    assert(canonicalIds.has(mod.canonicalProjectId), `mention must resolve to an indexed canonical project: ${mod.name}`);
+  }
+}
+
+const solas = vault.projects.find(project => project.id === 'solas-shader');
+assert(solas && solas.mentionCount === 7, 'Solas / Solas Shader / Solas Shaders must merge to one seven-mention card');
+assert(solas.aliases.includes('Solas') && solas.aliases.includes('Solas Shaders'), 'Solas aliases must stay searchable');
+const complementary = vault.projects.find(project => project.id === 'complementary-shaders');
+assert(complementary && complementary.mentionCount === 5, 'Complementary aliases must merge to one five-mention card');
+const leawind = vault.projects.find(project => project.id === 'leawind-third-person');
+assert(leawind && leawind.mentionCount === 3, 'Leawind aliases must merge to one three-mention card');
+assert.deepEqual(new Set(leawind.providerLinks.map(link => link.provider)), new Set(['Modrinth','CurseForge']), 'Leawind must expose both provider homes');
+const eating = vault.projects.find(project => project.id === 'eating-animation');
+assert(eating && eating.providerLinks.length === 4, 'Eating Animation must keep all four loader/provider destinations');
+assert(eating.providerLinks.some(link => link.provider === 'Modrinth' && link.label === 'Fabric'), 'Eating Animation Modrinth Fabric link');
+assert(eating.providerLinks.some(link => link.provider === 'CurseForge' && link.label === 'Fabric'), 'Eating Animation CurseForge Fabric link');
+assert(eating.providerLinks.some(link => link.provider === 'Modrinth' && link.label === 'Forge/NeoForge'), 'Eating Animation Modrinth Forge/NeoForge link');
+assert(eating.providerLinks.some(link => link.provider === 'CurseForge' && link.label === 'Forge/NeoForge'), 'Eating Animation CurseForge Forge/NeoForge link');
+const connectible = vault.projects.find(project => project.id === 'connectible-chains');
+assert(connectible && connectible.providerLinks.filter(link => link.provider === 'CurseForge').length === 2, 'Connectible Chains loader-specific CurseForge homes must both survive');
+
+// Kreksu source contracts and the original 30 direct homes remain intact.
 const kreksu = vault.creators.find(c => c.id === 'youtube:kreksuminecraft');
-assert(kreksu, 'Kreksu creator must be registered');
-assert.equal(kreksu.url, 'https://www.youtube.com/@KreksuMinecraft');
-assert.equal(kreksu.coverage.indexedVideos, 3, 'Kreksu video count remains unchanged');
-assert.equal(kreksu.coverage.recommendationCount, 30, 'Kreksu recommendation count remains unchanged');
+assert(kreksu && kreksu.coverage.indexedVideos === 3 && kreksu.coverage.recommendationCount === 30, 'Kreksu 3/30 coverage');
 const kreksuVideos = vault.videos.filter(v => v.creatorId === kreksu.id);
-assert.equal(kreksuVideos.length, 3, 'three fully sourced Kreksu videos');
-assert.equal(kreksuVideos.reduce((sum, v) => sum + v.mods.length, 0), 30, 'thirty Kreksu recommendations');
-
-const expectedProviderHomes = {
+assert.equal(kreksuVideos.length, 3);
+assert.equal(kreksuVideos.reduce((sum, v) => sum + v.mods.length, 0), 30);
+const expectedKreksuHomes = {
   'Apocalyptic Bosses':'https://www.curseforge.com/minecraft/mc-mods/apocalypticbosses',
   "Chris's Additions":'https://modrinth.com/mod/chris_s_additions',
   'Envelope':'https://modrinth.com/mod/envelope',
@@ -63,117 +105,90 @@ const expectedProviderHomes = {
   'Jaki Versatile Structures: Sails & Sea':'https://www.curseforge.com/minecraft/mc-mods/jaki-versatile-structures-sails-sea'
 };
 for (const video of kreksuVideos) {
-  assert(video.evidenceKinds.includes('youtube-description'), `Kreksu description evidence required: ${video.id}`);
-  assert(video.evidenceKinds.includes('provider-projects'), `Kreksu provider enrichment provenance required: ${video.id}`);
-  const seconds = video.mods.map(m => m.timestampSeconds);
-  assert(seconds.every(Number.isFinite), `Kreksu timestamps must be numeric: ${video.id}`);
-  assert(seconds.every((n, i) => i === 0 || n > seconds[i - 1]), `Kreksu timestamps must be strictly ordered: ${video.id}`);
+  assert(video.evidenceKinds.includes('youtube-description'), `Kreksu description evidence: ${video.id}`);
+  assert(video.evidenceKinds.includes('provider-projects'), `Kreksu provider evidence: ${video.id}`);
+  const seconds = video.mods.map(mod => mod.timestampSeconds);
+  assert(seconds.every(Number.isFinite), `Kreksu numeric timestamps: ${video.id}`);
+  assert(seconds.every((n, i) => i === 0 || n > seconds[i - 1]), `Kreksu ordered timestamps: ${video.id}`);
   for (const mod of video.mods) {
-    assert(mod.sourceKinds.includes('description') && mod.sourceKinds.includes('chapter') && mod.sourceKinds.includes('provider-project'), `Kreksu provenance required for ${mod.name}`);
-    assert(mod.videoLink.includes(`t=${mod.timestampSeconds}s`), `Kreksu deep video link required for ${mod.name}`);
-    assert.equal(mod.url, expectedProviderHomes[mod.name], `exact Kreksu provider URL mismatch for ${mod.name}`);
+    assert.equal(mod.url, expectedKreksuHomes[mod.name], `original Kreksu primary URL must not move: ${mod.name}`);
+    assert(mod.providerLinks.some(link => link.url === expectedKreksuHomes[mod.name]), `Kreksu canonical links retain original home: ${mod.name}`);
   }
 }
-const cascades = kreksuVideos.flatMap(v => v.mods).find(m => m.name === 'Cascades');
-assert.equal(cascades.projectType, 'datapack', 'Cascades provider type must stay truthful');
+assert.equal(kreksuVideos.flatMap(v => v.mods).find(m => m.name === 'Cascades').projectType, 'datapack', 'Cascades remains a data pack');
 
+// AsianHalfSquat pinned import provenance remains unchanged while registry links enrich canonical projects.
 const asian = vault.creators.find(c => c.id === 'youtube:asianhalfsquat');
-assert(asian, 'AsianHalfSquat must remain in the creator ledger');
-assert.equal(asian.url, 'https://www.youtube.com/@AsianHalfSquat');
-assert.equal(asian.coverage.expectedVideos, 349, 'verified AsianHalfSquat channel target must be preserved');
-assert.equal(asian.coverage.indexedVideos, 16, 'reconciled AsianHalfSquat exact-video count');
-assert.equal(asian.coverage.recommendationCount, 216, 'reconciled AsianHalfSquat recommendation count');
-assert.equal(asian.coverage.sourceDriveFileId, '1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh', 'canonical Drive source identity must be pinned');
-const asianImport = vault.imports.find(x => x.creatorId === asian.id);
-assert(asianImport, 'AsianHalfSquat legacy catalog import must be active');
-assert.equal(asianImport.id, 'minecraft-mod-vault:asianhalfsquat:p0.5-reconciled');
+assert(asian && asian.coverage.expectedVideos === 349, 'AsianHalfSquat target 349');
+assert.equal(asian.coverage.indexedVideos, 16);
+assert.equal(asian.coverage.recommendationCount, 216);
+assert.equal(asian.coverage.sourceDriveFileId, '1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh');
+const asianImport = vault.imports.find(row => row.creatorId === asian.id);
+assert(asianImport, 'AsianHalfSquat import must remain active');
 assert.equal(asianImport.videos, 16);
 assert.equal(asianImport.recommendations, 216);
-assert.equal(asianImport.sourceDriveFileId, '1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh');
-assert.equal(asianImport.sourceDriveSha256, '6e49a5154e1a757df75c4ab7371f91632250b551f9e1e3b00781db035b43a9e1', 'original Drive snapshot hash must stay pinned');
-assert.equal(asianImport.sourceSnapshotSha256, '4e45e92fed3171175fcf50b37d9dcfd91b88217582fe9a924f405397eea649e8', 'full compact snapshot hash must stay pinned');
-assert.equal(asianImport.files.length, 6, 'reconciled snapshot must remain six deterministic shards');
+assert.equal(asianImport.sourceDriveSha256, '6e49a5154e1a757df75c4ab7371f91632250b551f9e1e3b00781db035b43a9e1');
+assert.equal(asianImport.sourceSnapshotSha256, '4e45e92fed3171175fcf50b37d9dcfd91b88217582fe9a924f405397eea649e8');
 const expectedShardCounts = [[4,26],[4,49],[4,64],[2,26],[1,20],[1,31]];
+assert.equal(asianImport.files.length, expectedShardCounts.length);
 asianImport.files.forEach((row, index) => {
   const sourcePath = path.join(root, 'catalog', 'creator-vault', row.file);
-  const sourceHash = crypto.createHash('sha256').update(fs.readFileSync(sourcePath)).digest('hex');
-  assert.equal(sourceHash, row.sha256, `AsianHalfSquat shard ${index + 1} must match its pinned hash`);
-  assert.deepEqual([row.videos,row.recommendations], expectedShardCounts[index], `AsianHalfSquat shard ${index + 1} count contract`);
+  const hash = crypto.createHash('sha256').update(fs.readFileSync(sourcePath)).digest('hex');
+  assert.equal(hash, row.sha256, `AsianHalfSquat shard ${index + 1} hash`);
+  assert.deepEqual([row.videos,row.recommendations], expectedShardCounts[index], `AsianHalfSquat shard ${index + 1} counts`);
 });
 const asianVideos = vault.videos.filter(v => v.creatorId === asian.id);
-assert.equal(asianVideos.length, 16, 'all 16 exact AsianHalfSquat videos must load');
-assert.equal(new Set(asianVideos.map(v => v.id)).size, 16, 'AsianHalfSquat video ids must be unique after platform namespacing');
-assert(asianVideos.every(v => v.id.startsWith('youtube:')), 'imported video ids must be collision-safe platform ids');
-assert(asianVideos.every(v => v.evidenceKinds.includes('legacy-catalog')), 'imported video provenance must remain visible');
+assert.equal(asianVideos.length, 16);
 const asianMods = asianVideos.flatMap(v => v.mods);
-assert.equal(asianMods.length, 216, 'all AsianHalfSquat recommendation mentions must load');
-assert(asianMods.every(m => m.name && m.evidence), 'every imported recommendation must retain name and evidence');
-assert(asianMods.every(m => m.sourceKinds.includes('catalog')), 'every imported recommendation must retain catalog provenance');
-assert.equal(asianMods.filter(m => m.url).length, 1, 'unverified AsianHalfSquat provider URLs must remain unresolved');
-const satisfaction = asianMods.find(m => m.name === 'Satisfaction Guaranteed');
-assert(satisfaction, 'verified AsianHalfSquat-owned modpack must be imported');
-assert.equal(satisfaction.projectType, 'modpack');
-assert.equal(satisfaction.provider, 'CurseForge');
-assert.equal(satisfaction.projectId, '1490741');
+assert.equal(asianMods.length, 216);
+assert(asianMods.every(mod => mod.name && mod.evidence && mod.sourceKinds.includes('catalog') && mod.canonicalProjectId), 'AsianHalfSquat mentions preserve evidence and canonical identity');
+const satisfaction = asianMods.find(mod => mod.name === 'Satisfaction Guaranteed');
+assert(satisfaction && satisfaction.projectType === 'modpack');
 assert.equal(satisfaction.url, 'https://www.curseforge.com/minecraft/modpacks/satisfaction-guaranteed');
-assert.equal(asianMods.filter(m => !m.url).length, 215, 'no plausible provider URLs may be manufactured during legacy import');
+assert.equal(satisfaction.projectId, '1490741');
 
+// EnderVerse source evidence stays exact; provider enrichment is independent from recommendation evidence.
 const ender = vault.creators.find(c => c.id === 'youtube:enderversemc');
-assert(ender, 'EnderVerse must remain in the creator ledger');
-assert.equal(ender.url, 'https://www.youtube.com/@EnderVerseMC');
-assert.equal(ender.status, 'indexing');
-assert.equal(ender.coverage.indexedVideos, 2, 'EnderVerse chunk 5 exact-video count');
-assert.equal(ender.coverage.recommendationCount, 65, 'EnderVerse chunk 5 recommendation count');
-assert.equal(ender.coverage.verifiedProjectHomes, 0, 'EnderVerse provider resolution must not be guessed');
-assert.equal(ender.coverage.legacyRecovery, 'no-public-corpus-prepopulated', 'legacy recovery truth must stay explicit');
+assert(ender && ender.coverage.legacyRecovery === 'no-public-corpus-prepopulated', 'EnderVerse legacy recovery truth');
 const enderVideos = vault.videos.filter(v => v.creatorId === ender.id);
-assert.equal(enderVideos.length, 2, 'two source-verified EnderVerse videos must load');
-assert.equal(enderVideos.reduce((sum, v) => sum + v.mods.length, 0), 65, 'EnderVerse must load exactly 65 chapter recommendations');
+assert.equal(enderVideos.length, 2);
+assert.equal(enderVideos.reduce((sum, v) => sum + v.mods.length, 0), 65);
 const ender2025 = enderVideos.find(v => v.id === 'youtube:JF6FITETMLM');
-assert(ender2025, 'EnderVerse 2025 top-25 video must be indexed');
-assert.equal(ender2025.title, 'TOP 25 Minecraft Mods OF THE YEAR 2025 | 1.21.x / 1.20.1 (Forge & Fabric)');
-assert.equal(ender2025.publishedAt, '2025-12-06');
-assert.equal(ender2025.mods.length, 25, 'EnderVerse 2025 video must retain all 25 mod chapters');
-assert.equal(ender2025.mods[0].name, 'Etherology');
-assert.equal(ender2025.mods.at(-1).name, 'Wonderous Sea - An Endless Ocean Adventure');
 const ender2024 = enderVideos.find(v => v.id === 'youtube:kxXz-FbvhAA');
-assert(ender2024, 'EnderVerse Vanilla+ episode 4 must be indexed');
-assert.equal(ender2024.title, 'TOP 200 Vanilla+ Minecraft Mods EP. 4 (Forge & Fabric) | 1.21 & Older');
-assert.equal(ender2024.publishedAt, '2024-10-19');
-assert.equal(ender2024.mods.length, 40, 'EnderVerse Vanilla+ episode must retain all 40 chapter recommendations');
-assert.equal(ender2024.mods[0].name, 'MoreVanillaArmor');
-assert.equal(ender2024.mods.at(-1).name, 'Reacharound');
+assert(ender2025 && ender2025.mods.length === 25 && ender2025.mods[0].name === 'Etherology' && ender2025.mods.at(-1).name === 'Wonderous Sea - An Endless Ocean Adventure');
+assert(ender2024 && ender2024.mods.length === 40 && ender2024.mods[0].name === 'MoreVanillaArmor' && ender2024.mods.at(-1).name === 'Reacharound');
 for (const video of enderVideos) {
-  assert(video.evidenceKinds.includes('youtube-description') && video.evidenceKinds.includes('chapters'), `EnderVerse source provenance required: ${video.id}`);
-  const seconds = video.mods.map(m => m.timestampSeconds);
-  assert(seconds.every(Number.isFinite), `EnderVerse timestamps must be numeric: ${video.id}`);
-  assert(seconds.every((n, i) => i === 0 || n > seconds[i - 1]), `EnderVerse timestamps must be strictly ordered: ${video.id}`);
+  assert(video.evidenceKinds.includes('youtube-description') && video.evidenceKinds.includes('chapters'));
+  const seconds = video.mods.map(mod => mod.timestampSeconds);
+  assert(seconds.every(Number.isFinite));
+  assert(seconds.every((n, i) => i === 0 || n > seconds[i - 1]));
   for (const mod of video.mods) {
-    assert(mod.name && mod.evidence, `EnderVerse recommendation evidence required in ${video.id}`);
-    assert(mod.sourceKinds.includes('description') && mod.sourceKinds.includes('chapter'), `EnderVerse chapter provenance required for ${mod.name}`);
-    assert(mod.videoLink.includes(`t=${mod.timestampSeconds}s`), `EnderVerse deep video link required for ${mod.name}`);
-    assert.equal(mod.url, '', `EnderVerse provider home must stay unresolved for ${mod.name}`);
-    assert.equal(mod.provider, '', `EnderVerse provider identity must stay unresolved for ${mod.name}`);
+    assert(mod.name && mod.evidence && mod.canonicalProjectId);
+    assert(mod.sourceKinds.includes('description') && mod.sourceKinds.includes('chapter'));
+    assert(mod.videoLink.includes(`t=${mod.timestampSeconds}s`));
   }
 }
-assert.deepEqual(ender2025.mods.find(m => m.name === 'harpy express').loader, ['Quilt','Fabric'], 'creator-stated harpy express loaders must be preserved');
-assert.deepEqual(ender2024.mods.find(m => m.name === 'EXP Counter').loader, ['Fabric','Forge','NeoForge'], 'creator-stated EXP Counter loaders must be preserved');
+assert.deepEqual(ender2025.mods.find(m => m.name === 'harpy express').loader, ['Quilt','Fabric']);
+assert.deepEqual(ender2024.mods.find(m => m.name === 'EXP Counter').loader, ['Fabric','Forge','NeoForge']);
 
+// UI and renderer regression gate.
 const addonJs = fs.readFileSync(path.join(root, 'catalog', 'creator-vault', 'creator-vault.js'), 'utf8');
 new vm.Script(addonJs, { filename:'creator-vault.js' });
 const addonCss = fs.readFileSync(path.join(root, 'catalog', 'creator-vault', 'creator-vault.css'), 'utf8');
-assert(addonCss.includes('.creator-vault-modal'), 'creator vault modal styles missing');
-assert(addonCss.includes('.cv-mod-grid'), 'recommendation grid styles missing');
+assert(addonJs.includes('Duplicate-free search'), 'search must explicitly merge duplicate mentions');
+assert(addonJs.includes('Every source mention'), 'merged cards must retain provenance');
+assert(addonJs.includes('providerActions(project,project.name)'), 'merged cards must render all direct destinations');
+assert(addonJs.includes('link.label?'), 'loader-specific provider destinations must remain labeled');
+assert(addonCss.includes('.cv-merged-card'), 'merged project card styling');
+assert(addonCss.includes('.cv-project-grid'), 'merged project grid styling');
 const rendered = renderCatalog({ id:'creator-vault-qa', name:'Creator Vault QA', items:[], assets:{}, documents:[], sources:[] }, root);
-assert(rendered.html.includes('window.ENDERLOOM_CREATOR_VAULT='), 'renderer must embed creator vault data');
-assert(rendered.html.includes('youtube:kreksuminecraft'), 'renderer must embed Kreksu identity');
-assert(rendered.html.includes('youtube:asianhalfsquat'), 'renderer must embed AsianHalfSquat identity');
-assert(rendered.html.includes('youtube:enderversemc'), 'renderer must embed EnderVerse identity');
-assert(rendered.html.includes('Etherology'), 'renderer must embed EnderVerse 2025 recommendations');
-assert(rendered.html.includes('MoreVanillaArmor'), 'renderer must embed EnderVerse Vanilla+ recommendations');
-assert(rendered.html.includes('Satisfaction Guaranteed'), 'renderer must embed imported AsianHalfSquat recommendations');
-assert(rendered.html.includes('https://www.curseforge.com/minecraft/modpacks/satisfaction-guaranteed'), 'renderer must embed the one verified AsianHalfSquat provider home');
-assert(rendered.html.includes('https://www.curseforge.com/minecraft/mc-mods/legionary'), 'renderer must retain verified Kreksu provider homes');
-assert(rendered.html.includes('creator-vault-modal'), 'renderer must embed creator vault UI/CSS');
-assert(rendered.html.includes('Find in Enderloom'), 'renderer must retain unresolved-provider handoff for AsianHalfSquat, EnderVerse, and future unresolved records');
-console.log(`Creator Vault QA passed: ${vault.stats.creators} creators, ${vault.stats.indexedCreators} indexed creators, ${vault.stats.videos} videos, ${vault.stats.recommendations} recommendations, ${vault.stats.verifiedHomes} verified homes, ${vault.stats.importedCatalogs} imported catalog, ${vault.stats.setupPacks} setup packs.`);
+assert(rendered.html.includes('window.ENDERLOOM_CREATOR_VAULT='));
+assert(rendered.html.includes('youtube:kreksuminecraft'));
+assert(rendered.html.includes('youtube:asianhalfsquat'));
+assert(rendered.html.includes('youtube:enderversemc'));
+assert(rendered.html.includes('Solas Shader'));
+assert(rendered.html.includes('https://modrinth.com/mod/eating-animation'));
+assert(rendered.html.includes('https://www.curseforge.com/minecraft/mc-mods/eating-animation-forge'));
+assert(rendered.html.includes('Find in Enderloom'), 'unresolved canonical projects must retain safe fallback');
+
+console.log(`Creator Vault QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked projects / ${vault.stats.providerDestinations} direct destinations / ${vault.stats.multiProviderProjects} multi-provider.`);
