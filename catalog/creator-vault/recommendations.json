@@ -1,8 +1,29 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-05T01:08:00Z",
+  "updatedAt": "2026-09-05T01:28:00Z",
   "strategy": "evidence-first/no-fabricated-provider-links",
   "videos": [
+    {
+      "id": "youtube:Hg1_20vRrZM",
+      "creatorId": "youtube:kreksuminecraft",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=Hg1_20vRrZM",
+      "title": "These Underrated Minecraft Mods are Actually Insane! [+1.20.1, +1.21.1 | Forge / Fabric]",
+      "publishedAt": "2026-04-05",
+      "evidenceKinds": ["youtube-description", "chapters"],
+      "mods": [
+        {"name":"Apocalyptic Bosses","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"00:08","timestampSeconds":8,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Chris's Additions","projectType":"mod","loader":["Fabric"],"timestamp":"00:56","timestampSeconds":56,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Envelope","projectType":"mod","loader":["Fabric","NeoForge"],"timestamp":"01:48","timestampSeconds":108,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Cascades","projectType":"mod","loader":["Fabric","Forge","NeoForge"],"timestamp":"02:55","timestampSeconds":175,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Curiosities!","projectType":"mod","loader":["NeoForge"],"timestamp":"03:42","timestampSeconds":222,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Starcatcher","projectType":"mod","loader":["Forge","NeoForge"],"timestamp":"04:16","timestampSeconds":256,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"[BUB] Gender","projectType":"mod","loader":["Forge"],"timestamp":"04:55","timestampSeconds":295,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Simply Bows","projectType":"mod","loader":["Fabric","NeoForge"],"timestamp":"05:24","timestampSeconds":324,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"Shutter Up!","projectType":"mod","loader":["Fabric","Forge","NeoForge"],"timestamp":"06:06","timestampSeconds":366,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1},
+        {"name":"ShellBound for AirShip","projectType":"mod","loader":["Fabric","Forge","NeoForge"],"timestamp":"06:23","timestampSeconds":383,"evidence":"Listed in Kreksu's YouTube description chapters.","sourceKinds":["description","chapter"],"confidence":1}
+      ]
+    },
     {
       "id": "youtube:iTsP0Xsdcv8",
       "creatorId": "youtube:kreksuminecraft",
@@ -47,11 +68,11 @@
     }
   ],
   "channelSetupPacks": [
-    {"creatorId":"youtube:kreksuminecraft","name":"Detailed Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
-    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
-    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations: Player Extension","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
-    {"creatorId":"youtube:kreksuminecraft","name":"Joyful Motion","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
-    {"creatorId":"youtube:kreksuminecraft","name":"Silly Moves","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every video.","sourceVideoIds":["youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]}
+    {"creatorId":"youtube:kreksuminecraft","name":"Detailed Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every indexed video.","sourceVideoIds":["youtube:Hg1_20vRrZM","youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every indexed video.","sourceVideoIds":["youtube:Hg1_20vRrZM","youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Fresh Animations: Player Extension","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every indexed video.","sourceVideoIds":["youtube:Hg1_20vRrZM","youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Joyful Motion","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every indexed video.","sourceVideoIds":["youtube:Hg1_20vRrZM","youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]},
+    {"creatorId":"youtube:kreksuminecraft","name":"Silly Moves","projectType":"resourcepack","evidence":"Kreksu lists this under the extra animation texture packs used in every indexed video.","sourceVideoIds":["youtube:Hg1_20vRrZM","youtube:iTsP0Xsdcv8","youtube:fgu7ssEVzAA"]}
   ],
   "queuedDiscoveries": [
     {"creatorId":"youtube:kreksuminecraft","title":"TOP +10 Best Animation Mods in Minecraft! [+1.20.1, +1.21.1 | Forge / Fabric / NeoForge]","state":"awaiting-source-verifiable-chapters","discoveredAt":"2026-09-05"}
