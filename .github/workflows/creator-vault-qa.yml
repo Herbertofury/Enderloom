@@ -23,6 +23,17 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: AsianHalfSquat uploads playlist probe
+        shell: bash
+        run: |
+          set +e
+          python -m pip install --disable-pip-version-check -q yt-dlp
+          echo AHS_UPLOADS_BEGIN
+          yt-dlp --flat-playlist --playlist-end 60 --print '%(playlist_index)s\t%(id)s\t%(title)s' 'https://www.youtube.com/playlist?list=UU0E_vIe1e1lVeojYOgVg_5Q'
+          status=$?
+          echo AHS_UPLOADS_STATUS=$status
+          echo AHS_UPLOADS_END
+          exit 0
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
