@@ -16,12 +16,12 @@ assert.equal(new Set(vault.creators.map(c => c.id)).size, 14, 'creator ids must 
 assert.equal(vault.stats.indexedCreators, 3);
 assert.equal(vault.videos.length, 23, '3 Kreksu + 16 AsianHalfSquat + 4 EnderVerse videos');
 assert.equal(vault.stats.recommendations, 391, '351 prior mentions + 40 EnderVerse episode 2 mentions');
-assert(vault.stats.uniqueProjects >= 300 && vault.stats.uniqueProjects <= 340, 'Episode 2 canonicalization stays within bounded project growth');
+assert.equal(vault.stats.uniqueProjects, 334, '391 mentions must merge to exactly 334 canonical projects');
 assert.equal(vault.projects.reduce((sum,p)=>sum+p.mentionCount,0),391,'all source mentions survive canonicalization');
-assert.equal(vault.stats.verifiedProjects, vault.stats.uniqueProjects - 1, 'all canonical projects except Plank and Junk have a verified public destination');
+assert.equal(vault.stats.verifiedProjects, 333, 'all canonical projects except Plank and Junk have a verified public destination');
 assert.equal(vault.stats.unresolvedProjects, 1);
-assert(vault.stats.multiProviderProjects >= 134);
-assert(vault.stats.providerDestinations >= 440);
+assert.equal(vault.stats.multiProviderProjects, 163);
+assert.equal(vault.stats.providerDestinations, 515);
 assert.deepEqual(vault.projects.filter(p=>!p.providerLinks.length).map(p=>p.name),['Plank and Junk']);
 assert.equal(vault.stats.importedCatalogs,1);
 assert.equal(vault.stats.nativeRecommendationSources,4,'primary + EnderVerse chunk5 + EnderVerse episodes 1 and 2');
