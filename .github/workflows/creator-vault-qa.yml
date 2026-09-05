@@ -23,8 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat chunk 20 provider URL collision gate
-        run: node scripts/creator-vault-ahs20-provider-collision.js
+      - name: AsianHalfSquat chunk 21 canonical probe
+        run: node scripts/creator-vault-ahs21-canonical-probe.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
