@@ -1,0 +1,31 @@
+name: Creator Vault QA
+
+on:
+  push:
+    branches:
+      - feature/creator-vault-kreksu-chunk-1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  creator-vault:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Focused Creator Vault QA
+        run: npm run creator-vault-qa
+      - name: Catalog regression QA
+        run: npm run catalog-qa
+      - name: Render portable catalogs
+        run: npm run portable
