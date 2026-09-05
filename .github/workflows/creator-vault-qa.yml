@@ -23,10 +23,10 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat chunk 27 post-merge diagnostic
-        run: node scripts/creator-vault-ahs27-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
+      - name: Focused Creator Vault recursive QA
+        run: npm run creator-vault-qa
       - name: Catalog regression QA
         run: npm run catalog-qa
       - name: Render portable catalogs
