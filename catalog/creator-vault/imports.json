@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-05T02:29:00Z",
+  "imports": [
+    {
+      "id": "minecraft-mod-vault:asianhalfsquat:p0.5-reconciled",
+      "creatorId": "youtube:asianhalfsquat",
+      "files": [
+        {"file":"sources/asianhalfsquat.creator-catalog.part-01.json","sha256":"b96ce92b1a801ef1fb77590438b893e18131a42228649d0663e5de4c143c9f8b","videos":4,"recommendations":26},
+        {"file":"sources/asianhalfsquat.creator-catalog.part-02.json","sha256":"19a4f4a1bfff3aa08710509ece34ea7d8b48f545ed9fde6e7de4ca9aaea998a7","videos":4,"recommendations":49},
+        {"file":"sources/asianhalfsquat.creator-catalog.part-03.json","sha256":"7a3da5c3609ee0f1fa97699d67b57d47ca04160a73256737f8375a23ad1a28aa","videos":4,"recommendations":64},
+        {"file":"sources/asianhalfsquat.creator-catalog.part-04.json","sha256":"4ba42bc42637a02ffe7eb5950d97d9a58227dd7066d6c6c7877fb8a3b7b0bfce","videos":2,"recommendations":26},
+        {"file":"sources/asianhalfsquat.creator-catalog.part-05.json","sha256":"ced1070d9fee8af4911f7051c20038fe571c28afa6b651d5f551b0050a60723f","videos":1,"recommendations":20},
+        {"file":"sources/asianhalfsquat.creator-catalog.part-06.json","sha256":"bcef6f0bca364daea4e8427d1161d54e9b5bc09e5f690a0191da1ac4ae43b662","videos":1,"recommendations":31}
+      ],
+      "sourceSystem": "Minecraft Mod Vault Creator Catalog",
+      "sourceDriveFileId": "1tHH5-Ucfo9RaeH3hfnwtUa0431h6EOsh",
+      "sourceUpdatedAt": "2026-08-23T20:58:00-06:00",
+      "expectedVideos": 349,
+      "expectedImportedVideos": 16,
+      "expectedRecommendations": 216,
+      "notes": "Reconciled legacy hot-drop snapshot split into deterministic JSON shards for diffable native Enderloom import. Original Drive file identity/hash and the full compact snapshot hash are pinned; provider URLs remain unresolved unless independently verified.",
+      "sourceSnapshotSha256": "4e45e92fed3171175fcf50b37d9dcfd91b88217582fe9a924f405397eea649e8",
+      "sourceDriveSha256": "6e49a5154e1a757df75c4ab7371f91632250b551f9e1e3b00781db035b43a9e1"
+    }
+  ]
+}
