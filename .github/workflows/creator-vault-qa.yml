@@ -23,9 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Creator Vault corpus stats
-        run: >-
-          node -e "const {loadCreatorVault}=require('./src/creator-vault');const v=loadCreatorVault(process.cwd());const e=v.creators.find(c=>c.id==='youtube:enderversemc');console.log(JSON.stringify({stats:v.stats,enderVerse:e&&e.coverage,diagnostics:v.diagnostics},null,2))"
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
