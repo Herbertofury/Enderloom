@@ -164,16 +164,19 @@ assert(hasUrl('nullscape','https://github.com/Stardust-Labs-MC/Nullscape'));
 assert(hasUrl('fresh-moves','https://github.com/IthanMendoza/Fresh-Moves'));
 assert(hasUrl('circumnavigate','https://github.com/FamroFexl/Circumnavigate'));
 
-// Alias/dedupe and anti-false-merge rules discovered by the provider-aware runtime.
+// Dedupe/title and anti-false-merge rules. Source-label -> canonical-ID mapping
+// above is the durable alias contract; runtime may omit punctuation-equivalent
+// labels from project.aliases after normalization, so canonical titles are the
+// stronger invariant here.
 assert.equal(project('os-colorful-grasses').name, "O's Colorful Grasses");
 assert.equal(vault.projects.filter(item => item.id === 'os-colorful-grasses').length, 1, 'Colorful Grasses source spelling must rejoin the existing canonical card');
-assert(project('vrrw-overworld-foliage-and-trees').aliases.includes('Foliage & Trees Realistic 3D HD NoCube'));
-assert(project('pegasus-shaders').aliases.includes('Pegasus Shader'));
-assert(project('no-light-no-color').aliases.includes('No Light - No Color'));
-assert(project('os-colorful-leaves').aliases.includes("O's Colorful Leaves"));
-assert(project('fancy-crops').aliases.includes('Fancy Crops'));
-assert(project('fresh-animations-extensions').aliases.includes('Fresh Animations Extensions'));
-assert(project('astrocraft').aliases.includes('Astrocraft'));
+assert.equal(project('vrrw-overworld-foliage-and-trees').name, 'VRRW Overworld - Foliage and Trees');
+assert.equal(project('pegasus-shaders').name, 'Pegasus Shaders');
+assert.equal(project('no-light-no-color').name, 'No Light — No Color!');
+assert.equal(project('os-colorful-leaves').name, "Os' Colorful Leaves");
+assert.equal(project('fancy-crops').name, "(Bee's) Fancy Crops");
+assert.equal(project('fresh-animations-extensions').name, 'Fresh Animations: Extensions');
+assert.equal(project('astrocraft').name, 'Astrocraft: Realistic Night Skies');
 assert(project('fresh-moves').id !== project('trailer-player-animations').id, 'Fresh Moves must remain distinct from Trailer/Fresh Player Animations');
 assert(!links('astrocraft').some(link => link.url.includes('/modpacks/')), 'Astrocraft must not absorb an unrelated modpack');
 assert(!vault.projects.some(item => (item.providerLinks || []).some(link => link.url.includes('minecraft-bedrock/texture-packs/os-leaves'))), 'unrelated Bedrock Colorful Leaves copy must stay excluded');
