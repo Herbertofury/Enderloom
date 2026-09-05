@@ -23,6 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: AsianHalfSquat chunk 18 targeted Origen link probe
+        run: python scripts/creator-vault-ahs18-origen-link-probe.py
       - name: AsianHalfSquat chunk 18 canonical probe
         run: node scripts/creator-vault-ahs18-canonical-probe.js
       - name: Missing timestamp regression QA
