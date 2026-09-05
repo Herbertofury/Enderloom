@@ -1,7 +1,7 @@
 # Enderloom Creator Vault Wiki
 
 Status: active development  
-Chunk: Kreksu ingestion / native Enderloom addon, chunk 1  
+Chunk: Kreksu ingestion / native Enderloom addon, chunk 2  
 Strategy: full-history-first, incremental-after  
 Data contract: evidence-first; never invent a CurseForge/Modrinth/provider URL.
 
@@ -32,7 +32,7 @@ The Creator Vault panel provides:
 | --- | --- | --- | --- | --- |
 | AsianHalfSquat (`@AsianHalfSquat`) | YouTube | protected core | Legacy catalog ready; previous checkpoint has 11 exact videos / 93 evidence-backed recommendations; expected channel history recorded as 349 videos | Import the legacy Creator Vault bundle into native Enderloom, then resume history coverage |
 | EnderVerse (`@EnderVerseMC`) | YouTube | protected core | Legacy catalog ready | Import legacy creator bundle and retain provider/showcase cross-links |
-| Kreksu (`@KreksuMinecraft`) | YouTube | curated core | **Active ingestion: 2 verified videos / 20 recommendations in chunk 1** | Continue channel history in bounded batches; resolve discovered animation video only when chapters are verifiable |
+| Kreksu (`@KreksuMinecraft`) | YouTube | curated core | **Active ingestion: 3 verified videos / 30 recommendations through chunk 2** | Continue channel history in bounded batches; resolve discovered animation video only when chapters are verifiable |
 | Kizamiringo (`@kizamiringo`) | TikTok | protected core | Legacy pipeline; live gate pending | Full-history enumeration + real text-only extraction parity |
 | Katsumi (`@its_katsumi`) | TikTok | curated core | Legacy ready; link refresh pending | Refresh public link-hub child destinations, then ingest posts |
 | SpeedyChunks (`@speedychunks`) | TikTok | curated core | Queued from legacy source ledger | Import legacy evidence, then full-history scan |
@@ -45,7 +45,27 @@ The Creator Vault panel provides:
 | The Crimson Gaming (`@thecrimsongaming`) | TikTok | recommended discovery source | Tracked | Evaluate creator history and promote only evidence-backed Minecraft recommendations |
 | laveOrc (`@ygz207`) | TikTok | recommended discovery source | Tracked | Evaluate creator history and promote only evidence-backed Minecraft recommendations |
 
-## Kreksu - chunk 1
+## Kreksu - chunk 2
+
+### Video: These Underrated Minecraft Mods are Actually Insane!
+
+Published: 2026-04-05  
+Source: https://www.youtube.com/watch?v=Hg1_20vRrZM
+
+1. `00:08` - Apocalyptic Bosses - Forge / NeoForge
+2. `00:56` - Chris's Additions - Fabric
+3. `01:48` - Envelope - Fabric / NeoForge
+4. `02:55` - Cascades - Fabric / Forge / NeoForge
+5. `03:42` - Curiosities! - NeoForge
+6. `04:16` - Starcatcher - Forge / NeoForge
+7. `04:55` - [BUB] Gender - Forge
+8. `05:24` - Simply Bows - Fabric / NeoForge
+9. `06:06` - Shutter Up! - Fabric / Forge / NeoForge
+10. `06:23` - ShellBound for AirShip - Fabric / Forge / NeoForge
+
+Evidence is the original Kreksu YouTube description/chapter list. Provider URLs intentionally remain empty until exact project identity is independently verified.
+
+## Kreksu - chunk 1 retained
 
 ### Video: HIDDEN GEM Minecraft Mods That Are Actually INSANE!
 
@@ -79,7 +99,7 @@ Source: https://www.youtube.com/watch?v=fgu7ssEVzAA
 9. `08:10` - Happy Ghast Inventory - Fabric / Forge / NeoForge
 10. `08:42` - Jaki Versatile Structures: Sails & Sea - Fabric / Forge
 
-`Keybind Atlas` is currently the only project in this batch with an independently verified provider URL in the Creator Vault dataset: https://modrinth.com/mod/keybind-atlas. All other unresolved provider URLs intentionally remain empty until verified.
+`Keybind Atlas` is currently the only project in the indexed Kreksu set with an independently verified provider URL in the Creator Vault dataset: https://modrinth.com/mod/keybind-atlas. All other unresolved provider URLs intentionally remain empty until verified.
 
 ### Recurring setup/resource packs
 
@@ -91,9 +111,11 @@ Kreksu lists these as extra animation texture packs used in every indexed video,
 - Joyful Motion
 - Silly Moves
 
+All five now reference all three indexed Kreksu source videos.
+
 ### Queued discovery
 
-`TOP +10 Best Animation Mods in Minecraft! [+1.20.1, +1.21.1 | Forge / Fabric / NeoForge]` has been discovered as a Kreksu video, but its full chapter/recommendation list has not yet been captured from a source reliable enough for the evidence-first dataset. It remains queued instead of being guessed.
+`TOP +10 Best Animation Mods in Minecraft! [+1.20.1, +1.21.1 | Forge / Fabric / NeoForge]` remains discovered but un-ingested because its complete chapter list has not yet been recovered from a source reliable enough for the evidence-first dataset.
 
 ## Data files
 
@@ -103,26 +125,35 @@ Kreksu lists these as extra animation texture packs used in every indexed video,
 - `catalog/creator-vault/creator-vault.js` - native Enderloom UI addon
 - `catalog/creator-vault/creator-vault.css` - responsive Creator Vault presentation
 - `scripts/creator-vault-qa.js` - focused acceptance/provenance gate
+- `.github/workflows/creator-vault-qa.yml` - durable branch QA runner for checkout + Creator Vault + catalog regression + portable render
 
-## Acceptance gate for this chunk
+## Acceptance gate through chunk 2
 
 `npm run creator-vault-qa` must prove:
 
 - 14 creator identities are present and unique;
 - Kreksu is registered under `youtube:kreksuminecraft`;
-- chunk 1 contains exactly 2 verified Kreksu videos and 20 main recommendations;
-- all 20 recommendations retain chapter timestamps and source evidence;
+- the native dataset contains exactly 3 verified Kreksu videos and 30 main recommendations;
+- the April 5 video retains all 10 exact chapter recommendations from Apocalyptic Bosses through ShellBound for AirShip;
+- all 30 recommendations retain chapter timestamps and source evidence;
 - timestamps are ordered and deep-link to the video moment;
 - unresolved provider URLs remain empty;
 - verified Keybind Atlas provider URL is preserved;
 - the Creator Vault data, CSS, and UI script are embedded by the real catalog renderer.
 
+## Verification state
+
+- Focused data/renderer test is committed and updated for 3 videos / 30 recommendations.
+- A GitHub Actions workflow is committed to run `npm ci`, Creator Vault QA, catalog regression QA, and portable rendering on a real checkout.
+- The connector-created workflow commit did not recursively trigger Actions, so no CI-pass claim is made yet. The workflow remains durable for the next normal branch push/manual run.
+- The current chat container cannot resolve `github.com`, so direct `git clone` is an environment blocker rather than a source/test failure.
+
 ## Exact next chunk
 
-1. Run the branch QA in the full Enderloom checkout/runtime.
-2. Continue Kreksu's channel-wide history scan in another bounded batch; prefer direct YouTube descriptions/chapters and never infer missing projects from titles alone.
-3. Enrich the current 20 recommendations with verified Modrinth/CurseForge project URLs and metadata where exact identity is unambiguous.
-4. Import the existing AsianHalfSquat and EnderVerse legacy Creator Vault records into the same native schema.
-5. Then move through the protected TikTok list in the ledger, preserving the old full-history-first / incremental-after contract and live acceptance gates.
+1. Continue Kreksu's channel-wide history scan in another bounded batch using original YouTube descriptions/chapters when available.
+2. Enrich the current 30 recommendations with verified Modrinth/CurseForge project URLs and metadata only where exact identity is unambiguous.
+3. Import the existing AsianHalfSquat and EnderVerse legacy Creator Vault records into the same native schema.
+4. Then move through the protected TikTok list in the ledger, preserving the old full-history-first / incremental-after contract and live acceptance gates.
+5. On the next normal project checkout/push, run the committed CI workflow and record its run/job identity in this wiki.
 
 No active mod JAR moves are part of Creator Vault work.
