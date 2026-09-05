@@ -25,6 +25,8 @@ jobs:
         run: npm ci
       - name: AsianHalfSquat chunk 27 canonical probe
         run: node scripts/creator-vault-ahs27-canonical-probe.js
+      - name: AsianHalfSquat chunk 27 provider URL collision gate
+        run: node scripts/creator-vault-ahs27-provider-collision.js
       - name: AsianHalfSquat chunk 26 provider URL collision gate
         run: node scripts/creator-vault-ahs26-provider-collision.js
       - name: Missing timestamp regression QA
