@@ -8,33 +8,34 @@ const { loadCreatorVault } = require('../src/creator-vault');
 const { renderCatalog } = require('../src/catalog-renderer');
 
 const root = path.resolve(__dirname, '..');
-const sourcePath = path.join(root, 'catalog', 'creator-vault', 'recommendation-sources', 'asianhalfsquat.history-batch25.json');
-const providerPath = path.join(root, 'catalog', 'creator-vault', 'project-sources', 'provider-closure-25a-asianhalfsquat.json');
+const sourcePath = path.join(root, 'catalog', 'creator-vault', 'recommendation-sources', 'asianhalfsquat.history-batch26.json');
+const providerPath = path.join(root, 'catalog', 'creator-vault', 'project-sources', 'provider-closure-26a-asianhalfsquat.json');
 const creatorsPath = path.join(root, 'catalog', 'creator-vault', 'creators.json');
-const chunk24CreatorsBaselinePath = path.join(root, 'catalog', 'creator-vault', 'research', 'creators.chunk24-baseline.json');
-const candidatesPath = path.join(root, 'catalog', 'creator-vault', 'research', 'asianhalfsquat.chunk25-provider-candidates.json');
+const chunk25CreatorsBaselinePath = path.join(root, 'catalog', 'creator-vault', 'research', 'creators.chunk25-baseline.json');
+const candidatesPath = path.join(root, 'catalog', 'creator-vault', 'research', 'asianhalfsquat.chunk26-provider-candidates.json');
+const researchPath = path.join(root, 'catalog', 'creator-vault', 'research', 'asianhalfsquat.chunk26-source.json');
 
-// Prove chunk 24 byte-for-byte first. Hide only chunk 25 production files,
-// swap only the frozen creator ledger, execute the exact chunk-24 wrapper,
-// and restore current state in finally before enforcing chunk 25.
-const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-ahs25-qa-'));
+// Prove chunk 25 byte-for-byte first. Hide only chunk 26 production files,
+// swap only the frozen creator ledger, execute the exact chunk-25 wrapper,
+// and restore current state in finally before enforcing chunk 26.
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-ahs26-qa-'));
 let sourceBackup = null;
 let providerBackup = null;
 let currentCreatorsBackup = null;
 try {
-  assert(fs.existsSync(sourcePath), 'AsianHalfSquat chunk 25 production source file missing');
-  assert(fs.existsSync(providerPath), 'AsianHalfSquat chunk 25 provider overlay missing');
+  assert(fs.existsSync(sourcePath), 'AsianHalfSquat chunk 26 production source file missing');
+  assert(fs.existsSync(providerPath), 'AsianHalfSquat chunk 26 provider overlay missing');
   assert(fs.existsSync(creatorsPath), 'current creators ledger must exist');
-  assert(fs.existsSync(chunk24CreatorsBaselinePath), 'chunk 24 creators baseline must exist');
+  assert(fs.existsSync(chunk25CreatorsBaselinePath), 'chunk 25 creators baseline must exist');
   sourceBackup = path.join(tempDir, path.basename(sourcePath));
   providerBackup = path.join(tempDir, path.basename(providerPath));
   currentCreatorsBackup = path.join(tempDir, 'creators.current.json');
   fs.renameSync(sourcePath, sourceBackup);
   fs.renameSync(providerPath, providerBackup);
   fs.renameSync(creatorsPath, currentCreatorsBackup);
-  fs.copyFileSync(chunk24CreatorsBaselinePath, creatorsPath);
-  const legacy = spawnSync(process.execPath, [path.join(__dirname, 'creator-vault-qa-chunk24.js')], { cwd: root, stdio: 'inherit' });
-  assert.equal(legacy.status, 0, 'chunk 24 baseline regression suite must remain green byte-for-byte');
+  fs.copyFileSync(chunk25CreatorsBaselinePath, creatorsPath);
+  const legacy = spawnSync(process.execPath, [path.join(__dirname, 'creator-vault-qa-chunk25.js')], { cwd: root, stdio: 'inherit' });
+  assert.equal(legacy.status, 0, 'chunk 25 baseline regression suite must remain green byte-for-byte');
 } finally {
   if (currentCreatorsBackup && fs.existsSync(currentCreatorsBackup)) {
     if (fs.existsSync(creatorsPath)) fs.rmSync(creatorsPath, { force: true });
@@ -47,60 +48,63 @@ try {
 
 const vault = loadCreatorVault(root);
 assert.equal(vault.schemaVersion, 1);
-assert.equal(vault.videos.length, 52, '3 Kreksu + 43 AsianHalfSquat + 6 EnderVerse videos');
-assert.equal(vault.stats.recommendations, 804, '794 prior mentions + 10 AsianHalfSquat history batch 25 mentions');
-assert.equal(vault.stats.uniqueProjects, 580, 'chunk 25 adds exactly seven globally new canonical projects');
-assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 804, 'every source mention survives canonicalization');
-assert.equal(vault.stats.verifiedProjects, 578);
-assert.equal(vault.stats.unresolvedProjects, 2);
-assert.equal(vault.stats.multiProviderProjects, 394);
-assert.equal(vault.stats.providerDestinations, 1082);
-assert.equal(vault.stats.nativeRecommendationSources, 21);
-assert.deepEqual(vault.projects.filter(project => !project.providerLinks.length).map(project => project.name).sort(), ['Better Book Recipe', 'Plank and Junk']);
+assert.equal(vault.videos.length, 53, '3 Kreksu + 44 AsianHalfSquat + 6 EnderVerse videos');
+assert.equal(vault.stats.recommendations, 814, '804 prior mentions + 10 AsianHalfSquat history batch 26 mentions');
+assert.equal(vault.stats.uniqueProjects, 586, 'chunk 26 adds exactly six globally new canonical projects');
+assert.equal(vault.projects.reduce((sum, project) => sum + project.mentionCount, 0), 814, 'every source mention survives canonicalization');
+assert.equal(vault.stats.verifiedProjects, 583);
+assert.equal(vault.stats.unresolvedProjects, 3);
+assert.equal(vault.stats.multiProviderProjects, 400);
+assert.equal(vault.stats.providerDestinations, 1098);
+assert.equal(vault.stats.nativeRecommendationSources, 22);
+assert.deepEqual(vault.projects.filter(project => !project.providerLinks.length).map(project => project.name).sort(), ['Better Book Recipe', 'Plank and Junk', 'Remove Loading Screen']);
 assert.equal(vault.diagnostics.filter(item => item.level === 'error').length, 0);
 
 const ahs = vault.creators.find(creator => creator.id === 'youtube:asianhalfsquat');
 assert(ahs);
 assert.equal(ahs.coverage.expectedVideos, 350);
-assert.equal(ahs.coverage.indexedVideos, 43);
-assert.equal(ahs.coverage.recommendationCount, 545);
-assert.equal(ahs.coverage.verifiedProjectHomes, 545);
+assert.equal(ahs.coverage.indexedVideos, 44);
+assert.equal(ahs.coverage.recommendationCount, 555);
+assert.equal(ahs.coverage.verifiedProjectHomes, 554);
 const ahsVideos = vault.videos.filter(video => video.creatorId === ahs.id);
 const ahsMods = ahsVideos.flatMap(video => video.mods);
-assert.equal(ahsVideos.length, 43);
-assert.equal(ahsMods.length, 545);
+assert.equal(ahsVideos.length, 44);
+assert.equal(ahsMods.length, 555);
 const ahsLinkedMentions = ahsMods.filter(mod => mod.providerLinks.length > 0).length;
 const ahsLinkedCanonical = new Set(ahsMods.filter(mod => mod.providerLinks.length > 0).map(mod => mod.canonicalProjectId)).size;
-assert.equal(ahsLinkedMentions, 545);
-assert.equal(ahsLinkedCanonical, 355, 'seven globally new projects plus globally-existing Rolling Down in The Deep newly enter AHS history');
+const ahsAllCanonical = new Set(ahsMods.map(mod => mod.canonicalProjectId)).size;
+assert.equal(ahsLinkedMentions, 554);
+assert.equal(ahsLinkedCanonical, 362);
+assert.equal(ahsAllCanonical, 363);
 
-const video = ahsVideos.find(item => item.id === 'youtube:pw52tfw26Wg');
-assert(video, 'chunk 25 source video must load');
-assert.equal(video.publishedAt, '2024-09-24');
-assert.equal(video.title, "10 Awesome Minecraft Mods You've Probably Never Heard Of #25");
+const video = ahsVideos.find(item => item.id === 'youtube:bd83XKp65jw');
+assert(video, 'chunk 26 September 4 source video must load');
+assert.equal(video.publishedAt, '2024-09-04');
+assert.equal(video.title, 'Top 10 Minecraft Mods (1.21.1) - 2024');
 assert.equal(video.mods.length, 10);
 const expected = new Map([
-  ["Vouniern's Turrets",'vounierns-turrets'],
-  ['Splinecart','splinecart'],
-  ['Astrocraft','astrocraft'],
-  ['Rolling Down in The Deep','rolling-down-in-the-deep'],
-  ['Beautiful Enchanted Books','beautiful-enchanted-books'],
-  ['Tide','tide'],
-  ['Cosmic Horizons','cosmic-horizons'],
-  ['Cardiac','cardiac'],
-  ['Circumnavigate','circumnavigate'],
-  ['Valarian Conquest','valarian-conquest']
+  ['Dungeons and Taverns', { id:'dungeons-and-taverns', seconds:14, loaders:['NeoForge','Fabric'] }],
+  ['Relics', { id:'relics', seconds:38, loaders:['NeoForge'] }],
+  ['Cascades', { id:'cascades', seconds:69, loaders:['NeoForge','Fabric'] }],
+  ['Remove Loading Screen', { id:'remove-loading-screen', seconds:91, loaders:['NeoForge','Fabric'] }],
+  ['Chalk', { id:'chalk', seconds:118, loaders:['NeoForge'] }],
+  ['Laser Bridges & Doors', { id:'laser-bridges-and-doors', seconds:140, loaders:['NeoForge','Fabric'] }],
+  ['Solar Cooker', { id:'solar-cooker', seconds:161, loaders:['NeoForge','Fabric'] }],
+  ['Antique Atlas 4', { id:'antique-atlas-4', seconds:187, loaders:['NeoForge','Fabric'] }],
+  ['Particular', { id:'particular', seconds:224, loaders:['Fabric'] }],
+  ['The Undergarden', { id:'the-undergarden', seconds:249, loaders:['NeoForge'] }]
 ]);
 for (const mod of video.mods) {
-  const canonicalId = expected.get(mod.name);
-  assert(canonicalId, `unexpected chunk-25 source label: ${mod.name}`);
-  assert.equal(mod.canonicalProjectId, canonicalId, `canonical identity: ${mod.name}`);
-  assert.equal(mod.timestampSeconds, null, `missing creator timestamp must stay null: ${mod.name}`);
-  assert.equal(mod.videoLink, video.url, `missing creator timestamp must use base video URL: ${mod.name}`);
-  assert(!mod.videoLink.includes('t=0s'), `must never fabricate t=0s: ${mod.name}`);
-  assert(mod.providerLinks.length > 0, `verified direct project home required: ${mod.name}`);
+  const row = expected.get(mod.name);
+  assert(row, `unexpected chunk-26 source label: ${mod.name}`);
+  assert.equal(mod.canonicalProjectId, row.id, `canonical identity: ${mod.name}`);
+  assert.equal(mod.timestampSeconds, row.seconds, `creator timestamp: ${mod.name}`);
+  assert.deepEqual(mod.loader, row.loaders, `creator-stated loader labels: ${mod.name}`);
+  assert.equal(mod.videoLink, `${video.url}&t=${row.seconds}s`, `exact creator deep link: ${mod.name}`);
 }
 assert.equal(new Set(video.mods.map(mod => mod.canonicalProjectId)).size, 10);
+assert.equal(video.mods.find(mod => mod.name === 'Dungeons and Taverns').canonicalProjectType, 'datapack');
+assert.equal(video.mods.find(mod => mod.name === 'Cascades').canonicalProjectType, 'datapack');
 
 const project = id => {
   const hit = vault.projects.find(item => item.id === id);
@@ -110,61 +114,79 @@ const project = id => {
 const links = id => project(id).providerLinks;
 const providers = id => [...new Set(links(id).map(link => link.provider))].sort();
 const hasUrl = (id, url) => links(id).some(link => link.url === url);
-assert.deepEqual(providers('vounierns-turrets'), ['CurseForge']);
-assert.deepEqual(providers('splinecart'), ['GitHub','Modrinth']);
-assert.deepEqual(providers('beautiful-enchanted-books'), ['CurseForge','Modrinth']);
-assert.deepEqual(providers('tide'), ['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('cosmic-horizons'), ['CurseForge']);
-assert.deepEqual(providers('cardiac'), ['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('valarian-conquest'), ['CurseForge','Modrinth']);
-assert.deepEqual(providers('astrocraft'), ['CurseForge','Modrinth']);
-assert.deepEqual(providers('rolling-down-in-the-deep'), ['CurseForge','Modrinth']);
-assert.deepEqual(providers('circumnavigate'), ['CurseForge','GitHub','Modrinth']);
-assert(hasUrl('vounierns-turrets','https://www.curseforge.com/minecraft/mc-mods/vounierns-turrets'));
-assert(hasUrl('splinecart','https://modrinth.com/mod/splinecart'));
-assert(hasUrl('splinecart','https://github.com/FoundationGames/Splinecart'));
-assert(hasUrl('beautiful-enchanted-books','https://modrinth.com/resourcepack/beautiful-enchanted-books'));
-assert(hasUrl('beautiful-enchanted-books','https://www.curseforge.com/minecraft/texture-packs/beautiful-enchanted-books'));
-assert(hasUrl('tide','https://modrinth.com/mod/tide'));
-assert(hasUrl('tide','https://www.curseforge.com/minecraft/mc-mods/tide'));
-assert(hasUrl('tide','https://github.com/Lightning-64/Tide-2'));
-assert(hasUrl('cosmic-horizons','https://www.curseforge.com/minecraft/mc-mods/cosmic-horizons'));
-assert(hasUrl('cardiac','https://modrinth.com/mod/cardiac'));
-assert(hasUrl('cardiac','https://www.curseforge.com/minecraft/mc-mods/cardiac'));
-assert(hasUrl('cardiac','https://github.com/Octo-Studios/cardiac'));
-assert(hasUrl('valarian-conquest','https://modrinth.com/mod/valarian-conquest'));
-assert(hasUrl('valarian-conquest','https://www.curseforge.com/minecraft/mc-mods/valarian-conquest'));
+assert.deepEqual(providers('dungeons-and-taverns'), ['CurseForge','Modrinth']);
+assert.deepEqual(providers('relics'), ['CurseForge','GitHub','Modrinth']);
+assert.deepEqual(providers('cascades'), ['GitHub','Modrinth']);
+assert.deepEqual(providers('remove-loading-screen'), []);
+assert.deepEqual(providers('chalk'), ['CurseForge','Modrinth']);
+assert.deepEqual(providers('laser-bridges-and-doors'), ['CurseForge','GitHub','Modrinth']);
+assert.deepEqual(providers('solar-cooker'), ['CurseForge','GitHub','Modrinth']);
+assert.deepEqual(providers('antique-atlas-4'), ['CurseForge','GitHub','Modrinth']);
+assert.deepEqual(providers('particular'), ['GitHub','Modrinth']);
+assert.deepEqual(providers('the-undergarden'), ['CurseForge','GitHub','Modrinth']);
+assert(hasUrl('relics','https://modrinth.com/mod/relics-mod'));
+assert(hasUrl('relics','https://www.curseforge.com/minecraft/mc-mods/relics-mod'));
+assert(hasUrl('relics','https://github.com/Octo-Studios/relics'));
+assert(hasUrl('cascades','https://modrinth.com/datapack/hybrid-beta'));
+assert(hasUrl('cascades','https://github.com/Crystalis7/Hybrid-Beta'));
+assert(hasUrl('laser-bridges-and-doors','https://modrinth.com/mod/laser-bridges-and-doors'));
+assert(hasUrl('laser-bridges-and-doors','https://www.curseforge.com/minecraft/mc-mods/laser-bridges-doors'));
+assert(hasUrl('laser-bridges-and-doors','https://github.com/Mars-The-Planet/Laser-Bridges-And-Doors'));
+assert(hasUrl('solar-cooker','https://modrinth.com/mod/solar-cooker'));
+assert(hasUrl('solar-cooker','https://www.curseforge.com/minecraft/mc-mods/solar-cooker'));
+assert(hasUrl('solar-cooker','https://github.com/cech12/SolarCooker'));
+assert(hasUrl('antique-atlas-4','https://modrinth.com/mod/antique-atlas-4'));
+assert(hasUrl('antique-atlas-4','https://www.curseforge.com/minecraft/mc-mods/antique-atlas-4'));
+assert(hasUrl('antique-atlas-4','https://github.com/sleepingdragoninn/antique-atlas'));
+assert(hasUrl('the-undergarden','https://modrinth.com/mod/the-undergarden'));
+assert(hasUrl('the-undergarden','https://www.curseforge.com/minecraft/mc-mods/the-undergarden'));
+assert(hasUrl('the-undergarden','https://github.com/quek04/undergarden'));
 
 // Anti-false-merge guards.
-assert(!links('splinecart').some(link => link.url.includes('peterwolfs-splinecart')), 'later Splinecart fork must stay separate');
-assert(!links('beautiful-enchanted-books').some(link => link.url.includes('/mc-mods/beautiful-enchanted-books') || link.url.includes('/mod/beautiful-enchanted-books-mod-edition')), 'Beautiful Enchanted Books mod edition must stay separate from original resource pack');
-assert.equal(links('cosmic-horizons').length, 1, 'old same-name Cosmic Horizons modpack must not merge onto current mod');
+assert.equal(links('remove-loading-screen').length, 0, 'Remove Loading Screen must remain truthful zero-provider evidence');
+assert(!links('remove-loading-screen').some(link => /forcecloseworldloadingscreen|force-close-loading-screen/i.test(link.url)), 'KennyTV Fabric-only force-close project must not be merged into Remove Loading Screen');
+assert(!links('cascades').some(link => /curseforge\.com\/minecraft\/mc-mods\/hybrid-terrain/i.test(link.url)), 'later Cascades CF Reupload must remain excluded');
+assert(hasUrl('antique-atlas-4','https://github.com/sleepingdragoninn/antique-atlas'), 'Antique Atlas 4 source lineage must be pinned exactly');
 
 const raw = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
-const rawVideo = raw.videos.find(item => item.id === 'youtube:pw52tfw26Wg');
+const rawVideo = raw.videos.find(item => item.id === 'youtube:bd83XKp65jw');
 assert(rawVideo && rawVideo.mods.length === 10);
 assert.deepEqual(rawVideo.excludedEvidence.map(item => [item.sourceLabel,item.status]), [
+  ['Bliss Shaders','supporting-project-not-top10'],
   ['Minecraft Forge','platform-link-not-project'],
   ['Fabric','platform-link-not-project'],
-  ['Music - Minecraft - Aria Math - C418','non-project']
+  ['Minecraft Volume Beta - Aria Math','non-project']
 ]);
-for (const mod of rawVideo.mods) assert(!Object.prototype.hasOwnProperty.call(mod, 'timestampSeconds'), `raw timestamp must be omitted when creator provides none: ${mod.name}`);
+for (const mod of rawVideo.mods) {
+  const row = expected.get(mod.name);
+  assert(row);
+  assert.equal(mod.timestampSeconds, row.seconds);
+  assert.deepEqual(mod.loader, row.loaders);
+}
+
+const research = JSON.parse(fs.readFileSync(researchPath, 'utf8'));
+assert.equal(research.videos.length, 1);
+assert.equal(research.sourceMentions, 10);
+const gap = (research.unresolvedChronology || []).find(item => item.publishedAt === '2024-09-06');
+assert(gap, 'September 6 chronology gap must remain explicit');
+assert.equal(gap.analyticsTitleFragment, 'The Best Minecraft Mods T..');
+assert.equal(gap.status, 'source-identity-pending');
+assert.deepEqual(gap.observedStats, { views:243130, likes:10811, comments:391 });
 
 const providerRaw = JSON.parse(fs.readFileSync(providerPath, 'utf8'));
 assert.equal(providerRaw.entries.length, 7);
-assert.equal(providerRaw.entries.reduce((sum, entry) => sum + entry[4].length, 0), 14);
-assert.deepEqual(providerRaw.entries.map(entry => entry[0]).sort(), ['beautiful-enchanted-books','cardiac','cosmic-horizons','splinecart','tide','valarian-conquest','vounierns-turrets']);
-assert.deepEqual(providerRaw.entries.find(entry => entry[0] === 'beautiful-enchanted-books').slice(2,4), ['resourcepack',[]]);
-assert(providerRaw.entries.find(entry => entry[0] === 'tide')[3].includes('Tide 2'));
-
+assert.equal(providerRaw.entries.reduce((sum, entry) => sum + entry[4].length, 0), 16);
+assert.deepEqual(providerRaw.entries.filter(entry => entry[4].length === 0).map(entry => entry[0]), ['remove-loading-screen']);
+assert.deepEqual(providerRaw.entries.map(entry => entry[0]).sort(), ['antique-atlas-4','cascades','laser-bridges-and-doors','relics','remove-loading-screen','solar-cooker','the-undergarden']);
 const candidates = JSON.parse(fs.readFileSync(candidatesPath, 'utf8'));
 assert.equal(candidates.entries.length, 7);
-assert.equal(candidates.entries.reduce((sum, entry) => sum + entry[4].length, 0), 14);
+assert.equal(candidates.entries.reduce((sum, entry) => sum + entry[4].length, 0), 16);
+assert.deepEqual(candidates.entries.filter(entry => entry[4].length === 0).map(entry => entry[0]), ['remove-loading-screen']);
 
-const rendered = renderCatalog({ id:'creator-vault-qa-ahs25', name:'Creator Vault QA AsianHalfSquat 25', items:[], assets:{}, documents:[], sources:[] }, root);
+const rendered = renderCatalog({ id:'creator-vault-qa-ahs26', name:'Creator Vault QA AsianHalfSquat 26', items:[], assets:{}, documents:[], sources:[] }, root);
 for (const needle of [
-  'youtube:pw52tfw26Wg',"Vouniern's Turrets",'Splinecart','Beautiful Enchanted Books','Tide','Cosmic Horizons','Cardiac','Valarian Conquest',
-  'https://www.curseforge.com/minecraft/mc-mods/vounierns-turrets','https://github.com/FoundationGames/Splinecart','https://modrinth.com/resourcepack/beautiful-enchanted-books','https://github.com/Lightning-64/Tide-2','https://www.curseforge.com/minecraft/mc-mods/cosmic-horizons','https://github.com/Octo-Studios/cardiac','https://modrinth.com/mod/valarian-conquest','Find in Enderloom'
-]) assert(rendered.html.includes(needle), `rendered AsianHalfSquat chunk 25 output missing ${needle}`);
+  'youtube:bd83XKp65jw','Dungeons and Taverns','Relics','Cascades','Remove Loading Screen','Chalk','Laser Bridges & Doors','Solar Cooker','Antique Atlas 4','Particular','The Undergarden',
+  'https://github.com/Octo-Studios/relics','https://github.com/Crystalis7/Hybrid-Beta','https://github.com/Mars-The-Planet/Laser-Bridges-And-Doors','https://github.com/cech12/SolarCooker','https://github.com/sleepingdragoninn/antique-atlas','https://github.com/quek04/undergarden','Find in Enderloom'
+]) assert(rendered.html.includes(needle), `rendered AsianHalfSquat chunk 26 output missing ${needle}`);
 
-console.log(`Creator Vault AsianHalfSquat chunk 25 QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved. AHS linked mentions=${ahsLinkedMentions}/545 across ${ahsLinkedCanonical} canonical projects; all 10 null timestamps/base links, 7-new/3-reuse canonicalization, provider anti-false-merge rules, exclusions, and recursive chunk-24 baseline are locked.`);
+console.log(`Creator Vault AsianHalfSquat chunk 26 QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved. AHS linked mentions=${ahsLinkedMentions}/555 across ${ahsLinkedCanonical} linked canonical projects / ${ahsAllCanonical} total; all 10 creator chapter timestamps/deep links, 6-new/4-reuse canonicalization, Remove Loading Screen zero-provider truth, Sep-6 chronology gap, and recursive chunk-25 baseline are locked.`);
