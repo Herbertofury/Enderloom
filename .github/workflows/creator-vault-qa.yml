@@ -23,36 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Episode 5 metadata mirror probe
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json, urllib.request, urllib.error
-          vid='GYz4LQcNZ7s'
-          urls=[
-            ('invidious-nadeko',f'https://inv.nadeko.net/api/v1/videos/{vid}'),
-            ('invidious-nerdvpn',f'https://invidious.nerdvpn.de/api/v1/videos/{vid}'),
-            ('invidious-chocolatemoo',f'https://yt.chocolatemoo53.com/api/v1/videos/{vid}'),
-            ('piped-kavin',f'https://pipedapi.kavin.rocks/streams/{vid}'),
-            ('piped-mha',f'https://api-piped.mha.fi/streams/{vid}'),
-            ('piped-garuda',f'https://piped-api.garudalinux.org/streams/{vid}')
-          ]
-          successes=0
-          for name,url in urls:
-            try:
-              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
-              with urllib.request.urlopen(req,timeout=15) as r:
-                raw=r.read()
-              d=json.loads(raw.decode('utf-8'))
-              keep={k:d.get(k) for k in ['title','videoId','description','publishedText','published','uploadDate','duration','lengthSeconds','chapters'] if k in d}
-              print(f'EP5_MIRROR_BEGIN {name}')
-              print(json.dumps(keep,ensure_ascii=False,indent=2))
-              print(f'EP5_MIRROR_END {name}')
-              successes+=1
-            except Exception as e:
-              print(f'EP5_MIRROR_FAIL {name}: {type(e).__name__}: {e}')
-          print(f'EP5_MIRROR_SUCCESSES={successes}')
-          PY
       - name: Focused Creator Vault QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
