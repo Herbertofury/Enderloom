@@ -23,17 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat older uploads enumeration
-        shell: bash
-        run: |
-          set +e
-          python -m pip install --disable-pip-version-check -q yt-dlp
-          echo AHS14_UPLOADS_BEGIN
-          yt-dlp --flat-playlist --playlist-start 21 --playlist-end 38 --print '%(playlist_index)s\t%(id)s\t%(title)s' 'https://www.youtube.com/playlist?list=UU0E_vIe1e1lVeojYOgVg_5Q'
-          status=$?
-          echo AHS14_UPLOADS_STATUS=$status
-          echo AHS14_UPLOADS_END
-          exit 0
+      - name: AsianHalfSquat chunk 14 canonical probe
+        run: node scripts/creator-vault-ahs14-canonical-probe.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault QA
