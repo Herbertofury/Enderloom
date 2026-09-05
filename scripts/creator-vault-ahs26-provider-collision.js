@@ -11,8 +11,8 @@ if (!postSource && (vault.stats.recommendations !== 804 || vault.stats.uniquePro
   console.error(JSON.stringify({error:'chunk26 pre-production collision gate requires untouched chunk25 baseline',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
-if (postSource && vault.stats.recommendations !== 814) {
-  console.error(JSON.stringify({error:'chunk26 post-source collision gate requires exactly ten promoted source mentions; canonical project total is intentionally left to the diagnostic probe',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
+if (postSource && (vault.stats.recommendations !== 814 || vault.stats.uniqueProjects !== 586)) {
+  console.error(JSON.stringify({error:'chunk26 post-source collision gate requires observed 814/586 merged identity state',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
 const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
@@ -41,4 +41,4 @@ for (const entry of candidates.entries || []) {
   }
 }
 console.log(JSON.stringify({phase:postSource?'post-source':'pre-production',candidateProjects:(candidates.entries||[]).length,destinations,zeroProviderProjects,collisions},null,2));
-if ((candidates.entries||[]).length !== 7 || destinations !== 16 || JSON.stringify(zeroProviderProjects)!==JSON.stringify(['remove-loading-screen']) || collisions.length) process.exitCode = 2;
+if ((candidates.entries||[]).length !== 7 || destinations !== 19 || zeroProviderProjects.length || collisions.length) process.exitCode = 2;
