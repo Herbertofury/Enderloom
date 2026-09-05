@@ -11,8 +11,8 @@ if (!postSource && (vault.stats.recommendations !== 794 || vault.stats.uniquePro
   console.error(JSON.stringify({error:'chunk25 pre-production collision gate requires untouched chunk24 baseline',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
-if (postSource && vault.stats.recommendations !== 804) {
-  console.error(JSON.stringify({error:'chunk25 post-source collision gate requires all ten source mentions',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
+if (postSource && (vault.stats.recommendations !== 804 || vault.stats.uniqueProjects !== 580)) {
+  console.error(JSON.stringify({error:'chunk25 post-source collision gate requires observed 804/580 merged state',actual:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects}},null,2));
   process.exit(2);
 }
 const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
