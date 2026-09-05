@@ -25,6 +25,21 @@ assert(april5, 'April 5 Kreksu video must be indexed');
 assert.equal(april5.mods.length, 10, 'April 5 video must retain all ten chapter recommendations');
 assert.equal(april5.mods[0].name, 'Apocalyptic Bosses');
 assert.equal(april5.mods.at(-1).name, 'ShellBound for AirShip');
+assert(april5.evidenceKinds.includes('provider-projects'), 'April 5 video must record provider enrichment provenance');
+assert(april5.mods.every(m => /^https:\/\/(?:www\.curseforge\.com|modrinth\.com)\//.test(m.url)), 'all April 5 recommendations require exact provider homes');
+assert(april5.mods.every(m => m.sourceKinds.includes('provider-project')), 'all April 5 recommendations require provider-project provenance');
+assert.equal(april5.mods.find(m => m.name === 'Apocalyptic Bosses').url, 'https://www.curseforge.com/minecraft/mc-mods/apocalypticbosses');
+assert.equal(april5.mods.find(m => m.name === "Chris's Additions").url, 'https://modrinth.com/mod/chris_s_additions');
+assert.equal(april5.mods.find(m => m.name === 'Envelope').url, 'https://modrinth.com/mod/envelope');
+const cascades = april5.mods.find(m => m.name === 'Cascades');
+assert.equal(cascades.url, 'https://modrinth.com/datapack/hybrid-beta');
+assert.equal(cascades.projectType, 'datapack', 'Cascades provider type must stay truthful');
+assert.equal(april5.mods.find(m => m.name === 'Curiosities!').url, 'https://modrinth.com/mod/curiosities-syndicate');
+assert.equal(april5.mods.find(m => m.name === 'Starcatcher').url, 'https://modrinth.com/mod/starcatcher');
+assert.equal(april5.mods.find(m => m.name === '[BUB] Gender').url, 'https://modrinth.com/mod/genderbub');
+assert.equal(april5.mods.find(m => m.name === 'Simply Bows').url, 'https://modrinth.com/mod/simply-bows');
+assert.equal(april5.mods.find(m => m.name === 'Shutter Up!').url, 'https://modrinth.com/mod/shutter-up');
+assert.equal(april5.mods.find(m => m.name === 'ShellBound for AirShip').url, 'https://modrinth.com/mod/shellbound-for-airship');
 for (const video of vault.videos) {
   assert.equal(video.creatorId, kreksu.id, `unexpected creator for ${video.id}`);
   assert(/^https:\/\/www\.youtube\.com\/watch\?v=/.test(video.url), `video URL must be canonical: ${video.id}`);
@@ -40,6 +55,8 @@ for (const video of vault.videos) {
     if (!mod.url) assert.equal(mod.url, '', `unresolved provider link must stay empty for ${mod.name}`);
   }
 }
+const verified = vault.videos.flatMap(v => v.mods).filter(m => m.url);
+assert.equal(verified.length, 11, 'provider-enriched set should contain the ten April 5 projects plus Keybind Atlas');
 const keybind = vault.videos.flatMap(v => v.mods).find(m => m.name === 'Keybind Atlas');
 assert(keybind && keybind.url === 'https://modrinth.com/mod/keybind-atlas', 'verified Keybind Atlas provider URL should be preserved');
 const addonJs = fs.readFileSync(path.join(root, 'catalog', 'creator-vault', 'creator-vault.js'), 'utf8');
@@ -50,8 +67,9 @@ assert(addonCss.includes('.cv-mod-grid'), 'recommendation grid styles missing');
 const rendered = renderCatalog({ id:'creator-vault-qa', name:'Creator Vault QA', items:[], assets:{}, documents:[], sources:[] }, root);
 assert(rendered.html.includes('window.ENDERLOOM_CREATOR_VAULT='), 'renderer must embed creator vault data');
 assert(rendered.html.includes('youtube:kreksuminecraft'), 'renderer must embed Kreksu identity');
+assert(rendered.html.includes('https://modrinth.com/mod/shellbound-for-airship'), 'renderer must embed verified direct provider homes');
 assert(rendered.html.includes('Apocalyptic Bosses'), 'renderer must embed chunk 2 source-backed recommendations');
 assert(rendered.html.includes('Legionary'), 'renderer must retain chunk 1 source-backed recommendations');
 assert(rendered.html.includes('creator-vault-modal'), 'renderer must embed creator vault UI/CSS');
 assert(rendered.html.includes('Find in Enderloom'), 'renderer must embed catalog handoff action');
-console.log(`Creator Vault QA passed: ${vault.stats.creators} creators, ${vault.stats.videos} videos, ${vault.stats.recommendations} recommendations, ${vault.stats.setupPacks} setup packs.`);
+console.log(`Creator Vault QA passed: ${vault.stats.creators} creators, ${vault.stats.videos} videos, ${vault.stats.recommendations} recommendations, ${verified.length} verified provider homes, ${vault.stats.setupPacks} setup packs.`);
