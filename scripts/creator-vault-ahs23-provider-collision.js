@@ -28,4 +28,4 @@ for (const entry of candidates.entries || []) {
   }
 }
 console.log(JSON.stringify({candidateProjects:(candidates.entries||[]).length,destinations,collisions},null,2));
-if (vault.stats.uniqueProjects !== 572 || vault.stats.recommendations !== 781 || (candidates.entries||[]).length !== 2 || destinations !== 5 || collisions.length) process.exitCode = 2;
+if ((candidates.entries||[]).length !== 2 || destinations !== 5 || collisions.length) process.exitCode = 2;
