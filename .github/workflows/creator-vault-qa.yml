@@ -27,3 +27,9 @@ jobs:
         run: node scripts/creator-vault-ahs33-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
+      - name: Focused Creator Vault recursive QA
+        run: npm run creator-vault-qa
+      - name: Catalog regression QA
+        run: npm run catalog-qa
+      - name: Render portable catalogs
+        run: npm run portable
