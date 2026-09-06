@@ -23,8 +23,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: AsianHalfSquat chunk 28 concise runtime summary
-        run: node scripts/creator-vault-ahs28-summary.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA

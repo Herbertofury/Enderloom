@@ -1,211 +1,181 @@
 'use strict';
+
 const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const { loadCreatorVault } = require('../src/creator-vault');
-const { renderCatalog } = require('../src/catalog-renderer');
 
 const root = path.resolve(__dirname, '..');
-const sourcePath = path.join(root,'catalog','creator-vault','recommendation-sources','asianhalfsquat.history-batch27.json');
-const providerPath = path.join(root,'catalog','creator-vault','project-sources','provider-closure-27a-asianhalfsquat.json');
-const creatorsPath = path.join(root,'catalog','creator-vault','creators.json');
-const chunk26CreatorsBaselinePath = path.join(root,'catalog','creator-vault','research','creators.chunk26-baseline.json');
-const candidatesPath = path.join(root,'catalog','creator-vault','research','asianhalfsquat.chunk27-provider-candidates.json');
-const researchPath = path.join(root,'catalog','creator-vault','research','asianhalfsquat.chunk27-source.json');
-const frozenQaPath = path.join(__dirname,'creator-vault-qa-chunk26.js');
+const sourcePath = path.join(root, 'catalog', 'creator-vault', 'recommendation-sources', 'asianhalfsquat.history-batch28.json');
+const closurePath = path.join(root, 'catalog', 'creator-vault', 'project-sources', 'provider-closure-28a-asianhalfsquat.json');
+const candidatesPath = path.join(root, 'catalog', 'creator-vault', 'research', 'asianhalfsquat.chunk28-provider-candidates.json');
+const creatorsPath = path.join(root, 'catalog', 'creator-vault', 'creators.json');
+const baselineCreatorsPath = path.join(root, 'catalog', 'creator-vault', 'research', 'creators.chunk27-baseline.json');
+const frozenQaPath = path.join(__dirname, 'creator-vault-qa-chunk27.js');
 
-// Prove chunk 26 byte-for-byte first. Hide only chunk 27 production files,
-// swap only the frozen creator ledger, execute the exact chunk-26 wrapper,
-// then restore current state before enforcing chunk 27.
-const tempDir = fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-ahs27-qa-'));
-let sourceBackup = null;
-let providerBackup = null;
-let currentCreatorsBackup = null;
+for (const target of [sourcePath, closurePath, candidatesPath, creatorsPath, baselineCreatorsPath, frozenQaPath]) {
+  assert(fs.existsSync(target), `required Chunk 28 acceptance input missing: ${target}`);
+}
+
+const source = require(sourcePath);
+const closure = require(closurePath);
+const candidates = require(candidatesPath);
+const currentCreators = require(creatorsPath);
+const baselineCreators = require(baselineCreatorsPath);
+
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-ahs28-qa-'));
+const sourceBackup = path.join(tempDir, path.basename(sourcePath));
+const closureBackup = path.join(tempDir, path.basename(closurePath));
+const creatorsBackup = path.join(tempDir, 'creators.current.json');
+let baselineVault;
 try {
-  assert(fs.existsSync(sourcePath),'AsianHalfSquat chunk 27 production source file missing');
-  assert(fs.existsSync(providerPath),'AsianHalfSquat chunk 27 provider overlay missing');
-  assert(fs.existsSync(creatorsPath),'current creators ledger must exist');
-  assert(fs.existsSync(chunk26CreatorsBaselinePath),'chunk 26 creators baseline must exist');
-  assert(fs.existsSync(frozenQaPath),'frozen chunk 26 QA must exist');
-  sourceBackup = path.join(tempDir,path.basename(sourcePath));
-  providerBackup = path.join(tempDir,path.basename(providerPath));
-  currentCreatorsBackup = path.join(tempDir,'creators.current.json');
-  fs.renameSync(sourcePath,sourceBackup);
-  fs.renameSync(providerPath,providerBackup);
-  fs.renameSync(creatorsPath,currentCreatorsBackup);
-  fs.copyFileSync(chunk26CreatorsBaselinePath,creatorsPath);
-  const baseline = loadCreatorVault(root);
-  assert.equal(baseline.stats.recommendations,814);
-  assert.equal(baseline.stats.uniqueProjects,585);
-  assert.equal(baseline.stats.providerDestinations,1099);
-  const legacy = spawnSync(process.execPath,[frozenQaPath],{cwd:root,stdio:'inherit'});
-  assert.equal(legacy.status,0,'chunk 26 baseline regression suite must remain green byte-for-byte');
+  fs.renameSync(sourcePath, sourceBackup);
+  fs.renameSync(closurePath, closureBackup);
+  fs.copyFileSync(creatorsPath, creatorsBackup);
+  fs.copyFileSync(baselineCreatorsPath, creatorsPath);
+
+  baselineVault = loadCreatorVault(root);
+  assert.equal(baselineVault.stats.recommendations, 833, 'frozen Chunk 27 recommendation baseline drift');
+  assert.equal(baselineVault.stats.uniqueProjects, 600, 'frozen Chunk 27 canonical-project baseline drift');
+  assert.equal(baselineVault.videos.filter(video => video.creatorId === 'youtube:asianhalfsquat').length, 45, 'frozen Chunk 27 AHS video baseline drift');
+
+  const frozen = spawnSync(process.execPath, [frozenQaPath], { cwd: root, stdio: 'inherit' });
+  assert.equal(frozen.status, 0, 'frozen Chunk 27 recursive acceptance failed with Chunk 28 hidden');
 } finally {
-  if (currentCreatorsBackup && fs.existsSync(currentCreatorsBackup)) {
-    if (fs.existsSync(creatorsPath)) fs.rmSync(creatorsPath,{force:true});
-    fs.renameSync(currentCreatorsBackup,creatorsPath);
-  }
-  if (providerBackup && fs.existsSync(providerBackup)) fs.renameSync(providerBackup,providerPath);
-  if (sourceBackup && fs.existsSync(sourceBackup)) fs.renameSync(sourceBackup,sourcePath);
-  fs.rmSync(tempDir,{recursive:true,force:true});
+  if (fs.existsSync(creatorsBackup)) fs.copyFileSync(creatorsBackup, creatorsPath);
+  if (fs.existsSync(closureBackup)) fs.renameSync(closureBackup, closurePath);
+  if (fs.existsSync(sourceBackup)) fs.renameSync(sourceBackup, sourcePath);
+  fs.rmSync(tempDir, { recursive: true, force: true });
 }
 
 const vault = loadCreatorVault(root);
-assert.equal(vault.schemaVersion,1);
-assert.equal(vault.videos.length,54,'3 Kreksu + 45 AsianHalfSquat + 6 EnderVerse videos');
-assert.equal(vault.stats.recommendations,833,'814 prior mentions + 19 AsianHalfSquat history batch 27 mentions');
-assert.equal(vault.stats.uniqueProjects,600,'chunk 27 adds fifteen globally new canonical projects');
-assert.equal(vault.projects.reduce((sum,project)=>sum+project.mentionCount,0),833,'every source mention survives canonicalization');
-assert.equal(vault.stats.verifiedProjects,598);
-assert.equal(vault.stats.unresolvedProjects,2);
-assert.equal(vault.stats.multiProviderProjects,416);
-assert.equal(vault.stats.providerDestinations,1139);
-assert.equal(vault.stats.nativeRecommendationSources,23);
-assert.deepEqual(vault.projects.filter(project=>!project.providerLinks.length).map(project=>project.name).sort(),['Better Book Recipe','Plank and Junk']);
-assert.equal(vault.diagnostics.filter(item=>item.level==='error').length,0);
-
-const ahs = vault.creators.find(creator=>creator.id==='youtube:asianhalfsquat');
-assert(ahs);
-assert.equal(ahs.coverage.expectedVideos,350);
-assert.equal(ahs.coverage.indexedVideos,45);
-assert.equal(ahs.coverage.recommendationCount,574);
-assert.equal(ahs.coverage.verifiedProjectHomes,574);
-const ahsVideos = vault.videos.filter(video=>video.creatorId===ahs.id);
-const ahsMods = ahsVideos.flatMap(video=>video.mods);
-assert.equal(ahsVideos.length,45);
-assert.equal(ahsMods.length,574);
-const ahsLinked = ahsMods.filter(mod=>mod.providerLinks.length>0);
-assert.equal(ahsLinked.length,574);
-assert.equal(new Set(ahsMods.map(mod=>mod.canonicalProjectId)).size,378);
-assert.equal(new Set(ahsLinked.map(mod=>mod.canonicalProjectId)).size,378);
-
-const video = ahsVideos.find(item=>item.id==='youtube:4QMpIDcPaJI');
-assert(video,'chunk 27 September 6 source video must load');
-assert.equal(video.publishedAt,'2024-09-06');
-assert.equal(video.title,'The Best Minecraft Mods That Completely Enhance Combat');
-assert.equal(video.mods.length,19);
-const expected = new Map([
-  ['Old Combat Mod',{id:'old-combat-mod',seconds:113}],
-  ['Sword Parry',{id:'sword-parry',seconds:113}],
-  ['Better Combat',{id:'better-combat',seconds:113}],
-  ['Simply Swords',{id:'simply-swords',seconds:113}],
-  ['Immersive Combat',{id:'immersive-combat',seconds:113}],
-  ["Mo' Bends",{id:'mo-bends',seconds:113}],
-  ['Epic Fight',{id:'epic-fight',seconds:113}],
-  ['Guns Without Roses',{id:'guns-without-roses',seconds:267}],
-  ["MrCrayfish's Gun Mod",{id:'mrcrayfishs-gun-mod',seconds:267}],
-  ['ModularWarfare - Guns and More',{id:'modularwarfare',seconds:267}],
-  ['ModularMovements',{id:'modularmovements',seconds:267}],
-  ['Timeless and Classics Zero',{id:'timeless-and-classics-zero',seconds:267}],
-  ['Body Camera Shader',{id:'body-camera-shader',seconds:267}],
-  ['Blockfront',{id:'blockfront',seconds:267}],
-  ["Electroblob's Wizardry",{id:'electroblobs-wizardry',seconds:458}],
-  ['Wizards (RPG Series)',{id:'wizards',seconds:458}],
-  ['Arcanus Continuum',{id:'arcanus',seconds:458}],
-  ["Iron's Spells 'n Spellbooks",{id:'irons-spells-n-spellbooks',seconds:458}],
-  ['Mahau Tsukai',{id:'mahou-tsukai',seconds:458}]
-]);
-for (const mod of video.mods) {
-  const row = expected.get(mod.name);
-  assert(row,`unexpected chunk-27 source label: ${mod.name}`);
-  assert.equal(mod.canonicalProjectId,row.id,`canonical identity: ${mod.name}`);
-  assert.equal(mod.timestampSeconds,row.seconds,`creator section timestamp: ${mod.name}`);
-  assert.equal(mod.videoLink,`${video.url}&t=${row.seconds}s`,`exact creator section deep link: ${mod.name}`);
-  assert(mod.providerLinks.length>0,`direct provider home required: ${mod.name}`);
-}
-assert.equal(new Set(video.mods.map(mod=>mod.canonicalProjectId)).size,19);
-
-const project = id => {
-  const hit = vault.projects.find(item=>item.id===id);
-  assert(hit,`canonical project missing: ${id}`);
-  return hit;
+const expectedStats = {
+  creators: 14,
+  indexedCreators: 3,
+  videos: 57,
+  recommendations: 934,
+  uniqueProjects: 650,
+  verifiedProjects: 648,
+  unresolvedProjects: 2,
+  multiProviderProjects: 428,
+  providerDestinations: 1203,
+  verifiedHomes: 648,
+  importedCatalogs: 1,
+  nativeRecommendationSources: 24,
+  setupPacks: 5
 };
-const links = id => project(id).providerLinks;
-const hasUrl = (id,url) => links(id).some(link=>link.url===url);
-const providers = id => [...new Set(links(id).map(link=>link.provider))].sort();
-assert.deepEqual(providers('old-combat-mod'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('sword-parry'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('immersive-combat'),['CurseForge','GitHub']);
-assert.deepEqual(providers('mo-bends'),['CurseForge','GitHub']);
-assert.deepEqual(providers('guns-without-roses'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('timeless-and-classics-zero'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('blockfront'),['CurseForge','Modrinth','Official']);
-assert.deepEqual(providers('wizards'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('arcanus'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('irons-spells-n-spellbooks'),['CurseForge','GitHub','Modrinth']);
-assert.deepEqual(providers('mahou-tsukai'),['CurseForge','Modrinth']);
-assert.deepEqual(providers('simply-swords'),['CurseForge','GitHub','Modrinth']);
-assert(hasUrl('sword-parry','https://github.com/Xires87/SwordParry'));
-assert(hasUrl('immersive-combat','https://github.com/bglandolt/bettercombat'));
-assert(hasUrl('timeless-and-classics-zero','https://github.com/MCModderAnchor/TACZ'));
-assert(hasUrl('blockfront','https://www.blockfrontmc.com/'));
-assert(hasUrl('arcanus','https://github.com/CammiesCorner/Arcanus'));
-assert(hasUrl('simply-swords','https://github.com/Sweenus/SimplySwords'));
-assert(project('sword-parry').aliases.includes('Sword Parry'));
-assert(project('arcanus').aliases.includes('Arcanus Continuum'));
-assert(project('mahou-tsukai').aliases.includes('Mahau Tsukai'));
-assert(!vault.projects.some(item=>item.id==='mahau-tsukai'),'creator typo must not create duplicate Mahau Tsukai card');
-assert(!vault.projects.some(item=>item.id==='arcanus-continuum'),'historical Arcanus Continuum label must not create duplicate card');
-
-const raw = JSON.parse(fs.readFileSync(sourcePath,'utf8'));
-assert.equal(raw.videos.length,1);
-const rawVideo = raw.videos[0];
-assert.equal(rawVideo.id,'youtube:4QMpIDcPaJI');
-assert.equal(rawVideo.mods.length,19);
-assert.deepEqual(rawVideo.excludedEvidence.map(item=>[item.sourceLabel,item.status]),[
-  ['War Thunder','sponsor-excluded'],
-  ['Ovani Sound - Rockslides / Industrial Chugga / To The Wall','non-project']
-]);
-for (const mod of rawVideo.mods) {
-  const row = expected.get(mod.name);
-  assert(row);
-  assert.equal(mod.timestampSeconds,row.seconds);
-  assert(['Melee Mods','Ranged Weapons','Magic'].includes(mod.sectionLabel));
+for (const [field, value] of Object.entries(expectedStats)) {
+  assert.equal(vault.stats[field], value, `Chunk 28 runtime stat drift: ${field}`);
 }
 
-const research = JSON.parse(fs.readFileSync(researchPath,'utf8'));
-assert.equal(research.videos.length,1);
-assert.equal(research.sourceMentions,19);
-const resolved = (research.resolvedChronology||[]).find(item=>item.publishedAt==='2024-09-06');
-assert(resolved,'September 6 chronology resolution must be permanent');
-assert.equal(resolved.resolvedVideoId,'4QMpIDcPaJI');
-assert.equal(resolved.resolvedTitle,'The Best Minecraft Mods That Completely Enhance Combat');
-assert.equal(research.videos[0].sourceIdentityEvidence.analyticsViews,243130);
-assert.equal(research.videos[0].sourceIdentityEvidence.analyticsLikes,10811);
-assert.equal(research.videos[0].sourceIdentityEvidence.analyticsComments,391);
+const unresolved = vault.projects.filter(project => !project.providerLinks.length).map(project => project.name).sort();
+assert.deepEqual(unresolved, ['Better Book Recipe', 'Plank and Junk'], 'Chunk 28 unresolved set drift');
 
-const providerRaw = JSON.parse(fs.readFileSync(providerPath,'utf8'));
-assert.equal(providerRaw.entries.length,16);
-assert.equal(providerRaw.entries.reduce((sum,entry)=>sum+entry[4].length,0),40);
-assert.deepEqual(providerRaw.entries.filter(entry=>entry[4].length===0),[]);
-const candidates = JSON.parse(fs.readFileSync(candidatesPath,'utf8'));
-assert.equal(candidates.entries.length,16);
-assert.equal(candidates.entries.reduce((sum,entry)=>sum+entry[4].length,0),40);
-assert.deepEqual(candidates.entries.filter(entry=>entry[4].length===0),[]);
+const ahsCreator = currentCreators.creators.find(creator => creator.id === 'youtube:asianhalfsquat');
+assert(ahsCreator, 'AsianHalfSquat creator ledger missing');
+assert.equal(ahsCreator.coverage.indexedVideos, 48, 'AHS creator ledger indexedVideos drift');
+assert.equal(ahsCreator.coverage.recommendationCount, 675, 'AHS creator ledger recommendationCount drift');
+assert.equal(ahsCreator.coverage.verifiedProjectHomes, 675, 'AHS creator ledger verifiedProjectHomes drift');
 
-// Permanent collision proof is intentionally scoped to the 40 incoming Chunk 27 URLs.
-// Historical registry aliases can legitimately share a URL and are outside this chunk's mutation scope.
-const ownersByUrl = new Map();
-for (const item of vault.projects) {
-  for (const link of item.providerLinks) {
-    const key = link.url.replace(/\/$/,'').toLowerCase();
-    if (!ownersByUrl.has(key)) ownersByUrl.set(key,new Set());
-    ownersByUrl.get(key).add(item.id);
+const expectedVideos = [
+  ['youtube:IL804sqMbbE', 'Turning Minecraft Into Elden Ring With Mods 2.0', '2024-08-03', 43, [117, 320, 454, 528, 788]],
+  ['youtube:o499NnspGIM', 'Minecraft Mod Combinations That Work Perfectly Together #7', '2024-07-09', 26, [32, 85, 130, 176, 244, 297, 334, 376, 418, 490]],
+  ['youtube:94j9prLG-Sc', 'I Made Minecraft As Immersive As Possible Using Mods', '2024-06-15', 32, [null, 39, 267, 360, 462, 523]]
+];
+const chunkVideos = [];
+for (const [id, title, publishedAt, count, legalTimes] of expectedVideos) {
+  const video = vault.videos.find(item => item.id === id);
+  assert(video, `Chunk 28 video missing: ${id}`);
+  assert.equal(video.title, title, `${id} title drift`);
+  assert.equal(video.publishedAt, publishedAt, `${id} publishedAt drift`);
+  assert.equal(video.mods.length, count, `${id} mention count drift`);
+  assert(video.mods.every(mod => mod.providerLinks.length > 0), `${id} contains providerless recommendation`);
+  const allowed = new Set(legalTimes);
+  assert(video.mods.every(mod => allowed.has(mod.timestampSeconds)), `${id} contains invented/non-creator timestamp`);
+  chunkVideos.push(video);
+}
+
+const chunkMods = chunkVideos.flatMap(video => video.mods);
+assert.equal(chunkMods.length, 101, 'Chunk 28 total mention count drift');
+assert.equal(new Set(chunkMods.map(mod => mod.canonicalProjectId)).size, 93, 'Chunk 28 canonical-project count drift');
+assert.equal(chunkMods.filter(mod => mod.providerLinks.length > 0).length, 101, 'Chunk 28 linked mention count drift');
+const nullTimestampNames = chunkMods.filter(mod => mod.timestampSeconds == null).map(mod => mod.name).sort();
+assert.deepEqual(nullTimestampNames, ['Iris', 'Sodium'], 'only Sodium and Iris may remain untimestamped');
+
+const bySourceName = new Map();
+for (const mod of chunkMods) {
+  if (!bySourceName.has(mod.name)) bySourceName.set(mod.name, []);
+  bySourceName.get(mod.name).push(mod);
+}
+for (const [sourceName, canonicalId] of [
+  ['Fabric Sky Boxes', 'nuit'],
+  ['FabricSkyBoxes', 'nuit'],
+  ['Fabric SkyBoxes Interop', 'nuit-interop'],
+  ['FabricSkyBoxes Interop', 'nuit-interop'],
+  ['Farmers Delight', 'farmers-delight'],
+  ['Terralith', 'terralith'],
+  ['Extended Lantern', 'extended-illumina'],
+  ['Entity Texture Features', 'entity-texture-features'],
+  ['Conquest', 'conquest'],
+  ['FastMove', 'fastmove'],
+  ['Profundis', 'profundis'],
+  ['Spice of Life Valheim Edition', 'spice-of-life-valheim-edition']
+]) {
+  const matches = bySourceName.get(sourceName) || [];
+  assert(matches.length > 0, `required source label missing: ${sourceName}`);
+  assert(matches.every(mod => mod.canonicalProjectId === canonicalId), `canonical identity drift for ${sourceName}`);
+}
+
+for (const forbiddenId of ['fabric-sky-boxes', 'fabricskyboxes', 'fabric-skyboxes-interop', 'fabricskyboxes-interop']) {
+  assert(!vault.projects.some(project => project.id === forbiddenId), `historical FabricSkyBoxes alias leaked duplicate card: ${forbiddenId}`);
+}
+
+const providerMap = closure.providers || {};
+assert.equal((closure.entries || []).length, 52, 'Chunk 28 provider closure card count drift');
+assert.equal((candidates.entries || []).length, 52, 'Chunk 28 provider candidate card count drift');
+assert.equal(candidates.expected.newCandidateFamilies, 50, 'Chunk 28 declared new-family count drift');
+const destinationCount = (closure.entries || []).reduce((sum, entry) => sum + ((entry[4] || []).length), 0);
+assert.equal(destinationCount, 66, 'Chunk 28 provider destination count drift');
+
+const baselineIds = new Set(baselineVault.projects.map(project => project.id));
+const closureIds = (closure.entries || []).map(entry => entry[0]);
+const existingClosureIds = closureIds.filter(id => baselineIds.has(id)).sort();
+assert.deepEqual(existingClosureIds, ['farmers-delight', 'terralith'], 'Chunk 28 existing-card enrichment set drift');
+assert.equal(closureIds.filter(id => !baselineIds.has(id)).length, 50, 'Chunk 28 new canonical identity count drift');
+
+const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
+for (const entry of closure.entries || []) {
+  const [id, , , , links] = entry;
+  const project = vault.projects.find(item => item.id === id);
+  assert(project, `Chunk 28 closure project missing from runtime: ${id}`);
+  assert((links || []).length > 0, `Chunk 28 providerless closure entry: ${id}`);
+  for (const link of links || []) {
+    const provider = providerMap[link[0]] || link[0];
+    const url = link[1];
+    assert(project.providerLinks.some(item => item.provider === provider && normalizeUrl(item.url) === normalizeUrl(url)), `missing exact provider destination for ${id}: ${url}`);
+    const owners = vault.projects.filter(item => (item.providerLinks || []).some(itemLink => normalizeUrl(itemLink.url) === normalizeUrl(url))).map(item => item.id);
+    assert.deepEqual(owners, [id], `incoming Chunk 28 URL collision: ${url}`);
   }
 }
-for (const [id,,, ,candidateLinks] of providerRaw.entries) {
-  for (const [,url] of candidateLinks) {
-    const key = url.replace(/\/$/,'').toLowerCase();
-    const owners = [...(ownersByUrl.get(key) || new Set())].sort();
-    assert.deepEqual(owners,[id],`chunk 27 provider URL owner mismatch: ${url}`);
-  }
+
+assert.equal(source.videos.length, 3, 'Chunk 28 source must remain exactly three videos');
+assert.equal(source.videos.reduce((sum, video) => sum + video.mods.length, 0), 101, 'Chunk 28 source recommendation count drift');
+const august = source.videos.find(video => video.id === 'youtube:IL804sqMbbE');
+for (const removed of ['Campfire Spawn and Tweaks', 'Estus', 'Immersive FX', 'Optifine', 'Vanilla Vistas', 'Music Triggers', 'Mutant More']) {
+  assert(!august.mods.some(mod => mod.name === removed), `removed prior-video project leaked into August recommendations: ${removed}`);
 }
+const june = source.videos.find(video => video.id === 'youtube:94j9prLG-Sc');
+assert(!june.mods.some(mod => mod.name === "YUNG's Better Mods"), 'generic June YUNG creator profile must remain related evidence only');
 
-const rendered = renderCatalog({id:'creator-vault-qa-ahs27',name:'Creator Vault QA AsianHalfSquat 27',items:[],assets:{},documents:[],sources:[]},root);
-for (const needle of [
-  'youtube:4QMpIDcPaJI','Old Combat Mod','Sword Parry','Better Combat','Simply Swords','Immersive Combat',"Mo' Bends",'Epic Fight','Guns Without Roses',"MrCrayfish's Gun Mod",'ModularWarfare - Guns and More','ModularMovements','Timeless and Classics Zero','Body Camera Shader','Blockfront',"Electroblob's Wizardry",'Wizards (RPG Series)','Arcanus Continuum',"Iron's Spells 'n Spellbooks",'Mahau Tsukai','Mahou Tsukai','https://github.com/MCModderAnchor/TACZ','https://github.com/CammiesCorner/Arcanus','Find in Enderloom'
-]) assert(rendered.html.includes(needle),`rendered AsianHalfSquat chunk 27 output missing ${needle}`);
+const ahsVideos = vault.videos.filter(video => video.creatorId === 'youtube:asianhalfsquat');
+const ahsMods = ahsVideos.flatMap(video => video.mods);
+const ahsLinked = ahsMods.filter(mod => mod.providerLinks.length > 0);
+assert.equal(ahsVideos.length, 48, 'AHS video count drift');
+assert.equal(ahsMods.length, 675, 'AHS mention count drift');
+assert.equal(ahsLinked.length, 675, 'AHS linked mention count drift');
+assert.equal(new Set(ahsMods.map(mod => mod.canonicalProjectId)).size, 437, 'AHS canonical-project count drift');
+assert.equal(new Set(ahsLinked.map(mod => mod.canonicalProjectId)).size, 437, 'AHS linked canonical-project count drift');
 
-console.log(`Creator Vault AsianHalfSquat chunk 27 QA passed: ${vault.stats.recommendations} mentions -> ${vault.stats.uniqueProjects} canonical projects; ${vault.stats.verifiedProjects} linked / ${vault.stats.providerDestinations} destinations / ${vault.stats.multiProviderProjects} multi-provider / ${vault.stats.unresolvedProjects} unresolved. AHS linked mentions=${ahsLinked.length}/${ahsMods.length} across ${new Set(ahsMods.map(mod=>mod.canonicalProjectId)).size} canonical projects; Sep-6 identity recovery, all 19 section timestamps/deep links, 15-new/4-reuse canonicalization, 16-card/40-destination provider closure, alias/anti-false-merge rules, exclusions, and recursive chunk-26 baseline are locked.`);
+console.log('Creator Vault AsianHalfSquat chunk 28 QA passed: 934 mentions -> 650 canonical projects; 648 linked / 1203 destinations / 428 multi-provider / 2 unresolved. AHS linked mentions=675/675 across 437 canonical projects; three-video batch=101 mentions / 93 canonical projects / 50 new global identities, with exact null timestamps for Sodium + Iris and recursive chunk-27 baseline locked.');
