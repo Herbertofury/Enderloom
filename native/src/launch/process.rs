@@ -262,11 +262,17 @@ pub(crate) fn spawn_process_with_events(
         tracing::error!(program, error = %e, "could not spawn game process");
     })?;
     let pid = child.id().unwrap_or(0);
-    let process_started_at =
-        spawned_process_start(pid, &Identity::marker(running_id)).ok_or_else(|| {
+    let process_started_at = match spawned_process_start(pid, &Identity::marker(running_id)) {
+        Some(started) => started,
+        // A JVM can reject its arguments and exit before OS enumeration sees
+        // its marker. The child handle still gives us its genuine exit status.
+        // Zero is never accepted when recovering a live PID from the database.
+        None if child.try_wait()?.is_some() => 0,
+        None => {
             let _ = child.start_kill();
-            Error::other("could not verify the launched game process")
-        })?;
+            return Err(Error::other("could not verify the launched game process"));
+        }
+    };
     if let Err(error) = db.save_active_run(&ActiveRun {
         running_id: running_id.to_string(),
         instance_id: instance_id.to_string(),

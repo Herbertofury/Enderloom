@@ -1,9 +1,12 @@
 mod auth;
 mod build_info;
+mod capabilities;
 mod cli;
+pub mod cli_headless;
 mod commands;
 mod config;
 mod content;
+mod control_ipc;
 mod credentials;
 mod datapacks;
 mod db;

@@ -19,6 +19,9 @@ use crate::{
 };
 
 pub struct AppState {
+    pub service_lease: Mutex<Option<std::fs::File>>,
+    pub control_listener: Mutex<Option<crate::control_ipc::Listener>>,
+    pub control_events: tokio::sync::broadcast::Sender<serde_json::Value>,
     pub network: Arc<NetworkManager>,
     pub files: FileManager,
     pub paths: Paths,
@@ -50,6 +53,9 @@ impl AppState {
             }
         }
         Self {
+            service_lease: Mutex::new(None),
+            control_listener: Mutex::new(None),
+            control_events: tokio::sync::broadcast::channel(1024).0,
             network: Arc::new(network),
             files,
             paths,

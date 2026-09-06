@@ -3,6 +3,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { serviceCommands: extractServiceCommands } = require('./lib/command-surface');
 
 const root = path.resolve(__dirname, '..');
 const apiPath = path.join(root, 'launcher', 'src', 'lib', 'api.ts');
@@ -17,12 +18,7 @@ const mainSource = fs.readFileSync(mainPath, 'utf8');
 
 const apiCommands = [...apiSource.matchAll(/call(?:<[^;()]*?>)?\(\s*["']([a-z][a-z0-9_]*)["']/g)]
   .map((match) => match[1]);
-const dispatchSource = serviceSource.slice(
-  serviceSource.indexOf('match command {'),
-  serviceSource.indexOf('fn data_dir_from_args'),
-);
-const serviceCommands = [...dispatchSource.matchAll(/"([a-z][a-z0-9_]*)"\s*(?:\||=>)/g)]
-  .map((match) => match[1]);
+const serviceCommands = extractServiceCommands(serviceSource);
 const electronCommands = [...mainSource.matchAll(/command\s*===\s*["']([a-z][a-z0-9_]*)["']/g)]
   .map((match) => match[1]);
 

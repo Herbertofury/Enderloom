@@ -187,6 +187,21 @@ fn url_credentials(line: &str) -> String {
     out
 }
 
+/// Machine output must preserve stable resource IDs and usable local paths.
+/// Remove credentials without applying the optional share-bundle privacy mask.
+pub fn redact_credentials(text: &str, secrets: &[String]) -> String {
+    let mut carried = text.to_string();
+    for secret in secrets {
+        if secret.trim().len() >= 6 {
+            carried = carried.replace(secret.trim(), PLACEHOLDER);
+        }
+    }
+    carried
+        .split_inclusive('\n')
+        .map(|line| key_values(&bearer_tokens(&flag_values(&url_credentials(line)))))
+        .collect()
+}
+
 pub fn redact(text: &str, secrets: &[String]) -> String {
     let mut carried = text.to_string();
     for secret in secrets {

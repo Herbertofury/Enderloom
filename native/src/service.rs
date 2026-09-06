@@ -181,8 +181,9 @@ fn detected_launchers(state: &AppState) -> Result<Value> {
     value(crate::migrate::detect(&state.files))
 }
 
-async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
+pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
     match command {
+        "get_capabilities" => value(crate::capabilities::all()),
         "scan_instance_workbench" => {
             let state = state.clone();
             let id = required_string(args, "instanceId")?;
@@ -2353,14 +2354,21 @@ fn write_message(output: &mut impl Write, message: &Value) -> Result<()> {
     Ok(())
 }
 
-pub async fn run() -> Result<()> {
-    let root = data_dir_from_args()?;
+pub(crate) fn bootstrap(root: PathBuf) -> Result<Arc<AppState>> {
     std::fs::create_dir_all(&root)?;
+    let lease = std::fs::OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .truncate(false)
+        .open(root.join(".enderloom-service.lock"))?;
+    lease.try_lock().map_err(|_| Error::other("Another Enderloom service owns this data root. Connect to its local command endpoint; do not open a second task registry."))?;
     let paths = Paths::relocated(root, BTreeMap::new());
     let files = FileManager::new(paths)?;
     files.ensure_base_dirs()?;
     let db = Db::open(&files)?;
     let state = Arc::new(AppState::new(files, db));
+    *state.service_lease.lock().unwrap() = Some(lease);
     state.adopt_external_dirs()?;
     match crate::commands::instances::recover_committed_instance_deletions(&state) {
         Ok(count) if count > 0 => tracing::info!(count, "cleaned committed instance deletions"),
@@ -2373,6 +2381,36 @@ pub async fn run() -> Result<()> {
         _ => {}
     }
 
+    Ok(state)
+}
+
+pub(crate) fn attach_runtime_events(state: &Arc<AppState>, sink: crate::tasks::EventSink) {
+    let broadcast = state.control_events.clone();
+    let sink: crate::tasks::EventSink = Arc::new(move |event, payload| {
+        let _ = broadcast.send(json!({"protocol":1,"event":event,"payload":payload}));
+        sink(event, payload);
+    });
+    state.tasks.set_event_sink(sink.clone());
+    if let Err(error) = crate::launch::process::recover_processes_ipc(
+        sink.clone(),
+        &state.running,
+        &state.files,
+        &state.db,
+        &state.presence,
+    ) {
+        tracing::warn!(%error, "could not recover running game processes");
+    }
+    if let Err(error) = crate::servers::runtime::recover_ipc(sink, state) {
+        tracing::warn!(%error, "could not recover running servers");
+    }
+    match crate::control_ipc::listen(state) {
+        Ok(listener) => *state.control_listener.lock().unwrap() = Some(listener),
+        Err(error) => tracing::warn!(%error,"local CLI endpoint could not start"),
+    }
+}
+
+pub async fn run() -> Result<()> {
+    let state = bootstrap(data_dir_from_args()?)?;
     let (output_tx, output_rx) = std::sync::mpsc::channel::<Value>();
     std::thread::Builder::new()
         .name("enderloom-ipc-writer".to_string())
@@ -2412,27 +2450,16 @@ pub async fn run() -> Result<()> {
         "Enderloom launcher service starting"
     );
     let event_tx = output_tx.clone();
-    state.tasks.set_event_sink(Arc::new(move |event, payload| {
-        let _ = event_tx.send(json!({
-            "protocol": PROTOCOL_VERSION,
-            "event": event,
-            "payload": payload
-        }));
-    }));
-    if let Some(event_sink) = state.tasks.event_sink() {
-        if let Err(error) = crate::launch::process::recover_processes_ipc(
-            event_sink.clone(),
-            &state.running,
-            &state.files,
-            &state.db,
-            &state.presence,
-        ) {
-            tracing::warn!(%error, "could not recover running game processes for Electron IPC");
-        }
-        if let Err(error) = crate::servers::runtime::recover_ipc(event_sink, &state) {
-            tracing::warn!(%error, "could not recover running servers for Electron IPC");
-        }
-    }
+    attach_runtime_events(
+        &state,
+        Arc::new(move |event, payload| {
+            let _ = event_tx.send(json!({
+                "protocol": PROTOCOL_VERSION,
+                "event": event,
+                "payload": payload
+            }));
+        }),
+    );
 
     let stdin = io::stdin();
     let mut input = stdin.lock();

@@ -138,6 +138,13 @@ fn write_atomic(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
 
 pub fn apply(root: &Path, deep: bool) -> Result<ResetReport> {
     let root = validate_root(root)?;
+    let owner = std::fs::OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .truncate(false)
+        .open(root.join(".enderloom-service.lock"))?;
+    owner.try_lock().map_err(|_| Error::other("Enderloom still owns this data root. Close its active service before applying a reset."))?;
     let recovery_root = root.join(RECOVERY_DIR);
     std::fs::create_dir_all(&recovery_root)?;
     let recovery = recovery_root.join(format!(

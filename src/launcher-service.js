@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const net = require('net');
 const { EventEmitter } = require('events');
 const { spawn } = require('child_process');
 const { randomUUID } = require('crypto');
@@ -19,6 +20,7 @@ class LauncherService extends EventEmitter {
     this.resourcesDir = resourcesDir;
     this.env = { ...env };
     this.child = null;
+    this.socket = null;
     this.pending = new Map();
     this.ready = null;
     this.readyResolve = null;
@@ -43,7 +45,7 @@ class LauncherService extends EventEmitter {
   }
 
   async start() {
-    if (this.child && this.status.state === 'ready') return this.snapshot();
+    if ((this.child || this.socket) && this.status.state === 'ready') return this.snapshot();
     if (this.ready) return this.ready;
     const executable = this.executable();
     if (!executable) {
@@ -56,6 +58,14 @@ class LauncherService extends EventEmitter {
       this.readyResolve = resolve;
       this.readyReject = reject;
     });
+    const ready = this.ready;
+    // A disconnect can reject the handshake before connectExisting returns.
+    ready.catch(() => {});
+    if (await this.connectExisting()) {
+      const handshake = setTimeout(() => this.onExit(new Error('Shared Enderloom service handshake timed out')), 5000);
+      handshake.unref?.();
+      try { return await ready; } finally { clearTimeout(handshake); }
+    }
     const child = spawn(executable, ['--data-dir', this.dataDir], {
       cwd: this.rootDir,
       env: { ...process.env, ...this.env },
@@ -79,10 +89,36 @@ class LauncherService extends EventEmitter {
     }, 15000);
     timeout.unref?.();
     try {
-      return await this.ready;
+      return await ready;
     } finally {
       clearTimeout(timeout);
     }
+  }
+
+  async connectExisting() {
+    let endpoint;
+    try { endpoint = JSON.parse(fs.readFileSync(path.join(this.dataDir, '.enderloom-control.json'), 'utf8')); }
+    catch { return false; }
+    if (endpoint?.protocol !== PROTOCOL_VERSION || !Number.isInteger(endpoint.port) || endpoint.port < 1 || endpoint.port > 65535 || typeof endpoint.token !== 'string') return false;
+    return await new Promise((resolve) => {
+      const socket = net.createConnection({host:'127.0.0.1',port:endpoint.port});
+      const timer = setTimeout(() => {socket.destroy();resolve(false);},2000);
+      let connected = false;
+      socket.once('connect', () => {
+        clearTimeout(timer);connected=true;this.socket=socket;
+        this.status.pid = endpoint.pid;
+        readline.createInterface({input:socket,crlfDelay:Infinity})
+          .on('line',line=>this.onLine(line))
+          .on('error',error=>{if(this.socket===socket)this.onExit(error);});
+        socket.write(JSON.stringify({protocol:PROTOCOL_VERSION,token:endpoint.token})+'\n');
+        resolve(true);
+      });
+      socket.on('error',error=>{
+        clearTimeout(timer);
+        if(connected){if(this.socket===socket)this.onExit(error);}else resolve(false);
+      });
+      socket.once('close',()=>{if(connected && this.socket===socket)this.onExit(new Error('Shared Enderloom service disconnected'));});
+    });
   }
 
   onLine(line) {
@@ -99,6 +135,10 @@ class LauncherService extends EventEmitter {
     }
     if (message.event) {
       if (message.event === 'service:ready') {
+        if (this.socket && Number(message.payload?.pid) !== this.status.pid) {
+          this.onExit(new Error('Shared Enderloom service owner mismatch'));
+          return;
+        }
         this.status = {
           state: 'ready',
           version: String(message.payload?.version || ''),
@@ -123,7 +163,7 @@ class LauncherService extends EventEmitter {
   }
 
   onExit(error) {
-    if (!this.child && this.status.state === 'stopped') return;
+    if (!this.child && !this.socket && this.status.state === 'stopped') return;
     const reason = error instanceof Error ? error : new Error(String(error));
     this.status = {
       ...this.status,
@@ -136,6 +176,9 @@ class LauncherService extends EventEmitter {
     this.readyReject = null;
     this.ready = null;
     this.child = null;
+    const socket = this.socket;
+    this.socket = null;
+    socket?.destroy();
     for (const record of this.pending.values()) {
       clearTimeout(record.timer);
       record.reject(reason);
@@ -146,7 +189,8 @@ class LauncherService extends EventEmitter {
 
   async request(command, args = {}, { timeoutMs = DEFAULT_TIMEOUT_MS } = {}) {
     await this.start();
-    if (!this.child?.stdin?.writable) throw new Error('Enderloom Rust service is unavailable');
+    const input = this.socket || this.child?.stdin;
+    if (!input?.writable) throw new Error('Enderloom Rust service is unavailable');
     if (this.pending.size >= MAX_PENDING) throw new Error('Enderloom Rust service is busy');
     const id = randomUUID();
     const message = JSON.stringify({
@@ -165,7 +209,7 @@ class LauncherService extends EventEmitter {
       }, Math.max(1000, Number(timeoutMs) || DEFAULT_TIMEOUT_MS));
       timer.unref?.();
       this.pending.set(id, { resolve, reject, timer, command: String(command) });
-      this.child.stdin.write(message + '\n', (error) => {
+      input.write(message + '\n', (error) => {
         if (!error) return;
         const record = this.pending.get(id);
         if (!record) return;
@@ -178,6 +222,11 @@ class LauncherService extends EventEmitter {
 
   async close() {
     this.stopping = true;
+    if (this.socket) {
+      this.socket.end();
+      this.onExit(new Error('Shared service connection closed'));
+      return;
+    }
     const child = this.child;
     if (!child) {
       this.status = { state: 'stopped', version: '', pid: null, error: '' };

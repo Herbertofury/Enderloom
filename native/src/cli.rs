@@ -116,15 +116,22 @@ pub fn start_launch(app: AppHandle, selector: String, origin: Origin) {
 
 pub fn print_instances(state: &AppState) -> Result<()> {
     let instances = state.db.list_instances(&state.files)?;
-    let candidates = candidates(&instances);
-    for instance in &instances {
-        println!(
-            "{}\t{}",
-            unique_prefix(&candidates, &instance.id),
-            instance.name
-        );
-    }
+    print!("{}", instance_list_text(&instances));
     Ok(())
+}
+
+pub(crate) fn instance_list_text(instances: &[Instance]) -> String {
+    let candidates = candidates(&instances);
+    instances
+        .iter()
+        .map(|instance| {
+            format!(
+                "{}\t{}\n",
+                unique_prefix(&candidates, &instance.id),
+                instance.name
+            )
+        })
+        .collect()
 }
 
 pub fn launch_command(state: &AppState, instance_id: &str) -> Result<String> {
@@ -251,8 +258,12 @@ fn ready_instance(state: &AppState, selector: &str) -> Result<Instance> {
     Ok(instance)
 }
 
-fn resolve_instance(state: &AppState, selector: &str) -> Result<Instance> {
+pub(crate) fn resolve_instance(state: &AppState, selector: &str) -> Result<Instance> {
     let instances = state.db.list_instances(&state.files)?;
+    resolve_instance_from(instances, selector)
+}
+
+pub(crate) fn resolve_instance_from(instances: Vec<Instance>, selector: &str) -> Result<Instance> {
     let id = resolve_selector(&candidates(&instances), selector)?;
     instances
         .into_iter()

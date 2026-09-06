@@ -29,7 +29,7 @@ tauri-plugin-dialog = "2.7.1"
 tauri-plugin-single-window = "1.2.0"
 tauri-plugin-updater = "2"
 
-tokio = { version = "1", features = ["rt-multi-thread", "macros", "process", "fs", "io-util", "sync", "time"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "process", "fs", "io-util", "io-std", "sync", "time", "net", "signal"] }
 tokio-util = { version = "0.7.19", features = ["rt"] }
 reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "form", "query", "stream", "multipart", "socks"] }
 rustls = { version = "0.23", default-features = false, features = ["ring"] }

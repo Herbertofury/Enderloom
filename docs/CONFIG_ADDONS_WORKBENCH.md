@@ -2,6 +2,8 @@
 
 Open an instance and use **Config** or **Addons**, next to Mods, Resource Packs and Shaders. The Mods toolbar also links directly to **Mod lineage**.
 
+The 2026-09-06 continuation adds full CLI, Favorites and Performance Lab requirements. Their active ordered ledger is [CONTINUATION_CHECKLIST.md](CONTINUATION_CHECKLIST.md); completing this original feature checklist does not complete the expanded goal.
+
 ## Implementation and verification checklist
 
 Execute in order; mark each item only after its behavior has been demonstrated in the real Electron launcher and its native service. Keep the existing implementation and continue from the next unchecked item.
