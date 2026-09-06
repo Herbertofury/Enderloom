@@ -1513,19 +1513,29 @@ function chromiumProgressiveTextShared(rawUrl, options={}) {
 async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foreground=false } = {}) {
   const view=await acquireMediaView({foreground}),wc=view.webContents;
   const started=Date.now(),limit=Math.max(700,Number(timeoutMs)||3300);
-  let timer=null,onReady=null,onFail=null;
+  let timer=null,onReady=null,onFail=null,navigation=null;
   try {
     const ready=new Promise((resolve,reject)=>{
       onReady=()=>resolve(true);
-      onFail=(_event,code,description,_validatedURL,isMainFrame)=>{if(isMainFrame!==false)reject(new Error(`Live DOM hedge failed ${code}: ${description||'navigation error'}`))};
+      onFail=(_event,code,description,_validatedURL,isMainFrame)=>{
+        // Chromium reports ERR_ABORTED (-3) when a navigation is intentionally
+        // cancelled or replaced. That is not a provider failure; dom-ready or
+        // the bounded hedge timeout remains the authoritative readiness gate.
+        if(isMainFrame===false||Number(code)===-3)return;
+        reject(new Error(`Live DOM hedge failed ${code}: ${description||'navigation error'}`));
+      };
       wc.once('dom-ready',onReady);wc.on('did-fail-load',onFail);
       timer=setTimeout(()=>reject(new Error('Live DOM hedge timed out')),limit);
     });
-    // Do not await loadURL: dom-ready is deliberately the gate. Waiting for load would
-    // serialize first imagery behind remote fonts, analytics, ads and image subresources.
-    wc.loadURL(url).catch(()=>{});
+    // Keep the native load promise so Electron can remove its internal
+    // did-stop-loading/did-fail-load listeners before this pooled WebContents
+    // is handed to the next hedge. We still gate extraction at dom-ready, so
+    // remote fonts, analytics, ads and image subresources never serialize paint.
+    navigation=wc.loadURL(url).then(()=>null,()=>null);
     await ready;
     if(timer){clearTimeout(timer);timer=null;}
+    if(onReady){wc.removeListener('dom-ready',onReady);onReady=null;}
+    if(onFail){wc.removeListener('did-fail-load',onFail);onFail=null;}
     const remaining=Math.max(250,limit-(Date.now()-started));
     const guardedScript=`(async()=>{try{return {ok:true,value:await (${script})}}catch(error){return {ok:false,error:String(error?.stack||error)}}})()`;
     try{new vm.Script(guardedScript,{filename:'enderloom-live-dom-extraction.js'})}catch(error){throw new Error(`Live DOM extraction script is invalid: ${error.stack||error}`)}
@@ -1534,11 +1544,18 @@ async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foregrou
       new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Live DOM extraction timed out')),remaining)}),
     ]);
     if(!guarded?.ok)throw new Error(`Live DOM extraction failed: ${guarded?.error||'unknown renderer error'}`);
-    const result=guarded.value;
-    try{wc.stop()}catch{}
-    return result;
+    return guarded.value;
   } finally {
-    if(timer)clearTimeout(timer);if(onReady)wc.removeListener('dom-ready',onReady);if(onFail)wc.removeListener('did-fail-load',onFail);
+    if(timer)clearTimeout(timer);
+    if(onReady)wc.removeListener('dom-ready',onReady);
+    if(onFail)wc.removeListener('did-fail-load',onFail);
+    if(!wc.isDestroyed()){
+      try{wc.stop()}catch{}
+      // stop() settles loadURL quickly with ERR_ABORTED. Draining that promise
+      // is what prevents Electron's internal navigation listeners leaking into
+      // the next pooled request and misclassifying its navigation as failed.
+      if(navigation){try{await navigation}catch{}}
+    }
     releaseMediaView(view);
   }
 }
