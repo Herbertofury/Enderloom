@@ -32,6 +32,7 @@ class LauncherService extends EventEmitter {
     const candidates = [
       process.env.ENDERLOOM_SERVICE_PATH,
       path.join(this.resourcesDir || '', 'native', name),
+      path.join(this.rootDir, 'native', name),
       path.join(this.rootDir, 'native', 'target', 'release', name),
       path.join(this.rootDir, 'native', 'target', 'debug', name),
     ].filter(Boolean);
