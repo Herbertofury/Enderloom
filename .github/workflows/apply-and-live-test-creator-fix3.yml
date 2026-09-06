@@ -1,0 +1,252 @@
+name: Apply And Live Test YouTube Feed Fast Lane
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-live-fix3'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: creator-vault-live-fix3
+  cancel-in-progress: true
+
+jobs:
+  patch-live-promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-live-fix3
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Add feed fast lane and resilient project-link extraction
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          parser = Path('src/creator-vault-auto/parser.js')
+          s = parser.read_text()
+          marker = "function parseCreatorDescription({ text='', title='', platform='youtube', links=[] } = {}) {"
+          helper = """function directProjectNameFromUrl(value) {\n  const safe = safeUrl(value);\n  if (!safe) return '';\n  try {\n    const url = new URL(safe);\n    const host = url.hostname.toLowerCase();\n    let slug = '';\n    if (host === 'modrinth.com' || host.endsWith('.modrinth.com')) {\n      slug = url.pathname.match(/^\\/(?:mod|modpack|resourcepack|shader|plugin|datapack)\\/([^/]+)/i)?.[1] || '';\n    } else if (host === 'curseforge.com' || host.endsWith('.curseforge.com')) {\n      slug = url.pathname.match(/^\\/minecraft\\/(?:mc-mods|modpacks|texture-packs|shaders|data-packs)\\/([^/]+)/i)?.[1] || '';\n    } else if (host === 'github.com' || host.endsWith('.github.com')) {\n      const parts = url.pathname.split('/').filter(Boolean);\n      if (parts.length >= 2 && !['orgs','topics','search','marketplace','features'].includes(parts[0].toLowerCase())) slug = parts[1];\n    }\n    if (!slug) return '';\n    return clean(decodeURIComponent(slug).replace(/[-_]+/g,' '));\n  } catch {\n    return '';\n  }\n}\n\n"""
+          if helper not in s:
+              if marker not in s: raise SystemExit('parser insertion marker missing')
+              s = s.replace(marker, helper + marker)
+          old = """    const inferredChapterList = !sawProjectSection && titleSuggestsProjects && timestamp.seconds != null && !afterOutro;\n    if (!(active || inferredChapterList)) continue;\n    const name = cleanCandidateName(line, urls, timestamp.timestamp);\n"""
+          new = """    const inferredChapterList = !sawProjectSection && titleSuggestsProjects && timestamp.seconds != null && !afterOutro;\n    if (!(active || inferredChapterList)) {\n      if (titleSuggestsProjects && providerUrls.length && !afterOutro) {\n        const directName = cleanCandidateName(line, urls, timestamp.timestamp) || directProjectNameFromUrl(providerUrls[0]);\n        if (directName) {\n          push({\n            name:directName,\n            projectType:sectionType,\n            timestamp:timestamp.timestamp,\n            timestampSeconds:timestamp.seconds,\n            urls:providerUrls,\n            confidence:0.97,\n            evidence:'Creator-authored direct project link',\n            sourceKinds:unique([platform,'description','direct-link']),\n          });\n        }\n      }\n      continue;\n    }\n    const name = cleanCandidateName(line, urls, timestamp.timestamp);\n"""
+          if old not in s: raise SystemExit('parser direct-link marker missing')
+          parser.write_text(s.replace(old, new))
+
+          browser = Path('src/creator-vault-auto/browser.js')
+          s = browser.read_text()
+          s = s.replace("const { parseYouTubeWatchHtml, collectTikTokItemsFromHtml } = require('./parser');", "const { parseYouTubeWatchHtml, collectTikTokItemsFromHtml, extractUrls } = require('./parser');")
+          marker = "async function enumerateYouTube(creator, knownIds, full, settings) {"
+          helpers = r'''function xmlDecode(value) {
+  return String(value || '')
+    .replace(/^<!\[CDATA\[/,'').replace(/\]\]>$/,'')
+    .replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'")
+    .replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+}
+function xmlTag(block, tag) {
+  const escaped = String(tag).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const match = String(block || '').match(new RegExp(`<${escaped}[^>]*>([\\s\\S]*?)<\\/${escaped}>`,'i'));
+  return match ? xmlDecode(match[1]).trim() : '';
+}
+function youtubeChannelIdFromHtml(html) {
+  const text = String(html || '');
+  return text.match(/<meta[^>]+itemprop=["']channelId["'][^>]+content=["'](UC[A-Za-z0-9_-]+)["']/i)?.[1]
+    || text.match(/["']channelId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/)?.[1]
+    || text.match(/["']externalId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/)?.[1]
+    || text.match(/youtube\.com\/channel\/(UC[A-Za-z0-9_-]+)/i)?.[1]
+    || '';
+}
+function parseYouTubeFeedXml(xml) {
+  const rows = [];
+  for (const match of String(xml || '').matchAll(/<entry\b[^>]*>([\s\S]*?)<\/entry>/gi)) {
+    const block = match[1];
+    const id = xmlTag(block,'yt:videoId');
+    if (!/^[A-Za-z0-9_-]{11}$/.test(id)) continue;
+    const title = xmlTag(block,'title');
+    const description = xmlTag(block,'media:description');
+    const publishedAt = xmlTag(block,'published');
+    rows.push({ id, url:`https://www.youtube.com/watch?v=${id}`, title, description, publishedAt, sourceTab:'feed' });
+  }
+  return rows;
+}
+async function youtubeFeedRefs(root) {
+  let channelId = '';
+  for (const page of [root, `${root}/videos`]) {
+    try {
+      const response = await requestText(page, { timeoutMs:5200, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+      channelId = youtubeChannelIdFromHtml(response.text);
+      if (channelId) break;
+    } catch {}
+  }
+  if (!channelId) return [];
+  try {
+    const response = await requestText(`https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`, { timeoutMs:5200, headers:{Accept:'application/atom+xml,application/xml,text/xml,*/*;q=0.8'} });
+    return parseYouTubeFeedXml(response.text);
+  } catch {
+    return [];
+  }
+}
+
+'''
+          if helpers not in s:
+              if marker not in s: raise SystemExit('browser feed insertion marker missing')
+              s = s.replace(marker, helpers + marker)
+          old = """  const tabs = ['videos','shorts', ...(full ? ['streams'] : [])];\n  const rows = new Map();\n  const incrementalLimit = Math.max(1, Number(settings.maxIncrementalVideosPerCreator) || 16);\n"""
+          new = """  const tabs = ['videos','shorts', ...(full ? ['streams'] : [])];\n  const feedPromise = full ? Promise.resolve([]) : youtubeFeedRefs(root);\n  const rows = new Map();\n  const incrementalLimit = Math.max(1, Number(settings.maxIncrementalVideosPerCreator) || 16);\n"""
+          if old not in s: raise SystemExit('browser enumerate start marker missing')
+          s = s.replace(old,new,1)
+          old = """  const tabRows = await mapConcurrent(tabs, Math.min(tabs.length, Math.max(1, Number(settings.browserPoolSize) || 3)), scanTab);\n  const rows = new Map();\n  for (let tabIndex = 0; tabIndex < tabs.length; tabIndex++) {\n"""
+          if old in s:
+              new = """  const [feedRows, tabRows] = await Promise.all([feedPromise, mapConcurrent(tabs, Math.min(tabs.length, Math.max(1, Number(settings.browserPoolSize) || 3)), scanTab)]);\n  for (const ref of feedRows || []) rows.set(ref.id, ref);\n  for (let tabIndex = 0; tabIndex < tabs.length; tabIndex++) {\n"""
+              s = s.replace(old,new,1)
+          else:
+              old = """  const tabRows = await mapConcurrent(tabs, Math.min(tabs.length, Math.max(1, Number(settings.browserPoolSize) || 3)), scanTab);\n  for (let tabIndex = 0; tabIndex < tabs.length; tabIndex++) {\n"""
+              new = """  const [feedRows, tabRows] = await Promise.all([feedPromise, mapConcurrent(tabs, Math.min(tabs.length, Math.max(1, Number(settings.browserPoolSize) || 3)), scanTab)]);\n  for (const ref of feedRows || []) rows.set(ref.id, ref);\n  for (let tabIndex = 0; tabIndex < tabs.length; tabIndex++) {\n"""
+              if old not in s: raise SystemExit('browser tabRows marker missing')
+              s = s.replace(old,new,1)
+          old = """      if (!id || rows.has(id)) continue;\n      rows.set(id, {\n        id,\n        url:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,\n        title:link.text || '',\n        sourceTab:tab,\n      });\n"""
+          new = """      if (!id) continue;\n      const prior = rows.get(id);\n      rows.set(id, {\n        id,\n        url:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,\n        title:prior?.title || link.text || '',\n        description:prior?.description || '',\n        publishedAt:prior?.publishedAt || '',\n        sourceTab:prior?.sourceTab === 'feed' ? `feed+${tab}` : tab,\n      });\n"""
+          if old not in s: raise SystemExit('browser row merge marker missing')
+          s = s.replace(old,new,1)
+          old = """async function readYouTube(ref) {\n  try {\n"""
+          new = """async function readYouTube(ref) {\n  if (String(ref?.description || '').trim()) {\n    return {\n      id:ref.id,\n      title:String(ref.title || ''),\n      description:String(ref.description || ''),\n      publishedAt:String(ref.publishedAt || ''),\n      url:ref.url,\n      links:extractUrls(ref.description).map(href=>({href,text:''})),\n      source:'youtube-feed',\n    };\n  }\n  try {\n"""
+          if old not in s: raise SystemExit('browser readYouTube marker missing')
+          s = s.replace(old,new,1)
+          old = """  browserSnapshot, browserVideoDetails, youtubeChannelRoot,\n  enumerateCreatorVideos, readCreatorVideo,\n};\n"""
+          new = """  browserSnapshot, browserVideoDetails, youtubeChannelRoot, youtubeChannelIdFromHtml, parseYouTubeFeedXml, youtubeFeedRefs,\n  enumerateCreatorVideos, readCreatorVideo,\n};\n"""
+          if old not in s: raise SystemExit('browser export marker missing')
+          browser.write_text(s.replace(old,new,1))
+
+          smoke = Path('scripts/creator-vault-live-smoke.js')
+          s = smoke.read_text()
+          s = s.replace("const results = [];", "const results = [];\nlet youtubeRefs = [];")
+          old = """    const refs = await enumerateCreatorVideos(youtube, [], false, settings);\n    assert(refs.length > 0, 'no YouTube uploads discovered');\n    assert(refs.some(ref => /^[A-Za-z0-9_-]{11}$/.test(ref.id)), 'no valid YouTube video IDs discovered');\n    return { discovered:refs.length, first:refs[0]?.id, tabs:[...new Set(refs.map(ref=>ref.sourceTab).filter(Boolean))] };\n"""
+          new = """    const refs = await enumerateCreatorVideos(youtube, [], false, settings);\n    youtubeRefs = refs;\n    assert(refs.length > 0, 'no YouTube uploads discovered');\n    assert(refs.some(ref => /^[A-Za-z0-9_-]{11}$/.test(ref.id)), 'no valid YouTube video IDs discovered');\n    return { discovered:refs.length, feedDescriptions:refs.filter(ref=>String(ref.description||'').trim()).length, first:refs[0]?.id, tabs:[...new Set(refs.map(ref=>ref.sourceTab).filter(Boolean))] };\n"""
+          if old not in s: raise SystemExit('smoke enumeration marker missing')
+          s = s.replace(old,new,1)
+          start = s.index("  await probe('YouTube real recommendation extraction'")
+          end = s.index("\n\n  await probe('Modrinth exact resolver'", start)
+          replacement = r'''  await probe('YouTube live recommendation extraction', async () => {
+    assert(youtubeRefs.length > 0, 'YouTube enumeration did not supply candidates');
+    const recommendationTitle = /\b(mods?|addons?|resource\s*packs?|texture\s*packs?|shaders?|datapacks?|plugins?)\b/i;
+    const preferred = youtubeRefs.filter(ref=>recommendationTitle.test(String(ref.title||'')));
+    const ordered = [...preferred, ...youtubeRefs.filter(ref=>!preferred.includes(ref))];
+    const attempts = [];
+    for (const ref of ordered.slice(0,10)) {
+      try {
+        const details = await readCreatorVideo(youtube, ref);
+        const projects = parseCreatorDescription({ title:details.title || ref.title, text:details.description, platform:'youtube', links:details.links });
+        attempts.push({id:ref.id,title:details.title||ref.title||'',projects:projects.length,source:details.source||ref.sourceTab||''});
+        if (projects.length >= 3) {
+          return { id:ref.id, title:details.title||ref.title||'', source:details.source||ref.sourceTab||'', projects:projects.length, firstProjects:projects.slice(0,3).map(project=>project.name), attempts:attempts.length };
+        }
+      } catch (error) {
+        attempts.push({id:ref.id,title:ref.title||'',error:String(error?.message||error)});
+      }
+    }
+    throw new Error(`no currently-live AsianHalfSquat recommendation yielded >=3 projects: ${JSON.stringify(attempts)}`);
+  });'''
+          s = s[:start] + replacement + s[end:]
+          smoke.write_text(s)
+
+          qa = Path('scripts/creator-vault-auto-ingestion-qa.js')
+          s = qa.read_text()
+          marker = "check('YouTube initial player response parser preserves source description', () => {"
+          insert = r'''check('YouTube feed parser preserves real recommendation descriptions', () => {
+  const browser = require('../src/creator-vault-auto/browser');
+  const xml = `<?xml version="1.0"?><feed><entry><yt:videoId>AbCdEfGhI12</yt:videoId><title>10 Minecraft Mods</title><published>2026-09-01T00:00:00+00:00</published><media:group><media:description><![CDATA[MOD DOWNLOADS:\nSodium https://modrinth.com/mod/sodium]]></media:description></media:group></entry></feed>`;
+  const rows = browser.parseYouTubeFeedXml(xml);
+  assert.strictEqual(rows.length,1);
+  assert.strictEqual(rows[0].id,'AbCdEfGhI12');
+  assert(rows[0].description.includes('Sodium'));
+  assert.strictEqual(rows[0].sourceTab,'feed');
+});
+
+check('project URLs in recommendation descriptions self-identify without a heading', () => {
+  const rows = parser.parseCreatorDescription({
+    title:'Top Minecraft Mods',
+    platform:'youtube',
+    text:'Sodium https://modrinth.com/mod/sodium\nhttps://www.curseforge.com/minecraft/mc-mods/modernfix',
+  });
+  assert.strictEqual(rows.length,2);
+  assert.strictEqual(rows[0].name,'Sodium');
+  assert(/modernfix/i.test(rows[1].name));
+});
+
+'''
+          if insert not in s:
+              if marker not in s: raise SystemExit('qa insertion marker missing')
+              s = s.replace(marker, insert + marker)
+          qa.write_text(s)
+          PY
+          node --check src/creator-vault-auto/parser.js
+          node --check src/creator-vault-auto/browser.js
+          node --check scripts/creator-vault-live-smoke.js
+          node --check scripts/creator-vault-auto-ingestion-qa.js
+          node scripts/creator-vault-auto-ingestion-qa.js
+          git diff --check
+      - name: Repair Electron runtime and configure SUID sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() {
+            node - <<'NODE'
+          const fs = require('fs');
+          try { const binary=require('electron'); if(typeof binary==='string'&&fs.existsSync(binary))process.stdout.write(binary); else process.exit(1); } catch { process.exit(1); }
+          NODE
+          }
+          install_electron() { if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"
+          SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"
+          test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"
+          sudo chmod 4755 "$SANDBOX"
+          echo "ENDERLOOM_ELECTRON_BIN=$ELECTRON_BIN" >> "$GITHUB_ENV"
+      - name: Exercise real YouTube, TikTok, and Modrinth paths
+        id: live
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          xvfb-run -a "$ENDERLOOM_ELECTRON_BIN" scripts/creator-vault-live-smoke.js 2>&1 | tee creator-vault-live-fix3.log
+      - name: Preserve live evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: creator-vault-live-fix3-${{ github.run_id }}
+          path: creator-vault-live-fix3.log
+          retention-days: 7
+      - name: Commit and promote only after live success
+        if: steps.live.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/apply-and-live-test-creator-fix3.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --check
+          git commit -m 'feat(creator-vault): add YouTube feed fast lane'
+          git push origin HEAD:feature/creator-vault-live-fix3
+          git push origin HEAD:feature/creator-vault-auto-ingestion
+      - name: Enforce live result
+        if: steps.live.outcome == 'failure'
+        run: exit 1
