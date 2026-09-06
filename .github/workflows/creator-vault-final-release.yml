@@ -7,6 +7,7 @@ on:
     paths:
       - 'main.js'
       - 'package.json'
+      - 'src/launcher-service.js'
       - 'src/creator-vault-runtime.js'
       - 'src/creator-vault-auto/**'
       - 'src/catalog-renderer.js'
@@ -64,6 +65,7 @@ jobs:
       - name: Syntax and focused stress QA
         run: |
           node --check main.js
+          node --check src/launcher-service.js
           node --check src/creator-vault-runtime.js
           node --check src/creator-vault-auto/common.js
           node --check src/creator-vault-auto/state.js
@@ -162,17 +164,22 @@ jobs:
         run: |
           npm run build:integration:release
           if (-not (Test-Path 'launcher/dist/index.html')) { throw 'Launcher frontend build is missing.' }
-          if (-not (Test-Path 'native/target/release/enderloom-service.exe')) { throw 'Optimized Enderloom service is missing.' }
+          $releaseService = 'native/target/release/enderloom-service.exe'
+          if (-not (Test-Path $releaseService)) { throw 'Optimized Enderloom service is missing.' }
+          Copy-Item $releaseService 'native/enderloom-service.exe' -Force
+          if (-not (Test-Path 'native/enderloom-service.exe')) { throw 'Slim packaged service staging failed.' }
       - name: Package Windows Electron application
         shell: pwsh
         run: |
           if (Test-Path 'dist-package') { Remove-Item 'dist-package' -Recurse -Force }
-          npx --yes @electron/packager@18.3.6 . Enderloom --platform=win32 --arch=x64 --out=dist-package --overwrite --prune=true --ignore='^/dist-package($|/)' --ignore='^/.git($|/)'
+          npx --yes @electron/packager@18.3.6 . Enderloom --platform=win32 --arch=x64 --out=dist-package --overwrite --prune=true --ignore='^/dist-package($|/)' --ignore='^/.git($|/)' --ignore='^/native/target($|/)'
           $app = Get-ChildItem dist-package -Directory | Where-Object { $_.Name -like 'Enderloom-win32-x64*' } | Select-Object -First 1
           if (-not $app) { throw 'Packaged Enderloom directory was not produced.' }
           if (-not (Test-Path (Join-Path $app.FullName 'Enderloom.exe'))) { throw 'Enderloom.exe is missing from packaged output.' }
-          $service = Join-Path $app.FullName 'resources/app/native/target/release/enderloom-service.exe'
+          $service = Join-Path $app.FullName 'resources/app/native/enderloom-service.exe'
           if (-not (Test-Path $service)) { throw 'Packaged optimized Enderloom service is missing.' }
+          $cargoTarget = Join-Path $app.FullName 'resources/app/native/target'
+          if (Test-Path $cargoTarget) { throw 'Cargo target tree leaked into the packaged application.' }
           Compress-Archive -Path (Join-Path $app.FullName '*') -DestinationPath 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip' -CompressionLevel Optimal -Force
           $hash = (Get-FileHash 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip' -Algorithm SHA256).Hash.ToLower()
           "$hash  Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip" | Set-Content 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256'
@@ -205,8 +212,8 @@ jobs:
           Tested commit: ${GITHUB_SHA}
           Acceptance run: ${GITHUB_RUN_ID}
           Full focused/regression/portable/Electron/live-provider gates passed before packaging.
-          Windows package includes an optimized Rust launcher service built with Cargo --release.
+          Windows package includes one optimized Rust launcher service; Cargo build trees are excluded.
           Live smoke covers YouTube discovery + recommendation extraction, TikTok discovery + metadata, and Modrinth canonical resolution.
           EOF
           gh release delete "$TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
-          gh release create "$TAG" release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256 release/ACCEPTANCE.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Enderloom Creator Vault Automatic Ingestion v3" --notes "Fully gated Windows x64 prerelease for Creator Vault automatic creator ingestion. Built only after focused QA, existing Creator Vault + catalog regressions, portable render, Electron self-test, real YouTube/TikTok/Modrinth outbound smoke, and optimized native-service packaging passed." --prerelease
+          gh release create "$TAG" release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256 release/ACCEPTANCE.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Enderloom Creator Vault Automatic Ingestion v3" --notes "Fully gated Windows x64 prerelease for Creator Vault automatic creator ingestion. Built only after focused QA, existing Creator Vault + catalog regressions, portable render, Electron self-test, real YouTube/TikTok/Modrinth outbound smoke, and slim optimized native-service packaging passed." --prerelease
