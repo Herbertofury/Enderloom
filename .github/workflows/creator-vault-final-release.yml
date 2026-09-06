@@ -5,6 +5,7 @@ on:
     branches:
       - 'feature/creator-vault-auto-ingestion'
     paths:
+      - 'main.js'
       - 'src/creator-vault-runtime.js'
       - 'src/creator-vault-auto/**'
       - 'src/catalog-renderer.js'
