@@ -12,6 +12,7 @@ on:
       - 'catalog/creator-vault/**'
       - 'scripts/creator-vault-auto-ingestion-qa.js'
       - 'scripts/creator-vault-live-smoke.js'
+      - 'scripts/run.js'
       - '.github/workflows/creator-vault-final-release.yml'
   workflow_dispatch:
 
@@ -25,7 +26,7 @@ concurrency:
 jobs:
   acceptance:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     env:
       CI: 'true'
       ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
@@ -35,6 +36,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - uses: dtolnay/rust-toolchain@stable
       - run: npm ci
       - name: Require final live-source implementation
         run: |
@@ -55,6 +57,8 @@ jobs:
           node --check catalog-preload.js
           node --check catalog/creator-vault/creator-vault-auto.js
           node --check scripts/creator-vault-auto-ingestion-qa.js
+          node --check scripts/creator-vault-live-smoke.js
+          node --check scripts/run.js
           node scripts/creator-vault-auto-ingestion-qa.js | tee creator-vault-focused-qa.log
       - name: Existing Creator Vault regression QA
         run: npm run creator-vault-qa | tee creator-vault-regression.log
@@ -62,6 +66,12 @@ jobs:
         run: npm run catalog-qa | tee catalog-regression.log
       - name: Portable render
         run: npm run portable | tee portable-render.log
+      - name: Build current launcher frontend and Rust service
+        run: |
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
       - name: Repair Electron runtime and configure secure SUID sandbox
         shell: bash
         run: |
@@ -81,7 +91,7 @@ jobs:
       - name: Electron self-test
         run: |
           set -o pipefail
-          timeout 240s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+          timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
       - name: Real outbound creator/provider smoke
         run: |
           set -o pipefail
