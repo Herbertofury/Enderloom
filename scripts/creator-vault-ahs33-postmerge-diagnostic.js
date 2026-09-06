@@ -70,6 +70,6 @@ const ahsLinked = ahsMods.filter(mod=>mod.providerLinks.length>0);
 assert.equal(ahsVideos.length,53,'AHS video count drift');
 assert.equal(ahsMods.length,746,'AHS mention count drift');
 assert.equal(ahsLinked.length,746,'AHS linked mention count drift');
-assert.equal(new Set(ahsMods.map(mod=>mod.canonicalProjectId)).size,466,'AHS canonical identity count drift');
+assert.equal(new Set(ahsMods.map(mod=>mod.canonicalProjectId)).size,468,'AHS canonical identity count drift');
 console.log(JSON.stringify({phase:'chunk-33-post-merge-diagnostic',stats:vault.stats,unresolved,asianHalfSquat:{videos:ahsVideos.length,mentions:ahsMods.length,linkedMentions:ahsLinked.length,canonicalProjects:new Set(ahsMods.map(mod=>mod.canonicalProjectId)).size},chunk33:{videoId:video.id,mentions:10,reuse:6,newCanonicalProjects:4,providerDestinationsAdded:11,mappings:video.mods.map(mod=>({name:mod.name,canonicalProjectId:mod.canonicalProjectId,providers:[...new Set(mod.providerLinks.map(link=>link.provider))].sort()}))}},null,2));
 if (vault.diagnostics.some(item=>item.level==='error')) process.exitCode=2;
