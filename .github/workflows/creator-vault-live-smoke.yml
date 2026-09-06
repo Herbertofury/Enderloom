@@ -1,0 +1,47 @@
+name: Creator Vault Live Outbound Smoke
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion'
+    paths:
+      - 'scripts/creator-vault-live-smoke.js'
+      - '.github/workflows/creator-vault-live-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Configure Electron SUID sandbox
+        run: |
+          sudo chown root:root node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+      - name: Exercise real YouTube, TikTok, and Modrinth paths
+        id: smoke
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          xvfb-run -a node_modules/electron/dist/electron scripts/creator-vault-live-smoke.js 2>&1 | tee creator-vault-live-smoke.log
+      - name: Preserve live smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: creator-vault-live-smoke-${{ github.run_id }}
+          path: creator-vault-live-smoke.log
+          retention-days: 7
+      - name: Enforce live smoke result
+        if: steps.smoke.outcome == 'failure'
+        run: exit 1

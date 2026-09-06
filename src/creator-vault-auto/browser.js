@@ -1,7 +1,7 @@
 'use strict';
 
 const { requestText, requestJson } = require('../public-http');
-const { sleep, safeUrl, unique, clampInt } = require('./common');
+const { sleep, safeUrl, unique, clampInt, mapConcurrent } = require('./common');
 const { parseYouTubeWatchHtml, collectTikTokItemsFromHtml } = require('./parser');
 
 const PARTITION = 'persist:minecraft-catalog-live';
@@ -189,11 +189,22 @@ async function enumerateYouTube(creator, knownIds, full, settings) {
   const root = youtubeChannelRoot(creator.url);
   if (!root) throw new Error(`Creator ${creator.id} has an invalid YouTube URL`);
   const tabs = ['videos','shorts', ...(full ? ['streams'] : [])];
-  const rows = new Map();
+  const known = new Set(knownIds || []);
   const incrementalLimit = Math.max(1, Number(settings.maxIncrementalVideosPerCreator) || 16);
-  for (const tab of tabs) {
+  const scanTab = async tab => {
     const page = `${root}/${tab}`;
-    let links = [];
+    let httpLinks = [];
+    if (!full) {
+      try {
+        const response = await requestText(page, { timeoutMs:5200, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+        httpLinks = parseYoutubeIdsFromHtml(response.text).map(id => ({
+          id,
+          href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,
+          text:'',
+        }));
+        if (httpLinks.length && (!known.size || httpLinks.some(link => known.has(link.id)))) return httpLinks;
+      } catch {}
+    }
     try {
       const snap = await browserSnapshot(page, {
         platform:'youtube',
@@ -202,24 +213,35 @@ async function enumerateYouTube(creator, knownIds, full, settings) {
         maxPasses:settings.browserHistoryScrollPasses,
         maxItems:full ? 0 : Math.max(24, incrementalLimit * 3),
       });
-      links = snap.links || [];
+      const links = snap.links || [];
+      return links.length ? links : httpLinks;
     } catch (browserError) {
+      if (httpLinks.length) return httpLinks;
       try {
         const response = await requestText(page, { timeoutMs:7000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
-        links = parseYoutubeIdsFromHtml(response.text).map(id => ({ id, href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`, text:'' }));
-      } catch {
-        if (!rows.size) throw browserError;
-      }
+        const ids = parseYoutubeIdsFromHtml(response.text);
+        if (ids.length) return ids.map(id => ({ id, href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`, text:'' }));
+      } catch {}
+      throw browserError;
     }
-    for (const link of links) {
+  };
+  const tabRows = await mapConcurrent(tabs, Math.min(tabs.length, Math.max(1, Number(settings.browserPoolSize) || 3)), scanTab);
+  const rows = new Map();
+  for (let tabIndex = 0; tabIndex < tabs.length; tabIndex++) {
+    const tab = tabs[tabIndex];
+    for (const link of tabRows[tabIndex] || []) {
       const id = link.id || youtubeIdFromHref(link.href);
       if (!id || rows.has(id)) continue;
-      rows.set(id, { id, url:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`, title:link.text || '', sourceTab:tab });
+      rows.set(id, {
+        id,
+        url:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,
+        title:link.text || '',
+        sourceTab:tab,
+      });
     }
   }
   return [...rows.values()];
 }
-
 async function enumerateTikTok(creator, knownIds, full, settings) {
   const url = safeUrl(creator.url);
   if (!url) throw new Error(`Creator ${creator.id} has an invalid TikTok URL`);
