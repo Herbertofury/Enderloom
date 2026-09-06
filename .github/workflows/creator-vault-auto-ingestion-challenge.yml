@@ -6,6 +6,7 @@ on:
       - 'feature/creator-vault-auto-ingestion'
   pull_request:
     paths:
+      - 'main.js'
       - 'src/creator-vault-runtime.js'
       - 'src/creator-vault-auto/**'
       - 'src/catalog-renderer.js'
@@ -54,6 +55,7 @@ jobs:
         run: npm ci
       - name: Syntax gate
         run: |
+          node --check main.js
           node --check src/creator-vault-runtime.js
           node --check src/creator-vault-auto/common.js
           node --check src/creator-vault-auto/state.js
@@ -138,6 +140,15 @@ jobs:
         run: |
           set -o pipefail
           timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+          grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' electron-self-test.log
+          if grep -q 'MaxListenersExceededWarning' electron-self-test.log; then
+            echo '::error::WebContents listener leak detected.'
+            exit 1
+          fi
+          if grep -q 'Live DOM hedge failed -3' electron-self-test.log; then
+            echo '::error::Intentional ERR_ABORTED navigation was misclassified.'
+            exit 1
+          fi
       - name: Preserve Electron self-test diagnostics
         if: always()
         uses: actions/upload-artifact@v4
