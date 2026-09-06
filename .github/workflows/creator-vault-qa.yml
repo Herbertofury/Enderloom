@@ -25,33 +25,15 @@ jobs:
         run: npm ci
       - name: Chunk 33 canonical reuse and legacy-overlap probe
         run: node scripts/creator-vault-ahs33-canonical-probe.js
-      - name: LEAWIND runtime candidate exists
-        if: always()
-        run: node scripts/creator-vault-ahs33-identity-discriminator.js leawind
-      - name: FallingTree runtime candidate exists
-        if: always()
-        run: node scripts/creator-vault-ahs33-identity-discriminator.js fallingtree
-      - name: Mythic Charms runtime candidate exists
-        if: always()
-        run: node scripts/creator-vault-ahs33-identity-discriminator.js mythiccharms
-      - name: Evasive Items runtime candidate exists
-        if: always()
-        run: node scripts/creator-vault-ahs33-identity-discriminator.js evasiveitems
-      - name: YDM Weapon Master runtime candidate exists
-        if: always()
-        run: node scripts/creator-vault-ahs33-identity-discriminator.js ydm
+      - name: Chunk 33 corrected provider collision gate
+        run: node scripts/creator-vault-ahs33-provider-collision.js
       - name: Chunk 32 native-over-legacy reconciliation diagnostic
-        if: success()
         run: node scripts/creator-vault-ahs32-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
-        if: success()
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA
-        if: success()
         run: npm run creator-vault-qa
       - name: Catalog regression QA
-        if: success()
         run: npm run catalog-qa
       - name: Render portable catalogs
-        if: success()
         run: npm run portable
