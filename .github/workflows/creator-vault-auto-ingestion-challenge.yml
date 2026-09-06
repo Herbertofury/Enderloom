@@ -7,6 +7,8 @@ on:
   pull_request:
     paths:
       - 'main.js'
+      - 'package.json'
+      - 'src/launcher-service.js'
       - 'src/creator-vault-runtime.js'
       - 'src/creator-vault-auto/**'
       - 'src/catalog-renderer.js'
@@ -56,6 +58,7 @@ jobs:
       - name: Syntax gate
         run: |
           node --check main.js
+          node --check src/launcher-service.js
           node --check src/creator-vault-runtime.js
           node --check src/creator-vault-auto/common.js
           node --check src/creator-vault-auto/state.js
