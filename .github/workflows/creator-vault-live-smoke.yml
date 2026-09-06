@@ -25,7 +25,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Resolve Electron runtime and configure SUID sandbox
+      - name: Repair Electron runtime if incomplete and configure SUID sandbox
         shell: bash
         run: |
           set -euo pipefail
@@ -41,19 +41,34 @@ jobs:
           }
           NODE
           }
-          ELECTRON_BIN="$(resolve_electron || true)"
-          if [ -z "$ELECTRON_BIN" ]; then
-            echo 'Electron binary missing after npm ci; running the official Electron package installer once.'
+          install_electron() {
             if [ -f node_modules/electron/install.js ]; then
               node node_modules/electron/install.js
             else
               npm rebuild electron
             fi
+          }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then
+            echo 'Electron binary missing after npm ci; running the official Electron installer.'
+            install_electron
             ELECTRON_BIN="$(resolve_electron)"
           fi
-          SANDBOX="$(dirname "$ELECTRON_BIN")/chrome-sandbox"
-          test -x "$ELECTRON_BIN"
-          test -f "$SANDBOX"
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"
+          SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then
+            echo 'Electron distribution is incomplete (chrome-sandbox missing); repairing the official dist once.'
+            rm -rf "$ELECTRON_DIR"
+            install_electron
+            ELECTRON_BIN="$(resolve_electron)"
+            ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"
+            SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          fi
+          if [ ! -x "$ELECTRON_BIN" ] || [ ! -f "$SANDBOX" ]; then
+            echo '::error::Electron runtime is still incomplete after repair.'
+            ls -la "$ELECTRON_DIR" || true
+            exit 1
+          fi
           sudo chown root:root "$SANDBOX"
           sudo chmod 4755 "$SANDBOX"
           stat -c '%U:%G %a %n' "$SANDBOX"
