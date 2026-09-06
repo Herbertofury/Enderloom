@@ -5,8 +5,9 @@ const { loadCreatorVault } = require('../src/creator-vault');
 const candidates = require('../catalog/creator-vault/research/asianhalfsquat.chunk31-provider-candidates.json');
 const root = path.resolve(__dirname, '..');
 const mode = process.argv[2] || 'all';
-const validModes = new Set(['all','baseline','shape','ids','urls']);
-if (!validModes.has(mode)) throw new Error(`Unknown diagnostic mode: ${mode}`);
+const fixedModes = new Set(['all','baseline','shape','ids','urls']);
+const idMode = mode.startsWith('id:') ? mode.slice(3) : null;
+if (!fixedModes.has(mode) && !idMode) throw new Error(`Unknown diagnostic mode: ${mode}`);
 
 const sourcePath = path.join(root,'catalog','creator-vault','recommendation-sources','asianhalfsquat.history-batch31.json');
 const closurePath = path.join(root,'catalog','creator-vault','project-sources','provider-closure-31a-asianhalfsquat.json');
@@ -55,6 +56,8 @@ const shapeOk = (candidates.entries || []).length === expected.candidateEntries 
   destinations === expected.destinations && zeroProviderProjects.length === 0;
 const idsOk = uniqueExistingIds.length === 0 && measuredNewIds === expected.newCandidateFamilies;
 const urlsOk = collisions.length === 0;
+const selectedCandidate = idMode ? (candidates.entries || []).find(entry => entry[0] === idMode) : null;
+const selectedIdFresh = idMode ? Boolean(selectedCandidate && !byId.has(idMode)) : null;
 
 const result = {
   phase:'chunk-31-pre-production', mode,
@@ -67,11 +70,14 @@ const result = {
   destinations,
   zeroProviderProjects,
   collisions,
+  selectedCandidateId:idMode,
+  selectedIdFresh,
   checks:{shapeOk,idsOk,urlsOk}
 };
 console.log(JSON.stringify(result,null,2));
 
-const failed = mode === 'baseline' ? (!productionFilesAbsent || !baselineOk) :
+const failed = idMode ? !selectedIdFresh :
+  mode === 'baseline' ? (!productionFilesAbsent || !baselineOk) :
   mode === 'shape' ? !shapeOk :
   mode === 'ids' ? !idsOk :
   mode === 'urls' ? !urlsOk :
