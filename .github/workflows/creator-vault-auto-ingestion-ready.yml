@@ -1,0 +1,70 @@
+name: Creator Vault Automatic Ingestion Ready
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ready:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Automatic ingestion focused QA
+        run: node scripts/creator-vault-auto-ingestion-qa.js
+      - name: Render/preload product integration
+        run: |
+          node <<'NODE'
+          const assert = require('assert');
+          const fs = require('fs');
+          const path = require('path');
+          const os = require('os');
+          const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-auto-ready-'));
+          process.env.ENDERLOOM_CREATOR_VAULT_RUNTIME_DIR = path.join(tmp, 'runtime');
+          const { renderCatalog } = require('./src/catalog-renderer');
+          const runtime = require('./src/creator-vault-runtime');
+          const rendered = renderCatalog({id:'auto-ready',name:'Auto Ready',description:'smoke',items:[],assets:{},documents:[],sources:[]}, process.cwd());
+          for (const marker of ['window.ENDERLOOM_CREATOR_VAULT=','Automatic creator cataloging','Sync new uploads','Full history','Add creator']) assert(rendered.html.includes(marker), `rendered catalog missing ${marker}`);
+          const preload = fs.readFileSync('catalog-preload.js','utf8');
+          for (const marker of ['creatorVaultStatus','syncCreatorVault','addCreatorVaultCreator','onCreatorVaultProgress','onCreatorVaultReload']) assert(preload.includes(marker), `preload missing ${marker}`);
+          assert.equal(runtime.runtimeStatus().settings.autoSyncOnLaunch, true);
+          fs.rmSync(tmp,{recursive:true,force:true});
+          console.log('Automatic Creator Vault product integration passed.');
+          NODE
+      - name: Existing Creator Vault recursive QA
+        run: npm run creator-vault-qa
+      - name: Catalog regression QA
+        run: npm run catalog-qa
+      - name: Portable render regression
+        run: npm run portable
+      - name: Open ready-to-merge PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          base="$(gh api "repos/${GITHUB_REPOSITORY}" --jq '.default_branch')"
+          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head feature/creator-vault-auto-ingestion --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            echo "Ready PR already exists: #$existing"
+            exit 0
+          fi
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$base" \
+            --head feature/creator-vault-auto-ingestion \
+            --title 'Creator Vault: automatic YouTube/TikTok ingestion' \
+            --body $'## What this ships\n\n- automatic YouTube creator upload discovery and creator-authored mod-list ingestion\n- automatic TikTok creator/video discovery with browser-backed fallback\n- one-shot incremental sync on app launch plus explicit full-history scans\n- canonical project reuse and bounded Modrinth/CurseForge provider resolution\n- persistent runtime overlay with atomic writes and crash-safe per-video progress\n- ambiguity review queue instead of guessed identities\n- Creator Vault controls for sync, full history, add creator, review, and auto-sync settings\n- live rendered-catalog refresh after ingestion\n\n## Acceptance\n\nThis PR is created only after focused automatic-ingestion QA, real catalog compositor/preload integration, recursive Creator Vault QA, catalog regression QA, and portable rendering all pass.'
