@@ -1,6 +1,6 @@
 # Creator Vault — AsianHalfSquat Chunk 28
 
-Status: hard-accepted; closeout in progress  
+Status: hard-accepted and durably sealed  
 Scope: exactly three older AsianHalfSquat uploads; no fourth video included  
 Branch: `feature/creator-vault-asianhalfsquat-chunk-28`  
 Chunk 27 durable baseline: `b0bd10e6a647ad0185385d133443dc4a380552cd`
@@ -75,6 +75,8 @@ AsianHalfSquat:
 - Frozen Chunk 27 rollback proof commit: `ed2283bc461cc249e590d9f27286eb127b2f520d`
 - Permanent hard-acceptance commit: `5f991a97e7768f4047d9168702e46cc9faf80eab`
 - Permanent hard-acceptance run: `34002751576` — **green**
+- First docs-only closeout commit: `b5ef2089bb07751afddc7a434566ef9496d368c0`
+- First docs-only closeout validation run: `34002981945` — **green**
 - Hard acceptance covers timestamp regression, recursive exact Chunk 27 QA, Chunk 28 identity/provider assertions, catalog regression, and portable rendering.
 
 ## Canonical Drive seal
@@ -96,7 +98,7 @@ Read-back proof:
 
 This document is the only file permitted to change after hard-acceptance commit `5f991a97e7768f4047d9168702e46cc9faf80eab`.
 
-Docs-closeout CI: pending this docs-only checkpoint.
+The first docs-only validation envelope is green. This final docs-only seal must preserve the same one-file challenge boundary and re-run the unchanged Creator Vault QA workflow.
 
 ## Exact next action
 
