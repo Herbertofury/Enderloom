@@ -27,17 +27,17 @@ jobs:
         run: node scripts/creator-vault-ahs31-provider-collision.js baseline
       - name: Chunk 31 provider candidate shape gate
         run: node scripts/creator-vault-ahs31-provider-collision.js shape
-      - name: Candidate slug iris is fresh
-        run: node scripts/creator-vault-ahs31-provider-collision.js id:iris
-      - name: Candidate slug c2me is fresh
+      - name: Existing iris card matches Iris lineage
+        run: node scripts/creator-vault-ahs31-provider-collision.js identity:iris
+      - name: Existing c2me card matches C2ME lineage
         if: always()
-        run: node scripts/creator-vault-ahs31-provider-collision.js id:c2me
-      - name: Candidate slug terra is fresh
+        run: node scripts/creator-vault-ahs31-provider-collision.js identity:c2me
+      - name: Existing terra card matches Terra lineage
         if: always()
-        run: node scripts/creator-vault-ahs31-provider-collision.js id:terra
-      - name: Candidate slug terralith is fresh
+        run: node scripts/creator-vault-ahs31-provider-collision.js identity:terra
+      - name: Existing terralith card matches Terralith lineage
         if: always()
-        run: node scripts/creator-vault-ahs31-provider-collision.js id:terralith
+        run: node scripts/creator-vault-ahs31-provider-collision.js identity:terralith
       - name: Chunk 31 provider URL collision gate
         if: always()
         run: node scripts/creator-vault-ahs31-provider-collision.js urls
