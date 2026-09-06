@@ -40,7 +40,7 @@ jobs:
           test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
           sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
           echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
-      - name: Reproduce Enderloom browser tab lifecycle under media load
+      - name: Prove focus transfer fixes Enderloom tab lifecycle navigation
         shell: bash
         run: |
           set -euo pipefail
@@ -95,14 +95,16 @@ jobs:
               const view=new WebContentsView({webPreferences:{session:liveSession,nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
               background.push(view);await view.webContents.loadURL(`${base}/busy?slot=${i}`);
             }
-            await first.webContents.loadURL(root);first.setVisible(true);
+            await first.webContents.loadURL(root);first.setVisible(true);first.webContents.focus();
             await second.webContents.loadURL(two);second.setVisible(false);
             const failures=[],latencies=[];
             for(let cycle=0;cycle<30;cycle++){
-              // Mirror Enderloom: second tab becomes visible/focused, first hides, then
-              // first is reactivated without an explicit focus() before loadURL + Back.
               first.setVisible(false);second.setVisible(true);second.webContents.focus();await sleep(24);
               second.setVisible(false);first.setVisible(true);
+              // Candidate product fix: an actual tab/workspace activation transfers
+              // keyboard/focus ownership to the newly visible WebContents before any
+              // subsequent navigation. Layout-only operations do not call this path.
+              first.webContents.focus();await sleep(12);
               if(first.webContents.getURL()!==two)await first.webContents.loadURL(two);
               const before={index:first.webContents.navigationHistory.getActiveIndex(),entries:first.webContents.navigationHistory.getAllEntries().map(x=>x.url)};
               const started=Date.now();navHistoryStep(first.webContents,-1);
