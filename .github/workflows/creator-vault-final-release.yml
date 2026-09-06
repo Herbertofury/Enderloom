@@ -11,6 +11,7 @@ on:
       - 'catalog-preload.js'
       - 'catalog/creator-vault/**'
       - 'scripts/creator-vault-auto-ingestion-qa.js'
+      - 'scripts/creator-vault-youtube-parser-qa.js'
       - 'scripts/creator-vault-live-smoke.js'
       - 'scripts/run.js'
       - '.github/workflows/creator-vault-final-release.yml'
@@ -37,6 +38,20 @@ jobs:
           node-version: '22'
           cache: npm
       - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            pkg-config \
+            libglib2.0-dev \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libxdo-dev \
+            libssl-dev \
+            patchelf
       - run: npm ci
       - name: Require final live-source implementation
         run: |
@@ -57,8 +72,10 @@ jobs:
           node --check catalog-preload.js
           node --check catalog/creator-vault/creator-vault-auto.js
           node --check scripts/creator-vault-auto-ingestion-qa.js
+          node --check scripts/creator-vault-youtube-parser-qa.js
           node --check scripts/creator-vault-live-smoke.js
           node --check scripts/run.js
+          node scripts/creator-vault-youtube-parser-qa.js | tee creator-vault-youtube-parser-qa.log
           node scripts/creator-vault-auto-ingestion-qa.js | tee creator-vault-focused-qa.log
       - name: Existing Creator Vault regression QA
         run: npm run creator-vault-qa | tee creator-vault-regression.log
@@ -102,6 +119,7 @@ jobs:
         with:
           name: creator-vault-final-acceptance-${{ github.sha }}
           path: |
+            creator-vault-youtube-parser-qa.log
             creator-vault-focused-qa.log
             creator-vault-regression.log
             catalog-regression.log
