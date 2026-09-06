@@ -56,6 +56,11 @@ jobs:
         run: npm run catalog-qa
       - name: Render portable catalogs
         run: npm run portable
+      - name: Configure Electron SUID sandbox
+        run: |
+          sudo chown root:root node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+          stat -c '%U:%G %a %n' node_modules/electron/dist/chrome-sandbox
       - name: Electron self-test
         id: electron_self_test
         continue-on-error: true
