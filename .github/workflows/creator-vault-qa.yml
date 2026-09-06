@@ -29,20 +29,20 @@ jobs:
         run: node scripts/creator-vault-ahs32-provider-collision.js baseline
       - name: Chunk 32 provider candidate shape gate
         run: node scripts/creator-vault-ahs32-provider-collision.js shape
-      - name: Candidate slug infinity-cave is fresh
-        run: node scripts/creator-vault-ahs32-provider-collision.js id:infinity-cave
-      - name: Candidate slug multi-mine is fresh
+      - name: Existing infinity-cave card matches source lineage
+        run: node scripts/creator-vault-ahs32-provider-collision.js identity:infinity-cave
+      - name: Existing multi-mine card matches source lineage
         if: always()
-        run: node scripts/creator-vault-ahs32-provider-collision.js id:multi-mine
-      - name: Candidate slug thin-air is fresh
+        run: node scripts/creator-vault-ahs32-provider-collision.js identity:multi-mine
+      - name: Existing thin-air card matches source lineage
         if: always()
-        run: node scripts/creator-vault-ahs32-provider-collision.js id:thin-air
-      - name: Candidate slug horse-combat-controls is fresh
+        run: node scripts/creator-vault-ahs32-provider-collision.js identity:thin-air
+      - name: Existing horse-combat-controls card matches source lineage
         if: always()
-        run: node scripts/creator-vault-ahs32-provider-collision.js id:horse-combat-controls
-      - name: Candidate slug grappling-hook-mod is fresh
+        run: node scripts/creator-vault-ahs32-provider-collision.js identity:horse-combat-controls
+      - name: Existing grappling-hook-mod card matches source lineage
         if: always()
-        run: node scripts/creator-vault-ahs32-provider-collision.js id:grappling-hook-mod
+        run: node scripts/creator-vault-ahs32-provider-collision.js identity:grappling-hook-mod
       - name: Chunk 32 provider URL collision gate
         if: always()
         run: node scripts/creator-vault-ahs32-provider-collision.js urls

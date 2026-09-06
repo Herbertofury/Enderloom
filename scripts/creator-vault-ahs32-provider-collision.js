@@ -7,7 +7,8 @@ const root = path.resolve(__dirname, '..');
 const mode = process.argv[2] || 'all';
 const fixedModes = new Set(['all','baseline','shape','ids','urls']);
 const idMode = mode.startsWith('id:') ? mode.slice(3) : null;
-if (!fixedModes.has(mode) && !idMode) throw new Error(`Unknown diagnostic mode: ${mode}`);
+const identityMode = mode.startsWith('identity:') ? mode.slice('identity:'.length) : null;
+if (!fixedModes.has(mode) && !idMode && !identityMode) throw new Error(`Unknown diagnostic mode: ${mode}`);
 
 const sourcePath = path.join(root,'catalog','creator-vault','recommendation-sources','asianhalfsquat.history-batch32.json');
 const closurePath = path.join(root,'catalog','creator-vault','project-sources','provider-closure-32a-asianhalfsquat.json');
@@ -15,6 +16,8 @@ const productionFilesAbsent = !fs.existsSync(sourcePath) && !fs.existsSync(closu
 const vault = loadCreatorVault(root);
 const baselineOk = vault.stats.recommendations === 996 && vault.stats.uniqueProjects === 672;
 
+const normalize = value => String(value || '').trim().toLowerCase().normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g,'').replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
 const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
 const byUrl = new Map();
 const byId = new Map(vault.projects.map(project => [project.id, project]));
@@ -58,15 +61,39 @@ const urlsOk = collisions.length === 0;
 const selectedCandidate = idMode ? (candidates.entries || []).find(entry => entry[0] === idMode) : null;
 const selectedIdFresh = idMode ? Boolean(selectedCandidate && !byId.has(idMode)) : null;
 
+let identityOk = null;
+let identityEvidence = null;
+if (identityMode) {
+  const entry = (candidates.entries || []).find(item => item[0] === identityMode);
+  const project = byId.get(identityMode);
+  if (entry && project) {
+    const [, candidateName, candidateType, candidateAliases, candidateLinks] = entry;
+    const existingLabels = [project.name, ...(project.aliases || [])].map(normalize);
+    const candidateLabels = [candidateName, ...(candidateAliases || [])].map(normalize);
+    const labelOverlap = candidateLabels.filter(label => existingLabels.includes(label));
+    const existingUrls = new Set((project.providerLinks || []).map(link => normalizeUrl(link.url)));
+    const candidateUrls = (candidateLinks || []).map(link => normalizeUrl(link[1]));
+    const urlOverlap = candidateUrls.filter(url => existingUrls.has(url));
+    const typeOk = project.type === candidateType;
+    identityOk = Boolean(typeOk && (labelOverlap.length || urlOverlap.length) && (project.providerLinks || []).length > 0);
+    identityEvidence = {
+      id:project.id,name:project.name,type:project.type,aliases:project.aliases || [],
+      providers:[...new Set((project.providerLinks || []).map(link => link.provider))].sort(),
+      providerLinks:[...existingUrls],labelOverlap,urlOverlap,typeOk
+    };
+  }
+}
+
 console.log(JSON.stringify({
   phase:'chunk-32-pre-production',mode,productionFilesAbsent,
   baseline:{recommendations:vault.stats.recommendations,uniqueProjects:vault.stats.uniqueProjects,ok:baselineOk},
   candidateEntries:(candidates.entries||[]).length,declaredNewCandidateFamilies:expected.newCandidateFamilies,
   existingCandidateIds:uniqueExistingIds,measuredNewIds,destinations,zeroProviderProjects,collisions,
-  selectedCandidateId:idMode,selectedIdFresh,checks:{shapeOk,idsOk,urlsOk}
+  selectedCandidateId:idMode,selectedIdFresh,identityId:identityMode,identityOk,identityEvidence,
+  checks:{shapeOk,idsOk,urlsOk}
 },null,2));
 
-const failed = idMode ? !selectedIdFresh :
+const failed = identityMode ? !identityOk : idMode ? !selectedIdFresh :
   mode === 'baseline' ? (!productionFilesAbsent || !baselineOk) :
   mode === 'shape' ? !shapeOk :
   mode === 'ids' ? !idsOk :
