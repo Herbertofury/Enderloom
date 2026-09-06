@@ -1,0 +1,207 @@
+name: One-shot Final Soft Timeout
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion-hardening-stage3'
+    paths:
+      - '.github/workflows/one-shot-final-soft-timeout.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion-hardening-stage3
+          fetch-depth: 320
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Apply proven product candidate and soft-timeout Chromium SSR
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=2780deaf7c5d569846c2d8a7fe98e4118b614a37
+          git merge-base --is-ancestor "$BASE" HEAD
+          test "$(git rev-parse HEAD:main.js)" = "$(git rev-parse "$BASE":main.js)"
+          test "$(git rev-parse HEAD:launcher-preload.js)" = "$(git rev-parse "$BASE":launcher-preload.js)"
+          python3 - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          # Reuse every already-proven product transform, including the stronger
+          # Sodium/Modrinth end-to-end handoff contract.
+          workflow = Path('.github/workflows/one-shot-final-product-contract.yml').read_text(encoding='utf-8')
+          marker = "          python3 - <<'PY'\n"
+          start = workflow.index(marker) + len(marker)
+          end = workflow.index("\n          PY", start)
+          body = workflow[start:end]
+          body = '\n'.join(line[10:] if line.startswith('          ') else line for line in body.splitlines())
+          for token in ['focusActivatedView','Catalog handoff renders the correct Sodium Modrinth compatibility picker','node-gallery-ssr-fast']:
+              if token not in workflow and token not in body:
+                  raise SystemExit(f'product candidate missing invariant: {token}')
+          exec(compile(body, 'reused-product-candidate.py', 'exec'), {})
+
+          p=Path('main.js')
+          text=p.read_text(encoding='utf-8')
+          start_token='function chromiumProgressiveTextShared(rawUrl, options={}) {'
+          end_token='\nasync function extractLivePageMediaQuick'
+          if text.count(start_token)!=1:
+              raise SystemExit(f'chromiumProgressiveTextShared start mismatch: {text.count(start_token)}')
+          a=text.index(start_token); b=text.index(end_token,a)
+          replacement=textwrap.dedent(r'''
+          function chromiumProgressiveTextShared(rawUrl, options={}) {
+            const url=safeHttpUrl(rawUrl);if(!url){const fail=Promise.reject(new Error('Invalid Chromium fetch URL'));fail.catch(()=>{});return {head:fail,media:fail,prefix:fail,full:fail,cacheHit:false}}
+            const stopAfterMedia=!!options.stopAfterMedia,stopAfterPrefix=!!options.stopAfterPrefix;
+            const ttl=Math.max(0,Number(options.cacheTtlMs??120_000)),bypass=!!options.bypassCache||!!options.force||stopAfterMedia||stopAfterPrefix;
+            const headMax=Math.max(64*1024,Number(options.headMaxBytes)||384*1024),mediaMax=Math.max(32*1024,Number(options.mediaMaxBytes)||320*1024),mediaMin=Math.max(128,Number(options.mediaMinBytes)||512),prefixMax=Math.max(headMax,Number(options.prefixMaxBytes)||768*1024),mediaPattern=options.mediaPattern||null;
+            const cacheKey=`chromium:${url}`;
+            if(!bypass){const hit=chromiumTextCache.get(cacheKey);if(hit&&Date.now()-hit.at<=ttl){const full={...hit.value,memoryCacheHit:true,memoryCacheAgeMs:Date.now()-hit.at};const text=String(full.text||''),m=/<\/head\s*>/i.exec(text),headText=m?text.slice(0,text.indexOf('>',m.index)+1):text.slice(0,headMax),mediaText=text.slice(0,mediaMax),prefixText=text.slice(0,prefixMax);return {head:Promise.resolve({...full,text:headText,truncated:headText.length<text.length}),media:Promise.resolve({...full,text:mediaText,truncated:mediaText.length<text.length,mediaMarker:streamMediaMarkerMatched(mediaText,mediaPattern),firstMediaUrl:streamFirstTrustedMediaUrl(mediaText)}),prefix:Promise.resolve({...full,text:prefixText,truncated:prefixText.length<text.length}),full:Promise.resolve(full),cacheHit:true}}
+              const inflight=chromiumProgressiveInflight.get(cacheKey);if(inflight)return inflight;
+            }
+            let resolveHead,rejectHead,resolveMedia,rejectMedia,resolvePrefix,rejectPrefix,resolveFull,rejectFull,headDone=false,mediaDone=false,prefixDone=false;
+            const head=new Promise((r,j)=>{resolveHead=r;rejectHead=j}),media=new Promise((r,j)=>{resolveMedia=r;rejectMedia=j}),prefix=new Promise((r,j)=>{resolvePrefix=r;rejectPrefix=j}),full=new Promise((r,j)=>{resolveFull=r;rejectFull=j});
+            head.catch(()=>{});media.catch(()=>{});prefix.catch(()=>{});full.catch(()=>{});
+            const flow={head,media,prefix,full,cacheHit:false};if(!bypass)chromiumProgressiveInflight.set(cacheKey,flow);
+            const timeoutMs=Math.max(700,Number(options.timeoutMs)||4800);
+            let timedOut=false,fullSettled=false,activeReader=null,timer=null;
+            const detachInflight=()=>{if(chromiumProgressiveInflight.get(cacheKey)===flow)chromiumProgressiveInflight.delete(cacheKey)};
+            const rejectUnfinished=err=>{
+              if(fullSettled)return;
+              timedOut=true;fullSettled=true;detachInflight();
+              if(!headDone){headDone=true;rejectHead(err)}
+              if(!mediaDone){mediaDone=true;rejectMedia(err)}
+              if(!prefixDone){prefixDone=true;rejectPrefix(err)}
+              rejectFull(err);
+              if(activeReader){try{Promise.resolve(activeReader.cancel()).catch(()=>{})}catch{}}
+            };
+            timer=setTimeout(()=>rejectUnfinished(new Error(`Chromium session fetch timed out after ${timeoutMs} ms`)),timeoutMs);timer.unref?.();
+            (async()=>{
+              const response=await liveNetworkSession().fetch(url,{method:'GET',redirect:'follow',headers:options.headers||{Accept:'text/html,application/xhtml+xml;q=0.9,*/*;q=0.2'},cache:options.force?'no-store':'default'});
+              if(timedOut){try{await response.body?.cancel?.()}catch{};return null}
+              const status=Number(response.status)||0,headers=responseHeadersObject(response.headers),chunks=[];let bytes=0,headTail='',mediaTail='',stopRequested=false,stopReason='';
+              const emitHead=(truncated=false)=>{if(headDone||timedOut)return;headDone=true;let text=chromiumTextSnapshot(chunks,headMax);const m=/<\/head\s*>/i.exec(text);if(m){const close=text.indexOf('>',m.index);if(close>=0)text=text.slice(0,close+1)}resolveHead({url,status,headers,text,bytesRead:Math.min(bytes,headMax),truncated:truncated||!m,transport:'chromium-session-fetch'})};
+              const emitMedia=(truncated=false,allowStop=true)=>{if(mediaDone||timedOut)return;mediaDone=true;const text=chromiumTextSnapshot(chunks,mediaMax),firstMediaUrl=streamFirstTrustedMediaUrl(text),mediaMarker=streamMediaMarkerMatched(text,mediaPattern);resolveMedia({url,status,headers,text,bytesRead:Math.min(bytes,mediaMax),truncated,mediaMarker,firstMediaUrl,transport:'chromium-session-fetch'});if(allowStop&&stopAfterMedia&&mediaMarker&&firstMediaUrl){stopRequested=true;stopReason='media'}};
+              const emitPrefix=(truncated=false,allowStop=true)=>{if(prefixDone||timedOut)return;prefixDone=true;resolvePrefix({url,status,headers,text:chromiumTextSnapshot(chunks,prefixMax),bytesRead:Math.min(bytes,prefixMax),truncated,transport:'chromium-session-fetch'});if(allowStop&&stopAfterPrefix){stopRequested=true;stopReason='prefix'}};
+              if(!response.body||typeof response.body.getReader!=='function'){
+                const text=await response.text();if(timedOut)return null;const b=Buffer.from(text);chunks.push(b);bytes=b.length;emitHead(false);emitMedia(false);emitPrefix(false);return {url,status,headers,text,bytesRead:bytes,transport:'chromium-session-fetch'};
+              }
+              const reader=response.body.getReader();activeReader=reader;
+              while(true){
+                if(timedOut){try{await reader.cancel()}catch{};return null}
+                const {done,value}=await reader.read();if(timedOut){try{await reader.cancel()}catch{};return null}if(done)break;const b=Buffer.from(value);chunks.push(b);bytes+=b.length;
+                const chunkText=b.toString('latin1');
+                if(!headDone){const probe=headTail+chunkText;if(/<\/head\s*>/i.test(probe)||bytes>=headMax)emitHead(bytes>=headMax);headTail=probe.slice(-64)}
+                if(!mediaDone){const probe=mediaTail+chunkText;if(bytes>=mediaMin&&streamMediaMarkerMatched(probe,mediaPattern))emitMedia(false,true);else if(bytes>=mediaMax)emitMedia(true,false);mediaTail=probe.slice(-8192)}
+                if(!prefixDone&&bytes>=prefixMax)emitPrefix(true,true);
+                if(stopRequested){try{await reader.cancel()}catch{}break}
+              }
+              activeReader=null;
+              if(timedOut)return null;
+              if(!headDone)emitHead(!!stopRequested);if(!mediaDone)emitMedia(!!stopRequested,false);if(!prefixDone)emitPrefix(!!stopRequested,false);
+              return {url,status,headers,text:Buffer.concat(chunks).toString('utf8'),bytesRead:bytes,complete:!stopRequested,abortedAfterMedia:stopReason==='media',abortedAfterPrefix:stopReason==='prefix',transport:'chromium-session-fetch'};
+            })().then(value=>{
+              if(timer){clearTimeout(timer);timer=null}if(timedOut||fullSettled)return;fullSettled=true;detachInflight();if(!bypass&&ttl>0)rememberChromiumText(cacheKey,value);resolveFull(value)
+            },err=>{
+              if(timer){clearTimeout(timer);timer=null}if(timedOut||fullSettled)return;fullSettled=true;detachInflight();if(!headDone){headDone=true;rejectHead(err)}if(!mediaDone){mediaDone=true;rejectMedia(err)}if(!prefixDone){prefixDone=true;rejectPrefix(err)}rejectFull(err)
+            });
+            return flow;
+          }
+          ''').strip()
+          text=text[:a]+replacement+text[b:]
+          p.write_text(text,encoding='utf-8')
+          PY
+          node --check main.js
+          node --check launcher-preload.js
+          grep -q 'Chromium session fetch timed out after' main.js
+          grep -q 'Promise.resolve(activeReader.cancel()).catch' main.js
+          ! grep -q 'new AbortController()' main.js
+          grep -q 'Catalog handoff renders the correct Sodium Modrinth compatibility picker' main.js
+          grep -q 'function focusActivatedView' main.js
+          grep -q 'node-gallery-ssr-fast' main.js
+          grep -q 'if(deep && !result.exclusive)' main.js
+          ! grep -q 'launcherProjectEvent' main.js
+          git diff --check
+
+      - name: Install dependencies and run exact gallery regression
+        run: |
+          npm ci
+          npm run curseforge-gallery-anchor-qa
+
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential pkg-config libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libxdo-dev libssl-dev patchelf
+      - name: Build real launcher boundary
+        run: |
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+      - name: Repair Electron runtime and configure secure sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+
+      - name: Repeat full Electron self-test three times
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in 1 2 3; do
+            log="electron-self-test-$n.log"
+            timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
+            grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
+            if grep -Eq 'MaxListenersExceededWarning|DOMException \[(AbortError|TimeoutError)\]|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
+              echo "::error::runtime lifecycle regression on pass $n"
+              exit 1
+            fi
+          done
+
+      - name: Preserve final evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-soft-timeout-${{ github.sha }}
+          path: electron-self-test-*.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit proven source and remove all temporary one-shot workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Herbertofury'
+          git config user.email 'stealth.sanchez@hotmail.com'
+          rm -f .github/workflows/one-shot-*.yml
+          git add -A main.js launcher-preload.js .github/workflows
+          test "$(git diff --cached --name-only | grep -c '^main.js$')" = "1"
+          test "$(git diff --cached --name-only | grep -c '^launcher-preload.js$')" = "1"
+          if git diff --cached --name-only | grep -Ev '^(main\.js|launcher-preload\.js|\.github/workflows/one-shot-.*\.yml)$'; then
+            echo '::error::Unexpected file escaped final soft-timeout commit scope.'
+            exit 1
+          fi
+          git commit -m 'fix(core): harden creator media, navigation, and launcher handoff'
+          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
