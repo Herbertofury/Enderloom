@@ -1,0 +1,163 @@
+name: One-shot Launcher Subscription Handshake V2
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion-hardening-stage3'
+    paths:
+      - '.github/workflows/one-shot-launcher-subscription-handshake-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  challenge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion-hardening-stage3
+          fetch-depth: 192
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Reuse proven candidate and add subscriber handshake
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=2780deaf7c5d569846c2d8a7fe98e4118b614a37
+          git merge-base --is-ancestor "$BASE" HEAD
+          test "$(git rev-parse HEAD:main.js)" = "$(git rev-parse "$BASE":main.js)"
+          test "$(git rev-parse HEAD:launcher-preload.js)" = "$(git rev-parse "$BASE":launcher-preload.js)"
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/one-shot-navigation-handoff-hardening.yml').read_text(encoding='utf-8')
+          marker = "          python3 - <<'PY'\n"
+          start = workflow.index(marker) + len(marker)
+          end = workflow.index("\n          PY", start)
+          body = workflow[start:end]
+          body = '\n'.join(line[10:] if line.startswith('          ') else line for line in body.splitlines())
+          if 'sendLauncherEventDurable' not in body or 'navHistoryStep' not in body:
+              raise SystemExit('reused candidate body is not the proven navigation/handoff transformation')
+          exec(compile(body, 'reused-navigation-handoff-candidate.py', 'exec'), {})
+
+          main_path = Path('main.js')
+          main = main_path.read_text(encoding='utf-8')
+          old_ack = "ipcMain.on('launcher:event-ack',(event,id)=>{if(!launcherView||launcherView.webContents.isDestroyed()||event.sender!==launcherView.webContents)return;pendingLauncherEvents.delete(String(id||''))});"
+          new_ack = '\n'.join([
+              old_ack,
+              "ipcMain.on('launcher:event-subscribe',(event,name)=>{",
+              "  if(!launcherView||launcherView.webContents.isDestroyed()||event.sender!==launcherView.webContents)return;",
+              "  const wanted=String(name||'');if(!wanted)return;",
+              "  for(const message of pendingLauncherEvents.values()){",
+              "    if(message.event===wanted)launcherView.webContents.send('launcher:event',message);",
+              "  }",
+              "});",
+          ])
+          if main.count(old_ack) != 1:
+              raise SystemExit(f'launcher ack marker mismatch: {main.count(old_ack)}')
+          main = main.replace(old_ack, new_ack, 1)
+          old_expiry = "const expiry=setTimeout(()=>pendingLauncherEvents.delete(id),5000);expiry.unref?.();return true;"
+          new_expiry = "if(pendingLauncherEvents.size>128)pendingLauncherEvents.delete(pendingLauncherEvents.keys().next().value);const expiry=setTimeout(()=>pendingLauncherEvents.delete(id),30000);expiry.unref?.();return true;"
+          if main.count(old_expiry) != 1:
+              raise SystemExit(f'launcher event expiry marker mismatch: {main.count(old_expiry)}')
+          main = main.replace(old_expiry, new_expiry, 1)
+          main_path.write_text(main, encoding='utf-8')
+
+          preload_path = Path('launcher-preload.js')
+          preload = preload_path.read_text(encoding='utf-8')
+          old_subscribe = '\n'.join([
+              "  listeners.set(id, { event: name, callback });",
+              "  const queued = queuedEvents.get(name);",
+          ])
+          new_subscribe = '\n'.join([
+              "  listeners.set(id, { event: name, callback });",
+              "  // Local registration happens before the readiness signal, so main can",
+              "  // immediately replay any unacked handoff without another timing window.",
+              "  ipcRenderer.send('launcher:event-subscribe', name);",
+              "  const queued = queuedEvents.get(name);",
+          ])
+          if preload.count(old_subscribe) != 1:
+              raise SystemExit(f'launcher subscribe marker mismatch: {preload.count(old_subscribe)}')
+          preload = preload.replace(old_subscribe, new_subscribe, 1)
+          preload_path.write_text(preload, encoding='utf-8')
+          PY
+          node --check main.js
+          node --check launcher-preload.js
+          grep -q "launcher:event-subscribe" main.js
+          grep -q "launcher:event-subscribe" launcher-preload.js
+          grep -q "node-gallery-ssr-fast" main.js
+          grep -q "function navHistoryStep" main.js
+          grep -q "if(deep && !result.exclusive)" main.js
+          git diff --check
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential pkg-config libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libxdo-dev libssl-dev patchelf
+      - name: Install and build real launcher boundary
+        run: |
+          npm ci
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+      - name: Repair Electron runtime and configure secure sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+      - name: Repeat real Electron self-test three times
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in 1 2 3; do
+            log="electron-self-test-$n.log"
+            timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
+            grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
+            if grep -Eq 'MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
+              echo "::error::runtime lifecycle regression on pass $n"
+              exit 1
+            fi
+          done
+      - name: Preserve challenge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: launcher-subscription-handshake-v2-${{ github.sha }}
+          path: electron-self-test-*.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit proven source and remove all one-shot workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Herbertofury'
+          git config user.email 'stealth.sanchez@hotmail.com'
+          rm -f .github/workflows/one-shot-*.yml
+          git add -A main.js launcher-preload.js .github/workflows
+          test "$(git diff --cached --name-only | grep -c '^main.js$')" = "1"
+          test "$(git diff --cached --name-only | grep -c '^launcher-preload.js$')" = "1"
+          if git diff --cached --name-only | grep -Ev '^(main\.js|launcher-preload\.js|\.github/workflows/one-shot-.*\.yml)$'; then
+            echo '::error::Unexpected file escaped one-shot commit scope.'
+            exit 1
+          fi
+          git commit -m 'fix(core): harden creator media, navigation, and launcher handoff'
+          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
