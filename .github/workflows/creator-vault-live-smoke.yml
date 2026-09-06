@@ -25,22 +25,53 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Configure Electron SUID sandbox
+      - name: Resolve Electron runtime and configure SUID sandbox
+        shell: bash
         run: |
-          sudo chown root:root node_modules/electron/dist/chrome-sandbox
-          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+          set -euo pipefail
+          resolve_electron() {
+            node - <<'NODE'
+          const fs = require('fs');
+          try {
+            const binary = require('electron');
+            if (typeof binary === 'string' && fs.existsSync(binary)) process.stdout.write(binary);
+            else process.exit(1);
+          } catch {
+            process.exit(1);
+          }
+          NODE
+          }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then
+            echo 'Electron binary missing after npm ci; running the official Electron package installer once.'
+            if [ -f node_modules/electron/install.js ]; then
+              node node_modules/electron/install.js
+            else
+              npm rebuild electron
+            fi
+            ELECTRON_BIN="$(resolve_electron)"
+          fi
+          SANDBOX="$(dirname "$ELECTRON_BIN")/chrome-sandbox"
+          test -x "$ELECTRON_BIN"
+          test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"
+          sudo chmod 4755 "$SANDBOX"
+          stat -c '%U:%G %a %n' "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+          echo "ENDERLOOM_ELECTRON_BIN=$ELECTRON_BIN" >> "$GITHUB_ENV"
       - name: Exercise real YouTube, TikTok, and Modrinth paths
         id: smoke
         continue-on-error: true
         run: |
           set -o pipefail
-          xvfb-run -a node_modules/electron/dist/electron scripts/creator-vault-live-smoke.js 2>&1 | tee creator-vault-live-smoke.log
+          xvfb-run -a "$ENDERLOOM_ELECTRON_BIN" scripts/creator-vault-live-smoke.js 2>&1 | tee creator-vault-live-smoke.log
       - name: Preserve live smoke evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: creator-vault-live-smoke-${{ github.run_id }}
           path: creator-vault-live-smoke.log
+          if-no-files-found: warn
           retention-days: 7
       - name: Enforce live smoke result
         if: steps.smoke.outcome == 'failure'

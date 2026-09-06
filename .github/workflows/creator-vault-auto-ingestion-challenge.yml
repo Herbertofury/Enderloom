@@ -56,11 +56,40 @@ jobs:
         run: npm run catalog-qa
       - name: Render portable catalogs
         run: npm run portable
-      - name: Configure Electron SUID sandbox
+      - name: Resolve Electron runtime and configure SUID sandbox
+        shell: bash
         run: |
-          sudo chown root:root node_modules/electron/dist/chrome-sandbox
-          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
-          stat -c '%U:%G %a %n' node_modules/electron/dist/chrome-sandbox
+          set -euo pipefail
+          resolve_electron() {
+            node - <<'NODE'
+          const fs = require('fs');
+          try {
+            const binary = require('electron');
+            if (typeof binary === 'string' && fs.existsSync(binary)) process.stdout.write(binary);
+            else process.exit(1);
+          } catch {
+            process.exit(1);
+          }
+          NODE
+          }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then
+            echo 'Electron binary missing after npm ci; running the official Electron package installer once.'
+            if [ -f node_modules/electron/install.js ]; then
+              node node_modules/electron/install.js
+            else
+              npm rebuild electron
+            fi
+            ELECTRON_BIN="$(resolve_electron)"
+          fi
+          SANDBOX="$(dirname "$ELECTRON_BIN")/chrome-sandbox"
+          test -x "$ELECTRON_BIN"
+          test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"
+          sudo chmod 4755 "$SANDBOX"
+          stat -c '%U:%G %a %n' "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+          echo "ENDERLOOM_ELECTRON_BIN=$ELECTRON_BIN" >> "$GITHUB_ENV"
       - name: Electron self-test
         id: electron_self_test
         continue-on-error: true
