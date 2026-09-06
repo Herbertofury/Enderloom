@@ -73,7 +73,7 @@ class BrowserPool {
     try {
       return await fn(win);
     } catch (error) {
-      broken = /destroyed|closed|render process gone|frame was disposed/i.test(String(error?.message || error));
+      broken = /destroyed|closed|render process gone|frame was disposed|script failed to execute|script execution timed out/i.test(String(error?.message || error));
       throw error;
     } finally {
       this.release(win, broken);
@@ -102,6 +102,28 @@ function pool() {
   return activePool;
 }
 
+function webContentsLoading(wc) {
+  try {
+    if (typeof wc?.isLoadingMainFrame === 'function') return !!wc.isLoadingMainFrame();
+    if (typeof wc?.isLoading === 'function') return !!wc.isLoading();
+  } catch {}
+  return false;
+}
+
+async function waitForWebContentsSettled(win, quietMs=100, timeoutMs=3500) {
+  const wc = win?.webContents;
+  const started = Date.now();
+  while (true) {
+    if (!win || win.isDestroyed() || !wc || wc.isDestroyed()) throw new Error('Creator browser window was destroyed');
+    if (!webContentsLoading(wc)) {
+      await sleep(quietMs);
+      if (!webContentsLoading(wc)) return;
+    }
+    if (Date.now() - started >= timeoutMs) return;
+    await sleep(80);
+  }
+}
+
 async function loadUrlWithTimeout(win, url, timeoutMs=12000) {
   let timer;
   try {
@@ -117,95 +139,146 @@ async function loadUrlWithTimeout(win, url, timeoutMs=12000) {
   } finally {
     clearTimeout(timer);
   }
+  await waitForWebContentsSettled(win, 120, 2500);
 }
 
-async function executeJavaScriptStable(win, source, { retries=2, delayMs=350 } = {}) {
+async function executeJavaScriptStable(win, source, { retries=3, delayMs=250, timeoutMs=5000 } = {}) {
   let lastError;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       if (win.isDestroyed() || win.webContents.isDestroyed()) throw new Error('Creator browser window was destroyed');
-      return await win.webContents.executeJavaScript(source, true);
+      await waitForWebContentsSettled(win, 80, 1800);
+      let timer;
+      try {
+        return await Promise.race([
+          win.webContents.executeJavaScript(source, true),
+          new Promise((_, reject) => {
+            timer = setTimeout(() => reject(new Error(`Creator browser script execution timed out after ${timeoutMs}ms`)), timeoutMs);
+          }),
+        ]);
+      } finally {
+        clearTimeout(timer);
+      }
     } catch (error) {
       lastError = error;
       const message = String(error?.message || error);
-      if (attempt >= retries || !/script failed to execute|context|navigation|frame|destroyed|disposed/i.test(message)) break;
+      if (attempt >= retries || !/script failed to execute|context|navigation|frame|destroyed|disposed|timed out/i.test(message)) break;
+      try { win.webContents.stop(); } catch {}
       await sleep(delayMs * (attempt + 1));
     }
   }
   throw lastError;
 }
 
+function creatorDomSnapshotScript(platform) {
+  return `(()=>{
+    const platform=${JSON.stringify(platform)};
+    const links=[];
+    const seen=new Set();
+    for(const a of document.querySelectorAll('a[href]')){
+      let href='';try{href=new URL(a.href,location.href).toString()}catch{}
+      if(!href||seen.has(href))continue;
+      let id='';
+      if(platform==='youtube'){
+        try{const u=new URL(href);id=u.searchParams.get('v')||u.pathname.match(/\\/shorts\\/([A-Za-z0-9_-]{11})/)?.[1]||'';}catch{}
+      }else if(platform==='tiktok')id=href.match(/\\/video\\/(\\d{8,})/)?.[1]||'';
+      else if(/video|watch/i.test(href))id=href;
+      if(!id)continue;
+      seen.add(href);
+      links.push({id,href,text:String(a.getAttribute('title')||a.textContent||'').trim().slice(0,300)});
+      if(links.length>=1500)break;
+    }
+    const hydration=[];
+    if(platform==='tiktok'){
+      for(const id of ['__UNIVERSAL_DATA_FOR_REHYDRATION__','SIGI_STATE']){
+        const node=document.getElementById(id);if(!node)continue;
+        hydration.push({id,text:String(node.textContent||'').slice(0,900000)});
+      }
+    }
+    return {
+      url:location.href,
+      title:String(document.title||'').slice(0,500),
+      text:String(document.body?.innerText||'').slice(0,platform==='tiktok'?120000:240000),
+      links,
+      hydration,
+      height:Math.max(document.documentElement?.scrollHeight||0,document.body?.scrollHeight||0),
+      y:window.scrollY||0
+    };
+  })()`;
+}
+
+function mergeDomSnapshot(rows, snapshot, platform, known) {
+  let knownHit = false;
+  for (const link of snapshot?.links || []) {
+    const id = String(link?.id || '').trim();
+    const href = safeUrl(link?.href);
+    if (!id || !href) continue;
+    const prior = rows.get(id);
+    rows.set(id, {
+      id,
+      href,
+      text:String(prior?.text || link.text || '').trim(),
+    });
+    if (known.has(id)) knownHit = true;
+  }
+  if (platform === 'tiktok') {
+    for (const script of snapshot?.hydration || []) {
+      const id = String(script?.id || '').replace(/[^A-Za-z0-9_]/g,'');
+      if (!id || !script?.text) continue;
+      const html = `<script id="${id}" type="application/json">${script.text}</script>`;
+      for (const item of collectTikTokItemsFromHtml(html)) {
+        if (!item?.id) continue;
+        const prior = rows.get(item.id);
+        rows.set(item.id, {
+          id:item.id,
+          href:item.url,
+          text:prior?.text || item.desc || '',
+        });
+        if (known.has(item.id)) knownHit = true;
+      }
+    }
+  }
+  return knownHit;
+}
+
 async function browserSnapshot(url, { platform='generic', full=false, knownIds=[], maxPasses=120, maxItems=0 } = {}) {
   if (!electronApi?.BrowserWindow || !electronApi?.app?.isReady?.()) throw new Error('Browser-backed creator discovery is unavailable');
   return pool().withWindow(async win => {
-    await loadUrlWithTimeout(win, url, platform === 'tiktok' ? 15000 : 12000);
-    await sleep(platform === 'tiktok' ? 800 : 350);
-    const source = `(async()=>{
-      const platform=${JSON.stringify(platform)};
-      const full=${JSON.stringify(!!full)};
-      const known=new Set(${JSON.stringify((knownIds || []).slice(0,5000))});
-      const passes=${JSON.stringify(clampInt(maxPasses,120,4,240))};
-      const maxItems=${JSON.stringify(Math.max(0, Number(maxItems)||0))};
-      const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-      const rows=new Map();
-      let stable=0,lastSize=0,knownHits=0;
-      const put=(id,href,text='')=>{
-        id=String(id||'').trim(); href=String(href||'').trim(); text=String(text||'').trim();
-        if(!id||!href)return;
-        if(!rows.has(id))rows.set(id,{id,href,text});
-        else if(text&&!rows.get(id).text)rows.get(id).text=text;
-        if(known.has(id))knownHits++;
-      };
-      const collectAnchors=()=>{
-        for(const a of document.querySelectorAll('a[href]')){
-          let href='';try{href=new URL(a.href,location.href).toString()}catch{}
-          if(!href)continue;
-          let id='';
-          if(platform==='youtube'){
-            try{const u=new URL(href);id=u.searchParams.get('v')||u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{11})/)?.[1]||'';}catch{}
-          }else if(platform==='tiktok')id=href.match(/\/video\/(\d{8,})/)?.[1]||'';
-          if(id)put(id,href,a.getAttribute('title')||a.textContent||'');
-        }
-      };
-      const collectTikTokHydration=()=>{
-        if(platform!=='tiktok')return;
-        const visit=value=>{
-          if(!value||typeof value!=='object')return;
-          if(Array.isArray(value)){for(const row of value)visit(row);return;}
-          const id=String(value.id||value.itemId||value.aweme_id||'').trim();
-          const desc=String(value.desc||value.description||value.title||'').trim();
-          const author=String(value.author?.uniqueId||value.author?.unique_id||value.authorName||'').trim();
-          if(/^\d{8,}$/.test(id))put(id,author?('https://www.tiktok.com/@'+author+'/video/'+id):('https://www.tiktok.com/video/'+id),desc);
-          for(const row of Object.values(value))visit(row);
-        };
-        for(const id of ['__UNIVERSAL_DATA_FOR_REHYDRATION__','SIGI_STATE']){
-          const node=document.getElementById(id);if(!node)continue;
-          try{visit(JSON.parse(node.textContent||''))}catch{}
-        }
-      };
-      const collect=()=>{collectAnchors();collectTikTokHydration();};
-      collect();
-      for(let index=0;index<passes;index++){
-        if(maxItems&&rows.size>=maxItems)break;
-        if(!full&&known.size&&knownHits>0&&index>=1)break;
-        window.scrollTo(0,document.documentElement.scrollHeight);
-        await wait(platform==='tiktok'?430:260);
-        collect();
-        stable=rows.size===lastSize?stable+1:0;
-        lastSize=rows.size;
-        if(stable>=5)break;
-      }
-      const bodyText=document.body?.innerText||'';
-      return {
-        url:location.href,
-        title:document.title||'',
-        text:bodyText.slice(0,platform==='tiktok'?120000:400000),
-        html:platform==='tiktok'?'':(document.documentElement?.outerHTML||''),
-        links:[...rows.values()]
-      };
-    })()`;
-    const result = await executeJavaScriptStable(win, source, { retries:platform === 'tiktok' ? 3 : 1, delayMs:450 });
-    return result || { url, title:'', text:'', html:'', links:[] };
+    await loadUrlWithTimeout(win, url, platform === 'tiktok' ? 18000 : 14000);
+    const rows = new Map();
+    const known = new Set(knownIds || []);
+    const passes = clampInt(maxPasses, 120, 1, 240);
+    const limit = Math.max(0, Number(maxItems) || 0);
+    let lastSize = -1;
+    let stable = 0;
+    let finalSnapshot = null;
+    for (let pass = 0; pass < passes; pass++) {
+      const snapshot = await executeJavaScriptStable(win, creatorDomSnapshotScript(platform), {
+        retries:3,
+        delayMs:260,
+        timeoutMs:4500,
+      });
+      finalSnapshot = snapshot || finalSnapshot;
+      const knownHit = mergeDomSnapshot(rows, snapshot, platform, known);
+      if (limit && rows.size >= limit) break;
+      if (!full && known.size && knownHit && pass >= 1) break;
+      stable = rows.size === lastSize ? stable + 1 : 0;
+      lastSize = rows.size;
+      if (stable >= 4) break;
+      await executeJavaScriptStable(win, `(()=>{window.scrollTo(0,Math.max(document.documentElement?.scrollHeight||0,document.body?.scrollHeight||0));return true})()`, {
+        retries:2,
+        delayMs:180,
+        timeoutMs:2200,
+      });
+      await sleep(platform === 'tiktok' ? 450 : 280);
+    }
+    return {
+      url:finalSnapshot?.url || url,
+      title:finalSnapshot?.title || '',
+      text:finalSnapshot?.text || '',
+      html:'',
+      links:[...rows.values()],
+    };
   });
 }
 
@@ -241,10 +314,19 @@ function xmlValue(block, tag) {
 }
 function youtubeChannelIdFromHtml(html) {
   const text = String(html || '');
-  return text.match(/<meta[^>]+itemprop=["']channelId["'][^>]+content=["'](UC[A-Za-z0-9_-]+)["']/i)?.[1]
-    || text.match(/["']channelId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/)?.[1]
-    || text.match(/["']externalId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/)?.[1]
-    || text.match(/youtube\.com\/channel\/(UC[A-Za-z0-9_-]+)/i)?.[1] || '';
+  const patterns = [
+    /<meta[^>]+itemprop=["']channelId["'][^>]+content=["'](UC[A-Za-z0-9_-]+)["']/i,
+    /["']channelId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/,
+    /["']externalId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/,
+    /["']browseId["']\s*:\s*["'](UC[A-Za-z0-9_-]+)["']/,
+    /\\"browseId\\"\s*:\s*\\"(UC[A-Za-z0-9_-]+)\\"/,
+    /youtube\.com\/channel\/(UC[A-Za-z0-9_-]+)/i,
+  ];
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return '';
 }
 function parseYouTubeFeedXml(xml) {
   const rows = [];
@@ -265,17 +347,20 @@ function parseYouTubeFeedXml(xml) {
 }
 async function youtubeFeedRefs(root) {
   let channelId = '';
-  for (const page of [root, `${root}/videos`]) {
-    try {
-      const response = await requestText(page, { timeoutMs:5200, headers:{'Accept-Language':'en-US,en;q=0.9'} });
-      channelId = youtubeChannelIdFromHtml(response.text);
-      if (channelId) break;
-    } catch {}
+  try { channelId = new URL(root).pathname.match(/^\/channel\/(UC[A-Za-z0-9_-]+)/i)?.[1] || ''; } catch {}
+  if (!channelId) {
+    for (const page of [root, `${root}/videos`, `${root}/shorts`]) {
+      try {
+        const response = await requestText(page, { timeoutMs:6000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+        channelId = youtubeChannelIdFromHtml(response.text);
+        if (channelId) break;
+      } catch {}
+    }
   }
   if (!channelId) return [];
   try {
     const response = await requestText(`https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`, {
-      timeoutMs:5200,
+      timeoutMs:6000,
       headers:{ Accept:'application/atom+xml,application/xml,text/xml,*/*;q=0.8' },
     });
     return parseYouTubeFeedXml(response.text);
@@ -289,7 +374,7 @@ function parseTikTokRefsFromHtml(text, creatorUrl='') {
   }
   let defaultAuthor = '';
   try { defaultAuthor = new URL(creatorUrl).pathname.match(/^\/@([^/]+)/)?.[1] || ''; } catch {}
-  const source = String(text || '').replace(/\\u002F/g,'/').replace(/\\\//g,'/');
+  const source = String(text || '').replace(/\\u002F/gi,'/').replace(/\\\//g,'/');
   for (const match of source.matchAll(/\/@([^/"'?\\]+)\/video\/(\d{8,})/g)) {
     const author = match[1] || defaultAuthor;
     const id = match[2];
@@ -310,7 +395,7 @@ async function enumerateYouTube(creator, knownIds, full, settings) {
     let httpLinks = [];
     if (!full) {
       try {
-        const response = await requestText(page, { timeoutMs:5200, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+        const response = await requestText(page, { timeoutMs:6000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
         httpLinks = parseYoutubeIdsFromHtml(response.text).map(id => ({
           id,
           href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,
@@ -321,7 +406,9 @@ async function enumerateYouTube(creator, knownIds, full, settings) {
     }
     try {
       const snap = await browserSnapshot(page, {
-        platform:'youtube', full, knownIds,
+        platform:'youtube',
+        full,
+        knownIds,
         maxPasses:settings.browserHistoryScrollPasses,
         maxItems:full ? 0 : Math.max(24, incrementalLimit * 3),
       });
@@ -330,9 +417,13 @@ async function enumerateYouTube(creator, knownIds, full, settings) {
     } catch (browserError) {
       if (httpLinks.length) return httpLinks;
       try {
-        const response = await requestText(page, { timeoutMs:7000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+        const response = await requestText(page, { timeoutMs:8000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
         const ids = parseYoutubeIdsFromHtml(response.text);
-        if (ids.length) return ids.map(id => ({ id, href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`, text:'' }));
+        if (ids.length) return ids.map(id => ({
+          id,
+          href:tab === 'shorts' ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,
+          text:'',
+        }));
       } catch {}
       throw browserError;
     }
@@ -368,14 +459,16 @@ async function enumerateTikTok(creator, knownIds, full, settings) {
   const incrementalLimit = Math.max(1, Number(settings.maxIncrementalVideosPerCreator) || 16);
   let httpRefs = [];
   try {
-    const response = await requestText(url, { timeoutMs:6500 });
+    const response = await requestText(url, { timeoutMs:7000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
     httpRefs = parseTikTokRefsFromHtml(response.text || '', url);
     const touchesKnown = httpRefs.some(item => known.has(item.id));
     if (!full && httpRefs.length >= Math.min(incrementalLimit, 8) && (!known.size || touchesKnown)) return httpRefs;
   } catch {}
   try {
     const snap = await browserSnapshot(url, {
-      platform:'tiktok', full, knownIds,
+      platform:'tiktok',
+      full,
+      knownIds,
       maxPasses:settings.browserHistoryScrollPasses,
       maxItems:full ? 0 : Math.max(24, incrementalLimit * 3),
     });
@@ -405,58 +498,89 @@ async function enumerateCreatorVideos(creator, knownIds, full, settings) {
   }));
 }
 
-async function browserVideoDetails(url, platform) {
-  return pool().withWindow(async win => {
-    await loadUrlWithTimeout(win, url, platform === 'tiktok' ? 15000 : 12000);
-    await sleep(platform === 'tiktok' ? 800 : 350);
-    const source = `(async()=>{
-      const platform=${JSON.stringify(platform)};
-      const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-      if(platform==='youtube'){
-        const player=window.ytInitialPlayerResponse||{};
-        const playerDescription=String(player?.videoDetails?.shortDescription||'').trim();
-        for(const el of document.querySelectorAll('#expand,tp-yt-paper-button#expand,ytd-text-inline-expander #expand')){try{el.click()}catch{}}
-        await wait(140);
-        const root=document.querySelector('#description-inline-expander,#description,ytd-watch-metadata')||document;
-        const domDescription=(
-          document.querySelector('#description-inline-expander #description')?.innerText||
-          document.querySelector('#description yt-formatted-string')?.innerText||
-          document.querySelector('meta[itemprop="description"]')?.content||
-          document.querySelector('meta[name="description"]')?.content||''
-        ).trim();
-        return {
-          url:location.href,
-          title:(player?.videoDetails?.title||document.querySelector('h1 yt-formatted-string,h1')?.textContent||document.querySelector('meta[property="og:title"]')?.content||document.title||'').trim(),
-          description:playerDescription||domDescription,
-          publishedAt:(player?.microformat?.playerMicroformatRenderer?.publishDate||document.querySelector('#info-strings yt-formatted-string')?.textContent||'').trim(),
-          links:[...root.querySelectorAll('a[href]')].slice(0,500).map(a=>({href:a.href,text:(a.textContent||'').trim()}))
-        };
-      }
-      let hydrationDescription='';
-      for(const id of ['__UNIVERSAL_DATA_FOR_REHYDRATION__','SIGI_STATE']){
-        const node=document.getElementById(id);if(!node)continue;
-        try{
-          const targetId=location.pathname.match(/\/video\/(\d+)/)?.[1]||'';
-          const visit=value=>{
-            if(hydrationDescription||!value||typeof value!=='object')return;
-            if(Array.isArray(value)){for(const row of value)visit(row);return;}
-            const idValue=String(value.id||value.itemId||value.aweme_id||'');
-            if(!targetId||idValue===targetId){const desc=String(value.desc||value.description||value.title||'').trim();if(desc)hydrationDescription=desc;}
-            for(const row of Object.values(value))visit(row);
-          };
-          visit(JSON.parse(node.textContent||''));
-        }catch{}
-      }
-      const description=hydrationDescription||document.querySelector('[data-e2e="browse-video-desc"],[data-e2e="video-desc"]')?.textContent||document.querySelector('meta[name="description"]')?.content||document.querySelector('meta[property="og:description"]')?.content||'';
+function videoDomSnapshotScript(platform) {
+  return `(()=>{
+    const platform=${JSON.stringify(platform)};
+    if(platform==='youtube'){
+      const player=window.ytInitialPlayerResponse||{};
+      const root=document.querySelector('#description-inline-expander,#description,ytd-watch-metadata')||document;
+      const description=String(
+        player?.videoDetails?.shortDescription||
+        document.querySelector('#description-inline-expander #description')?.innerText||
+        document.querySelector('#description yt-formatted-string')?.innerText||
+        document.querySelector('meta[itemprop="description"]')?.content||
+        document.querySelector('meta[name="description"]')?.content||
+        document.querySelector('meta[property="og:description"]')?.content||''
+      ).trim();
       return {
         url:location.href,
-        title:document.querySelector('meta[property="og:title"]')?.content||document.title||'',
-        description:String(description).trim(),
-        publishedAt:'',
-        links:[...document.querySelectorAll('a[href]')].slice(0,500).map(a=>({href:a.href,text:(a.textContent||'').trim()}))
+        title:String(player?.videoDetails?.title||document.querySelector('h1 yt-formatted-string,h1')?.textContent||document.querySelector('meta[property="og:title"]')?.content||document.title||'').trim().slice(0,500),
+        description:description.slice(0,500000),
+        publishedAt:String(player?.microformat?.playerMicroformatRenderer?.publishDate||document.querySelector('#info-strings yt-formatted-string')?.textContent||'').trim().slice(0,100),
+        links:[...root.querySelectorAll('a[href]')].slice(0,700).map(a=>({href:a.href,text:String(a.textContent||'').trim().slice(0,300)})),
+        hydration:[]
       };
-    })()`;
-    return executeJavaScriptStable(win, source, { retries:platform === 'tiktok' ? 3 : 1, delayMs:450 });
+    }
+    const hydration=[];
+    if(platform==='tiktok'){
+      for(const id of ['__UNIVERSAL_DATA_FOR_REHYDRATION__','SIGI_STATE']){
+        const node=document.getElementById(id);if(node)hydration.push({id,text:String(node.textContent||'').slice(0,900000)});
+      }
+    }
+    return {
+      url:location.href,
+      title:String(document.querySelector('meta[property="og:title"]')?.content||document.title||'').trim().slice(0,500),
+      description:String(document.querySelector('[data-e2e="browse-video-desc"],[data-e2e="video-desc"]')?.textContent||document.querySelector('meta[name="description"]')?.content||document.querySelector('meta[property="og:description"]')?.content||'').trim().slice(0,500000),
+      publishedAt:'',
+      links:[...document.querySelectorAll('a[href]')].slice(0,700).map(a=>({href:a.href,text:String(a.textContent||'').trim().slice(0,300)})),
+      hydration
+    };
+  })()`;
+}
+
+function hydrateTikTokVideo(row, targetId) {
+  let description = String(row?.description || '').trim();
+  for (const script of row?.hydration || []) {
+    const id = String(script?.id || '').replace(/[^A-Za-z0-9_]/g,'');
+    if (!id || !script?.text) continue;
+    const html = `<script id="${id}" type="application/json">${script.text}</script>`;
+    const items = collectTikTokItemsFromHtml(html);
+    const hit = items.find(item => item.id === targetId) || items.find(item => item.desc);
+    if (hit?.desc) {
+      description = hit.desc;
+      break;
+    }
+  }
+  return description;
+}
+
+async function browserVideoDetails(url, platform) {
+  return pool().withWindow(async win => {
+    await loadUrlWithTimeout(win, url, platform === 'tiktok' ? 18000 : 14000);
+    let row = await executeJavaScriptStable(win, videoDomSnapshotScript(platform), {
+      retries:3,
+      delayMs:260,
+      timeoutMs:4500,
+    });
+    if (platform === 'youtube' && String(row?.description || '').trim().length < 24) {
+      await executeJavaScriptStable(win, `(()=>{for(const el of document.querySelectorAll('#expand,tp-yt-paper-button#expand,ytd-text-inline-expander #expand')){try{el.click()}catch{}}return true})()`, {
+        retries:2,
+        delayMs:180,
+        timeoutMs:2200,
+      }).catch(()=>null);
+      await sleep(350);
+      row = await executeJavaScriptStable(win, videoDomSnapshotScript(platform), {
+        retries:3,
+        delayMs:260,
+        timeoutMs:4500,
+      });
+    }
+    if (platform === 'tiktok') {
+      let targetId = '';
+      try { targetId = new URL(url).pathname.match(/\/video\/(\d{8,})/)?.[1] || ''; } catch {}
+      row = { ...row, description:hydrateTikTokVideo(row, targetId) };
+    }
+    return row || { url, title:'', description:'', publishedAt:'', links:[] };
   });
 }
 
@@ -474,10 +598,10 @@ async function readYouTube(ref) {
   }
   let parsed = null;
   try {
-    const response = await requestText(ref.url, { timeoutMs:6500, headers:{'Accept-Language':'en-US,en;q=0.9'} });
+    const response = await requestText(ref.url, { timeoutMs:7000, headers:{'Accept-Language':'en-US,en;q=0.9'} });
     if (response.status >= 200 && response.status < 400) {
       parsed = parseYouTubeWatchHtml(response.text, ref.id);
-      if (String(parsed.description || '').trim().length >= 16) return parsed;
+      if (String(parsed.description || '').trim().length >= 24) return { ...parsed, source:'youtube-http' };
     }
   } catch {}
   try {
@@ -492,7 +616,7 @@ async function readYouTube(ref) {
       source:'youtube-browser',
     };
   } catch (browserError) {
-    if (parsed?.title || parsed?.description) return parsed;
+    if (parsed?.title || parsed?.description) return { ...parsed, source:'youtube-http-partial' };
     throw browserError;
   }
 }
@@ -501,8 +625,8 @@ async function readTikTok(ref) {
   let embed = null;
   let pageItems = [];
   const [embedResult, pageResult] = await Promise.allSettled([
-    requestJson(`https://www.tiktok.com/oembed?url=${encodeURIComponent(ref.url)}`, { timeoutMs:4500 }),
-    requestText(ref.url, { timeoutMs:5500 }),
+    requestJson(`https://www.tiktok.com/oembed?url=${encodeURIComponent(ref.url)}`, { timeoutMs:5000 }),
+    requestText(ref.url, { timeoutMs:6500, headers:{'Accept-Language':'en-US,en;q=0.9'} }),
   ]);
   if (embedResult.status === 'fulfilled') embed = embedResult.value;
   if (pageResult.status === 'fulfilled') pageItems = collectTikTokItemsFromHtml(pageResult.value.text || '');
