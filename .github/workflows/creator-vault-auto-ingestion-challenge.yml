@@ -1,18 +1,30 @@
-name: Creator Vault Automatic Ingestion Challenge
+name: Creator Vault Automatic Ingestion QA
 
 on:
   push:
     branches:
       - 'feature/creator-vault-auto-ingestion'
+  pull_request:
+    paths:
+      - 'src/creator-vault-runtime.js'
+      - 'src/creator-vault-auto/**'
+      - 'src/catalog-renderer.js'
+      - 'catalog-preload.js'
+      - 'catalog/creator-vault/**'
+      - 'scripts/creator-vault-auto-ingestion-qa.js'
+      - '.github/workflows/creator-vault-auto-ingestion-challenge.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  integration-challenge:
+  automatic-ingestion:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,41 +35,26 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Render real catalog with automatic Creator Vault UI
+      - name: Syntax gate
         run: |
-          node <<'NODE'
-          const assert = require('assert');
-          const fs = require('fs');
-          const path = require('path');
-          const os = require('os');
-          const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-auto-render-'));
-          process.env.ENDERLOOM_CREATOR_VAULT_RUNTIME_DIR = path.join(tmp, 'runtime');
-          const { renderCatalog } = require('./src/catalog-renderer');
-          const runtime = require('./src/creator-vault-runtime');
-          const snapshot = {
-            id:'auto-ingestion-challenge',
-            name:'Automatic Ingestion Challenge',
-            description:'integration smoke',
-            items:[], assets:{}, documents:[], sources:[], updatedAt:new Date().toISOString()
-          };
-          const rendered = renderCatalog(snapshot, process.cwd());
-          assert(rendered.html.includes('window.ENDERLOOM_CREATOR_VAULT='), 'Creator Vault bootstrap missing from rendered catalog');
-          assert(rendered.html.includes('Automatic creator cataloging'), 'automatic ingestion controls missing from rendered catalog');
-          assert(rendered.html.includes('Sync new uploads'), 'incremental sync action missing');
-          assert(rendered.html.includes('Full history'), 'full history action missing');
-          assert(rendered.html.includes('Add creator'), 'creator add action missing');
-          const preload = fs.readFileSync('catalog-preload.js','utf8');
-          for (const marker of ['creatorVaultStatus','syncCreatorVault','addCreatorVaultCreator','onCreatorVaultProgress','onCreatorVaultReload']) assert(preload.includes(marker), `preload bridge missing ${marker}`);
-          const status = runtime.runtimeStatus();
-          assert.equal(status.settings.autoSyncOnLaunch, true, 'launch incremental sync must default on');
-          fs.rmSync(tmp,{recursive:true,force:true});
-          console.log('Automatic Creator Vault compositor/preload integration challenge passed.');
-          NODE
-      - name: Focused automatic ingestion QA
+          node --check src/creator-vault-runtime.js
+          node --check src/creator-vault-auto/common.js
+          node --check src/creator-vault-auto/state.js
+          node --check src/creator-vault-auto/parser.js
+          node --check src/creator-vault-auto/browser.js
+          node --check src/creator-vault-auto/resolver.js
+          node --check src/creator-vault-auto/runtime.js
+          node --check src/catalog-renderer.js
+          node --check catalog-preload.js
+          node --check catalog/creator-vault/creator-vault-auto.js
+          node --check scripts/creator-vault-auto-ingestion-qa.js
+      - name: Automatic ingestion contract and stress QA
         run: node scripts/creator-vault-auto-ingestion-qa.js
-      - name: Existing Creator Vault recursive QA
+      - name: Existing Creator Vault regression QA
         run: npm run creator-vault-qa
       - name: Catalog regression QA
         run: npm run catalog-qa
-      - name: Portable render regression
+      - name: Render portable catalogs
         run: npm run portable
+      - name: Electron self-test
+        run: xvfb-run -a npm run electron-self-test

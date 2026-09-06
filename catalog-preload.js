@@ -45,7 +45,27 @@ contextBridge.exposeInMainWorld('mobCompanion', {
     type: safe(project?.type).slice(0, 80),
     loader: safe(project?.loader).slice(0, 160),
     minecraftVersions: safe(project?.minecraftVersions).slice(0, 256),
-  })
+  }),
+  creatorVaultStatus: () => ipcRenderer.invoke('catalog:creator-vault-status'),
+  creatorVaultSync: options => ipcRenderer.invoke('catalog:creator-vault-sync', {
+    creatorId:safe(options?.creatorId).slice(0, 256),
+    full:!!options?.full,
+    maxVideosPerCreator:Number(options?.maxVideosPerCreator)||null,
+  }),
+  creatorVaultAdd: creator => ipcRenderer.invoke('catalog:creator-vault-add', {
+    id:safe(creator?.id).slice(0, 256),
+    title:safe(creator?.title).slice(0, 256),
+    platform:safe(creator?.platform).slice(0, 40),
+    handle:safe(creator?.handle).slice(0, 256),
+    url:safe(creator?.url).slice(0, 2048),
+  }),
+  creatorVaultSettings: patch => ipcRenderer.invoke('catalog:creator-vault-settings', patch && typeof patch === 'object' ? patch : {}),
+  creatorVaultIgnoreReview: id => ipcRenderer.invoke('catalog:creator-vault-review-ignore', safe(id).slice(0, 256)),
+  onCreatorVaultProgress: cb => {
+    const fn=(_e,payload)=>cb(payload);
+    ipcRenderer.on('catalog:creator-vault-progress',fn);
+    return()=>ipcRenderer.removeListener('catalog:creator-vault-progress',fn);
+  },
 });
 
 window.addEventListener('DOMContentLoaded', () => {

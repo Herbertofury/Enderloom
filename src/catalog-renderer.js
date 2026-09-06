@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { loadCreatorVault } = require('./creator-vault');
+const { loadMergedCreatorVault } = require('./creator-vault-runtime');
 
 function htmlEscape(value) {
   return String(value ?? '').replace(/[&<>"']/g, ch => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch]));
@@ -81,16 +81,19 @@ function renderCatalog(snapshot, rootDir) {
   const creatorVaultDir = path.join(catalogDir, 'creator-vault');
   const template = fs.readFileSync(path.join(catalogDir, 'template.html'), 'utf8');
   const creatorVaultCss = optionalText(path.join(creatorVaultDir, 'creator-vault.css'));
+  const creatorVaultAutoCss = optionalText(path.join(creatorVaultDir, 'creator-vault-auto.css'));
   const styles = [
     fs.readFileSync(path.join(catalogDir, 'styles.css'), 'utf8'),
     fs.readFileSync(path.join(catalogDir, 'modern.css'), 'utf8'),
-    creatorVaultCss
+    creatorVaultCss,
+    creatorVaultAutoCss,
   ].filter(Boolean).join('\n');
   const appJs = fs.readFileSync(path.join(catalogDir, 'app.js'), 'utf8');
   const enhanceJs = fs.readFileSync(path.join(catalogDir, 'enhance.js'), 'utf8');
   const creatorVaultJs = optionalText(path.join(creatorVaultDir, 'creator-vault.js'));
-  const creatorVault = loadCreatorVault(rootDir);
-  const creatorVaultBootstrap = `window.ENDERLOOM_CREATOR_VAULT=${jsonForScript(creatorVault)};\n${creatorVaultJs}`;
+  const creatorVaultAutoJs = optionalText(path.join(creatorVaultDir, 'creator-vault-auto.js'));
+  const creatorVault = loadMergedCreatorVault(rootDir);
+  const creatorVaultBootstrap = `window.ENDERLOOM_CREATOR_VAULT=${jsonForScript(creatorVault)};\n${creatorVaultJs}\n${creatorVaultAutoJs}`;
   const data = normalizeSnapshot(snapshot);
   let html = template
     .replaceAll('__TITLE__', htmlEscape(`${data.name} - Explorer`))
