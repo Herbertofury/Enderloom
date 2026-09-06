@@ -68,6 +68,15 @@ jobs:
           if main.count(old_expiry) != 1:
               raise SystemExit(f'launcher event expiry marker mismatch: {main.count(old_expiry)}')
           main = main.replace(old_expiry, new_expiry, 1)
+
+          # Electron's native fetch abort may throw synchronously from the timer
+          # callback. That callback executes outside the async try/catch, so guard it
+          # directly; promise rejection handling alone cannot contain this failure.
+          old_abort = "timer=setTimeout(()=>controller.abort(),timeoutMs)"
+          new_abort = "timer=setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs)"
+          if main.count(old_abort) != 1:
+              raise SystemExit(f'Chromium abort timer marker mismatch: {main.count(old_abort)}')
+          main = main.replace(old_abort, new_abort, 1)
           main_path.write_text(main, encoding='utf-8')
 
           preload_path = Path('launcher-preload.js')
@@ -95,6 +104,7 @@ jobs:
           grep -q "node-gallery-ssr-fast" main.js
           grep -q "function navHistoryStep" main.js
           grep -q "if(deep && !result.exclusive)" main.js
+          grep -q "setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs)" main.js
           git diff --check
       - uses: dtolnay/rust-toolchain@stable
       - name: Install Linux native build prerequisites
@@ -132,7 +142,7 @@ jobs:
             log="electron-self-test-$n.log"
             timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
             grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
-            if grep -Eq 'MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
+            if grep -Eq 'MaxListenersExceededWarning|DOMException \[AbortError\]|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
               echo "::error::runtime lifecycle regression on pass $n"
               exit 1
             fi
