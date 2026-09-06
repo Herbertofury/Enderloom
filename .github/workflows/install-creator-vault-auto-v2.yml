@@ -1,0 +1,46 @@
+name: Install Creator Vault Automatic Ingestion V2
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: creator-vault-auto-v2-installer
+  cancel-in-progress: true
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact feature head
+        uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion
+          fetch-depth: 0
+      - name: Install tested implementation atomically
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/2b6e5abce4925d7d07928e019d85fb4e0a033c7f" --jq '.content' | tr -d '\n' | base64 --decode > /tmp/enderloom-auto-v2.tar.gz
+          echo '3c390b997d548ec12cb53ad1b24911c60961ed9a2824fa60c8f7f637649262f5  /tmp/enderloom-auto-v2.tar.gz' | sha256sum --check -
+          tar -xzf /tmp/enderloom-auto-v2.tar.gz -C .
+          rm -f \
+            .github/workflows/bootstrap-auto-ingestion.yml \
+            .github/workflows/creator-vault-auto-ingestion-ready.yml \
+            .github/workflows/patch-auto-ingestion-boot-hook.yml \
+            .github/workflows/patch-auto-ingestion-youtube-tabs.yml \
+            .github/workflows/install-creator-vault-auto-v2.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git diff --cached --check
+          git commit -m 'feat(creator-vault): harden automatic creator ingestion v2'
+          git push origin HEAD:feature/creator-vault-auto-ingestion
