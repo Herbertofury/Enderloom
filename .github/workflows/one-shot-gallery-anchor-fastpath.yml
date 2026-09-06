@@ -1,4 +1,4 @@
-name: One-shot Gallery SSR-first Fastpath
+name: One-shot Creator Media And Navigation Hardening
 
 on:
   push:
@@ -21,9 +21,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/creator-vault-auto-ingestion-hardening-stage3
-          fetch-depth: 64
+          fetch-depth: 96
 
-      - name: Verify pristine production source and patch focused media fastpath
+      - name: Verify pristine production source and patch proven runtime invariants
         shell: bash
         run: |
           set -euo pipefail
@@ -43,6 +43,7 @@ jobs:
                   raise SystemExit(f'{label}: expected one match, found {count}')
               text=text.replace(old,new,1)
 
+          # 1) CurseForge exact gallery rescue: session-aware SSR first, DOM only fallback.
           start_token="async function extractCurseForgeGalleryDomQuick(url, context={}, { timeoutMs=5200, foreground=false } = {}) {"
           end_token="\nasync function extractCurseForgeGalleryHtmlFull"
           if text.count(start_token)!=1:
@@ -56,10 +57,9 @@ jobs:
             if((targetProvider!=='curseforge'&&!(testMode&&contextProvider==='curseforge'))||!/\/gallery\/?$/i.test(new URL(target).pathname))return null;
             const totalMs=Math.max(1800,Number(timeoutMs)||5200),started=Date.now();
             const useful=page=>!!(page&&((page.gallery||page.images||[]).length||page.sourceGalleryAbsent===true||page.galleryAbsent===true));
-            // SSR is the primary latency rescue. It uses the same persistent Chromium
-            // session/cookies but no WebContents, and the provider parser is identity-
-            // bounded + uncapped. Give it a short head start before spending a reserved
-            // foreground WebContents on the browser-only fallback.
+            // This helper is a latency rescue, while the normal full-HTML lanes remain
+            // the uncapped completeness path. Reuse the authenticated Chromium session
+            // without constructing a WebContents first; only browser-render as fallback.
             const ssrPromise=extractCurseForgeGalleryHtmlFull(target,context,{timeoutMs:Math.min(totalMs,2400),bypassCache:false}).catch(()=>null);
             const early=await Promise.race([ssrPromise,new Promise(resolve=>setTimeout(()=>resolve(undefined),650))]);
             if(useful(early)){early.transport=early.transport||'chromium-gallery-ssr-fast';return early}
@@ -72,6 +72,7 @@ jobs:
           ''').strip()
           text=text[:start]+gallery+text[end:]
 
+          # 2) One bounded urgent prime burst; never unbounded background concurrency.
           old_pump=textwrap.dedent('''
           function pumpMediaPrime() {
             while(activeMediaPrimeJobs<mediaPrimeTarget&&mediaPrimeQueue.length){
@@ -104,6 +105,7 @@ jobs:
               "extractLivePageMediaQuick(url,contextScript,{timeoutMs:3000,foreground:Number(job.priority)>=900000}).catch(()=>null)",
               'urgent generic foreground hedge')
 
+          # 3) Make the foreground WebContents reserve real, including at prewarm time.
           old_acquire=textwrap.dedent('''
           function acquireMediaView({ foreground=false } = {}) {
             const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);
@@ -156,6 +158,60 @@ jobs:
           ''').strip()
           swap(old_warm,new_warm,'foreground pool warm invariant')
 
+          # 4) force = fresh/cache bypass; deep = expensive enrichment. Keep them orthogonal.
+          swap(
+              "const hedgedDeep=((deep||force)&&!isProviderCollectionUrl(url)&&HEDGED_DEEP_PROVIDERS.has(provider))",
+              "const hedgedDeep=(deep&&!isProviderCollectionUrl(url)&&HEDGED_DEEP_PROVIDERS.has(provider))",
+              'deep hedge semantics')
+          swap(
+              "discoverModrinthMedia(url,context,deep||force||!!context.author)",
+              "discoverModrinthMedia(url,context,deep||!!context.author)",
+              'Modrinth author depth semantics')
+          swap(
+              "if((deep || force) && !result.exclusive) {",
+              "if(deep && !result.exclusive) {",
+              'deep enrichment semantics')
+
+          # 5) Deterministic one-entry history navigation on Electron's current API.
+          old_nav=textwrap.dedent('''
+          function navCanBack(wc) { return wc?.navigationHistory?.canGoBack?.() ?? wc?.canGoBack?.() ?? false; }
+          function navCanForward(wc) { return wc?.navigationHistory?.canGoForward?.() ?? wc?.canGoForward?.() ?? false; }
+          function navBack(wc) { if (wc?.navigationHistory?.canGoBack?.()) return wc.navigationHistory.goBack(); if (wc?.canGoBack?.()) return wc.goBack(); }
+          function navForward(wc) { if (wc?.navigationHistory?.canGoForward?.()) return wc.navigationHistory.goForward(); if (wc?.canGoForward?.()) return wc.goForward(); }
+          ''').strip()
+          new_nav=textwrap.dedent('''
+          function navCanBack(wc) { return wc?.navigationHistory?.canGoBack?.() ?? wc?.canGoBack?.() ?? false; }
+          function navCanForward(wc) { return wc?.navigationHistory?.canGoForward?.() ?? wc?.canGoForward?.() ?? false; }
+          function navHistoryStep(wc, offset) {
+            const history=wc?.navigationHistory,step=Number(offset)||0;
+            if(!step||!wc||wc.isDestroyed?.())return;
+            try {
+              if(history?.canGoToOffset?.(step)){
+                const index=history.getActiveIndex?.();
+                if(Number.isInteger(index)&&typeof history.goToIndex==='function')return history.goToIndex(index+step);
+                return history.goToOffset(step);
+              }
+              if(step<0&&history?.canGoBack?.())return history.goBack();
+              if(step>0&&history?.canGoForward?.())return history.goForward();
+            } catch {}
+            if(step<0&&wc?.canGoBack?.())return wc.goBack();
+            if(step>0&&wc?.canGoForward?.())return wc.goForward();
+          }
+          function navBack(wc) { return navHistoryStep(wc,-1); }
+          function navForward(wc) { return navHistoryStep(wc,1); }
+          ''').strip()
+          swap(old_nav,new_nav,'deterministic navigation history')
+
+          # Preserve strict 1.8s back requirement, but emit exact stack diagnostics on failure.
+          swap(
+              "  const backNavigation = new Promise(resolve => {",
+              "  const backHistoryBefore={index:t.view.webContents.navigationHistory?.getActiveIndex?.(),entries:t.view.webContents.navigationHistory?.getAllEntries?.().map(x=>x.url)};\n  const backNavigation = new Promise(resolve => {",
+              'back history diagnostics before')
+          swap(
+              "  check('back works', /\\/$/.test(t.view.webContents.getURL()), t.view.webContents.getURL());",
+              "  const backHistoryAfter={index:t.view.webContents.navigationHistory?.getActiveIndex?.(),entries:t.view.webContents.navigationHistory?.getAllEntries?.().map(x=>x.url)};\n  check('back works', /\\/$/.test(t.view.webContents.getURL()), JSON.stringify({url:t.view.webContents.getURL(),backHistoryBefore,backHistoryAfter}));",
+              'back history diagnostics after')
+
           p.write_text(text,encoding='utf-8')
           PY
           node --check main.js
@@ -163,6 +219,9 @@ jobs:
           grep -q 'MEDIA_PRIME_URGENT_PRIORITY=900000' main.js
           grep -q 'foreground:Number(job.priority)>=900000' main.js
           grep -q 'reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target)' main.js
+          grep -q 'const hedgedDeep=(deep&&' main.js
+          grep -q 'if(deep && !result.exclusive)' main.js
+          grep -q 'function navHistoryStep' main.js
           git diff --check
 
       - name: Prove exact CurseForge SSR gallery ownership parser
@@ -227,7 +286,7 @@ jobs:
             timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
             grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
             if grep -Eq 'main-process streaming media prime runtime: .*done.*false|MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out' "$log"; then
-              echo "::error::media lifecycle/QoS regression on pass $n"
+              echo "::error::media/navigation lifecycle regression on pass $n"
               exit 1
             fi
           done
@@ -236,7 +295,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: gallery-ssr-first-${{ github.sha }}
+          name: creator-media-navigation-${{ github.sha }}
           path: electron-self-test-*.log
           if-no-files-found: warn
           retention-days: 14
@@ -253,5 +312,5 @@ jobs:
           changed="$(git diff --cached --name-only | sort)"
           expected=$'.github/workflows/one-shot-gallery-anchor-fastpath.yml\n.github/workflows/one-shot-gallery-dom-budget-hardening.yml\nmain.js'
           test "$changed" = "$expected"
-          git commit -m 'fix(media): guarantee urgent prime QoS with SSR-first gallery rescue'
+          git commit -m 'fix(core): harden creator media QoS and browser history'
           git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
