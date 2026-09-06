@@ -23,8 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Chunk 30 May-28 identity probe
-        run: node scripts/creator-vault-ahs30-identity-probe.js
+      - name: Chunk 30 canonical probe
+        run: node scripts/creator-vault-ahs30-canonical-probe.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA

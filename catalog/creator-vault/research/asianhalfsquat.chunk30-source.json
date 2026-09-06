@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "chunk": 30,
+  "updatedAt": "2026-09-06T01:55:00Z",
+  "baseline": {"recommendations": 977, "uniqueProjects": 667, "ahsIndexedVideos": 50},
+  "sourceMentions": 10,
+  "chronologyEvidence": [
+    {
+      "publishedAt": "2024-05-28",
+      "title": "Soaring Through The Clouds",
+      "durationSeconds": 24,
+      "videoId": null,
+      "status": "chronology-confirmed-non-ingestable",
+      "recommendationCount": 0,
+      "notes": "Independent channel chronology and mirrored video listings confirm title/date/duration, but the exact YouTube ID and creator-authored description/link semantics are not recoverable from the available indexes. No project identity is inferred from title or visuals. This slot is preserved as chronology-only recovery debt and is not counted as an indexed AHS recommendation video."
+    }
+  ],
+  "videos": [
+    {
+      "id": "youtube:XO51AADPLDg",
+      "url": "https://www.youtube.com/watch?v=XO51AADPLDg",
+      "title": "Top 10 Minecraft Mods (1.20.6) - 2024",
+      "publishedAt": "2024-05-24",
+      "sourceKind": "youtube-indexed-description",
+      "recommendations": [
+        {"name":"BN Blood Particles","projectType":"mod","timestampSeconds":24,"sectionLabel":"Mods"},
+        {"name":"Item Placer","projectType":"mod","timestampSeconds":46,"sectionLabel":"Mods"},
+        {"name":"Luki's Grand Capitals","projectType":"mod","timestampSeconds":64,"sectionLabel":"Mods"},
+        {"name":"Nether Weather","projectType":"mod","timestampSeconds":78,"sectionLabel":"Mods"},
+        {"name":"Item Highlighter","projectType":"mod","timestampSeconds":102,"sectionLabel":"Mods"},
+        {"name":"RpgZ","projectType":"mod","timestampSeconds":118,"sectionLabel":"Mods"},
+        {"name":"Shoulder Surfing Reloaded","projectType":"mod","timestampSeconds":140,"sectionLabel":"Mods"},
+        {"name":"First-person Model","projectType":"mod","timestampSeconds":175,"sectionLabel":"Mods"},
+        {"name":"Nature's Spirit","projectType":"mod","timestampSeconds":214,"sectionLabel":"Mods"},
+        {"name":"Do a Barrel Roll","projectType":"mod","timestampSeconds":236,"sectionLabel":"Mods"}
+      ],
+      "excludedEvidence": [
+        {"sourceLabel":"Fabric / Forge setup links","status":"loader-setup-excluded"},
+        {"sourceLabel":"Minecraft Volume Beta - Taswell","status":"music-excluded"}
+      ],
+      "notes": "Exactly ten creator-listed Minecraft mod recommendations. Every recommendation retains the creator-authored timestamp from the indexed YouTube description."
+    }
+  ],
+  "notes": "Chunk 30 research-only freeze. May 28 is chronology-only recovery debt with zero recommendations; May 24 is the sole recommendation-bearing source video in this bounded batch."
+}
