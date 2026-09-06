@@ -62,6 +62,7 @@ jobs:
           grep -q 'refreshOpenCatalogViews' src/creator-vault-runtime.js
       - name: Syntax and focused stress QA
         run: |
+          node --check main.js
           node --check src/creator-vault-runtime.js
           node --check src/creator-vault-auto/common.js
           node --check src/creator-vault-auto/state.js
@@ -106,10 +107,19 @@ jobs:
           sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
           echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
           echo "ENDERLOOM_ELECTRON_BIN=$ELECTRON_BIN" >> "$GITHUB_ENV"
-      - name: Electron self-test
+      - name: Electron self-test and lifecycle hygiene
         run: |
           set -o pipefail
           timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+          grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' electron-self-test.log
+          if grep -q 'MaxListenersExceededWarning' electron-self-test.log; then
+            echo '::error::WebContents listener leak detected.'
+            exit 1
+          fi
+          if grep -q 'Live DOM hedge failed -3' electron-self-test.log; then
+            echo '::error::Intentional ERR_ABORTED navigation was misclassified.'
+            exit 1
+          fi
       - name: Real outbound creator/provider smoke
         run: |
           set -o pipefail
