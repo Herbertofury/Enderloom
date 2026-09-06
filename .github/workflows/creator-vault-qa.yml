@@ -27,15 +27,29 @@ jobs:
         run: node scripts/creator-vault-ahs31-provider-collision.js baseline
       - name: Chunk 31 provider candidate shape gate
         run: node scripts/creator-vault-ahs31-provider-collision.js shape
-      - name: Chunk 31 candidate ID freshness gate
-        run: node scripts/creator-vault-ahs31-provider-collision.js ids
+      - name: Candidate slug iris is fresh
+        run: node scripts/creator-vault-ahs31-provider-collision.js id:iris
+      - name: Candidate slug c2me is fresh
+        if: always()
+        run: node scripts/creator-vault-ahs31-provider-collision.js id:c2me
+      - name: Candidate slug terra is fresh
+        if: always()
+        run: node scripts/creator-vault-ahs31-provider-collision.js id:terra
+      - name: Candidate slug terralith is fresh
+        if: always()
+        run: node scripts/creator-vault-ahs31-provider-collision.js id:terralith
       - name: Chunk 31 provider URL collision gate
+        if: always()
         run: node scripts/creator-vault-ahs31-provider-collision.js urls
       - name: Missing timestamp regression QA
+        if: success()
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA
+        if: success()
         run: npm run creator-vault-qa
       - name: Catalog regression QA
+        if: success()
         run: npm run catalog-qa
       - name: Render portable catalogs
+        if: success()
         run: npm run portable
