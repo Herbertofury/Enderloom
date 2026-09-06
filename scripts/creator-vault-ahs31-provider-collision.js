@@ -7,7 +7,8 @@ const root = path.resolve(__dirname, '..');
 const mode = process.argv[2] || 'all';
 const fixedModes = new Set(['all','baseline','shape','ids','urls']);
 const idMode = mode.startsWith('id:') ? mode.slice(3) : null;
-if (!fixedModes.has(mode) && !idMode) throw new Error(`Unknown diagnostic mode: ${mode}`);
+const identityMode = mode.startsWith('identity:') ? mode.slice('identity:'.length) : null;
+if (!fixedModes.has(mode) && !idMode && !identityMode) throw new Error(`Unknown diagnostic mode: ${mode}`);
 
 const sourcePath = path.join(root,'catalog','creator-vault','recommendation-sources','asianhalfsquat.history-batch31.json');
 const closurePath = path.join(root,'catalog','creator-vault','project-sources','provider-closure-31a-asianhalfsquat.json');
@@ -15,6 +16,8 @@ const productionFilesAbsent = !fs.existsSync(sourcePath) && !fs.existsSync(closu
 const vault = loadCreatorVault(root);
 const baselineOk = vault.stats.recommendations === 987 && vault.stats.uniqueProjects === 672;
 
+const normalize = value => String(value || '').trim().toLowerCase().normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g,'').replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
 const normalizeUrl = value => String(value || '').trim().replace(/\/$/, '').toLowerCase();
 const byUrl = new Map();
 const byId = new Map(vault.projects.map(project => [project.id, project]));
@@ -59,6 +62,25 @@ const urlsOk = collisions.length === 0;
 const selectedCandidate = idMode ? (candidates.entries || []).find(entry => entry[0] === idMode) : null;
 const selectedIdFresh = idMode ? Boolean(selectedCandidate && !byId.has(idMode)) : null;
 
+const identityContracts = {
+  iris: {labels:['iris','iris shaders'], urlTokens:['iris','irisshaders']},
+  c2me: {labels:['c2me','concurrent chunk management engine','c 2 m engine'], urlTokens:['c2me','c2m']},
+  terra: {labels:['terra'], urlTokens:['terra','polyhedral']},
+  terralith: {labels:['terralith'], urlTokens:['terralith','stardust']}
+};
+let identityOk = null;
+let identityEvidence = null;
+if (identityMode) {
+  const project = byId.get(identityMode);
+  const contract = identityContracts[identityMode];
+  const labels = project ? [project.name, ...(project.aliases || [])].map(normalize) : [];
+  const urls = project ? (project.providerLinks || []).map(link => normalizeUrl(link.url)) : [];
+  const labelOk = Boolean(contract && contract.labels.some(label => labels.includes(normalize(label))));
+  const lineageOk = Boolean(contract && urls.length && contract.urlTokens.some(token => urls.some(url => url.includes(token))));
+  identityOk = Boolean(project && labelOk && lineageOk);
+  identityEvidence = project ? {id:project.id,name:project.name,aliases:project.aliases||[],providers:[...new Set((project.providerLinks||[]).map(link=>link.provider))],providerLinks:urls,labelOk,lineageOk} : null;
+}
+
 const result = {
   phase:'chunk-31-pre-production', mode,
   productionFilesAbsent,
@@ -72,11 +94,14 @@ const result = {
   collisions,
   selectedCandidateId:idMode,
   selectedIdFresh,
+  identityId:identityMode,
+  identityOk,
+  identityEvidence,
   checks:{shapeOk,idsOk,urlsOk}
 };
 console.log(JSON.stringify(result,null,2));
 
-const failed = idMode ? !selectedIdFresh :
+const failed = identityMode ? !identityOk : idMode ? !selectedIdFresh :
   mode === 'baseline' ? (!productionFilesAbsent || !baselineOk) :
   mode === 'shape' ? !shapeOk :
   mode === 'ids' ? !idsOk :
