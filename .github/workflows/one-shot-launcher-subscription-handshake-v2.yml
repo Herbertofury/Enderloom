@@ -36,6 +36,7 @@ jobs:
           test "$(git rev-parse HEAD:launcher-preload.js)" = "$(git rev-parse "$BASE":launcher-preload.js)"
           python3 - <<'PY'
           from pathlib import Path
+          import textwrap
 
           workflow = Path('.github/workflows/one-shot-navigation-handoff-hardening.yml').read_text(encoding='utf-8')
           marker = "          python3 - <<'PY'\n"
@@ -49,6 +50,41 @@ jobs:
 
           main_path = Path('main.js')
           main = main_path.read_text(encoding='utf-8')
+
+          # Never restore a live, already-populated history stack as a Back/Forward
+          # fallback. Electron documents restore() for recreating/restoring stacks and
+          # recommends it before normal navigation. Under load it could advance the
+          # active index while leaving the current renderer on the old page. Navigate
+          # to the exact index, then verify that the selected entry actually commits.
+          nav_start = "function navHistoryStep(wc, offset) {"
+          nav_end = "\nfunction navBack(wc) { return navHistoryStep(wc,-1); }"
+          if main.count(nav_start) != 1 or main.count(nav_end) != 1:
+              raise SystemExit('navigation helper markers are not unique')
+          nav_a = main.index(nav_start)
+          nav_b = main.index(nav_end, nav_a)
+          new_nav = textwrap.dedent('''
+          function navHistoryStep(wc, offset) {
+            const history=wc?.navigationHistory,step=Number(offset)||0;if(!step||!wc||wc.isDestroyed?.())return false;
+            try {
+              const index=history?.getActiveIndex?.(),entries=history?.getAllEntries?.()||[],target=Number(index)+step,targetUrl=String(entries[target]?.url||'');
+              if(!Number.isInteger(index)||target<0||target>=entries.length||!targetUrl)return false;
+              const committed=()=>{try{return wc.getURL()===targetUrl}catch{return false}};
+              const loading=()=>{try{return !!(wc.isLoadingMainFrame?.()||wc.isLoading?.())}catch{return false}};
+              const ensureCommit=()=>{
+                if(wc.isDestroyed?.()||committed()||loading())return;
+                try {
+                  if(history.getActiveIndex?.()===target)wc.reload();
+                  else history.goToIndex(target);
+                } catch {}
+              };
+              history.goToIndex(target);
+              for(const delay of [350,900]){const timer=setTimeout(ensureCommit,delay);timer.unref?.()}
+              return true;
+            } catch { if(step<0&&wc?.canGoBack?.()){wc.goBack();return true} if(step>0&&wc?.canGoForward?.()){wc.goForward();return true} return false; }
+          }
+          ''').strip()
+          main = main[:nav_a] + new_nav + main[nav_b:]
+
           old_ack = "ipcMain.on('launcher:event-ack',(event,id)=>{if(!launcherView||launcherView.webContents.isDestroyed()||event.sender!==launcherView.webContents)return;pendingLauncherEvents.delete(String(id||''))});"
           new_ack = '\n'.join([
               old_ack,
@@ -70,8 +106,8 @@ jobs:
           main = main.replace(old_expiry, new_expiry, 1)
 
           # Electron's native fetch abort may throw synchronously from the timer
-          # callback. That callback executes outside the async try/catch, so guard it
-          # directly; promise rejection handling alone cannot contain this failure.
+          # callback. Guard it directly; promise rejection handling alone cannot
+          # contain an exception thrown by the timer callback itself.
           old_abort = "timer=setTimeout(()=>controller.abort(),timeoutMs)"
           new_abort = "timer=setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs)"
           if main.count(old_abort) != 1:
@@ -103,6 +139,9 @@ jobs:
           grep -q "launcher:event-subscribe" launcher-preload.js
           grep -q "node-gallery-ssr-fast" main.js
           grep -q "function navHistoryStep" main.js
+          grep -q "history.goToIndex(target)" main.js
+          grep -q "if(history.getActiveIndex?.()===target)wc.reload()" main.js
+          ! grep -q "restored=history.restore" main.js
           grep -q "if(deep && !result.exclusive)" main.js
           grep -q "setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs)" main.js
           git diff --check
