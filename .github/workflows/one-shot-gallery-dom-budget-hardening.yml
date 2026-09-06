@@ -1,0 +1,118 @@
+name: One-shot Gallery DOM Budget Hardening
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion-hardening-stage3'
+    paths:
+      - '.github/workflows/one-shot-gallery-dom-budget-hardening.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  harden-and-challenge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion-hardening-stage3
+          fetch-depth: 2
+      - name: Verify exact staging base and patch time-budget race
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD^)" = "2780deaf7c5d569846c2d8a7fe98e4118b614a37"
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('main.js')
+          text=p.read_text(encoding='utf-8')
+          old="const waitMs=Math.max(900,Math.min(4600,Number(timeoutMs)||5200)-450);"
+          new="const totalMs=Math.max(1800,Number(timeoutMs)||5200);\n  // Reserve a real navigation/extraction margin inside the caller's total hedge budget.\n  // The old timeout-450 formula let the inner DOM loop legally outlive the outer timer\n  // whenever dom-ready itself consumed >450 ms, creating a CI/runtime race.\n  const waitMs=Math.max(700,Math.min(4200,totalMs-900));"
+          if text.count(old)!=1:
+              raise SystemExit(f'expected one gallery wait budget expression, found {text.count(old)}')
+          text=text.replace(old,new,1)
+          old_call="return extractLivePageMediaQuick(target,script,{timeoutMs:Math.max(1200,Number(timeoutMs)||5200),foreground});"
+          new_call="return extractLivePageMediaQuick(target,script,{timeoutMs:totalMs,foreground});"
+          if text.count(old_call)!=1:
+              raise SystemExit(f'expected one gallery DOM outer-budget call, found {text.count(old_call)}')
+          text=text.replace(old_call,new_call,1)
+          p.write_text(text,encoding='utf-8')
+          PY
+          node --check main.js
+          grep -q 'const waitMs=Math.max(700,Math.min(4200,totalMs-900));' main.js
+          grep -q 'timeoutMs:totalMs,foreground' main.js
+          git diff --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential pkg-config libglib2.0-dev libgtk-3-dev \
+            libwebkit2gtk-4.1-dev libayatana-appindicator3-dev \
+            librsvg2-dev libxdo-dev libssl-dev patchelf
+      - name: Install and build real launcher boundary
+        run: |
+          npm ci
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+      - name: Repair Electron runtime and configure secure sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+      - name: Repeat real Electron self-test three times
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in 1 2 3; do
+            log="electron-self-test-$n.log"
+            timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
+            grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
+            if grep -Eq 'MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM extraction timed out' "$log"; then
+              echo "::error::Electron media lifecycle/budget regression on pass $n"
+              exit 1
+            fi
+          done
+      - name: Preserve repeated challenge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-dom-budget-challenge-${{ github.sha }}
+          path: electron-self-test-*.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit only the proven source fix and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Herbertofury'
+          git config user.email 'stealth.sanchez@hotmail.com'
+          rm .github/workflows/one-shot-gallery-dom-budget-hardening.yml
+          git add main.js .github/workflows/one-shot-gallery-dom-budget-hardening.yml
+          changed="$(git diff --cached --name-only | sort)"
+          expected=$'.github/workflows/one-shot-gallery-dom-budget-hardening.yml\nmain.js'
+          test "$changed" = "$expected"
+          git commit -m 'fix(media): reserve DOM extraction budget after navigation'
+          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
