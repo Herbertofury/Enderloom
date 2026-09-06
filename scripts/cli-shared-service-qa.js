@@ -26,10 +26,11 @@ function cli(args,input={}){
     if((await service.request('list_tasks')).some(t=>t.instance_id===instance.id&&t.state==='running'))break;
     await delay(20);
   }
-  const tasks=cli(['operation','run','list_tasks']);
+  const tasks=cli(['task','list']);
   const install=tasks.find(t=>t.instance_id===instance.id&&t.state==='running');
   assert(install,`CLI missed the existing service install task: ${JSON.stringify({cli:tasks,gui:await service.request('list_tasks')})}`);
-  assert.equal(cli(['operation','run','cancel_task'],{taskId:install.id}),true);
+  assert.equal(cli(['task','show',install.id]).id,install.id);
+  assert.equal(cli(['task','cancel',install.id]).cancellation_requested,true);
   assert.match(String(await installing),/cancel/i);
   for(let attempt=0;attempt<100;attempt++){
     const task=(await service.request('list_tasks')).find(t=>t.id===install.id);

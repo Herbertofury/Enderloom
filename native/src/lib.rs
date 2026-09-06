@@ -2,6 +2,7 @@ mod auth;
 mod build_info;
 mod capabilities;
 mod cli;
+mod cli_commands;
 pub mod cli_headless;
 mod commands;
 mod config;

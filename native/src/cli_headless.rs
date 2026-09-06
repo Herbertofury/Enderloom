@@ -56,6 +56,8 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Command {
+    #[command(flatten)]
+    Extra(crate::cli_commands::ExtraCommand),
     Capabilities,
     Schema,
     Instance {
@@ -86,7 +88,11 @@ enum Command {
 #[derive(Subcommand, Debug)]
 enum InstanceCommand {
     List,
-    Show { selector: String },
+    Show {
+        selector: String,
+    },
+    #[command(flatten)]
+    Extra(crate::cli_commands::InstanceCommand),
 }
 #[derive(Subcommand, Debug)]
 enum ProcessCommand {
@@ -140,7 +146,7 @@ fn duration(value: &str) -> std::result::Result<Duration, String> {
 }
 
 #[derive(Clone)]
-struct Output {
+pub(super) struct Output {
     json: bool,
     jsonl: bool,
     quiet: bool,
@@ -164,7 +170,8 @@ fn sanitize(value: &mut Value) {
                     "authorization",
                     "clientsecret",
                 ]
-                .contains(&normalized.as_str())
+                .iter()
+                .any(|suffix| normalized.ends_with(suffix))
                 {
                     *value = Value::String("[redacted]".into());
                 } else {
@@ -287,7 +294,7 @@ fn data_root(cli: &Cli) -> Result<PathBuf> {
         .ok_or_else(|| Error::other("Specify --data-dir for this environment"))
 }
 
-enum Domain {
+pub(super) enum Domain {
     Local {
         state: Arc<AppState>,
         _logs: crate::logging::LogState,
@@ -343,7 +350,7 @@ impl ExecutionScope {
     }
 }
 
-async fn invoke(domain: &Domain, command: &str, args: Value) -> Result<Value> {
+pub(super) async fn invoke(domain: &Domain, command: &str, args: Value) -> Result<Value> {
     match domain {
         Domain::Local { state, .. } => service::dispatch(state, command, &args).await,
         Domain::Remote { client, output } => {
@@ -358,7 +365,7 @@ async fn invoke(domain: &Domain, command: &str, args: Value) -> Result<Value> {
     }
 }
 
-async fn selected(domain: &Domain, selector: &str) -> Result<Value> {
+pub(super) async fn selected(domain: &Domain, selector: &str) -> Result<Value> {
     let rows = invoke(domain, "list_instances", json!({})).await?;
     let instance =
         crate::cli::resolve_instance_from(serde_json::from_value(rows.clone())?, selector)?;
@@ -430,6 +437,10 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
         cli.command.as_ref().ok_or_else(|| Error::other("Choose a command; use --help. The desktop wrapper opens the GUI when no command is supplied."))?
     };
     match command {
+        Command::Extra(action) => action.execute(&domain, cli.yes, cli.plan).await,
+        Command::Instance {
+            action: InstanceCommand::Extra(action),
+        } => action.execute(&domain, cli.yes, cli.plan).await,
         Command::Capabilities | Command::Schema => unreachable!(),
         Command::Instance {
             action: InstanceCommand::List,
@@ -545,25 +556,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
                     "This operation requires --yes, or --plan to inspect its supported plan",
                 ));
             }
-            let mut text = String::new();
-            if input.as_os_str() == "-" {
-                if io::stdin().is_terminal() {
-                    return Err(Error::other(
-                        "Pipe a JSON object to stdin, or use --input FILE",
-                    ));
-                }
-                tokio::io::stdin().read_to_string(&mut text).await?;
-            } else {
-                text = std::fs::read_to_string(input)?;
-            }
-            let args: Value = if text.trim().is_empty() {
-                json!({})
-            } else {
-                serde_json::from_str(&text)?
-            };
-            if !args.is_object() {
-                return Err(Error::other("Operation input must be a JSON object"));
-            }
+            let args = read_input(input).await?;
             if id == "reset_launcher" {
                 let plan = invoke(&domain, "prepare_reset", args.clone()).await?;
                 if cli.plan {
@@ -593,6 +586,29 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
             invoke(&domain, target, args).await
         }
     }
+}
+
+pub(super) async fn read_input(input: &std::path::Path) -> Result<Value> {
+    let mut text = String::new();
+    if input.as_os_str() == "-" {
+        if io::stdin().is_terminal() {
+            return Err(Error::other(
+                "Pipe a JSON object to stdin, or use --input FILE",
+            ));
+        }
+        tokio::io::stdin().read_to_string(&mut text).await?;
+    } else {
+        text = tokio::fs::read_to_string(input).await?;
+    }
+    let args = if text.trim().is_empty() {
+        json!({})
+    } else {
+        serde_json::from_str(&text)?
+    };
+    if !args.is_object() {
+        return Err(Error::other("Input must be a JSON object"));
+    }
+    Ok(args)
 }
 
 pub async fn run(arguments: Vec<String>) -> i32 {
@@ -634,6 +650,10 @@ pub async fn run(arguments: Vec<String>) -> i32 {
         }
     };
     let command = match &cli.command {
+        Some(Command::Extra(action)) => action.route(),
+        Some(Command::Instance {
+            action: InstanceCommand::Extra(action),
+        }) => action.route(),
         Some(Command::Capabilities) => "capabilities",
         Some(Command::Schema) => "schema",
         Some(Command::Instance {
@@ -684,7 +704,16 @@ pub async fn run(arguments: Vec<String>) -> i32 {
     if cli.command.is_none() && !cli.legacy_list && cli.legacy_launch.is_empty() {
         return output.finish(Err((2,"Choose a command; use --help. Run enderloom.cmd without arguments to open the desktop app.".into())),cli.output.as_ref());
     }
-    if cli.plan && !matches!(cli.command, Some(Command::Operation { .. })) {
+    if cli.plan
+        && !matches!(
+            cli.command,
+            Some(Command::Operation { .. })
+                | Some(Command::Extra(_))
+                | Some(Command::Instance {
+                    action: InstanceCommand::Extra(_)
+                })
+        )
+    {
         return output.finish(
             Err((
                 2,

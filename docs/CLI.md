@@ -37,6 +37,38 @@ The initial implemented exit families are success (0), usage (2), preflight/doma
 
 ## Registered domain bridge
 
+The current typed routes also include:
+
+```powershell
+.\enderloom.cmd app info
+.\enderloom.cmd app paths --json
+.\enderloom.cmd app doctor --json
+.\enderloom.cmd app network test
+.\enderloom.cmd settings get max_memory_mb --json
+'{"max_memory_mb":4096}' | .\enderloom.cmd settings set --plan --json
+.\enderloom.cmd java list --json
+.\enderloom.cmd java status "My instance" --json
+.\enderloom.cmd auth list --json
+.\enderloom.cmd auth use ACCOUNT_ID
+.\enderloom.cmd instance create "New instance" --version 1.20.1
+'{"name":"Renamed","maxMemoryMb":2048}' | .\enderloom.cmd instance edit INSTANCE_ID --json
+.\enderloom.cmd instance note INSTANCE_ID "Keep these configs"
+.\enderloom.cmd instance favorite INSTANCE_ID
+.\enderloom.cmd instance group --help
+.\enderloom.cmd instance tag --help
+.\enderloom.cmd task list --json
+.\enderloom.cmd task show TASK_ID --json
+.\enderloom.cmd task cancel TASK_ID --json
+.\enderloom.cmd version list --installed --json
+.\enderloom.cmd loader versions fabric 1.20.1 --json
+```
+
+Settings JSON uses the snake_case fields returned by `settings get`; instance edit accepts `name`, `versionId`, `minMemoryMb`, `maxMemoryMb`, `javaPath`, `loader`, `loaderVersion`, `jvmArgs`, `jvmArgsMode`, `envVars` and `envVarsMode`. Omitted fields are retained. Unknown fields and wrong JSON types fail. Settings `--plan` validates and returns the proposed before/after without saving. Sensitive values belong in a file or stdin, and are redacted from plan/result output.
+
+Group and tag commands include list/create/rename/delete/assign/unassign/reorder; groups additionally support `order-instances`. IDs come from the list command. A group/tag deletion, account removal, instance deletion or finished-task clearing requires `--yes`. Unsupported plans fail explicitly. `instance favorite` controls instance organization; the separately requested project Favorites workspace is still pending.
+
+`app doctor` returns actual app/system/Java/interrupted-operation observations. It does not claim to diagnose or repair a game automatically. Device-code login, Java installation ownership, install/repair/duplicate, project/content/server/Catalog command breadth and complete domain plans remain in CLI-1.
+
 The complete current service inventory is discoverable with `capabilities`. Until all typed routes are implemented, reviewed service operations can be invoked using a JSON object:
 
 ```powershell
@@ -53,6 +85,7 @@ This bridge is not full typed CLI parity. Background-returning operations need o
 
 - `npm run cli-qa`: strict parser, selectors, stdout envelopes/redaction, legacy behavior, actual artifact hash, result files and destructive guard.
 - `npm run cli-shared-service-qa`: both ownership directions, task cancellation, authenticated endpoint and recovered process log follow.
+- `npm run cli-domain-qa`: typed-route help discovery, persisted instance/group/tag changes, partial-edit preservation, invalid-input refusal, settings plan/redaction and unchanged unrelated settings.
 - `node scripts/cli-launch-qa.js --live-account`: explicit real-account acceptance; creates/removes a disposable vanilla instance, validates actual client initialization, detach, timeout ownership and an intentionally failing JVM exit. It checks existing profiles/global settings remain unchanged and saves redacted evidence under `output/playwright/cli-live-launch`.
 - `npm run cli-parity-qa`: registry drift and deliberate missing-operation/route/shared-domain challenges; part of `release-qa`.
 

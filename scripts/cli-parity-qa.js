@@ -5,7 +5,7 @@ const path = require('path');
 const { serviceCommands, apiCommands } = require('./lib/command-surface');
 const root = path.resolve(__dirname, '..');
 const read = (file) => fs.readFileSync(path.join(root,file),'utf8');
-function audit(serviceSource, apiSource, registry, cliSource) {
+function audit(serviceSource, apiSource, registry, cliSource, typedSource) {
   const service = serviceCommands(serviceSource), api = apiCommands(apiSource);
   const ids = registry.map(r=>r.id);
   assert.equal(new Set(ids).size,ids.length,'Duplicate capability IDs');
@@ -20,6 +20,7 @@ function audit(serviceSource, apiSource, registry, cliSource) {
     if (entry.cli_route) assert.equal(entry.cli_route,`operation run ${id}`,`Unknown operation route: ${id}`);
     if(entry.plan_command)assert(service.includes(entry.plan_command),`Missing plan operation: ${id}`);
     if(entry.cancellation_command)assert(service.includes(entry.cancellation_command),`Missing cancellation operation: ${id}`);
+    for(const alias of entry.aliases) assert((cliSource+'\n'+typedSource).includes(`"${alias}"`),`Missing typed alias: ${alias}`);
     assert.equal(entry.gui_routes.length>0,api.includes(id),`GUI exposure drift: ${id}`);
   }
   for(const id of ids) assert(service.includes(id)||api.includes(id),`Stale capability descriptor: ${id}`);
@@ -27,11 +28,12 @@ function audit(serviceSource, apiSource, registry, cliSource) {
   assert(!/launch::launch_instance|content::add|Db::open|FileManager::new/.test(cliSource),'CLI duplicated domain/bootstrap implementation');
   return {service:service.length,api:api.length,capabilities:registry.length,visualOnly:registry.filter(r=>r.visual_only_reason).map(r=>r.id)};
 }
-const service=read('native/src/service.rs'), api=read('launcher/src/lib/api.ts'), cli=read('native/src/cli_headless.rs');
+const service=read('native/src/service.rs'), api=read('launcher/src/lib/api.ts'), cli=read('native/src/cli_headless.rs'), typed=read('native/src/cli_commands.rs');
 const registry=JSON.parse(read('native/src/capabilities.json'));
-const report=audit(service,api,registry,cli);
+const report=audit(service,api,registry,cli,typed);
 assert(!serviceCommands(service).includes('running'),'Nested match value incorrectly exposed as a domain operation');
-assert.throws(()=>audit(service.replace('match command {','match command {\n        "new_unmapped_domain_operation" => Ok(Value::Null),'),api,registry,cli),/Missing capability descriptor/);
-assert.throws(()=>audit(service,api,registry.map(r=>r.id==='create_instance'?{...r,cli_route:null}:r),cli),/No CLI route/);
-assert.throws(()=>audit(service,api,registry,cli.replace('service::dispatch(state, command, &args).await','duplicated_launcher(state, command, &args).await')),/shared service dispatch/);
-console.log(JSON.stringify({passed:true,...report,unmappedOperationChallenge:true,missingRouteChallenge:true,sharedDomainChallenge:true,fullTypedCliParity:false},null,2));
+assert.throws(()=>audit(service.replace('match command {','match command {\n        "new_unmapped_domain_operation" => Ok(Value::Null),'),api,registry,cli,typed),/Missing capability descriptor/);
+assert.throws(()=>audit(service,api,registry.map(r=>r.id==='create_instance'?{...r,cli_route:null}:r),cli,typed),/No CLI route/);
+assert.throws(()=>audit(service,api,registry,cli.replace('service::dispatch(state, command, &args).await','duplicated_launcher(state, command, &args).await'),typed),/shared service dispatch/);
+assert.throws(()=>audit(service,api,registry,cli,typed.replaceAll('"instance create"','"removed route"')),/Missing typed alias/);
+console.log(JSON.stringify({passed:true,...report,typedAliases:new Set(registry.flatMap(r=>r.aliases)).size,unmappedOperationChallenge:true,missingRouteChallenge:true,sharedDomainChallenge:true,missingTypedAliasChallenge:true,fullTypedCliParity:false},null,2));

@@ -1,0 +1,77 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),os=require('os'),path=require('path'),crypto=require('crypto');
+const {spawnSync}=require('child_process');
+const root=path.resolve(__dirname,'..'),binary=path.join(root,'native/target/debug',process.platform==='win32'?'enderloom.exe':'enderloom');
+const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-cli-domain-')),data=path.join(temporary,'data');
+let checks=0;
+function cli(args,input={},expected=0){
+  const run=spawnSync(binary,['--data-dir',data,...args,'--json'],{input:JSON.stringify(input),encoding:'utf8',windowsHide:true,timeout:30000});
+  assert.ifError(run.error);assert.equal(run.status,expected,`${args.join(' ')}: ${run.stdout}\n${run.stderr}`);
+  const result=JSON.parse(run.stdout);assert.equal(result.ok,expected===0);checks++;return result;
+}
+function request(args,input={},expected=0){return cli(args,input,expected).result;}
+try{
+  const aliases=[...new Set(request(['capabilities']).flatMap(c=>c.aliases))];
+  for(const alias of aliases)assert(request([...alias.split(' '),'--help']).text.includes('Usage:'));
+  assert(!fs.existsSync(data),'Discovery/help opened user data');
+  assert.equal(request(['app','info']).data_dir,data);
+  assert(Array.isArray(request(['app','paths'])));
+  assert(Array.isArray(request(['java','list'])));
+  assert.deepEqual(request(['auth','list']),[]);
+  cli(['auth','use','missing'],{},3);
+  cli(['auth','remove','missing'],{},3);
+  assert.deepEqual(request(['version','list','--installed']),[]);
+  const instance=request(['instance','create','Typed CLI fixture','--version','1.20.1']);
+  cli(['instance','create','Invalid loader','--version','1.20.1','--loader','fabric'],{},2);
+  request(['instance','edit',instance.id],{maxMemoryMb:2048,jvmArgs:'-Dfixture=preserved',jvmArgsMode:'append'});
+  const changed=request(['instance','edit',instance.id],{name:'Renamed fixture'});
+  assert.equal(changed.name,'Renamed fixture');assert.equal(changed.max_memory_mb,2048);assert.equal(changed.jvm_args,'-Dfixture=preserved');
+  cli(['instance','edit',instance.id],{unknownField:true},3);
+  cli(['instance','edit',instance.id],{jvmArgs:17},3);
+  assert.equal(request(['instance','show',instance.id]).jvm_args,'-Dfixture=preserved');
+  assert.equal(request(['instance','show',instance.id]).name,'Renamed fixture');
+  request(['instance','note',instance.id,'Persistent CLI note']);
+  request(['instance','favorite',instance.id]);
+  const group=request(['instance','group','create','Group one']),second=request(['instance','group','create','Group two']);
+  request(['instance','group','assign',instance.id,group.id]);
+  request(['instance','group','rename',group.id,'Renamed group']);
+  request(['instance','group','reorder',second.id,group.id]);
+  assert.deepEqual(request(['instance','group','list']).map(g=>g.id),[second.id,group.id]);
+  request(['instance','group','order-instances','--group',group.id,instance.id]);
+  const tag=request(['instance','tag','create','Performance candidate']),tag2=request(['instance','tag','create','Check configs']);
+  request(['instance','tag','assign',instance.id,tag.id]);
+  request(['instance','tag','rename',tag.id,'Measured later']);
+  request(['instance','tag','reorder',tag2.id,tag.id]);
+  assert.deepEqual(request(['instance','tag','list']).map(t=>t.id),[tag2.id,tag.id]);
+  const organization=request(['operation','run','get_instance_organization']);
+  assert(organization.favorites.includes(instance.id));assert(organization.taggings.some(t=>t.instance_id===instance.id&&t.tag_id===tag.id));
+  assert(organization.placements.some(p=>p.instance_id===instance.id&&p.group_id===group.id));
+  assert.equal(request(['instance','show',instance.id]).notes,'Persistent CLI note');
+  request(['instance','tag','unassign',instance.id,tag.id]);
+  request(['instance','group','unassign',instance.id]);
+  request(['instance','favorite',instance.id,'--remove']);
+  cli(['instance','group','delete',group.id],{},3);
+  request(['instance','group','delete',group.id,'--yes']);
+  request(['instance','tag','delete',tag.id,'--yes']);
+  const before=request(['settings','get']);
+  const plan=request(['settings','set','--plan'],{min_memory_mb:512,max_memory_mb:2048,proxy_password:'qa-secret-must-not-appear'});
+  assert.equal(plan.applied,false);assert(!JSON.stringify(plan).includes('qa-secret-must-not-appear'));
+  assert.deepEqual(request(['settings','get']),before,'Plan mutated settings');
+  request(['settings','set'],{min_memory_mb:512,max_memory_mb:2048});
+  assert.equal(request(['settings','get','max_memory_mb']),2048);
+  const after=request(['settings','get']);
+  for(const key of Object.keys(before).filter(k=>!['min_memory_mb','max_memory_mb'].includes(k)))assert.deepEqual(after[key],before[key],`Unrelated setting changed: ${key}`);
+  cli(['settings','set'],{max_memory_mb:128},3);
+  cli(['settings','set'],{misspelled_setting:true},3);
+  assert.deepEqual(request(['settings','get']),after,'Invalid patch changed settings');
+  assert.deepEqual(request(['task','list']),[]);
+  cli(['task','show','missing'],{},3);cli(['task','cancel','missing'],{},3);
+  cli(['task','clear-finished'],{},3);request(['task','clear-finished','--yes']);
+  const doctor=request(['app','doctor']);assert(doctor.app&&doctor.system&&doctor.java&&doctor.interrupted_operations);
+  cli(['instance','delete',instance.id,'--plan'],{},3);assert(fs.existsSync(instance.dir));
+  request(['instance','delete',instance.id,'--yes']);assert(!fs.existsSync(instance.dir));
+  console.log(JSON.stringify({passed:true,checks,typedAliases:aliases.length,restartPersistence:true,partialEditPreservation:true,settingsPlanAndCredentialRedaction:true,unknownFieldsRefused:true,fullCliParity:false,binarySha256:crypto.createHash('sha256').update(fs.readFileSync(binary)).digest('hex')},null,2));
+}finally{
+  const resolved=path.resolve(temporary);
+  if(resolved.startsWith(path.resolve(os.tmpdir())+path.sep)&&path.basename(resolved).startsWith('enderloom-cli-domain-'))fs.rmSync(resolved,{recursive:true,force:true});
+}
