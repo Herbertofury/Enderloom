@@ -49,9 +49,9 @@ app.whenReady().then(async () => {
     assert(youtubeRefs.length > 0, 'YouTube enumeration did not supply candidates');
     const pattern = /\b(mods?|addons?|resource\s*packs?|texture\s*packs?|shaders?|datapacks?|plugins?)\b/i;
     const preferred = youtubeRefs.filter(ref => pattern.test(String(ref.title || '')));
-    const fallback = { id:'hBpVYqfyeNM', url:'https://www.youtube.com/watch?v=hBpVYqfyeNM', title:'Top 10 Minecraft Mods' };
+    const knownRecommendation = { id:'hBpVYqfyeNM', url:'https://www.youtube.com/watch?v=hBpVYqfyeNM', title:'Top 10 Minecraft Mods' };
     const seen = new Set();
-    const ordered = [...preferred, ...youtubeRefs, fallback].filter(ref => {
+    const ordered = [...preferred, knownRecommendation, ...youtubeRefs].filter(ref => {
       if (!ref?.id || seen.has(ref.id)) return false;
       seen.add(ref.id);
       return true;
