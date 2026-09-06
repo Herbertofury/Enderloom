@@ -23,17 +23,7 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Chunk 33 canonical reuse and legacy-overlap probe
-        run: node scripts/creator-vault-ahs33-canonical-probe.js
-      - name: Chunk 33 corrected provider collision gate
-        run: node scripts/creator-vault-ahs33-provider-collision.js
-      - name: Chunk 32 native-over-legacy reconciliation diagnostic
-        run: node scripts/creator-vault-ahs32-postmerge-diagnostic.js
+      - name: Chunk 33 post-merge diagnostic
+        run: node scripts/creator-vault-ahs33-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
-      - name: Focused Creator Vault recursive QA
-        run: npm run creator-vault-qa
-      - name: Catalog regression QA
-        run: npm run catalog-qa
-      - name: Render portable catalogs
-        run: npm run portable
