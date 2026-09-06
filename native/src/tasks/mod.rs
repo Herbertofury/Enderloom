@@ -14,6 +14,18 @@ const MAX_FINISHED: usize = 50;
 
 pub type EventSink = Arc<dyn Fn(&str, serde_json::Value) + Send + Sync>;
 
+tokio::task_local! { static REQUEST_SCOPE: String; }
+
+pub(crate) async fn request_scoped<T>(
+    scope: Option<String>,
+    work: impl std::future::Future<Output = T>,
+) -> T {
+    match scope {
+        Some(scope) => REQUEST_SCOPE.scope(scope, work).await,
+        None => work.await,
+    }
+}
+
 #[derive(Clone)]
 enum EventTarget {
     Tauri(AppHandle),
@@ -130,6 +142,8 @@ impl TaskState {
 #[derive(Debug, Clone, Serialize)]
 pub struct Task {
     pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_scope: Option<String>,
     pub kind: TaskKind,
     pub title: String,
     pub subtitle: Option<String>,
@@ -274,6 +288,7 @@ impl Tasks {
     ) -> crate::error::Result<TaskHandle> {
         let task = Task {
             id: uuid::Uuid::new_v4().to_string(),
+            request_scope: REQUEST_SCOPE.try_with(Clone::clone).ok(),
             kind,
             title: spec.title,
             subtitle: spec.subtitle,
@@ -493,6 +508,7 @@ mod tests {
 
     fn task(id: &str, state: TaskState) -> Task {
         Task {
+            request_scope: None,
             id: id.into(),
             kind: TaskKind::ContentInstall,
             title: id.into(),

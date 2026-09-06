@@ -3,6 +3,9 @@ fn main() {
     if let Some(supervision) = basalt_launcher_lib::supervisor_args(&arguments) {
         basalt_launcher_lib::supervise(supervision)
     }
+    if let Some(code) = basalt_launcher_lib::cli_headless::early_exit(&arguments) {
+        std::process::exit(code);
+    }
     // The existing domain dispatcher has a large debug-build future. Windows'
     // 1 MiB executable entry stack is smaller than the service worker stack.
     let worker = std::thread::Builder::new()

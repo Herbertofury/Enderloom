@@ -54,6 +54,7 @@ try{
   call(['instance','show','Duplicate name','--json'],{},3);
   call(['instance','show','no match','--json'],{},3);
   assert.equal(call(['--list','--launch','ignored','--json']).result.length,3);
+  assert.equal(call(['--list','--launch','ignored','--launch','also ignored','--json']).result.length,3);
   fs.mkdirSync(path.join(one.dir,'logs'),{recursive:true});
   fs.writeFileSync(path.join(one.dir,'logs/latest.log'),'[12:00:00] [main/INFO]: CLI proof\nAuthorization: Bearer very-secret-token\n');
   assert(call(['logs','list',one.id,'--json']).result.length>0);

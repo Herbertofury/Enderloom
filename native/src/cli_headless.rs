@@ -298,11 +298,54 @@ pub(super) enum Domain {
     Local {
         state: Arc<AppState>,
         _logs: crate::logging::LogState,
+        request_scope: String,
     },
     Remote {
         client: tokio::sync::Mutex<crate::control_ipc::Client>,
         output: Output,
+        request_scope: String,
     },
+}
+
+impl Domain {
+    fn request_scope(&self) -> &str {
+        match self {
+            Self::Local { request_scope, .. } | Self::Remote { request_scope, .. } => request_scope,
+        }
+    }
+}
+
+async fn owned_tasks(domain: &Domain) -> Result<Vec<Value>> {
+    let tasks = invoke(domain, "list_tasks", json!({})).await?;
+    Ok(tasks
+        .as_array()
+        .ok_or_else(|| Error::other("Invalid task registry"))?
+        .iter()
+        .filter(|task| task["request_scope"].as_str() == Some(domain.request_scope()))
+        .cloned()
+        .collect())
+}
+
+async fn finish_owned_tasks(domain: &Domain) -> Result<()> {
+    loop {
+        let tasks = owned_tasks(domain).await?;
+        if !tasks.iter().any(|task| task["state"] == "running") {
+            if tasks.iter().any(|task| task["state"] == "cancelled") {
+                return Err(Error::Cancelled);
+            }
+            if let Some(task) = tasks.iter().find(|task| task["state"] == "failed") {
+                return Err(Error::other(format!(
+                    "Task {} failed: {}",
+                    task["id"].as_str().unwrap_or("unknown"),
+                    task["error"]
+                        .as_str()
+                        .unwrap_or("Inspect the task and its preserved logs")
+                )));
+            }
+            return Ok(());
+        }
+        tokio::time::sleep(Duration::from_millis(100)).await;
+    }
 }
 
 #[derive(Default)]
@@ -311,9 +354,8 @@ struct ExecutionScope {
     owned_run: Mutex<Option<String>>,
 }
 impl ExecutionScope {
-    async fn cancel_owned_run(&self, root: &std::path::Path, output: &Output) -> Result<()> {
+    async fn cancel_owned_work(&self, root: &std::path::Path, output: &Output) -> Result<()> {
         let run = self.owned_run.lock().unwrap().clone();
-        let Some(run) = run else { return Ok(()) };
         let domain = self.domain.lock().unwrap().clone();
         let Some(domain) = domain else { return Ok(()) };
         // Use a separate connection: the interrupted request may still be finishing
@@ -327,11 +369,30 @@ impl ExecutionScope {
                         .ok_or_else(|| Error::other("Service owner disconnected before cleanup"))?,
                 ),
                 output: output.clone(),
+                request_scope: domain.request_scope().to_string(),
             };
             &cleanup
         } else {
             domain.as_ref()
         };
+        for task in owned_tasks(domain).await? {
+            if task["state"] == "running" {
+                invoke(domain, "cancel_task", json!({"taskId":task["id"]})).await?;
+            }
+        }
+        // The native terminal state is the acknowledgement that rollback has
+        // completed. Never substitute a cancellation request for completion.
+        loop {
+            let tasks = owned_tasks(domain).await?;
+            if !tasks.iter().any(|task| task["state"] == "running") {
+                if !tasks.is_empty() {
+                    output.event("task:cleanup", json!({"tasks":tasks,"settled":true}));
+                }
+                break;
+            }
+            tokio::time::sleep(Duration::from_millis(100)).await;
+        }
+        let Some(run) = run else { return Ok(()) };
         invoke(domain, "kill_instance", json!({"runningId":run})).await?;
         loop {
             let rows = invoke(domain, "list_running", json!({})).await?;
@@ -352,12 +413,25 @@ impl ExecutionScope {
 
 pub(super) async fn invoke(domain: &Domain, command: &str, args: Value) -> Result<Value> {
     match domain {
-        Domain::Local { state, .. } => service::dispatch(state, command, &args).await,
-        Domain::Remote { client, output } => {
+        Domain::Local {
+            state,
+            request_scope,
+            ..
+        } => {
+            crate::tasks::request_scoped(Some(request_scope.clone()), async {
+                service::dispatch(state, command, &args).await
+            })
+            .await
+        }
+        Domain::Remote {
+            client,
+            output,
+            request_scope,
+        } => {
             client
                 .lock()
                 .await
-                .request(command, args, &|event, payload| {
+                .request(command, args, request_scope, &|event, payload| {
                     output.event(event, payload)
                 })
                 .await
@@ -388,6 +462,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
         );
     }
     let root = data_root(cli)?;
+    let request_scope = uuid::Uuid::new_v4().to_string();
     let mut attempts = 0;
     let domain = loop {
         if let Some(client) = crate::control_ipc::Client::connect(&root).await? {
@@ -395,6 +470,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
             break Domain::Remote {
                 client: tokio::sync::Mutex::new(client),
                 output: output.clone(),
+                request_scope: request_scope.clone(),
             };
         }
         match service::bootstrap(root.clone()) {
@@ -411,7 +487,11 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
                     Arc::new(|_| {}),
                 )?;
                 state.attach_service_logs(&logs);
-                break Domain::Local { state, _logs: logs };
+                break Domain::Local {
+                    state,
+                    _logs: logs,
+                    request_scope: request_scope.clone(),
+                };
             }
             Err(error) if attempts >= 25 => return Err(error),
             Err(_) => {
@@ -436,7 +516,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
     } else {
         cli.command.as_ref().ok_or_else(|| Error::other("Choose a command; use --help. The desktop wrapper opens the GUI when no command is supplied."))?
     };
-    match command {
+    let result = match command {
         Command::Extra(action) => action.execute(&domain, cli.yes, cli.plan).await,
         Command::Instance {
             action: InstanceCommand::Extra(action),
@@ -585,7 +665,9 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
             };
             invoke(&domain, target, args).await
         }
-    }
+    }?;
+    finish_owned_tasks(&domain).await?;
+    Ok(result)
 }
 
 pub(super) async fn read_input(input: &std::path::Path) -> Result<Value> {
@@ -611,12 +693,12 @@ pub(super) async fn read_input(input: &std::path::Path) -> Result<Value> {
     Ok(args)
 }
 
-pub async fn run(arguments: Vec<String>) -> i32 {
+fn parse_arguments(arguments: &[String]) -> std::result::Result<Cli, i32> {
     let machine = arguments.iter().any(|a| a == "--json");
     let jsonl = arguments.iter().any(|a| a == "--jsonl");
-    let parsed = Cli::try_parse_from(&arguments);
-    let cli = match parsed {
-        Ok(cli) => cli,
+    let parsed = Cli::try_parse_from(arguments);
+    match parsed {
+        Ok(cli) => Ok(cli),
         Err(error)
             if matches!(
                 error.kind(),
@@ -624,7 +706,7 @@ pub async fn run(arguments: Vec<String>) -> i32 {
             ) =>
         {
             if machine || jsonl {
-                return Output {
+                return Err(Output {
                     json: machine,
                     jsonl,
                     quiet: false,
@@ -632,22 +714,32 @@ pub async fn run(arguments: Vec<String>) -> i32 {
                     trace_id: uuid::Uuid::new_v4().to_string(),
                     log_run: Arc::default(),
                 }
-                .finish(Ok(json!({"text":error.to_string()})), None);
+                .finish(Ok(json!({"text":error.to_string()})), None));
             }
             let _ = error.print();
-            return 0;
+            Err(0)
         }
-        Err(error) => {
-            return Output {
-                json: machine,
-                jsonl,
-                quiet: false,
-                command: "parse".into(),
-                trace_id: uuid::Uuid::new_v4().to_string(),
-                log_run: Arc::default(),
-            }
-            .finish(Err((2, error.to_string())), None)
+        Err(error) => Err(Output {
+            json: machine,
+            jsonl,
+            quiet: false,
+            command: "parse".into(),
+            trace_id: uuid::Uuid::new_v4().to_string(),
+            log_run: Arc::default(),
         }
+        .finish(Err((2, error.to_string())), None)),
+    }
+}
+
+/// Help, version and invalid command syntax do not need a runtime or worker pool.
+pub fn early_exit(arguments: &[String]) -> Option<i32> {
+    parse_arguments(arguments).err()
+}
+
+pub async fn run(arguments: Vec<String>) -> i32 {
+    let cli = match parse_arguments(&arguments) {
+        Ok(cli) => cli,
+        Err(code) => return code,
     };
     let command = match &cli.command {
         Some(Command::Extra(action)) => action.route(),
@@ -690,7 +782,7 @@ pub async fn run(arguments: Vec<String>) -> i32 {
     {
         *output.log_run.lock().unwrap() = Some(run.clone());
     }
-    if cli.legacy_launch.len() > 1
+    if (cli.legacy_launch.len() > 1 && !cli.legacy_list)
         || (cli.command.is_some() && (cli.legacy_list || !cli.legacy_launch.is_empty()))
     {
         return output.finish(
@@ -722,39 +814,50 @@ pub async fn run(arguments: Vec<String>) -> i32 {
             cli.output.as_ref(),
         );
     }
-    let scope = ExecutionScope::default();
-    let mut interrupted = false;
-    let mut result = tokio::select! {
-        biased;
-        result = execute(&cli, &output, &scope) => result.map_err(|error| (if matches!(error, Error::Cancelled) {10} else {3}, error.to_string())),
-        _ = tokio::time::sleep(cli.timeout) => {
-            interrupted = true;
-            Err((6, "Command timed out; persisted evidence is retained".into()))
-        },
-        signal = tokio::signal::ctrl_c() => {
-            interrupted = true;
-            Err((10, if let Err(error) = signal {format!("Cancellation signal failed: {error}")} else {"Command cancelled; persisted evidence is retained".into()}))
-        }
-    };
-    if interrupted {
-        if let Ok(root) = data_root(&cli) {
-            let cleanup = tokio::time::timeout(
-                Duration::from_secs(10),
-                scope.cancel_owned_run(&root, &output),
-            )
-            .await;
-            let failure = match cleanup {
-                Ok(Ok(())) => None,
-                Ok(Err(error)) => Some(error.to_string()),
-                Err(_) => Some("owned run did not stop within 10 seconds".into()),
-            };
-            if let (Some(failure), Err((_, message))) = (failure, &mut result) {
-                message.push_str(&format!(
-                    ". Cleanup needs attention: {failure}; inspect process list"
-                ));
+    let result = {
+        let scope = ExecutionScope::default();
+        let work = execute(&cli, &output, &scope);
+        tokio::pin!(work);
+        let mut interrupted = false;
+        let mut result = tokio::select! {
+            biased;
+            result = &mut work => result.map_err(|error| (if matches!(error, Error::Cancelled) {10} else {3}, error.to_string())),
+            _ = tokio::time::sleep(cli.timeout) => {
+                interrupted = true;
+                Err((6, "Command timed out; persisted evidence is retained".into()))
+            },
+            signal = tokio::signal::ctrl_c() => {
+                interrupted = true;
+                Err((10, if let Err(error) = signal {format!("Cancellation signal failed: {error}")} else {"Command cancelled; persisted evidence is retained".into()}))
+            }
+        };
+        if interrupted {
+            if let Ok(root) = data_root(&cli) {
+                let cleanup = tokio::time::timeout(Duration::from_secs(10), async {
+                    let cleanup = scope.cancel_owned_work(&root, &output);
+                    tokio::pin!(cleanup);
+                    // Keep the domain future alive while its cancellation token
+                    // is acknowledged, so native rollback/finalization can run.
+                    tokio::select! {
+                        result=&mut cleanup=>result,
+                        _=&mut work=>cleanup.await,
+                    }
+                })
+                .await;
+                let failure = match cleanup {
+                    Ok(Ok(())) => None,
+                    Ok(Err(error)) => Some(error.to_string()),
+                    Err(_) => Some("owned work did not settle within 10 seconds".into()),
+                };
+                if let (Some(failure), Err((_, message))) = (failure, &mut result) {
+                    message.push_str(&format!(
+                        ". Cleanup needs attention: {failure}; inspect task list and process list"
+                    ));
+                }
             }
         }
-    }
+        result
+    };
     if cli.legacy_list && !cli.json && !cli.jsonl && !cli.quiet {
         if let Ok(value) = &result {
             if let Ok(instances) =

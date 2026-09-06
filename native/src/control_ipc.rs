@@ -129,7 +129,8 @@ async fn serve(socket: TcpStream, owner: Weak<AppState>, token: String) -> Resul
                 if message["protocol"]!=1 {return Err(Error::other("Local command protocol mismatch"));}
                 let command=message["command"].as_str().ok_or_else(||Error::other("Missing command"))?;
                 let args=message.get("args").cloned().unwrap_or_else(||json!({}));
-                let work=crate::service::dispatch(&state,command,&args);
+                let scope=message["request_scope"].as_str().map(str::to_owned);
+                let work=crate::tasks::request_scoped(scope,crate::service::dispatch(&state,command,&args));
                 tokio::pin!(work);
                 let result=loop {
                     tokio::select! {
@@ -141,7 +142,7 @@ async fn serve(socket: TcpStream, owner: Weak<AppState>, token: String) -> Resul
                         }
                     }
                 };
-                let response=match result {Ok(result)=>json!({"protocol":1,"id":id,"ok":true,"result":result}),Err(error)=>json!({"protocol":1,"id":id,"ok":false,"error":error.to_string()})};
+                let response=match result {Ok(result)=>json!({"protocol":1,"id":id,"ok":true,"result":result}),Err(error)=>json!({"protocol":1,"id":id,"ok":false,"error":error.to_string(),"cancelled":matches!(error,Error::Cancelled)})};
                 write_line(&mut writer,&response).await?;
             },
             event=events.recv()=>match event {
@@ -254,12 +255,13 @@ impl Client {
         &mut self,
         command: &str,
         args: Value,
+        request_scope: &str,
         event: &dyn Fn(&str, Value),
     ) -> Result<Value> {
         let id = uuid::Uuid::new_v4().to_string();
         write_line(
             &mut self.writer,
-            &json!({"protocol":1,"id":id,"command":command,"args":args}),
+            &json!({"protocol":1,"id":id,"command":command,"args":args,"request_scope":request_scope}),
         )
         .await?;
         while let Some(message) = read_line(&mut self.reader).await? {
@@ -268,6 +270,8 @@ impl Client {
             } else if message["id"] == id {
                 return if message["ok"] == true {
                     Ok(message["result"].clone())
+                } else if message["cancelled"] == true {
+                    Err(Error::Cancelled)
                 } else {
                     Err(Error::other(
                         message["error"].as_str().unwrap_or("Shared command failed"),

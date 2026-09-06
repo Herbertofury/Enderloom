@@ -21,6 +21,7 @@
     "cli-qa": "node scripts/cli-qa.js",
     "cli-shared-service-qa": "node scripts/cli-shared-service-qa.js",
     "cli-domain-qa": "node scripts/cli-domain-qa.js",
+    "cli-task-ownership-qa": "node scripts/cli-task-ownership-qa.js",
     "launcher-integration-qa": "node scripts/launcher-integration-qa.js",
     "launcher-command-coverage-qa": "node scripts/launcher-command-coverage-qa.js",
     "workbench-qa": "node scripts/workbench-qa.js",

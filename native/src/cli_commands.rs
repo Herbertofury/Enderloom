@@ -67,7 +67,14 @@ pub(super) enum SettingsCommand {
 #[derive(Subcommand, Debug)]
 pub(super) enum JavaCommand {
     List,
-    Status { selector: String },
+    Install {
+        major: u32,
+        #[arg(long)]
+        instance: Option<String>,
+    },
+    Status {
+        selector: String,
+    },
 }
 #[derive(Subcommand, Debug)]
 pub(super) enum AuthCommand {
@@ -98,6 +105,15 @@ pub(super) enum LoaderCommand {
 
 #[derive(Subcommand, Debug)]
 pub(super) enum InstanceCommand {
+    Install {
+        selector: String,
+    },
+    Duplicate {
+        selector: String,
+    },
+    Repair {
+        selector: String,
+    },
     Create {
         name: String,
         #[arg(long)]
@@ -242,6 +258,9 @@ impl ExtraCommand {
             Self::Java {
                 action: JavaCommand::List,
             } => "java list",
+            Self::Java {
+                action: JavaCommand::Install { .. },
+            } => "java install",
             Self::Java { .. } => "java status",
             Self::Auth {
                 action: AuthCommand::List,
@@ -334,6 +353,19 @@ impl ExtraCommand {
             Self::Java {
                 action: JavaCommand::List,
             } => ("list_javas", json!({})),
+            Self::Java {
+                action: JavaCommand::Install { major, instance },
+            } => {
+                let instance_id = if let Some(selector) = instance {
+                    selected(domain, selector).await?["id"].clone()
+                } else {
+                    Value::Null
+                };
+                (
+                    "install_java_runtime",
+                    json!({"major":major,"instanceId":instance_id}),
+                )
+            }
             Self::Java {
                 action: JavaCommand::Status { selector },
             } => (
@@ -442,6 +474,9 @@ impl ExtraCommand {
 impl InstanceCommand {
     pub fn route(&self) -> &'static str {
         match self {
+            Self::Install { .. } => "instance install",
+            Self::Duplicate { .. } => "instance duplicate",
+            Self::Repair { .. } => "instance repair",
             Self::Create { .. } => "instance create",
             Self::Edit { .. } => "instance edit",
             Self::Delete { .. } => "instance delete",
@@ -458,6 +493,19 @@ impl InstanceCommand {
             ));
         }
         let (command, args) = match self {
+            Self::Install { selector }
+            | Self::Duplicate { selector }
+            | Self::Repair { selector } => {
+                let command = match self {
+                    Self::Install { .. } => "install_instance",
+                    Self::Duplicate { .. } => "duplicate_instance",
+                    _ => "repair_instance",
+                };
+                (
+                    command,
+                    json!({"instanceId":selected(domain,selector).await?["id"]}),
+                )
+            }
             Self::Create {
                 name,
                 version,
