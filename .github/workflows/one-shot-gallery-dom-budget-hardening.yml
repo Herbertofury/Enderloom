@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/creator-vault-auto-ingestion-hardening-stage3
-          fetch-depth: 12
+          fetch-depth: 16
       - name: Verify unchanged source base and patch QoS races
         shell: bash
         run: |
@@ -58,9 +58,7 @@ jobs:
               "function pumpMediaPrime() {",
               "  while(mediaPrimeQueue.length){",
               "    // A later visible/interactive request must not sit behind every background job.",
-              "    // Permit one bounded urgent burst above the adaptive background target; renderer",
-              "    // acquisition still keeps its dedicated foreground reserve, so this improves QoS",
-              "    // without turning the whole background frontier into an unbounded concurrency spike.",
+              "    // Permit one bounded urgent burst above the adaptive background target.",
               "    const urgentQueued=mediaPrimeQueue.some(job=>(Number(job?.priority)||0)>=MEDIA_PRIME_URGENT_PRIORITY);",
               "    const activeLimit=Math.min(MEDIA_PRIME_MAX,mediaPrimeTarget+(urgentQueued?MEDIA_PRIME_URGENT_BURST:0));",
               "    if(activeMediaPrimeJobs>=activeLimit)break;",
@@ -85,13 +83,80 @@ jobs:
               raise SystemExit(f'expected one prime generic DOM hedge, found {text.count(old_dom)}')
           text=text.replace(old_dom,new_dom,1)
 
+          old_acquire="\n".join([
+              "function acquireMediaView({ foreground=false } = {}) {",
+              "  const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);",
+              "  const idle=mediaViewPool.find(x=>!x.busy&&(foreground||!x.foregroundOnly)&&x.view&&!x.view.webContents.isDestroyed());",
+              "  if(idle){idle.busy=true;return Promise.resolve(idle.view)}",
+              "  const limit=foreground?MEDIA_VIEW_POOL_MAX:normalLimit;",
+              "  if(mediaViewPool.length<limit){const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly:foreground&&mediaViewPool.length>=normalLimit});return Promise.resolve(view)}",
+              "  return new Promise(resolve=>{const waiter={resolve,foreground};foreground?mediaViewWaiters.unshift(waiter):mediaViewWaiters.push(waiter)});",
+              "}",
+          ])
+          new_acquire="\n".join([
+              "function acquireMediaView({ foreground=false } = {}) {",
+              "  const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);",
+              "  const usable=x=>!x.busy&&x.view&&!x.view.webContents.isDestroyed();",
+              "  // Foreground work consumes its reserved views first; background work can never",
+              "  // borrow them. Fall back to an idle normal view only when a foreground request",
+              "  // would otherwise pay allocation while normal capacity is already idle.",
+              "  const idle=foreground",
+              "    ? (mediaViewPool.find(x=>usable(x)&&x.foregroundOnly===true)||mediaViewPool.find(x=>usable(x)&&!x.foregroundOnly))",
+              "    : mediaViewPool.find(x=>usable(x)&&!x.foregroundOnly);",
+              "  if(idle){idle.busy=true;return Promise.resolve(idle.view)}",
+              "  const normalCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&!x.foregroundOnly).length;",
+              "  const foregroundCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&x.foregroundOnly===true).length;",
+              "  const totalCount=normalCount+foregroundCount;",
+              "  if(!foreground&&normalCount<normalLimit){const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly:false});return Promise.resolve(view)}",
+              "  if(foreground&&totalCount<MEDIA_VIEW_POOL_MAX){",
+              "    const foregroundOnly=foregroundCount<MEDIA_VIEW_FOREGROUND_RESERVE;",
+              "    const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly});return Promise.resolve(view);",
+              "  }",
+              "  return new Promise(resolve=>{const waiter={resolve,foreground};foreground?mediaViewWaiters.unshift(waiter):mediaViewWaiters.push(waiter)});",
+              "}",
+          ])
+          if text.count(old_acquire)!=1:
+              raise SystemExit(f'expected one media view acquire function, found {text.count(old_acquire)}')
+          text=text.replace(old_acquire,new_acquire,1)
+
+          old_warm="\n".join([
+              "function warmMediaViewPool(count=Math.min(4,MEDIA_VIEW_POOL_MAX)) {",
+              "  const target=Math.max(0,Math.min(MEDIA_VIEW_POOL_MAX,Number(count)||0));",
+              "  while(mediaViewPool.length<target){",
+              "    const view=newMediaView();",
+              "    mediaViewPool.push({view,busy:false,warmedAt:Date.now()});",
+              "  }",
+              "  return mediaViewPool.length;",
+              "}",
+          ])
+          new_warm="\n".join([
+              "function warmMediaViewPool(count=Math.min(4,MEDIA_VIEW_POOL_MAX)) {",
+              "  const target=Math.max(0,Math.min(MEDIA_VIEW_POOL_MAX,Number(count)||0));",
+              "  const reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target);",
+              "  const normalWarm=Math.max(0,target-reserveWarm);",
+              "  let normalCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&!x.foregroundOnly).length;",
+              "  let foregroundCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&x.foregroundOnly===true).length;",
+              "  while(normalCount<normalWarm&&mediaViewPool.length<MEDIA_VIEW_POOL_MAX){",
+              "    const view=newMediaView();mediaViewPool.push({view,busy:false,warmedAt:Date.now(),foregroundOnly:false});normalCount++;",
+              "  }",
+              "  while(foregroundCount<reserveWarm&&mediaViewPool.length<MEDIA_VIEW_POOL_MAX){",
+              "    const view=newMediaView();mediaViewPool.push({view,busy:false,warmedAt:Date.now(),foregroundOnly:true});foregroundCount++;",
+              "  }",
+              "  return mediaViewPool.length;",
+              "}",
+          ])
+          if text.count(old_warm)!=1:
+              raise SystemExit(f'expected one media view warm function, found {text.count(old_warm)}')
+          text=text.replace(old_warm,new_warm,1)
+
           p.write_text(text,encoding='utf-8')
           PY
           node --check main.js
           grep -q 'const waitMs=Math.max(700,Math.min(4200,totalMs-900));' main.js
           grep -q 'MEDIA_PRIME_URGENT_PRIORITY=900000' main.js
-          grep -q 'timeoutMs:3000,foreground:Number(job.priority)>=900000' main.js
-          grep -q '5200,foreground:Number(job.priority)>=900000' main.js
+          grep -q 'foreground:Number(job.priority)>=900000' main.js
+          grep -q 'foregroundOnly===true' main.js
+          grep -q 'reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target)' main.js
           git diff --check
       - uses: actions/setup-node@v4
         with:
@@ -136,7 +201,7 @@ jobs:
             log="electron-self-test-$n.log"
             timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
             grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
-            if grep -Eq 'main-process streaming media prime runtime: .*done.*false|MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM extraction timed out' "$log"; then
+            if grep -Eq 'main-process streaming media prime runtime: .*done.*false|MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out' "$log"; then
               echo "::error::Electron media QoS/lifecycle/budget regression on pass $n"
               exit 1
             fi
@@ -160,5 +225,5 @@ jobs:
           changed="$(git diff --cached --name-only | sort)"
           expected=$'.github/workflows/one-shot-gallery-dom-budget-hardening.yml\nmain.js'
           test "$changed" = "$expected"
-          git commit -m 'fix(media): guarantee urgent prime QoS and DOM budget margin'
+          git commit -m 'fix(media): guarantee urgent prime QoS and foreground reserve'
           git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
