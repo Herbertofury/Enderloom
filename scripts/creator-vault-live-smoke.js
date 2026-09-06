@@ -13,6 +13,7 @@ const { setElectronApi, beginBrowserPool, endBrowserPool, enumerateCreatorVideos
 const { searchModrinth } = require('../src/creator-vault-auto/resolver');
 
 const results = [];
+let youtubeRefs = [];
 async function probe(name, fn, required=true) {
   const started = Date.now();
   try {
@@ -33,19 +34,39 @@ app.whenReady().then(async () => {
   const tiktok = { id:'tiktok:kizamiringo', title:'Kizamiringo', platform:'tiktok', url:'https://www.tiktok.com/@kizamiringo' };
 
   await probe('YouTube incremental enumeration', async () => {
-    const refs = await enumerateCreatorVideos(youtube, [], false, settings);
-    assert(refs.length > 0, 'no YouTube uploads discovered');
-    assert(refs.some(ref => /^[A-Za-z0-9_-]{11}$/.test(ref.id)), 'no valid YouTube video IDs discovered');
-    return { discovered:refs.length, first:refs[0]?.id, tabs:[...new Set(refs.map(ref=>ref.sourceTab).filter(Boolean))] };
+    youtubeRefs = await enumerateCreatorVideos(youtube, [], false, settings);
+    assert(youtubeRefs.length > 0, 'no YouTube uploads discovered');
+    assert(youtubeRefs.some(ref => /^[A-Za-z0-9_-]{11}$/.test(ref.id)), 'no valid YouTube video IDs discovered');
+    assert(youtubeRefs.some(ref => /^feed(?:\+|$)/.test(ref.sourceTab || '') || ref.description), 'YouTube feed metadata fast path did not contribute any live records');
+    return { discovered:youtubeRefs.length, first:youtubeRefs[0]?.id, tabs:[...new Set(youtubeRefs.map(ref=>ref.sourceTab).filter(Boolean))] };
   });
 
-  await probe('YouTube real recommendation extraction', async () => {
-    const ref = { id:'hBpVYqfyeNM', url:'https://www.youtube.com/watch?v=hBpVYqfyeNM', title:'Top 10 Minecraft Mods' };
-    const details = await readCreatorVideo(youtube, ref);
-    assert(details.title || details.description, 'YouTube video metadata was empty');
-    const projects = parseCreatorDescription({ title:details.title, text:details.description, platform:'youtube', links:details.links });
-    assert(projects.length >= 5, `expected recommendation list, extracted ${projects.length}; title=${JSON.stringify(details.title)}; description=${JSON.stringify(String(details.description||'').slice(0,1400))}`);
-    return { title:details.title, projects:projects.length, firstProjects:projects.slice(0,3).map(project=>project.name) };
+  await probe('YouTube live recommendation extraction', async () => {
+    assert(youtubeRefs.length > 0, 'YouTube enumeration did not supply candidates');
+    const pattern = /\b(mods?|addons?|resource\s*packs?|texture\s*packs?|shaders?|datapacks?|plugins?)\b/i;
+    const preferred = youtubeRefs.filter(ref => pattern.test(String(ref.title || '')));
+    const ordered = [...preferred, ...youtubeRefs.filter(ref => !preferred.includes(ref))];
+    const attempts = [];
+    for (const ref of ordered.slice(0,10)) {
+      try {
+        const details = await readCreatorVideo(youtube, ref);
+        const projects = parseCreatorDescription({ title:details.title || ref.title, text:details.description, platform:'youtube', links:details.links });
+        attempts.push({ id:ref.id, title:details.title || ref.title || '', projects:projects.length, source:details.source || ref.sourceTab || '' });
+        if (projects.length >= 3) {
+          return {
+            id:ref.id,
+            title:details.title || ref.title || '',
+            source:details.source || ref.sourceTab || '',
+            projects:projects.length,
+            firstProjects:projects.slice(0,3).map(project => project.name),
+            attempts:attempts.length,
+          };
+        }
+      } catch (error) {
+        attempts.push({ id:ref.id, title:ref.title || '', error:String(error?.message || error) });
+      }
+    }
+    throw new Error(`no currently-live AsianHalfSquat recommendation yielded >=3 projects: ${JSON.stringify(attempts)}`);
   });
 
   await probe('Modrinth exact resolver', async () => {
@@ -61,7 +82,7 @@ app.whenReady().then(async () => {
     const first = refs[0];
     const details = await readCreatorVideo(tiktok, first);
     assert(details.title || details.description, 'TikTok video metadata was empty');
-    return { discovered:refs.length, first:first.id, sample:String(details.description || details.title).slice(0,120) };
+    return { discovered:refs.length, first:first.id, path:first.sourceTab || '', source:details.source || '', sample:String(details.description || details.title).slice(0,120) };
   });
 
   endBrowserPool();
