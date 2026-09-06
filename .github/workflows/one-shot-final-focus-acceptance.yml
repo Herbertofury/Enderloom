@@ -103,12 +103,15 @@ jobs:
           observer_a = main.index(observer_start)
           observer_b = main.index(observer_end, observer_a)
           new_observer = '\n'.join([
-              "  await launcherView.webContents.executeJavaScript(`(() => {",
-              "    window.__enderloomSelfTestCatalogProjectEvent = new Promise(resolve => {",
-              "      let settled=false;",
-              "      window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });",
-              "      setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);",
+              "  await launcherView.webContents.executeJavaScript(`(async () => {",
+              "    let resolveEvent;",
+              "    let settled=false;",
+              "    let off=null;",
+              "    window.__enderloomSelfTestCatalogProjectEvent = new Promise(resolve => { resolveEvent=resolve; });",
+              "    off = await window.enderloomLauncher.listen('catalog:project', payload => {",
+              "      if(!settled){settled=true;try{off?.()}catch{};resolveEvent(payload)}",
               "    });",
+              "    setTimeout(() => { if(!settled){settled=true;try{off?.()}catch{};resolveEvent(null)} }, 2500);",
               "    return true;",
               "  })()`, true);",
               "",
@@ -126,6 +129,7 @@ jobs:
           node --check launcher-preload.js
           grep -q 'function focusActivatedView' main.js
           grep -q 'layoutViews(); focusActivatedView(id); publishState(); scheduleSave();' main.js
+          grep -q "off = await window.enderloomLauncher.listen('catalog:project'" main.js
           grep -q '__enderloomSelfTestCatalogProjectEvent' main.js
           grep -q 'launcher:event-subscribe' main.js
           grep -q 'launcher:event-subscribe' launcher-preload.js
