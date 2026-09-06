@@ -1,0 +1,222 @@
+name: One-shot Final Focus Acceptance
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion-hardening-stage3'
+    paths:
+      - '.github/workflows/one-shot-final-focus-acceptance.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion-hardening-stage3
+          fetch-depth: 256
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Apply proven V2 candidate plus activation focus and deterministic observer
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=2780deaf7c5d569846c2d8a7fe98e4118b614a37
+          git merge-base --is-ancestor "$BASE" HEAD
+          test "$(git rev-parse HEAD:main.js)" = "$(git rev-parse "$BASE":main.js)"
+          test "$(git rev-parse HEAD:launcher-preload.js)" = "$(git rev-parse "$BASE":launcher-preload.js)"
+          python3 - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          # Reuse the complete V2 transformation that already proved the media lanes,
+          # force-vs-deep semantics, guarded Chromium abort, exact history navigation,
+          # and durable launcher event/subscriber handshake. Do not fork those fixes.
+          workflow = Path('.github/workflows/one-shot-launcher-subscription-handshake-v2.yml').read_text(encoding='utf-8')
+          marker = "          python3 - <<'PY'\n"
+          start = workflow.index(marker) + len(marker)
+          end = workflow.index("\n          PY", start)
+          body = workflow[start:end]
+          body = '\n'.join(line[10:] if line.startswith('          ') else line for line in body.splitlines())
+          required = ['node-gallery-ssr-fast','launcher:event-subscribe','setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs','function navHistoryStep']
+          if not all(token in body for token in required):
+              raise SystemExit('V2 candidate is missing a proven runtime invariant')
+          exec(compile(body, 'reused-v2-candidate.py', 'exec'), {})
+
+          main_path = Path('main.js')
+          main = main_path.read_text(encoding='utf-8')
+
+          # Focus ownership is part of an actual native tab/workspace activation.
+          # The focused Electron harness proved 30 hide -> focus sibling -> reactivate
+          # Back/Forward cycles once focus moved to the newly visible WebContents.
+          old_activate = textwrap.dedent('''
+          function activateTab(id) {
+            if (id !== CATALOG_ID && id !== LAUNCHER_ID && !getTab(id)) return;
+            if(tabIsDetached(id)){const child=detachedWindows.get(id)?.window;if(child&&!child.isDestroyed()){child.show();child.focus()}return}
+            if ((id === CATALOG_ID || id === LAUNCHER_ID) && splitMode && activeTab()) {
+              splitWorkspaceId = id;
+              layoutViews(); publishState(); scheduleSave();
+              return;
+            }
+            activeId = id;
+            if (id === CATALOG_ID || id === LAUNCHER_ID) {
+              splitMode = false;
+              splitWorkspaceId = id;
+            }
+            layoutViews(); publishState(); scheduleSave();
+          }
+          ''').strip()
+          new_activate = textwrap.dedent('''
+          function focusActivatedView(id) {
+            const view=viewForTabId(id),wc=view?.webContents;
+            if(!wc||wc.isDestroyed?.())return;
+            try{if(view.getVisible?.()!==false)wc.focus()}catch{try{wc.focus()}catch{}}
+          }
+          function activateTab(id) {
+            if (id !== CATALOG_ID && id !== LAUNCHER_ID && !getTab(id)) return;
+            if(tabIsDetached(id)){const child=detachedWindows.get(id)?.window;if(child&&!child.isDestroyed()){child.show();child.focus()}return}
+            if ((id === CATALOG_ID || id === LAUNCHER_ID) && splitMode && activeTab()) {
+              splitWorkspaceId = id;
+              layoutViews(); focusActivatedView(id); publishState(); scheduleSave();
+              return;
+            }
+            activeId = id;
+            if (id === CATALOG_ID || id === LAUNCHER_ID) {
+              splitMode = false;
+              splitWorkspaceId = id;
+            }
+            layoutViews(); focusActivatedView(id); publishState(); scheduleSave();
+          }
+          ''').strip()
+          if main.count(old_activate) != 1:
+              raise SystemExit(f'activateTab marker mismatch: {main.count(old_activate)}')
+          main = main.replace(old_activate, new_activate, 1)
+
+          # The old self-test created an executeJavaScript promise but did not await
+          # completion of listener registration before firing the handoff. The real
+          # launcher store could receive+ack the durable event first, leaving only the
+          # diagnostic listener null. Register the observer deterministically first;
+          # the product assertion and 2.5 s bound remain unchanged.
+          old_observer = textwrap.dedent('''
+            const catalogProjectReceived = launcherView.webContents.executeJavaScript(`new Promise(resolve => {
+              let settled=false;
+              window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });
+              setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);
+            })`, true);
+          ''').strip()
+          new_observer = textwrap.dedent('''
+            await launcherView.webContents.executeJavaScript(`(() => {
+              window.__enderloomSelfTestCatalogProjectEvent = new Promise(resolve => {
+                let settled=false;
+                window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });
+                setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);
+              });
+              return true;
+            })()`, true);
+          ''').strip()
+          if main.count(old_observer) != 1:
+              raise SystemExit(f'catalog observer marker mismatch: {main.count(old_observer)}')
+          main = main.replace(old_observer, new_observer, 1)
+          old_event = "  const launcherProjectEvent = await catalogProjectReceived;"
+          new_event = "  const launcherProjectEvent = await launcherView.webContents.executeJavaScript(`window.__enderloomSelfTestCatalogProjectEvent`, true);"
+          if main.count(old_event) != 1:
+              raise SystemExit(f'catalog observer await marker mismatch: {main.count(old_event)}')
+          main = main.replace(old_event, new_event, 1)
+
+          main_path.write_text(main, encoding='utf-8')
+          PY
+          node --check main.js
+          node --check launcher-preload.js
+          grep -q 'function focusActivatedView' main.js
+          grep -q 'layoutViews(); focusActivatedView(id); publishState(); scheduleSave();' main.js
+          grep -q '__enderloomSelfTestCatalogProjectEvent' main.js
+          grep -q 'launcher:event-subscribe' main.js
+          grep -q 'launcher:event-subscribe' launcher-preload.js
+          grep -q 'node-gallery-ssr-fast' main.js
+          grep -q 'if(deep && !result.exclusive)' main.js
+          grep -q 'setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs)' main.js
+          ! grep -q 'restored=history.restore' main.js
+          git diff --check
+
+      - name: Install root dependencies and run cheap gallery ownership regression
+        run: |
+          npm ci
+          npm run curseforge-gallery-anchor-qa
+
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential pkg-config libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libxdo-dev libssl-dev patchelf
+      - name: Build real launcher boundary
+        run: |
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+      - name: Repair Electron runtime and configure secure sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+
+      - name: Repeat full Electron self-test three times
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in 1 2 3; do
+            log="electron-self-test-$n.log"
+            timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
+            grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
+            if grep -Eq 'MaxListenersExceededWarning|DOMException \[AbortError\]|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
+              echo "::error::runtime lifecycle regression on pass $n"
+              exit 1
+            fi
+          done
+
+      - name: Preserve final challenge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-focus-acceptance-${{ github.sha }}
+          path: electron-self-test-*.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit proven source and remove all temporary one-shot workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Herbertofury'
+          git config user.email 'stealth.sanchez@hotmail.com'
+          rm -f .github/workflows/one-shot-*.yml
+          git add -A main.js launcher-preload.js .github/workflows
+          test "$(git diff --cached --name-only | grep -c '^main.js$')" = "1"
+          test "$(git diff --cached --name-only | grep -c '^launcher-preload.js$')" = "1"
+          if git diff --cached --name-only | grep -Ev '^(main\.js|launcher-preload\.js|\.github/workflows/one-shot-.*\.yml)$'; then
+            echo '::error::Unexpected file escaped final challenge commit scope.'
+            exit 1
+          fi
+          git commit -m 'fix(core): harden creator media, navigation, and launcher handoff'
+          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
