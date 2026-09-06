@@ -39,17 +39,12 @@ jobs:
           from pathlib import Path
           import textwrap
 
-          # Reuse the complete V2 transformation that already proved the media lanes,
-          # force-vs-deep semantics, guarded Chromium abort, exact history navigation,
-          # and durable launcher event/subscriber handshake. Do not fork those fixes.
           workflow = Path('.github/workflows/one-shot-launcher-subscription-handshake-v2.yml').read_text(encoding='utf-8')
           marker = "          python3 - <<'PY'\n"
           start = workflow.index(marker) + len(marker)
           end = workflow.index("\n          PY", start)
           body = workflow[start:end]
           body = '\n'.join(line[10:] if line.startswith('          ') else line for line in body.splitlines())
-          # Validate only invariants literally owned by V2; its nested transform owns
-          # the dual-SSR gallery token and is validated in the produced source below.
           required = ['launcher:event-subscribe','setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs','function navHistoryStep']
           if not all(token in body for token in required):
               raise SystemExit('V2 candidate is missing one of its own runtime invariants')
@@ -58,9 +53,6 @@ jobs:
           main_path = Path('main.js')
           main = main_path.read_text(encoding='utf-8')
 
-          # Focus ownership is part of an actual native tab/workspace activation.
-          # The focused Electron harness proved 30 hide -> focus sibling -> reactivate
-          # Back/Forward cycles once focus moved to the newly visible WebContents.
           old_activate = textwrap.dedent('''
           function activateTab(id) {
             if (id !== CATALOG_ID && id !== LAUNCHER_ID && !getTab(id)) return;
@@ -104,31 +96,24 @@ jobs:
               raise SystemExit(f'activateTab marker mismatch: {main.count(old_activate)}')
           main = main.replace(old_activate, new_activate, 1)
 
-          # The old self-test created an executeJavaScript promise but did not await
-          # completion of listener registration before firing the handoff. The real
-          # launcher store could receive+ack the durable event first, leaving only the
-          # diagnostic listener null. Register the observer deterministically first;
-          # the product assertion and 2.5 s bound remain unchanged.
-          old_observer = textwrap.dedent('''
-            const catalogProjectReceived = launcherView.webContents.executeJavaScript(`new Promise(resolve => {
-              let settled=false;
-              window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });
-              setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);
-            })`, true);
-          ''').strip()
-          new_observer = textwrap.dedent('''
-            await launcherView.webContents.executeJavaScript(`(() => {
-              window.__enderloomSelfTestCatalogProjectEvent = new Promise(resolve => {
-                let settled=false;
-                window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });
-                setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);
-              });
-              return true;
-            })()`, true);
-          ''').strip()
-          if main.count(old_observer) != 1:
-              raise SystemExit(f'catalog observer marker mismatch: {main.count(old_observer)}')
-          main = main.replace(old_observer, new_observer, 1)
+          observer_start = "  const catalogProjectReceived = launcherView.webContents.executeJavaScript(`new Promise(resolve => {"
+          observer_end = "  const catalogLauncherHandoff = await catalogView.webContents.executeJavaScript"
+          if main.count(observer_start) != 1 or main.count(observer_end) != 1:
+              raise SystemExit(f'catalog observer boundary mismatch: start={main.count(observer_start)} end={main.count(observer_end)}')
+          observer_a = main.index(observer_start)
+          observer_b = main.index(observer_end, observer_a)
+          new_observer = '\n'.join([
+              "  await launcherView.webContents.executeJavaScript(`(() => {",
+              "    window.__enderloomSelfTestCatalogProjectEvent = new Promise(resolve => {",
+              "      let settled=false;",
+              "      window.enderloomLauncher.listen('catalog:project', payload => { if(!settled){settled=true;resolve(payload)} });",
+              "      setTimeout(() => { if(!settled){settled=true;resolve(null)} }, 2500);",
+              "    });",
+              "    return true;",
+              "  })()`, true);",
+              "",
+          ])
+          main = main[:observer_a] + new_observer + main[observer_b:]
           old_event = "  const launcherProjectEvent = await catalogProjectReceived;"
           new_event = "  const launcherProjectEvent = await launcherView.webContents.executeJavaScript(`window.__enderloomSelfTestCatalogProjectEvent`, true);"
           if main.count(old_event) != 1:
