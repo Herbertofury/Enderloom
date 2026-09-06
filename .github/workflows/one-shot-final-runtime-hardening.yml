@@ -1,0 +1,306 @@
+name: One-shot Final Runtime Hardening
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion-hardening-stage3'
+    paths:
+      - '.github/workflows/one-shot-final-runtime-hardening.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  challenge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/creator-vault-auto-ingestion-hardening-stage3
+          fetch-depth: 128
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Verify pristine production source and apply proven runtime fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor 2780deaf7c5d569846c2d8a7fe98e4118b614a37 HEAD
+          test "$(git rev-parse HEAD:main.js)" = "$(git rev-parse 2780deaf7c5d569846c2d8a7fe98e4118b614a37:main.js)"
+          python3 - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          p=Path('main.js')
+          text=p.read_text(encoding='utf-8')
+
+          def swap(old,new,label):
+              global text
+              count=text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected one match, found {count}')
+              text=text.replace(old,new,1)
+
+          # Dual-SSR CurseForge gallery rescue: Node HTTP + authenticated Chromium
+          # session race first; DOM is retained only for browser-rendered fallbacks.
+          start_token="async function extractCurseForgeGalleryDomQuick(url, context={}, { timeoutMs=5200, foreground=false } = {}) {"
+          end_token="\nasync function extractCurseForgeGalleryHtmlFull"
+          if text.count(start_token)!=1:
+              raise SystemExit(f'gallery function start: found {text.count(start_token)}')
+          start=text.index(start_token)
+          end=text.index(end_token,start)
+          gallery=textwrap.dedent(r'''
+          async function extractCurseForgeGalleryDomQuick(url, context={}, { timeoutMs=5200, foreground=false } = {}) {
+            const target=safeHttpUrl(url);if(!target)return null;
+            const targetProvider=providerForUrl(target),contextProvider=providerForUrl(context?.primaryUrl||'');
+            if((targetProvider!=='curseforge'&&!(testMode&&contextProvider==='curseforge'))||!/\/gallery\/?$/i.test(new URL(target).pathname))return null;
+            const totalMs=Math.max(1800,Number(timeoutMs)||5200),started=Date.now();
+            const cleanContext=mediaContext(context),canonicalGallery=curseForgeGalleryUrl(cleanContext.primaryUrl)||target;
+            const useful=page=>!!(page&&((page.gallery||page.images||[]).length||page.sourceGalleryAbsent===true||page.galleryAbsent===true));
+            const requireUseful=page=>useful(page)?page:Promise.reject(new Error('no useful gallery state'));
+            const parseSsr=(response,transport)=>{
+              if(!response||Number(response.status)<200||Number(response.status)>=300)return null;
+              const type=String(response.headers?.['content-type']||response.headers?.['Content-Type']||'');if(type&&!/html|xhtml/i.test(type))return null;
+              const html=String(response.text||'');if(!html)return null;
+              const parsed=parseGenericProjectHtml(html,canonicalGallery,cleanContext);if(parsed)parsed.transport=transport;return parsed;
+            };
+            // The lightweight Node lane wins ordinary/public pages without consuming a
+            // WebContents. The Chromium-session lane preserves cookies/proxy/Cloudflare
+            // compatibility. Neither lane caps the provider parser's owned gallery.
+            const nodeSsr=publicRequestTextShared(target,{timeoutMs:Math.min(totalMs,1800),cacheTtlMs:120000,bypassCache:false,headers:{Accept:'text/html,application/xhtml+xml;q=0.9,*/*;q=0.2'}})
+              .then(response=>parseSsr(response,'node-gallery-ssr-fast')).catch(()=>null);
+            const chromiumSsr=extractCurseForgeGalleryHtmlFull(target,cleanContext,{timeoutMs:Math.min(totalMs,2400),bypassCache:false}).catch(()=>null);
+            const ssrPromise=Promise.any([nodeSsr.then(requireUseful),chromiumSsr.then(requireUseful)]).catch(()=>null);
+            const early=await Promise.race([ssrPromise,new Promise(resolve=>setTimeout(()=>resolve(undefined),500))]);
+            if(useful(early))return early;
+            const remaining=Math.max(1200,totalMs-(Date.now()-started));
+            const script=String.raw`(()=>{const bad='nav,aside,footer,header,[class*="comment" i],[class*="related" i],[class*="recommend" i],[class*="sidebar" i],[class*="advert" i],[class*="sponsor" i]';const scope=document.querySelector('main,[role="main"]')||document.body||document.documentElement;const seen=new Set(),gallery=[];const clean=raw=>{try{const u=new URL(raw,location.href);if(!/(?:^|\.)(?:forgecdn|cursecdn)\.net$/i.test(u.hostname)||!/^\/attachments\/(?:thumbnails\/)?\d+\/\d+\//i.test(u.pathname))return '';u.hash='';return u.toString()}catch{return ''}};for(const a of scope.querySelectorAll('a[href]')){if(a.closest(bad))continue;const href=clean(a.href);if(!href||seen.has(href))continue;const label=String(a.querySelector('img')?.alt||a.getAttribute('aria-label')||a.getAttribute('title')||'');if(/battlegrounds|ugc[ _-]?contest|promotion|campaign|advert|sponsor/i.test(href+' '+label))continue;seen.add(href);gallery.push({url:href,previewUrl:href,posterUrl:'',alt:label.slice(0,300),width:0,height:0,role:'gallery',source:'curseforge-gallery-dom-fallback',confidence:100})}const body=document.body?.innerText||'';const empty=/this\s+mod\s+has\s+no\s+gallery\s+items\s+available/i.test(body);return {title:String(document.querySelector('main h1,[role="main"] h1,h1')?.textContent||document.title||'').trim(),gallery,images:gallery,icon:null,author:null,authorUrl:'',sourceGalleryAbsent:empty,galleryAbsent:empty,provider:'curseforge'}})()`;
+            const domPromise=extractLivePageMediaQuick(target,script,{timeoutMs:remaining,foreground}).catch(()=>null);
+            try{return await Promise.any([ssrPromise.then(requireUseful),domPromise.then(requireUseful)])}catch{return null}
+          }
+          ''').strip()
+          text=text[:start]+gallery+text[end:]
+
+          old_pump=textwrap.dedent('''
+          function pumpMediaPrime() {
+            while(activeMediaPrimeJobs<mediaPrimeTarget&&mediaPrimeQueue.length){
+              const job=nextMediaPrimeJob();if(!job)break;activeMediaPrimeJobs++;
+              runMediaPrime(job).finally(()=>{activeMediaPrimeJobs--;pumpMediaPrime();});
+            }
+          }
+          ''').strip()
+          new_pump=textwrap.dedent('''
+          const MEDIA_PRIME_URGENT_PRIORITY=900000;
+          const MEDIA_PRIME_URGENT_BURST=1;
+          function pumpMediaPrime() {
+            while(mediaPrimeQueue.length){
+              const urgentQueued=mediaPrimeQueue.some(job=>(Number(job?.priority)||0)>=MEDIA_PRIME_URGENT_PRIORITY);
+              const activeLimit=Math.min(MEDIA_PRIME_MAX,mediaPrimeTarget+(urgentQueued?MEDIA_PRIME_URGENT_BURST:0));
+              if(activeMediaPrimeJobs>=activeLimit)break;
+              const job=nextMediaPrimeJob();if(!job)break;activeMediaPrimeJobs++;
+              runMediaPrime(job).finally(()=>{activeMediaPrimeJobs--;pumpMediaPrime();});
+            }
+          }
+          ''').strip()
+          swap(old_pump,new_pump,'urgent prime scheduler')
+          swap(
+              "extractCurseForgeGalleryDomQuick(galleryUrl,job.context,{timeoutMs:Number(job.priority)>=900000?4600:5200}).catch(()=>null)",
+              "extractCurseForgeGalleryDomQuick(galleryUrl,job.context,{timeoutMs:Number(job.priority)>=900000?4600:5200,foreground:Number(job.priority)>=900000}).catch(()=>null)",
+              'urgent gallery foreground hedge')
+          swap(
+              "extractLivePageMediaQuick(url,contextScript,{timeoutMs:3000}).catch(()=>null)",
+              "extractLivePageMediaQuick(url,contextScript,{timeoutMs:3000,foreground:Number(job.priority)>=900000}).catch(()=>null)",
+              'urgent generic foreground hedge')
+
+          old_acquire=textwrap.dedent('''
+          function acquireMediaView({ foreground=false } = {}) {
+            const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);
+            const idle=mediaViewPool.find(x=>!x.busy&&(foreground||!x.foregroundOnly)&&x.view&&!x.view.webContents.isDestroyed());
+            if(idle){idle.busy=true;return Promise.resolve(idle.view)}
+            const limit=foreground?MEDIA_VIEW_POOL_MAX:normalLimit;
+            if(mediaViewPool.length<limit){const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly:foreground&&mediaViewPool.length>=normalLimit});return Promise.resolve(view)}
+            return new Promise(resolve=>{const waiter={resolve,foreground};foreground?mediaViewWaiters.unshift(waiter):mediaViewWaiters.push(waiter)});
+          }
+          ''').strip()
+          new_acquire=textwrap.dedent('''
+          function acquireMediaView({ foreground=false } = {}) {
+            const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);
+            const usable=x=>!x.busy&&x.view&&!x.view.webContents.isDestroyed();
+            const idle=foreground
+              ? (mediaViewPool.find(x=>usable(x)&&x.foregroundOnly===true)||mediaViewPool.find(x=>usable(x)&&!x.foregroundOnly))
+              : mediaViewPool.find(x=>usable(x)&&!x.foregroundOnly);
+            if(idle){idle.busy=true;return Promise.resolve(idle.view)}
+            const normalCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&!x.foregroundOnly).length;
+            const foregroundCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&x.foregroundOnly===true).length;
+            const totalCount=normalCount+foregroundCount;
+            if(!foreground&&normalCount<normalLimit){const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly:false});return Promise.resolve(view)}
+            if(foreground&&totalCount<MEDIA_VIEW_POOL_MAX){const foregroundOnly=foregroundCount<MEDIA_VIEW_FOREGROUND_RESERVE;const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly});return Promise.resolve(view)}
+            return new Promise(resolve=>{const waiter={resolve,foreground};foreground?mediaViewWaiters.unshift(waiter):mediaViewWaiters.push(waiter)});
+          }
+          ''').strip()
+          swap(old_acquire,new_acquire,'foreground pool acquire invariant')
+
+          old_warm=textwrap.dedent('''
+          function warmMediaViewPool(count=Math.min(4,MEDIA_VIEW_POOL_MAX)) {
+            const target=Math.max(0,Math.min(MEDIA_VIEW_POOL_MAX,Number(count)||0));
+            while(mediaViewPool.length<target){
+              const view=newMediaView();
+              mediaViewPool.push({view,busy:false,warmedAt:Date.now()});
+            }
+            return mediaViewPool.length;
+          }
+          ''').strip()
+          new_warm=textwrap.dedent('''
+          function warmMediaViewPool(count=Math.min(4,MEDIA_VIEW_POOL_MAX)) {
+            const target=Math.max(0,Math.min(MEDIA_VIEW_POOL_MAX,Number(count)||0));
+            const reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target);
+            const normalWarm=Math.max(0,target-reserveWarm);
+            let normalCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&!x.foregroundOnly).length;
+            let foregroundCount=mediaViewPool.filter(x=>x.view&&!x.view.webContents.isDestroyed()&&x.foregroundOnly===true).length;
+            while(normalCount<normalWarm&&mediaViewPool.length<MEDIA_VIEW_POOL_MAX){const view=newMediaView();mediaViewPool.push({view,busy:false,warmedAt:Date.now(),foregroundOnly:false});normalCount++}
+            while(foregroundCount<reserveWarm&&mediaViewPool.length<MEDIA_VIEW_POOL_MAX){const view=newMediaView();mediaViewPool.push({view,busy:false,warmedAt:Date.now(),foregroundOnly:true});foregroundCount++}
+            return mediaViewPool.length;
+          }
+          ''').strip()
+          swap(old_warm,new_warm,'foreground pool warm invariant')
+
+          # force means fresh/cache bypass; deep alone means expensive enrichment.
+          swap("const hedgedDeep=((deep||force)&&!isProviderCollectionUrl(url)&&HEDGED_DEEP_PROVIDERS.has(provider))","const hedgedDeep=(deep&&!isProviderCollectionUrl(url)&&HEDGED_DEEP_PROVIDERS.has(provider))",'deep hedge semantics')
+          swap("discoverModrinthMedia(url,context,deep||force||!!context.author)","discoverModrinthMedia(url,context,deep||!!context.author)",'Modrinth author depth semantics')
+          swap("if((deep || force) && !result.exclusive) {","if(deep && !result.exclusive) {",'deep enrichment semantics')
+
+          # Explicit adjacent-index history navigation avoids relative-history flakiness.
+          old_nav=textwrap.dedent('''
+          function navCanBack(wc) { return wc?.navigationHistory?.canGoBack?.() ?? wc?.canGoBack?.() ?? false; }
+          function navCanForward(wc) { return wc?.navigationHistory?.canGoForward?.() ?? wc?.canGoForward?.() ?? false; }
+          function navBack(wc) { if (wc?.navigationHistory?.canGoBack?.()) return wc.navigationHistory.goBack(); if (wc?.canGoBack?.()) return wc.goBack(); }
+          function navForward(wc) { if (wc?.navigationHistory?.canGoForward?.()) return wc.navigationHistory.goForward(); if (wc?.canGoForward?.()) return wc.goForward(); }
+          ''').strip()
+          new_nav=textwrap.dedent('''
+          function navCanBack(wc) { return wc?.navigationHistory?.canGoBack?.() ?? wc?.canGoBack?.() ?? false; }
+          function navCanForward(wc) { return wc?.navigationHistory?.canGoForward?.() ?? wc?.canGoForward?.() ?? false; }
+          function navHistoryStep(wc, offset) {
+            const history=wc?.navigationHistory,step=Number(offset)||0;if(!step||!wc||wc.isDestroyed?.())return;
+            try {
+              if(history?.canGoToOffset?.(step)){
+                const index=history.getActiveIndex?.();
+                if(Number.isInteger(index)&&typeof history.goToIndex==='function')return history.goToIndex(index+step);
+                return history.goToOffset(step);
+              }
+              if(step<0&&history?.canGoBack?.())return history.goBack();
+              if(step>0&&history?.canGoForward?.())return history.goForward();
+            } catch {}
+            if(step<0&&wc?.canGoBack?.())return wc.goBack();
+            if(step>0&&wc?.canGoForward?.())return wc.goForward();
+          }
+          function navBack(wc) { return navHistoryStep(wc,-1); }
+          function navForward(wc) { return navHistoryStep(wc,1); }
+          ''').strip()
+          swap(old_nav,new_nav,'deterministic navigation history')
+
+          p.write_text(text,encoding='utf-8')
+          PY
+          node --check main.js
+          grep -q 'node-gallery-ssr-fast' main.js
+          grep -q 'MEDIA_PRIME_URGENT_PRIORITY=900000' main.js
+          grep -q 'reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target)' main.js
+          grep -q 'const hedgedDeep=(deep&&' main.js
+          grep -q 'if(deep && !result.exclusive)' main.js
+          grep -q 'function navHistoryStep' main.js
+          git diff --check
+
+      - name: Prove exact CurseForge SSR gallery ownership parser
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const {parseGenericProjectHtml}=require('./src/provider-media');
+          const paths=['774/987/bookstats.png','749/989/pink.png','749/997/chrysalis.png','749/976/advancements.png','749/982/caterpillars.png','749/986/eggs.png','749/977/bottles.png','774/985/scrolls.png','749/988/monarch.png','774/986/bookbutterfly.png','749/990/swarm.png'];
+          const cards=paths.map((x,i)=>`<li><a href="https://media.forgecdn.net/attachments/${x}"><img alt="Bok gallery ${i+1}"></a></li>`).join('');
+          const html=`<!doctype html><title>Bok's Banging Butterflies - Gallery</title><header><a href="https://media.forgecdn.net/attachments/9999/8888/pubg-battlegrounds-ugc-contest.jpg"><img alt="PUBG BATTLEGROUNDS UGC CONTEST"></a></header><main><h1>Bok's Banging Butterflies</h1><nav><a href="/minecraft/mc-mods/boks-butterflies">Description</a><a href="/minecraft/mc-mods/boks-butterflies/gallery">Gallery (11)</a></nav><ul>${cards}</ul></main>`;
+          const context={projectId:'bok-self-test',title:"Bok's Banging Butterflies",author:'DocBok',primaryUrl:'https://www.curseforge.com/minecraft/mc-mods/boks-butterflies'};
+          const page=parseGenericProjectHtml(html,'https://www.curseforge.com/minecraft/mc-mods/boks-butterflies/gallery',context);
+          if(page?.gallery?.length!==11)throw new Error(`expected 11 owned gallery items, got ${page?.gallery?.length}`);
+          if(page.gallery.some(x=>/pubg-battlegrounds|ugc-contest/i.test(`${x.url} ${x.alt||''}`)))throw new Error('promo attachment escaped ownership boundary');
+          console.log('CURSEFORGE_SSR_GALLERY_FIXTURE',JSON.stringify({passed:true,count:page.gallery.length}));
+          NODE
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential pkg-config libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libxdo-dev libssl-dev patchelf
+
+      - name: Install and build real launcher boundary
+        run: |
+          npm ci
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+
+      - name: Repair Electron runtime and configure secure sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+
+      - name: Repeat real Electron self-test three times
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in 1 2 3; do
+            log="electron-self-test-$n.log"
+            timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee "$log"
+            grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' "$log"
+            if grep -Eq 'MaxListenersExceededWarning|Live DOM hedge failed -3|Live DOM (hedge|extraction) timed out|main-process streaming media prime runtime: .*done.*false' "$log"; then
+              echo "::error::runtime lifecycle/QoS regression on pass $n"
+              exit 1
+            fi
+          done
+
+      - name: Preserve challenge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-runtime-hardening-${{ github.sha }}
+          path: electron-self-test-*.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit proven source and remove all temporary challenge workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Herbertofury'
+          git config user.email 'stealth.sanchez@hotmail.com'
+          rm -f .github/workflows/one-shot-final-runtime-hardening.yml
+          rm -f .github/workflows/one-shot-gallery-anchor-fastpath.yml
+          rm -f .github/workflows/one-shot-gallery-dom-budget-hardening.yml
+          git add -A main.js .github/workflows
+          test "$(git diff --cached --name-only | grep -c '^main.js$')" = "1"
+          if git diff --cached --name-only | grep -Ev '^(main\.js|\.github/workflows/one-shot-.*\.yml)$'; then
+            echo '::error::Unexpected file escaped one-shot commit scope.'
+            exit 1
+          fi
+          git commit -m 'fix(core): harden creator media QoS and browser history'
+          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
