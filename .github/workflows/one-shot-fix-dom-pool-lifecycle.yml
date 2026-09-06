@@ -1,4 +1,4 @@
-name: One-shot DOM Pool Lifecycle Repair
+name: One-shot Electron DOM Pool Lifecycle Challenge
 
 on:
   push:
@@ -8,103 +8,98 @@ on:
       - '.github/workflows/one-shot-fix-dom-pool-lifecycle.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  repair:
+  electron-lifecycle:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 12
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
     steps:
       - uses: actions/checkout@v4
         with:
           ref: feature/creator-vault-auto-ingestion-hardening-stage3
           fetch-depth: 2
-      - name: Verify staging base
+      - name: Verify repaired staging base
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD^)" = "d64de3fd185e8e26ff3ebf0cf46b07c65921c92e"
-      - name: Repair pooled WebContents navigation lifecycle
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('main.js')
-          text = path.read_text(encoding='utf-8')
-          start_token = 'async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foreground=false } = {}) {'
-          end_token = '\nasync function resolveCurseForgeAddonId(rawUrl, fallback=\'\') {'
-          if text.count(start_token) != 1:
-              raise SystemExit(f'expected one live DOM hedge function, found {text.count(start_token)}')
-          start = text.index(start_token)
-          end = text.index(end_token, start)
-          replacement = r'''async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foreground=false } = {}) {
-            const view=await acquireMediaView({foreground}),wc=view.webContents;
-            const started=Date.now(),limit=Math.max(700,Number(timeoutMs)||3300);
-            let timer=null,onReady=null,onFail=null,navigation=null;
-            try {
-              const ready=new Promise((resolve,reject)=>{
-                onReady=()=>resolve(true);
-                onFail=(_event,code,description,_validatedURL,isMainFrame)=>{
-                  // Chromium reports ERR_ABORTED (-3) when a navigation is intentionally
-                  // cancelled or replaced. That is not a provider failure; dom-ready or
-                  // the bounded hedge timeout remains the authoritative readiness gate.
-                  if(isMainFrame===false||Number(code)===-3)return;
-                  reject(new Error(`Live DOM hedge failed ${code}: ${description||'navigation error'}`));
-                };
-                wc.once('dom-ready',onReady);wc.on('did-fail-load',onFail);
-                timer=setTimeout(()=>reject(new Error('Live DOM hedge timed out')),limit);
-              });
-              // Keep the native load promise so Electron can remove its internal
-              // did-stop-loading/did-fail-load listeners before this pooled WebContents
-              // is handed to the next hedge. We still gate extraction at dom-ready, so
-              // remote fonts, analytics, ads and image subresources never serialize paint.
-              navigation=wc.loadURL(url).then(()=>null,()=>null);
-              await ready;
-              if(timer){clearTimeout(timer);timer=null;}
-              if(onReady){wc.removeListener('dom-ready',onReady);onReady=null;}
-              if(onFail){wc.removeListener('did-fail-load',onFail);onFail=null;}
-              const remaining=Math.max(250,limit-(Date.now()-started));
-              const guardedScript=`(async()=>{try{return {ok:true,value:await (${script})}}catch(error){return {ok:false,error:String(error?.stack||error)}}})()`;
-              try{new vm.Script(guardedScript,{filename:'enderloom-live-dom-extraction.js'})}catch(error){throw new Error(`Live DOM extraction script is invalid: ${error.stack||error}`)}
-              const guarded=await Promise.race([
-                wc.executeJavaScript(guardedScript,true),
-                new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Live DOM extraction timed out')),remaining)}),
-              ]);
-              if(!guarded?.ok)throw new Error(`Live DOM extraction failed: ${guarded?.error||'unknown renderer error'}`);
-              return guarded.value;
-            } finally {
-              if(timer)clearTimeout(timer);
-              if(onReady)wc.removeListener('dom-ready',onReady);
-              if(onFail)wc.removeListener('did-fail-load',onFail);
-              if(!wc.isDestroyed()){
-                try{wc.stop()}catch{}
-                // stop() settles loadURL quickly with ERR_ABORTED. Draining that promise
-                // is what prevents Electron's internal navigation listeners leaking into
-                // the next pooled request and misclassifying its navigation as failed.
-                if(navigation){try{await navigation}catch{}}
-              }
-              releaseMediaView(view);
-            }
-          }
-          '''
-          patched = text[:start] + replacement + text[end:]
-          if patched == text:
-              raise SystemExit('patch made no change')
-          path.write_text(patched, encoding='utf-8')
-          PY
+          test "$(git rev-parse HEAD^)" = "08628f794e1bb85a8150b70051ceef375e4168ff"
           node --check main.js
           grep -q "Number(code)===-3" main.js
           grep -q "if(navigation){try{await navigation}catch{}}" main.js
-          git diff --check
-      - name: Commit repaired source
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux native build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            pkg-config \
+            libglib2.0-dev \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libxdo-dev \
+            libssl-dev \
+            patchelf
+      - name: Install and build the real launcher boundary
+        run: |
+          npm ci
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
+      - name: Repair Electron runtime and configure secure SUID sandbox
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'Herbertofury'
-          git config user.email 'stealth.sanchez@hotmail.com'
-          git add main.js
-          test "$(git diff --cached --name-only)" = "main.js"
-          git commit -m 'fix(media): drain pooled DOM navigation lifecycle'
-          git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"
+          if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"
+          SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then
+            rm -rf "$ELECTRON_DIR"
+            install_electron
+            ELECTRON_BIN="$(resolve_electron)"
+            ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"
+            SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          fi
+          test -x "$ELECTRON_BIN"
+          test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"
+          sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+      - name: Run real Electron self-test and reject lifecycle regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+          grep -q 'CATALOG_COMPANION_SELF_TEST {"passed":true' electron-self-test.log
+          if grep -q 'MaxListenersExceededWarning' electron-self-test.log; then
+            echo '::error::WebContents listener leak still present.'
+            exit 1
+          fi
+          if grep -q 'Live DOM hedge failed -3' electron-self-test.log; then
+            echo '::error::Intentional ERR_ABORTED navigation was still misclassified.'
+            exit 1
+          fi
+      - name: Preserve lifecycle challenge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-dom-pool-lifecycle-${{ github.sha }}
+          path: electron-self-test.log
+          if-no-files-found: warn
+          retention-days: 14
