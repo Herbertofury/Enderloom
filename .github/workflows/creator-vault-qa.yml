@@ -23,7 +23,9 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Chunk 32 post-merge reconciliation diagnostic
+      - name: Chunk 33 canonical reuse and legacy-overlap probe
+        run: node scripts/creator-vault-ahs33-canonical-probe.js
+      - name: Chunk 32 native-over-legacy reconciliation diagnostic
         run: node scripts/creator-vault-ahs32-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
