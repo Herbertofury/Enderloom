@@ -48,9 +48,11 @@ jobs:
           end = workflow.index("\n          PY", start)
           body = workflow[start:end]
           body = '\n'.join(line[10:] if line.startswith('          ') else line for line in body.splitlines())
-          required = ['node-gallery-ssr-fast','launcher:event-subscribe','setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs','function navHistoryStep']
+          # Validate only invariants literally owned by V2; its nested transform owns
+          # the dual-SSR gallery token and is validated in the produced source below.
+          required = ['launcher:event-subscribe','setTimeout(()=>{try{controller.abort()}catch{}},timeoutMs','function navHistoryStep']
           if not all(token in body for token in required):
-              raise SystemExit('V2 candidate is missing a proven runtime invariant')
+              raise SystemExit('V2 candidate is missing one of its own runtime invariants')
           exec(compile(body, 'reused-v2-candidate.py', 'exec'), {})
 
           main_path = Path('main.js')
