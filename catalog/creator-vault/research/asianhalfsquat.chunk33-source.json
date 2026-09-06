@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "chunk": 33,
+  "updatedAt": "2026-09-06T02:39:00Z",
+  "baseline": {"recommendations": 995, "uniqueProjects": 672, "ahsIndexedVideos": 52},
+  "sourceMentions": 10,
+  "chronologyEvidence": [
+    {"candidate":"2024 Bilibili repost of d34F7B_MR7A","status":"rejected-as-chronology","reason":"YouTube first-party metadata dates original AsianHalfSquat upload to 2019-10-08, so the 2024-01-31 mirror is not a 2024 channel upload."}
+  ],
+  "videos": [
+    {
+      "id": "youtube:hBpVYqfyeNM",
+      "url": "https://www.youtube.com/watch?v=hBpVYqfyeNM",
+      "title": "Top 10 Minecraft Mods (1.20.2) - 2023",
+      "publishedAt": "2023-11-29",
+      "sourceKind": "youtube-description",
+      "recommendations": [
+        {"name":"Regions Unexplored","projectType":"mod","timestamp":"0:13","timestampSeconds":13,"sectionLabel":"MODS"},
+        {"name":"Handcrafted","projectType":"mod","timestamp":"0:35","timestampSeconds":35,"sectionLabel":"MODS"},
+        {"name":"LEAWIND's Third Person Perspective","projectType":"mod","timestamp":"0:57","timestampSeconds":57,"sectionLabel":"MODS"},
+        {"name":"FallingTree","projectType":"mod","timestamp":"1:33","timestampSeconds":93,"sectionLabel":"MODS"},
+        {"name":"Mythic Charms","projectType":"mod","timestamp":"1:49","timestampSeconds":109,"sectionLabel":"MODS"},
+        {"name":"Better Clouds","projectType":"mod","timestamp":"2:10","timestampSeconds":130,"sectionLabel":"MODS"},
+        {"name":"Evasive Items","projectType":"mod","timestamp":"2:38","timestampSeconds":158,"sectionLabel":"MODS"},
+        {"name":"YDM's Weapon Master","projectType":"mod","timestamp":"2:55","timestampSeconds":175,"sectionLabel":"MODS"},
+        {"name":"Pufferfish's Skills","projectType":"mod","timestamp":"3:18","timestampSeconds":198,"sectionLabel":"MODS"},
+        {"name":"Physics Mod Pro","projectType":"mod","timestamp":"3:28","timestampSeconds":208,"sectionLabel":"MODS"}
+      ],
+      "excludedEvidence": [
+        {"sourceLabel":"Nostalgia","status":"post-outro-shader-excluded","sourceSection":"Shaders"},
+        {"sourceLabel":"Complementary Reimagined","status":"post-outro-shader-excluded","sourceSection":"Shaders","notes":"Creator description renders the label as Complimentary Reimagined; canonical spelling is preserved only in excluded evidence."},
+        {"sourceLabel":"Rethinking Voxels","status":"post-outro-shader-excluded","sourceSection":"Shaders"},
+        {"sourceLabel":"Minecraft Forge","status":"loader-setup-excluded"},
+        {"sourceLabel":"Fabric","status":"loader-setup-excluded"},
+        {"sourceLabel":"Minecraft Volume Beta - Aria Math","status":"music-excluded"}
+      ],
+      "notes": "Exactly ten creator-listed entries under MODS with exact creator-authored timestamps. The creator's 3:47 Outro separates the Top-10 list from the subsequent Shaders block, so three shader links remain ancillary evidence and are not inferred as additional mod recommendations."
+    }
+  ],
+  "notes": "Chunk 33 research-only freeze. Repeated January/December chronology searches found no intervening ordinary AsianHalfSquat upload between 2024-02-23 and the first-party 2023-11-29 source. The misleading 2024-01-31 Bilibili mirror was explicitly rejected after YouTube identified its source video as a 2019 upload. Canonicalization must run against sealed Chunk 32 runtime 995/672 before any production/provider mutation, and the probe must explicitly detect any legacy video-ID overlap before counts are assumed to grow."
+}
