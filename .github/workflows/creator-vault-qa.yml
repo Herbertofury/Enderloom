@@ -23,6 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Chunk 32 canonical reuse probe
+        run: node scripts/creator-vault-ahs32-canonical-probe.js
       - name: Chunk 31 post-merge diagnostic
         run: node scripts/creator-vault-ahs31-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
