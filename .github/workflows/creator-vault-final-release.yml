@@ -1,0 +1,163 @@
+name: Creator Vault Final Acceptance And Windows Package
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion'
+    paths:
+      - 'src/creator-vault-runtime.js'
+      - 'src/creator-vault-auto/**'
+      - 'src/catalog-renderer.js'
+      - 'catalog-preload.js'
+      - 'catalog/creator-vault/**'
+      - 'scripts/creator-vault-auto-ingestion-qa.js'
+      - 'scripts/creator-vault-live-smoke.js'
+      - '.github/workflows/creator-vault-final-release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: creator-vault-final-release
+  cancel-in-progress: true
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Require final live-source implementation
+        run: |
+          grep -q 'profile-http-fallback' src/creator-vault-auto/browser.js
+          grep -q 'youtubeFeedRefs' src/creator-vault-auto/browser.js
+          grep -q 'directProjectNameFromUrl' src/creator-vault-auto/parser.js
+          grep -q 'refreshOpenCatalogViews' src/creator-vault-runtime.js
+      - name: Syntax and focused stress QA
+        run: |
+          node --check src/creator-vault-runtime.js
+          node --check src/creator-vault-auto/common.js
+          node --check src/creator-vault-auto/state.js
+          node --check src/creator-vault-auto/parser.js
+          node --check src/creator-vault-auto/browser.js
+          node --check src/creator-vault-auto/resolver.js
+          node --check src/creator-vault-auto/runtime.js
+          node --check src/catalog-renderer.js
+          node --check catalog-preload.js
+          node --check catalog/creator-vault/creator-vault-auto.js
+          node --check scripts/creator-vault-auto-ingestion-qa.js
+          node scripts/creator-vault-auto-ingestion-qa.js | tee creator-vault-focused-qa.log
+      - name: Existing Creator Vault regression QA
+        run: npm run creator-vault-qa | tee creator-vault-regression.log
+      - name: Catalog regression QA
+        run: npm run catalog-qa | tee catalog-regression.log
+      - name: Portable render
+        run: npm run portable | tee portable-render.log
+      - name: Repair Electron runtime and configure secure SUID sandbox
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolve_electron() { node - <<'NODE'
+          const fs=require('fs');try{const b=require('electron');if(typeof b==='string'&&fs.existsSync(b))process.stdout.write(b);else process.exit(1)}catch{process.exit(1)}
+          NODE
+          }
+          install_electron(){ if [ -f node_modules/electron/install.js ]; then node node_modules/electron/install.js; else npm rebuild electron; fi; }
+          ELECTRON_BIN="$(resolve_electron || true)"; if [ -z "$ELECTRON_BIN" ]; then install_electron; ELECTRON_BIN="$(resolve_electron)"; fi
+          ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"
+          if [ ! -f "$SANDBOX" ]; then rm -rf "$ELECTRON_DIR"; install_electron; ELECTRON_BIN="$(resolve_electron)"; ELECTRON_DIR="$(dirname "$ELECTRON_BIN")"; SANDBOX="$ELECTRON_DIR/chrome-sandbox"; fi
+          test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
+          sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
+          echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
+          echo "ENDERLOOM_ELECTRON_BIN=$ELECTRON_BIN" >> "$GITHUB_ENV"
+      - name: Electron self-test
+        run: |
+          set -o pipefail
+          timeout 240s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+      - name: Real outbound creator/provider smoke
+        run: |
+          set -o pipefail
+          timeout 240s xvfb-run -a "$ENDERLOOM_ELECTRON_BIN" scripts/creator-vault-live-smoke.js 2>&1 | tee creator-vault-live-smoke.log
+      - name: Preserve acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: creator-vault-final-acceptance-${{ github.sha }}
+          path: |
+            creator-vault-focused-qa.log
+            creator-vault-regression.log
+            catalog-regression.log
+            portable-render.log
+            electron-self-test.log
+            creator-vault-live-smoke.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  windows-package:
+    needs: acceptance
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install root and launcher dependencies
+        shell: pwsh
+        run: |
+          npm ci
+          if (Test-Path 'launcher/package-lock.json') { npm ci --prefix launcher }
+      - name: Build launcher and native service
+        run: npm run build:integration
+      - name: Package Windows Electron application
+        shell: pwsh
+        run: |
+          npx --yes @electron/packager@18.3.6 . Enderloom --platform=win32 --arch=x64 --out=dist-package --overwrite --prune=true --ignore='^/dist-package($|/)' --ignore='^/.git($|/)'
+          $app = Get-ChildItem dist-package -Directory | Where-Object { $_.Name -like 'Enderloom-win32-x64*' } | Select-Object -First 1
+          if (-not $app) { throw 'Packaged Enderloom directory was not produced.' }
+          if (-not (Test-Path (Join-Path $app.FullName 'Enderloom.exe'))) { throw 'Enderloom.exe is missing from packaged output.' }
+          Compress-Archive -Path (Join-Path $app.FullName '*') -DestinationPath 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip' -CompressionLevel Optimal -Force
+          $hash = (Get-FileHash 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip' -Algorithm SHA256).Hash.ToLower()
+          "$hash  Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip" | Set-Content 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256'
+          Get-Item 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip' | Format-List Name,Length
+          Get-Content 'Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Enderloom-Creator-Vault-Auto-v3-Windows-x64
+          path: |
+            Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip
+            Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256
+          retention-days: 30
+
+  release:
+    needs: [acceptance, windows-package]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Enderloom-Creator-Vault-Auto-v3-Windows-x64
+          path: release
+      - name: Publish tested prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="creator-vault-auto-v3-${GITHUB_RUN_NUMBER}"
+          cat > release/ACCEPTANCE.txt <<EOF
+          Enderloom Creator Vault Automatic Ingestion v3
+          Tested commit: ${GITHUB_SHA}
+          Acceptance run: ${GITHUB_RUN_ID}
+          Full focused/regression/portable/Electron/live-provider gates passed before packaging.
+          Live smoke covers YouTube discovery + recommendation extraction, TikTok discovery + metadata, and Modrinth canonical resolution.
+          EOF
+          gh release create "$TAG" release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256 release/ACCEPTANCE.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Enderloom Creator Vault Automatic Ingestion v3" --notes "Fully gated Windows x64 prerelease for Creator Vault automatic creator ingestion. Built only after focused QA, existing Creator Vault + catalog regressions, portable render, Electron self-test, and real YouTube/TikTok/Modrinth outbound smoke passed." --prerelease
