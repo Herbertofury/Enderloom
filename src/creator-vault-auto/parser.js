@@ -302,22 +302,104 @@ function extractBalancedJson(text, marker) {
   return null;
 }
 
-function extractYouTubeInitialPlayerResponse(html) {
-  for (const marker of ['ytInitialPlayerResponse =','var ytInitialPlayerResponse =','window["ytInitialPlayerResponse"] =']) {
-    const value = extractBalancedJson(html, marker);
-    if (value) return value;
+function youtubeJsonVariants(html) {
+  const base = htmlDecode(String(html || ''));
+  const rows = [base];
+  let value = base;
+  for (let pass = 0; pass < 2; pass++) {
+    const next = value.replace(/\\"/g,'"').replace(/\\\//g,'/');
+    if (next === value) break;
+    rows.push(next);
+    value = next;
+  }
+  return rows;
+}
+
+function extractJsonStringProperty(text, key) {
+  const escapedKey = String(key || '').replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const pattern = new RegExp(`"${escapedKey}"\\s*:\\s*("(?:\\\\.|[^"\\\\])*")`);
+  for (const source of youtubeJsonVariants(text)) {
+    const match = source.match(pattern);
+    if (!match) continue;
+    try {
+      let value = JSON.parse(match[1]);
+      if (typeof value !== 'string') continue;
+      if (!/[\r\n]/.test(value) && /\\[rnt]/.test(value)) {
+        value = value.replace(/\\r\\n/g,'\n').replace(/\\n/g,'\n').replace(/\\r/g,'\n').replace(/\\t/g,'\t');
+      }
+      return value.replace(/\\\//g,'/');
+    } catch {}
+  }
+  return '';
+}
+
+function extractYouTubeEmbeddedPlayerResponse(html) {
+  for (const key of ['playerResponse','player_response']) {
+    const value = extractJsonStringProperty(html, key);
+    if (!value || value[0] !== '{') continue;
+    try {
+      const parsed = JSON.parse(value);
+      if (parsed?.videoDetails || parsed?.microformat) return parsed;
+    } catch {}
   }
   return null;
 }
 
+function extractYouTubeInitialPlayerResponse(html) {
+  for (const source of youtubeJsonVariants(html)) {
+    for (const marker of ['ytInitialPlayerResponse =','var ytInitialPlayerResponse =','window["ytInitialPlayerResponse"] =']) {
+      const value = extractBalancedJson(source, marker);
+      if (value) return value;
+    }
+  }
+  return extractYouTubeEmbeddedPlayerResponse(html);
+}
+
+function extractMetaContent(html, key) {
+  const source = String(html || '');
+  const escaped = String(key || '').replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const patterns = [
+    new RegExp(`<meta[^>]+(?:name|property)=["']${escaped}["'][^>]+content=["']([^"']*)["']`,'i'),
+    new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]+(?:name|property)=["']${escaped}["']`,'i'),
+  ];
+  for (const pattern of patterns) {
+    const match = source.match(pattern);
+    if (match?.[1]) return htmlDecode(match[1]);
+  }
+  return '';
+}
+
 function parseYouTubeWatchHtml(html, fallbackId='') {
   const player = extractYouTubeInitialPlayerResponse(html) || {};
-  const details = player.videoDetails || {};
-  const micro = player.microformat?.playerMicroformatRenderer || {};
-  const id = clean(details.videoId || fallbackId);
-  const title = clean(details.title);
-  const description = String(details.shortDescription || '');
-  const publishedAt = clean(micro.publishDate || micro.uploadDate || '');
+  let details = player.videoDetails || null;
+  let micro = player.microformat?.playerMicroformatRenderer || null;
+  if (!details) {
+    for (const source of youtubeJsonVariants(html)) {
+      details = extractBalancedJson(source, '"videoDetails"');
+      if (details?.videoId || details?.shortDescription || details?.title) break;
+      details = null;
+    }
+  }
+  if (!micro) {
+    for (const source of youtubeJsonVariants(html)) {
+      micro = extractBalancedJson(source, '"playerMicroformatRenderer"');
+      if (micro?.publishDate || micro?.uploadDate) break;
+      micro = null;
+    }
+  }
+  details = details || {};
+  micro = micro || {};
+  const detailsSource = (() => {
+    for (const source of youtubeJsonVariants(html)) {
+      const marker = source.indexOf('"videoDetails"');
+      if (marker >= 0) return source.slice(marker, marker + 900000);
+    }
+    return String(html || '');
+  })();
+  const id = clean(details.videoId || extractJsonStringProperty(detailsSource,'videoId') || fallbackId);
+  const title = clean(details.title || extractJsonStringProperty(detailsSource,'title') || extractMetaContent(html,'og:title'));
+  const description = String(details.shortDescription || extractJsonStringProperty(detailsSource,'shortDescription') || extractMetaContent(html,'description') || '');
+  const publishedAt = clean(micro.publishDate || micro.uploadDate || extractJsonStringProperty(html,'publishDate') || extractJsonStringProperty(html,'uploadDate') || '');
   return {
     id,
     title,
@@ -371,5 +453,6 @@ function collectTikTokItemsFromHtml(html) {
 module.exports = {
   htmlDecode, extractUrls, unwrapYouTubeRedirect, parseTimestamp, headingInfo,
   cleanCandidateName, directProjectNameFromUrl, parseCreatorDescription, extractBalancedJson,
+  youtubeJsonVariants, extractJsonStringProperty, extractYouTubeEmbeddedPlayerResponse,
   extractYouTubeInitialPlayerResponse, parseYouTubeWatchHtml, collectTikTokItemsFromHtml,
 };
