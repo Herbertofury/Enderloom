@@ -23,8 +23,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Chunk 31 provider collision gate
-        run: node scripts/creator-vault-ahs31-provider-collision.js
+      - name: Chunk 31 staging and baseline gate
+        run: node scripts/creator-vault-ahs31-provider-collision.js baseline
+      - name: Chunk 31 provider candidate shape gate
+        run: node scripts/creator-vault-ahs31-provider-collision.js shape
+      - name: Chunk 31 candidate ID freshness gate
+        run: node scripts/creator-vault-ahs31-provider-collision.js ids
+      - name: Chunk 31 provider URL collision gate
+        run: node scripts/creator-vault-ahs31-provider-collision.js urls
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA
