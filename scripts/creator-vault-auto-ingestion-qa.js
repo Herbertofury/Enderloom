@@ -46,6 +46,22 @@ check('structured creator descriptions extract only project sections', () => {
   return `${rows.length} projects`;
 });
 
+check('creator mod-download headings are treated as project sections', () => {
+  const rows = parser.parseCreatorDescription({
+    title:'Top 10 Minecraft Mods You Need',
+    platform:'youtube',
+    text:'MOD DOWNLOADS:\nSodium - https://modrinth.com/mod/sodium\nLithium - https://modrinth.com/mod/lithium',
+  });
+  assert.deepStrictEqual(rows.map(row=>row.name), ['Sodium','Lithium']);
+  const generic = parser.parseCreatorDescription({
+    title:'My Favorite Minecraft Mods',
+    platform:'youtube',
+    text:'Downloads:\nModernFix https://www.curseforge.com/minecraft/mc-mods/modernfix',
+  });
+  assert.strictEqual(generic.length,1);
+  assert.strictEqual(generic[0].name,'ModernFix');
+});
+
 check('timestamp chapters are inferred only for project-list titles', () => {
   const positive = parser.parseCreatorDescription({ title:'My 5 Favorite Minecraft Mods', text:'00:10 FerriteCore\n01:20 ModernFix' });
   const negative = parser.parseCreatorDescription({ title:'Minecraft Survival Episode 8', text:'00:10 Village\n01:20 Mining' });
@@ -68,6 +84,13 @@ check('TikTok hydration parser discovers creator video records', () => {
   const rows = parser.collectTikTokItemsFromHtml(html);
   assert.strictEqual(rows.length, 1);
   assert.strictEqual(rows[0].author, 'tester');
+});
+
+check('TikTok raw profile video paths are usable without hydration JSON', () => {
+  const rows = parser.collectTikTokItemsFromHtml('<a href="/@tester/video/7412345678901234567">video</a>');
+  assert.strictEqual(rows.length,1);
+  assert.strictEqual(rows[0].id,'7412345678901234567');
+  assert(rows[0].url.includes('@tester/video/7412345678901234567'));
 });
 
 check('provider URL classifier rejects social noise', () => {
@@ -143,6 +166,15 @@ check('rendered runtime catalogs can be atomically refreshed after sync', () => 
   const next = fs.readFileSync(file,'utf8');
   assert(next.includes('"fresh":true'));
   assert(!next.includes('"old":true'));
+});
+
+check('TikTok metadata requests are parallel and launch sync refreshes open catalog views', () => {
+  const browserSource = fs.readFileSync(path.join(ROOT,'src','creator-vault-auto','browser.js'),'utf8');
+  const facadeSource = fs.readFileSync(path.join(ROOT,'src','creator-vault-runtime.js'),'utf8');
+  assert(browserSource.includes('Promise.allSettled'));
+  assert(browserSource.includes('profile-http-fallback'));
+  assert(facadeSource.includes('refreshOpenCatalogViews'));
+  assert(facadeSource.includes('reloadIgnoringCache'));
 });
 
 check('parser stress stays comfortably interactive', () => {

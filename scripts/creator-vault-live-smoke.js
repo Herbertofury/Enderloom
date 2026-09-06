@@ -44,7 +44,7 @@ app.whenReady().then(async () => {
     const details = await readCreatorVideo(youtube, ref);
     assert(details.title || details.description, 'YouTube video metadata was empty');
     const projects = parseCreatorDescription({ title:details.title, text:details.description, platform:'youtube', links:details.links });
-    assert(projects.length >= 5, `expected recommendation list, extracted ${projects.length}`);
+    assert(projects.length >= 5, `expected recommendation list, extracted ${projects.length}; title=${JSON.stringify(details.title)}; description=${JSON.stringify(String(details.description||'').slice(0,1400))}`);
     return { title:details.title, projects:projects.length, firstProjects:projects.slice(0,3).map(project=>project.name) };
   });
 

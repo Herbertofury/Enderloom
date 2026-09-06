@@ -24,6 +24,20 @@ function configureFromElectron() {
   setElectronApi(electron);
   return true;
 }
+function refreshOpenCatalogViews() {
+  if (!electron?.webContents?.getAllWebContents) return 0;
+  let reloaded = 0;
+  for (const contents of electron.webContents.getAllWebContents()) {
+    try {
+      if (contents.isDestroyed()) continue;
+      const url = decodeURIComponent(String(contents.getURL?.() || ''));
+      if (!url.startsWith('file:') || !url.includes('/catalog-center/runtime/') || !/\.html(?:[?#].*)?$/i.test(url)) continue;
+      contents.reloadIgnoringCache();
+      reloaded++;
+    } catch {}
+  }
+  return reloaded;
+}
 function assertCatalogSender(event) {
   const url = String(event?.sender?.getURL?.() || '');
   if (!url.startsWith('file:')) throw new Error('Creator Vault IPC is only available to Enderloom local catalog views');
@@ -86,7 +100,8 @@ function scheduleLaunchSync() {
         const cooldown = Math.max(1, Number(state.settings.launchCooldownHours) || 12) * 60 * 60 * 1000;
         const last = Date.parse(state.sync.lastSuccessfulRunAt || '') || 0;
         if (Date.now() - last < cooldown) return;
-        await runtime.runSync({ full:false, trigger:'launch', maxVideosPerCreator:state.settings.maxIncrementalVideosPerCreator }, null);
+        const result = await runtime.runSync({ full:false, trigger:'launch', maxVideosPerCreator:state.settings.maxIncrementalVideosPerCreator }, null);
+        if (Number(result?.refresh?.patched || 0) > 0) refreshOpenCatalogViews();
       } catch (error) {
         console.warn('[Creator Vault] automatic launch sync failed:', String(error?.message || error));
       }
@@ -109,5 +124,6 @@ module.exports = {
   loadMergedCreatorVault,
   runtimeStatus,
   ensureCreatorVaultRuntimeRegistered,
+  refreshOpenCatalogViews,
   ...runtime,
 };

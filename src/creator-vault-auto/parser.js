@@ -41,7 +41,7 @@ function parseTimestamp(line) {
   return { timestamp:match[1], seconds:Number.isFinite(seconds) ? seconds : null };
 }
 
-function headingInfo(line) {
+function headingInfo(line, videoTitle='') {
   const raw = clean(line).replace(/^#+\s*/, '').replace(/[:：]\s*$/, '').trim();
   if (!raw || raw.length > 100) return null;
   const inline = raw.match(/^(mods?|addons?|add ons?|resource ?packs?|texture ?packs?|shaders?|shader ?packs?|data ?packs?|datapacks?|plugins?)\s*[:：-]\s*(.+)$/i);
@@ -64,6 +64,16 @@ function headingInfo(line) {
     [/^(plugins?|plugin list)$/,'plugin'],
   ];
   for (const [pattern, type] of include) if (pattern.test(key)) return { kind:'include', type };
+  const titleText = String(videoTitle || '').toLowerCase();
+  const typeFromContext = /resource|texture/.test(`${key} ${titleText}`) ? 'resourcepack'
+    : /shader/.test(`${key} ${titleText}`) ? 'shader'
+    : /data ?pack/.test(`${key} ${titleText}`) ? 'datapack'
+    : /plugin/.test(`${key} ${titleText}`) ? 'plugin'
+    : 'mod';
+  if (/\b(mods?|addons?|resource ?packs?|texture ?packs?|shaders?|data ?packs?|datapacks?|plugins?)\b/.test(key)
+      && /\b(links?|downloads?|list|used|order)\b/.test(key)) return { kind:'include', type:typeFromContext };
+  if (/^(downloads?|download links?)$/.test(key)
+      && /\b(mods?|addons?|resource ?packs?|texture ?packs?|shaders?|data ?packs?|datapacks?|plugins?)\b/.test(titleText)) return { kind:'include', type:typeFromContext };
   if (/^(music|songs?|socials?|social media|sponsors?|sponsored|credits?|setup|links?|other links?|support|contact|gear|pc specs?|hardware|chapters?)$/.test(key)) return { kind:'exclude' };
   if (/^(intro|outro)$/.test(key) || /\boutro\b/.test(key)) return { kind:'outro' };
   return null;
@@ -142,7 +152,7 @@ function parseCreatorDescription({ text='', title='', platform='youtube', links=
     const withoutTimestamp = timestamp.timestamp
       ? line.replace(timestamp.timestamp,' ').replace(/^[\s\-–—|:.)]+/,'').trim()
       : line;
-    const heading = headingInfo(withoutTimestamp);
+    const heading = headingInfo(withoutTimestamp, title);
     if (heading?.kind === 'outro' || (/\boutro\b/i.test(withoutTimestamp) && timestamp.seconds != null)) {
       afterOutro = true;
       active = false;
@@ -315,6 +325,11 @@ function collectTikTokItemsFromHtml(html) {
     for (const row of Object.values(value)) visit(row);
   };
   for (const script of scripts) visit(script);
+  const normalizedSource = source.replace(/\\u002[fF]/g,'/').replace(/\\\//g,'/');
+  for (const match of normalizedSource.matchAll(/\/@([A-Za-z0-9._-]+)\/video\/(\d{8,})/g)) {
+    const author = clean(match[1]), id = clean(match[2]);
+    if (!items.has(id)) items.set(id,{id,desc:'',author,createTime:'',url:`https://www.tiktok.com/@${author}/video/${id}`});
+  }
   return [...items.values()];
 }
 

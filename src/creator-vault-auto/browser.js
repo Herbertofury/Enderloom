@@ -247,24 +247,31 @@ async function enumerateTikTok(creator, knownIds, full, settings) {
   if (!url) throw new Error(`Creator ${creator.id} has an invalid TikTok URL`);
   const known = new Set(knownIds || []);
   const incrementalLimit = Math.max(1, Number(settings.maxIncrementalVideosPerCreator) || 16);
+  let initial = [];
   try {
     const response = await requestText(url, { timeoutMs:6500 });
-    const initial = collectTikTokItemsFromHtml(response.text || '');
+    initial = collectTikTokItemsFromHtml(response.text || '');
     const touchesKnown = initial.some(item => known.has(item.id));
     if (!full && initial.length >= Math.min(incrementalLimit, 8) && (!known.size || touchesKnown)) {
-      return initial.map(item => ({ id:item.id, url:item.url, title:item.desc || '', sourceTab:'profile' }));
+      return initial.map(item => ({ id:item.id, url:item.url, title:item.desc || '', sourceTab:'profile-http' }));
     }
   } catch {}
-  const snap = await browserSnapshot(url, {
-    platform:'tiktok',
-    full,
-    knownIds,
-    maxPasses:settings.browserHistoryScrollPasses,
-    maxItems:full ? 0 : Math.max(24, incrementalLimit * 3),
-  });
-  const rows = new Map();
-  for (const link of snap.links || []) if (link.id) rows.set(link.id, { id:link.id, url:link.href, title:link.text || '', sourceTab:'profile' });
-  for (const item of collectTikTokItemsFromHtml(snap.html || '')) if (!rows.has(item.id)) rows.set(item.id, { id:item.id, url:item.url, title:item.desc || '', sourceTab:'profile' });
+  let snap;
+  try {
+    snap = await browserSnapshot(url, {
+      platform:'tiktok',
+      full,
+      knownIds,
+      maxPasses:settings.browserHistoryScrollPasses,
+      maxItems:full ? 0 : Math.max(24, incrementalLimit * 3),
+    });
+  } catch (browserError) {
+    if (initial.length) return initial.map(item => ({ id:item.id, url:item.url, title:item.desc || '', sourceTab:'profile-http-fallback' }));
+    throw browserError;
+  }
+  const rows = new Map(initial.map(item => [item.id,{id:item.id,url:item.url,title:item.desc||'',sourceTab:'profile-http'}]));
+  for (const link of snap.links || []) if (link.id) rows.set(link.id, { id:link.id, url:link.href, title:link.text || '', sourceTab:'profile-browser' });
+  for (const item of collectTikTokItemsFromHtml(snap.html || '')) if (!rows.has(item.id)) rows.set(item.id, { id:item.id, url:item.url, title:item.desc || '', sourceTab:'profile-browser' });
   return [...rows.values()];
 }
 
@@ -308,19 +315,19 @@ async function readYouTube(ref) {
   return { id:ref.id, title:String(row.title || ref.title || ''), description:String(row.description || ''), publishedAt:String(row.publishedAt || ''), url:ref.url, links:row.links || [] };
 }
 async function readTikTok(ref) {
-  let embed = null;
-  let pageItems = [];
-  try { embed = await requestJson(`https://www.tiktok.com/oembed?url=${encodeURIComponent(ref.url)}`, { timeoutMs:4500 }); } catch {}
-  try {
-    const response = await requestText(ref.url, { timeoutMs:5500 });
-    pageItems = collectTikTokItemsFromHtml(response.text || '');
-  } catch {}
+  const [embedResult, pageResult] = await Promise.allSettled([
+    requestJson(`https://www.tiktok.com/oembed?url=${encodeURIComponent(ref.url)}`, { timeoutMs:4500 }),
+    requestText(ref.url, { timeoutMs:5500 }),
+  ]);
+  const embed = embedResult.status === 'fulfilled' ? embedResult.value : null;
+  const pageItems = pageResult.status === 'fulfilled' ? collectTikTokItemsFromHtml(pageResult.value.text || '') : [];
   const direct = pageItems.find(item => item.id === ref.id);
   if (direct?.desc) return { id:ref.id, title:String(embed?.title || ref.title || direct.desc), description:direct.desc, publishedAt:'', url:ref.url, links:[] };
   if (embed?.title && String(embed.title).length > 8) return { id:ref.id, title:String(embed.title), description:String(embed.title), publishedAt:'', url:ref.url, links:[] };
   const row = await browserVideoDetails(ref.url, 'tiktok');
   return { id:ref.id, title:String(row.title || ref.title || ''), description:String(row.description || ''), publishedAt:'', url:ref.url, links:row.links || [] };
 }
+
 async function readCreatorVideo(creator, ref) {
   const platform = String(creator.platform || '').toLowerCase();
   if (platform === 'youtube') return readYouTube(ref);
