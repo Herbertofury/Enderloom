@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "chunk": 34,
+  "updatedAt": "2026-09-06T03:27:00Z",
+  "baseline": {"recommendations": 1005, "uniqueProjects": 676, "ahsIndexedVideos": 53},
+  "sourceMentions": 10,
+  "chronologyEvidence": [
+    {"candidate":"2023-09-14 cLSGDPE8wFs","status":"accepted-next-ordinary-upload","reason":"Public AsianHalfSquat chronology places this upload immediately behind the sealed 2023-11-29 source; repeated October/early-November checks exposed no intervening ordinary recommendation-bearing upload."}
+  ],
+  "videos": [
+    {
+      "id": "youtube:cLSGDPE8wFs",
+      "url": "https://www.youtube.com/watch?v=cLSGDPE8wFs",
+      "title": "Top 10 Minecraft Mods (1.20.1) - September 2023",
+      "publishedAt": "2023-09-14",
+      "sourceKind": "youtube-description",
+      "recommendations": [
+        {"name":"BN Blood Particles","projectType":"mod","timestamp":"0:14","timestampSeconds":14,"sectionLabel":"MODS"},
+        {"name":"Block of Sky","projectType":"mod","timestamp":"0:38","timestampSeconds":38,"sectionLabel":"MODS"},
+        {"name":"FastQuit","projectType":"mod","timestamp":"0:54","timestampSeconds":54,"sectionLabel":"MODS"},
+        {"name":"Ecospherical Expansion","projectType":"mod","timestamp":"1:12","timestampSeconds":72,"sectionLabel":"MODS"},
+        {"name":"FastMove - Parkour Movement","projectType":"mod","timestamp":"1:43","timestampSeconds":103,"sectionLabel":"MODS"},
+        {"name":"Lost Features","projectType":"mod","timestamp":"2:02","timestampSeconds":122,"sectionLabel":"MODS"},
+        {"name":"No Hotbar Looping","projectType":"mod","timestamp":"2:29","timestampSeconds":149,"sectionLabel":"MODS"},
+        {"name":"ChoiceTheorem's Overhauled Village","projectType":"mod","timestamp":"2:58","timestampSeconds":178,"sectionLabel":"MODS"},
+        {"name":"Heartstone","projectType":"mod","timestamp":"3:20","timestampSeconds":200,"sectionLabel":"MODS"},
+        {"name":"Blockfront","projectType":"mod","timestamp":"3:38","timestampSeconds":218,"sectionLabel":"MODS"}
+      ],
+      "excludedEvidence": [
+        {"sourceLabel":"Minecraft Forge","status":"loader-setup-excluded"},
+        {"sourceLabel":"Fabric","status":"loader-setup-excluded"},
+        {"sourceLabel":"Minecraft Volume Beta - Taswell","status":"music-excluded"}
+      ],
+      "notes": "Exactly ten creator-listed entries under MODS with exact creator-authored timestamps. The 4:25 Outro ends the Top-10 list; loader setup links and music attribution are ancillary evidence only."
+    }
+  ],
+  "notes": "Chunk 34A research-only freeze. Production recommendation/provider files remain untouched. Next action is a single canonical + legacy-overlap probe against the sealed Chunk 33 runtime 1005/676, with no provider research until the exact reuse/unmatched split is measured."
+}
