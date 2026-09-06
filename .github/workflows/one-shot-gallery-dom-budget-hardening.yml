@@ -21,8 +21,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/creator-vault-auto-ingestion-hardening-stage3
-          fetch-depth: 8
-      - name: Verify unchanged source base and patch both races
+          fetch-depth: 12
+      - name: Verify unchanged source base and patch QoS races
         shell: bash
         run: |
           set -euo pipefail
@@ -72,12 +72,26 @@ jobs:
           if text.count(old_pump)!=1:
               raise SystemExit(f'expected one media prime pump, found {text.count(old_pump)}')
           text=text.replace(old_pump,new_pump,1)
+
+          old_gallery="extractCurseForgeGalleryDomQuick(galleryUrl,job.context,{timeoutMs:Number(job.priority)>=900000?4600:5200}).catch(()=>null)"
+          new_gallery="extractCurseForgeGalleryDomQuick(galleryUrl,job.context,{timeoutMs:Number(job.priority)>=900000?4600:5200,foreground:Number(job.priority)>=900000}).catch(()=>null)"
+          if text.count(old_gallery)!=1:
+              raise SystemExit(f'expected one prime gallery DOM hedge, found {text.count(old_gallery)}')
+          text=text.replace(old_gallery,new_gallery,1)
+
+          old_dom="extractLivePageMediaQuick(url,contextScript,{timeoutMs:3000}).catch(()=>null)"
+          new_dom="extractLivePageMediaQuick(url,contextScript,{timeoutMs:3000,foreground:Number(job.priority)>=900000}).catch(()=>null)"
+          if text.count(old_dom)!=1:
+              raise SystemExit(f'expected one prime generic DOM hedge, found {text.count(old_dom)}')
+          text=text.replace(old_dom,new_dom,1)
+
           p.write_text(text,encoding='utf-8')
           PY
           node --check main.js
           grep -q 'const waitMs=Math.max(700,Math.min(4200,totalMs-900));' main.js
           grep -q 'MEDIA_PRIME_URGENT_PRIORITY=900000' main.js
-          grep -q 'mediaPrimeTarget+(urgentQueued?MEDIA_PRIME_URGENT_BURST:0)' main.js
+          grep -q 'timeoutMs:3000,foreground:Number(job.priority)>=900000' main.js
+          grep -q '5200,foreground:Number(job.priority)>=900000' main.js
           git diff --check
       - uses: actions/setup-node@v4
         with:
