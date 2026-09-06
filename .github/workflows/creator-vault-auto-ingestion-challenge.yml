@@ -1,0 +1,63 @@
+name: Creator Vault Automatic Ingestion Challenge
+
+on:
+  push:
+    branches:
+      - 'feature/creator-vault-auto-ingestion'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration-challenge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Render real catalog with automatic Creator Vault UI
+        run: |
+          node <<'NODE'
+          const assert = require('assert');
+          const fs = require('fs');
+          const path = require('path');
+          const os = require('os');
+          const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-auto-render-'));
+          process.env.ENDERLOOM_CREATOR_VAULT_RUNTIME_DIR = path.join(tmp, 'runtime');
+          const { renderCatalog } = require('./src/catalog-renderer');
+          const runtime = require('./src/creator-vault-runtime');
+          const snapshot = {
+            id:'auto-ingestion-challenge',
+            name:'Automatic Ingestion Challenge',
+            description:'integration smoke',
+            items:[], assets:{}, documents:[], sources:[], updatedAt:new Date().toISOString()
+          };
+          const rendered = renderCatalog(snapshot, process.cwd());
+          assert(rendered.html.includes('window.ENDERLOOM_CREATOR_VAULT='), 'Creator Vault bootstrap missing from rendered catalog');
+          assert(rendered.html.includes('Automatic creator cataloging'), 'automatic ingestion controls missing from rendered catalog');
+          assert(rendered.html.includes('Sync new uploads'), 'incremental sync action missing');
+          assert(rendered.html.includes('Full history'), 'full history action missing');
+          assert(rendered.html.includes('Add creator'), 'creator add action missing');
+          const preload = fs.readFileSync('catalog-preload.js','utf8');
+          for (const marker of ['creatorVaultStatus','syncCreatorVault','addCreatorVaultCreator','onCreatorVaultProgress','onCreatorVaultReload']) assert(preload.includes(marker), `preload bridge missing ${marker}`);
+          const status = runtime.runtimeStatus();
+          assert.equal(status.settings.autoSyncOnLaunch, true, 'launch incremental sync must default on');
+          fs.rmSync(tmp,{recursive:true,force:true});
+          console.log('Automatic Creator Vault compositor/preload integration challenge passed.');
+          NODE
+      - name: Focused automatic ingestion QA
+        run: node scripts/creator-vault-auto-ingestion-qa.js
+      - name: Existing Creator Vault recursive QA
+        run: npm run creator-vault-qa
+      - name: Catalog regression QA
+        run: npm run catalog-qa
+      - name: Portable render regression
+        run: npm run portable
