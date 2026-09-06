@@ -1,4 +1,4 @@
-name: One-shot Gallery Anchor Fastpath
+name: One-shot Gallery SSR-first Fastpath
 
 on:
   push:
@@ -54,11 +54,20 @@ jobs:
             const target=safeHttpUrl(url);if(!target)return null;
             const targetProvider=providerForUrl(target),contextProvider=providerForUrl(context?.primaryUrl||'');
             if((targetProvider!=='curseforge'&&!(testMode&&contextProvider==='curseforge'))||!/\/gallery\/?$/i.test(new URL(target).pathname))return null;
-            // This is a latency rescue, not the completeness lane. Snapshot only exact
-            // project-gallery attachment anchors already present at dom-ready. The SSR/full
-            // lanes continue independently and remain uncapped for complete enrichment.
-            const script=String.raw`(()=>{const bad='nav,aside,footer,header,[class*="comment" i],[class*="related" i],[class*="recommend" i],[class*="sidebar" i],[class*="advert" i],[class*="sponsor" i]';const scope=document.querySelector('main,[role="main"]')||document.body||document.documentElement;const seen=new Set(),gallery=[];const clean=raw=>{try{const u=new URL(raw,location.href);if(!/(?:^|\.)(?:forgecdn|cursecdn)\.net$/i.test(u.hostname)||!/^\/attachments\/(?:thumbnails\/)?\d+\/\d+\//i.test(u.pathname))return '';u.hash='';return u.toString()}catch{return ''}};for(const a of scope.querySelectorAll('a[href]')){if(a.closest(bad))continue;const href=clean(a.href);if(!href||seen.has(href))continue;const img=a.querySelector('img');seen.add(href);gallery.push({url:href,previewUrl:href,posterUrl:'',alt:String(img?.alt||a.getAttribute('aria-label')||document.title||'').slice(0,300),width:Number(img?.naturalWidth||img?.width||img?.getAttribute('width'))||0,height:Number(img?.naturalHeight||img?.height||img?.getAttribute('height'))||0,role:'gallery',source:'curseforge-gallery-dom-fast',confidence:100})}const body=document.body?.innerText||'';const empty=/this\s+mod\s+has\s+no\s+gallery\s+items\s+available/i.test(body);const title=String(document.querySelector('main h1,[role="main"] h1,h1')?.textContent||document.title||'').trim();return {title,gallery,images:gallery,icon:null,author:null,authorUrl:'',sourceGalleryAbsent:empty,galleryAbsent:empty,provider:'curseforge'}})()`;
-            return extractLivePageMediaQuick(target,script,{timeoutMs:Math.max(1200,Number(timeoutMs)||5200),foreground});
+            const totalMs=Math.max(1800,Number(timeoutMs)||5200),started=Date.now();
+            const useful=page=>!!(page&&((page.gallery||page.images||[]).length||page.sourceGalleryAbsent===true||page.galleryAbsent===true));
+            // SSR is the primary latency rescue. It uses the same persistent Chromium
+            // session/cookies but no WebContents, and the provider parser is identity-
+            // bounded + uncapped. Give it a short head start before spending a reserved
+            // foreground WebContents on the browser-only fallback.
+            const ssrPromise=extractCurseForgeGalleryHtmlFull(target,context,{timeoutMs:Math.min(totalMs,2400),bypassCache:false}).catch(()=>null);
+            const early=await Promise.race([ssrPromise,new Promise(resolve=>setTimeout(()=>resolve(undefined),650))]);
+            if(useful(early)){early.transport=early.transport||'chromium-gallery-ssr-fast';return early}
+            const remaining=Math.max(1200,totalMs-(Date.now()-started));
+            const script=String.raw`(()=>{const bad='nav,aside,footer,header,[class*="comment" i],[class*="related" i],[class*="recommend" i],[class*="sidebar" i],[class*="advert" i],[class*="sponsor" i]';const scope=document.querySelector('main,[role="main"]')||document.body||document.documentElement;const seen=new Set(),gallery=[];const clean=raw=>{try{const u=new URL(raw,location.href);if(!/(?:^|\.)(?:forgecdn|cursecdn)\.net$/i.test(u.hostname)||!/^\/attachments\/(?:thumbnails\/)?\d+\/\d+\//i.test(u.pathname))return '';u.hash='';return u.toString()}catch{return ''}};for(const a of scope.querySelectorAll('a[href]')){if(a.closest(bad))continue;const href=clean(a.href);if(!href||seen.has(href))continue;const label=String(a.querySelector('img')?.alt||a.getAttribute('aria-label')||a.getAttribute('title')||'');if(/battlegrounds|ugc[ _-]?contest|promotion|campaign|advert|sponsor/i.test(href+' '+label))continue;seen.add(href);gallery.push({url:href,previewUrl:href,posterUrl:'',alt:label.slice(0,300),width:0,height:0,role:'gallery',source:'curseforge-gallery-dom-fallback',confidence:100})}const body=document.body?.innerText||'';const empty=/this\s+mod\s+has\s+no\s+gallery\s+items\s+available/i.test(body);return {title:String(document.querySelector('main h1,[role="main"] h1,h1')?.textContent||document.title||'').trim(),gallery,images:gallery,icon:null,author:null,authorUrl:'',sourceGalleryAbsent:empty,galleryAbsent:empty,provider:'curseforge'}})()`;
+            const domPromise=extractLivePageMediaQuick(target,script,{timeoutMs:remaining,foreground}).catch(()=>null);
+            const requireUseful=page=>useful(page)?page:Promise.reject(new Error('no useful gallery state'));
+            try{return await Promise.any([ssrPromise.then(requireUseful),domPromise.then(requireUseful)])}catch{return null}
           }
           ''').strip()
           text=text[:start]+gallery+text[end:]
@@ -150,11 +159,28 @@ jobs:
           p.write_text(text,encoding='utf-8')
           PY
           node --check main.js
-          grep -q 'curseforge-gallery-dom-fast' main.js
+          grep -q 'chromium-gallery-ssr-fast' main.js
           grep -q 'MEDIA_PRIME_URGENT_PRIORITY=900000' main.js
           grep -q 'foreground:Number(job.priority)>=900000' main.js
           grep -q 'reserveWarm=Math.min(MEDIA_VIEW_FOREGROUND_RESERVE,target)' main.js
           git diff --check
+
+      - name: Prove exact CurseForge SSR gallery ownership parser
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const {parseGenericProjectHtml}=require('./src/provider-media');
+          const paths=['774/987/bookstats.png','749/989/pink.png','749/997/chrysalis.png','749/976/advancements.png','749/982/caterpillars.png','749/986/eggs.png','749/977/bottles.png','774/985/scrolls.png','749/988/monarch.png','774/986/bookbutterfly.png','749/990/swarm.png'];
+          const cards=paths.map((x,i)=>`<li><a href="https://media.forgecdn.net/attachments/${x}"><img alt="Bok gallery ${i+1}"></a></li>`).join('');
+          const html=`<!doctype html><title>Bok's Banging Butterflies - Gallery</title><header><a href="https://media.forgecdn.net/attachments/9999/8888/pubg-battlegrounds-ugc-contest.jpg"><img alt="PUBG BATTLEGROUNDS UGC CONTEST"></a></header><main><h1>Bok's Banging Butterflies</h1><nav><a href="/minecraft/mc-mods/boks-butterflies">Description</a><a href="/minecraft/mc-mods/boks-butterflies/gallery">Gallery (11)</a><a href="/minecraft/mc-mods/boks-butterflies/relations/dependencies">Relations</a></nav><ul>${cards}</ul></main>`;
+          const context={projectId:'bok-self-test',title:"Bok's Banging Butterflies",author:'DocBok',primaryUrl:'https://www.curseforge.com/minecraft/mc-mods/boks-butterflies'};
+          const page=parseGenericProjectHtml(html,'https://www.curseforge.com/minecraft/mc-mods/boks-butterflies/gallery',context);
+          if(page?.gallery?.length!==11)throw new Error(`expected 11 owned gallery items, got ${page?.gallery?.length}`);
+          if(!page.gallery.every(x=>/media\.forgecdn\.net\/attachments\//.test(x.url)))throw new Error('non-ForgeCDN gallery item escaped parser');
+          if(page.gallery.some(x=>/pubg-battlegrounds|ugc-contest/i.test(`${x.url} ${x.alt||''}`)))throw new Error('promo attachment escaped ownership boundary');
+          console.log('CURSEFORGE_SSR_GALLERY_FIXTURE',JSON.stringify({passed:true,count:page.gallery.length}));
+          NODE
 
       - uses: actions/setup-node@v4
         with:
@@ -210,7 +236,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: gallery-anchor-fastpath-${{ github.sha }}
+          name: gallery-ssr-first-${{ github.sha }}
           path: electron-self-test-*.log
           if-no-files-found: warn
           retention-days: 14
@@ -227,5 +253,5 @@ jobs:
           changed="$(git diff --cached --name-only | sort)"
           expected=$'.github/workflows/one-shot-gallery-anchor-fastpath.yml\n.github/workflows/one-shot-gallery-dom-budget-hardening.yml\nmain.js'
           test "$changed" = "$expected"
-          git commit -m 'fix(media): guarantee urgent prime QoS with fast gallery DOM rescue'
+          git commit -m 'fix(media): guarantee urgent prime QoS with SSR-first gallery rescue'
           git push origin HEAD:feature/creator-vault-auto-ingestion-hardening-stage3
