@@ -112,6 +112,25 @@ function parseMarkdownProject(line, projectType, platform, timestamp) {
   };
 }
 
+function directProjectNameFromUrl(value) {
+  const safe = safeUrl(value);
+  if (!safe) return '';
+  try {
+    const url = new URL(safe);
+    const host = url.hostname.toLowerCase();
+    let slug = '';
+    if (host === 'modrinth.com' || host.endsWith('.modrinth.com')) {
+      slug = url.pathname.match(/^\/(?:mod|modpack|resourcepack|shader|plugin|datapack)\/([^/]+)/i)?.[1] || '';
+    } else if (host === 'curseforge.com' || host.endsWith('.curseforge.com')) {
+      slug = url.pathname.match(/^\/minecraft\/(?:mc-mods|modpacks|texture-packs|shaders|data-packs)\/([^/]+)/i)?.[1] || '';
+    } else if (host === 'github.com' || host.endsWith('.github.com')) {
+      const parts = url.pathname.split('/').filter(Boolean);
+      if (parts.length >= 2 && !['orgs','topics','search','marketplace','features'].includes(parts[0].toLowerCase())) slug = parts[1];
+    }
+    return slug ? clean(decodeURIComponent(slug).replace(/[-_]+/g,' ')) : '';
+  } catch { return ''; }
+}
+
 function parseCreatorDescription({ text='', title='', platform='youtube', links=[] } = {}) {
   const lines = String(text || '').replace(/\r/g,'').split('\n').map(value => htmlDecode(value).trim()).filter(Boolean);
   const candidates = [];
@@ -203,7 +222,22 @@ function parseCreatorDescription({ text='', title='', platform='youtube', links=
     }
 
     const inferredChapterList = !sawProjectSection && titleSuggestsProjects && timestamp.seconds != null && !afterOutro;
-    if (!(active || inferredChapterList)) continue;
+    if (!(active || inferredChapterList)) {
+      if (titleSuggestsProjects && providerUrls.length && !afterOutro) {
+        const directName = cleanCandidateName(line, urls, timestamp.timestamp) || directProjectNameFromUrl(providerUrls[0]);
+        if (directName) push({
+          name:directName,
+          projectType:sectionType,
+          timestamp:timestamp.timestamp,
+          timestampSeconds:timestamp.seconds,
+          urls:providerUrls,
+          confidence:0.97,
+          evidence:'Creator-authored direct project link',
+          sourceKinds:unique([platform,'description','direct-link']),
+        });
+      }
+      continue;
+    }
     const name = cleanCandidateName(line, urls, timestamp.timestamp);
     if (!name) continue;
     const confidence = providerUrls.length && timestamp.seconds != null ? 0.99
@@ -327,7 +361,8 @@ function collectTikTokItemsFromHtml(html) {
   for (const script of scripts) visit(script);
   const normalizedSource = source.replace(/\\u002[fF]/g,'/').replace(/\\\//g,'/');
   for (const match of normalizedSource.matchAll(/\/@([A-Za-z0-9._-]+)\/video\/(\d{8,})/g)) {
-    const author = clean(match[1]), id = clean(match[2]);
+    const author = clean(match[1]);
+    const id = clean(match[2]);
     if (!items.has(id)) items.set(id,{id,desc:'',author,createTime:'',url:`https://www.tiktok.com/@${author}/video/${id}`});
   }
   return [...items.values()];
@@ -335,6 +370,6 @@ function collectTikTokItemsFromHtml(html) {
 
 module.exports = {
   htmlDecode, extractUrls, unwrapYouTubeRedirect, parseTimestamp, headingInfo,
-  cleanCandidateName, parseCreatorDescription, extractBalancedJson,
+  cleanCandidateName, directProjectNameFromUrl, parseCreatorDescription, extractBalancedJson,
   extractYouTubeInitialPlayerResponse, parseYouTubeWatchHtml, collectTikTokItemsFromHtml,
 };
