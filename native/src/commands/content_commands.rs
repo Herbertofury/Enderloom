@@ -190,6 +190,7 @@ pub fn delete_instance_content(
     kind: String,
     file_name: String,
 ) -> Result<()> {
+    crate::workbench::preserve_before_delete(&state, &instance_id, &kind, &file_name)?;
     content::delete(&state.files, &instance_id, &kind, &file_name)?;
     tracing::info!("content deleted");
     state
@@ -227,6 +228,11 @@ pub async fn add_instance_content(
     sources: Vec<String>,
 ) -> Result<usize> {
     find_instance(&state, &instance_id)?;
+    for source in &sources {
+        if let Some(name) = std::path::Path::new(source).file_name().and_then(|n| n.to_str()) {
+            crate::workbench::guard_content_change(&state, &instance_id, &kind, name)?;
+        }
+    }
     let copied = content::add(&state.files, &instance_id, &kind, &sources)?;
     if let Err(error) = search::identify::reconcile(
         &state,
@@ -541,6 +547,7 @@ pub(crate) async fn apply_content_update_ipc(
     manual_downloads: &[crate::modpack::ManualDownloadSource],
     downloads_dir: &std::path::Path,
 ) -> Result<String> {
+    crate::workbench::guard_content_change(state, instance_id, kind, file_name)?;
     if let Some((requirement, version)) =
         restricted_update(state, instance_id, kind, file_name).await?
     {
@@ -661,6 +668,7 @@ pub async fn apply_content_update(
     file_name: String,
     manual_downloads: Option<Vec<crate::modpack::ManualDownloadSource>>,
 ) -> Result<String> {
+    crate::workbench::guard_content_change(&state, &instance_id, &kind, &file_name)?;
     if let Some((requirement, version)) =
         restricted_update(&state, &instance_id, &kind, &file_name).await?
     {

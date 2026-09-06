@@ -636,6 +636,14 @@ async fn apply_inner(
     state.files.ensure_dir(&dir)?;
 
     let files = plan.files();
+    if let Some(id) = target.instance_id() {
+        for file in &files {
+            crate::workbench::guard_content_change(state, id, kind.as_str(), &file.file_name)?;
+            if let Some(old) = &file.replaces {
+                crate::workbench::guard_content_change(state, id, kind.as_str(), old)?;
+            }
+        }
+    }
     let total = files.len();
     let specs: Vec<DownloadSpec> = files
         .iter()

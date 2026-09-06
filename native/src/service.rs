@@ -183,6 +183,27 @@ fn detected_launchers(state: &AppState) -> Result<Value> {
 
 async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
     match command {
+        "scan_instance_workbench" => {
+            let state = state.clone();
+            let id = required_string(args, "instanceId")?;
+            tokio::task::spawn_blocking(move || crate::workbench::scan(&state, &id))
+                .await
+                .map_err(|e| Error::other(format!("Config scan failed: {e}")))?
+        }
+        "workbench_action" => {
+            let state = state.clone();
+            let id = required_string(args, "instanceId")?;
+            let operation = required_string(args, "operation")?;
+            let payload = args.get("payload").cloned().unwrap_or_else(|| json!({}));
+            tokio::task::spawn_blocking(move || {
+                crate::workbench::action(&state, &id, &operation, &payload)
+            })
+            .await
+            .map_err(|e| Error::other(format!("Config operation failed: {e}")))?
+        }
+        "check_workbench_updates" => {
+            crate::workbench::check_updates(state, &required_string(args, "instanceId")?).await
+        }
         "get_settings" => value(state.db.load_settings_view(&state.credentials)?),
         "update_settings" => {
             let settings: LauncherSettings = serde_json::from_value(
@@ -545,6 +566,7 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
             let instance_id = required_string(args, "instanceId")?;
             let kind = required_string(args, "kind")?;
             let file_name = required_string(args, "fileName")?;
+            crate::workbench::preserve_before_delete(state, &instance_id, &kind, &file_name)?;
             crate::content::delete(&state.files, &instance_id, &kind, &file_name)?;
             state
                 .db
@@ -556,6 +578,14 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
             let kind = required_string(args, "kind")?;
             crate::commands::find_instance(state, &instance_id)?;
             let sources = required_strings(args, "sources")?;
+            for source in &sources {
+                if let Some(name) = std::path::Path::new(source)
+                    .file_name()
+                    .and_then(|n| n.to_str())
+                {
+                    crate::workbench::guard_content_change(state, &instance_id, &kind, name)?;
+                }
+            }
             let copied = crate::content::add(&state.files, &instance_id, &kind, &sources)?;
             if let Err(error) = crate::search::identify::reconcile(
                 state,

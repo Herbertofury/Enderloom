@@ -8,6 +8,8 @@ On this Windows workspace, double-click `START_ENDERLOOM.cmd`. It uses the alrea
 
 The launcher discovers CurseForge and Modrinth profiles in place. Connecting a profile does not copy it; changes from the external launcher are reconciled safely, junction-backed duplicates are identified by physical path, and Clone remains an explicit operation. See `docs/LAUNCHER_PARITY_MATRIX.md` and `docs/RELEASE_EVIDENCE_2026-08-31.md` for the code-audited release contract and acceptance evidence.
 
+The instance manager now includes first-class **Config** and **Addons** tabs, recoverable config editing, global presets, guided Point Blank/TaCZ installs, and premium-preview mod lineage for originals, patches and declared AI assistance. See [the Config and Addons guide](docs/CONFIG_ADDONS_WORKBENCH.md) for supported formats, installation rules, update tracking and verification commands.
+
 ## Built-in test catalogs
 
 - **Minecraft Mob Variety** - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes.

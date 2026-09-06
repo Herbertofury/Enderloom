@@ -36,6 +36,7 @@ mod sysinfo_probe;
 mod tasks;
 mod update;
 mod worlds;
+mod workbench;
 
 use files::FileManager;
 use paths::Paths;

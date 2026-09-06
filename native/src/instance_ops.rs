@@ -145,6 +145,7 @@ async fn repair_content(
         }
 
         let repaired = async {
+            crate::workbench::guard_content_change(state, &instance.id, &kind, &file.file_name)?;
             let provider = Provider::parse(
                 file.provider
                     .as_deref()

@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import type { WorkbenchLibrary } from "./workbench";
 
 import { log } from "./log";
 import type {
@@ -103,6 +104,9 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 }
 
 export const api = {
+  scanWorkbench: (instanceId: string) => call<WorkbenchLibrary>("scan_instance_workbench", { instanceId }),
+  workbenchAction: <T = { path: string }>(instanceId: string, operation: string, payload: Record<string, unknown>) => call<T>("workbench_action", { instanceId, operation, payload }),
+  checkWorkbenchUpdates: (instanceId: string) => call<WorkbenchLibrary>("check_workbench_updates", { instanceId }),
   getSettings: () => call<LauncherSettings>("get_settings"),
   getAppInfo: () => call<AppInfo>("get_app_info"),
   listJavas: () => call<JavaInfo[]>("list_javas"),

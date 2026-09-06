@@ -8,6 +8,7 @@ import {
   ChevronDown,
   Compass,
   FileUp,
+  GitBranch,
   Copy,
   FolderOpen,
   Loader2,
@@ -44,6 +45,7 @@ import { PlayButton } from "../components/PlayButton";
 import { WorldsPanel } from "../components/worlds/WorldsPanel";
 import { ScreenshotsPanel } from "../components/captures/ScreenshotsPanel";
 import { DatapacksPanel } from "../components/datapacks/DatapacksPanel";
+import { WorkbenchPanel } from "../components/config/WorkbenchPanel";
 import { UploadModal } from "../components/UploadModal";
 import { ContextMenu, useContextMenu, type MenuItem } from "../components/ContextMenu";
 import { SnapshotsModal } from "../components/SnapshotsModal";
@@ -73,7 +75,7 @@ import type {
 import { useActiveProjectIds, useInstanceTask } from "../lib/useTasks";
 import { useStore } from "../store";
 
-type InstanceTab = ContentKind | "worlds" | "screenshots";
+type InstanceTab = ContentKind | "worlds" | "screenshots" | "config" | "addons";
 
 const TABS: Array<{ kind: ContentKind; label: string; extensions: string[] }> = [
   { kind: "mods", label: "Mods", extensions: ["jar"] },
@@ -108,7 +110,7 @@ const SCREENSHOTS_TAB = {
 const SCHEMATIC_MOD_MARKERS = ["litematica", "worldedit", "schematica", "axiom", "schematic"];
 
 function isContentTab(tab: InstanceTab): tab is ContentKind {
-  return tab !== "worlds" && tab !== "screenshots" && tab !== "datapacks";
+  return tab !== "worlds" && tab !== "screenshots" && tab !== "datapacks" && tab !== "config" && tab !== "addons";
 }
 
 const NO_UPDATES: ContentUpdate[] = [];
@@ -212,6 +214,7 @@ export function InstanceView() {
   const { menu, open: openMenu, close: closeMenu } = useContextMenu();
 
   const [tab, setTab] = useState<InstanceTab>("mods");
+  const [workbenchSection, setWorkbenchSection] = useState<"all" | "lineage">("all");
   const [dialog, setDialog] = useState<Dialog | null>(null);
   const [versionItem, setVersionItem] = useState<ContentItem | null>(null);
   const [worldRefresh, setWorldRefresh] = useState(0);
@@ -406,8 +409,8 @@ export function InstanceView() {
     ? TABS
     : TABS.filter((t) => t.kind === "resourcepacks");
   const contentTabs = hasSchematicMod ? [...baseTabs, SCHEMATICS_TAB] : baseTabs;
-  const allTabs = [...contentTabs, DATAPACKS_TAB, WORLDS_TAB, SCREENSHOTS_TAB];
-  const isContent = tab !== "worlds" && tab !== "screenshots" && tab !== "datapacks";
+  const allTabs = [...contentTabs, { kind: "config" as const, label: "Config", extensions: [] }, { kind: "addons" as const, label: "Addons", extensions: [] }, DATAPACKS_TAB, WORLDS_TAB, SCREENSHOTS_TAB];
+  const isContent = isContentTab(tab);
   const tabMeta = allTabs.find((t) => t.kind === tab) ?? allTabs[0];
   const tabUpdates = isContent ? updates.filter((u) => u.kind === tab) : NO_UPDATES;
   const items = itemsByTab[tab] ?? EMPTY_ITEMS;
@@ -1063,15 +1066,15 @@ export function InstanceView() {
       )}
 
       <div className="flex items-center justify-between gap-4 border-b border-border-soft px-6 pt-1">
-        <div className="flex gap-1">
+        <div className="flex min-w-0 gap-1 overflow-x-auto overflow-y-hidden">
           {allTabs.map((t) => {
             const count = updates.filter((u) => u.kind === t.kind).length;
             return (
               <button
                 key={t.kind}
-                onClick={() => setTab(t.kind)}
+                onClick={() => { setWorkbenchSection("all"); setTab(t.kind); }}
                 className={cn(
-                  "relative rounded-t-lg px-4 py-2.5 text-sm font-medium transition-colors",
+                  "relative shrink-0 rounded-t-lg px-3 py-2.5 text-sm font-medium transition-colors",
                   tab === t.kind
                     ? "text-content"
                     : "text-content-faint hover:text-content-muted",
@@ -1093,6 +1096,7 @@ export function InstanceView() {
           })}
         </div>
         <div className="mb-2 flex items-center gap-2">
+          {tab === "mods" && <button title="Track AI assistance, patches and originals" onClick={() => { setWorkbenchSection("lineage"); setTab("config"); }} className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-trace/25 bg-trace/5 px-3 py-2 text-xs text-trace"><GitBranch className="size-3.5"/> Mod lineage</button>}
           {isContent && (
             <>
               {tabUpdates.length > 0 && (
@@ -1112,7 +1116,7 @@ export function InstanceView() {
               )}
             </>
           )}
-          {tab !== "screenshots" && (
+          {tab !== "screenshots" && tab !== "config" && tab !== "addons" && (
             <>
               <button
                 onClick={() =>
@@ -1154,7 +1158,9 @@ export function InstanceView() {
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-        {tab === "datapacks" ? (
+        {tab === "config" || tab === "addons" ? (
+          <WorkbenchPanel key={`${instance.id}:${tab}:${workbenchSection}`} instance={instance} mode={tab} initialSection={workbenchSection} />
+        ) : tab === "datapacks" ? (
           <DatapacksPanel
             instance={instance}
             refreshToken={worldRefresh}
