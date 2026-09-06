@@ -21,7 +21,7 @@ permissions:
 jobs:
   automatic-ingestion:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       CI: 'true'
       ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC: '1'
@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
       - name: Install dependencies
         run: npm ci
       - name: Syntax gate
@@ -48,6 +50,7 @@ jobs:
           node --check catalog-preload.js
           node --check catalog/creator-vault/creator-vault-auto.js
           node --check scripts/creator-vault-auto-ingestion-qa.js
+          node --check scripts/run.js
       - name: Automatic ingestion contract and stress QA
         run: node scripts/creator-vault-auto-ingestion-qa.js
       - name: Existing Creator Vault regression QA
@@ -56,6 +59,12 @@ jobs:
         run: npm run catalog-qa
       - name: Render portable catalogs
         run: npm run portable
+      - name: Build current launcher frontend and Rust service
+        run: |
+          npm ci --prefix launcher
+          npm run build:integration
+          test -f launcher/dist/index.html
+          test -x native/target/debug/enderloom-service
       - name: Repair Electron runtime if incomplete and configure SUID sandbox
         shell: bash
         run: |
@@ -110,7 +119,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
+          timeout 180s xvfb-run -a npm run electron-self-test 2>&1 | tee electron-self-test.log
       - name: Preserve Electron self-test diagnostics
         if: always()
         uses: actions/upload-artifact@v4
