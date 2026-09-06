@@ -40,16 +40,17 @@ jobs:
           test -x "$ELECTRON_BIN"; test -f "$SANDBOX"
           sudo chown root:root "$SANDBOX"; sudo chmod 4755 "$SANDBOX"
           echo "ELECTRON_PATH=$ELECTRON_BIN" >> "$GITHUB_ENV"
-      - name: Stress history commits against hidden media renderer load
+      - name: Reproduce Enderloom browser tab lifecycle under media load
         shell: bash
         run: |
           set -euo pipefail
           cat > /tmp/enderloom-nav-focus.js <<'NODE'
           'use strict';
-          const {app,BrowserWindow,WebContentsView}=require('electron');
+          const {app,BrowserWindow,WebContentsView,session}=require('electron');
           const http=require('http');
           const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
           async function waitFor(fn,timeout=1800){const end=Date.now()+timeout;while(Date.now()<end){if(fn())return true;await sleep(12)}return !!fn()}
+          const safeHttpUrl=value=>{try{const u=new URL(String(value));return /^https?:$/.test(u.protocol)?u.toString():null}catch{return null}};
           function navHistoryStep(wc, offset) {
             const history=wc?.navigationHistory,step=Number(offset)||0;if(!step||!wc||wc.isDestroyed?.())return false;
             try {
@@ -66,33 +67,14 @@ jobs:
               return true;
             } catch { if(step<0&&wc?.canGoBack?.()){wc.goBack();return true} if(step>0&&wc?.canGoForward?.()){wc.goForward();return true} return false; }
           }
-          async function runScenario(base,backgroundThrottling,label){
-            const win=new BrowserWindow({width:1000,height:700,show:true,webPreferences:{backgroundThrottling:false}});
-            const browser=new WebContentsView({webPreferences:{backgroundThrottling:false}});
-            win.contentView.addChildView(browser);browser.setBounds({x:0,y:0,width:1000,height:700});
-            const background=[];
-            for(let i=0;i<4;i++){
-              const view=new WebContentsView({webPreferences:{backgroundThrottling}});
-              background.push(view);
-              await view.webContents.loadURL(`${base}/busy?slot=${i}`);
-            }
-            const root=`${base}/`,two=`${base}/two`;
-            await browser.webContents.loadURL(root);await browser.webContents.loadURL(two);
-            const failures=[],latencies=[];
-            for(let i=0;i<24;i++){
-              const a=Date.now();navHistoryStep(browser.webContents,-1);
-              if(!await waitFor(()=>browser.webContents.getURL()===root,1800))failures.push({cycle:i,dir:'back',url:browser.webContents.getURL(),index:browser.webContents.navigationHistory.getActiveIndex(),entries:browser.webContents.navigationHistory.getAllEntries().map(x=>x.url)});
-              latencies.push(Date.now()-a);
-              const b=Date.now();navHistoryStep(browser.webContents,1);
-              if(!await waitFor(()=>browser.webContents.getURL()===two,1800))failures.push({cycle:i,dir:'forward',url:browser.webContents.getURL(),index:browser.webContents.navigationHistory.getActiveIndex(),entries:browser.webContents.navigationHistory.getAllEntries().map(x=>x.url)});
-              latencies.push(Date.now()-b);
-              if(failures.length)break;
-            }
-            for(const view of background){try{view.webContents.close()}catch{}}
-            try{browser.webContents.close()}catch{};try{win.destroy()}catch{}
-            const result={label,backgroundThrottling,passed:failures.length===0,failures,maxMs:Math.max(...latencies),avgMs:Math.round(latencies.reduce((a,b)=>a+b,0)/Math.max(1,latencies.length))};
-            console.log('ENDERLOOM_NAV_FOCUS',JSON.stringify(result));
-            return result;
+          function wireTab(view){
+            let loading=false;
+            view.webContents.setWindowOpenHandler(()=>({action:'deny'}));
+            view.webContents.on('will-navigate',(event,targetUrl)=>{if(!safeHttpUrl(targetUrl))event.preventDefault()});
+            view.webContents.on('did-start-loading',()=>{loading=true});
+            view.webContents.on('did-stop-loading',()=>{loading=false});
+            view.webContents.on('did-fail-load',(_e,code,_desc,_url,isMainFrame)=>{if(isMainFrame!==false&&Number(code)!==-3)loading=false});
+            return ()=>loading;
           }
           app.whenReady().then(async()=>{
             const server=http.createServer((req,res)=>{
@@ -101,23 +83,48 @@ jobs:
               res.end(`<!doctype html><title>${req.url}</title><main>${req.url}</main>`);
             });
             await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-            const base=`http://127.0.0.1:${server.address().port}`;
-            try{
-              const unthrottled=await runScenario(base,false,'unthrottled-hidden-media');
-              const throttled=await runScenario(base,true,'throttled-hidden-media');
-              console.log('ENDERLOOM_NAV_FOCUS_SUMMARY',JSON.stringify({unthrottled,throttled}));
-              if(!throttled.passed)process.exitCode=1;
-            }finally{await new Promise(resolve=>server.close(resolve));app.quit()}
-          }).catch(error=>{console.error(error);process.exitCode=1;app.quit()});
+            const base=`http://127.0.0.1:${server.address().port}`,root=`${base}/`,two=`${base}/two`;
+            const liveSession=session.fromPartition('persist:minecraft-catalog-live-focus');
+            const win=new BrowserWindow({width:1000,height:700,show:true,webPreferences:{backgroundThrottling:false}});
+            const makeTab=()=>new WebContentsView({webPreferences:{session:liveSession,nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
+            const first=makeTab(),second=makeTab();wireTab(first);wireTab(second);
+            first.setBounds({x:0,y:94,width:1000,height:606});second.setBounds({x:0,y:94,width:1000,height:606});
+            first.setVisible(false);second.setVisible(false);win.contentView.addChildView(first);win.contentView.addChildView(second);
+            const background=[];
+            for(let i=0;i<4;i++){
+              const view=new WebContentsView({webPreferences:{session:liveSession,nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
+              background.push(view);await view.webContents.loadURL(`${base}/busy?slot=${i}`);
+            }
+            await first.webContents.loadURL(root);first.setVisible(true);
+            await second.webContents.loadURL(two);second.setVisible(false);
+            const failures=[],latencies=[];
+            for(let cycle=0;cycle<30;cycle++){
+              // Mirror Enderloom: second tab becomes visible/focused, first hides, then
+              // first is reactivated without an explicit focus() before loadURL + Back.
+              first.setVisible(false);second.setVisible(true);second.webContents.focus();await sleep(24);
+              second.setVisible(false);first.setVisible(true);
+              if(first.webContents.getURL()!==two)await first.webContents.loadURL(two);
+              const before={index:first.webContents.navigationHistory.getActiveIndex(),entries:first.webContents.navigationHistory.getAllEntries().map(x=>x.url)};
+              const started=Date.now();navHistoryStep(first.webContents,-1);
+              const ok=await waitFor(()=>first.webContents.getURL()===root,1800);latencies.push(Date.now()-started);
+              const after={url:first.webContents.getURL(),index:first.webContents.navigationHistory.getActiveIndex(),entries:first.webContents.navigationHistory.getAllEntries().map(x=>x.url),isLoading:first.webContents.isLoading(),isLoadingMainFrame:first.webContents.isLoadingMainFrame?.()};
+              if(!ok){failures.push({cycle,before,after});break}
+              navHistoryStep(first.webContents,1);
+              if(!await waitFor(()=>first.webContents.getURL()===two,1800)){failures.push({cycle,dir:'forward',url:first.webContents.getURL(),index:first.webContents.navigationHistory.getActiveIndex()});break}
+            }
+            const result={passed:failures.length===0,cycles:30,failures,maxMs:Math.max(...latencies),avgMs:Math.round(latencies.reduce((a,b)=>a+b,0)/Math.max(1,latencies.length))};
+            console.log('ENDERLOOM_NAV_LIFECYCLE',JSON.stringify(result));
+            for(const view of background){try{view.webContents.close()}catch{}};try{first.webContents.close()}catch{};try{second.webContents.close()}catch{};try{win.destroy()}catch{}
+            await new Promise(resolve=>server.close(resolve));app.exit(result.passed?0:1);
+          }).catch(error=>{console.error(error);app.exit(1)});
           NODE
           timeout 120s xvfb-run -a "$ELECTRON_PATH" /tmp/enderloom-nav-focus.js 2>&1 | tee nav-focus.log
-          grep -q 'ENDERLOOM_NAV_FOCUS_SUMMARY' nav-focus.log
-          grep -q '"label":"throttled-hidden-media","backgroundThrottling":true,"passed":true' nav-focus.log
+          grep -q 'ENDERLOOM_NAV_LIFECYCLE {"passed":true' nav-focus.log
       - name: Preserve focused evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nav-scheduler-focus-${{ github.sha }}
+          name: nav-lifecycle-focus-${{ github.sha }}
           path: nav-focus.log
           if-no-files-found: warn
           retention-days: 7
