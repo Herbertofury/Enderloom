@@ -23,8 +23,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Chunk 29 pre-production provider collision gate
-        run: node scripts/creator-vault-ahs29-provider-collision.js
+      - name: Chunk 29 post-merge diagnostic
+        run: node scripts/creator-vault-ahs29-postmerge-diagnostic.js
       - name: Missing timestamp regression QA
         run: node scripts/creator-vault-timestamp-qa.js
       - name: Focused Creator Vault recursive QA
