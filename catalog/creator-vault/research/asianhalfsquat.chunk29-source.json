@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "chunk": 29,
+  "updatedAt": "2026-09-06T01:20:00Z",
+  "baseline": {"recommendations": 934, "uniqueProjects": 650, "ahsIndexedVideos": 48},
+  "sourceMentions": 43,
+  "videos": [
+    {
+      "id": "youtube:gBMEwunuEUI",
+      "url": "https://www.youtube.com/watch?v=gBMEwunuEUI",
+      "title": "The Best Minecraft Graphics Mod Is Available Now",
+      "publishedAt": "2024-06-10",
+      "sourceKind": "youtube-indexed-description",
+      "recommendations": [
+        {"name":"Distant Horizons","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Sodium","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Iris","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Indium","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"C2ME","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Noisium","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Embeddium","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Oculus","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Tectonic","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Terralith","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Lithosphere","projectType":"mod","timestampSeconds":null,"sectionLabel":"Mods"},
+        {"name":"Bliss","projectType":"shader","timestampSeconds":null,"sectionLabel":"Shaders"},
+        {"name":"Photon","projectType":"shader","timestampSeconds":null,"sectionLabel":"Shaders"},
+        {"name":"BSL","projectType":"shader","timestampSeconds":null,"sectionLabel":"Shaders"},
+        {"name":"Complementary Reimagined","projectType":"shader","timestampSeconds":null,"sectionLabel":"Shaders"}
+      ],
+      "excludedEvidence": [{"sourceLabel":"Timelapse","status":"music-excluded"}],
+      "notes": "Exactly 15 creator-listed Minecraft project mentions. The creator description provides no per-project timestamps, so all 15 remain untimestamped/base-video links."
+    },
+    {
+      "id": "youtube:6LG88eiovYM",
+      "url": "https://www.youtube.com/watch?v=6LG88eiovYM",
+      "title": "How to Turn Minecraft into an Overly Realistic Survival Game",
+      "publishedAt": "2024-05-31",
+      "sourceKind": "youtube-indexed-description",
+      "recommendations": [
+        {"name":"Time Control","projectType":"mod","timestampSeconds":18,"sectionLabel":"Mods"},
+        {"name":"Stack Size Edit","projectType":"mod","timestampSeconds":33,"sectionLabel":"Mods"},
+        {"name":"Real Camera","projectType":"mod","timestampSeconds":50,"sectionLabel":"Mods"},
+        {"name":"Better Combat","projectType":"mod","timestampSeconds":67,"sectionLabel":"Mods"},
+        {"name":"Camera Overhaul","projectType":"mod","timestampSeconds":93,"sectionLabel":"Mods"},
+        {"name":"Auto HUD","projectType":"mod","timestampSeconds":113,"sectionLabel":"Mods"},
+        {"name":"No Tree Punching","projectType":"mod","timestampSeconds":130,"sectionLabel":"Mods"},
+        {"name":"HT's TreeChop","projectType":"mod","timestampSeconds":160,"sectionLabel":"Mods"},
+        {"name":"Panda's Falling Trees","projectType":"mod","timestampSeconds":171,"sectionLabel":"Mods"},
+        {"name":"Unnecessary Overhaul","projectType":"mod","timestampSeconds":180,"sectionLabel":"Mods"},
+        {"name":"Body Health System","projectType":"mod","timestampSeconds":198,"sectionLabel":"Mods"},
+        {"name":"Spoiled","projectType":"mod","timestampSeconds":213,"sectionLabel":"Mods"},
+        {"name":"Dehydration","projectType":"mod","timestampSeconds":225,"sectionLabel":"Mods"},
+        {"name":"Thin Air","projectType":"mod","timestampSeconds":243,"sectionLabel":"Mods"},
+        {"name":"True Darkness","projectType":"mod","timestampSeconds":268,"sectionLabel":"Mods"},
+        {"name":"Torch Burnout","projectType":"mod","timestampSeconds":275,"sectionLabel":"Mods"},
+        {"name":"Neutral Animals","projectType":"mod","timestampSeconds":285,"sectionLabel":"Mods"},
+        {"name":"Mobs Attempt Parkour","projectType":"mod","timestampSeconds":298,"sectionLabel":"Mods"},
+        {"name":"Boids","projectType":"mod","timestampSeconds":306,"sectionLabel":"Mods"},
+        {"name":"Nyf's Spiders","projectType":"mod","timestampSeconds":319,"sectionLabel":"Mods"},
+        {"name":"You Thief: Remastered Edition","projectType":"mod","timestampSeconds":340,"sectionLabel":"Mods"},
+        {"name":"Danger Close","projectType":"mod","timestampSeconds":350,"sectionLabel":"Mods"},
+        {"name":"Fire arrows ignite fire","projectType":"mod","timestampSeconds":373,"sectionLabel":"Mods"},
+        {"name":"Realistic Fire Spread","projectType":"mod","timestampSeconds":386,"sectionLabel":"Mods"},
+        {"name":"EnvironmentZ","projectType":"mod","timestampSeconds":394,"sectionLabel":"Mods"},
+        {"name":"Bliss Shaders","projectType":"shader","timestampSeconds":406,"sectionLabel":"Mods"},
+        {"name":"Coven","projectType":"resourcepack","timestampSeconds":431,"sectionLabel":"Mods"},
+        {"name":"Physics Mod Pro","projectType":"mod","timestampSeconds":457,"sectionLabel":"Mods"}
+      ],
+      "excludedEvidence": [
+        {"sourceLabel":"A few Ideas","status":"non-project-section"},
+        {"sourceLabel":"Fabric","status":"loader-setup-excluded"},
+        {"sourceLabel":"Your Suggestions - Unicorn Heads","status":"music-excluded"}
+      ],
+      "notes": "Exactly 28 creator-listed Minecraft project mentions, preserving every creator-authored timestamp. Fabric is setup/loader evidence, not a project recommendation."
+    }
+  ],
+  "notes": "Chunk 29 research-only two-video freeze. Exactly 43 creator-listed project mentions; no May 28 short-form upload is included in this batch."
+}
