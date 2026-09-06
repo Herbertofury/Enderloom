@@ -122,6 +122,7 @@ jobs:
       - name: Package Windows Electron application
         shell: pwsh
         run: |
+          if (Test-Path 'dist-package') { Remove-Item 'dist-package' -Recurse -Force }
           npx --yes @electron/packager@18.3.6 . Enderloom --platform=win32 --arch=x64 --out=dist-package --overwrite --prune=true --ignore='^/dist-package($|/)' --ignore='^/.git($|/)'
           $app = Get-ChildItem dist-package -Directory | Where-Object { $_.Name -like 'Enderloom-win32-x64*' } | Select-Object -First 1
           if (-not $app) { throw 'Packaged Enderloom directory was not produced.' }
@@ -147,12 +148,12 @@ jobs:
         with:
           name: Enderloom-Creator-Vault-Auto-v3-Windows-x64
           path: release
-      - name: Publish tested prerelease
+      - name: Publish deterministic tested prerelease
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          TAG="creator-vault-auto-v3-${GITHUB_RUN_NUMBER}"
+          TAG="creator-vault-auto-v3-final"
           cat > release/ACCEPTANCE.txt <<EOF
           Enderloom Creator Vault Automatic Ingestion v3
           Tested commit: ${GITHUB_SHA}
@@ -160,4 +161,5 @@ jobs:
           Full focused/regression/portable/Electron/live-provider gates passed before packaging.
           Live smoke covers YouTube discovery + recommendation extraction, TikTok discovery + metadata, and Modrinth canonical resolution.
           EOF
+          gh release delete "$TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
           gh release create "$TAG" release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip release/Enderloom-Creator-Vault-Auto-v3-Windows-x64.zip.sha256 release/ACCEPTANCE.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Enderloom Creator Vault Automatic Ingestion v3" --notes "Fully gated Windows x64 prerelease for Creator Vault automatic creator ingestion. Built only after focused QA, existing Creator Vault + catalog regressions, portable render, Electron self-test, and real YouTube/TikTok/Modrinth outbound smoke passed." --prerelease
