@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "chunk": 31,
+  "updatedAt": "2026-09-06T02:16:00Z",
+  "baseline": {"recommendations": 987, "uniqueProjects": 672, "ahsIndexedVideos": 51},
+  "sourceMentions": 9,
+  "chronologyEvidence": [],
+  "videos": [
+    {
+      "id": "youtube:7NruFXLqOi8",
+      "url": "https://www.youtube.com/watch?v=7NruFXLqOi8",
+      "title": "Minecraft Has Never Looked This Good",
+      "publishedAt": "2024-03-05",
+      "sourceKind": "youtube-indexed-description",
+      "recommendations": [
+        {"name":"Distant Horizons","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Iris","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Sodium","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"C2ME","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Bliss Shaders","projectType":"shader","sectionLabel":"Mods"},
+        {"name":"Tectonic","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Terra","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Terralith","projectType":"mod","sectionLabel":"Mods"},
+        {"name":"Exposure","projectType":"mod","sectionLabel":"Mods"}
+      ],
+      "excludedEvidence": [
+        {"sourceLabel":"Early-access Distant Horizons / Iris / Bliss Shaders version note via Iris Shaders Discord","status":"version-access-note-excluded"}
+      ],
+      "notes": "Exactly nine creator-listed Minecraft projects. The recovered creator-authored description exposes no per-project timestamps, so no timestamp fields are invented."
+    }
+  ],
+  "notes": "Chunk 31 research-only freeze. The next ordinary recommendation-bearing indexed upload strictly older than 2024-05-24 is 2024-03-05; the 2024-05-28 short remains separate Chunk 30 recovery debt and is not retried or inferred here."
+}
