@@ -11,6 +11,7 @@ process.env.ENDERLOOM_CREATOR_VAULT_RUNTIME_DIR = runtimeDir;
 process.env.ENDERLOOM_DISABLE_CREATOR_AUTO_SYNC = '1';
 
 const parser = require('../src/creator-vault-auto/parser');
+const browser = require('../src/creator-vault-auto/browser');
 const common = require('../src/creator-vault-auto/common');
 const resolver = require('../src/creator-vault-auto/resolver');
 const state = require('../src/creator-vault-auto/state');
@@ -78,6 +79,32 @@ check('YouTube initial player response parser preserves source description', () 
   assert(parsed.description.includes('Sodium'));
 });
 
+check('YouTube feed parser preserves recommendation metadata', () => {
+  const xml = '<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/"><entry><yt:videoId>AbCdEfGhI12</yt:videoId><title>10 Minecraft Mods</title><published>2026-09-01T00:00:00+00:00</published><media:group><media:description><![CDATA[MODS:\nSodium https://modrinth.com/mod/sodium]]></media:description></media:group></entry></feed>';
+  const rows = browser.parseYouTubeFeedXml(xml);
+  assert.strictEqual(rows.length, 1);
+  assert.strictEqual(rows[0].id, 'AbCdEfGhI12');
+  assert.strictEqual(rows[0].title, '10 Minecraft Mods');
+  assert(rows[0].description.includes('Sodium'));
+  assert.strictEqual(rows[0].sourceTab, 'feed');
+});
+
+check('YouTube channel id recovery handles browse metadata', () => {
+  const id = 'UCabcdefghijklmnopqrstuv';
+  assert.strictEqual(browser.youtubeChannelIdFromHtml(`<script>var x={"browseId":"${id}"}</script>`), id);
+  assert.strictEqual(browser.youtubeChannelIdFromHtml(`<meta itemprop="channelId" content="${id}">`), id);
+});
+
+check('direct provider URLs self-identify in project-list videos', () => {
+  const rows = parser.parseCreatorDescription({
+    title:'Top Minecraft Mods',
+    platform:'youtube',
+    text:'Sodium https://modrinth.com/mod/sodium\nhttps://www.curseforge.com/minecraft/mc-mods/modernfix',
+  });
+  assert(rows.some(row => row.name === 'Sodium'));
+  assert(rows.some(row => /modernfix/i.test(row.name)));
+});
+
 check('TikTok hydration parser discovers creator video records', () => {
   const data = { __DEFAULT_SCOPE__:{ 'webapp.video-detail':{ itemInfo:{ itemStruct:{ id:'7412345678901234567', desc:'Mods: Sodium, Lithium', author:{uniqueId:'tester'} } } } } };
   const html = `<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">${JSON.stringify(data)}</script>`;
@@ -137,7 +164,7 @@ check('scanned non-project videos are classified to avoid repeated downloads', (
 check('YouTube crawler covers uploads and Shorts, and full history adds Streams', () => {
   const source = fs.readFileSync(path.join(ROOT,'src','creator-vault-auto','browser.js'),'utf8');
   assert(source.includes("const tabs = ['videos','shorts', ...(full ? ['streams'] : [])]"));
-  assert(source.includes('knownHits>0') || source.includes('knownHits > 0'));
+  assert(source.includes('knownHit') || source.includes('knownHits'));
 });
 
 check('preload exposes automatic Creator Vault IPC bridge', () => {
@@ -175,6 +202,14 @@ check('TikTok metadata requests are parallel and launch sync refreshes open cata
   assert(browserSource.includes('profile-http-fallback'));
   assert(facadeSource.includes('refreshOpenCatalogViews'));
   assert(facadeSource.includes('reloadIgnoringCache'));
+});
+
+check('browser-backed creator extraction is bounded and main-process driven', () => {
+  const source = fs.readFileSync(path.join(ROOT,'src','creator-vault-auto','browser.js'),'utf8');
+  assert(source.includes('Creator browser script execution timed out'));
+  assert(source.includes('creatorDomSnapshotScript'));
+  assert(source.includes('window.scrollTo'));
+  assert(source.includes('waitForWebContentsSettled'));
 });
 
 check('parser stress stays comfortably interactive', () => {
