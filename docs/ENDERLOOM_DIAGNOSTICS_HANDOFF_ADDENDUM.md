@@ -3,12 +3,19 @@
 **Status:** Mandatory handoff addendum  
 **Updated:** 2026-09-07  
 
-Codex/agents continuing Enderloom must read these two diagnostics documents together:
+Codex/agents continuing Enderloom must read these three diagnostics documents together:
 
 1. `docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md`
 2. `docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md`
+3. `docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG_CHANGELOG.md`
 
 They are mandatory supplements to the existing Performance/Testing, AI Operator, Repair and Wave A architecture contracts.
+
+## Current checkpoint
+
+- Diagnostics/progress spec initial commit: `49333b1144ddba7e11e8dec9d793f9eabcc78779`
+- Living adapter catalog commit: `8bcaa73cb68a8ea8178da4e82135c3a0d509f79e`
+- Diagnostics/progress spec catalog/enricher expansion: `bef22256f6085667940eb832c5214a370971e7bc`
 
 ## Required consequences
 
