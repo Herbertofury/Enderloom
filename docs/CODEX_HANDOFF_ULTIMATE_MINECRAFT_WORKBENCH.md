@@ -12,18 +12,21 @@ The current product contracts are:
 
 1. `docs/ENDERLOOM_MASTER_REQUIREMENTS.md`
 2. `docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md`
-3. `docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md`
-4. `docs/PREMIUM_TESTING_LAB_SPEC.md`
-5. `docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md`
-6. `docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md`
-7. GitHub issue #1 — existing Performance Lab continuity
-8. GitHub issue #3 — Ultimate Minecraft Workbench expansion tracker
+3. `docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md` — **mandatory exhaustive challenge-pass addendum; do not omit these domains**
+4. `docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md`
+5. `docs/PREMIUM_TESTING_LAB_SPEC.md`
+6. `docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md`
+7. `docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md`
+8. GitHub issue #1 — existing Performance Lab continuity
+9. GitHub issue #3 — Ultimate Minecraft Workbench expansion tracker
 
 ## Non-negotiable product law
 
 **No feature islands. No shadow databases. No duplicated truth.**
 
 Every relevant feature must consume and update the same canonical Minecraft project/evidence graph. Performance results must surface directly on mods/Favorites/update planning/repair. Crashes must link to exact culprit mod/source/config. World hotspots must link to owning mod content when known. Config/version changes invalidate only dependent evidence. Conversion and port failures can enter the same repair/testing loop. Returned AI artifacts update repair/source/performance/compatibility provenance rather than living in a separate subsystem.
+
+The gap-audit domains are governed by the same law. Security findings, mapping symbols, Mixin injections, Bedrock script profiles, visual-logic graphs, schematics, particles/audio/UI assets, registry entries, protocol captures, collaboration change sets, world snapshot deltas, hardware profiles, localization bundles and permission findings must all plug into the same typed graph/evidence/task model rather than spawning isolated stores.
 
 ## In-app browser rule
 
@@ -55,6 +58,40 @@ Treat Bedrock as a first-class content ecosystem. Parse behavior/resource packs,
 
 Marketplace pages may be researched and viewed in the integrated browser. Conversion requires user-authorized accessible source bytes. Never bypass DRM, encryption, paywalls, entitlement checks or protected delivery to obtain Marketplace content.
 
+Bedrock development support must also cover the actual Creator development loop: project creation/deployment, Retail/Preview target versions, TypeScript/JavaScript debugging, Content Log, Script Debugger, Script Profiler, Diagnostics/Debug Utilities, Bedrock Editor projects and Editor Extensions, with their evidence normalized into the same Enderloom project/test/performance graph.
+
+## Gap-audit domains — mandatory coverage
+
+`docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md` adds capability families that were materially under-specified in the first backlog. Codex must preserve architecture slots and acceptance paths for all of them:
+
+- Security & Supply-Chain Center, capability-diff updates, SBOM/license/provenance and quarantine.
+- Full Bedrock Developer Center: Script Debugger/Profiler, Creator Tools-style deployment, Content Log, Bedrock Editor/Editor Extensions.
+- Enderloom Developer IDE with language intelligence, tasks, terminal and Git.
+- Mapping/Remap/Mixin/Bytecode Lab spanning Mojmap/Yarn/Intermediary/Parchment/SRG/MCP and production remap/linkage proof.
+- Visual Gameplay Authoring / native procedure and AI-behavior graphs.
+- Misode/MCStacker-grade command/data/worldgen generator studio.
+- Axiom/WorldEdit/Litematica-grade 3D build, schematic and blueprint workflows.
+- Dedicated particle/audio/UI/font/material studios, including modern PBR/Vibrant Visuals-aware paths where applicable.
+- Runtime Registry/Recipe/Content Explorer with owning-mod/source backlinks and museum/QA generation.
+- Full plugin/proxy ecosystem: Bukkit/Spigot/Paper/Purpur/Folia/Velocity and truthful Folia-threading validation.
+- Geyser/Floodgate, ViaVersion-family and packet/protocol/network-chaos testing.
+- Collaboration/shared-instance/team-pack workflows and portable/offline project interchange.
+- Enderloom MCP server plus optional local-AI provider adapters, always behind normal safety/build/runtime gates.
+- Legacy archaeology for old Minecraft versions/loaders/build systems/mappings and old Bedrock schemas.
+- Hot-reload/fast-dev loop with truthful restart boundaries.
+- Multiplayer/chaos/soak scenarios.
+- Worldgen/seed/pregeneration/retrogen intelligence.
+- Incremental world snapshot version control and selective restore.
+- Dedicated Java<->Bedrock resource-pack conversion.
+- Replay/capture/showcase studio based on actual runtime evidence.
+- Hardware/JVM/render advisor using measured local evidence.
+- Accessibility/localization tooling for Enderloom and projects.
+- Analytics/issue/changelog intelligence without fabricated scores.
+- Pack/release permission and redistribution policy gates.
+- “No Unknown Files” invariant for imports/conversions/AI archives.
+- Canary/staged update engine.
+- Real remote-server adapters such as SSH/SFTP/provider APIs only when legitimately supported.
+
 ## Exact implementation order
 
 ### Wave A — Integration Spine — START HERE
@@ -70,7 +107,10 @@ Implement the shared infrastructure required by every later feature:
 - transactional mutation + rollback primitive;
 - universal project/mod detail domain object;
 - shared operation/capability registry suitable for GUI + service + CLI;
-- migration tests and compatibility with existing Enderloom data.
+- migration tests and compatibility with existing Enderloom data;
+- **extensible typed entity/evidence model that can represent the mandatory gap-audit domains without collapsing them into opaque JSON or requiring another architecture rewrite.**
+
+At minimum, Wave A must leave first-class typed extension paths for `SecurityFinding`, `ArtifactCapability`, `CodeProject`, `SourceSymbol`, `MappingSymbol`, `MixinInjection`, `PluginProject`, `ProxyNode`, `ProtocolEndpoint`, `BedrockCreatorProject`, `EditorExtension`, `ScriptProfile`, `VisualLogicGraph`, `GameplayElement`, `Blueprint`, `Schematic`, `ParticleAsset`, `SoundAsset`, `UiAsset`, `FontAsset`, `MaterialAsset`, `RegistryEntry`, `CollaborationChangeSet`, `RemoteServerTarget`, `ProtocolCapture`, `WorldSnapshotDelta`, `HardwareProfile`, `LocalizationBundle`, and permission/policy findings.
 
 **First vertical acceptance target:** pick one real installed mod and prove one canonical detail/evidence object is consumed by Mod Manager, Catalog, CLI/service and Testing without duplicate truth.
 
@@ -86,28 +126,40 @@ Then implement the high-value integrated right-click/detail actions:
 - media/video preview model;
 - performance badge projection;
 - repair/optimize/port/convert actions;
-- direct Split/Browser navigation.
+- direct Split/Browser navigation;
+- security/provenance summary;
+- registry/content ownership links;
+- developer/mappings/Mixin affordances.
 
 ### Wave C — Performance Lab continuity
 
 Resume issue #1 exactly from its current implementation contract. Do not redo its research. Performance results must write into the shared graph and immediately appear on the normal mod surface.
 
+Later adapters may add Bedrock Script Profiler evidence, network/protocol evidence and hardware-profile normalization, but none of that should delay the current issue #1 critical path.
+
 ### Wave D — Autonomous Repair Loop
 
 Follow `docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md`. Implement the full real vertical slice before provider proliferation:
 
-`RepairJob -> evidence bundle -> in-app ChatGPT web adapter -> returned candidate -> quarantine -> build -> sandbox runtime gate -> failure packet -> same conversation retry -> passing candidate -> transactional install -> actual-instance smoke -> rollback proof`
+`RepairJob -> evidence bundle -> in-app ChatGPT web adapter -> returned candidate -> security/quarantine scan -> build -> sandbox runtime gate -> failure packet -> same conversation retry -> passing candidate -> transactional install -> actual-instance smoke -> rollback proof`
+
+MCP/local-model lanes are later provider interfaces; they must not weaken or postpone the real in-browser ChatGPT acceptance slice.
 
 ### Wave E onward
 
-Continue the waves in `docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md`:
+Continue the waves in `docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md`, expanded by the mandatory gap-audit addendum:
 
-- Bedrock Studio parser;
+- Bedrock Studio + full Creator/developer/debugger/editor tooling;
 - UMIR and first rich Bedrock->Java conversion;
-- Java version/loader port engine and Stonecutter-style multiversion workspace;
-- World Studio;
-- model/texture/animation and Blockbench interoperability;
+- Java version/loader port engine, mappings lab and Stonecutter-style multiversion workspace;
+- Developer IDE + visual gameplay authoring;
+- command/data/worldgen generator studio;
+- World Studio + 3D building/schematics/blueprints + snapshot version control;
+- model/texture/animation plus particle/audio/UI/font/material studios;
 - reference reconstruction and native visual QA;
+- plugins/proxies/crossplay/protocol/network tooling;
+- collaboration/MCP/local-AI/legacy-version tooling;
+- canary/security/policy/release hardening;
 - cross-system intelligence;
 - ecosystem parity challenge pass.
 
@@ -123,12 +175,13 @@ Continue the waves in `docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md`:
 - Never use the user's live instance/world as automated-test scratch space.
 - Never silently delete content to make conversions/ports compile.
 - Never call static-risk findings measured performance.
-- Never install an AI-returned binary before validation.
+- Never install an AI-returned binary before security/quarantine/validation gates.
 - Every recommendation must expose `Why?` / evidence.
+- Every import/conversion must classify every source file or report it as unknown/unsupported.
 - Every material checkpoint must preserve exact repo/branch/commit and next action.
 
 ## Quality target
 
-The finished product should be easier to use than the collection of launchers, profilers, world editors, NBT tools, model tools, pack tools, browsers and ad-hoc scripts it replaces, while being more capable because all of those workflows share identity, evidence, testing, repair and rollback.
+The finished product should be easier to use than the collection of launchers, profilers, world editors, NBT tools, model tools, creator IDEs, Bedrock editors, pack tools, security scanners, server panels, protocol tools, browsers and ad-hoc scripts it replaces, while being more capable because all of those workflows share identity, evidence, testing, repair and rollback.
 
 Start Wave A now. Do not stop at planning or mockups.
