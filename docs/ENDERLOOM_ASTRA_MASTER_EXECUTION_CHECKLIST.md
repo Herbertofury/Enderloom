@@ -9,109 +9,129 @@
 
 ---
 
-# 0. READ THIS FIRST — ASTRA RUN CONTRACT
+# 0. ASTRA RUN CONTRACT
 
-This file is the **single execution entrypoint for the complete Enderloom vision**.
+This is the **single execution-order authority** for the complete Enderloom project.
 
-Earlier Enderloom requirements, backlog, gap-audit, testing, diagnostics, AI, conversion, Studio, compatibility, and concept-art documents remain engineering references, but Astra should not need the user to restate decisions or choose what comes next. This checklist defines the execution order and acceptance boundary.
+Detailed child specs remain engineering references, but Astra should never ask the user to restate a decision already captured here or in a linked child spec.
 
 ## 0.1 Mission
 
-Build Enderloom into the one integrated Minecraft launcher, mod/content manager, research browser, testing/performance lab, repair system, developer Studio, conversion/porting workbench, asset/model pipeline, world/server toolkit, compatibility lab, AI operator and evidence-backed project brain that can perform the serious Minecraft workflows we have repeatedly done through ChatGPT + Minecraft Dev Kit.
+Build Enderloom into one integrated Minecraft launcher, content manager, research browser, testing/performance lab, repair system, developer Studio, conversion/porting workbench, asset/model pipeline, world/server toolkit, compatibility lab, AI operator, Premium knowledge surface, and evidence-backed project brain.
 
-The north-star law is:
+North-star:
 
-> **If a capable human using Enderloom/ChatGPT/Minecraft Dev Kit can legitimately perform a Minecraft workflow, Enderloom should eventually expose that workflow through the same canonical GUI/service/CLI/MCP/AI operation graph and prove success with equal or stronger evidence.**
+> **If a capable human using Enderloom + ChatGPT + Minecraft Dev Kit can legitimately perform a Minecraft workflow, Enderloom should ultimately expose that workflow through the same canonical GUI/service/CLI/MCP/AI operation graph and prove success with equal or stronger evidence.**
 
-## 0.2 “One run” means continuous, not reckless
+## 0.2 No-repeat document law
 
-Astra should begin at the first incomplete required item and continue automatically through the ordered phases.
+Every requirement in this master has **one canonical home**.
 
-- [ ] Do not stop after planning.
-- [ ] Do not stop after scaffolding.
-- [ ] Do not stop after a successful compile when runtime proof is applicable.
-- [ ] Do not ask the user what to do next when this checklist already answers it.
-- [ ] Do not restart completed research or architecture discovery after context compaction, skill changes, connector changes, or checkpoints.
-- [ ] Update this file’s checkboxes / evidence notes as material acceptance changes.
-- [ ] Persist coherent checkpoints, then continue; a checkpoint is not a finish line.
-- [ ] Before a long gate, preserve a recoverable source checkpoint and exact candidate identity.
-- [ ] After two no-progress waves on the same route, change strategy instead of repeating the same attempt.
+- [ ] Do not restate the same feature in later phases.
+- [ ] Later phases reference the owning requirement/phase instead of copying its bullet list.
+- [ ] Golden challenges reference phase exit gates rather than repeating implementation requirements.
+- [ ] Final release gates contain only cross-cutting release criteria not already owned by a phase.
+- [ ] If a new requirement overlaps an existing one, expand the existing canonical item instead of adding a duplicate.
+- [ ] Child specs may contain deeper implementation detail, but this master remains the unique execution map.
+
+## 0.3 Continuous-run behavior
+
+- [ ] Start at the first incomplete hard dependency and continue automatically.
+- [ ] Implement instead of stopping after planning/scaffolding.
+- [ ] Treat compilation as intermediate evidence when runtime behavior changed.
+- [ ] Never ask “what next?” when this checklist answers it.
+- [ ] Preserve resolved identity, acceptance state, hashes, run IDs, blockers, failed routes, and exact next action through compaction/tool/agent transitions.
+- [ ] Update this checklist only when material acceptance state changes.
+- [ ] Checkpoint coherent progress, then continue; a checkpoint is not a finish line.
+- [ ] Before long gates, preserve a recoverable source/candidate checkpoint.
+- [ ] After two no-progress waves on one route, change strategy.
 - [ ] Retry only with new information or a materially different route.
-- [ ] If an external/auth/rights blocker prevents one branch, record it precisely and continue independent work where safe.
-- [ ] Never weaken scope, tests, quality, content, compatibility, safety, or fidelity to make the run finish faster.
+- [ ] If one branch is externally blocked, record the blocker precisely and continue every independent reachable branch.
+- [ ] Never reduce scope, fidelity, safety, compatibility, content, or verification simply to finish faster.
 
-## 0.3 Live execution ledger
+## 0.4 Evidence ledger
 
-For each meaningful requirement maintain:
+For each material requirement maintain:
 
-`requirement -> implementation location -> verification action -> observed evidence`
+`requirement ID -> implementation location -> verification action -> observed evidence`
 
-For every phase record at least:
+Each completed phase records:
 
-- exact Git commit;
-- changed subsystem(s);
-- build/package identity;
-- targeted tests;
-- strongest runtime proof performed;
-- unresolved blocker(s);
-- exact next unchecked item.
-
-## 0.4 Hard product laws
-
-- [ ] **No feature islands.** All domains connect to one canonical project/evidence/task graph.
-- [ ] **No shadow databases.** No Performance DB, AI DB, Studio DB, conversion DB, Wiki DB, or diagnostics DB duplicating canonical truth.
-- [ ] **No duplicated operation logic.** GUI, service, CLI, MCP and AI call the same domain operations.
-- [ ] **No fake progress.** Percentages derive from known work/gates; unknown duration is indeterminate.
-- [ ] **No fake success.** AI, UI, CLI or a provider cannot self-declare a job passed.
-- [ ] **No fake metrics.** Static analysis cannot invent FPS/TPS/GPU/per-mod numbers.
-- [ ] **No live-profile destructive testing.** Performance/repair/conversion experiments use isolated copies/sandboxes where applicable.
-- [ ] **No content or quality deletion to manufacture optimization.**
-- [ ] **No unsafe “async magic.”** Off-thread changes require thread-safety/correctness proof.
-- [ ] **No unknown-file blindness.** Imports/conversions/AI archives must account for every source file or explicitly classify it as provenance-only/unsupported/unknown.
-- [ ] **No provider/rights bypass.** Never bypass DRM, paywalls, encryption, entitlements, protected pack delivery, CAPTCHA, licensing or access control.
-- [ ] **No synthetic replacement media.** Missing project media is not silently replaced by generated imagery.
-- [ ] Synthetic image generation, if Enderloom ever supports it, is explicit per-job opt-in and never proof of native asset fidelity.
-- [ ] User data, worlds, configs, external launcher profiles and original source bundles remain preservation-first.
-- [ ] Destructive operations are transactional, previewable and rollback-capable where technically possible.
-- [ ] Every automated recommendation can explain **Why?** using real evidence.
-- [ ] Every visible control performs a real operation or is truthfully shown unavailable.
-- [ ] Long work is cancellable and resumable where technically meaningful.
-- [ ] Material saved project checkpoints are mirrored to GitHub and connected Google Drive and read-back verified.
-
-## 0.5 Explicit product decisions that must not drift
-
-### Accepted
-
-- [ ] One professional top-level **Studio** with contextual/dockable creation/development panes.
-- [ ] Dedicated top-level **Hotkeys** tab.
-- [ ] Progression/softlock intelligence inside Studio/project intelligence.
-- [ ] Full config intelligence/migration/profiles/rollback.
-- [ ] Black Box incident recorder.
-- [ ] Minecraft Data / Function debugger.
-- [ ] Full model/texture/animation/MCModels/reference-reconstruction toolset.
-- [ ] Premium gorgeous project/modpack Wiki.
-- [ ] Performance/Testing Control Plane with deep CLI automation.
-- [ ] Premium whole-modpack migration.
-- [ ] “Why is this installed?” graph integrated with Wiki/project detail.
-- [ ] Evidence-backed self-improving Brain with anti-poisoning/promotion gates.
-- [ ] Full OpenAI / ChatGPT / Codex operator layer using canonical operations.
-- [ ] Diagnostics adapter registry plus gorgeous truthful progress UX.
-- [ ] Full Minecraft workflow parity: Java mod creation, porting, JAR repair, optimization, server->mod conversion, Bedrock->Java conversion, world repair, model/reference work, concept-art->mod, testing and release.
-
-### Explicitly rejected / not approved
-
-- [ ] **Do not add Enderloom-owned Friend Hosting / P2P / reverse-tunnel shared-world hosting.**
-- [ ] **Do not add Voice/Social compatibility center.**
-- [ ] Do not promote a Content Replacement Assistant as accepted scope unless the user explicitly approves it later.
-- [ ] Do not clone/impersonate proprietary launcher/cloud/share-code services.
-- [ ] Do not install diagnostics into a user’s live pack silently.
-- [ ] Do not create hidden recurring performance/watchdog jobs unless the user explicitly enables monitoring.
+- [ ] exact Git commit;
+- [ ] changed subsystems;
+- [ ] build/package identity;
+- [ ] targeted tests;
+- [ ] strongest applicable runtime proof;
+- [ ] unresolved blockers/known limitations;
+- [ ] exact next incomplete requirement.
 
 ---
 
-# 1. CANONICAL REPOSITORY / REFERENCE SET
+# 1. NON-NEGOTIABLE PRODUCT LAWS
 
-Astra starts here and follows this checklist. When detailed implementation semantics are needed, use these child contracts rather than asking the user to repeat requirements:
+## 1.1 Canonical truth
+
+- [ ] **ARCH-001 No feature islands:** every domain uses one canonical project/evidence/task graph.
+- [ ] **ARCH-002 No shadow databases:** Performance, AI, Studio, Wiki, conversions, diagnostics, security, and migration do not maintain competing truth stores.
+- [ ] **ARCH-003 No duplicated operation logic:** GUI, service, CLI, MCP, and AI call the same canonical domain operations.
+- [ ] **ARCH-004 Immutable identity:** important immutable artifacts use content hashes, not filename/display name alone.
+- [ ] **ARCH-005 Explainability:** automated verdicts/recommendations expose evidence-backed **Why?** explanations.
+
+## 1.2 Truthful behavior
+
+- [ ] **TRUTH-001 No fake success:** no UI/provider/AI/job may self-declare success without acceptance evidence.
+- [ ] **TRUTH-002 No fake progress:** percentage derives from known work/gates; unknown-duration work is indeterminate.
+- [ ] **TRUTH-003 No fake metrics:** static analysis cannot manufacture runtime FPS/TPS/MSPT/GPU/per-mod attribution.
+- [ ] **TRUTH-004 Evidence class:** facts distinguish measured, sampled, estimated, inferred, externally reported, and reproduction-confirmed evidence.
+- [ ] **TRUTH-005 Runtime mode:** rendered, virtual-display, headless, server, and protocol-bot evidence are never conflated.
+
+## 1.3 Preservation and safety
+
+- [ ] **SAFE-001 Preserve originals:** user worlds, configs, external launcher profiles, source bundles, and original JARs remain untouched unless an explicit transaction commits a user-approved mutation.
+- [ ] **SAFE-002 Isolated testing:** repair/performance/conversion experiments do not destructively test the mutable live profile/save.
+- [ ] **SAFE-003 Transactional mutation:** destructive operations support plan/review, staged writes, rollback/recovery, and owned cleanup where technically possible.
+- [ ] **SAFE-004 No quality deletion:** performance work cannot secretly remove content, cap behavior, lower quality, or change gameplay to obtain better numbers.
+- [ ] **SAFE-005 Concurrency correctness:** “move it async” is never accepted without thread-ownership and behavioral correctness proof.
+- [ ] **SAFE-006 No unknown-file blindness:** imports/conversions/AI bundles account for every source file or explicitly classify it.
+- [ ] **SAFE-007 No access-control bypass:** never bypass DRM, encryption, paywalls, entitlement, CAPTCHA, server authorization, protected delivery, or license controls.
+- [ ] **SAFE-008 No synthetic replacement media:** missing provider/project media is never silently replaced with generated content.
+- [ ] **SAFE-009 Secrets:** auth tokens/cookies/API keys/session secrets never enter ordinary logs, CLI arguments, public evidence, or project memory.
+
+## 1.4 Locked product decisions
+
+Accepted:
+
+- [ ] **DEC-001** One top-level professional **Studio** with contextual/dockable creation and development tools.
+- [ ] **DEC-002** Dedicated first-class top-level **Hotkeys** tab.
+- [ ] **DEC-003** Progression/softlock intelligence.
+- [ ] **DEC-004** Full config intelligence/migration/profiles/rollback.
+- [ ] **DEC-005** Black Box incident recorder.
+- [ ] **DEC-006** Minecraft Data/Function debugger.
+- [ ] **DEC-007** Full model/texture/animation/MCModels/reference-reconstruction workflow.
+- [ ] **DEC-008** Premium gorgeous project/modpack Wiki.
+- [ ] **DEC-009** Premium automated Performance/Testing Control Plane.
+- [ ] **DEC-010** Premium whole-modpack migration.
+- [ ] **DEC-011** “Why is this installed?” reasoning integrated with project detail/Wiki.
+- [ ] **DEC-012** Evidence-backed self-improving Brain with anti-poisoning/promotion gates.
+- [ ] **DEC-013** Full OpenAI/ChatGPT/Codex operator over canonical operations.
+- [ ] **DEC-014** Diagnostics adapter registry plus truthful polished progress UX.
+- [ ] **DEC-015** Full Minecraft workflow parity: native mod creation, ports/backports, JAR repair, optimization, server->mod, Bedrock->Java, world repair, reference/concept->mod, compatibility, testing, and release.
+- [ ] **DEC-016 Premium Steam-like mod trailer autoplay:** real trailers can automatically preview in Catalog/mod-detail browsing for Premium users under the media rules in Phase D.
+
+Rejected/not approved:
+
+- [ ] **DEC-R01** No Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature.
+- [ ] **DEC-R02** No Voice/Social compatibility center.
+- [ ] **DEC-R03** Do not promote Content Replacement Assistant unless the user explicitly approves it later.
+- [ ] **DEC-R04** Do not impersonate proprietary launcher/cloud/share-code services.
+- [ ] **DEC-R05** Do not silently install diagnostics into a user’s live pack.
+- [ ] **DEC-R06** Do not create hidden recurring testing/watchdog/monitoring jobs unless the user explicitly enables them.
+
+---
+
+# 2. CANONICAL ENGINEERING REFERENCES
+
+Use these only when the active requirement needs deeper detail:
 
 - `docs/ENDERLOOM_MASTER_REQUIREMENTS.md`
 - `docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md`
@@ -137,2178 +157,551 @@ Astra starts here and follows this checklist. When detailed implementation seman
 
 Rules:
 
-- [ ] This Astra checklist controls **execution order**.
-- [ ] Child specs can add stricter/detail requirements; do not ignore them.
-- [ ] A stale older requirement cannot silently weaken a newer accepted contract.
-- [ ] Version-sensitive ecosystem/API claims are revalidated just-in-time from current primary sources before implementation/release.
+- [ ] **REF-001** This file controls execution order.
+- [ ] **REF-002** Child specs may tighten implementation/acceptance but cannot silently weaken newer accepted requirements.
+- [ ] **REF-003** Version-sensitive APIs/ecosystems are revalidated just-in-time from current primary sources.
 
 ---
 
-# 2. PHASE 0 — PRESERVE AND PROVE THE EXISTING PRODUCT
+# 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT
 
-Do not rewrite working Enderloom foundations merely because later systems are ambitious.
+## 3.1 Canonical project state
 
-## 2.1 Establish exact canonical state
+- [ ] **P0-001** Resolve exact repository/worktree/branch/remote and applicable project-memory/AGENTS governance.
+- [ ] **P0-002** Record HEAD, build toolchain, CI/release identity, and unrelated concurrent changes that must be preserved.
 
-- [ ] Resolve repository/worktree/branch/remote.
-- [ ] Read applicable `AGENTS.md` and repository-owned project memory/status/handoff files if present.
-- [ ] Record exact HEAD SHA.
-- [ ] Record current build identity/toolchain.
-- [ ] Record current CI/release baseline.
-- [ ] Confirm no unrelated user/concurrent changes will be overwritten.
+## 3.2 Existing behavior that must survive all later work
 
-## 2.2 Smoke existing accepted launcher/catalog behavior
+Verify, do not reinvent, the established product surface:
 
-Preserve already-established functionality, including:
+- [ ] **P0-010 Catalog/research:** browse/search/filter/favorites/notes, exact provider/project identity, source links, role-correct project/creator/gallery/video media, broad provider adapters, install bridge, import/export research data.
+- [ ] **P0-011 Browser:** real persistent Chromium sessions/tabs, login-sensitive sites through the user’s session, safe translation, Full/Split research layouts.
+- [ ] **P0-012 External launcher integration:** CurseForge/Modrinth discovery, connect-in-place, physical-path/junction identity, explicit clone/copy, safe disconnect/reconciliation.
+- [ ] **P0-013 Instance/launcher:** Vanilla/Fabric/Quilt/Forge/NeoForge creation, MRPack/CurseForge ZIP/packwiz import, groups/tags/favorites, Microsoft auth/entitlement, Java/JVM configuration, real launch/process/log supervision.
+- [ ] **P0-014 Content lifecycle:** mods/resource packs/shaders/datapacks install/enable/disable/remove/update/exact-version/freeze/dependency planning/provenance.
+- [ ] **P0-015 Pack/world/server:** pack interchange, world list/import/safe-delete/snapshot, managed/external servers, server software/config/players/whitelist/files/content/console/process control.
+- [ ] **P0-016 Recovery/diagnostics:** snapshots/restore/quarantine/interrupted-operation recovery, logs/search/redaction, network/system/storage diagnostics.
 
-- [ ] Catalog browse/search/filter/favorites/notes.
-- [ ] Exact provider/project identity and source links.
-- [ ] Real provider media roles and persistent browser sessions.
-- [ ] Real Chromium Browser workspace.
-- [ ] Full / Split layouts and browser+app workflows.
-- [ ] CurseForge/Modrinth/GitHub and broad provider research adapters.
-- [ ] Install bridge from research to instances.
-- [ ] External CurseForge profile discovery/connect-in-place.
-- [ ] External Modrinth profile discovery/connect-in-place.
-- [ ] Physical-path/junction duplicate handling.
-- [ ] Explicit clone/copy distinct from connect.
-- [ ] Vanilla/Fabric/Quilt/Forge/NeoForge instance creation.
-- [ ] MRPack/CurseForge ZIP/packwiz import paths.
-- [ ] Groups/tags/favorites/search/sort/filter/bulk selection.
-- [ ] Microsoft account/auth/entitlement handling without secret leakage.
-- [ ] Java discovery/install/JVM configuration.
-- [ ] Real Minecraft launch/process supervision/logs/kill/restart adoption.
-- [ ] Mod/resource-pack/shader/datapack lifecycle.
-- [ ] Exact-version selection/freeze/update/remove/dependency planning.
-- [ ] Pack interchange/provider provenance.
-- [ ] World list/import/delete/snapshot safety.
-- [ ] Managed/external server setup, console, process control, content and filesystem operations.
-- [ ] Snapshot/restore/quarantine/recovery flows.
-- [ ] Logs/diagnostics/storage/network/system visibility.
+## 3.3 Baseline gate
 
-## 2.3 Existing-core regression gate
+- [ ] **P0-020** Run existing release/native-integration/Electron/Catalog QA suites.
+- [ ] **P0-021** Prove external launcher/profile roots are preserved through QA.
+- [ ] **P0-022** Record pre-existing failures separately from regressions introduced later.
 
-- [ ] Run existing release/native integration/Electron/Catalog QA suites.
-- [ ] Prove external launcher profile roots are byte/fingerprint preserved by QA.
-- [ ] Record known pre-existing failures separately from new regressions.
-- [ ] Do not proceed with a foundation rewrite if existing behavior is already green and compatible with the Wave A extension approach.
-
-**PHASE 0 EXIT:** exact baseline + no-regression boundary recorded once.
+**PHASE 0 EXIT:** exact baseline established once and reusable until invalidated.
 
 ---
 
-# 3. PHASE A — INTEGRATION SPINE (START REAL IMPLEMENTATION HERE)
+# 4. PHASE A — INTEGRATION SPINE
 
-This is the hard dependency for the rest of the product.
+This is the first implementation priority and the hard dependency for later phases.
 
-## 3.1 Canonical identities
+## 4.1 Canonical identity graph
 
-Implement typed canonical identity for at least:
+Implement typed identities/links for:
 
-- [ ] `Project`
-- [ ] `Release`
-- [ ] `Artifact`
-- [ ] `FileHash`
-- [ ] provider/source aliases
-- [ ] provider project/version identities
-- [ ] instance links
-- [ ] world links
-- [ ] server links
-- [ ] config links
-- [ ] dependency edges
-- [ ] source/code symbols where applicable
-- [ ] artifact provenance/rights/license metadata
+- [ ] **PA-001** `Project`, `Release`, `Artifact`, `FileHash`.
+- [ ] **PA-002** provider/source aliases and provider project/version identities.
+- [ ] **PA-003** instance/world/server/config/dependency links.
+- [ ] **PA-004** source/code symbols, provenance, rights/license metadata where applicable.
+- [ ] **PA-005** same-name/different-content lineage with SHA-256-first immutable artifact identity.
 
-Rules:
+## 4.2 Evidence graph
 
-- [ ] SHA-256-first identity for immutable mod/JAR/file evidence.
-- [ ] Do not key important state solely by filename/display name.
-- [ ] Preserve same-name/different-content lineage.
-- [ ] Preserve aliases without duplicating canonical objects.
+- [ ] **PA-010** `EvidenceArtifact` with kind, producer/adapter version, target, run identity, timestamps, raw artifact link, normalized representation, provenance, confidence class, comparison/contradiction links.
+- [ ] **PA-011** dependency-aware freshness/staleness invalidation with explicit stale reason.
 
-## 3.2 Canonical evidence model
+## 4.3 Durable tasks and transactions
 
-Implement:
+- [ ] **PA-020 Task model:** durable task ID, parent/child graph, operation, target, stage/state, attempt history, exact process/run IDs, produced evidence, blocker, cleanup ownership, cancellation, resume/recovery, checkpoint identity.
+- [ ] **PA-021 Transaction model:** plan/dry-run, staged writes, pre-change snapshot where relevant, owned temp area, commit/rollback, interrupted recovery, audit receipt.
 
-- [ ] `EvidenceArtifact`
-- [ ] source/provenance identity
-- [ ] evidence kind
-- [ ] producer/tool/adapter version
-- [ ] target object(s)
-- [ ] timestamp/run identity
-- [ ] freshness dependencies
-- [ ] staleness reason
-- [ ] confidence class
-- [ ] raw artifact link
-- [ ] normalized evidence representation
-- [ ] contradiction links
-- [ ] before/after/comparison links
+## 4.4 Canonical operation registry
 
-Confidence language must distinguish at least:
+Every meaningful operation declares exactly once:
 
-- [ ] measured
-- [ ] sampled
-- [ ] estimated
-- [ ] inferred
-- [ ] externally reported
-- [ ] confirmed by reproduction
+- [ ] **PA-030** stable operation ID/domain/read-write-destructive classification.
+- [ ] **PA-031** input/output schema version, permission/approval requirements.
+- [ ] **PA-032** cancellation/progress/plan support and emitted evidence.
+- [ ] **PA-033** GUI/service/CLI/MCP routes plus AI exposure eligibility.
+- [ ] **PA-034** rollback semantics and explicit purely-visual exception when a machine route is inappropriate.
 
-## 3.3 Durable task engine
+## 4.5 Universal project/mod detail
 
-Implement durable resumable tasks with:
+One canonical detail projection exposes links to:
 
-- [ ] task ID
-- [ ] parent/child graph
-- [ ] operation ID
-- [ ] target project/artifacts
-- [ ] current stage
-- [ ] state
-- [ ] attempts/retries
-- [ ] cancellation
-- [ ] resume/recovery
-- [ ] exact process/run IDs
-- [ ] produced evidence
-- [ ] blockers
-- [ ] cleanup ownership
-- [ ] checkpoint metadata
+- [ ] **PA-040** identity/version/hash/provider/source/install locations.
+- [ ] **PA-041** dependencies/dependents/configs/update lineage.
+- [ ] **PA-042** performance/crash/repair/source-symbol/Mixin/mapping evidence.
+- [ ] **PA-043** compatibility/Wiki/Why-installed/security/license/AI/conversion/port/task history.
 
-## 3.4 Transaction / rollback primitive
+## 4.6 Typed extension families
 
-- [ ] plan/dry-run representation
-- [ ] staged writes
-- [ ] pre-change snapshot where relevant
-- [ ] owned temp workspace
-- [ ] commit step
-- [ ] rollback step
-- [ ] interrupted-operation recovery
-- [ ] external/live-root preservation
-- [ ] audit receipt
+The data model must support these families without opaque catch-all JSON or future shadow stores:
 
-## 3.5 Shared operation/capability registry
+- [ ] **PA-050 Testing/diagnostics:** measurement/attribution runs, diagnostic adapters/sessions/raw artifacts/normalized profiles/stacks/tick-world-chunk hotspots/crash-memory-render-thread findings/correlations/instrumentation overhead/stall/thread/JFR/heap/frame/concurrency/bisect/minimal-reproducer/scenario/startup/world-recovery/performance-acceptance objects.
+- [ ] **PA-051 Progress:** job/stage/unit/event/finding/evidence-link/explanation/estimate/quality-gate objects.
+- [ ] **PA-052 Studio/config/hotkeys/data/progression/wiki:** project/document/selection/editor context; config docs/keys/migrations/profiles; bindings/conflicts/profiles; incident timeline; traces/invocations/watches; progression graph; knowledge graph/build; pack migration objects.
+- [ ] **PA-053 AI:** job/acceptance/provider/model/thread/agent/tool invocation/approval/context/failure packet/gate/result/model policy/usage/eval objects.
+- [ ] **PA-054 Conversion:** acquisition/rights/server capture/server content/plugin identity/semantic artifact/conversion inputs/coverage/mappings/unknown semantics/Bedrock semantic nodes/Java targets/compatibility profiles/contracts/results/ecosystem adapters/version constraints/port/binary patch/parity/release objects.
+- [ ] **PA-055 Concept/reference:** reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects.
+- [ ] **PA-056 Audit ecosystem:** security/SBOM/license/capabilities; mapping/Mixin symbols; plugin/proxy/protocol captures; Bedrock creator/editor/script profiles; visual-logic graphs; schematic/blueprint/assets/registry content; collaboration change sets; remote targets; world deltas; hardware/JVM/render; localization/accessibility; permissions/policy; Evidence-Brain observations/rules/contradictions/promotions.
 
-Every meaningful operation declares:
+## 4.7 Migration
 
-- [ ] stable operation ID
-- [ ] domain
-- [ ] read/write/destructive classification
-- [ ] inputs/output schema version
-- [ ] permissions/approval requirements
-- [ ] cancellation support
-- [ ] progress support
-- [ ] plan/dry-run support
-- [ ] GUI route
-- [ ] service route
-- [ ] CLI route
-- [ ] MCP route
-- [ ] AI-tool exposure eligibility
-- [ ] evidence emitted
-- [ ] rollback behavior
-- [ ] purely visual exception reason if no CLI/service route exists
+- [ ] **PA-060** Migrate existing Enderloom data into canonical identities without user-data loss or duplicate truth.
+- [ ] **PA-061** Version migrations and recovery/rollback; tests prove aliases do not create duplicated objects.
 
-CI must eventually fail when a meaningful new domain operation bypasses this registry.
-
-## 3.6 Universal project/mod detail object
-
-One canonical detail surface should be able to show/link:
-
-- [ ] identity/version/hash/provider/source
-- [ ] installed locations/instances
-- [ ] dependency/dependent graph
-- [ ] configs
-- [ ] update history
-- [ ] performance history
-- [ ] crash/repair findings
-- [ ] source symbols/Mixins/mappings when known
-- [ ] compatibility contracts/results
-- [ ] Wiki/knowledge
-- [ ] “Why is this installed?” path
-- [ ] security/provenance/license information
-- [ ] AI/conversion/port lineage
-- [ ] associated tasks/evidence
-
-## 3.7 Typed extension coverage — no future architecture rewrite
-
-Wave A must have first-class extension paths for all accepted later domains, including:
-
-### Testing / diagnostics
-- [ ] `MeasurementRun`
-- [ ] `AttributionRun`
-- [ ] `DiagnosticsAdapter`
-- [ ] `DiagnosticsCapability`
-- [ ] `DiagnosticsToolInstallation`
-- [ ] `DiagnosticsSession`
-- [ ] `DiagnosticsRawArtifact`
-- [ ] `NormalizedProfile`
-- [ ] `SampledStack`
-- [ ] `TickHotspot`
-- [ ] `WorldHotspot`
-- [ ] `ChunkStageObservation`
-- [ ] `CrashFinding`
-- [ ] `MemoryFinding`
-- [ ] `RenderFinding`
-- [ ] `ThreadFinding`
-- [ ] `CorrelationEdge`
-- [ ] `InstrumentationOverheadClass`
-- [ ] `EvidenceConfidence`
-- [ ] `StallIncident`
-- [ ] `ThreadSnapshot`
-- [ ] `JfrRecording`
-- [ ] `MemorySnapshot`
-- [ ] `HeapObservation`
-- [ ] `FrameTimingRun`
-- [ ] `RenderObservation`
-- [ ] `ConcurrencyFinding`
-- [ ] `BisectRun`
-- [ ] `CandidateModSet`
-- [ ] `MinimalReproducer`
-- [ ] `ScenarioDefinition`
-- [ ] `ScenarioBackend`
-- [ ] `ScenarioRun`
-- [ ] `StartupProfile`
-- [ ] `WorldRecoveryFinding`
-- [ ] `PerformancePatchAcceptanceLedger`
-
-### Progress
-- [ ] `JobProgress`
-- [ ] `ProgressStage`
-- [ ] `ProgressUnit`
-- [ ] `ProgressEvent`
-- [ ] `ProgressFinding`
-- [ ] `ProgressEvidenceLink`
-- [ ] `ProgressExplanation`
-- [ ] `ProgressEstimate`
-- [ ] `ProgressQualityGate`
-
-### Studio/config/hotkeys/data/progression/wiki
-- [ ] Studio project/document/selection/editor-context types
-- [ ] config document/key/migration/profile types
-- [ ] Hotkey binding/profile/conflict types
-- [ ] incident recording/marker/timeline-event types
-- [ ] function invocation/data trace/watch types
-- [ ] progression node/edge/softlock-finding types
-- [ ] knowledge page/edge/build types
-- [ ] pack migration plan/component/finding types
-
-### AI
-- [ ] `AiMinecraftJob`
-- [ ] `AcceptanceContract`
-- [ ] `AiProvider`
-- [ ] `AiModelProfile`
-- [ ] `AiThread`
-- [ ] `AgentRun`
-- [ ] `AgentSpecialist`
-- [ ] `AiToolInvocation`
-- [ ] `ApprovalRequest`
-- [ ] `ContextArtifact`
-- [ ] `ContextSnapshot`
-- [ ] `FailurePacket`
-- [ ] `AcceptanceGate`
-- [ ] `GateResult`
-- [ ] `ModelPolicy`
-- [ ] `UsageObservation`
-- [ ] `EvalCase`
-- [ ] `EvalRun`
-
-### Conversion / workflow parity
-- [ ] `AcquisitionSource`
-- [ ] `AcquisitionReceipt`
-- [ ] `RightsDeclaration`
-- [ ] `ServerCaptureSession`
-- [ ] `ServerContentInventory`
-- [ ] `ServerPluginIdentity`
-- [ ] `ServerSemanticArtifact`
-- [ ] `ConversionProject`
-- [ ] `ConversionInput`
-- [ ] `SemanticCoverageItem`
-- [ ] `ConversionMapping`
-- [ ] `UnknownSemantic`
-- [ ] `BedrockPack`
-- [ ] `BedrockModule`
-- [ ] `BedrockSemanticNode`
-- [ ] `JavaTargetProject`
-- [ ] `CompatibilityProfile`
-- [ ] `CompatibilityContract`
-- [ ] `CompatibilityScenario`
-- [ ] `CompatibilityResult`
-- [ ] `EcosystemAdapter`
-- [ ] `ProviderVersionConstraint`
-- [ ] `PortProject`
-- [ ] `BinaryPatchProject`
-- [ ] `ParityLedger`
-- [ ] `ReleaseAcceptance`
-
-### Concept/reference
-- [ ] `ConceptReference`
-- [ ] `ReferenceRole`
-- [ ] `ReferenceLandmark`
-- [ ] `ReferenceObservation`
-- [ ] `InferenceRecord`
-- [ ] `ConceptDesignDossier`
-- [ ] `ArtDirectionProfile`
-- [ ] `ConceptAssetPlan`
-- [ ] `GeometryCandidate`
-- [ ] `TextureRegion`
-- [ ] `RigPlan`
-- [ ] `AnimationPlan`
-- [ ] `GameplayDesignContract`
-- [ ] `ConceptCompatibilityIntent`
-- [ ] `ConceptFidelityMetric`
-- [ ] `ConceptFidelityReport`
-- [ ] `VisualResidualFinding`
-- [ ] `NativeVisualScenario`
-- [ ] `NativeVisualResult`
-- [ ] `ConceptFailurePacket`
-- [ ] `ConceptAcceptanceLedger`
-
-### Audit/gap families
-- [ ] security/artifact capabilities/SBOM/license/provenance types
-- [ ] mapping/Mixin/source symbol types
-- [ ] plugin/proxy/protocol/network capture types
-- [ ] Bedrock creator/script-profile/editor-extension types
-- [ ] visual gameplay graph/procedure types
-- [ ] schematic/blueprint types
-- [ ] asset family/registry-content types
-- [ ] collaboration/change-set types
-- [ ] remote target types
-- [ ] world snapshot delta types
-- [ ] hardware/JVM/render profile types
-- [ ] localization/accessibility types
-- [ ] permission/policy findings
-- [ ] learned observation/rule/evidence/contradiction/promotion types
-
-## 3.8 Migration
-
-- [ ] Migrate existing Enderloom data safely into canonical identities.
-- [ ] Preserve existing user data and external profile references.
-- [ ] Provide migration versioning and rollback/recovery.
-- [ ] Add tests proving no duplicate truth is introduced.
-
-**PHASE A HARD EXIT GATE:** canonical graph + evidence + tasks + transaction + operation registry compile, persist, migrate and are exercised by real existing Enderloom data.
+**PHASE A EXIT:** graph + evidence + tasks + transactions + operation registry persist/migrate and operate on real existing Enderloom data.
 
 ---
 
-# 4. PHASE B — FIRST REAL VERTICAL ACCEPTANCE
+# 5. PHASE B — FIRST REAL CANONICAL VERTICAL
 
-Before expanding broad UI, prove the architecture with one real installed mod.
+- [ ] **PB-001** Select one real installed mod from a connected instance.
+- [ ] **PB-002** Resolve one canonical project/release/artifact/hash/provider object plus instance/dependency/config links.
+- [ ] **PB-003** Project the same canonical object into Mod Manager, Catalog, service/CLI, and Testing.
+- [ ] **PB-004** Attach real evidence; mutate one dependency/config/source state and prove only dependent evidence becomes stale.
+- [ ] **PB-005** Restart Enderloom and prove persistence with zero per-surface duplicate truth.
 
-- [ ] Select one real installed mod from an Enderloom-connected instance.
-- [ ] Resolve its exact canonical project/release/artifact/hash/provider identity.
-- [ ] Resolve instance/dependency/config links.
-- [ ] Create one canonical mod-detail/evidence object.
-- [ ] Consume that same object in **Mod Manager**.
-- [ ] Consume it in **Catalog/research**.
-- [ ] Consume it through **service/CLI**.
-- [ ] Consume it in **Testing**.
-- [ ] Attach at least one real evidence artifact.
-- [ ] Change a dependency/config/source state and prove only appropriate evidence becomes stale.
-- [ ] Prove no duplicate per-surface copy of the mod exists.
-- [ ] Restart Enderloom and prove persistence.
-
-**PHASE B EXIT:** one real mod flows through Mod Manager + Catalog + CLI/service + Testing using one truth.
+**PHASE B EXIT:** one real mod traverses all primary surfaces through one canonical object.
 
 ---
 
-# 5. PHASE C — UNIVERSAL CLI / SERVICE / MCP / PROGRESS SPINE
+# 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS
 
-## 5.1 CLI foundation
+## 6.1 CLI/service parity
 
-Preserve existing:
+- [ ] **PC-001** Preserve legacy `-l/--launch` and `-L/--list` behavior.
+- [ ] **PC-002** Normal GUI bootstrap plus no-visible-GUI subcommand mode.
+- [ ] **PC-003** machine options: JSON/JSONL, quiet/verbose/no-color, non-interactive/yes, timeout, trace ID, output, plan/dry-run, stable exit codes, stdout/stderr discipline, schema/version discovery, shell completions.
+- [ ] **PC-004** `enderloom capabilities --json` generated from the operation registry.
+- [ ] **PC-005** service protocol uses versioned envelopes, task IDs, progress, cancellation/resume, and preservation-aware errors.
+- [ ] **PC-006** CI fails meaningful GUI/service operations lacking CLI mapping or an approved visual-only exception.
 
-- [ ] `-l/--launch <INSTANCE>`
-- [ ] `-L/--list`
+CLI parity covers the canonical operations for app/settings/Java/accounts/skins/instances/organization/loaders/content/packs/worlds/snapshots/repair/migration/launch/process/logs/servers/tasks/storage/diagnostics/catalog/config/Hotkeys/Wiki/Studio/Testing/profilers/NBT/pregen/ports/conversions/AI/security/Evidence Brain.
 
-Add/verify:
+## 6.2 Minecraft control plane
 
-- [ ] `enderloom` GUI bootstrap
-- [ ] `enderloom gui`
-- [ ] no-visible-GUI subcommand mode
-- [ ] `--json`
-- [ ] `--jsonl`
-- [ ] `--quiet`
-- [ ] `--verbose`
-- [ ] `--no-color`
-- [ ] `--non-interactive`
-- [ ] `--yes`
-- [ ] `--timeout`
-- [ ] `--trace-id`
-- [ ] `--output`
-- [ ] `--dry-run/--plan`
-- [ ] stable exit-code families
-- [ ] stdout/stderr discipline
-- [ ] schema/version discovery
-- [ ] `enderloom capabilities --json`
-- [ ] PowerShell/Bash/Zsh/Fish completions
+- [ ] **PC-010** install/launch/attach/wait/status/clean-exit/identity-checked-kill.
+- [ ] **PC-011** command/chat, GUI dump-click-assert, input/look/move/interact when supported by the active runtime/Probe.
+- [ ] **PC-012** screenshot/capture/telemetry and GameTest list/run/filter.
 
-## 5.2 Domain CLI parity
+## 6.3 MCP
 
-CLI coverage must include meaningful operations for:
+- [ ] **PC-020** Enderloom MCP server exposes the same operation registry without bypassing approvals/transactions.
+- [ ] **PC-021** typed schemas are discoverable; long jobs return durable task identity; outputs link canonical artifacts/evidence.
 
-- [ ] app/info/doctor/paths/network
-- [ ] settings
-- [ ] Java
-- [ ] auth/accounts
-- [ ] skins/capes
-- [ ] instances
-- [ ] groups/tags/favorites
-- [ ] versions/loaders
-- [ ] mods/resource packs/shaders/datapacks
-- [ ] pack interchange
-- [ ] worlds
-- [ ] snapshots/backups/repair
-- [ ] migrations/reconciliation
-- [ ] launch/process/logs/captures
-- [ ] servers
-- [ ] tasks/cancellation/resume
-- [ ] storage/diagnostics
-- [ ] catalog/search/import/export/install bridge
-- [ ] config
-- [ ] Hotkeys
-- [ ] Wiki/knowledge
-- [ ] Studio/build/test operations
-- [ ] Testing/Performance Lab
-- [ ] profiler/diagnostic adapters
-- [ ] world/NBT/pregen
-- [ ] ports/conversions
-- [ ] AI jobs
-- [ ] security/provenance
-- [ ] Evidence Brain operations where user-safe
+## 6.4 Shared progress engine
 
-## 5.3 Minecraft control-plane CLI
+Each progress event includes job/task/parent/stage/state/completed-total/weight/action summary/machine code/evidence/timestamps/blocker/attempt/denominator-change and real historical ETA source when available.
 
-Provide shared runtime operations for at least:
+UX requirements:
 
-- [ ] install
-- [ ] launch
-- [ ] attach
-- [ ] wait
-- [ ] status
-- [ ] command
-- [ ] chat
-- [ ] GUI dump/click/assert where supported by Probe/runtime
-- [ ] key/mouse/input control
-- [ ] look/camera control
-- [ ] movement/routes
-- [ ] interaction
-- [ ] screenshot/capture
-- [ ] telemetry
-- [ ] clean exit
-- [ ] identity-checked kill
-- [ ] GameTest list/run/filter
+- [ ] **PC-030** Simple/Detailed/Expert density modes over the same event stream.
+- [ ] **PC-031** current action + reason, live stage timeline, findings rail, before/after cards and truthful mini diagnostic graphs/previews.
+- [ ] **PC-032** pause/cancel/details/background ownership where supported.
+- [ ] **PC-033** “Why this tool/stage/relaunch/percentage?” uses real task/evidence state.
+- [ ] **PC-034** no time-fill progress and no 100% until required quality gates pass.
 
-## 5.4 Service protocol
-
-- [ ] GUI and CLI use the same typed operations.
-- [ ] versioned request/response envelopes
-- [ ] task IDs for long operations
-- [ ] progress stream
-- [ ] cancellation
-- [ ] resumable operation status
-- [ ] errors include preservation/rollback state and next action
-
-## 5.5 MCP
-
-- [ ] Enderloom exposes an MCP server over the canonical operation registry.
-- [ ] MCP cannot bypass approvals/permissions/transactions.
-- [ ] Stable typed schemas are discoverable.
-- [ ] Long jobs return task identity rather than blocking opaque calls.
-- [ ] MCP results link canonical artifacts/evidence.
-
-## 5.6 Progress engine
-
-One shared hierarchical progress system supports all long jobs.
-
-Each event should include:
-
-- [ ] job/task/parent IDs
-- [ ] stage
-- [ ] state
-- [ ] completed/total known work
-- [ ] weight
-- [ ] human-readable exact action
-- [ ] machine code
-- [ ] evidence links
-- [ ] timestamps/durations
-- [ ] blocker
-- [ ] retry/attempt
-- [ ] denominator changes and explanation
-- [ ] historical ETA source where real
-
-UX:
-
-- [ ] Simple / Detailed / Expert density modes
-- [ ] exact current action + why
-- [ ] live stage timeline
-- [ ] findings rail
-- [ ] before/after cards
-- [ ] mini sparklines/diagnostic previews where truthful
-- [ ] pause/cancel/open-details where supported
-- [ ] background task ownership
-- [ ] “Why this tool/stage/relaunch/percentage?” explanation
-- [ ] no fake 92->99 time-fill progress
-- [ ] no 100% until mandatory quality gates pass
-
-**PHASE C EXIT:** one operation is callable through GUI + service + CLI + MCP and emits the same durable progress/evidence stream.
+**PHASE C EXIT:** at least one real operation works through GUI + service + CLI + MCP while emitting one durable progress/evidence stream.
 
 ---
 
-# 6. PHASE D — CORE PRODUCT HARDENING / QOL
+# 7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA
 
-Preserve existing core and finish remaining polish/parity gaps.
+## 7.1 Core QOL/performance
 
-## 6.1 Launcher / manager
+- [ ] **PD-001** fast startup/progressive paint, large-pack scalability, parallel provider work, single-flight duplicate work, delta/fingerprint-based refresh instead of hidden rescans.
+- [ ] **PD-002** polished skin/cape presentation, richer world presentation, useful group-wide content operations, keyboard/context/bulk workflows.
+- [ ] **PD-003** Testing+Browser and Testing+Mod Manager split/drill-down flows.
+- [ ] **PD-004** add/remove/update/enable/disable/config actions expose dependency/dependent/config/world-risk/evidence-staleness/snapshot/reclaim impact with Why explanation.
+- [ ] **PD-005** self-update remains manual until a signed verified updater satisfies Phase O security gates.
 
-- [ ] fast startup/progressive paint
-- [ ] large-pack scalability
-- [ ] parallel provider work
-- [ ] single-flight duplicate work
-- [ ] no repeated rescans when fingerprints/deltas suffice
-- [ ] polished 3D skin/cape preview
-- [ ] full process CLI parity
-- [ ] richer world rename/icon presentation
-- [ ] group-wide content QOL where useful
+## 7.2 Premium Steam-like autoplay trailers for mods
 
-## 6.2 Research/browser
+**Premium scope boundary:** manually opening/playing a legitimate provider trailer may remain a normal media action. The **automatic Steam-like trailer preview experience is Premium**.
 
-- [ ] broad provider identity remains exact
-- [ ] real persistent Chromium tabs
-- [ ] login-sensitive sites use user session legitimately
-- [ ] translation remains safe/allow-listed
-- [ ] Testing+Browser split workflows
-- [ ] Testing+Mod Manager culprit drill-down
+- [ ] **PD-010 Media identity:** trailer/video assets carry exact project/provider/source provenance and never borrow unrelated creator/sibling/promotional video.
+- [ ] **PD-011 Supported sources:** use real project-author/provider/user-supplied trailers or videos that Enderloom is legitimately allowed to display/stream; no synthetic replacement trailer when none exists.
+- [ ] **PD-012 Catalog autoplay:** Premium users can enable Steam-like muted trailer preview on stable hover/focus/dwell over a mod card; only one card autoplay session is active at once.
+- [ ] **PD-013 Detail autoplay:** Premium mod-detail pages can automatically transition the hero media area from poster/gallery to the highest-priority legitimate trailer according to user preference.
+- [ ] **PD-014 Playback lifecycle:** pause/stop when card leaves viewport, focus moves away, tab/app backgrounds, user scrolls away, or another trailer takes ownership.
+- [ ] **PD-015 Audio:** autoplay starts muted; audio requires explicit user action. Remember mute/volume preference only when appropriate and never surprise-play audio.
+- [ ] **PD-016 User controls:** global Premium autoplay toggle plus per-context preference (Catalog hover, detail hero) and reduced-data/network-sensitive behavior.
+- [ ] **PD-017 Accessibility:** honor reduced-motion/autoplay preference, keyboard focus behavior, screen-reader semantics, captions/subtitles when the source exposes them, and a visible play/pause control.
+- [ ] **PD-018 Bandwidth/performance:** preload poster/metadata first; defer video bytes until likely playback; bound concurrent buffering; cancel abandoned requests; do not make large catalogs download dozens of videos simultaneously.
+- [ ] **PD-019 Caching/rights:** cache/stream only as provider terms and source permissions allow; otherwise use legitimate embedded/remote playback without exporting cookies or bypassing access controls.
+- [ ] **PD-020 Fallback:** if no valid trailer exists, remain on real screenshots/gallery art. Never generate a fake trailer, mislabeled slideshow, or unrelated video.
+- [ ] **PD-021 Testing:** verify hover/focus ownership, pause/resume, muted autoplay, network cancellation, reduced-motion/data modes, provider login state, card virtualization, and no playback leak after navigation.
 
-## 6.3 Content impact intelligence
-
-For add/remove/update/enable/disable/config-change operations show:
-
-- [ ] dependencies affected
-- [ ] dependents
-- [ ] config impact
-- [ ] world/save risk
-- [ ] performance evidence invalidation
-- [ ] snapshots recommended
-- [ ] reclaimable storage
-- [ ] explanation/Why
-
-## 6.4 Update/distribution
-
-- [ ] signed/verified self-update path before one-click update claim
-- [ ] safe manual install fallback
-- [ ] no corruption of user data/external launcher libraries
-- [ ] staged/canary update lane later integrates security evidence
+**PHASE D EXIT:** existing product stays responsive/preserved and Premium trailer autoplay behaves like a polished media system rather than embedded-video spam.
 
 ---
 
-# 7. PHASE E — PREMIUM TESTING / PERFORMANCE CONTROL PLANE
+# 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE
 
-Primary question:
+## 8.1 User flows
 
-> **What is slowing this pack down, why, and can Enderloom prove the repair improved it without regression?**
+- [ ] **PE-001** Quick Scan, Test One Mod, Test All Mods, Startup, Client FPS, Server TPS, Lag Spike, Memory, Compare Runs, Regression, Interaction testing, Performance Patch Acceptance.
 
-## 7.1 Core flows
+## 8.2 Static Quick Scan
 
-- [ ] Quick Scan
-- [ ] Test One Mod
-- [ ] Test All Mods
-- [ ] Startup Test
-- [ ] Client FPS Test
-- [ ] Server TPS Test
-- [ ] Lag Spike Hunt
-- [ ] Memory Test
-- [ ] Compare Runs
-- [ ] Regression Test
-- [ ] interaction/combination testing
-- [ ] performance patch acceptance workflow
+Inspect loader metadata/environment, dependency structure, embedded libraries, JAR/class/resource footprint, Mixins/injection targets, AT/AW/coremods/transformers, event/tick/render/network/worldgen hooks, synchronous I/O risk, reflection/classpath scans, scheduled tasks, reload listeners, entity/block-entity tick registration, shader/postprocessing hooks, data/registry footprint, and source ownership clues.
 
-## 7.2 Static Quick Scan
+- [ ] **PE-010** Static output is risk/suspicion/dependency evidence only.
 
-Inspect without launching Minecraft:
+## 8.3 Deterministic sandbox/fingerprint
 
-- [ ] loader metadata/environment
-- [ ] dependencies/optional dependencies
-- [ ] embedded libraries/Jar-in-Jar
-- [ ] JAR size/class count/resource footprint
-- [ ] Mixin configs/injection targets
-- [ ] AT/AW/coremods/transformers
-- [ ] event subscriber density
-- [ ] tick/render/network/worldgen references
-- [ ] broad world/entity scans
-- [ ] synchronous I/O risk
-- [ ] reflection/classpath scanning
-- [ ] timers/tasks
-- [ ] resource reload listeners
-- [ ] chunk/worldgen hooks
-- [ ] entity/block-entity ticking
-- [ ] shaders/post processing
-- [ ] data/registry/resource footprint
-- [ ] source ownership clues
+Fingerprint MC/loader/Java/JVM/mod hashes/config hashes/shader/resource-pack/render-simulation settings/benchmark world/scenario/CPU/GPU/OS/power/cache policy.
 
-Outputs only risk/suspicion/dependency findings — never invented runtime metrics.
+- [ ] **PE-020** tests isolate writable state and never destructively benchmark the live profile.
+- [ ] **PE-021** immutable assets are reused safely; baseline reuse requires compatible fingerprint; cancellation cleans only Enderloom-owned test state.
 
-## 7.3 Deterministic sandbox/fingerprint
+## 8.4 Scenario engine
 
-Fingerprint at minimum:
+- [ ] **PE-030** built-in Startup, Client Idle, Client Traversal, Worldgen Traversal, Server Idle, Server Stress, Soak, and applicable multiplayer/chaos scenarios.
+- [ ] **PE-031** versioned scenario DSL supports runtime mode, target, world snapshot, settings, warmup, waits/assertions, profiler boundaries, input/movement/interactions, measurement windows, metrics, timeouts, cancellation/cleanup; arbitrary shell is opt-in only.
 
-- [ ] Minecraft version
-- [ ] loader/version
-- [ ] Java/JVM args
-- [ ] enabled mod hashes
-- [ ] config hashes
-- [ ] shader/resource-pack state
-- [ ] render/simulation distances
-- [ ] benchmark world hash
-- [ ] scenario version
-- [ ] CPU/GPU/OS
-- [ ] power mode where observable
-- [ ] cache policy
+## 8.5 Runtime and metrics
 
-Rules:
+- [ ] **PE-040** runtime modes: rendered / virtual-display / headless / server / protocol-bot with TRUTH-005 enforcement.
+- [ ] **PE-041 Startup:** process/loader/title/world-ready/class-loading measurements.
+- [ ] **PE-042 Client:** FPS, median frame time, 1%/0.1% lows, p95/p99/worst, stutter, render-thread CPU, supported GPU/process metrics with confidence labeling.
+- [ ] **PE-043 Server:** TPS, median/p95/p99/max MSPT, slow ticks, server-thread attribution, entity/block-entity/scheduled-tick and chunk/worldgen cost.
+- [ ] **PE-044 Memory/system:** heap trend, allocation, GC, class families, CPU, disk/network I/O, thread/lock contention, JVM/JIT state.
 
-- [ ] never benchmark mutable live profile directly
-- [ ] reuse immutable assets safely
-- [ ] isolate writable config/world/log/profile outputs
-- [ ] cancellation cleans only owned state
-- [ ] baseline reuse requires compatible fingerprint
+## 8.6 A/B, whole-pack isolation, confidence
 
-## 7.4 Scenario engine
+- [ ] **PE-050** single-mod paired same-scenario comparison honors dependency closure and repeats noisy measurements.
+- [ ] **PE-051** whole-pack analysis uses static risk + dependency clusters + hierarchical/binary cohort isolation + direct candidate confirmation + interaction tests; `--exhaustive` is genuinely exhaustive.
+- [ ] **PE-052** noise engine accounts for warmup, order, spread/noise floor, thermal/background load, power mode, shader compile, worldgen/JIT/GC/cache/entity drift and reports low confidence instead of false culprit certainty.
 
-Built-in scenario families:
+## 8.7 Results surface
 
-- [ ] Startup
-- [ ] Client idle
-- [ ] Client traversal
-- [ ] Worldgen traversal
-- [ ] Server idle
-- [ ] Server stress
-- [ ] Soak
-- [ ] multiplayer/chaos scenarios where appropriate
+- [ ] **PE-060** per-mod performance projection: latest tested hash/environment, A/B cards, timeline/call tree, normalized profiler evidence, config/dependency/interaction context, history/raw evidence and real actions for retest/without/fresh-config/version/deep-profile/Why/AI.
+- [ ] **PE-061** whole-pack dashboard: startup/tick/render/allocation offenders, risky untested mods, interactions, regressions, changed/untested state, queue/history and before/after scorecard.
 
-Scenario DSL supports:
-
-- [ ] runtime mode
-- [ ] target instance/server
-- [ ] world snapshot
-- [ ] settings
-- [ ] warmup
-- [ ] waits/assertions
-- [ ] profiler boundaries
-- [ ] movement/input/interactions
-- [ ] measurement windows
-- [ ] metric assertions
-- [ ] timeouts
-- [ ] cancellation
-- [ ] cleanup
-- [ ] schema version/migration
-- [ ] no arbitrary shell by default
-
-## 7.5 Runtime truth modes
-
-- [ ] `rendered`
-- [ ] `virtual-display`
-- [ ] `headless`
-- [ ] `server`
-- [ ] `protocol-bot`
-
-Hard boundaries:
-
-- [ ] FPS/frame-time/GPU conclusions require actual rendered path.
-- [ ] headless/virtual display/protocol bot cannot be mislabeled physical rendered-client proof.
-- [ ] dedicated server evidence cannot prove client rendering.
-
-## 7.6 Metrics
-
-### Startup
-- [ ] process/loader/title/world ready deltas
-- [ ] class loading
-
-### Client
-- [ ] average FPS
-- [ ] median frame time
-- [ ] 1% low / 0.1% low
-- [ ] p95/p99/worst frame time
-- [ ] stutter counts
-- [ ] render-thread CPU
-- [ ] supported GPU/process metrics labeled correctly
-
-### Server
-- [ ] TPS
-- [ ] median/p95/p99/max MSPT
-- [ ] slow ticks
-- [ ] server-thread CPU attribution
-- [ ] entity/block-entity/scheduled-tick hotspots
-- [ ] chunk/worldgen contribution
-
-### Memory
-- [ ] heap after warmup
-- [ ] retained trend
-- [ ] allocation rate
-- [ ] GC count/pause
-- [ ] top classes/allocation families
-
-### System
-- [ ] CPU
-- [ ] disk I/O
-- [ ] network I/O
-- [ ] thread/lock contention
-- [ ] JVM/JIT state
-
-## 7.7 A/B and Test-All algorithm
-
-Single-mod:
-
-- [ ] compatible baseline
-- [ ] dependency closure
-- [ ] with candidate
-- [ ] safe comparison variant
-- [ ] paired same scenario
-- [ ] repeat if noisy
-- [ ] normalized delta/confidence
-- [ ] raw evidence retained
-
-Whole pack:
-
-- [ ] static risk
-- [ ] dependency clusters
-- [ ] current-pack baseline
-- [ ] hierarchical/binary cohort isolation
-- [ ] direct candidate confirmation
-- [ ] interaction tests where required
-- [ ] `--exhaustive` truly exhaustive when requested
-
-## 7.8 Noise/confidence
-
-- [ ] warmup
-- [ ] paired fingerprints
-- [ ] alternate A/B order where useful
-- [ ] repeat noisy tests
-- [ ] median/spread
-- [ ] thermal/background load flags
-- [ ] power/shader/worldgen/JIT/GC/cache/entity drift flags
-- [ ] noise floor
-- [ ] low-confidence verdict instead of overclaiming
-
-## 7.9 Per-mod Performance page / dashboard
-
-- [ ] latest tested hash/version
-- [ ] summary/confidence/environment
-- [ ] A/B cards
-- [ ] timeline overlay
-- [ ] call/flame tree
-- [ ] JFR
-- [ ] spark
-- [ ] Observable
-- [ ] native telemetry
-- [ ] configs/diffs
-- [ ] dependency/interaction graph
-- [ ] history/trends
-- [ ] raw evidence
-- [ ] Test Again / Test Without / Fresh Config / Compare Version / Deep Profile / Why / Analyze with AI
-
-Whole-pack:
-
-- [ ] startup offenders
-- [ ] tick offenders
-- [ ] render offenders
-- [ ] allocation offenders
-- [ ] static-risk untested
-- [ ] interactions
-- [ ] regressions
-- [ ] changed/untested
-- [ ] queue/history
-- [ ] Before vs After
-
-**PHASE E EXIT:** deliberate startup, server-tick, rendered-frame and allocation regressions are detected correctly; unchanged/noisy cases are not falsely blamed.
+**PHASE E EXIT:** deliberate startup/tick/render/allocation regressions are correctly detected and unchanged/noisy cases are not falsely blamed.
 
 ---
 
-# 8. PHASE F — DIAGNOSTICS ADAPTER REGISTRY + BLACK BOX
+# 9. PHASE F — DIAGNOSTICS, BLACK BOX, REPAIR, BISECT
 
-## 8.1 Adapter registry
+## 9.1 Diagnostics adapter registry
 
-Each adapter declares:
+Each adapter records exact upstream identity/version, supported MC/loaders/platform/runtime side, requirements, commands/APIs/files/URLs, evidence types, instrumentation overhead, behavior-changing risk, permissions/network/upload behavior, parser version, limitations, license/provenance/trust.
 
-- [ ] ID/version/upstream identity
-- [ ] MC/loader/platform compatibility
-- [ ] client/server/proxy applicability
-- [ ] install/runtime requirements
-- [ ] commands/APIs/files/URLs
-- [ ] evidence types
-- [ ] instrumentation overhead
-- [ ] whether it changes runtime behavior
-- [ ] permissions/network/upload behavior
-- [ ] local/external viewer
-- [ ] parser version
-- [ ] limitations
-- [ ] license/provenance/trust
+- [ ] **PF-001 Core adapters:** Enderloom Probe/Black Box, spark, Observable, Crash Assistant import, JFR, jcmd thread/heap/histogram, async-profiler where supported, OS/process counters.
+- [ ] **PF-002 Specialized adapters:** TaskManager-style client profiling, Chunk Loading Profiler/stage profilers, MixinTrace, ModernFix diagnostics/watchdog, Neruina recovery-isolation, GC logs, JMC/VisualVM/MAT-compatible analysis, YourKit when legitimately available, Bukkit/Spigot/Paper/Purpur timings/watchdog, proxy/loader/launcher/native fatal-report imports.
+- [ ] **PF-003 Measurement/attribution law:** low-instrumentation authoritative measurement first; targeted profiler attribution second; record overhead and challenge suspicious profiler-induced regressions.
+- [ ] **PF-004 Analyzer selection:** evidence-driven recipes choose the minimum useful tool sequence for FPS, TPS, freeze, crash/Mixin, ticking crash, memory, startup, and chunk/worldgen/teleport stall.
 
-## 8.2 First-class adapter coverage
+## 9.2 Black Box
 
-Tier A/core:
+- [ ] **PF-010** bounded rolling incident timeline can capture relevant logs, performance/lifecycle/thread/JFR/render/network/world/chunk/teleport/save/user-action/config/version events.
+- [ ] **PF-011** manual/crash/freeze/severe-spike/scenario-failure triggers; healthy-vs-broken comparison; direct incident->evidence->owner/source->repair links.
 
-- [ ] Enderloom Probe / Black Box
-- [ ] spark
-- [ ] Observable
-- [ ] Crash Assistant import/analysis
-- [ ] JFR
-- [ ] `jcmd` thread/heap/class histogram
-- [ ] async-profiler where supported
-- [ ] OS/process counters
+## 9.3 Repair specialties
 
-High-value specialized:
+- [ ] **PF-020 Crash/JAR incident:** normalize raw crash/hs_err/Mixin evidence, distinguish environment/native cause, identify owner, build minimal repro, patch, and create regression scenario.
+- [ ] **PF-021 Freeze/lock:** repeated thread dumps/JFR lock graph/thread classes/chunk-I/O-ticket-task/save/entity-pathfinding/teleport/network/GC-vs-stall evidence; foreground orchestrator timeout is not a hang verdict.
+- [ ] **PF-022 Memory:** baseline/trend/histogram/allocation stack/JFR/targeted heap dominator/restart comparison with owner attribution.
+- [ ] **PF-023 Concurrency:** prove thread ownership, race safety, mutation correctness, stress/repetition and before/after behavioral parity for async optimization.
+- [ ] **PF-024 Bisect:** dependency-aware cohort reduction preserves required providers/libraries, reproduces the exact issue, emits minimal candidate set and portable reproducer manifest/sandbox.
 
-- [ ] TaskManager-style client profiler import/adapter
-- [ ] Chunk Loading Profiler/stage profiler
-- [ ] MixinTrace
-- [ ] ModernFix diagnostics/watchdog evidence
-- [ ] Neruina recovery/testing isolation
-- [ ] GC logs
-- [ ] JMC/VisualVM/MAT-compatible external analysis paths
-- [ ] YourKit import/view integration when legitimately available
-- [ ] Bukkit/Spigot/Paper/Purpur timings/watchdog/log import
-- [ ] proxy/loader/launcher/native JVM fatal-report import
-
-## 8.3 Measurement vs attribution — mandatory
-
-- [ ] authoritative low-instrumentation **measurement pass** first
-- [ ] targeted **attribution pass** second
-- [ ] never run every profiler simultaneously and call it the benchmark
-- [ ] record profiler overhead class
-- [ ] rerun representative low-overhead comparison when profiler overhead could explain the regression
-
-## 8.4 Analyzer selection brain
-
-Implement evidence-driven recipes for:
-
-- [ ] TPS/MSPT
-- [ ] FPS/frame time
-- [ ] freeze/lock
-- [ ] crash/Mixin
-- [ ] ticking entity/block crash
-- [ ] memory leak/allocation
-- [ ] startup
-- [ ] chunk/worldgen/teleport stall
-
-## 8.5 Black Box
-
-Bounded rolling incident recorder can capture applicable:
-
-- [ ] client/server logs
-- [ ] perf counters
-- [ ] lifecycle markers
-- [ ] thread snapshots/JFR markers
-- [ ] render/frame observations
-- [ ] network events
-- [ ] world/chunk/teleport/save events
-- [ ] user/actions/config/version changes
-
-Triggers:
-
-- [ ] manual
-- [ ] crash
-- [ ] detected freeze/stall
-- [ ] severe frame/tick spike
-- [ ] test scenario failure
-
-It must support healthy-vs-broken comparison and direct incident -> evidence -> owner/source -> repair workflow.
+**PHASE F EXIT:** at least one real incident traverses capture -> normalized evidence -> owner -> repair -> regression proof.
 
 ---
 
-# 9. PHASE G — REPAIR / FREEZE / MEMORY / CONCURRENCY / BISECT
+# 10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI
 
-## 9.1 Crash repair
+## 10.1 Config intelligence
 
-- [ ] raw logs/crash reports/hs_err
-- [ ] Crash Assistant normalized findings
-- [ ] MixinTrace when available
-- [ ] owning mod/source/config/Mixin attribution
-- [ ] environment/native driver distinction
-- [ ] minimal reproducer
-- [ ] patch candidate
-- [ ] regression scenario
-- [ ] real runtime proof
-
-## 9.2 Freeze/deadlock/lockup
-
-- [ ] repeated JVM thread dumps
-- [ ] JFR lock/park evidence
-- [ ] lock graph
-- [ ] thread classification
-- [ ] chunk I/O/ticket/task backlog
-- [ ] save stall
-- [ ] entity ticking/pathfinding
-- [ ] teleport/dimension timeline
-- [ ] network wait
-- [ ] GC-vs-stall distinction
-- [ ] owner mod/plugin/class/Mixin
-- [ ] healthy-vs-locked compare
-
-A foreground command timeout is not proof Minecraft hung.
-
-## 9.3 Memory
-
-- [ ] baseline
-- [ ] heap trend
-- [ ] class histogram
-- [ ] allocation stack/JFR
-- [ ] heap dump/dominator only when needed
-- [ ] restart/persistence comparison
-- [ ] owning mod/source attribution
-
-## 9.4 Concurrency correctness
-
-For async/off-thread optimization:
-
-- [ ] identify thread ownership contract
-- [ ] prove mutable game/render/world state safety
-- [ ] detect unsafe collection access/races
-- [ ] stress/repetition test
-- [ ] deterministic failure capture
-- [ ] compare behavior/content/state before/after
-
-## 9.5 Automated bisection/minimal reproducer
-
-- [ ] dependency-aware mod graph
-- [ ] cohort/binary reduction
-- [ ] preserve required libraries/providers
-- [ ] reproduce exact failure automatically
-- [ ] output minimal candidate set
-- [ ] create portable reproducer manifest/sandbox
-- [ ] feed result back to repair/testing/AI
-
----
-
-# 10. PHASE H — CONFIG INTELLIGENCE + HOTKEYS + DATA DEBUGGER + PROGRESSION
-
-## 10.1 Config Intelligence
-
-- [ ] discover config ownership
-- [ ] parse canonical values + comments/order where format allows
-- [ ] detect renamed keys
-- [ ] type/range/enum changes
-- [ ] three-way semantic migration
-- [ ] profiles/overlays
-- [ ] per-instance/global inheritance where safe
-- [ ] orphan handling
-- [ ] config diff/history
-- [ ] rollback
-- [ ] config A/B performance testing
-- [ ] evidence invalidation only for dependent tests
-- [ ] AI repair suggestions grounded in schema/source/evidence
+- [ ] **PG-001** discover ownership; parse canonical values and comments/order where supported; detect renamed/type/range/enum changes.
+- [ ] **PG-002** three-way semantic migration, profiles/overlays/inheritance, orphan handling, diff/history, rollback.
+- [ ] **PG-003** config A/B performance evidence and dependency-aware evidence invalidation; AI suggestions must cite schema/source/evidence.
 
 ## 10.2 Dedicated Hotkeys tab
 
-- [ ] inventory vanilla/mod/custom bindings where discoverable
-- [ ] owner/default/current binding
-- [ ] contextual conflict detection
-- [ ] fast rebind
-- [ ] conflict fix suggestions
-- [ ] profiles
-- [ ] import/export
-- [ ] migration across mod/version changes
-- [ ] first-launch QA
-- [ ] CLI parity
-- [ ] links from mod detail/Wiki
+- [ ] **PG-010** inventory vanilla/mod/custom bindings with owner/default/current values where discoverable.
+- [ ] **PG-011** contextual conflicts, rapid rebind/fix, profiles/import/export/migration, first-launch QA, CLI parity, mod-detail/Wiki backlinks.
 
-## 10.3 Minecraft Data / Function Debugger
+## 10.3 Data/Function debugger
 
-- [ ] `.mcfunction` call graph
-- [ ] timing
-- [ ] coverage
-- [ ] scoreboard watches
-- [ ] storage/NBT watches
-- [ ] state diffs
-- [ ] controlled tracepoints
-- [ ] command-block network inspection
-- [ ] predicate tracing
-- [ ] recipe tracing
-- [ ] loot tracing
-- [ ] advancement tracing
-- [ ] KubeJS/CraftTweaker/script bridges
-- [ ] regression scenario generation
+- [ ] **PG-020** `.mcfunction` call graph/timing/coverage, scoreboard/storage/NBT watches/state diffs/controlled tracepoints.
+- [ ] **PG-021** command-block, predicate, recipe, loot, advancement and script bridge tracing with regression-scenario generation.
 
-## 10.4 Progression / softlock intelligence
+## 10.4 Progression/softlock intelligence
 
-Graph at least:
+- [ ] **PG-030** graph recipes/loot/trades/dimensions/quests/scripts/config/worldgen/required content.
+- [ ] **PG-031** detect unreachable/circular/missing-provider/impossible-objective/update-broken/worldgen-prerequisite issues and generate regression scenarios.
 
-- [ ] recipes
-- [ ] loot
-- [ ] trades
-- [ ] dimensions/portals
-- [ ] quests
-- [ ] scripts
-- [ ] configs
-- [ ] worldgen
-- [ ] required items/blocks/entities
+## 10.5 Premium Wiki / knowledge
 
-Detect:
-
-- [ ] unreachable content
-- [ ] circular gates
-- [ ] missing provider/dependency
-- [ ] impossible quest objectives
-- [ ] progression broken by update/config
-- [ ] world-seed/worldgen prerequisite issues
-
-Generate regression scenarios from discovered gates.
+- [ ] **PG-040** searchable offline-capable versioned knowledge for mods/items/blocks/entities/recipes/controls/configs/progression/models/runtime captures/performance/crash/compatibility/worldgen/migrations/security/provenance.
+- [ ] **PG-041** “Why is this installed?” exposes dependency/progression/pack-author reasoning path.
+- [ ] **PG-042** history/changelog/provider/source links and optional Patchouli export; generated knowledge remains traceable to canonical evidence.
 
 ---
 
-# 11. PHASE I — PREMIUM WIKI / KNOWLEDGE / “WHY INSTALLED?”
+# 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING
 
-- [ ] searchable/offline-capable project/modpack Wiki
-- [ ] versioned pages
-- [ ] source/provider links
-- [ ] mod/item/block/entity/recipe pages
-- [ ] controls/hotkeys
-- [ ] configs
-- [ ] progression
-- [ ] models/animations/runtime captures
-- [ ] performance evidence summaries
-- [ ] crash/repair known issues
-- [ ] compatibility state
-- [ ] worldgen/dimensions/structures
-- [ ] migration notes
-- [ ] provenance/license/security
-- [ ] “Why is this installed?” dependency/progression/pack-author reasoning path
-- [ ] history/changelog links
-- [ ] Patchouli export/integration where semantically useful, not mandatory dependency
-- [ ] generated knowledge remains traceable to canonical evidence/source
+## 11.1 Studio shell
 
----
+- [ ] **PH-001** one top-level Studio with Project/Content Browser, Outliner, Inspector, contextual viewport/editor, timeline/dope sheet/curves, node/procedure graph, code/data editors, console, Problems, Task/Build/Test, source-control/diff, Chromium docs/browser and Evidence panes.
+- [ ] **PH-002** command palette, contextual actions, graph backlinks, Copy as CLI, undo/redo, saved layouts, progressive disclosure.
 
-# 12. PHASE J — UNIFIED STUDIO
+## 11.2 Project contexts
 
-One top-level **Studio**, never endless top-level creation tabs.
+- [ ] **PH-010** Java mods; Bukkit/Paper/Velocity plugins; Bedrock behavior/resource/script packs; modpacks; datapacks/resource packs/shaders; server/plugin packs; Blockbench/model projects; worldgen/data; quests/docs; ports/conversions; authorized server and reference reconstruction.
+- [ ] **PH-011** generated source/assets remain editable with source lineage and no silent regeneration overwrite.
 
-## 12.1 Shell/panes
+## 11.3 IDE / mapping / bytecode / legacy
 
-- [ ] Project/Content Browser
-- [ ] Outliner/Hierarchy
-- [ ] Inspector/Details
-- [ ] Viewport/contextual editor
-- [ ] Timeline/dope sheet/curves
-- [ ] Node/Procedure graph
-- [ ] code editor
-- [ ] data editors
-- [ ] console
-- [ ] Problems
-- [ ] Task/Build/Test
-- [ ] source control/diff
-- [ ] Chromium browser/docs
-- [ ] Evidence pane
-- [ ] command palette
-- [ ] contextual right-click operations
-- [ ] graph navigation/backlinks
-- [ ] Copy as CLI
-- [ ] undo/redo
-- [ ] saved layouts
-- [ ] progressive disclosure
+- [ ] **PH-020** language intelligence, diagnostics, tasks, terminal, Git, source/dependency navigation and runtime evidence links.
+- [ ] **PH-021** Mojmap/Yarn/Intermediary/Parchment/SRG/MCP namespace work; Mixin/AT/AW/reflection/ASM/invokedynamic inspection; production remap/linkage proof.
+- [ ] **PH-022** legacy Minecraft/ForgeGradle/loader/mapping/resource/data/Bedrock-schema archaeology without deleting unsupported semantics just to compile.
 
-## 12.2 Project contexts
+## 11.4 Visual/data/world authoring
 
-Same workspace supports:
-
-- [ ] Java mods
-- [ ] Bukkit/Paper/Velocity plugins
-- [ ] Bedrock behavior/resource/script packs
-- [ ] modpacks
-- [ ] datapacks/resource packs/shaders
-- [ ] server/plugin packs
-- [ ] Blockbench/model projects
-- [ ] worldgen/data
-- [ ] quests/docs
-- [ ] ports/conversions
-- [ ] authorized server reconstruction
-- [ ] concept-art/reference reconstruction
-
-## 12.3 No generated-code prison
-
-- [ ] user can inspect/edit generated source/assets
-- [ ] changes remain round-trippable where supported
-- [ ] generation retains source lineage
-- [ ] regeneration does not silently overwrite user edits
+- [ ] **PH-030** visual gameplay/procedure and AI behavior graphs; command/data/worldgen generation at Misode/MCStacker-grade schema awareness.
+- [ ] **PH-031** schematic/blueprint/world-edit workflows inspired by Axiom/WorldEdit/Litematica capabilities where appropriate.
+- [ ] **PH-032** particle/audio/UI/HUD/font/material/PBR/Vibrant-Visuals-aware authoring.
+- [ ] **PH-033** runtime registry/recipe/content explorer with owner/source backlinks and museum/QA generation.
+- [ ] **PH-034** Java<->Bedrock resource-pack conversion and replay/capture/showcase based on actual runtime evidence.
 
 ---
 
-# 13. PHASE K — DEVELOPER IDE / MAPPINGS / BYTECODE / LEGACY
+# 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR
 
-## 13.1 IDE
+## 12.1 Native mod creation
 
-- [ ] language intelligence
-- [ ] diagnostics/problems
-- [ ] tasks/builds/tests
-- [ ] terminal
-- [ ] Git/source control
-- [ ] source navigation
-- [ ] dependency docs/source browsing
-- [ ] runtime logs/evidence links
+- [ ] **PI-001** scaffold/build complete target projects with registries, data generation, networking, configs, content, recipes/loot/tags, worldgen, UI, sounds/particles, models/animation, compatibility and scenario tests.
+- [ ] **PI-002** package/remap and prove strongest applicable dedicated-server/client/integrated-server/persistence behavior.
 
-## 13.2 Mapping/remap/Mixin/bytecode lab
+## 12.2 Version/loader porting
 
-Support applicable:
+- [ ] **PI-010** exact source lineage, target MC/loader/Java, API/mapping inventory, vanilla-feature dependency closure, complete mod-owned content inventory.
+- [ ] **PI-011** base native port first; registry/event/network/render/data/Mixin/AT/AW/config/save migration; no silent stubs/deletion.
+- [ ] **PI-012** optional future-vanilla parity layer is explicit/default-off until opted in and certified separately.
 
-- [ ] Mojmap
-- [ ] Yarn
-- [ ] Intermediary
-- [ ] Parchment
-- [ ] SRG
-- [ ] MCP
-- [ ] named/official/production namespace conversion
-- [ ] Mixin targets/injections
-- [ ] Access Transformers
-- [ ] Access Wideners
-- [ ] reflection
-- [ ] ASM/bytecode
-- [ ] invokedynamic/symbolic linkage
-- [ ] production remap/linkage proof
+## 12.3 Binary/JAR repair
 
-## 13.3 Legacy archaeology
-
-- [ ] older Java Minecraft versions
-- [ ] ForgeGradle generations
-- [ ] legacy loaders
-- [ ] old mapping systems
-- [ ] old resource/data formats
-- [ ] old Bedrock schemas
-- [ ] conversion plans preserve semantics instead of deleting unsupported identifiers
+- [ ] **PI-020** preserve original; inspect metadata/dependencies and decompile/remap when lawful; attribute source/Mixin/ASM/reflection issues.
+- [ ] **PI-021** narrow patch, rebuild/repackage/remap, production JVM linkage, binary provenance/diff, runtime proof, rollback and license-aware redistribution.
 
 ---
 
-# 14. PHASE L — FULL JAVA MOD DEVELOPMENT / PORT / JAR REPAIR
+# 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -> NATIVE MOD
 
-## 14.1 Native mod creation
+## 13.1 Lawful intake and ecosystem inventory
 
-Enderloom/AI should be capable of creating complete mods from requirements:
+- [ ] **PJ-001** accept user-supplied archives, legitimately delivered resource packs, screenshots/video/runtime observations, author-supplied models and plugin/custom-content configs without bypassing protected access.
+- [ ] **PJ-002** inventory plugin/extension descriptors without executing untrusted JARs; resolve families/aliases/dependencies/config/source/resource packs; triage unknown plugins explicitly.
 
-- [ ] project scaffold
-- [ ] registries
-- [ ] data generation
-- [ ] networking
-- [ ] configs
-- [ ] items/blocks/entities
-- [ ] recipes/loot/tags
-- [ ] worldgen
-- [ ] UI/menus
-- [ ] sounds/particles
-- [ ] models/textures/animation
-- [ ] compatibility contracts
-- [ ] GameTest/scenarios
-- [ ] build/remap/package
-- [ ] runtime proof
+## 13.2 Semantic recovery
 
-## 14.2 Java version/loader porting
+- [ ] **PJ-010 Visual layer:** geometry/hierarchy/pivots/UV/textures/emissives/variants/transforms/animations/particles/sounds/fonts/HUD.
+- [ ] **PJ-011 Model-runtime layer:** hitboxes/seats/held-item bones/locators/nameplate-leash anchors/controller states/per-player sync/root motion when proven.
+- [ ] **PJ-012 Gameplay layer:** AI/targeting/triggers/skills/projectiles/damage/effects/cooldowns/drops/recipes/items/armor/blocks/furniture/pets/inventories/GUIs/NPCs/dialogue/quests/content-critical economy/structures/spawns/worldgen/persistence/network sync.
 
-- [ ] exact source lineage/hash
-- [ ] target MC/loader/Java
-- [ ] API/mapping inventory
-- [ ] vanilla-feature dependency closure
-- [ ] mod-owned content inventory
-- [ ] source-native base port first
-- [ ] registry/event/network/render/data migration
-- [ ] Mixin/AT/AW translation
-- [ ] config/save/data migration
-- [ ] compatibility contracts
-- [ ] build/remap/production linkage
-- [ ] dedicated-server/client/integrated-server
-- [ ] persistence/old-world where applicable
-- [ ] no silent content deletion/stubbing
-- [ ] optional future-vanilla parity layer remains explicit/default-off until opted in
+## 13.3 Native target and acceptance
 
-## 14.3 Binary/JAR repair
+- [ ] **PJ-020** requested mod output is a real target-loader Java mod; resource pack/datapack/script wrappers cannot substitute for requested native semantics.
+- [ ] **PJ-021** semantic coverage/unknowns/rights/dependency closure plus deterministic visual, dedicated-server, native-client, multiplayer/integrated, persistence, gameplay-scenario and performance proof.
 
-- [ ] preserve original JAR
-- [ ] metadata/dependencies
-- [ ] decompile/remap for inspection when lawful
-- [ ] source-symbol/Mixin/ASM/reflection ownership
-- [ ] recover build assumptions
-- [ ] narrow safe patch
-- [ ] rebuild/repackage/remap
-- [ ] production JVM linkage
-- [ ] native runtime proof
-- [ ] binary diff/provenance
-- [ ] rollback
-- [ ] respect redistribution/license boundaries
+**PHASE J GOLDEN TARGET:** authorized Spellbrook-class source/capture -> server-independent native mod.
 
 ---
 
-# 15. PHASE M — AUTHORIZED SERVER / SPELLBROOK-CLASS -> NATIVE MOD
+# 14. PHASE K — BEDROCK -> JAVA + BEDROCK DEVELOPER CENTER
 
-A server conversion is **not** “put the resource pack in a JAR.”
+## 14.1 Complete Bedrock inventory
 
-## 15.1 Lawful acquisition/capture
+- [ ] **PK-001** account for manifest/modules/dependencies, behavior/resource packs, Script API JS/TS, Molang, entity components/groups/events/properties/goals/spawn rules, geometry, animations/controllers/render controllers/attachables, items, blocks/permutations, recipes, loot/trades, particles, sounds, textures/atlases/texture sets, UI/fonts/localization, structures, features/rules, biomes/worldgen/dimensions, commands/functions, experiments/min-engine-version, subpacks; unknown-file target = 0.
 
-Support controlled intake of:
+## 14.2 Semantic conversion
 
-- [ ] user-supplied archives/folders
-- [ ] legitimately client-delivered server resource packs
-- [ ] screenshots/video/reference captures
-- [ ] runtime logs/observable states
-- [ ] author-supplied `.bbmodel` / `.ajmodel`
-- [ ] ModelEngine/BetterModel/FreeMinecraftModels assets
-- [ ] MythicMobs/MythicCrucible configs
-- [ ] ItemsAdder/Oraxen/Nexo/Nova/custom-content configs
-- [ ] MMOItems/MMOCore/etc.
-- [ ] quest/NPC/dialogue systems
-- [ ] pet/vehicle/furniture/weapon/HUD/script/world content
+- [ ] **PK-010** map Bedrock components/state/events/Molang/animation/render/item/block/loot/recipe/trade/script/worldgen/UI semantics into versioned IR then target-native Java logic; every unmapped semantic is explicit.
+- [ ] **PK-011** target Forge/NeoForge/Fabric/Quilt where applicable, including optional multiloader workspaces.
+- [ ] **PK-012** when source can run, paired source-target scenarios compare gameplay/state/visual/audio/persistence/multiplayer semantics.
 
-Never bypass protected server/pack/plugin access.
+## 14.3 Bedrock Developer Center
 
-## 15.2 Server ecosystem inventory
+- [ ] **PK-020** project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence normalization.
 
-- [ ] plugin/extension descriptor inventory without executing untrusted JARs
-- [ ] alias/family registry matching
-- [ ] dependency graph
-- [ ] config/source inventory
-- [ ] resource-pack resolver
-- [ ] unknown plugin triage
-- [ ] every unknown remains explicit
-- [ ] semantic adapters promoted when generic family parsing is insufficient
-
-## 15.3 Recover three independent layers
-
-### Visual
-- [ ] geometry/hierarchy/pivots/UV/textures
-- [ ] emissive/animated textures
-- [ ] variants/skins
-- [ ] transforms
-- [ ] animation curves/easing/events
-- [ ] particles/sounds/fonts/HUD
-
-### Model runtime
-- [ ] hitboxes/multipart
-- [ ] seats/mount bones
-- [ ] held-item bones
-- [ ] locators
-- [ ] leash/nameplate anchors
-- [ ] model/controller states
-- [ ] synchronized per-player state
-- [ ] root motion only when proven
-
-### Gameplay
-- [ ] AI/goals/targeting
-- [ ] triggers/conditions
-- [ ] skills/attacks/projectiles
-- [ ] damage/effects/cooldowns
-- [ ] drops/loot/recipes
-- [ ] items/armor/cosmetics
-- [ ] blocks/furniture
-- [ ] pets/ownership/follow/stay
-- [ ] inventories/GUIs
-- [ ] NPC/dialogue/quests
-- [ ] shops/economy where content-critical
-- [ ] structures/spawns/worldgen
-- [ ] persistence
-- [ ] multiplayer synchronization
-
-## 15.4 Native target
-
-If requested as a mod:
-
-- [ ] produce real target-loader Java mod
-- [ ] do not leave dependency on original Paper plugin stack unless explicitly part of desired architecture
-- [ ] datapacks/scripts may assist but cannot substitute for requested native semantics
-- [ ] visual-only reconstruction cannot pass when gameplay parity was requested
-
-## 15.5 Server-conversion acceptance
-
-- [ ] source/provenance/rights ledger
-- [ ] semantic coverage ledger
-- [ ] unknowns clearly marked
-- [ ] dependency closure
-- [ ] deterministic visual comparison
-- [ ] dedicated server
-- [ ] native client
-- [ ] integrated/multiplayer behavior
-- [ ] persistence/restart
-- [ ] interaction/AI/quest/item/block scenarios
-- [ ] performance
-- [ ] zero unresolved required asset references
-
-**Golden example:** authorized Spellbrook capture/source -> server-independent native mod with visual + model-runtime + gameplay layers accounted for.
+**PHASE K GOLDEN TARGET:** Bedrock backpack-class addon -> native Java mod with applicable Phase M ecosystem contracts.
 
 ---
 
-# 16. PHASE N — BEDROCK ADD-ON -> FULL JAVA MOD + BEDROCK DEV CENTER
+# 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -> NATIVE MOD
 
-## 16.1 Full Bedrock inventory
+## 15.1 Reference intake and authority
 
-Account for:
+- [ ] **PL-001** support authorized single/multi-view art, turnarounds, orthographic/model sheets, sketches/paintovers, item/weapon/armor, blocks/furniture/machines, environment/structure, UI/HUD, VFX, sprite/texture sheets, GIF/video, supplied models/Blockbench and server-delivered reference assets.
+- [ ] **PL-002** source remains immutable/hash-addressed; classify observed/constrained/inferred/authored/user-approved details; unseen geometry stays inferred; conflicting references remain explicit; separate shape/texture/motion/gameplay/style authority.
 
-- [ ] manifest/modules/dependencies
-- [ ] behavior packs
-- [ ] resource packs
-- [ ] Script API JS/TS
-- [ ] Molang
-- [ ] entities/components/component groups/events/properties/goals
-- [ ] spawn rules
-- [ ] geometry
-- [ ] animations
-- [ ] animation controllers
-- [ ] render controllers
-- [ ] attachables
-- [ ] items/components
-- [ ] blocks/components/permutations
-- [ ] recipes
-- [ ] loot/trades
-- [ ] particles
-- [ ] sounds
-- [ ] textures/atlases/texture sets
-- [ ] UI/fonts/localization
-- [ ] structures
-- [ ] features/feature rules
-- [ ] biomes/worldgen/dimensions
-- [ ] commands/functions
-- [ ] experiments/min-engine-version
-- [ ] subpacks
-- [ ] unknown files = 0 target
+## 15.2 Design + native assets
 
-## 16.2 Semantic IR -> Java
+- [ ] **PL-010** durable design dossier captures content class, silhouette/proportions/landmarks, palette/materials/texture regions, scale/moving parts, rig/pivots, motion, must-preserve traits, gameplay interpretation, ambiguity and compatibility intent.
+- [ ] **PL-011** author editable geometry/UV/textures/materials/emissives/variants/rig/animation/secondary motion/animated textures/VFX/SFX/hitboxes/seats/locators with the least-lossy appropriate renderer/runtime.
+- [ ] **PL-012** concept-implied gameplay becomes canonical only after explicit approval/contract.
 
-- [ ] Bedrock component/state/event semantics become target-native Java logic
-- [ ] Molang becomes target predicates/calculations
-- [ ] animation/render controllers become appropriate Java animation/render state
-- [ ] items/blocks become native registered content
-- [ ] loot/recipes/trades become target data/code
-- [ ] Script API behavior becomes native Java behavior when full-mod conversion is requested
-- [ ] structures/worldgen map to target APIs
-- [ ] Java UI/menu implemented when source semantics require it
-- [ ] every unmapped semantic remains explicit
+## 15.3 Fidelity acceptance
 
-## 16.3 Targets
+- [ ] **PL-020** compare silhouette/proportions/landmarks/palette/material/value/texture placement/pose/joints/animation timing/scale/grounding/clipping/culling/hitbox alignment/non-obvious frames/bind-pose reset using deterministic renders plus actual Minecraft.
+- [ ] **PL-021** no single opaque similarity score can mask a failed fidelity dimension.
 
-- [ ] Forge
-- [ ] NeoForge
-- [ ] Fabric
-- [ ] Quilt where applicable
-- [ ] optional multiloader workspace
-
-## 16.4 Source-vs-target parity
-
-Where source can be executed, paired scenarios compare:
-
-- [ ] inventory/state
-- [ ] movement/AI
-- [ ] attacks/cooldowns
-- [ ] loot/recipes/trades
-- [ ] blocks/items
-- [ ] animation states
-- [ ] visuals
-- [ ] sounds/particles
-- [ ] persistence
-- [ ] multiplayer
-
-## 16.5 Bedrock Developer Center
-
-- [ ] project creation/deployment
-- [ ] Retail/Preview target handling
-- [ ] TypeScript/JavaScript development
-- [ ] Content Log
-- [ ] Script Debugger
-- [ ] Script Profiler
-- [ ] Diagnostics/Debug Utilities
-- [ ] Bedrock Editor projects
-- [ ] Editor Extensions
-- [ ] evidence normalized into same graph
-
-**Golden example:** Bedrock Backpacks-class addon -> Forge 1.20.1 native mod with full semantic inventory + strong compatibility with Sophisticated Backpacks/Curios/recipe viewers/automation where applicable.
+**PHASE L EXIT:** editable native assets + approved gameplay + applicable compatibility + packaged Minecraft runtime proof.
 
 ---
 
-# 17. PHASE O — CONCEPT ART / MCModels / REFERENCE -> NATIVE MOD
+# 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY
 
-## 17.1 Reference intake
+Compatibility means behavioral contracts, not “both mods launch.”
 
-Support authorized:
+## 16.1 Semantic profile
 
-- [ ] single image
-- [ ] turnaround/front/side/rear sheets
-- [ ] orthographic/model sheets
-- [ ] rough sketches/paintovers
-- [ ] item/weapon/armor sheets
-- [ ] block/furniture/machine concepts
-- [ ] environment/biome/structure concepts
-- [ ] UI/HUD concepts
-- [ ] spell/VFX concepts
-- [ ] sprite/texture sheets
-- [ ] GIF
-- [ ] video
-- [ ] multi-view sets
-- [ ] supplied models/Blockbench projects
-- [ ] server-delivered reference assets
+- [ ] **PM-001** classify applicable semantics: inventory/container, wearable/accessory, machine/automation/kinetic/energy/fluid, RPG equipment, food/farming/cooking, entity/pet/mount, worldgen/structure/dimension/portal, magic, quests/progression, guidebook, model/animation, server custom content, Bedrock addon, client rendering, performance patch.
 
-Original source remains immutable/hash-addressed.
+## 16.2 Living contract catalog
 
-## 17.2 Reference authority / inference
+Resolve exact target-version APIs and exercise relevant contracts only:
 
-- [ ] classify observations as observed/constrained/inferred/authored/user-approved
-- [ ] unseen geometry remains inferred
-- [ ] multi-reference authority can differ for shape/texture/motion/gameplay/style
-- [ ] conflicting references produce explicit conflict, not silent averaging
-- [ ] concept visuals may suggest mechanics but do not silently canonize gameplay
+- [ ] **PM-010 Storage/equipment:** Sophisticated Backpacks/Core/Storage, Curios, Trinkets/Accessories-family.
+- [ ] **PM-011 Recipe/info:** JEI, EMI, REI, Jade/WTHIT-style overlays.
+- [ ] **PM-012 Engineering:** Create, Registrate/Ponder/Flywheel where appropriate; loader-standard item/fluid/energy APIs; AE2, Refined Storage, Mekanism/transport when meaningful.
+- [ ] **PM-013 RPG/content:** Apotheosis/Apothic-Curios-style affix/category/socket paths, Farmer’s Delight, Patchouli, FTB Quests where meaningful.
+- [ ] **PM-014 Scripting/render:** KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes.
+- [ ] **PM-015 Render stack:** Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.
 
-## 17.3 Design dossier
+## 16.3 Behavioral tests
 
-Generate durable `ConceptDesignDossier` covering:
-
-- [ ] subject/content class
-- [ ] silhouette/proportions
-- [ ] landmarks
-- [ ] palette/materials
-- [ ] texture regions
-- [ ] scale
-- [ ] moving parts
-- [ ] rig/pivots
-- [ ] animation opportunities
-- [ ] gameplay interpretation
-- [ ] must-preserve traits
-- [ ] ambiguities
-- [ ] compatibility intent
-
-## 17.4 Native asset authoring
-
-- [ ] camera solve where needed
-- [ ] silhouette/depth reconstruction
-- [ ] geometry/cuboids/mesh
-- [ ] UVs
-- [ ] texture back-projection/authoring
-- [ ] materials/emissives
-- [ ] variants
-- [ ] rig/pivots
-- [ ] animation fitting/retargeting
-- [ ] secondary motion
-- [ ] animated textures
-- [ ] VFX/SFX hooks
-- [ ] hitboxes/seats/locators
-- [ ] appropriate native/GeckoLib/AzureLib/direct model runtime selection
-
-Editable native source remains available; no generation prison.
-
-## 17.5 Concept -> gameplay
-
-When approved, implement:
-
-- [ ] entity AI/combat/interactions
-- [ ] items/tools/armor
-- [ ] blocks/furniture/machines
-- [ ] spells/abilities
-- [ ] drops/recipes/loot
-- [ ] progression/world placement
-- [ ] config
-- [ ] multiplayer/persistence
-- [ ] semantic compatibility profile
-
-## 17.6 Fidelity QA
-
-Compare concept/reference against deterministic renders and actual Minecraft:
-
-- [ ] silhouette
-- [ ] proportions/landmarks
-- [ ] palette/material/value
-- [ ] texture placement
-- [ ] pose/joints
-- [ ] animation timing
-- [ ] scale
-- [ ] grounding
-- [ ] clipping
-- [ ] culling bounds
-- [ ] hitbox/model alignment
-- [ ] non-obvious frames
-- [ ] bind-pose reset/no transform accumulation
-
-One opaque “similarity %” cannot hide failed dimensions.
-
-**PHASE O EXIT:** packaged mod loads in Minecraft and satisfies approved visual/gameplay/compatibility evidence, not just a pretty preview.
+- [ ] **PM-020 Container/accessory:** equip, quick-move, nested safety, handler insertion/extraction, automation, filters/sorting, death/drop, state preservation, save/reload, multiplayer, no dupes/loss.
+- [ ] **PM-021 Machinery:** processing, sided automation, speed/stress/rotation where relevant, contraptions, render, chunk persistence, multiplayer, Ponder when supplied.
+- [ ] **PM-022 RPG:** categories/attributes/affixes/sockets/accessory combination/persistence/provider-present-absent lanes.
+- [ ] **PM-023** when a contract is missing, Enderloom/AI may draft one from current public API/docs/source/observed behavior, but runtime evidence decides pass/fail.
 
 ---
 
-# 18. PHASE P — ADAPTIVE ECOSYSTEM COMPATIBILITY ENGINE
+# 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK
 
-Compatibility is a tested behavioral contract, not “both mods launched.”
+## 17.1 Premium whole-pack migration
 
-## 18.1 Automatic semantic profile
+- [ ] **PN-001** migrate mods/loaders/dependencies/configs/Hotkeys/scripts/quests/datapacks/resource packs/shaders/worlds/worldgen registries/compatibility/performance baselines/server relationships.
+- [ ] **PN-002** feasibility/provider-version map, removed/renamed dependency analysis, semantic config/script migration, world/registry risk, progression/softlock, isolated target instance, runtime/old-world/performance comparison, explicit unresolved gaps and rollback.
 
-Classify content into applicable families such as:
+## 17.2 World tooling
 
-- [ ] inventory/container
-- [ ] wearable/accessory
-- [ ] machine/automation
-- [ ] kinetic machine
-- [ ] energy/fluid
-- [ ] RPG equipment
-- [ ] food/cooking/farming
-- [ ] mob/entity
-- [ ] pet/mount
-- [ ] worldgen/structure
-- [ ] dimension/portal
-- [ ] spell/magic
-- [ ] quest/progression
-- [ ] guidebook
-- [ ] model/animation
-- [ ] server custom content
-- [ ] Bedrock addon
-- [ ] client rendering
-- [ ] performance patch
+- [ ] **PN-010** snapshot/version deltas/selective restore/NBT safe-copy editing/seed recovery/dimension-registry repair/recreate-open doctor/broken entity-BE isolation/trim/pregen/retrogen/seed-worldgen ownership/performance.
 
-## 18.2 Contract catalog
+## 17.3 Server/proxy/protocol
 
-Version/loader appropriate adapters/tests for relevant ecosystems include:
-
-- [ ] Sophisticated Backpacks
-- [ ] Sophisticated Core
-- [ ] Sophisticated Storage
-- [ ] Curios
-- [ ] Trinkets/Accessories-family as target-appropriate
-- [ ] JEI
-- [ ] EMI
-- [ ] REI
-- [ ] Create
-- [ ] Registrate/Ponder/Flywheel where applicable
-- [ ] Apotheosis / target-version affix/category/socket integration
-- [ ] Apothic Curios-style combined accessory/affix behavior
-- [ ] Farmer’s Delight
-- [ ] Patchouli
-- [ ] Jade/WTHIT-style overlays
-- [ ] KubeJS
-- [ ] CraftTweaker
-- [ ] GeckoLib
-- [ ] AzureLib
-- [ ] native/direct `.bbmodel` runtimes when appropriate
-- [ ] target energy/fluid/item capability APIs
-- [ ] Applied Energistics 2
-- [ ] Refined Storage
-- [ ] Mekanism/transport integrations when relevant
-- [ ] FTB Quests/progression integrations where relevant
-- [ ] Embeddium/Sodium
-- [ ] Oculus/Iris
-- [ ] Distant Horizons
-- [ ] Create/Flywheel rendering
-- [ ] pack-specific culling/render stacks where relevant
-
-Do not force irrelevant ecosystems or turn optional integrations into mandatory dependencies without source/design reason.
-
-## 18.3 Behavioral acceptance examples
-
-Backpack/container:
-
-- [ ] equip/unequip
-- [ ] Curios slot visibility
-- [ ] quick-move/shift-click
-- [ ] nested inventory safety
-- [ ] item-handler insert/extract
-- [ ] automation
-- [ ] filters/sorting
-- [ ] death/drop
-- [ ] component/NBT preservation
-- [ ] save/reload
-- [ ] multiplayer
-- [ ] no dupes/item loss
-
-Create machine:
-
-- [ ] processing recipes
-- [ ] insertion/extraction
-- [ ] speed/stress/rotation
-- [ ] belts/funnels/deployers where supported
-- [ ] contraption assemble/disassemble where supported
-- [ ] rendering
-- [ ] chunk unload/reload
-- [ ] multiplayer
-- [ ] Ponder scene if supplied
-
-RPG/accessory:
-
-- [ ] category classification
-- [ ] attributes
-- [ ] affix generation where valid
-- [ ] sockets/gems
-- [ ] Curios combination
-- [ ] persistence
-- [ ] provider absent/present lanes
-
-## 18.4 Auto-generated contracts
-
-When missing, Enderloom/AI can draft a new contract from:
-
-- [ ] public API/data model
-- [ ] current docs/source
-- [ ] observed behavior
-- [ ] existing adapters
-- [ ] author requirements
-
-But runtime evidence decides pass/fail.
+- [ ] **PN-020** Bukkit/Spigot/Paper/Purpur/Folia/Velocity/Bungee legacy contexts, plugin packs, RCON/console/players/whitelist/server performance; Folia validation must be region-thread truthful.
+- [ ] **PN-021** Geyser/Floodgate, ViaVersion-family, lawful packet inspection, compatibility/latency/disconnect/network-chaos scenarios and protocol-bot load testing.
+- [ ] **PN-022** legitimate SSH/SFTP/provider API remote ops use explicit permissions and the same transaction/audit model; DEC-R01 remains enforced.
 
 ---
 
-# 19. PHASE Q — WHOLE-MODPACK MIGRATION / “FOREVER WORLD” SAFETY
+# 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
 
-Premium migration can move a pack across MC versions/loaders while accounting for:
-
-- [ ] mods
-- [ ] loaders
-- [ ] dependencies
-- [ ] configs
-- [ ] Hotkeys
-- [ ] scripts
-- [ ] quests
-- [ ] datapacks
-- [ ] resource packs/shaders
-- [ ] worlds
-- [ ] worldgen/data registries
-- [ ] compatibility contracts
-- [ ] performance baselines
-- [ ] server config/plugin relationships where relevant
-
-Workflow:
-
-- [ ] inventory current pack
-- [ ] target feasibility
-- [ ] provider/source version map
-- [ ] removed/renamed/replaced dependencies
-- [ ] config semantic migration
-- [ ] script/API migration
-- [ ] world/registry risk report
-- [ ] progression/softlock analysis
-- [ ] isolated migrated instance
-- [ ] startup/server/client scenarios
-- [ ] world open/restart
-- [ ] multiplayer if relevant
-- [ ] performance compare
-- [ ] unresolved gaps explicit
-- [ ] rollback/source preserved
+- [ ] **PO-001** artifact hash/signature/provider/source provenance/license/dependency-SBOM/capability-change diff/quarantine/path-safety model.
+- [ ] **PO-002** source reuse, binary redistribution, Marketplace/premium asset, API/dependency and generated-release permission gates.
+- [ ] **PO-003** risky/destructive/external operations use explicit approvals and never leak secrets.
+- [ ] **PO-004** signed/verified update metadata, canary/staged update, pre-update snapshot, compatibility/performance smoke and automatic rollback on required-gate failure.
 
 ---
 
-# 20. PHASE R — WORLD / SERVER / NETWORK / PROTOCOL / REMOTE OPERATIONS
+# 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN
 
-## 20.1 World tooling
+## 19.1 Provider/operator lanes
 
-- [ ] snapshot/version deltas
-- [ ] selective restore
-- [ ] NBT inspection/edit on safe copies
-- [ ] seed recovery
-- [ ] dimension/registry metadata recovery
-- [ ] recreate/open doctor
-- [ ] broken entity/block-entity isolation
-- [ ] trim
-- [ ] pregeneration
-- [ ] retrogen intelligence
-- [ ] seed/worldgen analysis
-- [ ] structure/biome/feature ownership
-- [ ] worldgen performance
+- [ ] **PP-001** OpenAI Responses/tool calling, Agents SDK where appropriate, embedded Codex SDK/app-server/noninteractive lane, authenticated in-app ChatGPT browser lane, Enderloom MCP, optional local providers behind the same acceptance rules.
+- [ ] **PP-002** no provider lane bypasses login/quota/CAPTCHA/paywall/entitlement/access controls.
 
-## 20.2 Server/proxy ecosystem
+## 19.2 Natural-language jobs and orchestration
 
-- [ ] Bukkit
-- [ ] Spigot
-- [ ] Paper
-- [ ] Purpur
-- [ ] Folia with truthful region-threading validation
-- [ ] Velocity
-- [ ] Bungee where legacy context requires
-- [ ] server/plugin pack management
-- [ ] RCON
-- [ ] console
-- [ ] players/whitelist
-- [ ] server performance/testing
+- [ ] **PP-010** compile requests into `AiMinecraftJob + AcceptanceContract` for native mod creation, reference/concept work, server conversion, Bedrock conversion, Java ports, repairs, optimization, pack migration, world repair, assets, compatibility and testing.
+- [ ] **PP-011** specialist roles cover architecture/API, Java, Bedrock, visual assets, mappings/Mixin, tests, performance, compatibility, world/save, security/release, Wiki/docs.
+- [ ] **PP-012** Maximum Quality / Balanced / Fast Iteration policies affect iteration strategy, never final acceptance quality.
+- [ ] **PP-013** loop: contract -> source/reference -> implementation -> cheap decisive check -> causal failure evidence -> patch -> invalidated gates -> strongest runtime proof -> challenge -> package/install/release; after two no-progress candidates change strategy/evidence/repro/model.
 
-## 20.3 Crossplay/protocol
+## 19.3 AI quarantine
 
-- [ ] Geyser/Floodgate context
-- [ ] ViaVersion-family context
-- [ ] packet capture/inspection where lawful
-- [ ] protocol compatibility tests
-- [ ] network chaos/latency/disconnect scenarios
-- [ ] protocol-bot synthetic player load lane
+- [ ] **PP-020** returned files are hashed/inventoried/unknown-file checked/provenance checked/built/tested/compared before install; installed target is smoke-tested and rolled back on failure. AI cannot close its own acceptance contract.
 
-## 20.4 Legitimate remote operations
+## 19.4 Evidence Brain
 
-- [ ] SSH/SFTP/provider API only when actually configured/supported
-- [ ] explicit credentials/permissions
-- [ ] no fake cloud integrations
-- [ ] remote destructive actions use the same plan/transaction/audit model
-
-Remember: no Enderloom Friend Hosting/P2P/reverse-tunnel feature.
+- [ ] **PP-030** promotion path: observation -> hypothesis -> candidate -> verified -> generalized.
+- [ ] **PP-031** evidence/version/hash/environment scope, contradictions and negative results are retained; user correction outranks stale inference.
+- [ ] **PP-032** AI/web/community text cannot self-promote; candidate rules use shadow/challenge validation with rollback/demotion/staleness review.
 
 ---
 
-# 21. PHASE S — VISUAL GAMEPLAY / SCHEMATICS / DATA / ASSET AUTHORING
+# 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH
 
-Inside Studio, implement professional authoring for:
-
-- [ ] visual gameplay/procedure graphs
-- [ ] AI behavior graphs
-- [ ] command generation
-- [ ] data pack generation
-- [ ] worldgen generation
-- [ ] Misode/MCStacker-grade schema-assisted workflows
-- [ ] schematic/blueprint workflows
-- [ ] Axiom/WorldEdit/Litematica-style editing concepts where appropriate
-- [ ] particle authoring
-- [ ] audio/SFX authoring
-- [ ] UI/HUD/font authoring
-- [ ] material/PBR/Vibrant-Visuals-aware paths where applicable
-- [ ] runtime registry/recipe/content explorer
-- [ ] owning-mod/source backlinks
-- [ ] museum/QA world generation from content registry
-- [ ] Java<->Bedrock resource-pack conversion
-- [ ] replay/capture/showcase from actual runtime evidence
+- [ ] **PQ-001 UX:** coherent visual hierarchy, dense expert data without debug-dump feel, search/sort/filter/bulk/context/drag-drop/keyboard workflows, remembered preferences, one-click common paths, accurate tooltips, preservation-aware errors, no modal spam/mystery state.
+- [ ] **PQ-002 Accessibility:** keyboard navigation, screen readers, reduced motion, no color-only semantics, contrast, scalable layout/text, accessible progress/findings/media controls.
+- [ ] **PQ-003 Localization:** Enderloom localization framework plus project bundle inspection, missing/unused keys, migration/version diffs and Wiki awareness.
+- [ ] **PQ-004 Analytics/changelog:** user-respecting analytics if implemented, issue/changelog/source-change linkage, no fabricated popularity/quality scores.
 
 ---
 
-# 22. PHASE T — SECURITY / SUPPLY CHAIN / PERMISSIONS / RELEASE POLICY
+# 21. GOLDEN CHALLENGE MATRIX
 
-## 22.1 Artifact security
+These are **integration proofs**, not duplicate requirement lists. Each challenge passes only when the referenced phase exit gates and requirement IDs are satisfied by one real scenario.
 
-- [ ] hash/signature identity
-- [ ] provider/source provenance
-- [ ] license
-- [ ] dependency/SBOM
-- [ ] capability/change diff across updates
-- [ ] suspicious archive/path behavior
-- [ ] quarantine
-- [ ] user approval for risky/destructive/external operations
-- [ ] no secrets in logs/artifacts/CLI args
-
-## 22.2 Permission/redistribution gates
-
-- [ ] source reuse permission
-- [ ] binary redistribution permission
-- [ ] marketplace/premium asset restrictions
-- [ ] API/dependency license
-- [ ] generated release contents audited
-- [ ] AI bundles respect source/user choices
-
-## 22.3 Update canary/staging
-
-- [ ] signed/verified release metadata
-- [ ] staged rollout/canary lane
-- [ ] pre-update snapshot
-- [ ] compatibility/performance regression checks
-- [ ] automatic rollback when update breaks required smoke gates
+- [ ] **GX-01 Canonical installed mod:** Phase B exit.
+- [ ] **GX-02 Performance culprit -> repair:** PE + PF + PI runtime acceptance on one real regression.
+- [ ] **GX-03 Freeze/teleport/server lock:** PF-010..024 on a reproducible lock/stall case.
+- [ ] **GX-04 Broken JAR:** PI-020..021 plus applicable runtime proof.
+- [ ] **GX-05 Java port/backport:** PI-010..012 plus Phase M applicable compatibility contracts.
+- [ ] **GX-06 Spellbrook-class authorized server -> native mod:** Phase J exit.
+- [ ] **GX-07 Bedrock backpack-class addon -> Forge 1.20.1:** Phase K exit plus PM-010/011 and any other semantically applicable contracts.
+- [ ] **GX-08 Concept/reference -> complete mod:** Phase L exit.
+- [ ] **GX-09 Whole-pack migration:** PN-001..002 plus applicable world/compatibility/runtime gates.
+- [ ] **GX-10 World recovery:** PN-010 on a broken copied world with reopen/restart proof.
+- [ ] **GX-11 Config + Hotkey migration:** PG-001..011 across a real version/update change.
+- [ ] **GX-12 Autonomous AI repair:** PP-010..020 on a real failure where Enderloom, not AI, closes acceptance.
+- [ ] **GX-13 Server/proxy/plugin scenario:** PN-020..022 with CLI/service evidence and truthful runtime semantics.
+- [ ] **GX-14 Secure update:** PO-001..004 with canary/smoke/rollback.
+- [ ] **GX-15 Premium trailer browsing:** PD-010..021 across a catalog containing cards with valid trailers, missing trailers, login-sensitive media, reduced-motion mode and rapid navigation.
 
 ---
 
-# 23. PHASE U — FULL OPENAI / CHATGPT / CODEX AI OPERATOR
+# 22. FINAL CROSS-CUTTING RELEASE GATE
 
-North star:
+Do not restate phase-owned functionality here. Final release requires:
 
-> Anything safely automatable through Enderloom’s normal tools should be callable by AI through the same canonical operation/task/evidence layer.
-
-## 23.1 Provider lanes
-
-- [ ] OpenAI Responses API / supported tool calling
-- [ ] OpenAI Agents SDK where appropriate
-- [ ] embedded Codex SDK/app-server/noninteractive CLI-style lane
-- [ ] in-app authenticated ChatGPT browser lane
-- [ ] Enderloom MCP server for external ChatGPT/Codex/agents
-- [ ] optional local-AI providers behind the same acceptance gates
-
-No provider lane bypasses quotas, login, CAPTCHA, paywalls or entitlement.
-
-## 23.2 Natural-language job compiler
-
-Compile requests into `AiMinecraftJob` + `AcceptanceContract` for:
-
-- [ ] create mod
-- [ ] concept/reference -> mod/model/content
-- [ ] authorized server -> mod
-- [ ] Bedrock -> Java
-- [ ] Java version/loader port
-- [ ] repair JAR/project
-- [ ] optimize mod/pack
-- [ ] whole-pack migration
-- [ ] world repair
-- [ ] model/texture/animation
-- [ ] compatibility work
-- [ ] test/performance investigations
-
-## 23.3 Specialist orchestration
-
-Supported roles can include:
-
-- [ ] architecture/API
-- [ ] Java
-- [ ] Bedrock/conversion
-- [ ] model/texture/animation
-- [ ] mappings/Mixin
-- [ ] test/scenario
-- [ ] performance
-- [ ] compatibility
-- [ ] world/save
-- [ ] security/release
-- [ ] Wiki/docs
-
-## 23.4 Model policies
-
-- [ ] Maximum Quality
-- [ ] Balanced
-- [ ] Fast Iteration
-- [ ] escalation after failure/stall
-
-Final acceptance/fidelity does not get weaker under a faster model policy.
-
-## 23.5 AI acceptance loop
-
-- [ ] brief
-- [ ] acceptance contract
-- [ ] source/reference intake
-- [ ] implementation
-- [ ] cheap targeted check
-- [ ] first causal failure evidence
-- [ ] patch
-- [ ] rerun invalidated gates only
-- [ ] strongest runtime proof
-- [ ] independent challenge pass
-- [ ] package/install/release
-
-After two no-progress candidates:
-
-- [ ] change strategy
-- [ ] stronger reasoning/model if available
-- [ ] different evidence route
-- [ ] smaller reproducer
-- [ ] source inspection
-- [ ] explicit blocker if genuinely external
-
-## 23.6 AI output quarantine
-
-AI-returned files are untrusted until Enderloom:
-
-- [ ] hashes them
-- [ ] inventories them
-- [ ] checks unknown files
-- [ ] checks provenance/permissions
-- [ ] builds them
-- [ ] tests them
-- [ ] compares them to acceptance contract
-- [ ] installs only after pass
-- [ ] smoke-tests installed target
-- [ ] rolls back on failure
-
-AI cannot self-declare completion.
+- [ ] **REL-001** every applicable phase exit gate green or explicitly blocked by a documented external constraint.
+- [ ] **REL-002** every Golden Challenge applicable to the release green.
+- [ ] **REL-003** format/lint/type/unit/integration/migration/schema/parity tests green.
+- [ ] **REL-004** fresh final runnable build/package created after the last implementation mutation.
+- [ ] **REL-005** source and artifact hashes/sizes/build commands recorded.
+- [ ] **REL-006** actual built product exercised; strongest applicable Minecraft runtime evidence retained.
+- [ ] **REL-007** existing-product regression suite remains green and connected external launcher data remains preserved.
+- [ ] **REL-008** one independent challenge pass looks for false success, stale evidence, hidden quality loss, unsafe cleanup, dead UI and scope regressions.
+- [ ] **REL-009** exact known limitations/skipped gates are visible; nothing material is silently waived.
+- [ ] **REL-010** GitHub state and connected Google Drive checkpoint/artifacts are persisted and read-back verified.
+- [ ] **REL-011** this master’s acceptance boxes/evidence references reflect the actual final state.
 
 ---
 
-# 24. PHASE V — EVIDENCE BRAIN / SELF-IMPROVEMENT
+# 23. WHOLE-PRODUCT DEFINITION OF DONE
 
-Build a promotion pipeline:
+Enderloom is complete for this master only when:
 
-`observation -> hypothesis -> candidate -> verified -> generalized`
-
-- [ ] every learned item has source/evidence
-- [ ] scope by versions/loaders/hashes/environment
-- [ ] contradictions retained
-- [ ] negative results retained
-- [ ] user correction outranks stale inference
-- [ ] community/AI/web text cannot self-promote to verified truth
-- [ ] shadow mode for candidate rules
-- [ ] challenge fixtures before promotion
-- [ ] rollback/demotion
-- [ ] periodic stale/review flags
-- [ ] learned evidence can improve diagnostics/compatibility/repair/ports without bypassing fresh proof
+- [ ] **DONE-001** all applicable requirements in this file are accepted with evidence;
+- [ ] **DONE-002** all applicable Golden Challenges pass;
+- [ ] **DONE-003** REL-001..011 pass;
+- [ ] **DONE-004** rejected scope DEC-R01..R06 remains absent;
+- [ ] **DONE-005** no new duplicate requirement/feature island/shadow truth store was introduced during implementation.
 
 ---
 
-# 25. PHASE W — ACCESSIBILITY / LOCALIZATION / ANALYTICS / UX POLISH
+# 24. ASTRA FINAL INSTRUCTION
 
-## 25.1 UX bar
-
-- [ ] beautiful/consistent hierarchy
-- [ ] dense expert information without debug-dump feel
-- [ ] search everywhere useful
-- [ ] sort/filter on large datasets
-- [ ] bulk actions
-- [ ] context menus
-- [ ] drag/drop where genuinely faster
-- [ ] keyboard-friendly
-- [ ] remembered layout/preferences
-- [ ] one-click common paths
-- [ ] advanced detail discoverable
-- [ ] destructive previews
-- [ ] Why explanations
-- [ ] accurate tooltips
-- [ ] errors explain failure + preserved state + next action
-- [ ] cancellable/resumable long work
-- [ ] no modal spam
-- [ ] no mystery background state
-
-## 25.2 Accessibility
-
-- [ ] keyboard navigation
-- [ ] screen-reader semantics
-- [ ] reduced motion
-- [ ] no color-only meaning
-- [ ] contrast
-- [ ] scalable text/layout
-- [ ] accessible progress/findings states
-
-## 25.3 Localization
-
-- [ ] Enderloom UI localization framework
-- [ ] project localization bundle inspection
-- [ ] missing/unused key detection
-- [ ] migration/version diff
-- [ ] Wiki localization awareness
-
-## 25.4 Analytics/changelog intelligence
-
-- [ ] local/user-respecting analytics if implemented
-- [ ] issue/changelog/source-change linkage
-- [ ] no fabricated popularity/quality scores
-- [ ] recommendation explanations remain evidence-backed
-
----
-
-# 26. PHASE X — END-TO-END GOLDEN CHALLENGE SUITE
-
-The product is not done until representative real workflows pass.
-
-## Golden 1 — canonical installed-mod vertical
-
-- [ ] one real installed mod -> one canonical detail/evidence object -> Mod Manager + Catalog + CLI/service + Testing
-- [ ] no duplicated truth
-
-## Golden 2 — performance culprit + repair
-
-- [ ] deliberately/known laggy candidate
-- [ ] clean baseline
-- [ ] measured regression
-- [ ] spark/JFR/Observable/etc attribution as selected
-- [ ] source owner
-- [ ] repair
-- [ ] before/after same scenario
-- [ ] content/config/visual/network/persistence parity
-- [ ] install + smoke + rollback proof
-
-## Golden 3 — freeze/teleport/server lock
-
-- [ ] Black Box + thread dumps/JFR
-- [ ] owner/mod/class
-- [ ] patch/config repair
-- [ ] repeated healthy scenario
-- [ ] no false “shell timeout = hang” conclusion
-
-## Golden 4 — crash / broken JAR
-
-- [ ] crash evidence
-- [ ] Mixin/source attribution
-- [ ] repair/rebuild/remap
-- [ ] production linkage
-- [ ] real runtime
-
-## Golden 5 — Java port/backport
-
-- [ ] real source mod
-- [ ] target older/newer MC or loader
-- [ ] complete content inventory
-- [ ] no stubs/deletions
-- [ ] production runtime
-- [ ] compatibility
-
-## Golden 6 — Spellbrook-class authorized server -> mod
-
-- [ ] lawful captured/supplied server assets
-- [ ] plugin/config/model/resource inventory
-- [ ] unknown plugin handling
-- [ ] visual layer
-- [ ] model-runtime layer
-- [ ] gameplay layer
-- [ ] native mod
-- [ ] client/server/multiplayer/persistence/performance
-
-## Golden 7 — Bedrock backpack addon -> Forge 1.20.1
-
-- [ ] full behavior/resource/Script/Molang inventory
-- [ ] no unknown files
-- [ ] native Java implementation
-- [ ] Sophisticated Backpacks/Sophisticated Core compatibility where requested
-- [ ] Curios wearable compatibility
-- [ ] recipe viewer
-- [ ] automation/item-handler
-- [ ] Create interaction when semantically applicable/requested
-- [ ] RPG integrations only when applicable
-- [ ] persistence/multiplayer
-
-## Golden 8 — concept art -> full mod
-
-- [ ] reference lineage
-- [ ] dossier
-- [ ] model/texture/rig/animation
-- [ ] approved gameplay
-- [ ] compatibility profile
-- [ ] deterministic fidelity report
-- [ ] actual Minecraft visual/runtime QA
-- [ ] packaged release
-
-## Golden 9 — whole-pack migration
-
-- [ ] version/loader migration
-- [ ] configs/hotkeys/scripts/quests/data/worlds
-- [ ] progression/softlock
-- [ ] runtime + old world
-- [ ] compatibility/performance
-
-## Golden 10 — world recovery
-
-- [ ] broken world copy
-- [ ] seed/dimension/registry/NBT diagnosis
-- [ ] safe repair
-- [ ] world opens/restarts
-- [ ] preserved source
-
-## Golden 11 — config/hotkey migration
-
-- [ ] version update changes keys/bindings
-- [ ] semantic migration
-- [ ] conflict resolution
-- [ ] restart persistence
-
-## Golden 12 — AI autonomous repair
-
-- [ ] AI receives normalized evidence
-- [ ] returns candidate
-- [ ] candidate quarantined/hashed
-- [ ] Enderloom builds/tests
-- [ ] failure packet loops back if needed
-- [ ] Enderloom, not AI, closes acceptance
-
-## Golden 13 — server/proxy/plugin scenario
-
-- [ ] managed Paper/Purpur/Folia/Velocity path as applicable
-- [ ] plugin/config evidence
-- [ ] CLI/server console
-- [ ] performance/diagnostic capture
-- [ ] truthful threading/protocol semantics
-
-## Golden 14 — release/update/security
-
-- [ ] artifact provenance/SBOM/license
-- [ ] signed/verified update metadata
-- [ ] canary/staged update
-- [ ] regression smoke
-- [ ] rollback
-
----
-
-# 27. FINAL RELEASE / ACCEPTANCE GATES
-
-## 27.1 Static/build
-
-- [ ] format/lint/type checks
-- [ ] unit tests
-- [ ] integration tests
-- [ ] migration tests
-- [ ] CLI parser/schema tests
-- [ ] operation-registry parity tests
-- [ ] build/package
-- [ ] source/artifact hashes
-
-## 27.2 Existing-product regression
-
-- [ ] launcher/API coverage QA
-- [ ] native integration acceptance
-- [ ] Electron/self tests
-- [ ] Catalog suite
-- [ ] external launcher preservation
-
-## 27.3 CLI/service/MCP
-
-- [ ] fresh built CLI actually exercised
-- [ ] instance list/show
-- [ ] launch/wait/log/exit
-- [ ] managed server smoke
-- [ ] JSON/JSONL schemas
-- [ ] cancellation/resume
-- [ ] MCP operation parity sample
-
-## 27.4 Minecraft runtime
-
-- [ ] dedicated server reaches authoritative ready state for applicable common/server changes
-- [ ] native rendered client for rendering/model/animation/UI/FPS work
-- [ ] integrated server for synchronized gameplay
-- [ ] multiplayer when semantics require it
-- [ ] restart/persistence for saved state/config/world
-- [ ] packaged production/remap linkage where userdev can hide issues
-
-## 27.5 Testing challenge
-
-- [ ] deliberate startup regression detected
-- [ ] deliberate tick regression detected
-- [ ] deliberate rendered-frame regression detected in rendered mode
-- [ ] deliberate allocation regression detected
-- [ ] headless mode does not falsely claim rendered-frame proof
-- [ ] profiler-overhead challenge
-- [ ] noise-floor challenge
-- [ ] cancellation cleans owned test state only
-- [ ] crash recovery preserves completed evidence
-- [ ] live external profile unchanged
-
-## 27.6 Visual QA
-
-- [ ] deterministic QA world/camera/time/weather
-- [ ] actual Minecraft capture
-- [ ] non-obvious frames
-- [ ] missing textures/atlas warnings fail relevant gate
-- [ ] no disappearing/floating/clipping
-- [ ] no transform accumulation
-- [ ] hitbox/model grounding/state sync proven
-
-## 27.7 AI/privacy/security
-
-- [ ] no secrets in output/logs
-- [ ] AI bundles list included files
-- [ ] redacted share copy separate from original
-- [ ] no external upload without user action
-- [ ] no unsupported provider-success claim
-- [ ] rights/license/provenance complete
-
-## 27.8 Persistence/publication
-
-- [ ] final runnable build created after last implementation change
-- [ ] exact build command/result recorded
-- [ ] artifact hash/size recorded
-- [ ] GitHub checkpoint/release state verified
-- [ ] Google Drive material checkpoint/artifacts verified by readback
-- [ ] this checklist updated with final acceptance state
-- [ ] exact known limitations listed; no hidden skipped gates
-
----
-
-# 28. DEFINITION OF DONE — WHOLE ENDERLOOM
-
-Enderloom is at the intended target only when all applicable statements are true:
-
-- [ ] Catalog, Browser, Launcher/Mod Manager, Testing, Hotkeys and Studio feel like one coherent product.
-- [ ] Existing external CurseForge/Modrinth profiles work in place without forced duplication.
-- [ ] Every meaningful domain operation is exposed through canonical operations and CLI/service/MCP/AI where applicable.
-- [ ] No feature owns an isolated duplicate truth store.
-- [ ] Long operations are truthful, cancellable, observable and resumable where applicable.
-- [ ] Performance testing is deterministic, evidence-backed, dependency-aware and interaction-aware.
-- [ ] Diagnostics adapters are selected intelligently rather than all piled into one benchmark.
-- [ ] Crash/freeze/memory/render/concurrency failures flow directly to owner/source/repair/test.
-- [ ] Config/Hotkeys/Data/Progression/Wiki all connect to the same project graph.
-- [ ] Studio can author real Java/Bedrock/plugin/data/model/world/content projects without trapping generated output.
-- [ ] Enderloom can create a complete native mod from requirements.
-- [ ] Enderloom can port/backport/repair real Java mods/JARs with runtime proof.
-- [ ] Enderloom can lawfully turn authorized server content such as Spellbrook-style systems into complete native mods when sufficient source/observable semantics exist.
-- [ ] Enderloom can convert Bedrock add-ons into target-native Java mods with complete semantic coverage.
-- [ ] Enderloom can turn concept/reference art into editable native assets + gameplay + verified Minecraft release.
-- [ ] Ecosystem compatibility is behaviorally tested for the best relevant mods/APIs, not merely load-tested.
-- [ ] Whole-pack migration covers configs, Hotkeys, scripts, quests, data, worlds and compatibility.
-- [ ] World/server/protocol/security/release workflows are preservation-first and evidence-backed.
-- [ ] AI can invoke the same tools a human can, but cannot bypass permissions or self-declare success.
-- [ ] Evidence Brain can improve future work without poisoning verified truth.
-- [ ] No Friend Hosting/P2P/reverse-tunnel feature was reintroduced.
-- [ ] No Voice/Social compatibility center was reintroduced.
-- [ ] No silent synthetic-image substitution became part of native asset workflows.
-- [ ] The final build is actually exercised, not merely compiled.
-- [ ] The complete coherent project state is durable in GitHub + Google Drive.
-
----
-
-# 29. ASTRA FINAL BEHAVIORAL INSTRUCTION
-
-When this file is handed to Astra, the instruction is:
-
-> **Continue Enderloom from the exact current repository state. Treat `docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md` as the canonical execution checklist. Preserve all already-working behavior and all accepted decisions. Start at the first incomplete hard dependency, implement rather than merely plan, verify each coherent slice with the strongest applicable evidence, update the checklist with real acceptance state, checkpoint to GitHub and Drive, and continue automatically through the next phase. Do not stop because one phase is large, do not ask what to do next when the checklist answers it, do not silently reduce scope, and do not call the project complete until the final golden challenge/release gates pass. If an external blocker is genuinely unavoidable, record the exact blocker/evidence and continue every independent reachable item before ending.**
+> **Continue Enderloom from the exact current repository state. Treat `docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md` as the canonical execution-order authority. Preserve all already-working behavior and accepted decisions. Start at the first incomplete hard dependency, implement rather than merely plan, verify each coherent slice with the strongest applicable evidence, mark only evidence-backed acceptance, checkpoint to GitHub and Drive, and continue automatically. Each requirement has one canonical home: reference IDs instead of duplicating requirements elsewhere. Do not stop because a phase is large, do not ask what comes next when the checklist answers it, do not silently reduce scope or quality, and do not call the project complete until the Golden Challenge Matrix and final release gate pass. If an external blocker is genuinely unavoidable, record the exact blocker/evidence and continue every independent reachable item before ending.**
 
 This is the one-run Enderloom contract.
