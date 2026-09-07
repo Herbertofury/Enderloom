@@ -8,6 +8,8 @@
 
 Enderloom Performance / Testing / Repair / Conversion / AI jobs must integrate the strongest applicable Minecraft diagnostics tools instead of forcing users to run each tool manually. Enderloom normalizes all results into the same evidence graph, correlates findings, and presents a polished live job timeline that explains exactly what is happening.
 
+The living concrete adapter list is maintained in `docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md`; this specification defines the architecture and UX contract.
+
 The product target is:
 
 > “Test this mod.”
@@ -58,7 +60,7 @@ Adapters are versioned and replaceable so newer profiling tools can be added wit
 
 # 2. Current High-Value Minecraft Diagnostic Integrations
 
-This list is a required starting set, not a permanent closed list.
+This list is a required starting set, not a permanent closed list. See `docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md` for the maintained catalog.
 
 ## 2.1 spark
 
@@ -216,7 +218,17 @@ Treat these as core adapters even though they are not Minecraft mods:
 
 Optional integrations may include external viewers/analyzers such as VisualVM, JDK Mission Control or compatible heap-analysis tools, but Enderloom must retain enough local raw evidence to avoid depending on one viewer.
 
-## 2.8 Built-in Enderloom probes
+## 2.8 Crash/runtime diagnostic enrichers
+
+Enderloom should also understand diagnostic helpers whose main value is not a continuous profiler:
+
+- **MixinTrace** on compatible Fabric/Quilt stacks for mapping stack-trace classes to applied mixins/configs;
+- **ModernFix diagnostics/watchdog evidence** where present, including rare freeze/deadlock diagnostic markers and the exact active ModernFix option fingerprint;
+- **Neruina** in recovery/test clones when useful to isolate ticking entity/block/item failures without permanently masking the final bug.
+
+These tools provide evidence/context. Their presence is never proof that they are the culprit, and suppression/recovery behavior cannot substitute for fixing and retesting the underlying failure.
+
+## 2.9 Built-in Enderloom probes
 
 Enderloom itself should provide low-overhead probes for gaps third-party tools do not cover cleanly:
 
@@ -271,20 +283,32 @@ Preferred sequence:
 1. Black Box pre-trigger evidence;
 2. repeated thread dumps/JFR;
 3. lock/deadlock graph;
-4. spark/JFR stack attribution when available;
-5. chunk/teleport/world/save evidence;
-6. causal source/mod/Mixin mapping.
+4. ModernFix watchdog/deadlock clues if present;
+5. spark/JFR/async-profiler stack attribution when useful;
+6. chunk/teleport/world/save evidence;
+7. causal source/mod/Mixin mapping.
 
 ## “It crashed”
 
 Preferred sequence:
 
 1. Crash Assistant/raw crash/log/hs_err intake;
-2. Black Box preceding timeline;
-3. source/mod/Mixin/config correlation;
-4. environment/driver/native crash classification;
-5. minimal reproducer / compatibility contract;
-6. repair candidate + exact regression test.
+2. MixinTrace metadata where compatible/present;
+3. Black Box preceding timeline;
+4. source/mod/Mixin/config correlation;
+5. environment/driver/native crash classification;
+6. minimal reproducer / compatibility contract;
+7. repair candidate + exact regression test.
+
+## “Ticking entity/block/item crashed the world”
+
+Preferred sequence:
+
+1. raw crash + Crash Assistant;
+2. optional Neruina recovery clone to identify namespace/type/location and preserve inspectability;
+3. Observable if repeatable tick cost/hotspot exists;
+4. source/mod/config correlation;
+5. copied-world regression test without relying on suppression in the passing final candidate.
 
 ## “This mod uses too much RAM”
 
@@ -343,7 +367,7 @@ Examples:
 - MSPT spike -> Observable hot block entity -> spark call stack -> source symbol;
 - teleport stall -> chunk stage profiler decoration spike -> structure/feature owner -> mod;
 - memory growth -> class histogram -> allocation stack -> owning mod;
-- crash -> Crash Assistant known issue -> actual stack owner -> last changed config/update.
+- crash -> Crash Assistant known issue -> MixinTrace/stack ownership -> actual causal mod/source -> last changed config/update.
 
 Correlations must preserve confidence level:
 
@@ -719,21 +743,25 @@ A verified rule requires the existing promotion/challenge process and should rec
 
 Current public project evidence used to define the starting adapter set:
 
-- Crash Assistant — current CurseForge/Modrinth project supports Forge/Fabric/NeoForge/Quilt across broad Minecraft versions and analyzes crash/log/hs_err/config/Mixin/mod-list cases.
+- Crash Assistant — current project supports broad modern Minecraft/loader coverage and analyzes game/launcher/crash/hs_err/config/Mixin/dependency/environment cases.
   - https://www.curseforge.com/minecraft/mc-mods/crash-assistant
   - https://modrinth.com/mod/crash-assistant
-- spark — current project is a client/server/proxy performance profiler with sampling, tick health and memory inspection.
+- spark — current project is a client/server/proxy performance profiler with sampling and performance/memory inspection capabilities.
   - https://github.com/lucko/spark
-  - https://www.curseforge.com/minecraft/mc-mods/spark
+  - https://modrinth.com/mod/spark
 - Observable classic — entity/block-entity tick profiling and spatial hotspot visualization for compatible Forge/Fabric versions including Forge 1.20.1.
   - https://www.curseforge.com/minecraft/mc-mods/observable
-- Observable Remake — current 2026 NeoForge descendant with tick/chunk/trace/overlay/profile-export capabilities for its supported modern version line.
-  - https://www.curseforge.com/minecraft/mc-mods/observable-remake
-- Task Manager — current 2026 Fabric client profiler exposing CPU/GPU/render/startup/memory/timeline/network/disk/world/thread/system/session evidence for its supported versions.
+- Task Manager — current Fabric client profiler exposes sampled CPU, estimated GPU attribution, render/startup/memory/timeline/network/disk/world/thread/system/session evidence for its supported versions.
   - https://modrinth.com/mod/taskmanager
-  - https://www.curseforge.com/minecraft/mc-mods/taskmanager
-- Chunk Loading Profiler — compatible 1.20.1/1.21 profiler for chunk loading/generation stages.
+- Chunk Loading Profiler — 1.20.1/1.21 profiler for chunk loading/generation stages.
   - https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler
+- MixinTrace — compatible Fabric/Quilt crash-report enrichment that lists mixins/configurations for stack-trace classes.
+  - https://modrinth.com/mod/mixintrace
+- ModernFix — includes additional debug tooling for some rare crash/freeze cases in addition to its performance/bugfix role; active version/options are diagnostic context.
+  - https://modrinth.com/mod/modernfix
+  - https://github.com/embeddedt/ModernFix
+- Neruina — current Forge/Fabric/NeoForge utility that can suspend ticking entity/block/item failures to preserve inspectability/recovery context.
+  - https://modrinth.com/mod/neruina
 
 Adapters must revalidate compatibility/version before installation because these tools evolve independently.
 
