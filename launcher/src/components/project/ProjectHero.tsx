@@ -1,3 +1,4 @@
+import { ProjectTrailer } from "./ProjectTrailer";
 import {
   Check,
   Clock,
@@ -196,6 +197,7 @@ export function ProjectHero({
         </div>
       </div>
 
+      {details && <ProjectTrailer details={details} provider={provider} />}
       {!!details?.categories.length && (
         <div className="relative flex flex-wrap gap-1.5 px-6 pb-4">
           {details.categories.map((category) => (

@@ -1,0 +1,24 @@
+'use strict';
+const { app, BrowserWindow, ipcMain, session } = require('electron');
+const fs = require('fs'), path = require('path'), os = require('os');
+const root = path.resolve(__dirname, '../..'), dir = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-trailers-'));
+app.setPath('userData', dir); app.setAppUserModelId('com.herbertofury.enderloom');
+const { writeCatalog } = require('../../src/catalog-renderer');
+const { createTrailerService } = require('../../src/trailer-service');
+const { registerTrailerIpc, identifyTrailerEmbeds } = require('../../src/trailer-ipc');
+let service, window;
+registerTrailerIpc(ipcMain, () => service, event => { if (event.sender !== window.webContents) throw Error('Wrong sender'); });
+for (const op of ['discover-head-media', 'discover-media', 'cached-media']) ipcMain.handle(`catalog:${op}`, () => ({ gallery: [] }));
+ipcMain.handle('catalog:cached-media-batch', () => []); ipcMain.handle('catalog:enrich-project-links', () => ({ links: [] }));
+app.whenReady().then(async () => {
+  const store = { registry: {}, saveRegistry() { fs.writeFileSync(path.join(dir, 'registry.json'), JSON.stringify(this.registry)); } };
+  service = createTrailerService({ store });
+  const projects = ['Create', 'The Aether', 'No Trailer Fixture'].map((name, i) => ({ id: `trailer-${i}`, name, primaryUrl: `https://modrinth.com/mod/${['create','aether','no-trailer-fixture'][i]}`, type: 'Mod', edition: 'Java', primaryCategory: 'Trailer QA', rank: i + 1, author: 'Project author', sources: [] }));
+  const file = path.join(dir, 'catalog.html'); writeCatalog({ id: 'trailers', name: 'Trailer acceptance', items: projects }, file, root);
+  window = new BrowserWindow({ width: 1500, height: 1050, webPreferences: { preload: path.join(root, 'catalog-preload.js'), contextIsolation: true, sandbox: true } });
+  identifyTrailerEmbeds(session.defaultSession, id => id === window.webContents.id);
+  window.on('blur', () => service.stop('App in background'));
+  global.trailerQa = { service, store, dir };
+  await window.loadFile(file);
+});
+app.on('window-all-closed', () => app.quit());

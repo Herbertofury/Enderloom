@@ -116,7 +116,7 @@ Accepted:
 - [ ] **DEC-013** Full OpenAI/ChatGPT/Codex operator over canonical operations.
 - [ ] **DEC-014** Diagnostics adapter registry plus truthful polished progress UX.
 - [ ] **DEC-015** Full Minecraft workflow parity: native mod creation, ports/backports, JAR repair, optimization, server->mod, Bedrock->Java, world repair, reference/concept->mod, compatibility, testing, and release.
-- [ ] **DEC-016 Premium Steam-like mod trailer autoplay:** real trailers can automatically preview in Catalog/mod-detail browsing for Premium users under the media rules in Phase D.
+- [x] **DEC-016 Premium Steam-like mod trailer autoplay:** real trailers can automatically preview in Catalog/mod-detail browsing for Premium users under the media rules in Phase D.
 
 Rejected/not approved:
 
@@ -322,18 +322,20 @@ UX requirements:
 
 **Premium scope boundary:** manually opening/playing a legitimate provider trailer may remain a normal media action. The **automatic Steam-like trailer preview experience is Premium**.
 
-- [ ] **PD-010 Media identity:** trailer/video assets carry exact project/provider/source provenance and never borrow unrelated creator/sibling/promotional video.
-- [ ] **PD-011 Supported sources:** use real project-author/provider/user-supplied trailers or videos that Enderloom is legitimately allowed to display/stream; no synthetic replacement trailer when none exists.
-- [ ] **PD-012 Catalog autoplay:** Premium users can enable Steam-like muted trailer preview on stable hover/focus/dwell over a mod card; only one card autoplay session is active at once.
-- [ ] **PD-013 Detail autoplay:** Premium mod-detail pages can automatically transition the hero media area from poster/gallery to the highest-priority legitimate trailer according to user preference.
-- [ ] **PD-014 Playback lifecycle:** pause/stop when card leaves viewport, focus moves away, tab/app backgrounds, user scrolls away, or another trailer takes ownership.
-- [ ] **PD-015 Audio:** autoplay starts muted; audio requires explicit user action. Remember mute/volume preference only when appropriate and never surprise-play audio.
-- [ ] **PD-016 User controls:** global Premium autoplay toggle plus per-context preference (Catalog hover, detail hero) and reduced-data/network-sensitive behavior.
-- [ ] **PD-017 Accessibility:** honor reduced-motion/autoplay preference, keyboard focus behavior, screen-reader semantics, captions/subtitles when the source exposes them, and a visible play/pause control.
-- [ ] **PD-018 Bandwidth/performance:** preload poster/metadata first; defer video bytes until likely playback; bound concurrent buffering; cancel abandoned requests; do not make large catalogs download dozens of videos simultaneously.
-- [ ] **PD-019 Caching/rights:** cache/stream only as provider terms and source permissions allow; otherwise use legitimate embedded/remote playback without exporting cookies or bypassing access controls.
-- [ ] **PD-020 Fallback:** if no valid trailer exists, remain on real screenshots/gallery art. Never generate a fake trailer, mislabeled slideshow, or unrelated video.
-- [ ] **PD-021 Testing:** verify hover/focus ownership, pause/resume, muted autoplay, network cancellation, reduced-motion/data modes, provider login state, card virtualization, and no playback leak after navigation.
+- [x] **PD-010 Media identity:** trailer/video assets carry exact project/provider/source provenance and never borrow unrelated creator/sibling/promotional video.
+- [x] **PD-011 Supported sources:** use real project-author/provider/user-supplied trailers or videos that Enderloom is legitimately allowed to display/stream; no synthetic replacement trailer when none exists.
+- [x] **PD-012 Catalog autoplay:** Premium users can enable Steam-like muted trailer preview on stable hover/focus/dwell over a mod card; only one card autoplay session is active at once.
+- [x] **PD-013 Detail autoplay:** Premium mod-detail pages can automatically transition the hero media area from poster/gallery to the highest-priority legitimate trailer according to user preference.
+- [x] **PD-014 Playback lifecycle:** pause/stop when card leaves viewport, focus moves away, tab/app backgrounds, user scrolls away, or another trailer takes ownership.
+- [x] **PD-015 Audio:** autoplay starts muted; audio requires explicit user action. Remember mute/volume preference only when appropriate and never surprise-play audio.
+- [x] **PD-016 User controls:** global Premium autoplay toggle plus per-context preference (Catalog hover, detail hero) and reduced-data/network-sensitive behavior.
+- [x] **PD-017 Accessibility:** honor reduced-motion/autoplay preference, keyboard focus behavior, screen-reader semantics, captions/subtitles when the source exposes them, and a visible play/pause control.
+- [x] **PD-018 Bandwidth/performance:** preload poster/metadata first; defer video bytes until likely playback; bound concurrent buffering; cancel abandoned requests; do not make large catalogs download dozens of videos simultaneously.
+- [x] **PD-019 Caching/rights:** cache/stream only as provider terms and source permissions allow; otherwise use legitimate embedded/remote playback without exporting cookies or bypassing access controls.
+- [x] **PD-020 Fallback:** if no valid trailer exists, remain on real screenshots/gallery art. Never generate a fake trailer, mislabeled slideshow, or unrelated video.
+- [x] **PD-021 Testing:** verify hover/focus ownership, pause/resume, muted autoplay, network cancellation, reduced-motion/data modes, provider login state, card virtualization, and no playback leak after navigation.
+
+Acceptance for DEC-016 / PD-010–021: [implementation and runtime evidence](TRAILER_ACCEPTANCE.md). Premium uses the current trusted preview entitlement policy; paid billing is a separate release gate.
 
 **PHASE D EXIT:** existing product stays responsive/preserved and Premium trailer autoplay behaves like a polished media system rather than embedded-video spam.
 

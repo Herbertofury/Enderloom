@@ -88,10 +88,10 @@ pub fn key(state: &AppState) -> Result<String> {
         .load_runtime_settings(&state.credentials)?
         .curseforge_api_key
         .filter(|k| !k.trim().is_empty())
-        .or_else(|| crate::build_info::bundled_curseforge_key().map(str::to_string))
+        .or_else(crate::build_info::automatic_curseforge_key)
         .ok_or_else(|| {
             Error::other(
-                "CurseForge needs an API key. Get a free key at console.curseforge.com and add it in Settings.",
+                "No CurseForge deployment credential is available. Configure the app's approved key through ENDERLOOM_CURSEFORGE_API_KEY, a packaged key, or your saved Settings credential.",
             )
         })
 }
@@ -150,6 +150,8 @@ struct Mod {
 struct Logo {
     #[serde(rename = "thumbnailUrl", default)]
     thumbnail_url: Option<String>,
+    #[serde(default)]
+    url: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -283,7 +285,10 @@ fn summary(item: Mod) -> ProjectSummary {
         slug: item.slug,
         title: item.name,
         description: item.summary,
-        icon_url: item.logo.and_then(|l| l.thumbnail_url),
+        icon_url: item.logo.and_then(|l| {
+            l.thumbnail_url.filter(|url| !url.trim().is_empty())
+                .or_else(|| l.url.filter(|url| !url.trim().is_empty()))
+        }),
         downloads: item.download_count as u64,
         follows: item.thumbs_up_count,
         author: item

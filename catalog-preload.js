@@ -4,6 +4,17 @@ const safe = value => typeof value === 'string' ? value : '';
 contextBridge.exposeInMainWorld('mobCompanion', {
   appIcon: 'enderloom-asset://local/app-icon',
   selfTest: process.argv.includes('--enderloom-self-test=1'),
+  trailers: {
+    settings: patch => ipcRenderer.invoke('trailer:settings', patch),
+    discover: (project, force = false) => ipcRenderer.invoke('trailer:discover', { project, force: !!force }),
+    cancel: project => ipcRenderer.invoke('trailer:cancel', project),
+    choose: (project, choice) => ipcRenderer.invoke('trailer:choose', { project, choice }),
+    correct: (project, url) => ipcRenderer.invoke('trailer:correct', { project, url: safe(url) }),
+    claim: (context, manual) => ipcRenderer.invoke('trailer:claim', { context, manual: !!manual }),
+    release: () => ipcRenderer.invoke('trailer:release'),
+    onStop: cb => { const fn = (_event, value) => cb(value); ipcRenderer.on('trailer:stop', fn); return () => ipcRenderer.removeListener('trailer:stop', fn); },
+    onVisibility: cb => { const fn = (_event, value) => cb(value); ipcRenderer.on('trailer:visibility', fn); return () => ipcRenderer.removeListener('trailer:visibility', fn); },
+  },
   openHere: url => ipcRenderer.send('catalog:open-here', safe(url)),
   openExternal: url => ipcRenderer.send('catalog:open-external', safe(url)),
   openMany: (urls, title) => ipcRenderer.send('catalog:open-many', { urls: Array.isArray(urls) ? urls : [], title: safe(title) }),

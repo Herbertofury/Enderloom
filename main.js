@@ -10,6 +10,10 @@ const v8 = require('v8');
 const { pathToFileURL } = require('url');
 const { LauncherService } = require('./src/launcher-service');
 const { CatalogStore } = require('./src/catalog-store');
+const { createTrailerService } = require('./src/trailer-service');
+const { nativeTrailerProject } = require('./src/trailer-provider');
+const { registerTrailerIpc, identifyTrailerEmbeds } = require('./src/trailer-ipc');
+let trailerService = null;
 const { cleanName:cleanCatalogExportName, normalizeRows:normalizeCatalogExportRows, html:catalogExportHtml, bytesFor:catalogExportBytes, writeAtomic:writeCatalogExportAtomic } = require('./src/catalog-export');
 const { requestText: publicRequestText, requestJson: publicRequestJson, requestHeadTextShared: publicRequestHeadTextShared, requestProgressiveTextShared: publicRequestProgressiveTextShared, requestTextShared: publicRequestTextShared, requestJsonShared: publicRequestJsonShared } = require('./src/public-http');
 const { providerForUrl, contextFingerprint, pageIdentityConfidence, titleSimilarity, parsePlanetMinecraftHtml, parsePlanetMinecraftAuthorHtml, parseCurseForgeAuthorProjectHtml, parseProviderAuthorHtml, parseGenericProjectHtml, parseProviderHeadMedia, parseCurseForgeGalleryStreamSeed, resolveProviderProjectLinks, isProviderCollectionUrl, curseForgeFullAndPreview } = require('./src/provider-media');
@@ -364,6 +368,10 @@ function setTabGroup(id,rawGroup='') {
 function setViewVisible(view, visible) {
   if (!view) return;
   try { view.setVisible(!!visible); } catch {}
+  if (view === catalogView || view === launcherView) {
+    try { view.webContents.send('trailer:visibility', !!visible && !!win?.isFocused()); } catch {}
+    if (!visible) trailerService?.release(view.webContents);
+  }
 }
 function layoutChromeOverlay() {
   if (!chromeView || !win || win.isDestroyed()) return;
@@ -906,6 +914,12 @@ function createWindow({ show = true } = {}) {
   win.on('resize', () => { layoutViews(); publishState(); refreshShellChrome(); });
   win.on('close',()=>{for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}});
   win.on('focus', refreshShellChrome);
+  win.on('blur', () => trailerService?.stop('App in background'));
+  win.on('minimize', () => trailerService?.stop('App minimized'));
+  win.on('focus', () => { try {
+    catalogView?.webContents.send('trailer:visibility', activeId === CATALOG_ID || (splitMode && splitWorkspaceId === CATALOG_ID));
+    launcherView?.webContents.send('trailer:visibility', activeId === LAUNCHER_ID || (splitMode && splitWorkspaceId === LAUNCHER_ID));
+  } catch {} });
   win.webContents.on('blur', refreshShellChrome);
   win.webContents.on('focus', refreshShellChrome);
   win.on('maximize', publishState);
@@ -2663,6 +2677,9 @@ ipcMain.handle('catalog:enrich-project-links', async (event, project) => {
   catalogSender(event);
   return enrichCatalogProjectLinks(project);
 });
+registerTrailerIpc(ipcMain, () => trailerService, event => {
+  if (event.sender === launcherView?.webContents) launcherSender(event); else catalogSender(event);
+});
 ipcMain.handle('catalog:export', async (event, payload) => {
   catalogSender(event);
   const format = ['xlsx','csv','json','html','pdf'].includes(String(payload?.format || '').toLowerCase())
@@ -3102,6 +3119,11 @@ app.whenReady().then(async () => {
   adblockManager.schedule();
   catalogStore = new CatalogStore({ rootDir:ROOT, userDataDir:app.getPath('userData'), liveSession:live, testMode });
   await catalogStore.init();
+  trailerService = createTrailerService({ store: catalogStore, cachedProject: cachedModrinthProject, resolveProject: nativeTrailerProject(launcherService) });
+  // YouTube requires desktop embeds to identify the installed app. This is our
+  // actual Windows AppUserModelID, never a forged provider-page identity.
+  identifyTrailerEmbeds(live, id => id === catalogView?.webContents.id);
+  identifyTrailerEmbeds(session.fromPartition(LAUNCHER_PARTITION), id => id === launcherView?.webContents.id);
   bindCatalogStoreEvents();
   if (testMode) runSelfTest().catch(err => { console.error(err); void shutdownApplication(1); });
   else { createWindow({ show: true }); restoreSession(); }

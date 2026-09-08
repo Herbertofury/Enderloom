@@ -44,6 +44,17 @@ window.addEventListener('drop', (event) => {
 contextBridge.exposeInMainWorld('enderloomLauncher', {
   embedded: true,
   selfTest: process.argv.includes('--enderloom-self-test=1'),
+  trailers: {
+    settings: patch => ipcRenderer.invoke('trailer:settings', patch),
+    discover: (project, force = false) => ipcRenderer.invoke('trailer:discover', { project, force: !!force }),
+    cancel: project => ipcRenderer.invoke('trailer:cancel', project),
+    choose: (project, choice) => ipcRenderer.invoke('trailer:choose', { project, choice }),
+    correct: (project, url) => ipcRenderer.invoke('trailer:correct', { project, url: String(url || '') }),
+    claim: (context, manual) => ipcRenderer.invoke('trailer:claim', { context, manual: !!manual }),
+    release: () => ipcRenderer.invoke('trailer:release'),
+    onStop: cb => { const fn = (_event, value) => cb(value); ipcRenderer.on('trailer:stop', fn); return () => ipcRenderer.removeListener('trailer:stop', fn); },
+    onVisibility: cb => { const fn = (_event, value) => cb(value); ipcRenderer.on('trailer:visibility', fn); return () => ipcRenderer.removeListener('trailer:visibility', fn); },
+  },
   invoke: (command, args) => ipcRenderer.invoke('launcher:invoke', { command, args }),
   listen: async (event, callback) => subscribe(String(event), callback),
   openDialog: (options) => ipcRenderer.invoke('launcher:open-dialog', options),

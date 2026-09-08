@@ -45,7 +45,7 @@ pub fn get_app_info(state: State<AppState>) -> Result<AppInfo> {
             .collect(),
         arch: std::env::consts::ARCH.to_string(),
         install_source: update::install_source(),
-        bundled_curseforge_key: crate::build_info::bundled_curseforge_key().is_some(),
+        bundled_curseforge_key: crate::build_info::automatic_curseforge_key().is_some(),
         bundled_discord_app_id: crate::build_info::bundled_discord_app_id().is_some(),
     })
 }

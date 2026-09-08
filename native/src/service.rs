@@ -232,7 +232,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
                 "policy": "self_managed",
                 "update_hint": "Updates are managed by Enderloom."
             },
-            "bundled_curseforge_key": crate::build_info::bundled_curseforge_key().is_some(),
+            "bundled_curseforge_key": crate::build_info::automatic_curseforge_key().is_some(),
             "bundled_discord_app_id": crate::build_info::bundled_discord_app_id().is_some()
         })),
         "get_play_stats" => value(

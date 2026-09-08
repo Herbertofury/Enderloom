@@ -120,6 +120,15 @@
     const oldVideo=slot.querySelector?.('.live-media-video');
     if(!item?.url){img.hidden=true;if(oldVideo){oldVideo.pause?.();oldVideo.hidden=true}if(loading){const curseForgePending=slot?.dataset?.liveMediaRole==='gallery'&&!s?.deepLoaded&&!s?.galleryAbsent&&!s?.sourceGalleryAbsent&&(s?.urls||[]).some(u=>/curseforge\.com/i.test(String(u||'')));loading.hidden=false;loading.textContent=(slot?.dataset?.liveMediaRole==='gallery'&&s?.galleryAbsent)?'Live source has no gallery':(slot?.dataset?.liveMediaRole==='gallery'&&s?.sourceGalleryAbsent)?'Gallery tab empty — checking project post…':curseForgePending?'Checking exact CurseForge gallery…':s?.loaded?'Live source did not expose this media yet':'Loading live media…'}return}
     const isVideo=item.mediaType==='video';
+    if(isVideo && slot.dataset.liveMediaRole==='gallery'){
+      // Card galleries load real poster art only. The owned trailer player or an
+      // explicit gallery-open action is responsible for requesting video bytes.
+      if(oldVideo){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load();oldVideo.remove()}
+      const poster=isHttp(item.posterUrl)?item.posterUrl:isHttp(item.previewUrl)?item.previewUrl:'';
+      const fallback=poster?{...item,url:poster,previewUrl:'',mediaType:'image'}:s?.gallery.find(x=>x.mediaType!=='video');
+      if(fallback){setImage(slot,fallback,label,s)}else{img.hidden=true;if(loading){loading.hidden=false;loading.textContent='Project video available · open gallery to play'}}
+      return;
+    }
     if(isVideo){
       img.hidden=true;let video=oldVideo;
       if(!video){video=document.createElement('video');video.className='live-media-video';video.muted=true;video.playsInline=true;video.preload='metadata';video.controls=false;slot.appendChild(video)}

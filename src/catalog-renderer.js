@@ -77,10 +77,11 @@ function renderCatalog(snapshot, rootDir) {
   const template = fs.readFileSync(path.join(catalogDir, 'template.html'), 'utf8');
   const styles = [
     fs.readFileSync(path.join(catalogDir, 'styles.css'), 'utf8'),
-    fs.readFileSync(path.join(catalogDir, 'modern.css'), 'utf8')
+    fs.readFileSync(path.join(catalogDir, 'modern.css'), 'utf8'),
+    fs.readFileSync(path.join(catalogDir, 'trailers.css'), 'utf8')
   ].join('\n');
   const appJs = fs.readFileSync(path.join(catalogDir, 'app.js'), 'utf8');
-  const enhanceJs = fs.readFileSync(path.join(catalogDir, 'enhance.js'), 'utf8');
+  const enhanceJs = fs.readFileSync(path.join(catalogDir, 'enhance.js'), 'utf8') + '\n' + fs.readFileSync(path.join(catalogDir, 'trailers.js'), 'utf8');
   const data = normalizeSnapshot(snapshot);
   let html = template
     .replaceAll('__TITLE__', htmlEscape(`${data.name} - Explorer`))
