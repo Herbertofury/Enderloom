@@ -9,7 +9,6 @@ const { spawn } = require('child_process');
 const { randomUUID } = require('crypto');
 
 const PROTOCOL_VERSION = 1;
-const MAX_PENDING = 256;
 const DEFAULT_TIMEOUT_MS = 120000;
 
 class LauncherService extends EventEmitter {
@@ -191,7 +190,6 @@ class LauncherService extends EventEmitter {
     await this.start();
     const input = this.socket || this.child?.stdin;
     if (!input?.writable) throw new Error('Enderloom Rust service is unavailable');
-    if (this.pending.size >= MAX_PENDING) throw new Error('Enderloom Rust service is busy');
     const id = randomUUID();
     const message = JSON.stringify({
       protocol: PROTOCOL_VERSION,
@@ -199,9 +197,6 @@ class LauncherService extends EventEmitter {
       command: String(command),
       args: args && typeof args === 'object' ? args : {},
     });
-    if (Buffer.byteLength(message, 'utf8') > 8 * 1024 * 1024) {
-      throw new Error('Enderloom IPC request exceeds the 8 MiB limit');
-    }
     return await new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         this.pending.delete(id);

@@ -206,9 +206,93 @@ fn read_entry(zip: &mut zip::ZipArchive<std::fs::File>, name: &str) -> Option<St
     use std::io::Read;
 
     let mut entry = zip.by_name(name).ok()?;
+    if entry.size() > 1024 * 1024 { return None; }
     let mut body = String::new();
-    entry.read_to_string(&mut body).ok()?;
+    entry.by_ref().take(1024 * 1024 + 1).read_to_string(&mut body).ok()?;
+    if body.len() > 1024 * 1024 { return None; }
     Some(body)
+}
+
+pub(crate) fn enrich_local_source(files: &crate::files::FileManager, path: &Path, name: &str, source: &mut Option<ContentFile>) {
+    if !name.trim_end_matches(".disabled").ends_with(".jar") { return; }
+    if let Some(record) = source {
+        if let Some(url) = record.icon_url.as_ref().and_then(|url| crate::icon_assets::compact_existing_icon(files,url)) { record.icon_url = Some(url); }
+    }
+    let needs_metadata = source.as_ref().is_none_or(|s| s.mod_id.is_none() || s.title.is_none());
+    let needs_icon = source.as_ref().is_none_or(|s| s.icon_url.is_none());
+    if !needs_metadata && !needs_icon { return; }
+    let (metadata,icon) = cached_local_artwork(files,path);
+    if metadata.is_none() && icon.is_none() { return; }
+    let record = source.get_or_insert_with(|| ContentFile { file_name: name.into(), origin: "manual".into(), ..ContentFile::default() });
+    if let Some((id, version, title)) = metadata {
+        if record.mod_id.is_none() { record.mod_id = id; }
+        if record.mod_version.is_none() { record.mod_version = version; }
+        if record.title.is_none() { record.title = title; }
+    }
+    if record.icon_url.is_none() { record.icon_url = icon; }
+}
+
+type LocalArtwork = (Option<(Option<String>,Option<String>,Option<String>)>,Option<String>);
+fn cached_local_artwork(files: &crate::files::FileManager, path: &Path) -> LocalArtwork {
+    use std::sync::{Mutex,OnceLock,atomic::{AtomicU64,Ordering}};
+    static CACHE: OnceLock<Mutex<HashMap<String,(u64,LocalArtwork)>>> = OnceLock::new();
+    static TICK: AtomicU64 = AtomicU64::new(0);
+    let Some(metadata) = files.metadata(path).ok() else { return (None,None); };
+    let key=format!("{}|{}|{:?}",path.display(),metadata.len(),metadata.modified().ok());
+    let cache=CACHE.get_or_init(||Mutex::new(HashMap::new()));
+    let tick=TICK.fetch_add(1,Ordering::Relaxed);
+    if let Some((used,value))=cache.lock().unwrap().get_mut(&key) {
+        if value.1.as_ref().is_none_or(|url|crate::icon_assets::available(files,url)) { *used=tick; return value.clone(); }
+    }
+    let result=(read_metadata(files,path),read_embedded_icon(files,path));
+    let mut cache=cache.lock().unwrap();
+    if cache.len()>=4096 { if let Some(oldest)=cache.iter().min_by_key(|(_,entry)|entry.0).map(|(key,_)|key.clone()) { cache.remove(&oldest); } }
+    cache.insert(key,(tick,result.clone()));
+    result
+}
+
+fn read_embedded_icon(files: &crate::files::FileManager, path: &Path) -> Option<String> {
+    let mut archive = zip::ZipArchive::new(files.open(path).ok()?).ok()?;
+    if archive.len() > 100_000 { return None; }
+    let mut names = Vec::new();
+    for manifest in ["fabric.mod.json", "quilt.mod.json"] {
+        if let Some(body) = read_entry(&mut archive, manifest) {
+            if let Ok(value) = serde_json::from_str::<serde_json::Value>(&body) {
+                let icon = if manifest == "fabric.mod.json" { &value["icon"] } else { &value["quilt_loader"]["metadata"]["icon"] };
+                if let Some(name) = icon.as_str() { names.push(name.to_owned()); }
+                if let Some(sizes) = icon.as_object() {
+                    let mut sizes: Vec<_> = sizes.iter().filter_map(|(size, name)| Some((size.parse::<u32>().ok()?, name.as_str()?))).collect();
+                    sizes.sort_by_key(|(size, _)| size.abs_diff(128));
+                    names.extend(sizes.into_iter().map(|(_,name)| name.to_owned()));
+                }
+            }
+        }
+    }
+    for manifest in ["META-INF/neoforge.mods.toml", "META-INF/mods.toml"] {
+        if let Some(body) = read_entry(&mut archive, manifest) {
+            if let Ok(value) = toml::from_str::<toml::Value>(&body) {
+                if let Some(mods) = value.get("mods").and_then(|m| m.as_array()) {
+                    names.extend(mods.iter().filter_map(|m| m.get("logoFile")?.as_str().map(str::to_owned)));
+                }
+            }
+        }
+    }
+    if let Some(body) = read_entry(&mut archive, "mcmod.info") {
+        if let Ok(value) = serde_json::from_str::<serde_json::Value>(&body) {
+            if let Some(mods) = value.as_array() { names.extend(mods.iter().filter_map(|m| m["logoFile"].as_str().map(str::to_owned))); }
+        }
+    }
+    names.extend(["icon.png".into(), "logo.png".into()]);
+    for name in names {
+        if name.contains("..") || name.contains('\\') || name.starts_with('/') { continue; }
+        let Ok(mut entry) = archive.by_name(&name) else { continue; };
+        if entry.size() > 512 * 1024 { continue; }
+        let mut bytes = Vec::new();
+        if entry.by_ref().take(512 * 1024 + 1).read_to_end(&mut bytes).is_err() || bytes.len() > 512 * 1024 { continue; }
+        let mime = if bytes.starts_with(b"\x89PNG\r\n\x1a\n") { "image/png" } else if bytes.starts_with(&[0xff,0xd8,0xff]) { "image/jpeg" } else if bytes.starts_with(b"RIFF") && bytes.get(8..12) == Some(b"WEBP") { "image/webp" } else { continue; };
+        return crate::icon_assets::embedded_icon_url(files,mime,&bytes);
+    }
+    None
 }
 
 pub fn read_metadata(

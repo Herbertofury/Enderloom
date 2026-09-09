@@ -13,17 +13,14 @@ use crate::{
     db::Db,
     error::{Error, Result},
     files::FileManager,
-    migrate::{LauncherKind, MigrationScan},
+    migrate::LauncherKind,
     paths::{DataRoot, Paths},
     state::AppState,
     tasks::{TaskKind, TaskSpec},
 };
 
 const PROTOCOL_VERSION: u32 = 1;
-const MAX_MESSAGE_BYTES: usize = 8 * 1024 * 1024;
 const MAX_CONCURRENT_REQUESTS: usize = 256;
-const MAX_INLINE_ICON_BYTES: usize = 256 * 1024;
-const MAX_INLINE_SCAN_MEDIA_BYTES: usize = 2 * 1024 * 1024;
 
 #[derive(Deserialize)]
 struct Request {
@@ -2240,7 +2237,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
             let kind = required_string(args, "kind")?;
             let scan =
                 crate::migrate::scan(&state.files, &state.db, LauncherKind::parse(&kind)?, &root)?;
-            value(bound_scan_media(scan))
+            value(scan)
         }
         "connect_instances_in_place" => {
             let root = PathBuf::from(required_string(args, "root")?);
@@ -2317,38 +2314,11 @@ fn data_dir_from_args() -> Result<PathBuf> {
     Err(Error::other("start the service with --data-dir <path>"))
 }
 
-fn bound_scan_media(mut scan: MigrationScan) -> MigrationScan {
-    let mut retained_bytes = 0usize;
-    for candidate in &mut scan.candidates {
-        let Some(icon) = candidate.icon_data_url.as_ref() else {
-            continue;
-        };
-        let icon_bytes = icon.len();
-        let fits_individually = icon_bytes <= MAX_INLINE_ICON_BYTES;
-        let fits_scan = retained_bytes
-            .checked_add(icon_bytes)
-            .is_some_and(|total| total <= MAX_INLINE_SCAN_MEDIA_BYTES);
-        if fits_individually && fits_scan {
-            retained_bytes += icon_bytes;
-        } else {
-            candidate.icon_data_url = None;
-        }
-    }
-    scan
-}
-
 fn write_message(output: &mut impl Write, message: &Value) -> Result<()> {
-    let mut encoded = serde_json::to_vec(message)?;
-    if encoded.len() > MAX_MESSAGE_BYTES {
-        let id = message.get("id").and_then(Value::as_str).unwrap_or("");
-        encoded = serde_json::to_vec(&json!({
-            "protocol": PROTOCOL_VERSION,
-            "id": id,
-            "ok": false,
-            "error": "IPC response exceeds the 8 MiB limit"
-        }))?;
-    }
-    output.write_all(&encoded)?;
+    // Stream complete JSON through a reusable-sized buffer instead of rejecting
+    // large inventories or allocating a second full serialized response.
+    let mut output = io::BufWriter::with_capacity(64 * 1024, output);
+    serde_json::to_writer(&mut output, message)?;
     output.write_all(b"\n")?;
     output.flush()?;
     Ok(())
@@ -2483,17 +2453,6 @@ pub async fn run() -> Result<()> {
         if read == 0 {
             return Ok(());
         }
-        if read > MAX_MESSAGE_BYTES {
-            output_tx
-                .send(json!({
-                    "protocol": PROTOCOL_VERSION,
-                    "id": "",
-                    "ok": false,
-                    "error": "IPC message exceeds the 8 MiB limit"
-                }))
-                .map_err(|error| Error::other(format!("IPC writer stopped: {error}")))?;
-            continue;
-        }
         let request: Request = match serde_json::from_str(&line) {
             Ok(request) => request,
             Err(error) => {
@@ -2549,58 +2508,20 @@ pub async fn run() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::migrate::MigrationCandidate;
-
-    fn candidate(icon_data_url: Option<String>) -> MigrationCandidate {
-        MigrationCandidate {
-            id: "profile-id".to_string(),
-            name: "Profile".to_string(),
-            version_id: "1.20.1".to_string(),
-            loader: Some("fabric".to_string()),
-            loader_version: None,
-            icon_data_url,
-            pack: None,
-            mod_count: 0,
-            file_count: 0,
-            total_bytes: 0,
-            last_played_ms: None,
-            warnings: Vec::new(),
-            importable: true,
-            imported: false,
-        }
-    }
-
     #[test]
-    fn scan_media_is_bounded_before_serialization() {
-        let small = "a".repeat(MAX_INLINE_ICON_BYTES);
-        let large = "b".repeat(MAX_INLINE_ICON_BYTES + 1);
-        let scan = MigrationScan {
-            kind: LauncherKind::Modrinth,
-            root: "profiles".to_string(),
-            candidates: vec![candidate(Some(small)), candidate(Some(large))],
-        };
-
-        let bounded = bound_scan_media(scan);
-        assert!(bounded.candidates[0].icon_data_url.is_some());
-        assert!(bounded.candidates[1].icon_data_url.is_none());
-    }
-
-    #[test]
-    fn oversized_response_becomes_a_correlated_error() {
+    fn large_response_is_streamed_without_truncation() {
         let mut output = Vec::new();
         let message = json!({
             "protocol": PROTOCOL_VERSION,
             "id": "request-42",
             "ok": true,
-            "result": "x".repeat(MAX_MESSAGE_BYTES)
+            "result": "x".repeat(10 * 1024 * 1024)
         });
 
-        write_message(&mut output, &message).expect("bounded response should be writable");
+        write_message(&mut output, &message).expect("large response should be writable");
         let response: Value = serde_json::from_slice(&output).expect("response should be JSONL");
         assert_eq!(response["id"], "request-42");
-        assert_eq!(response["ok"], false);
-        assert!(response["error"]
-            .as_str()
-            .is_some_and(|error| error.contains("8 MiB")));
+        assert_eq!(response["ok"], true);
+        assert_eq!(response["result"].as_str().unwrap().len(), 10 * 1024 * 1024);
     }
 }

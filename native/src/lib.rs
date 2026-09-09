@@ -16,6 +16,7 @@ mod download;
 mod error;
 mod files;
 mod install;
+mod icon_assets;
 mod instance_ops;
 mod java;
 mod launch;

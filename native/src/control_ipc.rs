@@ -17,7 +17,6 @@ use tokio::{
 };
 
 const ENDPOINT: &str = ".enderloom-control.json";
-const MAX_LINE: usize = 8 * 1024 * 1024;
 #[derive(Deserialize, Serialize)]
 struct Endpoint {
     protocol: u32,
@@ -67,9 +66,6 @@ async fn read_line(
             .position(|b| *b == b'\n')
             .map(|i| i + 1)
             .unwrap_or(available.len());
-        if bytes.len() + count > MAX_LINE {
-            return Err(Error::other("Local command exceeds 8 MiB"));
-        }
         let complete = available[count - 1] == b'\n';
         bytes.extend_from_slice(&available[..count]);
         reader.consume(count);

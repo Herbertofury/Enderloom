@@ -30,28 +30,73 @@ pub(crate) async fn list_instance_content_core(
 ) -> Result<Vec<ContentItem>> {
     find_instance(state, instance_id)?;
     if reconcile {
-        search::identify::reconcile(state, search::resolve::Target::Instance(instance_id), kind)
-            .await?;
+        if let Err(error) =
+            search::identify::reconcile(state, search::resolve::Target::Instance(instance_id), kind)
+                .await
+        {
+            tracing::warn!(
+                instance_id,
+                kind,
+                error = %error,
+                "content reconciliation failed; returning the on-disk inventory without refreshed metadata"
+            );
+        }
     }
 
     let mut items = content::list(&state.files, instance_id, kind)?;
-    let mut sources: std::collections::HashMap<String, crate::db::ContentFile> = state
-        .db
-        .content_files(instance_id, kind)?
-        .into_iter()
-        .map(|f| (f.file_name.clone(), f))
-        .collect();
-    let mut updates: std::collections::HashMap<String, crate::db::ContentUpdate> = state
-        .db
-        .content_updates(instance_id)?
-        .into_iter()
-        .filter(|u| u.kind == kind)
-        .map(|u| (u.file_name.clone(), u))
-        .collect();
-    let locked = state.db.locked_content_projects(instance_id, kind)?;
+    let mut sources: std::collections::HashMap<String, crate::db::ContentFile> =
+        match state.db.content_files(instance_id, kind) {
+            Ok(files) => files
+                .into_iter()
+                .map(|f| (f.file_name.clone(), f))
+                .collect(),
+            Err(error) => {
+                tracing::warn!(
+                    instance_id,
+                    kind,
+                    error = %error,
+                    "content source metadata is unavailable; returning the on-disk inventory"
+                );
+                std::collections::HashMap::new()
+            }
+        };
+    let mut updates: std::collections::HashMap<String, crate::db::ContentUpdate> =
+        match state.db.content_updates(instance_id) {
+            Ok(updates) => updates
+                .into_iter()
+                .filter(|u| u.kind == kind)
+                .map(|u| (u.file_name.clone(), u))
+                .collect(),
+            Err(error) => {
+                tracing::warn!(
+                    instance_id,
+                    kind,
+                    error = %error,
+                    "content update metadata is unavailable; returning the on-disk inventory"
+                );
+                std::collections::HashMap::new()
+            }
+        };
+    let locked = match state.db.locked_content_projects(instance_id, kind) {
+        Ok(locked) => locked,
+        Err(error) => {
+            tracing::warn!(
+                instance_id,
+                kind,
+                error = %error,
+                "content lock metadata is unavailable; returning the on-disk inventory"
+            );
+            Default::default()
+        }
+    };
 
     for item in &mut items {
         item.source = sources.remove(&item.file_name);
+        if kind == "mods" {
+            let dir = state.paths.instance_dir(instance_id).join("mods");
+            let path = content::resolve_path(&state.files, &dir, &item.file_name);
+            search::identify::enrich_local_source(&state.files, &path, &item.file_name, &mut item.source);
+        }
         item.frozen = item
             .source
             .as_ref()
@@ -84,39 +129,103 @@ pub(crate) async fn list_instance_content_bundle_core(
     let mut sources_by_kind: std::collections::HashMap<String, Vec<crate::db::ContentFile>> =
         std::collections::HashMap::new();
     for kind in &kinds {
-        sources_by_kind.insert(kind.clone(), state.db.content_files(instance_id, kind)?);
+        let sources = match state.db.content_files(instance_id, kind) {
+            Ok(sources) => sources,
+            Err(error) => {
+                tracing::warn!(
+                    instance_id,
+                    kind,
+                    error = %error,
+                    "content source metadata is unavailable; returning the on-disk inventory"
+                );
+                Vec::new()
+            }
+        };
+        sources_by_kind.insert(kind.clone(), sources);
     }
-    let all_updates = state.db.content_updates(instance_id)?;
+    let all_updates = match state.db.content_updates(instance_id) {
+        Ok(updates) => updates,
+        Err(error) => {
+            tracing::warn!(
+                instance_id,
+                error = %error,
+                "content update metadata is unavailable; returning the on-disk inventory"
+            );
+            Vec::new()
+        }
+    };
 
     let mut bundle = std::collections::HashMap::with_capacity(kinds.len());
     for kind in kinds {
-        if reconcile {
-            search::identify::reconcile(
+        let reconciled = if reconcile {
+            match search::identify::reconcile(
                 &state,
                 search::resolve::Target::Instance(instance_id),
                 &kind,
             )
-            .await?;
-        }
+            .await
+            {
+                Ok(()) => true,
+                Err(error) => {
+                    tracing::warn!(
+                        instance_id,
+                        kind,
+                        error = %error,
+                        "content reconciliation failed; returning the on-disk inventory without refreshed metadata"
+                    );
+                    false
+                }
+            }
+        } else {
+            false
+        };
 
         let mut items = content::list(&state.files, instance_id, &kind)?;
-        let mut sources: std::collections::HashMap<String, crate::db::ContentFile> = if reconcile {
-            state.db.content_files(instance_id, &kind)?
+        let source_files = if reconciled {
+            match state.db.content_files(instance_id, &kind) {
+                Ok(sources) => sources,
+                Err(error) => {
+                    tracing::warn!(
+                        instance_id,
+                        kind,
+                        error = %error,
+                        "refreshed content metadata is unavailable; returning the on-disk inventory"
+                    );
+                    Vec::new()
+                }
+            }
         } else {
             sources_by_kind.remove(&kind).unwrap_or_default()
-        }
-        .into_iter()
-        .map(|f| (f.file_name.clone(), f))
-        .collect();
+        };
+        let mut sources: std::collections::HashMap<String, crate::db::ContentFile> = source_files
+            .into_iter()
+            .map(|f| (f.file_name.clone(), f))
+            .collect();
         let mut updates: std::collections::HashMap<String, crate::db::ContentUpdate> = all_updates
             .iter()
             .filter(|u| u.kind == kind)
             .map(|u| (u.file_name.clone(), u.clone()))
             .collect();
-        let locked = state.db.locked_content_projects(instance_id, &kind)?;
+        let locked = match state.db.locked_content_projects(instance_id, &kind) {
+            Ok(locked) => locked,
+            Err(error) => {
+                tracing::warn!(
+                    instance_id,
+                    kind,
+                    error = %error,
+                    "content lock metadata is unavailable; returning the on-disk inventory"
+                );
+                Default::default()
+            }
+        };
 
         for item in &mut items {
             item.source = sources.remove(&item.file_name);
+            if kind == "mods" {
+                let dir = state.paths.instance_dir(instance_id).join("mods");
+                let path = content::resolve_path(&state.files, &dir, &item.file_name);
+                search::identify::enrich_local_source(&state.files, &path, &item.file_name, &mut item.source);
+            }
             item.frozen = item
                 .source
                 .as_ref()
