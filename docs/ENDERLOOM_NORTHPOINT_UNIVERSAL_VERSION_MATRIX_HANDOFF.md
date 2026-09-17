@@ -2,15 +2,17 @@
 
 > **Northpoint is how Enderloom behaves; it is not a module, service, tab, daemon, database, store, orchestrator, or second workflow.**
 
-The canonical implementation contract is deliberately simple: **make Enderloom do the work correctly, recover from normal failures automatically, preserve the mod, keep performance/fidelity high, and avoid making the user babysit internal engineering steps.**
+This is now the **single Enderloom implementation handoff** for both:
+1. Northpoint / mod engineering / OpenAI Hand Off + Take Back; and
+2. premium daily-launcher convergence so Enderloom becomes a complete, low-babysitting alternative to Modrinth/CurseForge rather than a collection of disconnected powerful features.
 
 ## Canonical readable handoff
 
-- Drive: https://drive.google.com/file/d/1ceIp60vSyspF7zGHC9UXW9hyluDahoWk/view
+- Drive: canonical file ID `1ceIp60vSyspF7zGHC9UXW9hyluDahoWk`
 - File: `ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md`
-- Size: `28,608` bytes
-- Lines: `724`
-- SHA-256: `75010cc0164cf3df2dafcc54a55e556429af8c25d200de1a339810e7602c2000`
+- Size: `55,970` bytes
+- Lines: `1,288`
+- SHA-256: `ba85ed460e8d3b2eca2882887480c25e9e27612681c104c3d4576984028f4f26`
 
 The repository carries a lossless gzip+base64 mirror under `docs/northpoint-v4-payload/`.
 
@@ -28,23 +30,21 @@ sha256sum /tmp/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md
 The resulting SHA-256 must be:
 
 ```text
-75010cc0164cf3df2dafcc54a55e556429af8c25d200de1a339810e7602c2000
+ba85ed460e8d3b2eca2882887480c25e9e27612681c104c3d4576984028f4f26
 ```
 
 ## Implementation law
 
-- Do not create a Northpoint subsystem. Extend Enderloom's existing canonical project/job/build/runtime/evidence/AI systems.
-- Create / Convert / Repair / Optimize / matrix builds / AI handoff / Take Back are entry points into the same resumable job model.
-- Preserve content, identity, visuals, simulation, saves, integrations, and legitimate historical/newer feature lineage.
-- Treat ordinary build, dependency, mapping, Mixin, runtime, performance, AI-return, cache, and secondary-matrix failures as engineering problems Enderloom should diagnose and repair automatically.
-- Do not stop and ask the user about decisions Enderloom can resolve from project state, metadata, prior preferences, evidence, or a safe default.
-- A blocker is not permission to idle: preserve good state, change strategy after unchanged failure, continue independent work, and resume automatically.
-- Primary requested version/loader works first; matrix fan-out follows remembered preference.
+- Do not create a Northpoint subsystem or a separate premium-launcher rewrite. Extend Enderloom's existing canonical owners.
+- Create / Convert / Repair / Optimize / matrix builds / AI Hand Off / Take Back and ordinary launcher management all share the same resumable product state, evidence, snapshots and activity model where responsibilities overlap.
+- Preserve content, identity, visuals, simulation, saves, integrations, external-launcher ownership and legitimate historical/newer feature lineage.
+- Ordinary build, dependency, mapping, Mixin, runtime, performance, AI-return, cache, download, update, migration and secondary-matrix failures are engineering problems Enderloom should diagnose/recover from rather than reasons to idle.
+- Primary requested mod-engineering target works first; matrix fan-out follows remembered preference.
 - Performance gains may not come from deleting content or reducing gameplay/visual/simulation fidelity.
-- Reuse and finish the existing OpenAI AI Operator / Codex integration. Hand Off and Take Back must preserve one canonical job/thread lineage.
-- Returned AI work is staged safely, reconciled, built/tested/profiled as applicable, automatically repaired when possible, and only then accepted.
-- If AI returns bad work, send precise failure evidence back to the same thread for correction instead of dumping the problem on the user.
-- Authentication stays secure and lane-correct: provider account sign-in, explicit API auth, browser session, and MCP/plugin OAuth are not falsely conflated.
-- Do not create another planning document before implementing. Follow the eight implementation passes in the canonical handoff and finish the real Electron workflow.
+- Reuse and finish the existing OpenAI AI Operator / Codex integration. Hand Off and Take Back preserve one canonical job/thread lineage.
+- Returned AI work is staged safely, reconciled, built/tested/profiled as applicable and only then accepted.
+- Premium convergence includes Safe Update/Update All, instance history/undo, crash-aware Fix All, dependency/conflict intelligence, persistent activity/downloads, Play/Home polish, cross-instance settings sync, screenshots, Forever World Guard, sharing, Ctrl+K/settings search, signed self-update rollback, storage de-duplication, onboarding/migration, account/skin polish, offline resilience, large-library performance, security hardening, Compare Profiles/States and Performance Clinic/Spark integration.
+- Codex should execute independent areas in parallel when ownership allows, but merge into one canonical job/settings/history/snapshot system instead of six competing subsystems.
+- Do not create another planning document before implementing. Continue through the real Electron + native workflow and produce a fresh runnable Enderloom package.
 
-**The intended UX is simple: tell Enderloom what you want once; Enderloom figures out the engineering and gets it done.**
+**The intended UX remains simple: tell Enderloom what you want once; Enderloom figures out the engineering and gets it done.**
