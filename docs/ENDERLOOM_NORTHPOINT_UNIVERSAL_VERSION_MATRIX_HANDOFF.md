@@ -1935,6 +1935,283 @@ Before calling this launcher-completeness push complete, exercise real scenarios
 
 These checks happen behind the product. The user should experience the result as **Enderloom just working**.
 
+
+## 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps
+
+These are not separate products or novelty features. They are the last layer of ordinary launcher behavior that should make Enderloom feel dependable enough that the user stops thinking about the launcher itself.
+
+### 13.24.1 Last Known Good + “What changed since it worked?”
+
+Track the exact state associated with successful launches instead of treating every launch as unrelated.
+
+For each instance keep a lightweight **Last Known Good** fingerprint covering, as applicable:
+
+- Minecraft and loader version;
+- exact enabled mod/content hashes and versions;
+- Java runtime and relevant JVM/memory settings;
+- important config fingerprints;
+- enabled resource packs/shaders/datapacks and order;
+- relevant game options;
+- world selected/loaded when known;
+- the successful launch/process identity and timestamp.
+
+After a failed launch, crash, or severe regression, Enderloom should immediately answer:
+
+- **What changed since the last successful launch?**
+- which mods were added, removed, updated or toggled;
+- which configs changed;
+- whether Java/JVM/memory/loader/game-version changed;
+- whether pack/datapack order changed;
+- whether the active world or world-critical content changed.
+
+Offer a safe one-click **Restore last working state** when the recorded delta is reversible. Snapshot before rollback when needed. Do not guess that the most recent change is guilty unless evidence supports it; show the delta and use it as repair input.
+
+New or changed content can be marked subtly until the instance completes a successful launch so the user can instantly see what is still unproven.
+
+### 13.24.2 Safe Test — disposable staging copies without making the user clone things manually
+
+For risky updates, removals, Minecraft/loader migrations, repair experiments, config changes, or Forever World work, Enderloom should be able to create an **ephemeral test copy** automatically.
+
+Requirements:
+
+- preserve the real instance/world untouched;
+- use copy-on-write, hardlinks, immutable shared cache objects, reflinks or normal copying only where each strategy is safe for the filesystem/content involved;
+- never hardlink mutable world/config files in a way that lets the test mutate the source;
+- launch and test the staged state using the real runtime;
+- compare launch result, logs, dependency state, world-open result and performance evidence when applicable;
+- promote only the exact proven delta back to the real instance transactionally;
+- discard failed test copies cleanly;
+- keep enough evidence to explain what was tested.
+
+A Forever World should strongly prefer this lane for high-risk version/mod/worldgen changes when feasible, but the user should not have to understand or manage the staging directory.
+
+### 13.24.3 Automatic crash culprit bisection
+
+When a reproducible failure appears mod-related and the cause is not already obvious, Enderloom should be able to isolate the culprit automatically instead of telling the user to disable fifty mods one at a time.
+
+Use an ephemeral test copy and dependency-aware bisection:
+
+1. start from the recent-change/suspect set;
+2. preserve required libraries/dependency closures and loader-critical content;
+3. disable/test groups intelligently;
+4. narrow the failing set until one artifact or the smallest practical interaction set remains;
+5. validate the result with another confirming run when feasible;
+6. restore/leave the real instance unchanged;
+7. feed the discovered culprit/conflict directly into Fix All / Repair / Hand Off as appropriate.
+
+Do not permanently rename/delete/toggle files in the user’s real instance during bisection.
+
+### 13.24.4 Game Settings & Keybind Center
+
+Cross-instance sync is not enough. Enderloom should also provide a first-class editor for Minecraft settings and controls.
+
+Support, version permitting:
+
+- searchable `options.txt` values;
+- recognizable keybind/action names;
+- modded keybindings and the mod/project that owns them when provenance can be resolved;
+- conflict detection when multiple actions use the same key/chord;
+- filters by key, action, category and owning mod;
+- per-instance edit versus synced/default value;
+- reset one setting/keybind to inherited/default state;
+- preserve unknown/modded options instead of rewriting the file destructively;
+- validate/coerce values only when the exact target version format is understood;
+- diff settings against another instance, snapshot or Last Known Good state.
+
+A user should be able to answer **“what mod owns this keybind?”** and **“what is conflicting with Mouse 4?”** directly in Enderloom.
+
+### 13.24.5 Config Center — searchable configs with history instead of opening random files in Notepad
+
+Add a unified Config Center over the real instance/world config files.
+
+Cover common formats such as TOML, JSON/JSON5 where safely parseable, YAML, properties and plain text, plus world-scoped `serverconfig`/equivalent locations where applicable.
+
+Capabilities:
+
+- group config files by owning mod/project when resolvable;
+- search filenames, keys and values across the instance;
+- syntax validation before committing edits;
+- schema-aware controls when trustworthy metadata/schema exists;
+- raw editor fallback instead of inventing fake forms;
+- show changed-from-default/previous state when that evidence exists;
+- diff against Last Known Good, snapshot or another instance;
+- restore one key/file from a known-good version;
+- keep automatic pre-edit backup/history;
+- reuse the existing three-way merge logic for modpack/config upgrades;
+- show which configs are world-scoped versus global/client/common;
+- surface configs related to a selected installed mod directly from its content page.
+
+For Forever Worlds, warn when a config change materially alters worldgen/registry/dimension behavior and route it through the same snapshot/staging protection instead of treating all configs as harmless text.
+
+### 13.24.6 Verified Backup Vault
+
+Snapshots are only useful if the backup actually exists and can be read later.
+
+Allow user-selected backup destinations including:
+
+- another local drive/folder;
+- removable/external storage;
+- network/NAS paths when the OS exposes them normally;
+- user-managed cloud-synced folders such as OneDrive/Dropbox without pretending Enderloom owns those cloud APIs.
+
+Requirements:
+
+- world-only or full-instance backup targets;
+- retention rules by count/age/space;
+- incremental/deduplicated storage where safe;
+- manifest + hash verification after backup;
+- verify archives/files can be reopened/listed;
+- preview exactly what a restore will replace;
+- restore into a temporary location or validate the manifest before replacing live data when practical;
+- show last verified backup age/status on Forever World and instance surfaces;
+- automatically create/verify a local recovery point before dangerous operations even when no external destination is configured.
+
+Do not claim “backed up” merely because a copy command returned success.
+
+### 13.24.7 Move / Relocate without breaking the instance
+
+Add a proper **Move** action for instances, worlds, snapshot storage and Enderloom-owned caches.
+
+The flow should:
+
+1. calculate required space before starting;
+2. block/queue until the relevant game/write task is stopped;
+3. copy to the destination;
+4. hash/verify important content and metadata;
+5. atomically switch Enderloom’s canonical path only after verification;
+6. preserve/recover the source until the destination is proven usable;
+7. optionally remove the old copy only after success;
+8. resume safely after interruption instead of leaving a half-moved instance.
+
+For externally owned CurseForge/Modrinth/Prism/etc. profiles, clearly distinguish **reconnect**, **clone/copy**, and an actual move that the external launcher also understands. Never silently move another launcher’s library behind its back.
+
+### 13.24.8 Live external-change reconciliation and concurrent-launcher safety
+
+Enderloom already supports external libraries, so stale cached state and two launchers writing the same profile are unacceptable.
+
+Implement efficient debounced filesystem observation for relevant directories/files so Enderloom notices:
+
+- mods manually added/removed/replaced;
+- configs edited externally;
+- worlds created/renamed/deleted;
+- screenshots/datapacks/resource packs changed outside the app;
+- another launcher changing a connected external profile.
+
+Reconcile only affected paths instead of rescanning the whole library.
+
+During destructive/multi-file Enderloom operations use an ownership/transaction lock for Enderloom-managed state. When another process/launcher is actively mutating the same connected profile, defer or warn before a conflicting write instead of racing it.
+
+A stale UI should never tell the user a file/version still exists when it changed on disk minutes ago.
+
+### 13.24.9 Preflight health checks before expensive or destructive work
+
+Before launch/update/snapshot/migration/move/import, cheaply verify the conditions that commonly cause dumb half-failures:
+
+- enough free disk space, including temporary/staging overhead;
+- destination path is online/writable;
+- expected Java exists and is executable;
+- required Minecraft assets/libraries are present or recoverable;
+- no known duplicate mod IDs/wrong-loader artifacts are about to launch;
+- files that must be replaced are not unexpectedly locked;
+- Windows path-length/invalid-name hazards where relevant;
+- external/cloud-placeholder files needed for the operation are actually locally available;
+- enough space remains for rollback/snapshot if the operation promises rollback.
+
+Fix automatically when safe. Do not turn harmless advisory findings into blockers.
+
+### 13.24.10 Manual JAR/drop intelligence — never blindly copy a mystery file into `mods`
+
+When the user drags in or imports a manual JAR, inspect it before mutation.
+
+Show or resolve automatically:
+
+- mod ID/name/version;
+- Minecraft/loader compatibility;
+- dependency requirements;
+- whether it is client/server/both;
+- vanilla/world-impact classification where available;
+- whether the same project/version already exists under another provider/file name;
+- whether it is older/newer than the installed copy;
+- whether it should be treated as a replacement/update instead of a second duplicate;
+- embedded JAR/native/executable/security-relevant contents;
+- provider/source match and provenance when a trusted match can be established.
+
+Wrong-loader/wrong-version/duplicate-ID files should not be blindly copied and left to crash later. Route legitimate replacements through Safe Update/history/snapshot behavior.
+
+### 13.24.11 Resource-pack/shader order and override visibility
+
+Treat resource packs and shaders as managed state rather than just ZIP files.
+
+Support:
+
+- enable/disable and explicit load order;
+- drag reorder with keyboard-accessible alternatives;
+- compatible-version visibility;
+- current selected shader where detectable;
+- diff/order history through snapshots/settings sync;
+- explain obvious namespace/path overrides between enabled resource packs without loading every texture into memory;
+- show when a modpack owns a pack versus one the user added;
+- preserve ordering through updates and cross-instance sync.
+
+### 13.24.12 Optional Windows integration that actually helps
+
+Add OS integration only where it reduces clicks:
+
+- optional system tray while Enderloom is running;
+- taskbar progress for real installs/downloads/updates;
+- jump-list/quick actions for recent/favorite instances where supported;
+- native notifications backed by persistent Activity entries, not ephemeral toast-only state;
+- quick launch of favorite instances/worlds from supported shortcuts/deep links.
+
+Do not force minimize-to-tray, keep hidden background processes alive unnecessarily, or make OS integration required for core functionality.
+
+### 13.24.13 Enderloom settings/metadata disaster recovery
+
+The user should be able to reinstall Enderloom without losing the organization layer they built around Minecraft.
+
+Provide an export/import or recoverable backup for Enderloom-owned non-secret state such as:
+
+- connected instance/library mappings;
+- groups/tags/favorites/pins/notes;
+- UI/preferences and sync policies;
+- provider project links/provenance;
+- Forever World flags/baselines where portable;
+- task/history metadata needed for recovery;
+- snapshot/backup catalog metadata.
+
+Secrets, OAuth tokens, Microsoft credentials and provider API keys must never be dumped into a plaintext settings backup.
+
+On first run after reinstall, detecting known libraries plus importing this metadata should restore the organizational state rather than making the user rebuild it manually.
+
+### 13.24.14 Smart Java/memory defaults without magic garbage JVM flags
+
+Enderloom already manages Java and memory; finish the user experience around it.
+
+Offer an **Auto** memory mode that chooses a conservative allocation from total RAM, instance/content footprint and observed behavior while avoiding harmful over-allocation. Show the chosen value and let the user override it.
+
+For Java/runtime selection:
+
+- show exactly which Java is being used and why;
+- validate architecture/version against the target Minecraft/loader;
+- offer **Test Java** / repair when the runtime is broken;
+- keep per-instance override with a clear path back to Auto;
+- do not inject internet-cargo-cult JVM flag packs as “optimization”.
+
+### 13.24.15 Network/proxy and download diagnostics
+
+Downloads should fail with useful evidence, not “network error”.
+
+Add:
+
+- optional system/manual proxy settings where the networking stack supports them;
+- DNS/TLS/HTTP/provider diagnostics for a failed endpoint;
+- retry/resume using the same persisted Activity job;
+- mirror/CDN fallback only when the provider contract actually offers an alternate source;
+- existing bandwidth/concurrency controls integrated into the same settings surface;
+- final hash/size verification regardless of download source.
+
+Keep existing installed instances launchable during provider outages wherever entitlement/cached runtime state legitimately permits it.
+
 ---
 
 # 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES
@@ -1998,6 +2275,19 @@ Enderloom is done with this work when all of these are true in the actual app:
 - [ ] Large libraries/logs/screenshots/tasks remain responsive and do not block initial app usability on unrelated background reconciliation.
 - [ ] Imported packs, downloaded content and AI returns remain inside hardened archive/path/hash/provenance/security boundaries.
 - [ ] Compare Profiles/States, Safe Update, Fix All, Forever World Guard and Performance Clinic are polished first-class Enderloom advantages.
+- [ ] Last Known Good records a successful instance state and a failed launch can show the exact meaningful delta since it last worked, with safe restoration where reversible.
+- [ ] Risky updates/removals/migrations can run in an automatic disposable Safe Test copy and only promote a proven delta back to the real instance/world.
+- [ ] Automatic dependency-aware crash bisection can isolate a mod/conflict in a temporary copy without permanently toggling the user’s real instance.
+- [ ] Game Settings & Keybind Center can search/edit supported options, identify owning mods, detect conflicts, preserve unknown keys and integrate with sync/inheritance.
+- [ ] Config Center can search, diff, validate, back up and restore mod/world configs with schema-aware editing only where trustworthy metadata exists.
+- [ ] Backup Vault supports user-selected destinations, retention and real post-write verification; Forever World can show whether a recent verified recovery point actually exists.
+- [ ] Instances/worlds/snapshot storage can be moved between drives with space preflight, verification, interruption recovery and no premature deletion of the source.
+- [ ] External file changes and connected-launcher mutations reconcile into Enderloom promptly without whole-library rescans or stale UI, and conflicting writes are not raced blindly.
+- [ ] Launch/update/migration/move/import preflight catches material space/path/Java/file-lock/availability hazards before a half-finished destructive operation.
+- [ ] Manual JAR/drop intake identifies compatibility, dependencies, duplicates, provenance and behavior before installation and routes replacements through Safe Update instead of blindly copying files.
+- [ ] Resource-pack/shader management preserves enabled state/order and exposes meaningful override/order information without forcing the user to edit text files manually.
+- [ ] Enderloom-owned settings/organization metadata has a recoverable export/import path that explicitly excludes credentials/tokens/secrets.
+- [ ] Auto Java/memory chooses sane visible defaults with per-instance override and never relies on cargo-cult JVM flag bundles.
 
 ---
 
