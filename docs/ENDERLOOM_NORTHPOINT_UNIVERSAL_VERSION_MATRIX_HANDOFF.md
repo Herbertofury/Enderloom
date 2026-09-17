@@ -2,49 +2,43 @@
 
 > **Northpoint is how Enderloom behaves; it is not a module, service, tab, daemon, database, store, orchestrator, or second workflow.**
 
-This is now the **single Enderloom implementation handoff** for both:
-1. Northpoint / mod engineering / OpenAI Hand Off + Take Back; and
-2. premium daily-launcher convergence so Enderloom becomes a complete, low-babysitting alternative to Modrinth/CurseForge rather than a collection of disconnected powerful features.
+This is the single Enderloom implementation handoff for Northpoint/mod engineering/OpenAI round trips and the complete daily launcher experience.
 
 ## Canonical readable handoff
 
-- Drive: canonical file ID `1ceIp60vSyspF7zGHC9UXW9hyluDahoWk`
+- Drive: https://drive.google.com/file/d/1ceIp60vSyspF7zGHC9UXW9hyluDahoWk/view
 - File: `ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md`
-- Size: `55,970` bytes
-- Lines: `1,288`
-- SHA-256: `ba85ed460e8d3b2eca2882887480c25e9e27612681c104c3d4576984028f4f26`
+- Size: `75,531` bytes
+- Lines: `1,704`
+- SHA-256: `dc33da32ac4b4120abab7cb93b884471c5d8d28a313841f4ee40acd91cd747c6`
 
 The repository carries a lossless gzip+base64 mirror under `docs/northpoint-v4-payload/`.
-
-Reconstruct it with:
 
 ```bash
 cat docs/northpoint-v4-payload/part-*.b64 \
   | base64 -d \
   | gzip -dc \
   > /tmp/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md
-
 sha256sum /tmp/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md
 ```
 
 The resulting SHA-256 must be:
 
 ```text
-ba85ed460e8d3b2eca2882887480c25e9e27612681c104c3d4576984028f4f26
+dc33da32ac4b4120abab7cb93b884471c5d8d28a313841f4ee40acd91cd747c6
 ```
 
-## Implementation law
+## Current implementation law
 
-- Do not create a Northpoint subsystem or a separate premium-launcher rewrite. Extend Enderloom's existing canonical owners.
-- Create / Convert / Repair / Optimize / matrix builds / AI Hand Off / Take Back and ordinary launcher management all share the same resumable product state, evidence, snapshots and activity model where responsibilities overlap.
-- Preserve content, identity, visuals, simulation, saves, integrations, external-launcher ownership and legitimate historical/newer feature lineage.
-- Ordinary build, dependency, mapping, Mixin, runtime, performance, AI-return, cache, download, update, migration and secondary-matrix failures are engineering problems Enderloom should diagnose/recover from rather than reasons to idle.
-- Primary requested mod-engineering target works first; matrix fan-out follows remembered preference.
-- Performance gains may not come from deleting content or reducing gameplay/visual/simulation fidelity.
-- Reuse and finish the existing OpenAI AI Operator / Codex integration. Hand Off and Take Back preserve one canonical job/thread lineage.
-- Returned AI work is staged safely, reconciled, built/tested/profiled as applicable and only then accepted.
-- Premium convergence includes Safe Update/Update All, instance history/undo, crash-aware Fix All, dependency/conflict intelligence, persistent activity/downloads, Play/Home polish, cross-instance settings sync, screenshots, Forever World Guard, sharing, Ctrl+K/settings search, signed self-update rollback, storage de-duplication, onboarding/migration, account/skin polish, offline resilience, large-library performance, security hardening, Compare Profiles/States and Performance Clinic/Spark integration.
-- Codex should execute independent areas in parallel when ownership allows, but merge into one canonical job/settings/history/snapshot system instead of six competing subsystems.
+- Do not create a Northpoint subsystem or a separate launcher rewrite. Extend Enderloom's existing canonical owners.
+- The app should feel complete, polished, calm, fast, recoverable and trustworthy without literally branding normal features as "Premium".
+- Mod behavior intelligence is first-class across Discover, installed content, update/remove planning and profile/world management.
+- Classify exact artifacts by runtime side, vanilla impact, persistent save/world footprint, worldgen/biome/dimension/entity effects and removal risk using evidence rather than provider-description guesses.
+- Keep **Vanilla Untouched** separate from **Forever World Safe**. Additive mods can still leave persistent blocks/entities/worldgen/dimensions in a save.
+- A save-aware Removal Audit can determine whether a specific installed world is safe to remove a mod from, will lose mod content, requires migration, or remains unknown.
+- A Forever World profile preference should prioritize low-impact results, snapshot risky operations and flag updates whose behavior becomes more invasive without hiding the rest of the catalog.
+- Side/world/vanilla classification must be conservative, explainable, cached by exact artifact hash and computed without executing untrusted mod code.
+- Safe Update, Update All, Fix All, history/undo, task recovery, world protection, diagnostics, OpenAI Hand Off/Take Back and mod engineering reuse shared canonical systems rather than spawning parallel mini-apps.
 - Do not create another planning document before implementing. Continue through the real Electron + native workflow and produce a fresh runnable Enderloom package.
 
-**The intended UX remains simple: tell Enderloom what you want once; Enderloom figures out the engineering and gets it done.**
+**The intended UX is simple: tell Enderloom what you want once; Enderloom figures out the engineering and gets it done.**
