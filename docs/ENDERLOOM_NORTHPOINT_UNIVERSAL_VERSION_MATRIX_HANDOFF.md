@@ -31,7 +31,7 @@ dc33da32ac4b4120abab7cb93b884471c5d8d28a313841f4ee40acd91cd747c6
 ## Current implementation law
 
 - Do not create a Northpoint subsystem or a separate launcher rewrite. Extend Enderloom's existing canonical owners.
-- The app should feel complete, polished, calm, fast, recoverable and trustworthy without literally branding normal features as "Premium".
+- The app should feel complete, polished, calm, fast, recoverable and trustworthy without turning normal first-class features into artificial tier-branded modes.
 - Mod behavior intelligence is first-class across Discover, installed content, update/remove planning and profile/world management.
 - Classify exact artifacts by runtime side, vanilla impact, persistent save/world footprint, worldgen/biome/dimension/entity effects and removal risk using evidence rather than provider-description guesses.
 - Keep **Vanilla Untouched** separate from **Forever World Safe**. Additive mods can still leave persistent blocks/entities/worldgen/dimensions in a save.
