@@ -1,5 +1,10 @@
+import type { EvidenceReport } from "./performance-evidence";
+import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
+type SparkDownload = { data: string; content_type: string };
 import { invoke } from "@tauri-apps/api/core";
+import type { ProjectArtifactGraph } from "./artifacts";
 import type { WorkbenchLibrary } from "./workbench";
+import type { CreativeLibrary, Installation, ModInspection, PerformanceReport, RuntimeCapture, ModComparison } from "./creative";
 
 import { log } from "./log";
 import type {
@@ -104,10 +109,37 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 }
 
 export const api = {
-  scanWorkbench: (instanceId: string) => call<WorkbenchLibrary>("scan_instance_workbench", { instanceId }),
+  getProjectArtifactGraph: (provider: string, projectId: string) => call<ProjectArtifactGraph>("get_project_artifact_graph", { provider, projectId }),
+  verifyProjectArtifacts: (provider: string, projectId: string) => call<ProjectArtifactGraph>("verify_project_artifacts", { provider, projectId }),
+  startTestingSession: (instanceId: string, recordVideo = false, maxSeconds = 900, worldName: string | null = null) => call<TestReport>("start_testing_session", { instanceId, recordVideo, maxSeconds, worldName }),
+  runTestingScenario: (testId: string, scenario: TestScenario) => call<TestReport>("run_testing_scenario", { testId, scenario }),
+  analyzeTestingReport: (testId: string) => call<TestReport>("analyze_testing_report", { testId }),
+  getTestingReports: () => call<TestReportSummary[]>("get_testing_reports"),
+  getTestingReport: (testId: string) => call<TestReport>("get_testing_report", { testId }),
+  testingCommand: (testId: string, command: string, expect: string | null = null, timeoutSeconds = 10) => call<TestStep>("testing_command", { testId, command, expect, timeoutSeconds }),
+  testingScreenshot: (testId: string, label: string) => call<TestArtifact>("testing_screenshot", { testId, label }),
+  finishTestingSession: (testId: string) => call<TestReport>("finish_testing_session", { testId }),
+  getTestingArtifact: (testId: string, name: string) => call<TestArtifactData>("get_testing_artifact", { testId, name }),
+  scanWorkbench: (instanceId: string, includeMods = true, quick = false) => call<WorkbenchLibrary>("scan_instance_workbench", { instanceId, includeMods, quick }),
   workbenchAction: <T = { path: string }>(instanceId: string, operation: string, payload: Record<string, unknown>) => call<T>("workbench_action", { instanceId, operation, payload }),
   checkWorkbenchUpdates: (instanceId: string) => call<WorkbenchLibrary>("check_workbench_updates", { instanceId }),
   getSettings: () => call<LauncherSettings>("get_settings"),
+  savePerformanceEvidence: (instanceId: string, report: EvidenceReport) => call<EvidenceReport>("save_performance_evidence", { instanceId, report }),
+  getPerformanceEvidence: (instanceId: string) => call<EvidenceReport[]>("get_performance_evidence", { instanceId }),
+  getSparkProfile: (key: string) => call<SparkDownload>("get_spark_profile", { key }),
+  getCaptureLog: (captureId: string) => call<string | null>("get_capture_log", { captureId }),
+  getCreativeLibrary: () => call<CreativeLibrary>("get_creative_library"),
+  startPerformanceCapture: (instanceId: string, seconds: number) => call<RuntimeCapture>("start_performance_capture", { instanceId, seconds }),
+  getRuntimeCaptures: () => call<RuntimeCapture[]>("get_runtime_captures"),
+  compareModStartup: (instanceId: string, fileName: string, seconds: number, repeats: number) => call<ModComparison>("compare_mod_startup", { instanceId, fileName, seconds, repeats }),
+  getModComparisons: () => call<ModComparison[]>("get_mod_comparisons"),
+  cleanupPerformanceCapture: (captureId: string) => call<RuntimeCapture>("cleanup_performance_capture", { captureId }),
+  creativeLibraryAction: (operation: string, payload: Record<string, unknown>) => call<CreativeLibrary>("creative_library_action", { operation, payload }),
+  getLibraryContext: () => call<Record<string, Installation[]>>("get_library_context"),
+  scanModInsights: (instanceId: string, history = false) => call<PerformanceReport>("scan_mod_insights", { instanceId, history }),
+  getLatestInspection: (instanceId: string) => call<PerformanceReport | null>("get_latest_inspection", { instanceId }),
+  getPerformanceHistory: () => call<PerformanceReport[]>("get_performance_history"),
+  setGeneratorOverride: (sha256: string, choice: string, note: string) => call<ModInspection["override"]>("set_generator_override", { sha256, choice, note }),
   getAppInfo: () => call<AppInfo>("get_app_info"),
   listJavas: () => call<JavaInfo[]>("list_javas"),
   installJavaRuntime: (major: number, instanceId: string | null = null) =>

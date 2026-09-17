@@ -17,6 +17,8 @@ import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
 import { Markdown } from "../components/project/Markdown";
 import { ProjectGallery } from "../components/project/ProjectGallery";
 import { ProjectHero } from "../components/project/ProjectHero";
+import { ProjectTrailer } from "../components/project/ProjectTrailer";
+import { ProjectArtifactIdentity } from "../components/project/ProjectArtifactIdentity";
 import { ProjectSidebar } from "../components/project/ProjectSidebar";
 import { VersionBrowser } from "../components/project/VersionBrowser";
 import { useActiveProjectIds } from "../lib/useTasks";
@@ -407,7 +409,8 @@ export function ProjectView() {
         </div>
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="flex min-h-0 flex-1">
+      <div className="min-w-0 min-h-0 flex-1 overflow-y-auto">
         {loading ? (
           <div className="flex items-center justify-center gap-2 py-16 text-sm text-content-muted">
             <Loader2 className="size-4 animate-spin" />
@@ -423,6 +426,7 @@ export function ProjectView() {
                   This project has no description.
                 </p>
               )}
+              <div className="mt-6"><ProjectArtifactIdentity key={`${projectRef.provider}:${details.id}`} provider={projectRef.provider} projectId={details.id} /></div>
             </div>
             <ProjectSidebar
               details={details}
@@ -469,6 +473,8 @@ export function ProjectView() {
         ) : tab === "gallery" ? (
           <ProjectGallery images={gallery} />
         ) : null}
+      </div>
+      {details && <ProjectTrailer key={`${projectRef.provider}:${details.id}`} details={details} provider={projectRef.provider} />}
       </div>
 
       <GetServerModal

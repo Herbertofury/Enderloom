@@ -55,7 +55,7 @@ const MemoizedMarkdown = memo(function MemoizedMarkdown({
   className,
 }: MarkdownProps) {
   const sanitized = useMemo(
-    () => (format === "html" ? DOMPurify.sanitize(body) : ""),
+    () => (format === "html" ? DOMPurify.sanitize(body, { FORBID_ATTR: ["style", "color", "bgcolor"] }) : ""),
     [body, format],
   );
 

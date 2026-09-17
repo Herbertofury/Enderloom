@@ -1208,3 +1208,19 @@
     transition: none !important;
   }
 }
+
+.wb-organize { display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0;flex-wrap:wrap; }
+.wb-organize strong { display:block;font-size:12px;color:#d4e7df; }
+.wb-organize small { display:block;font-size:10px;color:#849c92;margin-top:4px; }
+.wb-view-switch { display:flex;padding:3px;border:1px solid #a4e5cc24;border-radius:10px;background:#9be7cd05; }
+.wb-view-switch button { padding:7px 12px;border-radius:7px;font-size:11px;color:#90a89d; }
+.wb-view-switch button[aria-pressed=true] { color:#c5f5df;background:#9be7cd19; }
+.wb-mod-group { width:100%;display:flex;gap:12px;align-items:center;text-align:left;padding:15px 14px;background:linear-gradient(100deg,#9be7cd0d,transparent);border-bottom:1px solid #a4e5cc18;border-top:1px solid #a4e5cc18; }
+.wb-mod-group > span:nth-child(2) { flex:1;min-width:0; }
+.wb-mod-group strong { display:block;font-size:13px;color:#d2e5dc; }
+.wb-mod-group small { display:block;font-size:10px;color:#829e90;margin-top:4px; }
+.wb-association { padding:12px 0;display:grid;gap:7px; }
+.wb-association label { font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#a6d7c0; }
+.wb-association select { width:100%;min-width:0;background:#15201d;border:1px solid #a4e5cc24;border-radius:8px;padding:8px;color:#cce4d9;font-size:11px; }
+.wb-association small { color:#8aa398;font-size:10px;line-height:1.5; }
+.wb-group-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.wb-mod-group{content-visibility:auto;contain-intrinsic-size:auto 66px}.wb-file{content-visibility:auto;contain-intrinsic-size:auto 72px}@media(max-width:900px){.wb-organize{flex-wrap:wrap}.wb-group-actions{width:100%}}

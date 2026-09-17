@@ -59,7 +59,7 @@ function htmlTitle(html='') {
   return stripTags(/<title\b[^>]*>([\s\S]*?)<\/title>/i.exec(html)?.[1]||'');
 }
 function absolute(raw,base) { const value=String(raw??'').trim();if(!value)return '';try{const u=new URL(decodeHtml(value),base);return /^https?:$/.test(u.protocol)?u.toString():''}catch{return ''} }
-function contextFingerprint(context={}) { return normalizeIdentity([context.projectId,context.title,context.author,context.authorUrl].filter(Boolean).join('|')); }
+function contextFingerprint(context={}) { return normalizeIdentity([context.projectId,context.title,context.author,context.authorUrl,context.githubOnly?'github-only':''].filter(Boolean).join('|')); }
 function pageIdentityConfidence({ expectedTitle='', actualTitle='', sourceUrl='' }={}) {
   if(!expectedTitle)return 62;
   const t=titleSimilarity(expectedTitle,actualTitle), s=slugSimilarity(expectedTitle,sourceUrl);

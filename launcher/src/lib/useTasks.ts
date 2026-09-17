@@ -32,7 +32,8 @@ export function useFinishedTasks(): Task[] {
 export function useInstanceTask(instanceId: string | null | undefined): Task | null {
   const active = useActiveTasks();
   return useMemo(
-    () => (instanceId ? (active.find((t) => t.instance_id === instanceId) ?? null) : null),
+    // Read-only inspections must not trigger the install-completed inventory refresh loop.
+    () => (instanceId ? (active.find((t) => t.instance_id === instanceId && t.kind !== "performance_scan") ?? null) : null),
     [active, instanceId],
   );
 }

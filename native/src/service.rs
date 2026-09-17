@@ -181,10 +181,78 @@ fn detected_launchers(state: &AppState) -> Result<Value> {
 pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
     match command {
         "get_capabilities" => value(crate::capabilities::all()),
+        "save_performance_evidence" => {
+            let instance_id = required_string(args, "instanceId")?;
+            crate::commands::find_instance(state, &instance_id)?;
+            let mut report = args["report"].clone();
+            if !report.is_object() || !matches!(report["kind"].as_str(), Some("spark" | "log")) || serde_json::to_vec(&report)?.len() > 1024 * 1024 { return Err(Error::other("Invalid or oversized performance evidence")); }
+            let id = uuid::Uuid::new_v4().to_string();
+            report["id"] = json!(id); report["instance_id"] = json!(instance_id); report["at"] = json!(chrono::Utc::now().timestamp_millis());
+            state.db.library_put(&format!("evidence:{id}"), &report)?;
+            Ok(report)
+        }
+        "get_performance_evidence" => {
+            let instance_id = required_string(args, "instanceId")?;
+            let mut reports: Vec<Value> = state.db.library_list("evidence:")?.into_iter().filter(|v| v["instance_id"].as_str() == Some(&instance_id)).collect();
+            reports.sort_by_key(|v| std::cmp::Reverse(v["at"].as_i64().unwrap_or_default()));
+            reports.truncate(30);
+            Ok(json!(reports))
+        }
+        "get_spark_profile" => {
+            use base64::Engine;
+            let key = required_string(args, "key")?;
+            if key.len() < 3 || key.len() > 100 || !key.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'_' || c == b'-') { return Err(Error::other("Invalid Spark report key")); }
+            let mut response = state.network.get(format!("https://spark-usercontent.lucko.me/{key}")).timeout(std::time::Duration::from_secs(30)).send().await?.error_for_status()?;
+            let content_type = response.headers().get(reqwest::header::CONTENT_TYPE).and_then(|v| v.to_str().ok()).unwrap_or("").to_owned();
+            if !content_type.contains("spark-sampler") && !content_type.contains("spark-health") && !content_type.contains("spark-heap") && !content_type.contains("octet-stream") { return Err(Error::other("This URL does not contain a Spark report")); }
+            let mut bytes = Vec::new();
+            while let Some(chunk) = response.chunk().await? { if bytes.len() + chunk.len() > 32 * 1024 * 1024 { return Err(Error::other("Spark report exceeds the 32 MiB download limit")); } bytes.extend_from_slice(&chunk); }
+            Ok(json!({"data":base64::engine::general_purpose::STANDARD.encode(bytes),"content_type":content_type}))
+        }
+        "get_capture_log" => Ok(state.db.library_get(&format!("capture-log:{}", required_string(args, "captureId")?))?.unwrap_or(Value::Null)),
+        "start_testing_session" => crate::testing::start(state,args).await,
+        "get_testing_reports" => crate::testing::list(state),
+        "get_testing_report" => crate::testing::get(state,&required_string(args,"testId")?),
+        "testing_command" => crate::testing::command(state,&required_string(args,"testId")?,&required_string(args,"command")?,args["expect"].as_str(),optional_u64(args,"timeoutSeconds")?.unwrap_or(10)).await,
+        "testing_screenshot" => crate::testing::screenshot(state,&required_string(args,"testId")?,&required_string(args,"label")?).await,
+        "finish_testing_session" => crate::testing::finish(state,&required_string(args,"testId")?,"completed").await,
+        "get_testing_artifact" => crate::testing::artifact(state,&required_string(args,"testId")?,&required_string(args,"name")?),
+        "run_testing_scenario" => crate::testing::scenario(state,&required_string(args,"testId")?,&args["scenario"]).await,
+        "analyze_testing_report" => crate::testing::analyze(state,&required_string(args,"testId")?),
+        "get_creative_library" => crate::creative::library(state),
+        "start_performance_capture" => crate::performance::startup(state,&required_string(args,"instanceId")?,optional_u64(args,"seconds")?.unwrap_or(30)).await,
+        "get_runtime_captures" => Ok(json!(state.db.library_list("runtime:")?)),
+        "compare_mod_startup" => crate::performance::compare(state,&required_string(args,"instanceId")?,&required_string(args,"fileName")?,optional_u64(args,"seconds")?.unwrap_or(30),optional_u64(args,"repeats")?.unwrap_or(2)).await,
+        "get_mod_comparisons" => Ok(json!(state.db.library_list("comparison:")?)),
+        "cleanup_performance_capture" => crate::performance::cleanup_capture(state,&required_string(args,"captureId")?).await,
+        "creative_library_action" => crate::creative::library_action(state, &required_string(args, "operation")?, &args["payload"]),
+        "get_library_context" => {
+            let state=state.clone();
+            tokio::task::spawn_blocking(move || crate::creative::installed_context(&state)).await.map_err(|e|Error::other(e.to_string()))?
+        }
+        "set_generator_override" => crate::creative::generator_override(state, args),
+        "get_performance_history" => Ok(json!(state.db.library_list("scan:")?)),
+        "get_latest_inspection" => Ok(state.db.library_get(&format!("latest-scan:{}",required_string(args,"instanceId")?))?.unwrap_or(Value::Null)),
+        "scan_mod_insights" => {
+            let id = required_string(args, "instanceId")?;
+            let history = args["history"].as_bool().unwrap_or(false);
+            let instance = crate::commands::find_instance(state, &id)?;
+            let task = state.tasks.start_ipc(crate::tasks::TaskKind::PerformanceScan, crate::tasks::TaskSpec {
+                title: "Inspect mods".into(), subtitle: Some(instance.name), instance_id: Some(id.clone()), ..Default::default()
+            })?;
+            let state = state.clone();
+            tokio::task::spawn_blocking(move || {
+                let result = crate::creative::scan_instance(&state, &id, &task, history, true);
+                task.finish(&result);
+                result
+            }).await.map_err(|e|Error::other(format!("Inspection failed: {e}")))?
+        }
         "scan_instance_workbench" => {
             let state = state.clone();
             let id = required_string(args, "instanceId")?;
-            tokio::task::spawn_blocking(move || crate::workbench::scan(&state, &id))
+            let include_mods = args.get("includeMods").and_then(Value::as_bool).unwrap_or(true);
+            let verify = !args.get("quick").and_then(Value::as_bool).unwrap_or(false);
+            tokio::task::spawn_blocking(move || crate::workbench::scan_mode(&state, &id, include_mods, verify))
                 .await
                 .map_err(|e| Error::other(format!("Config scan failed: {e}")))?
         }
@@ -655,6 +723,8 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
                 .await?,
             )
         }
+        "get_project_artifact_graph" => value(state.db.project_artifact_graph(&required_string(args, "provider")?, &required_string(args, "projectId")?)?),
+        "verify_project_artifacts" => value(crate::artifacts::verify_project(state, required_string(args, "provider")?, required_string(args, "projectId")?).await?),
         "list_project_versions" => {
             let provider = crate::search::Provider::parse(&required_string(args, "provider")?)?;
             let kind = crate::search::ContentKind::parse(&required_string(args, "kind")?)?;
@@ -2431,6 +2501,17 @@ pub async fn run() -> Result<()> {
         }),
     );
 
+    if std::env::args().any(|arg|arg=="--test-daemon") {
+        // CLI sessions keep their stdin and watchdog alive without an Electron window.
+        let mut idle=std::time::Instant::now();
+        loop {
+            let busy=Arc::strong_count(&state)>1 || state.running.lock().unwrap().values().any(|r|r.status.lock().unwrap().state=="running")
+                || state.db.library_list("test:")?.iter().any(|v|v["state"]=="preparing" && chrono::Utc::now().timestamp_millis()-v["at"].as_i64().unwrap_or(0)<600_000);
+            if busy {idle=std::time::Instant::now();}
+            if idle.elapsed()>std::time::Duration::from_secs(120){return Ok(());}
+            tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+        }
+    }
     let stdin = io::stdin();
     let mut input = stdin.lock();
     output_tx

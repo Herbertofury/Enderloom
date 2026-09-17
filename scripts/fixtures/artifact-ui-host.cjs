@@ -1,0 +1,27 @@
+'use strict';
+const { app, BrowserWindow, ipcMain } = require('electron');
+const fs = require('fs'), path = require('path'), os = require('os');
+const { LauncherService } = require('../../src/launcher-service');
+const { registerTrailerIpc } = require('../../src/trailer-ipc');
+const { createTrailerService } = require('../../src/trailer-service');
+const rootDir = path.resolve(__dirname, '../..');
+const report = JSON.parse(fs.readFileSync(path.join(rootDir, 'output/curseforge/install-live.json'), 'utf8'));
+const dataDir = path.resolve(report.isolatedRoot);
+if (!dataDir.startsWith(path.join(rootDir, 'output/curseforge/install-acceptance-'))) throw Error('Expected owned installation fixture');
+app.setPath('userData', fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-artifact-ui-')));
+const service = new LauncherService({ rootDir, dataDir });
+let window;
+const trailers = createTrailerService({ store: { registry: {}, saveRegistry() {} } });
+registerTrailerIpc(ipcMain, () => trailers, event => { if (event.sender !== window.webContents) throw Error('Wrong renderer'); });
+ipcMain.handle('launcher:invoke', (event, request) => { if (event.sender !== window.webContents) throw Error('Wrong renderer'); return service.request(request.command, request.args); });
+ipcMain.handle('launcher:window-command', () => false);
+ipcMain.handle('launcher:open-external', () => false);
+app.whenReady().then(async () => {
+  const settings = await service.request('get_settings');
+  await service.request('update_settings', { settings: { ...settings, onboarded: true } });
+  window = new BrowserWindow({ width: 1500, height: 1080, webPreferences: { preload: path.join(rootDir, 'launcher-preload.js'), contextIsolation: true, sandbox: true, additionalArguments: ['--enderloom-self-test=1'] } });
+  service.on('event', event => { if (!window.isDestroyed()) window.webContents.send('launcher:event', event); });
+  await window.loadFile(path.join(rootDir, 'launcher/dist/index.html'));
+});
+let closing = false;
+app.on('before-quit', event => { if (closing) return; event.preventDefault(); closing = true; service.close().finally(() => app.exit(0)); });

@@ -7,7 +7,7 @@
   const bindings = new Map(), motion = matchMedia('(prefers-reduced-motion: reduce)');
   const connection = navigator.connection;
   const reducedData = () => prefs?.reducedData || connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || '');
-  const visible = element => { const r = element.getBoundingClientRect(); return element.isConnected && r.width >= 200 && r.height >= 200 && Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) * Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0)) > r.width * r.height * .55 && !element.closest('[hidden]'); };
+  const visible = element => { const r = element.getBoundingClientRect(); return element.isConnected && r.width >= 32 && r.height >= 32 && Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) * Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0)) > r.width * r.height * .55 && !element.closest('[hidden]'); };
   const allowed = (binding, manual) => appVisible && !document.hidden && visible(binding.slot) && (manual || (prefs?.entitlement.autoplay && prefs.enabled && prefs[binding.context] && !motion.matches && !reducedData()));
   function warm(binding) {
     if (binding.pending || binding.result?.expiresAt > Date.now() || !allowed(binding, false)) return;
@@ -23,6 +23,7 @@
     if (old.player?.tagName === 'VIDEO') { old.player.pause(); old.player.removeAttribute('src'); old.player.load(); }
     if (old.player?.tagName === 'IFRAME') old.player.src = 'about:blank';
     old.player?.remove(); clearTimeout(old.timeout); clearInterval(old.handshake);
+    old.binding.popup?.remove(); old.binding.popup = null; old.binding.popupSlot = null;
     old.binding.slot.classList.remove('trailer-playing'); old.binding.play.textContent = '▶ Preview';
     if (reason) old.binding.status.textContent = reason;
     bridge.trailers.release().catch(() => {});
@@ -44,23 +45,54 @@
     else playerCommand(paused ? 'playVideo' : 'pauseVideo');
     active.paused = !paused; binding.play.textContent = paused ? 'Ⅱ Pause' : '▶ Resume';
   }
+  function popout(binding) {
+    if (binding.context !== 'catalog') return binding.slot;
+    const popup = document.createElement('section'); popup.className = 'trailer-popout';
+    popup.setAttribute('role', 'dialog'); popup.setAttribute('aria-label', `${binding.project.title} preview`);
+    const heading = document.createElement('header'), title = document.createElement('strong'); title.textContent = binding.project.title;
+    heading.append(title, button('×', () => stop(), 'Close trailer preview'));
+    const slot = document.createElement('div'); slot.className = 'trailer-popout-media';
+    const sourceImage = binding.slot.querySelector('img');
+    const img = document.createElement('img'); img.className = 'live-media-image';
+    // Only copy an actual project screenshot. A project icon is never treated as gallery media.
+    if (sourceImage?.classList.contains('live-media-image') && sourceImage.src) { img.src = sourceImage.src; img.alt = sourceImage.alt; } else img.hidden = true;
+    slot.append(img);
+    const controls = document.createElement('div'); controls.className = 'trailer-popout-controls';
+    controls.append(button('Play / pause', () => toggle(binding)), button('Why this trailer?', () => explain(binding)));
+    popup.append(heading, slot, controls); document.body.append(popup);
+    const rect = binding.target.getBoundingClientRect(), bounds = popup.getBoundingClientRect();
+    const right = rect.right + 12, left = rect.left - bounds.width - 12;
+    popup.style.left = `${Math.max(8, Math.min(innerWidth - bounds.width - 8, right + bounds.width < innerWidth ? right : left >= 8 ? left : (binding.pointer?.x || rect.left) + 18))}px`;
+    popup.style.top = `${Math.max(8, Math.min(innerHeight - bounds.height - 8, (binding.pointer?.y || rect.top) - 32))}px`;
+    popup.addEventListener('pointerenter', () => clearTimeout(binding.leaveTimer));
+    popup.addEventListener('pointerleave', event => { if (!binding.target.contains(event.relatedTarget)) stop(); });
+    popup.addEventListener('focusout', event => { if (!popup.contains(event.relatedTarget) && !binding.target.contains(event.relatedTarget)) stop(); });
+    binding.popup = popup; binding.popupSlot = slot;
+    return slot;
+  }
   async function start(binding, manual = false) {
     stop();
     if (!allowed(binding, manual)) return;
     const ticket = serial;
     active = { binding, manual };
+    const playbackSlot = popout(binding);
     binding.status.textContent = 'Finding a verified trailer…';
     try {
       if (!await bridge.trailers.claim(binding.context, manual)) { if (ticket === serial) stop('Autoplay is unavailable'); return; }
       const result = binding.pending ? await binding.pending : await bridge.trailers.discover(binding.project);
       binding.result = result;
       if (ticket !== serial || !allowed(binding, manual)) return;
-      const galleryImage = binding.slot.querySelector('.live-media-image');
+      const galleryImage = playbackSlot.querySelector('.live-media-image');
       if (galleryImage && (galleryImage.hidden || !galleryImage.getAttribute('src')) && result.gallery?.[0]?.url) {
         galleryImage.src = result.gallery[0].url; galleryImage.alt = `${binding.project.title} · project screenshot`; galleryImage.onload = () => { galleryImage.hidden = false; };
       }
       const candidate = result.selected;
-      if (!candidate) { stop(result.failures.length ? 'Source unavailable · showing project gallery' : 'No verified trailer · showing project gallery'); return; }
+      if (!candidate) {
+        const message = result.failures.length ? 'Source unavailable · showing project gallery' : 'No verified trailer · showing project gallery';
+        if (binding.popup) { const note = document.createElement('p'); note.className = 'trailer-gallery-note'; note.textContent = message; binding.popup.append(note); }
+        else stop(message);
+        return;
+      }
       active.candidate = candidate;
       binding.status.textContent = `${candidate.author || 'Project media'} · ${candidate.provenance.source.replace(/-/g, ' ')}`;
       const player = document.createElement(candidate.kind === 'file' ? 'video' : 'iframe');
@@ -84,7 +116,7 @@
         };
       }
       // Controls live below the player. Never cover provider controls or branding.
-      binding.slot.appendChild(player); binding.slot.classList.add('trailer-playing'); binding.play.textContent = 'Ⅱ Pause';
+      playbackSlot.appendChild(player); playbackSlot.classList.add('trailer-playing'); binding.play.textContent = 'Ⅱ Pause';
       active.timeout = setTimeout(() => { if (active?.player === player) stop('Provider did not start playback · open the source or try another trailer'); }, 18000);
       if (candidate.kind === 'file') await player.play();
     } catch (error) { if (ticket === serial) stop(`Preview unavailable · ${error.message || error}`); }
@@ -147,11 +179,17 @@
       const play = button('▶ Preview', () => toggle(binding), `Preview trailer for ${binding.project.title}`);
       const status = document.createElement('span'); status.className = 'trailer-status'; status.setAttribute('role', 'status'); status.textContent = 'Real project media';
       bar.append(play, status, button('Why this trailer?', () => explain(binding)));
-      slot.classList.add('trailer-slot'); slot.after(bar); Object.assign(binding, { bar, play, status }); bindings.set(slot, binding); observer.observe(slot);
-      const target = context === 'detail' ? slot.parentElement : slot.closest('.project-card,.visual-tile') || slot;
-      target.addEventListener('pointerenter', () => schedule(binding)); target.addEventListener('pointerleave', () => { if (active?.binding === binding || timer) stop(); if (binding.pending) bridge.trailers.cancel(binding.project).catch(() => {}); });
+      if (context === 'detail') slot.classList.add('trailer-slot');
+      slot.after(bar); Object.assign(binding, { bar, play, status }); bindings.set(slot, binding); observer.observe(slot);
+      const target = context === 'detail' ? slot.parentElement : slot.closest('.project-card,.visual-tile,.library-project-tile,.library-result-row') || slot;
+      binding.target = target;
+      target.addEventListener('pointerenter', event => { clearTimeout(binding.leaveTimer); binding.pointer = {x:event.clientX,y:event.clientY}; schedule(binding); });
+      target.addEventListener('pointerleave', event => {
+        if (binding.popup?.contains(event.relatedTarget)) return;
+        binding.leaveTimer = setTimeout(() => { if (active?.binding === binding || timer) stop(); if (binding.pending) bridge.trailers.cancel(binding.project).catch(() => {}); }, binding.popup ? 140 : 0);
+      });
       target.addEventListener('focusin', e => { if (!e.target.closest('.trailer-bar')) requestAnimationFrame(() => { if (target.contains(document.activeElement)) schedule(binding); }); });
-      target.addEventListener('focusout', e => { if (!target.contains(e.relatedTarget)) stop(); });
+      target.addEventListener('focusout', e => { if (!target.contains(e.relatedTarget) && !binding.popup?.contains(e.relatedTarget)) stop(); });
     });
   }
   async function preferences() {
@@ -164,6 +202,8 @@
     const note = document.createElement('p'); note.textContent = 'Autoplay always begins muted. Reduced motion and slow/data-saving connections disable automatic previews. Provider players may use their own cookies and captions.'; dialog.append(note, button('Done', () => dialog.close())); document.body.append(dialog); dialog.addEventListener('close', () => dialog.remove(), { once: true }); dialog.showModal();
   }
   document.addEventListener('scroll', () => stop(), true);
+  window.addEventListener('resize', () => stop());
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') stop(); });
   document.addEventListener('click', event => { if (event.target.closest('[data-trailer-settings]') && prefs) { event.preventDefault(); void preferences(); } });
   document.addEventListener('catalog:view-changing', () => { suspend(); warmed = 0; });
   document.addEventListener('visibilitychange', () => { if (document.hidden) suspend(); });
@@ -175,5 +215,5 @@
   let bindFrame = 0;
   const mutations = new MutationObserver(() => { if (active && (!active.binding.slot.isConnected || active.binding.slot.closest('[hidden]'))) stop(); if (!bindFrame) bindFrame = requestAnimationFrame(() => { bindFrame = 0; bind(); }); });
   mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
-  bridge.trailers.settings().then(value => { prefs = value; const control = button('Trailer previews', preferences); control.className = 'button ghost'; document.querySelector('.toolbar-actions')?.append(control); bind(); });
+  bridge.trailers.settings().then(value => { prefs = value; const control = button('Trailer previews', preferences); control.className = 'button ghost'; document.querySelector('.toolbar-actions')?.append(control); bind(); }).catch(() => { window.__enderloomTrailersBound = false; });
 })();

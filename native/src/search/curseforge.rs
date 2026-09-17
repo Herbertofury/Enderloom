@@ -202,6 +202,8 @@ struct Links {
 
 #[derive(Deserialize, Clone)]
 pub struct File {
+    #[serde(rename = "fileFingerprint", default)]
+    pub file_fingerprint: Option<u32>,
     #[serde(default)]
     pub id: u64,
     #[serde(rename = "modId", default)]
@@ -810,6 +812,7 @@ mod tests {
 
     fn file_with(game_versions: &[&str]) -> File {
         File {
+            file_fingerprint: None,
             alternate_file_id: 0,
             parent_project_file_id: None,
             id: 1,

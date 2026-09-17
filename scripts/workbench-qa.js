@@ -34,7 +34,23 @@ async function rejects(promise, pattern) {
     service.request("workbench_action", { instanceId: id, operation, payload });
   const scan = () =>
     service.request("scan_instance_workbench", { instanceId: instance.id });
+  write(instance.dir, 'config/commented.json', `{
+  // valid mod configuration
+  unquoted: true,
+  trailing: [1,2,],
+}`);
+  write(instance.dir, 'config/large-number.json', '{"maximum":1.7976931348623157e308}');
+  write(instance.dir, 'mods/aaa-tacz-addon.jar', zip({'fabric.mod.json':'{"id":"aaa_tacz_addon","version":"0.0.1"}'}));
+  write(instance.dir, 'mods/tacz.jar', zip({'META-INF/mods.toml':'[[mods]]\nmodId="tacz"\nversion="${file.jarVersion}"', 'META-INF/MANIFEST.MF':'Manifest-Version: 1.0\r\nImplementation-Version: 1.1.4\r\n\r\n'}));
+  write(instance.dir, 'config/large-config.json', JSON.stringify({payload:'x'.repeat(3*1024*1024)}));
   let library = await scan();
+  verify(!library.entries.find(e=>e.path==='config/large-config.json').issues.some(i=>i.severity==='error'), 'Configs above 2 MiB remain readable and valid');
+
+  verify(!library.entries.find(e=>e.path==='config/commented.json').issues.some(i=>i.severity==='error'), 'Commented mod JSON is valid');
+  verify(!library.entries.find(e=>e.path==='config/large-number.json').issues.some(i=>i.severity==='error'), 'Large valid numbers are not rewritten or labeled corrupt');
+  const quick = await service.request('scan_instance_workbench', {instanceId:instance.id,includeMods:false,quick:true});
+  verify(quick.entries.every(e=>e.validation==='pending'&&!e.hash), 'Fast inventory does not claim unchecked hashes');
+
   verify(
     library.entries.some(
       (e) => e.path === "saves/Creative/serverconfig/building.toml",
@@ -154,7 +170,7 @@ async function rejects(promise, pattern) {
       expectedHash: document.hash,
       text: "{bad",
     }),
-    /Line/,
+    /line/i,
   );
   verify(
     hash(fs.readFileSync(path.join(instance.dir, document.path))) ===

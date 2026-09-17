@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{error::Result, files::FileManager, network::NetworkManager};
+use crate::{error::{Error, Result}, files::FileManager, network::NetworkManager};
 
-const MANIFEST_URL: &str = "https://launchermeta.mojang.com/mc/game/version_manifest_v2.json";
+const MANIFEST_URL: &str = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LatestVersions {
@@ -30,17 +30,30 @@ pub struct VersionManifest {
 
 pub async fn fetch(client: &NetworkManager, files: &FileManager) -> Result<VersionManifest> {
     let cache = files.paths().manifest_cache();
-    let bytes = match client.send(client.get(MANIFEST_URL)).await {
-        Ok(resp) => {
-            let resp = resp.error_for_status()?;
-            let bytes = resp.bytes().await?;
-            let _ = files.write_atomic_async(&cache, &bytes).await;
-            bytes.to_vec()
+    let fetched: Result<VersionManifest> = async {
+        let response = client.send(client.get(MANIFEST_URL)).await?.error_for_status()?;
+        let bytes = response.bytes().await?;
+        let manifest = parse(&bytes)?;
+        // An error page or malformed feed must never replace the offline copy.
+        let _ = files.write_atomic_async(&cache, &bytes).await;
+        Ok(manifest)
+    }.await;
+    match fetched {
+        Ok(manifest) => Ok(manifest),
+        Err(error) => {
+            tracing::warn!(error = %error, "Minecraft version refresh failed; trying the last verified manifest");
+            match files.read_async(&cache).await.ok().and_then(|bytes| parse(&bytes).ok()) {
+                Some(manifest) => Ok(manifest),
+                None => Err(error),
+            }
         }
-        Err(e) => {
-            tracing::warn!(error = %e, cache = %cache.display(), "manifest fetch failed, using cache");
-            files.read_async(&cache).await?
-        }
-    };
-    Ok(serde_json::from_slice(&bytes)?)
+    }
+}
+
+fn parse(bytes: &[u8]) -> Result<VersionManifest> {
+    let manifest: VersionManifest = serde_json::from_slice(bytes)?;
+    if !manifest.versions.iter().any(|version| version.id == manifest.latest.release && version.kind == "release") {
+        return Err(Error::other("Minecraft's version feed did not contain its latest release."));
+    }
+    Ok(manifest)
 }

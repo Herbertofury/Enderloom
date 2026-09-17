@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { configAssociation, createConfigAssociator } from "../../lib/config-associations";
+import { ContentIcon } from "../ContentIcon";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Activity,
   ArrowDownToLine,
@@ -33,7 +35,7 @@ import { open } from "@tauri-apps/plugin-dialog";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { toast } from "sonner";
 import { api } from "../../lib/api";
-import type { Instance } from "../../lib/types";
+import type { ContentItem, Instance } from "../../lib/types";
 import {
   type ConfigDocument,
   type ConfigPreset,
@@ -48,6 +50,9 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from "../Modal";
 import { Button } from "../ui";
 import { useStore } from "../../store";
 import "./workbench.css";
+import { useCreative } from "../../creative-store";
+import { GeneratorBadge } from "../GeneratorBadge";
+import { FavoriteButton } from "../FavoriteButton";
 
 type Section = "all" | "attention" | "presets" | "lineage";
 const size = (bytes: number) =>
@@ -68,6 +73,7 @@ function Premium() {
 }
 function Status({ entry }: { entry: WorkbenchEntry }) {
   if (!entry.exists) return <span className="wb-badge danger">Missing</span>;
+  if (entry.validation === "pending") return <span className="wb-badge">Checking…</span>;
   if (entry.issues.some((i) => i.severity === "error"))
     return <span className="wb-badge danger">Needs repair</span>;
   if (entry.record.update?.status === "available")
@@ -87,17 +93,38 @@ export function WorkbenchPanel({
   instance,
   mode,
   initialSection = "all",
+  initialPath = null,
 }: {
   instance: Instance;
   mode: "config" | "addons";
   initialSection?: Section;
+  initialPath?: string | null;
 }) {
   const [library, setLibrary] = useState<WorkbenchLibrary | null>(null);
+  const inspected = useCreative((s) => s.scans[instance.id]);
+  const prefs = useCreative(s => s.library.preferences);
+  const [mods, setMods] = useState<ContentItem[]>([]);
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const grouping = prefs["config-layout"] === "files" ? "files" : "mods";
+  const associationKey = (path: string) => "config-owner:" + instance.id + ":" + path;
+  const associate = useMemo(() => createConfigAssociator(mods), [mods]);
+  const associations = useMemo(() => new Map((library?.entries ?? []).map(entry => [entry.path, associate(entry, prefs[associationKey(entry.path)])])), [library, associate, prefs, instance.id]);
+  const owner = (entry: WorkbenchEntry) => associations.get(entry.path)!;
+  const savePreference = (key: string, value: string) => {
+    void useCreative.getState().act("preferences", { [key]: value }).catch(e => toast.error(String(e)));
+  };
+  useEffect(() => {
+    let current = true;
+    void useCreative.getState().load().catch(() => {});
+    void api.listInstanceContent(instance.id, "mods", false).then(items => { if (current) setMods(items); }).catch(e => { if (current) setError("Mod association lookup: " + String(e)); });
+    return () => { current = false; };
+  }, [instance.id]);
   const [section, setSection] = useState<Section>(initialSection);
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(initialPath);
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [validating, setValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [install, setInstall] = useState<string | null>(null);
   const [editor, setEditor] = useState<WorkbenchEntry | null>(null);
@@ -105,35 +132,44 @@ export function WorkbenchPanel({
   const [preset, setPreset] = useState<ConfigPreset | null>(null);
   const alive = useRef(true);
   const panel = useRef<HTMLDivElement>(null);
+  const refreshId = useRef(0);
+  const includeMods = section === "lineage";
   const refresh = useCallback(async () => {
+    const request = ++refreshId.current;
+    setValidating(true);
     try {
-      const data = await api.scanWorkbench(instance.id);
-      if (alive.current) {
+      const data = await api.scanWorkbench(instance.id, includeMods, true);
+      if (alive.current && request === refreshId.current) {
         setLibrary(data);
         setError(null);
+        setLoading(false);
       }
+      if (!alive.current || request !== refreshId.current) return;
+      const checked = await api.scanWorkbench(instance.id, includeMods);
+      if (alive.current && request === refreshId.current) setLibrary(checked);
     } catch (e) {
-      if (alive.current) setError(err(e));
+      if (alive.current && request === refreshId.current) setError(err(e));
     } finally {
-      if (alive.current) setLoading(false);
+      if (alive.current && request === refreshId.current) { setLoading(false); setValidating(false); }
     }
-  }, [instance.id]);
+  }, [instance.id, includeMods]);
   useEffect(() => {
     alive.current = true;
     panel.current?.parentElement?.scrollTo({ top: 0 });
     void refresh();
     return () => {
       alive.current = false;
+      refreshId.current++;
     };
   }, [refresh]);
   // Refresh after returning from a file editor or external launcher, without overwriting an open draft.
   useEffect(() => {
     const focus = () => {
-      if (!busy && !editor && !metadata && !install) void refresh();
+      if (!busy && !validating && !editor && !metadata && !install) void refresh();
     };
     window.addEventListener("focus", focus);
     return () => window.removeEventListener("focus", focus);
-  }, [refresh, busy, editor, metadata, install]);
+  }, [refresh, busy, validating, editor, metadata, install]);
   const run = async (
     operation: string,
     payload: Record<string, unknown>,
@@ -176,10 +212,19 @@ export function WorkbenchPanel({
         ? attention
         : baseEntries
   ).filter((e) =>
-    `${e.title} ${e.path} ${ORIGINS[e.record.origin]} ${e.record.notes}`
+    `${e.title} ${e.path} ${ORIGINS[e.record.origin]} ${e.record.notes} ${owner(e).title} ${owner(e).id}`
       .toLowerCase()
       .includes(query.toLowerCase()),
   );
+  const grouped = new Map<string, { id: string; association: ReturnType<typeof configAssociation>; files: WorkbenchEntry[] }>();
+  if (mode === "config" && section !== "lineage" && grouping === "mods") {
+    for (const entry of list) {
+      const association = owner(entry);
+      const group = grouped.get(association.id) ?? { id: association.id, association, files: [] };
+      group.files.push(entry); grouped.set(association.id, group);
+    }
+  }
+  const groups = grouped.size ? [...grouped.values()].sort((a,b) => a.id === "unassigned" ? 1 : b.id === "unassigned" ? -1 : a.association.title.localeCompare(b.association.title)) : [{ id: "all", association: null, files: list }];
   const detail = entries.find((e) => e.path === selected);
   const running = useStore((s) => s.running);
   const mutateDisabled =
@@ -477,6 +522,19 @@ export function WorkbenchPanel({
             </div>
           )}
 
+          {mode === "config" && section !== "presets" && section !== "lineage" && (
+            <div className="wb-organize">
+              <div><strong>Find settings by their mod</strong><small>Matches installed mod IDs and folder conventions. Your corrections are remembered.</small></div>
+              <div className="wb-view-switch" role="group" aria-label="Config organization">
+                <button aria-pressed={grouping === "mods"} onClick={() => savePreference("config-layout", "mods")}>By mod</button>
+                <button aria-pressed={grouping === "files"} onClick={() => savePreference("config-layout", "files")}>All files</button>
+              </div>
+              {grouping === "mods" && <div className="wb-group-actions">
+                <button className="wb-text-button" onClick={() => setCollapsed({})}>Expand all</button>
+                <button className="wb-text-button" onClick={() => setCollapsed(Object.fromEntries(groups.map(group => [group.id, true])))}>Collapse all</button>
+              </div>}
+            </div>
+          )}
           {loading ? (
             <div className="wb-empty">
               <Loader2 className="animate-spin" />
@@ -567,7 +625,13 @@ export function WorkbenchPanel({
             <div
               className={`wb-file-list ${mode === "addons" && section === "all" ? "wb-addon-grid" : ""}`}
             >
-              {list.map((entry) => (
+              {groups.map(group => <Fragment key={group.id}>
+                {group.association && <button className="wb-mod-group" aria-expanded={!collapsed[group.id]} onClick={() => setCollapsed(v => ({ ...v, [group.id]: !v[group.id] }))}>
+                  <ContentIcon title={group.association.title} src={group.association.mod?.source?.icon_url} provider={group.association.mod?.source?.provider} projectId={group.association.mod?.source?.project_id} className="size-10" />
+                  <span><strong>{group.association.title}</strong><small>{group.files.length} files · {group.files.filter(needsAttention).length} need attention{group.association.mod && !group.association.mod.enabled ? " · mod disabled" : ""}</small></span>
+                  <ChevronRight size={16} style={{ transform: collapsed[group.id] ? undefined : "rotate(90deg)" }} />
+                </button>}
+                {(!group.association || !collapsed[group.id]) && group.files.map((entry) => (
                 <button
                   key={entry.path}
                   className={`wb-file ${selected === entry.path ? "selected" : ""}`}
@@ -577,9 +641,9 @@ export function WorkbenchPanel({
                     className={`wb-file-icon ${entry.addon ? "addon" : entry.mod ? "mod" : ""}`}
                   >
                     {entry.mod ? (
-                      <GitBranch size={21} />
+                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} src={mods.find(m => `mods/${m.file_name}${m.enabled ? "" : ".disabled"}` === entry.path)?.source?.icon_url} className="size-full" />
                     ) : entry.addon ? (
-                      <Package size={21} />
+                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} className="size-full" />
                     ) : (
                       <FileCode2 size={21} />
                     )}
@@ -608,7 +672,7 @@ export function WorkbenchPanel({
                   </span>
                   <ChevronRight size={14} />
                 </button>
-              ))}
+              ))}</Fragment>)}
             </div>
           )}
           <div className="wb-footnote">
@@ -632,9 +696,9 @@ export function WorkbenchPanel({
             </div>
             <div className="wb-detail-icon">
               {detail.addon ? (
-                <Package size={28} />
+                <ContentIcon title={detail.title} provider={detail.record.provider} projectId={detail.record.project_id} className="size-14" />
               ) : detail.mod ? (
-                <GitBranch size={28} />
+                <ContentIcon title={detail.title} provider={detail.record.provider} projectId={detail.record.project_id} src={mods.find(m => `mods/${m.file_name}${m.enabled ? "" : ".disabled"}` === detail.path)?.source?.icon_url} className="size-14" />
               ) : (
                 <FileSliders size={28} />
               )}
@@ -642,11 +706,23 @@ export function WorkbenchPanel({
             <h3>{detail.title}</h3>
             <code className="wb-detail-path">{detail.path}</code>
             <Status entry={detail} />
+            {detail.config && <div className="wb-association">
+              <label htmlFor="config-owner">Belongs to</label>
+              <select id="config-owner" aria-label="Config mod association" value={prefs[associationKey(detail.path)] || "auto"} onChange={e => savePreference(associationKey(detail.path), e.target.value)}>
+                <option value="auto">Automatic · {configAssociation(detail, mods).title}</option>
+                <option value="unassigned">Shared / unassigned</option>
+                {mods.map(m => <option key={m.file_name} value={m.source?.mod_id || m.file_name}>{m.source?.title || m.source?.mod_id || m.file_name}</option>)}
+                {prefs[associationKey(detail.path)] && !["auto", "unassigned", ...mods.map(m => m.source?.mod_id || m.file_name)].includes(prefs[associationKey(detail.path)]) && <option value={prefs[associationKey(detail.path)]}>{prefs[associationKey(detail.path)]} · missing mod</option>}
+              </select>
+              <small>{owner(detail).reason}</small>
+            </div>}
+            {detail.mod && inspected?.files.find((f) => f.inspection?.sha256 === detail.hash)?.inspection && <GeneratorBadge title={detail.title} inspection={inspected.files.find((f) => f.inspection?.sha256 === detail.hash)!.inspection!} />}
+            {detail.hash && <FavoriteButton label favorite={{ provider: detail.record.project_id && (detail.record.provider === "modrinth" || detail.record.provider === "curseforge") ? detail.record.provider : "local", project_id: detail.record.project_id || detail.hash, title: detail.title, kind: detail.mod ? "mods" : detail.addon ? "addons" : "config", description: detail.path, source_url: detail.record.source_url }} />}
             <div className="wb-detail-actions">
               {detail.editable && (
                 <button
                   className="wb-button primary"
-                  disabled={mutateDisabled || !detail.exists}
+                  disabled={mutateDisabled || !detail.exists || !detail.hash}
                   onClick={() => setEditor(detail)}
                 >
                   <SlidersHorizontal size={14} /> Edit config
@@ -746,7 +822,7 @@ export function WorkbenchPanel({
               {detail.editable && (
                 <button
                   className="wb-button"
-                  disabled={mutateDisabled || !detail.exists}
+                  disabled={mutateDisabled || !detail.exists || !detail.hash}
                   onClick={() =>
                     void run(
                       "save_preset",
@@ -760,7 +836,7 @@ export function WorkbenchPanel({
               )}
               <button
                 className="wb-button"
-                disabled={mutateDisabled || !detail.exists}
+                disabled={mutateDisabled || !detail.exists || !detail.hash}
                 onClick={() => void replace(detail)}
               >
                 <ArrowDownToLine size={14} /> Replace file
@@ -768,7 +844,7 @@ export function WorkbenchPanel({
               {!detail.editable && (
                 <button
                   className="wb-button"
-                  disabled={mutateDisabled || !detail.exists}
+                  disabled={mutateDisabled || !detail.exists || !detail.hash}
                   onClick={() =>
                     void run(
                       "toggle",
@@ -798,7 +874,7 @@ export function WorkbenchPanel({
                     )}
                     {r.hash !== detail.hash && (
                       <button
-                        disabled={mutateDisabled}
+                        disabled={mutateDisabled || !detail.hash}
                         className="wb-text-button"
                         onClick={() =>
                           void run(

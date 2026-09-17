@@ -2,19 +2,21 @@
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.resolve(__dirname,'..');
 const html=fs.readFileSync(path.join(root,'shell.html'),'utf8'),js=fs.readFileSync(path.join(root,'shell.js'),'utf8'),main=fs.readFileSync(path.join(root,'main.js'),'utf8'),css=fs.readFileSync(path.join(root,'shell.css'),'utf8'),enhance=fs.readFileSync(path.join(root,'catalog/enhance.js'),'utf8');
-const sourceHtml=fs.readFileSync(path.join(root,'source-center.html'),'utf8'),sourceJs=fs.readFileSync(path.join(root,'source-center.js'),'utf8');
+const sourceHtml=fs.readFileSync(path.join(root,'source-center.html'),'utf8'),sourceJs=fs.readFileSync(path.join(root,'source-center.js'),'utf8'),sourceCss=fs.readFileSync(path.join(root,'source-center.css'),'utf8');
 const controls=['catalogButton','catalogSelect','catalogRefresh','newTab','reopenTab','back','forward','reload','split','copyUrl','external','findToggle','downloadsToggle','moreToggle','sourceCenter','splitSwap','splitReset','devtools','clearData','themeToggle','minimize','maximize','close'];
-const sourceControls=['importMode','importLocal','refreshSources','refreshAllCatalogs','revealCatalogData','googleUrl','googleCatalogName','googleRole','googleMode','addGoogle','sourceClose'];
+const sourceControls=['importMode','importLocal','refreshSources','refreshAllCatalogs','revealCatalogData','googleWorkspace','googleConnect','googleDisconnect','googleUrl','googleCatalogName','googleRole','googleMode','addGoogle','sourceClose'];
 const missing=[];
 for(const id of controls){if(!html.includes(`id="${id}"`))missing.push(`${id}:missing-html`);if(!js.includes(`$('${id}')`))missing.push(`${id}:missing-handler-reference`)}
 for(const id of sourceControls){if(!sourceHtml.includes(`id="${id}"`))missing.push(`${id}:missing-source-html`);if(!sourceJs.includes(`$('${id}')`))missing.push(`${id}:missing-source-handler-reference`)}
-for(const command of ['catalog-list','catalog-switch','catalog-activate','catalog-refresh','catalog-refresh-all','catalog-reveal','catalog-source-refresh','catalog-import-dialog','catalog-import-paths','catalog-add-google','catalog-import-current-page','catalog-toggle-source','catalog-remove-source','catalog-google-signin','source-center','source-center-close','clear-data-confirm'])if(!main.includes(`case '${command}'`))missing.push(`${command}:missing-main-command`);
+const commands=['catalog-list','catalog-switch','catalog-activate','catalog-refresh','catalog-refresh-all','catalog-reveal','catalog-source-refresh','catalog-import-dialog','catalog-import-paths','catalog-add-google','catalog-import-current-page','catalog-toggle-source','catalog-remove-source','catalog-google-signin','catalog-google-oauth-connect','catalog-google-oauth-status','catalog-google-oauth-disconnect','source-center','source-center-close','clear-data-confirm'];
+for(const command of commands)if(!main.includes(`case '${command}'`))missing.push(`${command}:missing-main-command`);
 assert(main.includes('const DIVIDER_W = 18'),'split hit lane regressed below 18px');
 assert(main.includes("const PARTITION = 'persist:minecraft-catalog-live'"),'1.2 persistent Chromium partition continuity lost');
 assert(main.includes("buttons: ['Block', 'Allow once', 'Allow this session']"),'native permission choices missing');
 assert(main.includes('sessionPermissions.set(key, true)'),'allow-session is not persisted for app session');
 assert(main.includes('dialog.showMessageBox(win'),'permission/confirmation prompts are not native');
 assert(main.includes('function openSourceCenterWindow()'),'dedicated Catalog Center child surface missing');
+assert(sourceCss.includes('body.source-center-window{display:block;place-items:initial}'),'Catalog Center can be vertically centered above the visible viewport');
 assert(main.includes("loadFile(path.join(ROOT, 'source-center.html'))"),'Catalog Center is not isolated from top chrome');
 assert(main.includes('const CHROME_OVERLAY_MAX = 430'),'top native chrome lacks a hard maximum overlay height');
 assert(!/chrome-overlay-height[^\n]{0,180}payload\?\.full/.test(main),'full-window top chrome expansion still exists');
@@ -80,4 +82,4 @@ assert(main.includes('let splitterView = null')&&main.includes('function setupSp
 assert(enhance.includes('Promise.allSettled(urls.map(async url=>')&&enhance.includes('if(media){mergeMedia(s,media);applyState(s)}'),'alternate media sources are not resolved in parallel/progressively painted');
 assert(!enhance.includes('gallery.slice(0,24)'),'catalog live gallery is still capped at 24 images');
 assert.equal(missing.length,0,missing.join(', '));
-console.log(JSON.stringify({passed:true,controls:controls.length+sourceControls.length,commands:16,dragDrop:true,staleDragOverlayRecovery:true,nativeChromeGuard:true,nativeChromeSiblingOverlay:true,nativeModalIsolation:true,sessionPermission:true,liveMediaOnly:true,googleFetchUndiciEliminated:true},null,2));
+console.log(JSON.stringify({passed:true,controls:controls.length+sourceControls.length,commands:commands.length,dragDrop:true,staleDragOverlayRecovery:true,nativeChromeGuard:true,nativeChromeSiblingOverlay:true,nativeModalIsolation:true,sessionPermission:true,liveMediaOnly:true,googleFetchUndiciEliminated:true,nativeGoogleWorkspace:true},null,2));

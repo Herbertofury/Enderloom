@@ -1,5 +1,9 @@
+import { useLibraryLayout } from "../lib/library-layout";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useCreative } from "../creative-store";
+import { isMCreator, generatorLabel } from "../lib/creative";
 import {
+  ArrowLeftRight,
   ArrowUpCircle,
   Check,
   ClipboardCopy,
@@ -12,8 +16,6 @@ import {
   Copy,
   FolderOpen,
   Loader2,
-  LayoutGrid,
-  List,
   Lock,
   LockOpen,
   MoreVertical,
@@ -26,7 +28,6 @@ import {
   Search,
   SearchX,
   Share,
-  Table2,
   Trash2,
   Wrench,
 } from "lucide-react";
@@ -50,6 +51,7 @@ import { UploadModal } from "../components/UploadModal";
 import { ContextMenu, useContextMenu, type MenuItem } from "../components/ContextMenu";
 import { SnapshotsModal } from "../components/SnapshotsModal";
 import { ModpackUpgradeModal } from "../components/ModpackUpgradeModal";
+import { LayoutDensityMenu, TILE_SIZE_STEPS } from "../components/LayoutDensityMenu";
 import { toast } from "sonner";
 
 import { cn } from "../lib/cn";
@@ -133,9 +135,8 @@ type Dialog =
       plan: InstallPlan;
     };
 
-type ContentView = "all" | "enabled" | "disabled" | "updates" | "unlinked";
-type ContentSort = "name" | "recent" | "size" | "updates" | "disabled";
-type ContentLayout = "tiles" | "table" | "list";
+type ContentView = "all" | "enabled" | "disabled" | "updates" | "unlinked" | "mcreator";
+type ContentSort = "name" | "recent" | "size" | "updates" | "disabled" | "mcreator";
 
 const VIEWS: Array<{ id: ContentView; label: string }> = [
   { id: "all", label: "All" },
@@ -143,6 +144,7 @@ const VIEWS: Array<{ id: ContentView; label: string }> = [
   { id: "disabled", label: "Disabled" },
   { id: "updates", label: "Updates" },
   { id: "unlinked", label: "Unlinked" },
+  { id: "mcreator", label: "MCreator" },
 ];
 
 const SORT_LABELS: Record<ContentSort, string> = {
@@ -151,6 +153,7 @@ const SORT_LABELS: Record<ContentSort, string> = {
   size: "Largest",
   updates: "Updates first",
   disabled: "Disabled first",
+  mcreator: "MCreator first",
 };
 
 function displayName(item: ContentItem) {
@@ -224,7 +227,21 @@ export function InstanceView() {
   const [datapackAdd, setDatapackAdd] = useState(0);
   const [addingError, setAddingError] = useState<string | null>(null);
   const [itemsByTab, setItemsByTab] = useState<Record<string, ContentItem[]>>({});
+  const inspectionReport = useCreative((s) => detailId ? s.scans[detailId] : undefined);
+  const [inspecting, setInspecting] = useState(false);
+  const [inspectionError, setInspectionError] = useState<string | null>(null);
+  const [inspectedItems, setInspectedItems] = useState<ContentItem[] | null>(null);
+  useEffect(() => {
+    if (!detailId || !itemsByTab.mods) return;
+    let active = true;
+    setInspecting(true); setInspectedItems(null); setInspectionError(null);
+    useCreative.getState().scan(detailId).then(() => { if (active) setInspectedItems(itemsByTab.mods); })
+      .catch((e) => { if (active) setInspectionError(String(e)); })
+      .finally(() => { if (active) setInspecting(false); });
+    return () => { active = false; };
+  }, [detailId, itemsByTab.mods]);
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
+  const [contentError, setContentError] = useState<string | null>(null);
   const [launchError, setLaunchError] = useState<string | null>(null);
   const [hasSchematicMod, setHasSchematicMod] = useState(false);
   const [filter, setFilter] = useState("");
@@ -232,14 +249,8 @@ export function InstanceView() {
   const [sort, setSort] = useState<ContentSort>(
     () => (localStorage.getItem("content-sort") as ContentSort) ?? "name",
   );
-  const [contentLayout, setContentLayout] = useState<ContentLayout>(() => {
-    const stored = localStorage.getItem("content-layout");
-    return stored === "tiles" || stored === "table" || stored === "list" ? stored : "tiles";
-  });
-  const [contentTileSize, setContentTileSize] = useState(() => {
-    const value = Number(localStorage.getItem("content-tile-size") ?? 1);
-    return Number.isFinite(value) ? Math.max(0, Math.min(4, Math.round(value))) : 1;
-  });
+  const contentLayout = useLibraryLayout(s => s.layout), setContentLayout = useLibraryLayout(s => s.setLayout);
+  const contentTileSize = useLibraryLayout(s => s.tileSize), setContentTileSize = useLibraryLayout(s => s.setTileSize);
   const [checkingUpdates, setCheckingUpdates] = useState(false);
   const [updatingAll, setUpdatingAll] = useState(false);
   const [updatingFile, setUpdatingFile] = useState<string | null>(null);
@@ -263,9 +274,11 @@ export function InstanceView() {
       try {
         const listed = await api.listInstanceContent(instance.id, target, reconcile);
         setItemsByTab((current) => ({ ...current, [target]: listed }));
+        setContentError(null);
         void refreshContentSources(instance.id, target);
-      } catch {
-        setItemsByTab((current) => ({ ...current, [target]: [] }));
+      } catch (error) {
+        log.warn("content", `could not list ${target}: ${String(error)}`);
+        setContentError(String(error));
       } finally {
         setLoadingTab((current) => (current === target ? null : current));
       }
@@ -278,12 +291,14 @@ export function InstanceView() {
     const id = instance.id;
     let live = true;
     setItemsByTab({});
+    setContentError(null);
     setLoadingTab("*");
     api
       .listInstanceContentBundle(id, ALL_KINDS, false)
       .then((bundle) => {
         if (!live) return;
         setItemsByTab(bundle);
+        setContentError(null);
         for (const kind of ALL_KINDS) void refreshContentSources(id, kind);
         void (async () => {
           for (const kind of PROVIDER_KINDS) {
@@ -295,9 +310,10 @@ export function InstanceView() {
           }
         })();
       })
-      .catch(() => {
+      .catch((error) => {
         if (!live) return;
-        setItemsByTab(Object.fromEntries(ALL_KINDS.map((kind) => [kind, []])));
+        log.warn("content", `could not load instance inventory: ${String(error)}`);
+        setContentError(String(error));
       })
       .finally(() => {
         if (live) setLoadingTab(null);
@@ -330,10 +346,13 @@ export function InstanceView() {
       .then((bundle) => {
         if (!live) return;
         setItemsByTab(bundle);
+        setContentError(null);
         for (const kind of ALL_KINDS) void refreshContentSources(instance.id, kind);
         void refreshUpdates(instance.id);
       })
-      .catch(() => {});
+      .catch((error) => {
+        if (live) setContentError(String(error));
+      });
     return () => {
       live = false;
     };
@@ -414,13 +433,15 @@ export function InstanceView() {
   const tabMeta = allTabs.find((t) => t.kind === tab) ?? allTabs[0];
   const tabUpdates = isContent ? updates.filter((u) => u.kind === tab) : NO_UPDATES;
   const items = itemsByTab[tab] ?? EMPTY_ITEMS;
+  const modInspections = tab === "mods" && inspectedItems === itemsByTab.mods ? new Map(inspectionReport?.files.map((f) => [f.file_name, f.inspection])) : new Map();
   const loading = loadingTab !== null && itemsByTab[tab] === undefined;
   const query = filter.trim().toLowerCase();
   const matching = query
     ? items.filter(
         (i) =>
           i.file_name.toLowerCase().includes(query) ||
-          (i.source?.title ?? "").toLowerCase().includes(query),
+          (i.source?.title ?? "").toLowerCase().includes(query) ||
+          generatorLabel(modInspections.get(i.file_name)).toLowerCase().includes(query),
       )
     : items;
   const shownItems = sortItems(
@@ -429,17 +450,20 @@ export function InstanceView() {
       if (listView === "disabled") return !i.enabled;
       if (listView === "updates") return !!i.update;
       if (listView === "unlinked") return !i.source;
+      if (listView === "mcreator") return isMCreator(modInspections.get(i.file_name));
       return true;
     }),
     sort,
   );
   const enabledCount = items.filter((i) => i.enabled).length;
+  if (sort === "mcreator") shownItems.sort((a,b) => Number(isMCreator(modInspections.get(b.file_name))) - Number(isMCreator(modInspections.get(a.file_name))) || byName(a,b));
   const viewCounts: Record<ContentView, number> = {
     all: items.length,
     enabled: enabledCount,
     disabled: items.length - enabledCount,
     updates: items.filter((i) => !!i.update).length,
     unlinked: items.filter((i) => !i.source).length,
+    mcreator: items.filter((i) => isMCreator(modInspections.get(i.file_name))).length,
   };
 
   const addContent = (event: React.MouseEvent) => {
@@ -708,6 +732,13 @@ export function InstanceView() {
   const contentMenu = (item: ContentItem): MenuItem[] => {
     const source = item.source;
     const entries: MenuItem[] = [];
+    if (item.update) {
+      entries.push({
+        label: `Update to ${item.update.latest_name}`,
+        icon: ArrowUpCircle,
+        onSelect: () => void updateOne(item),
+      });
+    }
     if (source?.provider && source.project_id) {
       entries.push({
         label: "Open provider research",
@@ -719,6 +750,11 @@ export function InstanceView() {
             tab as ContentKind,
             source.title ?? undefined,
           ),
+      });
+      entries.push({
+        label: "Switch version",
+        icon: ArrowLeftRight,
+        onSelect: () => setVersionItem(item),
       });
     }
     entries.push({
@@ -1104,7 +1140,7 @@ export function InstanceView() {
                   onClick={updateAll}
                   disabled={updatingAll || busyWithTask}
                   title={busyWithTask ? "Wait for the current download to finish" : undefined}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-warn/40 bg-warn/10 px-3 py-2 text-xs font-semibold text-warn transition-colors hover:bg-warn/20 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="add-content-button"
                 >
                   {updatingAll ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -1147,7 +1183,7 @@ export function InstanceView() {
                 ) : (
                   <Plus className="size-3.5" />
                 )}
-                {tab === "worlds" ? "Import world" : "Add content"}
+                {tab === "worlds" ? "Import world" : "Add Content"}
                 {tab !== "worlds" && tab !== "schematics" && (
                   <ChevronDown className="size-3.5 opacity-70" />
                 )}
@@ -1180,6 +1216,30 @@ export function InstanceView() {
           />
         ) : (
           <div className="px-6 py-5">
+          {tab === "mods" && <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-violet-400/15 bg-violet-400/5 px-4 py-3 text-xs">
+            <span className="rounded bg-violet-400/15 px-2 py-1 text-[9px] font-semibold tracking-wide text-violet-300">PREMIUM PREVIEW</span>
+            <span className="flex-1 text-content-muted">{inspecting ? "Inspecting exact mod files for generator evidence…" : inspectionError ? `Inspection: ${inspectionError}` : `${viewCounts.mcreator} MCreator candidates · labels explain the evidence`}</span>
+            <button disabled={inspecting} className="text-violet-300 disabled:opacity-40" onClick={async () => { if (!detailId) return; setInspecting(true); try { await useCreative.getState().scan(detailId); setInspectedItems(itemsByTab.mods); setInspectionError(null); } catch(e) { setInspectionError(String(e)); } finally { setInspecting(false); } }}>Rescan</button>
+            <button className="text-violet-300" onClick={() => useStore.getState().setView("performance")}>Performance ↗</button>
+          </div>}
+          {contentError && items.length > 0 && (
+            <div
+              role="alert"
+              title={contentError}
+              className="mb-4 flex items-center gap-3 rounded-xl border border-warn/30 bg-warn/8 px-3.5 py-2.5 text-xs text-content-muted"
+            >
+              <span className="min-w-0 flex-1">
+                Showing the last known on-disk inventory because metadata could not be refreshed.
+              </span>
+              <button
+                onClick={() => void refresh(false)}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-warn/35 px-2.5 py-1.5 font-semibold text-warn transition-colors hover:bg-warn/10"
+              >
+                <RefreshCw className="size-3.5" />
+                Retry
+              </button>
+            </div>
+          )}
           {items.length > 0 && (
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <div className="relative w-full max-w-xs">
@@ -1197,7 +1257,7 @@ export function InstanceView() {
               aria-label="Show"
               className="flex shrink-0 items-center gap-0.5 rounded-lg border border-border-soft bg-surface-2/60 p-0.5"
             >
-              {VIEWS.map((option) => {
+              {VIEWS.filter((option) => option.id !== "mcreator" || tab === "mods").map((option) => {
                 const count = viewCounts[option.id];
                 if (option.id !== "all" && count === 0) return null;
                 return (
@@ -1244,52 +1304,19 @@ export function InstanceView() {
               />
             </div>
 
-            <div className="flex shrink-0 rounded-lg border border-border-soft bg-surface-2/60 p-0.5" aria-label="Content layout">
-              {(
-                [
-                  { mode: "tiles", icon: LayoutGrid },
-                  { mode: "table", icon: Table2 },
-                  { mode: "list", icon: List },
-                ] as const
-              ).map(({ mode, icon: Icon }) => (
-                <button
-                  key={mode}
-                  onClick={() => {
-                    setContentLayout(mode);
-                    localStorage.setItem("content-layout", mode);
-                  }}
-                  aria-label={`${mode} view`}
-                  aria-pressed={contentLayout === mode}
-                  className={cn(
-                    "grid size-8 place-items-center rounded-md transition-colors",
-                    contentLayout === mode
-                      ? "bg-surface-3 text-content"
-                      : "text-content-faint hover:text-content-muted",
-                  )}
-                >
-                  <Icon className="size-4" />
-                </button>
-              ))}
-            </div>
-
-            {contentLayout === "tiles" && (
-              <label className="flex h-9 shrink-0 items-center gap-2 rounded-lg border border-border-soft bg-surface-2/60 px-2.5 text-[10px] font-semibold text-content-faint">
-                Tile size
-                <input
-                  type="range"
-                  min={0}
-                  max={4}
-                  step={1}
-                  value={contentTileSize}
-                  onChange={(event) => {
-                    const next = Number(event.target.value);
-                    setContentTileSize(next);
-                    localStorage.setItem("content-tile-size", String(next));
-                  }}
-                  className="w-20 accent-(--accent)"
-                />
-              </label>
-            )}
+            <LayoutDensityMenu
+              layout={contentLayout}
+              onLayoutChange={(mode) => {
+                setContentLayout(mode);
+                localStorage.setItem("content-layout", mode);
+              }}
+              tileSize={contentTileSize}
+              onTileSizeChange={(next) => {
+                setContentTileSize(next);
+                localStorage.setItem("content-tile-size", String(next));
+              }}
+              testIdPrefix="content"
+            />
 
             <span className="ml-auto shrink-0 text-xs tabular-nums text-content-faint">
               {shownItems.length === items.length
@@ -1308,23 +1335,27 @@ export function InstanceView() {
         ) : items.length === 0 ? (
           <div className="flex flex-col items-center gap-3 py-20 text-center">
             <div className="grid size-12 place-items-center rounded-2xl border border-border-soft bg-surface-2 text-content-faint">
-              <Package className="size-6" />
+              {contentError ? <RefreshCw className="size-6" /> : <Package className="size-6" />}
             </div>
             <div className="text-sm font-medium text-content-muted">
-              No {tabMeta.label.toLowerCase()} yet
+              {contentError
+                ? `Could not read ${tabMeta.label.toLowerCase()}`
+                : `No ${tabMeta.label.toLowerCase()} yet`}
             </div>
-            <p className="max-w-sm text-xs text-content-faint">
-              {busyWithTask
-                ? "Installed files will appear here as the current task progresses."
-                : "Browse Modrinth and CurseForge with Add content, or drop in your own files."}
+            <p className="max-w-md text-xs text-content-faint" title={contentError ?? undefined}>
+              {contentError
+                ? "Enderloom did not treat this read failure as an empty modpack. Retry after checking the instance drive."
+                : busyWithTask
+                  ? "Installed files will appear here as the current task progresses."
+                  : "Browse Modrinth and CurseForge with Add content, or drop in your own files."}
             </p>
             <button
-              onClick={addContent}
+              onClick={contentError ? () => void refresh(false) : addContent}
               disabled={busyWithTask}
               className="mt-1 inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold text-black shadow-md shadow-(color:--accent-glow) transition-all [background:linear-gradient(to_bottom,var(--accent),var(--accent-deep))] hover:[background:linear-gradient(to_bottom,var(--accent-bright),var(--accent))] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
             >
-              <Plus className="size-3.5" />
-              Add content
+              {contentError ? <RefreshCw className="size-3.5" /> : <Plus className="size-3.5" />}
+              {contentError ? "Retry inventory" : "Add content"}
             </button>
           </div>
         ) : shownItems.length === 0 ? (
@@ -1374,13 +1405,16 @@ export function InstanceView() {
         ) : (
           <div
             className={cn(
-              contentLayout === "tiles" && "grid auto-rows-min gap-2.5",
+              contentLayout === "tiles" && "instance-density-grid grid auto-rows-min gap-2.5",
               contentLayout === "table" && "overflow-hidden rounded-xl border border-border-soft bg-surface-2/40",
               contentLayout === "list" && "flex flex-col gap-1.5",
             )}
             style={
               contentLayout === "tiles"
-                ? { gridTemplateColumns: `repeat(auto-fill,minmax(${[9.5, 11.5, 14, 17, 21][contentTileSize]}rem,1fr))` }
+                ? {
+                    "--tile-width": `${TILE_SIZE_STEPS[contentTileSize].widthPx}px`,
+                    gridTemplateColumns: "repeat(auto-fill,minmax(var(--tile-width),1fr))",
+                  } as React.CSSProperties
                 : undefined
             }
           >
@@ -1403,7 +1437,10 @@ export function InstanceView() {
                 <ContentItemCard
                   key={item.file_name}
                   item={item}
+                  kind={tab as ContentKind}
+                  inspection={modInspections.get(item.file_name)}
                   layout={contentLayout}
+                  tileSize={contentTileSize}
                   busy={busy}
                   disabled={busyWithTask}
                   disabledReason={

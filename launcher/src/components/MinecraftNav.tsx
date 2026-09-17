@@ -11,6 +11,10 @@ const workspaceViews = new Set([
   "servers",
   "server",
   "accounts",
+  "favorites",
+  "performance",
+  "config",
+  "addons",
 ]);
 
 export function MinecraftNav() {
@@ -42,6 +46,10 @@ export function MinecraftNav() {
       active: view === "servers" || view === "server",
       select: () => setView("servers"),
     },
+    { label: "Config", active: view === "config", select: () => setView("config") },
+    { label: "Addons", active: view === "addons", select: () => setView("addons") },
+    { label: "Favorites", active: view === "favorites", select: () => setView("favorites") },
+    { label: "Performance", active: view === "performance", select: () => setView("performance") },
     {
       label: "Skins & accounts",
       active: view === "accounts",
@@ -52,7 +60,7 @@ export function MinecraftNav() {
   return (
     <nav
       aria-label="Minecraft workspace"
-      className="flex h-11 shrink-0 items-end gap-1 border-b border-border-soft bg-void/96 px-6"
+      className="flex h-11 shrink-0 items-end gap-0.5 overflow-x-auto border-b border-border-soft bg-void/96 px-4"
     >
       {entries.map((entry) => (
         <button
@@ -60,7 +68,7 @@ export function MinecraftNav() {
           onClick={entry.select}
           aria-current={entry.active ? "page" : undefined}
           className={cn(
-            "relative h-10 px-3 text-xs font-semibold transition-colors",
+            "relative h-10 shrink-0 whitespace-nowrap px-2.5 text-xs font-semibold transition-colors",
             entry.active ? "text-content" : "text-content-faint hover:text-content-muted",
           )}
         >

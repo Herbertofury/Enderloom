@@ -22,14 +22,13 @@ async fn modrinth_updates(
     loader: Option<&str>,
     include_pack: bool,
 ) -> Vec<ContentUpdate> {
-    let candidates: Vec<(String, String, String)> = files
+    let candidates: Vec<(String, String, Option<String>)> = files
         .iter()
         .filter(|f| include_pack || f.origin != "pack")
         .filter(|f| f.provider.as_deref() == Some("modrinth"))
         .filter_map(|f| {
             let sha1 = f.sha1.clone()?;
-            let version_id = f.version_id.clone()?;
-            Some((f.file_name.clone(), sha1, version_id))
+            Some((f.file_name.clone(), sha1, f.version_id.clone()))
         })
         .collect();
 
@@ -56,7 +55,14 @@ async fn modrinth_updates(
         .into_iter()
         .filter_map(|(file_name, sha1, installed_version)| {
             let version = latest.get(&sha1)?;
-            if version.id == installed_version {
+            // Hash equality is authoritative and also covers content imported from
+            // Modrinth/CurseForge folders whose old database row has no version id.
+            if installed_version.as_deref() == Some(version.id.as_str())
+                || version
+                    .files
+                    .iter()
+                    .any(|file| file.hashes.sha1.as_deref() == Some(sha1.as_str()))
+            {
                 return None;
             }
             let file = version
@@ -151,6 +157,18 @@ pub async fn check(
     game_version: &str,
     loader: Option<&str>,
 ) -> Result<Vec<ContentUpdate>> {
+    // The folder is the source of truth. Reconcile immediately before checking so
+    // files added by CurseForge, Modrinth App, or the user are all visible and can
+    // acquire provider metadata, icons, project links, and updates in one action.
+    for kind in KINDS {
+        if let Err(error) =
+            super::identify::reconcile(state, super::resolve::Target::Instance(instance_id), kind)
+                .await
+        {
+            tracing::warn!(instance_id, kind, %error, "content reconciliation failed before update check");
+        }
+    }
+
     let include_pack = state
         .db
         .load_settings()

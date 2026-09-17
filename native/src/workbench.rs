@@ -17,8 +17,6 @@ use std::{
 
 static TRANSACTION: Mutex<()> = Mutex::new(());
 const STORE: &str = ".enderloom-workbench";
-const MAX_TEXT: u64 = 2 * 1024 * 1024;
-const MAX_ARCHIVE: u64 = 1024 * 1024 * 1024;
 
 #[derive(Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
@@ -210,15 +208,47 @@ fn save(files: &FileManager, root: &Path, library: &Library) -> Result<()> {
         &serde_json::to_vec_pretty(library)?,
     )
 }
-fn read_bytes(files: &FileManager, path: &Path, limit: u64) -> Result<Vec<u8>> {
-    let mut reader = files.open(path)?.take(limit + 1);
+pub(crate) fn favorite_entries(state: &AppState, id: &str, favorites: &Value) -> Result<Vec<Value>> {
+    let root = base(state, id)?;
+    let library = load(&state.files, &root)?;
+    let Some(favorites) = favorites.as_object() else { return Ok(vec![]); };
+    let mut candidates = BTreeMap::<String, Record>::new();
+    for (path, record) in library.records {
+        let provider_key = format!("{}:{}", record.provider, record.project_id);
+        if favorites.contains_key(&provider_key) || record.revisions.iter().any(|r| favorites.contains_key(&format!("local:{}", r.hash))) {
+            candidates.insert(path, record);
+        }
+    }
+    for favorite in favorites.values().filter(|f| f["provider"] == "local") {
+        let hint = string(favorite, "description");
+        if allowed_file(hint) && target(&root, hint).is_ok() { candidates.entry(hint.to_string()).or_insert_with(|| Record { path: hint.to_string(), ..Record::default() }); }
+    }
+    if let Some(scan) = state.db.library_get(&format!("latest-scan:{id}"))? {
+        if let Some(files) = scan["files"].as_array() { for file in files {
+            if favorites.contains_key(&format!("local:{}", string(&file["inspection"], "sha256"))) {
+                let path = format!("mods/{}{}", string(file, "file_name"), if file["enabled"] == false { ".disabled" } else { "" });
+                candidates.entry(path.clone()).or_insert_with(|| Record { path, ..Record::default() });
+            }
+        }}
+    }
+    let mut entries = vec![];
+    for (mut path, record) in candidates {
+        let Ok(mut resolved) = target(&root, &path) else { continue; };
+        if !state.files.is_file(&resolved)? {
+            path = if path.ends_with(".disabled") { path.trim_end_matches(".disabled").to_string() } else { format!("{path}.disabled") };
+            resolved = target(&root, &path)?;
+        }
+        if !state.files.is_file(&resolved)? { continue; }
+        let is_mod = path.starts_with("mods/");
+        let addon = !is_mod && (!editable(&path) || path.starts_with("tacz/") || path.starts_with("config/tacz/custom/") || path.starts_with("pointblank/") || !record.recipe.is_empty());
+        entries.push(json!({"path":path,"hash":hash_file(&state.files,&resolved)?,"record":record,"exists":true,"enabled":!path.ends_with(".disabled"),"mod":is_mod,"addon":addon}));
+    }
+    Ok(entries)
+}
+fn read_bytes(files: &FileManager, path: &Path) -> Result<Vec<u8>> {
+    let mut reader = files.open(path)?;
     let mut bytes = Vec::new();
     reader.read_to_end(&mut bytes)?;
-    if bytes.len() as u64 > limit {
-        return Err(Error::other(
-            "File exceeds the supported size for this operation.",
-        ));
-    }
     Ok(bytes)
 }
 fn hash_file(files: &FileManager, path: &Path) -> Result<String> {
@@ -254,7 +284,6 @@ fn archive_check<R: Read + Seek>(reader: R) -> Result<()> {
     if archive.is_empty() {
         return Err(Error::other("This archive is empty."));
     }
-    let mut total = 0u64;
     for i in 0..archive.len() {
         let mut file = archive
             .by_index(i)
@@ -262,12 +291,6 @@ fn archive_check<R: Read + Seek>(reader: R) -> Result<()> {
         if file.enclosed_name().is_none() || file.name().contains('\\') || file.name().contains(':')
         {
             return Err(Error::other("Archive contains an unsafe path."));
-        }
-        total = total.saturating_add(file.size());
-        if total > MAX_ARCHIVE {
-            return Err(Error::other(
-                "Archive expands beyond the 1 GiB validation limit.",
-            ));
         }
         std::io::copy(&mut file, &mut std::io::sink())
             .map_err(|e| Error::other(format!("Archive checksum failed: {e}")))?;
@@ -277,6 +300,12 @@ fn archive_check<R: Read + Seek>(reader: R) -> Result<()> {
 fn text_problem(path: &str, text: &str) -> Option<String> {
     if text.contains('\0') {
         return Some("Contains binary data; expected a text config.".into());
+    }
+    if matches!(extension(path).as_str(), "json" | "json5" | "jsonc") {
+        // Validate syntax without converting numbers or rewriting comments. Many mod
+        // configs use Gson's relaxed syntax, even when their extension is .json.
+        if serde_json::from_str::<serde::de::IgnoredAny>(text).is_ok() { return None; }
+        return json5::from_str::<serde::de::IgnoredAny>(text).err().map(|error| error.to_string());
     }
     crate::servers::files::validate(crate::servers::files::FileKind::of(path), text)
         .map(|p| format!("Line {}, column {}: {}", p.line, p.column, p.message))
@@ -360,24 +389,17 @@ fn walk(
     Ok(())
 }
 fn mod_version(state: &AppState, id: &str, marker: &str) -> Result<Option<String>> {
-    let indexed = state
-        .db
-        .content_files(id, "mods")?
-        .iter()
-        .find(|m| {
-            m.mod_id
-                .as_deref()
-                .is_some_and(|v| v.to_lowercase().contains(marker))
-                || m.file_name.to_lowercase().contains(marker)
-        })
-        .filter(|m| {
-            state
-                .files
-                .is_file(state.paths.instance_dir(id).join("mods").join(&m.file_name))
-                .unwrap_or(false)
-        })
-        .and_then(|m| m.mod_version.clone());
     let root = base(state, id)?;
+    for source in state.db.content_files(id, "mods")? {
+        if source.mod_id.as_deref().is_some_and(|mod_id| mod_id.eq_ignore_ascii_case(marker)) {
+            let path = target(&root, &format!("mods/{}", source.file_name))?;
+            if state.files.is_file(&path)? {
+                if let Some((Some(mod_id), Some(version), _)) = crate::search::identify::cached_metadata(&state.files, &path) {
+                    if mod_id.eq_ignore_ascii_case(marker) { return Ok(Some(version)); }
+                }
+            }
+        }
+    }
     let dir = resolve(&root, "mods")?;
     if state.files.exists(&dir)? {
         for path in state.files.read_dir(&dir)? {
@@ -390,15 +412,15 @@ fn mod_version(state: &AppState, id: &str, marker: &str) -> Result<Option<String
                 Err(_) => continue,
             };
             if let Some((Some(mod_id), Some(version), _)) =
-                crate::search::identify::read_metadata(&state.files, &safe)
+                crate::search::identify::cached_metadata(&state.files, &safe)
             {
-                if mod_id.to_lowercase().contains(marker) {
+                if mod_id.eq_ignore_ascii_case(marker) {
                     return Ok(Some(version));
                 }
             }
         }
     }
-    Ok(indexed)
+    Ok(None)
 }
 fn tacz_folder(version: Option<&str>) -> Option<&'static str> {
     let v = semver::Version::parse(version?.trim_start_matches('v')).ok()?;
@@ -408,12 +430,11 @@ fn tacz_folder(version: Option<&str>) -> Option<&'static str> {
         "config/tacz/custom"
     })
 }
-fn recipe_info(state: &AppState, id: &str) -> Result<Value> {
-    let version = mod_version(state, id, "tacz")?;
-    Ok(json!([
+fn recipe_info_version(version: Option<String>) -> Value {
+    json!([
         {"id":"pointblank", "title":"Point Blank · Doom", "folder":"pointblank", "dependency":"Vic’s Point Blank", "project_id":"1004200", "source_url":"https://www.curseforge.com/minecraft/customization/point-blank-official-extension-doom-pack", "instructions":"Keep the ZIP intact in pointblank/. Doom 1.3.5 requires Point Blank 1.6.7 or newer. Clients and servers need matching packs."},
         {"id":"tacz", "title":"TaCZ · Helldivers", "folder":tacz_folder(version.as_deref()), "detected_version":version, "dependency":"Timeless and Classics Zero", "project_id":"1091118", "source_url":"https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom", "instructions":"Keep the ZIP intact. TaCZ 1.1.4+ uses tacz/. Older releases use config/tacz/custom/. Choose the installed TaCZ generation when its version cannot be detected."}
-    ]))
+    ])
 }
 fn globals_path(state: &AppState) -> PathBuf {
     state.paths.root.join("workbench/global-presets.json")
@@ -426,13 +447,22 @@ fn globals(state: &AppState) -> Result<Vec<Preset>> {
     Ok(serde_json::from_slice(&state.files.read(path)?)?)
 }
 
-pub(crate) fn scan(state: &AppState, id: &str) -> Result<Value> {
+pub(crate) fn scan_mode(state: &AppState, id: &str, include_mods: bool, verify: bool) -> Result<Value> {
+    // Inventory is a read-only snapshot, so an ongoing checksum pass must not
+    // prevent opening another profile's Config tab. Mutations still serialize.
+    if !verify { return scan_inner_scoped(state, id, include_mods, false); }
     let _guard = TRANSACTION
         .lock()
         .map_err(|_| Error::other("Config library is busy."))?;
-    scan_inner(state, id)
+    scan_inner_scoped(state, id, include_mods, verify)
 }
 fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
+    scan_inner_scoped(state, id, true, true)
+}
+fn config_mod_path(path: &str) -> bool {
+    path.starts_with("mods/") && ["configured", "catalogue", "cloth-config", "cloth_config", "yet-another-config", "yacl", "modmenu", "defaultoptions"].iter().any(|name| path.to_lowercase().contains(name))
+}
+fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: bool) -> Result<Value> {
     let instance = find_instance(state, id)?;
     let root = PathBuf::from(&instance.dir);
     let mut library = load(&state.files, &root)?;
@@ -448,6 +478,13 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
         "scripts",
         "mods",
     ] {
+        if folder == "mods" && !include_mods {
+            for file in state.files.read_dir(root.join("mods")).unwrap_or_default() {
+                let relative = format!("mods/{}", file.file_name().unwrap_or_default().to_string_lossy());
+                if config_mod_path(&relative) { paths.push(relative); }
+            }
+            continue;
+        }
         if let Err(e) = walk(&state.files, &root, folder, &mut paths, &mut warnings) {
             warnings.push(format!("{folder}: {e}"));
         }
@@ -473,11 +510,14 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
         }
     }
     paths.extend(library.records.keys().cloned());
+    if !include_mods { paths.retain(|path| !path.starts_with("mods/") || config_mod_path(path)); }
     paths.sort();
     paths.dedup();
     let sources = state.db.content_files(id, "mods")?;
     let mut entries = vec![];
-    let tacz = mod_version(state, id, "tacz")?;
+    let mut owner_versions = BTreeMap::<String, Option<String>>::new();
+    let tacz = if verify { mod_version(state, id, "tacz")? } else { sources.iter().find(|s|s.mod_id.as_deref()==Some("tacz")).and_then(|s|s.mod_version.clone()) };
+    let pointblank = if verify && paths.iter().any(|path| path.starts_with("pointblank/")) { mod_version(state, id, "pointblank")? } else { None };
     for path in paths {
         let mut issues: Vec<Value> = vec![];
         let resolved = match target(&root, &path) {
@@ -540,10 +580,15 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
                 }
             }
             if !record.owner_mod_id.is_empty() {
-                match sources.iter().find(|s|s.mod_id.as_deref()==Some(&record.owner_mod_id)) {
-                    Some(owner) if !record.owner_mod_version.is_empty() && owner.mod_version.as_deref()!=Some(&record.owner_mod_version)=>issues.push(json!({"severity":"warning","message":format!("{} changed version since this config was first seen ({}). Review the author’s config migration notes.",record.owner_mod_id,record.owner_mod_version)})),
-                    None=>issues.push(json!({"severity":"warning","message":format!("The previously associated mod {} is no longer indexed in this instance.",record.owner_mod_id)})),
-                    _=>{}
+                if verify && !owner_versions.contains_key(&record.owner_mod_id) {
+                    owner_versions.insert(record.owner_mod_id.clone(), mod_version(state, id, &record.owner_mod_id)?);
+                }
+                if let Some(Some(current)) = owner_versions.get(&record.owner_mod_id) {
+                    if !record.owner_mod_version.is_empty() && current != &record.owner_mod_version {
+                        issues.push(json!({"severity":"warning","message":format!("{} changed version from {} to {}. Review the author’s config migration notes.",record.owner_mod_id,record.owner_mod_version,current)}));
+                    }
+                } else if !sources.iter().any(|source| source.mod_id.as_deref() == Some(&record.owner_mod_id)) {
+                    issues.push(json!({"severity":"warning","message":format!("The previously associated mod {} is no longer indexed in this instance.",record.owner_mod_id)}));
                 }
             }
         }
@@ -568,6 +613,7 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
         let mut provider_modified = false;
         if exists {
             size = state.files.metadata(&resolved)?.len();
+            if verify {
             match hash_file(&state.files, &resolved) {
                 Ok(h) => hash = h,
                 Err(e) => issues.push(json!({"severity":"error","message":e.to_string()})),
@@ -594,7 +640,7 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
                 observe(&state.files, &root, record, "External edit detected")?;
             }
             if editable(&path) {
-                match read_bytes(&state.files, &resolved, MAX_TEXT)
+                match read_bytes(&state.files, &resolved)
                     .and_then(|b| String::from_utf8(b).map_err(|_| Error::other("Not valid UTF-8")))
                 {
                     Ok(text) => {
@@ -602,7 +648,7 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
                             issues.push(json!({"severity":"error","message":problem}));
                         } else if !matches!(
                             extension(&path).as_str(),
-                            "json" | "toml" | "yaml" | "yml" | "properties" | "mcmeta"
+                            "json" | "json5" | "jsonc" | "toml" | "yaml" | "yml" | "properties" | "mcmeta"
                         ) {
                             issues.push(json!({"severity":"info","message":"Text readable; this format has no syntax validator. Mod-specific settings are not schema-validated."}));
                         }
@@ -613,6 +659,7 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
                 if let Err(e) = archive_check(state.files.open(&resolved)?) {
                     issues.push(json!({"severity":"error","message":e.to_string()}));
                 }
+            }
             }
         } else {
             issues.push(
@@ -628,7 +675,8 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
             || path.starts_with("config/tacz/custom/")
             || record.recipe == "tacz";
         let is_pb = path.starts_with("pointblank/") || record.recipe == "pointblank";
-        if is_tacz {
+        let pack_root_file = extension(&path) == "zip" || path.ends_with("gunpack.meta.json") || path.ends_with("pack.mcmeta");
+        if is_tacz && pack_root_file && verify {
             if let Some(folder) = tacz_folder(tacz.as_deref()) {
                 if !path.starts_with(&format!("{folder}/")) {
                     issues.push(json!({"severity":"warning","message":format!("This TaCZ version expects packs in {folder}/. Reinstall using the matching recipe.")}));
@@ -637,21 +685,20 @@ fn scan_inner(state: &AppState, id: &str) -> Result<Value> {
                 issues.push(json!({"severity":"warning","message":"TaCZ version is unverified. Check that the required mod is enabled and the pack folder matches its version."}));
             }
         }
-        if is_pb {
-            match mod_version(state,id,"pointblank")?.as_deref().and_then(|v|semver::Version::parse(v.trim_start_matches('v')).ok()) {
+        if is_pb && pack_root_file && verify {
+            match pointblank.as_deref().and_then(|v|semver::Version::parse(v.trim_start_matches('v')).ok()) {
                 None=>issues.push(json!({"severity":"warning","message":"Point Blank dependency/version is unverified. Doom 1.3.5 requires Point Blank 1.6.7+."})),
                 Some(version) if path.contains("1.3.5") && version<semver::Version::new(1,6,7)=>issues.push(json!({"severity":"warning","message":format!("Doom 1.3.5 requires Point Blank 1.6.7 or newer; this instance has {version}.")})),
                 _=>{}
             }
         }
         let addon = !is_mod && (!editable(&path) || is_tacz || is_pb || !record.recipe.is_empty());
-        let modified =
-            (!record.original_hash.is_empty() && record.original_hash != hash) || provider_modified;
-        entries.push(json!({"path":path,"title":record.title,"config":is_config,"addon":addon,"mod":is_mod,"exists":exists,"enabled":!path.ends_with(".disabled"),"editable":editable(&path),"size":size,"hash":hash,"modified":modified,"tracked":!record.original_hash.is_empty(),"issues":issues,"record":record}));
+        let modified = verify && ((!record.original_hash.is_empty() && record.original_hash != hash) || provider_modified);
+        entries.push(json!({"path":path,"title":record.title,"config":is_config,"addon":addon,"mod":is_mod,"exists":exists,"enabled":!path.ends_with(".disabled"),"editable":editable(&path),"size":size,"hash":hash,"modified":modified,"validation":if verify {"checked"} else {"pending"},"tracked":!record.original_hash.is_empty(),"issues":issues,"record":record}));
     }
-    save(&state.files, &root, &library)?;
+    if verify { save(&state.files, &root, &library)?; }
     Ok(
-        json!({"entries":entries,"warnings":warnings,"recipes":recipe_info(state,id)?,"presets":globals(state)?,"scanned_at":now(),"premium":{"mode":"preview","features":["custom_installs","provenance"]}}),
+        json!({"entries":entries,"warnings":warnings,"recipes":recipe_info_version(tacz),"presets":globals(state)?,"scanned_at":now(),"premium":{"mode":"preview","features":["custom_installs","provenance"]}}),
     )
 }
 
@@ -665,7 +712,7 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
         if !editable(path) {
             return Err(Error::other("Choose an editable config file."));
         }
-        let bytes = read_bytes(&state.files, &target(&root, path)?, MAX_TEXT)?;
+        let bytes = read_bytes(&state.files, &target(&root, path)?)?;
         let text = String::from_utf8(bytes.clone())
             .map_err(|_| Error::other("Config is not valid UTF-8."))?;
         return Ok(
@@ -688,9 +735,6 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
     if operation == "install" {
         let source = PathBuf::from(string(args, "source"));
         let mut file = state.files.open_external(&source)?;
-        if file.metadata()?.len() > MAX_ARCHIVE {
-            return Err(Error::other("Custom installs support files up to 1 GiB."));
-        }
         let name = source
             .file_name()
             .ok_or_else(|| Error::other("Choose a file."))?
@@ -722,11 +766,7 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
         }
         let mut bytes = Vec::new();
         file.by_ref()
-            .take(MAX_ARCHIVE + 1)
             .read_to_end(&mut bytes)?;
-        if bytes.len() as u64 > MAX_ARCHIVE {
-            return Err(Error::other("File grew beyond the import limit."));
-        }
         validate_bytes(&destination, &bytes)?;
         let mut record = new_record(state, id, &destination);
         apply_metadata(&mut record, args)?;
@@ -771,12 +811,9 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
                 if extension(&source.to_string_lossy()) != extension(path) {
                     return Err(Error::other("The original must have the same file format."));
                 }
-                let mut reader = state.files.open_external(source)?.take(MAX_ARCHIVE + 1);
+                let mut reader = state.files.open_external(source)?;
                 let mut bytes = Vec::new();
                 reader.read_to_end(&mut bytes)?;
-                if bytes.len() as u64 > MAX_ARCHIVE {
-                    return Err(Error::other("Original exceeds 1 GiB."));
-                }
                 validate_bytes(path, &bytes)?;
                 let hash = digest(&bytes);
                 state
@@ -805,9 +842,6 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
                         return Err(Error::other("This is not an editable config."));
                     }
                     let text = string(args, "text");
-                    if text.len() as u64 > MAX_TEXT {
-                        return Err(Error::other("Config exceeds 2 MiB."));
-                    }
                     text.as_bytes().to_vec()
                 }
                 "restore" => {
@@ -818,7 +852,6 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
                     let b = read_bytes(
                         &state.files,
                         &storage(&root, &format!("blobs/{hash}"))?,
-                        MAX_ARCHIVE,
                     )?;
                     if digest(&b) != hash {
                         return Err(Error::other("Backup checksum mismatch."));
@@ -841,12 +874,9 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
                     if extension(&source.to_string_lossy()) != extension(path) {
                         return Err(Error::other("Replacement must have the same file format."));
                     }
-                    let mut reader = state.files.open_external(source)?.take(MAX_ARCHIVE + 1);
+                    let mut reader = state.files.open_external(source)?;
                     let mut b = Vec::new();
                     reader.read_to_end(&mut b)?;
-                    if b.len() as u64 > MAX_ARCHIVE {
-                        return Err(Error::other("Replacement exceeds 1 GiB."));
-                    }
                     b
                 }
             };
@@ -923,7 +953,7 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
                 return Err(Error::other("Only text configs can become global presets."));
             }
             assert_hash(&state.files, &dest, string(args, "expectedHash"))?;
-            let bytes = read_bytes(&state.files, &dest, MAX_TEXT)?;
+            let bytes = read_bytes(&state.files, &dest)?;
             validate_bytes(path, &bytes)?;
             let text = String::from_utf8(bytes.clone()).map_err(|_| Error::other("Not UTF-8"))?;
             let mut presets = globals(state)?;

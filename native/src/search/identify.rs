@@ -233,6 +233,9 @@ pub(crate) fn enrich_local_source(files: &crate::files::FileManager, path: &Path
 }
 
 type LocalArtwork = (Option<(Option<String>,Option<String>,Option<String>)>,Option<String>);
+pub(crate) fn cached_metadata(files: &crate::files::FileManager, path: &Path) -> Option<(Option<String>,Option<String>,Option<String>)> {
+    cached_local_artwork(files, path).0
+}
 fn cached_local_artwork(files: &crate::files::FileManager, path: &Path) -> LocalArtwork {
     use std::sync::{Mutex,OnceLock,atomic::{AtomicU64,Ordering}};
     static CACHE: OnceLock<Mutex<HashMap<String,(u64,LocalArtwork)>>> = OnceLock::new();
@@ -322,9 +325,21 @@ pub fn read_metadata(
         if let Some(body) = read_entry(&mut zip, name) {
             if let Ok(parsed) = toml::from_str::<ForgeManifest>(&body) {
                 if let Some(first) = parsed.mods.into_iter().next() {
+                    let version = if first.version.as_deref() == Some("${file.jarVersion}") {
+                        read_entry(&mut zip, "META-INF/MANIFEST.MF").and_then(|manifest| {
+                            let mut headers = Vec::<String>::new();
+                            for line in manifest.lines() {
+                                if line.is_empty() { break; }
+                                if let Some(continuation) = line.strip_prefix(' ') {
+                                    if let Some(header) = headers.last_mut() { header.push_str(continuation); }
+                                } else { headers.push(line.to_string()); }
+                            }
+                            headers.iter().find_map(|header| header.split_once(':').filter(|(name,_)| name.eq_ignore_ascii_case("Implementation-Version")).and_then(|(_,value)| clean(Some(value.to_string()))))
+                        })
+                    } else { clean(first.version) };
                     return Some((
                         Some(first.mod_id),
-                        clean(first.version),
+                        version,
                         clean(first.display_name),
                     ));
                 }
@@ -595,7 +610,7 @@ async fn link_curseforge_matches(
         return Ok(HashSet::new());
     };
     let by_fingerprint: HashMap<u32, &curseforge::FingerprintMatch> =
-        matches.iter().map(|m| (m.id as u32, m)).collect();
+        matches.iter().filter_map(|m| m.file.file_fingerprint.map(|fingerprint| (fingerprint, m))).collect();
 
     let mod_ids: Vec<String> = matches.iter().map(|m| m.file.mod_id.to_string()).collect();
     let cf_projects = curseforge::resolve_projects(state, &mod_ids)
@@ -605,10 +620,13 @@ async fn link_curseforge_matches(
         cf_projects.iter().map(|p| (p.id.as_str(), p)).collect();
 
     let mut linked = HashSet::new();
-    for (file_name, _, fingerprint) in candidates {
+    for (file_name, sha1, fingerprint) in candidates {
         let Some(entry) = by_fingerprint.get(fingerprint) else {
             continue;
         };
+        // Match IDs identify projects; fileFingerprint identifies the bytes. Confirm
+        // SHA-1 as well so a 32-bit fingerprint collision cannot bind a sibling file.
+        if entry.id != entry.file.mod_id || !entry.file.hashes.iter().any(|hash| hash.algo == 1 && hash.value.eq_ignore_ascii_case(sha1)) { continue; }
         let project_id = entry.file.mod_id.to_string();
         let project = cf_info.get(project_id.as_str());
         target.merge_provider_identity(

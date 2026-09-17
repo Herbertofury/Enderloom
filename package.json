@@ -1,8 +1,8 @@
 {
   "name": "enderloom",
   "productName": "Enderloom",
-  "version": "2.9.5",
-  "description": "Enderloom combines the protected Minecraft Catalog Companion 2.9.5 research workspace with Basalt's real launcher and mod-management core.",
+  "version": "2.9.6",
+  "description": "Enderloom combines the protected Minecraft Catalog Companion 2.9.6 research workspace with Basalt's real launcher and mod-management core.",
   "main": "main.js",
   "author": "Herbertofury",
   "license": "GPL-3.0-only",
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node scripts/run.js",
+    "install:windows-local": "node scripts/install-local-windows.js",
     "build:launcher": "npm --prefix launcher run build:frontend",
     "build:launcher-service": "cargo build --manifest-path native/Cargo.toml --bin enderloom-service",
     "build:cli": "cargo build --manifest-path native/Cargo.toml --bin enderloom",
@@ -30,6 +31,8 @@
     "catalog-qa": "node scripts/catalog-qa.js",
     "catalog-layout-qa": "node scripts/catalog-layout-qa.js",
     "catalog-export-qa": "node scripts/catalog-export-qa.js",
+    "google-workspace-qa": "node scripts/google-workspace-qa.js",
+    "github-only-media-qa": "node scripts/github-only-media-qa.js",
     "electron-self-test": "node scripts/run.js --self-test",
     "electron-ui-acceptance-qa": "node scripts/electron-ui-acceptance-qa.js",
     "modrinth-card-live-qa": "node scripts/modrinth-card-live-qa.js",
@@ -93,7 +96,8 @@
   },
   "devDependencies": {
     "electron": "^44.0.0",
-    "playwright": "^1.62.1"
+    "playwright": "^1.62.1",
+    "rcedit": "^5.0.2"
   },
   "dependencies": {
     "exceljs": "^4.4.0"

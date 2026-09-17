@@ -1,7 +1,6 @@
 import {
   ArrowLeftRight,
   ArrowUpCircle,
-  FileBox,
   Loader2,
   Lock,
   MoreVertical,
@@ -12,7 +11,11 @@ import {
 import { cn } from "../../lib/cn";
 import { formatBytes } from "../../lib/format";
 import type { ContentItem, SearchProvider } from "../../lib/types";
-import { DeferredImage } from "../DeferredImage";
+import { ContentIcon } from "../ContentIcon";
+import { FavoriteButton } from "../FavoriteButton";
+import { GeneratorBadge } from "../GeneratorBadge";
+import { contentFavorite, type ModInspection } from "../../lib/creative";
+import type { ContentKind } from "../../lib/types";
 
 function Toggle({
   on,
@@ -62,7 +65,10 @@ function Tag({ tone, title, children }: { tone?: "accent"; title?: string; child
 
 export function ContentItemCard({
   item,
+  kind = "mods",
+  inspection,
   layout = "list",
+  tileSize = 2,
   busy,
   disabled,
   disabledReason,
@@ -75,7 +81,10 @@ export function ContentItemCard({
   onContextMenu,
 }: {
   item: ContentItem;
+  kind?: ContentKind;
+  inspection?: ModInspection | null;
   layout?: "tiles" | "table" | "list";
+  tileSize?: number;
   busy?: boolean;
   disabled?: boolean;
   disabledReason?: string;
@@ -89,6 +98,9 @@ export function ContentItemCard({
 }) {
   const source = item.source;
   const displayName = source?.title ?? item.file_name;
+  const favorite = contentFavorite(item, kind, inspection);
+  const extraSmallTile = layout === "tiles" && tileSize === 0;
+  const smallTile = layout === "tiles" && tileSize <= 1;
   const linked = !!source?.provider && !!source.project_id && !!onOpenProject;
   const openProject = () =>
     linked &&
@@ -97,26 +109,13 @@ export function ContentItemCard({
       source!.project_id!,
       source!.title ?? undefined,
     );
-  const icon = (className: string, fallbackClassName = className) =>
-    source?.icon_url ? (
-      <DeferredImage
-        src={source.icon_url}
-        alt=""
-        className={cn(className, "bg-surface-3 object-cover")}
-        fallback={
-          <div className={cn("grid place-items-center bg-surface-3 text-content-faint", fallbackClassName)}>
-            <FileBox className="size-5" />
-          </div>
-        }
-      />
-    ) : (
-      <div className={cn("grid place-items-center bg-surface-3 text-content-faint", fallbackClassName)}>
-        <FileBox className="size-5" />
-      </div>
-    );
+  const icon = (className: string, _fallbackClassName = className) => (
+    <ContentIcon src={source?.icon_url} title={displayName} provider={source?.provider} projectId={source?.project_id} className={className} />
+  );
   const tags = (
     <>
       {source?.provider && <Tag>{source.provider}</Tag>}
+      {inspection && layout !== "tiles" && <GeneratorBadge inspection={inspection} title={displayName} />}
       {source?.origin === "pack" && <Tag tone="accent">pack</Tag>}
       {source?.origin === "dependency" && <Tag>dependency</Tag>}
       {item.frozen && (
@@ -130,7 +129,8 @@ export function ContentItemCard({
     </>
   );
   const actions = (compact = false) => (
-    <div className="flex shrink-0 items-center justify-end gap-1">
+    <div className="flex min-w-0 shrink-0 items-center justify-end gap-1">
+      {favorite && <FavoriteButton favorite={favorite} />}
       {item.update && (
         <button
           onClick={onUpdate}
@@ -146,7 +146,7 @@ export function ContentItemCard({
           {!compact && "Update"}
         </button>
       )}
-      {onOpenCatalog && (
+      {onOpenCatalog && !smallTile && (
         <button
           onClick={onOpenCatalog}
           aria-label={`Research ${displayName} in Catalog`}
@@ -156,7 +156,7 @@ export function ContentItemCard({
           <Search className="size-4" />
         </button>
       )}
-      {onSwitchVersion && (
+      {onSwitchVersion && !smallTile && (
         <button
           onClick={onSwitchVersion}
           disabled={busy || disabled}
@@ -167,8 +167,8 @@ export function ContentItemCard({
           <ArrowLeftRight className="size-4" />
         </button>
       )}
-      <Toggle on={item.enabled} disabled={disabled} onClick={onToggle} />
-      <button
+      {!extraSmallTile && <Toggle on={item.enabled} disabled={disabled} onClick={onToggle} />}
+      {!smallTile && <button
         onClick={onRemove}
         disabled={disabled}
         aria-label={`Delete ${displayName}`}
@@ -176,7 +176,7 @@ export function ContentItemCard({
         className="grid size-8 place-items-center rounded-lg text-content-faint transition-colors hover:bg-danger/15 hover:text-danger disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-content-faint"
       >
         <Trash2 className="size-4" />
-      </button>
+      </button>}
       {onContextMenu && (
         <button
           onClick={onContextMenu}
@@ -195,7 +195,7 @@ export function ContentItemCard({
       <article
         onContextMenu={onContextMenu}
         className={cn(
-          "group flex min-w-0 flex-col overflow-hidden rounded-xl border transition-opacity",
+          "group relative flex min-w-0 flex-col overflow-hidden rounded-md border transition-[opacity,transform,border-color] duration-200",
           item.update ? "border-warn/30 bg-warn/6" : "border-border-soft bg-surface-2/70",
           !item.enabled && "opacity-55",
         )}
@@ -212,7 +212,8 @@ export function ContentItemCard({
           </span>
           <span className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">{tags}</span>
         </button>
-        <div className="min-w-0 px-2.5 py-2">
+        <div className={cn("min-w-0 py-2", smallTile ? "px-2" : "px-2.5")}>
+          {inspection && !smallTile && <div className="mb-1.5 overflow-hidden"><GeneratorBadge inspection={inspection} title={displayName} /></div>}
           <div className="truncate text-[10px] text-content-faint">
             {source?.mod_version ? `v${source.mod_version} · ` : ""}{formatBytes(item.size)}{!item.enabled && " · disabled"}
           </div>
@@ -239,7 +240,7 @@ export function ContentItemCard({
             <span className="block truncate text-[10px] text-content-faint">{item.file_name}</span>
           </span>
         </button>
-        <span className="truncate text-[11px] capitalize text-content-muted">{source?.provider ?? "Local"}</span>
+        <span className="flex flex-col gap-1 text-[11px] text-content-muted">{source?.provider ?? "Local"}{inspection && <GeneratorBadge inspection={inspection} title={displayName} />}</span>
         <span className="truncate text-[11px] text-content-muted">{source?.mod_version ?? "—"}</span>
         <span className="text-[11px] tabular-nums text-content-faint">{formatBytes(item.size)}</span>
         {actions(true)}

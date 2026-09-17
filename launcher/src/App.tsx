@@ -18,7 +18,7 @@ import { CatalogInstallModal } from "./components/CatalogInstallModal";
 import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
 import { AccountsView } from "./views/AccountsView";
-import { HomeView } from "./views/HomeView";
+import { HomeLibraryView as HomeView } from "./views/HomeLibraryView";
 import { InstanceView } from "./views/InstanceView";
 import { InstancesView } from "./views/InstancesView";
 import { ServerView } from "./views/ServerView";
@@ -27,6 +27,12 @@ import { DiscoverView } from "./views/DiscoverView";
 import { LogsView } from "./views/LogsView";
 import { ProjectView } from "./views/ProjectView";
 import { SettingsView } from "./views/SettingsView";
+import { FavoritesView } from "./views/FavoritesView";
+import { PerformanceView } from "./views/PerformanceView";
+import { ConfigView, AddonsView } from "./views/WorkbenchView";
+import { useCreative } from "./creative-store";
+import { listen } from "@tauri-apps/api/event";
+import type { CreativeLibrary, ModInspection } from "./lib/creative";
 import { useStore } from "./store";
 import type { View } from "./lib/types";
 
@@ -38,6 +44,10 @@ const embedded = window.enderloomLauncher?.embedded === true;
 
 const VIEWS: Record<View, React.ComponentType> = {
   home: HomeView,
+  favorites: FavoritesView,
+  performance: PerformanceView,
+  config: ConfigView,
+  addons: AddonsView,
   instances: InstancesView,
   accounts: AccountsView,
   settings: SettingsView,
@@ -73,6 +83,19 @@ function App() {
   useEffect(() => {
     init();
   }, [init]);
+  useEffect(() => {
+    if (ready) void useCreative.getState().load().catch(() => {});
+  }, [ready]);
+  useEffect(() => {
+    const unlisten = listen<CreativeLibrary>("creative:library", (event) => useCreative.setState({ library: event.payload, ready: true }));
+    const generator = listen<{sha256:string;override:ModInspection["override"]}>("creative:generator", ({payload}) => {
+      useCreative.setState((state) => ({
+        scans: Object.fromEntries(Object.entries(state.scans).map(([id,scan]) => [id,{...scan,files:scan.files.map((f) => f.inspection?.sha256===payload.sha256 ? {...f,inspection:{...f.inspection,override:payload.override}} : f)}])),
+        context: Object.fromEntries(Object.entries(state.context).map(([key,installs]) => [key,installs.map((i) => i.inspection?.sha256===payload.sha256 ? {...i,inspection:{...i.inspection,override:payload.override}} : i)])),
+      }));
+    });
+    return () => { void unlisten.then((off) => off()); void generator.then((off) => off()); };
+  }, []);
 
   const stopServersAndClose = async () => {
     const running = Object.values(useStore.getState().serverRunning).filter(isLive);

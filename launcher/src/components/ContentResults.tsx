@@ -1,9 +1,15 @@
-import { useState } from "react";
-import { Download, Heart, LayoutGrid, List, Package } from "lucide-react";
+import '../../../catalog/trailers.js';
+import '../../../catalog/trailers.css';
+import { ContentIcon } from "./ContentIcon";
+import { useLibraryLayout } from "../lib/library-layout";
+import { LayoutDensityMenu, TILE_SIZE_STEPS } from "./LayoutDensityMenu";
+import { Download, Heart } from "lucide-react";
 
-import { cn } from "../lib/cn";
 import { relativeTime } from "../lib/time";
 import type { ProjectSummary } from "../lib/types";
+import type { ContentKind, SearchProvider } from "../lib/types";
+import { projectFavorite } from "../lib/creative";
+import { FavoriteButton } from "./FavoriteButton";
 
 export type ResultView = "list" | "grid";
 
@@ -21,77 +27,13 @@ export function accentFrom(color: number | null): string | undefined {
   return `rgb(${r} ${g} ${b})`;
 }
 
-export function useResultView(storageKey: string): [ResultView, (v: ResultView) => void] {
-  const [view, setView] = useState<ResultView>(
-    () => (localStorage.getItem(storageKey) as ResultView) ?? "list",
-  );
-  const change = (v: ResultView) => {
-    setView(v);
-    localStorage.setItem(storageKey, v);
-  };
-  return [view, change];
+export function useResultView(_storageKey: string): [ResultView, (v: ResultView) => void] {
+  const layout = useLibraryLayout(s=>s.layout), setLayout = useLibraryLayout(s=>s.setLayout);
+  return [layout === 'tiles' ? 'grid' : 'list', view=>setLayout(view === 'grid' ? 'tiles' : 'list')];
 }
-
-export function ResultViewToggle({
-  view,
-  onChange,
-}: {
-  view: ResultView;
-  onChange: (v: ResultView) => void;
-}) {
-  return (
-    <div className="flex shrink-0 rounded-lg border border-border bg-surface-2 p-0.5">
-      {(
-        [
-          { mode: "list", icon: List },
-          { mode: "grid", icon: LayoutGrid },
-        ] as const
-      ).map(({ mode, icon: Icon }) => (
-        <button
-          key={mode}
-          onClick={() => onChange(mode)}
-          aria-label={`${mode} view`}
-          className={cn(
-            "grid size-8 place-items-center rounded-md transition-colors",
-            view === mode
-              ? "bg-surface-3 text-content"
-              : "text-content-faint hover:text-content-muted",
-          )}
-        >
-          <Icon className="size-4" />
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function Icon({
-  url,
-  size,
-  accent,
-}: {
-  url: string | null;
-  size: string;
-  accent?: string;
-}) {
-  return url ? (
-    <img
-      src={url}
-      loading="lazy"
-      style={accent ? { boxShadow: `0 0 0 1px ${accent}33` } : undefined}
-      className={cn(size, "shrink-0 rounded-xl bg-surface-2 object-cover")}
-      draggable={false}
-    />
-  ) : (
-    <div
-      className={cn(
-        size,
-        "grid shrink-0 place-items-center rounded-xl bg-surface-2 text-content-faint",
-      )}
-    >
-      <Package className="size-5" />
-    </div>
-  );
+export function ResultViewToggle({ view: _view, onChange: _onChange }: { view: ResultView; onChange: (v: ResultView) => void }) {
+  const {layout,setLayout,tileSize,setTileSize} = useLibraryLayout();
+  return <LayoutDensityMenu layout={layout} onLayoutChange={setLayout} tileSize={tileSize} onTileSizeChange={setTileSize} testIdPrefix="discover" />;
 }
 
 function Tags({ items, max }: { items: string[]; max: number }) {
@@ -137,59 +79,16 @@ export interface ResultRow {
   action: React.ReactNode;
 }
 
-export function ContentResults({ view, rows }: { view: ResultView; rows: ResultRow[] }) {
+export function ContentResults({ view, rows, provider, kind }: { view: ResultView; rows: ResultRow[]; provider: SearchProvider; kind: ContentKind }) {
+  const tileSize = useLibraryLayout(s=>s.tileSize);
   if (view === "grid") {
     return (
-      <div className="grid auto-rows-min grid-cols-[repeat(auto-fill,minmax(250px,1fr))] content-start gap-3">
-        {rows.map(({ project, subline, onOpen, action }) => {
-          const accent = accentFrom(project.color);
-          return (
-            <div
-              key={project.id}
-              onClick={onOpen}
-              className="group relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-border-soft bg-surface-2/60 p-4 transition-colors hover:border-content-faint/30 hover:bg-surface-2"
-            >
-              {accent && (
-                <span
-                  className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity group-hover:opacity-100"
-                  style={{ background: accent }}
-                />
-              )}
-              <div className="flex items-start gap-3">
-                <Icon url={project.icon_url} size="size-12" accent={accent} />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-semibold text-content">
-                    {project.title}
-                  </div>
-                  <div className="truncate text-[11px] text-content-faint">
-                    by {project.author}
-                  </div>
-                  <div className="mt-1">
-                    <Stats project={project} />
-                  </div>
-                </div>
-              </div>
-              <p className="mt-2.5 line-clamp-2 min-h-[2.2rem] text-xs text-content-muted">
-                {project.description}
-              </p>
-              <div className="mt-2">
-                <Tags items={project.categories} max={3} />
-              </div>
-              {subline && (
-                <div className="mt-1.5 truncate text-[11px] text-ok">{subline}</div>
-              )}
-              <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-                <span className="truncate text-[10px] text-content-faint">
-                  {project.updated &&
-                    `Updated ${relativeTime(
-                      Math.floor(new Date(project.updated).getTime() / 1000),
-                    )}`}
-                </span>
-                {action}
-              </div>
-            </div>
-          );
-        })}
+      <div className="library-tile-grid" style={{'--tile-width':TILE_SIZE_STEPS[tileSize].widthPx+'px'} as React.CSSProperties}>
+        {rows.map(({project,subline,onOpen,action})=><article key={project.id} className="library-project-tile">
+          <button className="library-tile-art" data-trailer-context="catalog" data-project-url={provider === "modrinth" ? `https://modrinth.com/project/${project.id}` : `https://www.curseforge.com/minecraft/${kind === "mods" ? "mc-mods" : kind}/${project.slug}`} data-project-title={project.title} onClick={onOpen} aria-label={project.title}><ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-full" /></button>
+          <div className="library-tile-info"><button onClick={onOpen} className="library-tile-name" title={project.title}>{project.title}</button><span className="library-tile-author" title={project.author}>By {project.author}</span>{subline && <span className="library-tile-note">{subline}</span>}</div>
+          <div className="library-tile-actions"><FavoriteButton favorite={projectFavorite(project,provider,kind)} />{action}</div>
+        </article>)}
       </div>
     );
   }
@@ -202,7 +101,7 @@ export function ContentResults({ view, rows }: { view: ResultView; rows: ResultR
           onClick={onOpen}
           className="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-surface-2"
         >
-          <Icon url={project.icon_url} size="size-14" accent={accentFrom(project.color)} />
+          <ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-14" />
           <div className="min-w-0 flex-1">
             <div className="flex items-baseline gap-2">
               <span className="truncate text-sm font-semibold text-content">
@@ -225,6 +124,7 @@ export function ContentResults({ view, rows }: { view: ResultView; rows: ResultR
             </div>
             {subline && <div className="mt-0.5 truncate text-[11px] text-ok">{subline}</div>}
           </div>
+          <FavoriteButton favorite={projectFavorite(project, provider, kind)} />
           {action}
         </div>
       ))}

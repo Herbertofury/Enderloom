@@ -799,6 +799,8 @@ export function DiscoverView() {
 
               <ContentResults
                 view={resultView}
+                provider={provider}
+                kind={kind}
                 rows={hits.map((project) => {
                   const packInstance = instances.find(
                     (i) => i.pack_project_id === project.id,

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowDownToLine,
@@ -160,6 +161,8 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
   const cancelTask = useStore((s) => s.cancelTask);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const [anchor, setAnchor] = useState({ top: 60, right: 16 });
 
   const hasFailure = finished.some((t) => t.state === "failed");
   const fraction = aggregateFraction(active);
@@ -167,7 +170,7 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node) && !popupRef.current?.contains(e.target as Node)) setOpen(false);
     };
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("mousedown", onDown);
@@ -181,7 +184,9 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
   return (
     <div ref={ref} className="relative">
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => { const bounds = ref.current!.getBoundingClientRect(); setAnchor({ top: bounds.bottom + 6, right: Math.max(12, innerWidth - bounds.right) }); setOpen(v => !v); }}
+        aria-expanded={open}
+        aria-haspopup="dialog"
         aria-label={active.length > 0 ? `${active.length} active downloads` : "Downloads"}
         title={active.length > 0 ? `${active.length} active` : "Downloads"}
         className={cn(
@@ -207,14 +212,18 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
         )}
       </button>
 
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {open && (
           <motion.div
+            ref={popupRef}
+            role="dialog"
+            aria-label="Downloads"
+            style={{ position: "fixed", top: anchor.top, right: anchor.right, zIndex: 100, maxWidth: "calc(100vw - 24px)" }}
             initial={{ opacity: 0, y: -6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.14 }}
-            className="absolute right-0 top-full z-60 mt-1 flex max-h-[70vh] w-96 flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl"
+            className="flex max-h-[70vh] w-96 flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-border-soft px-3 py-2">
               <span className="text-[13px] font-semibold text-content">Downloads</span>
@@ -254,7 +263,7 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
                   <div className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-content-faint">
                     Recent
                   </div>
-                  {finished.slice(0, 20).map((task) => (
+                  {finished.map((task) => (
                     <Row key={task.id} task={task} onCancel={cancelTask} />
                   ))}
                 </>
@@ -262,7 +271,7 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
     </div>
   );
 }

@@ -777,6 +777,12 @@ async fn apply_inner(
             installed_at: now,
         };
         target.record(state, kind, &record)?;
+        let target_kind = if target.instance_id().is_some() { "instance" } else { "server" };
+        let target_id = target.instance_id().or_else(|| target.server_id()).unwrap_or_default();
+        // Index only the newly installed file. Browsing never triggers a hidden full-pack hash scan.
+        if let Err(error) = crate::artifacts::observe_installed(state, target_kind, target_id, kind.as_str(), &record, &dir.join(&file.file_name)).await {
+            tracing::warn!(%error, "installed file identity could not be recorded");
+        }
         written.push(InstalledItem {
             file_name: file.file_name.clone(),
             title: file.title.clone(),

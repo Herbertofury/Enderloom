@@ -64,6 +64,9 @@ pub enum TaskKind {
     SnapshotCreate,
     SnapshotRestore,
     StorageScan,
+    PerformanceScan,
+    PerformanceTest,
+    PerformanceComparison,
     DatapackInstall,
     DataMove,
     ServerInstall,
@@ -88,6 +91,9 @@ impl TaskKind {
             Self::SnapshotCreate => "snapshot_create",
             Self::SnapshotRestore => "snapshot_restore",
             Self::StorageScan => "storage_scan",
+            Self::PerformanceScan => "performance_scan",
+            Self::PerformanceTest => "performance_test",
+            Self::PerformanceComparison => "performance_comparison",
             Self::DatapackInstall => "datapack_install",
             Self::DataMove => "data_move",
             Self::ServerInstall => "server_install",
@@ -97,6 +103,9 @@ impl TaskKind {
 
     pub fn parse(value: &str) -> Option<Self> {
         match value {
+            "performance_scan" | "PerformanceScan" => Some(Self::PerformanceScan),
+            "performance_test" | "PerformanceTest" => Some(Self::PerformanceTest),
+            "performance_comparison" | "PerformanceComparison" => Some(Self::PerformanceComparison),
             "game_install" | "GameInstall" => Some(Self::GameInstall),
             "java_install" | "JavaInstall" => Some(Self::JavaInstall),
             "loader_install" | "LoaderInstall" => Some(Self::LoaderInstall),

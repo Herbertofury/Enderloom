@@ -54,6 +54,10 @@ export function ProjectSidebar({
   const environment = environmentLabel(details.client_side, details.server_side);
   const versions = details.game_versions.slice(0, 14);
   const more = details.game_versions.length - versions.length;
+  const links = [
+    ...(details.website_url ? [{ label: "Project page", url: details.website_url }] : []),
+    ...details.links,
+  ];
 
   return (
     <aside className="flex w-64 shrink-0 flex-col gap-3">
@@ -90,10 +94,10 @@ export function ProjectSidebar({
         </SideCard>
       )}
 
-      {details.links.length > 0 && (
+      {links.length > 0 && (
         <SideCard title="Links">
           <div className="flex flex-col gap-1">
-            {details.links.map((link) => (
+            {links.map((link) => (
               <button
                 key={link.url}
                 onClick={() => openUrl(link.url)}

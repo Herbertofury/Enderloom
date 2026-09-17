@@ -62,6 +62,7 @@ const UNANNOUNCED = new Set<TaskKind>([
   "snapshot_create",
   "snapshot_restore",
   "storage_scan",
+  "performance_scan",
 ]);
 
 export interface DiscoverBrowse {
@@ -1376,7 +1377,7 @@ export const useStore = create<AppStore>((set) => ({
     set((s) => ({
       detailInstanceId: id,
       view: "instance",
-      viewStack: s.view === "instance" ? s.viewStack : ["instances"],
+        viewStack: s.view === "instance" ? s.viewStack : [s.view],
     })),
 
   loadMedia: async (instanceId) => {

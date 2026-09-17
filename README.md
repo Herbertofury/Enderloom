@@ -1,4 +1,4 @@
-# Enderloom 2.9.5
+# Enderloom 2.9.6
 
 Enderloom combines the protected **Minecraft Catalog Companion** research browser with a real Rust-backed Minecraft launcher and mod manager in one Electron/Chromium application. Catalog, Source, Browser, Full and Split research flows remain first-class; the top-level Mod Manager adds real instances, accounts, Java/loaders, downloads, content, worlds, servers, backups, repair, logs and diagnostics without opening a second app.
 
@@ -21,6 +21,12 @@ Use the toolbar catalog picker to switch immediately. Favorites, notes, filters,
 
 
 
+
+## 2.9.6 GitHub identity and native Google Workspace
+
+- GitHub-only Catalog entries render the canonical live repository OpenGraph preview and exact repository-owner avatar/profile, without unrelated deep-media replacement.
+- Catalog exports can mutate a native Google Sheet or Doc after standards-compliant Desktop OAuth: Sheets use a dedicated `Enderloom Enriched` tab; Docs append a timestamped section; both retain clickable source, gallery and author-image URLs.
+- Google refresh tokens are encrypted with Electron `safeStorage`/Windows DPAPI. Chrome credentials, cookies and passwords are never extracted. OAuth consent opens in the secure system browser and the pending Enderloom save resumes after the loopback callback.
 
 ## 2.9.5 CurseForge gallery terminal-state repair
 

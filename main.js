@@ -1,5 +1,5 @@
 'use strict';
-const { app, BrowserWindow, WebContentsView, ipcMain, shell, clipboard, nativeImage, session, Menu, dialog, protocol, net } = require('electron');
+const { app, BrowserWindow, WebContentsView, ipcMain, shell, clipboard, nativeImage, session, Menu, dialog, protocol, net, safeStorage } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
@@ -9,11 +9,14 @@ const vm = require('vm');
 const v8 = require('v8');
 const { pathToFileURL } = require('url');
 const { LauncherService } = require('./src/launcher-service');
+const { allowGoogleStorage } = require('./src/site-permissions');
+const { createAppUpdateMonitor } = require('./src/app-update-monitor');
 const { CatalogStore } = require('./src/catalog-store');
 const { createTrailerService } = require('./src/trailer-service');
 const { nativeTrailerProject } = require('./src/trailer-provider');
 const { registerTrailerIpc, identifyTrailerEmbeds } = require('./src/trailer-ipc');
 let trailerService = null;
+const { GoogleWorkspace, googleTarget:googleWorkspaceTarget } = require('./src/google-workspace');
 const { cleanName:cleanCatalogExportName, normalizeRows:normalizeCatalogExportRows, html:catalogExportHtml, bytesFor:catalogExportBytes, writeAtomic:writeCatalogExportAtomic } = require('./src/catalog-export');
 const { requestText: publicRequestText, requestJson: publicRequestJson, requestHeadTextShared: publicRequestHeadTextShared, requestProgressiveTextShared: publicRequestProgressiveTextShared, requestTextShared: publicRequestTextShared, requestJsonShared: publicRequestJsonShared } = require('./src/public-http');
 const { providerForUrl, contextFingerprint, pageIdentityConfidence, titleSimilarity, parsePlanetMinecraftHtml, parsePlanetMinecraftAuthorHtml, parseCurseForgeAuthorProjectHtml, parseProviderAuthorHtml, parseGenericProjectHtml, parseProviderHeadMedia, parseCurseForgeGalleryStreamSeed, resolveProviderProjectLinks, isProviderCollectionUrl, curseForgeFullAndPreview } = require('./src/provider-media');
@@ -36,6 +39,8 @@ function startRaceHasUsefulState(value){ return !!(startRaceHasMedia(value) || v
 const APP_TITLE = 'Enderloom';
 const ROOT = __dirname;
 const APP_ICON = path.join(ROOT, 'launcher', 'public', 'logo.png');
+const APP_ID = 'com.herbertofury.enderloom';
+const WINDOWS_ICON = path.join(ROOT, 'launcher', 'public', 'enderloom.ico');
 const PARTITION = 'persist:minecraft-catalog-live';
 const LAUNCHER_PARTITION = 'persist:enderloom-launcher-ui';
 const CATALOG_ID = 'catalog';
@@ -96,10 +101,11 @@ const modrinthProjectCache = new Map();
 const MODRINTH_PROJECT_CACHE_MS = 60 * 1000;
 let mediaCacheSaveTimer = null;
 let closedTabs = [];
-let downloads = new Map();
+let browserDownloads;
 let permissionPromptChain = Promise.resolve();
 const sessionPermissions = new Map();
 let catalogStore = null;
+let googleWorkspace = null;
 let adblockManager = null;
 let providerParserPool = null;
 let translator = null;
@@ -114,15 +120,38 @@ let saveTimer = null;
 let testMode = process.argv.includes('--self-test');
 const uiAcceptanceMode = process.argv.includes('--ui-acceptance');
 if (testMode || uiAcceptanceMode) app.setPath('userData', fs.mkdtempSync(path.join(os.tmpdir(), 'minecraft-catalog-companion-test-')));
+// QA owns isolated data; normal launches share one window and one service owner.
+if (!testMode && !uiAcceptanceMode && !app.requestSingleInstanceLock()) app.exit(0);
+let openLauncherOnReady = process.argv.includes('--launcher');
+app.on('second-instance', (_event, argv) => {
+  openLauncherOnReady ||= argv.includes('--launcher');
+  if (!win || win.isDestroyed()) return;
+  if (win.isMinimized()) win.restore();
+  win.show(); win.focus();
+  if (openLauncherOnReady) { activateTab(LAUNCHER_ID); openLauncherOnReady = false; }
+});
+app.setAppUserModelId(APP_ID);
+app.on('browser-window-created', (_event, window) => {
+  if (process.platform !== 'win32') return;
+  const executable = process.execPath;
+  const arguments_ = process.defaultApp ? ` "${ROOT}" --launcher` : ' --launcher';
+  window.setAppDetails({ appId: APP_ID, appIconPath: fs.existsSync(WINDOWS_ICON) ? WINDOWS_ICON : executable,
+    appIconIndex: 0, relaunchCommand: `"${executable}"${arguments_}`, relaunchDisplayName: APP_TITLE });
+});
 const launcherService = new LauncherService({
   rootDir: ROOT,
   dataDir: path.join(app.getPath('userData'), 'launcher'),
+});
+const appUpdateMonitor = createAppUpdateMonitor({
+  request: (command, args) => launcherService.request(command, args),
+  currentVersion: app.getVersion(), packaged: app.isPackaged,
+  onError: () => console.warn('[updates] Automatic release check unavailable; will retry later.'),
 });
 
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'enderloom-asset',
-    privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: false },
+    privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: false, stream: true },
   },
 ]);
 
@@ -197,12 +226,28 @@ function splitGeometry() {
 function activeTab() {
   return activeId === CATALOG_ID || activeId === LAUNCHER_ID ? null : getTab(activeId);
 }
-function catalogCenterSummary() { return catalogStore?.summary?.() || { activeCatalogId:'', catalogs:[] }; }
+function catalogCenterSummary() {
+  const center = catalogStore?.summary?.() || { activeCatalogId:'', catalogs:[] };
+  return { ...center, googleWorkspace:googleWorkspace?.status?.() || { state:'starting', connected:false, configured:false, encrypted:false, message:'Google Workspace is starting…' } };
+}
 function activeCatalogSummary() {
   const center = catalogCenterSummary();
   return center.catalogs.find(c => c.id === center.activeCatalogId) || center.catalogs[0] || { id:'catalog', name:'Catalog', entries:0, assets:0, collections:0, sync:{state:'snapshot',label:'Offline snapshot'}, sources:[] };
 }
 function catalogPseudoUrl() { return `catalog://${activeCatalogSummary().id || 'catalog'}`; }
+function googleCatalogTarget(kind, payload={}) {
+  const sources=activeCatalogSummary().sources||[];
+  const candidates=[
+    payload?.targetUrl,
+    activeTab()?.view?.webContents?.getURL?.(),
+    activeTab()?.url,
+    ...[...tabs].reverse().map(tab=>tab.view?.webContents?.getURL?.()||tab.url),
+    ...sources.map(source=>source?.url),
+    ...sources.map(source=>source?.exportUrl),
+  ];
+  for(const candidate of candidates){const target=googleWorkspaceTarget(candidate,kind);if(target)return target.url}
+  return '';
+}
 function currentUrl() {
   if (activeId === CATALOG_ID) return catalogPseudoUrl();
   if (activeId === LAUNCHER_ID) return 'enderloom://launcher';
@@ -875,29 +920,19 @@ async function confirmAndClearLiveData() {
 }
 function configureLiveSession() {
   const live = session.fromPartition(PARTITION);
+  live.setPermissionCheckHandler((_wc, permission, origin) => allowGoogleStorage(permission, origin) || sessionPermissions.get(`${origin}|${permission}`) === true);
   live.setPermissionRequestHandler((wc, permission, callback, details) => {
     const url = details?.requestingUrl || wc.getURL();
+    if (allowGoogleStorage(permission, url)) { callback(true); return; }
     let origin = url;
     try { origin = new URL(url).origin; } catch {}
     const key = `${origin}|${permission}`;
     if (sessionPermissions.get(key) === true) { callback(true); return; }
     queueSitePermission({ wc, permission, callback, url, key });
   });
-  live.on('will-download', (_event, item) => {
-    const id = crypto.randomUUID();
-    const filename = item.getFilename();
-    const savePath = path.join(app.getPath('downloads'), filename.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_'));
-    try { item.setSavePath(savePath); } catch {}
-    const rec = { id, filename, savePath, state: 'progressing', received: 0, total: item.getTotalBytes(), url: item.getURL() };
-    downloads.set(id, rec); send('download', { type: 'created', ...rec });
-    item.on('updated', (_e, state) => {
-      rec.state = state; rec.received = item.getReceivedBytes(); rec.total = item.getTotalBytes();
-      send('download', { type: 'updated', ...rec });
-    });
-    item.once('done', (_e, state) => {
-      rec.state = state; rec.received = item.getReceivedBytes(); rec.total = item.getTotalBytes();
-      send('download', { type: 'done', ...rec });
-    });
+  browserDownloads ||= require('./src/browser-downloads').createBrowserDownloads({ directory: app.getPath('downloads'), statePath: path.join(app.getPath('userData'), 'browser-downloads.json'), publish: record => send('download', record) });
+  live.on('will-download', (event, item) => {
+    try { browserDownloads.receive(item); } catch (error) { event.preventDefault(); send('status', 'Download could not start: ' + error.message); }
   });
   return live;
 }
@@ -960,6 +995,7 @@ function restoreSession() {
   splitRatio = Number.isFinite(Number(saved.splitRatio)) ? Number(saved.splitRatio) : .46;
   splitSide = saved.splitSide === 'web-left' ? 'web-left' : 'catalog-left';
   statusBarCollapsed = !!saved.statusBarCollapsed;
+  if (openLauncherOnReady) { activeId = LAUNCHER_ID; splitWorkspaceId = LAUNCHER_ID; splitMode = false; openLauncherOnReady = false; }
   layoutViews(); publishState();
 }
 async function command(name, payload) {
@@ -1016,7 +1052,10 @@ async function command(name, payload) {
     case 'zoom': if (t) { const current = t.view.webContents.getZoomFactor(); const next = payload?.mode === 'in' ? Math.min(2.5, current + .1) : payload?.mode === 'out' ? Math.max(.5, current - .1) : 1; t.view.webContents.setZoomFactor(next); publishState(); } break;
     case 'devtools': if (t) t.view.webContents.openDevTools({ mode: 'detach' }); else if (activeId === LAUNCHER_ID) launcherView?.webContents.openDevTools({ mode: 'detach' }); else catalogView.webContents.openDevTools({ mode: 'detach' }); break;
     case 'downloads-folder': await shell.openPath(app.getPath('downloads')); break;
-    case 'open-download': if (payload?.path) await shell.openPath(payload.path); break;
+    case 'list-downloads': return browserDownloads?.list() || [];
+    case 'download-control': browserDownloads?.control(payload?.id, payload?.action); break;
+    case 'reveal-download': { const record = browserDownloads?.get(payload?.id); if (record) shell.showItemInFolder(record.savePath); break; }
+    case 'open-download': { const record = browserDownloads?.get(payload?.id); if (record?.state === 'completed') { const error = await shell.openPath(record.savePath); if (error) throw Error(error); } break; }
     case 'clear-data': await session.fromPartition(PARTITION).clearStorageData(); sessionPermissions.clear(); send('status', 'Live-site cookies, storage, and session permissions cleared.'); break;
     case 'clear-data-confirm': return { cleared: await confirmAndClearLiveData() };
     case 'source-center': openSourceCenterWindow(); break;
@@ -1081,6 +1120,9 @@ async function command(name, payload) {
     case 'catalog-toggle-source': await catalogStore.toggleSource(payload?.catalogId || catalogStore.registry.activeCatalogId, payload?.sourceId, payload?.enabled); break;
     case 'catalog-remove-source': await catalogStore.removeSource(payload?.catalogId || catalogStore.registry.activeCatalogId, payload?.sourceId); break;
     case 'catalog-google-signin': createBrowserTab('https://accounts.google.com/', true); break;
+    case 'catalog-google-oauth-connect': return await googleWorkspace.connect();
+    case 'catalog-google-oauth-status': return googleWorkspace.status();
+    case 'catalog-google-oauth-disconnect': return await googleWorkspace.disconnect();
     case 'manifest': return JSON.parse(fs.readFileSync(path.join(ROOT, 'source-manifest.json'), 'utf8'));
     case 'get-state': return stateSnapshot();
     default: break;
@@ -1652,7 +1694,8 @@ function mediaContext(raw={}) {
     title:String(raw?.title||'').slice(0,300),
     author:String(raw?.author||'').slice(0,200),
     authorUrl:safeHttpUrl(raw?.authorUrl)||'',
-    primaryUrl:safeHttpUrl(raw?.primaryUrl)||''
+    primaryUrl:safeHttpUrl(raw?.primaryUrl)||'',
+    githubOnly:raw?.githubOnly===true
   };
 }
 async function discoverProviderAuthor(authorUrl, context={}, timeoutMs=4200, bypassCache=false) {
@@ -1745,7 +1788,7 @@ function discoverGithubSeedMedia(url, context={}) {
   const authorUrl=`https://github.com/${encodeURIComponent(owner)}`;
   const gallery=[sanitizeMediaItem({url:preview,alt:`${owner}/${repo} live GitHub repository preview`,source:'github-live-opengraph',provider:'github',confidence:94,identity},'gallery')].filter(Boolean);
   const author=sanitizeMediaItem({url:`https://github.com/${encodeURIComponent(owner)}.png?size=160`,alt:`${owner} GitHub avatar`,source:'github-owner-avatar',provider:'github',confidence:100,identity:100},'author');
-  return {sourceUrl:url,resolvedProjectUrl:projectUrl,title:repo,gallery,images:gallery,icon:null,author,authorUrl,provider:'github',identity,exclusive:false,discoveredAt:new Date().toISOString(),cachedAt:Date.now(),error:'',liveOnly:true,seed:true};
+  return {sourceUrl:url,resolvedProjectUrl:projectUrl,title:repo,gallery,images:gallery,icon:null,author,authorUrl,provider:'github',identity,exclusive:context.githubOnly===true,githubOwnerExact:true,githubOnly:context.githubOnly===true,discoveredAt:new Date().toISOString(),cachedAt:Date.now(),error:'',liveOnly:true,seed:true};
 }
 
 function cachedModrinthProject(slug='') {
@@ -1787,18 +1830,20 @@ async function discoverModrinthMedia(url, context={}, includeAuthor=false) {
   return {sourceUrl:url,title:String(project?.title||''),gallery,images:gallery,icon,author,authorUrl,provider:'modrinth',identity,exclusive:true,discoveredAt:new Date().toISOString(),cachedAt:Date.now(),error:'',liveOnly:true};
 }
 function mergeDiscoveredMedia(target, extra) {
-  if(!target||!extra)return target; const seen=new Set((target.gallery||[]).map(x=>x.url));
+  if(!target||!extra)return target;
+  if(extra.githubOnly===true){target.gallery=[];target.icon=null;target.author=null;target.authorUrl='';target.exclusive=true;}
+  const seen=new Set((target.gallery||[]).map(x=>x.url));
   for(const raw of extra.gallery||extra.images||[]){if(raw&&typeof raw==='object'&&raw.role&&raw.role!=='gallery')continue;const item=sanitizeMediaItem(raw,'gallery');if(item&&!seen.has(item.url)){seen.add(item.url);target.gallery.push(item)}}
   target.gallery.sort((a,b)=>(b.confidence||0)-(a.confidence||0)||(b.identity||0)-(a.identity||0));
   const icon=extra.icon&&(!extra.icon.role||extra.icon.role==='icon')?sanitizeMediaItem(extra.icon,'icon'):null, author=extra.author&&(!extra.author.role||extra.author.role==='author')?sanitizeMediaItem(extra.author,'author'):null;
   if(icon&&(!target.icon||(icon.confidence||0)>(target.icon.confidence||0)))target.icon=icon;
-  if(author&&(!target.author||(author.confidence||0)>(target.author.confidence||0)))target.author=author;
+  if(author&&(extra.githubOwnerExact===true||!target.author||(author.confidence||0)>(target.author.confidence||0)))target.author=author;
   // Cross-transport role quarantine. Strict parsers should already be clean, but merging a
   // fast generic seed with a later exact provider result must never leave the same asset in
   // gallery/icon/author simultaneously.
   if(target.icon&&target.author&&target.icon.url===target.author.url){const aExact=/(?:author|profile|creator|member)/i.test(`${target.author.source||''} ${target.author.alt||''}`),iExact=/(?:project|icon|logo)/i.test(`${target.icon.source||''} ${target.icon.alt||''}`);if(aExact&&!iExact)target.icon=null;else if(iExact&&!aExact)target.author=null;else if((target.author.confidence||0)>(target.icon.confidence||0))target.icon=null;else target.author=null;}
   const reserved=new Set([target.icon?.url,target.author?.url].filter(Boolean));target.gallery=(target.gallery||[]).filter(x=>!reserved.has(x.url));
-  if(!target.authorUrl)target.authorUrl=safeHttpUrl(extra.authorUrl)||''; if(!target.title)target.title=String(extra.title||'');
+  if(extra.githubOwnerExact===true||!target.authorUrl)target.authorUrl=safeHttpUrl(extra.authorUrl)||''; if(!target.title)target.title=String(extra.title||'');
   if((Number(extra.identity)||0)>(Number(target.identity)||0))target.identity=Number(extra.identity)||0;if(extra.provider)target.provider=String(extra.provider);if(extra.exclusive)target.exclusive=true;
   const resolvedProjectUrl=safeHttpUrl(extra.resolvedProjectUrl);
   if(resolvedProjectUrl)target.resolvedProjectUrl=resolvedProjectUrl;
@@ -1841,7 +1886,7 @@ async function discoverProjectMedia(rawUrl, { force=false, deep=false, context={
       // GitHub has a deterministic, exact live repository preview + owner avatar. Paint
       // that immediately on quick discovery, then let deep discovery enrich it from DOM.
       // This avoids holding the card behind a full github.com HTML round trip.
-      const htmlTask=(provider==='builtbybit'||provider==='modrinth'||(provider==='github'&&!deep&&!force&&seedMedia))?Promise.resolve(null):discoverFastHtmlMedia(url,context,4200,force).catch(()=>null);
+      const htmlTask=(provider==='builtbybit'||provider==='modrinth'||(provider==='github'&&seedMedia&&(seedMedia.exclusive||(!deep&&!force))))?Promise.resolve(null):discoverFastHtmlMedia(url,context,4200,force).catch(()=>null);
       const [providerMedia,fastHtml]=await Promise.all([providerTask,htmlTask]);
       if(providerMedia)mergeDiscoveredMedia(result,providerMedia);
       if(fastHtml)mergeDiscoveredMedia(result,fastHtml);
@@ -2498,7 +2543,7 @@ function launcherAssetRoots() {
   return [...new Set(roots.filter(root => root && fs.existsSync(root)).map(root => path.resolve(root)))];
 }
 function setupLauncherAssetProtocol() {
-  const allowedExtensions = new Set(['.png','.jpg','.jpeg','.webp','.gif','.bmp','.ico']);
+  const allowedExtensions = new Set(['.png','.jpg','.jpeg','.webp','.gif','.bmp','.ico','.mp4','.webm']);
   const handler = request => {
     try {
       const encoded = new URL(request.url).pathname.replace(/^\/+/, '');
@@ -2523,7 +2568,7 @@ function setupLauncherAssetProtocol() {
         if (stat.isSymbolicLink()) return new Response('Forbidden', { status: 403 });
       }
       if (!fs.statSync(target).isFile()) return new Response('Not found', { status: 404 });
-      return net.fetch(pathToFileURL(target).toString());
+      return net.fetch(pathToFileURL(target).toString(), { headers: request.headers });
     } catch {
       return new Response('Not found', { status: 404 });
     }
@@ -2618,6 +2663,7 @@ ipcMain.handle('launcher:open-external', async (event, rawUrl) => {
   launcherSender(event);
   const url = safeHttpUrl(rawUrl);
   if (!url) throw new Error('Only HTTPS/HTTP links can be opened');
+  if (new URL(url).protocol === 'https:' && new URL(url).hostname === 'spark.lucko.me') { createBrowserTab(url, true); return; }
   await shell.openExternal(url);
 });
 ipcMain.handle('launcher:open-catalog-research', async (event, raw) => {
@@ -2715,6 +2761,19 @@ ipcMain.handle('catalog:export', async (event, payload) => {
   await writeCatalogExportAtomic(picked.filePath, bytes);
   send('status', `Saved ${rows.length} enriched catalog entries to ${path.basename(picked.filePath)}`);
   return { saved:true, path:picked.filePath, format, rows:rows.length };
+});
+ipcMain.handle('catalog:google-export', async (event, payload) => {
+  catalogSender(event);
+  const format=String(payload?.format||'').toLowerCase();
+  const kind=format==='google-sheet'?'sheet':format==='google-doc'?'doc':'';
+  if(!kind)throw new Error('Choose Google Sheet or Google Doc');
+  const rows=normalizeCatalogExportRows(payload?.rows);
+  if(!rows.length)throw new Error('There are no catalog rows to save to Google');
+  const title=cleanCatalogExportName(payload?.name);
+  const result=await googleWorkspace.exportCatalog({kind,rows,title,targetUrl:googleCatalogTarget(kind,payload)});
+  send('status',`Saved ${rows.length} enriched catalog entries to ${kind==='sheet'?'Google Sheets':'Google Docs'}`);
+  if(result?.url&&!tabs.some(tab=>(tab.view?.webContents?.getURL?.()||tab.url)===result.url))createBrowserTab(result.url,true);
+  return result;
 });
 ipcMain.handle('catalog:install-to-launcher', async (event, project) => {
   catalogSender(event);
@@ -3092,7 +3151,6 @@ async function runSelfTest() {
   setTimeout(() => { void shutdownApplication(result.passed ? 0 : 1); }, 50);
 }
 
-app.setAppUserModelId('com.herbertofury.enderloom');
 app.whenReady().then(async () => {
   setupLauncherAssetProtocol();
   providerParserPool = createProviderParserPool();
@@ -3125,8 +3183,29 @@ app.whenReady().then(async () => {
   identifyTrailerEmbeds(live, id => id === catalogView?.webContents.id);
   identifyTrailerEmbeds(session.fromPartition(LAUNCHER_PARTITION), id => id === launcherView?.webContents.id);
   bindCatalogStoreEvents();
+  googleWorkspace = new GoogleWorkspace({
+    userDataDir:app.getPath('userData'),
+    safeStorage,
+    pickCredentials:async()=>{
+      const picked=await dialog.showOpenDialog(sourceCenterWin&&!sourceCenterWin.isDestroyed()?sourceCenterWin:win,{
+        title:'Choose Google Desktop OAuth client JSON',
+        defaultPath:app.getPath('downloads'),
+        properties:['openFile'],
+        filters:[{name:'Google OAuth client JSON',extensions:['json']}],
+      });
+      return picked.canceled?'':picked.filePaths[0]||'';
+    },
+    openLogin:async url=>{
+      try{if(sourceCenterWin&&!sourceCenterWin.isDestroyed())sourceCenterWin.hide()}catch{}
+      try{if(win&&!win.isDestroyed()){win.show();win.focus()}}catch{}
+      send('status','Waiting for Google consent in your secure default browser…');
+      await shell.openExternal(url);
+      return {isOpen:()=>true};
+    },
+    onChange:()=>publishState(),
+  });
   if (testMode) runSelfTest().catch(err => { console.error(err); void shutdownApplication(1); });
-  else { createWindow({ show: true }); restoreSession(); }
+  else { createWindow({ show: true }); restoreSession(); if (!uiAcceptanceMode) appUpdateMonitor.start(); }
 }).catch(err => { console.error(err); void shutdownApplication(1); });
 
 let shutdownPromise=null;
@@ -3135,7 +3214,9 @@ function shutdownApplication(code=0){
   if(shutdownPromise)return shutdownPromise;
   shutdownPromise=(async()=>{
     mediaPrimeQueue.length=0;
+    appUpdateMonitor.dispose();
     try { catalogStore?.dispose(); } catch {}
+    try { googleWorkspace?.dispose(); } catch {}
     try { adblockManager?.dispose(); } catch {}
     try { translatorUpdater?.dispose(); } catch {}
     try { translator?.dispose(); } catch {}

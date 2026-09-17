@@ -249,7 +249,7 @@ fn replaces_defaults(mode: Option<&str>) -> bool {
     matches!(mode, Some("replace"))
 }
 
-fn instance_jvm_template(
+pub(crate) fn instance_jvm_template(
     settings: &crate::config::LauncherSettings,
     instance: &crate::config::Instance,
 ) -> String {
@@ -417,7 +417,7 @@ pub async fn launch_instance(
     state: &AppState,
     instance: &Instance,
 ) -> Result<String> {
-    launch_instance_with_events(process::ProcessEvents::tauri(app), state, instance).await
+    launch_instance_with_events(process::ProcessEvents::tauri(app), state, instance, None).await
 }
 
 pub async fn launch_instance_ipc(
@@ -425,13 +425,18 @@ pub async fn launch_instance_ipc(
     state: &AppState,
     instance: &Instance,
 ) -> Result<String> {
-    launch_instance_with_events(process::ProcessEvents::ipc(event_sink), state, instance).await
+    launch_instance_with_events(process::ProcessEvents::ipc(event_sink), state, instance, None).await
+}
+
+pub(crate) async fn launch_profile_instance(event_sink: EventSink, state: &AppState, instance: &Instance, settings: LauncherSettings) -> Result<String> {
+    launch_instance_with_events(process::ProcessEvents::ipc(event_sink), state, instance, Some(settings)).await
 }
 
 async fn launch_instance_with_events(
     events: process::ProcessEvents,
     state: &AppState,
     instance: &Instance,
+    settings_override: Option<LauncherSettings>,
 ) -> Result<String> {
     let launch_version_id = instance
         .launch_version_id
@@ -442,7 +447,7 @@ async fn launch_instance_with_events(
     let launch_account = ensure_launch_account(state).await?;
     let account = &launch_account.account;
 
-    let settings = state.db.load_settings()?;
+    let settings = match settings_override { Some(settings) => settings, None => state.db.load_settings()? };
     let explicit = instance.java_path.clone().or(settings.java_path.clone());
     let required = version.required_java_major();
     let java = java::find_for_major(&state.files, required, explicit.as_deref())

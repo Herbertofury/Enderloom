@@ -13,6 +13,8 @@ const { LauncherService } = require('../src/launcher-service');
     const plan = await service.request('plan_content_install', args);
     assert(plan.primary && !plan.conflicts.length);
     const installed = await service.request('install_content', args, { timeoutMs: 180000 });
+    const graph = await service.request('get_project_artifact_graph', { provider: 'curseforge', projectId: '328085' });
+    assert(graph.observations.some(row => row.current && row.source_match === 'verified'), 'Install automatically records verified artifact identity');
     const content = await service.request('list_instance_content', { instanceId: instance.id, kind: 'mods' });
     const files = [plan.primary, ...plan.dependencies].map(file => {
       const destination = path.resolve(instance.dir, 'mods', file.file_name);

@@ -1,0 +1,24 @@
+'use strict';
+const assert = require('assert/strict'), fs = require('fs'), os = require('os'), path = require('path');
+const {LauncherService} = require('../src/launcher-service');
+const rootDir = path.resolve(__dirname, '..'), dataDir = fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-version-feeds-'));
+const service = new LauncherService({rootDir,dataDir});
+(async()=>{
+  const call = (command,args={})=>service.request(command,args,{timeoutMs:240000});
+  const versions = await call('list_versions',{includeSnapshots:false});
+  assert(versions.some(v=>v.id==='26.3'&&v.type==='release'));
+  const fabric = await call('list_loader_versions',{loader:'fabric',gameVersion:'26.3'});
+  const neoforge = await call('list_loader_versions',{loader:'neoforge',gameVersion:'26.3'});
+  assert(fabric.length>0); assert(neoforge.length>0);
+  const instance = await call('create_instance',{name:'26.3 isolated install verification',versionId:'26.3',loader:null,loaderVersion:null});
+  const java = await call('get_java_status',{instanceId:instance.id});
+  assert.equal(java.required_major,25,'Official 26.3 runtime metadata selects Java 25');
+  if (process.argv.includes('--install')) await call('install_instance',{instanceId:instance.id});
+  const settings = await call('get_settings');
+  await call('update_settings',{settings:{...settings,proxy_mode:'http',proxy_host:'127.0.0.1',proxy_port:1,request_timeout_secs:5,max_retries:0}});
+  const offline = await call('list_versions',{includeSnapshots:false});
+  assert(offline.some(v=>v.id==='26.3'),'The last verified feed remains usable offline');
+  const proof = {passed:true,latest:versions[0].id,fabric:fabric[0],neoforge:neoforge[0],java:java.required_major,installed:process.argv.includes('--install'),offlineFallback:true,isolated:true};
+  fs.mkdirSync(path.join(rootDir,'output'),{recursive:true});fs.writeFileSync(path.join(rootDir,'output/version-feeds-live.json'),JSON.stringify(proof,null,2));
+  console.log(JSON.stringify(proof));
+})().catch(error=>{console.error(error);process.exitCode=1;}).finally(async()=>{await service.close();console.log('Isolated data: '+dataDir);});

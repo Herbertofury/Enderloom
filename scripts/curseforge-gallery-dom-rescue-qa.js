@@ -2,7 +2,7 @@
 'use strict';
 const assert=require('assert');const fs=require('fs');const path=require('path');
 const root=path.resolve(__dirname,'..'),main=fs.readFileSync(path.join(root,'main.js'),'utf8'),provider=fs.readFileSync(path.join(root,'src','provider-media.js'),'utf8'),enhancer=fs.readFileSync(path.join(root,'catalog','enhance.js'),'utf8'),pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
-assert.equal(pkg.version,'2.9.5','release version mismatch');
+assert.equal(pkg.version,'2.9.6','release version mismatch');
 assert(main.includes("version:15, policy:'adapter-role-bound-provider-owned-post-media-author-parallel-curseforge-gallery-live-order-full-html-dom-rescue-live-http-urls-only-promotion-quarantine'"),'cache v15 promotion-quarantine policy missing');
 assert(main.includes('if (Number(raw?.version || 0) < 15) return;'),'pre-promotion-quarantine media cache must be invalidated');
 assert(main.includes('async function extractCurseForgeGalleryDomQuick'),'exact CurseForge gallery DOM rescue helper missing');

@@ -7,6 +7,10 @@ import { useStore } from "../store";
 
 const LABELS: Record<View, string> = {
   home: "Play",
+  favorites: "Favorites",
+  performance: "Performance",
+  config: "Config",
+  addons: "Addons",
   instances: "Instances",
   accounts: "Accounts",
   settings: "Settings",

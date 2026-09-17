@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Check, ChevronRight, FileArchive, Link2, Loader2, Package, Search, Wrench } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Check, ChevronRight, FileArchive, Link2, Loader2, Package, RefreshCw, Search, Wrench } from "lucide-react";
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
@@ -71,6 +71,11 @@ export function CreateInstanceModal({
   const [loaderVersions, setLoaderVersions] = useState<string[]>([]);
   const [loaderVersion, setLoaderVersion] = useState<string | null>(null);
   const [loaderLoading, setLoaderLoading] = useState(false);
+  const [versionError, setVersionError] = useState<string | null>(null);
+  const [loaderError, setLoaderError] = useState<string | null>(null);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const lastRefresh = useRef(0);
 
   useEffect(() => {
     if (open) {
@@ -81,17 +86,32 @@ export function CreateInstanceModal({
 
   useEffect(() => {
     if (!open || mode !== "blank") return;
+    let live = true;
+    lastRefresh.current = Date.now();
     setLoading(true);
+    setVersionError(null);
     api
       .listVersions(includeSnapshots)
-      .then((v) => setVersions(v))
-      .finally(() => setLoading(false));
-  }, [open, mode, includeSnapshots]);
+      .then((v) => { if (live) { setVersions(v); setSelected(current=>v.some(version=>version.id===current) ? current : v.find(version=>version.type==='release')?.id ?? v[0]?.id ?? null); } })
+      .catch(error=>{ if (live) setVersionError(String(error)); })
+      .finally(() => { if (live) setLoading(false); });
+    return () => { live = false; };
+  }, [open, mode, includeSnapshots, refreshKey]);
+
+  useEffect(() => {
+    if (!open || mode !== "blank") return;
+    const refresh = () => { if (!document.hidden && Date.now() - lastRefresh.current >= 5 * 60_000) setRefreshKey(key=>key+1); };
+    const timer = window.setInterval(refresh, 60_000);
+    window.addEventListener('focus', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    return () => { clearInterval(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
+  }, [open, mode]);
 
   useEffect(() => {
     setLoaderVersions([]);
     setLoaderVersion(null);
-    if (!loader || !selected) return;
+    setLoaderError(null);
+    if (!open || mode !== 'blank' || !loader || !selected) { setLoaderLoading(false); return; }
     let live = true;
     setLoaderLoading(true);
     api
@@ -101,12 +121,12 @@ export function CreateInstanceModal({
         setLoaderVersions(list);
         setLoaderVersion(list[0] ?? null);
       })
-      .catch(() => live && setLoaderVersions([]))
+      .catch(error => { if (live) setLoaderError(String(error)); })
       .finally(() => live && setLoaderLoading(false));
     return () => {
       live = false;
     };
-  }, [loader, selected]);
+  }, [open, mode, loader, selected, refreshKey]);
 
   const filtered = useMemo(
     () => versions.filter((v) => v.id.toLowerCase().includes(query.toLowerCase())),
@@ -126,6 +146,7 @@ export function CreateInstanceModal({
   const create = async () => {
     if (!selected || (loader && !loaderVersion)) return;
     setBusy(true);
+    setCreateError(null);
     try {
       const instance = await createInstance(
         name.trim() || selected,
@@ -139,6 +160,8 @@ export function CreateInstanceModal({
       setName("");
       setQuery("");
       setLoader(null);
+    } catch (error) {
+      setCreateError(String(error));
     } finally {
       setBusy(false);
     }
@@ -287,7 +310,11 @@ export function CreateInstanceModal({
                 >
                   Snapshots
                 </button>
+                <button onClick={()=>setRefreshKey(key=>key+1)} disabled={loading || loaderLoading} aria-label="Refresh game and loader versions" title="Refresh from official version feeds" className="rounded-lg border border-border bg-surface-2 p-2.5 text-content-muted hover:text-content disabled:opacity-45"><RefreshCw className={cn('size-4', loading && 'animate-spin')}/></button>
               </div>
+              <p className="text-[11px] text-content-faint">Versions refresh from official Minecraft and loader feeds. Existing instances keep their selected version.</p>
+              {versionError && <p role="alert" className="text-xs text-warn">Could not refresh Minecraft versions. {versionError} Use Refresh to retry.</p>}
+              {createError && <p role="alert" className="text-xs text-warn">Could not create this instance. {createError}</p>}
 
               <div className="flex items-center gap-2">
                 <div className="flex flex-1 rounded-lg border border-border bg-surface-2 p-0.5">
@@ -330,6 +357,8 @@ export function CreateInstanceModal({
                     <div className="py-1 text-xs text-content-faint">
                       Pick a game version to list loader builds.
                     </div>
+                  ) : loaderError ? (
+                    <div role="alert" className="py-1 text-xs text-warn">Could not check {loader} builds. Use Refresh to retry. {loaderError}</div>
                   ) : loaderVersions.length === 0 ? (
                     <div className="py-1 text-xs text-warn">
                       No {loader} builds for {selected}.
@@ -337,7 +366,7 @@ export function CreateInstanceModal({
                   ) : (
                     <Select
                       value={loaderVersion}
-                      options={loaderVersions.slice(0, 100)}
+                      options={loaderVersions}
                       onChange={setLoaderVersion}
                       placeholder="Loader version"
                     />
@@ -353,7 +382,7 @@ export function CreateInstanceModal({
                   Loading versions
                 </div>
               ) : (
-                filtered.slice(0, 300).map((v) => (
+                filtered.map((v) => (
                   <button
                     key={v.id}
                     onClick={() => setSelected(v.id)}

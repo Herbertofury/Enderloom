@@ -12,7 +12,9 @@ mod content;
 mod core;
 mod datapacks;
 mod groups;
+mod graph;
 mod instances;
+mod library;
 mod migrations;
 mod models;
 mod operations;
@@ -24,6 +26,7 @@ mod skins;
 mod stats;
 
 pub use datapacks::DatapackRecord;
+pub use graph::{ArtifactIdentity, FileHash, ProjectGraph};
 pub use models::{
     ActiveRun, ActiveServerRun, BannerRecord, CachedResponse, ContentFile, ContentUpdate,
     DayBucket, ExternalInstanceLink, InstanceGroup, InstanceOrganization, InstancePlacement,

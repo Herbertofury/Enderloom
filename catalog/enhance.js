@@ -85,12 +85,13 @@
     const title=node?.dataset?.projectTitle||host?.dataset?.projectTitle||node?.closest?.('[data-project-title]')?.dataset?.projectTitle||host?.querySelector?.('.card-title a,.visual-tile-title a')?.textContent?.trim()||document.getElementById('modalTitle')?.textContent?.trim()||'Project';
     const author=node?.dataset?.projectAuthor||host?.dataset?.projectAuthor||node?.closest?.('[data-project-author]')?.dataset?.projectAuthor||host?.querySelector?.('.live-author-link,.live-author-name')?.textContent?.trim()||'';
     const authorUrl=host?.dataset?.authorUrl||host?.querySelector?.('.live-author-link')?.href||'';
-    return {id,title,author,url,urls,authorUrl};
+    const githubOnly=(node?.dataset?.githubOnly||host?.dataset?.githubOnly||node?.closest?.('[data-github-only]')?.dataset?.githubOnly)==='true';
+    return {id,title,author,url,urls,authorUrl,githubOnly};
   }
   function stateFor(info){
     if(!info||!info.id)return null;let s=states.get(info.id);
-    if(!s){s={id:info.id,title:info.title,authorName:info.author||'',url:info.url,urls:info.urls||[],authorUrl:info.authorUrl,gallery:[],icon:null,author:null,galleryAbsent:false,sourceGalleryAbsent:false,index:0,loading:false,loadingQuick:false,loadingDeep:false,quickLoaded:false,deepLoaded:false,loaded:false,visible:false,priority:0,primarySlot:null,error:'',cacheAgeMs:null,cacheStale:false,forceRefresh:false,badUrls:new Set(),cachePromise:null};states.set(info.id,s)}
-    s.title=info.title||s.title;s.authorName=info.author||s.authorName;s.urls=[...new Set([...(info.urls||[]),...(s.urls||[])].filter(isHttp))];s.url=s.urls[0]||info.url||s.url;s.authorUrl=info.authorUrl||s.authorUrl;return s;
+    if(!s){s={id:info.id,title:info.title,authorName:info.author||'',url:info.url,urls:info.urls||[],authorUrl:info.authorUrl,githubOnly:!!info.githubOnly,gallery:[],icon:null,author:null,galleryAbsent:false,sourceGalleryAbsent:false,index:0,loading:false,loadingQuick:false,loadingDeep:false,quickLoaded:false,deepLoaded:false,loaded:false,visible:false,priority:0,primarySlot:null,error:'',cacheAgeMs:null,cacheStale:false,forceRefresh:false,badUrls:new Set(),cachePromise:null};states.set(info.id,s)}
+    s.title=info.title||s.title;s.authorName=info.author||s.authorName;s.urls=[...new Set([...(info.urls||[]),...(s.urls||[])].filter(isHttp))];s.url=s.urls[0]||info.url||s.url;s.authorUrl=info.authorUrl||s.authorUrl;s.githubOnly=!!info.githubOnly;return s;
   }
   function mergeMedia(s,media){
     if(!s||!media)return;
@@ -243,7 +244,7 @@
     if(!force&&((deep&&s.deepLoaded)||(!deep&&s.quickLoaded)))return s;
     if(deep)s.loadingDeep=true;else s.loadingQuick=true;s.loading=s.loadingQuick||s.loadingDeep;s.error='';applyState(s);const errors=[];
     try{
-      const urls=deep?(s.urls||[]).filter(isHttp):quickUrlsFor(s),context={projectId:s.id,title:s.title,author:s.authorName,authorUrl:s.authorUrl,primaryUrl:s.url};
+      const urls=deep?(s.urls||[]).filter(isHttp):quickUrlsFor(s),context={projectId:s.id,title:s.title,author:s.authorName,authorUrl:s.authorUrl,primaryUrl:s.url,githubOnly:!!s.githubOnly};
       // Progressive hedged discovery: every exact provider source may run concurrently,
       // but the first useful result paints immediately instead of waiting for the
       // slowest/blocked alternate URL to settle.

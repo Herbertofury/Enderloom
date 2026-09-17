@@ -30,6 +30,7 @@ export interface WorkbenchRecord {
   };
 }
 export interface WorkbenchEntry {
+  validation?: "pending" | "checked";
   path: string;
   title: string;
   config: boolean;

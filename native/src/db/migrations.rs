@@ -2,7 +2,7 @@ use rusqlite::{params, Connection};
 
 use crate::error::Result;
 
-pub(super) const SCHEMA_VERSION: i64 = 20;
+pub(super) const SCHEMA_VERSION: i64 = 21;
 
 fn column_exists(conn: &Connection, table: &str, column: &str) -> Result<bool> {
     let mut stmt = conn.prepare(&format!("PRAGMA table_info({table})"))?;
@@ -40,6 +40,7 @@ fn add_column_if_missing(
 }
 
 pub(super) fn migrate(conn: &Connection) -> Result<()> {
+    super::graph::migrate_graph(conn)?;
     conn.execute_batch(
         "CREATE TABLE IF NOT EXISTS settings(
             key TEXT PRIMARY KEY,
@@ -377,6 +378,14 @@ pub(super) fn migrate(conn: &Connection) -> Result<()> {
         )?;
     }
 
+    conn.execute_batch("
+        CREATE TRIGGER IF NOT EXISTS graph_content_removed AFTER DELETE ON content_files BEGIN
+          DELETE FROM graph_locations WHERE target_kind='instance' AND target_id=OLD.instance_id AND content_kind=OLD.kind AND file_name=OLD.file_name;
+        END;
+        CREATE TRIGGER IF NOT EXISTS graph_server_content_removed AFTER DELETE ON server_content_files BEGIN
+          DELETE FROM graph_locations WHERE target_kind='server' AND target_id=OLD.server_id AND content_kind=OLD.kind AND file_name=OLD.file_name;
+        END;
+    ")?;
     conn.pragma_update(None, "user_version", SCHEMA_VERSION)?;
     Ok(())
 }

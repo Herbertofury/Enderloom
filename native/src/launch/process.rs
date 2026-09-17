@@ -7,7 +7,7 @@ use std::{
 use serde::Serialize;
 use serde_json::json;
 use tauri::{AppHandle, Emitter};
-use tokio::{process::Command, sync::oneshot};
+use tokio::{io::AsyncWriteExt, process::Command, sync::{oneshot, mpsc}};
 
 use super::identity::{kill_recovered_process, process_matches, spawned_process_start, Identity};
 use crate::{
@@ -80,6 +80,7 @@ pub struct RunningHandle {
     pub started_at: i64,
     pub status: Arc<Mutex<RunStatus>>,
     pub logs: Arc<Mutex<Vec<LogLine>>>,
+    pub input: Option<mpsc::Sender<String>>,
     control: ProcessControl,
 }
 
@@ -255,6 +256,7 @@ pub(crate) fn spawn_process_with_events(
         .args(&args)
         .envs(env.iter().cloned())
         .current_dir(cwd)
+        .stdin(Stdio::piped())
         .stdout(Stdio::from(stdout_log))
         .stderr(Stdio::from(stderr_log));
 
@@ -262,6 +264,16 @@ pub(crate) fn spawn_process_with_events(
         tracing::error!(program, error = %e, "could not spawn game process");
     })?;
     let pid = child.id().unwrap_or(0);
+    let (input_tx, mut input_rx) = mpsc::channel::<String>(16);
+    if let Some(mut stdin) = child.stdin.take() {
+        tauri::async_runtime::spawn(async move {
+            while let Some(line) = input_rx.recv().await {
+                if stdin.write_all(line.as_bytes()).await.is_err() || stdin.write_all(b"\n").await.is_err() { break; }
+                if stdin.flush().await.is_err() { break; }
+            }
+        });
+    }
+    events.emit("process:spawned", &json!({"running_id":running_id,"instance_id":instance_id,"pid":pid}));
     let process_started_at = match spawned_process_start(pid, &Identity::marker(running_id)) {
         Some(started) => started,
         // A JVM can reject its arguments and exit before OS enumeration sees
@@ -417,6 +429,7 @@ pub(crate) fn spawn_process_with_events(
             started_at,
             status,
             logs,
+            input: Some(input_tx),
             control: ProcessControl::Attached(Some(kill_tx)),
         },
     );
@@ -556,6 +569,7 @@ fn recover_processes_with_events(
                 started_at: run.started_at,
                 status: status.clone(),
                 logs: logs.clone(),
+                input: None,
                 control: ProcessControl::Recovered {
                     process_started_at: run.process_started_at,
                 },

@@ -12,6 +12,7 @@ let app;
   assert.equal(await page.locator('.trailer-player').count(), 0, 'Autoplay starts disabled');
   await page.getByRole('button', { name: 'Trailer previews', exact: true }).click();
   await page.getByLabel('Enable automatic trailer previews', { exact: true }).check();
+  await page.getByLabel('Preview on Catalog hover or keyboard focus', { exact: true }).check();
   await page.getByRole('button', { name: 'Done', exact: true }).click();
   await first.scrollIntoViewIfNeeded(); await first.hover(); await page.waitForTimeout(200); await page.mouse.move(2,2); await page.waitForTimeout(1000);
   assert.equal(await page.locator('.trailer-player').count(), 0, 'Transient hover creates no player');

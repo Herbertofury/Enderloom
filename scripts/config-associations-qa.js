@@ -1,0 +1,18 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),path=require('path'),vm=require('vm');
+const ts=require('../launcher/node_modules/typescript');
+const file=path.resolve(__dirname,'../launcher/src/lib/config-associations.ts');
+const output=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const exports_={};vm.runInNewContext(output,{exports:exports_});
+const mod=(id,title,enabled=true)=>({file_name:id+(enabled?'':'-old')+'.jar',enabled,source:{mod_id:id,title}});
+const enabled=mod('oculus','Oculus'), disabled=mod('oculus','Oculus',false);
+const mods=[disabled,enabled,mod('create','Create'),mod('create_dragons_plus','Create Dragons Plus'),mod('jei','Just Enough Items'),mod('foo','Shared Title'),mod('bar','Shared Title')];
+const associate=exports_.createConfigAssociator(mods), entry=path=>({path,mod:false});
+assert.equal(associate(entry('config/oculus.properties')).mod.enabled,true,'Disabled duplicate does not make the owner ambiguous');
+assert.equal(associate(entry('config/create_dragons_plus-client.toml')).id,'create_dragons_plus','Sibling mod wins by its actual ID');
+assert.equal(associate(entry('saves/create/serverconfig/jei-server.toml')).id,'jei','World name is not evidence of ownership');
+assert.equal(associate(entry('config/shared-title.json')).confidence,'unassigned','Identical titles cannot invent an owner');
+assert.equal(associate(entry('config/unknown.json'),'create').confidence,'manual');
+assert.equal(associate(entry('config/oculus.properties'),'unassigned').id,'unassigned');
+assert.equal(associate(entry('config/unknown.json'),'removed_mod').reason,'Your assigned mod is no longer installed.');
+console.log('PASS Config ownership: enabled/disabled copies, exact sibling identity, world scopes, ambiguous titles and remembered corrections.');

@@ -9,6 +9,10 @@ import {
   Copy,
   Download,
   FolderOpen,
+  Heart,
+  FlaskConical,
+  Braces,
+  PackagePlus,
   Pin,
   PinOff,
   Play,
@@ -39,10 +43,14 @@ const TILE_GAP = 8;
 const DOCK_HEADING = 25;
 
 const NAV: Array<{ id: View; label: string; icon: typeof Play }> = [
-  { id: "home", label: "Play", icon: Play },
+  { id: "home", label: "Home", icon: Play },
   { id: "instances", label: "Instances", icon: Boxes },
   { id: "servers", label: "Servers", icon: Server },
   { id: "discover", label: "Discover", icon: Compass },
+  { id: "config", label: "Config", icon: Braces },
+  { id: "addons", label: "Addons", icon: PackagePlus },
+  { id: "favorites", label: "Favorites", icon: Heart },
+  { id: "performance", label: "Performance", icon: FlaskConical },
 ];
 
 function RailLabel({ children }: { children: React.ReactNode }) {

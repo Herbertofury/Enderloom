@@ -9,6 +9,11 @@ use std::path::PathBuf;
 
 #[derive(Subcommand, Debug)]
 pub(super) enum ExtraCommand {
+    /// Premium Minecraft test sessions, evidence and automation (no launcher window required).
+    Test {
+        #[command(subcommand)]
+        action: TestCommand,
+    },
     App {
         #[command(subcommand)]
         action: AppCommand,
@@ -37,6 +42,19 @@ pub(super) enum ExtraCommand {
         #[command(subcommand)]
         action: LoaderCommand,
     },
+}
+#[derive(Subcommand, Debug)]
+pub(super) enum TestCommand {
+    Start { selector: String, #[arg(long)] record_video: bool, #[arg(long, default_value="900")] max_seconds: u64, #[arg(long)] world: Option<String> },
+    /// Execute a bounded JSON scenario in an existing test; failed assertions stop the scenario.
+    Run { id: String, #[arg(long)] input: PathBuf },
+    Analyze { id: String },
+    List,
+    Report { id: String },
+    Command { id: String, command: String, #[arg(long)] expect: Option<String>, #[arg(long,default_value="10")] timeout_seconds: u64 },
+    Screenshot { id: String, label: String },
+    Finish { id: String },
+    Artifact { id: String, name: String },
 }
 #[derive(Subcommand, Debug)]
 pub(super) enum AppCommand {
@@ -241,6 +259,11 @@ fn merge_known(target: &mut Value, patch: &Value, path: &str) -> Result<()> {
 impl ExtraCommand {
     pub fn route(&self) -> &'static str {
         match self {
+            Self::Test { action } => match action {
+                TestCommand::Run {..} => "test run", TestCommand::Analyze {..} => "test analyze",
+                TestCommand::Start {..} => "test start", TestCommand::List => "test list", TestCommand::Report {..} => "test report",
+                TestCommand::Command {..} => "test command", TestCommand::Screenshot {..} => "test screenshot", TestCommand::Finish {..} => "test finish", TestCommand::Artifact {..} => "test artifact",
+            },
             Self::App {
                 action: AppCommand::Info,
             } => "app info",
@@ -297,6 +320,17 @@ impl ExtraCommand {
             ));
         }
         let (command, args) = match self {
+            Self::Test { action } => match action {
+                TestCommand::Start { selector,record_video,max_seconds,world } => ("start_testing_session",json!({"instanceId":selected(domain,selector).await?["id"],"recordVideo":record_video,"maxSeconds":max_seconds,"worldName":world})),
+                TestCommand::Run { id,input } => ("run_testing_scenario",json!({"testId":id,"scenario":read_input(input).await?})),
+                TestCommand::Analyze { id } => ("analyze_testing_report",json!({"testId":id})),
+                TestCommand::List => ("get_testing_reports",json!({})),
+                TestCommand::Report { id } => ("get_testing_report",json!({"testId":id})),
+                TestCommand::Command { id,command,expect,timeout_seconds } => ("testing_command",json!({"testId":id,"command":command,"expect":expect,"timeoutSeconds":timeout_seconds})),
+                TestCommand::Screenshot { id,label } => ("testing_screenshot",json!({"testId":id,"label":label})),
+                TestCommand::Finish { id } => ("finish_testing_session",json!({"testId":id})),
+                TestCommand::Artifact { id,name } => ("get_testing_artifact",json!({"testId":id,"name":name})),
+            },
             Self::App {
                 action: AppCommand::Info,
             } => ("get_app_info", json!({})),

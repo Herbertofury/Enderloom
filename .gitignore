@@ -14,6 +14,8 @@ release/
 artifacts/
 qa-output/
 qa-artifacts/
+output/
+tools/minecraft-probe/build/
 *.log
 
 # Source archives are verified inputs, not repository content.

@@ -19,12 +19,12 @@ let page;
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page
-    .getByRole("button", { name: "Manage instance", exact: true })
+    .getByRole("button", { name: "Open Evergreen · creative workshop", exact: true })
     .waitFor({ timeout: 60000 });
   await page
-    .getByRole("button", { name: "Manage instance", exact: true })
+    .getByRole("button", { name: "Open Evergreen · creative workshop", exact: true })
     .click();
-  await page.getByRole("button", { name: "Config", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Config", exact: true }).click();
   await page
     .getByRole("button", { name: /visuals.json/ })
     .waitFor({ timeout: 60000 });
@@ -67,7 +67,7 @@ let page;
     .nth(2)
     .getByText("1", { exact: true })
     .waitFor();
-  await page.getByRole("button", { name: "Addons", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Addons", exact: true }).click();
   await page.getByRole("button", { name: /Helldivers · Escalation/ }).waitFor();
   await page.screenshot({
     path: path.join(output, "enderloom-addons.png"),
@@ -133,7 +133,7 @@ let page;
     "downloads/UI-custom-pack.zip",
     zip({ "pack.json": '{"name":"UI custom content"}' }),
   );
-  await page.getByRole("button", { name: "Addons", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Addons", exact: true }).click();
   await page
     .locator(".wb-rail")
     .getByRole("button", { name: /All addons/ })
@@ -163,7 +163,7 @@ let page;
     "PROOF: guided TaCZ installation from a local ZIP through the real Electron dialog passed",
   );
   // Global application and invalid-save feedback, in addition to the settings edit above.
-  await page.getByRole("button", { name: "Config", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Config", exact: true }).click();
   await page.getByRole("button", { name: /visuals.json/ }).click();
   await page.getByRole("button", { name: "Edit config", exact: true }).click();
   await page.getByRole("button", { name: "Source view", exact: true }).click();
@@ -237,7 +237,7 @@ let page;
     "PROOF: invalid config rejection and preset application to a second real instance passed",
   );
   // Addon enable/disable, replacement, and explicit update-provider outcomes.
-  await page.getByRole("button", { name: "Addons", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Addons", exact: true }).click();
   await page.getByRole("button", { name: /UI custom TaCZ pack/ }).click();
   await page.getByRole("button", { name: "Disable", exact: true }).click();
   await page.getByRole("button", { name: "Enable", exact: true }).waitFor();
@@ -284,7 +284,7 @@ let page;
     win.setSize(1050, 850);
     win.showInactive();
   });
-  await page.getByRole("button", { name: "Config", exact: true }).click();
+  await page.getByRole("navigation", { name: "Minecraft workspace" }).getByRole("button", { name: "Config", exact: true }).click();
   await page.getByText("Your configuration library", { exact: true }).waitFor();
   const overflow = await page
     .locator(".wb")

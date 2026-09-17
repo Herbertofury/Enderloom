@@ -48,6 +48,7 @@ contextBridge.exposeInMainWorld('mobCompanion', {
     minecraftVersions: safe(project?.minecraftVersions).slice(0, 256),
   }),
   exportCatalog: payload => ipcRenderer.invoke('catalog:export', payload && typeof payload === 'object' ? payload : {}),
+  exportGoogleCatalog: payload => ipcRenderer.invoke('catalog:google-export', payload && typeof payload === 'object' ? payload : {}),
   openProviderLauncher: project => ipcRenderer.invoke('catalog:open-provider-launcher', {
     id: safe(project?.id).slice(0, 256),
     name: safe(project?.name).slice(0, 256),

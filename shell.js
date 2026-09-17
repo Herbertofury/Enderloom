@@ -119,7 +119,8 @@ function renderState(state) {
 
 }
 function showMore(force) { menuOpen = force ?? !menuOpen; $('moreMenu').hidden=!menuOpen; if (menuOpen) { downloadsOpen=false; $('downloadsBar').hidden=true; translatorOpen=false; $('translatorBar').hidden=true; } syncInsets(); }
-function showDownloads(force) { downloadsOpen = force ?? !downloadsOpen; $('downloadsBar').hidden=!downloadsOpen; if(downloadsOpen){menuOpen=false;$('moreMenu').hidden=true;translatorOpen=false;$('translatorBar').hidden=true;} syncInsets(); }
+async function loadDownloadHistory() { try { const records = await cmd('list-downloads'); for (const record of records || []) if (!downloadItems.has(record.id)) downloadItems.set(record.id, record); renderDownloads(); } catch (error) { toast('Could not load downloads: ' + error.message); } }
+function showDownloads(force) { downloadsOpen = force ?? !downloadsOpen; $('downloadsBar').hidden=!downloadsOpen; $('downloadsToggle').setAttribute('aria-expanded', String(downloadsOpen)); if(downloadsOpen){void loadDownloadHistory();menuOpen=false;$('moreMenu').hidden=true;translatorOpen=false;$('translatorBar').hidden=true;} syncInsets(); }
 function showTranslator(force) { translatorOpen = force ?? !translatorOpen; $('translatorBar').hidden=!translatorOpen; if(translatorOpen){menuOpen=false;$('moreMenu').hidden=true;downloadsOpen=false;$('downloadsBar').hidden=true;findActive=false;$('findBar').hidden=true;} syncInsets(); }
 function showFind(force) { const next=force ?? !findActive; if(next && translatorOpen) showTranslator(false); findActive=next; $('findBar').hidden=!findActive; if(findActive){$('findInput').focus();$('findInput').select();} else cmd('find',{text:''}).catch(()=>{}); syncInsets(); }
 function showError(payload) { errorOpen=true; $('errorBar').hidden=false; $('errorText').textContent=`${payload.description||'Navigation error'} (${payload.code||''})`; $('errorBar').dataset.url=payload.url||''; syncInsets(); }
@@ -129,10 +130,15 @@ function renderDownloads() {
   if(!items.length){list.innerHTML='<div class="empty-utility">Downloads from live project pages appear here.</div>';return;}
   list.innerHTML='';
   for(const d of items){
-    const row=document.createElement('button'); row.className='download-row'; row.dataset.path=d.savePath||'';
+    const row=document.createElement('div'); row.className='download-row'; row.dataset.id=d.id;
     const total=d.total||0, rec=d.received||0, pct=total?Math.min(100,Math.round(rec/total*100)):0;
     row.innerHTML=`<span class="download-icon">${d.state==='completed'?'✓':d.state==='cancelled'||d.state==='interrupted'?'!':'⇩'}</span><span class="download-copy"><strong></strong><small></small><i style="--progress:${pct}%"></i></span>`;
-    row.querySelector('strong').textContent=d.filename||'Download'; row.querySelector('small').textContent=d.state==='progressing'?`${pct}% · ${formatBytes(rec)} / ${formatBytes(total)}`:d.state;
+    row.querySelector('strong').textContent=d.filename||'Download'; row.querySelector('small').textContent=d.state==='progressing'?(total?`${pct}% · ${formatBytes(rec)} / ${formatBytes(total)}`:`${formatBytes(rec)} downloaded`):d.state;
+    const actions=document.createElement('div'); actions.className='download-actions';
+    const add=(label,action)=>{const button=document.createElement('button');button.textContent=label;button.dataset.action=action;button.setAttribute('aria-label',label+' '+d.filename);actions.append(button);};
+    if(d.state==='completed') add('Open','open');
+    if(['progressing','paused'].includes(d.state)){add(d.state==='paused'?'Resume':'Pause',d.state==='paused'?'resume':'pause');add('Cancel','cancel');}
+    if(d.savePath)add('Show in folder','reveal');row.append(actions);
     list.appendChild(row);
   }
 }
@@ -194,7 +200,7 @@ function bind(){
   $('translatorSelection').onclick=async()=>{try{const r=await cmd('translator-selection',{service:$('translatorService').value,targetLanguage:$('translatorTarget').value});if(r?.translated){await navigator.clipboard.writeText(r.translated);toast('Selection translated and copied')}}catch(e){toast(e?.message||String(e))}};
   $('translatorAuto').onchange=async e=>{try{const r=await cmd('translator-auto-site',{enabled:e.target.checked});toast(r?.enabled?'Auto-translate enabled for this site':'Auto-translate disabled')}catch(err){e.target.checked=!e.target.checked;toast(err?.message||String(err))}};
   const updateTranslator=async()=>{try{const r=await cmd('translator-update');toast(r?.message||'Translator update check complete')}catch(e){toast(e?.message||String(e))}}; $('translatorUpdate').onclick=updateTranslator;
-  $('downloadsToggle').onclick=()=>showDownloads(); $('downloadsFolder').onclick=()=>cmd('downloads-folder').catch(()=>{}); $('downloadList').onclick=e=>{const r=e.target.closest('.download-row');if(r?.dataset.path)cmd('open-download',{path:r.dataset.path}).catch(()=>{})};
+  $('downloadsToggle').onclick=()=>showDownloads(); $('downloadsFolder').onclick=()=>cmd('downloads-folder').catch(()=>{}); $('downloadList').onclick=e=>{const button=e.target.closest('button[data-action]'),row=button?.closest('.download-row');if(!row)return;const operation=button.dataset.action;void action(operation==='open'?'open-download':operation==='reveal'?'reveal-download':'download-control',{id:row.dataset.id,action:operation}).catch(()=>{});}; $('downloadsClose').onclick=()=>showDownloads(false);
   $('moreToggle').onclick=()=>showMore(); $('zoomIn').onclick=()=>cmd('zoom',{mode:'in'}).catch(()=>{}); $('zoomOut').onclick=()=>cmd('zoom',{mode:'out'}).catch(()=>{}); $('zoomReset').onclick=()=>cmd('zoom',{mode:'reset'}).catch(()=>{});
   $('popoutMenu').onclick=()=>{showMore(false);cmd('detach-tab',{id:active().id}).catch(()=>{})};$('workspaceFullscreen').onclick=()=>{showMore(false);cmd('window-fullscreen').catch(()=>{})};
   $('importCurrentCatalog').onclick=async()=>{showMore(false);try{await cmd('catalog-import-current-page',{mode:'new'});toast('Imported the current Google source as a live catalog')}catch(err){toast(err?.message||String(err))}}; $('sourceCenter').onclick=()=>{showMore(false);cmd('source-center').catch(err=>toast(err?.message||String(err)))}; $('splitSwap').onclick=()=>{showMore(false);cmd('split-swap').catch(()=>{})}; $('splitReset').onclick=()=>{showMore(false);cmd('split-reset').catch(()=>{})}; $('devtools').onclick=()=>{showMore(false);cmd('devtools').catch(()=>{})};
@@ -229,7 +235,7 @@ function bind(){
 }
 
 window.companion.onState(renderState);
-window.companion.onDownload(d=>{downloadItems.set(d.id,d);renderDownloads();$('downloadBadge').hidden=false;$('downloadBadge').textContent=[...downloadItems.values()].filter(x=>x.state==='progressing').length||'✓';if(d.type==='done')toast(`${d.filename}: ${d.state}`)});
+window.companion.onDownload(d=>{downloadItems.set(d.id,d);renderDownloads();$('downloadBadge').hidden=false;$('downloadBadge').textContent=[...downloadItems.values()].filter(x=>x.state==='progressing').length||'✓';if(downloadsOpen)syncInsets();if(d.type==='done')toast(`${d.filename}: ${d.state}`)});
 window.companion.onFind(r=>{$('findCount').textContent=r?.matches?`${r.activeMatchOrdinal||0}/${r.matches}`:'0/0'});
 window.companion.onStatus(s=>{$('statusText').textContent=s}); window.companion.onError(showError);
 

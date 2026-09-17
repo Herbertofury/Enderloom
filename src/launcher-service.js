@@ -187,6 +187,13 @@ class LauncherService extends EventEmitter {
   }
 
   async request(command, args = {}, { timeoutMs = DEFAULT_TIMEOUT_MS } = {}) {
+    if (timeoutMs === DEFAULT_TIMEOUT_MS && ['start_performance_capture', 'compare_mod_startup'].includes(command)) {
+      const seconds = Math.max(15, Math.min(900, Number(args.seconds) || 30));
+      const launches = command === 'compare_mod_startup' ? 2 * Math.max(1, Math.min(100, Number(args.repeats) || 2)) : 1;
+      timeoutMs = Math.max(DEFAULT_TIMEOUT_MS, launches * (seconds + 180) * 1000);
+    }
+    if (timeoutMs === DEFAULT_TIMEOUT_MS && command === 'start_testing_session') timeoutMs = 600000;
+    if (timeoutMs === DEFAULT_TIMEOUT_MS && command === 'run_testing_scenario') timeoutMs = 1900000;
     await this.start();
     const input = this.socket || this.child?.stdin;
     if (!input?.writable) throw new Error('Enderloom Rust service is unavailable');

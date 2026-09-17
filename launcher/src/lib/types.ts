@@ -458,6 +458,9 @@ export type TaskKind =
   | "snapshot_create"
   | "snapshot_restore"
   | "storage_scan"
+  | "performance_scan"
+  | "performance_test"
+  | "performance_comparison"
   | "datapack_install"
   | "data_move"
   | "server_install"
@@ -774,6 +777,10 @@ export interface LogConfig {
 
 export type View =
   | "home"
+  | "favorites"
+  | "performance"
+  | "config"
+  | "addons"
   | "instances"
   | "accounts"
   | "settings"

@@ -1,0 +1,22 @@
+'use strict';
+const assert = require('assert/strict'), path = require('path');
+const { _electron: electron } = require('playwright');
+let app;
+(async () => {
+  const root = path.resolve(__dirname, '..');
+  app = await electron.launch({ executablePath: path.join(root, 'node_modules/electron/dist/electron.exe'), args: [path.join(root, 'scripts/fixtures/artifact-ui-host.cjs')] });
+  const page = await app.firstWindow();
+  await page.getByRole('button', { name: 'Discover', exact: true }).click();
+  await page.getByRole('button', { name: 'CurseForge', exact: true }).click();
+  await page.getByPlaceholder('Search mods', { exact: true }).fill('Create');
+  await page.getByRole('img', { name: 'Create icon', exact: true }).click();
+  await page.locator('summary').filter({ hasText: 'Installed file identity' }).click();
+  await page.getByText('Differs from recorded release', { exact: true }).waitFor();
+  assert.equal(await page.getByText('Matches recorded release', { exact: true }).count(), 2);
+  await page.getByRole('button', { name: 'Verify installed files', exact: true }).click();
+  await page.getByRole('button', { name: 'Verify installed files', exact: true }).waitFor({ timeout: 30000 });
+  assert.equal(await page.getByText('Matches recorded release', { exact: true }).count(), 2, 'Verification must not duplicate history');
+  await page.locator('summary').filter({ hasText: 'Installed file identity' }).scrollIntoViewIfNeeded();
+  await page.screenshot({ path: path.join(root, 'output/curseforge/artifact-identity-ui.png') });
+  console.log('PASS real Electron project identity: native persisted original/change/restoration history and explicit verification');
+})().catch(async error => { console.error(error); if(app) { const page=await app.firstWindow(); console.log((await page.locator('body').innerText()).slice(-5000)); await page.screenshot({path:path.resolve(__dirname,'../output/curseforge/artifact-ui-failure.png')}); } process.exitCode = 1; }).finally(async () => { if (app) await app.close(); });

@@ -1,11 +1,10 @@
-import { ProjectTrailer } from "./ProjectTrailer";
+import { ContentIcon } from "../ContentIcon";
 import {
   Check,
   Clock,
   Download,
   Heart,
   Loader2,
-  Package,
   Server as ServerIcon,
 } from "lucide-react";
 
@@ -14,6 +13,8 @@ import { relativeTime } from "../../lib/time";
 import type { Instance, ProjectDetails, SearchProvider, Server } from "../../lib/types";
 import { accentFrom, formatCount } from "../ContentResults";
 import { InstanceTargetPicker } from "../InstanceTargetPicker";
+import { FavoriteButton } from "../FavoriteButton";
+import { useStore } from "../../store";
 
 function Stat({
   icon: Icon,
@@ -94,18 +95,7 @@ export function ProjectHero({
       )}
 
       <div className="relative flex items-start gap-4 px-6 pb-5 pt-12">
-        {details?.icon_url ? (
-          <img
-            src={details.icon_url}
-            style={accent ? { boxShadow: `0 0 0 1px ${accent}55, 0 8px 30px ${accent}22` } : undefined}
-            className="size-20 shrink-0 rounded-2xl bg-surface-2 object-cover"
-            draggable={false}
-          />
-        ) : (
-          <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-surface-2 text-content-faint">
-            <Package className="size-7" />
-          </div>
-        )}
+        <ContentIcon src={details?.icon_url} title={details?.title ?? "Project"} className="size-20 rounded-2xl" />
 
         <div className="min-w-0 flex-1 pt-0.5">
           <div className="flex min-w-0 items-baseline gap-2.5">
@@ -125,6 +115,7 @@ export function ProjectHero({
           )}
           <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
             {details && <Stat icon={Download}>{formatCount(details.downloads)}</Stat>}
+            {details && <FavoriteButton label favorite={{ ...details, provider, project_id: details.id, kind: useStore.getState().discoverKind }} />}
             {!!details?.follows && <Stat icon={Heart}>{formatCount(details.follows)}</Stat>}
             {details?.updated && (
               <Stat icon={Clock}>
@@ -197,7 +188,6 @@ export function ProjectHero({
         </div>
       </div>
 
-      {details && <ProjectTrailer details={details} provider={provider} />}
       {!!details?.categories.length && (
         <div className="relative flex flex-wrap gap-1.5 px-6 pb-4">
           {details.categories.map((category) => (

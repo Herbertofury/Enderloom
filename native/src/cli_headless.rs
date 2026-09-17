@@ -224,12 +224,15 @@ impl Output {
                 let failed_launch = self.command == "launch"
                     && (value["state"] == "crashed"
                         || value["exit_code"].as_i64().is_some_and(|code| code != 0));
-                let mut e = self.envelope(!failed_launch);
-                if failed_launch {
-                    e["error"] = json!({"code":5,"message":"Minecraft exited unsuccessfully; see result and persisted logs"});
+                let failed_assertion = self.command.starts_with("test ") && (value["status"]=="failed" || value["scenario_state"]=="failed");
+                let failed_test = self.command.starts_with("test ") && (value["state"]=="failed" || value["state"]=="timed_out" || value["state"]=="interrupted");
+                let code=if failed_assertion {7}else if failed_test {8}else if failed_launch {5}else{0};
+                let mut e = self.envelope(code==0);
+                if code!=0 {
+                    e["error"] = json!({"code":code,"message":if failed_assertion{"Test assertion failed; see the saved timeline"}else if failed_test{"Test did not complete; see its retained evidence"}else{"Minecraft exited unsuccessfully; see result and persisted logs"}});
                 }
                 e["result"] = value;
-                (if failed_launch { 5 } else { 0 }, e)
+                (code, e)
             }
             Err((code, message)) => {
                 let mut e = self.envelope(false);
@@ -464,6 +467,10 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
     let root = data_root(cli)?;
     let request_scope = uuid::Uuid::new_v4().to_string();
     let mut attempts = 0;
+    let persistent_test = !cli.plan && (matches!(&cli.command,
+        Some(Command::Extra(crate::cli_commands::ExtraCommand::Test { action: crate::cli_commands::TestCommand::Start {..} })))
+        || matches!(&cli.command, Some(Command::Operation { action: OperationCommand::Run { id, .. } }) if id == "start_testing_session"));
+    let mut daemon_started=false;
     let domain = loop {
         if let Some(client) = crate::control_ipc::Client::connect(&root).await? {
             output.event("service:attached", json!({"owner_pid":client.owner_pid}));
@@ -472,6 +479,18 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
                 output: output.clone(),
                 request_scope: request_scope.clone(),
             };
+        }
+        if persistent_test && !daemon_started {
+            let service_path=std::env::current_exe()?.with_file_name(if cfg!(windows){"enderloom-service.exe"}else{"enderloom-service"});
+            if !service_path.is_file(){return Err(Error::other("Install enderloom-service beside the CLI to run persistent test sessions"));}
+            let mut command=std::process::Command::new(service_path);
+            command.arg("--data-dir").arg(&root).arg("--test-daemon").stdin(std::process::Stdio::null()).stdout(std::process::Stdio::null()).stderr(std::process::Stdio::null());
+            #[cfg(windows)] {use std::os::windows::process::CommandExt;command.creation_flags(0x08000000);}
+            command.spawn()?; daemon_started=true;
+        }
+        if persistent_test {
+            attempts+=1;if attempts>100{return Err(Error::other("The test service did not become ready"));}
+            tokio::time::sleep(Duration::from_millis(100)).await;continue;
         }
         match service::bootstrap(root.clone()) {
             Ok(state) => {

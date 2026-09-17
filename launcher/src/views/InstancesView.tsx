@@ -1,3 +1,4 @@
+import { useLibraryLayout } from "../lib/library-layout";
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowDown,
@@ -11,8 +12,6 @@ import {
   Folder,
   FolderOpen,
   FolderPlus,
-  LayoutGrid,
-  List,
   ListChecks,
   Pencil,
   RotateCw,
@@ -21,13 +20,13 @@ import {
   Search,
   SearchX,
   Star,
-  Table2,
   Tag,
   TriangleAlert,
 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button, EmptyState } from "../components/ui";
+import { LayoutDensityMenu, TILE_SIZE_STEPS } from "../components/LayoutDensityMenu";
 import { Select } from "../components/Select";
 import { Banner } from "../components/Banner";
 import { ContextMenu, useContextMenu, type MenuItem } from "../components/ContextMenu";
@@ -233,19 +232,11 @@ export function InstancesView() {
   const [dragOver, setDragOver] = useState<string | null>(null);
   const [dragging, setDragging] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-  const [viewMode, setViewMode] = useState<ViewMode>(() => {
-    const stored = localStorage.getItem("instances-view");
-    return stored === "list" || stored === "table" || stored === "tiles"
-      ? stored
-      : "tiles";
-  });
+  const viewMode = useLibraryLayout(s => s.layout), setViewMode = useLibraryLayout(s => s.setLayout);
   const [organizationMode, setOrganizationMode] = useState<OrganizationMode>(
     () => (localStorage.getItem("instances-organization-view") === "flat" ? "flat" : "groups"),
   );
-  const [tileSize, setTileSize] = useState(() => {
-    const value = Number(localStorage.getItem("instances-tile-size") ?? 1);
-    return Number.isFinite(value) ? Math.max(0, Math.min(4, Math.round(value))) : 1;
-  });
+  const tileSize = useLibraryLayout(s => s.tileSize), setTileSize = useLibraryLayout(s => s.setTileSize);
   const [sort, setSort] = useState<SortMode>(() => {
     const stored = localStorage.getItem("instances-sort") as SortMode | null;
     return stored && SORTS.includes(stored) ? stored : "Last played";
@@ -761,61 +752,15 @@ export function InstancesView() {
               />
             </div>
           )}
-          <div className="flex rounded-lg border border-border-soft bg-surface-2/60 p-0.5">
-            {(
-              [
-                { mode: "tiles", icon: LayoutGrid },
-                { mode: "table", icon: Table2 },
-                { mode: "list", icon: List },
-              ] as const
-            ).map(({ mode, icon: Icon }) => (
-              <button
-                key={mode}
-                onClick={() => switchView(mode)}
-                aria-label={`${mode} view`}
-                aria-pressed={viewMode === mode}
-                className={cn(
-                  "grid size-8 place-items-center rounded-md transition-colors",
-                  viewMode === mode
-                    ? "bg-surface-3 text-content"
-                    : "text-content-faint hover:text-content-muted",
-                )}
-              >
-                <Icon className="size-4" />
-              </button>
-            ))}
-          </div>
-          <div className="flex rounded-lg border border-border-soft bg-surface-2/60 p-0.5" aria-label="Organization view">
-            {(["groups", "flat"] as const).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => switchOrganization(mode)}
-                aria-pressed={organizationMode === mode}
-                className={cn(
-                  "h-8 rounded-md px-2.5 text-[11px] font-semibold capitalize transition-colors",
-                  organizationMode === mode
-                    ? "bg-surface-3 text-content"
-                    : "text-content-faint hover:text-content-muted",
-                )}
-              >
-                {mode}
-              </button>
-            ))}
-          </div>
-          {viewMode === "tiles" && (
-            <label className="flex h-9 items-center gap-2 rounded-lg border border-border-soft bg-surface-2/60 px-2.5 text-[10px] font-semibold text-content-faint">
-              Tile size
-              <input
-                type="range"
-                min={0}
-                max={4}
-                step={1}
-                value={tileSize}
-                onChange={(event) => switchTileSize(Number(event.target.value))}
-                className="w-20 accent-(--accent)"
-              />
-            </label>
-          )}
+          <LayoutDensityMenu
+            layout={viewMode}
+            onLayoutChange={switchView}
+            tileSize={tileSize}
+            onTileSizeChange={switchTileSize}
+            organization={organizationMode}
+            onOrganizationChange={switchOrganization}
+            testIdPrefix="instance"
+          />
           <button
             onClick={(event) => openMenu(event, toolbarMenu(), undefined, { below: true })}
             aria-label="More actions"
@@ -1293,8 +1238,11 @@ export function InstancesView() {
               </div>
             ) : (
               <div
-                className="grid auto-rows-min content-start gap-2.5"
-                style={{ gridTemplateColumns: `repeat(auto-fill,minmax(${[10.5, 12.5, 15, 18, 22][tileSize]}rem,1fr))` }}
+                className="instance-density-grid grid auto-rows-min content-start gap-2.5"
+                style={{
+                  "--tile-width": `${TILE_SIZE_STEPS[tileSize].widthPx}px`,
+                  gridTemplateColumns: "repeat(auto-fill,minmax(var(--tile-width),1fr))",
+                } as React.CSSProperties}
               >
                 {shown.map((it) => {
                   const task = busyTasks.get(it.id);
