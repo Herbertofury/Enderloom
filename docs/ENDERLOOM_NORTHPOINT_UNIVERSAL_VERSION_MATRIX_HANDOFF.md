@@ -3883,6 +3883,935 @@ The Bedrock capstone is successful when Enderloom can truthfully say:
 
 That is the cross-edition quality bar.
 
+# 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK
+
+This is the testing engine that makes the AoA graduation and ordinary Enderloom work practical at scale.
+
+The goal is not to invent a fake Minecraft runtime. The goal is to use the **cheapest real-enough execution lane that can decisively prove the behavior under test**, then escalate to the real rendered client only when the behavior actually depends on rendering, UI, audio, input, or other client-only state.
+
+Enderloom should be able to run hundreds or thousands of conversion checks quickly from the CLI/API while preserving the stronger native runtime gates required for release.
+
+This testing capability belongs inside Enderloom's existing canonical project/job/evidence system. Do not create a second test-product architecture, daemon, database, or state machine just because the runners are diverse.
+
+The user-facing expectation is simple:
+
+> Build it, test it intelligently, show me what failed, fix it, and keep going.
+
+## 17.1 Reuse proven open-source foundations instead of rebuilding everything
+
+As of 2026-09-18, Enderloom should evaluate, pin, wrap, and reuse these projects where their licenses and technical fit allow. Do not blindly fork them or bind Enderloom permanently to one implementation; put them behind narrow runner/adaptor interfaces so they can be replaced when upstream changes.
+
+### Java Edition foundations
+
+- **HeadlessHQ / HeadlessMC** — https://github.com/headlesshq/headlessmc
+  - MIT licensed.
+  - Command-line Minecraft Java launcher.
+  - Can launch clients and servers and run a client without a normal display.
+  - Provides command-driven test support.
+  - Useful as the base for fast Java client/integrated-runtime automation.
+- **HeadlessHQ / mc-runtime-test** — https://github.com/headlesshq/mc-runtime-test
+  - MIT licensed.
+  - Existing CI/runtime-test foundation around HeadlessMC.
+  - Supports Minecraft GameTests and headless/Xvfb execution.
+  - Use its proven approaches instead of rewriting Java client CI from zero.
+- **HeadlessHQ / mc-runtime-test-mod** — https://github.com/headlesshq/mc-runtime-test-mod
+  - MIT licensed.
+  - Multi-version/multi-loader runtime-test mods.
+  - Useful reference/implementation base for automatically joining worlds, executing GameTests, and returning a meaningful process exit code.
+- **PrismarineJS / Mineflayer** — https://github.com/PrismarineJS/mineflayer
+  - MIT licensed.
+  - High-level headless Java player/bot API.
+  - Useful for real networked gameplay actions against a dedicated server without launching a rendered Java client.
+- **PrismarineJS / node-minecraft-protocol** — https://github.com/PrismarineJS/node-minecraft-protocol
+  - BSD-3-Clause licensed.
+  - Low-level Java protocol client/server library.
+  - Useful when a test needs packet/session behavior below Mineflayer's high-level API.
+
+### Bedrock Edition foundations
+
+- **Official Bedrock Dedicated Server** — https://www.minecraft.net/en-us/download/server/bedrock
+  - Treat the official BDS executable/package as the authoritative headless Bedrock server runtime.
+  - Maintain versioned local caches with recorded hashes and license/EULA handling.
+  - Prefer official BDS over third-party server reimplementations for release proof.
+- **PrismarineJS / bedrock-protocol** — https://github.com/PrismarineJS/bedrock-protocol
+  - MIT licensed.
+  - Current protocol client/server library with authentication/encryption and broad Bedrock version support.
+  - Use as Enderloom's first headless external Bedrock client foundation for join/spawn/packet/resource-pack/network assertions.
+- **Microsoft / minecraft-gametests** — https://github.com/microsoft/minecraft-gametests
+  - Official Microsoft sample GameTest behavior packs.
+  - Use as a structural/reference base for Enderloom-generated Bedrock GameTest packs.
+- **Microsoft / minecraft-scripting-samples** — https://github.com/microsoft/minecraft-scripting-samples
+  - MIT licensed.
+  - Current Script API/GameTest examples.
+  - Reuse patterns for TypeScript build/deployment and version-specific scripting APIs.
+- **Mojang / bedrock-samples** — https://github.com/Mojang/bedrock-samples
+  - Treat the versioned samples/releases as an authoritative schema/content-reference input for current Bedrock pack formats.
+- **Mojang / bedrock-protocol-docs** — https://github.com/Mojang/bedrock-protocol-docs
+  - Current official network protocol schemas/reference.
+  - Use to validate/update Enderloom protocol adapters instead of guessing packet structure.
+
+Do not make a smaller hobby bot project a hard foundation when the same capability can be built on maintained protocol libraries plus Enderloom's own thin semantic test driver. It is fine to study such projects for implementation ideas, but the long-term dependency graph should prefer official sources and active, broadly used foundations.
+
+For every incorporated/forked/vendored upstream component, record:
+
+- repository URL;
+- pinned commit/tag/version;
+- license;
+- local modifications if any;
+- why it is used;
+- update policy;
+- compatibility range;
+- exact artifact/package hash where applicable.
+
+## 17.2 One test model, many runners
+
+Do not make every target author its own ad-hoc test script.
+
+Enderloom should define a typed semantic test specification that can be lowered into whichever runner is cheapest and strongest enough.
+
+Conceptually:
+
+```text
+TestSpec
+  identity
+  target
+  requirements
+  fixture
+  setup
+  actions
+  assertions
+  teardown
+  timeout
+  repeat policy
+  evidence requirements
+  strongest-required-lane
+```
+
+Representative actions/assertions include:
+
+- start world;
+- spawn entity;
+- wait ticks;
+- move player;
+- attack entity;
+- use item;
+- place/break block;
+- enter portal;
+- change dimension;
+- kill boss;
+- inspect inventory;
+- inspect scoreboard/property/component/state;
+- force/generate chunk;
+- save/restart/rejoin;
+- assert entity count/type/state;
+- assert block/structure/biome/feature presence;
+- assert loot/drop;
+- assert recipe/crafting result;
+- assert advancement/achievement-equivalent progression where applicable;
+- assert packet/event/state transition;
+- assert persistence after restart;
+- request a rendered-frame assertion when visual proof is actually required.
+
+Each target adapter translates that semantic specification into GameTest code, bot actions, console commands, protocol assertions, or native-client automation without changing what the test means.
+
+That is important for Java <-> Bedrock conversion: the same semantic AoA test can prove a mob's gameplay on Forge, NeoForge, Fabric, and Bedrock even though the underlying implementations differ completely.
+
+## 17.3 Test lanes ordered by cost
+
+Use a cost-aware validation ladder.
+
+### Lane 0 — pure static/semantic checks
+
+No game process.
+
+Examples:
+
+- inventory/parity ledgers;
+- manifests/metadata;
+- JSON/schema validation;
+- data/resource references;
+- missing assets;
+- duplicate IDs;
+- namespace consistency;
+- bytecode/linkage scans;
+- Mixins/access widener/access transformer resolution;
+- mapping resolution;
+- Bedrock component/event/controller graph resolution;
+- Molang parse/type/reference validation;
+- dependency closure;
+- exact asset hashes;
+- model/animation mechanical comparisons;
+- worldgen resource graph checks.
+
+Run these aggressively because they are cheap.
+
+### Lane 1 — package/build/loadability checks
+
+Still no rendered client.
+
+Examples:
+
+- Java compilation/remap/JAR build;
+- Forge/NeoForge/Fabric production linkage;
+- Bedrock BP/RP pack construction;
+- manifest/dependency validation;
+- archive integrity;
+- production artifact fingerprinting.
+
+### Lane 2 — native headless server/game-test checks
+
+Run a real Java dedicated/GameTest server or official Bedrock Dedicated Server.
+
+This should prove most common/server/content logic without paying the cost of a full rendered client.
+
+### Lane 3 — headless synthetic/real-network player checks
+
+Connect one or more headless players to the real server and exercise gameplay/network behavior.
+
+Java:
+
+- Mineflayer where its semantics are sufficient;
+- node-minecraft-protocol for lower-level packet/session assertions.
+
+Bedrock:
+
+- `bedrock-protocol` external client;
+- Bedrock GameTest `SimulatedPlayer` where the current selected API/runtime supports it.
+
+### Lane 4 — headless Java client/integrated runtime
+
+Use HeadlessMC/mc-runtime-test or equivalent to run the actual Java client/integrated server when client classes/state must load but pixel-perfect rendering is not the assertion.
+
+### Lane 5 — real rendered native client
+
+Use only when the changed behavior requires it:
+
+- renderer correctness;
+- models/textures;
+- animation presentation;
+- particles;
+- sound;
+- UI/screens;
+- input;
+- shader/resource interaction;
+- visual culling/lighting;
+- real Bedrock render-controller behavior;
+- any failure that exists only in the actual client.
+
+Java may use normal/native client or Xvfb/real GL depending on the proof requirement.
+
+Bedrock should use an actual supported Windows Bedrock client/Preview build when client rendering/UI/audio proof is required.
+
+**Headless success never replaces rendered-client proof for a rendering defect.**
+
+Likewise, a rendered client boot does not replace dedicated-server proof for a server-only defect.
+
+## 17.4 Fast Java runner
+
+Enderloom already has part of this lane. Finish it into one reliable CLI/API runner.
+
+### Loader-native GameTest path
+
+Prefer loader-native GameTestServer/run configurations when available.
+
+For Forge/NeoForge/Fabric targets:
+
+- generate/register Enderloom test namespaces automatically;
+- include the exact production artifact under test;
+- generate/copy required structure templates;
+- fail if the expected test count is not discovered;
+- run only changed/affected suites during iteration;
+- run the broad suite at convergence;
+- emit deterministic structured results.
+
+Do not accept `0 tests discovered` as green.
+
+Forge/NeoForge GameTest discovery/version quirks should become Enderloom adapter logic rather than recurring manual setup.
+
+### HeadlessMC path
+
+Use HeadlessMC + mc-runtime-test as the primary reusable basis for Java headless-client tests where practical.
+
+Enderloom should be able to:
+
+- provision the requested Minecraft version;
+- select Forge/NeoForge/Fabric/vanilla as appropriate;
+- mount the exact candidate mod set;
+- use cached assets/runtime files;
+- choose no-display/headless/Xvfb mode based on the required proof;
+- join the generated QA world;
+- execute tests;
+- return a meaningful process exit status;
+- preserve the exact runtime/log/evidence identity.
+
+Do not blindly enable dummy assets when the test depends on resource/model/sound loading.
+
+### Mineflayer path
+
+Use Mineflayer for fast black-box gameplay checks against a real Java server when it can express the behavior faithfully.
+
+Examples:
+
+- join/connect;
+- move/path;
+- inventory;
+- use item/block;
+- attack mobs;
+- interact with containers;
+- chat/commands;
+- detect health/weather/entity/block state;
+- portal/travel workflows when protocol support is sufficient;
+- multiplayer synchronization tests with several bots.
+
+Do not use Mineflayer as proof of Java rendering, client-only mod code, GUI rendering, or input behavior it does not actually model.
+
+## 17.5 Build the missing Bedrock headless runner in full
+
+This is a first-class Enderloom capability, not a pile of shell scripts.
+
+Use **official BDS + generated GameTest packs + version-aware scripting + `bedrock-protocol`** as the core stack.
+
+Conceptual flow:
+
+```text
+Bedrock artifact / generated AoA BP+RP
+  -> static/schema/reference validation
+  -> disposable deterministic QA world
+  -> mount packs + exact dependencies
+  -> official BDS launch
+  -> wait for real readiness marker
+  -> verify content logs
+  -> run generated GameTest suites
+  -> spawn/use simulated players when supported
+  -> attach external bedrock-protocol client(s) as needed
+  -> exercise gameplay/network behavior
+  -> save/stop
+  -> restart/rejoin/persistence assertions
+  -> structured result + evidence bundle
+  -> real Bedrock client escalation only for client presentation
+```
+
+### Bedrock BDS manager responsibilities
+
+Enderloom should automatically:
+
+- acquire/cache the official selected BDS build through the supported official route;
+- record exact Bedrock version/build/channel and binary hash;
+- maintain stable and preview caches separately;
+- create isolated per-run working directories from immutable cached templates;
+- select a free port pair automatically;
+- set a unique QA level name;
+- configure deterministic seed/difficulty/game mode/tick/view settings as the test requires;
+- enable content logging;
+- install/mount the exact Behavior Pack/Resource Pack/script dependencies;
+- enable only the experiments actually required by the candidate/test;
+- launch BDS without a GUI;
+- parse startup/readiness/failure markers;
+- send console commands through stdin where appropriate;
+- stop only the exact process it launched;
+- preserve stdout/stderr/content logs/crash evidence;
+- clean disposable state only after evidence has been sealed.
+
+Never point automated destructive tests at the user's real Bedrock world.
+
+### Generated Enderloom Bedrock QA pack
+
+Enderloom should generate a small QA Behavior Pack for each tested artifact/version rather than manually maintaining hundreds of one-off test packs.
+
+It can contain:
+
+- GameTest registration glue;
+- semantic test adapters;
+- structures required by the tests;
+- structured result markers;
+- optional Script API helpers;
+- optional server-admin/server-net integration where supported and actually useful;
+- version-specific compatibility shims.
+
+The QA pack is not shipped as part of the mod/add-on unless explicitly requested.
+
+The generated QA layer must not change production AoA/add-on semantics just to make tests pass.
+
+### Bedrock GameTest execution
+
+Enderloom should be able to run:
+
+- one named test;
+- one tag/suite;
+- all affected tests;
+- run-until-failure stress suites;
+- repeated tests for flaky/random behavior;
+- deterministic worldgen tests across fixed seeds/chunks.
+
+Parse explicit PASS/FAIL/TIMEOUT results and include expected test counts.
+
+A runner that accidentally registers zero tests is a failure.
+
+### Simulated players
+
+Where the selected current `@minecraft/server-gametest` surface supports `SimulatedPlayer`, use it for fast in-engine player behavior:
+
+- movement;
+- looking/rotation;
+- attacks;
+- item use;
+- block interaction;
+- inventory-oriented actions supported by the API;
+- player-sensitive mob behavior;
+- progression triggers that behave correctly under simulated players.
+
+Keep this adapter version-aware because the GameTest/SimulatedPlayer API is pre-release/experimental and can change.
+
+Do not silently assume simulated players fire every event exactly like a real player. If the current API documents a semantic difference, escalate that specific assertion to the external protocol client or real client lane.
+
+### External `bedrock-protocol` client
+
+Use `PrismarineJS/bedrock-protocol` as the first external Bedrock headless client foundation.
+
+Build a thin Enderloom test-driver layer around it that can:
+
+- ping/status-check BDS;
+- connect/join/spawn;
+- handle resource-pack negotiation needed by the test;
+- track core session/player/world state exposed by packets;
+- send supported movement/input/action packets through version adapters;
+- issue chat/commands in disposable QA worlds where permitted;
+- observe text/event/entity/inventory/level/pack/network packets needed for assertions;
+- connect multiple clients for multiplayer/sync tests;
+- deliberately disconnect/reconnect for persistence tests;
+- record protocol traces only when needed for diagnostics.
+
+Do not expose raw packet plumbing to every test. Most tests should use a high-level Enderloom action API so Bedrock protocol version changes are repaired in one adapter.
+
+When a needed high-level behavior is missing from the driver, add it generically and cover it with tests instead of writing an AoA-only packet script.
+
+## 17.6 Bedrock result transport should be structured and local-first
+
+Prefer deterministic local IPC/evidence over fragile log scraping when the current BDS/API surface supports it, but retain log parsing as a fallback.
+
+Possible result channels, in order of preference for the current target:
+
+1. structured QA script result records emitted through a supported local mechanism;
+2. local-only callback endpoint when BDS `@minecraft/server-net` is available and deliberately enabled for the QA pack;
+3. BDS/script console markers parsed by Enderloom;
+4. final world/scoreboard/property/state inspection after server stop when appropriate.
+
+Do not require internet access for ordinary local tests.
+
+Do not expose secrets/tokens to test packs or logs.
+
+If experimental server-net/server-admin APIs are used, isolate them to the generated QA environment and report that dependency explicitly.
+
+## 17.7 CLI that is actually useful
+
+Provide a stable CLI backed by the same internal typed test API the Electron UI and Codex use.
+
+Representative commands:
+
+```text
+enderloom test auto <project-or-artifact>
+enderloom test changed <project>
+enderloom test smoke <artifact>
+
+enderloom test java <project> \
+  --mc 1.20.1 \
+  --loader forge \
+  --headless \
+  --suite smoke,registry,gameplay,persistence
+
+enderloom test bedrock <addon-or-project> \
+  --channel stable \
+  --headless \
+  --suite pack,bds,gametest,protocol,persistence
+
+enderloom test matrix <project> --changed-only
+enderloom test matrix <project> --all-supported
+enderloom test replay <run-id>
+enderloom test explain <run-id>
+enderloom test logs <run-id>
+enderloom test cancel <run-id>
+```
+
+The exact syntax may change to fit the existing Enderloom CLI conventions, but the capabilities must exist.
+
+Useful flags should include:
+
+- target MC/Bedrock version;
+- loader/channel;
+- suite/test/tag;
+- changed-only;
+- repeat count;
+- fail-fast vs collect-all;
+- deterministic seed;
+- timeout;
+- parallelism;
+- headless/native escalation policy;
+- keep-workdir for diagnostics;
+- output path;
+- JSON/JSONL/JUnit output;
+- verbose protocol/runtime logging only when requested.
+
+Defaults should be smart. The user should not need to specify twenty flags for a normal test.
+
+## 17.8 Typed API for UI, Codex, and automation
+
+The CLI is a client of the same canonical backend behavior, not a second implementation.
+
+Expose typed operations equivalent to:
+
+```text
+test.plan(input) -> TestPlan
+test.run(plan) -> RunId
+test.status(runId) -> RunStatus
+test.events(runId) -> stream<TestEvent>
+test.results(runId) -> TestResultBundle
+test.cancel(runId)
+test.replay(runId, overrides?) -> RunId
+test.explain(runId) -> FailureExplanation
+```
+
+The existing Electron UI can subscribe to those events for progress/results.
+
+Codex/OpenAI Hand Off can receive the same structured result bundle and exact failing test evidence.
+
+Do not make Codex scrape a 200 MB raw log just to learn that one mob failed to retain its target after reload.
+
+## 17.9 Structured output contract
+
+Every test run should produce a compact machine-readable receipt plus optional detailed evidence.
+
+Minimum result fields:
+
+- run ID;
+- parent Enderloom job ID;
+- source/artifact hash;
+- target edition/version/loader/channel;
+- runtime/build hashes;
+- runner/adaptor versions;
+- test-plan fingerprint;
+- selected suites/tests;
+- expected count;
+- discovered count;
+- passed/failed/skipped/timed-out counts;
+- per-test duration;
+- first causal failure;
+- retries/flaky status;
+- native escalation performed or not;
+- evidence paths/hashes;
+- final process exits;
+- environment summary;
+- warnings;
+- exact replay command/input.
+
+Output formats:
+
+- canonical JSON;
+- JSONL event stream;
+- JUnit XML for CI;
+- concise Markdown/human summary;
+- raw logs only as supporting evidence.
+
+## 17.10 Make it very fast without cheating
+
+Speed comes from eliminating redundant work, not weakening proof.
+
+### Cache immutable runtimes/toolchains
+
+Cache by exact version/hash:
+
+- JDKs;
+- Gradle distributions/caches;
+- Minecraft assets/natives;
+- Forge/NeoForge/Fabric loader artifacts;
+- HeadlessMC/mc-runtime-test pieces;
+- official BDS stable/preview packages;
+- Bedrock sample/schema/protocol metadata;
+- npm/pnpm package stores for scripting/test drivers.
+
+Verify the cache before trusting it; do not repeatedly redownload unchanged artifacts.
+
+### Immutable templates + cheap disposable workspaces
+
+Keep clean prewarmed runtime templates.
+
+Create each test workspace using the fastest safe copy/reflink/hardlink/content-addressed strategy available on the platform while ensuring mutable files do not cross-contaminate runs.
+
+Never reuse a dirty world because it saves a few seconds.
+
+### Incremental invalidation
+
+Fingerprint:
+
+- production source/artifact;
+- test source;
+- loader/API/runtime;
+- resources/data;
+- mappings;
+- dependencies;
+- world fixture;
+- test configuration.
+
+When only a renderer changes, do not rerun unrelated recipe tests.
+
+When a common registry changes, invalidate all affected client/server suites.
+
+When the runtime/loader changes, invalidate the applicable runtime proof.
+
+### Parallel shards
+
+Run truly independent tests/suites in parallel within CPU/RAM/I/O limits.
+
+Examples:
+
+- separate Bedrock BDS instances on dynamic ports;
+- separate Java dedicated-server suites;
+- independent static/parity categories;
+- independent matrix cells after the primary target is certified.
+
+Do not oversubscribe the machine until every test becomes slower and flaky.
+
+Use measured throughput/latency to pick concurrency.
+
+### Fail fast on causal setup defects
+
+If the artifact cannot load because of one missing dependency, do not launch 40 duplicate runtime shards to discover the same failure.
+
+Classify setup blockers once, repair them, then resume only invalidated runs.
+
+### Warm process reuse only when isolation is provable
+
+A process may be reused within one exact immutable artifact/test lineage if Enderloom can reset all mutated state deterministically.
+
+If state reset is uncertain, restart from the clean template.
+
+Correctness beats shaving a few seconds.
+
+## 17.11 Deterministic fixtures
+
+Create a reusable fixture library for both editions.
+
+Control where applicable:
+
+- seed;
+- game mode;
+- difficulty;
+- time;
+- weather;
+- dimension;
+- spawn position;
+- gamerules;
+- tick rate/conditions;
+- chunk coordinates;
+- structures;
+- inventory;
+- player stats/progression;
+- mob positions/states;
+- RNG inputs when the API permits;
+- server view/tick distances;
+- installed content set.
+
+Every flaky test should be treated as an engineering defect until proven to represent unavoidable game nondeterminism.
+
+For intentionally stochastic behavior, use bounded statistical/repeat assertions rather than brittle one-run expectations.
+
+## 17.12 Auto-generate tests from the semantic parity ledger
+
+A huge mod such as AoA should not require a human to hand-author every smoke test.
+
+Enderloom should generate baseline tests from inventory/semantic metadata where possible.
+
+Examples:
+
+For every registered entity:
+
+- registry/load test;
+- spawn test;
+- save/reload survival where applicable;
+- expected dimensions/spawn restrictions;
+- loot/death sanity;
+- renderer/resource presence check;
+- basic behavior-family assertions.
+
+For every block/item:
+
+- registry/load;
+- model/texture/resource reference;
+- placement/use/craft/drop as applicable;
+- persistence.
+
+For dimensions:
+
+- registry presence;
+- world creation;
+- chunk generation;
+- portal/access path;
+- travel and return;
+- save/restart/re-entry;
+- required biome/feature/structure presence;
+- vanilla-world isolation.
+
+For bosses:
+
+- summon/access;
+- phase/state transitions;
+- attacks/AI;
+- death/reward/progression;
+- save/reload where relevant.
+
+Generated smoke tests are only the baseline. Special mechanics still need explicit semantic tests.
+
+## 17.13 Cross-edition paired tests
+
+When the semantic master says Java and Bedrock should implement the same player-visible rule, generate a paired test identity.
+
+Example:
+
+```text
+aoa.entity.occulent.clone_behavior
+  Java Forge 1.20.1 -> PASS
+  Java NeoForge 1.21.1 -> PASS
+  Bedrock stable -> PASS / platform-equivalent behavior
+```
+
+Store differences as explicit equivalence rules rather than making the tests edition-specific and incomparable.
+
+This makes the Java <-> Bedrock IR measurable rather than philosophical.
+
+## 17.14 Differential original-vs-port testing
+
+Where an original runnable version exists, automate comparison.
+
+Example workflow:
+
+1. run semantic fixture against original AoA 3.6.11/appropriate historical reference;
+2. capture structured observable result;
+3. run equivalent fixture against converted target;
+4. normalize known engine/version differences;
+5. diff results;
+6. fail on unexplained semantic drift.
+
+Compare things such as:
+
+- health/damage/speed;
+- AI timing/state transitions;
+- loot;
+- progression;
+- worldgen structure/feature requirements;
+- portal behavior;
+- inventory effects;
+- persistence;
+- packets/events where meaningful;
+- model/animation evidence through the separate visual lane.
+
+The test engine should help Enderloom answer **what changed**, not just “one side failed.”
+
+## 17.15 Performance testing through the same engine
+
+Headless runners should also make repeatable performance testing cheaper.
+
+Capture where meaningful:
+
+Java server:
+
+- startup time;
+- world/chunk generation time;
+- MSPT/TPS;
+- memory/GC;
+- allocations/profiler evidence;
+- entity/block-entity workloads;
+- packet volume.
+
+Bedrock BDS:
+
+- startup/readiness time;
+- tick responsiveness where observable;
+- memory/CPU;
+- chunk/worldgen throughput;
+- entity-count stress behavior;
+- protocol traffic where useful;
+- script watchdog/errors/content logs.
+
+Client performance still requires the real applicable client lane for render/frame metrics.
+
+Do not equate headless server speed with client FPS.
+
+## 17.16 Version/channel matrix intelligence
+
+The test engine must understand that Bedrock and Java versioning evolve differently.
+
+Java runner registry records:
+
+- Minecraft version;
+- loader + loader version;
+- Java version;
+- Gradle/toolchain;
+- mappings;
+- GameTest adapter;
+- headless-client adapter;
+- protocol/bot compatibility.
+
+Bedrock runner registry records:
+
+- Bedrock stable/preview version;
+- official BDS package/hash;
+- format/min-engine versions;
+- Script API module versions;
+- GameTest module/version if used;
+- enabled experiments;
+- `bedrock-protocol` support/adaptor version;
+- sample/schema/protocol-doc source revision;
+- real-client build required for visual escalation.
+
+Refresh mutable current values from official sources before claiming current support.
+
+Do not hard-code today's Bedrock GameTest beta API forever.
+
+## 17.17 Test-run safety
+
+Automated runtime testing must be aggressive about tests and conservative about user data.
+
+Rules:
+
+- use disposable QA worlds by default;
+- never point conversion stress tests at a user's only copy of a world;
+- snapshot/copy a real-world fixture before testing it;
+- never delete user packs/worlds because a cleanup step failed;
+- kill only processes owned by the exact run identity;
+- use dynamic ports and run-scoped directories;
+- do not log auth tokens/secrets;
+- do not persist Microsoft/Xbox/OpenAI credentials into QA packs or artifacts;
+- isolate untrusted add-on/mod parsing from arbitrary execution;
+- only execute the candidate in the intended Minecraft sandbox/runtime lane;
+- preserve crash/log evidence before cleanup.
+
+## 17.18 Failure handling should automatically improve Enderloom
+
+The test engine is part of the self-improvement loop.
+
+When AoA exposes a runner weakness:
+
+- Bedrock manifest version drift -> improve manifest/version adapter;
+- `bedrock-protocol` packet drift -> update the version adapter from official protocol docs/upstream;
+- GameTest API drift -> update the Bedrock GameTest generator;
+- Forge GameTest discovery failure -> improve Java test registration;
+- headless LWJGL issue -> improve HeadlessMC/native escalation policy;
+- bot cannot express an interaction -> add generic semantic action support or escalate;
+- flaky fixture -> repair isolation/determinism;
+- poor diagnostic -> improve structured evidence.
+
+Then rerun the exact failed test and preserve the generalized fix.
+
+Do not patch the AoA test itself to hide a runner deficiency.
+
+## 17.19 Native escalation policy
+
+The planner should automatically choose the cheapest valid lane.
+
+Examples:
+
+- recipe JSON changed -> static + server/GameTest, no rendered client;
+- mob server AI changed -> dedicated server + simulated/protocol player, then client only if visual/client behavior also changed;
+- Java renderer changed -> Java native rendered client;
+- Bedrock render controller changed -> real Bedrock client;
+- packet sync changed -> server + external headless client(s), plus native client if code executes only there;
+- sound changed -> real applicable client;
+- save format changed -> server + restart/rejoin persistence;
+- worldgen changed -> headless server deterministic chunk/world fixtures; rendered client only for visual presentation checks.
+
+The UI should simply show something like:
+
+```text
+Testing…
+Static  PASS
+Server  PASS
+Gameplay PASS
+Client presentation required -> running native visual proof
+```
+
+Do not make the user select runners manually for normal work.
+
+## 17.20 AoA-specific high-throughput suite
+
+AoA should stress this engine hard enough that weak runner design becomes obvious.
+
+At minimum build generated/specialized suites for:
+
+- entire registry inventory;
+- all restored dimensions;
+- dimension access/portal round trips;
+- representative worldgen chunks across every AoA dimension;
+- every entity spawn/load/persistence baseline;
+- every mob archetype family;
+- every special-case mob/boss mechanic;
+- all boss access/phase/reward flows;
+- items/weapons/armor/tool mechanics;
+- recipes/crafting systems;
+- loot/progression rewards;
+- skills/progression;
+- projectiles;
+- structures/features;
+- save/restart/rejoin;
+- multiplayer synchronization;
+- vanilla-world isolation;
+- performance stress;
+- Java-vs-Bedrock paired semantics;
+- original-vs-converted differential fixtures.
+
+The suite should be shardable and changed-path aware so Enderloom does not spend hours rerunning unaffected content after a one-line fix.
+
+At full graduation, run the broad suite across the required matrix.
+
+## 17.21 Clean-room test-engine proof
+
+The headless engine itself must pass a clean-room acceptance flow.
+
+Starting from a machine/workspace that has only the declared caches/toolchains/dependencies:
+
+1. provision a Java target;
+2. run a Java static + dedicated/GameTest + headless gameplay + applicable client test entirely from CLI/API;
+3. provision an official Bedrock BDS target;
+4. install a generated test add-on/QA pack;
+5. run BDS headlessly;
+6. run GameTests;
+7. run at least one simulated-player or external `bedrock-protocol` interaction lane as supported;
+8. restart and prove persistence;
+9. deliberately inject one bad Java fixture and one bad Bedrock fixture and prove the engine fails them with useful evidence;
+10. repair/re-run only invalidated tests;
+11. emit JSON/JUnit/human summaries;
+12. demonstrate native client escalation for one visual assertion on each edition where the environment supports it.
+
+No manual clicking through Minecraft menus should be required for the headless portions.
+
+## 17.22 Headless QA acceptance
+
+This capability is not complete until:
+
+- Java and Bedrock both expose one consistent CLI/API testing workflow;
+- Java reuses/integrates proven HeadlessMC/mc-runtime-test/Mineflayer-style foundations where they improve reliability or speed;
+- Bedrock uses the official BDS as the authoritative headless runtime;
+- Bedrock reuses `bedrock-protocol` rather than reimplementing the entire network protocol;
+- Enderloom can generate and run Bedrock GameTest packs without manual world/menu setup;
+- expected/discovered test counts prevent false zero-test passes;
+- simulated players are used where supported but never treated as identical to a real player when the API says otherwise;
+- external Bedrock headless clients can join/spawn/exercise representative gameplay/network workflows;
+- Java headless clients can exercise representative integrated/client-state workflows;
+- real native clients are automatically used when rendering/UI/audio/client-only proof is required;
+- disposable fixtures protect real worlds;
+- exact versions/hashes/environment are preserved in every run receipt;
+- local caches and incremental invalidation materially reduce repeated work;
+- independent suites/matrix cells run in bounded parallel;
+- structured JSON/JSONL/JUnit results exist;
+- failure evidence can be handed directly to Codex/OpenAI and replayed after repair;
+- AoA's giant test surface can run changed-path subsets quickly during development and the full suite at graduation;
+- the engine proves failures rather than merely detecting process exits;
+- headless optimization never weakens the strongest required native runtime proof.
+
+The intended end state is:
+
+> Enderloom can test Java and Bedrock mods/add-ons from the command line or API at high throughput, automatically escalate only the tests that need a real client, and return precise evidence good enough to drive automatic repair.
+
+That is what makes finishing AoA across Java and Bedrock practical instead of turning every iteration into a manual launch-and-click marathon.
+
 # FINAL IMPLEMENTATION LAW
 
 **Use common sense and finish the job.**
