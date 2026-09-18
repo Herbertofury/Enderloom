@@ -26,7 +26,7 @@ mod skins;
 mod stats;
 
 pub use datapacks::DatapackRecord;
-pub use graph::{ArtifactIdentity, FileHash, ProjectGraph};
+pub use graph::{ArtifactIdentity, FileHash, ProjectGraph, ProviderProjectIdentity};
 pub use models::{
     ActiveRun, ActiveServerRun, BannerRecord, CachedResponse, ContentFile, ContentUpdate,
     DayBucket, ExternalInstanceLink, InstanceGroup, InstanceOrganization, InstancePlacement,

@@ -1,0 +1,45 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),os=require('os'),path=require('path');
+const {DatabaseSync}=require('node:sqlite');const {spawnSync}=require('child_process');
+const {LauncherService}=require('../src/launcher-service');const {seedProjectSources}=require('./project-source-fixtures');
+const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-source-qa-'));
+const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data'),env:{ENDERLOOM_CURSEFORGE_API_KEY:'qa-offline-cache-only'}});
+(async()=>{
+  const {first,second,bytes}=await seedProjectSources(service);
+  const args={provider:'modrinth',projectId:'alpha',otherProvider:'curseforge',otherProjectId:'989898'};
+  const get=(provider='modrinth',projectId='alpha')=>service.request('get_project_artifact_graph',{provider,projectId});
+  const original=await get();assert.equal(original.observations.length,1);assert.equal(original.project.aliases.length,1);
+  const preview=await service.request('preview_project_source_link',{...args,projectId:'workshop-slug'});assert.equal(preview.left.project_id,'alpha');assert.equal(preview.right.project_id,'989898');assert.equal(preview.matching_file_hashes.length,1);
+  assert.deepEqual(await get(),original,'Read-only comparison cannot join identities');
+  const sibling=await service.request('preview_project_source_link',{...args,otherProvider:'modrinth',otherProjectId:'sibling'});assert.equal(sibling.matching_file_hashes.length,0);assert.equal(sibling.right.author,'Different author');assert.equal((await get('modrinth','sibling')).project,null);
+  await assert.rejects(service.request('link_project_sources',{...args,reason:'fixture'}),/Confirm/);
+  await assert.rejects(service.request('link_project_sources',{...args,reason:' ',confirmed:true}),/Explain/);
+  await assert.rejects(service.request('preview_project_source_link',{...args,otherProjectId:'979797'}),/does not belong/);
+  await assert.rejects(service.request('preview_project_source_link',{...args,otherProjectId:'../../wrong'}),/project ID/);
+  await assert.rejects(service.request('preview_project_source_link',{...args,otherProvider:'modrinth',otherProjectId:'workshop-slug'}),/already the same/);
+  const apply={...args,reason:'Both exact project pages are listed by the fixture team.',confirmed:true};
+  let graph=await service.request('link_project_sources',apply);assert.equal(graph.project.aliases.length,2);assert.equal(graph.observations.length,2);assert.equal(graph.releases.length,2);assert.notEqual(graph.releases[0].id,graph.releases[1].id);
+  const link=graph.source_links[0];assert.equal(link.confidence_class,'user_confirmed');assert.equal(link.reason,apply.reason);assert.equal(link.left.provider,'curseforge');assert.equal(link.right.provider,'modrinth');
+  assert.deepEqual(await get('curseforge','989898'),graph,'Both provider routes project the same canonical graph');
+  assert.deepEqual(await service.request('link_project_sources',apply),graph,'Repeated confirmation is idempotent');
+  await service.close();assert.deepEqual(await get(),graph,'Associations survive restart');
+  // New bytes in the other provider's profile must be checked from either source page.
+  fs.appendFileSync(path.join(second.dir,'mods/second.jar'),Buffer.from('edited'));
+  graph=await service.request('verify_project_artifacts',{provider:'modrinth',projectId:'alpha'});assert(graph.observations.some(o=>o.file_name==='second.jar'&&o.current&&o.source_match==='modified'));
+  fs.writeFileSync(path.join(second.dir,'mods/second.jar'),bytes);
+  graph=await service.request('verify_project_artifacts',{provider:'modrinth',projectId:'alpha'});assert(graph.observations.filter(o=>o.current).every(o=>o.source_match==='verified'));
+  const third={...args,otherProvider:'modrinth',otherProjectId:'third',reason:'Fixture third source',confirmed:true};
+  graph=await service.request('link_project_sources',third);assert.equal(graph.project.aliases.length,3);
+  const cycle=await service.request('link_project_sources',{provider:'modrinth',projectId:'third',otherProvider:'curseforge',otherProjectId:'989898',reason:'Fixture cycle',confirmed:true});assert.equal(cycle.project.aliases.length,3);assert.equal(cycle.observations.length,4);
+  const cycleLink=cycle.source_links.find(item=>[item.left.project_id,item.right.project_id].includes('third')&&[item.left.provider,item.right.provider].includes('curseforge'));
+  await service.request('unlink_project_source',{provider:'modrinth',projectId:'third',linkId:cycleLink.id});
+  await assert.rejects(service.request('unlink_project_source',{provider:'modrinth',projectId:'sibling',linkId:link.id}),/not recorded|does not belong/);
+  graph=await service.request('unlink_project_source',{provider:'modrinth',projectId:'alpha',linkId:link.id});assert.equal(graph.project.aliases.length,2);assert.equal(graph.observations.length,1);assert.equal(graph.observations[0].file_name,'first.jar');
+  const split=await get('curseforge','989898');assert.equal(split.project.aliases.length,1);assert.equal(split.observations.length,3);assert.equal(split.releases.length,1);assert.equal(split.source_links[0].active,false);
+  assert.deepEqual(await service.request('unlink_project_source',{provider:'modrinth',projectId:'alpha',linkId:link.id}),graph);
+  graph=await service.request('link_project_sources',apply);assert.equal(graph.project.aliases.length,3);assert.equal(graph.source_links.filter(link=>link.active).length,2);
+  await service.close();const db=new DatabaseSync(path.join(service.dataDir,'basalt.db'));try{assert.equal(db.prepare('SELECT count(*) count FROM graph_project_link_events WHERE link_id=?').get(link.id).count,3);}finally{db.close();}
+  const cli=spawnSync(path.join(root,'native/target/debug/enderloom.exe'),['--data-dir',service.dataDir,'operation','run','get_project_artifact_graph','--json'],{input:JSON.stringify({provider:'curseforge',projectId:'989898'}),encoding:'utf8',windowsHide:true,timeout:30000});assert.equal(cli.status,0,cli.stderr);assert.deepEqual(JSON.parse(cli.stdout).result,graph);
+  assert(fs.readFileSync(path.join(first.dir,'mods/first.jar')).equals(bytes));assert(fs.readFileSync(path.join(second.dir,'mods/second.jar')).equals(bytes));
+  const report={passed:true,schema:23,checks:['provider ID and slug resolution','comparison is read-only','no same-name auto-link','explicit confirmation and reason','provider-domain validation','distinct releases retained','both provider routes agree','restart persistence','linked verification checks both providers','transitive associations','lossless unlink and relink','idempotent audit events','CLI parity','source bytes preserved']};fs.mkdirSync(path.join(root,'output'),{recursive:true});fs.writeFileSync(path.join(root,'output/project-source-qa.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>service.close());

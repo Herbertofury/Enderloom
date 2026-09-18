@@ -725,6 +725,13 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
         }
         "get_project_artifact_graph" => value(state.db.project_artifact_graph(&required_string(args, "provider")?, &required_string(args, "projectId")?)?),
         "verify_project_artifacts" => value(crate::artifacts::verify_project(state, required_string(args, "provider")?, required_string(args, "projectId")?).await?),
+        "preview_project_source_link" => value(crate::artifacts::preview_source_link(state, &required_string(args, "provider")?, &required_string(args, "projectId")?, &required_string(args, "otherProvider")?, &required_string(args, "otherProjectId")?).await?),
+        "link_project_sources" => value(crate::artifacts::link_sources(state, &required_string(args, "provider")?, &required_string(args, "projectId")?, &required_string(args, "otherProvider")?, &required_string(args, "otherProjectId")?, &required_string(args, "reason")?, args.get("confirmed").and_then(Value::as_bool).unwrap_or(false)).await?),
+        "unlink_project_source" => {
+            let provider = required_string(args,"provider")?; let project = required_string(args,"projectId")?;
+            state.db.unlink_project_source(&provider,&project,&required_string(args,"linkId")?)?;
+            value(state.db.project_artifact_graph(&provider,&project)?)
+        }
         "list_project_versions" => {
             let provider = crate::search::Provider::parse(&required_string(args, "provider")?)?;
             let kind = crate::search::ContentKind::parse(&required_string(args, "kind")?)?;

@@ -2,7 +2,7 @@ import type { EvidenceReport } from "./performance-evidence";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
 type SparkDownload = { data: string; content_type: string };
 import { invoke } from "@tauri-apps/api/core";
-import type { ProjectArtifactGraph } from "./artifacts";
+import type { ProjectArtifactGraph, ProjectSourcePreview } from "./artifacts";
 import type { WorkbenchLibrary } from "./workbench";
 import type { CreativeLibrary, Installation, ModInspection, PerformanceReport, RuntimeCapture, ModComparison } from "./creative";
 
@@ -111,6 +111,9 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 export const api = {
   getProjectArtifactGraph: (provider: string, projectId: string) => call<ProjectArtifactGraph>("get_project_artifact_graph", { provider, projectId }),
   verifyProjectArtifacts: (provider: string, projectId: string) => call<ProjectArtifactGraph>("verify_project_artifacts", { provider, projectId }),
+  previewProjectSourceLink: (provider: string, projectId: string, otherProvider: string, otherProjectId: string) => call<ProjectSourcePreview>("preview_project_source_link", { provider, projectId, otherProvider, otherProjectId }),
+  linkProjectSources: (provider: string, projectId: string, otherProvider: string, otherProjectId: string, reason: string, confirmed: boolean) => call<ProjectArtifactGraph>("link_project_sources", { provider, projectId, otherProvider, otherProjectId, reason, confirmed }),
+  unlinkProjectSource: (provider: string, projectId: string, linkId: string) => call<ProjectArtifactGraph>("unlink_project_source", { provider, projectId, linkId }),
   startTestingSession: (instanceId: string, recordVideo = false, maxSeconds = 900, worldName: string | null = null) => call<TestReport>("start_testing_session", { instanceId, recordVideo, maxSeconds, worldName }),
   runTestingScenario: (testId: string, scenario: TestScenario) => call<TestReport>("run_testing_scenario", { testId, scenario }),
   analyzeTestingReport: (testId: string) => call<TestReport>("analyze_testing_report", { testId }),

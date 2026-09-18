@@ -11,4 +11,15 @@ Verified against the built native service and CLI:
 
 Evidence: `output/curseforge/artifact-graph.json`, `output/graph-regression-qa.json`. Outputs are ignored local artifacts. Rust unit tests compile but this host's test executable fails to load with pre-existing Windows `0xc0000139`; these are not reported as executed tests. Runtime service/CLI tests above provide the behavioral proof.
 
-This accepts PA-001 only. PA-002 still needs a product workflow for explicit provider/source associations; fixture-seeded aliases do not constitute that workflow. The wider Phase A and release gates remain open.
+## Provider/source associations (PA-002)
+
+Schema 23 adds reversible source-association edges and an audit history. Provider records, release IDs, measurements and locations are retained separately; a canonical connected projection exposes associated sources together. Comparisons resolve official provider metadata and stable project IDs. Linking requires an explicit user confirmation and reason; matching names or hashes do not automatically join projects. Unlinking changes the projection without modifying installed files or deleting evidence.
+
+`ProjectSourceLinks.tsx` exposes comparison cards with provider icons, authors, source URLs, matching verified hashes, confirmation, Why and Unlink. Shared service/CLI operations are `preview_project_source_link`, `link_project_sources`, and `unlink_project_source`. Verification from either associated provider checks known installed copies from both.
+
+- `node scripts/project-source-qa.js`: actual native service and CLI with isolated provider-cache fixtures; read-only comparison, canonical slug resolution, similarly named sibling isolation, confirmation, URL validation, version separation, restart, changed-file detection across providers, transitive associations, lossless unlink/relink, audit idempotence and preserved files pass.
+- `node scripts/project-source-ui-qa.js`: real Electron controls backed by the native service; compare/confirm/Why/unlink/error/navigation pass. Visual evidence: `output/playwright/project-sources.png`.
+- `node scripts/project-source-live-qa.js`: live read-only official APIs resolved CurseForge Create 328085 and Modrinth Create LNytGWDc, both reporting simibubi, with real icons and source pages. No association was silently saved.
+- Existing graph migration, actual Create artifact and project-navigation tests pass against schema 23. Operation coverage includes all three new routes.
+
+This accepts PA-001 and PA-002. PA-003 instance/world/server/config/dependency graph links are the next incomplete dependency. The wider Phase A and release gates remain open.
