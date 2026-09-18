@@ -200,7 +200,7 @@ This is the first implementation priority and the hard dependency for later phas
 
 Implement typed identities/links for:
 
-- [ ] **PA-001** `Project`, `Release`, `Artifact`, `FileHash`.
+- [x] **PA-001** `Project`, `Release`, `Artifact`, `FileHash`. Native persistence, service/CLI parity, immutable measurements and Electron identity navigation verified; see `docs/IDENTITY_GRAPH_ACCEPTANCE_2026-09-18.md`.
 - [ ] **PA-002** provider/source aliases and provider project/version identities.
 - [ ] **PA-003** instance/world/server/config/dependency links.
 - [ ] **PA-004** source/code symbols, provenance, rights/license metadata where applicable.
