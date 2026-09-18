@@ -2291,6 +2291,765 @@ Enderloom is done with this work when all of these are true in the actual app:
 
 ---
 
+
+# 15. AOA SAVIOR CAPSTONE — THE ENDERLOOM GRADUATION TEST
+
+AoA Savior is the final proof that Enderloom has become the tool described by this handoff.
+
+This is **not** a separate AoA-only workflow and it is not a scripted demo. It is the real Advent of Ascension restoration/conversion project used as the hardest end-to-end acceptance test for Enderloom's normal Create / Convert / Repair / Optimize / matrix / runtime / AI capabilities.
+
+The standard is simple:
+
+> Give Enderloom the current AoA Savior project and the authoritative original source/JAR lineage, tell it to finish the project, and let Enderloom keep diagnosing, improving itself, repairing the project, testing it, comparing it to the originals, and continuing until the complete AoA result is genuinely finished.
+
+AoA is intentionally large enough to expose weak engineering. If Enderloom cannot handle something AoA requires, that weakness should become a reusable Enderloom capability and then AoA should be retried. Do not work around Enderloom by manually carrying the project forever.
+
+## 15.1 Resume the actual AoA Savior project — do not restart it
+
+Canonical AoA project:
+
+- Project: `Advent of Ascension Full Forge 1.20.1 conversion / AoA Savior`
+- Canonical Drive folder ID: `1wqWkeEqcNI3VVeqoNxzd0a-J8oPde_Xn`
+- Primary target: Minecraft `1.20.1`
+- Primary loader: Forge `47.4.23`
+- Primary Java: `17`
+
+Current promoted head to resume from:
+
+- `CP40 / Batch34 Nowhere visual final`
+- checkpoint document ID: `1KrZkQdgcfzC2jNigCKEFJ9lGw5GZx6Ba`
+- current runtime lineage already proves all `11` restored missing player dimensions on the 1.20.1 server lane;
+- current promoted runtime reports `146` restored entities at the Batch34 head;
+- Batch34 Nowhere melee server behavior and native client visual parity are already promoted;
+- existing promoted source, assets, receipts, hashes, runtime evidence and prior batch work are canonical inputs, not disposable prototypes.
+
+Enderloom must ingest the latest promoted checkpoint and continue from its exact remaining parity ledger.
+
+It must **not**:
+
+- rescan completed batches just because a new execution session started;
+- regenerate already-proven models or textures without an invalidating change;
+- redo CP1-CP40 work as ceremony;
+- throw away existing evidence;
+- flatten source-faithful special mobs into generic archetypes;
+- treat the current partial JAR as a fresh starting point with no lineage;
+- start another AoA repo merely because an adapter or target version is needed.
+
+A new target cell derives from the same canonical AoA semantic project and its verified lineage.
+
+## 15.2 Source authority and historical lineage
+
+The complete result must be based on the strongest legitimate union of the original AoA lineage rather than whichever branch is newest or easiest to compile.
+
+Canonical content-completeness authority:
+
+- `AoA3-1.16.5-3.6.11.jar`
+  - SHA-256: `34bd44a5118f85a7af5ff61f2186adc0e022e9ed808ced37ff648b0169b6f313`
+  - Drive ID: `19BrT9rFSoYMFBLFOfHmCBwb5HUUBGPIf`
+- supplied `Advent-Of-Ascension-1.16.5.zip`
+  - SHA-256: `5fa90060229da0f6108f6133f63a3486c145ee4d0cfabdb4d02938d0a7411d40`
+  - Drive ID: `1Cp0zpsCdWt2LMFKY8g147bZ13GbT1xCf`
+
+Modern intent/reference sources include the official upstream branches and current overhaul work. As of this handoff, the official `Tslat/Advent-Of-Ascension` repository exposes these historical branches:
+
+- `1.7.10`
+- `1.12.2`
+- `1.15.2`
+- `1.16.5`
+- `1.18.2`
+- `1.19`
+- `1.20`
+- `1.21`
+
+Known pinned modern source anchors already used by AoA Savior include:
+
+- official `1.20` branch commit `85d6beba07e3a09032834dcf79b5a01f411092c3`;
+- official `1.21` branch should be refreshed from upstream before a new final matrix build instead of assuming an old cached head is current.
+
+Historical archaeology/recovery authorities include:
+
+- `AoA-Tslat-1.1.3.jar`;
+- `Nevermine-2.4.B.jar`;
+- `Nevermine-2.5-SNAPSHOT.jar`.
+
+The older artifacts are not blindly authoritative. They exist to recover legitimate content, mechanics, presentation, progression and ideas that vanished from later incomplete ports.
+
+Modern overhaul behavior wins where it is an intentional, complete improvement and does not erase legitimate unique content. Historical behavior wins where newer branches simply omitted or never finished the feature.
+
+Every conflict between eras must be resolved by evidence and intent, not by branch age alone.
+
+## 15.3 AoA is the self-improvement loop
+
+AoA completion should operate as a repeating autonomous loop:
+
+```text
+RESUME VERIFIED AOA HEAD
+  -> refresh exact remaining parity delta
+  -> choose the highest-leverage coherent missing slice
+  -> resolve target mappings/APIs/dependencies
+  -> implement/repair the slice
+  -> compile/static/package validation
+  -> dedicated-server proof where applicable
+  -> native client/integrated proof where applicable
+  -> visual/audio/data/progression proof where applicable
+  -> save/restart/persistence proof where applicable
+  -> performance challenge
+  -> compare against original evidence
+  -> promote/checkpoint the verified slice
+  -> update the complete parity ledger
+  -> immediately continue to the next unresolved slice
+```
+
+If the loop fails because Enderloom lacks a capability, Enderloom should add or improve that reusable capability and resume the same AoA job.
+
+Examples:
+
+- mapping failure -> improve the mapping/symbol resolver;
+- Mixin failure -> improve target/descriptor/injection diagnostics and migration;
+- old renderer/model API -> improve version-aware client/model adaptation;
+- old entity AI -> improve behavior/archetype extraction and target-native AI translation;
+- missing dimension schema -> improve worldgen/dimension translation;
+- dependency/API drift -> improve dependency and API compatibility analysis;
+- registry mismatch -> improve registry identity/migration tooling;
+- packet/save drift -> improve networking/persistence migration tooling;
+- difficult original-vs-port comparison -> improve parity instrumentation;
+- hard-to-prove visual behavior -> improve deterministic runtime visual QA;
+- huge content census -> improve indexed semantic inventory/diff performance;
+- one version requires a new adapter -> add a reusable version/loader adapter instead of AoA-specific pasted code when the problem is generic.
+
+The result should be that solving AoA makes Enderloom better at the next giant mod too.
+
+## 15.4 No permanent AoA-only crutches for generic problems
+
+AoA can have AoA-specific content adapters because AoA has unique gameplay.
+
+It must not accumulate one-off infrastructure for problems that are actually general Minecraft porting problems.
+
+Promote reusable solutions into Enderloom's normal engines for:
+
+- symbol/mapping lineage;
+- loader/version adaptation;
+- registry migration;
+- data/schema migration;
+- Mixin/coremod/bytecode repair;
+- model/renderer adaptation;
+- animation migration;
+- entity/AI migration;
+- worldgen/dimension migration;
+- networking migration;
+- save/capability/data-component migration;
+- config migration;
+- dependency resolution;
+- source/JAR semantic inventory;
+- historical feature lineage;
+- original-vs-target parity comparison;
+- runtime fixture generation;
+- visual proof;
+- performance profiling;
+- matrix build orchestration;
+- checkpoint/resume/retry.
+
+AoA is allowed to teach Enderloom new patterns. It is not allowed to bypass Enderloom.
+
+## 15.5 The AoA content ledger must reach zero unexplained loss
+
+The earlier Savior census already proved why simple file counting is insufficient. AoA contains thousands of semantic items spanning multiple generations.
+
+The final ledger must cover, at minimum:
+
+- dimensions and dimension types;
+- biome identities and dimension biome distribution;
+- noise settings and terrain generators;
+- configured/placed features;
+- structures and structure templates;
+- structure sets/placement;
+- portals and access/progression mechanics;
+- entities;
+- bosses;
+- NPCs/traders;
+- animals/ambient mobs;
+- melee/ranged/flying/water archetypes;
+- special entity mechanics;
+- projectiles;
+- blocks;
+- block entities;
+- items;
+- armor;
+- weapons and weapon families;
+- tools;
+- consumables;
+- skills and skill progression;
+- recipes and custom crafting systems;
+- loot tables and drop semantics;
+- advancements;
+- tags;
+- attributes;
+- effects/potions;
+- enchantment-like systems where applicable;
+- sounds;
+- particles;
+- models;
+- textures;
+- animations;
+- renderer layers/special effects;
+- GUI/screens/HUD behavior;
+- keybinds/input actions;
+- networking;
+- commands;
+- configs;
+- world/player persistent data;
+- integrations/optional providers;
+- translations/user-facing names;
+- datafix/migration concerns;
+- every other registry or content family discovered by the source/JAR inventory.
+
+Each meaningful canonical item must end in a deliberate terminal state:
+
+- preserved;
+- ported;
+- repaired;
+- intentionally replaced by a proven equivalent/successor;
+- intentionally removed with concrete source/design/safety evidence;
+- genuinely platform-blocked after Enderloom attempted a faithful adapter and recorded the exact reason.
+
+`UNKNOWN`, `TODO`, `forgot`, `not ported yet`, `later`, or silent absence are not completion states.
+
+## 15.6 Mappings must stop being a manual porting tax
+
+AoA spans enough Minecraft generations to force Enderloom to become excellent at symbol migration.
+
+Enderloom should build a symbol lineage for important classes/members across:
+
+- legacy MCP/SRG-era names;
+- Forge mappings from older versions;
+- Mojmap/official mappings;
+- NeoForge naming/API transitions;
+- target-specific loader mappings where another loader is legitimately supported.
+
+Do not migrate code by name similarity alone.
+
+Use owner + descriptor + call shape + neighboring behavior + source semantics + mapped bytecode evidence to identify renamed/moved members.
+
+When a symbol disappeared, determine whether it became:
+
+- a renamed method/field;
+- a moved helper/service;
+- an event;
+- a registry/data-driven definition;
+- a capability/data attachment/component;
+- a new rendering/model API;
+- a new worldgen schema;
+- a new networking mechanism;
+- functionality that must be recreated in mod-owned code.
+
+Store proven mapping decisions so the next AoA file and the next unrelated mod reuse them.
+
+A compiler error should normally become another resolved mapping fact, not a reason for the user to hunt documentation manually.
+
+## 15.7 Mixins, transforms and bytecode behavior must be migrated precisely
+
+For every Mixin/coremod/transform-style behavior discovered anywhere in AoA lineage:
+
+1. identify the original semantic purpose;
+2. determine whether the target platform provides a native event/API replacement;
+3. prefer a stable target-native hook when behavior can be preserved exactly;
+4. otherwise migrate the Mixin with exact target owner/member/descriptor/injection semantics;
+5. verify annotation retention/refmap/class representation;
+6. prove PREPARE/APPLY in the actual loader;
+7. exercise the affected gameplay path.
+
+Do not keep a fragile Mixin merely for historical purity when a better stable API hook exists.
+
+Do not delete a required behavior merely because the old injection no longer applies.
+
+Enderloom's Mixin diagnostics must be good enough to explain the earliest causal problem and automatically repair routine mapping/signature drift.
+
+## 15.8 Mobs and bosses are full behavior ports, not registry stubs
+
+AoA's huge entity roster is one of the capstone's most important stress tests.
+
+For each entity, preserve or intentionally modernize all relevant semantics:
+
+- registry identity;
+- dimensions/hitbox;
+- attributes;
+- health/damage/armor/speed;
+- spawn rules;
+- spawn biome/dimension constraints;
+- difficulty/progression gating;
+- target selection;
+- navigation/pathing;
+- melee timing;
+- ranged timing/projectiles;
+- flying/swimming behavior;
+- special attacks;
+- teleport/dash/leap/phase/cloak/mirage/clone mechanics;
+- immunities/resistances;
+- boss phases;
+- boss bars;
+- sounds;
+- particles;
+- drops/loot;
+- interaction/trading/taming semantics where applicable;
+- despawn/persistence;
+- client/server state synchronization;
+- model geometry;
+- pivots/UVs/rotations;
+- animation math;
+- renderer scaling/layers/translucency/effects;
+- exact shipped textures where an authoritative original asset is being preserved.
+
+Shared archetypes should reduce duplicate implementation, but special entities must keep their special behavior.
+
+AoA's previous entity census and direct-class analysis should continue to be used to discover high-leverage shared foundations without turning the dependency graph into an unbounded whole-mod traversal.
+
+## 15.9 Dimensions and worldgen must be fully playable
+
+Every restored AoA dimension must be more than a registered key.
+
+For every dimension, Enderloom must prove as applicable:
+
+- access/portal/progression path;
+- dimension type/environment;
+- terrain generator;
+- biome source;
+- dimension-specific biomes;
+- surface rules;
+- features/ores/vegetation/decoration;
+- structures;
+- spawn tables;
+- dimension mobs/NPCs/bosses;
+- loot/progression resources;
+- weather/time/skylight/ceiling/bed/anchor semantics;
+- ambience/sound/visual effects;
+- save/reload persistence;
+- chunk generation after restart;
+- multiplayer/server travel.
+
+Use deterministic seeds and representative chunk/feature sampling for regression.
+
+Do not demand block-for-block equality where Mojang worldgen engines fundamentally changed, but require semantic parity: the target dimension must preserve its intended identity, topology, feature/content distribution, progression role and important generation behaviors.
+
+Where AoA owns a custom generator algorithm and exact behavior is realistically portable, preserve it mechanically and compare deterministic outputs.
+
+The standing Savior rule remains:
+
+**No AoA terrain, biomes, ores, structures, vegetation or decoration in vanilla Overworld/Nether/End by default.**
+
+Portals and narrow access hooks are allowed. Any broader vanilla-world integration must be explicit opt-in behavior, not a regression introduced by the port.
+
+## 15.10 Assets, models, animations, audio and presentation must be proven
+
+When authoritative original bytes exist:
+
+- preserve exact textures/sounds/templates where appropriate;
+- hash them against the donor artifact;
+- keep provenance.
+
+When code/API migration is required:
+
+- preserve model geometry, UVs, pivots, fixed rotations and render ordering;
+- translate animation formulas mechanically where possible;
+- preserve special render scaling/layers/translucency/glow/effects;
+- preserve sound event meaning and trigger timing;
+- preserve important particles and presentation cues.
+
+A renderer existing in code is not enough.
+
+For representative and special-case entities, run the real client, capture deterministic frames/states and inspect them.
+
+For families generated from shared model data, audit generator inputs and representative outputs plus every exceptional renderer/model.
+
+No transform accumulation, missing texture, disconnected limb, invisible entity, wrong scale or silently missing animation is acceptable.
+
+## 15.11 Gameplay and progression systems need scenario tests
+
+AoA completion requires real gameplay workflows, not just registry enumeration.
+
+Build deterministic scenario fixtures for important systems such as:
+
+- obtaining/accessing dimensions;
+- portal creation/travel;
+- progression gates;
+- skill XP gain and level effects;
+- weapons and special weapon behavior;
+- armor/set effects;
+- ammo/projectile systems;
+- custom crafting;
+- boss summoning/challenges;
+- boss phases/rewards;
+- NPC/trader interactions;
+- mob-specific mechanics;
+- loot progression;
+- advancements;
+- item/block interactions;
+- death/respawn;
+- save/reload of progression;
+- multiplayer authority and synchronization.
+
+Use source-backed assertions where behavior can be encoded exactly.
+
+A feature is not considered restored merely because its item/entity appears in a creative inventory or registry dump.
+
+## 15.12 Build an original-vs-target comparison lab
+
+Enderloom should be able to compare the restored target against the real originals, not rely on memory.
+
+For each historical original that can still be executed in a safe isolated runtime:
+
+1. launch it with its correct Minecraft/loader/Java toolchain;
+2. create deterministic clean test worlds/fixtures;
+3. execute scripted probes for the feature under study;
+4. capture registry/content inventories, runtime state, logs, packets/state where useful, screenshots/frames and deterministic gameplay observations;
+5. hash preserved source assets;
+6. store the original observation as evidence;
+7. execute the equivalent fixture in the restored target;
+8. compare semantic outputs.
+
+Useful comparison classes include:
+
+- registry presence/identity;
+- dimensions/biomes/features/structures;
+- entity attributes and behavior traces;
+- projectile timing/velocity/damage;
+- boss phase transitions;
+- loot/drop distributions where deterministic or statistically bounded;
+- recipe inputs/outputs;
+- skill/progression behavior;
+- portal/access rules;
+- models/textures/animation poses;
+- sound/particle events;
+- save data and restart behavior.
+
+If an ancient original cannot execute because its historical runtime is no longer realistically runnable in the available environment, fall back to its authoritative source/JAR/data/assets and mark the comparison source accurately. Do not pretend a static comparison was a live runtime comparison.
+
+The comparison system itself should become a reusable Enderloom capability for other legacy-mod conversions.
+
+## 15.13 Version completion means one semantic AoA, many adapters
+
+The 1.20.1 Forge target remains the first completion gate because it already contains the deepest verified Savior work.
+
+**Finish 1.20.1 completely before treating matrix fan-out as the primary job.**
+
+After the 1.20.1 semantic/content ledger reaches completion and passes its full runtime/parity gates, fan that same canonical AoA forward and backward across every Enderloom-supported Minecraft version requested for the project.
+
+Historical official branches (`1.7.10`, `1.12.2`, `1.15.2`, `1.16.5`, `1.18.2`, `1.19`, `1.20`, `1.21`) are both source-lineage authorities and natural regression/reference cells.
+
+Modern/future Enderloom targets, including the established `1.21.1` and `26.3` lanes, should receive the same complete legitimate AoA semantic union rather than the incomplete subset that happened to exist in an upstream port.
+
+For versions where Minecraft lacks a later vanilla dependency that completed AoA functionality needs:
+
+- implement a target-native mod-owned equivalent when realistic;
+- use the existing vanilla dependency-closure/backport rules;
+- preserve identity and gameplay intent;
+- do not silently drop the feature.
+
+A version cell should be considered complete only when it contains the complete intended AoA feature/content union that can faithfully exist on that platform.
+
+`unsupported` or `blocked` is a last-resort technical state, not a shortcut. Before using it, Enderloom must try realistic version-native adaptation/backporting and record the exact irreducible platform limitation.
+
+## 15.14 Loader coverage must preserve semantics too
+
+AoA historically centers on Forge-style ecosystems, but Enderloom's matrix model must not hard-code that assumption as architecture.
+
+For each configured loader cell:
+
+- use native loader APIs where they preserve semantics cleanly;
+- isolate loader-specific registration/events/network/config glue behind small adapters;
+- keep gameplay/content logic shared;
+- do not fork the full mod per loader;
+- do not claim another loader merely because it compiles.
+
+Forge/NeoForge cells should be first-class where their ecosystem/API lineage makes them natural fits.
+
+If Fabric/Quilt or another configured loader is targeted, Enderloom must either implement a real parity adapter or report the concrete feature/API gap after attempting a faithful solution. No fake compatibility badge.
+
+## 15.15 Every matrix cell gets real runtime proof
+
+Each completed AoA target cell must receive the strongest applicable test stack:
+
+1. deterministic build/package verification;
+2. registry/content census;
+3. linkage/bytecode verifier;
+4. loader bootstrap;
+5. dedicated server readiness;
+6. representative world generation;
+7. dimension creation/travel;
+8. entity/mob/boss runtime suite;
+9. gameplay/progression scenario suite;
+10. native client rendering/models/textures/animations/UI/sound;
+11. integrated client/server synchronization;
+12. save/restart persistence;
+13. clean new-world test;
+14. existing-world/update migration fixture where applicable;
+15. optional integration provider-present/provider-absent lanes;
+16. performance challenge;
+17. final packaged-JAR launch, not only dev-userdev launch.
+
+A green common source tree is not enough. A matrix cell is green only when the packaged artifact itself has the evidence appropriate to that cell.
+
+## 15.16 Performance is part of the AoA conversion, not a later cleanup
+
+AoA is large enough that a functionally correct but wasteful port can still be unusable.
+
+Every restored family should be challenged for:
+
+- per-tick broad scans;
+- repeated reflection/class lookup;
+- excessive allocations;
+- redundant pathing/target searches;
+- render-frame lookup/scans;
+- synchronization spam;
+- unnecessary capabilities/data allocations;
+- listener duplication;
+- world/chunk/entity retention leaks;
+- avoidable chunk/worldgen recomputation;
+- repeated registry/resource parsing;
+- expensive AI behavior evaluation;
+- avoidable client/server duplicate work.
+
+Optimize with lifecycle indexes, caching, event/write-driven updates, target-native APIs, reusable structures and bounded work while preserving gameplay cadence and behavior.
+
+Compare representative heavy scenes against the original and against the prior target checkpoint where meaningful.
+
+The goal is that the completed AoA union is at least no worse under equivalent workload and preferably materially faster than the historical implementation, without reducing mobs, simulation, particles, visual fidelity, content or distance settings to manufacture the result.
+
+## 15.17 Enderloom should know what to do next without a human batch planner
+
+The original Savior project advanced through manually named batches because the tooling was still being built.
+
+By graduation, Enderloom should be able to generate and maintain the work queue itself from the parity/lineage graph.
+
+It should choose slices using factors such as:
+
+- dependency order;
+- shared-foundation leverage;
+- number of unlocked missing identities;
+- runtime risk;
+- source confidence;
+- version-adapter reuse;
+- testability;
+- whether another independent slice can proceed while one target waits.
+
+For example, a shared mob foundation that unlocks 150 entities should normally outrank one isolated decorative block unless the decorative block blocks a required progression path.
+
+The user should not have to manually tell Enderloom which batch number comes next.
+
+## 15.18 Failures become evidence, fixes and retries — never multi-hour idle states
+
+AoA will expose failures. That is the point of the capstone.
+
+For each failure:
+
+```text
+capture earliest causal evidence
+  -> classify owner
+  -> repair generic Enderloom capability or AoA content as appropriate
+  -> run cheapest decisive regression
+  -> resume the same job
+```
+
+Do not stop at:
+
+- `dependency unavailable` when another legitimate acquisition/cache route exists;
+- `mapping changed` when source/bytecode can resolve it;
+- `Mixin failed` when the target can be migrated;
+- `client test hard` when a deterministic fixture can be built;
+- `old version weird` when an adapter can be generalized;
+- `AI returned bad patch` when it can be rejected and corrected through the same Hand Off thread;
+- `one matrix cell failed` when other independent cells can continue;
+- `visual evidence ambiguous` when the QA fixture can be repaired automatically.
+
+After two unchanged failure waves, Enderloom must change strategy.
+
+The AoA job should remain resumable across app restarts, machine restarts and Hand Off/Take Back cycles.
+
+## 15.19 OpenAI/Codex may help, but Enderloom remains the verifier and owner
+
+AoA is a strong use case for Hand Off because individual conversion slices can be large.
+
+Enderloom may send a bounded AoA slice to the connected OpenAI/Codex lane with:
+
+- exact source authority;
+- current target cell;
+- semantic parity requirements;
+- relevant source/JAR excerpts/files;
+- proven mapping facts;
+- current dependency/toolchain state;
+- test fixtures;
+- known-good checkpoint;
+- exact failing evidence;
+- prohibited regressions.
+
+When work returns, Enderloom must independently:
+
+- hash it;
+- diff it;
+- reconcile it into the same job;
+- build it;
+- run affected tests;
+- compare parity;
+- performance-challenge it where relevant.
+
+If wrong, send the concrete evidence back to the same thread and continue the repair loop.
+
+Provider `done` is not AoA `done`.
+
+## 15.20 The finished 1.20.1 build is the semantic master, not a dead-end fork
+
+Once 1.20.1 reaches full parity, freeze a semantic release baseline containing:
+
+- complete feature/content ledger;
+- registry identity ledger;
+- historical lineage decisions;
+- data/save identities;
+- version-neutral behavior specs;
+- authoritative assets/provenance;
+- deterministic scenario fixtures;
+- original comparison evidence;
+- performance baselines;
+- target-specific 1.20.1 adapters.
+
+Other versions should derive from this semantic master plus their version/loader adapters.
+
+Do not repeat the historical mistake where each port becomes a smaller disconnected branch that loses content over time.
+
+A new AoA feature/fix should be expressed once in the semantic/common layer where possible, then propagated through adapters and the matrix.
+
+## 15.21 Clean-room graduation replay
+
+Finishing AoA once with heavy manual intervention is not enough to prove Enderloom learned how to do it.
+
+After the first complete AoA matrix is green, perform a clean-room replay using preserved authoritative inputs and the latest reusable Enderloom implementation.
+
+At minimum:
+
+1. start from the canonical promoted unfinished Savior checkpoint chosen for the replay (CP40 is the current known durable head unless a later promoted head supersedes it);
+2. use clean generated workspaces;
+3. reuse verified immutable caches/toolchains, but not uncommitted/manual source edits;
+4. ask Enderloom to finish AoA;
+5. require it to regenerate the remaining work queue automatically;
+6. require it to complete the remaining semantic ledger;
+7. require it to build/test/package the primary target;
+8. require it to fan out the configured target matrix;
+9. require it to compare against original authorities;
+10. require it to produce final artifacts/evidence without a human editing source between automated steps.
+
+The replay may use the same proven Enderloom code and cached mapping facts learned during the first completion. That is the point: Enderloom is supposed to retain and reuse what it learned.
+
+The replay fails if the user must manually patch source, manually identify the next missing family, manually translate routine mappings, or manually babysit ordinary recovery.
+
+## 15.22 Make AoA a permanent Enderloom regression fixture
+
+After graduation, AoA should continue protecting Enderloom from becoming worse.
+
+Do not rerun the entire giant matrix on every tiny launcher commit.
+
+Instead maintain layered regression tiers:
+
+### Fast AoA sentinel
+
+Run compact representative fixtures covering:
+
+- one dimension/worldgen lane;
+- one normal melee mob;
+- one ranged mob/projectile;
+- one flying/water special case;
+- one special renderer/animation case;
+- one boss/special mechanic;
+- one skill/progression workflow;
+- one recipe/loot/data workflow;
+- one save/restart path;
+- one historical mapping adapter;
+- one modern mapping adapter;
+- one Mixin/API-hook case;
+- one original-vs-target parity comparison.
+
+### Changed-area AoA regression
+
+When Enderloom changes a mapping, Mixin, worldgen, entity, renderer, matrix, packaging or runtime subsystem, run the AoA fixtures that stress that subsystem.
+
+### Full AoA graduation suite
+
+Run the whole matrix at release-candidate/graduation milestones or when a cross-cutting change invalidates broad proof.
+
+AoA should become the equivalent of a brutal integration test that tells us whether Enderloom still deserves to call itself a serious Minecraft engineering tool.
+
+## 15.23 AoA final artifact set
+
+For the finished project, Enderloom should produce a coherent release tree rather than random JARs scattered across checkpoints.
+
+Conceptually:
+
+```text
+dist/aoa-savior/
+  semantic-release/
+    lineage.json
+    content-ledger.json
+    registry-ledger.json
+    original-comparison/
+    performance-baseline/
+    checksums.sha256
+  mc-1.20.1/forge/
+    aoa-savior-<version>.jar
+    source.zip
+    report.json
+    evidence/
+  mc-1.21.1/<loader>/
+    ...
+  mc-26.3/<loader>/
+    ...
+  historical-and-other-supported-cells/
+    ...
+  matrix-report.json
+  SHA256SUMS.txt
+```
+
+Every shipped cell records:
+
+- Minecraft version;
+- loader + version;
+- Java/toolchain;
+- source lineage hash;
+- semantic release fingerprint;
+- artifact hash/size;
+- content/parity status;
+- runtime evidence;
+- visual evidence where applicable;
+- persistence evidence;
+- performance status;
+- known intentional differences with evidence;
+- exact blockers if a cell truly cannot be completed.
+
+## 15.24 AoA graduation acceptance
+
+Enderloom does not graduate from this capstone until all of the following are true:
+
+- the current AoA Savior project was resumed from the latest promoted head rather than restarted;
+- Forge 1.20.1 is completely finished first;
+- the complete AoA semantic/content ledger has no unexplained missing entries;
+- all restored dimensions are fully playable with their intended worldgen/content/progression;
+- every legitimate mob/boss/NPC/entity identity is accounted for and behavior-tested at the appropriate depth;
+- all blocks/items/equipment/weapons/skills/recipes/loot/advancements/structures/assets and other discovered content families are accounted for;
+- important original behavior was compared against authoritative historical runtime/source/JAR evidence;
+- models/textures/animations/sounds/presentation have appropriate parity proof instead of compile-only claims;
+- Mixins/transforms/hooks work in the real packaged target runtime;
+- mappings and version API changes are handled by reusable Enderloom machinery rather than repeated manual edits;
+- save/reload/world persistence is proven;
+- dedicated server, native client and integrated-client/server paths are proven where applicable;
+- the final packaged JARs themselves run;
+- performance is challenged without feature/fidelity reduction;
+- the completed semantic AoA is fanned out to every configured supported version/loader cell and each cell is truthfully proven;
+- missing target-vanilla functionality is adapted/backported when realistically possible instead of causing silent content deletion;
+- the final matrix can be resumed/retried after interruption without starting over;
+- OpenAI/Codex Hand Off/Take Back can participate without becoming the source of truth;
+- a clean-room replay can finish from a durable AoA checkpoint with no human source edits during ordinary execution;
+- AoA regression fixtures remain in Enderloom so future changes cannot quietly break the capabilities that made graduation possible.
+
+The capstone is successful when **AoA stops being a project that requires an expert to shepherd every porting decision and becomes a project Enderloom itself can finish, prove, reproduce and maintain.**
+
+That is the quality bar for Enderloom's mod-engineering intelligence.
+
 # FINAL IMPLEMENTATION LAW
 
 **Use common sense and finish the job.**
