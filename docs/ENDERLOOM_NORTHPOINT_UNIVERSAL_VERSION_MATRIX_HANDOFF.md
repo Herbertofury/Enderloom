@@ -3050,6 +3050,839 @@ The capstone is successful when **AoA stops being a project that requires an exp
 
 That is the quality bar for Enderloom's mod-engineering intelligence.
 
+# 16. BEDROCK CAPSTONE — MAKE AOA A REAL CROSS-EDITION MOD AND TEACH ENDERLOOM BEDROCK FOR GOOD
+
+AoA graduation is not complete with Java-only matrix coverage.
+
+Enderloom must also use the finished semantic AoA master to produce a **real Minecraft Bedrock Edition AoA Add-On** and use that project to harden its reusable Bedrock tooling.
+
+This is not a cosmetic resource-pack port and not a tiny “inspired by AoA” sample. The target is the strongest legitimate Bedrock implementation of the same semantic AoA content and gameplay, using Bedrock-native systems where they exist and carefully engineered equivalents where Java concepts do not map directly.
+
+The larger purpose is equally important:
+
+> AoA Bedrock must teach Enderloom enough about Behavior Packs, Resource Packs, Script API, Molang, Bedrock entities, components, animations, worldgen, persistence and pack/runtime rules that future authorized Bedrock -> Java conversions become a normal first-class Enderloom workflow instead of another manual archaeology project.
+
+Bedrock is an edition target, not a Java loader pretending to be one. Keep its adapter/runtime/tooling native to Bedrock while sharing the same canonical semantic project, provenance, parity ledger and evidence model.
+
+## 16.1 Current Bedrock baseline must be refreshed, not fossilized
+
+At the time this handoff was written, official creator documentation identifies Bedrock `1.26.40` / `26.40` as a current stable creator baseline and `@minecraft/server` `2.9.0` as stable for that release line.
+
+That is a dated reproducibility anchor, **not** permission to assume it remains current forever.
+
+Before beginning a new Bedrock release candidate, Enderloom must refresh from official Microsoft/Mojang creator documentation:
+
+- current stable Bedrock product version;
+- current stable Behavior Pack / Resource Pack schemas;
+- current manifest format behavior;
+- stable Script API module versions;
+- current experimental/beta capabilities;
+- current custom dimension state;
+- current block/item/entity component availability;
+- pack-validation changes;
+- packaging/optimization behavior;
+- Bedrock Dedicated Server compatibility where applicable.
+
+Prefer stable APIs/components for the shipping base.
+
+Use beta/experimental capabilities only when a required AoA semantic cannot reasonably be implemented otherwise, and then:
+
+- isolate the experiment-dependent surface;
+- record exactly which experiment/API is required;
+- pin the tested Bedrock version;
+- maintain a fallback or blocked status where possible;
+- automatically revisit the adapter when the capability graduates to stable.
+
+Do not silently require every experimental toggle because it made development easier.
+
+## 16.2 Produce a real Bedrock Add-On artifact set
+
+The Bedrock result should be packaged as normal Bedrock content, including the appropriate combination of:
+
+- Behavior Pack;
+- Resource Pack;
+- script module(s) when required;
+- pack dependencies;
+- optional world template / QA world when useful;
+- `.mcaddon` / `.mcpack` distribution artifacts as appropriate;
+- source package;
+- machine-readable parity/evidence report;
+- checksums.
+
+A conceptual output tree:
+
+```text
+dist/aoa-savior/
+  semantic-release/
+    ...
+  bedrock/
+    stable-current/
+      behavior-pack/
+      resource-pack/
+      scripts/
+      qa-world/
+      aoa-savior-bedrock.mcaddon
+      source.zip
+      report.json
+      evidence/
+      checksums.sha256
+    compatibility-lines/
+      ...
+```
+
+Do not ship a Resource Pack whose visuals exist without gameplay, or a Behavior Pack whose entities exist without their real models/animations/textures, and call that “AoA Bedrock.”
+
+## 16.3 Build a reusable cross-edition semantic representation
+
+The Java semantic AoA master should feed a **cross-edition semantic representation** that can describe gameplay without assuming Forge, NeoForge, Fabric or Bedrock implementation details.
+
+This is not a second Northpoint architecture and not a separate app/database.
+
+Extend Enderloom's canonical content/lineage/conversion graph with cross-edition fields for things such as:
+
+- stable content identity;
+- registry/identifier identity;
+- entity archetype;
+- attributes/stats;
+- AI intent;
+- state machines;
+- combat behavior;
+- projectile behavior;
+- boss phases;
+- interaction rules;
+- spawn rules;
+- drops/loot;
+- equipment;
+- blocks/items;
+- recipes;
+- skills/progression;
+- dimensions;
+- biomes/worldgen;
+- structures;
+- portals/access rules;
+- persistent world/player state;
+- networking/synchronization intent;
+- commands;
+- sounds/particles;
+- geometry/model bones;
+- texture assignments;
+- animations;
+- animation state transitions;
+- visibility/material/render-state intent;
+- UI/HUD behavior;
+- configuration;
+- integration semantics;
+- performance-sensitive behavior.
+
+Then attach edition-specific implementations/adapters.
+
+This lets Enderloom learn both directions:
+
+```text
+Java source/JAR
+   -> semantic IR
+      -> Java target adapters
+      -> Bedrock target adapters
+
+Bedrock BP/RP/Scripts
+   -> semantic IR
+      -> Java target adapters
+      -> Bedrock modernization/repair adapters
+```
+
+The semantic representation must retain source evidence and uncertainty. Never turn an unknown Bedrock script behavior into a guessed Java implementation without marking that inference.
+
+## 16.4 Bedrock intake must understand real Add-Ons, not just JSON filenames
+
+Enderloom's Bedrock intake must support authorized inputs such as:
+
+- `.mcaddon`;
+- `.mcpack`;
+- `.mcworld` when the world contains the relevant attached packs/content;
+- unpacked Behavior Pack folders;
+- unpacked Resource Pack folders;
+- Script API TypeScript/JavaScript source;
+- compiled/distributed JavaScript modules where source is legitimately available for conversion;
+- creator source trees;
+- Blockbench/geometry source supplied with the project;
+- related documentation/configuration/evidence.
+
+Intake should hash and inventory everything before mutation.
+
+It must understand and link at minimum:
+
+- `manifest.json` pack identities, UUIDs, versions, modules, dependencies and capabilities;
+- minimum engine/version constraints;
+- pack-to-pack dependency edges;
+- script module dependencies such as `@minecraft/server` and `@minecraft/server-ui`;
+- experiment requirements;
+- behavior/entity definitions;
+- component groups;
+- events;
+- filters;
+- AI goals/components;
+- spawn rules;
+- blocks and block traits/components;
+- items and item components;
+- recipes;
+- loot tables;
+- trade tables;
+- functions/commands;
+- dialogue/NPC content where present;
+- biomes;
+- features and feature rules;
+- structures/templates;
+- dimensions;
+- world templates/settings where relevant;
+- client entity definitions;
+- geometry;
+- animations;
+- animation controllers;
+- render controllers;
+- Molang expressions;
+- particles;
+- sounds/sound definitions;
+- texture atlases and texture references;
+- attachables;
+- fog/visual/environment definitions;
+- materials/shaders only where pack-accessible and legitimate;
+- scripts and dynamic properties;
+- custom components;
+- custom command/UI flows;
+- scoreboards/tags used as state;
+- any other supported pack families discovered by the manifest/content graph.
+
+Do not execute untrusted script code just to classify the pack.
+
+Use static parsing first, isolated runtime proof later.
+
+## 16.5 Behavior Pack entities must become real Java semantics — and vice versa
+
+Enderloom must understand Bedrock entity definitions structurally.
+
+For Bedrock -> Java conversion, translate the **meaning** of:
+
+- components;
+- component groups;
+- entity events;
+- target filters;
+- sensors;
+- families;
+- AI goal priorities;
+- navigation modes;
+- movement modes;
+- physics/collision;
+- damage sensors;
+- projectile definitions;
+- tame/breed/owner state;
+- equipment;
+- transformations;
+- rideable/mount/passenger behavior;
+- interaction components;
+- timers;
+- conditional state transitions;
+- variant/mark/state values;
+- spawn rules;
+- boss state;
+- persistence requirements.
+
+Do not generate one generic Java mob for ten Bedrock entities just because their JSON shape looks similar.
+
+For Java -> Bedrock AoA conversion, express the same semantic behavior with native entity components/events where possible and Script API/custom components only where component data alone cannot preserve behavior.
+
+AI parity is behavioral parity, not “entity can walk and attack.”
+
+## 16.6 Script API must be treated as real program logic
+
+Many serious Bedrock Add-Ons put meaningful gameplay in scripts.
+
+Enderloom must parse and analyze Script API code, including:
+
+- event subscriptions;
+- before/after events;
+- tick/system scheduling;
+- dynamic properties;
+- entity/player/world state;
+- dimensions;
+- block/item manipulation;
+- commands;
+- UI/forms;
+- custom components;
+- scoreboard usage;
+- tags;
+- spawning;
+- particles/sounds;
+- inventory/equipment;
+- damage/combat;
+- persistence;
+- inter-pack coordination;
+- custom registries/lookup tables implemented in script.
+
+For Bedrock -> Java, build call/data-flow enough to translate behavior into appropriate Java events, capabilities/data components, saved data, networking, registries and gameplay systems rather than wrapping everything in command strings.
+
+For Java -> Bedrock AoA, use stable `@minecraft/server` APIs when they are the correct target-native mechanism.
+
+Script-heavy conversion must preserve ownership and timing semantics:
+
+- server authority;
+- event order;
+- cancellation behavior;
+- per-tick versus event-driven behavior;
+- persistence lifecycle;
+- multiplayer correctness;
+- dimension context;
+- player reconnect/reload behavior.
+
+Performance-challenge script loops just as aggressively as Java tick handlers. Replace avoidable full-world scans and per-tick global polling with event/state-driven structures where Bedrock APIs allow it.
+
+## 16.7 Molang is source code, not a magic string
+
+Enderloom must parse useful Molang expressions into an AST/semantic form rather than treating them as opaque text.
+
+Track:
+
+- queries;
+- variables;
+- temporary values;
+- math functions;
+- conditionals;
+- array/resource selection;
+- pre-animation calculations;
+- visibility rules;
+- animation blending;
+- state-transition predicates;
+- material/texture/geometry selectors;
+- particle expressions.
+
+For Bedrock -> Java, translate Molang-driven presentation into the chosen Java renderer/animation architecture while preserving observable behavior.
+
+For AoA Java -> Bedrock, generate Molang only when it is the natural Bedrock mechanism; do not move complex authoritative gameplay into client-side Molang merely because it is convenient.
+
+Preserve client/server responsibility.
+
+## 16.8 Geometry, animations and render controllers need mechanical conversion
+
+Bedrock visual conversion must preserve:
+
+- bone hierarchy;
+- pivots;
+- cube origins/sizes;
+- UVs;
+- texture dimensions;
+- rotations;
+- parent/child transforms;
+- locators;
+- visibility;
+- material selection;
+- texture variants;
+- geometry variants;
+- animation keyframes;
+- interpolation/blending where supported;
+- animation-controller states;
+- transition conditions;
+- render-controller selection;
+- scale/color/tint semantics where relevant.
+
+For Bedrock -> Java, automatically choose the least-lossy renderer path for the target:
+
+- native model/renderer;
+- GeckoLib/AzureLib or another justified animation runtime;
+- generated Java model code;
+- retained Blockbench intermediate when useful.
+
+For Java AoA -> Bedrock, convert the source-faithful Java model/animation evidence into valid Bedrock geometry/animation/controller resources instead of redrawing the mobs by eye.
+
+Enderloom should produce deterministic visual QA scenes in both editions and compare silhouettes, texture identity, proportions, pose timing and important effects.
+
+## 16.9 Blocks, items and custom components need semantic adapters
+
+Build reusable mapping logic between Bedrock block/item components and Java target APIs.
+
+Cover at minimum:
+
+- block states/traits;
+- placement/orientation;
+- collision/selection boxes;
+- hardness/destruction behavior;
+- light;
+- flammability;
+- loot;
+- ticking/random ticking;
+- interactions;
+- inventories/containers;
+- item use;
+- food/consumables;
+- durability;
+- equipment;
+- projectiles;
+- custom behavior;
+- multi-block semantics;
+- redstone-adjacent behavior where exposed;
+- tool effectiveness;
+- custom components/scripts.
+
+When Bedrock custom components or scripts implement semantics that have direct Java events/hooks, use the Java-native event/hook instead of reproducing the Bedrock implementation style literally.
+
+Likewise, for AoA -> Bedrock, prefer target-native Bedrock components before adding script glue.
+
+## 16.10 Bedrock worldgen and dimensions are first-class conversion work
+
+AoA requires this to be serious.
+
+Enderloom must model and translate:
+
+- biomes;
+- features;
+- feature rules;
+- structures;
+- structure placement;
+- biome distribution;
+- terrain constraints;
+- dimension definitions;
+- portal/access behavior;
+- dimension-specific spawning;
+- environmental properties;
+- save behavior;
+- generation order/dependencies.
+
+Do not assume Java worldgen JSON can be renamed into Bedrock JSON or vice versa.
+
+Current Bedrock custom dimension capabilities are evolving and some dimension APIs may remain experimental. Enderloom must therefore choose the strongest supported Bedrock-native implementation per current stable/experimental state, pin and prove it, and record exact platform limitations when something genuinely cannot be represented.
+
+For AoA Bedrock, all legitimate AoA dimensions must be implemented as actual playable world spaces when the current Bedrock platform can support them.
+
+Where a dimension semantic needs an experimental/custom-dimension capability, isolate that adapter and keep the rest of AoA independently stable-capable where possible.
+
+Do not collapse eleven dimensions into teleport arenas and call that parity unless the platform truly makes a real implementation impossible and the downgrade is explicitly classified as platform-blocked.
+
+## 16.11 Persistence and identity must survive edition translation
+
+Bedrock and Java store custom state differently.
+
+The semantic model must identify what each piece of state means before choosing the implementation.
+
+Examples:
+
+- world-global progression;
+- player skills;
+- boss unlocks;
+- quest/progression flags;
+- cooldowns;
+- entity persistent state;
+- structure/progression markers;
+- dimension access;
+- configuration;
+- inventory/equipment metadata.
+
+For Bedrock, use appropriate combinations of native entity/player/world state, dynamic properties, scoreboards/tags only where semantically appropriate, and script-managed persistence.
+
+For Java targets, translate that meaning into saved data, data components/capabilities/attachments, entity data, player data or target-version equivalents.
+
+Never map state solely because two storage formats happen to both be integers or strings.
+
+Restart/rejoin/reload/world-copy tests are mandatory for stateful systems.
+
+## 16.12 Build Bedrock -> Java conversion as a first-class Enderloom flow
+
+After AoA forces the Bedrock tooling to mature, Enderloom should expose Bedrock -> Java conversion as a normal Convert source type.
+
+The user should be able to provide an authorized `.mcaddon`, `.mcpack`, pack folder or source project and choose a Java target such as:
+
+- Forge 1.20.1;
+- NeoForge 1.21.1;
+- Fabric where appropriate;
+- current NeoForge/Fabric targets such as 26.x/26.3 when supported;
+- other configured Java matrix cells.
+
+Enderloom should then automatically:
+
+1. identify all contained packs/modules;
+2. resolve Behavior Pack <-> Resource Pack dependencies;
+3. inventory every semantic content family;
+4. parse scripts/Molang/controllers instead of treating them as opaque files;
+5. build the cross-edition semantic ledger;
+6. select target-native Java adapters;
+7. generate/port code/data/assets;
+8. compile;
+9. run static/package/linkage tests;
+10. run dedicated-server proof;
+11. run native client/integrated proof;
+12. compare converted behavior/visuals against the original Bedrock evidence;
+13. performance-challenge the result;
+14. package/hash/report the Java mod;
+15. fan out to the configured Java version/loader matrix when requested.
+
+The user should not have to manually explain that `animation_controllers` are state machines, that a component group is conditional behavior, or that a Script API event must become a Java event hook. Enderloom should know.
+
+## 16.13 Build a Bedrock original-vs-Java comparison lab
+
+For future Bedrock -> Java conversions, Enderloom needs the same proof discipline AoA forced on Java history.
+
+When an authorized Bedrock original can be run, build deterministic fixtures that capture:
+
+- entity stats;
+- spawn conditions;
+- AI/behavior sequences;
+- attack timing;
+- projectile behavior;
+- transformations;
+- interactions;
+- block/item behavior;
+- animations;
+- geometry/pose;
+- particles;
+- sounds;
+- UI-visible state where applicable;
+- worldgen/structure placement patterns;
+- persistent state before/after restart;
+- multiplayer-relevant behavior.
+
+Then run equivalent Java scenarios and compare semantic outcomes.
+
+Do not require literal engine-internal equivalence. Require observable gameplay/content fidelity within documented platform differences.
+
+## 16.14 AoA Bedrock should exercise every major Bedrock subsystem it legitimately needs
+
+The AoA Bedrock implementation should intentionally stress the reusable converter across:
+
+- hundreds of entity identities;
+- boss mechanics;
+- variants;
+- projectiles;
+- traders/NPCs;
+- animals/hostiles;
+- models/textures;
+- animations/controllers;
+- render controllers;
+- Molang;
+- sounds/particles;
+- blocks/items;
+- equipment/weapons;
+- recipes/loot;
+- structures;
+- biomes/features;
+- dimensions;
+- portals;
+- skills/progression;
+- commands;
+- UI/HUD equivalents;
+- script events;
+- persistent player/world state;
+- multiplayer behavior;
+- performance.
+
+A large AoA conversion should reveal weaknesses that toy sample packs never expose.
+
+Fix the general Enderloom tooling when those weaknesses appear.
+
+## 16.15 Bedrock packaging and validation must be strict
+
+Before native runtime proof, validate:
+
+- manifests;
+- UUID uniqueness/consistency;
+- dependency closure;
+- engine-version declarations;
+- schema/format versions;
+- JSON validity;
+- duplicate identifiers;
+- missing referenced resources;
+- missing geometry/textures/materials;
+- animation/controller references;
+- Molang parse/type issues where detectable;
+- script module versions;
+- import/export package structure;
+- path/case correctness;
+- content-log errors/warnings;
+- experimental requirements;
+- pack optimization/packaging where current Bedrock tooling supports it.
+
+Warnings tied to AoA content must be classified and resolved rather than buried under “Bedrock is noisy.”
+
+## 16.16 Real Bedrock runtime proof is required
+
+Static validation is not enough.
+
+Use the strongest available Bedrock runtime lanes:
+
+### Bedrock Dedicated Server / server-capable proof
+
+Where the current Bedrock Dedicated Server supports the required pack surface:
+
+- load the real Behavior Pack/script dependencies;
+- require successful world/server startup;
+- inspect content logs;
+- exercise server-authoritative gameplay;
+- test multiplayer-relevant state;
+- test restart/persistence;
+- verify no pack dependency/content errors.
+
+### Actual Bedrock client proof
+
+For entities, models, animations, render controllers, particles, sound, inventory/UI interaction, client presentation and integrated gameplay:
+
+- import/install the actual candidate pack;
+- launch a real supported Bedrock client;
+- open the deterministic QA world;
+- exercise the converted content;
+- capture authoritative runtime/log evidence where available;
+- capture actual client visuals for comparison;
+- restart/rejoin for persistence-sensitive behavior.
+
+If the execution environment cannot run Bedrock, the artifact must remain `BEDROCK_RUNTIME_UNVERIFIED` rather than silently graduating.
+
+Enderloom should be able to hand the candidate to a connected/local Windows runtime lane and take the evidence back into the same job when that capability is available.
+
+## 16.17 Cross-edition visual parity should be measured, not eyeballed once
+
+For representative AoA mobs/bosses and special render cases, compare Java authority versus Bedrock target using deterministic poses/cameras/times.
+
+Check:
+
+- silhouette;
+- scale;
+- pivot placement;
+- limb proportions;
+- UV/texture identity;
+- visible material/alpha behavior;
+- animation key poses;
+- attack/idle/walk timing;
+- special visibility/clone/variant states;
+- particle/sound timing where applicable.
+
+Use automated/mechanical comparison where possible, then actual visual inspection for the things metrics cannot prove.
+
+## 16.18 Bedrock performance must remain a design requirement
+
+AoA is enormous. A working but stutter-heavy Add-On does not graduate.
+
+Profile/challenge at least:
+
+- script tick cost;
+- event handler frequency;
+- entity population scaling;
+- global queries/scans;
+- dynamic property access patterns;
+- scoreboard/command churn;
+- animation/controller complexity;
+- particle/sound spam;
+- worldgen/features;
+- memory/content load;
+- multiplayer scaling;
+- pack load/startup.
+
+Use Bedrock-native data-driven components instead of script loops when they preserve behavior and perform better.
+
+Do not reduce entity counts, animation cadence, view settings, worldgen content or gameplay to manufacture a pass.
+
+## 16.19 Cross-edition platform differences need an explicit equivalence ledger
+
+Not every Java mechanic has a literal Bedrock API twin, and not every Bedrock component/script concept has a literal Java counterpart.
+
+For each nontrivial mismatch, record:
+
+- semantic requirement;
+- source implementation;
+- target-native implementation;
+- observable equivalence test;
+- known engine difference;
+- whether difference is invisible, acceptable, opt-in, or genuinely platform-blocking;
+- evidence.
+
+Prefer **behavioral equivalence** over implementation mimicry.
+
+Examples:
+
+- Java capability -> Bedrock dynamic property/script state;
+- Bedrock component event -> Java event hook/state machine;
+- Molang render selection -> Java renderer layer/state selector;
+- Java GeckoLib animation state -> Bedrock animations + animation controllers;
+- Bedrock Script API form -> Java screen/menu equivalent if the gameplay requires it;
+- Java dimension mechanics -> current Bedrock custom dimension/world-space implementation;
+- Bedrock custom component -> Java block/item event behavior.
+
+A platform difference may change implementation. It may not silently erase gameplay.
+
+## 16.20 Round-trip conversion tests should harden the semantic IR
+
+AoA gives Enderloom a rare opportunity to test both directions.
+
+Use bounded representative families for round-trip regression:
+
+```text
+Java semantic authority
+ -> Bedrock
+ -> re-intake Bedrock
+ -> Java test target
+ -> semantic diff
+```
+
+and, where useful:
+
+```text
+Bedrock fixture
+ -> Java
+ -> semantic re-intake
+ -> Bedrock test target
+ -> semantic diff
+```
+
+Do not require byte-identical regeneration.
+
+Require that the semantic ledger remains stable for supported meaning:
+
+- identifiers;
+- behavior;
+- state;
+- assets;
+- progression;
+- world impact;
+- visuals;
+- persistence.
+
+Round-trip loss reveals a converter/IR weakness that should be fixed generically.
+
+## 16.21 Bedrock-specific Fix All / diagnostics should become normal Enderloom behavior
+
+Enderloom should recognize and automatically diagnose common Bedrock creator failures such as:
+
+- bad manifest UUID/dependency/version links;
+- missing RP/BP dependency;
+- unsupported format version;
+- invalid component field;
+- broken resource identifier;
+- missing geometry/texture/controller;
+- invalid Molang;
+- animation/controller reference cycles or missing states;
+- wrong Script API module version;
+- experimental API used without required experiment;
+- dynamic property registration/state issues;
+- duplicate identifiers;
+- content-log schema failures;
+- pack import/activation problems;
+- world/template pack mismatch;
+- version-upgrade breakage.
+
+The user should see the useful causal explanation and repair result, not a pile of raw content-log noise.
+
+## 16.22 Bedrock browsing/classification should feed the launcher intelligence too
+
+The Bedrock parser should reuse Enderloom's mod/add-on behavior intelligence.
+
+For imported/cataloged Bedrock packs, determine where evidence permits:
+
+- resource-only;
+- behavior-only;
+- script-backed;
+- client presentation impact;
+- server/gameplay impact;
+- modifies vanilla entities;
+- modifies vanilla blocks/items;
+- modifies vanilla biomes/worldgen;
+- adds new entities/content;
+- persistent world footprint;
+- experimental requirement;
+- removal risk;
+- Forever World suitability.
+
+A Bedrock Add-On should therefore be able to participate in the same useful “what does this touch?” experience as a Java mod.
+
+## 16.23 Clean-room Bedrock graduation replay
+
+After the first AoA Bedrock implementation is complete, do not declare the Bedrock tooling proven yet.
+
+Perform a clean-room replay:
+
+1. start from the finished semantic AoA master and immutable original authorities;
+2. create clean Bedrock output workspaces;
+3. let Enderloom generate the Bedrock work queue automatically;
+4. generate/repair Behavior Pack, Resource Pack and scripts;
+5. validate/package them;
+6. run the strongest Bedrock runtime proof available;
+7. compare against semantic/original evidence;
+8. package the final `.mcaddon`/source/evidence;
+9. require no human editing of ordinary generated pack/script source between automated steps.
+
+If the replay requires a person to manually reconnect hundreds of entity resources, manually rewrite routine Molang, manually fix manifests, manually map components, or manually identify the next content family, Bedrock graduation fails and Enderloom must improve.
+
+## 16.24 Bedrock -> Java graduation fixture
+
+AoA itself starts from Java authority, so also preserve a representative **Bedrock-origin conversion fixture suite** to ensure the reverse direction is genuinely tested.
+
+The suite should include authorized/generated fixtures covering:
+
+- data-driven entity/component groups/events;
+- Script API entity behavior;
+- custom block/item components;
+- Molang-heavy render state;
+- animation controllers;
+- multiple geometry/texture variants;
+- spawn rules;
+- loot/recipes;
+- structure/worldgen content;
+- custom dimension usage where current APIs allow;
+- persistent player/world state;
+- UI/form interaction;
+- pack dependency graphs;
+- resource-only behavior;
+- mixed BP/RP/script add-ons.
+
+Convert those fixtures to at least one representative Java target and require real runtime proof.
+
+This prevents AoA Java -> Bedrock success from masking weak Bedrock -> Java intake/translation.
+
+## 16.25 AoA Bedrock final artifact/evidence set
+
+A completed Bedrock lane should preserve:
+
+- Behavior Pack source;
+- Resource Pack source;
+- scripts/source maps where used and distributable;
+- `.mcaddon` / `.mcpack` artifacts as appropriate;
+- optional deterministic QA world/template;
+- semantic parity report;
+- Java-vs-Bedrock equivalence ledger;
+- manifest/dependency report;
+- content-log validation evidence;
+- runtime evidence;
+- visual evidence;
+- persistence/restart evidence;
+- performance evidence;
+- experimental-capability report;
+- exact Bedrock version/API module versions;
+- checksums;
+- clean-room replay receipt.
+
+## 16.26 Bedrock graduation acceptance
+
+Enderloom does not complete the Bedrock half of the AoA capstone until:
+
+- a complete AoA Bedrock Add-On is generated from the same semantic master rather than a hand-maintained unrelated project;
+- the current stable Bedrock baseline was refreshed from official creator documentation before release;
+- Behavior Pack, Resource Pack, scripts and manifests are structurally valid;
+- every meaningful AoA semantic item has a Bedrock disposition;
+- entity gameplay is behaviorally faithful at the appropriate depth;
+- models/textures/animations/controllers/render state are proven in the real client where applicable;
+- blocks/items/recipes/loot/progression are actually playable;
+- legitimate AoA dimensions/world spaces are implemented to the strongest capability the current Bedrock platform supports;
+- world/player progression persists across save/reload/rejoin;
+- multiplayer/server-authoritative paths are tested where applicable;
+- the actual packaged Add-On imports and runs;
+- content logs do not contain ignored task-related failures;
+- performance is challenged without content/fidelity reduction;
+- platform differences are explicit and evidence-backed rather than hidden omissions;
+- Bedrock intake can re-ingest the produced AoA Add-On and recover the expected semantic inventory;
+- representative round-trip tests do not lose supported semantics;
+- representative Bedrock-origin fixtures can convert back into working Java mods;
+- a clean-room replay can regenerate the AoA Bedrock lane without routine human source editing;
+- Bedrock failures improve reusable Enderloom parsers/adapters/diagnostics rather than becoming AoA-only hacks.
+
+The Bedrock capstone is successful when Enderloom can truthfully say:
+
+> “I understand enough of both Java modding and Bedrock Add-On development to preserve the meaning of a large real mod across editions, prove the result in both runtimes, and reuse that knowledge on future authorized Bedrock -> Java conversions.”
+
+That is the cross-edition quality bar.
+
 # FINAL IMPLEMENTATION LAW
 
 **Use common sense and finish the job.**
