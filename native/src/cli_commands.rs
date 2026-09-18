@@ -9,7 +9,7 @@ use std::path::PathBuf;
 
 #[derive(Subcommand, Debug)]
 pub(super) enum ExtraCommand {
-    /// Premium Minecraft test sessions, evidence and automation (no launcher window required).
+    /// Minecraft test sessions, evidence and automation (no launcher window required).
     Test {
         #[command(subcommand)]
         action: TestCommand,
@@ -105,6 +105,7 @@ pub(super) enum TaskCommand {
     List,
     Show { id: String },
     Cancel { id: String },
+    Resume { id: String },
     ClearFinished,
 }
 #[derive(Subcommand, Debug)]
@@ -301,6 +302,7 @@ impl ExtraCommand {
             Self::Task {
                 action: TaskCommand::Cancel { .. },
             } => "task cancel",
+            Self::Task { action: TaskCommand::Resume { .. } } => "task resume",
             Self::Task { .. } => "task clear-finished",
             Self::Version { .. } => "version list",
             Self::Loader { .. } => "loader versions",
@@ -480,6 +482,7 @@ impl ExtraCommand {
                 confirmed(yes)?;
                 ("clear_finished_tasks", json!({}))
             }
+            Self::Task { action: TaskCommand::Resume { id } } => ("resume_task",json!({"taskId":id})),
             Self::Version {
                 action:
                     VersionCommand::List {

@@ -30,7 +30,7 @@ async function editDatabase(edit){await service.close();const db=new DatabaseSyn
   await editDatabase(db=>{db.exec('DROP TABLE graph_project_observations; PRAGMA user_version=21;');});
   graph=await get();assert.equal(graph.observations.length,linked,'Schema 21 release-linked observations are recovered');assert.equal(graph.releases.length,2);
   await service.close();graph=await get();assert.equal(graph.observations.length,linked,'Migration is idempotent across restarts');
-  const version=await editDatabase(db=>db.prepare('PRAGMA user_version').get().user_version);assert.equal(version,23);
+  const version=await editDatabase(db=>db.prepare('PRAGMA user_version').get().user_version);assert.equal(version,24);
   assert(fs.readFileSync(path.join(instance.dir,'mods/same-name.jar')).equals(bytes));
   const result={passed:true,schema:version,checks:['versionless project remains visible','project claims isolated without a release','alias reuses canonical project','provider version IDs cannot collide','immutable metadata conflict rejected','schema 21 migration','restart idempotence','source bytes preserved']};
   fs.mkdirSync(path.join(root,'output'),{recursive:true});fs.writeFileSync(path.join(root,'output/graph-regression-qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));

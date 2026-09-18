@@ -240,12 +240,23 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
             let task = state.tasks.start_ipc(crate::tasks::TaskKind::PerformanceScan, crate::tasks::TaskSpec {
                 title: "Inspect mods".into(), subtitle: Some(instance.name), instance_id: Some(id.clone()), ..Default::default()
             })?;
+            task.checkpoint(crate::tasks::TaskCheckpoint::ModInspection {instance_id:id.clone(),history})?;
             let state = state.clone();
             tokio::task::spawn_blocking(move || {
                 let result = crate::creative::scan_instance(&state, &id, &task, history, true);
                 task.finish(&result);
                 result
             }).await.map_err(|e|Error::other(format!("Inspection failed: {e}")))?
+        }
+        "resume_task" => {
+            let (checkpoint,task) = state.tasks.resume_ipc(&required_string(args,"taskId")?)?;
+            let state=state.clone();
+            tokio::task::spawn_blocking(move || {
+                let result = match checkpoint {
+                    crate::tasks::TaskCheckpoint::ModInspection {instance_id,history} => crate::creative::scan_instance(&state,&instance_id,&task,history,true),
+                };
+                task.finish(&result); result
+            }).await.map_err(|e|Error::other(format!("Resume failed: {e}")))?
         }
         "scan_instance_workbench" => {
             let state = state.clone();

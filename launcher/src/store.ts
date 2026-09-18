@@ -931,6 +931,7 @@ export const useStore = create<AppStore>((set) => ({
       track(await listen<Task>("task:update", (e) => {
         const task = e.payload;
         const previous = useStore.getState().tasks[task.id];
+        if (previous && (previous.revision ?? 0) > (task.revision ?? 0)) return;
         const justFinished =
           previous &&
           previous.state === "running" && task.state !== "running";

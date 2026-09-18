@@ -5,12 +5,11 @@ use std::{
     time::{Duration, Instant},
 };
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Emitter};
 use tokio_util::sync::CancellationToken;
 
 const EMIT_INTERVAL: Duration = Duration::from_millis(100);
-const MAX_FINISHED: usize = 50;
 
 pub type EventSink = Arc<dyn Fn(&str, serde_json::Value) + Send + Sync>;
 
@@ -46,7 +45,7 @@ impl EventTarget {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum TaskKind {
     GameInstall,
@@ -130,25 +129,39 @@ impl TaskKind {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum TaskState {
     Running,
     Succeeded,
     Failed,
     Cancelled,
+    Interrupted,
 }
 
 impl TaskState {
     pub fn is_finished(&self) -> bool {
         matches!(
             self,
-            TaskState::Succeeded | TaskState::Failed | TaskState::Cancelled
+            TaskState::Succeeded
+                | TaskState::Failed
+                | TaskState::Cancelled
+                | TaskState::Interrupted
         )
     }
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "operation", rename_all = "snake_case")]
+pub enum TaskCheckpoint {
+    ModInspection { instance_id: String, history: bool },
+}
+
+fn first_attempt() -> u32 {
+    1
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Task {
     pub id: String,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -171,6 +184,12 @@ pub struct Task {
     pub retry_note: Option<String>,
     pub started_at: i64,
     pub finished_at: Option<i64>,
+    #[serde(default)]
+    pub checkpoint: Option<TaskCheckpoint>,
+    #[serde(default = "first_attempt")]
+    pub attempt: u32,
+    #[serde(default)]
+    pub revision: u64,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -204,8 +223,22 @@ pub struct Tasks {
 
 impl Tasks {
     pub fn new(db: crate::db::Db) -> Self {
+        let mut history = db.load_task_history().unwrap_or_else(|error| {
+            tracing::error!(%error,"Could not read task history; stored records were preserved");
+            Vec::new()
+        });
+        for task in &mut history {
+            if task.state == TaskState::Running {
+                task.state = TaskState::Interrupted;
+                task.revision += 1;
+                task.error = Some("Enderloom closed before this operation finished.".into());
+                if let Err(error) = db.save_task(task) {
+                    tracing::error!(%error,task_id=%task.id,"Could not record interrupted task");
+                }
+            }
+        }
         Self {
-            inner: Mutex::new(Vec::new()),
+            inner: Mutex::new(history),
             tokens: Mutex::new(HashMap::new()),
             db,
             event_sink: Mutex::new(None),
@@ -244,26 +277,12 @@ impl Tasks {
     }
 
     pub fn clear_finished(&self) {
-        self.inner
-            .lock()
-            .unwrap()
-            .retain(|t| !t.state.is_finished());
-    }
-
-    fn prune(list: &mut Vec<Task>) {
-        let finished = list.iter().filter(|t| t.state.is_finished()).count();
-        if finished <= MAX_FINISHED {
+        let mut list = self.inner.lock().unwrap();
+        if let Err(error) = self.db.clear_finished_task_history() {
+            tracing::error!(%error,"Could not clear task history");
             return;
         }
-        let mut excess = finished - MAX_FINISHED;
-        list.retain(|t| {
-            if excess > 0 && t.state.is_finished() {
-                excess -= 1;
-                false
-            } else {
-                true
-            }
-        });
+        list.retain(|t| !t.state.is_finished() || t.state == TaskState::Interrupted);
     }
 
     pub fn start(
@@ -316,6 +335,9 @@ impl Tasks {
             retry_note: None,
             started_at: chrono::Utc::now().timestamp(),
             finished_at: None,
+            checkpoint: None,
+            attempt: 1,
+            revision: 1,
         };
 
         let id = task.id.clone();
@@ -330,10 +352,10 @@ impl Tasks {
             })?;
         }
 
+        self.db.save_task(&task)?;
         {
             let mut list = self.inner.lock().unwrap();
             list.push(task.clone());
-            Self::prune(&mut list);
         }
         let token = CancellationToken::new();
         self.tokens
@@ -345,38 +367,124 @@ impl Tasks {
 
         Ok(TaskHandle {
             id,
+            attempt: task.attempt,
             target,
             tasks: Arc::clone(self),
             last_emit: Mutex::new(Instant::now()),
             token,
             written: Mutex::new(Vec::new()),
+            last_persist: Mutex::new(Instant::now()),
         })
     }
 
-    fn mutate<F>(&self, id: &str, apply: F) -> Option<Task>
+    pub fn resume_ipc(
+        self: &Arc<Self>,
+        id: &str,
+    ) -> crate::error::Result<(TaskCheckpoint, TaskHandle)> {
+        let sink = self
+            .event_sink()
+            .ok_or_else(|| crate::error::Error::other("Task event sink is unavailable"))?;
+        let mut list = self.inner.lock().unwrap();
+        let task = list
+            .iter_mut()
+            .find(|t| t.id == id)
+            .ok_or_else(|| crate::error::Error::other("Task was not found"))?;
+        if task.state == TaskState::Running || task.state == TaskState::Succeeded {
+            return Err(crate::error::Error::other(
+                "This task is already running or complete",
+            ));
+        }
+        let checkpoint = task.checkpoint.clone().ok_or_else(|| {
+            crate::error::Error::other(
+                "This operation has no safe resume checkpoint. Its recorded history is preserved.",
+            )
+        })?;
+        let mut next = task.clone();
+        next.state = TaskState::Running;
+        next.error = None;
+        next.finished_at = None;
+        next.stage = "resuming".into();
+        next.attempt += 1;
+        next.revision += 1;
+        next.request_scope = REQUEST_SCOPE.try_with(Clone::clone).ok();
+        self.db.save_task(&next)?;
+        *task = next.clone();
+        let token = CancellationToken::new();
+        self.tokens.lock().unwrap().insert(id.into(), token.clone());
+        drop(list);
+        let target = EventTarget::Ipc(sink);
+        target.emit("task:update", &next);
+        Ok((
+            checkpoint,
+            TaskHandle {
+                id: id.into(),
+                attempt: next.attempt,
+                target,
+                tasks: Arc::clone(self),
+                last_emit: Mutex::new(Instant::now()),
+                token,
+                written: Mutex::new(Vec::new()),
+                last_persist: Mutex::new(Instant::now()),
+            },
+        ))
+    }
+
+    fn mutate<F>(&self, id: &str, attempt: u32, apply: F) -> Option<Task>
     where
         F: FnOnce(&mut Task),
     {
         let mut list = self.inner.lock().unwrap();
         let task = list.iter_mut().find(|t| t.id == id)?;
-        if task.state.is_finished() {
+        if task.state.is_finished() || task.attempt != attempt {
             return None;
         }
         apply(task);
+        task.revision += 1;
         Some(task.clone())
     }
 }
 
 pub struct TaskHandle {
     id: String,
+    attempt: u32,
     target: EventTarget,
     tasks: Arc<Tasks>,
     last_emit: Mutex<Instant>,
     token: CancellationToken,
     written: Mutex<Vec<PathBuf>>,
+    last_persist: Mutex<Instant>,
 }
 
 impl TaskHandle {
+    pub fn checkpoint(&self, checkpoint: TaskCheckpoint) -> crate::error::Result<()> {
+        let mut list = self.tasks.inner.lock().unwrap();
+        let task = list
+            .iter_mut()
+            .find(|t| t.id == self.id)
+            .ok_or_else(|| crate::error::Error::other("Task no longer exists"))?;
+        if task.state != TaskState::Running || task.attempt != self.attempt {
+            return Err(crate::error::Error::other(
+                "Task attempt is no longer active",
+            ));
+        }
+        let mut next = task.clone();
+        next.checkpoint = Some(checkpoint);
+        next.revision += 1;
+        self.tasks.db.save_task(&next)?;
+        *task = next;
+        Ok(())
+    }
+
+    fn persist(&self, task: &Task, force: bool) {
+        let mut last = self.last_persist.lock().unwrap();
+        if force || last.elapsed() >= Duration::from_secs(1) {
+            if let Err(error) = self.tasks.db.update_task(task) {
+                tracing::error!(%error,task_id=%self.id,"Could not checkpoint task progress");
+            } else {
+                *last = Instant::now();
+            }
+        }
+    }
     pub fn token(&self) -> CancellationToken {
         self.token.clone()
     }
@@ -400,27 +508,29 @@ impl TaskHandle {
     }
 
     pub fn stage(&self, stage: &str) {
-        if let Some(task) = self.tasks.mutate(&self.id, |t| {
+        if let Some(task) = self.tasks.mutate(&self.id, self.attempt, |t| {
             t.stage = stage.to_string();
         }) {
             self.force_emit();
+            self.persist(&task, false);
             self.target.emit("task:update", &task);
         }
     }
 
     pub fn set_total(&self, total: u64, total_bytes: u64) {
-        if let Some(task) = self.tasks.mutate(&self.id, |t| {
+        if let Some(task) = self.tasks.mutate(&self.id, self.attempt, |t| {
             t.total = total;
             t.total_bytes = total_bytes;
         }) {
             self.force_emit();
+            self.persist(&task, true);
             self.target.emit("task:update", &task);
         }
     }
 
     pub fn progress(&self, completed: u64, total: u64, downloaded_bytes: u64, total_bytes: u64) {
         let mut cleared_retry = false;
-        let updated = self.tasks.mutate(&self.id, |t| {
+        let updated = self.tasks.mutate(&self.id, self.attempt, |t| {
             t.completed = completed;
             t.total = total;
             t.downloaded_bytes = downloaded_bytes;
@@ -431,6 +541,7 @@ impl TaskHandle {
             }
         });
         if let Some(task) = updated {
+            self.persist(&task, false);
             if cleared_retry {
                 self.force_emit();
                 self.target.emit("task:update", &task);
@@ -441,11 +552,12 @@ impl TaskHandle {
     }
 
     pub fn note_retry(&self, attempt: u32, max: u32, reason: &str) {
-        if let Some(task) = self.tasks.mutate(&self.id, |t| {
+        if let Some(task) = self.tasks.mutate(&self.id, self.attempt, |t| {
             t.retries += 1;
             t.retry_note = Some(format!("Retrying {attempt} of {max}: {reason}"));
         }) {
             self.force_emit();
+            self.persist(&task, true);
             self.target.emit("task:update", &task);
         }
     }
@@ -455,10 +567,11 @@ impl TaskHandle {
         let Some(task) = list.iter_mut().find(|t| t.id == self.id) else {
             return;
         };
-        if task.state.is_finished() {
+        if task.state.is_finished() || task.attempt != self.attempt {
             return;
         }
         task.state = state;
+        task.revision += 1;
         task.error = error;
         task.finished_at = Some(chrono::Utc::now().timestamp());
         if state == TaskState::Succeeded && task.total > 0 {
@@ -472,11 +585,12 @@ impl TaskHandle {
             _ => task.stage.clone(),
         };
         let snapshot = task.clone();
-        drop(list);
+        self.persist(&snapshot, true);
         self.tasks.tokens.lock().unwrap().remove(&self.id);
         if let Err(error) = self.tasks.db.end_operation(&self.id) {
             tracing::warn!(task_id = %self.id, %error, "could not clear the recovery journal");
         }
+        drop(list);
         self.target.emit("task:update", &snapshot);
     }
 
@@ -503,7 +617,7 @@ impl TaskHandle {
 
 impl Drop for TaskHandle {
     fn drop(&mut self) {
-        self.tasks.tokens.lock().unwrap().remove(&self.id);
+        self.settle(TaskState::Failed, Some("The operation stopped before completion. Its checkpoint and history were preserved.".into()));
     }
 }
 
@@ -537,6 +651,9 @@ mod tests {
             retry_note: None,
             started_at: 0,
             finished_at: None,
+            checkpoint: None,
+            attempt: 1,
+            revision: 1,
         }
     }
 
@@ -592,16 +709,17 @@ mod tests {
     }
 
     #[test]
-    fn prune_drops_oldest_finished_beyond_the_cap() {
-        let mut list: Vec<Task> = (0..MAX_FINISHED + 5)
-            .map(|i| task(&i.to_string(), TaskState::Succeeded))
-            .collect();
-        list.push(task("live", TaskState::Running));
-        Tasks::prune(&mut list);
-
-        assert_eq!(list.len(), MAX_FINISHED + 1);
-        assert_eq!(list[0].id, "5");
-        assert!(list.iter().any(|t| t.id == "live"));
+    fn history_survives_restart_without_a_finished_task_cap() {
+        let db = test_db();
+        for id in 0..75 {
+            db.save_task(&task(&id.to_string(), TaskState::Succeeded))
+                .unwrap();
+        }
+        db.save_task(&task("interrupted", TaskState::Running))
+            .unwrap();
+        let tasks = Tasks::new(db);
+        assert_eq!(tasks.list().len(), 76);
+        assert_eq!(tasks.list().last().unwrap().state, TaskState::Interrupted);
     }
 
     #[test]
@@ -611,7 +729,7 @@ mod tests {
             let mut list = tasks.inner.lock().unwrap();
             list.push(task("done", TaskState::Succeeded));
         }
-        let result = tasks.mutate("done", |t| t.stage = "changed".into());
+        let result = tasks.mutate("done", 1, |t| t.stage = "changed".into());
         assert!(result.is_none());
         assert_eq!(tasks.list()[0].stage, "x");
     }

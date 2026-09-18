@@ -520,9 +520,12 @@ export interface WorldImportInspection {
   candidates: WorldImportCandidate[];
 }
 
-export type TaskState = "running" | "succeeded" | "failed" | "cancelled";
+export type TaskState = "running" | "succeeded" | "failed" | "cancelled" | "interrupted";
 
 export interface Task {
+  checkpoint?: { operation: 'mod_inspection'; instance_id: string; history: boolean } | null;
+  attempt?: number;
+  revision?: number;
   id: string;
   kind: TaskKind;
   title: string;

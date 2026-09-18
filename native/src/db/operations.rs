@@ -5,6 +5,36 @@ use crate::{error::Result, tasks::TaskKind};
 use super::{Db, PendingOperation};
 
 impl Db {
+    pub fn save_task(&self, task: &crate::tasks::Task) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute("INSERT INTO task_history(id,state,body,started_at) VALUES(?1,?2,?3,?4) ON CONFLICT(id) DO UPDATE SET state=excluded.state,body=excluded.body WHERE COALESCE(json_extract(task_history.body,'$.revision'),0)<=COALESCE(json_extract(excluded.body,'$.revision'),0)",params![task.id,serde_json::to_value(task.state)?.as_str().unwrap_or("unknown"),serde_json::to_string(task)?,task.started_at])?;
+        Ok(())
+    }
+    pub fn load_task_history(&self) -> Result<Vec<crate::tasks::Task>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare("SELECT id,body FROM task_history ORDER BY started_at,rowid")?;
+        let mut tasks = Vec::new();
+        for row in stmt.query_map([], |row| Ok((row.get::<_, String>(0)?,row.get::<_, String>(1)?)))? {
+            let (id,body) = row?;
+            match serde_json::from_str(&body) {
+                Ok(task) => tasks.push(task),
+                Err(error) => tracing::error!(%error,task_id=%id,"Unreadable task history record preserved; remaining records are still available"),
+            }
+        }
+        Ok(tasks)
+    }
+    pub fn update_task(&self, task: &crate::tasks::Task) -> Result<()> {
+        // A delayed progress write must never recreate history explicitly cleared by the user.
+        self.0.lock().unwrap().execute("UPDATE task_history SET state=?2,body=?3 WHERE id=?1 AND COALESCE(json_extract(body,'$.revision'),0)<=?4",params![task.id,serde_json::to_value(task.state)?.as_str().unwrap_or("unknown"),serde_json::to_string(task)?,task.revision])?;
+        Ok(())
+    }
+    pub fn clear_finished_task_history(&self) -> Result<()> {
+        self.0.lock().unwrap().execute(
+            "DELETE FROM task_history WHERE state IN ('succeeded','failed','cancelled')",
+            [],
+        )?;
+        Ok(())
+    }
     pub fn begin_operation(&self, op: &PendingOperation) -> Result<()> {
         let conn = self.0.lock().unwrap();
         conn.execute(

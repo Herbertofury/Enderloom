@@ -109,6 +109,7 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 }
 
 export const api = {
+  resumeTask: (taskId: string) => call<PerformanceReport>("resume_task", { taskId }),
   getProjectArtifactGraph: (provider: string, projectId: string) => call<ProjectArtifactGraph>("get_project_artifact_graph", { provider, projectId }),
   verifyProjectArtifacts: (provider: string, projectId: string) => call<ProjectArtifactGraph>("verify_project_artifacts", { provider, projectId }),
   previewProjectSourceLink: (provider: string, projectId: string, otherProvider: string, otherProjectId: string) => call<ProjectSourcePreview>("preview_project_source_link", { provider, projectId, otherProvider, otherProjectId }),

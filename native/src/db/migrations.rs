@@ -2,7 +2,7 @@ use rusqlite::{params, Connection};
 
 use crate::error::Result;
 
-pub(super) const SCHEMA_VERSION: i64 = 23;
+pub(super) const SCHEMA_VERSION: i64 = 24;
 
 fn column_exists(conn: &Connection, table: &str, column: &str) -> Result<bool> {
     let mut stmt = conn.prepare(&format!("PRAGMA table_info({table})"))?;
@@ -41,6 +41,7 @@ fn add_column_if_missing(
 
 pub(super) fn migrate(conn: &Connection) -> Result<()> {
     super::graph::migrate_graph(conn)?;
+    conn.execute_batch("CREATE TABLE IF NOT EXISTS task_history(id TEXT PRIMARY KEY,state TEXT NOT NULL,body TEXT NOT NULL,started_at INTEGER NOT NULL);")?;
     conn.execute_batch(
         "CREATE TABLE IF NOT EXISTS settings(
             key TEXT PRIMARY KEY,

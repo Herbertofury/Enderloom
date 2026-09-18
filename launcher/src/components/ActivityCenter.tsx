@@ -23,6 +23,9 @@ import {
 } from "../lib/useTasks";
 import { useStore } from "../store";
 import { formatBytes } from "../lib/format";
+import { api } from "../lib/api";
+import { useCreative } from "../creative-store";
+import { toast } from "sonner";
 
 
 function Ring({ fraction }: { fraction: number | null }) {
@@ -56,6 +59,7 @@ function Ring({ fraction }: { fraction: number | null }) {
 }
 
 function StateIcon({ task }: { task: Task }) {
+  if (task.state === "interrupted") return <TriangleAlert className="size-3.5 text-warn" />;
   if (task.retry_note) return <RotateCw className="size-3.5 animate-spin text-warn" />;
   if (task.state === "succeeded") return <Check className="size-3.5 text-ok" />;
   if (task.state === "failed") return <TriangleAlert className="size-3.5 text-danger" />;
@@ -64,12 +68,20 @@ function StateIcon({ task }: { task: Task }) {
 }
 
 function Row({ task, onCancel }: { task: Task; onCancel: (id: string) => void }) {
+  const [resuming, setResuming] = useState(false);
   const fraction = taskFraction(task);
   const active = task.state === "running";
   const cancellable = active && !task.id.startsWith("optimistic:");
+  const resumable = !!task.checkpoint && ['interrupted', 'failed', 'cancelled'].includes(task.state);
+  async function resume() {
+    setResuming(true);
+    try { const report = await api.resumeTask(task.id); useCreative.setState(state => ({ scans: { ...state.scans, [report.instance_id]: report } })); }
+    catch (error) { toast.error(String(error)); }
+    finally { setResuming(false); }
+  }
 
   return (
-    <div className="flex items-start gap-3 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-surface-2">
+    <div data-task-id={task.id} data-task-state={task.state} className="flex items-start gap-3 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-surface-2">
       {task.icon_url ? (
         <img
           src={task.icon_url}
@@ -87,6 +99,7 @@ function Row({ task, onCancel }: { task: Task; onCancel: (id: string) => void })
           <span className="truncate text-[13px] font-medium text-content">{task.title}</span>
           <span className="ml-auto flex shrink-0 items-center gap-1">
             <StateIcon task={task} />
+            {resumable && <button type="button" disabled={resuming} onClick={() => void resume()} aria-label={`Resume ${task.title}`} className="rounded-md bg-brand/10 px-2 py-1 text-[11px] text-brand hover:bg-brand/20 disabled:opacity-50">{resuming ? 'Resuming…' : 'Resume'}</button>}
             {cancellable && (
               <button
                 onClick={() => onCancel(task.id)}
@@ -100,14 +113,14 @@ function Row({ task, onCancel }: { task: Task; onCancel: (id: string) => void })
           </span>
         </div>
 
+        {task.subtitle && <div className="truncate text-[11px] text-content-muted" title={task.subtitle}>{task.subtitle}{(task.attempt ?? 1) > 1 && <span className="text-content-faint"> · Attempt {task.attempt}</span>}</div>}
         <div className="truncate text-[11px] text-content-faint">
           {task.error ? (
-            <span className="text-danger">{task.error}</span>
+            <span className={task.state === 'interrupted' ? 'text-warn' : 'text-danger'} title={task.error}>{task.error}</span>
           ) : task.retry_note ? (
             <span className="text-warn">{task.retry_note}</span>
           ) : (
             <>
-              {!active && task.subtitle && <span>{task.subtitle} · </span>}
               <span className="capitalize">{task.stage}</span>
               {active && task.total > 0 && (
                 <span>
@@ -164,7 +177,7 @@ export function ActivityCenter({ immersive }: { immersive: boolean }) {
   const popupRef = useRef<HTMLDivElement>(null);
   const [anchor, setAnchor] = useState({ top: 60, right: 16 });
 
-  const hasFailure = finished.some((t) => t.state === "failed");
+  const hasFailure = finished.some((t) => t.state === "failed" || t.state === "interrupted");
   const fraction = aggregateFraction(active);
 
   useEffect(() => {
