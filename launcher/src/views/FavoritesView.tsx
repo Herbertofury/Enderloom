@@ -341,7 +341,7 @@ export function FavoritesView() {
               <option value="installed">Installed</option>
               <option value="uninstalled">Not installed</option>
               <option value="updates">Update available</option>
-              <option value="mcreator">MCreator · Premium</option>
+              <option value="mcreator">MCreator</option>
             </select>
             <select
               aria-label="Sort favorites"

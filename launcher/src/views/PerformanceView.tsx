@@ -165,8 +165,7 @@ export function PerformanceView() {
       <header className="cr-hero">
         <div>
           <span className="cr-eyebrow">
-            <FlaskConical size={14} /> PERFORMANCE{" "}
-            <span className="cr-premium">PREMIUM PREVIEW</span>
+            <FlaskConical size={14} /> PERFORMANCE
           </span>
           <h1>Know what’s in your pack.</h1>
           <p>

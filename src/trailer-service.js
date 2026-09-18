@@ -16,11 +16,10 @@ async function fetchTrailerText(raw, { signal, timeoutMs = 12000, maxBytes = 4 *
   throw Error('Too many source redirects');
 }
 
-// Same preview policy as the current Config/Addons Premium workbench. A shipping
-// entitlement provider can replace this callback; renderer preferences grant no access.
-const previewEntitlement = () => ({ autoplay: true, mode: 'preview', label: 'Premium preview' });
+// Playback is part of Enderloom. Preferences control when media plays.
+const defaultEntitlement = () => ({ autoplay: true, mode: 'available', label: '' });
 const defaults = { enabled: false, catalog: false, detail: true, reducedData: false, captions: true };
-function createTrailerService({ store, entitlement = previewEntitlement, fetchText = fetchTrailerText, cachedProject = () => null, resolveProject }) {
+function createTrailerService({ store, entitlement = defaultEntitlement, fetchText = fetchTrailerText, cachedProject = () => null, resolveProject }) {
   const discovery = new TrailerDiscovery({ fetchText: async (url, options) => {
     const match = url.match(/^https:\/\/api\.modrinth\.com\/v2\/project\/([^/?]+)$/);
     const cached = match && cachedProject(decodeURIComponent(match[1]));

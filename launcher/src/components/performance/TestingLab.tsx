@@ -30,7 +30,7 @@ export function TestingLab({ instanceId, onEvidence }: { instanceId: string; onE
   });
   return <div className="test-lab">
     <section className="test-hero">
-      <div className="test-hero-icon"><FlaskConical size={30}/></div><div><span className="test-eyebrow">PREMIUM TESTING LAB</span><h2>Play it. Measure it. Keep the proof.</h2><p>Drive a real Minecraft client from here or the CLI. Every session runs in its own copy and keeps its evidence together.</p></div>
+      <div className="test-hero-icon"><FlaskConical size={30}/></div><div><span className="test-eyebrow">TESTING LAB</span><h2>Play it. Measure it. Keep the proof.</h2><p>Drive a real Minecraft client from here or the CLI. Every session runs in its own copy and keeps its evidence together.</p></div>
       <span className="test-mode">Rendered client · CLI controlled</span>
     </section>
     <div className="test-setup">

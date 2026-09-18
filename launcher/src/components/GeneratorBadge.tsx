@@ -50,7 +50,7 @@ export function GeneratorBadge({
           />
           <div className="creative-modal-body">
             <span className="cr-eyebrow">
-              PREMIUM PREVIEW · GENERATOR INSPECTION
+              GENERATOR INSPECTION
             </span>
             <h3>{generatorLabel(current)}</h3>
             <p>{inspection.scope}</p>

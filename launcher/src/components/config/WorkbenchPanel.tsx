@@ -66,13 +66,6 @@ const size = (bytes: number) =>
 const date = (at: number) => new Date(at * 1000).toLocaleString();
 const short = (hash: string) => hash.slice(0, 12);
 const err = (e: unknown) => String(e).replace(/^Error: /, "");
-function Premium() {
-  return (
-    <span className="wb-premium">
-      <Sparkles size={10} /> PREMIUM PREVIEW
-    </span>
-  );
-}
 function Status({ entry }: { entry: WorkbenchEntry }) {
   if (!entry.exists) return <span className="wb-badge danger">Missing</span>;
   if (entry.validation === "pending") return <span className="wb-badge">Checking…</span>;
@@ -478,12 +471,6 @@ export function WorkbenchPanel({
               within reach.
             </p>
           </div>
-          <div className="wb-rail-note premium">
-            <Premium />
-            <p>
-              Custom installs and mod lineage are available in this preview.
-            </p>
-          </div>
         </aside>
         <main className="wb-main">
           <div className="wb-library-heading">
@@ -857,7 +844,6 @@ export function WorkbenchPanel({
             </div>
             <div className="wb-history-heading">
               <h4>Revision history</h4>
-              <Premium />
             </div>
             {detail.tracked ? (
               <div className="wb-timeline">
@@ -1037,11 +1023,7 @@ function InstallDialog({
       <ModalHeader
         id="install-addon-title"
         title="A place for every extra."
-        subtitle={
-          <span>
-            Guided custom installation · <Premium />
-          </span>
-        }
+        subtitle="Guided custom installation"
         icon={<Package className="text-trace" />}
         onClose={onClose}
       />
@@ -1161,7 +1143,7 @@ function InstallDialog({
           </>
         )}
         <div className="wb-destination">
-          <span>INSTALL PREVIEW</span>
+          <span>REVIEW INSTALLATION</span>
           <code>
             {destination || "Choose a destination"}/{name || "your-file.zip"}
           </code>
@@ -1247,7 +1229,7 @@ function TrackingDialog({
       <ModalHeader
         id="tracking-title"
         title="Keep the story behind the file."
-        subtitle={<Premium />}
+        subtitle="Track the original, your edits, and their source."
         onClose={onClose}
         icon={<GitBranch className="text-trace" />}
       />

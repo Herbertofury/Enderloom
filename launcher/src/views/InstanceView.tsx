@@ -1217,7 +1217,6 @@ export function InstanceView() {
         ) : (
           <div className="px-6 py-5">
           {tab === "mods" && <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-violet-400/15 bg-violet-400/5 px-4 py-3 text-xs">
-            <span className="rounded bg-violet-400/15 px-2 py-1 text-[9px] font-semibold tracking-wide text-violet-300">PREMIUM PREVIEW</span>
             <span className="flex-1 text-content-muted">{inspecting ? "Inspecting exact mod files for generator evidence…" : inspectionError ? `Inspection: ${inspectionError}` : `${viewCounts.mcreator} MCreator candidates · labels explain the evidence`}</span>
             <button disabled={inspecting} className="text-violet-300 disabled:opacity-40" onClick={async () => { if (!detailId) return; setInspecting(true); try { await useCreative.getState().scan(detailId); setInspectedItems(itemsByTab.mods); setInspectionError(null); } catch(e) { setInspectionError(String(e)); } finally { setInspecting(false); } }}>Rescan</button>
             <button className="text-violet-300" onClick={() => useStore.getState().setView("performance")}>Performance ↗</button>

@@ -194,7 +194,7 @@
   }
   async function preferences() {
     const dialog = document.createElement('dialog'); dialog.className = 'trailer-dialog';
-    const h = document.createElement('h2'); h.textContent = `Trailer previews · ${prefs.entitlement.label}`; dialog.append(h);
+    const h = document.createElement('h2'); h.textContent = 'Trailer playback'; dialog.append(h);
     for (const [key, label] of [['enabled', 'Enable automatic trailer previews'], ['catalog', 'Preview on Catalog hover or keyboard focus'], ['detail', 'Autoplay the project detail hero'], ['reducedData', 'Save data · manual playback only'], ['captions', 'Show captions when available']]) {
       const row = document.createElement('label'), input = document.createElement('input'); input.type = 'checkbox'; input.checked = prefs[key]; input.disabled = key === 'enabled' && !prefs.entitlement.autoplay;
       input.onchange = async () => { prefs = await bridge.trailers.settings({ [key]: input.checked }); stop(); }; row.append(input, document.createTextNode(label)); dialog.append(row);
