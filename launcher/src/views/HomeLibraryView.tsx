@@ -29,7 +29,7 @@ export function HomeLibraryView() {
     return () => { cancelled = true; };
   },[instances]);
   const art = (instance: Instance) => logoSrc(instance.logo) || (media[instance.id] ? mediaSrc(media[instance.id]!) : undefined);
-  const openCard = (instance: Instance) => <button className="home-instance-open" onClick={()=>useStore.getState().openInstance(instance.id)} aria-label={`Open ${instance.name}`} />;
+  const openCard = (instance: Instance) => <button className="home-instance-open" onClick={()=>useStore.getState().openInstance(instance.id)} aria-label={`Open ${instance.name}`} title={`${instance.name} · ${instance.loader || 'Vanilla'} ${instance.version_id}`} />;
   const liveProcesses = Object.values(running).filter(process=>['running','stopping'].includes(process.state));
   async function play(instance: Instance) {
     const state = useStore.getState();
@@ -43,7 +43,7 @@ export function HomeLibraryView() {
     const process = Object.values(running).find(p=>p.instance_id===instance.id && ['running','stopping'].includes(p.state));
     const task = tasks.get(instance.id);
     const busy = launching.includes(instance.id) || !!(task && task.kind !== 'performance_scan');
-    return <button className="home-play" disabled={busy} onClick={()=>process ? void useStore.getState().killInstance(process.running_id) : void play(instance)} aria-label={`${process?'Stop':'Play'} ${instance.name}`}>
+    return <button className="home-play" disabled={busy} onClick={event=>{event.stopPropagation(); process ? void useStore.getState().killInstance(process.running_id) : void play(instance);}} aria-label={`${process?'Stop':'Play'} ${instance.name}`}>
       {busy ? <Loader2 size={14} className="animate-spin"/> : process ? <Square size={13}/> : <Play size={14}/>} {busy?'Starting…':process?'Stop':'Play'}
     </button>;
   };
@@ -54,9 +54,9 @@ export function HomeLibraryView() {
     {!rows.length && <p className="home-empty">{query?'No instances match your search.':'Create or connect an instance to get started.'}</p>}
     {groups.filter(group=>group.items.length).map(group=><section key={group.id}>
       <button className="home-group-heading" onClick={()=>setCollapsed(s=>({...s,[group.id]:!s[group.id]}))} aria-expanded={!collapsed[group.id]}><ChevronDown size={16} style={{transform:collapsed[group.id]?'rotate(-90deg)':undefined}}/>{group.name}<span>{group.items.length}</span></button>
-      {!collapsed[group.id] && <div className={layout==='tiles'?'library-tile-grid home-instance-grid':'home-instance-list'} style={{'--tile-width':TILE_SIZE_STEPS[tileSize].widthPx+'px'} as React.CSSProperties}>{group.items.map(instance=><article key={instance.id} className="home-instance">
+      {!collapsed[group.id] && (layout === 'table' ? <div className="library-table-scroll"><table className="library-table" aria-label={`${group.name} instances`}><thead><tr><th>Instance</th><th>Minecraft</th><th>Loader</th><th>Last played</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{group.items.map(instance=><tr key={instance.id} onClick={()=>useStore.getState().openInstance(instance.id)}><td><button className="library-table-name" aria-label={`Open ${instance.name}`}><ContentIcon src={art(instance)} title={instance.name} className="size-10"/><strong>{instance.name}</strong></button></td><td>{instance.version_id}</td><td className="capitalize">{instance.loader || 'Vanilla'}</td><td>{instance.last_played_at ? relativeTime(instance.last_played_at) : 'Not played yet'}</td><td>{playButton(instance)}</td></tr>)}</tbody></table></div> : <div className={layout==='tiles'?'library-tile-grid home-instance-grid':'home-instance-list'} style={{'--tile-width':TILE_SIZE_STEPS[tileSize].widthPx+'px'} as React.CSSProperties}>{group.items.map(instance=><article key={instance.id} className="home-instance">
         {openCard(instance)}<div className="home-instance-art"><ContentIcon src={art(instance)} title={instance.name} className="size-full"/></div><div className="home-instance-info"><strong title={instance.name}>{instance.name}</strong><small>{instance.loader || 'Vanilla'} {instance.version_id}</small></div>{playButton(instance)}
-      </article>)}</div>}
+      </article>)}</div>)}
     </section>)}
   </div>;
 }

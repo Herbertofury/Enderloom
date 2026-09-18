@@ -103,6 +103,7 @@ export function ContentIcon({
     words.length > 1 ? words[0][0] + words[1][0] : words[0]?.slice(0, 2) || "M"
   ).toUpperCase();
   const hasImage = !!url && failed !== url && loaded === url;
+  const hasSource = !!url && failed !== url;
   return (
     <span
       ref={target}
@@ -113,20 +114,21 @@ export function ContentIcon({
       role="img"
       aria-label={`${title} icon`}
       data-content-icon
-      data-icon-state={hasImage ? "loaded" : "fallback"}
+      data-icon-state={hasImage ? "loaded" : hasSource ? "loading" : "fallback"}
       title={hasImage ? title : `${title} · artwork unavailable or loading`}
       style={{
-        background: `linear-gradient(145deg, hsl(${hue} 42% 33%), hsl(${(hue + 40) % 360} 35% 16%))`,
         ...style,
+        background: hasSource ? "transparent" : `linear-gradient(145deg, hsl(${hue} 42% 33%), hsl(${(hue + 40) % 360} 35% 16%))`,
       }}
     >
-      <span
+      {!hasSource && <span
         aria-hidden="true"
+        data-icon-fallback
         className="font-display font-bold tracking-tight text-white/90"
         style={{ fontSize: "clamp(12px, 1.2em, 28px)" }}
       >
         {initials}
-      </span>
+      </span>}
       {visible && url && failed !== url && (
         <img
           key={url}

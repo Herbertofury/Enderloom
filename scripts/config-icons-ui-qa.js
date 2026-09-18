@@ -58,7 +58,7 @@ let app;
         "visible-art",
         "data:image/svg+xml," +
           encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" fill="#38bdf8"/></svg>',
+            '<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="48" cy="48" r="20" fill="#38bdf8"/></svg>',
           ),
       ],
       ["broken-art", "data:image/png;base64,invalid"],
@@ -97,6 +97,10 @@ let app;
     exact: true,
   });
   await fallback.waitFor();
+  await page.waitForFunction(()=>document.querySelector('[aria-label="broken-art icon"]')?.getAttribute('data-icon-state')==='fallback');
+  assert.equal(await loaded.locator('[data-icon-fallback]').count(),0,'Transparent provider artwork must not overlay generated initials');
+  assert.equal(await loaded.evaluate(element=>getComputedStyle(element).backgroundImage),'none','Real artwork must not have the generated color gradient underneath');
+  assert.equal(await fallback.locator('[data-icon-fallback]').count(),1,'Missing artwork retains a single fallback');
   assert.equal(await fallback.getAttribute("data-icon-state"), "fallback");
   for (const icon of [loaded, fallback]) {
     const rect = await icon.boundingBox();

@@ -81,11 +81,20 @@ export interface ResultRow {
 
 export function ContentResults({ view, rows, provider, kind }: { view: ResultView; rows: ResultRow[]; provider: SearchProvider; kind: ContentKind }) {
   const tileSize = useLibraryLayout(s=>s.tileSize);
+  const layout = useLibraryLayout(s=>s.layout);
+  const projectUrl = (project: ProjectSummary) => {
+    if (provider === 'modrinth') return `https://modrinth.com/project/${encodeURIComponent(project.id)}`;
+    const segment = {mods:'mc-mods',modpacks:'modpacks',resourcepacks:'texture-packs',shaderpacks:'shaders',datapacks:'data-packs',schematics:undefined}[kind];
+    return segment && project.slug ? `https://www.curseforge.com/minecraft/${segment}/${encodeURIComponent(project.slug)}` : undefined;
+  };
+  if (layout === 'table') return <div className="library-table-scroll"><table className="library-table" aria-label="Discover projects"><thead><tr><th>Project</th><th>Author</th><th>Downloads</th><th>Updated</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{rows.map(({project,subline,onOpen,action})=><tr key={project.id} onClick={onOpen}>
+    <td><button className="library-table-name" aria-label={`Open ${project.title}`} data-trailer-context="catalog" data-project-url={projectUrl(project)} data-project-title={project.title}><ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-10"/><span><strong>{project.title}</strong>{subline && <small>{subline}</small>}</span></button></td><td>{project.author}</td><td>{formatCount(project.downloads)}</td><td>{project.updated ? relativeTime(Math.floor(new Date(project.updated).getTime()/1000)) : '—'}</td><td onClick={event=>event.stopPropagation()}><div className="library-table-actions"><FavoriteButton favorite={projectFavorite(project,provider,kind)}/>{action}</div></td>
+  </tr>)}</tbody></table></div>;
   if (view === "grid") {
     return (
       <div className="library-tile-grid" style={{'--tile-width':TILE_SIZE_STEPS[tileSize].widthPx+'px'} as React.CSSProperties}>
         {rows.map(({project,subline,onOpen,action})=><article key={project.id} className="library-project-tile">
-          <button className="library-tile-art" data-trailer-context="catalog" data-project-url={provider === "modrinth" ? `https://modrinth.com/project/${project.id}` : `https://www.curseforge.com/minecraft/${kind === "mods" ? "mc-mods" : kind}/${project.slug}`} data-project-title={project.title} onClick={onOpen} aria-label={project.title}><ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-full" /></button>
+          <button className="library-tile-art" data-trailer-context="catalog" data-project-url={projectUrl(project)} data-project-title={project.title} onClick={onOpen} aria-label={project.title}><ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-full" /></button>
           <div className="library-tile-info"><button onClick={onOpen} className="library-tile-name" title={project.title}>{project.title}</button><span className="library-tile-author" title={project.author}>By {project.author}</span>{subline && <span className="library-tile-note">{subline}</span>}</div>
           <div className="library-tile-actions"><FavoriteButton favorite={projectFavorite(project,provider,kind)} />{action}</div>
         </article>)}
@@ -104,9 +113,9 @@ export function ContentResults({ view, rows, provider, kind }: { view: ResultVie
           <ContentIcon src={project.icon_url} title={project.title} provider={provider} projectId={project.id} className="size-14" />
           <div className="min-w-0 flex-1">
             <div className="flex items-baseline gap-2">
-              <span className="truncate text-sm font-semibold text-content">
+              <button className="truncate text-sm font-semibold text-content" data-trailer-context="catalog" data-project-url={projectUrl(project)} data-project-title={project.title}>
                 {project.title}
-              </span>
+              </button>
               <span className="shrink-0 text-[11px] text-content-faint">
                 by {project.author}
               </span>
