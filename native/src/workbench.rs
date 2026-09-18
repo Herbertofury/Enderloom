@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, BTreeSet},
     io::{Read, Seek},
     path::{Path, PathBuf},
     sync::Mutex,
@@ -54,6 +54,20 @@ struct Record {
 #[serde(default)]
 struct Library {
     records: BTreeMap<String, Record>,
+}
+
+// Derived syntax/CRC results only. Every verified scan still reads and hashes
+// the actual bytes, including edits that preserve file size and timestamps.
+#[derive(Default, Serialize, Deserialize)]
+#[serde(default)]
+struct ValidationCache {
+    version: u32,
+    files: BTreeMap<String, VerifiedFile>,
+}
+#[derive(Serialize, Deserialize)]
+struct VerifiedFile {
+    hash: String,
+    issues: Vec<Value>,
 }
 
 #[derive(Clone, Default, Serialize, Deserialize)]
@@ -363,26 +377,27 @@ fn walk(
     root: &Path,
     folder: &str,
     found: &mut Vec<String>,
+    sizes: &mut BTreeMap<String, u64>,
     warnings: &mut Vec<String>,
 ) -> Result<()> {
     let dir = resolve(root, folder)?;
     if !files.exists(&dir)? {
         return Ok(());
     }
-    for child in files.read_dir(dir)? {
+    for (child, meta) in files.read_dir_metadata(dir)? {
         let name = child.file_name().unwrap_or_default().to_string_lossy();
         let relative = format!("{folder}/{name}");
-        let safe = match resolve(root, &relative) {
-            Ok(p) => p,
+        match resolve(root, &relative) {
+            Ok(_) => {},
             Err(e) => {
                 warnings.push(format!("{relative}: {e}"));
                 continue;
             }
         };
-        let meta = files.symlink_metadata(safe)?;
         if meta.is_dir() {
-            walk(files, root, &relative, found, warnings)?;
+            walk(files, root, &relative, found, sizes, warnings)?;
         } else if allowed_file(&relative) {
+            sizes.insert(relative.clone(), meta.len());
             found.push(relative);
         }
     }
@@ -421,6 +436,21 @@ fn mod_version(state: &AppState, id: &str, marker: &str) -> Result<Option<String
         }
     }
     Ok(None)
+}
+fn installed_mod_versions(state: &AppState, root: &Path) -> Result<BTreeMap<String, String>> {
+    let mut versions = BTreeMap::new();
+    let dir = resolve(root, "mods")?;
+    if state.files.exists(&dir)? {
+        for path in state.files.read_dir(&dir)? {
+            let name = path.file_name().unwrap_or_default().to_string_lossy();
+            if !name.ends_with(".jar") { continue; }
+            let Ok(safe) = target(root, &format!("mods/{name}")) else { continue; };
+            if let Some((Some(id), Some(version), _)) = crate::search::identify::cached_metadata(&state.files, &safe) {
+                versions.insert(id.to_lowercase(), version);
+            }
+        }
+    }
+    Ok(versions)
 }
 fn tacz_folder(version: Option<&str>) -> Option<&'static str> {
     let v = semver::Version::parse(version?.trim_start_matches('v')).ok()?;
@@ -463,11 +493,13 @@ fn config_mod_path(path: &str) -> bool {
     path.starts_with("mods/") && ["configured", "catalogue", "cloth-config", "cloth_config", "yet-another-config", "yacl", "modmenu", "defaultoptions"].iter().any(|name| path.to_lowercase().contains(name))
 }
 fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: bool) -> Result<Value> {
+    let started = std::time::Instant::now();
     let instance = find_instance(state, id)?;
     let root = PathBuf::from(&instance.dir);
     let mut library = load(&state.files, &root)?;
-    reconcile_toggles(&state.files, &root, &mut library)?;
+    let before = if verify { serde_json::to_vec(&library)? } else { vec![] };
     let mut paths = vec![];
+    let mut sizes = BTreeMap::new();
     let mut warnings = vec![];
     for folder in [
         "config",
@@ -485,7 +517,7 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
             }
             continue;
         }
-        if let Err(e) = walk(&state.files, &root, folder, &mut paths, &mut warnings) {
+        if let Err(e) = walk(&state.files, &root, folder, &mut paths, &mut sizes, &mut warnings) {
             warnings.push(format!("{folder}: {e}"));
         }
     }
@@ -503,9 +535,28 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
                 &root,
                 &format!("saves/{name}/serverconfig"),
                 &mut paths,
+                &mut sizes,
                 &mut warnings,
             ) {
                 warnings.push(e.to_string());
+            }
+        }
+    }
+    // Enumeration already established these paths. Do not restat both variants
+    // of every tracked file just to discover external enable/disable changes.
+    let found: BTreeSet<_> = paths.iter().cloned().collect();
+    for old in library.records.keys().cloned().collect::<Vec<_>>() {
+        if found.contains(&old) { continue; }
+        let next = if old.ends_with(".disabled") { old.trim_end_matches(".disabled").to_string() } else { format!("{old}.disabled") };
+        let custom_folder = !["config", "defaultconfigs", "pointblank", "tacz", "kubejs", "scripts", "mods", "saves"].contains(&old.split('/').next().unwrap_or(""));
+        let custom_toggle = custom_folder && match (target(&root, &old), target(&root, &next)) {
+            (Ok(previous), Ok(current)) => !state.files.exists(previous)? && state.files.is_file(current)?,
+            _ => false,
+        };
+        if (found.contains(&next) || custom_toggle) && !library.records.contains_key(&next) {
+            if let Some(mut record) = library.records.remove(&old) {
+                record.path = next.clone();
+                library.records.insert(next, record);
             }
         }
     }
@@ -515,19 +566,32 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
     paths.dedup();
     let sources = state.db.content_files(id, "mods")?;
     let mut entries = vec![];
-    let mut owner_versions = BTreeMap::<String, Option<String>>::new();
-    let tacz = if verify { mod_version(state, id, "tacz")? } else { sources.iter().find(|s|s.mod_id.as_deref()==Some("tacz")).and_then(|s|s.mod_version.clone()) };
-    let pointblank = if verify && paths.iter().any(|path| path.starts_with("pointblank/")) { mod_version(state, id, "pointblank")? } else { None };
+    let inventory_ms = started.elapsed().as_millis();
+    let owner_versions = if verify { installed_mod_versions(state, &root)? } else { BTreeMap::new() };
+    let tacz = if verify { owner_versions.get("tacz").cloned() } else { sources.iter().find(|s|s.mod_id.as_deref()==Some("tacz")).and_then(|s|s.mod_version.clone()) };
+    let pointblank = owner_versions.get("pointblank");
+    let owners_ms = started.elapsed().as_millis() - inventory_ms;
+    let cache_path = storage(&root, "validation-cache.json")?;
+    let mut validation = if verify { state.files.read(&cache_path).ok().and_then(|b| serde_json::from_slice::<ValidationCache>(&b).ok()).filter(|c| c.version == 1).unwrap_or_default() } else { ValidationCache::default() };
+    validation.version = 1;
+    let mut reused = 0;
+    let mut checked = 0;
+    let mut cache_changed = false;
+    let current_paths: BTreeSet<_> = paths.iter().cloned().collect();
+    let cache_len = validation.files.len();
+    validation.files.retain(|path, _| current_paths.contains(path));
+    cache_changed |= cache_len != validation.files.len();
     for path in paths {
         let mut issues: Vec<Value> = vec![];
-        let resolved = match target(&root, &path) {
+        let inventoried_size = sizes.get(&path).copied().filter(|_| !verify);
+        let resolved = match if inventoried_size.is_some() { Ok(root.join(&path)) } else { target(&root, &path) } {
             Ok(p) => p,
             Err(e) => {
                 warnings.push(format!("{path}: {e}"));
                 continue;
             }
         };
-        let exists = state.files.is_file(&resolved)?;
+        let exists = inventoried_size.is_some() || state.files.is_file(&resolved)?;
         let is_mod = path.starts_with("mods/");
         let config_mod = is_mod
             && [
@@ -580,10 +644,7 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
                 }
             }
             if !record.owner_mod_id.is_empty() {
-                if verify && !owner_versions.contains_key(&record.owner_mod_id) {
-                    owner_versions.insert(record.owner_mod_id.clone(), mod_version(state, id, &record.owner_mod_id)?);
-                }
-                if let Some(Some(current)) = owner_versions.get(&record.owner_mod_id) {
+                if let Some(current) = owner_versions.get(&record.owner_mod_id.to_lowercase()) {
                     if !record.owner_mod_version.is_empty() && current != &record.owner_mod_version {
                         issues.push(json!({"severity":"warning","message":format!("{} changed version from {} to {}. Review the author’s config migration notes.",record.owner_mod_id,record.owner_mod_version,current)}));
                     }
@@ -612,9 +673,16 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
         let mut size = 0;
         let mut provider_modified = false;
         if exists {
-            size = state.files.metadata(&resolved)?.len();
+            size = match inventoried_size { Some(size) => size, None => state.files.metadata(&resolved)?.len() };
             if verify {
-            match hash_file(&state.files, &resolved) {
+            // Text bytes are read once for both hashing and validation.
+            let text_bytes = if editable(&path) { Some(read_bytes(&state.files, &resolved)) } else { None };
+            let fingerprint = match &text_bytes {
+                Some(Ok(bytes)) => Ok(digest(bytes)),
+                Some(Err(error)) => Err(Error::other(error.to_string())),
+                None => hash_file(&state.files, &resolved),
+            };
+            match fingerprint {
                 Ok(h) => hash = h,
                 Err(e) => issues.push(json!({"severity":"error","message":e.to_string()})),
             }
@@ -639,25 +707,42 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
             {
                 observe(&state.files, &root, record, "External edit detected")?;
             }
-            if editable(&path) {
-                match read_bytes(&state.files, &resolved)
-                    .and_then(|b| String::from_utf8(b).map_err(|_| Error::other("Not valid UTF-8")))
-                {
-                    Ok(text) => {
-                        if let Some(problem) = text_problem(&path, &text) {
-                            issues.push(json!({"severity":"error","message":problem}));
+            if !hash.is_empty() && (editable(&path) || (!is_mod && extension(&path) == "zip")) {
+                if let Some(cached) = validation.files.get(&path).filter(|c| c.hash == hash) {
+                    issues.extend(cached.issues.iter().cloned());
+                    reused += 1;
+                } else {
+                    checked += 1;
+                    let mut problems = vec![];
+                    let mut cacheable = true;
+                    if let Some(Ok(bytes)) = &text_bytes {
+                      match std::str::from_utf8(bytes) {
+                        Ok(text) => {
+                        if let Some(problem) = text_problem(&path, text) {
+                            problems.push(json!({"severity":"error","message":problem}));
                         } else if !matches!(
                             extension(&path).as_str(),
                             "json" | "json5" | "jsonc" | "toml" | "yaml" | "yml" | "properties" | "mcmeta"
                         ) {
-                            issues.push(json!({"severity":"info","message":"Text readable; this format has no syntax validator. Mod-specific settings are not schema-validated."}));
+                            problems.push(json!({"severity":"info","message":"Text readable; this format has no syntax validator. Mod-specific settings are not schema-validated."}));
                         }
                     }
-                    Err(e) => issues.push(json!({"severity":"error","message":e.to_string()})),
-                }
-            } else if !is_mod && extension(&path) == "zip" {
-                if let Err(e) = archive_check(state.files.open(&resolved)?) {
-                    issues.push(json!({"severity":"error","message":e.to_string()}));
+                        Err(_) => problems.push(json!({"severity":"error","message":"Not valid UTF-8"})),
+                      }
+                    } else {
+                        if let Err(e) = archive_check(state.files.open(&resolved)?) {
+                            problems.push(json!({"severity":"error","message":e.to_string()}));
+                        }
+                        if hash_file(&state.files, &resolved)? != hash {
+                            cacheable = false;
+                            problems.push(json!({"severity":"error","message":"Archive changed during validation. Refresh after it finishes writing."}));
+                        }
+                    }
+                    issues.extend(problems.iter().cloned());
+                    if cacheable {
+                        validation.files.insert(path.clone(), VerifiedFile { hash: hash.clone(), issues: problems });
+                        cache_changed = true;
+                    }
                 }
             }
             }
@@ -686,7 +771,7 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
             }
         }
         if is_pb && pack_root_file && verify {
-            match pointblank.as_deref().and_then(|v|semver::Version::parse(v.trim_start_matches('v')).ok()) {
+            match pointblank.and_then(|v|semver::Version::parse(v.trim_start_matches('v')).ok()) {
                 None=>issues.push(json!({"severity":"warning","message":"Point Blank dependency/version is unverified. Doom 1.3.5 requires Point Blank 1.6.7+."})),
                 Some(version) if path.contains("1.3.5") && version<semver::Version::new(1,6,7)=>issues.push(json!({"severity":"warning","message":format!("Doom 1.3.5 requires Point Blank 1.6.7 or newer; this instance has {version}.")})),
                 _=>{}
@@ -696,16 +781,20 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
         let modified = verify && ((!record.original_hash.is_empty() && record.original_hash != hash) || provider_modified);
         entries.push(json!({"path":path,"title":record.title,"config":is_config,"addon":addon,"mod":is_mod,"exists":exists,"enabled":!path.ends_with(".disabled"),"editable":editable(&path),"size":size,"hash":hash,"modified":modified,"validation":if verify {"checked"} else {"pending"},"tracked":!record.original_hash.is_empty(),"issues":issues,"record":record}));
     }
-    if verify { save(&state.files, &root, &library)?; }
+    if verify {
+        if before != serde_json::to_vec(&library)? { save(&state.files, &root, &library)?; }
+        if cache_changed {
+            if let Err(error) = state.files.write_atomic(cache_path, &serde_json::to_vec(&validation)?) {
+                warnings.push(format!("Could not cache validation results: {error}"));
+            }
+        }
+    }
     Ok(
-        json!({"entries":entries,"warnings":warnings,"recipes":recipe_info_version(tacz),"presets":globals(state)?,"scanned_at":now(),"premium":{"mode":"preview","features":["custom_installs","provenance"]}}),
+        json!({"entries":entries,"warnings":warnings,"recipes":recipe_info_version(tacz),"presets":globals(state)?,"scanned_at":now(),"scan_stats":{"elapsed_ms":started.elapsed().as_millis(),"inventory_ms":inventory_ms,"owners_ms":owners_ms,"validated":checked,"reused":reused},"premium":{"mode":"preview","features":["custom_installs","provenance"]}}),
     )
 }
 
 pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) -> Result<Value> {
-    let _guard = TRANSACTION
-        .lock()
-        .map_err(|_| Error::other("Config library is busy."))?;
     let root = base(state, id)?;
     let path = string(args, "path");
     if operation == "read" {
@@ -719,6 +808,9 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
             json!({"path":path,"hash":digest(&bytes),"text":text,"problem":text_problem(path,&text)}),
         );
     }
+    let _guard = TRANSACTION
+        .lock()
+        .map_err(|_| Error::other("Config library is busy."))?;
     if crate::instance_ops::instance_busy(state, id)
         || state
             .running

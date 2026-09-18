@@ -234,7 +234,29 @@ pub(crate) fn enrich_local_source(files: &crate::files::FileManager, path: &Path
 
 type LocalArtwork = (Option<(Option<String>,Option<String>,Option<String>)>,Option<String>);
 pub(crate) fn cached_metadata(files: &crate::files::FileManager, path: &Path) -> Option<(Option<String>,Option<String>,Option<String>)> {
-    cached_local_artwork(files, path).0
+    // Version checks must not unpack and rewrite artwork from every installed
+    // JAR. Artwork is requested separately by the surfaces that display it.
+    use std::sync::{Mutex, OnceLock};
+    type ModMetadata = Option<(Option<String>, Option<String>, Option<String>)>;
+    type Entry = (u64, Option<cap_std::time::SystemTime>, ModMetadata, std::time::Instant);
+    static CACHE: OnceLock<Mutex<HashMap<std::path::PathBuf, Entry>>> = OnceLock::new();
+    let metadata = files.metadata(path).ok()?;
+    let stamp = metadata.modified().ok();
+    let cache = CACHE.get_or_init(|| Mutex::new(HashMap::new()));
+    {
+        let mut guard = cache.lock().unwrap();
+        if let Some((size, modified, value, used)) = guard.get_mut(path) {
+            if *size == metadata.len() && *modified == stamp {
+                *used = std::time::Instant::now();
+                return value.clone();
+            }
+        }
+    }
+    let value = read_metadata(files, path);
+    let mut guard = cache.lock().unwrap();
+    guard.retain(|_, (_, _, _, used)| used.elapsed().as_secs() < 1800);
+    guard.insert(path.to_path_buf(), (metadata.len(), stamp, value.clone(), std::time::Instant::now()));
+    value
 }
 fn cached_local_artwork(files: &crate::files::FileManager, path: &Path) -> LocalArtwork {
     use std::sync::{Mutex,OnceLock,atomic::{AtomicU64,Ordering}};
@@ -247,7 +269,7 @@ fn cached_local_artwork(files: &crate::files::FileManager, path: &Path) -> Local
     if let Some((used,value))=cache.lock().unwrap().get_mut(&key) {
         if value.1.as_ref().is_none_or(|url|crate::icon_assets::available(files,url)) { *used=tick; return value.clone(); }
     }
-    let result=(read_metadata(files,path),read_embedded_icon(files,path));
+    let result=(cached_metadata(files,path),read_embedded_icon(files,path));
     let mut cache=cache.lock().unwrap();
     if cache.len()>=4096 { if let Some(oldest)=cache.iter().min_by_key(|(_,entry)|entry.0).map(|(key,_)|key.clone()) { cache.remove(&oldest); } }
     cache.insert(key,(tick,result.clone()));

@@ -26,7 +26,7 @@ Version discovery uses live official feeds. The Minecraft picker refreshes when 
 
 - Enderloom's automatic release **checks** work; automatic binary installation still requires the signed Electron release/manifest distribution contract. The current Windows installation links to this workspace.
 - Taskbar pin was not confirmed: the Windows Explorer surface disappeared during attempted UI control. Desktop and Start menu shortcuts exist with the Enderloom icon.
-- External-launcher Play choices, instance settings synchronization, and complete table parity on Home/Discover remain pending.
+- External-launcher Play choices and instance settings synchronization remain pending. Home/Discover table parity and Config loading follow-up: [September 18 acceptance](CONFIG_LOADING_ACCEPTANCE_2026-09-18.md).
 - Aether's rendered scenario still needs its world-ready race fixed and its complete acceptance rerun. Existing test/report code is preserved in this candidate; no completed playthrough is claimed.
 - The broad integration test observed a changing live Modrinth database during one scan. Both the focused and complete reruns passed source-preservation checks; retain that assertion in subsequent runs.
 - The master graph/evidence/operation-registry requirements remain incomplete. Continue from the master after the immediate daily-use fixes; do not mark entire phases complete from these checks.

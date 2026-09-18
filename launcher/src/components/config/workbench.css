@@ -32,14 +32,14 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  min-height: 220px;
+  min-height: 160px;
   overflow: hidden;
   border: 1px solid #83dcc22b;
   border-radius: 18px;
   background:
     radial-gradient(ellipse at 82% 40%, #447d6833, transparent 52%),
     linear-gradient(110deg, #172521, #101918 55%, #142320);
-  padding: 32px 34px;
+  padding: 20px 26px;
   isolation: isolate;
 }
 .wb-hero-addons {
@@ -73,23 +73,23 @@
 }
 .wb-hero h2 {
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.9cqw, 36px);
+  font-size: clamp(22px, 2.4cqw, 28px);
   font-weight: 550;
   letter-spacing: -1.15px;
   line-height: 1.2;
-  margin: 15px 0 10px;
+  margin: 10px 0 6px;
   color: #eef9f3;
 }
 .wb-hero p {
-  max-width: 485px;
-  line-height: 1.8;
+  max-width: 560px;
+  line-height: 1.5;
   font-size: 12px;
   color: #abc1b9;
 }
 .wb-hero-actions {
   display: flex;
   gap: 9px;
-  margin-top: 22px;
+  margin-top: 14px;
 }
 .wb-button {
   display: inline-flex;
@@ -1224,3 +1224,7 @@
 .wb-association select { width:100%;min-width:0;background:#15201d;border:1px solid #a4e5cc24;border-radius:8px;padding:8px;color:#cce4d9;font-size:11px; }
 .wb-association small { color:#8aa398;font-size:10px;line-height:1.5; }
 .wb-group-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.wb-mod-group{content-visibility:auto;contain-intrinsic-size:auto 66px}.wb-file{content-visibility:auto;contain-intrinsic-size:auto 72px}@media(max-width:900px){.wb-organize{flex-wrap:wrap}.wb-group-actions{width:100%}}
+.wb-file-list > [role="listitem"]:not(:last-child) > .wb-file{border-bottom:1px solid var(--color-border-soft)}
+.wb-virtual-list .wb-file,.wb-virtual-list .wb-mod-group{content-visibility:visible;contain-intrinsic-size:none}
+.wb-addon-grid > [role="listitem"] > .wb-file{height:100%}
+.wb-notice.wb-scan-status{background:#9be7cd07;border-color:#9be7cd20;color:#9bcdbb}

@@ -1,6 +1,6 @@
 import { configAssociation, createConfigAssociator } from "../../lib/config-associations";
 import { ContentIcon } from "../ContentIcon";
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Activity,
   ArrowDownToLine,
@@ -53,6 +53,8 @@ import "./workbench.css";
 import { useCreative } from "../../creative-store";
 import { GeneratorBadge } from "../GeneratorBadge";
 import { FavoriteButton } from "../FavoriteButton";
+import { WorkbenchFileList, type WorkbenchRow } from "./WorkbenchFileList";
+import { workbenchSnapshot, scanWorkbenchShared, refreshWorkbenchAfterChange, modSnapshot, loadWorkbenchMods } from "../../lib/workbench-cache";
 
 type Section = "all" | "attention" | "presets" | "lineage";
 const size = (bytes: number) =>
@@ -100,10 +102,10 @@ export function WorkbenchPanel({
   initialSection?: Section;
   initialPath?: string | null;
 }) {
-  const [library, setLibrary] = useState<WorkbenchLibrary | null>(null);
+  const [library, setLibrary] = useState<WorkbenchLibrary | null>(() => workbenchSnapshot(instance.id, initialSection === "lineage"));
   const inspected = useCreative((s) => s.scans[instance.id]);
   const prefs = useCreative(s => s.library.preferences);
-  const [mods, setMods] = useState<ContentItem[]>([]);
+  const [mods, setMods] = useState<ContentItem[]>(() => modSnapshot(instance.id));
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const grouping = prefs["config-layout"] === "files" ? "files" : "mods";
   const associationKey = (path: string) => "config-owner:" + instance.id + ":" + path;
@@ -116,14 +118,14 @@ export function WorkbenchPanel({
   useEffect(() => {
     let current = true;
     void useCreative.getState().load().catch(() => {});
-    void api.listInstanceContent(instance.id, "mods", false).then(items => { if (current) setMods(items); }).catch(e => { if (current) setError("Mod association lookup: " + String(e)); });
+    void loadWorkbenchMods(instance.id).then(items => { if (current) setMods(items); }).catch(e => { if (current) setError("Mod association lookup: " + String(e)); });
     return () => { current = false; };
   }, [instance.id]);
   const [section, setSection] = useState<Section>(initialSection);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(initialPath);
   const [busy, setBusy] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!library);
   const [validating, setValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [install, setInstall] = useState<string | null>(null);
@@ -134,19 +136,18 @@ export function WorkbenchPanel({
   const panel = useRef<HTMLDivElement>(null);
   const refreshId = useRef(0);
   const includeMods = section === "lineage";
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (afterChange = false) => {
     const request = ++refreshId.current;
     setValidating(true);
     try {
-      const data = await api.scanWorkbench(instance.id, includeMods, true);
-      if (alive.current && request === refreshId.current) {
-        setLibrary(data);
-        setError(null);
-        setLoading(false);
-      }
-      if (!alive.current || request !== refreshId.current) return;
-      const checked = await api.scanWorkbench(instance.id, includeMods);
-      if (alive.current && request === refreshId.current) setLibrary(checked);
+      const scan = afterChange ? refreshWorkbenchAfterChange : scanWorkbenchShared;
+      await scan(instance.id, includeMods, data => {
+        if (alive.current && request === refreshId.current) {
+          setLibrary(data);
+          setError(null);
+          setLoading(false);
+        }
+      });
     } catch (e) {
       if (alive.current && request === refreshId.current) setError(err(e));
     } finally {
@@ -180,7 +181,7 @@ export function WorkbenchPanel({
     try {
       const result = await api.workbenchAction(instance.id, operation, payload);
       if (result?.path) setSelected(result.path);
-      await refresh();
+      await refresh(true);
       toast.success(message);
     } catch (e) {
       setError(err(e));
@@ -200,6 +201,7 @@ export function WorkbenchPanel({
     }
   };
   const entries = library?.entries ?? [];
+  const pendingValidation = entries.some(entry => entry.validation === "pending");
   const baseEntries =
     mode === "addons"
       ? entries.filter((e) => e.addon)
@@ -252,6 +254,55 @@ export function WorkbenchPanel({
         "Replacement installed; previous revision preserved",
       );
   };
+  const renderGroup = (group: typeof groups[number]) => group.association && (<button className="wb-mod-group" aria-expanded={!collapsed[group.id]} onClick={() => setCollapsed(v => ({ ...v, [group.id]: !v[group.id] }))}>
+                  <ContentIcon title={group.association.title} src={group.association.mod?.source?.icon_url} provider={group.association.mod?.source?.provider} projectId={group.association.mod?.source?.project_id} className="size-10" />
+                  <span><strong>{group.association.title}</strong><small>{group.files.length} {group.files.length === 1 ? "file" : "files"} · {group.files.some(entry => entry.validation === "pending") ? "Checking health…" : `${group.files.filter(needsAttention).length} need attention`}{group.association.mod && !group.association.mod.enabled ? " · mod disabled" : ""}</small></span>
+                  <ChevronRight size={16} style={{ transform: collapsed[group.id] ? undefined : "rotate(90deg)" }} />
+                </button>);
+  const renderFile = (entry: WorkbenchEntry) => (                <button
+                  key={entry.path}
+                  className={`wb-file ${selected === entry.path ? "selected" : ""}`}
+                  onClick={() => setSelected(entry.path)}
+                >
+                  <span
+                    className={`wb-file-icon ${entry.addon ? "addon" : entry.mod ? "mod" : ""}`}
+                  >
+                    {entry.mod ? (
+                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} src={mods.find(m => `mods/${m.file_name}${m.enabled ? "" : ".disabled"}` === entry.path)?.source?.icon_url} className="size-full" />
+                    ) : entry.addon ? (
+                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} className="size-full" />
+                    ) : (
+                      <FileCode2 size={21} />
+                    )}
+                  </span>
+                  <span className="wb-file-copy">
+                    <strong>{entry.title}</strong>
+                    <code>{entry.path}</code>
+                    <span className="wb-file-tags">
+                      {entry.addon && entry.config && (
+                        <span>CONFIG + ADDON</span>
+                      )}
+                      {entry.tracked && (
+                        <span>
+                          <History size={10} /> {entry.record.revisions.length}{" "}
+                          revisions
+                        </span>
+                      )}
+                      {entry.record.origin !== "unknown" && (
+                        <span>{ORIGINS[entry.record.origin]}</span>
+                      )}
+                    </span>
+                  </span>
+                  <span className="wb-file-end">
+                    <Status entry={entry} />
+                    <small>{size(entry.size)}</small>
+                  </span>
+                  <ChevronRight size={14} />
+                </button>);
+  const rows: WorkbenchRow[] = groups.flatMap(group => [
+    ...(group.association ? [{ key: 'group:' + group.id, render: () => renderGroup(group) }] : []),
+    ...(!group.association || !collapsed[group.id] ? group.files.map(entry => ({ key: entry.path, render: () => renderFile(entry) })) : []),
+  ]);
   return (
     <div ref={panel} className="wb" data-workbench={mode}>
       <div className={`wb-hero ${mode === "addons" ? "wb-hero-addons" : ""}`}>
@@ -261,12 +312,12 @@ export function WorkbenchPanel({
           </span>
           <h2>
             {mode === "config"
-              ? "A little control. A better world."
+              ? "Your settings, together."
               : "More possibilities. Perfectly placed."}
           </h2>
           <p>
             {mode === "config"
-              ? "Every setting, content pack, and small improvement. One thoughtful place to make Minecraft yours."
+              ? "Find every config, organize by mod, and keep your changes recoverable."
               : "Gun packs, custom content, and the extras that make your world different. Keep them together, wherever they belong."}
           </p>
           <div className="wb-hero-actions">
@@ -332,8 +383,8 @@ export function WorkbenchPanel({
         >
           <ShieldCheck />
           <span>
-            <strong>{attention.length}</strong>
-            <small>Need your attention</small>
+            <strong>{pendingValidation ? "…" : attention.length}</strong>
+            <small>{pendingValidation ? "Checking config health" : "Need your attention"}</small>
           </span>
           {attention.length === 0 && library && <Check size={14} />}
         </button>
@@ -459,15 +510,13 @@ export function WorkbenchPanel({
             <button
               className="wb-icon-button"
               aria-label="Rescan files"
-              disabled={busy}
-              onClick={() => {
-                setBusy(true);
-                void refresh().finally(() => setBusy(false));
-              }}
+              disabled={busy || validating}
+              onClick={() => void refresh()}
             >
-              <RefreshCw size={15} />
+              <RefreshCw size={15} className={validating ? "animate-spin" : undefined} />
             </button>
           </div>
+          {validating && !loading && <div className="wb-notice wb-scan-status" role="status"><Loader2 size={14} className="animate-spin" /><span>Checking for changes in the background. You can browse and edit your configs.</span></div>}
           {section === "lineage" && (
             <div className="wb-notice violet">
               <Sparkles size={16} />
@@ -594,7 +643,7 @@ export function WorkbenchPanel({
                 {query
                   ? "No matching files"
                   : section === "attention"
-                    ? "Nothing needs attention here."
+                    ? pendingValidation ? "Checking config health…" : "Nothing needs attention here."
                     : section === "lineage"
                       ? "Start with a mod you’re making yours."
                       : mode === "addons"
@@ -605,7 +654,7 @@ export function WorkbenchPanel({
                 {query
                   ? "Try a name, folder, or origin label."
                   : section === "attention"
-                    ? "No issues were found in the current scan. Mod-specific compatibility still depends on the author’s requirements."
+                    ? pendingValidation ? "Checks are still running. Files remain available in All configs." : "No issues were found in the current scan. Mod-specific compatibility still depends on the author’s requirements."
                     : "Files appear here as Minecraft creates them, or when you import them. Your actual instance is the source of truth."}
               </p>
               {!query && section === "all" && (
@@ -622,58 +671,7 @@ export function WorkbenchPanel({
               )}
             </div>
           ) : (
-            <div
-              className={`wb-file-list ${mode === "addons" && section === "all" ? "wb-addon-grid" : ""}`}
-            >
-              {groups.map(group => <Fragment key={group.id}>
-                {group.association && <button className="wb-mod-group" aria-expanded={!collapsed[group.id]} onClick={() => setCollapsed(v => ({ ...v, [group.id]: !v[group.id] }))}>
-                  <ContentIcon title={group.association.title} src={group.association.mod?.source?.icon_url} provider={group.association.mod?.source?.provider} projectId={group.association.mod?.source?.project_id} className="size-10" />
-                  <span><strong>{group.association.title}</strong><small>{group.files.length} files · {group.files.filter(needsAttention).length} need attention{group.association.mod && !group.association.mod.enabled ? " · mod disabled" : ""}</small></span>
-                  <ChevronRight size={16} style={{ transform: collapsed[group.id] ? undefined : "rotate(90deg)" }} />
-                </button>}
-                {(!group.association || !collapsed[group.id]) && group.files.map((entry) => (
-                <button
-                  key={entry.path}
-                  className={`wb-file ${selected === entry.path ? "selected" : ""}`}
-                  onClick={() => setSelected(entry.path)}
-                >
-                  <span
-                    className={`wb-file-icon ${entry.addon ? "addon" : entry.mod ? "mod" : ""}`}
-                  >
-                    {entry.mod ? (
-                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} src={mods.find(m => `mods/${m.file_name}${m.enabled ? "" : ".disabled"}` === entry.path)?.source?.icon_url} className="size-full" />
-                    ) : entry.addon ? (
-                      <ContentIcon title={entry.title} provider={entry.record.provider} projectId={entry.record.project_id} className="size-full" />
-                    ) : (
-                      <FileCode2 size={21} />
-                    )}
-                  </span>
-                  <span className="wb-file-copy">
-                    <strong>{entry.title}</strong>
-                    <code>{entry.path}</code>
-                    <span className="wb-file-tags">
-                      {entry.addon && entry.config && (
-                        <span>CONFIG + ADDON</span>
-                      )}
-                      {entry.tracked && (
-                        <span>
-                          <History size={10} /> {entry.record.revisions.length}{" "}
-                          revisions
-                        </span>
-                      )}
-                      {entry.record.origin !== "unknown" && (
-                        <span>{ORIGINS[entry.record.origin]}</span>
-                      )}
-                    </span>
-                  </span>
-                  <span className="wb-file-end">
-                    <Status entry={entry} />
-                    <small>{size(entry.size)}</small>
-                  </span>
-                  <ChevronRight size={14} />
-                </button>
-              ))}</Fragment>)}
-            </div>
+            <WorkbenchFileList rows={rows} grid={mode === "addons" && section === "all"} scrollElement={() => panel.current?.parentElement ?? null} />
           )}
           <div className="wb-footnote">
             <Activity size={12} />
@@ -722,7 +720,7 @@ export function WorkbenchPanel({
               {detail.editable && (
                 <button
                   className="wb-button primary"
-                  disabled={mutateDisabled || !detail.exists || !detail.hash}
+                  disabled={mutateDisabled || !detail.exists}
                   onClick={() => setEditor(detail)}
                 >
                   <SlidersHorizontal size={14} /> Edit config
@@ -911,7 +909,7 @@ export function WorkbenchPanel({
           onClose={() => setInstall(null)}
           onDone={async (path) => {
             setInstall(null);
-            await refresh();
+            await refresh(true);
             setSelected(path);
           }}
         />
@@ -921,7 +919,7 @@ export function WorkbenchPanel({
           instance={instance}
           entry={editor}
           onClose={() => setEditor(null)}
-          onDone={refresh}
+          onDone={() => refresh(true)}
         />
       )}
       {metadata && (
@@ -931,7 +929,7 @@ export function WorkbenchPanel({
           onClose={() => setMetadata(null)}
           onDone={async () => {
             setMetadata(null);
-            await refresh();
+            await refresh(true);
           }}
         />
       )}
@@ -940,7 +938,7 @@ export function WorkbenchPanel({
           preset={preset}
           current={instance}
           onClose={() => setPreset(null)}
-          onDone={refresh}
+          onDone={() => refresh(true)}
         />
       )}
     </div>

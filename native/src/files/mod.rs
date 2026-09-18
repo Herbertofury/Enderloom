@@ -386,6 +386,18 @@ impl FileManager {
         Ok(dir.metadata(relative)?)
     }
 
+    /// Preserve directory-entry metadata while enumerating. In particular on
+    /// Windows this avoids reopening every file just to obtain its type/size.
+    /// DirEntry metadata does not follow the entry's symlink.
+    pub fn read_dir_metadata(&self, path: impl AsRef<Path>) -> Result<Vec<(PathBuf, Metadata)>> {
+        let path = path.as_ref();
+        let (dir, relative) = self.resolve(path)?;
+        Ok(dir.read_dir(relative)?.map(|entry| {
+            let entry = entry?;
+            Ok((path.join(entry.file_name()), entry.metadata()?))
+        }).collect::<std::io::Result<Vec<_>>>()?)
+    }
+
     pub fn symlink_metadata(&self, path: impl AsRef<Path>) -> Result<Metadata> {
         let (dir, relative) = self.resolve(path.as_ref())?;
         Ok(dir.symlink_metadata(relative)?)
