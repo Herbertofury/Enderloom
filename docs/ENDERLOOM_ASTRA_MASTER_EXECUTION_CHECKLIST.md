@@ -214,7 +214,7 @@ Implement typed identities/links for:
 ## 4.3 Durable tasks and transactions
 
 - [x] **PA-020 Task model:** durable task ID, parent/child graph, operation, target, stage/state, attempt history, exact process/run IDs, produced evidence, blocker, cleanup ownership, cancellation, resume/recovery, checkpoint identity. Shared native/CLI/Electron model, interrupted recovery, descendant cancellation, archived provenance and actual Aether process/sandbox ownership verified; see `docs/TASK_MODEL_ACCEPTANCE_2026-09-18.md`. Safe automatic replay remains limited to typed supported checkpoints.
-- [ ] **PA-021 Transaction model:** plan/dry-run, staged writes, pre-change snapshot where relevant, owned temp area, commit/rollback, interrupted recovery, audit receipt.
+- [x] **PA-021 Transaction model:** plan/dry-run, staged writes, pre-change snapshot where relevant, owned temp area, commit/rollback, interrupted recovery, audit receipt. Shared typed model integrated with native/CLI/Electron snapshot restore; worker interruption, commit boundaries, stale plans and owned cleanup verified. See `docs/TRANSACTION_MODEL_ACCEPTANCE_2026-09-18.md` for scope and evidence.
 
 ## 4.4 Canonical operation registry
 
