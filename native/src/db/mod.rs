@@ -24,6 +24,8 @@ mod servers;
 mod settings;
 mod skins;
 mod stats;
+mod transactions;
+pub use transactions::{FileChange, FileChangeKind, TransactionPlan, TransactionState, TransactionArea, TransactionReceipt};
 
 pub use datapacks::DatapackRecord;
 pub use graph::{ArtifactIdentity, FileHash, ProjectGraph, ProviderProjectIdentity};

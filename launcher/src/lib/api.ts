@@ -1,4 +1,5 @@
 import type { EvidenceReport } from "./performance-evidence";
+import type { TransactionPlan, TransactionReceipt } from './transactions';
 import type { EvidenceArtifact, EvidenceFreshness, EvidenceRelation, EvidenceVerification } from "./evidence";
 import type { ConversionRequest, ConversionProject, ConversionSnapshot, PackageEntries, PackageComparison } from "./conversion";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
@@ -471,8 +472,10 @@ export const api = {
     call<SnapshotSummary>("rename_instance_snapshot", { instanceId, snapshotId, name }),
   deleteInstanceSnapshot: (instanceId: string, snapshotId: string) =>
     call<void>("delete_instance_snapshot", { instanceId, snapshotId }),
-  restoreInstanceSnapshot: (instanceId: string, snapshotId: string) =>
-    call<SnapshotSummary>("restore_instance_snapshot", { instanceId, snapshotId }),
+  planRestoreInstanceSnapshot: (instanceId: string, snapshotId: string) => call<TransactionPlan>("plan_restore_instance_snapshot", { instanceId, snapshotId }),
+  getTransactions: (targetKind: string, targetId: string) => call<TransactionReceipt[]>("get_transactions", { targetKind, targetId }),
+  restoreInstanceSnapshot: (instanceId: string, snapshotId: string, expectedPlanId?: string) =>
+    call<SnapshotSummary>("restore_instance_snapshot", { instanceId, snapshotId, expectedPlanId }),
   listVersions: (includeSnapshots = false) =>
     call<VersionEntry[]>("list_versions", { includeSnapshots }),
   listInstalledVersions: () => call<string[]>("list_installed_versions"),

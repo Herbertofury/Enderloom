@@ -1203,6 +1203,16 @@ async fn dispatch_operation(state: &Arc<AppState>, command: &str, args: &Value) 
                 .await?;
             Ok(Value::Null)
         }
+        "plan_restore_instance_snapshot" => {
+            let instance=crate::commands::find_instance(state,&required_string(args,"instanceId")?)?;
+            value(crate::snapshots::plan_restore(state,instance,required_string(args,"snapshotId")?).await?)
+        }
+        "get_transactions" => {
+            let kind=required_string(args,"targetKind")?;let id=required_string(args,"targetId")?;
+            let mut rows=state.db.library_list("transaction:")?.into_iter().filter(|v|v["plan"]["target_kind"]==kind&&v["plan"]["target_id"]==id).collect::<Vec<_>>();
+            rows.sort_by_key(|v|std::cmp::Reverse(v["audit"].as_array().and_then(|a|a.last()).and_then(|v|v["at"].as_i64()).unwrap_or_default()));
+            value(rows)
+        }
         "restore_instance_snapshot" => {
             let instance =
                 crate::commands::find_instance(state, &required_string(args, "instanceId")?)?;
@@ -1211,6 +1221,7 @@ async fn dispatch_operation(state: &Arc<AppState>, command: &str, args: &Value) 
                     state,
                     instance,
                     &required_string(args, "snapshotId")?,
+                    args["expectedPlanId"].as_str().map(str::to_owned),
                 )
                 .await?,
             )
@@ -2491,6 +2502,9 @@ pub(crate) fn attach_runtime_events(state: &Arc<AppState>, sink: crate::tasks::E
     }
     if let Err(error) = crate::servers::runtime::recover_ipc(sink, state) {
         tracing::warn!(%error, "could not recover running servers");
+    }
+    if let Err(error)=crate::snapshots::recover_interrupted(state){
+        tracing::warn!(%error,"Snapshot recovery preserved unfinished work for review");
     }
     match crate::control_ipc::listen(state) {
         Ok(listener) => *state.control_listener.lock().unwrap() = Some(listener),

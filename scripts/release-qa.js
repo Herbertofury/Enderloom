@@ -31,6 +31,8 @@ const scripts=[
   'task-resume-qa.js',
   'task-model-qa.js',
   'task-model-ui-qa.js',
+  'snapshot-transaction-qa.js',
+  'snapshot-transaction-ui-qa.js',
   'workbench-cache-qa.js',
   'catalog-export-qa.js','google-workspace-qa.js','github-only-media-qa.js','layout-density-qa.js',
   'catalog-qa.js','catalog-layout-qa.js','shell-contract-qa.js','launcher-command-coverage-qa.js','workspace-tabs-qa.js','provider-launcher-handoff-qa.js','modrinth-project-media-qa.js','drag-overlay-qa.js','native-chrome-qa.js','media-transport-qa.js','splitter-qa.js','provider-media-qa.js','curseforge-gallery-anchor-qa.js','curseforge-gallery-dom-rescue-qa.js','curseforge-scoped-negative-qa.js','curseforge-description-link-media-qa.js','site-adapter-registry-qa.js','site-adapter-author-qa.js','afdian-post-media-qa.js','structured-post-media-qa.js','parallel-author-lane-qa.js','post-media-render-qa.js','media-role-identity-qa.js','media-identity-gate-qa.js','curseforge-author-fanout-qa.js','parser-pool-qa.js','translator-qa.js','translator-updater-qa.js','provider-universe-qa.js','provider-api-fastlane-qa.js','provider-api-race-qa.js','catalog-provider-coverage-qa.js','hedged-bandwidth-qa.js','media-performance-qa.js','frontier-priority-qa.js','instant-frontier-qa.js','parallel-race-qa.js','rust-native-qa.js','impit-native-qa.js','native-network-race-qa.js','progressive-media-qa.js','media-stress-qa.js','multi-transport-race-qa.js','adblock-qa.js','gallery-hit-qa.js'

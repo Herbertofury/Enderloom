@@ -25,10 +25,11 @@ mod restore;
 mod workers;
 
 pub(crate) use restore::{recover_interrupted, restore, restore_ipc};
+mod plan;
+pub(crate) use plan::plan_restore;
 use workers::{parallel_map, Progress};
 
 const SNAPSHOT_SCHEMA: u32 = 2;
-const AUTOMATIC_RETENTION: usize = 3;
 const COMPRESSION_LEVEL: i32 = 3;
 const BUFFER_SIZE: usize = 1024 * 1024;
 const EXCLUDED_TOP_LEVEL: &[&str] = &["logs", "crash-reports", "screenshots", "backups"];
@@ -274,7 +275,7 @@ fn hash_file(
     let mut reader = files.open(path)?;
     let mut hasher = Sha256::new();
     let mut read_size = 0_u64;
-    let mut buffer = [0_u8; BUFFER_SIZE];
+    let mut buffer = vec![0_u8; BUFFER_SIZE];
     loop {
         check_cancelled(task)?;
         let read = reader.read(&mut buffer)?;
@@ -335,7 +336,7 @@ fn compress_blob(
         encoder.include_checksum(true)?;
         let mut hasher = Sha256::new();
         let mut read_size = 0_u64;
-        let mut buffer = [0_u8; BUFFER_SIZE];
+        let mut buffer = vec![0_u8; BUFFER_SIZE];
         loop {
             check_cancelled(task)?;
             let read = reader.read(&mut buffer)?;
@@ -711,22 +712,9 @@ fn garbage_collect(state: &SnapshotStore) -> Result<u64> {
     Ok(reclaimed)
 }
 
-fn prune_automatic(state: &SnapshotStore, instance_id: &str, keep_id: Option<&str>) -> Result<()> {
-    let mut automatic = list_manifests(state, instance_id)?
-        .into_iter()
-        .filter(|snapshot| snapshot.kind == SnapshotKind::Automatic)
-        .collect::<Vec<_>>();
-    if let Some(index) =
-        keep_id.and_then(|keep| automatic.iter().position(|snapshot| snapshot.id == keep))
-    {
-        let keep = automatic.remove(index);
-        automatic.insert(0, keep);
-    }
-    for snapshot in automatic.into_iter().skip(AUTOMATIC_RETENTION) {
-        if let Some(path) = state.paths.snapshot_dir_checked(instance_id, &snapshot.id) {
-            state.files.remove_file_if_exists(path)?;
-        }
-    }
+fn maintain_snapshot_storage(state: &SnapshotStore) -> Result<()> {
+    // Safety copies are recoverable user history. Only an explicit deletion
+    // may remove one; collect blobs only when no retained manifest uses them.
     garbage_collect(state)?;
     Ok(())
 }
@@ -852,12 +840,8 @@ pub(crate) async fn create_automatic(
         );
         if result.is_err() {
             let _ = garbage_collect(&store);
-        } else if let Err(error) = prune_automatic(
-            &store,
-            &instance.id,
-            result.as_ref().ok().map(|snapshot| snapshot.id.as_str()),
-        ) {
-            tracing::warn!(%error, "could not prune automatic snapshots");
+        } else if let Err(error) = maintain_snapshot_storage(&store) {
+            tracing::warn!(%error, "could not collect unused snapshot blobs");
         }
         result
     })
@@ -1049,6 +1033,7 @@ mod tests {
                     target_snapshot_id: target.id,
                     safety_snapshot_id: safety.id,
                     nonce,
+                    transaction_id: None,
                 })
                 .unwrap(),
             )
@@ -1356,7 +1341,7 @@ mod tests {
     }
 
     #[test]
-    fn automatic_retention_keeps_three_manifests_without_dropping_shared_data() {
+    fn automatic_history_has_no_count_cap_and_preserves_shared_data() {
         let (store, root) = test_store();
         let instance = test_instance(&store, "retention");
         store
@@ -1378,9 +1363,9 @@ mod tests {
             .unwrap();
         }
 
-        prune_automatic(&store, &instance.id, None).unwrap();
+        maintain_snapshot_storage(&store).unwrap();
         let manifests = list_manifests(&store, &instance.id).unwrap();
-        assert_eq!(manifests.len(), AUTOMATIC_RETENTION);
+        assert_eq!(manifests.len(), 5);
         let blob = store
             .paths
             .snapshot_blob(&manifests[0].files[0].sha256)

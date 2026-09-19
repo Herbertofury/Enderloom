@@ -10,6 +10,7 @@ use tauri::AppHandle;
 
 use crate::{
     config::Instance,
+    db::{TransactionArea, TransactionReceipt, TransactionState},
     error::{Error, Result},
     files::FileManager,
     instance_ops::instance_busy,
@@ -20,9 +21,9 @@ use crate::{
 
 use super::{
     check_cancelled, clean_name, collect_entries, create_snapshot_sync, garbage_collect,
-    hex_digest, progress_for_entries, prune_automatic, read_manifest, store_guard, SnapshotFile,
-    SnapshotKind, SnapshotManifest, SnapshotStore, SnapshotSummary, SourceEntry, BUFFER_SIZE,
-    EXCLUDED_TOP_LEVEL,
+    hex_digest, maintain_snapshot_storage, progress_for_entries, read_manifest, store_guard,
+    SnapshotFile, SnapshotKind, SnapshotManifest, SnapshotStore, SnapshotSummary, SourceEntry,
+    BUFFER_SIZE, EXCLUDED_TOP_LEVEL,
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -32,6 +33,8 @@ pub(super) struct RestoreJournal {
     pub(super) target_snapshot_id: String,
     pub(super) safety_snapshot_id: String,
     pub(super) nonce: String,
+    #[serde(default)]
+    pub(super) transaction_id: Option<String>,
 }
 
 pub(super) fn restore_paths(
@@ -96,7 +99,7 @@ fn copy_plain_file(
 ) -> Result<()> {
     let mut reader = files.open(source)?;
     let mut writer = files.create(destination)?;
-    let mut buffer = [0_u8; BUFFER_SIZE];
+    let mut buffer = vec![0_u8; BUFFER_SIZE];
     loop {
         check_cancelled(task)?;
         let read = reader.read(&mut buffer)?;
@@ -144,7 +147,7 @@ pub(super) fn restore_blob(
     let mut writer = state.files.create(destination)?;
     let mut hasher = Sha256::new();
     let mut restored = 0_u64;
-    let mut buffer = [0_u8; BUFFER_SIZE];
+    let mut buffer = vec![0_u8; BUFFER_SIZE];
     loop {
         check_cancelled(task)?;
         let read = decoder.read(&mut buffer)?;
@@ -274,59 +277,270 @@ pub(super) fn recover_journal(state: &SnapshotStore, path: &Path) -> Result<()> 
     let live_exists = state.files.exists(&live)?;
     let staging_exists = state.files.exists(&staging)?;
     let backup_exists = state.files.exists(&backup)?;
-
-    if backup_exists && live_exists {
-        if let Err(error) = restore_database_from_manifest(state, &journal.instance_id, &target) {
-            let failed = state.paths.instances().join(format!(
-                ".restore-failed-{}-{}",
-                journal.instance_id, journal.nonce
+    let mut receipt = match &journal.transaction_id {
+        Some(id) => Some(state.db.transaction_receipt(id)?.ok_or_else(|| {
+            Error::other("Restore journal's transaction receipt is missing; all files preserved")
+        })?),
+        None => None,
+    };
+    if let Some(receipt) = &receipt {
+        if receipt.id != journal.nonce
+            || receipt.plan.target_id != journal.instance_id
+            || receipt.plan.target_revision_id != journal.target_snapshot_id
+            || Path::new(&receipt.plan.source_path) != live
+            || receipt.pre_change_snapshot.as_deref() != Some(&journal.safety_snapshot_id)
+        {
+            return Err(Error::other(
+                "Restore receipt does not match journal ownership",
             ));
-            state.files.rename(&live, &failed)?;
-            if let Err(rollback) = state.files.rename(&backup, &live) {
-                let _ = state.files.rename(&failed, &live);
-                return Err(Error::other(format!(
+        }
+        if receipt.owned_areas.len() != 2
+            || !receipt.owned_areas.iter().any(|a| a.role == "staging")
+            || !receipt.owned_areas.iter().any(|a| a.role == "backup")
+        {
+            return Err(Error::other(
+                "Restore receipt has incomplete area ownership",
+            ));
+        }
+        for area in &receipt.owned_areas {
+            let expected = match area.role.as_str() {
+                "staging" => &staging,
+                "backup" => &backup,
+                _ => return Err(Error::other("Unknown restore area")),
+            };
+            if Path::new(&area.path) != expected {
+                return Err(Error::other(
+                    "Restore area ownership does not match its journal",
+                ));
+            }
+        }
+    }
+    let already_committed = receipt.as_ref().is_some_and(|r| {
+        r.audit
+            .iter()
+            .any(|event| event.state == TransactionState::Committed)
+    });
+    let already_rolled_back = !already_committed
+        && receipt.as_ref().is_some_and(|r| {
+            r.audit
+                .iter()
+                .any(|event| event.state == TransactionState::RolledBack)
+        });
+    let recovery = (|| {
+        for area in [&live, &staging, &backup] {
+            if state.files.exists(area)?
+                && state.files.symlink_metadata(area)?.file_type().is_symlink()
+            {
+                return Err(Error::other(
+                    "Restore area became a symbolic link; all files preserved.",
+                ));
+            }
+        }
+        if live_exists && staging_exists && backup_exists {
+            return Err(Error::other("Ambiguous restore activation state; live, staged, and backup files were all preserved for review."));
+        }
+        let target_hash = format!("{:x}", Sha256::digest(serde_json::to_vec(&target)?));
+        if !already_committed
+            && !already_rolled_back
+            && receipt
+                .as_ref()
+                .is_some_and(|r| target_hash != r.plan.target_state_sha256)
+        {
+            return Err(Error::other(
+                "Target snapshot changed after restore was staged; all files preserved for review.",
+            ));
+        }
+        let mut restored_safety = already_rolled_back;
+        if live_exists && !staging_exists && !already_committed && !already_rolled_back {
+            let current = state
+                .db
+                .list_instances(&state.files)?
+                .into_iter()
+                .find(|i| i.id == journal.instance_id)
+                .unwrap_or_else(|| safety.instance.clone());
+            if !super::plan::restore_plan(state, &current, &target, None)?
+                .changes
+                .is_empty()
+            {
+                if super::plan::restore_plan(state, &current, &safety, None)?
+                    .changes
+                    .is_empty()
+                {
+                    restored_safety = true;
+                } else {
+                    return Err(Error::other("Recovered live files differ from the verified target and safety snapshots. Live files and backup were preserved for review."));
+                }
+            }
+        }
+        let mut recovered_state = if restored_safety {
+            TransactionState::RolledBack
+        } else {
+            TransactionState::Committed
+        };
+        let recovered_manifest = if restored_safety { &safety } else { &target };
+
+        if backup_exists && live_exists {
+            if let Err(error) = if already_committed || already_rolled_back {
+                Ok(())
+            } else {
+                restore_database_from_manifest(state, &journal.instance_id, recovered_manifest)
+            } {
+                let failed = state.paths.instances().join(format!(
+                    ".restore-failed-{}-{}",
+                    journal.instance_id, journal.nonce
+                ));
+                state.files.rename(&live, &failed)?;
+                if let Err(rollback) = state.files.rename(&backup, &live) {
+                    let _ = state.files.rename(&failed, &live);
+                    return Err(Error::other(format!(
                     "could not finish recovered snapshot metadata: {error}; filesystem rollback failed: {rollback}"
                 )));
+                }
+                restore_database_from_manifest(state, &journal.instance_id, &safety)?;
+                recovered_state = TransactionState::RolledBack;
+                state.files.remove_managed_dir_all_if_exists(failed)?;
+            } else {
+                state.files.remove_managed_dir_all_if_exists(&backup)?;
             }
+            state.files.remove_managed_dir_all_if_exists(&staging)?;
+        } else if backup_exists {
+            recovered_state = TransactionState::RolledBack;
+            state.files.rename(&backup, &live)?;
             restore_database_from_manifest(state, &journal.instance_id, &safety)?;
-            state.files.remove_managed_dir_all_if_exists(failed)?;
+            state.files.remove_managed_dir_all_if_exists(&staging)?;
+        } else if live_exists && staging_exists {
+            recovered_state = TransactionState::RolledBack;
+            state.files.remove_managed_dir_all_if_exists(&staging)?;
+            restore_database_from_manifest(state, &journal.instance_id, &safety)?;
+        } else if live_exists {
+            if !already_committed && !already_rolled_back {
+                restore_database_from_manifest(state, &journal.instance_id, recovered_manifest)?;
+            }
         } else {
-            state.files.remove_managed_dir_all_if_exists(&backup)?;
-        }
-        state.files.remove_managed_dir_all_if_exists(&staging)?;
-    } else if backup_exists {
-        state.files.rename(&backup, &live)?;
-        restore_database_from_manifest(state, &journal.instance_id, &safety)?;
-        state.files.remove_managed_dir_all_if_exists(&staging)?;
-    } else if live_exists && staging_exists {
-        state.files.remove_managed_dir_all_if_exists(&staging)?;
-        restore_database_from_manifest(state, &journal.instance_id, &safety)?;
-    } else if live_exists {
-        restore_database_from_manifest(state, &journal.instance_id, &target)?;
-    } else {
-        return Err(Error::other(format!(
+            return Err(Error::other(format!(
             "Cannot recover restore for {} because both the live instance and backup are missing.",
             journal.instance_id
         )));
+        }
+        Ok(recovered_state)
+    })();
+    if let Err(error) = &recovery {
+        if let Some(receipt) = &mut receipt {
+            receipt.error = Some(error.to_string());
+            receipt.advance(
+                &state.db,
+                TransactionState::RecoveryRequired,
+                "Recovery stopped before discarding retained files; review the recorded blocker.",
+            )?;
+        }
+    }
+    let recovered_state = recovery?;
+    if let Some(receipt) = &mut receipt {
+        for area in &mut receipt.owned_areas {
+            area.removed = !state.files.exists(&area.path)?;
+        }
+        receipt.error = None;
+        receipt.advance(
+            &state.db,
+            recovered_state,
+            "Recovered from the owned snapshot journal; filesystem and metadata reconciled.",
+        )?;
     }
     state.files.remove_file_if_exists(path)?;
     tracing::info!(instance_id = %journal.instance_id, "recovered interrupted snapshot restore");
     Ok(())
 }
 
-fn cleanup_orphan_restore_staging(state: &SnapshotStore) -> Result<()> {
-    for path in state.files.read_dir(state.paths.instances())? {
-        let Some(name) = path.file_name().and_then(|value| value.to_str()) else {
+fn reconcile_transaction_receipts(state: &AppState, store: &SnapshotStore) -> Result<()> {
+    for value in state.db.library_list("transaction:")? {
+        let Ok(mut receipt) = serde_json::from_value::<TransactionReceipt>(value) else {
             continue;
         };
-        if !name.starts_with(".restore-") || name.starts_with(".restore-backup-") {
+        if receipt.plan.operation != "restore_instance_snapshot" {
             continue;
         }
-        let metadata = state.files.symlink_metadata(&path)?;
-        if metadata.file_type().is_symlink() {
-            tracing::warn!(path = %path.display(), "left symbolic-link restore staging untouched");
-        } else if metadata.is_dir() {
-            state.files.remove_managed_dir_all_if_exists(path)?;
+        uuid::Uuid::parse_str(&receipt.id)
+            .map_err(|_| Error::other("Invalid restore transaction identity"))?;
+        uuid::Uuid::parse_str(&receipt.plan.target_id)
+            .map_err(|_| Error::other("Invalid restore transaction instance"))?;
+        let (live, staging, backup) =
+            restore_paths(&store.paths, &receipt.plan.target_id, &receipt.id);
+        let journal = store
+            .paths
+            .snapshot_restore_journal_checked(&receipt.plan.target_id)
+            .ok_or_else(|| Error::other("Invalid restore journal target"))?;
+        if store.files.exists(&journal)? || instance_busy(state, &receipt.plan.target_id) {
+            continue;
+        }
+        for area in &receipt.owned_areas {
+            let expected = match area.role.as_str() {
+                "staging" => &staging,
+                "backup" => &backup,
+                _ => return Err(Error::other("Unknown restore transaction area")),
+            };
+            if Path::new(&area.path) != expected {
+                return Err(Error::other(
+                    "Restore area does not match its transaction identity",
+                ));
+            }
+        }
+        if matches!(
+            receipt.state,
+            TransactionState::Planned | TransactionState::Staging | TransactionState::RolledBack
+        ) && receipt.owned_areas.iter().any(|a| !a.removed)
+        {
+            if store.files.exists(&backup)? || !store.files.exists(&live)? {
+                receipt.advance(
+                    &store.db,
+                    TransactionState::RecoveryRequired,
+                    "Unexpected activation state; all remaining files preserved for recovery.",
+                )?;
+                continue;
+            }
+            // No activation journal exists and this receipt never entered Applying.
+            // Only the exact staging path reserved by this transaction may be removed.
+            if store.files.exists(&staging)?
+                && store
+                    .files
+                    .symlink_metadata(&staging)?
+                    .file_type()
+                    .is_symlink()
+            {
+                return Err(Error::other(
+                    "Restore staging became a link; it was preserved",
+                ));
+            }
+            store.files.remove_managed_dir_all_if_exists(&staging)?;
+            receipt.error = Some(
+                "Worker interrupted before activation; original instance remains active.".into(),
+            );
+            for area in &mut receipt.owned_areas {
+                area.removed = !store.files.exists(&area.path)?;
+            }
+            receipt.advance(&store.db,TransactionState::RolledBack,"Discarded verified owned staging after interruption before activation. Original instance was not replaced.")?;
+        }
+        if let Some(task_id) = &receipt.task_id {
+            if let Ok(detail) = state.tasks.detail(task_id) {
+                for area in &receipt.owned_areas {
+                    let resource_id = format!("{}:{}", receipt.id, area.role);
+                    let already = detail["task"]["details"]["cleanup"]
+                        .as_array()
+                        .into_iter()
+                        .flatten()
+                        .any(|r| {
+                            r["id"] == resource_id
+                                && r["state"] == if area.removed { "removed" } else { "retained" }
+                        });
+                    if !already {
+                        state.tasks.cleanup_result(
+                            task_id,
+                            &resource_id,
+                            area.removed,
+                            "Snapshot recovery reconciled this owned transaction area.",
+                        )?;
+                    }
+                }
+            }
         }
     }
     Ok(())
@@ -340,6 +554,16 @@ pub(crate) fn recover_interrupted(state: &AppState) -> Result<()> {
     if store.files.exists(&root)? {
         for path in store.files.read_dir(&root)? {
             if path.extension().and_then(|value| value.to_str()) == Some("json") {
+                if let Ok(journal) =
+                    serde_json::from_slice::<RestoreJournal>(&store.files.read(&path)?)
+                {
+                    if instance_busy(state, &journal.instance_id) {
+                        first_error.get_or_insert_with(|| {
+                            Error::other("A snapshot recovery is waiting for its instance to stop.")
+                        });
+                        continue;
+                    }
+                }
                 if let Err(error) = recover_journal(&store, &path) {
                     tracing::error!(path = %path.display(), %error, "could not recover snapshot restore");
                     if first_error.is_none() {
@@ -352,9 +576,12 @@ pub(crate) fn recover_interrupted(state: &AppState) -> Result<()> {
     if let Err(error) = garbage_collect(&store) {
         tracing::warn!(%error, "could not collect snapshot blobs during startup recovery");
     }
+    if let Err(error) = reconcile_transaction_receipts(state, &store) {
+        first_error.get_or_insert(error);
+    }
     match first_error {
         Some(error) => Err(error),
-        None => cleanup_orphan_restore_staging(&store),
+        None => Ok(()),
     }
 }
 
@@ -364,15 +591,16 @@ pub(crate) async fn restore(
     instance: Instance,
     snapshot_id: &str,
 ) -> Result<SnapshotSummary> {
-    restore_with_target(Some(app), state, instance, snapshot_id).await
+    restore_with_target(Some(app), state, instance, snapshot_id, None).await
 }
 
 pub(crate) async fn restore_ipc(
     state: &AppState,
     instance: Instance,
     snapshot_id: &str,
+    expected_plan_id: Option<String>,
 ) -> Result<SnapshotSummary> {
-    restore_with_target(None, state, instance, snapshot_id).await
+    restore_with_target(None, state, instance, snapshot_id, expected_plan_id).await
 }
 
 async fn restore_with_target(
@@ -380,6 +608,7 @@ async fn restore_with_target(
     state: &AppState,
     instance: Instance,
     snapshot_id: &str,
+    expected_plan_id: Option<String>,
 ) -> Result<SnapshotSummary> {
     super::ensure_no_pending_restore(state, &instance.id)?;
     if instance_busy(state, &instance.id) {
@@ -403,6 +632,7 @@ async fn restore_with_target(
     });
     let instance_id = instance.id.clone();
     let store = SnapshotStore::from_state(state);
+    let tasks = state.tasks.clone();
     let result = match tokio::task::spawn_blocking({
         let task = Arc::clone(&task);
         move || {
@@ -421,6 +651,18 @@ async fn restore_with_target(
                     "This instance has an interrupted restore that must be recovered first.",
                 ));
             }
+            task.stage("checking-restore-plan");
+            let plan=super::plan::restore_plan(&store,&instance,&manifest,Some(&task))?;
+            if expected_plan_id.as_ref().is_some_and(|id|id!=&plan.id){return Err(Error::other("Instance or snapshot changed since this restore was reviewed. Refresh the restore plan before applying it."));}
+            let nonce = uuid::Uuid::new_v4().to_string();
+            let (live, staging, backup) = restore_paths(&store.paths, &instance.id, &nonce);
+            let mut receipt=TransactionReceipt{schema_version:1,id:nonce.clone(),task_id:Some(task.id().into()),plan,state:TransactionState::Planned,pre_change_snapshot:None,
+                owned_areas:vec![TransactionArea{role:"staging".into(),path:staging.display().to_string(),removed:false},TransactionArea{role:"backup".into(),path:backup.display().to_string(),removed:false}],audit:Vec::new(),error:None};
+            receipt.advance(&store.db,TransactionState::Planned,"Exact source bytes and target snapshot measured; original state is still active.")?;
+            task.bind_run(&nonce)?;
+            task.own_resource("snapshot_staging",&format!("{nonce}:staging"),&staging)?;
+            task.own_resource("snapshot_backup",&format!("{nonce}:backup"),&backup)?;
+            let work=(||{
 
             task.stage("safety-snapshot");
             let safety_name = format!("Before restoring {}", manifest.name)
@@ -443,10 +685,10 @@ async fn restore_with_target(
                     return Err(error);
                 }
             };
+            receipt.pre_change_snapshot=Some(safety.id.clone());
+            receipt.advance(&store.db,TransactionState::Staging,"Pre-change safety snapshot retained; preparing verified replacement files.")?;
 
             task.stage("verifying-and-staging");
-            let nonce = uuid::Uuid::new_v4().to_string();
-            let (live, staging, backup) = restore_paths(&store.paths, &instance.id, &nonce);
             if let Err(error) = stage_restore(&store, &manifest, &live, &staging, Some(&task)) {
                 let _ = store.files.remove_managed_dir_all_if_exists(&staging);
                 return Err(error);
@@ -455,13 +697,22 @@ async fn restore_with_target(
                 let _ = store.files.remove_managed_dir_all_if_exists(&staging);
                 return Err(error);
             }
+            task.stage("rechecking-restore-inputs");
+            let current_instance=store.db.list_instances(&store.files)?.into_iter().find(|i|i.id==instance.id).ok_or_else(||Error::other("Instance disappeared while preparing restore"))?;
+            let current_manifest=read_manifest(&store.files,&snapshot_path)?;
+            let current=super::plan::restore_plan(&store,&current_instance,&current_manifest,Some(&task))?;
+            if current.id!=receipt.plan.id {
+                store.files.remove_managed_dir_all_if_exists(&staging)?;
+                return Err(Error::other("Instance or snapshot changed while restore was being staged. Original files were preserved; review a fresh plan."));
+            }
 
             let journal = RestoreJournal {
                 schema_version: 1,
                 instance_id: instance.id.clone(),
                 target_snapshot_id: manifest.id.clone(),
                 safety_snapshot_id: safety.id,
-                nonce,
+                nonce:nonce.clone(),
+                transaction_id:Some(nonce.clone()),
             };
             let journal_bytes = serde_json::to_vec_pretty(&journal)?;
             if let Err(error) = store.files.write_atomic(&journal_path, &journal_bytes) {
@@ -470,6 +721,7 @@ async fn restore_with_target(
             }
 
             task.stage("activating-restore");
+            receipt.advance(&store.db,TransactionState::Applying,"Verified staged files are ready; activation is protected by the durable recovery journal.")?;
             if let Err(error) = store.files.rename(&live, &backup) {
                 let _ = store.files.remove_managed_dir_all_if_exists(&staging);
                 let _ = store.files.remove_file_if_exists(&journal_path);
@@ -505,11 +757,12 @@ async fn restore_with_target(
                     ))),
                 };
             }
+            receipt.advance(&store.db,TransactionState::Committed,"Staged files and instance metadata committed; removing only owned temporary areas.")?;
             match store.files.remove_managed_dir_all_if_exists(&backup) {
                 Ok(_) => {
                     store.files.remove_file_if_exists(&journal_path)?;
-                    if let Err(error) = prune_automatic(&store, &instance.id, None) {
-                        tracing::warn!(%error, "could not prune automatic snapshots");
+                    if let Err(error) = maintain_snapshot_storage(&store) {
+                        tracing::warn!(%error, "could not collect unused snapshot blobs");
                     }
                 }
                 Err(error) => {
@@ -517,6 +770,20 @@ async fn restore_with_target(
                 }
             }
             Ok(manifest.summary())
+            })();
+            // Any failure before journal creation must also discard our staging,
+            // including errors while re-reading or hashing the current inputs.
+            if work.is_err() && !store.files.exists(&journal_path)? && !store.files.exists(&backup)? && store.files.exists(&live)? {
+                if let Err(error)=store.files.remove_managed_dir_all_if_exists(&staging){tracing::warn!(%error,"Owned restore staging retained for recovery");}
+            }
+            for area in &mut receipt.owned_areas {
+                area.removed=store.files.exists(&area.path).is_ok_and(|exists|!exists);
+                tasks.cleanup_result(task.id(),&format!("{nonce}:{}",area.role),area.removed,if area.removed{"Owned snapshot transaction area removed."}else{"Retained for journal recovery; original safety snapshot remains available."})?;
+            }
+            let final_state=if work.is_ok(){TransactionState::Committed}else if store.files.exists(&journal_path)?{TransactionState::RecoveryRequired}else{TransactionState::RolledBack};
+            receipt.error=work.as_ref().err().map(ToString::to_string);
+            receipt.advance(&store.db,final_state,if work.is_ok(){"Restore completed; audit receipt retained."}else{"Restore stopped; retained journal or original state determines recovery."})?;
+            work
         }
     })
     .await

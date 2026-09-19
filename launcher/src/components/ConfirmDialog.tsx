@@ -54,6 +54,7 @@ export function ConfirmDialog({
   cancelLabel = "Cancel",
   confirmIcon,
   requireText,
+  confirmDisabled = false,
   onConfirm,
   onCancel,
 }: {
@@ -70,6 +71,7 @@ export function ConfirmDialog({
   cancelLabel?: string;
   confirmIcon?: React.ReactNode;
   requireText?: string;
+  confirmDisabled?: boolean;
   onConfirm: () => Promise<void> | void;
   onCancel: () => void;
 }) {
@@ -84,7 +86,7 @@ export function ConfirmDialog({
     }
   }, [open]);
 
-  const locked = !!requireText && !matchesConfirmation(typed, requireText);
+  const locked = confirmDisabled || (!!requireText && !matchesConfirmation(typed, requireText));
 
   const close = () => {
     if (!busy) onCancel();
@@ -122,7 +124,7 @@ export function ConfirmDialog({
         </button>
         <button
           onClick={run}
-          disabled={busy}
+          disabled={busy || locked}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-danger/40 bg-danger/15 px-2.5 py-1.5 text-xs font-semibold text-danger transition-colors hover:bg-danger/25 disabled:opacity-50"
         >
           {busy ? <Loader2 className="size-3.5 animate-spin" /> : confirmIcon}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArchiveRestore,
   Check,
@@ -21,6 +21,7 @@ import type { Instance, SnapshotSummary } from "../lib/types";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { Modal, ModalBody, ModalHeader } from "./Modal";
 import { formatBytes } from "../lib/format";
+import type { TransactionPlan, TransactionReceipt } from '../lib/transactions';
 
 
 function SnapshotRow({
@@ -159,8 +160,17 @@ export function SnapshotsModal({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState("");
   const [restoring, setRestoring] = useState<SnapshotSummary | null>(null);
+  const [restorePlan, setRestorePlan] = useState<TransactionPlan | null>(null);
+  const [planError, setPlanError] = useState('');
+  const [planRefresh, setPlanRefresh] = useState(0);
+  const [planPage, setPlanPage] = useState(0);
+  const [transactions, setTransactions] = useState<TransactionReceipt[]>([]);
   const [removing, setRemoving] = useState<SnapshotSummary | null>(null);
   const [freeMb, setFreeMb] = useState<number | null>(null);
+  const scope = `${instance.id}:${open}`;
+  const liveScope = useRef(scope);
+  liveScope.current = scope;
+  const loadEpoch = useRef(0);
 
   const task = useInstanceTask(instance.id);
   const snapshotTask =
@@ -182,30 +192,48 @@ export function SnapshotsModal({
   const refreshUsage = () => {
     api
       .instanceSnapshotUsage(instance.id)
-      .then(setUsedBytes)
-      .catch(() => setUsedBytes(null));
+      .then(value => { if (liveScope.current === scope) setUsedBytes(value); })
+      .catch(() => { if (liveScope.current === scope) setUsedBytes(null); });
   };
 
   const load = async () => {
+    const epoch = ++loadEpoch.current;
+    const current = () => liveScope.current === scope && loadEpoch.current === epoch;
     setLoading(true);
     try {
-      setSnapshots(await api.listInstanceSnapshots(instance.id));
-      refreshUsage();
+      const [points, history, usage] = await Promise.all([
+        api.listInstanceSnapshots(instance.id),
+        api.getTransactions('instance', instance.id),
+        api.instanceSnapshotUsage(instance.id).catch(() => null),
+      ]);
+      if (!current()) return;
+      setSnapshots(points);
+      setTransactions(history);
+      setUsedBytes(usage);
     } catch (error) {
-      toast.error("Could not load snapshots", { description: String(error) });
+      if (current()) toast.error("Could not load snapshots", { description: String(error) });
     } finally {
-      setLoading(false);
+      if (current()) setLoading(false);
     }
   };
 
   useEffect(() => {
+    setRestoring(null); setRemoving(null); setRestorePlan(null); setSnapshots([]); setTransactions([]); setUsedBytes(null); setFreeMb(null); setEditingId(null);
     if (!open) return;
     void load();
     api
       .getSystemStats()
-      .then((stats) => setFreeMb(stats.data_dir_free_mb))
-      .catch(() => setFreeMb(null));
+      .then((stats) => { if (liveScope.current === scope) setFreeMb(stats.data_dir_free_mb); })
+      .catch(() => { if (liveScope.current === scope) setFreeMb(null); });
+    return () => { loadEpoch.current++; };
   }, [open, instance.id]);
+  useEffect(() => {
+    setRestorePlan(null); setPlanError(''); setPlanPage(0);
+    if (!restoring || !open) return;
+    let live = true;
+    api.planRestoreInstanceSnapshot(instance.id, restoring.id).then(plan => { if (live) setRestorePlan(plan); }, error => { if (live) setPlanError(String(error)); });
+    return () => { live = false; };
+  }, [restoring?.id, instance.id, open, planRefresh]);
 
   const create = async () => {
     if (unavailable) return;
@@ -416,7 +444,7 @@ export function SnapshotsModal({
                     </span>
                     <span className="h-px flex-1 bg-border-soft" />
                     <span className="text-[11px] text-content-faint">
-                      taken before each restore, newest three kept
+                      taken before each restore, kept until you remove them
                     </span>
                   </div>
                   {automatic.map((snapshot) => (
@@ -426,6 +454,7 @@ export function SnapshotsModal({
               )}
             </div>
           )}
+          {transactions.length > 0 && <details className="mt-4 rounded-xl border border-border p-3 text-xs"><summary className="cursor-pointer text-content-muted">Restore history · {transactions.length}</summary><div className="mt-3 space-y-2">{transactions.map(receipt => <details key={receipt.id} className="rounded-lg bg-surface-2 p-3 [overflow-wrap:anywhere]"><summary className="cursor-pointer">{receipt.state.replace(/_/g, ' ')} · {new Date(receipt.audit[receipt.audit.length - 1]?.at || 0).toLocaleString()}</summary><div className="mt-2 space-y-2 text-content-muted">{receipt.error && <p className="text-warn">{receipt.error}</p>}{receipt.audit.map((event, i) => <p key={i}>{event.note}</p>)}<p className="text-content-faint">Safety snapshot: {receipt.pre_change_snapshot || 'Not created'}</p><p className="text-content-faint">Temporary areas: {receipt.owned_areas.every(area => area.removed) ? 'cleaned up' : 'retained for recovery'}</p></div></details>)}</div></details>}
         </ModalBody>
       </Modal>
 
@@ -434,19 +463,20 @@ export function SnapshotsModal({
         nested
         tone="warn"
         title={restoring ? `Restore ${restoring.name}?` : "Restore snapshot?"}
-        description="Every file in this instance goes back to how it was. Enderloom saves the current state as a safety copy first, so you can undo it."
+        description="Review the exact changes below. Enderloom saves your current state as a safety copy and rechecks the files before applying this restore."
+        confirmDisabled={!restorePlan || !!planError || unavailable}
         confirmLabel="Restore"
         confirmIcon={<ArchiveRestore className="size-3.5" />}
         onConfirm={() => {
           const target = restoring;
-          if (!target) return;
+          if (!target || !restorePlan) return;
+          const expectedPlanId = restorePlan.id;
           setRestoring(null);
           setRestoringNow(true);
           void (async () => {
             try {
-              const restored = await api.restoreInstanceSnapshot(instance.id, target.id);
+              const restored = await api.restoreInstanceSnapshot(instance.id, target.id, expectedPlanId);
               await onRestored();
-              await load();
               toast.success(`Restored ${restored.name}`, {
                 description: "The previous state was saved as a safety copy.",
               });
@@ -457,12 +487,22 @@ export function SnapshotsModal({
                 });
               }
             } finally {
+              await load();
               setRestoringNow(false);
             }
           })();
         }}
         onCancel={() => setRestoring(null)}
-      />
+      >
+        {!restorePlan && !planError && <p role="status" className="flex items-center gap-2 text-xs text-content-muted"><Loader2 size={14} className="animate-spin" />Checking current files…</p>}
+        {planError && <div role="alert" className="text-xs text-warn">{planError}<button className="ml-2 underline" onClick={() => setPlanRefresh(n => n + 1)}>Retry</button></div>}
+        {restorePlan && <div className="space-y-3 text-xs">
+          <p className="font-medium text-content">{restorePlan.changes.length} file or folder changes · {restorePlan.unchanged_files} files unchanged</p>
+          {restorePlan.metadata_changes && <p className="text-content-muted">Instance settings and tracked content will also return to this snapshot.</p>}
+          <p className="text-content-faint">Keep current: {restorePlan.preserved_paths.join(', ')}.</p>
+          {restorePlan.changes.length > 0 && <details><summary className="cursor-pointer text-content-muted">Files that will change</summary><div className="mt-2 max-h-44 overflow-y-auto rounded-lg bg-surface-2 p-2">{restorePlan.changes.slice(planPage * 100, (planPage + 1) * 100).map(change => <div key={`${change.action}:${change.path}`} className="flex gap-2 py-1"><span className="shrink-0 text-brand">{change.action.replace(/_/g, ' ')}</span><span className="min-w-0 break-all text-content-muted">{change.path}</span></div>)}</div>{restorePlan.changes.length > 100 && <div className="mt-2 flex justify-between"><button disabled={planPage === 0} onClick={() => setPlanPage(p => p - 1)}>Previous</button><span>Page {planPage + 1} of {Math.ceil(restorePlan.changes.length / 100)}</span><button disabled={(planPage + 1) * 100 >= restorePlan.changes.length} onClick={() => setPlanPage(p => p + 1)}>Next</button></div>}</details>}
+        </div>}
+      </ConfirmDialog>
 
       <ConfirmDialog
         open={!!removing}
