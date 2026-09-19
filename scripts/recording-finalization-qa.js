@@ -1,0 +1,32 @@
+'use strict';
+const fs = require('fs'), os = require('os'), path = require('path'), assert = require('assert/strict'), crypto = require('crypto');
+const { spawnSync } = require('child_process');
+const { DatabaseSync } = require('node:sqlite');
+const { LauncherService } = require('../src/launcher-service');
+const root = path.resolve(__dirname, '..'), temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-recording-'));
+const service = new LauncherService({ rootDir: root, dataDir: path.join(temporary, 'data') });
+function ff(exe, args) { const r = spawnSync(exe, args, { encoding: 'utf8', windowsHide: true, timeout: 30000 }); assert.equal(r.status, 0, r.stderr || r.error?.message); return r.stdout; }
+const probe = file => JSON.parse(ff('ffprobe', ['-v', 'error', '-show_packets', '-show_data_hash', 'sha256', '-show_entries', 'packet=data_hash:format=duration', '-of', 'json', file]));
+(async () => {
+  await service.request('get_testing_reports'); await service.close();
+  const id = crypto.randomUUID(), badId = crypto.randomUUID();
+  const folder = path.join(service.dataDir, 'testing-reports', id), badFolder = path.join(service.dataDir, 'testing-reports', badId);
+  fs.mkdirSync(folder, { recursive: true }); fs.mkdirSync(badFolder, { recursive: true });
+  const capture = path.join(folder, 'recording.mp4');
+  ff('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc2=size=160x90:rate=12', '-t', '3', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-movflags', '+frag_keyframe+empty_moov+default_base_moof', capture]);
+  fs.writeFileSync(path.join(badFolder, 'recording.mp4'), Buffer.alloc(1100, 1));
+  const before = fs.readFileSync(capture), packets = probe(capture);
+  const db = new DatabaseSync(path.join(service.dataDir, 'basalt.db'));
+  for (const [test, dir] of [[id, folder], [badId, badFolder]]) db.prepare('INSERT INTO creative_library(key,body) VALUES (?,?)').run('test:' + test, JSON.stringify({ id: test, at: 1, instance_id: 'fixture', state: 'completed', finished_at: 2, record_video: true, steps: [], artifacts: [{ kind: 'video', name: 'recording.mp4', path: path.join(dir, 'recording.mp4') }] }));
+  db.close();
+  const [report, concurrent] = await Promise.all([service.request('analyze_testing_report', { testId: id }), service.request('analyze_testing_report', { testId: id })]);
+  assert.equal(report.video_finalized, true); assert(!report.video_finalization_error); assert.equal(report.video_finalization.method, 'stream_copy_faststart');
+  assert.deepEqual(concurrent.artifacts, report.artifacts, 'Concurrent analysis must not duplicate or overwrite playback');
+  assert(fs.readFileSync(capture).equals(before), 'Finalization altered the recoverable source');
+  const video = report.artifacts.find(a => a.kind === 'video'); assert.equal(video.name, 'playback.mp4');
+  const indexed = probe(video.path); assert.deepEqual(indexed.packets, packets.packets, 'Packets were re-encoded or lost');
+  assert(Math.abs(Number(indexed.format.duration) - Number(packets.format.duration)) < 0.001);
+  const bytes = fs.readFileSync(video.path); assert(bytes.indexOf(Buffer.from('moov')) < bytes.indexOf(Buffer.from('mdat')), 'Playback index must precede video data');
+  const bad = await service.request('analyze_testing_report', { testId: badId }); assert(bad.video_finalization_error); assert(!bad.video_finalized); assert(fs.existsSync(path.join(badFolder, 'recording.mp4')));
+  console.log('PASS native recording finalization: identical encoded packets, complete duration, fast-start index, concurrent/idempotent analysis, original retained and corrupt capture reported.');
+})().catch(e => { console.error(e); process.exitCode = 1; }).finally(() => service.close());

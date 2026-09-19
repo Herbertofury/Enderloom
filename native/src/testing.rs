@@ -82,12 +82,23 @@ pub fn list(state: &AppState) -> Result<Value> {
 pub fn get(state: &AppState, id: &str) -> Result<Value> {
     report(state, id)
 }
-pub fn analyze(state: &AppState, id: &str) -> Result<Value> {
+pub async fn analyze(state: &AppState, id: &str) -> Result<Value> {
+    let lock = lock(id).await;
+    let _guard = lock.lock().await;
+    analyze_inner(state, id).await
+}
+async fn analyze_inner(state: &AppState, id: &str) -> Result<Value> {
     let mut v = report(state, id)?;
     if !v["finished_at"].is_number() {
         return Err(error(
             "Finish the session before analyzing retained evidence",
         ));
+    }
+    if v["record_video"] == true && v["video_finalized"] != true {
+        match finalize_video(state, id, &mut v).await {
+            Ok(()) => { v.as_object_mut().unwrap().remove("video_finalization_error"); }
+            Err(error) => v["video_finalization_error"] = json!(format!("Recording retained, but seekable playback could not be prepared: {error}")),
+        }
     }
     let mut reports = Vec::new();
     let mut errors = Vec::new();
@@ -307,7 +318,7 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
     sandbox.pre_launch_command = None;
     sandbox.post_exit_command = None;
     let folder = dir(state, &id)?;
-    let mut v = json!({"id":id,"at":now(),"instance_id":source.id,"instance_name":source.name,"sandbox_id":sandbox_id,"state":"preparing","mode":"rendered-client","record_video":record_video,"max_seconds":seconds,"minecraft":source.version_id,"loader":source.loader,"loader_version":source.loader_version,"steps":[],"artifacts":[],"report_dir":folder,"scope":"A controlled session. Only successful assertions establish coverage; sample shares are not causal mod impact.","adapter":{"name":"HMC-Specifics","source":"https://github.com/headlesshq/hmc-specifics","release":"1.21.1-latest","sha256":sha},"probe_version":"1.0.0","fps_note":"Minecraft-reported FPS sampled once per second. This is not individual frame time or a 1% low measurement."});
+    let mut v = json!({"id":id,"at":now(),"instance_id":source.id,"instance_name":source.name,"sandbox_id":sandbox_id,"state":"preparing","mode":"rendered-client","record_video":record_video,"max_seconds":seconds,"minecraft":source.version_id,"loader":source.loader,"loader_version":source.loader_version,"steps":[],"artifacts":[],"report_dir":folder,"scope":"A controlled session. Only successful assertions establish coverage; sample shares are not causal mod impact.","adapter":{"name":"HMC-Specifics","source":"https://github.com/headlesshq/hmc-specifics","release":"1.21.1-latest","sha256":sha},"probe_version":"1.0.1","fps_note":"Minecraft-reported FPS sampled once per second. This is not individual frame time or a 1% low measurement."});
     save(state, &v)?;
     let result:Result<()> = async {
         task.stage("Fingerprinting and copying an isolated test instance");
@@ -384,7 +395,7 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
         v["deadline_at"]=json!(now()+seconds as i64*1000);
         if record_video {
             // Wait for the real game window, never capture the entire desktop.
-            let video=start_recorder(state,&v).await?; v["video_path"]=json!(video);
+            let (video,target)=start_recorder(state,&v,task.token()).await?; v["video_path"]=json!(video);v["recording_target"]=target;
         }
         save(state,&v)?; Ok(())
     }.await;
@@ -601,12 +612,14 @@ pub async fn finish(state: &Arc<AppState>, id: &str, status: &str) -> Result<Val
         if let Some(mut input) = child.stdin.take() {
             let _ = input.write_all(b"q\n").await;
         }
-        if tokio::time::timeout(Duration::from_secs(15), child.wait())
-            .await
-            .is_err()
-        {
-            let _ = child.kill().await;
-            v["video_error"] = json!("Recording encoder did not finish normally");
+        match tokio::time::timeout(Duration::from_secs(15), child.wait()).await {
+            Ok(Ok(status)) if status.success() => {}
+            Ok(Ok(status)) => v["video_error"] = json!(format!("Recording encoder exited with {status}; playback may be incomplete. See recorder.log.")),
+            Ok(Err(error)) => v["video_error"] = json!(format!("Recording encoder could not be checked: {error}")),
+            Err(_) => {
+                let _ = child.kill().await;
+                v["video_error"] = json!("Recording encoder did not finish normally");
+            }
         }
     }
     let sandbox = string(&v, "sandbox_id")?.to_owned();
@@ -800,7 +813,38 @@ pub async fn finish(state: &Arc<AppState>, id: &str, status: &str) -> Result<Val
         }
     }
     save(state, &v)?;
-    analyze(state, id)
+    analyze_inner(state, id).await
+}
+
+async fn finalize_video(state: &AppState, id: &str, report: &mut Value) -> Result<()> {
+    let folder = dir(state, id)?;
+    let source = folder.join("recording.mp4");
+    if !state.files.is_file(&source)? || state.files.metadata(&source)?.len() < 1000 { return Ok(()); }
+    let pending = folder.join("playback.pending.mp4");
+    let playback = folder.join("playback.mp4");
+    // Retain the crash-recoverable capture. Stream-copy its packets into an
+    // indexed MP4 so the browser knows the full duration before playback starts.
+    let mut command = Command::new("ffmpeg");
+    command.kill_on_drop(true).args(["-hide_banner", "-loglevel", "error", "-nostdin", "-i"])
+        .arg(&source).args(["-map", "0:v:0", "-c", "copy", "-an", "-movflags", "+faststart", "-y"]).arg(&pending)
+        .stdout(std::process::Stdio::null()).stderr(std::process::Stdio::piped());
+    #[cfg(windows)]
+    command.creation_flags(0x08000000);
+    let output = tokio::time::timeout(Duration::from_secs(90), command.output()).await
+        .map_err(|_| error("Video finalization timed out; use Analyze Spark & logs to retry"))??;
+    if !output.status.success() {
+        return Err(error(format!("{}", String::from_utf8_lossy(&output.stderr).trim())));
+    }
+    let source_hash = crate::creative::file_hash(state, &source, None)?;
+    let playback_hash = crate::creative::file_hash(state, &pending, None)?;
+    state.files.rename(&pending, &playback)?;
+    let artifact = json!({"kind":"video","name":"playback.mp4","label":"Test playback · 30 fps capture","path":playback,"at":now(),"sha256":playback_hash});
+    let artifacts = report["artifacts"].as_array_mut().ok_or_else(||error("Report has no artifact list"))?;
+    artifacts.retain(|entry| !(entry["kind"]=="video" && matches!(entry["name"].as_str(),Some("recording.mp4"|"playback.mp4"))));
+    artifacts.push(artifact);
+    report["video_finalized"] = json!(true);
+    report["video_finalization"] = json!({"method":"stream_copy_faststart","source_sha256":source_hash,"playback_sha256":playback_hash});
+    Ok(())
 }
 
 fn collect(state: &AppState, from: &Path, to: &Path, v: &mut Value, depth: usize) -> Result<()> {
@@ -864,7 +908,7 @@ async fn recorder_available() -> Result<()> {
     }
     Ok(())
 }
-async fn start_recorder(state: &AppState, v: &Value) -> Result<PathBuf> {
+async fn start_recorder(state: &AppState, v: &Value, token: tokio_util::sync::CancellationToken) -> Result<(PathBuf, Value)> {
     let pid = state
         .running
         .lock()
@@ -873,23 +917,27 @@ async fn start_recorder(state: &AppState, v: &Value) -> Result<PathBuf> {
         .ok_or_else(|| error("No game process"))?
         .pid;
     let began = Instant::now();
-    let mut title = String::new();
-    while title.is_empty() && began.elapsed() < Duration::from_secs(90) {
+    let mut window = None;
+    while window.is_none() && began.elapsed() < Duration::from_secs(90) {
+        if token.is_cancelled() { return Err(Error::Cancelled); }
+        ensure_running(state,v)?;
         let mut cmd = Command::new("powershell.exe");
-        cmd.args(["-NoProfile","-NonInteractive","-Command",&format!("[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; (Get-Process -Id {pid} -ErrorAction SilentlyContinue).MainWindowTitle")]);
+        cmd.kill_on_drop(true).args(["-NoProfile","-NonInteractive","-Command",&format!("[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; (Get-Process -Id {pid} -ErrorAction Stop).MainWindowHandle.ToInt64()")]);
         #[cfg(windows)]
         cmd.creation_flags(0x08000000);
-        let output = cmd.output().await?;
-        title = String::from_utf8_lossy(&output.stdout).trim().to_owned();
-        if title.is_empty() {
+        let output = tokio::select! {
+            _ = token.cancelled() => return Err(Error::Cancelled),
+            result = tokio::time::timeout(Duration::from_secs(5), cmd.output()) => result.map_err(|_|error("The game-window lookup timed out"))??,
+        };
+        window = String::from_utf8_lossy(&output.stdout).trim().parse::<u64>().ok().filter(|handle| *handle > 0);
+        if window.is_none() {
             tokio::time::sleep(Duration::from_millis(500)).await;
         }
     }
-    if title.is_empty() {
-        return Err(error(
-            "The owned Minecraft process has no capturable window",
-        ));
-    }
+    // A zero HWND means desktop to gdigrab. Never allow it or fall back to a
+    // title shared with another running Minecraft instance.
+    let window = window.ok_or_else(||error("The owned Minecraft process has no capturable window"))?;
+    ensure_running(state,v)?;
     let path = dir(state, string(v, "id")?)?.join("recording.mp4");
     let mut cmd = Command::new("ffmpeg");
     cmd.args([
@@ -901,7 +949,7 @@ async fn start_recorder(state: &AppState, v: &Value) -> Result<PathBuf> {
         "-framerate",
         "30",
         "-i",
-        &format!("title={title}"),
+        &format!("hwnd={window}"),
         "-an",
         "-vf",
         "scale=trunc(iw/2)*2:trunc(ih/2)*2",
@@ -931,7 +979,10 @@ async fn start_recorder(state: &AppState, v: &Value) -> Result<PathBuf> {
     #[cfg(windows)]
     cmd.creation_flags(0x08000000);
     let mut child = cmd.spawn()?;
-    tokio::time::sleep(Duration::from_millis(800)).await;
+    tokio::select! {
+        _ = token.cancelled() => { let _=child.kill().await; return Err(Error::Cancelled); }
+        _ = tokio::time::sleep(Duration::from_millis(800)) => {}
+    }
     if child.try_wait()?.is_some() {
         return Err(error(
             "Recording failed to start; see recorder.log in this report",
@@ -941,5 +992,6 @@ async fn start_recorder(state: &AppState, v: &Value) -> Result<PathBuf> {
         .lock()
         .await
         .insert(string(v, "id")?.into(), child);
-    Ok(path)
+    Ok((path,json!({"method":"window_handle","pid":pid,"hwnd":window,"fps":30,"audio":false})))
 }
+

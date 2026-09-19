@@ -4,6 +4,9 @@ const path=require('path');
 const scripts=[
   'cli-parity-qa.js',
   'testing-cli-qa.js',
+  'minecraft-probe-qa.js',
+  'local-video-response-qa.js',
+  'recording-finalization-qa.js',
   'testing-ui-qa.js',
   'app-update-monitor-qa.js',
   'config-associations-qa.js',

@@ -5,6 +5,6 @@ fs.mkdirSync(path.join(root, "build"), { recursive: true });
 fs.mkdirSync(path.join(root, "dist"), { recursive: true });
 const run = (exe, args) => { const r = cp.spawnSync(exe, args, { stdio: "inherit", windowsHide: true }); if (r.error) throw r.error; if (r.status) process.exit(r.status); };
 run("javac", ["--release", "17", "-d", path.join(root, "build"), path.join(root, "src/enderloom/probe/Probe.java")]);
-fs.writeFileSync(path.join(root, "build/MANIFEST.MF"), "Manifest-Version: 1.0\nPremain-Class: enderloom.probe.Probe\nImplementation-Version: 1.0.0\n\n");
+fs.writeFileSync(path.join(root, "build/MANIFEST.MF"), "Manifest-Version: 1.0\nPremain-Class: enderloom.probe.Probe\nImplementation-Version: 1.0.1\n\n");
 run("jar", ["cfm", path.join(root, "dist/enderloom-probe.jar"), path.join(root, "build/MANIFEST.MF"), "-C", path.join(root, "build"), "enderloom"]);
 console.log("Built Enderloom's read-only Minecraft telemetry agent (Java 17+).");

@@ -2505,6 +2505,7 @@ function setupLauncherAssetProtocol() {
         if (stat.isSymbolicLink()) return new Response('Forbidden', { status: 403 });
       }
       if (!fs.statSync(target).isFile()) return new Response('Not found', { status: 404 });
+      if (['.mp4', '.webm'].includes(path.extname(target).toLowerCase())) return require('./src/local-video-response').localVideoResponse(request, target);
       return net.fetch(pathToFileURL(target).toString(), { headers: request.headers });
     } catch {
       return new Response('Not found', { status: 404 });

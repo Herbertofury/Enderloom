@@ -218,7 +218,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
         "finish_testing_session" => crate::testing::finish(state,&required_string(args,"testId")?,"completed").await,
         "get_testing_artifact" => crate::testing::artifact(state,&required_string(args,"testId")?,&required_string(args,"name")?),
         "run_testing_scenario" => crate::testing::scenario(state,&required_string(args,"testId")?,&args["scenario"]).await,
-        "analyze_testing_report" => crate::testing::analyze(state,&required_string(args,"testId")?),
+        "analyze_testing_report" => crate::testing::analyze(state,&required_string(args,"testId")?).await,
         "get_creative_library" => crate::creative::library(state),
         "start_performance_capture" => crate::performance::startup(state,&required_string(args,"instanceId")?,optional_u64(args,"seconds")?.unwrap_or(30)).await,
         "get_runtime_captures" => Ok(json!(state.db.library_list("runtime:")?)),

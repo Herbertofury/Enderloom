@@ -35,7 +35,25 @@ public final class Probe {
     }
     private static void observe(Instrumentation instrumentation) {
         Path target = Paths.get("enderloom-telemetry.jsonl");
+        Object initializationInspector;
+        Method needsInitialization;
+        try {
+            // Loading is not initialization. Calling getInstance while Minecraft is
+            // initializing can deadlock its chat/resource classes against the main
+            // thread. Only observe a class after the VM says initialization finished.
+            // The agent opens this package to its own module; no JVM flags or game
+            // bytecode changes are needed. Never fall back to forcing initialization.
+            Class<?> unsafe = Class.forName("jdk.internal.misc.Unsafe");
+            instrumentation.redefineModule(unsafe.getModule(), Set.of(), Map.of(),
+                Map.of("jdk.internal.misc", Set.of(Probe.class.getModule())), Set.of(), Map.of());
+            initializationInspector = unsafe.getMethod("getUnsafe").invoke(null);
+            needsInitialization = unsafe.getMethod("shouldBeInitialized", Class.class);
+        } catch (Throwable unsupported) {
+            System.out.println("[Enderloom probe] Telemetry disabled: this JVM cannot safely inspect class initialization: " + unsupported);
+            return;
+        }
         Class<?> type = null;
+        boolean initialized = false;
         for (int sample = 0; sample < 18000; sample++) {
             try {
                 Thread.sleep(100);
@@ -45,16 +63,23 @@ public final class Probe {
                     }
                     if (type == null) continue;
                 }
+                if (!initialized) {
+                    if ((Boolean)needsInitialization.invoke(initializationInspector, type)) continue;
+                    initialized = true;
+                }
                 Object minecraft = type.getMethod("getInstance").invoke(null);
                 if (minecraft == null) continue;
                 mailbox(minecraft);
                 if (sample % 10 != 0) continue;
-                if (!attached) attachFrames(type);
-                if (!savedEnvironment) saveEnvironment(type, minecraft);
                 int fps = ((Number)type.getMethod("getFps").invoke(minecraft)).intValue();
                 Object player = field(minecraft, "player");
                 Object level = field(minecraft, "level");
                 Object screen = field(minecraft, "screen");
+                // Loader event buses and mod inventories also belong to game startup.
+                if (level != null) {
+                    if (!attached) attachFrames(type);
+                    if (!savedEnvironment) saveEnvironment(type, minecraft);
+                }
                 String dimension = level == null ? null : call(call(level, "dimension"), "location").toString();
                 String item = player == null ? null : call(call(player, "getMainHandItem"), "getItem").toString();
                 String coords = player == null ? "null" : "["+call(player,"getX")+","+call(player,"getY")+","+call(player,"getZ")+"]";
