@@ -220,6 +220,13 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
         "run_testing_scenario" => crate::testing::scenario(state,&required_string(args,"testId")?,&args["scenario"]).await,
         "analyze_testing_report" => crate::testing::analyze(state,&required_string(args,"testId")?).await,
         "get_creative_library" => crate::creative::library(state),
+        "start_conversion_intake" => crate::conversion::start(state, args).await,
+        "get_conversion_projects" => crate::conversion::projects(state),
+        "get_conversion_snapshot" => crate::conversion::snapshot(state, &required_string(args,"projectId")?),
+        "get_conversion_entries" | "compare_conversion_inputs" => {
+            let state=state.clone(); let args=args.clone(); let compare=command=="compare_conversion_inputs";
+            tokio::task::spawn_blocking(move || if compare { crate::conversion::compare(&state,&args) } else { crate::conversion::entries(&state,&args) }).await.map_err(|e|Error::other(e.to_string()))?
+        }
         "start_performance_capture" => crate::performance::startup(state,&required_string(args,"instanceId")?,optional_u64(args,"seconds")?.unwrap_or(30)).await,
         "get_runtime_captures" => Ok(json!(state.db.library_list("runtime:")?)),
         "compare_mod_startup" => crate::performance::compare(state,&required_string(args,"instanceId")?,&required_string(args,"fileName")?,optional_u64(args,"seconds")?.unwrap_or(30),optional_u64(args,"repeats")?.unwrap_or(2)).await,
@@ -254,6 +261,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
             tokio::task::spawn_blocking(move || {
                 let result = match checkpoint {
                     crate::tasks::TaskCheckpoint::ModInspection {instance_id,history} => crate::creative::scan_instance(&state,&instance_id,&task,history,true),
+                    crate::tasks::TaskCheckpoint::ConversionIntake {request} => crate::conversion::run(&state,&request,&task),
                 };
                 task.finish(&result); result
             }).await.map_err(|e|Error::other(format!("Resume failed: {e}")))?

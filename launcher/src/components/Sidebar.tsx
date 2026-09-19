@@ -51,6 +51,7 @@ const NAV: Array<{ id: View; label: string; icon: typeof Play }> = [
   { id: "addons", label: "Addons", icon: PackagePlus },
   { id: "favorites", label: "Favorites", icon: Heart },
   { id: "performance", label: "Performance", icon: FlaskConical },
+  { id: "studio", label: "Studio", icon: Wrench },
 ];
 
 function RailLabel({ children }: { children: React.ReactNode }) {

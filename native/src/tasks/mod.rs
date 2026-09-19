@@ -64,6 +64,7 @@ pub enum TaskKind {
     SnapshotRestore,
     StorageScan,
     PerformanceScan,
+    ConversionIntake,
     PerformanceTest,
     PerformanceComparison,
     DatapackInstall,
@@ -91,6 +92,7 @@ impl TaskKind {
             Self::SnapshotRestore => "snapshot_restore",
             Self::StorageScan => "storage_scan",
             Self::PerformanceScan => "performance_scan",
+            Self::ConversionIntake => "conversion_intake",
             Self::PerformanceTest => "performance_test",
             Self::PerformanceComparison => "performance_comparison",
             Self::DatapackInstall => "datapack_install",
@@ -103,6 +105,7 @@ impl TaskKind {
     pub fn parse(value: &str) -> Option<Self> {
         match value {
             "performance_scan" | "PerformanceScan" => Some(Self::PerformanceScan),
+            "conversion_intake" | "ConversionIntake" => Some(Self::ConversionIntake),
             "performance_test" | "PerformanceTest" => Some(Self::PerformanceTest),
             "performance_comparison" | "PerformanceComparison" => Some(Self::PerformanceComparison),
             "game_install" | "GameInstall" => Some(Self::GameInstall),
@@ -155,6 +158,7 @@ impl TaskState {
 #[serde(tag = "operation", rename_all = "snake_case")]
 pub enum TaskCheckpoint {
     ModInspection { instance_id: String, history: bool },
+    ConversionIntake { request: crate::conversion::Request },
 }
 
 fn first_attempt() -> u32 {

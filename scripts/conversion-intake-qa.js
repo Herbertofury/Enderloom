@@ -1,0 +1,47 @@
+'use strict';
+const assert = require('assert/strict'), fs = require('fs'), path = require('path'), os = require('os'), crypto = require('crypto');
+const { spawn } = require('child_process');
+const { DatabaseSync } = require('node:sqlite');
+const { LauncherService } = require('../src/launcher-service');
+const { zip } = require('./workbench-fixtures');
+const root = path.resolve(__dirname, '..'), temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-conversion-')), data = path.join(temporary, 'data');
+let service = new LauncherService({ rootDir: root, dataDir: data });
+const sha = b => crypto.createHash('sha256').update(b).digest('hex');
+const readDb = fn => { const db = new DatabaseSync(path.join(data, 'basalt.db')); try { return fn(db); } finally { db.close(); } };
+const cli = (command, args) => new Promise((resolve, reject) => {
+  const child = spawn(path.join(root,'native/target/debug/enderloom.exe'), ['--data-dir', data, 'operation', 'run', command, '--json'], { windowsHide:true });
+  let out='',err=''; child.stdout.on('data',b=>out+=b); child.stderr.on('data',b=>err+=b); child.on('error',reject); child.on('close',code=>{try{if(code)throw Error(err||out); resolve(JSON.parse(out).result);}catch(e){reject(e);}}); child.stdin.end(JSON.stringify(args));
+});
+(async () => {
+  const before = { 'assets/aoa/textures/entity/old.png':'pixels', 'data/aoa/recipes/changed.json':'old', 'data/aoa/loot_tables/missing.json':'{}', 'unknown.family':'keep' };
+  for (let i=0;i<10005;i++) before[`assets/aoa/models/model-${String(i).padStart(5,'0')}.json`] = '{}';
+  const after = { 'project/src/main/resources/assets/aoa/textures/entity/old.png':'pixels', 'project/src/main/resources/data/aoa/recipes/changed.json':'new', 'assets/aoa/models/new.json':'{}', 'copy/assets/aoa/models/new.json':'{}' };
+  const a = path.join(temporary,'donor.jar'), b = path.join(temporary,'checkpoint.zip'); fs.writeFileSync(a,zip(before)); fs.writeFileSync(b,zip(after));
+  const request = { project_id:'aoa-fixture',title:'AoA fixture',minecraft:'1.20.1',loader:'forge',loader_version:'47.4.23',java:17,checkpoint:'CP40',inputs:[{path:a,label:'Original',role:'authority',expected_sha256:sha(fs.readFileSync(a))},{path:b,label:'Checkpoint',role:'checkpoint'}] };
+  await assert.rejects(service.request('start_conversion_intake',{...request,inputs:[{...request.inputs[0],expected_sha256:'0'.repeat(64)}]}),/checksum/i);
+  await assert.rejects(service.request('start_conversion_intake',{...request,inputs:[{...request.inputs[0],path:path.join(temporary,'missing.jar')}]}));
+  const snapshot = await cli('start_conversion_intake', request);
+  assert.equal(snapshot.inputs[0].entry_count,10009); assert.equal(snapshot.state,'indexed'); assert(snapshot.scope.includes('not established'));
+  assert.equal(sha(fs.readFileSync(a)),request.inputs[0].expected_sha256); assert.equal(sha(fs.readFileSync(snapshot.inputs[0].retained_path)),request.inputs[0].expected_sha256);
+  const tail=await service.request('get_conversion_entries',{sha256:snapshot.inputs[0].sha256,offset:10000}); assert.equal(tail.entries.length,9); assert.equal(tail.total,10009);
+  const diff=await service.request('compare_conversion_inputs',{baselineSha256:snapshot.inputs[0].sha256,candidateSha256:snapshot.inputs[1].sha256});
+  assert.equal(diff.counts.identical_bytes,1); assert.equal(diff.counts.changed,1); assert.equal(diff.counts.missing,10007); assert.equal(diff.counts.added,1);
+  const ambiguous=await service.request('compare_conversion_inputs',{baselineSha256:snapshot.inputs[1].sha256,candidateSha256:snapshot.inputs[1].sha256,status:'ambiguous'}); assert.equal(ambiguous.total,1);
+  const saved=readDb(db=>db.prepare("SELECT key,body FROM creative_library WHERE key LIKE 'conversion-inventory:%'").all());
+  assert.deepEqual(await service.request('start_conversion_intake',request),snapshot,'Repeated input must reuse immutable snapshot');
+  readDb(db=>{for(const row of saved)assert.equal(db.prepare('SELECT body FROM creative_library WHERE key=?').get(row.key).body,row.body);});
+  fs.appendFileSync(b,'new observed bytes'); const changed=await service.request('start_conversion_intake',request); assert.notEqual(changed.id,snapshot.id); assert.notEqual(changed.inputs[1].sha256,snapshot.inputs[1].sha256);
+  const stable=readDb(db=>db.prepare('SELECT body FROM creative_library WHERE key=?').get(`conversion-snapshot:${snapshot.id}`).body); assert.equal(JSON.parse(stable).inputs[1].sha256,snapshot.inputs[1].sha256);
+  // Reuse the first package, then kill the actual worker while indexing the new second package.
+  const resumePath=path.join(temporary,'resume.zip'), many={};for(let i=0;i<600;i++)many[`assets/test/textures/texture-${i}.bin`]=Buffer.alloc(65536,i%256);fs.writeFileSync(resumePath,zip(many));
+  const resumeRequest={...request,inputs:[request.inputs[0],{path:resumePath,label:'Resume fixture',role:'candidate'}]}; let interruptedId;
+  service.on('event',m=>{if(!interruptedId&&m.event==='task:update'&&m.payload.kind==='conversion_intake'&&m.payload.stage==='Preserving and indexing Resume fixture'&&m.payload.completed>20){interruptedId=m.payload.id;service.child.kill();}});
+  await assert.rejects(service.request('start_conversion_intake',resumeRequest)); assert(interruptedId);
+  await service.close(); service=new LauncherService({rootDir:root,dataDir:data});
+  let task=(await service.request('list_tasks')).find(t=>t.id===interruptedId); assert.equal(task.state,'interrupted'); assert.equal(task.checkpoint.operation,'conversion_intake');
+  const resumed=await cli('resume_task',{taskId:interruptedId});assert.equal(resumed.inputs[1].entry_count,600); assert.equal(resumed.inputs[0].cache_reused,true);
+  task=(await service.request('list_tasks')).find(t=>t.id===interruptedId);assert.equal(task.attempt,2);assert.equal(task.state,'succeeded');
+  await service.close(); service=new LauncherService({rootDir:root,dataDir:data});assert.equal((await service.request('get_conversion_snapshot',{projectId:request.project_id})).id,resumed.id);
+  const report={passed:true,entries:10009,unboundedPagination:true,sourceUnchanged:true,immutableSnapshots:true,changedSourceInvalidates:true,expectedHashVerified:true,wrapperPathsMatched:true,ambiguousPathsRetained:true,resumedSameJob:true,cliUsesSameOwner:true,data};
+  fs.writeFileSync(path.join(root,'output/conversion-intake-qa.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>service.close());

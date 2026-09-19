@@ -929,7 +929,7 @@ function configureLiveSession() {
     if (sessionPermissions.get(key) === true) { callback(true); return; }
     queueSitePermission({ wc, permission, callback, url, key });
   });
-  browserDownloads ||= require('./src/browser-downloads').createBrowserDownloads({ directory: app.getPath('downloads'), statePath: path.join(app.getPath('userData'), 'browser-downloads.json'), publish: record => send('download', record) });
+  browserDownloads ||= require('./src/browser-downloads').createBrowserDownloads({ directory: app.getPath('downloads'), statePath: path.join(app.getPath('userData'), 'browser-downloads.json'), fetch:require('./src/session-download-fetch').createSessionDownloadFetch(live,net), safeStorage, publish: record => send('download', record) });
   live.on('will-download', (event, item) => {
     try { browserDownloads.receive(item); } catch (error) { event.preventDefault(); send('status', 'Download could not start: ' + error.message); }
   });
@@ -1052,6 +1052,8 @@ async function command(name, payload) {
     case 'devtools': if (t) t.view.webContents.openDevTools({ mode: 'detach' }); else if (activeId === LAUNCHER_ID) launcherView?.webContents.openDevTools({ mode: 'detach' }); else catalogView.webContents.openDevTools({ mode: 'detach' }); break;
     case 'downloads-folder': await shell.openPath(app.getPath('downloads')); break;
     case 'list-downloads': return browserDownloads?.list() || [];
+    case 'start-background-download': return browserDownloads.start(payload);
+    case 'download-source': { const record=browserDownloads?.get(payload?.id); if(record?.sourcePage)createBrowserTab(record.sourcePage,true); break; }
     case 'download-control': browserDownloads?.control(payload?.id, payload?.action); break;
     case 'reveal-download': { const record = browserDownloads?.get(payload?.id); if (record) shell.showItemInFolder(record.savePath); break; }
     case 'open-download': { const record = browserDownloads?.get(payload?.id); if (record?.state === 'completed') { const error = await shell.openPath(record.savePath); if (error) throw Error(error); } break; }

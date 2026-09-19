@@ -14,6 +14,7 @@ mod content;
 mod control_ipc;
 mod credentials;
 mod creative;
+mod conversion;
 mod datapacks;
 mod db;
 mod diagnose;

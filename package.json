@@ -71,7 +71,12 @@
     "post-media-render-qa": "node scripts/post-media-render-qa.js",
     "curseforge-scoped-negative-qa": "node scripts/curseforge-scoped-negative-qa.js",
     "curseforge-description-link-media-qa": "node scripts/curseforge-description-link-media-qa.js",
-    "curseforge-gallery-dom-rescue-qa": "node scripts/curseforge-gallery-dom-rescue-qa.js"
+    "curseforge-gallery-dom-rescue-qa": "node scripts/curseforge-gallery-dom-rescue-qa.js",
+    "conversion-intake-qa": "node scripts/conversion-intake-qa.js",
+    "studio-ui-qa": "node scripts/studio-ui-qa.js",
+    "authenticated-download-qa": "node scripts/authenticated-download-qa.js",
+    "authenticated-download-runtime-qa": "node scripts/authenticated-download-runtime-qa.js",
+    "authenticated-download-ui-qa": "node scripts/authenticated-download-ui-qa.js"
   },
   "mccNativeTransport": {
     "name": "wreq-js",

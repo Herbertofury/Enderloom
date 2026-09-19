@@ -1,4 +1,5 @@
 import type { EvidenceReport } from "./performance-evidence";
+import type { ConversionRequest, ConversionProject, ConversionSnapshot, PackageEntries, PackageComparison } from "./conversion";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
 type SparkDownload = { data: string; content_type: string };
 import { invoke } from "@tauri-apps/api/core";
@@ -110,7 +111,12 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 }
 
 export const api = {
-  resumeTask: (taskId: string) => call<PerformanceReport>("resume_task", { taskId }),
+  resumeTask: (taskId: string) => call<PerformanceReport | ConversionSnapshot>("resume_task", { taskId }),
+  startConversionIntake: (request: ConversionRequest) => call<ConversionSnapshot>("start_conversion_intake", { ...request }),
+  getConversionProjects: () => call<ConversionProject[]>("get_conversion_projects"),
+  getConversionSnapshot: (projectId: string) => call<ConversionSnapshot>("get_conversion_snapshot", { projectId }),
+  getConversionEntries: (sha256: string, query = '', family = '', offset = 0) => call<PackageEntries>("get_conversion_entries", { sha256, query, family, offset }),
+  compareConversionInputs: (baselineSha256: string, candidateSha256: string, query = '', status = '', offset = 0) => call<PackageComparison>("compare_conversion_inputs", { baselineSha256, candidateSha256, query, status, offset }),
   getProjectArtifactGraph: (provider: string, projectId: string) => call<ProjectArtifactGraph>("get_project_artifact_graph", { provider, projectId }),
   verifyProjectArtifacts: (provider: string, projectId: string) => call<ProjectArtifactGraph>("verify_project_artifacts", { provider, projectId }),
   getProjectContext: (provider: string, projectId: string) => call<ProjectContext>("get_project_context", { provider, projectId }),

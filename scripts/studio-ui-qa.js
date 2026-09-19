@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('assert/strict'),path=require('path'),fs=require('fs');const {_electron:electron}=require('playwright');
+const root=path.resolve(__dirname,'..');let app;
+(async()=>{
+  app=await electron.launch({executablePath:path.join(root,'node_modules/electron/dist/electron.exe'),args:[path.join(root,'scripts/fixtures/creative-ui-host.cjs')]});
+  const page=await app.firstWindow();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.getByRole('button',{name:'Open Evergreen · creative workshop',exact:true}).waitFor();
+  const dir=await app.evaluate(()=>global.creativeQa.temporary),{zip}=require('./workbench-fixtures');
+  const a=path.join(dir,'AoA-original.jar'),b=path.join(dir,'AoA-checkpoint.zip');const entries={};for(let i=0;i<120;i++)entries[`assets/aoa/models/entity-${i}.json`]='{}';fs.writeFileSync(a,zip(entries));fs.writeFileSync(b,zip({'source/src/main/resources/assets/aoa/models/entity-0.json':'{}','data/aoa/new.json':'new'}));
+  await app.evaluate(({ipcMain},files)=>{ipcMain.removeHandler('launcher:open-dialog');ipcMain.handle('launcher:open-dialog',()=>files);},[a,b]);
+  await page.getByRole('button',{name:'Studio',exact:true}).first().click();
+  await page.getByLabel('Project name',{exact:true}).fill('AoA intake QA');await page.getByLabel('Minecraft',{exact:true}).fill('1.20.1');await page.getByLabel('Loader version',{exact:true}).fill('47.4.23');
+  await page.getByLabel('Starting checkpoint').fill('CP40 / Batch34 fixture');await page.getByRole('button',{name:'Add packages',exact:true}).click();
+  await page.getByLabel('Role for AoA-original.jar').selectOption('authority');await page.getByLabel('Role for AoA-checkpoint.zip').selectOption('checkpoint');
+  await page.getByRole('button',{name:'Inspect and save checkpoint',exact:true}).click();await page.getByText('Inputs indexed',{exact:true}).waitFor();
+  await page.getByText('120 matching paths',{exact:true}).waitFor();await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByText('101–120 of 120',{exact:true}).waitFor();
+  await page.getByLabel('Search package paths').fill('entity-119');await page.getByText('1 matching paths',{exact:true}).waitFor();await page.getByLabel('Search package paths').fill('');
+  const candidate=await page.getByLabel('Compare with package').locator('option').allTextContents();assert(candidate.includes('Compare with AoA-checkpoint.zip'));await page.getByLabel('Compare with package').selectOption({label:'Compare with AoA-checkpoint.zip'});
+  await page.getByRole('button',{name:'missing 119',exact:true}).click();await page.getByText('119 matching paths',{exact:true}).waitFor();
+  await page.screenshot({path:path.join(root,'output/playwright/studio-comparison.png')});
+  await page.getByLabel('Expected SHA-256 for AoA-original.jar').fill('0'.repeat(64));await page.getByRole('button',{name:'Inspect and save checkpoint',exact:true}).click();await page.getByRole('alert').filter({hasText:/checksum/i}).waitFor();await page.getByText('Inputs indexed',{exact:true}).waitFor();
+  await page.reload();await page.getByRole('button',{name:'Studio',exact:true}).first().click();await page.getByLabel('Saved conversion project').selectOption('aoa-intake-qa');await page.getByText('Inputs indexed',{exact:true}).waitFor();
+  await page.getByRole('button',{name:'New project',exact:true}).click();assert.equal(await page.getByText('Inputs indexed',{exact:true}).count(),0);assert.equal(await page.getByLabel('Project name',{exact:true}).inputValue(),'');
+  assert.deepEqual(errors,[]);console.log('PASS real Electron Studio: select inputs, inspect, browse all pages, filter, compare, hash rejection, persistent project and project-switch isolation');
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>app?.close());

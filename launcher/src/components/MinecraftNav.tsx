@@ -4,6 +4,7 @@ import { ActivityCenter } from "./ActivityCenter";
 import { RunningPill } from "./RunningPill";
 
 const workspaceViews = new Set([
+  "studio",
   "instances",
   "instance",
   "discover",
@@ -50,6 +51,7 @@ export function MinecraftNav() {
     { label: "Addons", active: view === "addons", select: () => setView("addons") },
     { label: "Favorites", active: view === "favorites", select: () => setView("favorites") },
     { label: "Performance", active: view === "performance", select: () => setView("performance") },
+    { label: "Studio", active: view === "studio", select: () => setView("studio") },
     {
       label: "Skins & accounts",
       active: view === "accounts",

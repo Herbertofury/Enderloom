@@ -75,7 +75,7 @@ function Row({ task, onCancel }: { task: Task; onCancel: (id: string) => void })
   const resumable = !!task.checkpoint && ['interrupted', 'failed', 'cancelled'].includes(task.state);
   async function resume() {
     setResuming(true);
-    try { const report = await api.resumeTask(task.id); useCreative.setState(state => ({ scans: { ...state.scans, [report.instance_id]: report } })); }
+    try { const report = await api.resumeTask(task.id); if ('instance_id' in report) useCreative.setState(state => ({ scans: { ...state.scans, [report.instance_id]: report } })); }
     catch (error) { toast.error(String(error)); }
     finally { setResuming(false); }
   }

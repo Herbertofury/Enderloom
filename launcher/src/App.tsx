@@ -30,6 +30,7 @@ import { SettingsView } from "./views/SettingsView";
 import { FavoritesView } from "./views/FavoritesView";
 import { PerformanceView } from "./views/PerformanceView";
 import { ConfigView, AddonsView } from "./views/WorkbenchView";
+import { StudioView } from "./views/StudioView";
 import { useCreative } from "./creative-store";
 import { listen } from "@tauri-apps/api/event";
 import type { CreativeLibrary, ModInspection } from "./lib/creative";
@@ -43,6 +44,7 @@ const StatsView = lazy(() =>
 const embedded = window.enderloomLauncher?.embedded === true;
 
 const VIEWS: Record<View, React.ComponentType> = {
+  studio: StudioView,
   home: HomeView,
   favorites: FavoritesView,
   performance: PerformanceView,

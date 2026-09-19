@@ -6,7 +6,8 @@ import type { View } from "../lib/types";
 import { useStore } from "../store";
 
 const LABELS: Record<View, string> = {
-  home: "Play",
+  home: "Home",
+  studio: "Studio",
   favorites: "Favorites",
   performance: "Performance",
   config: "Config",

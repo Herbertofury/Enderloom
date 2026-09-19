@@ -443,6 +443,7 @@ export interface PackExport {
 }
 
 export type TaskKind =
+  | "conversion_intake"
   | "game_install"
   | "java_install"
   | "loader_install"
@@ -523,7 +524,7 @@ export interface WorldImportInspection {
 export type TaskState = "running" | "succeeded" | "failed" | "cancelled" | "interrupted";
 
 export interface Task {
-  checkpoint?: { operation: 'mod_inspection'; instance_id: string; history: boolean } | null;
+  checkpoint?: { operation: 'mod_inspection'; instance_id: string; history: boolean } | { operation: 'conversion_intake'; request: import('./conversion').ConversionRequest } | null;
   attempt?: number;
   revision?: number;
   id: string;
@@ -779,6 +780,7 @@ export interface LogConfig {
 }
 
 export type View =
+  | "studio"
   | "home"
   | "favorites"
   | "performance"
