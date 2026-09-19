@@ -2,7 +2,7 @@ import type { EvidenceReport } from "./performance-evidence";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
 type SparkDownload = { data: string; content_type: string };
 import { invoke } from "@tauri-apps/api/core";
-import type { ProjectArtifactGraph, ProjectSourcePreview, ProjectContext } from "./artifacts";
+import type { ProjectArtifactGraph, ProjectSourcePreview, ProjectContext, CodeSymbols } from "./artifacts";
 import type { WorkbenchLibrary } from "./workbench";
 import type { ConfigSourceReport, ConfigOwnerProjection } from "./config-sources";
 import type { CreativeLibrary, Installation, ModInspection, PerformanceReport, RuntimeCapture, ModComparison } from "./creative";
@@ -114,6 +114,7 @@ export const api = {
   getProjectArtifactGraph: (provider: string, projectId: string) => call<ProjectArtifactGraph>("get_project_artifact_graph", { provider, projectId }),
   verifyProjectArtifacts: (provider: string, projectId: string) => call<ProjectArtifactGraph>("verify_project_artifacts", { provider, projectId }),
   getProjectContext: (provider: string, projectId: string) => call<ProjectContext>("get_project_context", { provider, projectId }),
+  getContentCodeSymbols: (targetKind: string, targetId: string, contentKind: string, fileName: string, archivePath: string, classPath?: string) => call<CodeSymbols>("get_content_code_symbols", { targetKind, targetId, contentKind, fileName, archivePath, classPath }),
   previewProjectSourceLink: (provider: string, projectId: string, otherProvider: string, otherProjectId: string) => call<ProjectSourcePreview>("preview_project_source_link", { provider, projectId, otherProvider, otherProjectId }),
   linkProjectSources: (provider: string, projectId: string, otherProvider: string, otherProjectId: string, reason: string, confirmed: boolean) => call<ProjectArtifactGraph>("link_project_sources", { provider, projectId, otherProvider, otherProjectId, reason, confirmed }),
   unlinkProjectSource: (provider: string, projectId: string, linkId: string) => call<ProjectArtifactGraph>("unlink_project_source", { provider, projectId, linkId }),

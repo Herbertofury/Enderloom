@@ -747,6 +747,12 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
             let provider=required_string(args,"provider")?;let project=required_string(args,"projectId")?;let state=state.clone();
             tokio::task::spawn_blocking(move||crate::project_context::get(&state,&provider,&project)).await.map_err(|e|Error::other(e.to_string()))?
         }
+        "get_content_code_symbols" => {
+            let target_kind=required_string(args,"targetKind")?;let target_id=required_string(args,"targetId")?;
+            let content_kind=required_string(args,"contentKind")?;let file_name=required_string(args,"fileName")?;
+            let archive_path=optional_string(args,"archivePath").unwrap_or_default();let class_path=optional_string(args,"classPath");let state=state.clone();
+            tokio::task::spawn_blocking(move||crate::code_symbols::get(&state,&target_kind,&target_id,&content_kind,&file_name,&archive_path,class_path.as_deref())).await.map_err(|e|Error::other(e.to_string()))?
+        }
         "verify_project_artifacts" => value(crate::artifacts::verify_project(state, required_string(args, "provider")?, required_string(args, "projectId")?).await?),
         "preview_project_source_link" => value(crate::artifacts::preview_source_link(state, &required_string(args, "provider")?, &required_string(args, "projectId")?, &required_string(args, "otherProvider")?, &required_string(args, "otherProjectId")?).await?),
         "link_project_sources" => value(crate::artifacts::link_sources(state, &required_string(args, "provider")?, &required_string(args, "projectId")?, &required_string(args, "otherProvider")?, &required_string(args, "otherProjectId")?, &required_string(args, "reason")?, args.get("confirmed").and_then(Value::as_bool).unwrap_or(false)).await?),

@@ -16,6 +16,8 @@ const scripts=[
   'workbench-concurrency-qa.js',
   'project-context-qa.js',
   'bundled-mods-qa.js',
+  'code-symbols-qa.js',
+  'code-symbols-ui-qa.js',
   'project-world-links-qa.js',
   'task-resume-qa.js',
   'workbench-cache-qa.js',

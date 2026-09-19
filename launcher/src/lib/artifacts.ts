@@ -1,4 +1,12 @@
 export interface FileHash { algorithm: 'sha256' | 'sha1' | 'sha512'; value: string }
+export interface CodeSymbolMember { kind: 'field'|'method'; name: string; descriptor: string; access_flags: number; signature: string|null; first_line: number|null; last_line: number|null }
+export interface CodeSymbols {
+  target_kind: string; target_id: string; content_kind: string;
+  artifact_sha256: string; archive_sha256: string; archive_path: string; file_name: string; evidence_class: 'measured'; parser_version: string; scope: string;
+  classes?: string[];
+  class_path?: string;
+  symbol?: { name: string; superclass: string|null; interfaces: string[]; class_version: string; access_flags: number; signature: string|null; source_file: string|null; fields: CodeSymbolMember[]; methods: CodeSymbolMember[]; sha256: string };
+}
 export interface ArtifactIdentity { sha256: string; size: number; evidence_class: 'measured'; hashes: FileHash[] }
 export interface ProviderProjectIdentity { provider: 'modrinth' | 'curseforge'; project_id: string; title: string; author: string; source_url: string; icon_url: string | null }
 export interface ProjectSourceLink { id: string; left: ProviderProjectIdentity; right: ProviderProjectIdentity; reason: string; confidence_class: 'user_confirmed'; active: boolean; created_at: number; updated_at: number }

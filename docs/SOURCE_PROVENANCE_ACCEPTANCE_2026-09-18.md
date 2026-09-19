@@ -6,6 +6,6 @@ The native manifest reader supplies the same typed records to the canonical proj
 
 Verification: native service/CLI and frontend builds; `bundled-mods-qa.js` (license scope, safe links, entrypoints, exact hashes, cache edits, restart/CLI parity); `config-sources-qa.js` (four exact source declarations reused in project details); `project-context-ui-qa.js` (real Electron license/entrypoint/fingerprint rendering and existing world/config controls) all pass. All 63 release suites pass (`output/release-qa-provenance.json`). Screenshot: `output/playwright/project-provenance.png`. Real installed Aether metadata is preserved in `output/aether-project-provenance-real.json`.
 
-This advances PA-004. It does not claim a complete bytecode/source symbol index, resolved rights for arbitrary files, build-to-source equivalence, or runtime execution of declared entrypoints. Those broader requirements remain open.
+This checkpoint introduced declared provenance. The subsequent installed-code explorer completes the PA-004 metadata acceptance; see `docs/CODE_SYMBOLS_ACCEPTANCE_2026-09-18.md`. Resolved rights for arbitrary files, build-to-source equivalence and runtime execution of declared entrypoints are not inferred.
 
 Format sources: [Fabric manifest specification](https://docs.fabricmc.net/develop/loader/fabric-mod-json), [Quilt v1 schema](https://github.com/QuiltMC/quilt-json-schemas/blob/main/quilt.mod.json/schemas/schema_version_1.json), [NeoForge mod metadata](https://docs.neoforged.net/docs/gettingstarted/modfiles/).

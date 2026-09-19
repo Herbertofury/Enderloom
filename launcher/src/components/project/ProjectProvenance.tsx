@@ -1,6 +1,7 @@
 import { Code2, ExternalLink, FileCode2 } from 'lucide-react';
 import { openUrl } from '@tauri-apps/plugin-opener';
 import type { ProjectContext } from '../../lib/artifacts';
+import { CodeSymbols } from './CodeSymbols';
 
 export function ProjectProvenance({ target }: { target: ProjectContext['targets'][number] }) {
   if (!target.provenance?.length && !target.source_evidence?.length) return null;
@@ -14,6 +15,7 @@ export function ProjectProvenance({ target }: { target: ProjectContext['targets'
       <div className="space-y-1">{record.links.map((link, i) => <button key={i} type="button" title={link.url} className="flex max-w-full items-center gap-2 text-left text-[11px] text-brand hover:underline" onClick={() => void openUrl(link.url)}><ExternalLink size={12} className="shrink-0"/><span className="min-w-0 break-all">{link.kind === 'sources' ? 'Source repository' : link.kind === 'issues' ? 'Issue tracker' : 'Project website'} · {link.url}</span></button>)}</div>
       {!!record.symbols.length && <details className="mt-3 border-t border-border-soft pt-2"><summary className="cursor-pointer text-[11px] text-content-muted">Declared entrypoints · {record.symbols.length}</summary>{record.symbols.map((symbol, i) => <div key={i} className="mt-2 flex items-start gap-2 text-[11px]"><Code2 size={13} className="mt-0.5 shrink-0 text-brand"/><div className="min-w-0"><code className="break-all text-content">{symbol.value}</code><p className="text-content-faint">{symbol.entrypoint}{symbol.adapter && ` · ${symbol.adapter}`}</p></div></div>)}</details>}
       <details className="mt-3 text-[10px] text-content-faint"><summary className="cursor-pointer">Manifest fingerprint</summary><p className="mt-1 break-all font-mono">SHA-256 · {record.manifest_sha256}</p></details>
+      <CodeSymbols targetKind={target.kind} targetId={target.id} fileName={file_name} archivePath={record.archive_path}/>
     </section>)}</div>
     {!!target.source_evidence?.length && <div className="mt-3 space-y-2"><p className="text-xs font-medium text-content">Config declarations found in source</p>{target.source_evidence.map(({ file_name, checked_at, evidence }, index) => <div key={index} className="rounded-lg bg-surface p-3 text-xs">
       <p className="break-all text-content">{evidence.path}<span className="ml-2 text-content-faint">{evidence.scope}</span></p>

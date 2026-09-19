@@ -4,6 +4,7 @@ mod build_info;
 mod capabilities;
 mod cli;
 mod cli_commands;
+mod code_symbols;
 pub mod cli_headless;
 mod commands;
 mod config;

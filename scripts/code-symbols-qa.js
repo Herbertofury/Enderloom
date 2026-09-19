@@ -1,0 +1,26 @@
+'use strict';
+const fs=require('fs'),path=require('path'),os=require('os'),assert=require('assert/strict'),crypto=require('crypto');
+const {spawnSync}=require('child_process');const {LauncherService}=require('../src/launcher-service');
+const {seedProjectContext}=require('./project-context-fixtures');const {seedCodeSymbols}=require('./code-symbol-fixtures');const {zip}=require('./workbench-fixtures');
+const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-code-qa-'));
+const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data'),env:{ENDERLOOM_CURSEFORGE_API_KEY:'qa-offline-cache-only'}});
+const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+(async()=>{
+  const {first,second}=await seedProjectContext(service),fixture=seedCodeSymbols(first);
+  const args={targetKind:'instance',targetId:first.id,contentKind:'mods',fileName:'first.jar',archivePath:''};
+  const get=extra=>service.request('get_content_code_symbols',{...args,...extra});
+  const index=await get();assert.equal(index.classes.length,68);assert.equal(index.artifact_sha256,hash(fixture.bytes));
+  const full=await get({classPath:'fixture/Example.class'}),symbol=full.symbol;
+  assert.equal(symbol.name,'fixture.Example');assert.equal(symbol.source_file,'Example.java');assert.equal(symbol.class_version,'61.0');assert.equal(symbol.sha256,hash(fixture.entries['fixture/Example.class']));
+  assert.equal(symbol.methods.filter(m=>m.name==='render').length,2);assert(symbol.methods.some(m=>m.name==='render'&&m.descriptor==='(I)I'&&m.first_line===7));
+  assert(symbol.fields.some(m=>m.name==='BIG'&&m.descriptor==='J'));assert(symbol.fields.some(m=>m.name==='PRECISE'&&m.descriptor==='D'));
+  const nested=await get({archivePath:'META-INF/jars/helper.jar!/',classPath:'nested/Helper.class'});
+  assert.equal(nested.symbol.name,'nested.Helper');assert.equal(nested.symbol.source_file,null);assert(nested.symbol.methods.every(m=>m.first_line===null));assert.equal(nested.archive_sha256,hash(fixture.entries['META-INF/jars/helper.jar']));
+  for(const request of [{classPath:'broken.class'},{classPath:'truncated.class'},{classPath:'../Example.class'},{fileName:'../first.jar'},{archivePath:'private.jar!/'},{contentKind:'config'},{targetId:second.id}])await assert.rejects(get(request));
+  assert(fs.readFileSync(path.join(first.dir,'mods/first.jar')).equals(fixture.bytes));
+  fs.renameSync(path.join(first.dir,'mods/first.jar'),path.join(first.dir,'mods/first.jar.disabled'));assert.equal((await get()).artifact_sha256,index.artifact_sha256);
+  await service.close();const cli=spawnSync(path.join(root,'native/target/debug/enderloom.exe'),['--data-dir',service.dataDir,'operation','run','get_content_code_symbols','--json'],{input:JSON.stringify({...args,classPath:'fixture/Example.class'}),encoding:'utf8',windowsHide:true,timeout:30000});assert.equal(cli.status,0,cli.stderr);assert.deepEqual(JSON.parse(cli.stdout).result,full);
+  const disabled=path.join(first.dir,'mods/first.jar.disabled'),stat=fs.statSync(disabled),edited={...fixture.entries};edited['fixture/Example.class']=Buffer.from(edited['fixture/Example.class']);const at=edited['fixture/Example.class'].indexOf(Buffer.from('render'));assert(at>0);edited['fixture/Example.class'].write('render'.replace('r','b'),at,'ascii');const changed=zip(edited);assert.equal(changed.length,fixture.bytes.length);fs.writeFileSync(disabled,changed);fs.utimesSync(disabled,stat.atime,stat.mtime);
+  const updated=await get({classPath:'fixture/Example.class'});assert.notEqual(updated.artifact_sha256,full.artifact_sha256);assert.notEqual(updated.symbol.sha256,symbol.sha256);assert(updated.symbol.methods.some(m=>m.name==='bender'));
+  console.log('PASS installed code symbols: all 68 classes, overloads, descriptors, debug lines, modified UTF-8, long/double pools, nested ownership, missing debug data, corrupt entry isolation, disabled files, source preservation, same-size/time edits and CLI parity.');
+})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>service.close());
