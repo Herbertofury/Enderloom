@@ -195,7 +195,6 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
             let instance_id = required_string(args, "instanceId")?;
             let mut reports: Vec<Value> = state.db.library_list("evidence:")?.into_iter().filter(|v| v["instance_id"].as_str() == Some(&instance_id)).collect();
             reports.sort_by_key(|v| std::cmp::Reverse(v["at"].as_i64().unwrap_or_default()));
-            reports.truncate(30);
             Ok(json!(reports))
         }
         "get_spark_profile" => {

@@ -14,9 +14,10 @@ let app;
   });
   const page = await app.firstWindow(),
     errors = [];
+  page.setDefaultTimeout(12000);
   page.on("pageerror", (e) => errors.push(e.message));
   await page
-    .getByRole("button", { name: "Manage instance", exact: true })
+    .getByRole("button", { name: "Open Evergreen · creative workshop", exact: true })
     .waitFor();
   await page
     .getByRole("button", { name: "Performance", exact: true })

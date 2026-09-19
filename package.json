@@ -77,7 +77,8 @@
     "authenticated-download-qa": "node scripts/authenticated-download-qa.js",
     "authenticated-download-runtime-qa": "node scripts/authenticated-download-runtime-qa.js",
     "authenticated-download-ui-qa": "node scripts/authenticated-download-ui-qa.js",
-    "video-controls-ui-qa": "node scripts/video-controls-ui-qa.js"
+    "video-controls-ui-qa": "node scripts/video-controls-ui-qa.js",
+    "spark-scope-ui-qa": "node scripts/spark-scope-ui-qa.js"
   },
   "mccNativeTransport": {
     "name": "wreq-js",

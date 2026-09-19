@@ -3,6 +3,12 @@ const {spawnSync}=require('child_process');
 const path=require('path');
 const scripts=[
   'cli-parity-qa.js',
+  'conversion-intake-qa.js',
+  'studio-ui-qa.js',
+  'authenticated-download-qa.js',
+  'spark-evidence-qa.js',
+  'spark-ui-qa.js',
+  'spark-scope-ui-qa.js',
   'testing-cli-qa.js',
   'minecraft-probe-qa.js',
   'local-video-response-qa.js',

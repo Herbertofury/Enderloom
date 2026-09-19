@@ -21,28 +21,37 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
   const [thread, setThread] = useState(0);
   const [query, setQuery] = useState("");
   const upload = useRef<HTMLInputElement>(null);
+  const view = useRef(instanceId), generation = useRef(0), evidenceRequest = useRef(0);
+  view.current = instanceId;
   const prefs = useCreative((s) => s.library.preferences);
   const [mods, setMods] = useState<
     Awaited<ReturnType<typeof api.listInstanceContent>>
   >([]);
   useEffect(() => {
+    const revision = ++generation.current, ticket = ++evidenceRequest.current;
+    const ownsView = () => current && revision === generation.current && view.current === instanceId;
     setSelected(null);
     setThread(0);
     setReports([]);
+    setMods([]);
+    setError('');
+    setBusy(false);
+    setUrl('');
+    setQuery('');
     let current = true;
     void api
       .getPerformanceEvidence(instanceId)
       .then((v) => {
-        if (current) {
+        if (ownsView() && ticket === evidenceRequest.current) {
           setReports(v);
           setSelected(v[0] ?? null);
         }
       })
-      .catch((e) => setError(String(e)));
+      .catch((e) => { if (ownsView() && ticket === evidenceRequest.current) setError(String(e)); });
     void api
       .listInstanceContent(instanceId, "mods")
       .then((v) => {
-        if (current) setMods(v);
+        if (ownsView()) setMods(v);
       })
       .catch(() => {});
     void useCreative
@@ -51,9 +60,12 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
       .catch(() => {});
     return () => {
       current = false;
+      generation.current++;
     };
   }, [instanceId]);
   const run = async (work: () => Promise<EvidenceReport>) => {
+    const revision = generation.current, ticket = ++evidenceRequest.current;
+    const ownsView = () => revision === generation.current && ticket === evidenceRequest.current && view.current === instanceId;
     setBusy(true);
     setError("");
     try {
@@ -61,13 +73,16 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
         instanceId,
         await work(),
       );
+      if (!ownsView()) return;
+      const history = await api.getPerformanceEvidence(instanceId);
+      if (!ownsView()) return;
       setSelected(result);
       setThread(0);
-      setReports(await api.getPerformanceEvidence(instanceId));
+      setReports(history);
     } catch (e) {
-      setError(String(e));
+      if (ownsView()) setError(String(e));
     } finally {
-      setBusy(false);
+      if (ownsView()) setBusy(false);
     }
   };
   const inspectBytes = async (raw: Uint8Array, name: string, url?: string) => {
