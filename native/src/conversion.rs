@@ -348,6 +348,10 @@ pub fn run(state: &AppState, request: &Request, task: &TaskHandle) -> Result<Val
     let stable = state.db.library_get(&key)?.unwrap_or(snapshot);
     state.db.library_put(&key, &stable)?;
     crate::evidence::conversion(state, &stable, Some(task.id()))?;
+    for input in stable["inputs"].as_array().into_iter().flatten() {
+        if let Some(sha)=input["sha256"].as_str(){task.produced_evidence(&format!("conversion:{snapshot_id}:{sha}"))?;}
+    }
+    task.bind_run(&snapshot_id)?;
     state.db.library_put(&format!("conversion-project:{}",request.project_id),&json!({"project_id":request.project_id,"snapshot_id":snapshot_id,"request":request,"title":request.title,"at":now()}))?;
     if let Some(sink) = state.tasks.event_sink() {
         sink(

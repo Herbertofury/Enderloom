@@ -464,8 +464,7 @@ impl ExtraCommand {
             Self::Task {
                 action: TaskCommand::Show { id },
             } => {
-                let rows = invoke(domain, "list_tasks", json!({})).await?;
-                return rows.as_array().and_then(|rows|rows.iter().find(|r|r["id"]==*id)).cloned().ok_or_else(||Error::other("Task not found; inspect task list or interrupted operations in app doctor"));
+                return Ok(invoke(domain, "get_task_detail", json!({"taskId":id})).await?["task"].clone());
             }
             Self::Task {
                 action: TaskCommand::Cancel { id },

@@ -179,6 +179,11 @@ fn detected_launchers(state: &AppState) -> Result<Value> {
 }
 
 pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
+    // The dispatch future contains install/launch state. Keep it off the nested
+    // local-IPC stack when adding operation provenance to its task scope.
+    crate::tasks::operation_scoped(command, Box::pin(dispatch_operation(state,command,args))).await
+}
+async fn dispatch_operation(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
     match command {
         "get_capabilities" => value(crate::capabilities::all()),
         "save_performance_evidence" => {
@@ -1408,6 +1413,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
         "get_system_usage" => value(crate::sysinfo_probe::usage(&state.paths)),
         "get_lan_address" => value(crate::sysinfo_probe::lan_address()),
         "list_tasks" => value(state.tasks.list()),
+        "get_task_detail" => state.tasks.detail(&required_string(args,"taskId")?),
         "clear_finished_tasks" => {
             state.tasks.clear_finished();
             Ok(Value::Null)

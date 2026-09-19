@@ -90,6 +90,7 @@ import type {
   DataRoot,
   LocationCandidate,
   Task,
+  TaskDetail,
   UpdateInfo,
   VersionEntry,
   VersionMedia,
@@ -514,6 +515,7 @@ export const api = {
   packExportName: (name: string, format: PackFormat) =>
     call<string>("pack_export_name", { name, format }),
   listTasks: () => call<Task[]>("list_tasks"),
+  getTaskDetail: (taskId: string) => call<TaskDetail>("get_task_detail", { taskId }),
   clearFinishedTasks: () => call<void>("clear_finished_tasks"),
   cancelTask: (taskId: string) => call<boolean>("cancel_task", { taskId }),
   recoverInterrupted: () => call<PendingOperation[]>("recover_interrupted"),

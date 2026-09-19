@@ -317,6 +317,7 @@ pub fn save_testing_analysis(
         .db
         .library_put_immutable(&format!("evidence:{id}"), &report)?;
     register_performance(state, &stable, Some(raw), false)?;
+    if let Some(task)=test["task_id"].as_str(){state.tasks.attach_evidence(task,stable["evidence_id"].as_str().unwrap())?;}
     Ok(stable)
 }
 pub fn performance_reports(state: &AppState, instance_id: &str) -> Result<Value> {

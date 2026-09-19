@@ -26,6 +26,7 @@ import { formatBytes } from "../lib/format";
 import { api } from "../lib/api";
 import { useCreative } from "../creative-store";
 import { toast } from "sonner";
+import { TaskDetails } from './TaskDetails';
 
 
 function Ring({ fraction }: { fraction: number | null }) {
@@ -148,6 +149,7 @@ function Row({ task, onCancel }: { task: Task; onCancel: (id: string) => void })
           )}
         </div>
 
+        {!task.id.startsWith('optimistic:') && <TaskDetails task={task} />}
         {active && (
           <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-surface-3">
             <div

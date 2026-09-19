@@ -1034,6 +1034,8 @@ pub async fn install_server_pack(
         TaskKind::ServerInstall,
         TaskSpec {
             title: "Modpack server".to_string(),
+            operation: Some("install_server_pack".into()),
+            parent_task_id: None,
             subtitle: None,
             icon_url: None,
             instance_id: None,
@@ -1089,6 +1091,8 @@ pub async fn install_server_zip(
         TaskSpec {
             title: name.clone(),
             subtitle: Some("server pack".to_string()),
+            operation: Some("install_server_zip_pack".into()),
+            parent_task_id: None,
             icon_url: None,
             instance_id: None,
             server_id: None,

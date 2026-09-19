@@ -524,6 +524,22 @@ export interface WorldImportInspection {
 export type TaskState = "running" | "succeeded" | "failed" | "cancelled" | "interrupted";
 
 export interface Task {
+  details?: {
+    schema_version: number;
+    operation: string;
+    target: { kind: string; id: string } | null;
+    parent_task_id: string | null;
+    attempts: { id: string; number: number; started_at: number | null; finished_at: number | null; state: TaskState; stage: string; error: string | null; checkpoint_id: string | null }[];
+    history_note: string | null;
+    checkpoint_id: string | null;
+    cancellation_requested_at: number | null;
+    blocker: { code: string; reason: string; recovery: string } | null;
+    run_ids: string[];
+    processes: { run_id: string; pid: number; role: string; attempt: number; observed_at: number; stopped_at: number | null }[];
+    produced_evidence: string[];
+    cleanup: { kind: string; id: string; path: string; attempt: number; state: 'owned' | 'removed' | 'retained' | 'needs_review'; reason: string; updated_at: number }[];
+    archived: boolean;
+  };
   checkpoint?: { operation: 'mod_inspection'; instance_id: string; history: boolean } | { operation: 'conversion_intake'; request: import('./conversion').ConversionRequest } | null;
   attempt?: number;
   revision?: number;
@@ -547,6 +563,8 @@ export interface Task {
   started_at: number;
   finished_at: number | null;
 }
+
+export interface TaskDetail { task: Task; parent: Task | null; children: Task[] }
 
 export interface PendingOperation {
   id: string;

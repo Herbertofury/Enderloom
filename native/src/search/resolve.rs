@@ -671,6 +671,7 @@ async fn apply_inner(
             project_id: plan.primary.as_ref().map(|f| f.project_id.clone()),
             total: total as u64,
             total_bytes: plan.total_bytes,
+            ..Default::default()
         };
         Some(if let Some(app) = app {
             state.tasks.start(

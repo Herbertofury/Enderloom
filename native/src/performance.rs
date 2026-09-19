@@ -53,25 +53,26 @@ pub async fn startup(state: &Arc<AppState>, instance_id: &str, seconds: u64) -> 
     startup_variant(state,instance_id,seconds,None,None).await
 }
 
-async fn startup_variant(state: &Arc<AppState>, instance_id: &str, seconds: u64, omitted: Option<&str>, parent: Option<tokio_util::sync::CancellationToken>) -> Result<Value> {
+async fn startup_variant(state: &Arc<AppState>, instance_id: &str, seconds: u64, omitted: Option<&str>, parent: Option<&TaskHandle>) -> Result<Value> {
     if !(15..=900).contains(&seconds) { return Err(Error::other("Choose a recording duration from 15 to 900 seconds")); }
     let source = find_instance(state,instance_id)?;
     if parent.is_none() && crate::instance_ops::instance_busy(state,instance_id) { return Err(Error::other("Stop this instance and wait for its tasks before starting a controlled capture")); }
-    let task = Arc::new(state.tasks.start_ipc(TaskKind::PerformanceTest,TaskSpec{title:"Startup capture".into(),instance_id:Some(instance_id.to_string()),subtitle:Some(source.name.clone()),..Default::default()})?);
+    let task = Arc::new(state.tasks.start_ipc(TaskKind::PerformanceTest,TaskSpec{title:"Startup capture".into(),operation:Some("start_performance_capture".into()),parent_task_id:parent.map(|p|p.id().into()),instance_id:Some(instance_id.to_string()),subtitle:Some(source.name.clone()),..Default::default()})?);
     let id = uuid::Uuid::new_v4().to_string();
     let sandbox_id = uuid::Uuid::new_v4().to_string();
     let mut sandbox = source.clone();
     sandbox.id=sandbox_id.clone(); sandbox.dir=state.paths.instance_dir(&sandbox_id).display().to_string();
+    task.bind_run(&id)?;
+    task.own_resource("instance_sandbox",&sandbox_id,Path::new(&sandbox.dir))?;
     sandbox.name=format!("[Performance] {}",source.name); sandbox.created_at=chrono::Utc::now(); sandbox.playtime_secs=0;sandbox.last_played_at=None;
     sandbox.logo=None;sandbox.import_source=None;sandbox.import_source_id=None;sandbox.pack_provider=None;sandbox.pack_project_id=None;sandbox.pack_version_id=None;
     sandbox.wrapper_command=None;sandbox.pre_launch_command=None;sandbox.post_exit_command=None;
     let mut record=json!({"id":id,"instance_id":instance_id,"instance_name":source.name,"sandbox_id":sandbox_id,"at":chrono::Utc::now().timestamp_millis(),"kind":"startup_capture","state":"preparing","seconds":seconds,
         "scenario":"Copied instance, no worlds or launch hooks; title-menu startup. The observation window begins after process spawn.","sampling_note":"Log milestones are observed through a 200 ms log poll, not a title-screen readiness probe.","milestones":{},"jfr":null,"error":null,"cleaned_up":false});
+    record["task_id"]=json!(task.id());
     state.db.library_put(&format!("runtime:{id}"),&record)?;
     record["omitted_file"]=json!(omitted);
-    let forward=parent.map(|parent| { let child=task.token();tokio::spawn(async move { parent.cancelled().await;child.cancel(); }) });
     let result=capture(state,&source,&sandbox,seconds,&task,&mut record,omitted).await;
-    if let Some(forward)=forward { forward.abort(); }
     if let Err(e)=&result { record["error"]=json!(e.to_string()); }
     record["state"]=json!(match &result { Ok(_) => "completed",Err(Error::Cancelled)=>"cancelled",Err(_)=>"failed" });
     let stopped=stop_owned(state,&sandbox_id).await;
@@ -91,8 +92,10 @@ async fn startup_variant(state: &Arc<AppState>, instance_id: &str, seconds: u64,
         })();
         record["cleaned_up"]=json!(cleanup.is_ok());
         if let Err(e)=cleanup { record["cleanup_error"]=json!(e.to_string()); }
-    } else { record["cleanup_error"]=json!(stopped.err().unwrap().to_string()); }
+    } else { record["cleanup_error"]=json!(stopped.as_ref().err().unwrap().to_string()); }
     record["finished_at"]=json!(chrono::Utc::now().timestamp_millis());
+    state.tasks.cleanup_result(task.id(),&sandbox_id,record["cleaned_up"]==true,record["cleanup_error"].as_str().unwrap_or("Owned sandbox removed after the process stopped."))?;
+    if stopped.is_ok(){if let Some(run)=record["running_id"].as_str(){state.tasks.process_stopped(task.id(),run)?;}}
     state.db.library_put(&format!("runtime:{id}"),&record)?;
     task.finish(&result);
     if let Some(sink)=state.tasks.event_sink() { sink("performance:finished",record.clone()); }
@@ -148,6 +151,8 @@ async fn capture(state:&Arc<AppState>,source:&Instance,sandbox:&Instance,seconds
     task.stage("Launching isolated Minecraft client");
     // Do not drop a launch future on cancellation; let it return its owned process for cleanup.
     let running=crate::launch::launch_profile_instance(sink,state,&launch,safe_settings).await?;
+    let pid=state.running.lock().unwrap().get(&running).map(|r|r.pid).ok_or_else(||Error::other("Launched process identity was not registered"))?;
+    state.tasks.record_process(task.id(),&running,pid,"minecraft")?;
     record["running_id"]=json!(running);
     state.db.library_put(&format!("runtime:{}",record["id"].as_str().unwrap()),record)?;
     let began=timing.lock().unwrap().0.unwrap_or_else(Instant::now);
@@ -221,6 +226,7 @@ pub async fn compare(state:&Arc<AppState>,instance_id:&str,file:&str,seconds:u64
     if !dependents.is_empty(){return Err(Error::other(format!("Removing this mod would break required dependents: {}. Test the dependency group together instead.",dependents.join(", "))));}
     let task=state.tasks.start_ipc(TaskKind::PerformanceComparison,TaskSpec{title:format!("Compare {file}"),instance_id:Some(instance_id.to_string()),total:repeats*2,..Default::default()})?;
     let id=uuid::Uuid::new_v4().to_string();
+    task.bind_run(&id)?;
     let mut result=json!({"id":id,"instance_id":instance_id,"instance_name":source.name,"file_name":file,"target_sha256":target_hash,"at":chrono::Utc::now().timestamp_millis(),"state":"running","requested_pairs":repeats,"seconds":seconds,"pairs":[],"captures":[],"error":null,
         "method":"Paired startup captures from fresh copies; alternating AB/BA order. Required local and provider dependencies checked. Compare observed startup milestones, never FPS or whole-session mod cost."});
     state.db.library_put(&format!("comparison:{id}"),&result)?;
@@ -231,7 +237,7 @@ pub async fn compare(state:&Arc<AppState>,instance_id:&str,file:&str,seconds:u64
             for omit in if pair%2==0 {[false,true]}else{[true,false]} {
                 cancelled(&task)?;
                 task.stage(&format!("Pair {} / {} · {} target",pair+1,repeats,if omit{"without"}else{"with"}));
-                let capture=startup_variant(state,instance_id,seconds,omit.then_some(file),Some(task.token())).await?;
+                let capture=startup_variant(state,instance_id,seconds,omit.then_some(file),Some(&task)).await?;
                 result["captures"].as_array_mut().unwrap().push(json!(capture["id"]));
                 if capture["state"]=="cancelled" {return Err(Error::Cancelled);}
                 if capture["state"]!="completed" {return Err(Error::other(format!("A capture failed; this pair cannot establish a mod impact: {}",capture["error"])));}
@@ -274,6 +280,10 @@ pub async fn cleanup_capture(state:&Arc<AppState>,id:&str)->Result<Value> {
     if state.tasks.list().iter().any(|t| t.kind==TaskKind::PerformanceTest && t.state==crate::tasks::TaskState::Running && t.instance_id.as_deref()==record["instance_id"].as_str()){return Err(Error::other("Cancel the active capture before cleaning its sandbox"));}
     stop_owned(state,&sandbox).await?;state.db.delete_instance(&sandbox)?;state.files.remove_instance_dir(&sandbox)?;
     record["cleaned_up"]=json!(true);record["cleanup_error"]=Value::Null;
+    if let Some(task)=record["task_id"].as_str(){
+        state.tasks.cleanup_result(task,&sandbox,true,"Owned sandbox removed by capture recovery.")?;
+        if let Some(run)=record["running_id"].as_str(){state.tasks.process_stopped(task,run)?;}
+    }
     if record["state"]=="running"||record["state"]=="preparing"{record["state"]=json!("interrupted");}
     state.db.library_put(&format!("runtime:{id}"),&record)?;Ok(record)
 }

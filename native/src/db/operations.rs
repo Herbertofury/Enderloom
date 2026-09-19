@@ -28,13 +28,6 @@ impl Db {
         self.0.lock().unwrap().execute("UPDATE task_history SET state=?2,body=?3 WHERE id=?1 AND COALESCE(json_extract(body,'$.revision'),0)<=?4",params![task.id,serde_json::to_value(task.state)?.as_str().unwrap_or("unknown"),serde_json::to_string(task)?,task.revision])?;
         Ok(())
     }
-    pub fn clear_finished_task_history(&self) -> Result<()> {
-        self.0.lock().unwrap().execute(
-            "DELETE FROM task_history WHERE state IN ('succeeded','failed','cancelled')",
-            [],
-        )?;
-        Ok(())
-    }
     pub fn begin_operation(&self, op: &PendingOperation) -> Result<()> {
         let conn = self.0.lock().unwrap();
         conn.execute(

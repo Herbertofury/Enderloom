@@ -405,6 +405,7 @@ async fn install_with_target(
         project_id: Some(project_id.to_string()),
         total: 1,
         total_bytes: file.size.unwrap_or(0),
+        ..Default::default()
     };
     let task = match app {
         Some(app) => state.tasks.start(app, TaskKind::DatapackInstall, spec)?,

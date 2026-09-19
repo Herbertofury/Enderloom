@@ -28,7 +28,7 @@ export function EvidenceDetails({ evidenceId, title = 'Evidence & source' }: { e
     try { await work(); } catch (e) { if (current === epoch.current) setError(String(e)); }
     finally { if (current === epoch.current) setBusy(false); }
   }
-  return <details className="mt-4 rounded-xl border border-border bg-surface-1/40 p-3 text-xs" open={expanded} onToggle={e => setExpanded(e.currentTarget.open)}>
+  return <details className="mt-4 min-w-0 rounded-xl border border-border bg-surface-1/40 p-3 text-xs [overflow-wrap:anywhere]" open={expanded} onToggle={e => setExpanded(e.currentTarget.open)}>
     <summary className="cursor-pointer font-semibold text-content-muted"><FileCheck2 size={14} className="mr-2 inline text-brand" />{title}</summary>
     {expanded && <div className="mt-4 space-y-3">
       {error && <p role="alert" className="text-danger">{error}</p>}

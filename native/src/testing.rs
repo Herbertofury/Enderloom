@@ -204,6 +204,10 @@ pub async fn scenario(state: &Arc<AppState>, id: &str, scenario: &Value) -> Resu
         },
     )?;
     let work:Result<()> = async {
+        task.bind_run(id)?;
+        if let Some(run)=test["running_id"].as_str(){
+            if let Some(pid)=state.running.lock().unwrap().get(run).map(|r|r.pid){state.tasks.record_process(task.id(),run,pid,"minecraft")?;}
+        }
         for (index,step) in steps.iter().enumerate() {if task.token().is_cancelled(){return Err(Error::Cancelled);}task.stage(&format!("Step {} / {}",index+1,steps.len()));task.progress(index as u64,steps.len() as u64,0,0);if report(state,id)?["state"]!="running"{return Err(error("Test session ended during the scenario"));}
             if let Some(c)=step["command"].as_str(){let r=command(state,id,c,step["expect"].as_str(),step["timeoutSeconds"].as_u64().unwrap_or(10)).await?;if r["status"]=="failed"{return Err(error(format!("Scenario assertion failed: {c}")));}}
             else if let Some(label)=step["screenshot"].as_str(){screenshot(state,id,label).await?;}
@@ -238,6 +242,7 @@ pub async fn scenario(state: &Arc<AppState>, id: &str, scenario: &Value) -> Resu
         )
         .await
     };
+    if let Ok(report)=&result {for evidence in report["evidence"].as_array().into_iter().flatten(){if let Some(id)=evidence["evidence_id"].as_str(){task.produced_evidence(id)?;}}}
     if result.is_err() {
         task.finish(&result);
     } else {
@@ -290,6 +295,8 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
     let mut sandbox = source.clone();
     sandbox.id = sandbox_id.clone();
     sandbox.dir = state.paths.instance_dir(&sandbox_id).display().to_string();
+    task.bind_run(&id)?;
+    task.own_resource("instance_sandbox",&sandbox_id,Path::new(&sandbox.dir))?;
     sandbox.name = format!("[Testing] {}", source.name);
     sandbox.created_at = chrono::Utc::now();
     sandbox.playtime_secs = 0;
@@ -305,6 +312,7 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
     sandbox.post_exit_command = None;
     let folder = dir(state, &id)?;
     let mut v = json!({"id":id,"at":now(),"instance_id":source.id,"instance_name":source.name,"sandbox_id":sandbox_id,"state":"preparing","mode":"rendered-client","record_video":record_video,"max_seconds":seconds,"minecraft":source.version_id,"loader":source.loader,"loader_version":source.loader_version,"steps":[],"artifacts":[],"report_dir":folder,"scope":"A controlled session. Only successful assertions establish coverage; sample shares are not causal mod impact.","adapter":{"name":"HMC-Specifics","source":"https://github.com/headlesshq/hmc-specifics","release":"1.21.1-latest","sha256":sha},"probe_version":"1.0.1","fps_note":"Minecraft-reported FPS sampled once per second. This is not individual frame time or a 1% low measurement."});
+    v["task_id"]=json!(task.id());
     save(state, &v)?;
     let result:Result<()> = async {
         task.stage("Fingerprinting and copying an isolated test instance");
@@ -357,6 +365,8 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
         let sink=state.tasks.event_sink().ok_or_else(||error("No event channel"))?;
         let launched_at=now(); v["launched_at"]=json!(launched_at); v["requested_world"]=json!(world);
         let run=crate::launch::launch_profile_instance(sink,state,&sandbox,settings).await?; v["running_id"]=json!(run); save(state,&v)?;
+        let pid=state.running.lock().unwrap().get(&run).map(|r|r.pid).ok_or_else(||error("Launched process identity was not registered"))?;
+        state.tasks.record_process(task.id(),&run,pid,"minecraft")?;
         let began=Instant::now();
         loop { if task.token().is_cancelled(){return Err(Error::Cancelled);} let text=logs(state,&v)?;
             if text.contains("HMC-Specifics initialized!"){break;}
@@ -607,6 +617,7 @@ pub async fn finish(state: &Arc<AppState>, id: &str, status: &str) -> Result<Val
                 v["video_error"] = json!("Recording encoder did not finish normally");
             }
         }
+        if child.try_wait().ok().flatten().is_some(){if let Some(task)=v["task_id"].as_str(){state.tasks.process_stopped(task,&format!("{id}:recording"))?;}}
     }
     let sandbox = string(&v, "sandbox_id")?.to_owned();
     let was_running = ensure_running(state, &v).is_ok();
@@ -799,6 +810,10 @@ pub async fn finish(state: &Arc<AppState>, id: &str, status: &str) -> Result<Val
         }
     }
     save(state, &v)?;
+    if let Some(task)=v["task_id"].as_str(){
+        state.tasks.cleanup_result(task,&sandbox,v["cleaned_up"]==true,v["cleanup_error"].as_str().unwrap_or("Owned sandbox removed after the process stopped."))?;
+        if v["cleaned_up"]==true {if let Some(run)=v["running_id"].as_str(){state.tasks.process_stopped(task,run)?;}}
+    }
     analyze_inner(state, id).await
 }
 
@@ -965,6 +980,9 @@ async fn start_recorder(state: &AppState, v: &Value, token: tokio_util::sync::Ca
     #[cfg(windows)]
     cmd.creation_flags(0x08000000);
     let mut child = cmd.spawn()?;
+    if let (Some(task),Some(pid))=(v["task_id"].as_str(),child.id()){
+        state.tasks.record_process(task,&format!("{}:recording",string(v,"id")?),pid,"video_recorder")?;
+    }
     tokio::select! {
         _ = token.cancelled() => { let _=child.kill().await; return Err(Error::Cancelled); }
         _ = tokio::time::sleep(Duration::from_millis(800)) => {}

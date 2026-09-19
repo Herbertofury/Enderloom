@@ -10,10 +10,19 @@ use tauri::{AppHandle, Emitter};
 use tokio_util::sync::CancellationToken;
 
 const EMIT_INTERVAL: Duration = Duration::from_millis(100);
+mod model;
+pub use model::*;
 
 pub type EventSink = Arc<dyn Fn(&str, serde_json::Value) + Send + Sync>;
 
 tokio::task_local! { static REQUEST_SCOPE: String; }
+tokio::task_local! { static OPERATION: String; }
+pub(crate) async fn operation_scoped<T>(
+    operation: &str,
+    work: impl std::future::Future<Output = T>,
+) -> T {
+    OPERATION.scope(operation.to_owned(), work).await
+}
 
 pub(crate) async fn request_scoped<T>(
     scope: Option<String>,
@@ -167,6 +176,8 @@ fn first_attempt() -> u32 {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Task {
+    #[serde(default)]
+    pub details: TaskDetails,
     pub id: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_scope: Option<String>,
@@ -198,6 +209,8 @@ pub struct Task {
 
 #[derive(Debug, Clone, Default)]
 pub struct TaskSpec {
+    pub operation: Option<String>,
+    pub parent_task_id: Option<String>,
     pub title: String,
     pub subtitle: Option<String>,
     pub icon_url: Option<String>,
@@ -232,12 +245,36 @@ impl Tasks {
             Vec::new()
         });
         for task in &mut history {
+            let migrated = task.details.schema_version < 2;
+            let interrupted = task.state == TaskState::Running;
+            if migrated {
+                model::initialize(task, true);
+                task.revision += 1;
+            }
             if task.state == TaskState::Running {
                 task.state = TaskState::Interrupted;
                 task.revision += 1;
                 task.error = Some("Enderloom closed before this operation finished.".into());
+                task.finished_at = Some(chrono::Utc::now().timestamp());
+                let reason = task.error.clone().unwrap();
+                model::block(task, "worker_interrupted", &reason);
+                model::sync_attempt(task);
+            }
+            // A prior process identity is evidence, never authority to kill a reused PID.
+            let mut review = false;
+            for resource in &mut task.details.cleanup {
+                if resource.state == CleanupState::Owned {
+                    resource.state = CleanupState::NeedsReview;
+                    resource.reason="Worker restarted. Use the owning domain's recovery to verify process and sandbox state.".into();
+                    review = true;
+                }
+            }
+            if review {
+                task.revision += 1;
+            }
+            if migrated || interrupted || review {
                 if let Err(error) = db.save_task(task) {
-                    tracing::error!(%error,task_id=%task.id,"Could not record interrupted task");
+                    tracing::error!(%error,task_id=%task.id,"Could not record task migration or recovery");
                 }
             }
         }
@@ -258,18 +295,61 @@ impl Tasks {
     }
 
     pub fn cancel(&self, id: &str) -> bool {
-        let token = self.tokens.lock().unwrap().get(id).cloned();
-        match token {
-            Some(token) => {
-                token.cancel();
-                true
+        let mut snapshots = Vec::new();
+        let found = {
+            let mut list = self.inner.lock().unwrap();
+            let mut ids = std::collections::HashSet::from([id.to_owned()]);
+            loop {
+                let before = ids.len();
+                for task in list.iter() {
+                    if task
+                        .details
+                        .parent_task_id
+                        .as_ref()
+                        .is_some_and(|p| ids.contains(p))
+                    {
+                        ids.insert(task.id.clone());
+                    }
+                }
+                if before == ids.len() {
+                    break;
+                }
             }
-            None => false,
+            let tokens = self.tokens.lock().unwrap();
+            let mut found = false;
+            for task in list
+                .iter_mut()
+                .filter(|t| ids.contains(&t.id) && t.state == TaskState::Running)
+            {
+                if let Some(token) = tokens.get(&task.id) {
+                    task.details.cancellation_requested_at = Some(chrono::Utc::now().timestamp());
+                    task.revision += 1;
+                    if let Err(error) = self.db.update_task(task) {
+                        tracing::error!(%error,"Could not persist cancellation request");
+                    }
+                    token.cancel();
+                    found = true;
+                    snapshots.push(task.clone());
+                }
+            }
+            found
+        };
+        if let Some(sink) = self.event_sink() {
+            for task in snapshots {
+                sink("task:update", serde_json::to_value(task).unwrap());
+            }
         }
+        found
     }
 
     pub fn list(&self) -> Vec<Task> {
-        self.inner.lock().unwrap().clone()
+        self.inner
+            .lock()
+            .unwrap()
+            .iter()
+            .filter(|t| !t.details.archived)
+            .cloned()
+            .collect()
     }
 
     pub fn has_active(&self, instance_id: &str, kind: TaskKind) -> bool {
@@ -282,11 +362,23 @@ impl Tasks {
 
     pub fn clear_finished(&self) {
         let mut list = self.inner.lock().unwrap();
-        if let Err(error) = self.db.clear_finished_task_history() {
-            tracing::error!(%error,"Could not clear task history");
-            return;
+        for task in list.iter_mut().filter(|t| {
+            t.state.is_finished()
+                && t.state != TaskState::Interrupted
+                && t.details
+                    .cleanup
+                    .iter()
+                    .all(|resource| resource.state == CleanupState::Removed)
+        }) {
+            let mut next = task.clone();
+            next.details.archived = true;
+            next.revision += 1;
+            if let Err(error) = self.db.update_task(&next) {
+                tracing::error!(%error,"Could not archive task");
+                continue;
+            }
+            *task = next;
         }
-        list.retain(|t| !t.state.is_finished() || t.state == TaskState::Interrupted);
     }
 
     pub fn start(
@@ -318,7 +410,28 @@ impl Tasks {
         kind: TaskKind,
         spec: TaskSpec,
     ) -> crate::error::Result<TaskHandle> {
-        let task = Task {
+        // Keep the parent check and child registration atomic with cancellation.
+        let mut list = self.inner.lock().unwrap();
+        if let Some(parent) = &spec.parent_task_id {
+            let parent = list
+                .iter()
+                .find(|t| &t.id == parent)
+                .ok_or_else(|| crate::error::Error::other("Parent task was not found"))?;
+            if parent.state != TaskState::Running
+                || parent.details.cancellation_requested_at.is_some()
+            {
+                return Err(crate::error::Error::Cancelled);
+            }
+        }
+        let mut task = Task {
+            details: TaskDetails {
+                operation: spec
+                    .operation
+                    .or_else(|| OPERATION.try_with(Clone::clone).ok())
+                    .unwrap_or_default(),
+                parent_task_id: spec.parent_task_id,
+                ..Default::default()
+            },
             id: uuid::Uuid::new_v4().to_string(),
             request_scope: REQUEST_SCOPE.try_with(Clone::clone).ok(),
             kind,
@@ -343,6 +456,7 @@ impl Tasks {
             attempt: 1,
             revision: 1,
         };
+        model::initialize(&mut task, false);
 
         let id = task.id.clone();
         if is_recoverable(kind) {
@@ -357,15 +471,13 @@ impl Tasks {
         }
 
         self.db.save_task(&task)?;
-        {
-            let mut list = self.inner.lock().unwrap();
-            list.push(task.clone());
-        }
+        list.push(task.clone());
         let token = CancellationToken::new();
         self.tokens
             .lock()
             .unwrap()
             .insert(id.clone(), token.clone());
+        drop(list);
 
         target.emit("task:update", &task);
 
@@ -411,6 +523,19 @@ impl Tasks {
         next.attempt += 1;
         next.revision += 1;
         next.request_scope = REQUEST_SCOPE.try_with(Clone::clone).ok();
+        next.details.archived = false;
+        next.details.blocker = None;
+        next.details.cancellation_requested_at = None;
+        next.details.attempts.push(Attempt {
+            id: uuid::Uuid::new_v4().to_string(),
+            number: next.attempt,
+            started_at: Some(chrono::Utc::now().timestamp()),
+            finished_at: None,
+            state: TaskState::Running,
+            stage: next.stage.clone(),
+            error: None,
+            checkpoint_id: next.details.checkpoint_id.clone(),
+        });
         self.db.save_task(&next)?;
         *task = next.clone();
         let token = CancellationToken::new();
@@ -443,6 +568,7 @@ impl Tasks {
             return None;
         }
         apply(task);
+        model::sync_attempt(task);
         task.revision += 1;
         Some(task.clone())
     }
@@ -460,7 +586,9 @@ pub struct TaskHandle {
 }
 
 impl TaskHandle {
-    pub fn id(&self) -> &str { &self.id }
+    pub fn id(&self) -> &str {
+        &self.id
+    }
     pub fn checkpoint(&self, checkpoint: TaskCheckpoint) -> crate::error::Result<()> {
         let mut list = self.tasks.inner.lock().unwrap();
         let task = list
@@ -473,7 +601,9 @@ impl TaskHandle {
             ));
         }
         let mut next = task.clone();
+        next.details.checkpoint_id = Some(model::checkpoint_id(&checkpoint)?);
         next.checkpoint = Some(checkpoint);
+        model::sync_attempt(&mut next);
         next.revision += 1;
         self.tasks.db.save_task(&next)?;
         *task = next;
@@ -589,6 +719,17 @@ impl TaskHandle {
             TaskState::Cancelled => "cancelled".to_string(),
             _ => task.stage.clone(),
         };
+        if let Some(reason) = task.error.clone() {
+            model::block(task, "operation_failed", &reason);
+        }
+        if state == TaskState::Cancelled {
+            model::block(
+                task,
+                "cancelled",
+                "Cancellation was acknowledged by the operation.",
+            );
+        }
+        model::sync_attempt(task);
         let snapshot = task.clone();
         self.persist(&snapshot, true);
         self.tasks.tokens.lock().unwrap().remove(&self.id);
@@ -636,6 +777,7 @@ mod tests {
 
     fn task(id: &str, state: TaskState) -> Task {
         Task {
+            details: TaskDetails::default(),
             request_scope: None,
             id: id.into(),
             kind: TaskKind::ContentInstall,
