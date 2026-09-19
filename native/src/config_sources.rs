@@ -470,11 +470,19 @@ fn production(path: &str) -> bool {
     })
 }
 fn manifest_ids(path: &str, text: &str) -> Vec<(String, String)> {
-    if path.ends_with("fabric.mod.json") {
+    if path.ends_with("fabric.mod.json") || path.ends_with("quilt.mod.json") {
         return serde_json::from_str::<Value>(text)
             .ok()
             .into_iter()
             .filter_map(|v| {
+                let v = if path.ends_with("quilt.mod.json") {
+                    if v["schema_version"] != 1 {
+                        return None;
+                    }
+                    &v["quilt_loader"]
+                } else {
+                    &v
+                };
                 Some((
                     v["id"].as_str()?.into(),
                     v["version"].as_str().unwrap_or_default().into(),
@@ -550,9 +558,11 @@ async fn inspect(
         .iter()
         .filter(|p| {
             p.ends_with("/fabric.mod.json")
+                || p.ends_with("/quilt.mod.json")
                 || p.ends_with("/META-INF/mods.toml")
                 || p.ends_with("/META-INF/neoforge.mods.toml")
                 || p.as_str() == "fabric.mod.json"
+                || p.as_str() == "quilt.mod.json"
         })
         .filter(|p| {
             installed_manifests
@@ -722,7 +732,10 @@ pub async fn discover(state: &AppState, id: &str, file_name: &str) -> Result<Rep
         .filter(|name| {
             matches!(
                 *name,
-                "fabric.mod.json" | "META-INF/mods.toml" | "META-INF/neoforge.mods.toml"
+                "fabric.mod.json"
+                    | "quilt.mod.json"
+                    | "META-INF/mods.toml"
+                    | "META-INF/neoforge.mods.toml"
             )
         })
         .map(str::to_string)

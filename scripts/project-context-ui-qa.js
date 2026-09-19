@@ -7,6 +7,7 @@ const root=path.resolve(__dirname,'..');let app;
  const page=await app.firstWindow();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.getByRole('button',{name:'Open Evergreen · creative workshop',exact:true}).waitFor();
  const fixture=await app.evaluate(async({ipcMain})=>{
    const load=process.getBuiltinModule('module').createRequire(process.cwd()+'/package.json');const fixture=await load('./scripts/project-context-fixtures').seedProjectContext(global.creativeQa.service);const server=await load('./scripts/project-context-fixtures').seedProjectServer(global.creativeQa.service);load('./scripts/project-context-fixtures').seedProjectWorlds(fixture.first,server);
+   await load('./scripts/bundled-mod-fixtures').seedBundledMods(global.creativeQa.service,fixture.first);
    ipcMain.removeHandler('launcher:invoke');ipcMain.handle('launcher:invoke',async(_e,r)=>{
     if(r.command==='open_folder'){global.creativeQa.openedWorldFolder=r.args.path;return null;}
     if(r.command==='search_content')return {hits:[{id:'alpha',title:'Identity Workshop',description:'Project relationship fixture',icon_url:null,downloads:10,follows:1,author:'Fixture team',categories:[],game_versions:['1.20.1'],loaders:['forge'],updated:null,color:null}],total:1,offset:0,limit:40};
@@ -20,6 +21,10 @@ const root=path.resolve(__dirname,'..');let app;
  assert.equal(await target.getByText('config/identity_fixture_plus-client.toml',{exact:true}).count(),0);
  await target.getByText('Dependencies & dependents',{exact:false}).click();await target.getByText('addon.jar · fabric.mod.json',{exact:true}).waitFor();
  await target.getByText(/one of alternatives/).waitFor();await target.getByText(/Unless:.*replacement/).waitFor();
+ await target.getByText('Bundled mods · 3',{exact:true}).click();await target.getByText('Bundled Neo Library',{exact:false}).waitFor();await target.getByText('Quilt Core',{exact:false}).waitFor();
+ await target.getByText('File fingerprint',{exact:true}).first().click();await target.getByText(/SHA-256 · [a-f0-9]{64}/).first().waitFor();
+ assert(await target.getByText('Bundled in',{exact:true}).count()>0);
+ await target.getByText('Bundled mods · 3',{exact:true}).scrollIntoViewIfNeeded();fs.mkdirSync(path.join(root,'output/playwright'),{recursive:true});await page.screenshot({path:path.join(root,'output/playwright/bundled-mods.png')});
  await target.getByText('World connections',{exact:false}).click();await target.getByRole('region',{name:'World connection Meadow',exact:true}).waitFor();await target.getByRole('region',{name:'World connection Sky Islands',exact:true}).getByText('Dimension storage',{exact:true}).waitFor();
  await target.getByRole('region',{name:'World connection Meadow',exact:true}).getByRole('button',{name:'Open world folder',exact:true}).click();assert.equal(await app.evaluate(()=>global.creativeQa.openedWorldFolder),path.join(fixture.first.dir,'saves/Meadow'));
  await target.scrollIntoViewIfNeeded();await page.waitForFunction(()=>Array.from(document.getAnimations()).filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).every(a=>a.playState==='finished'));

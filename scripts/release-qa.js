@@ -10,6 +10,7 @@ const scripts=[
   'media-view-lifecycle-qa.js',
   'workbench-concurrency-qa.js',
   'project-context-qa.js',
+  'bundled-mods-qa.js',
   'project-world-links-qa.js',
   'task-resume-qa.js',
   'workbench-cache-qa.js',

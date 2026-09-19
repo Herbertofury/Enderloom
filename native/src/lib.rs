@@ -29,6 +29,7 @@ mod logging;
 mod meta;
 mod migrate;
 mod modpack;
+mod mod_manifest;
 mod network;
 mod packs;
 mod paths;

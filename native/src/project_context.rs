@@ -1,151 +1,7 @@
 //! Current relationships projected from existing inventory and config owners.
-use crate::{
-    db::ContentFile,
-    error::{Error, Result},
-    state::AppState,
-};
+use crate::{db::ContentFile, error::Result, state::AppState};
 use serde_json::{json, Value};
-use std::{collections::BTreeSet, io::Read, path::Path};
-
-fn quilt_dependency(
-    value: &Value,
-    owner: &str,
-    kind: &str,
-    side: &str,
-    group: Option<&str>,
-    expression: &Value,
-    found: &mut Vec<Value>,
-) -> Result<()> {
-    if let Some(alternatives) = value.as_array() {
-        for alternative in alternatives {
-            quilt_dependency(alternative, owner, kind, side, group, expression, found)?;
-        }
-        return Ok(());
-    }
-    let qualified = value
-        .as_str()
-        .or_else(|| value["id"].as_str())
-        .ok_or_else(|| Error::other("Quilt dependency has no mod ID"))?;
-    let mod_id = qualified.rsplit(':').next().unwrap_or(qualified);
-    if mod_id.is_empty() {
-        return Err(Error::other("Quilt dependency has an empty mod ID"));
-    }
-    let range = value.get("versions").cloned().unwrap_or_else(|| json!("*"));
-    found.push(json!({"owner":owner,"mod_id":mod_id,"qualified_id":qualified,"kind":if kind=="required"&&value["optional"]==true{"optional"}else{kind},"version_range":range,"side":value["environment"].as_str().unwrap_or(side),"manifest":"quilt.mod.json","alternative_group":group,"unless":value.get("unless"),"declared_expression":expression}));
-    Ok(())
-}
-
-fn dependencies(state: &AppState, path: &Path) -> Result<Vec<Value>> {
-    let mut zip =
-        zip::ZipArchive::new(state.files.open(path)?).map_err(|e| Error::other(e.to_string()))?;
-    let mut found = Vec::new();
-    for manifest in [
-        "fabric.mod.json",
-        "quilt.mod.json",
-        "META-INF/neoforge.mods.toml",
-        "META-INF/mods.toml",
-    ] {
-        let mut file = match zip.by_name(manifest) {
-            Ok(file) => file,
-            Err(zip::result::ZipError::FileNotFound) => continue,
-            Err(error) => return Err(Error::other(error.to_string())),
-        };
-        let mut text = String::new();
-        file.by_ref()
-            .take(1024 * 1024 + 1)
-            .read_to_string(&mut text)?;
-        if text.len() > 1024 * 1024 {
-            return Err(Error::other(
-                "Dependency manifest exceeds the parser's memory budget",
-            ));
-        }
-        if manifest == "quilt.mod.json" {
-            let value: Value = serde_json::from_str(&text)?;
-            if value["schema_version"] != 1 {
-                return Err(Error::other("Unsupported Quilt manifest schema"));
-            }
-            let loader = &value["quilt_loader"];
-            let owner = loader["id"]
-                .as_str()
-                .ok_or_else(|| Error::other("Quilt manifest has no mod ID"))?;
-            let side = value["minecraft"]["environment"].as_str().unwrap_or("*");
-            for (key, kind) in [("depends", "required"), ("breaks", "incompatible")] {
-                if loader[key].is_null() {
-                    continue;
-                }
-                let declarations = loader[key]
-                    .as_array()
-                    .ok_or_else(|| Error::other("Invalid Quilt dependency declarations"))?;
-                for (index, declaration) in declarations.iter().enumerate() {
-                    let group = declaration.is_array().then(|| format!("{key}:{index}"));
-                    quilt_dependency(
-                        declaration,
-                        owner,
-                        kind,
-                        side,
-                        group.as_deref(),
-                        declaration,
-                        &mut found,
-                    )?;
-                }
-            }
-        } else if manifest.ends_with(".json") {
-            let value: Value = serde_json::from_str(&text)?;
-            let owner = value["id"]
-                .as_str()
-                .ok_or_else(|| Error::other("Fabric manifest has no mod ID"))?;
-            for (key, kind) in [
-                ("depends", "required"),
-                ("recommends", "recommended"),
-                ("suggests", "optional"),
-                ("breaks", "incompatible"),
-                ("conflicts", "discouraged"),
-            ] {
-                if value[key].is_null() {
-                    continue;
-                }
-                let declarations = value[key]
-                    .as_object()
-                    .ok_or_else(|| Error::other("Invalid Fabric dependency declarations"))?;
-                for (id, range) in declarations {
-                    if !range.is_string()
-                        && !range
-                            .as_array()
-                            .is_some_and(|a| a.iter().all(Value::is_string))
-                    {
-                        return Err(Error::other("Invalid Fabric dependency version range"));
-                    }
-                    found.push(json!({"owner":owner,"mod_id":id,"kind":kind,"version_range":range,"side":value["environment"].as_str().unwrap_or("*"),"manifest":manifest}));
-                }
-            }
-        } else {
-            let parsed: toml::Value =
-                toml::from_str(&text).map_err(|e| Error::other(e.to_string()))?;
-            let value = serde_json::to_value(parsed)?;
-            if let Some(groups) = value["dependencies"].as_object() {
-                for (owner, group) in groups {
-                    for dependency in group
-                        .as_array()
-                        .ok_or_else(|| Error::other("Invalid Forge dependency declarations"))?
-                    {
-                        let id = dependency["modId"]
-                            .as_str()
-                            .ok_or_else(|| Error::other("Dependency has no mod ID"))?;
-                        let kind = dependency["type"].as_str().unwrap_or_else(|| {
-                            if dependency["mandatory"] == false {
-                                "optional"
-                            } else {
-                                "required"
-                            }
-                        });
-                        found.push(json!({"owner":owner,"mod_id":id,"kind":kind,"version_range":dependency["versionRange"],"side":dependency["side"].as_str().unwrap_or("BOTH"),"manifest":manifest}));
-                    }
-                }
-            }
-        }
-    }
-    Ok(found)
-}
+use std::{collections::BTreeSet, path::Path};
 
 fn safe_world_path(files: &crate::files::FileManager, root: &Path, path: &Path) -> bool {
     let Ok(relative) = path.strip_prefix(root) else {
@@ -265,6 +121,9 @@ fn target_context(
     let mut declared = Vec::new();
     let mut issues = Vec::new();
     let mut installed = Vec::new();
+    let mut available = Vec::new();
+    let mut bundled_mods = Vec::new();
+    let mut declared_project_ids = BTreeSet::new();
     for (content_kind, source) in sources {
         // Inventory names are a single file, never a path supplied by metadata.
         if source.file_name.contains(['/', '\\'])
@@ -297,9 +156,34 @@ fn target_context(
                 local.title = local.title.or(title);
             }
             installed.push((local.clone(), enabled));
-            match dependencies(state, &path) {
-                Ok(rows) => {
-                    for mut row in rows {
+            match crate::mod_manifest::inspect(&state.files, &path) {
+                Ok(facts) => {
+                    for identity in &facts.mods {
+                        let bundled = !identity.archive_path.is_empty();
+                        let candidate = json!({"mod_id":identity.id,"file_name":source.file_name,"title":identity.title.as_ref().or(local.title.as_ref()),"mod_version":identity.version,"enabled":enabled,"bundled":bundled,"archive_path":identity.archive_path,"sha256":identity.sha256,"provider":if bundled{None}else{source.provider.as_ref()},"project_id":if bundled{None}else{source.project_id.as_ref()}});
+                        available.push(candidate.clone());
+                        if matches(source) {
+                            if bundled {
+                                bundled_mods.push(candidate);
+                            } else {
+                                declared_project_ids.insert(identity.id.clone());
+                            }
+                        }
+                        if !bundled && local.mod_id.as_ref() != Some(&identity.id) {
+                            let mut extra = local.clone();
+                            extra.mod_id = Some(identity.id.clone());
+                            extra.mod_version = identity.version.clone();
+                            extra.title = identity.title.clone().or(extra.title);
+                            installed.push((extra, enabled));
+                        }
+                    }
+                    issues.extend(
+                        facts
+                            .warnings
+                            .into_iter()
+                            .map(|warning| format!("{}: {warning}", source.file_name)),
+                    );
+                    for mut row in facts.dependencies {
                         row["file_name"] = json!(source.file_name);
                         row["source_enabled"] = json!(enabled);
                         row["source_title"] = json!(local.title);
@@ -318,6 +202,7 @@ fn target_context(
         .filter(|(s, _)| matches(s))
         .filter_map(|(s, _)| s.mod_id.as_deref())
         .collect();
+    project_ids.extend(declared_project_ids.iter().map(String::as_str));
     // Removing a JAR must not erase the known mod IDs needed to inspect its saved worlds.
     project_ids.extend(
         files
@@ -363,11 +248,29 @@ fn target_context(
         }
         worlds.sort_by(|a, b| a["folder"].as_str().cmp(&b["folder"].as_str()));
     }
-    let relationships:Vec<_>=declared.into_iter().filter(|row|row["project_owned"]==true || row["mod_id"].as_str().is_some_and(|id|project_ids.contains(id))).map(|mut row|{
-        let dependency_id=row["mod_id"].as_str().unwrap_or_default();
-        row["installed_targets"]=json!(installed.iter().filter(|(s,_)|s.mod_id.as_deref()==Some(dependency_id)).map(|(s,enabled)|json!({"file_name":s.file_name,"title":s.title,"enabled":enabled,"provider":s.provider,"project_id":s.project_id,"mod_version":s.mod_version})).collect::<Vec<_>>());
-        row["direction"]=json!(if row["project_owned"]==true {"dependency"}else{"dependent"});row["confidence"]=json!("declared");row
-    }).collect();
+    let relationships: Vec<_> = declared
+        .into_iter()
+        .filter(|row| {
+            row["project_owned"] == true
+                || row["mod_id"]
+                    .as_str()
+                    .is_some_and(|id| project_ids.contains(id))
+        })
+        .map(|mut row| {
+            let dependency_id = row["mod_id"].as_str().unwrap_or_default();
+            row["installed_targets"] = json!(available
+                .iter()
+                .filter(|candidate| candidate["mod_id"].as_str() == Some(dependency_id))
+                .collect::<Vec<_>>());
+            row["direction"] = json!(if row["project_owned"] == true {
+                "dependency"
+            } else {
+                "dependent"
+            });
+            row["confidence"] = json!("declared");
+            row
+        })
+        .collect();
     let mut configs = Vec::new();
     if kind == "server" {
         let properties = crate::servers::properties::Properties::parse(
@@ -405,6 +308,6 @@ fn target_context(
         }
     }
     Ok(
-        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"worlds":worlds,"dependencies":relationships,"warnings":issues}),
+        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"worlds":worlds,"dependencies":relationships,"bundled_mods":bundled_mods,"warnings":issues}),
     )
 }

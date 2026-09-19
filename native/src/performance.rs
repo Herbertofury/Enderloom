@@ -189,27 +189,16 @@ fn validate_target(file:&str)->Result<()> {
 
 // Required dependency declarations come from local metadata, not the project's popularity or generator.
 fn local_dependencies(state:&AppState,path:&Path)->Result<(Vec<String>,Vec<String>)> {
-    let mut archive=zip::ZipArchive::new(state.files.open(path)?).map_err(|e|Error::other(e.to_string()))?;
-    let mut ids=Vec::new();let mut requires=Vec::new();
-    for name in ["fabric.mod.json","quilt.mod.json","META-INF/mods.toml","META-INF/neoforge.mods.toml","mcmod.info"] {
-        let Ok(mut entry)=archive.by_name(name) else {continue};
-        if entry.size()>2*1024*1024 { return Err(Error::other("Dependency metadata exceeds inspection limits")); }
-        let mut text=String::new();(&mut entry).take(2*1024*1024+1).read_to_string(&mut text)?;
-        if name.ends_with(".toml") {
-            let data:toml::Value=toml::from_str(&text).map_err(|e|Error::other(format!("Invalid dependency metadata: {e}")))?;
-            if let Some(mods)=data.get("mods").and_then(toml::Value::as_array) { for m in mods { if let Some(id)=m.get("modId").and_then(toml::Value::as_str) { ids.push(id.to_string()); } } }
-            if let Some(deps)=data.get("dependencies").and_then(toml::Value::as_table) { for list in deps.values().filter_map(toml::Value::as_array) { for d in list {
-                if d.get("mandatory").and_then(toml::Value::as_bool)==Some(true) || d.get("type").and_then(toml::Value::as_str)==Some("required") {
-                    if let Some(id)=d.get("modId").and_then(toml::Value::as_str) {requires.push(id.to_string());}
-                }
-            } } }
-        } else {
-            let data:Value=serde_json::from_str(&text)?;
-            if name=="fabric.mod.json" { if let Some(id)=data["id"].as_str(){ids.push(id.to_string());} if let Some(deps)=data["depends"].as_object(){requires.extend(deps.keys().cloned());} }
-            if name=="quilt.mod.json" { if let Some(id)=data["quilt_loader"]["id"].as_str(){ids.push(id.to_string());} if let Some(deps)=data["quilt_loader"]["depends"].as_array(){for d in deps {if d["optional"]!=true { if let Some(id)=d["id"].as_str(){requires.push(id.to_string());} }}} }
-            if name=="mcmod.info" { let mods=data.as_array().or_else(||data["modList"].as_array());if let Some(mods)=mods {for m in mods {if let Some(id)=m["modid"].as_str(){ids.push(id.to_string());} if let Some(deps)=m["requiredMods"].as_array(){for d in deps.iter().filter_map(Value::as_str){requires.push(d.split('@').next().unwrap_or(d).to_string());}}}} }
-        }
+    let facts=crate::mod_manifest::inspect(&state.files,path)?;
+    if !facts.warnings.is_empty() {return Err(Error::other(format!("Dependency metadata is incomplete: {}",facts.warnings.join("; "))));}
+    // The comparison removes a physical JAR, including its bundled libraries.
+    // Conditional requirements need a loader solver; never flatten them into a
+    // success verdict that would allow an unsafe comparison.
+    if facts.dependencies.iter().any(|d|d["kind"]=="required" && (!d["alternative_group"].is_null() || !d["unless"].is_null())) {
+        return Err(Error::other("Conditional dependency declarations require loader resolution before a removal comparison can run."));
     }
+    let ids=facts.mods.into_iter().map(|m|m.id).collect();
+    let requires=facts.dependencies.iter().filter(|d|d["kind"]=="required").filter_map(|d|d["mod_id"].as_str().map(str::to_string)).collect();
     Ok((ids,requires))
 }
 

@@ -20,5 +20,11 @@ const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tm
  const suggested=await service.request('resolve_config_owners',{instanceId:first.id,paths});assert.equal(suggested['config/special.json'].owner.confidence,'suggested');
  await service.close();const changed=new DatabaseSync(path.join(service.dataDir,'basalt.db'));try{changed.prepare('UPDATE content_files SET project_id=? WHERE instance_id=? AND file_name=?').run('sibling',first.id,'first.jar');}finally{changed.close()}
  const detached=await service.request('resolve_config_owners',{instanceId:first.id,paths});assert(!detached['config/special.json'].owner.evidence,'Changing the provider binding must invalidate old source ownership');
- console.log(JSON.stringify({passed:true,registrations:report.evidence.length,verified:['repository and production manifest identity','immutable commit provenance','parallel deduplication','scope-specific exact paths','comments and examples rejected','sibling modules rejected','manual corrections preserved','restart cache','unverified versions labeled','provider changes invalidate evidence']},null,2));
+ const quiltService=new LauncherService({rootDir:root,dataDir:path.join(temporary,'quilt-data')});
+ try {
+  const quilt=await seedConfigSources(quiltService,{quilt:true});const quiltReport=await quiltService.request('discover_mod_config_sources',{instanceId:quilt.first.id,fileName:'first.jar'});
+  assert.equal(quiltReport.status,'checked',JSON.stringify(quiltReport));assert.equal(quiltReport.evidence.length,4);assert(quiltReport.evidence.every(e=>e.version_match));assert(!quiltReport.evidence.some(e=>e.path==='wrong-loader.toml'));
+  const quiltOwners=await quiltService.request('resolve_config_owners',{instanceId:quilt.first.id,paths:['config/special.json']});assert.equal(quiltOwners['config/special.json'].owner.id,'identity_fixture');assert(quiltOwners['config/special.json'].owner.evidence);
+ } finally {await quiltService.close();}
+ console.log(JSON.stringify({passed:true,registrations:report.evidence.length,verified:['repository and production manifest identity','Quilt production identity and config paths','different loader branch rejected','immutable commit provenance','parallel deduplication','scope-specific exact paths','comments and examples rejected','sibling modules rejected','manual corrections preserved','restart cache','unverified versions labeled','provider changes invalidate evidence']},null,2));
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>service.close());
