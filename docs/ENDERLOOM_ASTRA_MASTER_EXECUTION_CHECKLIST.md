@@ -220,7 +220,7 @@ Implement typed identities/links for:
 
 Every meaningful operation declares exactly once:
 
-- [ ] **PA-030** stable operation ID/domain/read-write-destructive classification.
+- [x] **PA-030** stable operation ID/domain/read-write-destructive classification. All 265 canonical descriptors use typed domains/classification, with offline filtered CLI discovery and exact service parity verified; see `docs/OPERATION_REGISTRY_ACCEPTANCE_2026-09-18.md`.
 - [ ] **PA-031** input/output schema version, permission/approval requirements.
 - [ ] **PA-032** cancellation/progress/plan support and emitted evidence.
 - [ ] **PA-033** GUI/service/CLI/MCP routes plus AI exposure eligibility.
