@@ -11,6 +11,7 @@ const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'dat
  assert(target.dependencies.some(d=>d.direction==='dependency'&&d.mod_id==='broken_mod'&&d.kind==='incompatible'));
  assert(target.dependencies.some(d=>d.direction==='dependent'&&d.owner==='addon'&&d.kind==='required'));
  assert(target.dependencies.some(d=>d.direction==='dependent'&&d.owner==='forge_addon'&&d.kind==='optional'&&d.side==='CLIENT'));
+ const quilt=target.dependencies.filter(d=>d.owner==='quilt_addon');assert.equal(quilt.length,2);assert.deepEqual(quilt[0].version_range,{all:['>=1.0','<3']});assert.equal(quilt[0].kind,'optional');assert.equal(quilt[0].unless.id,'replacement');assert.equal(quilt[1].qualified_id,'org.example:identity_fixture');assert.equal(quilt[1].alternative_group,'depends:1');assert.equal(quilt[1].declared_expression[0],'other_mod');assert.equal(quilt[1].side,'client');
  const original=fs.readFileSync(path.join(first.dir,'config/custom.json'));
  await service.request('creative_library_action',{operation:'preferences',payload:{['config-owner:'+first.id+':config/custom.json']:'identity_fixture'}});
  context=await get();assert(context.targets[0].configs.some(c=>c.path==='config/custom.json'&&c.owner.confidence==='manual'));assert(fs.readFileSync(path.join(first.dir,'config/custom.json')).equals(original));

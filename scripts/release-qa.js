@@ -9,6 +9,7 @@ const scripts=[
   'config-source-queue-qa.js',
   'workbench-concurrency-qa.js',
   'project-context-qa.js',
+  'project-world-links-qa.js',
   'task-resume-qa.js',
   'workbench-cache-qa.js',
   'catalog-export-qa.js','google-workspace-qa.js','github-only-media-qa.js','layout-density-qa.js',

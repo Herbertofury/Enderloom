@@ -389,6 +389,92 @@ pub fn pack_state(files: &FileManager, world_dir: &Path) -> (Vec<String>, Vec<St
     }
 }
 
+/// Observed save metadata and dimension storage; never infer ownership from a world's name.
+pub fn project_links(
+    files: &FileManager,
+    world_dir: &Path,
+    mod_ids: &std::collections::BTreeSet<&str>,
+) -> Option<serde_json::Value> {
+    let summary = world_from_dir(files, world_dir.to_path_buf())?;
+    let mut evidence = Vec::new();
+    let metadata = read_level_metadata(files, &world_dir.join("level.dat"))
+        .map(|m| (m, "level.dat"))
+        .or_else(|_| {
+            read_level_metadata(files, &world_dir.join("level.dat_old"))
+                .map(|m| (m, "level.dat_old"))
+        });
+    if let Ok((metadata, source)) = metadata {
+        for (kind, packs) in [
+            ("enabled_datapack", metadata.enabled_packs),
+            ("disabled_datapack", metadata.disabled_packs),
+        ] {
+            for pack in packs {
+                let namespace = pack
+                    .strip_prefix("mod:")
+                    .and_then(|s| s.split(':').next())
+                    .or_else(|| pack.split_once(':').map(|p| p.0).filter(|p| *p != "file"));
+                if let Some(id) = namespace.filter(|id| mod_ids.contains(id)) {
+                    evidence.push(serde_json::json!({"kind":kind,"mod_id":id,"path":format!("{source}/Data/DataPacks"),"detail":pack}));
+                }
+            }
+        }
+    }
+    let dimensions = world_dir.join("dimensions");
+    if files
+        .symlink_metadata(&dimensions)
+        .is_ok_and(|m| m.is_dir() && !m.is_symlink())
+    {
+        for namespace in files.read_dir(&dimensions).unwrap_or_default() {
+            if !files
+                .symlink_metadata(&namespace)
+                .is_ok_and(|m| m.is_dir() && !m.is_symlink())
+            {
+                continue;
+            }
+            let id = namespace.file_name()?.to_str()?;
+            if !mod_ids.contains(id) {
+                continue;
+            }
+            let mut pending = vec![namespace.clone()];
+            while let Some(folder) = pending.pop() {
+                for entry in files.read_dir(&folder).unwrap_or_default() {
+                    let Ok(metadata) = files.symlink_metadata(&entry) else {
+                        continue;
+                    };
+                    if metadata.is_symlink() {
+                        continue;
+                    }
+                    if metadata.is_dir() {
+                        if entry.file_name().is_some_and(|n| n == "region") {
+                            let has_regions = files
+                                .read_dir(&entry)
+                                .unwrap_or_default()
+                                .into_iter()
+                                .any(|p| {
+                                    p.extension().is_some_and(|e| e == "mca")
+                                        && files.symlink_metadata(&p).is_ok_and(|m| {
+                                            m.is_file() && !m.is_symlink() && m.len() > 0
+                                        })
+                                });
+                            if has_regions {
+                                evidence.push(serde_json::json!({"kind":"dimension_storage","mod_id":id,"path":entry.strip_prefix(world_dir).ok()?.to_string_lossy().replace('\\',"/"),"detail":"Nonempty region files in this mod's dimension namespace. Chunk contents have not been inspected."}));
+                            }
+                        } else {
+                            pending.push(entry);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if evidence.is_empty() {
+        return None;
+    }
+    Some(
+        serde_json::json!({"folder":summary.folder_name,"name":summary.name,"directory":world_dir,"minecraft":summary.version_name,"status":summary.status,"warning":summary.error,"evidence":evidence}),
+    )
+}
+
 pub(super) fn world_from_dir(files: &FileManager, world_dir: PathBuf) -> Option<WorldSummary> {
     let metadata = files.symlink_metadata(&world_dir).ok()?;
     if !metadata.is_dir() || metadata.is_symlink() {

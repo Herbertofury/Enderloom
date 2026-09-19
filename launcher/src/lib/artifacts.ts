@@ -39,7 +39,8 @@ export interface ProjectContext {
     kind: 'instance' | 'server'; id: string; name: string; minecraft: string; loader: string | null;
     files: { file_name: string; exists: boolean; enabled: boolean; version_id: string | null; mod_version: string | null; icon_url: string | null }[];
     configs: { path: string; title: string; exists: boolean; enabled: boolean; world: string | null; owner: import('./config-associations').ConfigAssociation }[];
-    dependencies: { owner: string; mod_id: string; kind: string; direction: 'dependency' | 'dependent'; version_range: string | string[] | null; manifest: string; side: string; file_name: string; source_title: string | null; source_enabled: boolean; installed_targets: { file_name: string; title: string | null; enabled: boolean }[] }[];
+    worlds?: { folder: string; name: string; directory: string; minecraft: string | null; status: string; warning: string | null; evidence: { kind: 'enabled_datapack'|'disabled_datapack'|'dimension_storage'; mod_id: string; path: string; detail: string }[] }[];
+    dependencies: { owner: string; mod_id: string; qualified_id?: string; kind: string; direction: 'dependency' | 'dependent'; version_range: string | string[] | Record<string,unknown> | null; alternative_group?: string | null; unless?: unknown; declared_expression?: unknown; manifest: string; side: string; file_name: string; source_title: string | null; source_enabled: boolean; installed_targets: { file_name: string; title: string | null; enabled: boolean }[] }[];
     warnings: string[];
   }[];
   warnings: { target_id: string; message: string }[];

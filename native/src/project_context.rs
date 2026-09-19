@@ -7,12 +7,41 @@ use crate::{
 use serde_json::{json, Value};
 use std::{collections::BTreeSet, io::Read, path::Path};
 
+fn quilt_dependency(
+    value: &Value,
+    owner: &str,
+    kind: &str,
+    side: &str,
+    group: Option<&str>,
+    expression: &Value,
+    found: &mut Vec<Value>,
+) -> Result<()> {
+    if let Some(alternatives) = value.as_array() {
+        for alternative in alternatives {
+            quilt_dependency(alternative, owner, kind, side, group, expression, found)?;
+        }
+        return Ok(());
+    }
+    let qualified = value
+        .as_str()
+        .or_else(|| value["id"].as_str())
+        .ok_or_else(|| Error::other("Quilt dependency has no mod ID"))?;
+    let mod_id = qualified.rsplit(':').next().unwrap_or(qualified);
+    if mod_id.is_empty() {
+        return Err(Error::other("Quilt dependency has an empty mod ID"));
+    }
+    let range = value.get("versions").cloned().unwrap_or_else(|| json!("*"));
+    found.push(json!({"owner":owner,"mod_id":mod_id,"qualified_id":qualified,"kind":if kind=="required"&&value["optional"]==true{"optional"}else{kind},"version_range":range,"side":value["environment"].as_str().unwrap_or(side),"manifest":"quilt.mod.json","alternative_group":group,"unless":value.get("unless"),"declared_expression":expression}));
+    Ok(())
+}
+
 fn dependencies(state: &AppState, path: &Path) -> Result<Vec<Value>> {
     let mut zip =
         zip::ZipArchive::new(state.files.open(path)?).map_err(|e| Error::other(e.to_string()))?;
     let mut found = Vec::new();
     for manifest in [
         "fabric.mod.json",
+        "quilt.mod.json",
         "META-INF/neoforge.mods.toml",
         "META-INF/mods.toml",
     ] {
@@ -22,8 +51,45 @@ fn dependencies(state: &AppState, path: &Path) -> Result<Vec<Value>> {
             Err(error) => return Err(Error::other(error.to_string())),
         };
         let mut text = String::new();
-        file.read_to_string(&mut text)?;
-        if manifest.ends_with(".json") {
+        file.by_ref()
+            .take(1024 * 1024 + 1)
+            .read_to_string(&mut text)?;
+        if text.len() > 1024 * 1024 {
+            return Err(Error::other(
+                "Dependency manifest exceeds the parser's memory budget",
+            ));
+        }
+        if manifest == "quilt.mod.json" {
+            let value: Value = serde_json::from_str(&text)?;
+            if value["schema_version"] != 1 {
+                return Err(Error::other("Unsupported Quilt manifest schema"));
+            }
+            let loader = &value["quilt_loader"];
+            let owner = loader["id"]
+                .as_str()
+                .ok_or_else(|| Error::other("Quilt manifest has no mod ID"))?;
+            let side = value["minecraft"]["environment"].as_str().unwrap_or("*");
+            for (key, kind) in [("depends", "required"), ("breaks", "incompatible")] {
+                if loader[key].is_null() {
+                    continue;
+                }
+                let declarations = loader[key]
+                    .as_array()
+                    .ok_or_else(|| Error::other("Invalid Quilt dependency declarations"))?;
+                for (index, declaration) in declarations.iter().enumerate() {
+                    let group = declaration.is_array().then(|| format!("{key}:{index}"));
+                    quilt_dependency(
+                        declaration,
+                        owner,
+                        kind,
+                        side,
+                        group.as_deref(),
+                        declaration,
+                        &mut found,
+                    )?;
+                }
+            }
+        } else if manifest.ends_with(".json") {
             let value: Value = serde_json::from_str(&text)?;
             let owner = value["id"]
                 .as_str()
@@ -236,6 +302,36 @@ fn target_context(
         .filter(|(s, _)| matches(s))
         .filter_map(|(s, _)| s.mod_id.as_deref())
         .collect();
+    let mut worlds = Vec::new();
+    if !project_ids.is_empty() {
+        let candidates = if kind == "instance" {
+            state.files.read_dir(root.join("saves")).unwrap_or_default()
+        } else {
+            let properties = crate::servers::properties::Properties::parse(
+                &state
+                    .files
+                    .read(root.join("server.properties"))
+                    .unwrap_or_default(),
+            );
+            let name = properties.get("level-name").unwrap_or("world");
+            if name.is_empty()
+                || Path::new(name)
+                    .components()
+                    .any(|c| !matches!(c, std::path::Component::Normal(_)))
+            {
+                issues.push("Server world path is unsafe; world evidence was not read.".into());
+                vec![]
+            } else {
+                vec![root.join(name)]
+            }
+        };
+        for world in candidates {
+            if let Some(link) = crate::worlds::project_links(&state.files, &world, &project_ids) {
+                worlds.push(link);
+            }
+        }
+        worlds.sort_by(|a, b| a["folder"].as_str().cmp(&b["folder"].as_str()));
+    }
     let relationships:Vec<_>=declared.into_iter().filter(|row|row["project_owned"]==true || row["mod_id"].as_str().is_some_and(|id|project_ids.contains(id))).map(|mut row|{
         let dependency_id=row["mod_id"].as_str().unwrap_or_default();
         row["installed_targets"]=json!(installed.iter().filter(|(s,_)|s.mod_id.as_deref()==Some(dependency_id)).map(|(s,enabled)|json!({"file_name":s.file_name,"title":s.title,"enabled":enabled,"provider":s.provider,"project_id":s.project_id,"mod_version":s.mod_version})).collect::<Vec<_>>());
@@ -261,7 +357,7 @@ fn target_context(
             ],
         );
         issues.extend(warnings);
-        let owners = crate::config_ownership::ConfigOwners::with_sources(state,&installed);
+        let owners = crate::config_ownership::ConfigOwners::with_sources(state, &installed);
         let preferences = crate::creative::library(state)?;
         for path in paths {
             // A server world's folder name also provides no evidence of ownership.
@@ -278,6 +374,6 @@ fn target_context(
         }
     }
     Ok(
-        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"dependencies":relationships,"warnings":issues}),
+        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"worlds":worlds,"dependencies":relationships,"warnings":issues}),
     )
 }
