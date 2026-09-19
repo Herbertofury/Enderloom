@@ -7,6 +7,7 @@ const scripts=[
   'config-associations-qa.js',
   'config-sources-qa.js',
   'config-source-queue-qa.js',
+  'media-view-lifecycle-qa.js',
   'workbench-concurrency-qa.js',
   'project-context-qa.js',
   'project-world-links-qa.js',

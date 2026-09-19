@@ -4,6 +4,7 @@ const fs=require('fs');
 const path=require('path');
 const root=path.join(__dirname,'..');
 const main=fs.readFileSync(path.join(root,'main.js'),'utf8');
+const mediaPool=fs.readFileSync(path.join(root,'src','media-view-pool.js'),'utf8');
 const enhance=fs.readFileSync(path.join(root,'catalog','enhance.js'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 const rust=fs.readFileSync(path.join(root,'src','rust-http.js'),'utf8');
@@ -30,7 +31,7 @@ assert(main.includes('warmMediaViewPool(Math.min(8,MEDIA_VIEW_POOL_MAX))'),'DOM 
 assert(main.includes("wreq-js-rust-native-full"),'Rust full-body background enrichment missing');
 assert(main.includes('const nodeGalleryFlow=galleryUrl?publicRequestProgressiveTextShared'),'physically cancellable CurseForge gallery probe missing');
 assert(main.includes('const rustGalleryFlow=null')&&main.includes('const impitGalleryFlow=null'),'redundant pooled native gallery drains were not disabled');
-assert(main.includes('async function extractLivePageMediaQuick(')&&main.includes("wc.once('dom-ready'")&&main.includes('Do not await loadURL'),'DOM hedge waits for full page load instead of DOM-ready');
+assert(main.includes('async function extractLivePageMediaQuick(')&&main.includes('mediaViews.extract(url,script')&&mediaPool.includes("readyEvent = 'dom-ready'")&&mediaPool.includes('frame.executeJavaScript(guarded, false)'),'DOM hedge must execute in the ready frame without waiting for subresources');
 assert(!main.includes('Math.min(180,index*55)'),'alternate source startup is still staggered');
 assert(main.includes('1500'), 'early deep-fallback gate missing');
 assert(main.includes('full-background'), 'background full-page enrichment missing');

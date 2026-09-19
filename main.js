@@ -5,7 +5,6 @@ const path = require('path');
 const http = require('http');
 const crypto = require('crypto');
 const os = require('os');
-const vm = require('vm');
 const v8 = require('v8');
 const { pathToFileURL } = require('url');
 const { LauncherService } = require('./src/launcher-service');
@@ -13,6 +12,7 @@ const { allowGoogleStorage } = require('./src/site-permissions');
 const { createAppUpdateMonitor } = require('./src/app-update-monitor');
 const { CatalogStore } = require('./src/catalog-store');
 const { createTrailerService } = require('./src/trailer-service');
+const { createMediaViewPool } = require('./src/media-view-pool');
 const { nativeTrailerProject } = require('./src/trailer-provider');
 const { registerTrailerIpc, identifyTrailerEmbeds } = require('./src/trailer-ipc');
 let trailerService = null;
@@ -79,9 +79,8 @@ const mediaPreconnectAt = new Map();
 const mediaImageWarmAt = new Map();
 const mediaImageWarmInflight = new Map();
 const HEDGED_DEEP_PROVIDERS = new Set(['curseforge','planetminecraft','afdian','patreon','minecraft-marketplace','mcpedl','modbay','fourthwall','booth','kofi','itch','gumroad','hangar','spigot','bukkit','nexusmods','moddb','gitlab','polymart','builtbybit']);
-const mediaViewPool = [];
-const mediaViewWaiters = [];
 const MEDIA_VIEW_FOREGROUND_RESERVE = 2;
+const mediaViews = createMediaViewPool({ createView:newMediaView, max:MEDIA_VIEW_POOL_MAX, foregroundReserve:MEDIA_VIEW_FOREGROUND_RESERVE });
 const mediaPrimeQueue = [];
 const mediaPrimeJobs = new Map();
 const MEDIA_PRIME_MAX = Math.max(48, Math.min(128, Math.ceil((os.cpus()?.length || 12) * 3.0)));
@@ -1416,30 +1415,8 @@ function newMediaView() {
   view.webContents.on('will-navigate', (e,target) => { if (!safeHttpUrl(target)) e.preventDefault(); });
   return view;
 }
-function acquireMediaView({ foreground=false } = {}) {
-  const normalLimit=Math.max(1,MEDIA_VIEW_POOL_MAX-MEDIA_VIEW_FOREGROUND_RESERVE);
-  const idle=mediaViewPool.find(x=>!x.busy&&(foreground||!x.foregroundOnly)&&x.view&&!x.view.webContents.isDestroyed());
-  if(idle){idle.busy=true;return Promise.resolve(idle.view)}
-  const limit=foreground?MEDIA_VIEW_POOL_MAX:normalLimit;
-  if(mediaViewPool.length<limit){const view=newMediaView();mediaViewPool.push({view,busy:true,foregroundOnly:foreground&&mediaViewPool.length>=normalLimit});return Promise.resolve(view)}
-  return new Promise(resolve=>{const waiter={resolve,foreground};foreground?mediaViewWaiters.unshift(waiter):mediaViewWaiters.push(waiter)});
-}
-function releaseMediaView(view) {
-  let slot=mediaViewPool.find(x=>x.view===view);
-  if(!slot)return;
-  if(!view||view.webContents.isDestroyed()){mediaViewPool.splice(mediaViewPool.indexOf(slot),1);slot=null;}
-  const waiterIndex=slot?.foregroundOnly?mediaViewWaiters.findIndex(waiter=>waiter.foreground):(mediaViewWaiters.length?0:-1);
-  const waiter=waiterIndex>=0?mediaViewWaiters.splice(waiterIndex,1)[0]:null;
-  if(waiter){if(!slot)acquireMediaView({foreground:waiter.foreground}).then(waiter.resolve);else{slot.busy=true;waiter.resolve(slot.view)}}
-  else if(slot)slot.busy=false;
-}
 function warmMediaViewPool(count=Math.min(4,MEDIA_VIEW_POOL_MAX)) {
-  const target=Math.max(0,Math.min(MEDIA_VIEW_POOL_MAX,Number(count)||0));
-  while(mediaViewPool.length<target){
-    const view=newMediaView();
-    mediaViewPool.push({view,busy:false,warmedAt:Date.now()});
-  }
-  return mediaViewPool.length;
+  return mediaViews.warm(Number(count)||0);
 }
 function liveNetworkSession() { return session.fromPartition(PARTITION); }
 function rememberChromiumText(cacheKey,value) {
@@ -1567,36 +1544,7 @@ function chromiumProgressiveTextShared(rawUrl, options={}) {
 }
 
 async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foreground=false } = {}) {
-  const view=await acquireMediaView({foreground}),wc=view.webContents;
-  const started=Date.now(),limit=Math.max(700,Number(timeoutMs)||3300);
-  let timer=null,onReady=null,onFail=null;
-  try {
-    const ready=new Promise((resolve,reject)=>{
-      onReady=()=>resolve(true);
-      onFail=(_event,code,description,_validatedURL,isMainFrame)=>{if(isMainFrame!==false)reject(new Error(`Live DOM hedge failed ${code}: ${description||'navigation error'}`))};
-      wc.once('dom-ready',onReady);wc.on('did-fail-load',onFail);
-      timer=setTimeout(()=>reject(new Error('Live DOM hedge timed out')),limit);
-    });
-    // Do not await loadURL: dom-ready is deliberately the gate. Waiting for load would
-    // serialize first imagery behind remote fonts, analytics, ads and image subresources.
-    wc.loadURL(url).catch(()=>{});
-    await ready;
-    if(timer){clearTimeout(timer);timer=null;}
-    const remaining=Math.max(250,limit-(Date.now()-started));
-    const guardedScript=`(async()=>{try{return {ok:true,value:await (${script})}}catch(error){return {ok:false,error:String(error?.stack||error)}}})()`;
-    try{new vm.Script(guardedScript,{filename:'enderloom-live-dom-extraction.js'})}catch(error){throw new Error(`Live DOM extraction script is invalid: ${error.stack||error}`)}
-    const guarded=await Promise.race([
-      wc.executeJavaScript(guardedScript,true),
-      new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Live DOM extraction timed out')),remaining)}),
-    ]);
-    if(!guarded?.ok)throw new Error(`Live DOM extraction failed: ${guarded?.error||'unknown renderer error'}`);
-    const result=guarded.value;
-    try{wc.stop()}catch{}
-    return result;
-  } finally {
-    if(timer)clearTimeout(timer);if(onReady)wc.removeListener('dom-ready',onReady);if(onFail)wc.removeListener('did-fail-load',onFail);
-    releaseMediaView(view);
-  }
+  return mediaViews.extract(url,script,{timeoutMs,foreground});
 }
 
 async function resolveCurseForgeAddonId(rawUrl, fallback='') {
@@ -1645,19 +1593,8 @@ async function extractCurseForgeGalleryHtmlFull(url, context={}, { timeoutMs=720
 }
 
 async function extractLivePageMedia(url, script, { scroll=true, timeoutMs=18000, foreground=false } = {}) {
-  const view=await acquireMediaView({foreground});
-  try {
-    const loadPromise=view.webContents.loadURL(url);
-    await Promise.race([loadPromise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Live media discovery timed out')),timeoutMs))]);
-    if (scroll) {
-      try { await view.webContents.executeJavaScript(`(async()=>{let last=-1,stable=0;for(let i=0;i<14;i++){const h=Math.max(document.body?.scrollHeight||0,document.documentElement?.scrollHeight||0);window.scrollTo(0,h);await new Promise(r=>setTimeout(r,180));const next=Math.max(document.body?.scrollHeight||0,document.documentElement?.scrollHeight||0);if(next===last||next===h)stable++;else stable=0;last=next;if(stable>=2)break}return true})()`, true); } catch {}
-      await new Promise(r=>setTimeout(r,120));
-    } else await new Promise(r=>setTimeout(r,80));
-    return await view.webContents.executeJavaScript(script,true);
-  } catch(err) {
-    if(view?.webContents&&!view.webContents.isDestroyed()){try{view.webContents.stop()}catch{}}
-    throw err;
-  } finally { releaseMediaView(view); }
+  const scrollScript=scroll?`let last=-1,stable=0;for(let i=0;i<14;i++){const h=Math.max(document.body?.scrollHeight||0,document.documentElement?.scrollHeight||0);window.scrollTo(0,h);await new Promise(r=>setTimeout(r,180));const next=Math.max(document.body?.scrollHeight||0,document.documentElement?.scrollHeight||0);if(next===last||next===h)stable++;else stable=0;last=next;if(stable>=2)break}await new Promise(r=>setTimeout(r,120));`:`await new Promise(r=>setTimeout(r,80));`;
+  return mediaViews.extract(url,`(async()=>{${scrollScript}return await (${script});})()`,{timeoutMs,foreground,readyEvent:'did-finish-load'});
 }
 
 async function resolveProviderChildLive(url, context={}, timeoutMs=12000) {
@@ -3221,8 +3158,7 @@ function shutdownApplication(code=0){
     try { translatorUpdater?.dispose(); } catch {}
     try { translator?.dispose(); } catch {}
     for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}
-    for(const slot of mediaViewPool.splice(0)){try{slot.view?.webContents?.close()}catch{}}
-    mediaViewWaiters.length=0;
+    mediaViews.dispose();
     await Promise.allSettled([
       launcherService.close(),
       rustHttp.close(),
