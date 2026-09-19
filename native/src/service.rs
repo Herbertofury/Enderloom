@@ -191,6 +191,7 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
         }
         "get_evidence_artifacts" => crate::evidence::list(state,args),
         "get_evidence_artifact" => crate::evidence::get(state,&required_string(args,"evidenceId")?),
+        "check_evidence_freshness" => crate::evidence::check_freshness(state,required_string(args,"evidenceId")?).await,
         "link_evidence_artifacts" => crate::evidence::link(state,args),
         "verify_evidence_artifact" => {
             let state=state.clone(); let id=required_string(args,"evidenceId")?;

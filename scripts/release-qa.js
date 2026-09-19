@@ -10,6 +10,7 @@ const scripts=[
   'spark-ui-qa.js',
   'spark-scope-ui-qa.js',
   'evidence-graph-qa.js',
+  'evidence-freshness-qa.js',
   'evidence-ui-qa.js',
   'testing-cli-qa.js',
   'minecraft-probe-qa.js',

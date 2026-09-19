@@ -1,5 +1,6 @@
 //! Typed evidence nodes in the existing canonical library. Domain records remain
 //! the single normalized representation; this graph links them to retained bytes.
+use crate::tasks::{TaskHandle, TaskKind, TaskSpec};
 use crate::{
     error::{Error, Result},
     state::AppState,
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
 use std::io::Read;
+use std::sync::Arc;
 
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -159,9 +161,19 @@ fn retain(state: &AppState, bytes: &[u8], representation: &str) -> Result<RawArt
 }
 fn redact_report(state: &AppState, value: &mut Value) {
     match value {
-        Value::String(text) => *text = crate::commands::logging_commands::redact_text_core(state,text),
-        Value::Array(values) => { for value in values { redact_report(state,value); } },
-        Value::Object(values) => { for value in values.values_mut() { redact_report(state,value); } },
+        Value::String(text) => {
+            *text = crate::commands::logging_commands::redact_text_core(state, text)
+        }
+        Value::Array(values) => {
+            for value in values {
+                redact_report(state, value);
+            }
+        }
+        Value::Object(values) => {
+            for value in values.values_mut() {
+                redact_report(state, value);
+            }
+        }
         _ => {}
     }
 }
@@ -170,13 +182,17 @@ pub fn save_performance(state: &AppState, args: &Value) -> Result<Value> {
     crate::commands::find_instance(state, instance_id)?;
     let mut report = args["report"].clone();
     // An imported profile does not establish a Testing Lab execution identity.
-    if let Some(fields) = report.as_object_mut() { fields.remove("test_id"); }
+    if let Some(fields) = report.as_object_mut() {
+        fields.remove("test_id");
+    }
     let kind = match report["kind"].as_str() {
         Some("spark") => EvidenceKind::SparkProfile,
         Some("log") => EvidenceKind::LogAnalysis,
         _ => return Err(Error::other("Invalid performance evidence kind")),
     };
-    if matches!(kind,EvidenceKind::LogAnalysis) { redact_report(state,&mut report); }
+    if matches!(kind, EvidenceKind::LogAnalysis) {
+        redact_report(state, &mut report);
+    }
     let raw = if let Some(encoded) = args["source"]["data"].as_str() {
         let mut bytes = base64::engine::general_purpose::STANDARD
             .decode(encoded)
@@ -227,10 +243,16 @@ fn register_performance(
 ) -> Result<Value> {
     let id = required(report, "id")?;
     let spark = report["kind"] == "spark";
-    let test = report["test_id"].as_str().map(|id| state.db.library_get(&format!("test:{id}"))).transpose()?.flatten();
+    let test = report["test_id"]
+        .as_str()
+        .map(|id| state.db.library_get(&format!("test:{id}")))
+        .transpose()?
+        .flatten();
     let note = if let Some(test) = &test {
         format!("Testing Lab run {} · Minecraft {} · {} {} · {}. Exact installed mods, versions and scenarios are retained in that run's report.",test["id"].as_str().unwrap_or_default(),test["minecraft"].as_str().unwrap_or("unknown"),test["loader"].as_str().unwrap_or("unknown"),test["loader_version"].as_str().unwrap_or("unknown"),test["mode"].as_str().unwrap_or("runtime mode not recorded"))
-    } else { "Instance selected at import. Imported samples and reported log events do not establish that the current installed mod set produced them.".into() };
+    } else {
+        "Instance selected at import. Imported samples and reported log events do not establish that the current installed mod set produced them.".into()
+    };
     record(state,&EvidenceArtifact {
         schema_version:1,id:format!("performance:{id}"),kind:if spark {EvidenceKind::SparkProfile} else {EvidenceKind::LogAnalysis},
         title:report["title"].as_str().unwrap_or("Imported evidence").into(),
@@ -244,18 +266,57 @@ fn register_performance(
         scope:if spark {"Profiler sample attribution. Sample percentages are not FPS loss or causal proof."} else {"Recognized symptoms in a redacted log. Findings are not measured per-mod frame loss."}.into(),
     })
 }
-pub fn save_testing_analysis(state: &AppState, test: &Value, mut report: Value, bytes: &[u8], name: &str) -> Result<Value> {
-    let test_id=required(test,"id")?;
-    if report["kind"]=="log" { redact_report(state,&mut report); }
+pub fn save_testing_analysis(
+    state: &AppState,
+    test: &Value,
+    mut report: Value,
+    bytes: &[u8],
+    name: &str,
+) -> Result<Value> {
+    let test_id = required(test, "id")?;
+    if report["kind"] == "log" {
+        redact_report(state, &mut report);
+    }
     let redacted;
-    let bytes=if report["kind"]=="log" { redacted=crate::commands::logging_commands::redact_text_core(state,&String::from_utf8_lossy(bytes)); redacted.as_bytes() } else {bytes};
-    let raw=retain(state,bytes,if report["kind"]=="log" {"redacted_analysis_input"} else {"original_profile"})?;
-    let id=format!("test-{test_id}-{}",hash(&serde_json::to_vec(&json!([name,raw.sha256,"native-testing-evidence-1"]))?));
-    report["id"]=json!(id);report["evidence_id"]=json!(format!("performance:{id}"));report["test_id"]=json!(test_id);
-    report["at"]=test["finished_at"].clone();report["instance_id"]=test["instance_id"].clone();report["sha256"]=json!(raw.sha256);
-    for key in ["minecraft","loader","loader_version"] {report[key]=test[key].clone();}
-    let stable=state.db.library_put_immutable(&format!("evidence:{id}"),&report)?;
-    register_performance(state,&stable,Some(raw),false)?;
+    let bytes = if report["kind"] == "log" {
+        redacted = crate::commands::logging_commands::redact_text_core(
+            state,
+            &String::from_utf8_lossy(bytes),
+        );
+        redacted.as_bytes()
+    } else {
+        bytes
+    };
+    let raw = retain(
+        state,
+        bytes,
+        if report["kind"] == "log" {
+            "redacted_analysis_input"
+        } else {
+            "original_profile"
+        },
+    )?;
+    let id = format!(
+        "test-{test_id}-{}",
+        hash(&serde_json::to_vec(&json!([
+            name,
+            raw.sha256,
+            "native-testing-evidence-1"
+        ]))?)
+    );
+    report["id"] = json!(id);
+    report["evidence_id"] = json!(format!("performance:{id}"));
+    report["test_id"] = json!(test_id);
+    report["at"] = test["finished_at"].clone();
+    report["instance_id"] = test["instance_id"].clone();
+    report["sha256"] = json!(raw.sha256);
+    for key in ["minecraft", "loader", "loader_version"] {
+        report[key] = test[key].clone();
+    }
+    let stable = state
+        .db
+        .library_put_immutable(&format!("evidence:{id}"), &report)?;
+    register_performance(state, &stable, Some(raw), false)?;
     Ok(stable)
 }
 pub fn performance_reports(state: &AppState, instance_id: &str) -> Result<Value> {
@@ -316,7 +377,262 @@ pub fn get(state: &AppState, id: &str) -> Result<Value> {
         .into_iter()
         .filter(|r| r["from"] == id || r["to"] == id)
         .collect::<Vec<_>>());
+    value["freshness"] = cached_freshness(state, &read(state, id)?)?;
     Ok(value)
+}
+
+#[derive(Clone, Serialize, Deserialize)]
+struct DependencyState {
+    kind: String,
+    id: String,
+    state: String,
+    reason: String,
+    expected: Option<String>,
+    actual: Option<String>,
+}
+fn dependency(
+    kind: &str,
+    id: &str,
+    state: &str,
+    reason: impl Into<String>,
+    expected: Option<String>,
+    actual: Option<String>,
+) -> DependencyState {
+    DependencyState {
+        kind: kind.into(),
+        id: id.into(),
+        state: state.into(),
+        reason: reason.into(),
+        expected,
+        actual,
+    }
+}
+fn freshness_state(dependencies: &[DependencyState]) -> &'static str {
+    if dependencies.iter().any(|d| d.state == "changed") {
+        "stale"
+    } else if dependencies.iter().any(|d| d.state != "unchanged") {
+        "unknown"
+    } else {
+        "current"
+    }
+}
+fn project_dependency(state: &AppState, evidence: &EvidenceArtifact) -> Result<DependencyState> {
+    let project = state
+        .db
+        .library_get(&format!("conversion-project:{}", evidence.target.id))?;
+    let current = if let Some(id) = project.as_ref().and_then(|p| p["snapshot_id"].as_str()) {
+        state.db.library_get(&format!("conversion-snapshot:{id}"))?
+    } else {
+        None
+    };
+    let expected = evidence.raw.as_ref().map(|r| r.sha256.clone());
+    let present = current
+        .as_ref()
+        .and_then(|v| v["inputs"].as_array())
+        .is_some_and(|inputs| {
+            inputs
+                .iter()
+                .any(|i| i["sha256"].as_str() == expected.as_deref())
+        });
+    Ok(dependency(
+        "project_input",
+        &evidence.target.id,
+        if current.is_none() {
+            "unknown"
+        } else if present {
+            "unchanged"
+        } else {
+            "changed"
+        },
+        if current.is_none() {
+            "The project's current checkpoint is unavailable."
+        } else if present {
+            "The exact package still belongs to the current project. Adding unrelated references does not invalidate its inventory."
+        } else {
+            "This package is no longer an input to the project's current checkpoint. Its historical inventory is preserved."
+        },
+        expected,
+        current.and_then(|c| c["id"].as_str().map(str::to_owned)),
+    ))
+}
+fn cached_freshness(state: &AppState, evidence: &EvidenceArtifact) -> Result<Value> {
+    let Some(mut cached) = state
+        .db
+        .library_get(&format!("evidence-freshness:{}", evidence.id))?
+    else {
+        return Ok(Value::Null);
+    };
+    let mut dependencies: Vec<DependencyState> =
+        serde_json::from_value(cached["dependencies"].clone())?;
+    if evidence.target.kind == "project" {
+        let current = project_dependency(state, evidence)?;
+        if let Some(old) = dependencies.iter_mut().find(|d| d.kind == "project_input") {
+            *old = current;
+        }
+    } else if let Some(scan) = state
+        .db
+        .library_get(&format!("latest-scan:{}", evidence.target.id))?
+    {
+        // A lightweight list-only inspection has no fingerprint and cannot
+        // validate or invalidate a full run context.
+        if let Some(actual) = scan["fingerprint"].as_str().filter(|s| !s.is_empty()) {
+            if scan["at"].as_i64().unwrap_or_default()
+                > cached["checked_at"].as_i64().unwrap_or_default()
+            {
+                if let Some(old) = dependencies
+                    .iter_mut()
+                    .find(|d| d.kind == "instance_inputs")
+                {
+                    if old.actual.as_deref() != Some(actual) {
+                        old.state = "changed".into();
+                        old.actual = Some(actual.into());
+                        old.reason="A newer complete inspection found different instance inputs. Recheck this evidence against the current files.".into();
+                        cached["needs_recheck"] = json!(true);
+                    }
+                }
+            }
+        }
+    }
+    cached["state"] = json!(freshness_state(&dependencies));
+    cached["dependencies"] = json!(dependencies);
+    Ok(cached)
+}
+pub async fn check_freshness(state: &Arc<AppState>, id: String) -> Result<Value> {
+    let evidence = read(state, &id)?;
+    let task = state.tasks.start_ipc(
+        TaskKind::PerformanceScan,
+        TaskSpec {
+            title: "Check evidence inputs".into(),
+            instance_id: (evidence.target.kind == "instance").then(|| evidence.target.id.clone()),
+            project_id: (evidence.target.kind == "project").then(|| evidence.target.id.clone()),
+            ..Default::default()
+        },
+    )?;
+    let state = state.clone();
+    tokio::task::spawn_blocking(move || {
+        let result = freshness(&state, &evidence, &task);
+        task.finish(&result);
+        result
+    })
+    .await
+    .map_err(|e| Error::other(e.to_string()))?
+}
+fn freshness(state: &AppState, evidence: &EvidenceArtifact, task: &TaskHandle) -> Result<Value> {
+    task.stage("Checking retained source and analysis integrity");
+    let integrity = verify_inner(state, &evidence.id, Some(task))?;
+    let mut dependencies = Vec::new();
+    for (key, label) in [
+        ("raw", "retained_source"),
+        ("normalized", "normalized_record"),
+    ] {
+        let status = integrity[key]["state"].as_str().unwrap_or("unknown");
+        dependencies.push(dependency(
+            label,
+            &evidence.id,
+            if status == "verified" {
+                "unchanged"
+            } else if status == "changed" {
+                "changed"
+            } else {
+                "unknown"
+            },
+            format!("{}: {}", label.replace('_', " "), status.replace('_', " ")),
+            None,
+            integrity[key]["actual_sha256"].as_str().map(str::to_owned),
+        ));
+    }
+    dependencies.push(match &evidence.producer {
+        Some(p) if matches!(p.adapter.as_str(),"package-inventory-1"|"enderloom-spark-protobuf"|"enderloom-log-symptoms"|"enderloom-native-testing-evidence")=>dependency("producer",&p.adapter,if p.version=="1"{"unchanged"}else{"changed"},if p.version=="1"{"The recorded adapter version is still supported."}else{"The adapter version differs from the installed analyzer; reanalyze the retained input."},Some(p.version.clone()),Some("1".into())),
+        Some(p)=>dependency("producer",&p.adapter,"unknown","The recorded adapter is not available in this build.",Some(p.version.clone()),None),
+        None=>dependency("producer","unknown","unknown","The original adapter version was not recorded.",None,None)
+    });
+    if task.token().is_cancelled() {
+        return Err(Error::Cancelled);
+    }
+    if evidence.target.kind == "project" {
+        dependencies.push(project_dependency(state, evidence)?);
+    } else if let Some(expected) = &evidence.target.snapshot_id {
+        task.stage("Comparing the tested mods, configs, content and launch settings");
+        match crate::creative::scan_instance(state, &evidence.target.id, task, true, false) {
+            Ok(scan) => {
+                let actual = scan["fingerprint"].as_str().unwrap_or_default().to_string();
+                let same = &actual == expected;
+                dependencies.push(dependency("instance_inputs",&evidence.target.id,if same{"unchanged"}else{"changed"},if same{"The full current input fingerprint matches the tested instance."}else{"Mods, configs, content or launch settings differ from the tested input fingerprint."},Some(expected.clone()),Some(actual)));
+                if !same {
+                    if let Some(run) = &evidence.run_id {
+                        if let Some(test) = state.db.library_get(&format!("test:{run}"))? {
+                            for (key, kind) in [
+                                ("config_hashes", "config"),
+                                ("environment", "launch_setting"),
+                            ] {
+                                let before = test[key].as_object();
+                                let after = scan[key].as_object();
+                                let keys: std::collections::BTreeSet<_> = before
+                                    .into_iter()
+                                    .flat_map(|m| m.keys())
+                                    .chain(after.into_iter().flat_map(|m| m.keys()))
+                                    .collect();
+                                for name in keys {
+                                    let a = before.and_then(|m| m.get(name));
+                                    let b = after.and_then(|m| m.get(name));
+                                    if a != b {
+                                        dependencies.push(dependency(
+                                            kind,
+                                            name,
+                                            "changed",
+                                            format!(
+                                                "{} {} {}",
+                                                kind.replace('_', " "),
+                                                name,
+                                                if a.is_none() {
+                                                    "was added"
+                                                } else if b.is_none() {
+                                                    "was removed"
+                                                } else {
+                                                    "changed"
+                                                }
+                                            ),
+                                            a.map(Value::to_string),
+                                            b.map(Value::to_string),
+                                        ));
+                                    }
+                                }
+                            }
+                            let mods=|value:&Value,key:&str|->std::collections::BTreeMap<String,Value>{value[key].as_array().into_iter().flatten().filter_map(|m|m["file_name"].as_str().map(|name|(name.into(),json!([m["enabled"],m["inspection"]["sha256"],m["error"]])))).collect()};
+                            let before = mods(&test, "mods");
+                            let after = mods(&scan, "files");
+                            let keys: std::collections::BTreeSet<_> =
+                                before.keys().chain(after.keys()).collect();
+                            for name in keys {
+                                if before.get(name) != after.get(name) {
+                                    dependencies.push(dependency("mod",name,"changed",format!("Mod {name} was added, removed, enabled/disabled or changed bytes."),before.get(name).map(Value::to_string),after.get(name).map(Value::to_string)));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Err(Error::Cancelled) => return Err(Error::Cancelled),
+            Err(error) => dependencies.push(dependency(
+                "instance_inputs",
+                &evidence.target.id,
+                "unknown",
+                format!("Could not inspect the current instance: {error}"),
+                Some(expected.clone()),
+                None,
+            )),
+        }
+    } else {
+        dependencies.push(dependency("instance_inputs",&evidence.target.id,"unknown","This imported report has no recorded test-input fingerprint. Its applicability to the current installed mods cannot be established.",None,None));
+    }
+    if task.token().is_cancelled() {
+        return Err(Error::Cancelled);
+    }
+    let result = json!({"evidence_id":evidence.id,"checked_at":now(),"state":freshness_state(&dependencies),"dependencies":dependencies,"needs_recheck":false,"scope":"Applicability to recorded input dependencies. Current inputs do not prove runtime or semantic parity."});
+    state
+        .db
+        .library_put(&format!("evidence-freshness:{}", evidence.id), &result)?;
+    Ok(result)
 }
 pub fn list(state: &AppState, args: &Value) -> Result<Value> {
     let kind = required(args, "targetKind")?;
@@ -357,6 +673,9 @@ pub fn link(state: &AppState, args: &Value) -> Result<Value> {
         .library_put_immutable(&format!("evidence-link:{id}"), &serde_json::to_value(link)?)
 }
 pub fn verify(state: &AppState, id: &str) -> Result<Value> {
+    verify_inner(state,id,None)
+}
+fn verify_inner(state: &AppState, id: &str, task: Option<&TaskHandle>) -> Result<Value> {
     let evidence = read(state, id)?;
     let raw = match &evidence.raw {
         None => json!({"state":"not_retained","reason":evidence.missing_raw_reason}),
@@ -367,6 +686,7 @@ pub fn verify(state: &AppState, id: &str) -> Result<Value> {
                 let mut buf = [0u8; 65536];
                 let mut size = 0u64;
                 loop {
+                    if task.is_some_and(|t|t.token().is_cancelled()) {return Err(Error::Cancelled);}
                     let n = file.read(&mut buf)?;
                     if n == 0 {
                         break;

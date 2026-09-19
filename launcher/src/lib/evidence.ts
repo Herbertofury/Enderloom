@@ -9,7 +9,9 @@ export type EvidenceArtifact = {
   provenance: { operation: string; source_url: string | null; note: string };
   confidence_class: 'measured' | 'sampled' | 'inferred' | 'externally_reported'; scope: string;
   links?: { id: string; from: string; to: string; relation: EvidenceRelation; reason: string; recorded_at: number }[];
+  freshness?: EvidenceFreshness | null;
 };
+export type EvidenceFreshness = { checked_at: number; state: 'current' | 'stale' | 'unknown'; needs_recheck: boolean; scope: string; dependencies: { kind: string; id: string; state: string; reason: string; expected: string | null; actual: string | null }[] };
 export type EvidenceRelation = 'comparison' | 'contradiction' | 'supports' | 'supersedes';
 export type EvidenceVerification = { checked_at: number; raw: { state: string; reason?: string; actual_sha256?: string }; normalized: { state: string }; scope: string };
 export function evidenceSource(bytes: Uint8Array): EvidenceSource {

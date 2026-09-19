@@ -209,7 +209,7 @@ Implement typed identities/links for:
 ## 4.2 Evidence graph
 
 - [x] **PA-010** `EvidenceArtifact` with kind, producer/adapter version, target, run identity, timestamps, raw artifact link, normalized representation, provenance, confidence class, comparison/contradiction links. Studio, imported profiles/logs and native Testing Lab analysis share the typed owner; legacy uncertainty is preserved. Native/CLI/Electron and actual Aether source verification pass; see `docs/EVIDENCE_GRAPH_ACCEPTANCE_2026-09-18.md`.
-- [ ] **PA-011** dependency-aware freshness/staleness invalidation with explicit stale reason.
+- [x] **PA-011** dependency-aware freshness/staleness invalidation with explicit stale reason. Retained source/analysis/adapter/project inputs and full tested-instance fingerprints; independent references do not invalidate unchanged inventories. Native/CLI/Electron and actual AoA/Aether checks pass; see `docs/EVIDENCE_FRESHNESS_ACCEPTANCE_2026-09-18.md`.
 
 ## 4.3 Durable tasks and transactions
 

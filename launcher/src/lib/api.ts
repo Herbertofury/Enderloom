@@ -1,5 +1,5 @@
 import type { EvidenceReport } from "./performance-evidence";
-import type { EvidenceArtifact, EvidenceRelation, EvidenceVerification } from "./evidence";
+import type { EvidenceArtifact, EvidenceFreshness, EvidenceRelation, EvidenceVerification } from "./evidence";
 import type { ConversionRequest, ConversionProject, ConversionSnapshot, PackageEntries, PackageComparison } from "./conversion";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
 type SparkDownload = { data: string; content_type: string };
@@ -147,6 +147,7 @@ export const api = {
   getEvidenceArtifacts: (targetKind: string, targetId: string) => call<EvidenceArtifact[]>("get_evidence_artifacts", { targetKind, targetId }),
   getEvidenceArtifact: (evidenceId: string) => call<EvidenceArtifact>("get_evidence_artifact", { evidenceId }),
   verifyEvidenceArtifact: (evidenceId: string) => call<EvidenceVerification>("verify_evidence_artifact", { evidenceId }),
+  checkEvidenceFreshness: (evidenceId: string) => call<EvidenceFreshness>("check_evidence_freshness", { evidenceId }),
   linkEvidenceArtifacts: (from: string, to: string, relation: EvidenceRelation, reason: string) => call("link_evidence_artifacts", { from, to, relation, reason }),
   getPerformanceEvidence: (instanceId: string) => call<EvidenceReport[]>("get_performance_evidence", { instanceId }),
   getSparkProfile: (key: string) => call<SparkDownload>("get_spark_profile", { key }),

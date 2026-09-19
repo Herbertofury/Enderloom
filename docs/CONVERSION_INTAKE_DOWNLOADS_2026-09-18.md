@@ -24,3 +24,5 @@ GitHub `Herbertofury/ProjectDump/projects/aoa-savior/CHECKPOINT-40.md` is an old
 Downloaded locally: `CHECKPOINT-40-BATCH34-VISUAL-FINAL.md`, reporting Forge 47.4.23 / Minecraft 1.20.1 / Java 17 and donor hashes. Its prior runtime results remain externally reported evidence.
 
 Blocker: the actual headless Dev Kit Drive download returned sign-in-required using Enderloom's session. Chrome can view the files, but the requested ZIP downloads have not appeared locally. No Chrome-to-Enderloom credential transfer was performed. The Dev Kit/CP40 source packages and donor hashes still need authenticated acquisition before actual source continuation. The primary AoA conversion, toolkit integration, full semantic census, and cross-version matrix are **not complete**.
+
+Later checkpoint: both original donor packages were recovered from official public CurseForge/GitHub sources and exactly matched the handoff hashes. They and the pinned modern reference are now saved in Studio; see `docs/AOA_DONOR_INTAKE_2026-09-18.md`. The private Savior checkpoint and Dev Kit remain blocked by Enderloom's Google sign-in.
