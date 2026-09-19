@@ -9,6 +9,8 @@ From this checkout on Windows:
 ```powershell
 npm run build:integration
 .\enderloom.cmd capabilities --json
+.\enderloom.cmd capabilities --domain conversion --classification read --json
+.\enderloom.cmd operation describe restore_instance_snapshot --json
 .\enderloom.cmd instance list --json
 .\enderloom.cmd instance show "My instance" --json
 .\enderloom.cmd launch "My instance" --wait --jsonl
@@ -22,6 +24,8 @@ npm run build:integration
 `enderloom.cmd` without arguments opens the existing desktop app. `node scripts/enderloom-cli.js` is the equivalent development wrapper on other platforms. The wrapper chooses a packaged native helper when present, otherwise the newest built debug/release helper. `ENDERLOOM_CLI_PATH` explicitly selects an artifact. Installer integration and cross-platform package acceptance are still pending.
 
 The native console helper (`native/target/debug/enderloom.exe` on Windows) executes commands without an Electron window. It uses the same data root, database, filesystem policy, process ownership checks and domain dispatcher as the GUI. `--data-dir ABSOLUTE_PATH` or `ENDERLOOM_DATA_DIR` selects an isolated root. Capability/schema discovery never opens user data.
+
+Every registered operation has a stable ID, a canonical domain and a typed `read`, `write` or `destructive` classification. `capabilities --domain DOMAIN --classification CLASS` filters that same registry; either filter is optional. `operation describe ID` returns its routes, supported plan and cancellation metadata without starting the service or opening user data. Unknown IDs and filter values fail explicitly. Classification describes user-state effects; internal caches can still be refreshed by a read operation. This discovery metadata does not claim complete input/output schemas or MCP/AI exposure.
 
 If another GUI or CLI already owns that root, the command authenticates to its local service. Both interfaces see the same tasks and processes. A root lease prevents two independent runtimes from opening the same launcher state. The local endpoint token is internal and is never part of a command result.
 

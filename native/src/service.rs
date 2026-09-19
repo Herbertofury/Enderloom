@@ -185,7 +185,10 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
 }
 async fn dispatch_operation(state: &Arc<AppState>, command: &str, args: &Value) -> Result<Value> {
     match command {
-        "get_capabilities" => value(crate::capabilities::all()),
+        "get_capabilities" => value(crate::capabilities::select(
+            serde_json::from_value(args.get("domain").cloned().unwrap_or(Value::Null))?,
+            serde_json::from_value(args.get("classification").cloned().unwrap_or(Value::Null))?,
+        )),
         "save_performance_evidence" => {
             let state=state.clone(); let args=args.clone();
             tokio::task::spawn_blocking(move || crate::evidence::save_performance(&state,&args)).await.map_err(|e| Error::other(e.to_string()))?

@@ -12,13 +12,14 @@ function audit(serviceSource, apiSource, registry, cliSource, typedSource) {
   for (const id of new Set([...service,...api])) {
     const entry = registry.find(r=>r.id===id);
     assert(entry,`Missing capability descriptor: ${id}`);
+    assert(typeof entry.domain==='string' && /^[a-z][a-z0-9_]*$/.test(entry.domain),`Missing canonical domain: ${id}`);
     assert(['read','write','destructive'].includes(entry.classification),`Unreviewed classification: ${id}`);
     assert.equal(entry.schema_version,1,`Unsupported machine schema: ${id}`);
     assert(entry.cli_route || entry.visual_only_reason,`No CLI route or reviewed visual exception: ${id}`);
     if (entry.service_command) assert(service.includes(entry.service_command),`Missing shared service route: ${id}`);
     else if (!entry.visual_only_reason) assert(cliSource.includes(`id == "${id}"`),`Missing explicit orchestration route: ${id}`);
     if (entry.cli_route) assert.equal(entry.cli_route,`operation run ${id}`,`Unknown operation route: ${id}`);
-    if(entry.plan_command)assert(service.includes(entry.plan_command),`Missing plan operation: ${id}`);
+    if(entry.plan_command){assert(service.includes(entry.plan_command),`Missing plan operation: ${id}`);assert.equal(registry.find(r=>r.id===entry.plan_command)?.classification,'read',`Plan may mutate user state: ${id}`);}
     if(entry.cancellation_command)assert(service.includes(entry.cancellation_command),`Missing cancellation operation: ${id}`);
     for(const alias of entry.aliases) assert((cliSource+'\n'+typedSource).includes(`"${alias}"`),`Missing typed alias: ${alias}`);
     assert.equal(entry.gui_routes.length>0,api.includes(id),`GUI exposure drift: ${id}`);
@@ -34,6 +35,7 @@ const report=audit(service,api,registry,cli,typed);
 assert(!serviceCommands(service).includes('running'),'Nested match value incorrectly exposed as a domain operation');
 assert.throws(()=>audit(service.replace('match command {','match command {\n        "new_unmapped_domain_operation" => Ok(Value::Null),'),api,registry,cli,typed),/Missing capability descriptor/);
 assert.throws(()=>audit(service,api,registry.map(r=>r.id==='create_instance'?{...r,cli_route:null}:r),cli,typed),/No CLI route/);
+assert.throws(()=>audit(service,api,registry.map(r=>r.id==='create_instance'?{...r,domain:null}:r),cli,typed),/Missing canonical domain/);
 assert.throws(()=>audit(service,api,registry,cli.replace('service::dispatch(state, command, &args).await','duplicated_launcher(state, command, &args).await'),typed),/shared service dispatch/);
 assert.throws(()=>audit(service,api,registry,cli,typed.replaceAll('"instance create"','"removed route"')),/Missing typed alias/);
 console.log(JSON.stringify({passed:true,...report,typedAliases:new Set(registry.flatMap(r=>r.aliases)).size,unmappedOperationChallenge:true,missingRouteChallenge:true,sharedDomainChallenge:true,missingTypedAliasChallenge:true,fullTypedCliParity:false},null,2));

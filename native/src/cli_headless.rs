@@ -58,7 +58,12 @@ struct Cli {
 enum Command {
     #[command(flatten)]
     Extra(crate::cli_commands::ExtraCommand),
-    Capabilities,
+    Capabilities {
+        #[arg(long)]
+        domain: Option<capabilities::OperationDomain>,
+        #[arg(long)]
+        classification: Option<capabilities::OperationClassification>,
+    },
     Schema,
     Instance {
         #[command(subcommand)]
@@ -117,6 +122,8 @@ enum LogCommand {
 }
 #[derive(Subcommand, Debug)]
 enum OperationCommand {
+    /// Inspect one operation's canonical routes and behavior without opening user data.
+    Describe { id: String },
     Run {
         id: String,
         #[arg(long, default_value = "-")]
@@ -456,8 +463,11 @@ pub(super) async fn selected(domain: &Domain, selector: &str) -> Result<Value> {
 }
 
 async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<Value> {
-    if matches!(cli.command, Some(Command::Capabilities)) {
-        return Ok(serde_json::to_value(capabilities::all())?);
+    if let Some(Command::Capabilities { domain, classification }) = &cli.command {
+        return Ok(serde_json::to_value(capabilities::select(*domain, *classification))?);
+    }
+    if let Some(Command::Operation { action: OperationCommand::Describe { id } }) = &cli.command {
+        return capabilities::find(id).map(serde_json::to_value).transpose()?.ok_or_else(||Error::other(format!("Unknown operation {id}; see capabilities")));
     }
     if matches!(cli.command, Some(Command::Schema)) {
         return Ok(
@@ -540,7 +550,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
         Command::Instance {
             action: InstanceCommand::Extra(action),
         } => action.execute(&domain, cli.yes, cli.plan).await,
-        Command::Capabilities | Command::Schema => unreachable!(),
+        Command::Capabilities { .. } | Command::Schema | Command::Operation { action: OperationCommand::Describe { .. } } => unreachable!(),
         Command::Instance {
             action: InstanceCommand::List,
         } => invoke(&domain, "list_instances", json!({})).await,
@@ -650,7 +660,7 @@ async fn execute(cli: &Cli, output: &Output, scope: &ExecutionScope) -> Result<V
             if entry.cli_route.is_none() {
                 return Err(Error::other("This operation has no reviewed CLI route"));
             }
-            if entry.classification == "destructive" && !cli.yes && !cli.plan {
+            if entry.classification == capabilities::OperationClassification::Destructive && !cli.yes && !cli.plan {
                 return Err(Error::other(
                     "This operation requires --yes, or --plan to inspect its supported plan",
                 ));
@@ -765,7 +775,7 @@ pub async fn run(arguments: Vec<String>) -> i32 {
         Some(Command::Instance {
             action: InstanceCommand::Extra(action),
         }) => action.route(),
-        Some(Command::Capabilities) => "capabilities",
+        Some(Command::Capabilities { .. }) => "capabilities",
         Some(Command::Schema) => "schema",
         Some(Command::Instance {
             action: InstanceCommand::List,
@@ -780,6 +790,7 @@ pub async fn run(arguments: Vec<String>) -> i32 {
             action: LogCommand::List { .. },
         }) => "logs list",
         Some(Command::Logs { .. }) => "logs show",
+        Some(Command::Operation { action: OperationCommand::Describe { .. } }) => "operation describe",
         Some(Command::Operation { .. }) => "operation run",
         None if cli.legacy_list => "instance list",
         None => "launch",
@@ -818,7 +829,7 @@ pub async fn run(arguments: Vec<String>) -> i32 {
     if cli.plan
         && !matches!(
             cli.command,
-            Some(Command::Operation { .. })
+            Some(Command::Operation { action: OperationCommand::Run { .. } })
                 | Some(Command::Extra(_))
                 | Some(Command::Instance {
                     action: InstanceCommand::Extra(_)
