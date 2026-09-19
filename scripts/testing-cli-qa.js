@@ -11,7 +11,9 @@ const db=new DatabaseSync(path.join(data,'basalt.db'));
 const testId=crypto.randomUUID(),folder=path.join(data,'testing-reports',testId);fs.mkdirSync(folder,{recursive:true});
 const samples={current:fixture(),legacy:fixture({legacy:true}),gzip:zlib.gzipSync(fixture()),unowned:fixture({ownership:false}),cyclic:fixture({cycle:true}),truncated:fixture().subarray(0,25)};
 const artifacts=Object.entries(samples).map(([name,bytes])=>{const filename=name+'.sparkprofile';fs.writeFileSync(path.join(folder,filename),bytes);return{kind:'spark',name:filename,label:name,path:path.join(folder,filename)}});
-db.prepare('INSERT INTO creative_library(key,body) VALUES (?,?)').run('test:'+testId,JSON.stringify({id:testId,at:1,instance_id:'fixture',state:'completed',finished_at:2,minecraft:'1.21.1',loader:'neoforge',loader_version:'fixture',steps:[],artifacts}));db.close();
+db.prepare('INSERT INTO creative_library(key,body) VALUES (?,?)').run('test:'+testId,JSON.stringify({id:testId,at:1,instance_id:'fixture',state:'completed',finished_at:2,minecraft:'1.21.1',loader:'neoforge',loader_version:'fixture',steps:[],artifacts}));
+for(let i=0;i<205;i++){const id=crypto.randomUUID();db.prepare('INSERT INTO creative_library(key,body) VALUES (?,?)').run('test:'+id,JSON.stringify({id,at:i+3,instance_id:'fixture',state:'completed',finished_at:i+4,steps:[],artifacts:[]}));}db.close();
+const history=run(['test','list']).result;assert.equal(history.length,206,'Testing history must not silently hide older reports');assert(history.some(r=>r.id===testId),'Oldest report must remain available');
 const report=run(['test','analyze',testId]).result;
 assert.equal(report.evidence.length,4);assert.equal(report.analysis_errors.length,2);
 for(const title of ['current','legacy','gzip']){const e=report.evidence.find(e=>e.title===title);assert.equal(e.threads[0].mods.find(m=>m.name==='Example Mod').percent,60);assert.equal(e.tps,19.5);assert.equal(e.mspt_p95,55);assert.equal(e.duration_ms,1000);assert.equal(e.threads[0].mods.find(m=>m.name==='Unassigned / runtime').percent,40)}

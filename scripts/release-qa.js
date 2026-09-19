@@ -3,6 +3,8 @@ const {spawnSync}=require('child_process');
 const path=require('path');
 const scripts=[
   'cli-parity-qa.js',
+  'testing-cli-qa.js',
+  'testing-ui-qa.js',
   'app-update-monitor-qa.js',
   'config-associations-qa.js',
   'config-sources-qa.js',

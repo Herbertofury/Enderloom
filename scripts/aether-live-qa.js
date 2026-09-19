@@ -11,6 +11,8 @@ let test;
   const before=fingerprint(source.dir);
   const start=await run(['test','start',source.id,'--world','Enderloom Aether Acceptance','--max-seconds','600',...(record?['--record-video']:[])]);test=start.id;
   assert.equal(start.state,'running',start.error);assert.equal(start.record_video,record);console.log('Running actual Aether scenario:',test);
+  assert(start.world_ready_at>=start.adapter_ready_at&&start.ready_at>=start.world_ready_at,'The scenario must wait for the actual world');
+  assert(start.ready_observation.at>=start.launched_at&&start.ready_observation.dimension&&start.ready_observation.position?.length===3,'Readiness requires a fresh player observation, not an adapter startup line');
   fs.writeFileSync(path.join(out,'release-start.json'),JSON.stringify(start,null,2));
   const report=await run(['test','run',test,'--input',path.join(root,'tools/minecraft-testing/scenarios/aether-smoke.json')]);
   fs.writeFileSync(path.join(out,'release-report.json'),JSON.stringify(report,null,2));

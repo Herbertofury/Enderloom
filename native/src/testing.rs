@@ -8,7 +8,7 @@ use crate::{
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::{
-    io::Read,
+    io::{Read, Seek, SeekFrom},
     path::{Path, PathBuf},
     sync::{Arc, OnceLock},
     time::{Duration, Instant},
@@ -41,6 +41,20 @@ fn string<'a>(v: &'a Value, key: &str) -> Result<&'a str> {
 fn now() -> i64 {
     chrono::Utc::now().timestamp_millis()
 }
+fn world_observation(state: &AppState, sandbox: &Path, launched_at: i64) -> Option<Value> {
+    // Poll only the tail. An inherited report or an earlier menu sample must not
+    // make this newly launched client's world appear ready.
+    let mut file = state.files.open(sandbox.join("enderloom-telemetry.jsonl")).ok()?;
+    let length = file.seek(SeekFrom::End(0)).ok()?;
+    file.seek(SeekFrom::Start(length.saturating_sub(64 * 1024))).ok()?;
+    let mut bytes = Vec::new(); file.take(64 * 1024).read_to_end(&mut bytes).ok()?;
+    let sample = String::from_utf8_lossy(&bytes).lines().rev().find_map(|line|serde_json::from_str::<Value>(line).ok())?;
+    let at = sample["at"].as_i64()?;
+    (at >= launched_at && at <= now() && now()-at <= 5000
+        && sample["dimension"].as_str().is_some_and(|id|id.contains(':'))
+        && sample["position"].as_array().is_some_and(|coords|coords.len()==3&&coords.iter().all(|n|n.as_f64().is_some_and(f64::is_finite)))
+        && sample.get("screen").is_some_and(Value::is_null)).then_some(sample)
+}
 fn dir(state: &AppState, id: &str) -> Result<PathBuf> {
     uuid::Uuid::parse_str(id).map_err(|_| error("Invalid test ID"))?;
     Ok(state.paths.root.join("testing-reports").join(id))
@@ -63,7 +77,6 @@ fn save(state: &AppState, v: &Value) -> Result<()> {
 pub fn list(state: &AppState) -> Result<Value> {
     let mut rows = state.db.library_list("test:")?;
     rows.sort_by_key(|v| std::cmp::Reverse(v["at"].as_i64().unwrap_or(0)));
-    rows.truncate(200);
     Ok(json!(rows.into_iter().map(|v|json!({"id":v["id"],"at":v["at"],"instance_id":v["instance_id"],"instance_name":v["instance_name"],"state":v["state"],"scenario_state":v["scenario_state"],"finished_at":v["finished_at"]})).collect::<Vec<_>>()))
 }
 pub fn get(state: &AppState, id: &str) -> Result<Value> {
@@ -345,6 +358,7 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
         v["java"]=json!(crate::java::find_for_major(&state.files,version.required_java_major(),sandbox.java_path.as_deref().or(settings.java_path.as_deref())).await);
         task.stage("Launching the rendered Minecraft test client");
         let sink=state.tasks.event_sink().ok_or_else(||error("No event channel"))?;
+        let launched_at=now(); v["launched_at"]=json!(launched_at); v["requested_world"]=json!(world);
         let run=crate::launch::launch_profile_instance(sink,state,&sandbox,settings).await?; v["running_id"]=json!(run); save(state,&v)?;
         let began=Instant::now();
         loop { if task.token().is_cancelled(){return Err(Error::Cancelled);} let text=logs(state,&v)?;
@@ -352,6 +366,19 @@ pub async fn start(state: &Arc<AppState>, args: &Value) -> Result<Value> {
             ensure_running(state,&v)?;
             if began.elapsed()>Duration::from_secs(240){return Err(error("Minecraft command adapter did not become ready within 240 seconds"));}
             tokio::time::sleep(Duration::from_millis(300)).await;
+        }
+        v["adapter_ready_at"]=json!(now());
+        if world.is_some() {
+            task.stage("Waiting for the player to enter the requested world"); save(state,&v)?;
+            loop {
+                if task.token().is_cancelled(){return Err(Error::Cancelled);}
+                ensure_running(state,&v)?;
+                if let Some(observation)=world_observation(state,Path::new(&sandbox.dir),launched_at) {
+                    v["world_ready_at"]=json!(now());v["ready_observation"]=observation;break;
+                }
+                if began.elapsed()>Duration::from_secs(240){return Err(error("The command adapter started, but the requested world did not produce a fresh player observation within 240 seconds"));}
+                tokio::time::sleep(Duration::from_millis(300)).await;
+            }
         }
         v["state"]=json!("running"); v["ready_at"]=json!(now());
         v["deadline_at"]=json!(now()+seconds as i64*1000);
