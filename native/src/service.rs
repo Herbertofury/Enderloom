@@ -182,20 +182,19 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
     match command {
         "get_capabilities" => value(crate::capabilities::all()),
         "save_performance_evidence" => {
-            let instance_id = required_string(args, "instanceId")?;
-            crate::commands::find_instance(state, &instance_id)?;
-            let mut report = args["report"].clone();
-            if !report.is_object() || !matches!(report["kind"].as_str(), Some("spark" | "log")) || serde_json::to_vec(&report)?.len() > 1024 * 1024 { return Err(Error::other("Invalid or oversized performance evidence")); }
-            let id = uuid::Uuid::new_v4().to_string();
-            report["id"] = json!(id); report["instance_id"] = json!(instance_id); report["at"] = json!(chrono::Utc::now().timestamp_millis());
-            state.db.library_put(&format!("evidence:{id}"), &report)?;
-            Ok(report)
+            let state=state.clone(); let args=args.clone();
+            tokio::task::spawn_blocking(move || crate::evidence::save_performance(&state,&args)).await.map_err(|e| Error::other(e.to_string()))?
         }
         "get_performance_evidence" => {
             let instance_id = required_string(args, "instanceId")?;
-            let mut reports: Vec<Value> = state.db.library_list("evidence:")?.into_iter().filter(|v| v["instance_id"].as_str() == Some(&instance_id)).collect();
-            reports.sort_by_key(|v| std::cmp::Reverse(v["at"].as_i64().unwrap_or_default()));
-            Ok(json!(reports))
+            crate::evidence::performance_reports(state,&instance_id)
+        }
+        "get_evidence_artifacts" => crate::evidence::list(state,args),
+        "get_evidence_artifact" => crate::evidence::get(state,&required_string(args,"evidenceId")?),
+        "link_evidence_artifacts" => crate::evidence::link(state,args),
+        "verify_evidence_artifact" => {
+            let state=state.clone(); let id=required_string(args,"evidenceId")?;
+            tokio::task::spawn_blocking(move || crate::evidence::verify(&state,&id)).await.map_err(|e| Error::other(e.to_string()))?
         }
         "get_spark_profile" => {
             use base64::Engine;

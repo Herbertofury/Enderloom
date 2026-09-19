@@ -5,6 +5,14 @@ use super::Db;
 
 // User library, exact-file inspection cache and immutable reports survive cache clearing.
 impl Db {
+    /// An evidence node is never rewritten by a retry or a concurrent importer.
+    pub fn library_put_immutable(&self, key: &str, value: &Value) -> Result<Value> {
+        let conn = self.0.lock().unwrap();
+        conn.execute_batch("CREATE TABLE IF NOT EXISTS creative_library (key TEXT PRIMARY KEY, body TEXT NOT NULL)")?;
+        conn.execute("INSERT OR IGNORE INTO creative_library(key,body) VALUES (?1,?2)", params![key, value.to_string()])?;
+        let body: String = conn.query_row("SELECT body FROM creative_library WHERE key=?1", [key], |r| r.get(0))?;
+        Ok(serde_json::from_str(&body)?)
+    }
     pub fn library_get(&self, key: &str) -> Result<Option<Value>> {
         let conn = self.0.lock().unwrap();
         conn.execute_batch("CREATE TABLE IF NOT EXISTS creative_library (key TEXT PRIMARY KEY, body TEXT NOT NULL)")?;

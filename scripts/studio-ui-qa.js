@@ -14,6 +14,7 @@ const root=path.resolve(__dirname,'..');let app;
   await page.getByLabel('Role for AoA-original.jar').selectOption('authority');await page.getByLabel('Role for AoA-checkpoint.zip').selectOption('checkpoint');
   await page.getByRole('button',{name:'Inspect and save checkpoint',exact:true}).click();await page.getByText('Inputs indexed',{exact:true}).waitFor();
   await page.getByText('120 matching paths',{exact:true}).waitFor();await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByText('101–120 of 120',{exact:true}).waitFor();
+  await page.getByText('Evidence & source',{exact:true}).click();await page.getByText('measured',{exact:true}).waitFor();await page.getByRole('button',{name:'Verify source',exact:true}).click();await page.getByText('Source: verified · Analysis: verified',{exact:true}).waitFor();await page.getByText('Evidence & source',{exact:true}).click();
   await page.getByLabel('Search package paths').fill('entity-119');await page.getByText('1 matching paths',{exact:true}).waitFor();await page.getByLabel('Search package paths').fill('');
   const candidate=await page.getByLabel('Compare with package').locator('option').allTextContents();assert(candidate.includes('Compare with AoA-checkpoint.zip'));await page.getByLabel('Compare with package').selectOption({label:'Compare with AoA-checkpoint.zip'});
   await page.getByRole('button',{name:'missing 119',exact:true}).click();await page.getByText('119 matching paths',{exact:true}).waitFor();

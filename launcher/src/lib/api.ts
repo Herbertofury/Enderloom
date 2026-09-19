@@ -1,4 +1,5 @@
 import type { EvidenceReport } from "./performance-evidence";
+import type { EvidenceArtifact, EvidenceRelation, EvidenceVerification } from "./evidence";
 import type { ConversionRequest, ConversionProject, ConversionSnapshot, PackageEntries, PackageComparison } from "./conversion";
 import type { TestReport, TestReportSummary, TestStep, TestArtifact, TestArtifactData, TestScenario } from "./testing";
 type SparkDownload = { data: string; content_type: string };
@@ -139,7 +140,14 @@ export const api = {
   workbenchAction: <T = { path: string }>(instanceId: string, operation: string, payload: Record<string, unknown>) => call<T>("workbench_action", { instanceId, operation, payload }),
   checkWorkbenchUpdates: (instanceId: string) => call<WorkbenchLibrary>("check_workbench_updates", { instanceId }),
   getSettings: () => call<LauncherSettings>("get_settings"),
-  savePerformanceEvidence: (instanceId: string, report: EvidenceReport) => call<EvidenceReport>("save_performance_evidence", { instanceId, report }),
+  savePerformanceEvidence: (instanceId: string, report: EvidenceReport) => {
+    const { analysis_source: source, ...normalized } = report;
+    return call<EvidenceReport>("save_performance_evidence", { instanceId, report: normalized, source });
+  },
+  getEvidenceArtifacts: (targetKind: string, targetId: string) => call<EvidenceArtifact[]>("get_evidence_artifacts", { targetKind, targetId }),
+  getEvidenceArtifact: (evidenceId: string) => call<EvidenceArtifact>("get_evidence_artifact", { evidenceId }),
+  verifyEvidenceArtifact: (evidenceId: string) => call<EvidenceVerification>("verify_evidence_artifact", { evidenceId }),
+  linkEvidenceArtifacts: (from: string, to: string, relation: EvidenceRelation, reason: string) => call("link_evidence_artifacts", { from, to, relation, reason }),
   getPerformanceEvidence: (instanceId: string) => call<EvidenceReport[]>("get_performance_evidence", { instanceId }),
   getSparkProfile: (key: string) => call<SparkDownload>("get_spark_profile", { key }),
   getCaptureLog: (captureId: string) => call<string | null>("get_capture_log", { captureId }),

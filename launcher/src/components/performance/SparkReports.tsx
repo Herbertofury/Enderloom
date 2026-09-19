@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { evidenceSource } from "../../lib/evidence";
+import { EvidenceDetails } from "../EvidenceDetails";
 import { ArrowUpRight, FileText, Flame, Loader2, Upload } from "lucide-react";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { api } from "../../lib/api";
@@ -88,13 +90,11 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
   const inspectBytes = async (raw: Uint8Array, name: string, url?: string) => {
     const bytes = await unpackEvidence(raw);
     const digest = await crypto.subtle.digest("SHA-256", raw as BufferSource);
-    const report = /\.(?:log|txt)(?:\.gz)?$/i.test(name)
-      ? analyzeLog(
-          await api.redactText(
-            new TextDecoder().decode(bytes).slice(-1024 * 1024),
-          ),
-          name,
-        )
+    const isLog = /\.(?:log|txt)(?:\.gz)?$/i.test(name);
+    const logText = isLog ? await api.redactText(new TextDecoder().decode(bytes)) : '';
+    const source = evidenceSource(isLog ? new TextEncoder().encode(logText) : raw);
+    const report = isLog
+      ? analyzeLog(logText, name)
       : await new Promise<EvidenceReport>((resolve, reject) => {
           const worker = new Worker(
             new URL("../../lib/spark-worker.ts", import.meta.url),
@@ -121,6 +121,7 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
       .map((n) => n.toString(16).padStart(2, "0"))
       .join("");
     report.url = url;
+    report.analysis_source = source;
     return report;
   };
   const importUrl = (raw: string) =>
@@ -195,12 +196,10 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
             className="cr-button"
             disabled={busy || !instanceId}
             onClick={() =>
-              void run(async () =>
-                analyzeLog(
-                  await api.redactInstanceLog(instanceId, "latest.log", false),
-                  "latest.log",
-                ),
-              )
+              void run(async () => {
+                const text = await api.redactInstanceLog(instanceId, "latest.log", false);
+                return { ...analyzeLog(text, "latest.log"), analysis_source: evidenceSource(new TextEncoder().encode(text)) };
+              })
             }
           >
             <FileText size={14} />
@@ -514,6 +513,7 @@ export function SparkReports({ instanceId }: { instanceId: string }) {
             {selected.sha256 && (
               <p className="cr-hash">Source SHA-256 · {selected.sha256}</p>
             )}
+            {selected.evidence_id && <EvidenceDetails key={selected.evidence_id} evidenceId={selected.evidence_id} />}
           </section>
         )}
       </div>

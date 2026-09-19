@@ -460,6 +460,7 @@ pub struct TaskHandle {
 }
 
 impl TaskHandle {
+    pub fn id(&self) -> &str { &self.id }
     pub fn checkpoint(&self, checkpoint: TaskCheckpoint) -> crate::error::Result<()> {
         let mut list = self.tasks.inner.lock().unwrap();
         let task = list

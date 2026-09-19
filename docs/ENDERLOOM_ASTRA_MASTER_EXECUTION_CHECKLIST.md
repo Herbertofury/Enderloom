@@ -204,11 +204,11 @@ Implement typed identities/links for:
 - [x] **PA-002** provider/source aliases and provider project/version identities. Explicit comparison, confirmed associations, provenance, reversible linking and provider-scoped releases verified in native service/CLI/Electron; see `docs/IDENTITY_GRAPH_ACCEPTANCE_2026-09-18.md`.
 - [x] **PA-003** instance/world/server/config/dependency links. Shared service/CLI/Electron projection, exact config owners, declared nested dependencies and saved-world version evidence verified; see `docs/WORLD_RELATIONSHIPS_ACCEPTANCE_2026-09-18.md`. Links preserve their evidence class; runtime compatibility is not inferred.
 - [x] **PA-004** source/code symbols, provenance, rights/license metadata where applicable. Installed/nested class symbols, exact hashes, declared source/debug/license metadata and existing pinned GitHub config evidence verified through service/CLI/Electron; see `docs/CODE_SYMBOLS_ACCEPTANCE_2026-09-18.md`.
-- [ ] **PA-005** same-name/different-content lineage with SHA-256-first immutable artifact identity.
+- [x] **PA-005** same-name/different-content lineage with SHA-256-first immutable artifact identity. Actual Create JAR mutation/restoration, provider/sibling isolation and restart verified; see `docs/IDENTITY_GRAPH_ACCEPTANCE_2026-09-18.md`.
 
 ## 4.2 Evidence graph
 
-- [ ] **PA-010** `EvidenceArtifact` with kind, producer/adapter version, target, run identity, timestamps, raw artifact link, normalized representation, provenance, confidence class, comparison/contradiction links.
+- [x] **PA-010** `EvidenceArtifact` with kind, producer/adapter version, target, run identity, timestamps, raw artifact link, normalized representation, provenance, confidence class, comparison/contradiction links. Studio, imported profiles/logs and native Testing Lab analysis share the typed owner; legacy uncertainty is preserved. Native/CLI/Electron and actual Aether source verification pass; see `docs/EVIDENCE_GRAPH_ACCEPTANCE_2026-09-18.md`.
 - [ ] **PA-011** dependency-aware freshness/staleness invalidation with explicit stale reason.
 
 ## 4.3 Durable tasks and transactions

@@ -347,6 +347,7 @@ pub fn run(state: &AppState, request: &Request, task: &TaskHandle) -> Result<Val
     let key = format!("conversion-snapshot:{snapshot_id}");
     let stable = state.db.library_get(&key)?.unwrap_or(snapshot);
     state.db.library_put(&key, &stable)?;
+    crate::evidence::conversion(state, &stable, Some(task.id()))?;
     state.db.library_put(&format!("conversion-project:{}",request.project_id),&json!({"project_id":request.project_id,"snapshot_id":snapshot_id,"request":request,"title":request.title,"at":now()}))?;
     if let Some(sink) = state.tasks.event_sink() {
         sink(
@@ -365,13 +366,15 @@ pub fn snapshot(state: &AppState, id: &str) -> Result<Value> {
         .db
         .library_get(&format!("conversion-project:{id}"))?
         .ok_or_else(|| Error::other("Conversion project was not found"))?;
-    state
+    let snapshot = state
         .db
         .library_get(&format!(
             "conversion-snapshot:{}",
             project["snapshot_id"].as_str().unwrap_or_default()
         ))?
-        .ok_or_else(|| Error::other("Conversion checkpoint was not found"))
+        .ok_or_else(|| Error::other("Conversion checkpoint was not found"))?;
+    crate::evidence::conversion(state, &snapshot, None)?;
+    Ok(snapshot)
 }
 pub fn entries(state: &AppState, args: &Value) -> Result<Value> {
     let hash = args["sha256"].as_str().unwrap_or_default();

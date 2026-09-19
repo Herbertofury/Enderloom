@@ -124,21 +124,7 @@ async fn analyze_inner(state: &AppState, id: &str) -> Result<Value> {
             ))
         };
         match parsed {
-            Ok(mut evidence) => {
-                let evidence_id = format!("test-{id}-{name}");
-                evidence["id"] = json!(evidence_id);
-                evidence["test_id"] = json!(id);
-                evidence["at"] = json!(now());
-                evidence["instance_id"] = v["instance_id"].clone();
-                evidence["sha256"] = json!(crate::creative::file_hash(state, &path, None)?);
-                evidence["minecraft"] = v["minecraft"].clone();
-                evidence["loader"] = v["loader"].clone();
-                evidence["loader_version"] = v["loader_version"].clone();
-                state
-                    .db
-                    .library_put(&format!("evidence:{evidence_id}"), &evidence)?;
-                reports.push(evidence);
-            }
+            Ok(evidence) => reports.push(crate::evidence::save_testing_analysis(state, &v, evidence, &bytes, name)?),
             Err(e) => errors.push(json!({"name":name,"error":e.to_string()})),
         }
     }

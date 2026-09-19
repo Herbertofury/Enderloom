@@ -20,6 +20,7 @@ mod db;
 mod diagnose;
 mod download;
 mod error;
+mod evidence;
 mod files;
 mod install;
 mod icon_assets;

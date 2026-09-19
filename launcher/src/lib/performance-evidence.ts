@@ -101,6 +101,9 @@ export interface SparkThread {
   }[];
 }
 export interface EvidenceReport {
+  evidence_id?: string;
+  /** Transient transport only; api.savePerformanceEvidence separates it from the report. */
+  analysis_source?: { data: string };
   id?: string;
   at?: number;
   instance_id?: string;
