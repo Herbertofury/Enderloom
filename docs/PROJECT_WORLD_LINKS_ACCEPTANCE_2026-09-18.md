@@ -11,4 +11,6 @@ Acceptance:
 - `project-context-ui-qa.js`: actual Electron, world evidence and exact folder action, conditional/alternative declarations, instance/server config navigation, no renderer errors.
 - Frontend and native service/CLI builds pass. Screenshot: `output/playwright/project-context.png`.
 
-PA-003 remains open. These observations do not prove chunk-level block/entity ownership or safe removal. Legacy/nested-JAR relationships, evaluated version/side constraints, and world links after all installed identity sources disappear still require implementation. No unrelated requirement was marked complete.
+World relationships remain visible after installed copies are removed when their indexed mod identity is retained. A delayed config-source result cannot override a newer refresh; the Electron test holds an old native response across a rescan to verify this.
+
+PA-003 remains open. These observations do not prove chunk-level block/entity ownership or safe removal. Legacy/nested-JAR relationships and evaluated version/side constraints still require implementation. No unrelated requirement was marked complete.

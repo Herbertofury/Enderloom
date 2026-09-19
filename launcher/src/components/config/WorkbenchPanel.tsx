@@ -131,9 +131,10 @@ export function WorkbenchPanel({
     const controller=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined;let retry:ReturnType<typeof setTimeout>|undefined;let pending=false,dirty=false;
     const update=async()=>{
       timer=undefined;if(controller.signal.aborted)return;if(pending){dirty=true;return}pending=true;
+      const generation=refreshId.current;
       try {
         const paths=libraryRef.current?.entries.map(e=>e.path)??[];
-        if(paths.length){const owners=await api.resolveConfigOwners(instance.id,paths);if(!controller.signal.aborted){sourceOwners.current=owners;setLibrary(previous=>previous?{...previous,entries:previous.entries.map(entry=>({...entry,...owners[entry.path]}))}:previous);}}
+        if(paths.length){const owners=await api.resolveConfigOwners(instance.id,paths);if(!controller.signal.aborted&&generation===refreshId.current){sourceOwners.current=owners;setLibrary(previous=>previous?{...previous,entries:previous.entries.map(entry=>({...entry,...owners[entry.path]}))}:previous);}}
       }catch{/* Local ownership remains available if enrichment cannot refresh. */}
       finally{pending=false;if(dirty&&!controller.signal.aborted){dirty=false;schedule();}}
     };
@@ -156,6 +157,7 @@ export function WorkbenchPanel({
   const includeMods = section === "lineage";
   const refresh = useCallback(async (afterChange = false) => {
     const request = ++refreshId.current;
+    sourceOwners.current={};
     setValidating(true);
     try {
       const scan = afterChange ? refreshWorkbenchAfterChange : scanWorkbenchShared;

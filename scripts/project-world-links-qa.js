@@ -9,6 +9,10 @@ const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tm
  assert.equal(context.targets.find(t=>t.id===server.id).worlds[0].name,'Dedicated Meadow');assert.equal(hash(),before);
  const outside=path.join(temporary,'outside');fs.mkdirSync(outside);fs.symlinkSync(path.join(first.dir,'saves/Sky'),path.join(first.dir,'saves/linked-world'),'junction');
  const after=await get();assert.equal(after.targets.find(t=>t.id===first.id).worlds.length,3,'World junctions must not be traversed');
+ fs.renameSync(path.join(first.dir,'mods/first.jar'),path.join(first.dir,'first.jar.retained'));fs.renameSync(path.join(first.dir,'mods/older.jar.disabled'),path.join(first.dir,'older.jar.retained'));
+ const removed=await get();assert.equal(removed.targets.find(t=>t.id===first.id).worlds.length,3,'Removing installed copies must not erase known world relationships');
+ fs.renameSync(path.join(first.dir,'first.jar.retained'),path.join(first.dir,'mods/first.jar'));fs.renameSync(path.join(first.dir,'older.jar.retained'),path.join(first.dir,'mods/older.jar.disabled'));
  fs.writeFileSync(path.join(server.dir,'server.properties'),'level-name=../escape\n');context=await get();assert.equal(context.targets.find(t=>t.id===server.id).worlds.length,0);assert(context.targets.find(t=>t.id===server.id).warnings.some(w=>w.includes('unsafe')));
+ fs.symlinkSync(path.join(first.dir,'saves'),path.join(server.dir,'linked'),'junction');fs.writeFileSync(path.join(server.dir,'server.properties'),'level-name=linked/Sky\n');context=await get();assert.equal(context.targets.find(t=>t.id===server.id).worlds.length,0,'Intermediate world-folder junctions must not be traversed');
  console.log('PASS project world links: saved pack IDs, disabled packs, dimension storage, sibling/name rejection, recovered metadata provenance, dedicated server, junction/path protection and unchanged world bytes.');
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>service.close());

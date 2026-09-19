@@ -147,6 +147,22 @@ fn dependencies(state: &AppState, path: &Path) -> Result<Vec<Value>> {
     Ok(found)
 }
 
+fn safe_world_path(files: &crate::files::FileManager, root: &Path, path: &Path) -> bool {
+    let Ok(relative) = path.strip_prefix(root) else {
+        return false;
+    };
+    let mut current = root.to_path_buf();
+    relative.components().all(|part| {
+        if !matches!(part, std::path::Component::Normal(_)) {
+            return false;
+        }
+        current.push(part);
+        files
+            .symlink_metadata(&current)
+            .is_ok_and(|m| m.is_dir() && !m.is_symlink())
+    })
+}
+
 pub fn get(state: &AppState, provider: &str, project: &str) -> Result<Value> {
     crate::search::Provider::parse(provider)?;
     let graph = state.db.project_artifact_graph(provider, project)?;
@@ -297,15 +313,27 @@ fn target_context(
             }
         }
     }
-    let project_ids: BTreeSet<_> = installed
+    let mut project_ids: BTreeSet<_> = installed
         .iter()
         .filter(|(s, _)| matches(s))
         .filter_map(|(s, _)| s.mod_id.as_deref())
         .collect();
+    // Removing a JAR must not erase the known mod IDs needed to inspect its saved worlds.
+    project_ids.extend(
+        files
+            .iter()
+            .filter(|file| file["exists"] == false)
+            .filter_map(|file| file["mod_id"].as_str()),
+    );
     let mut worlds = Vec::new();
     if !project_ids.is_empty() {
         let candidates = if kind == "instance" {
-            state.files.read_dir(root.join("saves")).unwrap_or_default()
+            let saves = root.join("saves");
+            if safe_world_path(&state.files, root, &saves) {
+                state.files.read_dir(saves).unwrap_or_default()
+            } else {
+                vec![]
+            }
         } else {
             let properties = crate::servers::properties::Properties::parse(
                 &state
@@ -326,6 +354,9 @@ fn target_context(
             }
         };
         for world in candidates {
+            if !safe_world_path(&state.files, root, &world) {
+                continue;
+            }
             if let Some(link) = crate::worlds::project_links(&state.files, &world, &project_ids) {
                 worlds.push(link);
             }
