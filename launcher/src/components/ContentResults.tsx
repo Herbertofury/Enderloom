@@ -1,4 +1,6 @@
 import '../../../catalog/trailers.js';
+import '../../../catalog/video-controls.js';
+import '../../../catalog/video-controls.css';
 import '../../../catalog/trailers.css';
 import { ContentIcon } from "./ContentIcon";
 import { useLibraryLayout } from "../lib/library-layout";

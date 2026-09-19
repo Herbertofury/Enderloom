@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowLeftToLine, ArrowRightToLine, GripHorizontal, PictureInPicture2, Play, Settings2, X } from 'lucide-react';
 import type { ProjectDetails, SearchProvider } from '../../lib/types';
 import '../../../../catalog/trailers.js';
+import '../../../../catalog/video-controls.js';
+import '../../../../catalog/video-controls.css';
 import '../../../../catalog/trailers.css';
 import './project-media.css';
 

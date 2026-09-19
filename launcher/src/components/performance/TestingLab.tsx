@@ -9,6 +9,7 @@ import { useStore } from "../../store";
 import type { WorldSummary } from "../../lib/types";
 import aetherScenario from "../../../../tools/minecraft-testing/scenarios/aether-smoke.json";
 import { ContentIcon } from "../ContentIcon";
+import { VideoPlayer } from "../VideoPlayer";
 import "./testing.css";
 
 export function TestingLab({ instanceId, onEvidence }: { instanceId: string; onEvidence: () => void }) {
@@ -66,7 +67,7 @@ export function TestingLab({ instanceId, onEvidence }: { instanceId: string; onE
       {report.loaded_mods && <details className="test-details"><summary>Loaded mods & dependencies <span>{report.loaded_mods.length} runtime entries</span></summary><div className="test-loaded-mods">{report.loaded_mods.map(m => <div key={m.id}><span>{m.name}</span><code>{m.version}</code></div>)}</div><div className="test-loaded-mods">{Object.entries(report.runtime_environment ?? {}).map(([k,v]) => <div key={k}><span>{k.replace(/_/g," ")}</span><code>{String(v)}</code></div>)}</div></details>}
       {report.video_error && <div className="test-error" role="alert"><Video size={18}/>{report.video_error}</div>}
       {report.video_finalization_error && <div className="test-error" role="alert"><Video size={18}/>{report.video_finalization_error}</div>}
-      {report.artifacts.some(a => a.kind === "video") && <section><h3>Replay the test</h3>{report.artifacts.filter(a => a.kind === "video").map(a => <video key={a.name} className="test-video" controls preload="metadata" src={convertFileSrc(a.path)}/>)}</section>}
+      {report.artifacts.some(a => a.kind === "video") && <section><h3>Replay the test</h3>{report.artifacts.filter(a => a.kind === "video").map(a => <VideoPlayer key={a.path} title={a.label || a.name} src={convertFileSrc(a.path)}/>)}</section>}
       {report.artifacts.some(a => a.kind === "image") && <section><h3>Visual evidence</h3><div className="test-gallery">{report.artifacts.filter(a => a.kind === "image").map(a => <figure key={a.name}><a href={convertFileSrc(a.path)} target="_blank" rel="noreferrer"><img src={convertFileSrc(a.path)} alt={a.label} loading="lazy"/></a><figcaption><Camera size={14}/>{a.label}</figcaption></figure>)}</div></section>}
       <details className="test-details" open><summary>Test timeline <span>{report.steps.length} actions</span></summary>{report.steps.length ? report.steps.map((s,i) => <div className="test-step" key={i}>{s.status === "passed" ? <CheckCircle2 size={16}/> : <Terminal size={16}/>}<div><code>{s.command}</code><small>{s.status} · {(s.duration_ms/1000).toFixed(1)}s</small>{s.output && <pre>{s.output}</pre>}</div></div>) : <p>Commands and assertions will appear here.</p>}</details>
       <details className="test-details"><summary>Exact test environment <span>{report.mods?.length ?? 0} source mods + test instruments</span></summary><p>Adapter: {report.adapter.name} · {report.adapter.release}. Enderloom probe {report.probe_version}. Recording: {report.record_video ? "enabled" : "disabled"}.</p><div className="test-mods">{report.mods?.map(m => <div key={m.file_name}><ContentIcon title={m.title} src={m.source?.icon_url} style={{ width: 36, height: 36 }}/><span><strong>{m.title}</strong><small>{m.file_name}</small><code>{m.inspection?.sha256}</code></span></div>)}</div><p className="test-footnote">Input fingerprint: {report.input_fingerprint}</p></details>

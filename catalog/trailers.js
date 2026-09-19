@@ -19,6 +19,7 @@
     clearTimeout(timer); timer = null; serial++;
     const old = active; active = null;
     if (!old) return;
+    old.controls?.destroy();
     bridge.trailers.cancel(old.binding.project).catch(() => {});
     if (old.player?.tagName === 'VIDEO') { old.player.pause(); old.player.removeAttribute('src'); old.player.load(); }
     if (old.player?.tagName === 'IFRAME') old.player.src = 'about:blank';
@@ -117,6 +118,7 @@
       }
       // Controls live below the player. Never cover provider controls or branding.
       playbackSlot.appendChild(player); playbackSlot.classList.add('trailer-playing'); binding.play.textContent = 'Ⅱ Pause';
+      if (candidate.kind === 'file') active.controls = window.EnderloomVideoControls?.attach(player, { title: candidate.title, previewFrames: !reducedData() });
       active.timeout = setTimeout(() => { if (active?.player === player) stop('Provider did not start playback · open the source or try another trailer'); }, 18000);
       if (candidate.kind === 'file') await player.play();
     } catch (error) { if (ticket === serial) stop(`Playback unavailable · ${error.message || error}`); }
@@ -126,6 +128,7 @@
     stop(); warm(binding); const ticket = serial;
     timer = setTimeout(() => { if (ticket === serial) void start(binding); }, binding.context === 'detail' ? 450 : 350);
   }
+  window.addEventListener('enderloom:media-play', event => { if (active?.player && active.player !== event.detail) stop('Another video started'); });
   window.addEventListener('message', event => {
     if (!active?.player || event.source !== active.player.contentWindow || !['https://www.youtube.com', 'https://player.vimeo.com'].includes(event.origin)) return;
     let data = event.data; try { if (typeof data === 'string') data = JSON.parse(data); } catch { return; }

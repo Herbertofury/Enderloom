@@ -1,0 +1,28 @@
+'use strict';
+const assert=require('assert/strict'),path=require('path'),fs=require('fs');const {_electron:electron}=require('playwright');const root=path.resolve(__dirname,'..');let app;
+(async()=>{
+  const recording=process.env.ENDERLOOM_QA_VIDEO||path.join(process.env.APPDATA||'', 'Enderloom/launcher/testing-reports/cfbe854f-5b91-4e1b-97d1-dc332c28614d/playback.mp4');
+  assert(fs.existsSync(recording),'Set ENDERLOOM_QA_VIDEO to a real recording');
+  app=await electron.launch({executablePath:path.join(root,'node_modules/electron/dist/electron.exe'),args:[path.join(root,'scripts/fixtures/video-controls-host.cjs')],env:{...process.env,ENDERLOOM_QA_VIDEO:recording}});
+  const page=await app.firstWindow();page.setDefaultTimeout(12000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const first=page.locator('.el-video-shell').filter({has:page.locator('#first')}),second=page.locator('.el-video-shell').filter({has:page.locator('#second')});
+  await first.getByRole('button',{name:'Pop out video',exact:true}).waitFor();await page.waitForFunction(()=>document.querySelector('#first').duration>0);
+  await first.getByRole('button',{name:'Play video (K)',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#first').currentTime>.2);
+  await first.getByRole('button',{name:'Pause video (K)',exact:true}).click();
+  const timeline=first.getByRole('slider',{name:'Video timeline',exact:true});const box=await timeline.boundingBox();await page.mouse.move(box.x+box.width*.7,box.y+box.height/2);await first.locator('.el-video-hover canvas').waitFor({state:'visible'});
+  const pixels=await first.locator('canvas').evaluate(c=>new Set(c.getContext('2d').getImageData(0,0,192,108).data).size);assert(pixels>20,'Hover frame must contain decoded footage');assert.match(await first.locator('.el-video-hover span').innerText(),/^1:/);
+  await page.screenshot({path:path.join(root,'output/playwright/aether-video-hover.png')});
+  await timeline.click({position:{x:box.width*.7,y:box.height/2}});await page.waitForFunction(()=>document.querySelector('#first').currentTime>70);
+  const sought=await page.locator('#first').evaluate(v=>v.currentTime);await first.getByRole('button',{name:'Back 10 seconds (J)',exact:true}).click();assert(Math.abs((await page.locator('#first').evaluate(v=>v.currentTime))-(sought-10))<.5);
+  await first.getByLabel('Playback speed').selectOption('1.5');assert.equal(await page.locator('#first').evaluate(v=>v.playbackRate),1.5);
+  await first.getByRole('button',{name:'Mute video (M)',exact:true}).click();assert.equal(await page.locator('#first').evaluate(v=>v.muted),true);
+  await first.focus();await page.keyboard.press('k');await page.waitForFunction(()=>!document.querySelector('#first').paused);
+  await first.getByRole('button',{name:'Pop out video',exact:true}).click();await page.waitForFunction(()=>document.pictureInPictureElement?.id==='first');
+  await first.getByRole('button',{name:'Pop out video',exact:true}).click();await page.waitForFunction(()=>!document.pictureInPictureElement);
+  await first.getByRole('button',{name:'Fullscreen video (F)',exact:true}).click();await page.waitForFunction(()=>!!document.fullscreenElement);await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.fullscreenElement);
+  await second.getByRole('button',{name:'Play video (K)',exact:true}).click();assert(await page.locator('#first').evaluate(v=>v.paused));
+  await page.emulateMedia({reducedMotion:'reduce'});await first.scrollIntoViewIfNeeded();const reducedBox=await timeline.boundingBox();await page.mouse.move(reducedBox.x+reducedBox.width*.5,reducedBox.y+reducedBox.height/2);await first.locator('.el-video-hover').waitFor({state:'visible'});await page.waitForTimeout(250);assert.equal(await first.locator('canvas').isVisible(),false,'Reduced motion keeps a timestamp without a decoder');
+  await page.getByRole('button',{name:'Close first recording',exact:true}).click();assert.equal(await page.locator('#first').count(),0);assert.equal(await page.locator('.el-video-shell').count(),1);assert.equal(await page.locator('.el-video-hover:not([hidden])').count(),0);
+  await page.getByRole('button',{name:'Load missing recording',exact:true}).click();await second.getByRole('status').filter({hasText:'This video could not be loaded.'}).waitFor();
+  assert.deepEqual(errors,[]);console.log(JSON.stringify({passed:true,actualAetherRecording:true,decodedHoverFrame:true,seeking:true,keyboard:true,speed:true,volume:true,pictureInPicture:true,fullscreen:true,oneActiveVideo:true,reducedMotion:true,cleanup:true,loadFailure:true},null,2));
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>app?.close());
