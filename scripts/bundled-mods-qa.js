@@ -11,6 +11,14 @@ const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'dat
  let context=await get(),target=context.targets[0];
  assert.deepEqual(target.bundled_mods.map(m=>m.mod_id).sort(),['bundled_helper','neo_bundle','quilt_core']);
  assert.equal(target.bundled_mods.find(m=>m.mod_id==='bundled_helper').sha256,fixture.sha256);assert(target.bundled_mods.every(m=>m.sha256.length===64));
+ const provenance=id=>target.provenance.find(p=>p.record.mod_ids.includes(id)).record;
+ assert.deepEqual(provenance('identity_fixture').licenses.map(l=>l.id),['MIT','Apache-2.0']);assert.equal(provenance('identity_fixture').manifest_sha256,fixture.manifestSha256);assert.equal(provenance('identity_fixture').evidence_class,'declared');
+ assert.deepEqual(provenance('identity_fixture').links,[{kind:'sources',url:'https://github.com/example/identity-workshop'}],'Unsupported schemes and credential-bearing URLs must not become clickable links');
+ assert.equal(provenance('identity_fixture').symbols[1].value,'example.Workshop::init');assert.equal(provenance('identity_fixture').symbols[1].adapter,'kotlin');
+ assert.deepEqual(provenance('bundled_helper').licenses.map(l=>l.id),['CC0-1.0'],'Bundled libraries must not inherit the carrier license');
+ assert.equal(provenance('quilt_core').licenses[0].url,'https://example.org/quilt-license');assert.equal(provenance('quilt_core').symbols[0].value,'example.QuiltInit');
+ assert.equal(provenance('neo_bundle').licenses[0].id,'LGPL-3.0-only');assert.equal(provenance('neo_bundle').links[0].kind,'issues');
+ const nestedManifest=provenance('bundled_helper').manifest_sha256;
  assert(!target.project_mod_ids.includes('bundled_helper'),'Bundled dependency was misidentified as the containing project');
  assert.equal(target.dependencies.find(d=>d.owner==='identity_fixture'&&d.mod_id==='bundled_helper').installed_targets[0].bundled,true);
  assert.equal(target.dependencies.find(d=>d.owner==='quilt_core').archive_path,'META-INF/jars/helper.jar!/nested/quilt.jar!/');
@@ -21,6 +29,7 @@ const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'dat
  const original=fs.statSync(path.join(first.dir,'mods/first.jar')),changed=workshopBundle('4.1');assert.equal(changed.bytes.length,fixture.bytes.length);
  fs.writeFileSync(path.join(first.dir,'mods/first.jar'),changed.bytes);fs.utimesSync(path.join(first.dir,'mods/first.jar'),original.atime,original.mtime);
  target=(await get()).targets[0];assert.equal(target.bundled_mods.find(m=>m.mod_id==='bundled_helper').mod_version,'4.1','Cache ignored a same-size/time edit');assert.equal(target.bundled_mods.find(m=>m.mod_id==='bundled_helper').sha256,changed.sha256);
+ assert.notEqual(provenance('bundled_helper').manifest_sha256,nestedManifest,'Changed nested metadata must get a new measured fingerprint');
  fs.renameSync(path.join(first.dir,'mods/first.jar'),path.join(first.dir,'mods/first.jar.disabled'));
  context=await get();target=context.targets[0];assert(target.bundled_mods.every(m=>!m.enabled));assert(target.dependencies.filter(d=>d.archive_path).every(d=>!d.source_enabled));
  await service.close();const cli=spawnSync(path.join(root,'native/target/debug/enderloom.exe'),['--data-dir',service.dataDir,'operation','run','get_project_context','--json'],{input:JSON.stringify(args),encoding:'utf8',windowsHide:true,timeout:30000});assert.equal(cli.status,0,cli.stderr);assert.deepEqual(JSON.parse(cli.stdout).result.targets,context.targets);

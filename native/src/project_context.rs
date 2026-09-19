@@ -123,6 +123,8 @@ fn target_context(
     let mut installed = Vec::new();
     let mut available = Vec::new();
     let mut bundled_mods = Vec::new();
+    let mut provenance = Vec::new();
+    let mut source_evidence = Vec::new();
     let mut declared_project_ids = BTreeSet::new();
     for (content_kind, source) in sources {
         // Inventory names are a single file, never a path supplied by metadata.
@@ -156,6 +158,13 @@ fn target_context(
                 local.title = local.title.or(title);
             }
             installed.push((local.clone(), enabled));
+            if matches(source) {
+                if let Some(report) = crate::config_sources::cached(state, &local) {
+                    for evidence in report.evidence {
+                        source_evidence.push(json!({"file_name":source.file_name,"evidence":evidence,"checked_at":report.checked_at}));
+                    }
+                }
+            }
             match crate::mod_manifest::inspect(&state.files, &path) {
                 Ok(facts) => {
                     for identity in &facts.mods {
@@ -175,6 +184,11 @@ fn target_context(
                             extra.mod_version = identity.version.clone();
                             extra.title = identity.title.clone().or(extra.title);
                             installed.push((extra, enabled));
+                        }
+                    }
+                    if matches(source) {
+                        for record in facts.provenance {
+                            provenance.push(json!({"file_name":source.file_name,"enabled":enabled,"record":record}));
                         }
                     }
                     issues.extend(
@@ -320,6 +334,6 @@ fn target_context(
         }
     }
     Ok(
-        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"worlds":worlds,"dependencies":relationships,"bundled_mods":bundled_mods,"warnings":issues}),
+        json!({"kind":kind,"id":id,"name":name,"minecraft":version,"loader":loader,"project_mod_ids":project_ids,"files":files,"configs":configs,"worlds":worlds,"dependencies":relationships,"bundled_mods":bundled_mods,"provenance":provenance,"source_evidence":source_evidence,"warnings":issues}),
     )
 }

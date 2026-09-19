@@ -1,0 +1,11 @@
+# Installed source provenance
+
+Project details expose declared licenses, source/homepage/issue links, Fabric/Quilt entrypoint symbols and measured SHA-256 of the exact manifest bytes. Nested JARs retain their own manifest, paths, IDs and licenses instead of inheriting their carrier's terms. Quilt custom license objects and Forge/NeoForge file-level declarations are supported. Missing licenses stay unknown; declarations do not grant or infer permissions. Repository URLs are labeled declarations, not verified project-source associations. Non-web and credential-bearing URLs are not clickable.
+
+The native manifest reader supplies the same typed records to the canonical project context used by service, CLI and Electron. Its existing bounded derived cache invalidates changed manifests, including nested same-size/time edits. No new database or background discovery queue is introduced. Project details also reuse existing GitHub Config evidence with exact commit/line links, version-match classification and check time; they do not issue competing GitHub searches.
+
+Verification: native service/CLI and frontend builds; `bundled-mods-qa.js` (license scope, safe links, entrypoints, exact hashes, cache edits, restart/CLI parity); `config-sources-qa.js` (four exact source declarations reused in project details); `project-context-ui-qa.js` (real Electron license/entrypoint/fingerprint rendering and existing world/config controls) all pass. All 63 release suites pass (`output/release-qa-provenance.json`). Screenshot: `output/playwright/project-provenance.png`. Real installed Aether metadata is preserved in `output/aether-project-provenance-real.json`.
+
+This advances PA-004. It does not claim a complete bytecode/source symbol index, resolved rights for arbitrary files, build-to-source equivalence, or runtime execution of declared entrypoints. Those broader requirements remain open.
+
+Format sources: [Fabric manifest specification](https://docs.fabricmc.net/develop/loader/fabric-mod-json), [Quilt v1 schema](https://github.com/QuiltMC/quilt-json-schemas/blob/main/quilt.mod.json/schemas/schema_version_1.json), [NeoForge mod metadata](https://docs.neoforged.net/docs/gettingstarted/modfiles/).

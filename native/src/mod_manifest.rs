@@ -27,6 +27,69 @@ pub struct ArchiveFacts {
     pub mods: Vec<ModIdentity>,
     pub dependencies: Vec<Value>,
     pub warnings: Vec<String>,
+    pub provenance: Vec<ManifestProvenance>,
+}
+
+#[derive(Clone, Serialize, Deserialize)]
+pub struct DeclaredLicense {
+    pub id: String,
+    pub name: Option<String>,
+    pub url: Option<String>,
+}
+#[derive(Clone, Serialize, Deserialize)]
+pub struct DeclaredLink { pub kind: String, pub url: String }
+#[derive(Clone, Serialize, Deserialize)]
+pub struct DeclaredSymbol { pub entrypoint: String, pub value: String, pub adapter: Option<String> }
+#[derive(Clone, Serialize, Deserialize)]
+pub struct ManifestProvenance {
+    pub mod_ids: Vec<String>,
+    pub manifest: String,
+    pub archive_path: String,
+    pub manifest_sha256: String,
+    pub evidence_class: String,
+    pub licenses: Vec<DeclaredLicense>,
+    pub links: Vec<DeclaredLink>,
+    pub symbols: Vec<DeclaredSymbol>,
+}
+
+fn web_link(value: &Value) -> Option<String> {
+    let text = value.as_str()?;
+    let url = reqwest::Url::parse(text).ok()?;
+    (matches!(url.scheme(), "http" | "https") && url.host_str().is_some()
+        && url.username().is_empty() && url.password().is_none()).then(|| url.to_string())
+}
+fn provenance(name: &str, value: &Value, scope: &str, hash: String) -> ManifestProvenance {
+    let quilt = name == "quilt.mod.json";
+    let metadata = if quilt { &value["quilt_loader"]["metadata"] } else { value };
+    let mut result = ManifestProvenance { mod_ids: identities(name, value).into_iter().map(|(id,_,_)| id).collect(), manifest: name.into(), archive_path: scope.into(), manifest_sha256: hash, evidence_class: "declared".into(), licenses: vec![], links: vec![], symbols: vec![] };
+    let licenses: Vec<&Value> = match &metadata["license"] { Value::Array(rows) => rows.iter().collect(), Value::Null => vec![], one => vec![one] };
+    for license in licenses {
+        let id = license.as_str().or_else(|| if quilt { license["id"].as_str() } else { None });
+        if let Some(id) = id.filter(|id| !id.trim().is_empty()) {
+            result.licenses.push(DeclaredLicense { id: id.into(), name: license.get("name").and_then(Value::as_str).map(str::to_string), url: license.get("url").and_then(web_link) });
+        }
+    }
+    for kind in ["sources", "homepage", "issues"] {
+        if let Some(url) = web_link(&metadata["contact"][kind]) { result.links.push(DeclaredLink { kind: kind.into(), url }); }
+    }
+    if name.ends_with(".toml") {
+        if let Some(url) = web_link(&value["issueTrackerURL"]) { result.links.push(DeclaredLink {kind:"issues".into(),url}); }
+        for entry in value["mods"].as_array().into_iter().flatten() {
+            if let Some(url) = web_link(&entry["displayURL"]) { result.links.push(DeclaredLink {kind:"homepage".into(),url}); }
+        }
+    }
+    let entrypoints = if quilt { &value["quilt_loader"]["entrypoints"] } else { &value["entrypoints"] };
+    if let Some(groups) = entrypoints.as_object() {
+        for (kind, declarations) in groups {
+            let declarations: Vec<_> = match declarations { Value::Array(rows)=>rows.iter().collect(), one=>vec![one] };
+            for declaration in declarations {
+                if let Some(value) = declaration.as_str().or_else(||declaration.get("value").and_then(Value::as_str)) {
+                    result.symbols.push(DeclaredSymbol {entrypoint:kind.clone(),value:value.into(),adapter:declaration.get("adapter").and_then(Value::as_str).map(str::to_string)});
+                }
+            }
+        }
+    }
+    result
 }
 const MANIFESTS: [&str; 5] = [
     "fabric.mod.json",
@@ -62,16 +125,17 @@ fn entry<R: Read + Seek>(
     }
     Ok(Some(bytes))
 }
-fn document<R: Read + Seek>(zip: &mut zip::ZipArchive<R>, name: &str) -> Result<Option<Value>> {
+fn document<R: Read + Seek>(zip: &mut zip::ZipArchive<R>, name: &str) -> Result<Option<(Value, String)>> {
     let Some(bytes) = entry(zip, name, MANIFEST_BYTES)? else {
         return Ok(None);
     };
+    let hash = format!("{:x}", Sha256::digest(&bytes));
     if name.ends_with(".toml") {
         let text = std::str::from_utf8(&bytes).map_err(|e| Error::other(e.to_string()))?;
         let parsed: toml::Value = toml::from_str(text).map_err(|e| Error::other(e.to_string()))?;
-        Ok(Some(serde_json::to_value(parsed)?))
+        Ok(Some((serde_json::to_value(parsed)?, hash)))
     } else {
-        Ok(Some(serde_json::from_slice(&bytes)?))
+        Ok(Some((serde_json::from_slice(&bytes)?, hash)))
     }
 }
 fn identities(name: &str, value: &Value) -> Vec<(String, Option<String>, Option<String>)> {
@@ -129,7 +193,9 @@ fn scan<R: Read + Seek>(
     let mut nested = BTreeSet::new();
     for name in MANIFESTS {
         match document(zip, name) {
-            Ok(Some(value)) => {
+            Ok(Some((value, manifest_hash))) => {
+                let record = provenance(name, &value, scope, manifest_hash);
+                if !record.mod_ids.is_empty() { out.provenance.push(record); }
                 for (id, version, title) in identities(name, &value) {
                     out.mods.push(ModIdentity {
                         id,
@@ -173,7 +239,7 @@ fn scan<R: Read + Seek>(
         Err(error) => out.warnings.push(format!("{scope}dependencies: {error}")),
     }
     match document(zip, "META-INF/jarjar/metadata.json") {
-        Ok(Some(value)) => nested.extend(
+        Ok(Some((value, _))) => nested.extend(
             value["jars"]
                 .as_array()
                 .into_iter()
