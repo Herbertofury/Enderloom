@@ -1,4 +1,5 @@
 import { configAssociation, createConfigAssociator } from "../../lib/config-associations";
+import { discoverConfigSources, type SourceProgress } from "../../lib/config-sources";
 import { ContentIcon } from "../ContentIcon";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -120,6 +121,30 @@ export function WorkbenchPanel({
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(!library);
   const [validating, setValidating] = useState(false);
+  const [sourceProgress,setSourceProgress]=useState<SourceProgress|null>(null);
+  const libraryRef=useRef(library);libraryRef.current=library;
+  const sourceOwners=useRef<Record<string,Pick<WorkbenchEntry,"owner"|"automatic_owner">>>({});
+  const hasLibrary=!!library;
+  useEffect(()=>{
+    sourceOwners.current={};
+    if(mode!=="config" || !mods.length || !hasLibrary)return;
+    const controller=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined;let retry:ReturnType<typeof setTimeout>|undefined;let pending=false,dirty=false;
+    const update=async()=>{
+      timer=undefined;if(controller.signal.aborted)return;if(pending){dirty=true;return}pending=true;
+      try {
+        const paths=libraryRef.current?.entries.map(e=>e.path)??[];
+        if(paths.length){const owners=await api.resolveConfigOwners(instance.id,paths);if(!controller.signal.aborted){sourceOwners.current=owners;setLibrary(previous=>previous?{...previous,entries:previous.entries.map(entry=>({...entry,...owners[entry.path]}))}:previous);}}
+      }catch{/* Local ownership remains available if enrichment cannot refresh. */}
+      finally{pending=false;if(dirty&&!controller.signal.aborted){dirty=false;schedule();}}
+    };
+    const schedule=()=>{timer??=setTimeout(()=>void update(),1500);};
+    const check=()=>void discoverConfigSources(instance.id,mods,controller.signal,progress=>{
+      setSourceProgress(progress);
+      if(!progress.active&&progress.deferred&&progress.retryAt)retry=setTimeout(check,Math.max(1000,progress.retryAt*1000-Date.now()+500));
+    },schedule);
+    check();
+    return()=>{controller.abort();if(timer)clearTimeout(timer);if(retry)clearTimeout(retry);};
+  },[instance.id,mods,mode,hasLibrary]);
   const [error, setError] = useState<string | null>(null);
   const [install, setInstall] = useState<string | null>(null);
   const [editor, setEditor] = useState<WorkbenchEntry | null>(null);
@@ -136,7 +161,7 @@ export function WorkbenchPanel({
       const scan = afterChange ? refreshWorkbenchAfterChange : scanWorkbenchShared;
       await scan(instance.id, includeMods, data => {
         if (alive.current && request === refreshId.current) {
-          setLibrary(data);
+          setLibrary({...data,entries:data.entries.map(entry=>({...entry,...sourceOwners.current[entry.path]}))});
           setError(null);
           setLoading(false);
         }
@@ -504,6 +529,7 @@ export function WorkbenchPanel({
             </button>
           </div>
           {validating && !loading && <div className="wb-notice wb-scan-status" role="status"><Loader2 size={14} className="animate-spin" /><span>Checking for changes in the background. You can browse and edit your configs.</span></div>}
+          {sourceProgress && sourceProgress.total>0 && <div className="wb-notice wb-scan-status" role="status"><GitBranch size={14}/><span>{sourceProgress.active?`Checking linked source repositories · ${sourceProgress.completed} of ${sourceProgress.total} mods`:`Source check · ${sourceProgress.found} explicit config registrations found`}{sourceProgress.deferred?" · GitHub rate limit reached; cached matches remain available.":""}{!sourceProgress.active&&sourceProgress.errors>0?` · ${sourceProgress.errors} repositories unavailable or unsupported.`:""}</span></div>}
           {section === "lineage" && (
             <div className="wb-notice violet">
               <Sparkles size={16} />
@@ -700,6 +726,7 @@ export function WorkbenchPanel({
                 {prefs[associationKey(detail.path)] && !["auto", "unassigned", ...mods.map(m => m.source?.mod_id || m.file_name)].includes(prefs[associationKey(detail.path)]) && <option value={prefs[associationKey(detail.path)]}>{prefs[associationKey(detail.path)]} · missing mod</option>}
               </select>
               <small>{owner(detail).reason}</small>
+              {owner(detail).evidence && <button className="wb-source-evidence" type="button" onClick={()=>void openUrl(owner(detail).evidence!.source_url)}><GitBranch size={13}/><span>View source evidence · {owner(detail).evidence!.revision.slice(0,7)}</span></button>}
             </div>}
             {detail.mod && inspected?.files.find((f) => f.inspection?.sha256 === detail.hash)?.inspection && <GeneratorBadge title={detail.title} inspection={inspected.files.find((f) => f.inspection?.sha256 === detail.hash)!.inspection!} />}
             {detail.hash && <FavoriteButton label favorite={{ provider: detail.record.project_id && (detail.record.provider === "modrinth" || detail.record.provider === "curseforge") ? detail.record.provider : "local", project_id: detail.record.project_id || detail.hash, title: detail.title, kind: detail.mod ? "mods" : detail.addon ? "addons" : "config", description: detail.path, source_url: detail.record.source_url }} />}

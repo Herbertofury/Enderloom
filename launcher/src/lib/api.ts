@@ -4,6 +4,7 @@ type SparkDownload = { data: string; content_type: string };
 import { invoke } from "@tauri-apps/api/core";
 import type { ProjectArtifactGraph, ProjectSourcePreview, ProjectContext } from "./artifacts";
 import type { WorkbenchLibrary } from "./workbench";
+import type { ConfigSourceReport, ConfigOwnerProjection } from "./config-sources";
 import type { CreativeLibrary, Installation, ModInspection, PerformanceReport, RuntimeCapture, ModComparison } from "./creative";
 
 import { log } from "./log";
@@ -126,6 +127,8 @@ export const api = {
   finishTestingSession: (testId: string) => call<TestReport>("finish_testing_session", { testId }),
   getTestingArtifact: (testId: string, name: string) => call<TestArtifactData>("get_testing_artifact", { testId, name }),
   scanWorkbench: (instanceId: string, includeMods = true, quick = false) => call<WorkbenchLibrary>("scan_instance_workbench", { instanceId, includeMods, quick }),
+  discoverModConfigSources: (instanceId: string, fileName: string) => call<ConfigSourceReport>("discover_mod_config_sources", { instanceId, fileName }),
+  resolveConfigOwners: (instanceId: string, paths: string[]) => call<ConfigOwnerProjection>("resolve_config_owners", { instanceId, paths }),
   workbenchAction: <T = { path: string }>(instanceId: string, operation: string, payload: Record<string, unknown>) => call<T>("workbench_action", { instanceId, operation, payload }),
   checkWorkbenchUpdates: (instanceId: string) => call<WorkbenchLibrary>("check_workbench_updates", { instanceId }),
   getSettings: () => call<LauncherSettings>("get_settings"),

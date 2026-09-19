@@ -8,6 +8,7 @@ pub mod cli_headless;
 mod commands;
 mod config;
 mod config_ownership;
+mod config_sources;
 mod content;
 mod control_ipc;
 mod credentials;

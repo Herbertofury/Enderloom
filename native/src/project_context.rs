@@ -261,7 +261,7 @@ fn target_context(
             ],
         );
         issues.extend(warnings);
-        let owners = crate::config_ownership::ConfigOwners::new(&installed);
+        let owners = crate::config_ownership::ConfigOwners::with_sources(state,&installed);
         let preferences = crate::creative::library(state)?;
         for path in paths {
             // A server world's folder name also provides no evidence of ownership.

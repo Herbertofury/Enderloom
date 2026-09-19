@@ -181,7 +181,7 @@ fn allowed_file(path: &str) -> bool {
                 "zip" | "jar" | "js" | "zs" | "lua"
             ))
 }
-fn target(root: &Path, path: &str) -> Result<PathBuf> {
+pub(crate) fn target(root: &Path, path: &str) -> Result<PathBuf> {
     if !allowed_file(path) {
         return Err(Error::other(
             "Choose a config, addon, script or mod file in an instance content folder.",
@@ -452,7 +452,7 @@ pub(crate) fn config_paths(files: &FileManager, root: &Path, folders: &[String])
     for folder in folders { if let Err(error)=walk(files,root,folder,&mut paths,&mut sizes,&mut warnings){warnings.push(format!("{folder}: {error}"));} }
     paths.retain(|path|editable(path));paths.sort();paths.dedup();(paths,warnings)
 }
-fn installed_mod_sources(state: &AppState, root: &Path, sources: &[crate::db::ContentFile], verify: bool) -> Result<Vec<(crate::db::ContentFile,bool)>> {
+pub(crate) fn installed_mod_sources(state: &AppState, root: &Path, sources: &[crate::db::ContentFile], verify: bool) -> Result<Vec<(crate::db::ContentFile,bool)>> {
     let mut installed = Vec::new();
     let dir = resolve(root, "mods")?;
     if state.files.exists(&dir)? {
@@ -588,7 +588,7 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
     paths.dedup();
     let sources = state.db.content_files(id, "mods")?;
     let installed = installed_mod_sources(state, &root, &sources, verify)?;
-    let owners = crate::config_ownership::ConfigOwners::new(&installed);
+    let owners = crate::config_ownership::ConfigOwners::with_sources(state,&installed);
     let preferences = crate::creative::library(state)?["preferences"].clone();
     let mut entries = vec![];
     let inventory_ms = started.elapsed().as_millis();

@@ -27,7 +27,7 @@ let app;
   await page.getByRole('button',{name:'Expand all',exact:true}).click();
   await page.getByRole('button',{name:/visuals.json/}).waitFor();
   await page.getByRole("button", { name: "All files", exact: true }).click();
-  await page.locator(".wb-mod-group").waitFor({ state: "detached" });
+  await page.locator(".wb-mod-group").first().waitFor({ state: "detached" });
   await page.getByRole("button", { name: /visuals.json/ }).click();
   const select = page.getByLabel("Config mod association");
   const chosen = await select

@@ -11,6 +11,8 @@ pub struct ConfigOwner {
     pub reason: String,
     pub confidence: String,
     pub file_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub evidence: Option<crate::config_sources::Evidence>,
 }
 fn normalized(value: &str) -> String {
     value
@@ -38,11 +40,13 @@ fn owned(mod_file: &ContentFile, reason: &str, confidence: &str) -> ConfigOwner 
         reason: reason.into(),
         confidence: confidence.into(),
         file_name: Some(mod_file.file_name.clone()),
+        evidence: None,
     }
 }
 pub struct ConfigOwners {
     mods: Vec<ContentFile>,
     names: BTreeMap<String, BTreeSet<usize>>,
+    evidence: BTreeMap<String, Vec<(usize, crate::config_sources::Evidence)>>,
 }
 impl ConfigOwners {
     pub fn new(items: &[(ContentFile, bool)]) -> Self {
@@ -69,7 +73,30 @@ impl ConfigOwners {
                 }
             }
         }
-        Self { mods, names }
+        Self {
+            mods,
+            names,
+            evidence: BTreeMap::new(),
+        }
+    }
+    pub fn with_sources(state: &crate::state::AppState, items: &[(ContentFile, bool)]) -> Self {
+        let mut owners = Self::new(items);
+        for (index, source) in owners.mods.iter().enumerate() {
+            if let Some(report) = crate::config_sources::cached(state, source) {
+                for evidence in report.evidence {
+                    owners
+                        .evidence
+                        .entry(format!(
+                            "{}:{}",
+                            evidence.scope,
+                            evidence.path.to_lowercase()
+                        ))
+                        .or_default()
+                        .push((index, evidence));
+                }
+            }
+        }
+        owners
     }
     pub fn associate(&self, path: &str, override_id: Option<&str>) -> ConfigOwner {
         if let Some(id) = override_id.filter(|s| !s.is_empty() && *s != "auto") {
@@ -80,6 +107,7 @@ impl ConfigOwners {
                     reason: "You marked this file as shared or unassigned.".into(),
                     confidence: "manual".into(),
                     file_name: None,
+                    evidence: None,
                 };
             }
             return self
@@ -93,6 +121,7 @@ impl ConfigOwners {
                     reason: "Your assigned mod is no longer installed.".into(),
                     confidence: "manual".into(),
                     file_name: None,
+                    evidence: None,
                 });
         }
         let lower = path.to_lowercase();
@@ -104,20 +133,70 @@ impl ConfigOwners {
                 reason: "Minecraft’s global client settings file.".into(),
                 confidence: "matched".into(),
                 file_name: None,
+                evidence: None,
             };
         }
         if let Some(source) = self.mods.iter().find(|m| {
-            path.starts_with("mods/") &&
-            path == format!(
-                "mods/{}",
-                m.file_name.to_lowercase().trim_end_matches(".disabled")
-            )
+            path.starts_with("mods/")
+                && path
+                    == format!(
+                        "mods/{}",
+                        m.file_name.to_lowercase().trim_end_matches(".disabled")
+                    )
         }) {
             return owned(source, "The installed mod file itself.", "matched");
         }
         let mut parts: Vec<_> = path.split('/').collect();
         if parts.len() >= 4 && parts[0] == "saves" && parts[2] == "serverconfig" {
             parts.drain(..3);
+        }
+        let (scope, relative) = if lower.starts_with("config/") {
+            (
+                "config",
+                parts.iter().skip(1).copied().collect::<Vec<_>>().join("/"),
+            )
+        } else if lower.starts_with("defaultconfigs/") || lower.starts_with("serverconfig/") {
+            (
+                "server",
+                parts.iter().skip(1).copied().collect::<Vec<_>>().join("/"),
+            )
+        } else if lower.starts_with("saves/") && lower.split('/').nth(2) == Some("serverconfig") {
+            ("server", parts.join("/"))
+        } else {
+            ("", String::new())
+        };
+        let mut suggested_source = None;
+        if let Some(matches) = self.evidence.get(&format!("{scope}:{relative}")) {
+            let ids: BTreeSet<_> = matches.iter().map(|(index, _)| *index).collect();
+            if ids.len() == 1 {
+                let (index, evidence) =
+                    matches.iter().max_by_key(|(_, e)| e.version_match).unwrap();
+                let mut owner = owned(
+                    &self.mods[*index],
+                    &format!(
+                        "Explicit config registration in {} at {}. {}",
+                        evidence.repository,
+                        evidence.reference,
+                        if evidence.version_match {
+                            "Source release matches the installed mod version."
+                        } else {
+                            "Source version is unverified; this is a suggestion."
+                        }
+                    ),
+                    if evidence.version_match {
+                        "matched"
+                    } else {
+                        "suggested"
+                    },
+                );
+                owner.evidence = Some(evidence.clone());
+                if evidence.version_match {
+                    return owner;
+                }
+                suggested_source = Some(owner);
+            } else {
+                return ConfigOwner{id:"unassigned".into(),title:"Unassigned & shared".into(),reason:"Multiple installed mods explicitly register this config path. Choose an owner or keep it shared.".into(),confidence:"unassigned".into(),file_name:None,evidence:None};
+            }
         }
         let file = parts.pop().unwrap_or_default();
         let stem = file.rsplit_once('.').map_or(file, |(stem, _)| stem);
@@ -195,12 +274,20 @@ impl ConfigOwners {
                 2 => "known mod folder convention",
                 _ => "filename or folder matches project title",
             };
-            return owned(
+            let mut owner = owned(
                 &self.mods[index],
                 &format!("{scope} · {basis}."),
                 if score == 1 { "suggested" } else { "matched" },
             );
+            if let Some(suggestion) = suggested_source.filter(|s| s.id == owner.id) {
+                owner.reason = format!("{} {}", owner.reason, suggestion.reason);
+                owner.evidence = suggestion.evidence;
+            }
+            return owner;
         }
-        ConfigOwner { id:"unassigned".into(),title:"Unassigned & shared".into(),reason:if scored.is_empty(){"No unambiguous installed mod match. This may be shared, custom, or left by a removed mod."}else{"More than one installed mod matches. Choose the owner below."}.into(),confidence:"unassigned".into(),file_name:None }
+        if let Some(owner) = suggested_source.filter(|_| scored.is_empty()) {
+            return owner;
+        }
+        ConfigOwner { id:"unassigned".into(),title:"Unassigned & shared".into(),reason:if scored.is_empty(){"No unambiguous installed mod match. This may be shared, custom, or left by a removed mod."}else{"More than one installed mod matches. Choose the owner below."}.into(),confidence:"unassigned".into(),file_name:None,evidence:None }
     }
 }

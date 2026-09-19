@@ -258,6 +258,14 @@ pub(crate) async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value)
                 task.finish(&result); result
             }).await.map_err(|e|Error::other(format!("Resume failed: {e}")))?
         }
+        "discover_mod_config_sources" => {
+            value(crate::config_sources::discover(state,&required_string(args,"instanceId")?,&required_string(args,"fileName")?).await?)
+        }
+        "resolve_config_owners" => {
+            let state=state.clone();let id=required_string(args,"instanceId")?;
+            let paths:Vec<String>=serde_json::from_value(args.get("paths").cloned().unwrap_or_else(||json!([])))?;
+            tokio::task::spawn_blocking(move||crate::config_sources::resolve(&state,&id,&paths)).await.map_err(|e|Error::other(e.to_string()))?
+        }
         "scan_instance_workbench" => {
             let state = state.clone();
             let id = required_string(args, "instanceId")?;

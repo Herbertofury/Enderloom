@@ -7,6 +7,7 @@ export interface ConfigAssociation {
   reason: string;
   confidence: "matched" | "suggested" | "manual" | "unassigned";
   file_name?: string | null;
+  evidence?: { path: string; scope: string; source_url: string; repository: string; revision: string; reference: string; version_match: boolean; line: number };
   mod?: ContentItem;
 }
 // Ownership comes from the native resolver shared with project context and CLI.

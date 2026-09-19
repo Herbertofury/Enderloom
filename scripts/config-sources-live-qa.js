@@ -1,0 +1,14 @@
+'use strict';
+// Opt-in live acceptance: real provider metadata, released JAR, and GitHub source. No game launch or user profile changes.
+const assert=require('assert/strict'),fs=require('fs'),os=require('os'),path=require('path'),crypto=require('crypto');const {DatabaseSync}=require('node:sqlite');const {LauncherService}=require('../src/launcher-service');
+const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-source-live-')),service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data')});
+const get=async url=>{const response=await fetch(url,{headers:{'User-Agent':'Herbertofury/Enderloom config-source-acceptance'},signal:AbortSignal.timeout(60000)});if(!response.ok)throw Error(`${response.status} ${url}`);return response};
+(async()=>{
+ const versions=await(await get('https://api.modrinth.com/v2/project/YhmgMVyu/version?loaders=%5B%22neoforge%22%5D&game_versions=%5B%221.21.1%22%5D')).json();const version=versions.find(v=>v.version_type==='release'),file=version.files.find(f=>f.primary)||version.files[0];
+ const bytes=Buffer.from(await(await get(file.url)).arrayBuffer());assert.equal(crypto.createHash('sha1').update(bytes).digest('hex'),file.hashes.sha1);
+ const instance=await service.request('create_instance',{name:'Aether source acceptance',versionId:'1.21.1',loader:null,loaderVersion:null});fs.mkdirSync(path.join(instance.dir,'mods'),{recursive:true});fs.writeFileSync(path.join(instance.dir,'mods',file.filename),bytes);await service.close();
+ const db=new DatabaseSync(path.join(service.dataDir,'basalt.db'));try{db.prepare("INSERT INTO content_files(instance_id,kind,file_name,sha1,provider,project_id,version_id,title)VALUES(?,'mods',?,?,'modrinth','YhmgMVyu',?,'The Aether')").run(instance.id,file.filename,file.hashes.sha1,version.id);}finally{db.close()}
+ const started=performance.now();const report=await service.request('discover_mod_config_sources',{instanceId:instance.id,fileName:file.filename});
+ assert.equal(report.status,'checked',JSON.stringify(report));assert(report.evidence.some(e=>e.path==='aether-client.toml'));assert(report.evidence.some(e=>e.path==='aether-server.toml'));assert(report.evidence.every(e=>e.repository==='The-Aether-Team/The-Aether'));const cachedAt=performance.now();assert.deepEqual(await service.request('discover_mod_config_sources',{instanceId:instance.id,fileName:file.filename}),report);
+ const result={passed:true,project:'The Aether',projectId:'YhmgMVyu',version:version.version_number,minecraft:'1.21.1',loader:'neoforge',jar:file.filename,sha1:file.hashes.sha1,elapsedMs:cachedAt-started,cachedMs:performance.now()-cachedAt,...report};fs.mkdirSync(path.join(root,'output'),{recursive:true});fs.writeFileSync(path.join(root,'output/config-sources-live-qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
+})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>service.close());
