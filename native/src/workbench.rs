@@ -12,10 +12,20 @@ use std::{
     collections::{BTreeMap, BTreeSet},
     io::{Read, Seek},
     path::{Path, PathBuf},
-    sync::Mutex,
+    sync::{Arc, Mutex, OnceLock, Weak},
 };
 
-static TRANSACTION: Mutex<()> = Mutex::new(());
+static PRESET_TRANSACTION: Mutex<()> = Mutex::new(());
+fn transaction(root: &Path) -> Arc<Mutex<()>> {
+    static LOCKS: OnceLock<Mutex<BTreeMap<PathBuf,Weak<Mutex<()>>>>> = OnceLock::new();
+    let path=root.canonicalize().unwrap_or_else(|_|root.to_path_buf());
+    #[cfg(windows)]
+    let path=PathBuf::from(path.to_string_lossy().to_lowercase());
+    let mut locks=LOCKS.get_or_init(Default::default).lock().unwrap();
+    locks.retain(|_,lock|lock.strong_count()>0);
+    if let Some(lock)=locks.get(&path).and_then(Weak::upgrade){return lock;}
+    let lock=Arc::new(Mutex::new(()));locks.insert(path,Arc::downgrade(&lock));lock
+}
 const STORE: &str = ".enderloom-workbench";
 
 #[derive(Clone, Default, Serialize, Deserialize)]
@@ -492,7 +502,8 @@ pub(crate) fn scan_mode(state: &AppState, id: &str, include_mods: bool, verify: 
     // Inventory is a read-only snapshot, so an ongoing checksum pass must not
     // prevent opening another profile's Config tab. Mutations still serialize.
     if !verify { return scan_inner_scoped(state, id, include_mods, false); }
-    let _guard = TRANSACTION
+    let transaction=transaction(&base(state,id)?);
+    let _guard = transaction
         .lock()
         .map_err(|_| Error::other("Config library is busy."))?;
     scan_inner_scoped(state, id, include_mods, verify)
@@ -814,7 +825,8 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
             json!({"path":path,"hash":digest(&bytes),"text":text,"problem":text_problem(path,&text)}),
         );
     }
-    let _guard = TRANSACTION
+    let transaction=transaction(&root);
+    let _guard = transaction
         .lock()
         .map_err(|_| Error::other("Config library is busy."))?;
     if crate::instance_ops::instance_busy(state, id)
@@ -886,6 +898,7 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
         return Ok(json!({"path":destination}));
     }
     if operation == "delete_preset" {
+        let _presets=PRESET_TRANSACTION.lock().map_err(|_|Error::other("Global presets are busy."))?;
         let mut presets = globals(state)?;
         presets.retain(|p| p.id != string(args, "presetId"));
         state
@@ -1047,6 +1060,7 @@ pub(crate) fn action(state: &AppState, id: &str, operation: &str, args: &Value) 
             }
         }
         "save_preset" => {
+            let _presets=PRESET_TRANSACTION.lock().map_err(|_|Error::other("Global presets are busy."))?;
             if !editable(path) {
                 return Err(Error::other("Only text configs can become global presets."));
             }
@@ -1139,8 +1153,9 @@ fn apply_metadata(record: &mut Record, args: &Value) -> Result<()> {
 
 pub(crate) async fn check_updates(state: &AppState, id: &str) -> Result<Value> {
     let root = base(state, id)?;
+    let transaction=transaction(&root);
     let records = {
-        let _g = TRANSACTION
+        let _g = transaction
             .lock()
             .map_err(|_| Error::other("Library busy"))?;
         load(&state.files, &root)?.records
@@ -1226,7 +1241,7 @@ pub(crate) async fn check_updates(state: &AppState, id: &str) -> Result<Value> {
             outcome,
         ));
     }
-    let _g = TRANSACTION
+    let _g = transaction
         .lock()
         .map_err(|_| Error::other("Library busy"))?;
     let mut library = load(&state.files, &root)?;
@@ -1255,10 +1270,11 @@ pub(crate) fn guard_content_change(
     kind: &str,
     name: &str,
 ) -> Result<()> {
-    let _guard = TRANSACTION
+    let root = base(state, id)?;
+    let transaction=transaction(&root);
+    let _guard = transaction
         .lock()
         .map_err(|_| Error::other("Config library is busy."))?;
-    let root = base(state, id)?;
     let mut library = load(&state.files, &root)?;
     if library.records.is_empty() {
         return Ok(());
@@ -1297,10 +1313,11 @@ pub(crate) fn preserve_before_delete(
     kind: &str,
     name: &str,
 ) -> Result<()> {
-    let _guard = TRANSACTION
+    let root = base(state, id)?;
+    let transaction=transaction(&root);
+    let _guard = transaction
         .lock()
         .map_err(|_| Error::other("Config library is busy."))?;
-    let root = base(state, id)?;
     let mut library = load(&state.files, &root)?;
     if library.records.is_empty() {
         return Ok(());

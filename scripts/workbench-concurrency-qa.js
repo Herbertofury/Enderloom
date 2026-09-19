@@ -1,0 +1,21 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),os=require('os'),path=require('path');
+const {LauncherService}=require('../src/launcher-service');const {write}=require('./workbench-fixtures');
+const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-config-concurrency-'));
+const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data')});
+(async()=>{
+ const make=name=>service.request('create_instance',{name,versionId:'1.20.1',loader:null,loaderVersion:null});const big=await make('Large configuration library'),small=await make('Independent config'),third=await make('Independent preset');
+ for(let i=0;i<3000;i++)write(big.dir,`config/options-${i}.json`,'{"quality":"fancy"}');
+ write(small.dir,'config/alpha.json','{"quality":"fancy"}');write(third.dir,'config/beta.json','{"quality":"fancy"}');
+ const scan=instance=>service.request('scan_instance_workbench',{instanceId:instance.id,includeMods:false});
+ let bigDone=false,writeDone=false;
+ const large=scan(big).then(result=>{bigDone=true;return result;});await new Promise(resolve=>setTimeout(resolve,75));
+ const sameRoot=service.request('workbench_action',{instanceId:big.id,operation:'metadata',payload:{path:'config/options-0.json',title:'Serialized edit'}}).then(result=>{writeDone=true;return result;});
+ const started=performance.now();const independent=await scan(small);const independentMs=performance.now()-started;assert(!bigDone,'A different profile must validate before the large scan finishes');assert(!writeDone,'Mutation of the same profile must stay serialized with its validation');
+ const beta=await scan(third);
+ const save=(instance,entry,name)=>service.request('workbench_action',{instanceId:instance.id,operation:'save_preset',payload:{path:entry.path,expectedHash:entry.hash,name}});
+ await Promise.all([save(small,independent.entries[0],'Alpha preset'),save(third,beta.entries[0],'Beta preset')]);
+ const checked=await scan(small);assert.deepEqual(checked.presets.map(p=>p.name).sort(),['Alpha preset','Beta preset']);assert(!bigDone,'Independent writes must also bypass the unrelated large scan');
+ await large;await sameRoot;const bigCheck=await service.request('scan_instance_workbench',{instanceId:big.id,includeMods:false,quick:true});assert.equal(bigCheck.entries.find(e=>e.path==='config/options-0.json').title,'Serialized edit');
+ const result={passed:true,independentMs,files:3000,independentProfilesDoNotBlock:true,sameRootWritesSerialized:true,globalPresetsPreserved:true};fs.mkdirSync(path.join(root,'output'),{recursive:true});fs.writeFileSync(path.join(root,'output/workbench-concurrency-qa.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>service.close());
