@@ -202,7 +202,7 @@ Implement typed identities/links for:
 
 - [x] **PA-001** `Project`, `Release`, `Artifact`, `FileHash`. Native persistence, service/CLI parity, immutable measurements and Electron identity navigation verified; see `docs/IDENTITY_GRAPH_ACCEPTANCE_2026-09-18.md`.
 - [x] **PA-002** provider/source aliases and provider project/version identities. Explicit comparison, confirmed associations, provenance, reversible linking and provider-scoped releases verified in native service/CLI/Electron; see `docs/IDENTITY_GRAPH_ACCEPTANCE_2026-09-18.md`.
-- [ ] **PA-003** instance/world/server/config/dependency links.
+- [x] **PA-003** instance/world/server/config/dependency links. Shared service/CLI/Electron projection, exact config owners, declared nested dependencies and saved-world version evidence verified; see `docs/WORLD_RELATIONSHIPS_ACCEPTANCE_2026-09-18.md`. Links preserve their evidence class; runtime compatibility is not inferred.
 - [ ] **PA-004** source/code symbols, provenance, rights/license metadata where applicable.
 - [ ] **PA-005** same-name/different-content lineage with SHA-256-first immutable artifact identity.
 

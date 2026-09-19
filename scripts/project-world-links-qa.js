@@ -1,5 +1,5 @@
 'use strict';
-const assert=require('assert/strict'),fs=require('fs'),path=require('path'),os=require('os'),crypto=require('crypto');const {LauncherService}=require('../src/launcher-service');const {seedProjectContext,seedProjectServer,seedProjectWorlds}=require('./project-context-fixtures');
+const assert=require('assert/strict'),fs=require('fs'),path=require('path'),os=require('os'),crypto=require('crypto');const {LauncherService}=require('../src/launcher-service');const {seedProjectContext,seedProjectServer,seedProjectWorlds,seedSavedModWorlds}=require('./project-context-fixtures');
 const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-world-links-')),service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data')});
 (async()=>{
  const {first}=await seedProjectContext(service),server=await seedProjectServer(service);seedProjectWorlds(first,server);
@@ -7,10 +7,17 @@ const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tm
  const get=()=>service.request('get_project_context',{provider:'modrinth',projectId:'alpha'});let context=await get(),worlds=context.targets.find(t=>t.id===first.id).worlds;
  assert.deepEqual(worlds.map(w=>w.folder),['Archive','Meadow','Sky']);assert.equal(worlds[0].status,'recovered');assert(worlds[0].warning.includes('level.dat could not be read'));assert.equal(worlds[0].evidence[0].path,'level.dat_old/Data/DataPacks');assert(worlds[1].evidence.some(e=>e.kind==='enabled_datapack'));assert(worlds[1].evidence.some(e=>e.kind==='disabled_datapack'));assert(worlds[2].evidence.some(e=>e.kind==='dimension_storage'&&e.path==='dimensions/identity_fixture/islands/region'));
  assert.equal(context.targets.find(t=>t.id===server.id).worlds[0].name,'Dedicated Meadow');assert.equal(hash(),before);
+ seedSavedModWorlds(first,server);context=await get();worlds=context.targets.find(t=>t.id===first.id).worlds;
+ assert.equal(worlds.length,6);const legacy=worlds.find(w=>w.folder==='Legacy').evidence[0];assert.equal(legacy.kind,'saved_mod');assert.equal(legacy.mod_id,'identity_fixture');assert.equal(legacy.saved_version,'1.7.0');assert.equal(legacy.path,'level.dat/FML/ModList/0');assert.equal(legacy.comparison,'version_changed');assert.deepEqual(legacy.installed_versions,['2.0']);assert(legacy.detail.includes('historical'));
+ const modern=worlds.find(w=>w.folder==='Modern').evidence[0];assert.equal(modern.comparison,'version_matches');assert.equal(modern.path,'level.dat/fml/LoadingModList/0');
+ assert.equal(worlds.find(w=>w.folder==='BackupMods').evidence[0].path,'level.dat_old/fml/LoadingModList/0');
+ assert.equal(context.targets.find(t=>t.id===server.id).worlds[0].evidence.find(e=>e.kind==='saved_mod').saved_version,'1.8');
+ const savedBytes=fs.readFileSync(path.join(first.dir,'saves/Modern/level.dat'));await get();assert(fs.readFileSync(path.join(first.dir,'saves/Modern/level.dat')).equals(savedBytes));
  const outside=path.join(temporary,'outside');fs.mkdirSync(outside);fs.symlinkSync(path.join(first.dir,'saves/Sky'),path.join(first.dir,'saves/linked-world'),'junction');
- const after=await get();assert.equal(after.targets.find(t=>t.id===first.id).worlds.length,3,'World junctions must not be traversed');
+ const after=await get();assert.equal(after.targets.find(t=>t.id===first.id).worlds.length,6,'World junctions must not be traversed');
  fs.renameSync(path.join(first.dir,'mods/first.jar'),path.join(first.dir,'first.jar.retained'));fs.renameSync(path.join(first.dir,'mods/older.jar.disabled'),path.join(first.dir,'older.jar.retained'));
- const removed=await get();assert.equal(removed.targets.find(t=>t.id===first.id).worlds.length,3,'Removing installed copies must not erase known world relationships');
+ const removed=await get();assert.equal(removed.targets.find(t=>t.id===first.id).worlds.length,6,'Removing installed copies must not erase known world relationships');
+ assert.equal(removed.targets.find(t=>t.id===first.id).worlds.find(w=>w.folder==='Modern').evidence[0].comparison,'not_enabled');
  fs.renameSync(path.join(first.dir,'first.jar.retained'),path.join(first.dir,'mods/first.jar'));fs.renameSync(path.join(first.dir,'older.jar.retained'),path.join(first.dir,'mods/older.jar.disabled'));
  fs.writeFileSync(path.join(server.dir,'server.properties'),'level-name=../escape\n');context=await get();assert.equal(context.targets.find(t=>t.id===server.id).worlds.length,0);assert(context.targets.find(t=>t.id===server.id).warnings.some(w=>w.includes('unsafe')));
  fs.symlinkSync(path.join(first.dir,'saves'),path.join(server.dir,'linked'),'junction');fs.writeFileSync(path.join(server.dir,'server.properties'),'level-name=linked/Sky\n');context=await get();assert.equal(context.targets.find(t=>t.id===server.id).worlds.length,0,'Intermediate world-folder junctions must not be traversed');

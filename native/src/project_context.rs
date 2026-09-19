@@ -242,7 +242,19 @@ fn target_context(
             if !safe_world_path(&state.files, root, &world) {
                 continue;
             }
-            if let Some(link) = crate::worlds::project_links(&state.files, &world, &project_ids) {
+            if let Some(mut link) = crate::worlds::project_links(&state.files, &world, &project_ids) {
+                for evidence in link["evidence"].as_array_mut().into_iter().flatten() {
+                    if evidence["kind"] != "saved_mod" { continue; }
+                    let candidates: Vec<_> = available.iter().filter(|m| m["enabled"] == true && m["mod_id"] == evidence["mod_id"]).collect();
+                    let versions: BTreeSet<_> = candidates.iter().filter_map(|m| m["mod_version"].as_str()).filter(|v| !v.is_empty() && !v.contains("${")).collect();
+                    let saved = evidence["saved_version"].as_str().filter(|v| !v.is_empty());
+                    let comparison = if candidates.is_empty() { "not_enabled" }
+                        else if saved.is_none() || versions.is_empty() { "version_unknown" }
+                        else if versions.contains(saved.unwrap()) { "version_matches" }
+                        else { "version_changed" };
+                    evidence["installed_versions"] = json!(versions);
+                    evidence["comparison"] = json!(comparison);
+                }
                 worlds.push(link);
             }
         }

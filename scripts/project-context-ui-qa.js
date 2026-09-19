@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,'..');let app;
  app=await electron.launch({executablePath:path.join(root,'node_modules/electron/dist/electron.exe'),args:[path.join(root,'scripts/fixtures/creative-ui-host.cjs')],env});
  const page=await app.firstWindow();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.getByRole('button',{name:'Open Evergreen · creative workshop',exact:true}).waitFor();
  const fixture=await app.evaluate(async({ipcMain})=>{
-   const load=process.getBuiltinModule('module').createRequire(process.cwd()+'/package.json');const fixture=await load('./scripts/project-context-fixtures').seedProjectContext(global.creativeQa.service);const server=await load('./scripts/project-context-fixtures').seedProjectServer(global.creativeQa.service);load('./scripts/project-context-fixtures').seedProjectWorlds(fixture.first,server);
+   const load=process.getBuiltinModule('module').createRequire(process.cwd()+'/package.json');const fixture=await load('./scripts/project-context-fixtures').seedProjectContext(global.creativeQa.service);const server=await load('./scripts/project-context-fixtures').seedProjectServer(global.creativeQa.service);load('./scripts/project-context-fixtures').seedProjectWorlds(fixture.first,server);load('./scripts/project-context-fixtures').seedSavedModWorlds(fixture.first,server);
    await load('./scripts/bundled-mod-fixtures').seedBundledMods(global.creativeQa.service,fixture.first);
    ipcMain.removeHandler('launcher:invoke');ipcMain.handle('launcher:invoke',async(_e,r)=>{
     if(r.command==='open_folder'){global.creativeQa.openedWorldFolder=r.args.path;return null;}
@@ -26,6 +26,7 @@ const root=path.resolve(__dirname,'..');let app;
  assert(await target.getByText('Bundled in',{exact:true}).count()>0);
  await target.getByText('Bundled mods · 3',{exact:true}).scrollIntoViewIfNeeded();fs.mkdirSync(path.join(root,'output/playwright'),{recursive:true});await page.screenshot({path:path.join(root,'output/playwright/bundled-mods.png')});
  await target.getByText('World connections',{exact:false}).click();await target.getByRole('region',{name:'World connection Meadow',exact:true}).waitFor();await target.getByRole('region',{name:'World connection Sky Islands',exact:true}).getByText('Dimension storage',{exact:true}).waitFor();
+ await target.getByRole('region',{name:'World connection Legacy Forge world',exact:true}).getByText('Saved with this mod',{exact:true}).waitFor();await target.getByRole('region',{name:'World connection Legacy Forge world',exact:true}).getByText('Different version now: 2.0',{exact:true}).waitFor();
  await target.getByRole('region',{name:'World connection Meadow',exact:true}).getByRole('button',{name:'Open world folder',exact:true}).click();assert.equal(await app.evaluate(()=>global.creativeQa.openedWorldFolder),path.join(fixture.first.dir,'saves/Meadow'));
  await target.scrollIntoViewIfNeeded();await page.waitForFunction(()=>Array.from(document.getAnimations()).filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).every(a=>a.playState==='finished'));
  fs.mkdirSync(path.join(root,'output/playwright'),{recursive:true});await page.screenshot({path:path.join(root,'output/playwright/project-context.png')});

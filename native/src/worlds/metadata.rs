@@ -68,6 +68,14 @@ pub(super) struct WorldMetadata {
     pub difficulty: Option<i8>,
     pub enabled_packs: Vec<String>,
     pub disabled_packs: Vec<String>,
+    pub saved_mods: Vec<SavedMod>,
+}
+
+#[derive(Debug, Clone)]
+pub(super) struct SavedMod {
+    pub id: String,
+    pub version: Option<String>,
+    pub nbt_path: String,
 }
 
 struct NbtReader<'a> {
@@ -298,6 +306,47 @@ impl<'a> NbtReader<'a> {
         }
     }
 
+    // Only loader-owned root compounds establish this relationship. A string
+    // elsewhere in a save, world name or registry entry is not a saved mod list.
+    fn read_loader_mods(&mut self, root: &str, metadata: &mut WorldMetadata) -> Result<()> {
+        let list_name = if root == "FML" { "ModList" } else { "LoadingModList" };
+        loop {
+            let tag = self.byte()?;
+            if tag == TAG_END { return Ok(()); }
+            self.count_tag()?;
+            let name = self.string()?;
+            if name != list_name || tag != TAG_LIST {
+                self.skip_payload(tag, 1)?;
+                continue;
+            }
+            let element = self.byte()?;
+            let length = self.collection_length()?;
+            for index in 0..length {
+                self.count_tag()?;
+                if element != TAG_COMPOUND {
+                    self.skip_payload(element, 2)?;
+                    continue;
+                }
+                let mut id = None;
+                let mut version = None;
+                loop {
+                    let tag = self.byte()?;
+                    if tag == TAG_END { break; }
+                    self.count_tag()?;
+                    let name = self.string()?;
+                    match (name.as_str(), tag) {
+                        ("ModId", TAG_STRING) => id = Some(self.string()?),
+                        ("ModVersion", TAG_STRING) => version = Some(self.string()?),
+                        _ => self.skip_payload(tag, 3)?,
+                    }
+                }
+                if let Some(id) = id.filter(|id| !id.is_empty()) {
+                    metadata.saved_mods.push(SavedMod { id, version, nbt_path: format!("{root}/{list_name}/{index}") });
+                }
+            }
+        }
+    }
+
     fn read_level(mut self) -> Result<WorldMetadata> {
         if self.byte()? != TAG_COMPOUND {
             return Err(Error::other("NBT root is not a compound"));
@@ -315,6 +364,8 @@ impl<'a> NbtReader<'a> {
             if name == "Data" && tag == TAG_COMPOUND {
                 self.read_data(1, &mut metadata)?;
                 found_data = true;
+            } else if matches!(name.as_str(), "FML" | "fml") && tag == TAG_COMPOUND {
+                self.read_loader_mods(&name, &mut metadata)?;
             } else {
                 self.skip_payload(tag, 1)?;
             }
@@ -395,15 +446,14 @@ pub fn project_links(
     world_dir: &Path,
     mod_ids: &std::collections::BTreeSet<&str>,
 ) -> Option<serde_json::Value> {
-    let summary = world_from_dir(files, world_dir.to_path_buf())?;
+    let (summary, metadata, source) = inspect_world(files, world_dir.to_path_buf())?;
     let mut evidence = Vec::new();
-    let metadata = read_level_metadata(files, &world_dir.join("level.dat"))
-        .map(|m| (m, "level.dat"))
-        .or_else(|_| {
-            read_level_metadata(files, &world_dir.join("level.dat_old"))
-                .map(|m| (m, "level.dat_old"))
-        });
-    if let Ok((metadata, source)) = metadata {
+    if let Some(source) = source {
+        for saved in metadata.saved_mods {
+            if mod_ids.contains(saved.id.as_str()) {
+                evidence.push(serde_json::json!({"kind":"saved_mod","mod_id":saved.id,"saved_version":saved.version,"path":format!("{source}/{}",saved.nbt_path),"detail":"The loader recorded this mod when the world was saved. This is a historical loaded-mod record, not proof of placed blocks or safe removal."}));
+            }
+        }
         for (kind, packs) in [
             ("enabled_datapack", metadata.enabled_packs),
             ("disabled_datapack", metadata.disabled_packs),
@@ -476,6 +526,10 @@ pub fn project_links(
 }
 
 pub(super) fn world_from_dir(files: &FileManager, world_dir: PathBuf) -> Option<WorldSummary> {
+    inspect_world(files, world_dir).map(|(summary, _, _)| summary)
+}
+
+fn inspect_world(files: &FileManager, world_dir: PathBuf) -> Option<(WorldSummary, WorldMetadata, Option<&'static str>)> {
     let metadata = files.symlink_metadata(&world_dir).ok()?;
     if !metadata.is_dir() || metadata.is_symlink() {
         return None;
@@ -489,13 +543,14 @@ pub(super) fn world_from_dir(files: &FileManager, world_dir: PathBuf) -> Option<
         return None;
     }
 
-    let (metadata, status, error) = match read_level_metadata(files, &primary) {
-        Ok(metadata) => (Some(metadata), WorldStatus::Ok, None),
+    let (metadata, status, error, source) = match read_level_metadata(files, &primary) {
+        Ok(metadata) => (Some(metadata), WorldStatus::Ok, None, Some("level.dat")),
         Err(primary_error) => match read_level_metadata(files, &backup) {
             Ok(metadata) => (
                 Some(metadata),
                 WorldStatus::Recovered,
                 Some(format!("level.dat could not be read: {primary_error}")),
+                Some("level.dat_old"),
             ),
             Err(backup_error) => (
                 None,
@@ -503,18 +558,20 @@ pub(super) fn world_from_dir(files: &FileManager, world_dir: PathBuf) -> Option<
                 Some(format!(
                     "level.dat could not be read: {primary_error}; level.dat_old could not be read: {backup_error}"
                 )),
+                None,
             ),
         },
     };
     let metadata = metadata.unwrap_or_default();
-    Some(WorldSummary {
+    Some((WorldSummary {
         name: metadata
             .name
+            .clone()
             .filter(|name| !name.trim().is_empty())
             .unwrap_or_else(|| folder_name.clone()),
         folder_name,
         last_played_ms: metadata.last_played_ms,
-        version_name: metadata.version_name,
+        version_name: metadata.version_name.clone(),
         data_version: metadata.data_version,
         game_mode: game_mode(metadata.game_type),
         hardcore: metadata.hardcore,
@@ -522,7 +579,7 @@ pub(super) fn world_from_dir(files: &FileManager, world_dir: PathBuf) -> Option<
         icon_data_url: world_icon(files, &world_dir),
         status,
         error,
-    })
+    }, metadata, source))
 }
 
 pub fn list(files: &FileManager, instance_id: &str) -> Result<Vec<WorldSummary>> {

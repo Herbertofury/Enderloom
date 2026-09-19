@@ -35,12 +35,14 @@ async function seedProjectServer(service){
 }
 module.exports.seedProjectServer=seedProjectServer;
 
-function worldNbt(name,enabled=[],disabled=[]){
+function worldNbt(name,enabled=[],disabled=[],saved){
  const string=value=>{const b=Buffer.from(value);const n=Buffer.alloc(2);n.writeUInt16BE(b.length);return Buffer.concat([n,b])};
  const tag=(type,name,payload)=>Buffer.concat([Buffer.from([type]),string(name),payload]);
  const list=items=>{const length=Buffer.alloc(4);length.writeInt32BE(items.length);return Buffer.concat([Buffer.from([8]),length,...items.map(string)])};
  const data=Buffer.concat([tag(8,'LevelName',string(name)),tag(10,'DataPacks',Buffer.concat([tag(9,'Enabled',list(enabled)),tag(9,'Disabled',list(disabled)),Buffer.from([0])])),Buffer.from([0])]);
- return require('zlib').gzipSync(tag(10,'',Buffer.concat([tag(10,'Data',data),Buffer.from([0])])));
+ const extra=[];
+ if(saved){const rows=saved.mods.map(([id,version])=>Buffer.concat([tag(8,'ModId',string(id)),tag(8,'ModVersion',string(version)),Buffer.from([0])]));const count=Buffer.alloc(4);count.writeInt32BE(rows.length);extra.push(tag(10,saved.root,Buffer.concat([tag(9,saved.list,Buffer.concat([Buffer.from([10]),count,...rows])),Buffer.from([0])])));}
+ return require('zlib').gzipSync(tag(10,'',Buffer.concat([tag(10,'Data',data),...extra,Buffer.from([0])])));
 }
 function seedProjectWorlds(first,server){
  write(first.dir,'saves/Meadow/level.dat',worldNbt('Meadow',['vanilla','mod:identity_fixture'],['identity_fixture:legacy']));
@@ -51,3 +53,12 @@ function seedProjectWorlds(first,server){
  if(server)write(server.dir,'Meadow/level.dat',worldNbt('Dedicated Meadow',['mod:identity_fixture']));
 }
 module.exports.seedProjectWorlds=seedProjectWorlds;
+function seedSavedModWorlds(first,server){
+ write(first.dir,'saves/Legacy/level.dat',worldNbt('Legacy Forge world',[],[],{root:'FML',list:'ModList',mods:[['identity_fixture','1.7.0'],['identity_fixture_plus','2.0']]}));
+ write(first.dir,'saves/Modern/level.dat',worldNbt('Modern saved world',[],[],{root:'fml',list:'LoadingModList',mods:[['identity_fixture','2.0']]}));
+ write(first.dir,'saves/WrongRoot/level.dat',worldNbt('identity_fixture',[],[],{root:'Lookalike',list:'LoadingModList',mods:[['identity_fixture','2.0']]}));
+ write(first.dir,'saves/WrongList/level.dat',worldNbt('identity_fixture',[],[],{root:'fml',list:'ModList',mods:[['identity_fixture','2.0']]}));
+ write(first.dir,'saves/BackupMods/level.dat','truncated');write(first.dir,'saves/BackupMods/level.dat_old',worldNbt('Recovered mod history',[],[],{root:'fml',list:'LoadingModList',mods:[['identity_fixture','1.0']]}));
+ if(server)write(server.dir,'Meadow/level.dat',worldNbt('Dedicated Meadow',['mod:identity_fixture'],[],{root:'fml',list:'LoadingModList',mods:[['identity_fixture','1.8']]}));
+}
+module.exports.seedSavedModWorlds=seedSavedModWorlds;
