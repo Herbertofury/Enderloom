@@ -1,0 +1,28 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),os=require('os'),path=require('path');const {spawnSync}=require('child_process');
+const {LauncherService}=require('../src/launcher-service');const {seedProjectContext,seedProjectServer}=require('./project-context-fixtures');
+const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-project-context-'));
+const service=new LauncherService({rootDir:root,dataDir:path.join(temporary,'data'),env:{ENDERLOOM_CURSEFORGE_API_KEY:'qa-offline-cache-only'}});
+(async()=>{
+ const {first,second}=await seedProjectContext(service), args={provider:'modrinth',projectId:'alpha'};
+ const get=()=>service.request('get_project_context',args);let context=await get();assert.equal(context.targets.length,1);let target=context.targets[0];assert.equal(target.id,first.id);
+ assert.deepEqual(target.configs.map(c=>c.path),['config/identity_fixture-client.toml','saves/Meadow/serverconfig/identity_fixture-server.toml']);assert.equal(target.configs[1].world,'Meadow');
+ assert(target.dependencies.some(d=>d.direction==='dependency'&&d.mod_id==='helper'&&d.kind==='required'&&d.version_range==='>=2'));
+ assert(target.dependencies.some(d=>d.direction==='dependency'&&d.mod_id==='broken_mod'&&d.kind==='incompatible'));
+ assert(target.dependencies.some(d=>d.direction==='dependent'&&d.owner==='addon'&&d.kind==='required'));
+ assert(target.dependencies.some(d=>d.direction==='dependent'&&d.owner==='forge_addon'&&d.kind==='optional'&&d.side==='CLIENT'));
+ const original=fs.readFileSync(path.join(first.dir,'config/custom.json'));
+ await service.request('creative_library_action',{operation:'preferences',payload:{['config-owner:'+first.id+':config/custom.json']:'identity_fixture'}});
+ context=await get();assert(context.targets[0].configs.some(c=>c.path==='config/custom.json'&&c.owner.confidence==='manual'));assert(fs.readFileSync(path.join(first.dir,'config/custom.json')).equals(original));
+ const graph=await service.request('link_project_sources',{...args,otherProvider:'curseforge',otherProjectId:'989898',reason:'Same fixture author project',confirmed:true});
+ context=await get();assert.equal(context.targets.length,2);assert(context.targets.some(t=>t.id===second.id));
+ await service.request('unlink_project_source',{...args,linkId:graph.source_links.find(l=>l.active).id});assert.equal((await get()).targets.length,1);
+ fs.renameSync(path.join(first.dir,'mods/first.jar'),path.join(first.dir,'mods/first.jar.disabled'));assert.equal((await get()).targets[0].files[0].enabled,false);
+ fs.renameSync(path.join(first.dir,'mods/first.jar.disabled'),path.join(first.dir,'first.jar.retained'));assert.equal((await get()).targets[0].files[0].exists,false);
+ fs.renameSync(path.join(first.dir,'first.jar.retained'),path.join(first.dir,'mods/first.jar'));
+ fs.writeFileSync(path.join(first.dir,'mods/forge-addon.jar'),'invalid jar');assert((await get()).targets[0].warnings.some(w=>w.startsWith('forge-addon.jar:')));
+ const server=await seedProjectServer(service);context=await get();const serverTarget=context.targets.find(t=>t.id===server.id);assert(serverTarget);assert.equal(serverTarget.files[0].exists,true);assert.deepEqual(serverTarget.configs.map(c=>c.path),['Meadow/serverconfig/identity_fixture-server.toml','config/identity_fixture-client.toml']);assert.equal(serverTarget.configs[0].world,'Meadow');
+ await service.close();
+ const cli=spawnSync(path.join(root,'native/target/debug/enderloom.exe'),['--data-dir',service.dataDir,'operation','run','get_project_context','--json'],{input:JSON.stringify(args),encoding:'utf8',windowsHide:true,timeout:30000});assert.equal(cli.status,0,cli.stderr);const cliContext=JSON.parse(cli.stdout).result;assert.deepEqual(cliContext.targets,context.targets);
+ console.log('PASS shared native/CLI project context: provider associations, siblings, installed/disabled/missing files, world-scoped config ownership, manual corrections, Fabric/Forge dependencies, corruption warnings and no config mutation.');
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>service.close());

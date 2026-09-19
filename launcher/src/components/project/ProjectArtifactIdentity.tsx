@@ -6,7 +6,7 @@ import type { SearchProvider } from '../../lib/types';
 import { useStore } from '../../store';
 import { ProjectSourceLinks } from './ProjectSourceLinks';
 
-export function ProjectArtifactIdentity({ provider, projectId }: { provider: SearchProvider; projectId: string }) {
+export function ProjectArtifactIdentity({ provider, projectId, onSourcesChanged }: { provider: SearchProvider; projectId: string; onSourcesChanged?: () => void }) {
   const [open, setOpen] = useState(false), [graph, setGraph] = useState<ProjectArtifactGraph | null>(null);
   const [busy, setBusy] = useState(false), [error, setError] = useState('');
   const identity = JSON.stringify([provider, projectId]);
@@ -38,7 +38,7 @@ export function ProjectArtifactIdentity({ provider, projectId }: { provider: Sea
     {open && <div className="space-y-3 border-t border-border-soft p-4">
       <div className="flex items-center justify-between gap-4"><p className="text-xs text-content-muted">Verify exact installed bytes against the recorded release. Earlier fingerprints stay in history.</p><button type="button" disabled={busy} onClick={() => void verify()} className="flex shrink-0 items-center gap-2 rounded-lg bg-surface-3 px-3 py-2 text-xs font-medium text-content disabled:opacity-50">{busy ? <Loader2 className="size-3.5 animate-spin" /> : <Fingerprint className="size-3.5" />}{busy ? 'Verifying files…' : 'Verify installed files'}</button></div>
       {error && <p role="alert" className="text-xs text-red-300">{error}</p>}
-      <ProjectSourceLinks key={identity} provider={provider} projectId={projectId} graph={visible} onChange={value => { generation.current++; setBusy(false); setError(''); setGraph(value); }} />
+      <ProjectSourceLinks key={identity} provider={provider} projectId={projectId} graph={visible} onChange={value => { generation.current++; setBusy(false); setError(''); setGraph(value); onSourcesChanged?.(); }} />
       {!current.length && !busy && <p className="text-xs text-content-faint">No verified installed copies recorded yet. Verification checks this project’s known installed files.</p>}
       {!!visible?.releases?.length && <p className="text-xs text-content-faint">{visible.releases.length} recorded {visible.releases.length === 1 ? 'release' : 'releases'} · {verifiedCount} verified file {verifiedCount === 1 ? 'identity' : 'identities'}</p>}
       {visible?.observations.map(row => <div key={row.observation_id} className={`rounded-lg border border-border-soft p-3 ${row.current ? 'bg-surface-2' : 'opacity-65'}`}>

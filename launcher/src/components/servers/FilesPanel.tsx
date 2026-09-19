@@ -44,7 +44,7 @@ const ICONS: Record<FileKind, typeof FileIcon> = {
   nbt: Database,
 };
 
-export function FilesPanel({ server }: { server: Server }) {
+export function FilesPanel({ server, initialPath }: { server: Server; initialPath?: string }) {
   const [path, setPath] = useState("");
   const [entries, setEntries] = useState<ServerEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,8 +74,11 @@ export function FilesPanel({ server }: { server: Server }) {
   };
 
   useEffect(() => {
-    void load("");
-  }, [server.id]);
+    let current = true;
+    void load(initialPath?.split('/').slice(0,-1).join('/') ?? "");
+    if (initialPath) void api.readServerFile(server.id, initialPath).then(file => { if(current) setFile(file); }).catch(error => { if(current) setError(String(error)); });
+    return () => { current=false; };
+  }, [server.id, initialPath]);
 
   const openEntry = async (entry: ServerEntry) => {
     if (entry.directory) {

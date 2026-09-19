@@ -1,0 +1,48 @@
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, Braces, Boxes, Loader2, RefreshCw, Server } from 'lucide-react';
+import { api } from '../../lib/api';
+import type { ProjectContext } from '../../lib/artifacts';
+import { useStore } from '../../store';
+import { useCreative } from '../../creative-store';
+import { ContentIcon } from '../ContentIcon';
+
+export function ProjectUsage({ provider, projectId, sourceRevision = 0 }: { provider: string; projectId: string; sourceRevision?: number }) {
+  const [open, setOpen] = useState(false), [context, setContext] = useState<ProjectContext | null>(null);
+  const [loading, setLoading] = useState(false), [error, setError] = useState(''), [refresh, setRefresh] = useState(0);
+  useEffect(() => {
+    if (!open) return;
+    let current = true; setLoading(true); setError('');
+    void api.getProjectContext(provider, projectId).then(value => {
+      if (current) { if (value.provider !== provider || value.project_id !== projectId) throw new Error('Project relationships do not match the selected project.'); setContext(value); }
+    }).catch(e => { if (current) setError(String(e)); }).finally(() => { if (current) setLoading(false); });
+    return () => { current = false; };
+  }, [open, provider, projectId, refresh, sourceRevision]);
+  const targets = context?.provider === provider && context.project_id === projectId ? context.targets : [];
+  const button = 'inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-brand transition-colors hover:bg-brand/10';
+  function openConfig(target: ProjectContext['targets'][number], path: string) {
+    if (target.kind === 'server') {
+      useCreative.setState({ serverFileTarget: { serverId: target.id, path } });
+      useStore.getState().openServer(target.id);
+      return;
+    }
+    useCreative.setState({ workbenchTarget: { instanceId: target.id, path, mode: 'config' } });
+    useStore.getState().setView('config');
+  }
+  return <details className="mx-6 mb-5 rounded-xl border border-border-soft bg-surface/80" onToggle={event => setOpen(event.currentTarget.open)}>
+    <summary className="flex cursor-pointer items-center gap-2 px-4 py-3 text-sm font-medium text-content"><Boxes className="size-4 text-brand" />Used in your library<span className="ml-auto text-xs font-normal text-content-faint">Instances · settings · dependencies</span></summary>
+    {open && <div className="space-y-3 border-t border-border-soft p-4">
+      <div className="flex items-center justify-between gap-3"><p className="text-xs text-content-muted">Installed copies and settings, connected by project identity.</p><button type="button" className={button} disabled={loading} aria-label="Refresh project relationships" onClick={() => setRefresh(n=>n+1)}>{loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}Refresh</button></div>
+      {error && <p role="alert" className="text-xs text-red-300">{error}</p>}
+      {loading && !targets.length && <p role="status" className="text-xs text-content-faint">Finding installed copies and settings…</p>}
+      {!loading && !error && !targets.length && <p className="text-xs text-content-faint">No indexed copies of this project in your instances or servers.</p>}
+      {targets.map(target => <section key={`${target.kind}:${target.id}`} aria-label={`Used in ${target.name}`} className="rounded-xl border border-border-soft bg-surface-2/50 p-3">
+        <div className="flex items-center gap-3"><ContentIcon src={target.files.find(f=>f.icon_url)?.icon_url} title={target.name} className="size-10 shrink-0 rounded-lg" /><div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold text-content">{target.name}</p><p className="text-xs text-content-faint">Minecraft {target.minecraft} · {target.loader || 'Vanilla'} · {target.kind}</p></div><button type="button" className={button} onClick={() => target.kind === 'instance' ? useStore.getState().openInstance(target.id) : useStore.getState().openServer(target.id)}>{target.kind === 'server' ? <Server size={13} /> : null}Open {target.kind}<ArrowUpRight size={13} /></button></div>
+        <div className="mt-3 space-y-1">{target.files.map(file => <p key={file.file_name} className="flex flex-wrap gap-x-2 text-xs text-content-muted"><span className="font-mono">{file.file_name}</span><span className={file.exists ? 'text-content-faint' : 'text-amber-300'}>{file.exists ? file.enabled ? 'Enabled' : 'Disabled' : 'Missing from disk'} · {file.mod_version || file.version_id || 'Version unknown'}</span></p>)}</div>
+        {!!target.configs.length && <div className="mt-3 border-t border-border-soft pt-3"><p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-content-faint">Settings · {target.configs.length}</p>{target.configs.map(config => <button key={config.path} type="button" className={`flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-xs transition-colors hover:bg-brand/10 ${config.exists ? 'text-content-muted' : 'text-amber-300'}`} title={`${config.owner.reason}${config.world ? ' World server settings; this does not establish saved mod content.' : ''}`} onClick={() => openConfig(target,config.path)}><Braces size={14} className="shrink-0 text-brand" /><span className="min-w-0 flex-1 truncate">{config.path}</span>{config.world && <span className="shrink-0 text-content-faint">World settings</span>}{!config.exists && <span>Missing</span>}<ArrowUpRight size={12} /></button>)}</div>}
+        {!!target.dependencies.length && <details className="mt-3 border-t border-border-soft pt-3"><summary className="cursor-pointer text-xs text-content-muted">Dependencies & dependents · {target.dependencies.length}</summary><p className="my-2 text-[11px] text-content-faint">Declared by installed mod manifests. Version ranges and sides are shown as declared; runtime compatibility is not yet verified.</p><div className="space-y-2">{target.dependencies.map((dependency,index) => <div key={`${dependency.file_name}:${dependency.mod_id}:${index}`} className="rounded-lg bg-surface p-2.5 text-xs"><p className="font-medium text-content">{dependency.direction === 'dependency' ? `${dependency.owner} → ${dependency.mod_id}` : `${dependency.source_title || dependency.owner} → this mod`}<span className="ml-2 text-content-faint">{dependency.kind}{!dependency.source_enabled && ' · source disabled'}</span></p><p className="mt-1 text-content-faint">{Array.isArray(dependency.version_range) ? dependency.version_range.join(' or ') : dependency.version_range || 'Range not declared'} · {dependency.side}</p><p className="mt-1 break-all text-[11px] text-content-faint">{dependency.file_name} · {dependency.manifest}</p></div>)}</div></details>}
+        {target.warnings.map(warning=><p key={warning} className="mt-2 text-xs text-amber-300">{warning}</p>)}
+      </section>)}
+      {context?.warnings.map((warning,index)=><p key={index} className="text-xs text-amber-300">{warning.message}</p>)}
+    </div>}
+  </details>;
+}

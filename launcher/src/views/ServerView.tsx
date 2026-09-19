@@ -39,6 +39,7 @@ import { useUptime } from "../lib/useUptime";
 import { EmptyState } from "../components/ui";
 import type { ModpackUpgrade } from "../lib/types";
 import { useStore } from "../store";
+import { useCreative } from "../creative-store";
 
 const EMPTY_USAGE: never[] = [];
 const DISK_POLL_MS = 30000;
@@ -70,7 +71,11 @@ export function ServerView() {
   const usage = useStore((s) => (detailServerId ? s.serverUsage[detailServerId] : undefined));
   const info = detailServerId ? serverRunning[detailServerId] : undefined;
 
-  const [tab, setTab] = useState<ServerTab>("console");
+  const fileTarget = useCreative(s => s.serverFileTarget);
+  const initialFile = fileTarget?.serverId === detailServerId ? fileTarget.path : undefined;
+  useEffect(() => () => { if (useCreative.getState().serverFileTarget === fileTarget) useCreative.setState({ serverFileTarget: null }); }, []);
+  const [tab, setTab] = useState<ServerTab>(initialFile ? "files" : "console");
+  useEffect(() => { if (initialFile) setTab("files"); }, [initialFile, detailServerId]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [forcing, setForcing] = useState(false);
@@ -383,7 +388,7 @@ export function ServerView() {
         <ServerContentPanel server={server} label={contentLabel} live={live} />
       )}
       {tab === "players" && <PlayersPanel server={server} live={live} />}
-      {tab === "files" && <FilesPanel server={server} />}
+      {tab === "files" && <FilesPanel key={`${server.id}:${initialFile ?? ''}`} server={server} initialPath={initialFile} />}
       {tab === "properties" && <PropertiesPanel server={server} live={live} />}
       {tab === "settings" && <ServerSettingsPanel server={server} live={live} />}
 

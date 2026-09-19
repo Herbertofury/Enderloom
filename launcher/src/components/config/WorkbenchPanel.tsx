@@ -694,7 +694,7 @@ export function WorkbenchPanel({
             {detail.config && <div className="wb-association">
               <label htmlFor="config-owner">Belongs to</label>
               <select id="config-owner" aria-label="Config mod association" value={prefs[associationKey(detail.path)] || "auto"} onChange={e => savePreference(associationKey(detail.path), e.target.value)}>
-                <option value="auto">Automatic · {configAssociation(detail, mods).title}</option>
+                <option value="auto">Automatic · {configAssociation(detail, mods, "auto").title}</option>
                 <option value="unassigned">Shared / unassigned</option>
                 {mods.map(m => <option key={m.file_name} value={m.source?.mod_id || m.file_name}>{m.source?.title || m.source?.mod_id || m.file_name}</option>)}
                 {prefs[associationKey(detail.path)] && !["auto", "unassigned", ...mods.map(m => m.source?.mod_id || m.file_name)].includes(prefs[associationKey(detail.path)]) && <option value={prefs[associationKey(detail.path)]}>{prefs[associationKey(detail.path)]} · missing mod</option>}

@@ -20,6 +20,7 @@ export const useCreative = create<{
     path: string;
     mode: "config" | "addons";
   } | null;
+  serverFileTarget: { serverId: string; path: string } | null;
   load: () => Promise<void>;
   refresh: () => Promise<void>;
   act: (operation: string, payload: Record<string, unknown>) => Promise<void>;
@@ -33,6 +34,7 @@ export const useCreative = create<{
   scans: {},
   context: {},
   workbenchTarget: null,
+  serverFileTarget: null,
   load: async () => {
     if (get().ready) return;
     if (!loading)

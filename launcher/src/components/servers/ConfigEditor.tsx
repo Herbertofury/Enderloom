@@ -197,6 +197,7 @@ export function ConfigEditor({
         </div>
 
         <textarea
+          aria-label={`Edit ${file.path}`}
           ref={areaRef}
           value={text}
           spellCheck={false}

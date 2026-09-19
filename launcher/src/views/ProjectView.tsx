@@ -19,6 +19,7 @@ import { ProjectGallery } from "../components/project/ProjectGallery";
 import { ProjectHero } from "../components/project/ProjectHero";
 import { ProjectTrailer } from "../components/project/ProjectTrailer";
 import { ProjectArtifactIdentity } from "../components/project/ProjectArtifactIdentity";
+import { ProjectUsage } from "../components/project/ProjectUsage";
 import { ProjectSidebar } from "../components/project/ProjectSidebar";
 import { VersionBrowser } from "../components/project/VersionBrowser";
 import { useActiveProjectIds } from "../lib/useTasks";
@@ -35,6 +36,7 @@ interface PendingInstall {
 type Tab = "description" | "versions" | "gallery";
 
 export function ProjectView() {
+  const [sourceRevision, setSourceRevision] = useState(0);
   const projectRef = useStore((s) => s.projectRef);
   const storeKind = useStore((s) => s.searchKind);
   const kind: ContentKind = storeKind ?? "mods";
@@ -426,7 +428,8 @@ export function ProjectView() {
                   This project has no description.
                 </p>
               )}
-              <div className="mt-6"><ProjectArtifactIdentity key={`${projectRef.provider}:${details.id}`} provider={projectRef.provider} projectId={details.id} /></div>
+              <div className="mt-6"><ProjectArtifactIdentity key={`${projectRef.provider}:${details.id}`} provider={projectRef.provider} projectId={details.id} onSourcesChanged={() => setSourceRevision(n=>n+1)} /></div>
+              <ProjectUsage key={`usage:${projectRef.provider}:${details.id}`} provider={projectRef.provider} projectId={details.id} sourceRevision={sourceRevision} />
             </div>
             <ProjectSidebar
               details={details}

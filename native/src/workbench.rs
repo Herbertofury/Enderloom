@@ -437,20 +437,31 @@ fn mod_version(state: &AppState, id: &str, marker: &str) -> Result<Option<String
     }
     Ok(None)
 }
-fn installed_mod_versions(state: &AppState, root: &Path) -> Result<BTreeMap<String, String>> {
-    let mut versions = BTreeMap::new();
+pub(crate) fn config_paths(files: &FileManager, root: &Path, folders: &[String]) -> (Vec<String>,Vec<String>) {
+    let mut paths=Vec::new();let mut sizes=BTreeMap::new();let mut warnings=Vec::new();
+    for folder in folders { if let Err(error)=walk(files,root,folder,&mut paths,&mut sizes,&mut warnings){warnings.push(format!("{folder}: {error}"));} }
+    paths.retain(|path|editable(path));paths.sort();paths.dedup();(paths,warnings)
+}
+fn installed_mod_sources(state: &AppState, root: &Path, sources: &[crate::db::ContentFile], verify: bool) -> Result<Vec<(crate::db::ContentFile,bool)>> {
+    let mut installed = Vec::new();
     let dir = resolve(root, "mods")?;
     if state.files.exists(&dir)? {
         for path in state.files.read_dir(&dir)? {
             let name = path.file_name().unwrap_or_default().to_string_lossy();
-            if !name.ends_with(".jar") { continue; }
+            let enabled = !name.ends_with(".disabled");
+            let name_without_suffix = name.trim_end_matches(".disabled");
+            if !name_without_suffix.ends_with(".jar") { continue; }
             let Ok(safe) = target(root, &format!("mods/{name}")) else { continue; };
-            if let Some((Some(id), Some(version), _)) = crate::search::identify::cached_metadata(&state.files, &safe) {
-                versions.insert(id.to_lowercase(), version);
+            let mut source = sources.iter().find(|s|s.file_name.trim_end_matches(".disabled")==name_without_suffix).cloned().unwrap_or_else(||crate::db::ContentFile{file_name:name_without_suffix.into(),..Default::default()});
+            if verify || source.mod_id.is_none() {
+                if let Some((id, version, title)) = crate::search::identify::cached_metadata(&state.files, &safe) {
+                    source.mod_id = id.or(source.mod_id); source.mod_version = version.or(source.mod_version); source.title = source.title.or(title);
+                }
             }
+            installed.push((source,enabled));
         }
     }
-    Ok(versions)
+    Ok(installed)
 }
 fn tacz_folder(version: Option<&str>) -> Option<&'static str> {
     let v = semver::Version::parse(version?.trim_start_matches('v')).ok()?;
@@ -565,9 +576,12 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
     paths.sort();
     paths.dedup();
     let sources = state.db.content_files(id, "mods")?;
+    let installed = installed_mod_sources(state, &root, &sources, verify)?;
+    let owners = crate::config_ownership::ConfigOwners::new(&installed);
+    let preferences = crate::creative::library(state)?["preferences"].clone();
     let mut entries = vec![];
     let inventory_ms = started.elapsed().as_millis();
-    let owner_versions = if verify { installed_mod_versions(state, &root)? } else { BTreeMap::new() };
+    let owner_versions: BTreeMap<_,_> = installed.iter().filter(|(_,enabled)|*enabled).filter_map(|(s,_)|Some((s.mod_id.as_ref()?.to_lowercase(),s.mod_version.clone()?))).collect();
     let tacz = if verify { owner_versions.get("tacz").cloned() } else { sources.iter().find(|s|s.mod_id.as_deref()==Some("tacz")).and_then(|s|s.mod_version.clone()) };
     let pointblank = owner_versions.get("pointblank");
     let owners_ms = started.elapsed().as_millis() - inventory_ms;
@@ -582,6 +596,8 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
     validation.files.retain(|path, _| current_paths.contains(path));
     cache_changed |= cache_len != validation.files.len();
     for path in paths {
+        let automatic_owner = owners.associate(&path, None);
+        let owner = owners.associate(&path, preferences[format!("config-owner:{id}:{path}")].as_str());
         let mut issues: Vec<Value> = vec![];
         let inventoried_size = sizes.get(&path).copied().filter(|_| !verify);
         let resolved = match if inventoried_size.is_some() { Ok(root.join(&path)) } else { target(&root, &path) } {
@@ -626,22 +642,12 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
                 ..Record::default()
             });
         if is_config && !is_mod {
-            let stem = Path::new(&path)
-                .file_stem()
-                .unwrap_or_default()
-                .to_string_lossy()
-                .to_lowercase();
-            if record.owner_mod_id.is_empty() {
-                if let Some(owner) = sources.iter().find(|s| {
-                    s.mod_id.as_deref().is_some_and(|m| {
-                        stem == m
-                            || stem.starts_with(&format!("{m}-"))
-                            || path.starts_with(&format!("config/{m}/"))
-                    })
-                }) {
-                    record.owner_mod_id = owner.mod_id.clone().unwrap_or_default();
-                    record.owner_mod_version = owner.mod_version.clone().unwrap_or_default();
-                }
+            if owner.confidence == "manual" && owner.id == "unassigned" {
+                record.owner_mod_id.clear(); record.owner_mod_version.clear();
+            }
+            if owner.file_name.is_some() && record.owner_mod_id != owner.id {
+                record.owner_mod_id = owner.id.clone();
+                record.owner_mod_version = owner_versions.get(&owner.id.to_lowercase()).cloned().unwrap_or_default();
             }
             if !record.owner_mod_id.is_empty() {
                 if let Some(current) = owner_versions.get(&record.owner_mod_id.to_lowercase()) {
@@ -779,7 +785,7 @@ fn scan_inner_scoped(state: &AppState, id: &str, include_mods: bool, verify: boo
         }
         let addon = !is_mod && (!editable(&path) || is_tacz || is_pb || !record.recipe.is_empty());
         let modified = verify && ((!record.original_hash.is_empty() && record.original_hash != hash) || provider_modified);
-        entries.push(json!({"path":path,"title":record.title,"config":is_config,"addon":addon,"mod":is_mod,"exists":exists,"enabled":!path.ends_with(".disabled"),"editable":editable(&path),"size":size,"hash":hash,"modified":modified,"validation":if verify {"checked"} else {"pending"},"tracked":!record.original_hash.is_empty(),"issues":issues,"record":record}));
+        entries.push(json!({"path":path,"title":record.title,"config":is_config,"addon":addon,"mod":is_mod,"exists":exists,"enabled":!path.ends_with(".disabled"),"editable":editable(&path),"size":size,"hash":hash,"modified":modified,"validation":if verify {"checked"} else {"pending"},"tracked":!record.original_hash.is_empty(),"issues":issues,"record":record,"owner":owner,"automatic_owner":automatic_owner}));
     }
     if verify {
         if before != serde_json::to_vec(&library)? { save(&state.files, &root, &library)?; }

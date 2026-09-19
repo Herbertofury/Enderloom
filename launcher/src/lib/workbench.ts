@@ -30,6 +30,8 @@ export interface WorkbenchRecord {
   };
 }
 export interface WorkbenchEntry {
+  owner?: import("./config-associations").ConfigAssociation;
+  automatic_owner?: import("./config-associations").ConfigAssociation;
   validation?: "pending" | "checked";
   path: string;
   title: string;
