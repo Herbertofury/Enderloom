@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
+const net = require('net');
 const { spawn } = require('child_process');
 const { EventEmitter } = require('events');
 const { NorthpointJobBridge } = require('./northpoint-job-bridge');
@@ -833,6 +834,130 @@ class NorthpointService extends EventEmitter {
       ...cell,
       java_path: byMajor.get(Number(cell.java || 0)) || cell.java_path || null,
     }));
+  }
+
+  async reserveQaPort() {
+    return await new Promise((resolve, reject) => {
+      const server = net.createServer();
+      server.unref();
+      server.once('error', reject);
+      server.listen({ host: '127.0.0.1', port: 0 }, () => {
+        const address = server.address();
+        const port = typeof address === 'object' && address ? Number(address.port) : 0;
+        server.close((error) => {
+          if (error) reject(error);
+          else if (!port) reject(new Error('Could not reserve a QA server port'));
+          else resolve(port);
+        });
+      });
+    });
+  }
+
+  async waitForNativeServer(serverId, runningId, { timeoutMs = 180000, stabilizeMs = 3000 } = {}) {
+    if (!this.nativeEvents || !this.nativeRequest) {
+      throw new Error('Native Minecraft server verifier is unavailable');
+    }
+    const fatal = /(MixinApplyError|MixinTransformerError|ModResolutionException|ModLoadingException|LoadingFailedException|NoClassDefFoundError|VerifyError|IllegalAccessError|NoSuchMethodError|NoSuchFieldError|IncompatibleClassChangeError|Failed to start the minecraft server|Encountered an unexpected exception|Errors were found during mod loading|Could not execute entrypoint)/i;
+    const contextualClassNotFound = /(\[ERROR\]|\[FATAL\]|Exception in thread|Caused by:).*ClassNotFoundException/i;
+    const ready = /Done \([^)]+\)!?(?: For help, type ["']?help["']?)?/i;
+    const lines = [];
+    return await new Promise((resolve, reject) => {
+      let settled = false;
+      let readyMarker = null;
+      let timeoutTimer = null;
+      let stabilizeTimer = null;
+      const finish = (error, value) => {
+        if (settled) return;
+        settled = true;
+        if (timeoutTimer) clearTimeout(timeoutTimer);
+        if (stabilizeTimer) clearTimeout(stabilizeTimer);
+        this.nativeEvents.off('event', onEvent);
+        if (error) reject(error);
+        else resolve(value);
+      };
+      const inspect = (line) => {
+        const text = String(line || '');
+        if (!text) return;
+        lines.push(text);
+        if (lines.length > 500) lines.splice(0, lines.length - 500);
+        if (fatal.test(text) || contextualClassNotFound.test(text)) {
+          finish(new Error(`Native Minecraft server failed: ${text.slice(-800)}`));
+          return;
+        }
+        if (!readyMarker && ready.test(text)) {
+          readyMarker = text.slice(-800);
+          stabilizeTimer = setTimeout(() => {
+            finish(null, { ready_marker: readyMarker, logs_tail: lines.slice(-200) });
+          }, Math.max(500, Number(stabilizeMs) || 3000));
+          stabilizeTimer.unref?.();
+        }
+      };
+      const onEvent = (message) => {
+        const event = String(message?.event || '');
+        const payload = message?.payload || {};
+        if (String(payload.server_id || '') !== String(serverId)) return;
+        if (event === 'server:log') {
+          for (const line of Array.isArray(payload.lines) ? payload.lines : []) inspect(line);
+          return;
+        }
+        if (
+          event === 'server:state' &&
+          String(payload.running_id || '') === String(runningId) &&
+          !['running', 'stopping'].includes(String(payload.state || ''))
+        ) {
+          finish(new Error(`Minecraft server exited before runtime proof: ${payload.state || 'unknown'} (${payload.exit_code ?? '?'})`));
+        }
+      };
+      this.nativeEvents.on('event', onEvent);
+      timeoutTimer = setTimeout(() => {
+        finish(new Error(`Native Minecraft server readiness timed out after ${Math.round(timeoutMs / 1000)}s`));
+      }, Math.max(10000, Number(timeoutMs) || 180000));
+      timeoutTimer.unref?.();
+      Promise.resolve(
+        this.nativeRequest('get_server_console', { serverId }, { timeoutMs: 15000 }),
+      ).then((existing) => {
+        for (const row of Array.isArray(existing) ? existing : []) inspect(row?.line);
+      }).catch(() => {});
+    });
+  }
+
+  async stopNativeQaServer(serverId, runningId) {
+    if (!serverId || !this.nativeRequest) return false;
+    let exited = false;
+    let listener = null;
+    const wait = this.nativeEvents ? new Promise((resolve) => {
+      let timer = null;
+      const finish = () => {
+        if (timer) clearTimeout(timer);
+        resolve();
+      };
+      listener = (message) => {
+        if (message?.event !== 'server:state') return;
+        if (String(message?.payload?.server_id || '') !== String(serverId)) return;
+        if (runningId && String(message?.payload?.running_id || '') !== String(runningId)) return;
+        if (['running', 'stopping'].includes(String(message?.payload?.state || ''))) return;
+        exited = true;
+        finish();
+      };
+      this.nativeEvents.on('event', listener);
+      timer = setTimeout(finish, 15000);
+      timer.unref?.();
+    }) : Promise.resolve();
+    try {
+      await this.nativeRequest('stop_server', { serverId }, { timeoutMs: 30000 });
+    } catch {
+      try {
+        await this.nativeRequest('force_stop_server', { serverId }, { timeoutMs: 15000 });
+      } catch {}
+    }
+    await wait;
+    if (listener) this.nativeEvents.off('event', listener);
+    if (!exited) {
+      try {
+        await this.nativeRequest('force_stop_server', { serverId }, { timeoutMs: 15000 });
+      } catch {}
+    }
+    return exited;
   }
 
   async waitForNativeClient(runningId, { timeoutMs = 120000, stabilizeMs = 8000 } = {}) {
