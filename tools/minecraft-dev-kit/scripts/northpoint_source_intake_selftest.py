@@ -39,6 +39,10 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     assert got['loader']=='forge' and got['mod_id']=='forgeproof', got
     assert got['minecraft']=='1.20.1' and got['java']==17, got
     assert got['runtime_scope']=='unknown', got
+    write(forge,'northpoint.project.json',json.dumps({'schema_version':1,'runtime':{'required':True,'scope':'both'}}))
+    got=run(forge)
+    assert got['runtime_scope']=='both', got
+    assert got['proposed_config']['runtime']['scope']=='both', got
 
     client=pathlib.Path(td)/'clientmod'; client.mkdir()
     write(client,'gradle.properties','minecraft_version=1.21.1\n')
