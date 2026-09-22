@@ -37,6 +37,7 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+          cache: gradle
 
       - uses: dtolnay/rust-toolchain@stable
 
@@ -93,4 +94,35 @@ jobs:
           --minecraft 1.21
           --loader fabric
           --java 21
+          --timeout 600
+
+      - name: Switch to Java 25 for Minecraft 26.3 public graduation
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: gradle
+
+      - name: Fetch official Fabric 26.3 example mod
+        run: git clone --depth 1 --branch 26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod-26.3"
+
+      - name: Official Fabric 26.3 production smoke
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/fabric-example-mod-26.3"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --timeout 600
+
+      - name: Fetch official NeoForge 26.3 MDK mod
+        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-26.3-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-26.3"
+
+      - name: Official NeoForge 26.3 production smoke
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/neoforge-mdk-26.3"
+          --minecraft 26.3
+          --loader neoforge
+          --java 25
           --timeout 600
