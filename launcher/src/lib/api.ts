@@ -89,6 +89,7 @@ import type {
 } from "./types";
 import type {
   ConversionCapabilities,
+  ConversionJobResult,
   ConversionPlan,
   ConversionPlanRequest,
   ConversionSelfTestResult,
@@ -133,6 +134,16 @@ export const api = {
     call<ConversionSession>("conversion_get_session", { sessionId }),
   listConversionSessions: () =>
     call<ConversionSession[]>("conversion_list_sessions"),
+  executeConversionSession: (
+    sessionId: string,
+    maxWorkers = 0,
+    timeout = 180,
+  ) =>
+    call<ConversionJobResult>("conversion_execute_job", {
+      sessionId,
+      maxWorkers,
+      timeout,
+    }),
   runConversionSelfTest: () =>
     call<ConversionSelfTestResult>("conversion_self_test"),
   getSettings: () => call<LauncherSettings>("get_settings"),
