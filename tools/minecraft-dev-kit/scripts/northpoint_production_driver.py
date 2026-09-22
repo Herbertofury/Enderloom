@@ -15,6 +15,7 @@ import zipfile
 from typing import Any
 
 from northpoint_compose import compose
+from northpoint_source_intake import infer_config
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
@@ -90,7 +91,7 @@ def load_config(project: pathlib.Path, cell: dict[str, Any]) -> tuple[dict[str, 
     # The canonical config is composed too, so loader/version/cell overlays can
     # replace build/runtime rules without branching the entire project.
     base = project / CONFIG_NAME
-    root_cfg = read_json(base) if base.exists() else {}
+    root_cfg = read_json(base) if base.exists() else infer_config(project, cell)
     per_cell = root_cfg.get('cells') or {}
     merged = dict(root_cfg)
     merged.pop('cells', None)
@@ -472,6 +473,16 @@ def main() -> int:
 
     state, runtime_evidence, runtime_reason = runtime_gate(composed, jar, work, cfg, cell, args.timeout)
     evidence.extend(runtime_evidence)
+    if state == 'runtime-unverified':
+        final = out / jar.name
+        shutil.copy2(jar, final)
+        print(json.dumps({
+            'state': state,
+            'reason': runtime_reason,
+            'artifact': final.name,
+            'evidence': evidence + ['candidate-artifact-preserved'],
+        }))
+        return 0
     if state != 'passed':
         print(json.dumps({'state': state, 'reason': runtime_reason, 'evidence': evidence}))
         return 0
