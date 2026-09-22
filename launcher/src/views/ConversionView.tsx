@@ -119,6 +119,7 @@ export function ConversionView() {
   const [lastJob, setLastJob] = useState<ConversionJobResult | null>(null);
   const [health, setHealth] = useState<string | null>(null);
   const [toolchainStatus, setToolchainStatus] = useState<string | null>(null);
+  const [runtimeStatus, setRuntimeStatus] = useState<{ state: string; text: string } | null>(null);
   const [busy, setBusy] = useState<"boot" | "inspect" | "plan" | "run" | "health" | "refresh" | null>("boot");
   const [error, setError] = useState<string | null>(null);
 
@@ -186,6 +187,41 @@ export function ConversionView() {
             : `Provisioning JDK ${event.java}…`,
         );
       })
+      .then((dispose) => {
+        if (live) unlisten = dispose;
+        else dispose();
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+      unlisten?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    let live = true;
+    let unlisten: (() => void) | null = null;
+    window.enderloomLauncher
+      .listen<{ cell_id: string; state: string; minecraft?: string; loader?: string; error?: string }>(
+        "conversion:runtime",
+        (event) => {
+          if (!live) return;
+          const target = event.minecraft && event.loader
+            ? `${event.minecraft} · ${event.loader}`
+            : event.cell_id;
+          const text =
+            event.state === "installing"
+              ? `Preparing native QA · ${target}`
+              : event.state === "launching"
+                ? `Launching Minecraft QA · ${target}`
+                : event.state === "passed"
+                  ? `Native runtime verified · ${target}`
+                  : event.state === "failed"
+                    ? `Native runtime failed · ${target}: ${event.error || "see evidence"}`
+                    : `Native runtime · ${target} · ${event.state}`;
+          setRuntimeStatus({ state: event.state, text });
+        },
+      )
       .then((dispose) => {
         if (live) unlisten = dispose;
         else dispose();
@@ -670,6 +706,27 @@ export function ConversionView() {
                     <CheckCircle2 className="size-3.5 text-ok" />
                   )}
                   {toolchainStatus}
+                </div>
+              )}
+              {runtimeStatus && (
+                <div
+                  className={cn(
+                    "mt-3 flex items-start gap-2 rounded-xl border px-3 py-2 text-xs",
+                    runtimeStatus.state === "failed"
+                      ? "border-danger/30 bg-danger/10 text-danger"
+                      : runtimeStatus.state === "passed"
+                        ? "border-ok/30 bg-ok/10 text-ok"
+                        : "border-(--accent)/30 bg-(--accent-glow)/15 text-content",
+                  )}
+                >
+                  {runtimeStatus.state === "passed" ? (
+                    <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-ok" />
+                  ) : runtimeStatus.state === "failed" ? (
+                    <AlertTriangle className="mt-0.5 size-3.5 shrink-0" />
+                  ) : (
+                    <Loader2 className="mt-0.5 size-3.5 shrink-0 animate-spin text-(--accent)" />
+                  )}
+                  <span>{runtimeStatus.text}</span>
                 </div>
               )}
               {health && (
