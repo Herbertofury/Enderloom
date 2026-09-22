@@ -1173,6 +1173,192 @@ class NorthpointService extends EventEmitter {
     }
   }
 
+  async verifyNativeServer({ session, cell, row, result }) {
+    if (!this.nativeRequest || !this.nativeEvents) {
+      throw new Error('Native Minecraft server verifier is unavailable');
+    }
+    if (!['fabric', 'forge', 'neoforge'].includes(String(cell.loader))) {
+      throw new Error(`Dedicated-server QA is not available for loader ${cell.loader}`);
+    }
+    const loaderVersion = String(cell?.profile?.loader_version || '').trim();
+    if (!loaderVersion) {
+      throw new Error(`Loader version is unresolved for ${cell.minecraft} ${cell.loader}`);
+    }
+    const { artifactFile, artifactSha, candidate } = this.runtimeCandidate(row, result);
+    const evidenceDir = path.join(this.dataDir, 'jobs', session.id, 'runtime');
+    fs.mkdirSync(evidenceDir, { recursive: true });
+    const qaName = `Enderloom QA Server ${String(cell.minecraft)} ${String(cell.loader)} ${session.id.slice(0, 8)}`;
+    const startedAt = new Date().toISOString();
+    let server = null;
+    let runningId = null;
+    try {
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: {
+          cell_id: cell.id,
+          state: 'server-installing',
+          minecraft: cell.minecraft,
+          loader: cell.loader,
+        },
+      });
+      server = await this.nativeRequest('create_server', {
+        name: qaName,
+        flavor: String(cell.loader),
+        versionId: String(cell.minecraft),
+        flavorVersion: loaderVersion,
+        acceptEula: true,
+      }, { timeoutMs: 30000 });
+      if (!server?.id) throw new Error('Native QA server creation returned no server id');
+
+      await this.nativeRequest(
+        'install_server',
+        { serverId: server.id },
+        { timeoutMs: 15 * 60 * 1000 },
+      );
+      const port = await this.reserveQaPort();
+      await this.nativeRequest('set_server_properties', {
+        serverId: server.id,
+        changes: [
+          { key: 'server-ip', value: '127.0.0.1' },
+          { key: 'server-port', value: String(port) },
+          { key: 'online-mode', value: 'false' },
+          { key: 'enable-query', value: 'false' },
+          { key: 'enable-rcon', value: 'false' },
+          { key: 'max-players', value: '1' },
+          { key: 'view-distance', value: '2' },
+          { key: 'simulation-distance', value: '2' },
+          { key: 'motd', value: 'Enderloom Northpoint QA' },
+        ],
+        removed: [],
+      }, { timeoutMs: 30000 });
+      await this.nativeRequest('add_server_content', {
+        serverId: server.id,
+        sources: [candidate],
+      }, { timeoutMs: 60000 });
+
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: {
+          cell_id: cell.id,
+          state: 'server-launching',
+          server_id: server.id,
+          minecraft: cell.minecraft,
+          loader: cell.loader,
+        },
+      });
+      const running = await this.nativeRequest(
+        'start_server',
+        { serverId: server.id },
+        { timeoutMs: 120000 },
+      );
+      runningId = String(running?.running_id || '');
+      if (!runningId) throw new Error('Native QA server launch returned no running id');
+
+      const proof = await this.waitForNativeServer(server.id, runningId, {
+        timeoutMs: Math.max(
+          10000,
+          Number(this.env.ENDERLOOM_NORTHPOINT_SERVER_TIMEOUT_MS) || 180000,
+        ),
+        stabilizeMs: Math.max(
+          500,
+          Number(this.env.ENDERLOOM_NORTHPOINT_SERVER_STABILIZE_MS) || 3000,
+        ),
+      });
+      const receipt = {
+        schema_version: 1,
+        cell_id: cell.id,
+        minecraft: String(cell.minecraft),
+        loader: String(cell.loader),
+        loader_version: loaderVersion,
+        artifact_sha256: artifactSha,
+        artifact_file: artifactFile,
+        server_id: server.id,
+        running_id: runningId,
+        port,
+        started_at: startedAt,
+        verified_at: new Date().toISOString(),
+        gate: 'native-dedicated-server-load',
+        ready_marker: proof.ready_marker,
+        logs_tail: proof.logs_tail,
+      };
+      const receiptPath = path.join(evidenceDir, `${cell.id}.server.json`);
+      atomicJson(receiptPath, receipt);
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: {
+          cell_id: cell.id,
+          state: 'server-passed',
+          artifact_sha256: artifactSha,
+          minecraft: cell.minecraft,
+          loader: cell.loader,
+        },
+      });
+      return { ...receipt, evidence_path: receiptPath };
+    } finally {
+      if (server?.id && runningId) await this.stopNativeQaServer(server.id, runningId);
+      if (server?.id) {
+        try {
+          await this.nativeRequest(
+            'delete_server',
+            { serverId: server.id, deleteFiles: true },
+            { timeoutMs: 60000 },
+          );
+        } catch {}
+      }
+    }
+  }
+
+  async verifyRuntimeCandidate({ session, cell, row, result, bridge, runtimeScope = 'unknown' }) {
+    const scope = ['client', 'server', 'both'].includes(String(runtimeScope))
+      ? String(runtimeScope)
+      : 'unknown';
+    const receipts = [];
+    const evidence = [`runtime-scope:${scope}`];
+
+    if (scope === 'server' || scope === 'both') {
+      const serverReceipt = await this.verifyNativeServer({ session, cell, row, result });
+      receipts.push(serverReceipt);
+      evidence.push(
+        `native-dedicated-server-load:${cell.minecraft}:${cell.loader}`,
+        `runtime-receipt:${path.basename(serverReceipt.evidence_path)}`,
+      );
+    }
+
+    if (scope !== 'server') {
+      const clientReceipt = await this.verifyNativeClient({ session, cell, row, result });
+      receipts.push(clientReceipt);
+      evidence.push(
+        `native-client-load:${cell.minecraft}:${cell.loader}`,
+        `runtime-receipt:${path.basename(clientReceipt.evidence_path)}`,
+      );
+      if (scope === 'unknown') evidence.push('server-scope:not-asserted');
+    }
+
+    if (!receipts.length) throw new Error('No applicable native runtime lane was selected');
+    const { artifactSha } = this.runtimeCandidate(row, result);
+    const verifiedAt = receipts.map((receipt) => String(receipt.verified_at || '')).sort().at(-1)
+      || new Date().toISOString();
+    bridge.recordRuntimeProof({
+      sessionId: session.id,
+      cellId: cell.id,
+      artifactSha256: artifactSha,
+      evidence,
+      verifiedAt,
+    });
+    this.emit('event', {
+      event: 'conversion:runtime',
+      payload: {
+        cell_id: cell.id,
+        state: 'passed',
+        artifact_sha256: artifactSha,
+        minecraft: cell.minecraft,
+        loader: cell.loader,
+        runtime_scope: scope,
+      },
+    });
+    return { runtime_scope: scope, receipts, verified_at: verifiedAt };
+  }
+
   async executeJob(input = {}) {
     const sessionId = String(input.sessionId || input.session_id || '');
     const session = this.readSession(sessionId);
