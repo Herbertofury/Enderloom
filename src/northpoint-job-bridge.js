@@ -83,6 +83,61 @@ class NorthpointJobBridge {
     };
   }
 
+  validateSessionId(sessionId) {
+    const value = String(sessionId || '');
+    if (!/^[A-Za-z0-9._-]{8,96}$/.test(value)) throw new Error('Invalid conversion session id');
+    return value;
+  }
+
+  jobPaths(sessionId) {
+    const id = this.validateSessionId(sessionId);
+    const jobRoot = path.join(this.dataDir, 'jobs', id);
+    const stateDir = path.join(jobRoot, 'state');
+    return {
+      id,
+      jobRoot,
+      stateDir,
+      releaseDir: path.join(stateDir, 'release'),
+      runtimeProofs: path.join(jobRoot, 'runtime-proofs.json'),
+    };
+  }
+
+  recordRuntimeProof({ sessionId, cellId, artifactSha256, evidence = [], verifiedAt = new Date().toISOString() } = {}) {
+    const paths = this.jobPaths(sessionId);
+    const cid = String(cellId || '');
+    if (!/^[A-Za-z0-9._-]{4,160}$/.test(cid)) throw new Error('Invalid conversion cell id');
+    const sha = String(artifactSha256 || '').toLowerCase();
+    if (!/^[a-f0-9]{64}$/.test(sha)) throw new Error('Runtime proof needs an exact SHA-256');
+    const matrixPath = path.join(paths.releaseDir, 'release-matrix.json');
+    if (!fs.existsSync(matrixPath)) throw new Error('Conversion release matrix is unavailable');
+    const matrix = JSON.parse(fs.readFileSync(matrixPath, 'utf8'));
+    const row = Array.isArray(matrix?.cells) ? matrix.cells.find((entry) => String(entry?.cell_id) === cid) : null;
+    if (!row) throw new Error(`Conversion cell is not in the release matrix: ${cid}`);
+    if (String(row.state) !== 'runtime-unverified') {
+      throw new Error(`Runtime proof can only promote a runtime-unverified cell; ${cid} is ${row.state}`);
+    }
+    const expected = String(row?.artifact?.sha256 || '').toLowerCase();
+    if (!expected || expected !== sha) throw new Error('Runtime proof artifact SHA-256 does not match the candidate artifact');
+
+    let current = { schema_version: 1, proofs: [] };
+    if (fs.existsSync(paths.runtimeProofs)) {
+      const parsed = JSON.parse(fs.readFileSync(paths.runtimeProofs, 'utf8'));
+      if (parsed?.schema_version === 1 && Array.isArray(parsed?.proofs)) current = parsed;
+    }
+    const proof = {
+      cell_id: cid,
+      artifact_sha256: sha,
+      passed: true,
+      verified_at: String(verifiedAt || new Date().toISOString()),
+      evidence: Array.isArray(evidence) ? evidence : [],
+    };
+    current.proofs = current.proofs.filter((entry) => String(entry?.cell_id) !== cid);
+    current.proofs.push(proof);
+    current.proofs.sort((a, b) => String(a.cell_id).localeCompare(String(b.cell_id)));
+    atomicJson(paths.runtimeProofs, current);
+    return { proof, path: paths.runtimeProofs };
+  }
+
   script(name) {
     if (!this.toolkitRoot) throw new Error('Northpoint toolkit is unavailable');
     if (!/^[A-Za-z0-9_.-]+\.py$/.test(String(name || ''))) throw new Error('Invalid Northpoint script name');
@@ -93,7 +148,7 @@ class NorthpointJobBridge {
   }
 
   async runSession({ sessionId, sourceRoot, primaryCell, cells, config = {}, driverProfile = 'production', allowQaDriver = false, maxWorkers = 0, timeout = 180 } = {}) {
-    if (!/^[A-Za-z0-9._-]{8,96}$/.test(String(sessionId || ''))) throw new Error('Invalid conversion session id');
+    const validatedSessionId = this.validateSessionId(sessionId);
     const project = safeRealpath(path.resolve(String(sourceRoot || '')));
     if (!project || !fs.statSync(project).isDirectory()) throw new Error('Conversion source root is unavailable');
     if (!Array.isArray(cells) || !cells.length) throw new Error('Conversion job has no selected cells');
@@ -105,8 +160,9 @@ class NorthpointJobBridge {
     }));
     if (!normalized.some((cell) => cell.primary)) throw new Error('Primary conversion cell is not selected');
 
-    const jobRoot = path.join(this.dataDir, 'jobs', String(sessionId));
-    const stateDir = path.join(jobRoot, 'state');
+    const paths = this.jobPaths(validatedSessionId);
+    const jobRoot = paths.jobRoot;
+    const stateDir = paths.stateDir;
     fs.mkdirSync(jobRoot, { recursive: true });
     const manifestPath = path.join(jobRoot, 'manifest.json');
     atomicJson(manifestPath, {
@@ -114,7 +170,7 @@ class NorthpointJobBridge {
       project_root: project,
       primary_cell: String(primaryCell),
       cells: normalized,
-      config: { ...config, zero_loss: true, session_id: String(sessionId) },
+      config: { ...config, zero_loss: true, session_id: validatedSessionId },
     });
 
     const profile = String(driverProfile || 'production');
@@ -130,6 +186,7 @@ class NorthpointJobBridge {
     const driver = this.script(DRIVER_PROFILES[profile]);
     const args = [runner, '--manifest', manifestPath, '--driver', driver, '--state-dir', stateDir,
       '--max-workers', String(Math.max(0, Number(maxWorkers) || 0)), '--timeout', String(Math.max(10, Number(timeout) || 180))];
+    if (fs.existsSync(paths.runtimeProofs)) args.push('--runtime-proofs', paths.runtimeProofs);
     const result = await new Promise((resolve, reject) => {
       const child = spawn(python.bin, [...python.args, ...args], {
         cwd: this.toolkitRoot, windowsHide: true, env: process.env, stdio: ['ignore', 'pipe', 'pipe'],
