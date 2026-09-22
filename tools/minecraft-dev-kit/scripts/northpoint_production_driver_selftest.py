@@ -8,6 +8,9 @@ import sys
 import tempfile
 import zipfile
 
+from northpoint_production_driver import materialize_legacy_target
+from northpoint_target_26_3 import ConversionBlock
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RUNNER = ROOT / 'scripts' / 'northpoint_job_runner.py'
 DRIVER = ROOT / 'scripts' / 'northpoint_production_driver.py'
@@ -110,6 +113,24 @@ def main() -> int:
         root = pathlib.Path(td)
         project, state = root / 'project', root / 'state'
         fixture(project)
+
+        # An inferred 26.3 request must never build an ambiguous legacy source unchanged.
+        ambiguous = root / 'ambiguous-source'
+        write(ambiguous / 'build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT' }\n")
+        write(ambiguous / 'src/main/resources/fabric.mod.json', json.dumps({
+            'schemaVersion': 1, 'id': 'ambiguous', 'version': '1.0.0', 'name': 'Ambiguous',
+            'depends': {'fabricloader': '>=0.19.5'},
+        }, indent=2) + '\n')
+        try:
+            materialize_legacy_target(
+                ambiguous,
+                {'id': 'mc-26.3-fabric', 'minecraft': '26.3', 'loader': 'fabric', 'java': 25},
+                root / 'ambiguous-work',
+            )
+            raise AssertionError('ambiguous source version incorrectly received an unchanged 26.3 pass')
+        except ConversionBlock as exc:
+            assert 'source Minecraft version could not be determined exactly' in str(exc), exc
+
         manifest_file = root / 'manifest.json'
         manifest_file.write_text(json.dumps(manifest(project), indent=2) + '\n', encoding='utf-8')
         cmd = [sys.executable, str(RUNNER), '--manifest', str(manifest_file), '--driver', str(DRIVER), '--state-dir', str(state), '--max-workers', '2', '--timeout', '90']
