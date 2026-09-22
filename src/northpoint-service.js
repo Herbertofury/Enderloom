@@ -835,6 +835,101 @@ class NorthpointService extends EventEmitter {
     }));
   }
 
+  async waitForNativeClient(runningId, { timeoutMs = 120000, stabilizeMs = 8000 } = {}) {
+    if (!this.nativeEvents || !this.nativeRequest) {
+      throw new Error('Native Minecraft runtime verifier is unavailable');
+    }
+    const fatal = /(MixinApplyError|MixinTransformerError|ModResolutionException|NoClassDefFoundError|ClassNotFoundException|VerifyError|IllegalAccessError|NoSuchMethodError|NoSuchFieldError|IncompatibleClassChangeError|Could not execute entrypoint|Failed to start Minecraft|A mod crashed on startup)/i;
+    const ready = /(Backend library:\s*LWJGL|LWJGL Version:|OpenAL initialized|Reloading ResourceManager|Created:\s*\d+x\d+x\d+.*atlas)/i;
+    const lines = [];
+    return await new Promise((resolve, reject) => {
+      let settled = false;
+      let readyMarker = null;
+      let timeoutTimer = null;
+      let stabilizeTimer = null;
+      const finish = (error, value) => {
+        if (settled) return;
+        settled = true;
+        if (timeoutTimer) clearTimeout(timeoutTimer);
+        if (stabilizeTimer) clearTimeout(stabilizeTimer);
+        this.nativeEvents.off('event', onEvent);
+        if (error) reject(error);
+        else resolve(value);
+      };
+      const inspect = (line) => {
+        const text = String(line || '');
+        if (!text) return;
+        lines.push(text);
+        if (lines.length > 500) lines.splice(0, lines.length - 500);
+        if (fatal.test(text)) {
+          finish(new Error(`Native Minecraft startup failed: ${text.slice(-800)}`));
+          return;
+        }
+        if (!readyMarker && ready.test(text)) {
+          readyMarker = text.slice(-800);
+          stabilizeTimer = setTimeout(() => {
+            finish(null, { ready_marker: readyMarker, logs_tail: lines.slice(-200) });
+          }, Math.max(1000, Number(stabilizeMs) || 8000));
+          stabilizeTimer.unref?.();
+        }
+      };
+      const onEvent = (message) => {
+        const event = String(message?.event || '');
+        const payload = message?.payload || {};
+        if (String(payload.running_id || '') !== String(runningId)) return;
+        if (event === 'process:log') {
+          for (const line of Array.isArray(payload.lines) ? payload.lines : []) inspect(line);
+          return;
+        }
+        if (event === 'process:state' && payload.state !== 'running') {
+          finish(new Error(`Minecraft exited before runtime proof: ${payload.state || 'unknown'} (${payload.exit_code ?? '?'})`));
+        }
+      };
+      this.nativeEvents.on('event', onEvent);
+      timeoutTimer = setTimeout(() => {
+        finish(new Error(`Native Minecraft readiness timed out after ${Math.round(timeoutMs / 1000)}s`));
+      }, Math.max(10000, Number(timeoutMs) || 120000));
+      timeoutTimer.unref?.();
+      Promise.resolve(
+        this.nativeRequest('get_logs', { runningId }, { timeoutMs: 15000 }),
+      ).then((existing) => {
+        for (const row of Array.isArray(existing) ? existing : []) inspect(row?.line);
+      }).catch(() => {});
+    });
+  }
+
+  async stopNativeQaRun(runningId) {
+    if (!runningId || !this.nativeRequest) return false;
+    let exited = false;
+    let listener = null;
+    const wait = this.nativeEvents ? new Promise((resolve) => {
+      let timer = null;
+      const finish = () => {
+        if (timer) clearTimeout(timer);
+        resolve();
+      };
+      listener = (message) => {
+        if (message?.event !== 'process:state') return;
+        if (String(message?.payload?.running_id || '') !== String(runningId)) return;
+        if (message?.payload?.state === 'running') return;
+        exited = true;
+        finish();
+      };
+      this.nativeEvents.on('event', listener);
+      timer = setTimeout(finish, 12000);
+      timer.unref?.();
+    }) : Promise.resolve();
+    try {
+      await this.nativeRequest('kill_instance', { runningId }, { timeoutMs: 15000 });
+    } catch {}
+    await wait;
+    if (listener) this.nativeEvents.off('event', listener);
+    try {
+      await this.nativeRequest('close_running', { runningId }, { timeoutMs: 15000 });
+    } catch {}
+    return exited;
+  }
+
   async executeJob(input = {}) {
     const sessionId = String(input.sessionId || input.session_id || '');
     const session = this.readSession(sessionId);
