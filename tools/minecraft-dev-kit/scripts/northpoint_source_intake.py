@@ -230,7 +230,7 @@ def infer_config(project: pathlib.Path, cell: dict[str, Any] | None = None) -> d
         '_inferred': True,
         'build': {'mode': mode if mode != 'unknown' else 'auto'},
         'parity': {'source_authority': '.'},
-        'runtime': {'required': False},
+        'runtime': {'required': True},
     }
     if mod_id: cfg['mod_id'] = mod_id
     if mode == 'javac':
