@@ -89,6 +89,14 @@ fn java_binary_name() -> &'static str {
     }
 }
 
+fn javac_binary_name() -> &'static str {
+    if cfg!(windows) {
+        "javac.exe"
+    } else {
+        "javac"
+    }
+}
+
 fn java_binary_in(files: &FileManager, root: &Path) -> Option<PathBuf> {
     ["bin", "Contents/Home/bin", "jre/bin"]
         .into_iter()
@@ -96,12 +104,24 @@ fn java_binary_in(files: &FileManager, root: &Path) -> Option<PathBuf> {
         .find(|path| files.is_file(path).unwrap_or(false))
 }
 
+fn javac_binary_in(files: &FileManager, root: &Path) -> Option<PathBuf> {
+    ["bin", "Contents/Home/bin"]
+        .into_iter()
+        .map(|relative| root.join(relative).join(javac_binary_name()))
+        .find(|path| files.is_file(path).unwrap_or(false))
+}
+
 async fn installed_runtime(
     files: &FileManager,
     major: u32,
     platform: Platform,
+    require_jdk: bool,
 ) -> Option<JavaInfo> {
-    let binary = java_binary_in(files, &runtime_dir(files, major, platform))?;
+    let root = runtime_dir(files, major, platform);
+    let binary = java_binary_in(files, &root)?;
+    if require_jdk && javac_binary_in(files, &root).is_none() {
+        return None;
+    }
     let info = probe(&binary.display().to_string()).await?;
     (info.major == major).then_some(info)
 }
@@ -136,7 +156,18 @@ async fn resolve_package(
     network: &NetworkManager,
     major: u32,
     platform: Platform,
+    require_jdk: bool,
 ) -> Result<Package> {
+    if require_jdk {
+        return fetch_package(network, major, platform, "jdk")
+            .await?
+            .ok_or_else(|| {
+                Error::other(format!(
+                    "Eclipse Temurin does not provide JDK {major} for {}/{}.",
+                    platform.os, platform.arch
+                ))
+            });
+    }
     if let Some(package) = fetch_package(network, major, platform, "jre").await? {
         return Ok(package);
     }
@@ -272,14 +303,33 @@ pub async fn install(
     major: u32,
     task: &TaskHandle,
 ) -> Result<JavaInfo> {
+    install_kind(network, files, major, task, false).await
+}
+
+pub async fn install_jdk(
+    network: &NetworkManager,
+    files: &FileManager,
+    major: u32,
+    task: &TaskHandle,
+) -> Result<JavaInfo> {
+    install_kind(network, files, major, task, true).await
+}
+
+async fn install_kind(
+    network: &NetworkManager,
+    files: &FileManager,
+    major: u32,
+    task: &TaskHandle,
+    require_jdk: bool,
+) -> Result<JavaInfo> {
     let _guard = INSTALL_LOCK.get_or_init(|| Mutex::new(())).lock().await;
     let platform = current_platform()?;
-    if let Some(info) = installed_runtime(files, major, platform).await {
+    if let Some(info) = installed_runtime(files, major, platform, require_jdk).await {
         return Ok(info);
     }
 
     task.stage("java-metadata");
-    let package = resolve_package(network, major, platform).await?;
+    let package = resolve_package(network, major, platform, require_jdk).await?;
     let extension = archive_extension(&package.name)?;
     let archive = files.paths().cache().join("runtimes").join(format!(
         "temurin-{major}-{}-{}.{extension}",
@@ -332,13 +382,17 @@ pub async fn install(
     .await
     .map_err(|error| Error::other(format!("managed Java extraction task failed: {error}")))??;
 
-    let info = installed_runtime(files, major, platform)
+    let info = installed_runtime(files, major, platform, require_jdk)
         .await
-        .ok_or_else(|| Error::other("downloaded Java runtime could not be started"))?;
+        .ok_or_else(|| Error::other(if require_jdk {
+            "downloaded JDK could not be started or has no javac"
+        } else {
+            "downloaded Java runtime could not be started"
+        }))?;
     if let Err(error) = files.remove_file_if_exists(&archive) {
         tracing::warn!(path = %archive.display(), %error, "could not remove managed Java archive");
     }
-    tracing::info!(major, path = %info.path, "managed Java runtime installed");
+    tracing::info!(major, require_jdk, path = %info.path, "managed Java installed");
     Ok(info)
 }
 
