@@ -5,6 +5,11 @@ const path = require('path');
 const crypto = require('crypto');
 const { spawn } = require('child_process');
 
+const DRIVER_PROFILES = Object.freeze({
+  production: 'northpoint_production_driver.py',
+  fixture: 'northpoint_fixture_driver.py',
+});
+
 function atomicJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const tmp = `${file}.${process.pid}.${crypto.randomBytes(4).toString('hex')}.tmp`;
@@ -36,7 +41,7 @@ class NorthpointJobBridge {
     return target;
   }
 
-  async runSession({ sessionId, sourceRoot, primaryCell, cells, config = {}, driverScript, maxWorkers = 0, timeout = 180 } = {}) {
+  async runSession({ sessionId, sourceRoot, primaryCell, cells, config = {}, driverProfile = 'production', allowQaDriver = false, maxWorkers = 0, timeout = 180 } = {}) {
     if (!/^[A-Za-z0-9._-]{8,96}$/.test(String(sessionId || ''))) throw new Error('Invalid conversion session id');
     const project = safeRealpath(path.resolve(String(sourceRoot || '')));
     if (!project || !fs.statSync(project).isDirectory()) throw new Error('Conversion source root is unavailable');
@@ -60,8 +65,15 @@ class NorthpointJobBridge {
       config: { ...config, zero_loss: true, session_id: String(sessionId) },
     });
 
+    const profile = String(driverProfile || 'production');
+    if (!Object.prototype.hasOwnProperty.call(DRIVER_PROFILES, profile)) {
+      throw new Error(`Unknown Northpoint driver profile: ${profile}`);
+    }
+    if (profile !== 'production' && allowQaDriver !== true) {
+      throw new Error('QA conversion drivers are disabled outside explicit test mode');
+    }
     const runner = this.script('northpoint_job_runner.py');
-    const driver = this.script(driverScript);
+    const driver = this.script(DRIVER_PROFILES[profile]);
     const args = [runner, '--manifest', manifestPath, '--driver', driver, '--state-dir', stateDir,
       '--max-workers', String(Math.max(0, Number(maxWorkers) || 0)), '--timeout', String(Math.max(10, Number(timeout) || 180))];
     const result = await new Promise((resolve, reject) => {
@@ -86,6 +98,8 @@ class NorthpointJobBridge {
     const matrix = fs.existsSync(matrixPath) ? JSON.parse(fs.readFileSync(matrixPath, 'utf8')) : null;
     return {
       ok: result.code === 0 && receipt.status === 'PASS',
+      partial: receipt.status === 'PARTIAL',
+      driver_profile: profile,
       exit_code: result.code,
       receipt,
       matrix,
@@ -96,4 +110,4 @@ class NorthpointJobBridge {
   }
 }
 
-module.exports = { NorthpointJobBridge };
+module.exports = { NorthpointJobBridge, DRIVER_PROFILES };
