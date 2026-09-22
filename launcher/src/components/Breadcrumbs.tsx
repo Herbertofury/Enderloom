@@ -14,6 +14,7 @@ const LABELS: Record<View, string> = {
   servers: "Servers",
   server: "Server",
   discover: "Discover",
+  convert: "Convert Mod",
   project: "Project",
   stats: "Stats",
   logs: "Logs",
