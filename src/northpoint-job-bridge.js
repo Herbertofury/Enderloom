@@ -25,6 +25,22 @@ function inside(root, child) {
   return child === root || child.startsWith(root + path.sep);
 }
 
+function sha256File(file) {
+  const hash = crypto.createHash('sha256');
+  const fd = fs.openSync(file, 'r');
+  const buffer = Buffer.allocUnsafe(1024 * 1024);
+  try {
+    for (;;) {
+      const count = fs.readSync(fd, buffer, 0, buffer.length, null);
+      if (!count) break;
+      hash.update(buffer.subarray(0, count));
+    }
+  } finally {
+    fs.closeSync(fd);
+  }
+  return hash.digest('hex');
+}
+
 class NorthpointJobBridge {
   constructor({ toolkitRoot, dataDir, rootDir = process.cwd(), resourcesDir = process.resourcesPath, pythonBin = process.env.PYTHON_BIN || null } = {}) {
     this.toolkitRoot = safeRealpath(path.resolve(String(toolkitRoot || '')));
@@ -118,6 +134,15 @@ class NorthpointJobBridge {
     }
     const expected = String(row?.artifact?.sha256 || '').toLowerCase();
     if (!expected || expected !== sha) throw new Error('Runtime proof artifact SHA-256 does not match the candidate artifact');
+    const artifactFile = String(row?.artifact?.file || '');
+    const releaseRoot = safeRealpath(paths.releaseDir);
+    const candidate = safeRealpath(path.join(paths.releaseDir, artifactFile));
+    if (!releaseRoot || !candidate || !inside(releaseRoot, candidate) || !fs.statSync(candidate).isFile()) {
+      throw new Error('Runtime proof candidate artifact is unavailable');
+    }
+    if (sha256File(candidate) !== sha) {
+      throw new Error('Runtime proof candidate artifact changed after verification');
+    }
 
     let current = { schema_version: 1, proofs: [] };
     if (fs.existsSync(paths.runtimeProofs)) {
