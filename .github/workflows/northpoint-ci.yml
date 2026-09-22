@@ -38,6 +38,8 @@ jobs:
           distribution: temurin
           java-version: "21"
 
+      - uses: dtolnay/rust-toolchain@stable
+
       - name: Install shell dependencies
         run: npm ci
 
@@ -46,6 +48,9 @@ jobs:
 
       - name: Build launcher frontend
         run: npm run build:launcher
+
+      - name: Check native launcher service
+        run: cargo check --manifest-path native/Cargo.toml --bin enderloom-service
 
       - name: Northpoint source intake QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_source_intake_selftest.py
