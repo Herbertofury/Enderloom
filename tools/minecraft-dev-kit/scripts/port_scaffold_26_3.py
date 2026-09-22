@@ -18,7 +18,7 @@ FABRIC = {
 NEOFORGE = {
     "minecraft": "26.3",
     "java": 25,
-    "neoforge": "26.3.0.1-beta",
+    "neoforge": "26.3.0.7-beta",
     "moddevgradle": "2.0.147",
     "gradle": "9.2.1",
     "foojay": "1.0.0",
