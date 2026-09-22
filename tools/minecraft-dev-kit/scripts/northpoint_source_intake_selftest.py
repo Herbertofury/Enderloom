@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     write(root,'gradle.properties','minecraft_version=1.21.1\nloader_version=0.16.10\n')
     write(root,'build.gradle','plugins { id "fabric-loom" }\ntasks.withType(JavaCompile).configureEach { it.options.release = 21 }\n')
     write(root,'gradlew','#!/bin/sh\n')
-    write(root,'src/main/resources/fabric.mod.json',json.dumps({'schemaVersion':1,'id':'intakeproof','version':'1.0.0','entrypoints':{'main':['x.Main']}}))
+    write(root,'src/main/resources/fabric.mod.json',json.dumps({'schemaVersion':1,'id':'intakeproof','version':'1.0.0','environment':'*','entrypoints':{'main':['x.Main']}}))
     write(root,'src/main/resources/intakeproof.mixins.json','{"required":true,"package":"x.mixin","mixins":["ProofMixin"]}\n')
     write(root,'src/main/java/x/Main.java','package x; public class Main {}\n')
     got=run(root)
@@ -26,6 +26,8 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     assert got['source_counts']['java']==1 and got['source_counts']['mixins']>=1, got
     assert got['proposed_config']['build']['mode']=='gradle', got
     assert got['proposed_config']['runtime']['required'] is True, got
+    assert got['runtime_scope']=='both', got
+    assert got['proposed_config']['runtime']['scope']=='both', got
     assert got['source_sha256'], got
 
     forge=pathlib.Path(td)/'forgemod'; forge.mkdir()
@@ -36,5 +38,15 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     got=run(forge)
     assert got['loader']=='forge' and got['mod_id']=='forgeproof', got
     assert got['minecraft']=='1.20.1' and got['java']==17, got
+    assert got['runtime_scope']=='unknown', got
+
+    client=pathlib.Path(td)/'clientmod'; client.mkdir()
+    write(client,'gradle.properties','minecraft_version=1.21.1\n')
+    write(client,'build.gradle','tasks.withType(JavaCompile).configureEach { it.options.release = 21 }\n')
+    write(client,'src/main/resources/fabric.mod.json',json.dumps({'schemaVersion':1,'id':'clientproof','version':'1.0.0','environment':'client'}))
+    write(client,'src/main/java/x/Client.java','package x; public class Client {}\n')
+    got=run(client)
+    assert got['runtime_scope']=='client', got
+    assert got['proposed_config']['runtime']['scope']=='client', got
 
 print('Northpoint source intake self-test: PASS')
