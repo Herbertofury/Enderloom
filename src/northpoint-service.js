@@ -765,11 +765,9 @@ class NorthpointService extends EventEmitter {
     const toolkit = this.toolkitRoot();
     if (!toolkit) throw new Error('Minecraft Dev Kit worker is not installed/configured; execution is unavailable');
     const sourceRoot = String(
-      input.sourceRoot || input.source_root || session.source?.project_root || session.source?.path || '',
+      session.source?.project_root || session.source?.path || '',
     ).trim();
     if (!sourceRoot) throw new Error('Conversion session has no source project root');
-    const driverScript = String(input.driverScript || input.driver_script || '').trim();
-    if (!driverScript) throw new Error('A trusted Northpoint conversion driver is required');
     const selected = session.plan.cells.filter((cell) => session.cells?.[cell.id]?.selected === true);
     if (!selected.some((cell) => cell.id === session.plan.primary.id)) {
       throw new Error('Primary conversion cell is not selected');
@@ -788,10 +786,10 @@ class NorthpointService extends EventEmitter {
         sourceRoot,
         primaryCell: session.plan.primary.id,
         cells: selected,
-        config: input.config && typeof input.config === 'object' ? input.config : {},
-        driverScript,
-        maxWorkers: input.maxWorkers || input.max_workers || 0,
-        timeout: input.timeout || 180,
+        config: {},
+        driverProfile: 'production',
+        maxWorkers: Math.max(0, Math.min(8, Number(input.maxWorkers || input.max_workers) || 0)),
+        timeout: Math.max(30, Math.min(3600, Number(input.timeout) || 180)),
       });
       for (const row of result.matrix?.cells || []) {
         const record = session.cells?.[row.cell_id];
