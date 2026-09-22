@@ -75,12 +75,14 @@ def driver_probe(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_r
     return value if isinstance(value, dict) else {'protocol': 0, 'available': False}
 
 
-def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict) -> str:
+def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict, probe: dict | None = None) -> str:
     inv = inventory(project, cell)
     driver_sha = sha256_file(driver)
+    artifact_fingerprint = str((probe or {}).get('artifact_fingerprint') or '')
     payload = {
         'compose': inv['sha256'],
         'driver_sha256': driver_sha,
+        'artifact_fingerprint': artifact_fingerprint,
         'cell': normalized_cell(cell),
         'config': config,
     }
@@ -271,7 +273,7 @@ def main() -> int:
     run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': sorted(promoted)}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
-    fps = {cid: input_fingerprint(project, cell, driver, config) for cid, cell in cells.items()}
+    fps = {cid: input_fingerprint(project, cell, driver, config, probes[cid]) for cid, cell in cells.items()}
     env_fps = {cid: environment_fingerprint(probes[cid]) for cid in cells}
     for cid, cell in cells.items():
         rec = state['cells'].setdefault(cid, {
