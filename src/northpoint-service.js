@@ -694,6 +694,18 @@ class NorthpointService extends EventEmitter {
   async capabilities(input = {}) {
     const java = await this.detectJava();
     const toolkit = this.toolkitRoot();
+    const workerBridge = toolkit ? new NorthpointJobBridge({
+      toolkitRoot: toolkit,
+      dataDir: this.dataDir,
+      rootDir: this.rootDir,
+      resourcesDir: process.resourcesPath,
+      pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || null,
+    }) : null;
+    const worker = workerBridge ? workerBridge.capabilities() : {
+      available: false,
+      python: null,
+      production_driver: false,
+    };
     const latest = this.latestRelease(input.latestVersion || input.latest_version);
     const latestProfile = this.registry.versions.find((row) => String(row.minecraft) === latest) || null;
     return {
@@ -710,9 +722,11 @@ class NorthpointService extends EventEmitter {
         root: toolkit,
         simple_mod_selftest: !!toolkit && fs.existsSync(path.join(toolkit, 'scripts', 'northpoint_graduation.py')),
         fast_graduation: !!toolkit && fs.existsSync(path.join(toolkit, 'scripts', 'northpoint_graduation.py')),
+        production_driver: worker.production_driver,
+        python: worker.python,
       },
       scheduler: this.schedulerBudget(),
-      execution_available: !!toolkit,
+      execution_available: worker.available,
       no_fake_execution: true,
     };
   }
@@ -779,7 +793,9 @@ class NorthpointService extends EventEmitter {
       const bridge = new NorthpointJobBridge({
         toolkitRoot: toolkit,
         dataDir: this.dataDir,
-        pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || 'python3',
+        rootDir: this.rootDir,
+        resourcesDir: process.resourcesPath,
+        pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || null,
       });
       const result = await bridge.runSession({
         sessionId,
