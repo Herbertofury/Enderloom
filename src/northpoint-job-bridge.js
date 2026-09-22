@@ -100,6 +100,7 @@ class NorthpointJobBridge {
     const normalized = cells.map((cell) => ({
       id: String(cell.id), minecraft: String(cell.minecraft), loader: String(cell.loader),
       java: Number(cell.java || 0), support_state: String(cell.support_state || 'stable'),
+      java_path: cell.java_path ? String(cell.java_path) : null,
       primary: String(cell.id) === String(primaryCell),
     }));
     if (!normalized.some((cell) => cell.primary)) throw new Error('Primary conversion cell is not selected');
