@@ -92,7 +92,7 @@ def detect_fabric_identity(source: pathlib.Path) -> dict[str, str]:
     props = parse_properties(source / "gradle.properties")
     group = str(props.get("group") or props.get("maven_group") or "com.example").strip() or "com.example"
     version = str(props.get("version") or props.get("mod_version") or mod.get("version") or "1.0.0").strip()
-    if version.startswith("\${"):
+    if version.startswith("${"):
         version = str(props.get("version") or props.get("mod_version") or "1.0.0")
     name = str(mod.get("name") or mod_id.replace("_", " ").title()).strip()
     minecraft = str(props.get("minecraft_version") or "").strip()
@@ -159,7 +159,7 @@ def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[
     merged = dict(src)
     merged["schemaVersion"] = int(src.get("schemaVersion") or target.get("schemaVersion") or 1)
     merged["id"] = str(src.get("id") or target.get("id"))
-    merged["version"] = src.get("version") or target.get("version") or "\${version}"
+    merged["version"] = src.get("version") or target.get("version") or "${version}"
     merged["environment"] = src.get("environment", target.get("environment", "*"))
     depends = dict(src.get("depends") or {})
     target_depends = dict(target.get("depends") or {})
