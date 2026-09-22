@@ -57,6 +57,24 @@ export interface ConversionPlan {
   scheduler: ConversionSchedulerBudget;
 }
 
+export interface ConversionMetadataState {
+  source: string;
+  fetched_at?: string | null;
+  fresh: boolean;
+  errors?: Array<{ loader: string; error: string }>;
+  error?: string;
+}
+
+export interface ConversionVersionResolution {
+  minecraft: string;
+  java: number | null;
+  profile: Record<string, unknown> & { minecraft: string; loaders: Record<string, unknown> };
+  errors: Array<{ loader: string; error: string }>;
+  source: string;
+  fresh: boolean;
+  error?: string;
+}
+
 export interface ConversionCapabilities {
   schema_version: number;
   service: "northpoint";
@@ -64,6 +82,7 @@ export interface ConversionCapabilities {
   registry_snapshot_date: string | null;
   latest_release: string | null;
   latest_profile_resolved: boolean;
+  metadata: ConversionMetadataState | null;
   java: { available: boolean; major: number | null; raw: string };
   toolkit: { available: boolean; root: string | null; simple_mod_selftest: boolean };
   scheduler: ConversionSchedulerBudget;
