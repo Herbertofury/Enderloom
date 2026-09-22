@@ -108,6 +108,38 @@ def metadata_candidates(root: pathlib.Path) -> list[pathlib.Path]:
     return find_files(root, {'fabric.mod.json', 'quilt.mod.json', 'mods.toml', 'neoforge.mods.toml'}, max_depth=8)
 
 
+def normalize_runtime_scope(value: Any) -> str:
+    raw = str(value or '').strip().lower()
+    aliases = {
+        '*': 'both',
+        'both': 'both',
+        'common': 'both',
+        'client+server': 'both',
+        'client': 'client',
+        'server': 'server',
+        'dedicated_server': 'server',
+    }
+    return aliases.get(raw, 'unknown')
+
+
+def detect_runtime_scope(root: pathlib.Path, loader: str | None) -> str:
+    if loader == 'fabric':
+        for p in metadata_candidates(root):
+            if p.name != 'fabric.mod.json':
+                continue
+            return normalize_runtime_scope(read_json(p).get('environment') or '*')
+    return 'unknown'
+
+
+def configured_runtime_scope(cfg: dict[str, Any] | None) -> str:
+    if not isinstance(cfg, dict):
+        return 'unknown'
+    runtime = cfg.get('runtime')
+    if not isinstance(runtime, dict):
+        return 'unknown'
+    return normalize_runtime_scope(runtime.get('scope'))
+
+
 def detect_loader_and_mod_id(root: pathlib.Path) -> tuple[str | None, str | None, list[dict[str, str]], list[str]]:
     rows: list[dict[str, str]] = []
     warnings: list[str] = []
@@ -225,12 +257,13 @@ def infer_config(project: pathlib.Path, cell: dict[str, Any] | None = None) -> d
     mode, _ = detect_build(root)
     loader, mod_id, _, _ = detect_loader_and_mod_id(root)
     mc, java, _ = detect_source_version_and_java(root)
+    scope = detect_runtime_scope(root, loader)
     cfg: dict[str, Any] = {
         'schema_version': 1,
         '_inferred': True,
         'build': {'mode': mode if mode != 'unknown' else 'auto'},
         'parity': {'source_authority': '.'},
-        'runtime': {'required': True},
+        'runtime': {'required': True, 'scope': scope},
     }
     if mod_id: cfg['mod_id'] = mod_id
     if mode == 'javac':
@@ -249,6 +282,9 @@ def inspect_project(project: pathlib.Path) -> dict[str, Any]:
     loader, mod_id, metadata, warnings = detect_loader_and_mod_id(root)
     mc, java, props = detect_source_version_and_java(root)
     existing_cfg = read_json(root / CONFIG_NAME) if (root / CONFIG_NAME).is_file() else None
+    runtime_scope = configured_runtime_scope(existing_cfg)
+    if runtime_scope == 'unknown':
+        runtime_scope = detect_runtime_scope(root, loader)
     if mode == 'unknown': warnings.append('no Gradle, Maven, or src/main/java build layout was detected')
     if not loader: warnings.append('loader could not be determined uniquely from mod metadata')
     if not mc: warnings.append('source Minecraft version could not be determined exactly')
@@ -261,6 +297,7 @@ def inspect_project(project: pathlib.Path) -> dict[str, Any]:
         'mod_id': mod_id,
         'minecraft': mc,
         'java': java,
+        'runtime_scope': runtime_scope,
         'metadata': metadata,
         'source_counts': count_sources(root),
         'properties': {k: props[k] for k in sorted(props) if any(x in k.lower() for x in ('minecraft', 'loader', 'forge', 'neo', 'fabric', 'quilt', 'java'))},
