@@ -46,6 +46,16 @@ function sha256(file) {
           },
         });
       }, 20);
+      setTimeout(() => {
+        events.emit('event', {
+          event: 'process:log',
+          payload: {
+            running_id: 'qa-run-1',
+            stream: 'stdout',
+            lines: ['[Render thread/INFO]: Reloading ResourceManager: vanilla, fabric'],
+          },
+        });
+      }, 50);
       return 'qa-run-1';
     }
     if (command === 'get_logs') return [];
@@ -102,7 +112,7 @@ function sha256(file) {
 
   assert.equal(receipt.gate, 'native-client-load');
   assert.equal(receipt.artifact_sha256, artifactSha);
-  assert.match(receipt.ready_marker, /LWJGL/);
+  assert.match(receipt.ready_marker, /Reloading ResourceManager/);
   assert.equal(proofs.length, 1);
   assert.ok(calls.some((row) => row.command === 'launch_instance_qa'));
   assert.ok(!calls.some((row) => row.command === 'launch_instance'));
