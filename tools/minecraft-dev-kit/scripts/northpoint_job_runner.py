@@ -142,9 +142,12 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
     except Exception as exc:
         return {'state': 'failed', 'reason': f'driver receipt invalid JSON: {exc}: {lines[-1][:500]}', 'evidence': []}
     state = str(result.get('state') or 'failed')
-    if state != 'passed':
+    artifact_name = result.get('artifact')
+    if state not in {'passed', 'runtime-unverified'}:
         return {'state': state, 'reason': result.get('reason') or f'driver returned {state}', 'evidence': result.get('evidence') or []}
-    artifact = pathlib.Path(str(result.get('artifact') or ''))
+    if state == 'runtime-unverified' and not artifact_name:
+        return {'state': state, 'reason': result.get('reason') or 'runtime verification is pending', 'evidence': result.get('evidence') or []}
+    artifact = pathlib.Path(str(artifact_name or ''))
     if not artifact.is_absolute():
         artifact = raw_output / artifact
     artifact = artifact.resolve()
@@ -161,8 +164,8 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
     final = release_dir / name
     os.replace(tmp, final)
     return {
-        'state': 'passed',
-        'reason': None,
+        'state': state,
+        'reason': None if state == 'passed' else (result.get('reason') or 'runtime verification is pending'),
         'artifact': {'file': name, 'sha256': sha256_file(final), 'size': final.stat().st_size},
         'evidence': result.get('evidence') or [],
         'driver_stdout_tail': '\n'.join(lines[-20:]),
@@ -243,7 +246,8 @@ def main() -> int:
     def execute(cid: str) -> tuple[str, dict, bool]:
         rec = state['cells'][cid]
         if rec.get('fingerprint') == fps[cid] and rec.get('state') in REUSABLE_STATES:
-            if rec.get('state') != 'passed' or artifact_ok(rec, release_dir):
+            artifact = rec.get('artifact') or {}
+            if not artifact or artifact_ok(rec, release_dir):
                 return cid, rec, False
         rec['state'] = 'building'; rec['attempts'] = int(rec.get('attempts') or 0) + 1; rec['reason'] = None
         result = run_driver(driver, cells[cid], project, work_root, release_dir, args.timeout)
