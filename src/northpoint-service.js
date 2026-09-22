@@ -423,7 +423,7 @@ class NorthpointService extends EventEmitter {
       path.join(this.rootDir, 'tools', 'minecraft-dev-kit'),
     ].filter(Boolean).map((p) => path.resolve(String(p)));
     for (const candidate of candidates) {
-      const script = path.join(candidate, 'scripts', 'northpoint_simple_mod_selftest.py');
+      const script = path.join(candidate, 'scripts', 'northpoint_graduation.py');
       if (fs.existsSync(script)) return safeRealpath(candidate) || candidate;
     }
     return null;
@@ -707,7 +707,8 @@ class NorthpointService extends EventEmitter {
       toolkit: {
         available: !!toolkit,
         root: toolkit,
-        simple_mod_selftest: !!toolkit && fs.existsSync(path.join(toolkit, 'scripts', 'northpoint_simple_mod_selftest.py')),
+        simple_mod_selftest: !!toolkit && fs.existsSync(path.join(toolkit, 'scripts', 'northpoint_graduation.py')),
+        fast_graduation: !!toolkit && fs.existsSync(path.join(toolkit, 'scripts', 'northpoint_graduation.py')),
       },
       scheduler: this.schedulerBudget(),
       execution_available: !!toolkit,
@@ -758,9 +759,9 @@ class NorthpointService extends EventEmitter {
   }
 
   async selfTest() {
-    const result = await this.runWorkerScript('northpoint_simple_mod_selftest.py', []);
-    const marker = 'Northpoint simple mod matrix self-test: PASS';
-    if (!result.stdout.includes(marker)) throw new Error('Dev Kit simple-mod worker exited without its PASS marker');
+    const result = await this.runWorkerScript('northpoint_graduation.py', []);
+    const marker = 'Northpoint fast graduation: PASS';
+    if (!result.stdout.includes(marker)) throw new Error('Dev Kit fast graduation exited without its PASS marker');
     return { ok: true, marker, stdout_tail: result.stdout.split(/\r?\n/).slice(-40).join('\n') };
   }
 
