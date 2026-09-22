@@ -6,6 +6,7 @@ const os = require('os');
 const crypto = require('crypto');
 const { spawn } = require('child_process');
 const { EventEmitter } = require('events');
+const { NorthpointJobBridge } = require('./northpoint-job-bridge');
 
 const SESSION_SCHEMA = 1;
 const PROFILE_SCHEMA = 1;
@@ -758,6 +759,72 @@ class NorthpointService extends EventEmitter {
     });
   }
 
+  async executeJob(input = {}) {
+    const sessionId = String(input.sessionId || input.session_id || '');
+    const session = this.readSession(sessionId);
+    const toolkit = this.toolkitRoot();
+    if (!toolkit) throw new Error('Minecraft Dev Kit worker is not installed/configured; execution is unavailable');
+    const sourceRoot = String(
+      input.sourceRoot || input.source_root || session.source?.project_root || session.source?.path || '',
+    ).trim();
+    if (!sourceRoot) throw new Error('Conversion session has no source project root');
+    const driverScript = String(input.driverScript || input.driver_script || '').trim();
+    if (!driverScript) throw new Error('A trusted Northpoint conversion driver is required');
+    const selected = session.plan.cells.filter((cell) => session.cells?.[cell.id]?.selected === true);
+    if (!selected.some((cell) => cell.id === session.plan.primary.id)) {
+      throw new Error('Primary conversion cell is not selected');
+    }
+    session.phase = 'job-running';
+    session.last_error = null;
+    this.writeSession(session);
+    try {
+      const bridge = new NorthpointJobBridge({
+        toolkitRoot: toolkit,
+        dataDir: this.dataDir,
+        pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || 'python3',
+      });
+      const result = await bridge.runSession({
+        sessionId,
+        sourceRoot,
+        primaryCell: session.plan.primary.id,
+        cells: selected,
+        config: input.config && typeof input.config === 'object' ? input.config : {},
+        driverScript,
+        maxWorkers: input.maxWorkers || input.max_workers || 0,
+        timeout: input.timeout || 180,
+      });
+      for (const row of result.matrix?.cells || []) {
+        const record = session.cells?.[row.cell_id];
+        if (!record) continue;
+        record.state = String(row.state || record.state);
+        record.fingerprint = row.fingerprint || record.fingerprint;
+        record.reason = row.reason || null;
+        if (row.artifact?.file) {
+          record.artifact = {
+            ...row.artifact,
+            file: path.join(result.state_dir, 'release', String(row.artifact.file)),
+          };
+        }
+        record.evidence = [
+          ...(Array.isArray(record.evidence) ? record.evidence : []),
+          { kind: 'northpoint-job-runner', state_dir: result.state_dir },
+        ];
+      }
+      const primary = session.cells?.[session.plan.primary.id];
+      session.fanout_unlocked = primary?.state === 'passed';
+      session.phase = result.ok ? 'complete' : session.fanout_unlocked ? 'partial' : 'primary-failed';
+      session.last_error = result.ok ? null : (result.receipt?.status || 'conversion job failed');
+      this.writeSession(session);
+      return { session: this.publicSession(session), job: result };
+    } catch (error) {
+      session.phase = 'job-failed';
+      session.fanout_unlocked = false;
+      session.last_error = error instanceof Error ? error.message : String(error);
+      this.writeSession(session);
+      throw error;
+    }
+  }
+
   async selfTest() {
     const result = await this.runWorkerScript('northpoint_graduation.py', []);
     const marker = 'Northpoint fast graduation: PASS';
@@ -777,6 +844,7 @@ class NorthpointService extends EventEmitter {
       case 'conversion_record_fingerprint': return this.recordFingerprint(args.sessionId || args.session_id, args.cellId || args.cell_id, args.inputs || {});
       case 'conversion_start_cell': return this.startCell(args.sessionId || args.session_id, args.cellId || args.cell_id);
       case 'conversion_finish_cell': return this.finishCell(args.sessionId || args.session_id, args.cellId || args.cell_id, args.result || {});
+      case 'conversion_execute_job': return await this.executeJob(args);
       case 'conversion_self_test': return await this.selfTest();
       default: throw new Error(`Unknown Northpoint command: ${command}`);
     }
