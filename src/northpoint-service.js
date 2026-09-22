@@ -839,8 +839,9 @@ class NorthpointService extends EventEmitter {
     if (!this.nativeEvents || !this.nativeRequest) {
       throw new Error('Native Minecraft runtime verifier is unavailable');
     }
-    const fatal = /(MixinApplyError|MixinTransformerError|ModResolutionException|NoClassDefFoundError|ClassNotFoundException|VerifyError|IllegalAccessError|NoSuchMethodError|NoSuchFieldError|IncompatibleClassChangeError|Could not execute entrypoint|Failed to start Minecraft|A mod crashed on startup)/i;
-    const ready = /(Backend library:\s*LWJGL|LWJGL Version:|OpenAL initialized|Reloading ResourceManager|Created:\s*\d+x\d+x\d+.*atlas)/i;
+    const fatal = /(MixinApplyError|MixinTransformerError|ModResolutionException|ModLoadingException|LoadingFailedException|NoClassDefFoundError|VerifyError|IllegalAccessError|NoSuchMethodError|NoSuchFieldError|IncompatibleClassChangeError|Could not execute entrypoint|Failed to start Minecraft|Errors were found during mod loading|A mod crashed on startup)/i;
+    const contextualClassNotFound = /(\[ERROR\]|\[FATAL\]|Exception in thread|Caused by:).*ClassNotFoundException/i;
+    const ready = /(OpenAL initialized|Reloading ResourceManager|Created:\s*\d+x\d+x\d+.*atlas)/i;
     const lines = [];
     return await new Promise((resolve, reject) => {
       let settled = false;
@@ -861,7 +862,7 @@ class NorthpointService extends EventEmitter {
         if (!text) return;
         lines.push(text);
         if (lines.length > 500) lines.splice(0, lines.length - 500);
-        if (fatal.test(text)) {
+        if (fatal.test(text) || contextualClassNotFound.test(text)) {
           finish(new Error(`Native Minecraft startup failed: ${text.slice(-800)}`));
           return;
         }
