@@ -21,19 +21,27 @@ from northpoint_target_26_3 import ConversionBlock, materialize_port
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
 CONFIG_NAME = 'northpoint.project.json'
-ARTIFACT_ENGINE_GLOBS = (
-    'scripts/northpoint_*.py',
-    'scripts/port_*.py',
-    'scripts/mapping_*.py',
-    'scripts/mixin_*.py',
-    'scripts/content_*.py',
-    'scripts/registration_*.py',
+ARTIFACT_ENGINE_FILES = (
+    'scripts/northpoint_compose.py',
+    'scripts/northpoint_source_intake.py',
+    'scripts/northpoint_target_26_3.py',
+    'scripts/port_26_3_pipeline.py',
+    'scripts/port_scaffold_26_3.py',
+    'scripts/port_intake.py',
+    'scripts/port_26_3_common.py',
+    'scripts/port_semantic_planner.py',
+    'scripts/mapping_lineage.py',
+    'scripts/mixin_surface_audit.py',
+    'scripts/content_identity_inventory.py',
+    'scripts/content_parity_audit.py',
+    'scripts/registration_identity_inventory.py',
+    'scripts/registration_parity_audit.py',
     'scripts/classfile_symbol_index.py',
     'scripts/packaged_linkage_audit.py',
-    'scripts/api_reference_migration.py',
-    'scripts/access_rule_resolver.py',
-    'references/minecraft-26.3-*.json',
-    'references/minecraft-mapping-*.json',
+    'references/minecraft-26.3-port-rules.json',
+    'references/minecraft-26.3-semantic-migrations.json',
+    'references/minecraft-mapping-prewarm-profiles.json',
+    'references/minecraft-mapping-sources.json',
 )
 
 
@@ -132,13 +140,12 @@ def stable_hash(value: Any) -> str:
 def artifact_engine_fingerprint(cell: dict[str, Any]) -> str:
     if str(cell.get('minecraft') or '').strip() != '26.3':
         return ''
-    files: dict[str, pathlib.Path] = {}
-    for pattern in ARTIFACT_ENGINE_GLOBS:
-        for path in ROOT.glob(pattern):
-            if path.is_file():
-                files[path.relative_to(ROOT).as_posix()] = path
     h = hashlib.sha256()
-    for rel, path in sorted(files.items()):
+    for rel in ARTIFACT_ENGINE_FILES:
+        path = ROOT / rel
+        if not path.is_file():
+            h.update(f'missing:{rel}'.encode('utf-8')); h.update(b'\0')
+            continue
         h.update(rel.encode('utf-8')); h.update(b'\0')
         h.update(sha256_file(path).encode('ascii')); h.update(b'\0')
     return h.hexdigest()
