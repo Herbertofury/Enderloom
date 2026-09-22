@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { spawn } = require('child_process');
+const { spawn, spawnSync } = require('child_process');
 
 const DRIVER_PROFILES = Object.freeze({
   production: 'northpoint_production_driver.py',
@@ -26,10 +26,61 @@ function inside(root, child) {
 }
 
 class NorthpointJobBridge {
-  constructor({ toolkitRoot, dataDir, pythonBin = process.env.PYTHON_BIN || 'python3' } = {}) {
+  constructor({ toolkitRoot, dataDir, rootDir = process.cwd(), resourcesDir = process.resourcesPath, pythonBin = process.env.PYTHON_BIN || null } = {}) {
     this.toolkitRoot = safeRealpath(path.resolve(String(toolkitRoot || '')));
     this.dataDir = path.resolve(String(dataDir || '.'));
-    this.pythonBin = pythonBin;
+    this.rootDir = path.resolve(String(rootDir || process.cwd()));
+    this.resourcesDir = resourcesDir ? path.resolve(String(resourcesDir)) : null;
+    this.pythonBin = pythonBin ? String(pythonBin) : null;
+    this._python = undefined;
+  }
+
+  pythonCommand() {
+    if (this._python !== undefined) return this._python;
+    const candidates = [];
+    const add = (bin, args = [], source = 'system') => {
+      if (!bin) return;
+      candidates.push({ bin:String(bin), args:[...args], source });
+    };
+    add(this.pythonBin, [], 'explicit');
+    if (process.platform === 'win32') {
+      if (this.resourcesDir) add(path.join(this.resourcesDir, 'python', 'python.exe'), [], 'bundled-resources');
+      add(path.join(this.rootDir, 'runtime', 'python', 'python.exe'), [], 'bundled-runtime');
+      add(path.join(this.rootDir, 'tools', 'python', 'python.exe'), [], 'bundled-tools');
+      add('py', ['-3'], 'windows-launcher');
+      add('python', [], 'system');
+    } else {
+      if (this.resourcesDir) add(path.join(this.resourcesDir, 'python', 'bin', 'python3'), [], 'bundled-resources');
+      add(path.join(this.rootDir, 'runtime', 'python', 'bin', 'python3'), [], 'bundled-runtime');
+      add(path.join(this.rootDir, 'tools', 'python', 'bin', 'python3'), [], 'bundled-tools');
+      add('python3', [], 'system');
+      add('python', [], 'system');
+    }
+    for (const candidate of candidates) {
+      if (path.isAbsolute(candidate.bin) && !fs.existsSync(candidate.bin)) continue;
+      try {
+        const cp = spawnSync(candidate.bin, [...candidate.args, '--version'], {
+          encoding:'utf8', windowsHide:true, timeout:5000, stdio:['ignore','pipe','pipe'],
+        });
+        if (cp.status === 0) {
+          const version = String(cp.stdout || cp.stderr || '').trim().slice(0,200);
+          this._python = { ...candidate, version };
+          return this._python;
+        }
+      } catch {}
+    }
+    this._python = null;
+    return null;
+  }
+
+  capabilities() {
+    const python = this.pythonCommand();
+    const production = this.toolkitRoot ? safeRealpath(path.join(this.toolkitRoot, 'scripts', DRIVER_PROFILES.production)) : null;
+    return {
+      available: !!python && !!production,
+      python: python ? { source:python.source, version:python.version } : null,
+      production_driver: !!production,
+    };
   }
 
   script(name) {
@@ -72,12 +123,14 @@ class NorthpointJobBridge {
     if (profile !== 'production' && allowQaDriver !== true) {
       throw new Error('QA conversion drivers are disabled outside explicit test mode');
     }
+    const python = this.pythonCommand();
+    if (!python) throw new Error('Python 3 runtime is unavailable; install or bundle Python before running conversions');
     const runner = this.script('northpoint_job_runner.py');
     const driver = this.script(DRIVER_PROFILES[profile]);
     const args = [runner, '--manifest', manifestPath, '--driver', driver, '--state-dir', stateDir,
       '--max-workers', String(Math.max(0, Number(maxWorkers) || 0)), '--timeout', String(Math.max(10, Number(timeout) || 180))];
     const result = await new Promise((resolve, reject) => {
-      const child = spawn(this.pythonBin, args, {
+      const child = spawn(python.bin, [...python.args, ...args], {
         cwd: this.toolkitRoot, windowsHide: true, env: process.env, stdio: ['ignore', 'pipe', 'pipe'],
       });
       let stdout = '', stderr = '';
@@ -100,6 +153,7 @@ class NorthpointJobBridge {
       ok: result.code === 0 && receipt.status === 'PASS',
       partial: receipt.status === 'PARTIAL',
       driver_profile: profile,
+      python: { source:python.source, version:python.version },
       exit_code: result.code,
       receipt,
       matrix,
