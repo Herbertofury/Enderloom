@@ -1294,6 +1294,20 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
                 .ok_or_else(|| Error::other("IPC event channel is unavailable"))?;
             value(crate::launch::launch_instance_ipc(event_sink, state, &instance).await?)
         }
+        "launch_instance_qa" => {
+            let instance_id = required_string(args, "instanceId")?;
+            let instance = crate::commands::find_instance(state, &instance_id)?;
+            if !instance.name.starts_with("Enderloom QA ") {
+                return Err(Error::other(
+                    "synthetic QA launch is restricted to temporary Enderloom QA instances",
+                ));
+            }
+            let event_sink = state
+                .tasks
+                .event_sink()
+                .ok_or_else(|| Error::other("IPC event channel is unavailable"))?;
+            value(crate::launch::launch_instance_qa_ipc(event_sink, state, &instance).await?)
+        }
         "kill_instance" => {
             let running_id = required_string(args, "runningId")?;
             let mut registry = state.running.lock().unwrap();
