@@ -118,6 +118,7 @@ export function ConversionView() {
   const [activeSession, setActiveSession] = useState<ConversionSession | null>(null);
   const [lastJob, setLastJob] = useState<ConversionJobResult | null>(null);
   const [health, setHealth] = useState<string | null>(null);
+  const [toolchainStatus, setToolchainStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState<"boot" | "inspect" | "plan" | "run" | "health" | "refresh" | null>("boot");
   const [error, setError] = useState<string | null>(null);
 
@@ -161,6 +162,29 @@ export function ConversionView() {
           const next = current.filter((row) => row.id !== session.id);
           return [session, ...next].slice(0, 12);
         });
+      })
+      .then((dispose) => {
+        if (live) unlisten = dispose;
+        else dispose();
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+      unlisten?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    let live = true;
+    let unlisten: (() => void) | null = null;
+    window.enderloomLauncher
+      .listen<{ state: string; java: number; path?: string }>("conversion:toolchain", (event) => {
+        if (!live) return;
+        setToolchainStatus(
+          event.state === "ready"
+            ? `JDK ${event.java} ready`
+            : `Provisioning JDK ${event.java}…`,
+        );
       })
       .then((dispose) => {
         if (live) unlisten = dispose;
@@ -638,6 +662,16 @@ export function ConversionView() {
                   ok={capabilities?.latest_profile_resolved === true}
                 />
               </div>
+              {toolchainStatus && (
+                <div className="mt-3 flex items-center gap-2 rounded-xl border border-(--accent)/30 bg-(--accent-glow)/15 px-3 py-2 text-xs text-content">
+                  {toolchainStatus.includes("Provisioning") ? (
+                    <Loader2 className="size-3.5 animate-spin text-(--accent)" />
+                  ) : (
+                    <CheckCircle2 className="size-3.5 text-ok" />
+                  )}
+                  {toolchainStatus}
+                </div>
+              )}
               {health && (
                 <div className="mt-3 rounded-xl border border-ok/30 bg-ok/10 px-3 py-2 text-xs text-ok">
                   {health}
