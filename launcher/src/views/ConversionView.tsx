@@ -211,14 +211,22 @@ export function ConversionView() {
             : event.cell_id;
           const text =
             event.state === "installing"
-              ? `Preparing native QA · ${target}`
+              ? `Preparing client QA · ${target}`
               : event.state === "launching"
-                ? `Launching Minecraft QA · ${target}`
-                : event.state === "passed"
-                  ? `Native runtime verified · ${target}`
-                  : event.state === "failed"
-                    ? `Native runtime failed · ${target}: ${event.error || "see evidence"}`
-                    : `Native runtime · ${target} · ${event.state}`;
+                ? `Launching Minecraft client QA · ${target}`
+                : event.state === "client-passed"
+                  ? `Client runtime gate passed · ${target}`
+                  : event.state === "server-installing"
+                    ? `Preparing dedicated-server QA · ${target}`
+                    : event.state === "server-launching"
+                      ? `Launching dedicated-server QA · ${target}`
+                      : event.state === "server-passed"
+                        ? `Dedicated-server gate passed · ${target}`
+                        : event.state === "passed"
+                          ? `Native runtime verified · ${target}`
+                          : event.state === "failed"
+                            ? `Native runtime failed · ${target}: ${event.error || "see evidence"}`
+                            : `Native runtime · ${target} · ${event.state}`;
           setRuntimeStatus({ state: event.state, text });
         },
       )
@@ -431,6 +439,9 @@ export function ConversionView() {
                           <div className="mt-1 text-xs font-medium text-content">
                             {sourceIntake.build.mode}
                             {sourceIntake.java ? ` · Java ${sourceIntake.java}` : ""}
+                          </div>
+                          <div className="mt-0.5 text-[10px] text-content-faint">
+                            runtime · {sourceIntake.runtime_scope}
                           </div>
                         </div>
                         <div>
