@@ -1399,6 +1399,8 @@ class NorthpointService extends EventEmitter {
     session.last_error = null;
     this.writeSession(session);
     try {
+      const sourceIntake = await this.inspectSource({ sourceRoot });
+      const runtimeScope = String(sourceIntake.runtime_scope || 'unknown');
       const provisioned = await this.provisionJava(selected);
       const bridge = new NorthpointJobBridge({
         toolkitRoot: toolkit,
@@ -1445,17 +1447,26 @@ class NorthpointService extends EventEmitter {
           const cell = session.plan.cells.find((entry) => String(entry.id) === String(row.cell_id));
           if (!cell) continue;
           try {
-            const receipt = await this.verifyNativeClient({ session, cell, row, result, bridge });
-            runtimeReceipts.push(receipt);
+            const proof = await this.verifyRuntimeCandidate({
+              session,
+              cell,
+              row,
+              result,
+              bridge,
+              runtimeScope,
+            });
+            runtimeReceipts.push(proof);
             proofsAdded += 1;
             const record = session.cells?.[row.cell_id];
             if (record) {
               record.evidence = [
                 ...(Array.isArray(record.evidence) ? record.evidence : []),
                 {
-                  kind: 'native-client-load',
+                  kind: 'native-runtime-proof',
+                  runtime_scope: proof.runtime_scope,
+                  gates: proof.receipts.map((receipt) => receipt.gate),
                   artifact_sha256: row.artifact.sha256,
-                  verified_at: receipt.verified_at,
+                  verified_at: proof.verified_at,
                 },
               ];
               delete record.runtime_error;
@@ -1468,7 +1479,7 @@ class NorthpointService extends EventEmitter {
               record.runtime_error = message;
               record.evidence = [
                 ...(Array.isArray(record.evidence) ? record.evidence : []),
-                { kind: 'native-client-load', state: 'failed', error: message },
+                { kind: 'native-runtime-proof', state: 'failed', runtime_scope: runtimeScope, error: message },
               ];
             }
             this.emit('event', {
@@ -1498,6 +1509,7 @@ class NorthpointService extends EventEmitter {
         session: this.publicSession(session),
         job: result,
         runtime: {
+          source_scope: runtimeScope,
           attempted: runtimeReceipts.length + runtimeErrors.length,
           passed: runtimeReceipts,
           failed: runtimeErrors,
