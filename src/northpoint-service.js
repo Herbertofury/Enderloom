@@ -14,6 +14,12 @@ const CELL_STATES = new Set([
   'runtime-unverified', 'failed', 'cancelled', 'stale',
 ]);
 const LOADERS = new Set(['fabric', 'quilt', 'neoforge', 'forge']);
+const METADATA_TTL_MS = 6 * 60 * 60 * 1000;
+const MOJANG_MANIFEST_URL = 'https://piston-meta.mojang.com/mc/game/version_manifest_v2.json';
+const FABRIC_META_ROOT = 'https://meta.fabricmc.net/v2/versions/loader';
+const QUILT_META_ROOT = 'https://meta.quiltmc.org/v3/versions/loader';
+const NEOFORGE_METADATA_URL = 'https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml';
+const FORGE_PROMOTIONS_URL = 'https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json';
 const DEFAULT_PROFILES = Object.freeze({
   schema_version: PROFILE_SCHEMA,
   snapshot_date: '2026-09-22',
@@ -93,13 +99,16 @@ function safeRealpath(candidate) {
 }
 
 class NorthpointService extends EventEmitter {
-  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null } = {}) {
+  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null, metadataFetch = null, metadataTtlMs = METADATA_TTL_MS } = {}) {
     super();
     this.rootDir = path.resolve(rootDir || process.cwd());
     this.dataDir = path.resolve(dataDir || path.join(this.rootDir, '.enderloom', 'northpoint'));
     this.env = { ...env };
     this.explicitToolkitRoot = toolkitRoot ? path.resolve(toolkitRoot) : null;
     this.registryPath = registryPath ? path.resolve(registryPath) : null;
+    this.metadataFetch = metadataFetch;
+    this.metadataTtlMs = Math.max(60 * 1000, Number(metadataTtlMs) || METADATA_TTL_MS);
+    this.latestMetadata = null;
     this.sessionsDir = path.join(this.dataDir, 'sessions');
     fs.mkdirSync(this.sessionsDir, { recursive: true });
     this.registry = this.loadRegistry();
@@ -125,11 +134,280 @@ class NorthpointService extends EventEmitter {
     return sha256(this.registry);
   }
 
+  metadataCachePath() {
+    return path.join(this.dataDir, 'metadata-cache.json');
+  }
+
+  readMetadataCache() {
+    try {
+      const value = readJson(this.metadataCachePath());
+      return value?.schema_version === 1 ? value : null;
+    } catch { return null; }
+  }
+
+  writeMetadataCache(value) {
+    atomicJson(this.metadataCachePath(), { schema_version: 1, ...value });
+  }
+
+  async fetchMetadataText(url) {
+    if (typeof this.metadataFetch === 'function') {
+      const value = await this.metadataFetch(url);
+      if (typeof value === 'string') return { text: value, headers: {} };
+      if (value && typeof value === 'object') {
+        if (typeof value.text === 'string') return { text: value.text, headers: value.headers || {} };
+        if (value.json !== undefined) return { text: JSON.stringify(value.json), headers: value.headers || {} };
+      }
+      throw new Error(`metadata fixture returned no body for ${url}`);
+    }
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    timer.unref?.();
+    try {
+      const response = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Enderloom-Northpoint/1 (+https://github.com/Herbertofury/Enderloom)',
+          'Accept': 'application/json, application/xml, text/xml, text/plain;q=0.8, */*;q=0.5',
+        },
+      });
+      if (!response.ok) throw new Error(`metadata HTTP ${response.status}: ${url}`);
+      return {
+        text: await response.text(),
+        headers: {
+          etag: response.headers.get('etag'),
+          last_modified: response.headers.get('last-modified'),
+        },
+      };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async fetchMetadataJson(url) {
+    const response = await this.fetchMetadataText(url);
+    return { ...response, json: JSON.parse(response.text) };
+  }
+
+  static mavenVersions(xml) {
+    return [...String(xml || '').matchAll(/<version>([^<]+)<\/version>/g)].map((m) => m[1].trim()).filter(Boolean);
+  }
+
+  static neoforgePrefix(minecraft) {
+    const mc = String(minecraft);
+    if (/^\d{2,}\.\d+(?:\.\d+)?$/.test(mc)) {
+      const parts = mc.split('.');
+      return `${parts[0]}.${parts[1]}.${parts[2] || '0'}.`;
+    }
+    const m = mc.match(/^1\.(\d+)(?:\.(\d+))?$/);
+    return m ? `${m[1]}.${m[2] || '0'}.` : null;
+  }
+
+  upsertVersionProfile(profile, { latest = false } = {}) {
+    const version = String(profile.minecraft);
+    const index = this.registry.versions.findIndex((row) => String(row.minecraft) === version);
+    if (index >= 0) this.registry.versions[index] = profile;
+    else this.registry.versions.push(profile);
+    if (latest) this.registry.latest = { ...(this.registry.latest || {}), release: version, dynamic_resolution_required: true };
+  }
+
+  versionMetadataCachePath(minecraft) {
+    const key = sha256(String(minecraft)).slice(0, 20);
+    return path.join(this.dataDir, 'version-metadata', `${key}.json`);
+  }
+
+  mappingModelFor(minecraft, existing = null) {
+    if (existing?.mapping_model) return existing.mapping_model;
+    const mc = String(minecraft);
+    const major = Number(mc.split('.')[0]);
+    if (major >= 26) return 'official-unobfuscated';
+    const legacy = mc.match(/^1\.(\d+)(?:\.(\d+))?/);
+    if (legacy && Number(legacy[1]) < 14) return 'historical-obfuscated';
+    return 'official-mapped';
+  }
+
+  async buildDynamicProfile(minecraft, versionRow, detailsJson, existing = null) {
+    const java = Number(detailsJson?.javaVersion?.majorVersion || existing?.java || 0) || null;
+    const profile = {
+      ...(existing || {}),
+      minecraft: String(minecraft),
+      java,
+      mapping_model: this.mappingModelFor(minecraft, existing),
+      loaders: {},
+      dynamic: true,
+      minecraft_metadata_url: versionRow?.url || existing?.minecraft_metadata_url || null,
+    };
+    const probes = await Promise.allSettled([
+      this.probeFabric(minecraft), this.probeQuilt(minecraft), this.probeNeoForge(minecraft), this.probeForge(minecraft),
+    ]);
+    const names = ['fabric', 'quilt', 'neoforge', 'forge'];
+    const errors = [];
+    probes.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        if (result.value) profile.loaders[names[index]] = result.value;
+      } else {
+        errors.push({ loader: names[index], error: String(result.reason?.message || result.reason) });
+      }
+    });
+    if (existing?.loaders) {
+      probes.forEach((result, index) => {
+        const name = names[index];
+        if (result.status === 'rejected' && !profile.loaders[name] && existing.loaders[name]) {
+          profile.loaders[name] = { ...existing.loaders[name], metadata_state: 'stale-unverified' };
+        }
+      });
+    }
+    return { minecraft: String(minecraft), java, profile, errors };
+  }
+
+  async refreshVersionProfile(minecraft, { force = false, allowStale = true } = {}) {
+    const mc = String(minecraft || '').trim();
+    if (!mc) throw new Error('Minecraft version is required');
+    const cachePath = this.versionMetadataCachePath(mc);
+    let cached = null;
+    try { cached = readJson(cachePath); } catch {}
+    const now = Date.now();
+    if (!force && cached?.resolved?.profile && now - Number(cached.fetched_at_ms || 0) < this.metadataTtlMs) {
+      this.upsertVersionProfile(cached.resolved.profile);
+      return { ...cached.resolved, source: 'version-metadata-cache', fresh: true };
+    }
+    try {
+      const manifest = await this.fetchMetadataJson(MOJANG_MANIFEST_URL);
+      const versionRow = (manifest.json?.versions || []).find((row) => String(row?.id) === mc);
+      if (!versionRow?.url) throw new Error(`Mojang version manifest does not contain ${mc}`);
+      const details = await this.fetchMetadataJson(versionRow.url);
+      const existing = this.registry.versions.find((row) => String(row.minecraft) === mc) || null;
+      const resolved = await this.buildDynamicProfile(mc, versionRow, details.json, existing);
+      this.upsertVersionProfile(resolved.profile);
+      const fetchedAt = new Date().toISOString();
+      atomicJson(cachePath, { schema_version: 1, fetched_at: fetchedAt, fetched_at_ms: now, resolved });
+      return { ...resolved, source: 'live-version-metadata', fresh: true };
+    } catch (error) {
+      if (allowStale && cached?.resolved?.profile) {
+        this.upsertVersionProfile(cached.resolved.profile);
+        return { ...cached.resolved, source: 'stale-version-metadata-cache', fresh: false, error: String(error.message || error) };
+      }
+      throw error;
+    }
+  }
+
+  async probeFabric(minecraft) {
+    const { json } = await this.fetchMetadataJson(`${FABRIC_META_ROOT}/${encodeURIComponent(minecraft)}`);
+    const rows = Array.isArray(json) ? json : [];
+    const stableRows = rows.filter((row) => row?.loader?.stable === true);
+    const chosen = stableRows[0] || rows[0];
+    if (!chosen?.loader?.version) return null;
+    return {
+      support_state: stableRows.length ? 'stable' : 'experimental',
+      resolver: 'fabric-meta',
+      loader_version: String(chosen.loader.version),
+      runtime_lane: 'client+server',
+      metadata_source: `${FABRIC_META_ROOT}/${minecraft}`,
+    };
+  }
+
+  async probeQuilt(minecraft) {
+    const { json } = await this.fetchMetadataJson(`${QUILT_META_ROOT}/${encodeURIComponent(minecraft)}`);
+    const rows = Array.isArray(json) ? json : [];
+    const chosen = rows[0];
+    const version = chosen?.loader?.version || chosen?.version;
+    if (!version) return null;
+    return {
+      support_state: 'experimental',
+      resolver: 'quilt-meta',
+      loader_version: String(version),
+      runtime_lane: 'client+server',
+      metadata_source: `${QUILT_META_ROOT}/${minecraft}`,
+    };
+  }
+
+  async probeNeoForge(minecraft) {
+    const { text } = await this.fetchMetadataText(NEOFORGE_METADATA_URL);
+    const prefix = NorthpointService.neoforgePrefix(minecraft);
+    if (!prefix) return null;
+    const versions = NorthpointService.mavenVersions(text).filter((version) => version.startsWith(prefix));
+    if (!versions.length) return null;
+    const stable = versions.filter((version) => !/-/.test(version));
+    const chosen = (stable.length ? stable : versions).at(-1);
+    return {
+      support_state: stable.length ? 'stable' : 'experimental',
+      resolver: 'neoforge-maven',
+      loader_version: chosen,
+      runtime_lane: 'client+server',
+      metadata_source: NEOFORGE_METADATA_URL,
+    };
+  }
+
+  async probeForge(minecraft) {
+    const { json } = await this.fetchMetadataJson(FORGE_PROMOTIONS_URL);
+    const promos = json?.promos || {};
+    const chosen = promos[`${minecraft}-recommended`] || promos[`${minecraft}-latest`];
+    if (!chosen) return null;
+    return {
+      support_state: 'stable',
+      resolver: 'forge-promotions',
+      loader_version: String(chosen),
+      runtime_lane: 'client+server',
+      metadata_source: FORGE_PROMOTIONS_URL,
+    };
+  }
+
+  async refreshLatestProfile({ force = false, allowStale = true } = {}) {
+    const now = Date.now();
+    const cached = this.readMetadataCache();
+    if (!force && cached?.resolved?.profile && now - Number(cached.fetched_at_ms || 0) < this.metadataTtlMs) {
+      this.upsertVersionProfile(cached.resolved.profile, { latest: true });
+      this.latestMetadata = { source: 'metadata-cache', fetched_at: cached.fetched_at, fresh: true, errors: cached.resolved.errors || [] };
+      return { ...cached.resolved, source: 'metadata-cache', fresh: true };
+    }
+    try {
+      const manifest = await this.fetchMetadataJson(MOJANG_MANIFEST_URL);
+      const minecraft = String(manifest.json?.latest?.release || '').trim();
+      if (!minecraft) throw new Error('Mojang manifest did not provide latest.release');
+      const versionRow = (manifest.json?.versions || []).find((row) => String(row?.id) === minecraft);
+      if (!versionRow?.url) throw new Error(`Mojang manifest is missing metadata URL for ${minecraft}`);
+      const details = await this.fetchMetadataJson(versionRow.url);
+      const existing = this.registry.versions.find((row) => String(row.minecraft) === minecraft) || null;
+      const resolved = await this.buildDynamicProfile(minecraft, versionRow, details.json, existing);
+      const { java, profile, errors } = resolved;
+      this.upsertVersionProfile(profile, { latest: true });
+      const fetchedAt = new Date().toISOString();
+      this.writeMetadataCache({ fetched_at: fetchedAt, fetched_at_ms: now, resolved });
+      this.latestMetadata = { source: 'live-metadata', fetched_at: fetchedAt, fresh: true, errors };
+      return { ...resolved, source: 'live-metadata', fresh: true };
+    } catch (error) {
+      if (allowStale && cached?.resolved?.profile) {
+        this.upsertVersionProfile(cached.resolved.profile, { latest: true });
+        this.latestMetadata = { source: 'stale-metadata-cache', fetched_at: cached.fetched_at, fresh: false, error: String(error.message || error) };
+        return { ...cached.resolved, source: 'stale-metadata-cache', fresh: false, error: String(error.message || error) };
+      }
+      const release = this.latestRelease();
+      const profile = this.registry.versions.find((row) => String(row.minecraft) === release) || null;
+      this.latestMetadata = { source: 'registry-snapshot', fetched_at: null, fresh: false, error: String(error.message || error) };
+      if (!profile) throw error;
+      return { minecraft: release, java: profile.java || null, profile, errors: [], source: 'registry-snapshot', fresh: false, error: String(error.message || error) };
+    }
+  }
+
+  async preparePlan(input = {}) {
+    const requested = String(input.targetMc || input.target_mc || '').trim();
+    const latestAlias = ['latest', 'latest-release', 'latest_release'].includes(requested);
+    if (latestAlias && input.refreshLatest !== false && input.refresh_latest !== false) {
+      await this.refreshLatestProfile({ force: input.forceRefresh === true || input.force_refresh === true });
+    } else if (!latestAlias) {
+      const known = this.registry.versions.some((row) => String(row.minecraft) === requested);
+      if ((!known || input.refreshProfile === true || input.refresh_profile === true) && input.resolveVersion !== false && input.resolve_version !== false) {
+        await this.refreshVersionProfile(requested, { force: input.forceRefresh === true || input.force_refresh === true });
+      }
+    }
+    return this.plan(input);
+  }
+
   snapshot() {
     const toolkit = this.toolkitRoot();
     return {
       state: 'ready',
       latest_release: this.latestRelease() || null,
+      metadata: this.latestMetadata,
       profile_sha256: this.profileDigest(),
       execution_available: !!toolkit,
       toolkit_root: toolkit,
@@ -260,7 +538,7 @@ class NorthpointService extends EventEmitter {
       latest_resolution: {
         requested: requestedMc,
         resolved: targetMc,
-        source: latestAliases.has(requestedMc) ? (input.latestVersion || input.latest_version ? 'runtime-override' : 'registry-snapshot') : 'explicit',
+        source: latestAliases.has(requestedMc) ? (input.latestVersion || input.latest_version ? 'runtime-override' : (this.latestMetadata?.source || 'registry-snapshot')) : 'explicit',
       },
       matrix_mode: matrixMode,
       primary,
@@ -424,6 +702,7 @@ class NorthpointService extends EventEmitter {
       registry_snapshot_date: this.registry.snapshot_date || null,
       latest_release: latest || null,
       latest_profile_resolved: !!latestProfile,
+      metadata: this.latestMetadata,
       java,
       toolkit: {
         available: !!toolkit,
@@ -488,8 +767,10 @@ class NorthpointService extends EventEmitter {
   async request(command, args = {}) {
     switch (String(command)) {
       case 'conversion_capabilities': return await this.capabilities(args);
-      case 'conversion_plan': return this.plan(args);
-      case 'conversion_create_session': return this.createSession(args);
+      case 'conversion_refresh_profiles': return await this.refreshLatestProfile({ force: args.force === true });
+      case 'conversion_resolve_version': return await this.refreshVersionProfile(args.minecraft || args.version, { force: args.force === true });
+      case 'conversion_plan': return await this.preparePlan(args);
+      case 'conversion_create_session': await this.preparePlan(args); return this.createSession(args);
       case 'conversion_get_session': return this.publicSession(this.readSession(args.sessionId || args.session_id));
       case 'conversion_list_sessions': return this.listSessions();
       case 'conversion_record_fingerprint': return this.recordFingerprint(args.sessionId || args.session_id, args.cellId || args.cell_id, args.inputs || {});
