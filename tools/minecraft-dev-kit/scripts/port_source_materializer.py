@@ -105,6 +105,7 @@ def materialize(source: Path, target: Path, loader: str, mod_id: str) -> dict[st
     copied: list[dict[str, Any]] = []
     skipped: list[dict[str, Any]] = []
     rewrites: list[dict[str, Any]] = []
+    superseded: list[dict[str, Any]] = []
     unresolved: list[dict[str, Any]] = []
 
     source_sets = [
@@ -174,10 +175,10 @@ def materialize(source: Path, target: Path, loader: str, mod_id: str) -> dict[st
         ) if p.is_file()
     ]
     if build_files:
-        unresolved.append({
+        superseded.append({
             "kind": "source-build-logic",
             "paths": [str(p.relative_to(source)) for p in build_files],
-            "reason": "target-native 26.3 build files take precedence; external/custom dependencies must be migrated explicitly",
+            "reason": "target-native 26.3 build/toolchain files intentionally supersede the historical build files; dependency migration is audited separately",
         })
 
     runtime_scope = detect_runtime_scope(source, detected[0] if len(detected) == 1 else None)
@@ -196,10 +197,12 @@ def materialize(source: Path, target: Path, loader: str, mod_id: str) -> dict[st
         "copied_count": len(copied),
         "skipped_count": len(skipped),
         "rewrite_count": len(rewrites),
+        "superseded_count": len(superseded),
         "unresolved_count": len(unresolved),
         "copied": copied,
         "skipped": skipped,
         "rewrites": rewrites,
+        "superseded": superseded,
         "unresolved": unresolved,
         "rule": "Only deterministic source-preservation and safe metadata rewrites are automatic. Symbolic/semantic API changes remain explicit repair work.",
     }
