@@ -69,6 +69,30 @@ def parse_toml_mod_id(text: str) -> str | None:
     return matches[0].strip() if matches else None
 
 
+def is_template_placeholder(value: str | None) -> bool:
+    raw = str(value or '').strip()
+    if not raw:
+        return False
+    return bool(
+        re.fullmatch(r'\$\{[^{}]+\}', raw)
+        or re.fullmatch(r'@[A-Za-z0-9_.-]+@', raw)
+        or re.fullmatch(r'\{\{[^{}]+\}\}', raw)
+    )
+
+
+def property_mod_id(root: pathlib.Path) -> str | None:
+    props: dict[str, str] = {}
+    for rel in ('gradle.properties', 'project.properties'):
+        p = root / rel
+        if p.is_file():
+            props.update(parse_properties(p))
+    for key in ('mod_id', 'modId', 'modid'):
+        value = str(props.get(key) or '').strip()
+        if re.fullmatch(r'[a-z][a-z0-9_]{1,63}', value):
+            return value
+    return None
+
+
 def parse_java_hint(text: str) -> int | None:
     pats = [
         r'JavaVersion\.VERSION_(\d+)',
@@ -161,16 +185,25 @@ def detect_loader_and_mod_id(root: pathlib.Path) -> tuple[str | None, str | None
             loader = 'forge'; mod_id = parse_toml_mod_id(read_text(p))
         if loader:
             loaders.append(loader)
+        row_mod_id = mod_id or ''
+        if mod_id and is_template_placeholder(mod_id):
+            warnings.append(f'metadata template placeholder detected at {p.relative_to(root)}: {mod_id}')
+            mod_id = None
         if mod_id:
             mod_ids.append(mod_id)
-        rows.append({'path': str(p.relative_to(root)), 'loader': loader or 'unknown', 'mod_id': mod_id or ''})
+        rows.append({'path': str(p.relative_to(root)), 'loader': loader or 'unknown', 'mod_id': row_mod_id})
     loader_set = sorted(set(loaders))
     mod_set = sorted(set(mod_ids))
     if len(loader_set) > 1:
         warnings.append('multiple loader metadata families detected: ' + ', '.join(loader_set))
     if len(mod_set) > 1:
         warnings.append('multiple mod ids detected: ' + ', '.join(mod_set))
-    return (loader_set[0] if len(loader_set) == 1 else None, mod_set[0] if len(mod_set) == 1 else None, rows, warnings)
+    resolved_mod_id = mod_set[0] if len(mod_set) == 1 else None
+    if resolved_mod_id is None and len(loader_set) == 1:
+        resolved_mod_id = property_mod_id(root)
+        if resolved_mod_id:
+            warnings.append('resolved mod id from project properties because packaged metadata is templated or absent')
+    return (loader_set[0] if len(loader_set) == 1 else None, resolved_mod_id, rows, warnings)
 
 
 def detect_source_version_and_java(root: pathlib.Path) -> tuple[str | None, int | None, dict[str, str]]:
