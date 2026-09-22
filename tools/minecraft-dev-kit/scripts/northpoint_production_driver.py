@@ -15,7 +15,8 @@ import zipfile
 from typing import Any
 
 from northpoint_compose import compose
-from northpoint_source_intake import infer_config
+from northpoint_source_intake import infer_config, inspect_project
+from northpoint_target_26_3 import ConversionBlock, materialize_port
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
@@ -137,6 +138,33 @@ def deep_merge(base: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
         else:
             out[key] = value
     return out
+
+
+def materialize_legacy_target(project: pathlib.Path, cell: dict[str, Any], work: pathlib.Path) -> tuple[pathlib.Path, dict[str, Any] | None]:
+    # Explicit Northpoint projects already own their target composition. Automatic
+    # migration is only for an ordinary legacy source tree selected by the user.
+    if (project / CONFIG_NAME).is_file():
+        return project, None
+    if str(cell.get('minecraft') or '').strip() != '26.3':
+        return project, None
+
+    source = inspect_project(project)
+    source_mc = str(source.get('minecraft') or '').strip()
+    source_loader = str(source.get('loader') or '').strip()
+    target_loader = str(cell.get('loader') or '').strip()
+    if not source_mc or source_mc == '26.3':
+        return project, None
+    if not source_loader:
+        raise ConversionBlock('legacy source loader could not be determined uniquely; explicit Northpoint target configuration is required')
+    if source_loader != target_loader:
+        raise ConversionBlock(
+            f'legacy source loader {source_loader!r} does not match target loader {target_loader!r}; '
+            'cross-loader conversion requires an explicit target adapter/overlay'
+        )
+
+    target = work / 'materialized-target'
+    manifest = materialize_port(project, target, target_loader)
+    return target, manifest
 
 
 def render_token(value: Any, context: dict[str, str]) -> str:
@@ -478,18 +506,29 @@ def main() -> int:
     if not args.work or not args.output:
         raise RuntimeError('--work and --output are required outside --probe')
     work = args.work.resolve(); out = args.output.resolve(); out.mkdir(parents=True, exist_ok=True)
+    try:
+        conversion_root, conversion_manifest = materialize_legacy_target(project, cell, work)
+    except ConversionBlock as exc:
+        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': ['conversion-block'], 'conversion': None}))
+        return 0
+
     composed = work / 'composed'
-    inv = compose(project, cell, composed, clean=True)
+    inv = compose(conversion_root, cell, composed, clean=True)
     _, cfg = load_config(composed, cell)
     if not cfg:
         # Support root config that intentionally lives outside overlays.
         _, cfg = load_config(project, cell)
     evidence_dir = work / 'evidence'; evidence_dir.mkdir(parents=True, exist_ok=True)
     evidence: list[Any] = [f'compose:{inv["sha256"]}', f'project-config:{stable_hash(cfg)}']
+    if conversion_manifest:
+        source_meta = conversion_manifest.get('source') or {}
+        target_meta = conversion_manifest.get('target') or {}
+        evidence.insert(0, f"conversion:{source_meta.get('minecraft') or 'unknown'}->{target_meta.get('minecraft') or cell.get('minecraft')}")
+        evidence.append(f"conversion-target:{conversion_manifest.get('target_sha256')}")
     try:
         jar = build_project(composed, work, cfg, cell, args.timeout)
     except ToolchainBlock as exc:
-        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': evidence + ['toolchain-block']}))
+        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': evidence + ['toolchain-block'], 'conversion': conversion_manifest}))
         return 0
     evidence.append(f'build-artifact:{sha256_file(jar)}')
     evidence += inspect_metadata(jar, cfg, cell)
@@ -500,7 +539,7 @@ def main() -> int:
     if link_row: evidence.append(link_row)
     if link_blocker: blockers.append(link_blocker)
     if blockers:
-        print(json.dumps({'state': 'failed', 'reason': 'static release blockers: ' + ', '.join(sorted(set(blockers))), 'evidence': evidence}))
+        print(json.dumps({'state': 'failed', 'reason': 'static release blockers: ' + ', '.join(sorted(set(blockers))), 'evidence': evidence, 'conversion': conversion_manifest}))
         return 0
 
     state, runtime_evidence, runtime_reason = runtime_gate(composed, jar, work, cfg, cell, args.timeout)
@@ -513,15 +552,16 @@ def main() -> int:
             'reason': runtime_reason,
             'artifact': final.name,
             'evidence': evidence + ['candidate-artifact-preserved'],
+            'conversion': conversion_manifest,
         }))
         return 0
     if state != 'passed':
-        print(json.dumps({'state': state, 'reason': runtime_reason, 'evidence': evidence}))
+        print(json.dumps({'state': state, 'reason': runtime_reason, 'evidence': evidence, 'conversion': conversion_manifest}))
         return 0
 
     final = out / jar.name
     shutil.copy2(jar, final)
-    print(json.dumps({'state': 'passed', 'artifact': final.name, 'evidence': evidence}))
+    print(json.dumps({'state': 'passed', 'artifact': final.name, 'evidence': evidence, 'conversion': conversion_manifest}))
     return 0
 
 
