@@ -50,21 +50,21 @@ def fixture(project: pathlib.Path) -> None:
         },
     }
     write(project / 'northpoint.project.json', json.dumps(cfg, indent=2) + '\n')
-    write(project / 'overlays/common/qa-api/java/net/fabricmc/api/ModInitializer.java',
+    write(project / 'qa-api/java/net/fabricmc/api/ModInitializer.java',
           'package net.fabricmc.api; public interface ModInitializer { void onInitialize(); }\n')
-    write(project / 'overlays/common/src/main/java/example/ProofMod.java', '''package example;
+    write(project / 'src/main/java/example/ProofMod.java', '''package example;
 import net.fabricmc.api.ModInitializer;
 public final class ProofMod implements ModInitializer {
   public static boolean initialized;
   @Override public void onInitialize(){ initialized = true; }
 }
 ''')
-    write(project / 'overlays/common/src/main/java/example/Smoke.java', '''package example;
+    write(project / 'src/main/java/example/Smoke.java', '''package example;
 public final class Smoke {
   public static void main(String[] args){ new ProofMod().onInitialize(); if(!ProofMod.initialized) throw new IllegalStateException(); System.out.print("RUNTIME:"+Version.MC); }
 }
 ''')
-    write(project / 'overlays/common/src/main/resources/fabric.mod.json', json.dumps({
+    write(project / 'src/main/resources/fabric.mod.json', json.dumps({
         'schemaVersion': 1,
         'id': 'stoneproof',
         'version': '1.0.0',
@@ -73,9 +73,9 @@ public final class Smoke {
         'entrypoints': {'main': ['example.ProofMod']},
         'depends': {'fabricloader': '>=0.15.0'},
     }, indent=2) + '\n')
-    write(project / 'overlays/common/src/main/resources/assets/stoneproof/lang/en_us.json',
+    write(project / 'src/main/resources/assets/stoneproof/lang/en_us.json',
           json.dumps({'item.stoneproof.proof': 'Proof Item'}, indent=2) + '\n')
-    write(project / 'overlays/common/src/main/resources/data/stoneproof/tags/items/proof.json',
+    write(project / 'src/main/resources/data/stoneproof/tags/items/proof.json',
           json.dumps({'replace': False, 'values': ['minecraft:stone']}, indent=2) + '\n')
     for mc in ('1.20.1', '1.21.1', '26.3'):
         write(project / f'overlays/version/{mc}/src/main/java/example/Version.java',
