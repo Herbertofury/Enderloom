@@ -25,6 +25,7 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     assert got['minecraft']=='1.21.1' and got['java']==21, got
     assert got['source_counts']['java']==1 and got['source_counts']['mixins']>=1, got
     assert got['proposed_config']['build']['mode']=='gradle', got
+    assert got['proposed_config']['runtime']['required'] is True, got
     assert got['source_sha256'], got
 
     forge=pathlib.Path(td)/'forgemod'; forge.mkdir()
