@@ -6,7 +6,7 @@ const path = require('path');
 const assert = require('assert/strict');
 const { NorthpointService } = require('../src/northpoint-service');
 
-const TOOLKIT = process.env.ENDERLOOM_MINECRAFT_DEV_KIT || null;
+const TOOLKIT = process.env.ENDERLOOM_MINECRAFT_DEV_KIT || path.join(__dirname, '..', 'tools', 'minecraft-dev-kit');
 const HAS_TOOLKIT = !!(TOOLKIT && fs.existsSync(path.join(TOOLKIT, 'scripts', 'northpoint_simple_mod_selftest.py')));
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-northpoint-qa-'));
 const dataDir = path.join(root, 'data');
