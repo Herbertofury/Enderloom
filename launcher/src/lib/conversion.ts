@@ -171,3 +171,20 @@ export interface ConversionJobResult {
     stderr_tail: string;
   };
 }
+
+export interface ConversionSourceIntake {
+  schema_version: number;
+  project_root: string;
+  source_sha256: string;
+  build: { mode: string; wrapper?: string | null };
+  loader: ConversionLoader | null;
+  mod_id: string | null;
+  minecraft: string | null;
+  java: number | null;
+  metadata: Array<{ path: string; loader: string; mod_id: string }>;
+  source_counts: { java: number; kotlin: number; resources: number; mixins: number };
+  properties: Record<string, string>;
+  existing_config: Record<string, unknown> | null;
+  proposed_config: Record<string, unknown>;
+  warnings: string[];
+}
