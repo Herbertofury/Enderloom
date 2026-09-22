@@ -15,6 +15,18 @@ TEXT_SUFFIXES = {
     ".mcmeta", ".cfg", ".conf", ".txt", ".md", ".yml", ".yaml", ".xml", ".accesswidener", ".classtweaker"
 }
 MAX_TEXT_BYTES = 2 * 1024 * 1024
+IGNORED_DIRS = {".git", ".gradle", ".idea", "build", "out", "run", "devkit-evidence"}
+IGNORED_ROOT_FILES = {"porting-ledger.json", "devkit-26.3-lock.json", "PORTING.md", ".northpoint-compose.json"}
+
+
+def include_project_path(name: str) -> bool:
+    normalized = PurePosixPath(name)
+    parts = normalized.parts
+    if not parts:
+        return False
+    if len(parts) == 1 and parts[0] in IGNORED_ROOT_FILES:
+        return False
+    return not any(part in IGNORED_DIRS for part in parts)
 
 
 class Bundle:
@@ -27,8 +39,16 @@ class Bundle:
 
     def names(self) -> list[str]:
         if self.is_zip:
-            return sorted(n for n in self.zf.namelist() if not n.endswith("/"))
-        return sorted(p.relative_to(self.root).as_posix() for p in self.root.rglob("*") if p.is_file())
+            return sorted(
+                n for n in self.zf.namelist()
+                if not n.endswith("/") and include_project_path(n)
+            )
+        return sorted(
+            rel for p in self.root.rglob("*")
+            if p.is_file()
+            for rel in [p.relative_to(self.root).as_posix()]
+            if include_project_path(rel)
+        )
 
     def read(self, name: str, limit: int | None = None) -> bytes:
         if self.is_zip:
@@ -80,7 +100,12 @@ def input_identity(path: Path) -> dict:
             "size": path.stat().st_size,
             "sha256": file_sha256(path),
         }
-    names = sorted(p.relative_to(path).as_posix() for p in path.rglob("*") if p.is_file())
+    names = sorted(
+        rel for p in path.rglob("*")
+        if p.is_file()
+        for rel in [p.relative_to(path).as_posix()]
+        if include_project_path(rel)
+    )
     h = hashlib.sha256()
     total = 0
     for rel in names:

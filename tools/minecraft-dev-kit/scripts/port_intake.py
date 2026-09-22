@@ -66,11 +66,14 @@ def detect_metadata(bundle: Bundle, names: list[str], text_files: dict[str, str]
     loaders: list[str] = []
     metadata: dict = {}
     minecraft_candidates: list[dict] = []
-    if "fabric.mod.json" in names:
+    fabric_name = next((n for n in names if n.endswith("fabric.mod.json")), None)
+    quilt_name = next((n for n in names if n.endswith("quilt.mod.json")), None)
+    if fabric_name:
         loaders.append("fabric")
-        data = _json(bundle, "fabric.mod.json") or {}
+        data = _json(bundle, fabric_name) or {}
         fabric_mc = (data.get("depends") or {}).get("minecraft")
         metadata["fabric"] = {
+            "file": fabric_name,
             "id": data.get("id"),
             "version": data.get("version"),
             "name": data.get("name"),
@@ -81,16 +84,16 @@ def detect_metadata(bundle: Bundle, names: list[str], text_files: dict[str, str]
             "access_widener": data.get("accessWidener"),
         }
         if (v := _first_mc_version(fabric_mc)):
-            minecraft_candidates.append({"version": v, "source": "fabric.mod.json:depends.minecraft"})
-    if "quilt.mod.json" in names:
+            minecraft_candidates.append({"version": v, "source": f"{fabric_name}:depends.minecraft"})
+    if quilt_name:
         loaders.append("quilt")
-        data = _json(bundle, "quilt.mod.json") or {}
+        data = _json(bundle, quilt_name) or {}
         ql = data.get("quilt_loader") or {}
-        metadata["quilt"] = {"id": ql.get("id"), "version": ql.get("version"), "metadata": ql.get("metadata"), "depends": ql.get("depends")}
+        metadata["quilt"] = {"file": quilt_name, "id": ql.get("id"), "version": ql.get("version"), "metadata": ql.get("metadata"), "depends": ql.get("depends")}
         for dep in ql.get("depends") or []:
             if isinstance(dep, dict) and dep.get("id") == "minecraft":
                 if (v := _first_mc_version(dep.get("versions"))):
-                    minecraft_candidates.append({"version": v, "source": "quilt.mod.json:depends.minecraft"})
+                    minecraft_candidates.append({"version": v, "source": f"{quilt_name}:depends.minecraft"})
     neo_name = next((n for n in names if n.endswith("META-INF/neoforge.mods.toml")), None)
     forge_name = next((n for n in names if n.endswith("META-INF/mods.toml")), None)
     if neo_name:

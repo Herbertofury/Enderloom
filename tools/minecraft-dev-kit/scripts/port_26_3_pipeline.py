@@ -13,6 +13,7 @@ from mixin_surface_audit import render_md as render_mixin_md
 from port_semantic_planner import plan as semantic_plan, render_md as render_semantic_md
 from content_identity_inventory import inventory as content_inventory
 from registration_identity_inventory import inventory as registration_inventory
+from port_source_materializer import materialize as materialize_source
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
@@ -26,6 +27,7 @@ def main() -> int:
     ap.add_argument("--mod-name")
     ap.add_argument("--group", default="com.example")
     ap.add_argument("--mod-version", default="1.0.0")
+    ap.add_argument("--materialize-source", action="store_true", help="carry source-owned code/resources into the target-native scaffold using conservative safe rewrites")
     args = ap.parse_args()
 
     source = args.source.resolve()
@@ -45,6 +47,10 @@ def main() -> int:
     if args.mod_name:
         cmd += ["--mod-name", args.mod_name]
     subprocess.run(cmd, check=True)
+
+    materialization = None
+    if args.materialize_source:
+        materialization = materialize_source(source, out, args.loader, args.mod_id)
 
     evidence = out / "devkit-evidence"
     evidence.mkdir(parents=True, exist_ok=True)
@@ -74,6 +80,7 @@ def main() -> int:
         "content_identity_count": source_content.get("entry_count", 0),
         "registration_identity_evidence": "devkit-evidence/source-registration-inventory.json",
         "registration_identity_count": source_registrations.get("entry_count", 0),
+        "source_materialization_evidence": "devkit-evidence/source-materialization.json" if materialization else None,
     }
     # Initialize coarse surfaces so the guard keeps the workspace honest until each source-owned surface is classified.
     items = []
@@ -88,15 +95,54 @@ def main() -> int:
         value = intake["inventory"].get(key) or []
         if value:
             items.append({"id": f"surface:{key}", "source_count": len(value), "status": "missing", "target_evidence": None, "notes": "classify after porting this source surface"})
+    rewrite_ids = {
+        str(row.get("id") or "")
+        for row in ((materialization or {}).get("rewrites") or [])
+        if isinstance(row, dict)
+    }
     for task in semantics.get("tasks") or []:
+        status = "missing"
+        target_evidence = None
+        notes = task.get("replacement")
+        automation = str(task.get("automation") or "")
+        task_id = str(task.get("id") or "")
+        if materialization and automation == "safe-build-rewrite":
+            status = "regenerated"
+            target_evidence = "devkit-evidence/source-materialization.json"
+            notes = f"{notes} Automatically satisfied by target-native scaffold build logic."
+        elif materialization and automation == "safe-json-rewrite" and task_id in rewrite_ids:
+            status = "regenerated"
+            target_evidence = "devkit-evidence/source-materialization.json"
+            notes = f"{notes} Automatically satisfied by recorded safe metadata rewrite."
         items.append({
-            "id": f"semantic:{task['id']}",
+            "id": f"semantic:{task_id}",
             "source_count": len(task.get("evidence") or []) or 1,
-            "status": "missing",
-            "target_evidence": None,
-            "notes": task.get("replacement"),
+            "status": status,
+            "target_evidence": target_evidence,
+            "notes": notes,
             "required_qa": task.get("qa") or [],
         })
+
+    if materialization:
+        carried_surfaces = {
+            "java_sources", "textures_png", "sounds_ogg", "lang_files", "models",
+            "blockstates", "recipes", "loot_tables", "tags", "advancements",
+            "worldgen", "structures", "mixins", "access_wideners",
+            "access_transformers", "services",
+        }
+        for item in items:
+            item_id = str(item.get("id") or "")
+            if not item_id.startswith("surface:"):
+                continue
+            surface = item_id.split(":", 1)[1]
+            if surface in carried_surfaces:
+                item["status"] = "carried"
+                item["target_evidence"] = "devkit-evidence/source-materialization.json"
+                item["notes"] = "source-owned surface physically carried by deterministic materialization; semantic/linkage/runtime validity is still enforced by dedicated guards"
+            elif surface == "json_resources":
+                item["status"] = "regenerated"
+                item["target_evidence"] = "devkit-evidence/source-materialization.json"
+                item["notes"] = "JSON resources carried while loader metadata was normalized/regenerated for the 26.3 target"
     # Content parity is mechanically checked by port_guard against the exact source identity inventory.
     # Keep exclusions explicit and evidence-backed rather than generating thousands of hand-maintained ledger rows.
     ledger.setdefault("content_exclusions", [])
@@ -112,7 +158,9 @@ def main() -> int:
         "initial_missing_surfaces": len(items),
         "source_content_identities": source_content.get("entry_count", 0),
         "source_registration_identities": source_registrations.get("entry_count", 0),
-        "next": f"Port source behavior, classify porting-ledger.json, then run port_guard.py {out} --loader {args.loader}",
+        "materialized_source": bool(materialization),
+        "materialization": materialization,
+        "next": f"Port unresolved semantic behavior, classify porting-ledger.json, then run port_guard.py {out} --loader {args.loader}",
     }
     print(json.dumps(result, indent=2))
     return 0
