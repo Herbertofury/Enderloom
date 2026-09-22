@@ -47,6 +47,9 @@ jobs:
       - name: Build launcher frontend
         run: npm run build:launcher
 
+      - name: Northpoint source intake QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_intake_selftest.py
+
       - name: Northpoint service QA
         run: npm run northpoint-core-qa
 
