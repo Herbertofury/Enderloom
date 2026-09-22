@@ -44,6 +44,19 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     assert got['runtime_scope']=='both', got
     assert got['proposed_config']['runtime']['scope']=='both', got
 
+    neo=pathlib.Path(td)/'neomod'; neo.mkdir()
+    write(neo,'gradle.properties','minecraft_version=26.3\nmod_id=examplemod\nneo_version=26.3.0.7-beta\n')
+    write(neo,'build.gradle','java.toolchain.languageVersion = JavaLanguageVersion.of(25)\n')
+    write(neo,'gradlew','#!/bin/sh\n')
+    write(neo,'src/main/templates/META-INF/neoforge.mods.toml','[[mods]]\nmodId="${mod_id}"\n')
+    write(neo,'src/main/java/com/example/ExampleMod.java','package com.example; public class ExampleMod {}\n')
+    got=run(neo)
+    assert got['loader']=='neoforge', got
+    assert got['mod_id']=='examplemod', got
+    assert got['minecraft']=='26.3' and got['java']==25, got
+    assert got['proposed_config']['mod_id']=='examplemod', got
+    assert any('template placeholder' in warning for warning in got['warnings']), got
+
     client=pathlib.Path(td)/'clientmod'; client.mkdir()
     write(client,'gradle.properties','minecraft_version=1.21.1\n')
     write(client,'build.gradle','tasks.withType(JavaCompile).configureEach { it.options.release = 21 }\n')
