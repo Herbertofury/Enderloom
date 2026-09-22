@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-09-22",
+  "latest": {
+    "release": "26.3",
+    "source": "minecraft.net release 2026-09-15",
+    "dynamic_resolution_required": true
+  },
+  "versions": [
+    {
+      "minecraft": "1.20.1",
+      "java": 17,
+      "mapping_model": "obfuscated-historical",
+      "loaders": {
+        "fabric": {"support_state": "stable", "resolver": "fabric-cli", "runtime_lane": "client+server"},
+        "forge": {"support_state": "stable", "resolver": "forge-maven", "runtime_lane": "client+server"}
+      }
+    },
+    {
+      "minecraft": "1.21.1",
+      "java": 21,
+      "mapping_model": "official-mapped",
+      "loaders": {
+        "fabric": {"support_state": "stable", "resolver": "fabric-cli", "runtime_lane": "client+server"},
+        "neoforge": {"support_state": "stable", "resolver": "neoforge-mdk", "runtime_lane": "client+server"}
+      }
+    },
+    {
+      "minecraft": "26.3",
+      "java": 25,
+      "mapping_model": "official-unobfuscated",
+      "loaders": {
+        "fabric": {
+          "support_state": "stable",
+          "resolver": "fabric-cli",
+          "loader_version": "0.19.5",
+          "loom": "1.17",
+          "gradle": "9.6.0",
+          "runtime_lane": "client+server"
+        },
+        "neoforge": {
+          "support_state": "experimental",
+          "resolver": "neoforge-mdk",
+          "gradle": "9.2.1",
+          "runtime_lane": "client+server"
+        }
+      }
+    }
+  ]
+}
