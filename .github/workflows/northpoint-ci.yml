@@ -17,7 +17,7 @@ concurrency:
 jobs:
   northpoint:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -101,8 +101,19 @@ jobs:
           distribution: temurin
           java-version: "25"
 
+      - name: Provision Gradle 9.6 for converted-source graduation
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.6.0"
+
       - name: Northpoint full 26.3 conversion engine QA
         run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
+
+      - name: Northpoint source materialization QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
+
+      - name: Northpoint simple 1.20.1 to 26.3 production conversion smoke
+        run: python tools/minecraft-dev-kit/scripts/northpoint_simple_conversion_smoke.py
 
       - name: Fetch official Fabric 26.3 example mod
         run: git clone --depth 1 --branch 26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod-26.3"
