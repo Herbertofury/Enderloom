@@ -100,7 +100,7 @@ function safeRealpath(candidate) {
 }
 
 class NorthpointService extends EventEmitter {
-  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null, metadataFetch = null, metadataTtlMs = METADATA_TTL_MS } = {}) {
+  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null, metadataFetch = null, metadataTtlMs = METADATA_TTL_MS, nativeRequest = null } = {}) {
     super();
     this.rootDir = path.resolve(rootDir || process.cwd());
     this.dataDir = path.resolve(dataDir || path.join(this.rootDir, '.enderloom', 'northpoint'));
@@ -108,6 +108,7 @@ class NorthpointService extends EventEmitter {
     this.explicitToolkitRoot = toolkitRoot ? path.resolve(toolkitRoot) : null;
     this.registryPath = registryPath ? path.resolve(registryPath) : null;
     this.metadataFetch = metadataFetch;
+    this.nativeRequest = typeof nativeRequest === 'function' ? nativeRequest : null;
     this.metadataTtlMs = Math.max(60 * 1000, Number(metadataTtlMs) || METADATA_TTL_MS);
     this.latestMetadata = null;
     this.sessionsDir = path.join(this.dataDir, 'sessions');
@@ -803,6 +804,36 @@ class NorthpointService extends EventEmitter {
     return value;
   }
 
+  async provisionJava(cells) {
+    if (!this.nativeRequest) return cells.map((cell) => ({ ...cell }));
+    const byMajor = new Map();
+    for (const cell of cells) {
+      const major = Number(cell.java || 0);
+      if (!major || byMajor.has(major)) continue;
+      this.emit('event', {
+        event: 'conversion:toolchain',
+        payload: { state: 'provisioning', java: major },
+      });
+      const info = await this.nativeRequest(
+        'install_java_jdk',
+        { major },
+        { timeoutMs: 15 * 60 * 1000 },
+      );
+      if (!info?.path || Number(info.major) !== major) {
+        throw new Error(`Managed JDK ${major} was not provisioned correctly`);
+      }
+      byMajor.set(major, String(info.path));
+      this.emit('event', {
+        event: 'conversion:toolchain',
+        payload: { state: 'ready', java: major, path: String(info.path) },
+      });
+    }
+    return cells.map((cell) => ({
+      ...cell,
+      java_path: byMajor.get(Number(cell.java || 0)) || cell.java_path || null,
+    }));
+  }
+
   async executeJob(input = {}) {
     const sessionId = String(input.sessionId || input.session_id || '');
     const session = this.readSession(sessionId);
@@ -816,10 +847,13 @@ class NorthpointService extends EventEmitter {
     if (!selected.some((cell) => cell.id === session.plan.primary.id)) {
       throw new Error('Primary conversion cell is not selected');
     }
-    session.phase = 'job-running';
+    session.phase = 'provisioning-toolchains';
     session.last_error = null;
     this.writeSession(session);
     try {
+      const provisioned = await this.provisionJava(selected);
+      session.phase = 'job-running';
+      this.writeSession(session);
       const bridge = new NorthpointJobBridge({
         toolkitRoot: toolkit,
         dataDir: this.dataDir,
@@ -831,7 +865,7 @@ class NorthpointService extends EventEmitter {
         sessionId,
         sourceRoot,
         primaryCell: session.plan.primary.id,
-        cells: selected,
+        cells: provisioned,
         config: {},
         driverProfile: 'production',
         maxWorkers: Math.max(0, Math.min(8, Number(input.maxWorkers || input.max_workers) || 0)),
