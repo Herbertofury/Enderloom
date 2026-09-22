@@ -181,6 +181,7 @@ export interface ConversionSourceIntake {
   mod_id: string | null;
   minecraft: string | null;
   java: number | null;
+  runtime_scope: "client" | "server" | "both" | "unknown";
   metadata: Array<{ path: string; loader: string; mod_id: string }>;
   source_counts: { java: number; kotlin: number; resources: number; mixins: number };
   properties: Record<string, string>;
