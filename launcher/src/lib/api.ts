@@ -92,6 +92,7 @@ import type {
   ConversionPlan,
   ConversionPlanRequest,
   ConversionSelfTestResult,
+  ConversionVersionResolution,
   ConversionSession,
 } from "./conversion";
 
@@ -112,6 +113,10 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 export const api = {
   getConversionCapabilities: () =>
     call<ConversionCapabilities>("conversion_capabilities"),
+  refreshConversionProfiles: (force = false) =>
+    call<ConversionVersionResolution>("conversion_refresh_profiles", { force }),
+  resolveConversionVersion: (minecraft: string, force = false) =>
+    call<ConversionVersionResolution>("conversion_resolve_version", { minecraft, force }),
   planConversion: (request: ConversionPlanRequest) =>
     call<ConversionPlan>(
       "conversion_plan",
