@@ -24,6 +24,7 @@ import type {
   ConversionPlan,
   ConversionPlanRequest,
   ConversionSession,
+  ConversionSourceIntake,
 } from "../lib/conversion";
 
 const LOADERS: ConversionLoader[] = ["fabric", "neoforge", "forge", "quilt"];
@@ -108,6 +109,7 @@ export function ConversionView() {
   const [capabilities, setCapabilities] = useState<ConversionCapabilities | null>(null);
   const [sessions, setSessions] = useState<ConversionSession[]>([]);
   const [sourcePath, setSourcePath] = useState("");
+  const [sourceIntake, setSourceIntake] = useState<ConversionSourceIntake | null>(null);
   const [targetMc, setTargetMc] = useState("latest");
   const [loader, setLoader] = useState<ConversionLoader>("fabric");
   const [matrix, setMatrix] = useState<"target-only" | "all">("target-only");
@@ -116,7 +118,7 @@ export function ConversionView() {
   const [activeSession, setActiveSession] = useState<ConversionSession | null>(null);
   const [lastJob, setLastJob] = useState<ConversionJobResult | null>(null);
   const [health, setHealth] = useState<string | null>(null);
-  const [busy, setBusy] = useState<"boot" | "plan" | "run" | "health" | "refresh" | null>("boot");
+  const [busy, setBusy] = useState<"boot" | "inspect" | "plan" | "run" | "health" | "refresh" | null>("boot");
   const [error, setError] = useState<string | null>(null);
 
   const request = useMemo<ConversionPlanRequest>(
@@ -179,9 +181,22 @@ export function ConversionView() {
     });
     if (typeof selected === "string") {
       setSourcePath(selected);
+      setSourceIntake(null);
       setPlan(null);
       setLastJob(null);
       setError(null);
+      setBusy("inspect");
+      try {
+        const intake = await api.inspectConversionSource(selected);
+        setSourceIntake(intake);
+        if (intake.loader && LOADERS.includes(intake.loader)) {
+          setLoader(intake.loader);
+        }
+      } catch (err) {
+        setError(String(err));
+      } finally {
+        setBusy(null);
+      }
     }
   };
 
@@ -330,6 +345,53 @@ export function ConversionView() {
                       </span>
                     </span>
                   </button>
+                  {busy === "inspect" && (
+                    <div className="mt-2 flex items-center gap-2 text-xs text-content-muted">
+                      <Loader2 className="size-3.5 animate-spin" />
+                      Inspecting build, loader, metadata and source version…
+                    </div>
+                  )}
+                  {sourceIntake && (
+                    <div className="mt-3 rounded-xl border border-border-soft bg-void/35 p-3">
+                      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                        <div>
+                          <div className="text-[10px] font-semibold uppercase tracking-wide text-content-faint">Source</div>
+                          <div className="mt-1 text-xs font-medium text-content">
+                            {sourceIntake.minecraft || "Unknown"} · {sourceIntake.loader || "Unknown loader"}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-semibold uppercase tracking-wide text-content-faint">Mod ID</div>
+                          <div className="mt-1 truncate font-mono text-xs text-content">
+                            {sourceIntake.mod_id || "Undetected"}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-semibold uppercase tracking-wide text-content-faint">Build</div>
+                          <div className="mt-1 text-xs font-medium text-content">
+                            {sourceIntake.build.mode}
+                            {sourceIntake.java ? ` · Java ${sourceIntake.java}` : ""}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-semibold uppercase tracking-wide text-content-faint">Source scan</div>
+                          <div className="mt-1 text-xs font-medium text-content">
+                            {sourceIntake.source_counts.java + sourceIntake.source_counts.kotlin} code · {sourceIntake.source_counts.mixins} mixin
+                          </div>
+                        </div>
+                      </div>
+                      {sourceIntake.warnings.length > 0 && (
+                        <div className="mt-3 space-y-1 border-t border-border-soft pt-2">
+                          {sourceIntake.warnings.map((warning) => (
+                            <div key={warning} className="flex items-start gap-2 text-[11px] text-warning">
+                              <AlertTriangle className="mt-0.5 size-3 shrink-0" />
+                              <span>{warning}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid gap-3 md:grid-cols-2">
