@@ -5,7 +5,7 @@ const path = require('path');
 const assert = require('assert/strict');
 const { NorthpointJobBridge } = require('../src/northpoint-job-bridge');
 
-const toolkit = '/mnt/data/enderloom-v6-live/Minecraft-Universal-Port-Toolkit-v6';
+const toolkit = process.env.ENDERLOOM_MINECRAFT_DEV_KIT || path.join(__dirname, '..', 'tools', 'minecraft-dev-kit');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'northpoint-job-bridge-v62-'));
 const project = path.join(root, 'project');
 function write(rel, text) { const p = path.join(project, rel); fs.mkdirSync(path.dirname(p), {recursive:true}); fs.writeFileSync(p, text); }
