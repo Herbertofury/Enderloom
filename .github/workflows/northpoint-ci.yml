@@ -1,0 +1,54 @@
+name: Enderloom Northpoint CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: northpoint-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  northpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            launcher/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install shell dependencies
+        run: npm ci
+
+      - name: Install launcher dependencies
+        run: npm --prefix launcher ci
+
+      - name: Build launcher frontend
+        run: npm run build:launcher
+
+      - name: Northpoint service QA
+        run: npm run northpoint-core-qa
+
+      - name: Northpoint production bridge QA
+        run: npm run northpoint-job-bridge-qa
