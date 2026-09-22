@@ -87,6 +87,13 @@ import type {
   WorldImportInspection,
   WorldSummary,
 } from "./types";
+import type {
+  ConversionCapabilities,
+  ConversionPlan,
+  ConversionPlanRequest,
+  ConversionSelfTestResult,
+  ConversionSession,
+} from "./conversion";
 
 async function call<T>(command: string, args?: Record<string, unknown>): Promise<T> {
   const started = performance.now();
@@ -103,6 +110,26 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 }
 
 export const api = {
+  getConversionCapabilities: () =>
+    call<ConversionCapabilities>("conversion_capabilities"),
+  planConversion: (request: ConversionPlanRequest) =>
+    call<ConversionPlan>(
+      "conversion_plan",
+      request as unknown as Record<string, unknown>,
+    ),
+  createConversionSession: (
+    request: ConversionPlanRequest & { source?: Record<string, unknown> },
+  ) =>
+    call<ConversionSession>(
+      "conversion_create_session",
+      request as unknown as Record<string, unknown>,
+    ),
+  getConversionSession: (sessionId: string) =>
+    call<ConversionSession>("conversion_get_session", { sessionId }),
+  listConversionSessions: () =>
+    call<ConversionSession[]>("conversion_list_sessions"),
+  runConversionSelfTest: () =>
+    call<ConversionSelfTestResult>("conversion_self_test"),
   getSettings: () => call<LauncherSettings>("get_settings"),
   getAppInfo: () => call<AppInfo>("get_app_info"),
   listJavas: () => call<JavaInfo[]>("list_javas"),
