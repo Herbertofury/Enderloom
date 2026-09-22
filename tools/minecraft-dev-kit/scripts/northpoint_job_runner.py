@@ -74,7 +74,7 @@ def driver_probe(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_r
     return value if isinstance(value, dict) else {'protocol': 0, 'available': False}
 
 
-def fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict, probe: dict) -> str:
+def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict) -> str:
     inv = inventory(project, cell)
     driver_sha = sha256_file(driver)
     payload = {
@@ -82,9 +82,12 @@ def fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config:
         'driver_sha256': driver_sha,
         'cell': normalized_cell(cell),
         'config': config,
-        'driver_probe': probe,
     }
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def environment_fingerprint(probe: dict) -> str:
+    return hashlib.sha256(json.dumps(probe, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
 def artifact_ok(record: dict, release_dir: pathlib.Path) -> bool:
@@ -171,7 +174,14 @@ def write_release_outputs(state: dict, release_dir: pathlib.Path) -> None:
     sums = []
     for cid, rec in sorted(state['cells'].items()):
         artifact = rec.get('artifact') or {}
-        row = {'cell_id': cid, 'state': rec.get('state'), 'fingerprint': rec.get('fingerprint'), 'artifact': artifact, 'reason': rec.get('reason')}
+        row = {
+            'cell_id': cid,
+            'state': rec.get('state'),
+            'fingerprint': rec.get('fingerprint'),
+            'environment_fingerprint': rec.get('environment_fingerprint'),
+            'artifact': artifact,
+            'reason': rec.get('reason'),
+        }
         rows.append(row)
         if rec.get('state') == 'passed' and artifact.get('file') and artifact.get('sha256'):
             sums.append(f"{artifact['sha256']}  {artifact['file']}")
@@ -204,11 +214,27 @@ def main() -> int:
     run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': []}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
-    fps = {cid: fingerprint(project, cell, driver, config, probes[cid]) for cid, cell in cells.items()}
+    fps = {cid: input_fingerprint(project, cell, driver, config) for cid, cell in cells.items()}
+    env_fps = {cid: environment_fingerprint(probes[cid]) for cid in cells}
     for cid, cell in cells.items():
-        rec = state['cells'].setdefault(cid, {'state': 'pending', 'attempts': 0, 'fingerprint': None, 'artifact': None, 'evidence': [], 'reason': None})
+        rec = state['cells'].setdefault(cid, {
+            'state': 'pending', 'attempts': 0, 'fingerprint': None,
+            'environment_fingerprint': None, 'artifact': None, 'evidence': [], 'reason': None,
+        })
         if rec.get('fingerprint') != fps[cid]:
-            rec.update({'state': 'stale' if rec.get('state') == 'passed' else 'pending', 'fingerprint': fps[cid], 'reason': 'inputs changed', 'artifact': rec.get('artifact')})
+            rec.update({
+                'state': 'stale' if rec.get('state') == 'passed' else 'pending',
+                'fingerprint': fps[cid],
+                'environment_fingerprint': env_fps[cid],
+                'reason': 'inputs changed',
+                'artifact': rec.get('artifact'),
+            })
+        elif rec.get('state') in {'blocked', 'runtime-unverified'} and rec.get('environment_fingerprint') != env_fps[cid]:
+            rec.update({
+                'state': 'pending',
+                'environment_fingerprint': env_fps[cid],
+                'reason': 'conversion environment changed',
+            })
         elif rec.get('state') == 'passed' and not artifact_ok(rec, release_dir):
             rec.update({'state': 'stale', 'reason': 'promoted artifact missing or hash mismatch'})
     state['updated_at'] = now()
@@ -221,7 +247,10 @@ def main() -> int:
                 return cid, rec, False
         rec['state'] = 'building'; rec['attempts'] = int(rec.get('attempts') or 0) + 1; rec['reason'] = None
         result = run_driver(driver, cells[cid], project, work_root, release_dir, args.timeout)
-        rec.update(result); rec['fingerprint'] = fps[cid]; rec['updated_at'] = now()
+        rec.update(result)
+        rec['fingerprint'] = fps[cid]
+        rec['environment_fingerprint'] = env_fps[cid]
+        rec['updated_at'] = now()
         return cid, rec, True
 
     cid, rec, built = execute(primary_id)
