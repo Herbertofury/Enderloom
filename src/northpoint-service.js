@@ -987,15 +987,21 @@ class NorthpointService extends EventEmitter {
         payload: { cell_id: cell.id, state: 'launching', instance_id: instance.id },
       });
       runningId = await this.nativeRequest(
-        'launch_instance',
+        'launch_instance_qa',
         { instanceId: instance.id },
         { timeoutMs: 120000 },
       );
       if (!runningId) throw new Error('Native QA launch returned no running id');
 
       const proof = await this.waitForNativeClient(runningId, {
-        timeoutMs: 180000,
-        stabilizeMs: 10000,
+        timeoutMs: Math.max(
+          10000,
+          Number(this.env.ENDERLOOM_NORTHPOINT_RUNTIME_TIMEOUT_MS) || 180000,
+        ),
+        stabilizeMs: Math.max(
+          100,
+          Number(this.env.ENDERLOOM_NORTHPOINT_RUNTIME_STABILIZE_MS) || 10000,
+        ),
       });
       const receipt = {
         schema_version: 1,
