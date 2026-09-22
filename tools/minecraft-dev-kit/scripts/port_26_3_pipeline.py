@@ -104,6 +104,27 @@ def main() -> int:
             "notes": task.get("replacement"),
             "required_qa": task.get("qa") or [],
         })
+
+    if materialization:
+        carried_surfaces = {
+            "java_sources", "textures_png", "sounds_ogg", "lang_files", "models",
+            "blockstates", "recipes", "loot_tables", "tags", "advancements",
+            "worldgen", "structures", "mixins", "access_wideners",
+            "access_transformers", "services",
+        }
+        for item in items:
+            item_id = str(item.get("id") or "")
+            if not item_id.startswith("surface:"):
+                continue
+            surface = item_id.split(":", 1)[1]
+            if surface in carried_surfaces:
+                item["status"] = "carried"
+                item["target_evidence"] = "devkit-evidence/source-materialization.json"
+                item["notes"] = "source-owned surface physically carried by deterministic materialization; semantic/linkage/runtime validity is still enforced by dedicated guards"
+            elif surface == "json_resources":
+                item["status"] = "regenerated"
+                item["target_evidence"] = "devkit-evidence/source-materialization.json"
+                item["notes"] = "JSON resources carried while loader metadata was normalized/regenerated for the 26.3 target"
     # Content parity is mechanically checked by port_guard against the exact source identity inventory.
     # Keep exclusions explicit and evidence-backed rather than generating thousands of hand-maintained ledger rows.
     ledger.setdefault("content_exclusions", [])
