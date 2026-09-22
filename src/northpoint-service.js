@@ -930,6 +930,116 @@ class NorthpointService extends EventEmitter {
     return exited;
   }
 
+  async verifyNativeClient({ session, cell, row, result, bridge }) {
+    if (!this.nativeRequest || !this.nativeEvents) {
+      throw new Error('Native Minecraft runtime verifier is unavailable');
+    }
+    const loaderVersion = String(cell?.profile?.loader_version || '').trim();
+    if (!loaderVersion) {
+      throw new Error(`Loader version is unresolved for ${cell.minecraft} ${cell.loader}`);
+    }
+    const artifact = row?.artifact || {};
+    const artifactFile = String(artifact.file || '');
+    const artifactSha = String(artifact.sha256 || '').toLowerCase();
+    if (!artifactFile || !/^[a-f0-9]{64}$/.test(artifactSha)) {
+      throw new Error('Runtime candidate artifact identity is incomplete');
+    }
+    const releaseDir = path.join(result.state_dir, 'release');
+    const candidate = safeRealpath(path.join(releaseDir, artifactFile));
+    const releaseRoot = safeRealpath(releaseDir);
+    if (!candidate || !releaseRoot || !(candidate === releaseRoot || candidate.startsWith(releaseRoot + path.sep))) {
+      throw new Error('Runtime candidate artifact is outside the release directory');
+    }
+    if (!fs.statSync(candidate).isFile()) throw new Error('Runtime candidate artifact is missing');
+
+    const evidenceDir = path.join(this.dataDir, 'jobs', session.id, 'runtime');
+    fs.mkdirSync(evidenceDir, { recursive: true });
+    const qaName = `Enderloom QA ${String(cell.minecraft)} ${String(cell.loader)} ${session.id.slice(0, 8)}`;
+    let instance = null;
+    let runningId = null;
+    const startedAt = new Date().toISOString();
+    try {
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: { cell_id: cell.id, state: 'installing', minecraft: cell.minecraft, loader: cell.loader },
+      });
+      instance = await this.nativeRequest('create_instance', {
+        name: qaName,
+        versionId: String(cell.minecraft),
+        loader: String(cell.loader),
+        loaderVersion,
+      }, { timeoutMs: 30000 });
+      if (!instance?.id) throw new Error('Native QA instance creation returned no instance id');
+
+      await this.nativeRequest(
+        'install_instance',
+        { instanceId: instance.id },
+        { timeoutMs: 15 * 60 * 1000 },
+      );
+      await this.nativeRequest('add_instance_content', {
+        instanceId: instance.id,
+        kind: 'mods',
+        sources: [candidate],
+      }, { timeoutMs: 60000 });
+
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: { cell_id: cell.id, state: 'launching', instance_id: instance.id },
+      });
+      runningId = await this.nativeRequest(
+        'launch_instance',
+        { instanceId: instance.id },
+        { timeoutMs: 120000 },
+      );
+      if (!runningId) throw new Error('Native QA launch returned no running id');
+
+      const proof = await this.waitForNativeClient(runningId, {
+        timeoutMs: 180000,
+        stabilizeMs: 10000,
+      });
+      const receipt = {
+        schema_version: 1,
+        cell_id: cell.id,
+        minecraft: String(cell.minecraft),
+        loader: String(cell.loader),
+        loader_version: loaderVersion,
+        artifact_sha256: artifactSha,
+        artifact_file: artifactFile,
+        instance_id: instance.id,
+        running_id: runningId,
+        started_at: startedAt,
+        verified_at: new Date().toISOString(),
+        gate: 'native-client-load',
+        ready_marker: proof.ready_marker,
+        logs_tail: proof.logs_tail,
+      };
+      const receiptPath = path.join(evidenceDir, `${cell.id}.json`);
+      atomicJson(receiptPath, receipt);
+      bridge.recordRuntimeProof({
+        sessionId: session.id,
+        cellId: cell.id,
+        artifactSha256: artifactSha,
+        evidence: [
+          `native-client-load:${cell.minecraft}:${cell.loader}`,
+          `runtime-receipt:${path.basename(receiptPath)}`,
+        ],
+        verifiedAt: receipt.verified_at,
+      });
+      this.emit('event', {
+        event: 'conversion:runtime',
+        payload: { cell_id: cell.id, state: 'passed', artifact_sha256: artifactSha },
+      });
+      return receipt;
+    } finally {
+      if (runningId) await this.stopNativeQaRun(runningId);
+      if (instance?.id) {
+        try {
+          await this.nativeRequest('delete_instance', { instanceId: instance.id }, { timeoutMs: 60000 });
+        } catch {}
+      }
+    }
+  }
+
   async executeJob(input = {}) {
     const sessionId = String(input.sessionId || input.session_id || '');
     const session = this.readSession(sessionId);
