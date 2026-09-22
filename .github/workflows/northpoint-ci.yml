@@ -101,6 +101,9 @@ jobs:
           distribution: temurin
           java-version: "25"
 
+      - name: Northpoint full 26.3 conversion engine QA
+        run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
+
       - name: Fetch official Fabric 26.3 example mod
         run: git clone --depth 1 --branch 26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod-26.3"
 

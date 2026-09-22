@@ -4831,3 +4831,38 @@ When AI returns something broken, **repair it locally or send the evidence back 
 When the app already has a capable service/system, **extend it instead of inventing another one**.
 
 The user should experience Enderloom as a smart, persistent Minecraft engineering tool that gets the work done — not as a checklist that constantly asks permission to do its own job.
+
+
+## 17.23 Northpoint v6.3 embedded conversion-engine checkpoint
+
+Checkpoint date: 2026-09-22
+
+Verified baseline before this upgrade:
+- Northpoint CI run 35783401928 PASS at commit 24ddd918154b7d9f961dcdc129bd4b24826d7464.
+- Official Fabric 1.21 production smoke PASS.
+- Official Fabric 26.3 production smoke PASS.
+- Official NeoForge 26.3 production smoke PASS after templated NeoForge modId resolution was fixed.
+- Live metadata resolution proves dynamic latest support and arbitrary version planning; the planner is not restricted to baked snapshot versions.
+
+Embedded into Enderloom after that baseline:
+- port_intake.py
+- mapping_lineage.py
+- mapping_bridge.py
+- api_reference_migration.py
+- port_semantic_planner.py
+- port_failure_triage.py
+- port_guard.py
+- port_26_3_pipeline.py
+- port_26_3_selftest.py
+- port_scaffold_26_3.py
+- prewarm_mc_26_3_mappings.py
+- required 26.3 rules/mapping/prewarm catalogs
+
+This closes the capability gap where the installed Minecraft Dev Kit was stronger than Enderloom's embedded worker. Enderloom must remain self-contained: conversion must not depend on a separately installed ChatGPT skill.
+
+Exact next action:
+1. Require the embedded port_26_3_selftest.py to pass in CI.
+2. Graduate a real older-source -> 26.3 target conversion, not merely a project already authored for 26.3.
+3. Feed actual compiler/Mixin/linkage/runtime failures through semantic planning + failure triage until the produced candidate builds.
+4. Promote only the exact candidate SHA after the existing native client/server runtime verifier passes.
+5. Then generalize the same source->target lane across the dynamically resolved version/loader matrix without weakening target-first gating or zero-loss parity.
