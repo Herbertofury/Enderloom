@@ -121,6 +121,8 @@ const northpointService = new NorthpointService({
 });
 const NORTHPOINT_RENDERER_COMMANDS = new Set([
   'conversion_capabilities',
+  'conversion_refresh_profiles',
+  'conversion_resolve_version',
   'conversion_plan',
   'conversion_create_session',
   'conversion_get_session',
