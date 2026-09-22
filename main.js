@@ -127,6 +127,7 @@ const NORTHPOINT_RENDERER_COMMANDS = new Set([
   'conversion_create_session',
   'conversion_get_session',
   'conversion_list_sessions',
+  'conversion_execute_job',
   'conversion_self_test',
 ]);
 
