@@ -98,6 +98,25 @@ pub(crate) async fn install_java_runtime_ipc(
     install_java_runtime_body(state, major, instance_id, task).await
 }
 
+pub(crate) async fn install_java_jdk_ipc(
+    state: &AppState,
+    major: u32,
+) -> Result<java::JavaInfo> {
+    validate_java_major(major)?;
+    let platform = format!("{} · {}", std::env::consts::OS, std::env::consts::ARCH);
+    let task = state.tasks.start_ipc(
+        crate::tasks::TaskKind::JavaInstall,
+        crate::tasks::TaskSpec {
+            title: format!("JDK {major}"),
+            subtitle: Some(format!("Eclipse Temurin JDK · {platform}")),
+            ..Default::default()
+        },
+    )?;
+    let result = java::managed::install_jdk(&state.network, &state.files, major, &task).await;
+    task.finish(&result);
+    result
+}
+
 fn validate_java_major(major: u32) -> Result<()> {
     if !(8..=99).contains(&major) {
         return Err(Error::other("Java major version must be between 8 and 99."));
