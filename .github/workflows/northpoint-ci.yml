@@ -17,7 +17,7 @@ concurrency:
 jobs:
   northpoint:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -60,3 +60,15 @@ jobs:
 
       - name: Northpoint production bridge QA
         run: npm run northpoint-job-bridge-qa
+
+      - name: Fetch official Fabric example mod
+        run: git clone --depth 1 --branch 1.21 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod"
+
+      - name: Official Fabric example mod production smoke
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/fabric-example-mod"
+          --minecraft 1.21
+          --loader fabric
+          --java 21
+          --timeout 600
