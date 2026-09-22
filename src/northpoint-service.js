@@ -100,7 +100,7 @@ function safeRealpath(candidate) {
 }
 
 class NorthpointService extends EventEmitter {
-  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null, metadataFetch = null, metadataTtlMs = METADATA_TTL_MS, nativeRequest = null } = {}) {
+  constructor({ rootDir, dataDir, toolkitRoot = null, env = {}, registryPath = null, metadataFetch = null, metadataTtlMs = METADATA_TTL_MS, nativeRequest = null, nativeEvents = null } = {}) {
     super();
     this.rootDir = path.resolve(rootDir || process.cwd());
     this.dataDir = path.resolve(dataDir || path.join(this.rootDir, '.enderloom', 'northpoint'));
@@ -109,6 +109,7 @@ class NorthpointService extends EventEmitter {
     this.registryPath = registryPath ? path.resolve(registryPath) : null;
     this.metadataFetch = metadataFetch;
     this.nativeRequest = typeof nativeRequest === 'function' ? nativeRequest : null;
+    this.nativeEvents = nativeEvents && typeof nativeEvents.on === 'function' ? nativeEvents : null;
     this.metadataTtlMs = Math.max(60 * 1000, Number(metadataTtlMs) || METADATA_TTL_MS);
     this.latestMetadata = null;
     this.sessionsDir = path.join(this.dataDir, 'sessions');
