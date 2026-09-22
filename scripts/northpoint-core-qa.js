@@ -7,11 +7,32 @@ const assert = require('assert/strict');
 const { NorthpointService } = require('../src/northpoint-service');
 
 const TOOLKIT = process.env.ENDERLOOM_MINECRAFT_DEV_KIT || path.join(__dirname, '..', 'tools', 'minecraft-dev-kit');
-const HAS_TOOLKIT = !!(TOOLKIT && fs.existsSync(path.join(TOOLKIT, 'scripts', 'northpoint_simple_mod_selftest.py')));
+const HAS_TOOLKIT = !!(TOOLKIT && fs.existsSync(path.join(TOOLKIT, 'scripts', 'northpoint_graduation.py')));
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-northpoint-qa-'));
 const dataDir = path.join(root, 'data');
 
 (async () => {
+  const provisionCalls = [];
+  const managedService = new NorthpointService({
+    rootDir: root,
+    dataDir: path.join(root, 'managed-data'),
+    toolkitRoot: HAS_TOOLKIT ? TOOLKIT : null,
+    nativeRequest: async (command, args) => {
+      provisionCalls.push({ command, args });
+      if (command !== 'install_java_jdk') throw new Error(`unexpected native command ${command}`);
+      return { path: `/managed/jdk-${args.major}/bin/java`, major: args.major };
+    },
+  });
+  const provisioned = await managedService.provisionJava([
+    { id: 'mc-1.21.1-fabric', java: 21 },
+    { id: 'mc-26.3-fabric', java: 25 },
+    { id: 'mc-26.3-neoforge', java: 25 },
+  ]);
+  assert.deepEqual(provisionCalls.map((row) => row.args.major), [21, 25]);
+  assert.equal(provisioned[0].java_path, '/managed/jdk-21/bin/java');
+  assert.equal(provisioned[1].java_path, '/managed/jdk-25/bin/java');
+  assert.equal(provisioned[2].java_path, '/managed/jdk-25/bin/java');
+
   const service = new NorthpointService({ rootDir: root, dataDir, toolkitRoot: HAS_TOOLKIT ? TOOLKIT : null });
   const caps = await service.request('conversion_capabilities');
   assert.equal(caps.toolkit.available, HAS_TOOLKIT);
