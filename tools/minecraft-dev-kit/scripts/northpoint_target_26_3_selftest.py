@@ -54,7 +54,7 @@ def w(rel,text):
  x=out/rel; x.parent.mkdir(parents=True,exist_ok=True); x.write_text(text,encoding='utf-8')
 w('build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '${loom_version}' }\\ndependencies { implementation 'net.fabricmc:fabric-loader:${loader_version}' }\\ntasks.withType(JavaCompile).configureEach { options.release = 25 }\\n")
 w('gradle.properties','minecraft_version=26.3\\nloader_version=0.19.5\\nloom_version=1.17-SNAPSHOT\\nfabric_api_version=0.161.0+26.3\\nmod_version='+a.mod_version+'\\nmaven_group='+a.group+'\\narchives_base_name='+a.mod_id+'\\n')
-w('gradle/wrapper/gradle-wrapper.properties','distributionUrl=https\\\\://services.gradle.org/distributions/gradle-9.5.1-bin.zip\\n')
+w('gradle/wrapper/gradle-wrapper.properties','distributionUrl=https\\\\://services.gradle.org/distributions/gradle-9.6.0-bin.zip\\n')
 w('src/main/java/com/example/modid/Stub.java','package com.example.modid; public class Stub {}\\n')
 w('src/client/java/com/example/modid/StubClient.java','package com.example.modid; public class StubClient {}\\n')
 w('src/main/resources/fabric.mod.json',json.dumps({'schemaVersion':1,'id':a.mod_id,'version':'${version}','name':a.mod_name,'environment':'*','depends':{'fabricloader':'>=0.19.5','minecraft':'~26.3','java':'>=25','fabric-api':'*'}},indent=2)+'\\n')
@@ -88,7 +88,7 @@ w('devkit-26.3-lock.json',json.dumps({'target':{'minecraft':'26.3','loader':'fab
         assert (output / "src/main/resources/assets/modid/lang/en_us.json").is_file()
         assert (output / "gradle/wrapper/gradle-wrapper.jar").is_file()
         wrapper_props = (output / "gradle/wrapper/gradle-wrapper.properties").read_text(encoding="utf-8")
-        assert "gradle-9.5.1-bin.zip" in wrapper_props
+        assert "gradle-9.6.0-bin.zip" in wrapper_props
         assert (output / "devkit-evidence/northpoint-conversion.json").is_file()
 
     print("Northpoint 26.3 target materialization self-test: PASS")
