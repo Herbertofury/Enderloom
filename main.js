@@ -9,6 +9,7 @@ const vm = require('vm');
 const v8 = require('v8');
 const { pathToFileURL } = require('url');
 const { LauncherService } = require('./src/launcher-service');
+const { NorthpointService } = require('./src/northpoint-service');
 const { CatalogStore } = require('./src/catalog-store');
 const { cleanName:cleanCatalogExportName, normalizeRows:normalizeCatalogExportRows, html:catalogExportHtml, bytesFor:catalogExportBytes, writeAtomic:writeCatalogExportAtomic } = require('./src/catalog-export');
 const { requestText: publicRequestText, requestJson: publicRequestJson, requestHeadTextShared: publicRequestHeadTextShared, requestProgressiveTextShared: publicRequestProgressiveTextShared, requestTextShared: publicRequestTextShared, requestJsonShared: publicRequestJsonShared } = require('./src/public-http');
@@ -114,6 +115,18 @@ const launcherService = new LauncherService({
   rootDir: ROOT,
   dataDir: path.join(app.getPath('userData'), 'launcher'),
 });
+const northpointService = new NorthpointService({
+  rootDir: ROOT,
+  dataDir: path.join(app.getPath('userData'), 'launcher', 'northpoint'),
+});
+const NORTHPOINT_RENDERER_COMMANDS = new Set([
+  'conversion_capabilities',
+  'conversion_plan',
+  'conversion_create_session',
+  'conversion_get_session',
+  'conversion_list_sessions',
+  'conversion_self_test',
+]);
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -268,6 +281,7 @@ function stateSnapshot() {
     adblock: { ...adblockStatus },
     translator: { ...translatorStatus, update:{...translatorUpdateStatus}, autoForActive:active?!!translator?.autoSite?.(active.view.webContents.getURL()||active.url):false },
     launcherService: launcherService.snapshot(),
+    northpoint: northpointService.snapshot(),
     runtime: `Electron ${process.versions.electron} · Chromium ${process.versions.chrome} · Rust ${launcherService.snapshot().state}`
   };
 }
@@ -287,6 +301,12 @@ launcherService.on('exit', () => publishState());
 launcherService.on('diagnostic', message => {
   const line = String(message || '').trim();
   if (line) console.error('[enderloom-rust]', line);
+});
+northpointService.on('event', message => {
+  if (launcherView && !launcherView.webContents.isDestroyed()) {
+    launcherView.webContents.send('launcher:event', message);
+  }
+  publishState();
 });
 function isAttached(view) {
   if (!view || !win || win.isDestroyed()) return false;
@@ -2587,6 +2607,12 @@ ipcMain.handle('launcher:invoke', async (event, request) => {
     clipboard.writeImage(image);
     return null;
   }
+  if (command.startsWith('conversion_')) {
+    if (!NORTHPOINT_RENDERER_COMMANDS.has(command)) {
+      throw new Error('That Northpoint operation is internal to the verified conversion worker');
+    }
+    return await northpointService.request(command, launcherArgs);
+  }
   return await launcherService.request(command, launcherArgs);
 });
 ipcMain.handle('launcher:open-dialog', async (event, options) => {
@@ -3122,6 +3148,7 @@ function shutdownApplication(code=0){
     mediaViewWaiters.length=0;
     await Promise.allSettled([
       launcherService.close(),
+      northpointService.close(),
       rustHttp.close(),
       impitHttp3.close(),
       providerParserPool?.close(),
