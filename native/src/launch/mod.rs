@@ -417,7 +417,14 @@ pub async fn launch_instance(
     state: &AppState,
     instance: &Instance,
 ) -> Result<String> {
-    launch_instance_with_events(process::ProcessEvents::tauri(app), state, instance).await
+    let launch_account = ensure_launch_account(state).await?;
+    launch_instance_with_events(
+        process::ProcessEvents::tauri(app),
+        state,
+        instance,
+        launch_account,
+    )
+    .await
 }
 
 pub async fn launch_instance_ipc(
@@ -425,13 +432,50 @@ pub async fn launch_instance_ipc(
     state: &AppState,
     instance: &Instance,
 ) -> Result<String> {
-    launch_instance_with_events(process::ProcessEvents::ipc(event_sink), state, instance).await
+    let launch_account = ensure_launch_account(state).await?;
+    launch_instance_with_events(
+        process::ProcessEvents::ipc(event_sink),
+        state,
+        instance,
+        launch_account,
+    )
+    .await
+}
+
+pub async fn launch_instance_qa_ipc(
+    event_sink: EventSink,
+    state: &AppState,
+    instance: &Instance,
+) -> Result<String> {
+    if !instance.name.starts_with("Enderloom QA ") {
+        return Err(Error::other(
+            "synthetic QA launch is restricted to temporary Enderloom QA instances",
+        ));
+    }
+    let launch_account = LaunchAccount {
+        account: Account {
+            id: "00000000000000000000000000000001".to_string(),
+            name: "EnderloomQA".to_string(),
+            mc_access_token: "northpoint-local-qa".to_string(),
+            refresh_token: String::new(),
+            expires_at: i64::MAX,
+        },
+        offline: true,
+    };
+    launch_instance_with_events(
+        process::ProcessEvents::ipc(event_sink),
+        state,
+        instance,
+        launch_account,
+    )
+    .await
 }
 
 async fn launch_instance_with_events(
     events: process::ProcessEvents,
     state: &AppState,
     instance: &Instance,
+    launch_account: LaunchAccount,
 ) -> Result<String> {
     let launch_version_id = instance
         .launch_version_id
@@ -439,7 +483,6 @@ async fn launch_instance_with_events(
         .unwrap_or_else(|| instance.version_id.clone());
     let version: VersionJson = install::load_merged_version(state, &launch_version_id).await?;
     let launch_jar = install::ensure_launch_jar(state, &version).await?;
-    let launch_account = ensure_launch_account(state).await?;
     let account = &launch_account.account;
 
     let settings = state.db.load_settings()?;
