@@ -734,6 +734,15 @@ class NorthpointService extends EventEmitter {
   async runWorkerScript(scriptName, args = [], { timeoutMs = 180000 } = {}) {
     const toolkit = this.toolkitRoot();
     if (!toolkit) throw new Error('Minecraft Dev Kit worker is not installed/configured; execution is unavailable');
+    const workerBridge = new NorthpointJobBridge({
+      toolkitRoot: toolkit,
+      dataDir: this.dataDir,
+      rootDir: this.rootDir,
+      resourcesDir: process.resourcesPath,
+      pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || null,
+    });
+    const python = workerBridge.pythonCommand();
+    if (!python) throw new Error('Python 3 runtime is unavailable; install or bundle Python before running conversions');
     const script = path.join(toolkit, 'scripts', scriptName);
     const resolved = safeRealpath(script);
     const scriptsRoot = safeRealpath(path.join(toolkit, 'scripts'));
@@ -742,7 +751,7 @@ class NorthpointService extends EventEmitter {
     }
     if (!/^[a-zA-Z0-9_.-]+\.py$/.test(scriptName)) throw new Error('invalid Dev Kit worker script name');
     return await new Promise((resolve, reject) => {
-      const child = spawn(this.env.PYTHON_BIN || process.env.PYTHON_BIN || 'python3', [resolved, ...args.map(String)], {
+      const child = spawn(python.bin, [...python.args, resolved, ...args.map(String)], {
         cwd: toolkit, env: { ...process.env, ...this.env }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
       });
       let stdout = '';
@@ -771,6 +780,27 @@ class NorthpointService extends EventEmitter {
         finish(null, { code, stdout, stderr });
       });
     });
+  }
+
+  async inspectSource(input = {}) {
+    const raw = String(input.sourceRoot || input.source_root || input.path || '').trim();
+    if (!raw) throw new Error('Conversion source folder is required');
+    const source = safeRealpath(path.resolve(raw));
+    if (!source || !fs.statSync(source).isDirectory()) {
+      throw new Error('Conversion source folder is unavailable');
+    }
+    const result = await this.runWorkerScript('northpoint_source_intake.py', ['--project', source], { timeoutMs: 45000 });
+    const lines = result.stdout.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    let value = null;
+    for (let index = lines.length - 1; index >= 0; index -= 1) {
+      try {
+        value = JSON.parse(lines[index]);
+        break;
+      } catch {}
+    }
+    if (!value || typeof value !== 'object') throw new Error('Source intake returned no JSON result');
+    if (value.error) throw new Error(String(value.error));
+    return value;
   }
 
   async executeJob(input = {}) {
@@ -851,6 +881,7 @@ class NorthpointService extends EventEmitter {
       case 'conversion_capabilities': return await this.capabilities(args);
       case 'conversion_refresh_profiles': return await this.refreshLatestProfile({ force: args.force === true });
       case 'conversion_resolve_version': return await this.refreshVersionProfile(args.minecraft || args.version, { force: args.force === true });
+      case 'conversion_inspect_source': return await this.inspectSource(args);
       case 'conversion_plan': return await this.preparePlan(args);
       case 'conversion_create_session': await this.preparePlan(args); return this.createSession(args);
       case 'conversion_get_session': return this.publicSession(this.readSession(args.sessionId || args.session_id));
