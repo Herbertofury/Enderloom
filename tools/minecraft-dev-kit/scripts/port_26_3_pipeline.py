@@ -95,13 +95,31 @@ def main() -> int:
         value = intake["inventory"].get(key) or []
         if value:
             items.append({"id": f"surface:{key}", "source_count": len(value), "status": "missing", "target_evidence": None, "notes": "classify after porting this source surface"})
+    rewrite_ids = {
+        str(row.get("id") or "")
+        for row in ((materialization or {}).get("rewrites") or [])
+        if isinstance(row, dict)
+    }
     for task in semantics.get("tasks") or []:
+        status = "missing"
+        target_evidence = None
+        notes = task.get("replacement")
+        automation = str(task.get("automation") or "")
+        task_id = str(task.get("id") or "")
+        if materialization and automation == "safe-build-rewrite":
+            status = "regenerated"
+            target_evidence = "devkit-evidence/source-materialization.json"
+            notes = f"{notes} Automatically satisfied by target-native scaffold build logic."
+        elif materialization and automation == "safe-json-rewrite" and task_id in rewrite_ids:
+            status = "regenerated"
+            target_evidence = "devkit-evidence/source-materialization.json"
+            notes = f"{notes} Automatically satisfied by recorded safe metadata rewrite."
         items.append({
-            "id": f"semantic:{task['id']}",
+            "id": f"semantic:{task_id}",
             "source_count": len(task.get("evidence") or []) or 1,
-            "status": "missing",
-            "target_evidence": None,
-            "notes": task.get("replacement"),
+            "status": status,
+            "target_evidence": target_evidence,
+            "notes": notes,
             "required_qa": task.get("qa") or [],
         })
 
