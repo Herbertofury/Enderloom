@@ -60,7 +60,8 @@
     "curseforge-scoped-negative-qa": "node scripts/curseforge-scoped-negative-qa.js",
     "curseforge-description-link-media-qa": "node scripts/curseforge-description-link-media-qa.js",
     "curseforge-gallery-dom-rescue-qa": "node scripts/curseforge-gallery-dom-rescue-qa.js",
-    "northpoint-core-qa": "node scripts/northpoint-core-qa.js"
+    "northpoint-core-qa": "node scripts/northpoint-core-qa.js",
+    "northpoint-job-bridge-qa": "node scripts/northpoint-job-bridge-qa.js"
   },
   "mccNativeTransport": {
     "name": "wreq-js",
