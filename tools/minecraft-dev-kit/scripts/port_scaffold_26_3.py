@@ -12,7 +12,7 @@ FABRIC = {
     "java": 25,
     "loader": "0.19.5",
     "loom": "1.17-SNAPSHOT",
-    "fabric_api": "0.160.7+26.3",
+    "fabric_api": "0.161.0+26.3",
     "gradle": "9.6.0",
 }
 NEOFORGE = {
@@ -23,7 +23,7 @@ NEOFORGE = {
     "gradle": "9.2.1",
     "foojay": "1.0.0",
 }
-SNAPSHOT_DATE = "2026-09-18"
+SNAPSHOT_DATE = "2026-09-22"
 
 
 def valid_mod_id(value: str) -> str:
