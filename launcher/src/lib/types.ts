@@ -781,6 +781,7 @@ export type View =
   | "servers"
   | "server"
   | "discover"
+  | "convert"
   | "project"
   | "stats"
   | "logs";
