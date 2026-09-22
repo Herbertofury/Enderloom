@@ -84,7 +84,14 @@ export interface ConversionCapabilities {
   latest_profile_resolved: boolean;
   metadata: ConversionMetadataState | null;
   java: { available: boolean; major: number | null; raw: string };
-  toolkit: { available: boolean; root: string | null; simple_mod_selftest: boolean };
+  toolkit: {
+    available: boolean;
+    root: string | null;
+    simple_mod_selftest: boolean;
+    fast_graduation?: boolean;
+    production_driver: boolean;
+    python: { source: string; version: string } | null;
+  };
   scheduler: ConversionSchedulerBudget;
   execution_available: boolean;
   no_fake_execution: true;
@@ -142,6 +149,7 @@ export interface ConversionJobResult {
     ok: boolean;
     partial: boolean;
     driver_profile: "production";
+    python: { source: string; version: string };
     exit_code: number | null;
     receipt: {
       status: "PASS" | "PARTIAL" | "FAILED_PRIMARY";
