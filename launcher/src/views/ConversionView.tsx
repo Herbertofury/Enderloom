@@ -47,7 +47,7 @@ function StatusPill({ state }: { state: ConversionCellState | string }) {
         stateClass(state),
       )}
     >
-      {state.replaceAll("-", " ")}
+      {state.split("-").join(" ")}
     </span>
   );
 }
