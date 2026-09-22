@@ -38,6 +38,7 @@ for (const mc of ['1.21.1','26.3']) write(`overlays/version/${mc}/src/main/java/
   assert.equal(first.ok,false,JSON.stringify(first));
   assert.equal(first.partial,true,JSON.stringify(first));
   assert.equal(first.receipt.status,'PARTIAL');
+  assert.match(first.python.version,/Python 3/);
   assert.deepEqual(first.receipt.run.built,['mc-1.21.1-fabric','mc-26.3-fabric']);
   assert.deepEqual(first.receipt.run.blocked,['mc-26.3-fabric']);
   const second = await bridge.runSession({sessionId:'qa-session-v62',sourceRoot:project,primaryCell:'mc-1.21.1-fabric',cells,driverProfile:'production',maxWorkers:2,timeout:90});
