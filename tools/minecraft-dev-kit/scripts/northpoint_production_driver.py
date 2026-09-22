@@ -21,6 +21,20 @@ from northpoint_target_26_3 import ConversionBlock, materialize_port
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
 CONFIG_NAME = 'northpoint.project.json'
+ARTIFACT_ENGINE_GLOBS = (
+    'scripts/northpoint_*.py',
+    'scripts/port_*.py',
+    'scripts/mapping_*.py',
+    'scripts/mixin_*.py',
+    'scripts/content_*.py',
+    'scripts/registration_*.py',
+    'scripts/classfile_symbol_index.py',
+    'scripts/packaged_linkage_audit.py',
+    'scripts/api_reference_migration.py',
+    'scripts/access_rule_resolver.py',
+    'references/minecraft-26.3-*.json',
+    'references/minecraft-mapping-*.json',
+)
 
 
 def sha256_file(path: pathlib.Path) -> str:
@@ -113,6 +127,21 @@ def read_json(path: pathlib.Path) -> dict[str, Any]:
 
 def stable_hash(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def artifact_engine_fingerprint(cell: dict[str, Any]) -> str:
+    if str(cell.get('minecraft') or '').strip() != '26.3':
+        return ''
+    files: dict[str, pathlib.Path] = {}
+    for pattern in ARTIFACT_ENGINE_GLOBS:
+        for path in ROOT.glob(pattern):
+            if path.is_file():
+                files[path.relative_to(ROOT).as_posix()] = path
+    h = hashlib.sha256()
+    for rel, path in sorted(files.items()):
+        h.update(rel.encode('utf-8')); h.update(b'\0')
+        h.update(sha256_file(path).encode('ascii')); h.update(b'\0')
+    return h.hexdigest()
 
 
 def load_config(project: pathlib.Path, cell: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -210,6 +239,7 @@ def build_probe(project: pathlib.Path, cell: dict[str, Any]) -> dict[str, Any]:
         'requested_java': int(cell.get('java') or 0),
         'build_mode': mode,
         'config_sha256': stable_hash(cfg),
+        'artifact_fingerprint': artifact_engine_fingerprint(cell),
     }
 
 
