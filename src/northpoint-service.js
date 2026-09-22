@@ -1053,30 +1053,8 @@ class NorthpointService extends EventEmitter {
     if (!selected.some((cell) => cell.id === session.plan.primary.id)) {
       throw new Error('Primary conversion cell is not selected');
     }
-    session.phase = 'provisioning-toolchains';
-    session.last_error = null;
-    this.writeSession(session);
-    try {
-      const provisioned = await this.provisionJava(selected);
-      session.phase = 'job-running';
-      this.writeSession(session);
-      const bridge = new NorthpointJobBridge({
-        toolkitRoot: toolkit,
-        dataDir: this.dataDir,
-        rootDir: this.rootDir,
-        resourcesDir: process.resourcesPath,
-        pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || null,
-      });
-      const result = await bridge.runSession({
-        sessionId,
-        sourceRoot,
-        primaryCell: session.plan.primary.id,
-        cells: provisioned,
-        config: {},
-        driverProfile: 'production',
-        maxWorkers: Math.max(0, Math.min(8, Number(input.maxWorkers || input.max_workers) || 0)),
-        timeout: Math.max(30, Math.min(3600, Number(input.timeout) || 180)),
-      });
+
+    const syncResult = (result) => {
       for (const row of result.matrix?.cells || []) {
         const record = session.cells?.[row.cell_id];
         if (!record) continue;
@@ -1096,10 +1074,116 @@ class NorthpointService extends EventEmitter {
       }
       const primary = session.cells?.[session.plan.primary.id];
       session.fanout_unlocked = primary?.state === 'passed';
-      session.phase = result.ok ? 'complete' : session.fanout_unlocked ? 'partial' : 'primary-failed';
-      session.last_error = result.ok ? null : (result.receipt?.status || 'conversion job failed');
+    };
+
+    session.phase = 'provisioning-toolchains';
+    session.last_error = null;
+    this.writeSession(session);
+    try {
+      const provisioned = await this.provisionJava(selected);
+      const bridge = new NorthpointJobBridge({
+        toolkitRoot: toolkit,
+        dataDir: this.dataDir,
+        rootDir: this.rootDir,
+        resourcesDir: process.resourcesPath,
+        pythonBin: this.env.PYTHON_BIN || process.env.PYTHON_BIN || null,
+      });
+      const runArgs = {
+        sessionId,
+        sourceRoot,
+        primaryCell: session.plan.primary.id,
+        cells: provisioned,
+        config: {},
+        driverProfile: 'production',
+        maxWorkers: Math.max(0, Math.min(8, Number(input.maxWorkers || input.max_workers) || 0)),
+        timeout: Math.max(30, Math.min(3600, Number(input.timeout) || 180)),
+      };
+
+      session.phase = 'job-running';
       this.writeSession(session);
-      return { session: this.publicSession(session), job: result };
+      let result = await bridge.runSession(runArgs);
+      syncResult(result);
+      this.writeSession(session);
+
+      const selectedIds = new Set(selected.map((cell) => String(cell.id)));
+      const runtimeErrors = [];
+      const runtimeReceipts = [];
+      const maxPromotionPasses = Math.max(1, selected.length + 1);
+      for (let pass = 0; pass < maxPromotionPasses; pass += 1) {
+        const candidates = (result.matrix?.cells || []).filter(
+          (row) =>
+            selectedIds.has(String(row.cell_id)) &&
+            String(row.state) === 'runtime-unverified' &&
+            row.artifact?.file &&
+            row.artifact?.sha256,
+        );
+        if (!candidates.length || !this.nativeRequest || !this.nativeEvents) break;
+
+        session.phase = 'runtime-verifying';
+        this.writeSession(session);
+        let proofsAdded = 0;
+        for (const row of candidates) {
+          const cell = session.plan.cells.find((entry) => String(entry.id) === String(row.cell_id));
+          if (!cell) continue;
+          try {
+            const receipt = await this.verifyNativeClient({ session, cell, row, result, bridge });
+            runtimeReceipts.push(receipt);
+            proofsAdded += 1;
+            const record = session.cells?.[row.cell_id];
+            if (record) {
+              record.evidence = [
+                ...(Array.isArray(record.evidence) ? record.evidence : []),
+                {
+                  kind: 'native-client-load',
+                  artifact_sha256: row.artifact.sha256,
+                  verified_at: receipt.verified_at,
+                },
+              ];
+              delete record.runtime_error;
+            }
+          } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            runtimeErrors.push({ cell_id: row.cell_id, error: message });
+            const record = session.cells?.[row.cell_id];
+            if (record) {
+              record.runtime_error = message;
+              record.evidence = [
+                ...(Array.isArray(record.evidence) ? record.evidence : []),
+                { kind: 'native-client-load', state: 'failed', error: message },
+              ];
+            }
+            this.emit('event', {
+              event: 'conversion:runtime',
+              payload: { cell_id: row.cell_id, state: 'failed', error: message },
+            });
+          }
+        }
+        this.writeSession(session);
+        if (!proofsAdded) break;
+
+        session.phase = 'job-running';
+        this.writeSession(session);
+        result = await bridge.runSession(runArgs);
+        syncResult(result);
+        this.writeSession(session);
+      }
+
+      const primary = session.cells?.[session.plan.primary.id];
+      session.fanout_unlocked = primary?.state === 'passed';
+      session.phase = result.ok ? 'complete' : session.fanout_unlocked ? 'partial' : 'primary-failed';
+      session.last_error = result.ok
+        ? null
+        : runtimeErrors[0]?.error || result.receipt?.status || 'conversion job failed';
+      this.writeSession(session);
+      return {
+        session: this.publicSession(session),
+        job: result,
+        runtime: {
+          attempted: runtimeReceipts.length + runtimeErrors.length,
+          passed: runtimeReceipts,
+          failed: runtimeErrors,
+        },
+      };
     } catch (error) {
       session.phase = 'job-failed';
       session.fanout_unlocked = false;
