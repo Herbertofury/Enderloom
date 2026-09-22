@@ -12,6 +12,7 @@ def sha256_file(path: pathlib.Path) -> str:
 
 
 
+CONFIG_NAME = 'northpoint.project.json'
 BASE_PROJECT_MARKERS = (
     'build.gradle', 'build.gradle.kts', 'pom.xml', 'gradlew', 'gradlew.bat', 'mvnw', 'mvnw.cmd',
 )
@@ -60,6 +61,19 @@ def overlay_roots(project: pathlib.Path, cell: dict) -> list[tuple[str, pathlib.
 
 def inventory(project: pathlib.Path, cell: dict) -> dict:
     files: dict[str, dict] = {}
+    # Northpoint config is control-plane input, not ordinary project source.
+    # Preserve it even for overlay-only Stonecutter projects that have no
+    # conventional Gradle/Maven/src/main root. Later overlays may replace it
+    # using the same relative path and normal precedence.
+    root_config = project / CONFIG_NAME
+    if root_config.is_file():
+        files[CONFIG_NAME] = {
+            'relative_path': CONFIG_NAME,
+            'origin': 'config:root',
+            'source': str(root_config.resolve()),
+            'sha256': sha256_file(root_config),
+            'size': root_config.stat().st_size,
+        }
     for src, rel in base_project_files(project) or ():
         files[rel] = {
             'relative_path': rel,
