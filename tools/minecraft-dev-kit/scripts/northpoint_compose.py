@@ -11,6 +11,33 @@ def sha256_file(path: pathlib.Path) -> str:
     return h.hexdigest()
 
 
+
+BASE_PROJECT_MARKERS = (
+    'build.gradle', 'build.gradle.kts', 'pom.xml', 'gradlew', 'gradlew.bat', 'mvnw', 'mvnw.cmd',
+)
+BASE_EXCLUDED_PARTS = {
+    '.git', '.gradle', '.idea', '.vscode', 'build', 'target', 'out', 'run', 'runs',
+    'logs', 'crash-reports', '.northpoint', 'overlays',
+}
+
+
+def is_conventional_project(project: pathlib.Path) -> bool:
+    return (project / 'src' / 'main').exists() or any((project / name).exists() for name in BASE_PROJECT_MARKERS)
+
+
+def base_project_files(project: pathlib.Path):
+    if not is_conventional_project(project):
+        return
+    for src in sorted(p for p in project.rglob('*') if p.is_file()):
+        rel = src.relative_to(project)
+        if any(part in BASE_EXCLUDED_PARTS for part in rel.parts):
+            continue
+        # Northpoint layer sources are inputs to composition, never copied as
+        # nested source trees into the target workspace.
+        if len(rel.parts) >= 2 and rel.parts[0] == 'src' and rel.parts[1] in {'common', 'loader', 'version', 'cell'}:
+            continue
+        yield src, rel.as_posix()
+
 def overlay_roots(project: pathlib.Path, cell: dict) -> list[tuple[str, pathlib.Path]]:
     mc = str(cell['minecraft'])
     loader = str(cell['loader'])
@@ -33,6 +60,14 @@ def overlay_roots(project: pathlib.Path, cell: dict) -> list[tuple[str, pathlib.
 
 def inventory(project: pathlib.Path, cell: dict) -> dict:
     files: dict[str, dict] = {}
+    for src, rel in base_project_files(project) or ():
+        files[rel] = {
+            'relative_path': rel,
+            'origin': 'base',
+            'source': str(src.resolve()),
+            'sha256': sha256_file(src),
+            'size': src.stat().st_size,
+        }
     for label, root in overlay_roots(project, cell):
         if not root.exists():
             continue
