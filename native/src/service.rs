@@ -1200,6 +1200,11 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
                 .await?,
             )
         }
+        "install_java_jdk" => {
+            let major = optional_u32(args, "major")?
+                .ok_or_else(|| Error::other("missing integer argument major"))?;
+            value(crate::commands::app::install_java_jdk_ipc(state, major).await?)
+        }
         "list_skins" => value(crate::skin::library(state)?),
         "get_worn_skin" => value(crate::skin::worn_skin(
             state,
