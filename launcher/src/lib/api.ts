@@ -93,6 +93,7 @@ import type {
   ConversionPlan,
   ConversionPlanRequest,
   ConversionSelfTestResult,
+  ConversionSourceIntake,
   ConversionVersionResolution,
   ConversionSession,
 } from "./conversion";
@@ -118,6 +119,8 @@ export const api = {
     call<ConversionVersionResolution>("conversion_refresh_profiles", { force }),
   resolveConversionVersion: (minecraft: string, force = false) =>
     call<ConversionVersionResolution>("conversion_resolve_version", { minecraft, force }),
+  inspectConversionSource: (sourceRoot: string) =>
+    call<ConversionSourceIntake>("conversion_inspect_source", { sourceRoot }),
   planConversion: (request: ConversionPlanRequest) =>
     call<ConversionPlan>(
       "conversion_plan",
