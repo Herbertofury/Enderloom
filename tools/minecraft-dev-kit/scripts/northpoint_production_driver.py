@@ -152,15 +152,17 @@ def materialize_legacy_target(project: pathlib.Path, cell: dict[str, Any], work:
     source_mc = str(source.get('minecraft') or '').strip()
     source_loader = str(source.get('loader') or '').strip()
     target_loader = str(cell.get('loader') or '').strip()
-    if not source_mc or source_mc == '26.3':
-        return project, None
     if not source_loader:
-        raise ConversionBlock('legacy source loader could not be determined uniquely; explicit Northpoint target configuration is required')
+        raise ConversionBlock('source loader could not be determined uniquely; explicit Northpoint target configuration is required')
     if source_loader != target_loader:
         raise ConversionBlock(
-            f'legacy source loader {source_loader!r} does not match target loader {target_loader!r}; '
+            f'source loader {source_loader!r} does not match target loader {target_loader!r}; '
             'cross-loader conversion requires an explicit target adapter/overlay'
         )
+    if not source_mc:
+        raise ConversionBlock('source Minecraft version could not be determined exactly; refusing an unchanged 26.3 false pass')
+    if source_mc == '26.3':
+        return project, None
 
     target = work / 'materialized-target'
     manifest = materialize_port(project, target, target_loader)
