@@ -1056,14 +1056,7 @@ class NorthpointService extends EventEmitter {
     return exited;
   }
 
-  async verifyNativeClient({ session, cell, row, result, bridge }) {
-    if (!this.nativeRequest || !this.nativeEvents) {
-      throw new Error('Native Minecraft runtime verifier is unavailable');
-    }
-    const loaderVersion = String(cell?.profile?.loader_version || '').trim();
-    if (!loaderVersion) {
-      throw new Error(`Loader version is unresolved for ${cell.minecraft} ${cell.loader}`);
-    }
+  runtimeCandidate(row, result) {
     const artifact = row?.artifact || {};
     const artifactFile = String(artifact.file || '');
     const artifactSha = String(artifact.sha256 || '').toLowerCase();
@@ -1071,12 +1064,24 @@ class NorthpointService extends EventEmitter {
       throw new Error('Runtime candidate artifact identity is incomplete');
     }
     const releaseDir = path.join(result.state_dir, 'release');
-    const candidate = safeRealpath(path.join(releaseDir, artifactFile));
     const releaseRoot = safeRealpath(releaseDir);
+    const candidate = safeRealpath(path.join(releaseDir, artifactFile));
     if (!candidate || !releaseRoot || !(candidate === releaseRoot || candidate.startsWith(releaseRoot + path.sep))) {
       throw new Error('Runtime candidate artifact is outside the release directory');
     }
     if (!fs.statSync(candidate).isFile()) throw new Error('Runtime candidate artifact is missing');
+    return { artifactFile, artifactSha, candidate, releaseDir };
+  }
+
+  async verifyNativeClient({ session, cell, row, result }) {
+    if (!this.nativeRequest || !this.nativeEvents) {
+      throw new Error('Native Minecraft runtime verifier is unavailable');
+    }
+    const loaderVersion = String(cell?.profile?.loader_version || '').trim();
+    if (!loaderVersion) {
+      throw new Error(`Loader version is unresolved for ${cell.minecraft} ${cell.loader}`);
+    }
+    const { artifactFile, artifactSha, candidate } = this.runtimeCandidate(row, result);
 
     const evidenceDir = path.join(this.dataDir, 'jobs', session.id, 'runtime');
     fs.mkdirSync(evidenceDir, { recursive: true });
@@ -1145,23 +1150,19 @@ class NorthpointService extends EventEmitter {
         ready_marker: proof.ready_marker,
         logs_tail: proof.logs_tail,
       };
-      const receiptPath = path.join(evidenceDir, `${cell.id}.json`);
+      const receiptPath = path.join(evidenceDir, `${cell.id}.client.json`);
       atomicJson(receiptPath, receipt);
-      bridge.recordRuntimeProof({
-        sessionId: session.id,
-        cellId: cell.id,
-        artifactSha256: artifactSha,
-        evidence: [
-          `native-client-load:${cell.minecraft}:${cell.loader}`,
-          `runtime-receipt:${path.basename(receiptPath)}`,
-        ],
-        verifiedAt: receipt.verified_at,
-      });
       this.emit('event', {
         event: 'conversion:runtime',
-        payload: { cell_id: cell.id, state: 'passed', artifact_sha256: artifactSha },
+        payload: {
+          cell_id: cell.id,
+          state: 'client-passed',
+          artifact_sha256: artifactSha,
+          minecraft: cell.minecraft,
+          loader: cell.loader,
+        },
       });
-      return receipt;
+      return { ...receipt, evidence_path: receiptPath };
     } finally {
       if (runningId) await this.stopNativeQaRun(runningId);
       if (instance?.id) {
