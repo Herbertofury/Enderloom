@@ -101,6 +101,53 @@ def artifact_ok(record: dict, release_dir: pathlib.Path) -> bool:
     return path.is_file() and sha256_file(path) == expected
 
 
+def load_runtime_proofs(path: pathlib.Path | None) -> dict[str, dict]:
+    if path is None or not path.is_file():
+        return {}
+    try:
+        value = load_json(path)
+    except Exception:
+        return {}
+    rows = value.get('proofs') if isinstance(value, dict) else None
+    if not isinstance(rows, list):
+        return {}
+    out = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        cell_id = str(row.get('cell_id') or '')
+        if cell_id:
+            out[cell_id] = row
+    return out
+
+
+def apply_runtime_proofs(state: dict, release_dir: pathlib.Path, proofs: dict[str, dict]) -> list[str]:
+    promoted: list[str] = []
+    for cid, proof in proofs.items():
+        rec = state.get('cells', {}).get(cid)
+        if not rec or rec.get('state') != 'runtime-unverified' or proof.get('passed') is not True:
+            continue
+        artifact = rec.get('artifact') or {}
+        expected = str(artifact.get('sha256') or '')
+        if not expected or str(proof.get('artifact_sha256') or '') != expected:
+            continue
+        if not artifact_ok(rec, release_dir):
+            continue
+        rec['state'] = 'passed'
+        rec['reason'] = None
+        rec['updated_at'] = now()
+        evidence = list(rec.get('evidence') or [])
+        evidence.append({
+            'kind': 'external-runtime-proof',
+            'artifact_sha256': expected,
+            'verified_at': proof.get('verified_at'),
+            'evidence': proof.get('evidence') or [],
+        })
+        rec['evidence'] = evidence
+        promoted.append(cid)
+    return promoted
+
+
 def load_state(path: pathlib.Path, manifest: dict) -> dict:
     if path.exists():
         state = load_json(path)
@@ -200,6 +247,7 @@ def main() -> int:
     p.add_argument('--state-dir', type=pathlib.Path, required=True)
     p.add_argument('--max-workers', type=int, default=0)
     p.add_argument('--timeout', type=int, default=180)
+    p.add_argument('--runtime-proofs', type=pathlib.Path)
     args = p.parse_args()
     manifest = load_json(args.manifest.resolve())
     project = pathlib.Path(manifest['project_root']).resolve()
@@ -215,7 +263,12 @@ def main() -> int:
     cells[primary_id]['primary'] = True
     state = load_state(state_path, manifest)
     config = manifest.get('config') or {}
-    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': []}
+    runtime_proofs = load_runtime_proofs(args.runtime_proofs.resolve() if args.runtime_proofs else None)
+    promoted = apply_runtime_proofs(state, release_dir, runtime_proofs)
+    if promoted:
+        state['updated_at'] = now()
+        atomic_json(state_path, state)
+    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': sorted(promoted)}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
     fps = {cid: input_fingerprint(project, cell, driver, config) for cid, cell in cells.items()}
