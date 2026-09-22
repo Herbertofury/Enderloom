@@ -42,6 +42,7 @@ def normalized_cell(cell: dict) -> dict:
         'minecraft': str(cell['minecraft']),
         'loader': str(cell['loader']),
         'java': int(cell.get('java') or 0),
+        'java_path': str(cell.get('java_path') or ''),
         'support_state': str(cell.get('support_state') or 'stable'),
         'primary': bool(cell.get('primary')),
     }
