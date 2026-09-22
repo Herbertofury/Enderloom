@@ -45,8 +45,35 @@ def run(cmd: list[str], *, cwd: pathlib.Path | None = None, timeout: int = 180, 
     return cp
 
 
-def java_major() -> int | None:
-    java = shutil.which('java')
+def cell_java_binary(cell: dict[str, Any]) -> str | None:
+    pinned = str(cell.get('java_path') or '').strip()
+    return pinned or shutil.which('java')
+
+
+def cell_javac_binary(cell: dict[str, Any]) -> str | None:
+    pinned = str(cell.get('java_path') or '').strip()
+    if pinned:
+        java_path = pathlib.Path(pinned)
+        name = 'javac.exe' if java_path.name.lower().endswith('.exe') else 'javac'
+        candidate = java_path.with_name(name)
+        return str(candidate) if candidate.is_file() else None
+    return shutil.which('javac')
+
+
+def cell_java_env(cell: dict[str, Any]) -> dict[str, str]:
+    env = dict(os.environ)
+    pinned = str(cell.get('java_path') or '').strip()
+    if not pinned:
+        return env
+    java_path = pathlib.Path(pinned).resolve()
+    bin_dir = java_path.parent
+    env['JAVA_HOME'] = str(bin_dir.parent)
+    env['PATH'] = str(bin_dir) + os.pathsep + env.get('PATH', '')
+    return env
+
+
+def java_major(binary: str | None = None) -> int | None:
+    java = binary or shutil.which('java')
     if not java:
         return None
     cp = run([java, '-version'], check=False, timeout=15)
@@ -55,8 +82,8 @@ def java_major() -> int | None:
     return int(m.group(1)) if m else None
 
 
-def javac_major() -> int | None:
-    javac = shutil.which('javac')
+def javac_major(binary: str | None = None) -> int | None:
+    javac = binary or shutil.which('javac')
     if not javac:
         return None
     cp = run([javac, '-version'], check=False, timeout=15)
@@ -144,8 +171,8 @@ def build_probe(project: pathlib.Path, cell: dict[str, Any]) -> dict[str, Any]:
         'protocol': 2,
         'driver': 'northpoint-production',
         'driver_schema': 1,
-        'java_major': java_major(),
-        'javac_major': javac_major(),
+        'java_major': java_major(cell_java_binary(cell)),
+        'javac_major': javac_major(cell_javac_binary(cell)),\n        'java_path': str(cell.get('java_path') or ''),
         'gradle': tool_version('gradle', ['--version']),
         'maven': tool_version('mvn', ['-version']),
         'wrapper': wrapper,
@@ -178,9 +205,10 @@ def build_direct_javac(composed: pathlib.Path, work: pathlib.Path, cfg: dict[str
     if not source_files:
         raise RuntimeError('javac build has no Java sources')
     required = int(cell.get('java') or build.get('java') or 0)
-    have = javac_major()
-    if not have:
-        raise RuntimeError('javac is unavailable')
+    javac = cell_javac_binary(cell)
+    have = javac_major(javac)
+    if not javac or not have:
+        raise ToolchainBlock('JDK compiler javac is unavailable')
     if required and required > have:
         raise ToolchainBlock(f'Java {required} required; runner has javac {have}')
     classes = work / 'classes'
@@ -200,19 +228,19 @@ def build_direct_javac(composed: pathlib.Path, work: pathlib.Path, cfg: dict[str
         if not stub_sources:
             raise RuntimeError('compile_only_source_roots configured but no Java sources were found')
         stubs.mkdir(parents=True, exist_ok=True)
-        stub_cmd = [shutil.which('javac') or 'javac']
+        stub_cmd = [javac]
         if required:
             stub_cmd += ['--release', str(required)]
         stub_cmd += ['-d', str(stubs), *map(str, stub_sources)]
-        run(stub_cmd, cwd=composed, timeout=timeout)
+        run(stub_cmd, cwd=composed, timeout=timeout, env=cell_java_env(cell))
         cp_entries.append(str(stubs))
-    cmd = [shutil.which('javac') or 'javac']
+    cmd = [javac]
     if required:
         cmd += ['--release', str(required)]
     if cp_entries:
         cmd += ['-cp', os.pathsep.join(cp_entries)]
     cmd += ['-d', str(classes), *map(str, source_files)]
-    run(cmd, cwd=composed, timeout=timeout)
+    run(cmd, cwd=composed, timeout=timeout, env=cell_java_env(cell))
     for rel in build.get('resource_roots') or ['src/main/resources']:
         root = safe_rel(composed, str(rel))
         if not root.exists(): continue
@@ -263,9 +291,12 @@ def find_artifact(composed: pathlib.Path, cfg: dict[str, Any], mode: str) -> pat
 def build_project(composed: pathlib.Path, work: pathlib.Path, cfg: dict[str, Any], cell: dict[str, Any], timeout: int) -> pathlib.Path:
     mode = detect_build_mode(composed, cfg)
     required = int(cell.get('java') or 0)
-    have = java_major()
+    java_bin = cell_java_binary(cell)
+    have = java_major(java_bin)
     if required and (not have or have < required):
         raise ToolchainBlock(f'Java {required} required; runner has Java {have or "unavailable"}')
+    if str(cell.get('java_path') or '').strip() and not cell_javac_binary(cell):
+        raise ToolchainBlock(f'JDK {required or have or "requested"} is required; pinned Java has no javac')
     build = cfg.get('build') if isinstance(cfg.get('build'), dict) else {}
     context = {
         'minecraft': str(cell.get('minecraft')),
@@ -287,7 +318,7 @@ def build_project(composed: pathlib.Path, work: pathlib.Path, cfg: dict[str, Any
             cmd = [shutil.which('gradle') or 'gradle', '--no-daemon', 'clean', 'build']
         else:
             raise ToolchainBlock('Gradle project detected but neither gradlew nor gradle is available')
-        run(cmd, cwd=composed, timeout=timeout)
+        run(cmd, cwd=composed, timeout=timeout, env=cell_java_env(cell))
         return find_artifact(composed, cfg, mode)
     if mode == 'maven':
         if build.get('command'):
@@ -298,11 +329,11 @@ def build_project(composed: pathlib.Path, work: pathlib.Path, cfg: dict[str, Any
             cmd = [shutil.which('mvn') or 'mvn', '-B', '-DskipTests=false', 'clean', 'package']
         else:
             raise ToolchainBlock('Maven project detected but neither mvnw nor mvn is available')
-        run(cmd, cwd=composed, timeout=timeout)
+        run(cmd, cwd=composed, timeout=timeout, env=cell_java_env(cell))
         return find_artifact(composed, cfg, mode)
     if mode == 'command':
         cmd = render_argv(build.get('command'), context)
-        run(cmd, cwd=composed, timeout=timeout)
+        run(cmd, cwd=composed, timeout=timeout, env=cell_java_env(cell))
         return find_artifact(composed, cfg, mode)
     raise RuntimeError(f'unsupported build mode: {mode}')
 
@@ -418,7 +449,7 @@ def runtime_gate(composed: pathlib.Path, jar: pathlib.Path, work: pathlib.Path, 
         'pathsep': os.pathsep,
     }
     cmd = render_argv(command, context)
-    cp = run(cmd, cwd=composed, timeout=int(runtime.get('timeout') or timeout), check=False)
+    cp = run(cmd, cwd=composed, timeout=int(runtime.get('timeout') or timeout), env=cell_java_env(cell), check=False)
     evidence = [f'runtime-exit:{cp.returncode}']
     expected = runtime.get('stdout_contains')
     if cp.returncode != 0:
