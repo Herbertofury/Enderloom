@@ -119,6 +119,7 @@ const northpointService = new NorthpointService({
   rootDir: ROOT,
   dataDir: path.join(app.getPath('userData'), 'launcher', 'northpoint'),
   nativeRequest: (command, args = {}, options = {}) => launcherService.request(command, args, options),
+  nativeEvents: launcherService,
 });
 const NORTHPOINT_RENDERER_COMMANDS = new Set([
   'conversion_capabilities',
