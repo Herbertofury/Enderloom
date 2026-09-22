@@ -121,3 +121,45 @@ export interface ConversionSelfTestResult {
   marker: string;
   stdout_tail: string;
 }
+
+export interface ConversionJobArtifact {
+  file: string;
+  sha256: string;
+  size: number;
+}
+
+export interface ConversionJobMatrixCell {
+  cell_id: string;
+  state: ConversionCellState;
+  fingerprint: string | null;
+  artifact?: ConversionJobArtifact | null;
+  reason?: string | null;
+}
+
+export interface ConversionJobResult {
+  session: ConversionSession;
+  job: {
+    ok: boolean;
+    partial: boolean;
+    driver_profile: "production";
+    exit_code: number | null;
+    receipt: {
+      status: "PASS" | "PARTIAL" | "FAILED_PRIMARY";
+      run?: {
+        built: string[];
+        reused: string[];
+        failed: string[];
+        blocked: string[];
+      };
+      [key: string]: unknown;
+    };
+    matrix: {
+      schema_version: number;
+      generated_at?: string;
+      cells: ConversionJobMatrixCell[];
+    } | null;
+    state_dir: string;
+    stdout_tail: string;
+    stderr_tail: string;
+  };
+}
