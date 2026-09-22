@@ -17,7 +17,7 @@ LEVELS = {
     'fast': ['northpoint_job_runner_selftest.py', 'northpoint_semantic_migration_selftest.py'],
     'production': ['northpoint_production_driver_selftest.py'],
     'release': ['northpoint_job_runner_selftest.py', 'northpoint_semantic_migration_selftest.py', 'northpoint_production_driver_selftest.py'],
-    'full': ['northpoint_job_runner_selftest.py', 'northpoint_semantic_migration_selftest.py', 'northpoint_production_driver_selftest.py', 'port_26_3_selftest.py'],
+    'full': ['northpoint_job_runner_selftest.py', 'northpoint_semantic_migration_selftest.py', 'northpoint_production_driver_selftest.py', 'northpoint_target_26_3_selftest.py', 'port_26_3_selftest.py'],
 }
 
 
