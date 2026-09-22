@@ -64,6 +64,9 @@ jobs:
       - name: Northpoint production bridge QA
         run: npm run northpoint-job-bridge-qa
 
+      - name: Northpoint runtime-proof bridge QA
+        run: npm run northpoint-runtime-proof-bridge-qa
+
       - name: Fetch official Fabric example mod
         run: git clone --depth 1 --branch 1.21 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod"
 
