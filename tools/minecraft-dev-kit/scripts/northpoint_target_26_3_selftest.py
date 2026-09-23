@@ -141,11 +141,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.protocol.game.ServerboundSwingPacket;
+import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 public class ExampleMod {
   ResourceLocation id;
   void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos) {
     int key = GLFW.GLFW_KEY_I;
+    int press = GLFW.GLFW_PRESS;
+    int release = GLFW.GLFW_RELEASE;
+    int repeat = GLFW.GLFW_REPEAT;
+    Object keyboardType = InputConstants.Type.KEYSYM;
+    boolean controlDown = GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS;
+    int rightControl = InputConstants.KEY_RIGHT_CONTROL;
+    int leftShift = InputConstants.KEY_LEFT_SHIFT;
+    int rightShift = InputConstants.KEY_RIGHT_SHIFT;
+    int enter = InputConstants.KEY_ENTER;
     Object current = client.screen;
     client.setScreen(null);
     net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
@@ -208,6 +218,17 @@ public class ExampleMod {
     java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert "Identifier" in java
     assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
+    assert "InputConstants.PRESS" in java
+    assert "InputConstants.RELEASE" in java
+    assert "InputConstants.REPEAT" in java
+    assert "InputConstants.Type.KEYBOARD" in java
+    assert "InputConstants.isKeyDown(InputConstants.KEY_LCONTROL)" in java
+    assert "InputConstants.KEY_RCONTROL" in java
+    assert "InputConstants.KEY_LSHIFT" in java
+    assert "InputConstants.KEY_RSHIFT" in java
+    assert "InputConstants.KEY_RETURN" in java
+    assert "GLFW.GLFW_PRESS" not in java
+    assert "InputConstants.Type.KEYSYM" not in java
     assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
     assert ".gui.hud.setOverlayMessage(" in java
     assert "Minecraft.getInstance().gui.hud.isHidden()" in java
@@ -223,6 +244,7 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
+        "minecraft-26.3-sdl-input-core",
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
         "minecraft-gui-to-hud-overlay",
