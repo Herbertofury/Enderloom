@@ -30,6 +30,8 @@ def main() -> int:
     parser.add_argument("--loader", required=True)
     parser.add_argument("--java", type=int, required=True)
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--expect-source-minecraft")
+    parser.add_argument("--expect-rewrite", action="append", default=[])
     args = parser.parse_args()
 
     project = args.project.resolve()
@@ -90,6 +92,23 @@ def main() -> int:
         evidence = receipt.get("evidence") or []
         if not any(str(row).startswith("metadata:") for row in evidence):
             raise AssertionError(f"loader metadata was not verified: {evidence}")
+
+        conversion = receipt.get("conversion")
+        if args.expect_source_minecraft:
+            if not isinstance(conversion, dict):
+                raise AssertionError(f"expected a source-to-target conversion receipt: {receipt}")
+            source = conversion.get("source") or {}
+            target = conversion.get("target") or {}
+            if str(source.get("minecraft")) != str(args.expect_source_minecraft):
+                raise AssertionError(f"conversion source mismatch: {source}")
+            if str(target.get("minecraft")) != str(args.minecraft):
+                raise AssertionError(f"conversion target mismatch: {target}")
+            if conversion.get("source_unchanged") is not True:
+                raise AssertionError(f"source immutability was not proven: {conversion}")
+            applied = set(map(str, conversion.get("applied_rule_ids") or []))
+            missing_rules = [rule for rule in args.expect_rewrite if rule not in applied]
+            if missing_rules:
+                raise AssertionError(f"expected conversion rewrites were not applied: {missing_rules}; got={sorted(applied)}")
         print(
             json.dumps(
                 {
@@ -98,6 +117,8 @@ def main() -> int:
                     "artifact": artifact_path.name,
                     "size": artifact_path.stat().st_size,
                     "evidence_count": len(evidence),
+                    "converted_from": (conversion.get("source") or {}).get("minecraft") if isinstance(conversion, dict) else None,
+                    "conversion_rules": conversion.get("applied_rule_ids") if isinstance(conversion, dict) else [],
                 },
                 indent=2,
             )

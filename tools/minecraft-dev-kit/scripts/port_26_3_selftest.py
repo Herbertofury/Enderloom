@@ -374,7 +374,7 @@ def main() -> int:
             assert guard["target"]["java"] == 25
             if loader == "fabric":
                 assert guard["intake"]["mapping_plan"]["source"]["unobfuscated"] is True
-                assert "0.160.7+26.3" in (target / "gradle.properties").read_text()
+                assert "0.161.0+26.3" in (target / "gradle.properties").read_text()
 
         # Regression: stale direct GLFW in an otherwise clean 26.3 Fabric target must fail.
         dirty_glfw = scaffold(root, "dirty-glfw")

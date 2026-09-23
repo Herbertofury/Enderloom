@@ -75,12 +75,14 @@ def driver_probe(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_r
     return value if isinstance(value, dict) else {'protocol': 0, 'available': False}
 
 
-def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict) -> str:
+def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict, probe: dict | None = None) -> str:
     inv = inventory(project, cell)
     driver_sha = sha256_file(driver)
+    artifact_fingerprint = str((probe or {}).get('artifact_fingerprint') or '')
     payload = {
         'compose': inv['sha256'],
         'driver_sha256': driver_sha,
+        'artifact_fingerprint': artifact_fingerprint,
         'cell': normalized_cell(cell),
         'config': config,
     }
@@ -192,9 +194,9 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
     state = str(result.get('state') or 'failed')
     artifact_name = result.get('artifact')
     if state not in {'passed', 'runtime-unverified'}:
-        return {'state': state, 'reason': result.get('reason') or f'driver returned {state}', 'evidence': result.get('evidence') or []}
+        return {'state': state, 'reason': result.get('reason') or f'driver returned {state}', 'evidence': result.get('evidence') or [], 'conversion': result.get('conversion')}
     if state == 'runtime-unverified' and not artifact_name:
-        return {'state': state, 'reason': result.get('reason') or 'runtime verification is pending', 'evidence': result.get('evidence') or []}
+        return {'state': state, 'reason': result.get('reason') or 'runtime verification is pending', 'evidence': result.get('evidence') or [], 'conversion': result.get('conversion')}
     artifact = pathlib.Path(str(artifact_name or ''))
     if not artifact.is_absolute():
         artifact = raw_output / artifact
@@ -216,6 +218,7 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
         'reason': None if state == 'passed' else (result.get('reason') or 'runtime verification is pending'),
         'artifact': {'file': name, 'sha256': sha256_file(final), 'size': final.stat().st_size},
         'evidence': result.get('evidence') or [],
+        'conversion': result.get('conversion'),
         'driver_stdout_tail': '\n'.join(lines[-20:]),
     }
 
@@ -231,6 +234,7 @@ def write_release_outputs(state: dict, release_dir: pathlib.Path) -> None:
             'fingerprint': rec.get('fingerprint'),
             'environment_fingerprint': rec.get('environment_fingerprint'),
             'artifact': artifact,
+            'conversion': rec.get('conversion'),
             'reason': rec.get('reason'),
         }
         rows.append(row)
@@ -271,12 +275,12 @@ def main() -> int:
     run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': sorted(promoted)}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
-    fps = {cid: input_fingerprint(project, cell, driver, config) for cid, cell in cells.items()}
+    fps = {cid: input_fingerprint(project, cell, driver, config, probes[cid]) for cid, cell in cells.items()}
     env_fps = {cid: environment_fingerprint(probes[cid]) for cid in cells}
     for cid, cell in cells.items():
         rec = state['cells'].setdefault(cid, {
             'state': 'pending', 'attempts': 0, 'fingerprint': None,
-            'environment_fingerprint': None, 'artifact': None, 'evidence': [], 'reason': None,
+            'environment_fingerprint': None, 'artifact': None, 'evidence': [], 'conversion': None, 'reason': None,
         })
         if rec.get('fingerprint') != fps[cid]:
             rec.update({
@@ -285,6 +289,7 @@ def main() -> int:
                 'environment_fingerprint': env_fps[cid],
                 'reason': 'inputs changed',
                 'artifact': rec.get('artifact'),
+                'conversion': None,
             })
         elif rec.get('state') in {'blocked', 'runtime-unverified'} and rec.get('environment_fingerprint') != env_fps[cid]:
             rec.update({
