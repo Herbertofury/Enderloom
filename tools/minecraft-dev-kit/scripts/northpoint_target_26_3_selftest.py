@@ -471,6 +471,7 @@ public class ExampleMod {
     assert "stack.is(ItemTags.AXES)" in java
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
+    assert "ServerboundPunchPacket.INSTANCE" in java
     expected_java_rules = {
         "minecraft-26.3-posestack-axis-rotation",
         "minecraft-26.3-vertexconsumer-uv3",
@@ -498,7 +499,7 @@ public class ExampleMod {
         "minecraft-26.3-swing-animation-argument",
         "minecraft-26.3-inputconstants-signatures",
         "minecraft-26.3-axeitem-to-item-tag",
-        "minecraft-26.3-remove-serverbound-swing-packet",
+        "minecraft-26.3-serverbound-swing-to-punch-packet",
     }
     assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
     screen_java = (output / "src/main/java/com/example/LegacyScreen.java").read_text()
