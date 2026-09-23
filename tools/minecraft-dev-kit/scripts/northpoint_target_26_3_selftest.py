@@ -225,7 +225,7 @@ class ComplexScreen extends Screen {
 
 def fabric_non_official_access_widener_guard_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
     source, output = root / "fabric-named-aw-source", root / "fabric-named-aw-target"
-    write(source / "gradle.properties", "minecraft_version=26.2\\nversion=1.0.0\\ngroup=com.example\\n")
+    write(source / "gradle.properties", "minecraft_version=26.2\nversion=1.0.0\ngroup=com.example\n")
     write(source / "build.gradle", """plugins { id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT' }
 loom {
     accessWidenerPath = file("src/main/resources/unsafe.accesswidener")
@@ -238,12 +238,12 @@ loom {
         "name": "Unsafe Named Access Widener",
         "accessWidener": "unsafe.accesswidener",
         "depends": {"fabricloader": ">=0.19.2", "minecraft": "~26.2", "java": ">=25"},
-    }, indent=2) + "\\n")
+    }, indent=2) + "\n")
     write(
         source / "src/main/resources/unsafe.accesswidener",
-        "accessWidener\\tv1\\tnamed\\naccessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry\\n",
+        "accessWidener\tv1\tnamed\naccessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry\n",
     )
-    write(source / "src/main/java/com/example/UnsafeAw.java", "package com.example; class UnsafeAw {}\\n")
+    write(source / "src/main/java/com/example/UnsafeAw.java", "package com.example; class UnsafeAw {}\n")
     manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
     assert "fabric-preserve-access-widener-path" not in manifest["applied_rule_ids"]
     assert "loom_access_widener" not in manifest["preserved_gradle_blocks"]
