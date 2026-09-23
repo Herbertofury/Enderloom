@@ -86,9 +86,6 @@ jobs:
       - name: Fetch official Fabric example mod
         run: git clone --depth 1 --branch 1.21 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod"
 
-      - name: Fetch official NeoForge 1.21.1 MDK mod
-        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-1.21.1"
-
       - name: Official Fabric example mod production smoke
         run: >-
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
@@ -135,6 +132,40 @@ jobs:
           --java 25
           --timeout 600
 
+      - name: Fetch official NeoForge 26.3 MDK mod
+        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-26.3-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-26.3"
+
+      - name: Official NeoForge 26.3 production smoke
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/neoforge-mdk-26.3"
+          --minecraft 26.3
+          --loader neoforge
+          --java 25
+          --timeout 600
+
+  neoforge-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: gradle
+
+      - name: Northpoint 26.3 target materialization QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
+
+      - name: Fetch official NeoForge 1.21.1 MDK mod
+        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+
       - name: Official NeoForge 1.21.1 to 26.3 production conversion
         run: >-
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
@@ -149,14 +180,3 @@ jobs:
           --expect-rewrite resource-location-to-identifier
           --timeout 600
 
-      - name: Fetch official NeoForge 26.3 MDK mod
-        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-26.3-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-26.3"
-
-      - name: Official NeoForge 26.3 production smoke
-        run: >-
-          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
-          --project "$RUNNER_TEMP/neoforge-mdk-26.3"
-          --minecraft 26.3
-          --loader neoforge
-          --java 25
-          --timeout 600
