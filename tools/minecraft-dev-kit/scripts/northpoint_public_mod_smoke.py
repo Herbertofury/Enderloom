@@ -2,11 +2,15 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
+import os
 import json
 import pathlib
 import subprocess
 import sys
 import tempfile
+
+from northpoint_execution import atomic_json, contained_file, run_logged, sha256_file
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DRIVER = ROOT / "scripts" / "northpoint_production_driver.py"
@@ -30,6 +34,8 @@ def main() -> int:
     parser.add_argument("--loader", required=True)
     parser.add_argument("--java", type=int, required=True)
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--workspace", type=pathlib.Path, help="New empty durable run directory (never deleted)")
+    parser.add_argument("--java-path", help="Exact JDK java executable; javac must be beside it")
     parser.add_argument("--expect-source-minecraft")
     parser.add_argument("--expect-rewrite", action="append", default=[])
     parser.add_argument("--expect-preserved-property", action="append", default=[])
@@ -40,8 +46,19 @@ def main() -> int:
     if not project.is_dir():
         raise SystemExit(f"project does not exist: {project}")
 
-    with tempfile.TemporaryDirectory(prefix="northpoint-public-mod-") as td:
-        root = pathlib.Path(td)
+    if args.workspace:
+        root = args.workspace.resolve()
+        if root == project or root.is_relative_to(project):
+            raise SystemExit("smoke workspace must be outside the source project")
+        root.mkdir(parents=True, exist_ok=True)
+        if any(root.iterdir()):
+            raise SystemExit(f"workspace must be empty; existing evidence was preserved: {root}")
+    else:
+        parent = pathlib.Path(os.environ.get("NORTHPOINT_SMOKE_ROOT", str(pathlib.Path.cwd() / ".northpoint" / "public-mod-smoke")))
+        parent.mkdir(parents=True, exist_ok=True)
+        root = pathlib.Path(tempfile.mkdtemp(prefix="run-", dir=parent)).resolve()
+    print(f"Northpoint durable workspace: {root}", flush=True)
+    with contextlib.nullcontext(root):
         work = root / "work"
         output = root / "output"
         cell = root / "cell.json"
@@ -52,6 +69,7 @@ def main() -> int:
                     "minecraft": args.minecraft,
                     "loader": args.loader,
                     "java": args.java,
+                    "java_path": args.java_path or "",
                     "support_state": "stable",
                     "primary": True,
                 },
@@ -60,7 +78,7 @@ def main() -> int:
             + "\n",
             encoding="utf-8",
         )
-        cp = subprocess.run(
+        cp = run_logged(
             [
                 sys.executable,
                 str(DRIVER),
@@ -75,20 +93,22 @@ def main() -> int:
                 "--timeout",
                 str(args.timeout),
             ],
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            directory=root,
+            name="driver",
             timeout=args.timeout + 60,
         )
+        atomic_json(root / "execution.json", {"returncode": cp.returncode, "workspace": str(root),
+                                              "project": str(project), "minecraft": args.minecraft, "loader": args.loader})
         if cp.returncode != 0:
             raise AssertionError(f"driver exited {cp.returncode}\nSTDOUT:\n{cp.stdout}\nSTDERR:\n{cp.stderr}")
         receipt = last_json(cp.stdout)
+        atomic_json(root / "receipt.json", receipt)
         if receipt.get("state") not in {"passed", "runtime-unverified"}:
             raise AssertionError(json.dumps(receipt, indent=2))
         artifact = receipt.get("artifact")
         if not artifact:
             raise AssertionError(f"verified/candidate receipt has no artifact: {receipt}")
-        artifact_path = output / str(artifact)
+        artifact_path = contained_file(output, str(artifact))
         if not artifact_path.is_file() or artifact_path.stat().st_size <= 0:
             raise AssertionError(f"artifact is missing or empty: {artifact_path}")
         evidence = receipt.get("evidence") or []
@@ -123,20 +143,17 @@ def main() -> int:
                 raise AssertionError(
                     f"expected Gradle build blocks were not preserved: {missing_blocks}; got={preserved_blocks}"
                 )
-        print(
-            json.dumps(
-                {
-                    "status": "PASS",
-                    "state": receipt["state"],
-                    "artifact": artifact_path.name,
-                    "size": artifact_path.stat().st_size,
-                    "evidence_count": len(evidence),
-                    "converted_from": (conversion.get("source") or {}).get("minecraft") if isinstance(conversion, dict) else None,
-                    "conversion_rules": conversion.get("applied_rule_ids") if isinstance(conversion, dict) else [],
-                },
-                indent=2,
-            )
-        )
+        summary = {
+            "status": "PASS", "state": receipt["state"],
+            "artifact": artifact_path.name, "artifact_path": str(artifact_path),
+            "sha256": sha256_file(artifact_path), "size": artifact_path.stat().st_size,
+            "workspace": str(root), "evidence_count": len(evidence),
+            "converted_from": (conversion.get("source") or {}).get("minecraft") if isinstance(conversion, dict) else None,
+            "conversion_rules": conversion.get("applied_rule_ids") if isinstance(conversion, dict) else [],
+        }
+        atomic_json(root / "summary.json", summary)
+        (root / "SHA256SUMS.txt").write_text(f"{summary['sha256']}  output/{artifact_path.name}\n", encoding="utf-8")
+        print(json.dumps(summary, indent=2))
     print("Northpoint public mod production smoke: PASS")
     return 0
 
