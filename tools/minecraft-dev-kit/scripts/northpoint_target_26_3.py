@@ -166,8 +166,15 @@ def carry_resources(source: pathlib.Path, output: pathlib.Path, loader: str) -> 
         skips.add("fabric.mod.json")
     elif loader == "neoforge":
         skips.add("neoforge.mods.toml")
-    for rel in ("src/main/resources", "src/client/resources", "src/generated/resources"):
-        count = copy_tree_overlay(source / rel, output / rel, skip_names=skips if rel == "src/main/resources" else set())
+    roots = ["src/main/resources", "src/client/resources", "src/generated/resources"]
+    if loader == "neoforge":
+        roots.append("src/main/templates")
+    for rel in roots:
+        count = copy_tree_overlay(
+            source / rel,
+            output / rel,
+            skip_names=skips if rel in {"src/main/resources", "src/main/templates"} else set(),
+        )
         if count:
             copied[rel] = count
     return copied
