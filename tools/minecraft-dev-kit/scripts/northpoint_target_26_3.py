@@ -710,6 +710,15 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 )
                 if "void submitCrumblingOverlay(" not in changed:
                     changed = changed[: body_close + 1] + crumbling_method + changed[body_close + 1 :]
+
+                if "void submitTextBackground(" not in changed:
+                    text_background_method = (
+                        "\n\n\t@Override\n"
+                        "\tpublic void submitTextBackground(PoseStack poseStack, float x0, float y0, float x1, float y1, "
+                        "int color, Font.DisplayMode displayMode, int lightCoords) {\n"
+                        "\t}\n"
+                    )
+                    changed = changed[: body_close + 1] + text_background_method + changed[body_close + 1 :]
                 changed = _ensure_java_import(changed, "net.minecraft.client.renderer.texture.UvMapping")
                 without_texture_import = re.sub(
                     r"(?m)^\s*import\s+net\.minecraft\.client\.renderer\.texture\.TextureAtlasSprite;\s*\n",
@@ -1039,6 +1048,37 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = without_yggdrasil_import
             file_rules.append(("minecraft-26.3-authlib-discovery-service-constructor", discovery_count))
 
+        # 26.3 SDL migration moved platform launch helpers to Blaze3D and
+        # simplified OptionsScreen construction.
+        platform_count = 0
+        changed, uri_count = re.subn(
+            r"Util\.getPlatform\(\)\.openUri\(([^;\n]+)\)",
+            lambda match: f"Blaze3D.openUri(URI.create({match.group(1).strip()}))",
+            changed,
+        )
+        if uri_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.Blaze3D")
+            changed = _ensure_java_import(changed, "java.net.URI")
+            platform_count += uri_count
+
+        changed, path_count = re.subn(
+            r"Util\.getPlatform\(\)\.openPath\(([^;\n]+)\)",
+            lambda match: f"Blaze3D.openPath({match.group(1).strip()})",
+            changed,
+        )
+        if path_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.Blaze3D")
+            platform_count += path_count
+
+        changed, options_count = re.subn(
+            r"new\s+OptionsScreen\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*(?:true|false)\s*\)",
+            lambda match: f"new OptionsScreen({match.group(1).strip()}, {match.group(2).strip()})",
+            changed,
+        )
+        platform_count += options_count
+        if platform_count:
+            file_rules.append(("minecraft-26.3-platform-and-options-signatures", platform_count))
+
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
             ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
@@ -1099,6 +1139,21 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if blocks_motion_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.level.block.Blocks")
             file_rules.append(("minecraft-26.3-blockstate-blocks-motion", blocks_motion_count))
+
+        # 26.3 split the old three-axis withinManhattan semantics. The old
+        # (origin, x, y, z) overload traversed the whole clipped box in Manhattan order;
+        # withinBoxByManhattanDistance is the exact replacement.
+        changed, manhattan_count = re.subn(
+            r"BlockPos\.withinManhattan\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
+            lambda match: (
+                "BlockPos.withinBoxByManhattanDistance("
+                + ", ".join(part.strip() for part in match.groups())
+                + ")"
+            ),
+            changed,
+        )
+        if manhattan_count:
+            file_rules.append(("minecraft-26.3-blockpos-within-manhattan", manhattan_count))
 
         # 26.3 renamed KeyEvent#scancode to keycode. Restrict the rewrite to
         # the body of a method/constructor whose parameter is source-typed as
