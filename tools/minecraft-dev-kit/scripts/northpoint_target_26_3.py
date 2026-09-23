@@ -325,12 +325,12 @@ def _filter_dependency_block(block: str) -> str | None:
 
 def _safe_fabric_loom_access_widener_block(source: pathlib.Path, block: str) -> str | None:
     match = re.search(
-        r'''(?m)^\\s*accessWidenerPath\\s*=\\s*file\\(\\s*["']([^"']+)["']\\s*\\)\\s*$''',
+        r'''(?m)^\s*accessWidenerPath\s*=\s*file\(\s*["']([^"']+)["']\s*\)\s*$''',
         block,
     )
     if not match:
         return None
-    rel = match.group(1).strip().replace("\\\\", "/")
+    rel = match.group(1).strip().replace("\\", "/")
     rel_path = pathlib.PurePosixPath(rel)
     if not rel or rel_path.is_absolute() or ".." in rel_path.parts:
         return None
@@ -347,7 +347,7 @@ def _safe_fabric_loom_access_widener_block(source: pathlib.Path, block: str) -> 
         return None
     header = lines[header_index].strip()
     header_match = re.fullmatch(
-        r"(?:accessWidener|classTweaker)\\s+v\\d+\\s+([A-Za-z0-9_.-]+)",
+        r"(?:accessWidener|classTweaker)\s+v\d+\s+([A-Za-z0-9_.-]+)",
         header,
     )
     if not header_match:
@@ -363,7 +363,7 @@ def _safe_fabric_loom_access_widener_block(source: pathlib.Path, block: str) -> 
     if namespace != "official" and directives:
         return None
 
-    return 'loom {\\n    accessWidenerPath = file("' + rel + '")\\n}'
+    return 'loom {\n    accessWidenerPath = file("' + rel + '")\n}'
 
 
 def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path, loader: str) -> dict[str, int]:
@@ -399,15 +399,15 @@ def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path, 
         return {}
     fragment_path = output / "northpoint-preserved.gradle"
     fragment_path.write_text(
-        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\\n\\n"
-        + "\\n\\n".join(fragments).rstrip()
-        + "\\n",
+        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\n\n"
+        + "\n\n".join(fragments).rstrip()
+        + "\n",
         encoding="utf-8",
     )
     target = target_build.read_text(encoding="utf-8", errors="replace").rstrip()
     apply_line = 'apply from: file("northpoint-preserved.gradle")'
     if apply_line not in target:
-        target += "\\n\\n// Northpoint zero-loss source build metadata\\n" + apply_line + "\\n"
+        target += "\n\n// Northpoint zero-loss source build metadata\n" + apply_line + "\n"
         target_build.write_text(target, encoding="utf-8")
     return {k: v for k, v in counts.items() if v}
 
