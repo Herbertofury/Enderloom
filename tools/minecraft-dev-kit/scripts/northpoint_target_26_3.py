@@ -399,6 +399,38 @@ def adapt_fabric_source_layout(source: pathlib.Path, output: pathlib.Path) -> li
     }]
 
 
+
+def normalize_empty_fabric_access_wideners(output: pathlib.Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in sorted(output.rglob("*.accesswidener")):
+        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+        if not lines:
+            continue
+        header_index = next((i for i, line in enumerate(lines) if line.strip() and not line.lstrip().startswith("#")), None)
+        if header_index is None:
+            continue
+        header = lines[header_index]
+        match = re.match(r"^(\s*accessWidener\s+v\d+\s+)(named|intermediary)(\s*)$", header)
+        if not match:
+            continue
+        substantive = [
+            line for i, line in enumerate(lines)
+            if i != header_index and line.strip() and not line.lstrip().startswith("#")
+        ]
+        if substantive:
+            # Symbol-bearing wideners require exact namespace translation; never relabel them blindly.
+            continue
+        lines[header_index] = match.group(1) + "official" + match.group(3)
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        rows.append({
+            "rule": "fabric-empty-access-widener-official-namespace",
+            "path": path.relative_to(output).as_posix(),
+            "from": match.group(2),
+            "to": "official",
+        })
+    return rows
+
+
 def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[str]:
     src_path = source / "src/main/resources/fabric.mod.json"
     dst_path = output / "src/main/resources/fabric.mod.json"
@@ -646,6 +678,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
         for rule in migrate_fabric_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
         applied.extend(adapt_fabric_source_layout(source, output))
+        applied.extend(normalize_empty_fabric_access_wideners(output))
     elif loader == "neoforge":
         for rule in migrate_neoforge_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/templates/META-INF/neoforge.mods.toml"})
