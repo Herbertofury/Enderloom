@@ -918,6 +918,41 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
 
+        # 26.3 removed BlockState#blocksMotion. Vanilla 26.2 semantics were
+        # legacySolid/isSolid with COBWEB and BAMBOO_SAPLING explicitly walk-through.
+        # Preserve that exact predicate instead of silently broadening to plain isSolid().
+        blocks_motion_count = 0
+        block_state_names = set(
+            re.findall(r"\bBlockState\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for name in sorted(block_state_names, key=len, reverse=True):
+            replacement = (
+                f"({name}.getBlock() != Blocks.COBWEB && "
+                f"{name}.getBlock() != Blocks.BAMBOO_SAPLING && {name}.isSolid())"
+            )
+            changed, count = re.subn(
+                rf"\b{re.escape(name)}\.blocksMotion\(\)",
+                replacement,
+                changed,
+            )
+            blocks_motion_count += count
+
+        get_block_state_pattern = re.compile(
+            r"(?P<receiver>\b[A-Za-z_$][A-Za-z0-9_$.]*\.getBlockState\([^()\n]*\))\.blocksMotion\(\)"
+        )
+        def _blocks_motion_call(match: re.Match[str]) -> str:
+            receiver = match.group("receiver")
+            return (
+                f"({receiver}.getBlock() != Blocks.COBWEB && "
+                f"{receiver}.getBlock() != Blocks.BAMBOO_SAPLING && {receiver}.isSolid())"
+            )
+
+        changed, call_count = get_block_state_pattern.subn(_blocks_motion_call, changed)
+        blocks_motion_count += call_count
+        if blocks_motion_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.level.block.Blocks")
+            file_rules.append(("minecraft-26.3-blockstate-blocks-motion", blocks_motion_count))
+
         # 26.3 renamed KeyEvent#scancode to keycode. Restrict the rewrite to
         # the body of a method/constructor whose parameter is source-typed as
         # Minecraft KeyEvent, preventing same-name variables in other scopes from changing.
