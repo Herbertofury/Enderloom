@@ -563,6 +563,61 @@ def rewrite_neoforge_property_factories(output: pathlib.Path) -> list[dict[str, 
 
 
 
+def _find_matching_java_brace(text: str, open_index: int) -> int | None:
+    if open_index < 0 or open_index >= len(text) or text[open_index] != "{":
+        return None
+    depth = 0
+    quote: str | None = None
+    escaped = False
+    line_comment = False
+    block_comment = False
+    i = open_index
+    while i < len(text):
+        ch = text[i]
+        nxt = text[i + 1] if i + 1 < len(text) else ""
+        if line_comment:
+            if ch == "\n":
+                line_comment = False
+            i += 1
+            continue
+        if block_comment:
+            if ch == "*" and nxt == "/":
+                block_comment = False
+                i += 2
+                continue
+            i += 1
+            continue
+        if quote:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == quote:
+                quote = None
+            i += 1
+            continue
+        if ch == "/" and nxt == "/":
+            line_comment = True
+            i += 2
+            continue
+        if ch == "/" and nxt == "*":
+            block_comment = True
+            i += 2
+            continue
+        if ch in {'"', "'"}:
+            quote = ch
+            i += 1
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return i
+        i += 1
+    return None
+
+
 def _ensure_java_import(text: str, fqcn: str) -> str:
     statement = f"import {fqcn};"
     if statement in text:
@@ -620,23 +675,41 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
 
-        # 26.3 renamed KeyEvent#scancode to keycode. Restrict this to variables
-        # proven by source typing to be Minecraft KeyEvent instances so unrelated
-        # project classes with a scancode() method are never rewritten.
-        key_event_names = set(
-            re.findall(
-                r"\b(?:net\.minecraft\.client\.input\.)?KeyEvent\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
-                changed,
-            )
+        # 26.3 renamed KeyEvent#scancode to keycode. Restrict the rewrite to
+        # the body of a method/constructor whose parameter is source-typed as
+        # Minecraft KeyEvent, preventing same-name variables in other scopes from changing.
+        method_scopes: list[tuple[int, int, set[str]]] = []
+        method_signature = re.compile(
+            r"(?s)\\((?P<params>[^{};]*)\\)\\s*(?:throws\\s+[^{}]+)?\\{"
         )
+        key_event_param = re.compile(
+            r"\\b(?:net\\.minecraft\\.client\\.input\\.)?KeyEvent\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b"
+        )
+        for signature in method_signature.finditer(changed):
+            names = set(key_event_param.findall(signature.group("params")))
+            if not names:
+                continue
+            body_open = signature.end() - 1
+            body_close = _find_matching_java_brace(changed, body_open)
+            if body_close is None:
+                continue
+            method_scopes.append((body_open, body_close, names))
+
         keycode_count = 0
-        for name in sorted(key_event_names, key=len, reverse=True):
-            changed, count = re.subn(
-                rf"\b{re.escape(name)}\.scancode\(\)",
-                f"{name}.keycode()",
-                changed,
-            )
-            keycode_count += count
+        for body_open, body_close, names in reversed(method_scopes):
+            body = changed[body_open : body_close + 1]
+            rewritten = body
+            local_count = 0
+            for name in sorted(names, key=len, reverse=True):
+                rewritten, count = re.subn(
+                    rf"\\b{re.escape(name)}\\.scancode\\(\\)",
+                    f"{name}.keycode()",
+                    rewritten,
+                )
+                local_count += count
+            if local_count:
+                changed = changed[:body_open] + rewritten + changed[body_close + 1 :]
+                keycode_count += local_count
         if keycode_count:
             file_rules.append(("minecraft-26.3-keyevent-scancode-to-keycode", keycode_count))
 
