@@ -807,6 +807,54 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-glfw-text-input-helpers", text_input_count))
 
+        # 26.3 standard cursors are CursorType objects instead of raw GLFW handles.
+        # This bounded wrapper migration applies only when a file actually creates
+        # GLFW standard cursors and stores them in the conventional cached cursor field.
+        cursor_factory_relocations = {
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR)": "CursorTypes.POINTING_HAND",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR)": "CursorTypes.IBEAM",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR)": "CursorTypes.RESIZE_EW",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR)": "CursorTypes.RESIZE_NS",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR)": "CursorTypes.ARROW",
+        }
+        cursor_factory_count = 0
+        for old_value, new_value in cursor_factory_relocations.items():
+            count = changed.count(old_value)
+            if count:
+                changed = changed.replace(old_value, new_value)
+                cursor_factory_count += count
+
+        if cursor_factory_count:
+            changed, cursor_field_count = re.subn(
+                r"\bprivate\s+long\s+cursor\s*;",
+                "private CursorType cursor;",
+                changed,
+                count=1,
+            )
+            changed, cursor_return_count = re.subn(
+                r"\bpublic\s+long\s+getGlfwCursor\s*\(\s*\)",
+                "public CursorType getGlfwCursor()",
+                changed,
+                count=1,
+            )
+            if not cursor_field_count or not cursor_return_count:
+                raise ConversionBlock(
+                    f"standard GLFW cursor factories in {path} require an unrecognized cursor wrapper shape"
+                )
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.cursor.CursorType")
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.cursor.CursorTypes")
+
+        changed, cursor_select_count = re.subn(
+            r"GLFW\.glfwSetCursor\(\s*[^,\n]+,\s*([A-Za-z_$][A-Za-z0-9_$.]*\.getGlfwCursor\(\))\s*\)",
+            lambda match: f"{match.group(1)}.select()",
+            changed,
+        )
+        cursor_count = cursor_factory_count + cursor_select_count
+        if cursor_count:
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-standard-cursor-wrapper", cursor_count))
+
         # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
         # Service construction is a separate semantic migration and is intentionally excluded.
         authlib_relocations = {
