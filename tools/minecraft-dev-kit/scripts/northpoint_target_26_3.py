@@ -323,37 +323,91 @@ def _filter_dependency_block(block: str) -> str | None:
     return body
 
 
-def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path) -> dict[str, int]:
+def _safe_fabric_loom_access_widener_block(source: pathlib.Path, block: str) -> str | None:
+    match = re.search(
+        r'''(?m)^\\s*accessWidenerPath\\s*=\\s*file\\(\\s*["']([^"']+)["']\\s*\\)\\s*$''',
+        block,
+    )
+    if not match:
+        return None
+    rel = match.group(1).strip().replace("\\\\", "/")
+    rel_path = pathlib.PurePosixPath(rel)
+    if not rel or rel_path.is_absolute() or ".." in rel_path.parts:
+        return None
+    widener = source / pathlib.Path(*rel_path.parts)
+    if not widener.is_file():
+        return None
+
+    lines = widener.read_text(encoding="utf-8", errors="replace").splitlines()
+    header_index = next(
+        (i for i, line in enumerate(lines) if line.strip() and not line.lstrip().startswith("#")),
+        None,
+    )
+    if header_index is None:
+        return None
+    header = lines[header_index].strip()
+    header_match = re.fullmatch(
+        r"(?:accessWidener|classTweaker)\\s+v\\d+\\s+([A-Za-z0-9_.-]+)",
+        header,
+    )
+    if not header_match:
+        return None
+    namespace = header_match.group(1)
+    directives = [
+        line.strip()
+        for line in lines[header_index + 1 :]
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    # Minecraft 26.1+ is unobfuscated. A non-empty legacy named widener needs
+    # symbol-aware conversion; silently wiring it into the target would be unsafe.
+    if namespace != "official" and directives:
+        return None
+
+    return 'loom {\\n    accessWidenerPath = file("' + rel + '")\\n}'
+
+
+def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path, loader: str) -> dict[str, int]:
     source_build = source / "build.gradle"
     target_build = output / "build.gradle"
     if not source_build.is_file() or not target_build.is_file():
         return {}
+
+    names = {"repositories", "dependencies"}
+    if loader == "fabric":
+        names.add("loom")
     blocks = extract_gradle_blocks(
         source_build.read_text(encoding="utf-8", errors="replace"),
-        {"repositories", "dependencies"},
+        names,
     )
     fragments: list[str] = []
-    counts = {"repositories": 0, "dependencies": 0}
+    counts = {"repositories": 0, "dependencies": 0, "loom_access_widener": 0}
     for name, block in blocks:
+        count_name = name
         if name == "dependencies":
             block = _filter_dependency_block(block)
             if not block:
                 continue
+        elif name == "loom":
+            block = _safe_fabric_loom_access_widener_block(source, block)
+            if not block:
+                continue
+            count_name = "loom_access_widener"
         fragments.append(block)
-        counts[name] += 1
+        counts[count_name] += 1
+
     if not fragments:
         return {}
     fragment_path = output / "northpoint-preserved.gradle"
     fragment_path.write_text(
-        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\n\n"
-        + "\n\n".join(fragments).rstrip()
-        + "\n",
+        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\\n\\n"
+        + "\\n\\n".join(fragments).rstrip()
+        + "\\n",
         encoding="utf-8",
     )
     target = target_build.read_text(encoding="utf-8", errors="replace").rstrip()
     apply_line = 'apply from: file("northpoint-preserved.gradle")'
     if apply_line not in target:
-        target += "\n\n// Northpoint zero-loss source build metadata\n" + apply_line + "\n"
+        target += "\\n\\n// Northpoint zero-loss source build metadata\\n" + apply_line + "\\n"
         target_build.write_text(target, encoding="utf-8")
     return {k: v for k, v in counts.items() if v}
 
@@ -784,8 +838,14 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     wrapper_files = carry_wrapper(source, output)
     preserved_gradle_properties = merge_gradle_properties(source, output)
     preserved_build_files = carry_build_support_files(source, output)
-    preserved_gradle_blocks = preserve_gradle_build_fragments(source, output)
+    preserved_gradle_blocks = preserve_gradle_build_fragments(source, output, loader)
     applied: list[dict[str, Any]] = []
+    if loader == "fabric" and preserved_gradle_blocks.get("loom_access_widener"):
+        applied.append({
+            "rule": "fabric-preserve-access-widener-path",
+            "path": "northpoint-preserved.gradle",
+            "count": int(preserved_gradle_blocks["loom_access_widener"]),
+        })
     if loader == "fabric":
         for rule in migrate_fabric_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
