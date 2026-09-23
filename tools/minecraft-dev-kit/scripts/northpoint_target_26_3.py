@@ -561,6 +561,20 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
 
+        # 26.3 removed AxeItem; item tags preserve the semantic category and include modded axes.
+        changed, axe_count = re.subn(
+            r"\b([A-Za-z_$][A-Za-z0-9_$]*)\.getItem\(\)\s+instanceof\s+AxeItem\b",
+            r"\1.is(ItemTags.AXES)",
+            changed,
+        )
+        if axe_count:
+            changed = _ensure_java_import(changed, "net.minecraft.tags.ItemTags")
+            axe_import_pattern = r"(?m)^\s*import\s+net\.minecraft\.world\.item\.AxeItem;\s*\n"
+            without_axe_import = re.sub(axe_import_pattern, "", changed)
+            if not re.search(r"\bAxeItem\b", without_axe_import):
+                changed = without_axe_import
+            file_rules.append(("minecraft-26.3-axeitem-to-item-tag", axe_count))
+
         # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
         changed, swing_count = re.subn(
             r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*,\s*(true|false)\s*\)",
