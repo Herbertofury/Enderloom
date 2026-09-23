@@ -32,6 +32,8 @@ def main() -> int:
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--expect-source-minecraft")
     parser.add_argument("--expect-rewrite", action="append", default=[])
+    parser.add_argument("--expect-preserved-property", action="append", default=[])
+    parser.add_argument("--expect-preserved-build-block", action="append", default=[])
     args = parser.parse_args()
 
     project = args.project.resolve()
@@ -109,6 +111,18 @@ def main() -> int:
             missing_rules = [rule for rule in args.expect_rewrite if rule not in applied]
             if missing_rules:
                 raise AssertionError(f"expected conversion rewrites were not applied: {missing_rules}; got={sorted(applied)}")
+            preserved_properties = set(map(str, conversion.get("preserved_gradle_properties") or []))
+            missing_properties = [key for key in args.expect_preserved_property if key not in preserved_properties]
+            if missing_properties:
+                raise AssertionError(
+                    f"expected Gradle properties were not preserved: {missing_properties}; got={sorted(preserved_properties)}"
+                )
+            preserved_blocks = conversion.get("preserved_gradle_blocks") or {}
+            missing_blocks = [name for name in args.expect_preserved_build_block if int(preserved_blocks.get(name) or 0) <= 0]
+            if missing_blocks:
+                raise AssertionError(
+                    f"expected Gradle build blocks were not preserved: {missing_blocks}; got={preserved_blocks}"
+                )
         print(
             json.dumps(
                 {
