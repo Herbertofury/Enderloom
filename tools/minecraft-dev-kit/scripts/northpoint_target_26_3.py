@@ -569,8 +569,10 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         )
         if axe_count:
             changed = _ensure_java_import(changed, "net.minecraft.tags.ItemTags")
-            if "AxeItem" not in changed:
-                changed = re.sub(r"(?m)^\s*import\s+net\.minecraft\.world\.item\.AxeItem;\s*\n", "", changed)
+            axe_import_pattern = r"(?m)^\s*import\s+net\.minecraft\.world\.item\.AxeItem;\s*\n"
+            without_axe_import = re.sub(axe_import_pattern, "", changed)
+            if not re.search(r"\bAxeItem\b", without_axe_import):
+                changed = without_axe_import
             file_rules.append(("minecraft-26.3-axeitem-to-item-tag", axe_count))
 
         # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
