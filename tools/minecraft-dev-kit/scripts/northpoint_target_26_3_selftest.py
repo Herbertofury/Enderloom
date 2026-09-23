@@ -71,6 +71,36 @@ loom {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyCollector.java", """package com.example;
+import java.util.List;
+import org.jspecify.annotations.Nullable;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.OrderedSubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.world.item.ItemDisplayContext;
+class LegacyCollector implements SubmitNodeCollector {
+  @Override
+  public <S> void submitModel(Model<? super S> model, S state, PoseStack poseStack, RenderType renderType,
+      int lightCoords, int overlayCoords, int tintedColor, @Nullable TextureAtlasSprite sprite, int outlineColor,
+      ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay) {
+  }
+  @Override
+  public void submitBreakingBlockModel(PoseStack poseStack, List<BlockStateModelPart> parts, int progress) {
+  }
+  @Override
+  public void submitItem(PoseStack poseStack, ItemDisplayContext displayContext, int lightCoords, int overlayCoords,
+      int outlineColor, int[] tintLayers, List<BakedQuad> quads, ItemStackRenderState.FoilType foilType) {
+  }
+  @Override public OrderedSubmitNodeCollector order(int order) { return this; }
+}
+""")
     write(source / "src/main/java/com/example/LegacyRenderApi.java", """package com.example;
 import com.mojang.blaze3d.GpuFormat;
 import com.mojang.blaze3d.IndexType;
@@ -242,6 +272,15 @@ public class ExampleMod {
         "resource-location-to-identifier",
         "legacy-mixin-java-level",
     } <= set(manifest["applied_rule_ids"])
+    collector_java = (output / "src/main/java/com/example/LegacyCollector.java").read_text()
+    assert "@Nullable UvMapping sprite" in collector_java
+    assert "CrumblingOverlay crumblingOverlay)" not in collector_java.split("void submitModel", 1)[1].split("{", 1)[0]
+    assert "void submitCrumblingOverlay(Model<? super S> model" in collector_java
+    assert "int progress, boolean isBlockTranslucent)" in collector_java
+    assert "ItemQuads quads" in collector_java
+    assert "TextureAtlasSprite" not in collector_java
+    assert "BakedQuad" not in collector_java
+    assert "minecraft-26.3-submit-node-collector-signatures" in manifest["applied_rule_ids"]
     render_java = (output / "src/main/java/com/example/LegacyRenderApi.java").read_text()
     assert "com.mojang.renderpearl.api.GpuFormat" in render_java
     assert "com.mojang.renderpearl.api.pipeline.IndexType" in render_java
@@ -335,6 +374,7 @@ public class ExampleMod {
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
+        "minecraft-26.3-submit-node-collector-signatures",
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-authlib-service-package-relocations",
