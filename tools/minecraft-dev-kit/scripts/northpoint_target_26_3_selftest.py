@@ -70,6 +70,8 @@ dependencies {
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.protocol.game.ServerboundSwingPacket;
 import org.lwjgl.glfw.GLFW;
 public class ExampleMod {
@@ -82,6 +84,8 @@ public class ExampleMod {
     if (net.minecraft.client.Minecraft.getInstance().options.hideGui) return;
     collector.submitNameTag(pose, state.nameTagAttachment, 10, label, true, state.lightCoords, state.distanceToCameraSq, camera);
     Object center = pos.getCenter();
+    ItemStack stack = null;
+    if (stack.getItem() instanceof AxeItem) { System.out.println("axe"); }
     player.swing(InteractionHand.MAIN_HAND, true);
     player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
   }
@@ -102,6 +106,8 @@ public class ExampleMod {
     assert "state.lightCoords, camera)" in java
     assert "state.lightCoords, state.distanceToCameraSq, camera)" not in java
     assert "Vec3.atCenterOf(pos)" in java
+    assert "stack.is(ItemTags.AXES)" in java
+    assert "AxeItem" not in java
     assert "SwingAnimation.DEFAULT" in java
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
@@ -112,6 +118,7 @@ public class ExampleMod {
         "minecraft-options-hide-gui-to-hud-hidden",
         "minecraft-26.2-submit-name-tag-drop-distance",
         "minecraft-26.2-blockpos-center-to-vec3",
+        "minecraft-26.3-axe-item-to-tag",
         "minecraft-26.3-swing-animation-argument",
         "minecraft-26.3-remove-serverbound-swing-packet",
     }
