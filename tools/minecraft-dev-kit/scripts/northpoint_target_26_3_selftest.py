@@ -215,6 +215,17 @@ class LegacyTextInput {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyBonemeal.java", """package com.example;
+import net.minecraft.world.level.block.CropBlock;
+class LegacyBonemeal {
+  boolean test(Object block, Object level, Object pos, Object state) {
+    if (block instanceof CropBlock crop) {
+      return crop.isBonemealSuccess(level, null, pos, state);
+    }
+    return false;
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyVisibility.java", """package com.example;
 class LegacyVisibility {
   boolean visible(Dispatcher dispatcher, Object entity, Object frustum, Camera camera) {
@@ -288,7 +299,8 @@ import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 class LegacyPlatform {
   void migrate(Screen parent, Options options, Path path, String url) {
-    Util.getPlatform().openUri(url);
+    Util.getPlatform().openUri("https://example.invalid?q=" + url
+        + "&source=test");
     Util.getPlatform().openPath(path);
     Object screen = new OptionsScreen(parent, options, false);
   }
@@ -298,7 +310,8 @@ class LegacyPlatform {
 import net.minecraft.core.BlockPos;
 class LegacyManhattan {
   Object migrate(BlockPos pos, int range) {
-    return BlockPos.withinManhattan(pos.above(), range, range, range);
+    return BlockPos
+        .withinManhattan(BlockPos.containing(pos.getCenter()).above(), range, range, range);
   }
 }
 """)
@@ -444,6 +457,10 @@ public class ExampleMod {
     assert "InputConstants.Type.KEYBOARD.getOrCreate(key).getDisplayName().getString()" in text_input_java
     assert "org.lwjgl.glfw.GLFW" not in text_input_java
     assert "minecraft-26.3-glfw-text-input-helpers" in manifest["applied_rule_ids"]
+    bonemeal_java = (output / "src/main/java/com/example/LegacyBonemeal.java").read_text()
+    assert "crop.isBonemealSuccess(level, null, pos, state, BonemealSource.INTERACTION)" in bonemeal_java
+    assert "net.minecraft.world.level.block.BonemealSource" in bonemeal_java
+    assert "minecraft-26.3-bonemeal-source-interaction" in manifest["applied_rule_ids"]
     visibility_java = (output / "src/main/java/com/example/LegacyVisibility.java").read_text()
     assert "camera.z(), partialTicks)" in visibility_java
     copies_java = (output / "src/main/java/com/example/LegacyContainerCopies.java").read_text()
@@ -467,13 +484,14 @@ public class ExampleMod {
     assert "minecraft-26.3-authlib-service-package-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-authlib-discovery-service-constructor" in manifest["applied_rule_ids"]
     platform_java = (output / "src/main/java/com/example/LegacyPlatform.java").read_text()
-    assert "Blaze3D.openUri(URI.create(url))" in platform_java
+    assert 'Blaze3D.openUri(URI.create("https://example.invalid?q=" + url' in platform_java
+    assert '"+ "&source=test"))' not in platform_java
     assert "Blaze3D.openPath(path)" in platform_java
     assert "new OptionsScreen(parent, options)" in platform_java
     assert "Util.getPlatform().openUri" not in platform_java
     assert "Util.getPlatform().openPath" not in platform_java
     manhattan_java = (output / "src/main/java/com/example/LegacyManhattan.java").read_text()
-    assert "BlockPos.withinBoxByManhattanDistance(pos.above(), range, range, range)" in manhattan_java
+    assert "BlockPos.withinBoxByManhattanDistance(BlockPos.containing(pos.getCenter()).above(), range, range, range)" in manhattan_java
     assert "BlockPos.withinManhattan(" not in manhattan_java
     assert "minecraft-26.3-platform-and-options-signatures" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-blockpos-within-manhattan" in manifest["applied_rule_ids"]
@@ -525,6 +543,7 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-renderpearl-compiled-pipeline",
+        "minecraft-26.3-bonemeal-source-interaction",
         "minecraft-26.3-entity-should-render-partial-tick",
         "minecraft-26.3-item-container-item-copies",
         "minecraft-26.3-final-record-mixin-accessor-cast",
