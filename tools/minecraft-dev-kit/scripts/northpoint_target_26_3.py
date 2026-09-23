@@ -678,7 +678,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # variables source-typed as RenderPass inside the same method body.
         sampler_count = 0
         layout_pattern = re.compile(
-            r'(?s)(BindGroupLayout\\.builder\\(\\)(?:(?!\\.build\\(\\)).)*?)\\.withSampler\\(\\s*"([^"]+)"\\s*\\)'
+            r'(?s)(BindGroupLayout\.builder\(\)(?:(?!\.build\(\)).)*?)\.withSampler\(\s*"([^"]+)"\s*\)'
         )
         changed, layout_count = layout_pattern.subn(
             lambda match: (
@@ -694,7 +694,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             sampler_count += layout_count
 
         render_pass_method = re.compile(
-            r"(?s)\\((?P<params>[^{};]*)\\)\\s*(?:throws\\s+[^{}]+)?\\{"
+            r"(?s)\((?P<params>[^{};]*)\)\s*(?:throws\s+[^{}]+)?\{"
         )
         pass_scopes: list[tuple[int, int, set[str]]] = []
         for signature in render_pass_method.finditer(changed):
@@ -705,8 +705,8 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             body = changed[body_open : body_close + 1]
             pass_names = set(
                 re.findall(
-                    r"\\b(?:com\\.mojang\\.renderpearl\\.api\\.commands\\.)?RenderPass\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b",
-                    signature.group("params") + "\\n" + body,
+                    r"\b(?:com\.mojang\.renderpearl\.api\.commands\.)?RenderPass\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                    signature.group("params") + "\n" + body,
                 )
             )
             if pass_names:
@@ -718,7 +718,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             local_count = 0
             for name in sorted(pass_names, key=len, reverse=True):
                 rewritten, count = re.subn(
-                    rf"\\b{re.escape(name)}\\.bindTexture\\(",
+                    rf"\b{re.escape(name)}\.bindTexture\(",
                     f"{name}.setUniform(",
                     rewritten,
                 )
