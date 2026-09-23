@@ -78,6 +78,8 @@ public class ExampleMod {
     Object current = client.screen;
     client.setScreen(null);
     net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
+    if (net.minecraft.client.Minecraft.getInstance().options.hideGui) return;
+    collector.submitNameTag(pose, state.nameTagAttachment, 10, label, true, state.lightCoords, state.distanceToCameraSq, camera);
     Object center = pos.getCenter();
     player.swing(InteractionHand.MAIN_HAND, true);
     player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
@@ -95,6 +97,9 @@ public class ExampleMod {
     assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
     assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
     assert ".gui.hud.setOverlayMessage(" in java
+    assert "Minecraft.getInstance().gui.hud.isHidden()" in java
+    assert "state.lightCoords, camera)" in java
+    assert "state.lightCoords, state.distanceToCameraSq, camera)" not in java
     assert "Vec3.atCenterOf(pos)" in java
     assert "SwingAnimation.DEFAULT" in java
     assert "ServerboundSwingPacket" not in java
@@ -103,6 +108,8 @@ public class ExampleMod {
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
         "minecraft-gui-to-hud-overlay",
+        "minecraft-options-hide-gui-to-hud-hidden",
+        "minecraft-26.2-submit-name-tag-drop-distance",
         "minecraft-26.2-blockpos-center-to-vec3",
         "minecraft-26.3-swing-animation-argument",
         "minecraft-26.3-remove-serverbound-swing-packet",
