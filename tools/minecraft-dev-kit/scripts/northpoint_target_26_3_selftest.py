@@ -485,7 +485,7 @@ public class ExampleMod {
     assert "minecraft-26.3-authlib-discovery-service-constructor" in manifest["applied_rule_ids"]
     platform_java = (output / "src/main/java/com/example/LegacyPlatform.java").read_text()
     assert 'Blaze3D.openUri(URI.create("https://example.invalid?q=" + url' in platform_java
-    assert '"+ "&source=test"))' not in platform_java
+    assert '+ "&source=test"));' in platform_java
     assert "Blaze3D.openPath(path)" in platform_java
     assert "new OptionsScreen(parent, options)" in platform_java
     assert "Util.getPlatform().openUri" not in platform_java
