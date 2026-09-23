@@ -65,14 +65,49 @@ dependencies {
         "depends": {"fabricloader": ">=0.16.0", "minecraft": "~1.21", "java": ">=21", "fabric-api": "*"},
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
-    write(source / "src/main/java/com/example/ExampleMod.java", "package com.example; import net.minecraft.resources.ResourceLocation; public class ExampleMod { ResourceLocation id; }\n")
+    write(source / "src/main/java/com/example/ExampleMod.java", """package com.example;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.protocol.game.ServerboundSwingPacket;
+import org.lwjgl.glfw.GLFW;
+public class ExampleMod {
+  ResourceLocation id;
+  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos) {
+    int key = GLFW.GLFW_KEY_I;
+    Object current = client.screen;
+    client.setScreen(null);
+    net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
+    Object center = pos.getCenter();
+    player.swing(InteractionHand.MAIN_HAND, true);
+    player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
+  }
+}
+""")
     before = tree_digest(source)
     manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
     assert before == tree_digest(source) == manifest["source"]["sha256"]
     assert manifest["source"]["mod_id"] == "mod-id"
     assert json.loads((output / "src/main/resources/fabric.mod.json").read_text())["id"] == "mod-id"
     assert {"fabric-metadata-target-dependencies", "fabric-preserve-unsplit-source-layout", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
-    assert "Identifier" in (output / "src/main/java/com/example/ExampleMod.java").read_text()
+    java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
+    assert "Identifier" in java
+    assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
+    assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
+    assert ".gui.hud.setOverlayMessage(" in java
+    assert "Vec3.atCenterOf(pos)" in java
+    assert "SwingAnimation.DEFAULT" in java
+    assert "ServerboundSwingPacket" not in java
+    expected_java_rules = {
+        "minecraft-26.3-glfw-key-to-inputconstants",
+        "minecraft-gui-set-screen",
+        "minecraft-gui-screen-accessor",
+        "minecraft-gui-to-hud-overlay",
+        "minecraft-26.2-blockpos-center-to-vec3",
+        "minecraft-26.3-swing-animation-argument",
+        "minecraft-26.3-remove-serverbound-swing-packet",
+    }
+    assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
     assert "gradle-9.6.0-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
     target_props = (output / "gradle.properties").read_text()
