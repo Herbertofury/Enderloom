@@ -54,6 +54,9 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:0.16.0"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
+loom {
+    accessWidenerPath = file("src/main/resources/mod-id.accesswidener")
+}
 """)
     write(source / "gradle/libs.versions.toml", "[versions]\nhelper = \"1.2.3\"\n")
     write(source / "libs/local-helper.jar", "local-jar-placeholder\n")
@@ -111,7 +114,13 @@ public class ExampleMod {
     assert before == tree_digest(source) == manifest["source"]["sha256"]
     assert manifest["source"]["mod_id"] == "mod-id"
     assert json.loads((output / "src/main/resources/fabric.mod.json").read_text())["id"] == "mod-id"
-    assert {"fabric-metadata-target-dependencies", "fabric-preserve-unsplit-source-layout", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
+    assert {
+        "fabric-metadata-target-dependencies",
+        "fabric-preserve-unsplit-source-layout",
+        "fabric-preserve-access-widener-path",
+        "resource-location-to-identifier",
+        "legacy-mixin-java-level",
+    } <= set(manifest["applied_rule_ids"])
     java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert "Identifier" in java
     assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
@@ -158,6 +167,8 @@ public class ExampleMod {
     preserved = (output / "northpoint-preserved.gradle").read_text()
     assert "https://maven.terraformersmc.com/releases" in preserved
     assert "com.terraformersmc:modmenu:${project.modmenu_version}" in preserved
+    assert 'loom {' in preserved
+    assert 'accessWidenerPath = file("src/main/resources/mod-id.accesswidener")' in preserved
     assert "com.mojang:minecraft:" not in preserved
     assert "net.fabricmc:fabric-loader:" not in preserved
     assert "mappings " not in preserved
@@ -173,7 +184,11 @@ public class ExampleMod {
     assert manifest["preserved_build_files"]["gradle"] == 1
     assert manifest["preserved_build_files"]["libs"] == 1
     assert manifest["preserved_build_files"]["buildSrc"] == 1
-    assert manifest["preserved_gradle_blocks"] == {"repositories": 1, "dependencies": 1}
+    assert manifest["preserved_gradle_blocks"] == {
+        "repositories": 1,
+        "dependencies": 1,
+        "loom_access_widener": 1,
+    }
 
 
 def fabric_complex_screen_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
@@ -206,6 +221,35 @@ class ComplexScreen extends Screen {
     ledger = json.loads((output / "porting-ledger.json").read_text())
     screen_item = next(x for x in ledger["items"] if x["id"] == "semantic:screen-private-renderables-access")
     assert screen_item["status"] == "missing"
+
+
+def fabric_non_official_access_widener_guard_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
+    source, output = root / "fabric-named-aw-source", root / "fabric-named-aw-target"
+    write(source / "gradle.properties", "minecraft_version=26.2\\nversion=1.0.0\\ngroup=com.example\\n")
+    write(source / "build.gradle", """plugins { id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT' }
+loom {
+    accessWidenerPath = file("src/main/resources/unsafe.accesswidener")
+}
+""")
+    write(source / "src/main/resources/fabric.mod.json", json.dumps({
+        "schemaVersion": 1,
+        "id": "unsafeaw",
+        "version": "1.0.0",
+        "name": "Unsafe Named Access Widener",
+        "accessWidener": "unsafe.accesswidener",
+        "depends": {"fabricloader": ">=0.19.2", "minecraft": "~26.2", "java": ">=25"},
+    }, indent=2) + "\\n")
+    write(
+        source / "src/main/resources/unsafe.accesswidener",
+        "accessWidener\\tv1\\tnamed\\naccessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry\\n",
+    )
+    write(source / "src/main/java/com/example/UnsafeAw.java", "package com.example; class UnsafeAw {}\\n")
+    manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
+    assert "fabric-preserve-access-widener-path" not in manifest["applied_rule_ids"]
+    assert "loom_access_widener" not in manifest["preserved_gradle_blocks"]
+    preserved_path = output / "northpoint-preserved.gradle"
+    if preserved_path.is_file():
+        assert "accessWidenerPath" not in preserved_path.read_text()
 
 
 def neoforge_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
@@ -290,6 +334,7 @@ def main() -> int:
         fake_pipeline(pipeline)
         fabric_case(root, pipeline)
         fabric_complex_screen_case(root, pipeline)
+        fabric_non_official_access_widener_guard_case(root, pipeline)
         neoforge_case(root, pipeline)
     print("Northpoint 26.3 target materialization self-test: PASS")
     return 0
