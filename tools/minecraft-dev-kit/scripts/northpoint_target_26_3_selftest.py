@@ -71,6 +71,212 @@ loom {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyVertexConsumer.java", """package com.example;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+class LegacyVertexConsumer implements VertexConsumer {
+  @Override public VertexConsumer addVertex(float x, float y, float z) { return this; }
+  @Override public VertexConsumer setColor(int r, int g, int b, int a) { return this; }
+  @Override public VertexConsumer setColor(int color) { return this; }
+  @Override public VertexConsumer setUv(float u, float v) { return this; }
+  @Override public VertexConsumer setUv1(int u, int v) { return this; }
+  @Override public VertexConsumer setUv2(int u, int v) { return this; }
+  @Override public VertexConsumer setNormal(float x, float y, float z) { return this; }
+  @Override public VertexConsumer setLineWidth(float w) { return this; }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyRenderTarget.java", """package com.example;
+import com.mojang.blaze3d.pipeline.RenderTarget;
+class LegacyRenderTarget {
+  boolean direct(RenderTarget target) { return target.useDepth; }
+  boolean chained(net.minecraft.client.Minecraft mc) {
+    return mc.gameRenderer.mainRenderTarget().useDepth;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyCollector.java", """package com.example;
+import java.util.List;
+import org.jspecify.annotations.Nullable;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.OrderedSubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.world.item.ItemDisplayContext;
+class LegacyCollector implements SubmitNodeCollector {
+  @Override
+  public <S> void submitModel(Model<? super S> model, S state, PoseStack poseStack, RenderType renderType,
+      int lightCoords, int overlayCoords, int tintedColor, @Nullable TextureAtlasSprite sprite, int outlineColor,
+      ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay) {
+  }
+  @Override
+  public void submitBreakingBlockModel(PoseStack poseStack, List<BlockStateModelPart> parts, int progress) {
+  }
+  @Override
+  public void submitItem(PoseStack poseStack, ItemDisplayContext displayContext, int lightCoords, int overlayCoords,
+      int outlineColor, int[] tintLayers, List<BakedQuad> quads, ItemStackRenderState.FoilType foilType) {
+  }
+  @Override public OrderedSubmitNodeCollector order(int order) { return this; }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyPose.java", """package com.example;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+class LegacyPose {
+  void rotate(PoseStack stack, float yaw, float partialTicks, int tickCount) {
+    stack.mulPose(Axis.YP.rotationDegrees(180.0f - yaw));
+    stack.mulPose(Axis.YP.rotationDegrees((tickCount + partialTicks) * -75.0f));
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyRenderApi.java", """package com.example;
+import com.mojang.blaze3d.GpuFormat;
+import com.mojang.blaze3d.IndexType;
+import com.mojang.blaze3d.PrimitiveTopology;
+import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.buffers.GpuBufferSlice;
+import com.mojang.blaze3d.buffers.Std140Builder;
+import com.mojang.blaze3d.pipeline.BindGroupLayout;
+import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.shaders.UniformType;
+import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.GpuDevice;
+import com.mojang.blaze3d.systems.RenderPass;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.FilterMode;
+import com.mojang.blaze3d.textures.GpuSampler;
+import com.mojang.blaze3d.textures.GpuTexture;
+import com.mojang.blaze3d.textures.GpuTextureView;
+import com.mojang.blaze3d.vertex.VertexFormat;
+class LegacyRenderApi {
+  Object layout = BindGroupLayout.builder()
+      .withUniform("DynamicTransforms", UniformType.UNIFORM_BUFFER)
+      .withSampler("Sampler0")
+      .build();
+  void render(RenderPass pass, GpuTextureView view, GpuSampler sampler, RenderPipeline pipeline) {
+    pass.bindTexture("Sampler0", view, sampler);
+    pass.setPipeline(pipeline);
+    pass.setPipeline(RenderPipeline.builder().build());
+  }
+  static class OtherPass {
+    void bindTexture(String name, Object view, Object sampler) {}
+    void setPipeline(Object pipeline) {}
+  }
+  void unrelated(OtherPass pass) {
+    pass.bindTexture("Sampler0", null, null);
+    pass.setPipeline("leave-me-alone");
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyCursorStyle.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+enum LegacyCursorStyle {
+  Default, Click, Type, HorizontalResize, VerticalResize;
+  private boolean created;
+  private long cursor;
+  public long getGlfwCursor() {
+    if (!created) {
+      switch (this) {
+        case Click -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR);
+        case Type -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
+        case HorizontalResize -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR);
+        case VerticalResize -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR);
+        case Default -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
+      }
+      created = true;
+    }
+    return cursor;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyCursorInput.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+class LegacyCursorInput {
+  void set(LegacyCursorStyle style, long window) {
+    GLFW.glfwSetCursor(window, style.getGlfwCursor());
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyTextInput.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+class LegacyTextInput {
+  static class Event { int GetScanCode() { return 0; } }
+  String migrate(long window, int key, Event event, String value) {
+    GLFW.glfwSetClipboardString(window, value);
+    String clipboard = GLFW.glfwGetClipboardString(window);
+    String keyName = GLFW.glfwGetKeyName(key, event.GetScanCode());
+    return clipboard + keyName;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyBonemeal.java", """package com.example;
+import net.minecraft.world.level.block.CropBlock;
+class LegacyBonemeal {
+  boolean test(Object block, Object level, Object pos, Object state) {
+    if (block instanceof CropBlock crop) {
+      return crop.isBonemealSuccess(level, null, pos, state);
+    }
+    return false;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyVisibility.java", """package com.example;
+class LegacyVisibility {
+  boolean visible(Dispatcher dispatcher, Object entity, Object frustum, Camera camera) {
+    float partialTicks = 0.5f;
+    return dispatcher.shouldRender(entity, frustum, camera.x(), camera.y(), camera.z());
+  }
+  static class Dispatcher {
+    boolean shouldRender(Object e, Object f, double x, double y, double z) { return true; }
+  }
+  record Camera(double x, double y, double z) {}
+}
+""")
+    write(source / "src/main/java/com/example/LegacyContainerCopies.java", """package com.example;
+class LegacyContainerCopies {
+  Object copies(ItemContainerContents contents) {
+    return contents.allItemsCopyStream().toList();
+  }
+  static class ItemContainerContents {
+    Object allItemsCopyStream() { return null; }
+  }
+}
+""")
+    write(source / "src/main/java/com/example/IUseItemAccessor.java", """package com.example;
+import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
+import org.spongepowered.asm.mixin.Mixin;
+@Mixin(ServerboundUseItemPacket.class)
+public interface IUseItemAccessor {}
+""")
+    write(source / "src/main/java/com/example/LegacyRecordCast.java", """package com.example;
+class LegacyRecordCast {
+  void cast(Object packet) {
+    IUseItemAccessor accessor = (IUseItemAccessor) packet;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyAuthlib.java", """package com.example;
+import com.mojang.authlib.yggdrasil.ProfileResult;
+import com.mojang.authlib.yggdrasil.FriendsService;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.mojang.authlib.minecraft.UserApiService;
+import java.net.Proxy;
+class LegacyAuthlib {
+  ProfileResult profile;
+  FriendsService friends;
+  void rebuild(Proxy proxy, String token) {
+    YggdrasilAuthenticationService service = new YggdrasilAuthenticationService(proxy);
+    UserApiService api = service.createUserApiService(token);
+    FriendsService currentFriends = service.createFriendsService(token);
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
 import net.minecraft.client.input.KeyEvent;
 class LegacyInput {
@@ -82,6 +288,31 @@ class LegacyInput {
   }
   int unrelated(OtherEvent event) {
     return event.scancode();
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyPlatform.java", """package com.example;
+import java.nio.file.Path;
+import net.minecraft.Util;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.screens.OptionsScreen;
+import net.minecraft.client.gui.screens.Screen;
+class LegacyPlatform {
+  void migrate(Screen parent, Options options, Path path, String url) {
+    Util.getPlatform().openUri("https://example.invalid?q=" + url
+        + "&source=test");
+    Util.getPlatform().openPath(path);
+    Object screen = new OptionsScreen(parent, options, false);
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyManhattan.java", """package com.example;
+import net.minecraft.core.BlockPos;
+import net.minecraft.client.Minecraft;
+class LegacyManhattan {
+  Object migrate(Minecraft client, int range) {
+    return BlockPos
+        .withinManhattan(BlockPos.containing(client.player.position()).above(), range, range, range);
   }
 }
 """)
@@ -104,12 +335,26 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.protocol.game.ServerboundSwingPacket;
+import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 public class ExampleMod {
   ResourceLocation id;
-  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos) {
+  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos, InteractionHand hand) {
     int key = GLFW.GLFW_KEY_I;
+    int press = GLFW.GLFW_PRESS;
+    int release = GLFW.GLFW_RELEASE;
+    int repeat = GLFW.GLFW_REPEAT;
+    Object keyboardType = InputConstants.Type.KEYSYM;
+    boolean controlDown = GLFW.glfwGetKey(windowHandle, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS;
+    int rightControl = InputConstants.KEY_RIGHT_CONTROL;
+    int leftShift = InputConstants.KEY_LEFT_SHIFT;
+    int rightShift = InputConstants.KEY_RIGHT_SHIFT;
+    int enter = InputConstants.KEY_ENTER;
+    BlockState state = client.level.getBlockState(pos);
+    boolean blocks = state.blocksMotion();
+    boolean neighborOpen = !client.level.getBlockState(pos).blocksMotion();
     Object current = client.screen;
     client.setScreen(null);
     net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
@@ -119,6 +364,10 @@ public class ExampleMod {
     ItemStack stack = player.getMainHandItem();
     boolean axe = stack.getItem() instanceof AxeItem;
     player.swing(InteractionHand.MAIN_HAND, true);
+    player.swing(InteractionHand.OFF_HAND);
+    player.swing(hand);
+    boolean polled = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_A);
+    int unknown = InputConstants.KEY_UNKNOWN;
     player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
   }
 }
@@ -135,6 +384,118 @@ public class ExampleMod {
         "resource-location-to-identifier",
         "legacy-mixin-java-level",
     } <= set(manifest["applied_rule_ids"])
+    vertex_java = (output / "src/main/java/com/example/LegacyVertexConsumer.java").read_text()
+    assert "public VertexConsumer setUv3(float u, float v) { return this; }" in vertex_java
+    target_java = (output / "src/main/java/com/example/LegacyRenderTarget.java").read_text()
+    assert "target.hasDepth()" in target_java
+    assert "mc.gameRenderer.mainRenderTarget().hasDepth()" in target_java
+    assert ".useDepth" not in target_java
+    assert "minecraft-26.3-vertexconsumer-uv3" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-rendertarget-has-depth" in manifest["applied_rule_ids"]
+    collector_java = (output / "src/main/java/com/example/LegacyCollector.java").read_text()
+    assert "@Nullable UvMapping sprite" in collector_java
+    assert "CrumblingOverlay crumblingOverlay)" not in collector_java.split("void submitModel", 1)[1].split("{", 1)[0]
+    assert "void submitCrumblingOverlay(Model<? super S> model" in collector_java
+    assert "void submitTextBackground(PoseStack poseStack, float x0, float y0, float x1, float y1, int color, Font.DisplayMode displayMode, int lightCoords)" in collector_java
+    assert "int progress, boolean isBlockTranslucent)" in collector_java
+    assert "ItemQuads quads" in collector_java
+    assert "TextureAtlasSprite" not in collector_java
+    assert "BakedQuad" not in collector_java
+    assert "minecraft-26.3-submit-node-collector-signatures" in manifest["applied_rule_ids"]
+    pose_java = (output / "src/main/java/com/example/LegacyPose.java").read_text()
+    assert "stack.rotateDegrees(Axis.YP, 180.0f - yaw)" in pose_java
+    assert "stack.rotateDegrees(Axis.YP, (tickCount + partialTicks) * -75.0f)" in pose_java
+    assert ".mulPose(Axis." not in pose_java
+    assert "minecraft-26.3-posestack-axis-rotation" in manifest["applied_rule_ids"]
+    render_java = (output / "src/main/java/com/example/LegacyRenderApi.java").read_text()
+    assert "com.mojang.renderpearl.api.GpuFormat" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.IndexType" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.PrimitiveTopology" in render_java
+    assert "com.mojang.renderpearl.api.buffers.GpuBuffer;" in render_java
+    assert "com.mojang.renderpearl.api.buffers.GpuBufferSlice;" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.BindGroupLayout" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.BlendFunction" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.ColorTargetState" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.RenderPipeline" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.UniformType" in render_java
+    assert "com.mojang.renderpearl.api.commands.CommandEncoder" in render_java
+    assert "com.mojang.renderpearl.api.commands.RenderPass" in render_java
+    assert "com.mojang.renderpearl.api.device.GpuDevice" in render_java
+    assert "com.mojang.renderpearl.api.textures.FilterMode" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuSampler" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuTexture;" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuTextureView" in render_java
+    assert "com.mojang.renderpearl.api.vertex.VertexFormat" in render_java
+    assert "com.mojang.blaze3d.buffers.Std140Builder" in render_java
+    assert "com.mojang.blaze3d.systems.RenderSystem" in render_java
+    assert '.withUniform("Sampler0", UniformType.COMBINED_IMAGE_SAMPLER)' in render_java
+    assert '.withSampler("Sampler0")' not in render_java
+    assert 'pass.setUniform("Sampler0", view, sampler);' in render_java
+    assert "pass.setPipeline(RenderSystem.getCompiledPipeline(pipeline));" in render_java
+    assert "pass.setPipeline(RenderSystem.getCompiledPipeline(RenderPipeline.builder().build()));" in render_java
+    assert 'void bindTexture(String name, Object view, Object sampler)' in render_java
+    assert 'pass.bindTexture("Sampler0", null, null);' in render_java
+    assert 'pass.setPipeline("leave-me-alone");' in render_java
+    assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-renderpearl-compiled-pipeline" in manifest["applied_rule_ids"]
+    cursor_java = (output / "src/main/java/com/example/LegacyCursorStyle.java").read_text()
+    cursor_input_java = (output / "src/main/java/com/example/LegacyCursorInput.java").read_text()
+    assert "private CursorType cursor;" in cursor_java
+    assert "public CursorType getGlfwCursor()" in cursor_java
+    assert "CursorTypes.POINTING_HAND" in cursor_java
+    assert "CursorTypes.IBEAM" in cursor_java
+    assert "CursorTypes.RESIZE_EW" in cursor_java
+    assert "CursorTypes.RESIZE_NS" in cursor_java
+    assert "CursorTypes.ARROW" in cursor_java
+    assert "GLFW.glfwCreateStandardCursor" not in cursor_java
+    assert "style.getGlfwCursor().select();" in cursor_input_java
+    assert "GLFW.glfwSetCursor" not in cursor_input_java
+    assert "minecraft-26.3-glfw-standard-cursor-wrapper" in manifest["applied_rule_ids"]
+    text_input_java = (output / "src/main/java/com/example/LegacyTextInput.java").read_text()
+    assert "Minecraft.getInstance().keyboardHandler.setClipboard(value)" in text_input_java
+    assert "Minecraft.getInstance().keyboardHandler.getClipboard()" in text_input_java
+    assert "InputConstants.Type.KEYBOARD.getOrCreate(key).getDisplayName().getString()" in text_input_java
+    assert "org.lwjgl.glfw.GLFW" not in text_input_java
+    assert "minecraft-26.3-glfw-text-input-helpers" in manifest["applied_rule_ids"]
+    bonemeal_java = (output / "src/main/java/com/example/LegacyBonemeal.java").read_text()
+    assert "crop.isBonemealSuccess(level, null, pos, state, BonemealSource.INTERACTION)" in bonemeal_java
+    assert "net.minecraft.world.level.block.BonemealSource" in bonemeal_java
+    assert "minecraft-26.3-bonemeal-source-interaction" in manifest["applied_rule_ids"]
+    visibility_java = (output / "src/main/java/com/example/LegacyVisibility.java").read_text()
+    assert "camera.z(), partialTicks)" in visibility_java
+    copies_java = (output / "src/main/java/com/example/LegacyContainerCopies.java").read_text()
+    assert ".itemCopies().toList()" in copies_java
+    assert ".allItemsCopyStream()" not in copies_java
+    record_cast_java = (output / "src/main/java/com/example/LegacyRecordCast.java").read_text()
+    assert "(IUseItemAccessor) (Object) packet" in record_cast_java
+    assert "minecraft-26.3-entity-should-render-partial-tick" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-item-container-item-copies" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-final-record-mixin-accessor-cast" in manifest["applied_rule_ids"]
+    auth_java = (output / "src/main/java/com/example/LegacyAuthlib.java").read_text()
+    assert "com.mojang.authlib.services.ProfileResult" in auth_java
+    assert "com.mojang.authlib.services.FriendsService" in auth_java
+    assert "com.mojang.authlib.yggdrasil.ProfileResult" not in auth_java
+    assert "com.mojang.authlib.yggdrasil.FriendsService" not in auth_java
+    assert "com.mojang.authlib.services.MinecraftServicesDiscoveryService" in auth_java
+    assert "MinecraftServicesDiscoveryService service = MinecraftServicesDiscoveryService.create(proxy);" in auth_java
+    assert "service.createUserApiService(token)" in auth_java
+    assert "service.createFriendsService(token)" in auth_java
+    assert "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService" not in auth_java
+    assert "minecraft-26.3-authlib-service-package-relocations" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-authlib-discovery-service-constructor" in manifest["applied_rule_ids"]
+    platform_java = (output / "src/main/java/com/example/LegacyPlatform.java").read_text()
+    assert 'Blaze3D.openUri(URI.create("https://example.invalid?q=" + url' in platform_java
+    assert '+ "&source=test"));' in platform_java
+    assert "Blaze3D.openPath(path)" in platform_java
+    assert "new OptionsScreen(parent, options)" in platform_java
+    assert "Util.getPlatform().openUri" not in platform_java
+    assert "Util.getPlatform().openPath" not in platform_java
+    manhattan_java = (output / "src/main/java/com/example/LegacyManhattan.java").read_text()
+    assert "BlockPos.withinBoxByManhattanDistance(BlockPos.containing(client.player.position()).above(), range, range, range)" in manhattan_java
+    assert "BlockPos.withinManhattan(" not in manhattan_java
+    assert "minecraft-26.3-platform-and-options-signatures" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-blockpos-within-manhattan" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -145,19 +506,58 @@ public class ExampleMod {
     java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert "Identifier" in java
     assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
+    assert "InputConstants.PRESS" in java
+    assert "InputConstants.RELEASE" in java
+    assert "InputConstants.REPEAT" in java
+    assert "InputConstants.Type.KEYBOARD" in java
+    assert "InputConstants.isKeyDown(InputConstants.KEY_LCONTROL)" in java
+    assert "InputConstants.KEY_RCONTROL" in java
+    assert "InputConstants.KEY_LSHIFT" in java
+    assert "InputConstants.KEY_RSHIFT" in java
+    assert "InputConstants.KEY_RETURN" in java
+    assert "(state.getBlock() != Blocks.COBWEB && state.getBlock() != Blocks.BAMBOO_SAPLING && state.isSolid())" in java
+    assert "!(client.level.getBlockState(pos).getBlock() != Blocks.COBWEB && client.level.getBlockState(pos).getBlock() != Blocks.BAMBOO_SAPLING && client.level.getBlockState(pos).isSolid())" in java
+    assert ".blocksMotion()" not in java
+    assert "GLFW.GLFW_PRESS" not in java
+    assert "InputConstants.Type.KEYSYM" not in java
     assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
     assert ".gui.hud.setOverlayMessage(" in java
     assert "Minecraft.getInstance().gui.hud.isHidden()" in java
     assert "state.lightCoords, camera)" in java
     assert "state.lightCoords, state.distanceToCameraSq, camera)" not in java
     assert "Vec3.atCenterOf(pos)" in java
-    assert "SwingAnimation.DEFAULT" in java
+    assert "player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true)" in java
+    assert "player.swing(InteractionHand.OFF_HAND, SwingAnimation.DEFAULT, false)" in java
+    assert "player.swing(hand, SwingAnimation.DEFAULT, false)" in java
+    assert "InputConstants.isKeyDown(InputConstants.KEY_A)" in java
+    assert "InputConstants.UNKNOWN.getValue()" in java
+    assert "InputConstants.KEY_UNKNOWN" not in java
     assert "stack.is(ItemTags.AXES)" in java
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
+    assert "ServerboundPunchPacket.INSTANCE" in java
     expected_java_rules = {
+        "minecraft-26.3-posestack-axis-rotation",
+        "minecraft-26.3-vertexconsumer-uv3",
+        "minecraft-26.3-rendertarget-has-depth",
+        "minecraft-26.3-submit-node-collector-signatures",
+        "minecraft-26.3-renderpearl-api-relocations",
+        "minecraft-26.3-renderpearl-sampler-uniforms",
+        "minecraft-26.3-renderpearl-compiled-pipeline",
+        "minecraft-26.3-bonemeal-source-interaction",
+        "minecraft-26.3-entity-should-render-partial-tick",
+        "minecraft-26.3-item-container-item-copies",
+        "minecraft-26.3-final-record-mixin-accessor-cast",
+        "minecraft-26.3-authlib-service-package-relocations",
+        "minecraft-26.3-authlib-discovery-service-constructor",
+        "minecraft-26.3-platform-and-options-signatures",
+        "minecraft-26.3-blockpos-within-manhattan",
+        "minecraft-26.3-blockstate-blocks-motion",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
+        "minecraft-26.3-sdl-input-core",
+        "minecraft-26.3-glfw-text-input-helpers",
+        "minecraft-26.3-glfw-standard-cursor-wrapper",
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
         "minecraft-gui-to-hud-overlay",
@@ -165,8 +565,9 @@ public class ExampleMod {
         "minecraft-26.2-submit-name-tag-drop-distance",
         "minecraft-26.2-blockpos-center-to-vec3",
         "minecraft-26.3-swing-animation-argument",
+        "minecraft-26.3-inputconstants-signatures",
         "minecraft-26.3-axeitem-to-item-tag",
-        "minecraft-26.3-remove-serverbound-swing-packet",
+        "minecraft-26.3-serverbound-swing-to-punch-packet",
     }
     assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
     screen_java = (output / "src/main/java/com/example/LegacyScreen.java").read_text()

@@ -636,10 +636,340 @@ SEMANTIC_RESOLUTIONS_BY_REWRITE: dict[str, tuple[str, ...]] = {
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    use_item_record_accessors: set[str] = set()
+    for candidate in sorted(output.rglob("*.java")):
+        candidate_text = candidate.read_text(encoding="utf-8", errors="replace")
+        if re.search(r"@Mixin\(\s*ServerboundUseItemPacket\.class\s*\)", candidate_text):
+            interface_match = re.search(
+                r"\bpublic\s+interface\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                candidate_text,
+            )
+            if interface_match:
+                use_item_record_accessors.add(interface_match.group(1))
+
     for path in sorted(output.rglob("*.java")):
         text = path.read_text(encoding="utf-8", errors="replace")
         changed = text
         file_rules: list[tuple[str, int]] = []
+
+        # 26.3 added VertexConsumer#setUv3. Auto-fill it only for capture/sink
+        # implementations that already intentionally ignore UV1 and line-width metadata.
+        vertex_consumer_count = 0
+        if (
+            re.search(r"\bimplements\s+VertexConsumer\b", changed)
+            and "setUv3(" not in changed
+            and re.search(
+                r"public\s+VertexConsumer\s+setUv1\s*\([^)]*\)\s*\{\s*return\s+this\s*;\s*\}",
+                changed,
+            )
+            and re.search(
+                r"public\s+VertexConsumer\s+setLineWidth\s*\([^)]*\)\s*\{\s*return\s+this\s*;\s*\}",
+                changed,
+            )
+        ):
+            insert_match = re.search(
+                r"(?m)^(\s*)@Override\s+public\s+VertexConsumer\s+setUv2\s*\(",
+                changed,
+            )
+            if insert_match is None:
+                raise ConversionBlock(f"VertexConsumer sink in {path} needs setUv3 but insertion point is unknown")
+            indent = insert_match.group(1)
+            method = (
+                f"{indent}@Override\n"
+                f"{indent}public VertexConsumer setUv3(float u, float v) {{ return this; }}\n\n"
+            )
+            changed = changed[: insert_match.start()] + method + changed[insert_match.start() :]
+            vertex_consumer_count = 1
+
+        if vertex_consumer_count:
+            file_rules.append(("minecraft-26.3-vertexconsumer-uv3", vertex_consumer_count))
+
+        # 26.3 changed OrderedSubmitNodeCollector's abstract signatures.
+        # Auto-adapt only collector implementations whose removed payloads were unused;
+        # otherwise stop instead of guessing at rendering semantics.
+        collector_signature_count = 0
+        if re.search(r"\bimplements\s+SubmitNodeCollector\b", changed):
+            submit_model_decl = re.compile(
+                r"(?s)public\s+<S>\s+void\s+submitModel\s*\((?P<params>.*?)\)\s*\{"
+            )
+            match = submit_model_decl.search(changed)
+            if match and "TextureAtlasSprite" in match.group("params") and "CrumblingOverlay" in match.group("params"):
+                body_open = match.end() - 1
+                body_close = _find_matching_java_brace(changed, body_open)
+                if body_close is None:
+                    raise ConversionBlock(f"cannot resolve submitModel body in {path}")
+                params = match.group("params")
+                overlay_name_match = re.search(
+                    r"ModelFeatureRenderer\.@Nullable\s+CrumblingOverlay\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if overlay_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitModel crumbling-overlay signature in {path}")
+                overlay_name = overlay_name_match.group(1)
+                sprite_name_match = re.search(
+                    r"@Nullable\s+TextureAtlasSprite\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if sprite_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitModel sprite signature in {path}")
+                sprite_name = sprite_name_match.group(1)
+                body = changed[body_open : body_close + 1]
+                if re.search(rf"\b{re.escape(sprite_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitModel in {path} uses old TextureAtlasSprite payload and needs semantic UvMapping migration"
+                    )
+                if re.search(rf"\b{re.escape(overlay_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitModel in {path} uses removed crumbling-overlay payload and needs semantic migration"
+                    )
+                new_params = re.sub(
+                    r"@Nullable\s+TextureAtlasSprite\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    r"@Nullable UvMapping \1",
+                    params,
+                    count=1,
+                )
+                new_params, removed = re.subn(
+                    r",\s*ModelFeatureRenderer\.@Nullable\s+CrumblingOverlay\s+[A-Za-z_$][A-Za-z0-9_$]*\s*$",
+                    "",
+                    new_params,
+                    count=1,
+                )
+                if not removed:
+                    raise ConversionBlock(f"could not remove old submitModel crumbling-overlay parameter in {path}")
+                old_decl = match.group(0)
+                new_decl = old_decl.replace(params, new_params, 1)
+                changed = changed[: match.start()] + new_decl + changed[match.end() :]
+                delta = len(new_decl) - len(old_decl)
+                body_open += delta
+                body_close += delta
+
+                crumbling_method = (
+                    "\n\n\t@Override\n"
+                    "\tpublic <S> void submitCrumblingOverlay(Model<? super S> model, S state, PoseStack poseStack, "
+                    "RenderType renderType,\n"
+                    "\t\t\tint lightCoords, int overlayCoords, int tintedColor, "
+                    "ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {\n"
+                    "\t}\n"
+                )
+                if "void submitCrumblingOverlay(" not in changed:
+                    changed = changed[: body_close + 1] + crumbling_method + changed[body_close + 1 :]
+
+                if "void submitTextBackground(" not in changed:
+                    text_background_method = (
+                        "\n\n\t@Override\n"
+                        "\tpublic void submitTextBackground(PoseStack poseStack, float x0, float y0, float x1, float y1, "
+                        "int color, Font.DisplayMode displayMode, int lightCoords) {\n"
+                        "\t}\n"
+                    )
+                    changed = changed[: body_close + 1] + text_background_method + changed[body_close + 1 :]
+                changed = _ensure_java_import(changed, "net.minecraft.client.renderer.texture.UvMapping")
+                without_texture_import = re.sub(
+                    r"(?m)^\s*import\s+net\.minecraft\.client\.renderer\.texture\.TextureAtlasSprite;\s*\n",
+                    "",
+                    changed,
+                )
+                if "TextureAtlasSprite" not in without_texture_import:
+                    changed = without_texture_import
+                collector_signature_count += 1
+
+            changed, breaking_count = re.subn(
+                r"(submitBreakingBlockModel\s*\(\s*PoseStack\s+[A-Za-z_$][A-Za-z0-9_$]*\s*,\s*"
+                r"List<BlockStateModelPart>\s+[A-Za-z_$][A-Za-z0-9_$]*\s*,\s*int\s+[A-Za-z_$][A-Za-z0-9_$]*)\s*\)",
+                r"\1, boolean isBlockTranslucent)",
+                changed,
+            )
+            collector_signature_count += breaking_count
+
+            submit_item_decl = re.compile(
+                r"(?s)public\s+void\s+submitItem\s*\((?P<params>.*?)\)\s*\{"
+            )
+            item_match = submit_item_decl.search(changed)
+            if item_match and "List<BakedQuad>" in item_match.group("params"):
+                body_open = item_match.end() - 1
+                body_close = _find_matching_java_brace(changed, body_open)
+                if body_close is None:
+                    raise ConversionBlock(f"cannot resolve submitItem body in {path}")
+                params = item_match.group("params")
+                quads_name_match = re.search(
+                    r"List<BakedQuad>\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if quads_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitItem BakedQuad signature in {path}")
+                quads_name = quads_name_match.group(1)
+                body = changed[body_open : body_close + 1]
+                if re.search(rf"\b{re.escape(quads_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitItem in {path} uses old BakedQuad list and needs semantic ItemQuads migration"
+                    )
+                new_params = re.sub(
+                    r"List<BakedQuad>\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    r"ItemQuads \1",
+                    params,
+                    count=1,
+                )
+                old_decl = item_match.group(0)
+                new_decl = old_decl.replace(params, new_params, 1)
+                changed = changed[: item_match.start()] + new_decl + changed[item_match.end() :]
+                changed = _ensure_java_import(changed, "net.minecraft.client.resources.model.geometry.ItemQuads")
+                without_baked_quad_import = re.sub(
+                    r"(?m)^\s*import\s+net\.minecraft\.client\.resources\.model\.geometry\.BakedQuad;\s*\n",
+                    "",
+                    changed,
+                )
+                if "BakedQuad" not in without_baked_quad_import:
+                    changed = without_baked_quad_import
+                collector_signature_count += 1
+
+        if collector_signature_count:
+            file_rules.append(("minecraft-26.3-submit-node-collector-signatures", collector_signature_count))
+
+        # 26.3 replaced quaternion-only PoseStack#mulPose with explicit rotation helpers.
+        # Axis.rotationDegrees(...) maps exactly to PoseStack.rotateDegrees(axis, angle).
+        changed, pose_rotate_count = re.subn(
+            r"([A-Za-z_$][A-Za-z0-9_$.]*)\.mulPose\(\s*(Axis\.[A-Z]+)\.rotationDegrees\(\s*((?:[^()\n]|\([^()\n]*\))+)\s*\)\s*\)",
+            lambda match: (
+                f"{match.group(1)}.rotateDegrees({match.group(2)}, {match.group(3).strip()})"
+            ),
+            changed,
+        )
+        if pose_rotate_count:
+            file_rules.append(("minecraft-26.3-posestack-axis-rotation", pose_rotate_count))
+
+        # 26.3 moved the public GPU/render API from Blaze3D into RenderPearl.
+        # These are documented one-to-one API relocations only; semantic rendering
+        # changes remain compiler-driven and are intentionally not rewritten here.
+        renderpearl_relocations = {
+            "com.mojang.blaze3d.GpuFormat": "com.mojang.renderpearl.api.GpuFormat",
+            "com.mojang.blaze3d.IndexType": "com.mojang.renderpearl.api.pipeline.IndexType",
+            "com.mojang.blaze3d.PrimitiveTopology": "com.mojang.renderpearl.api.pipeline.PrimitiveTopology",
+            "com.mojang.blaze3d.buffers.GpuBuffer": "com.mojang.renderpearl.api.buffers.GpuBuffer",
+            "com.mojang.blaze3d.buffers.GpuBufferSlice": "com.mojang.renderpearl.api.buffers.GpuBufferSlice",
+            "com.mojang.blaze3d.pipeline.BindGroupLayout": "com.mojang.renderpearl.api.pipeline.BindGroupLayout",
+            "com.mojang.blaze3d.pipeline.BlendFunction": "com.mojang.renderpearl.api.pipeline.BlendFunction",
+            "com.mojang.blaze3d.pipeline.ColorTargetState": "com.mojang.renderpearl.api.pipeline.ColorTargetState",
+            "com.mojang.blaze3d.pipeline.RenderPipeline": "com.mojang.renderpearl.api.pipeline.RenderPipeline",
+            "com.mojang.blaze3d.shaders.UniformType": "com.mojang.renderpearl.api.pipeline.UniformType",
+            "com.mojang.blaze3d.systems.CommandEncoder": "com.mojang.renderpearl.api.commands.CommandEncoder",
+            "com.mojang.blaze3d.systems.RenderPass": "com.mojang.renderpearl.api.commands.RenderPass",
+            "com.mojang.blaze3d.systems.GpuDevice": "com.mojang.renderpearl.api.device.GpuDevice",
+            "com.mojang.blaze3d.vertex.VertexFormat": "com.mojang.renderpearl.api.vertex.VertexFormat",
+        }
+        renderpearl_count = 0
+        for old_fqcn, new_fqcn in renderpearl_relocations.items():
+            count = changed.count(old_fqcn)
+            if count:
+                changed = changed.replace(old_fqcn, new_fqcn)
+                renderpearl_count += count
+        texture_prefix = "com.mojang.blaze3d.textures."
+        texture_count = changed.count(texture_prefix)
+        if texture_count:
+            changed = changed.replace(texture_prefix, "com.mojang.renderpearl.api.textures.")
+            renderpearl_count += texture_count
+        if renderpearl_count:
+            file_rules.append(("minecraft-26.3-renderpearl-api-relocations", renderpearl_count))
+
+        # 26.3 models texture/sampler bindings as combined-image-sampler uniforms.
+        # Restrict builder rewrites to BindGroupLayout chains and pass rewrites to
+        # variables source-typed as RenderPass inside the same method body.
+        sampler_count = 0
+        layout_pattern = re.compile(
+            r'(?s)(BindGroupLayout\.builder\(\)(?:(?!\.build\(\)).)*?)\.withSampler\(\s*"([^"]+)"\s*\)'
+        )
+        changed, layout_count = layout_pattern.subn(
+            lambda match: (
+                match.group(1)
+                + '.withUniform("'
+                + match.group(2)
+                + '", UniformType.COMBINED_IMAGE_SAMPLER)'
+            ),
+            changed,
+        )
+        if layout_count:
+            changed = _ensure_java_import(changed, "com.mojang.renderpearl.api.pipeline.UniformType")
+            sampler_count += layout_count
+
+        render_pass_method = re.compile(
+            r"(?s)\((?P<params>[^{};]*)\)\s*(?:throws\s+[^{}]+)?\{"
+        )
+        pass_scopes: list[tuple[int, int, set[str]]] = []
+        for signature in render_pass_method.finditer(changed):
+            body_open = signature.end() - 1
+            body_close = _find_matching_java_brace(changed, body_open)
+            if body_close is None:
+                continue
+            body = changed[body_open : body_close + 1]
+            pass_names = set(
+                re.findall(
+                    r"\b(?:com\.mojang\.renderpearl\.api\.commands\.)?RenderPass\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                    signature.group("params") + "\n" + body,
+                )
+            )
+            if pass_names:
+                pass_scopes.append((body_open, body_close, pass_names))
+
+        for body_open, body_close, pass_names in reversed(pass_scopes):
+            body = changed[body_open : body_close + 1]
+            rewritten = body
+            local_count = 0
+            for name in sorted(pass_names, key=len, reverse=True):
+                rewritten, count = re.subn(
+                    rf"\b{re.escape(name)}\.bindTexture\(",
+                    f"{name}.setUniform(",
+                    rewritten,
+                )
+                local_count += count
+            if local_count:
+                changed = changed[:body_open] + rewritten + changed[body_close + 1 :]
+                sampler_count += local_count
+
+        if sampler_count:
+            file_rules.append(("minecraft-26.3-renderpearl-sampler-uniforms", sampler_count))
+
+        # 26.3 RenderPass accepts only a CompiledRenderPipeline. Restrict the
+        # migration to variables source-typed as RenderPass inside the enclosing method.
+        compiled_pipeline_count = 0
+        compiled_pass_scopes: list[tuple[int, int, set[str]]] = []
+        for signature in render_pass_method.finditer(changed):
+            body_open = signature.end() - 1
+            body_close = _find_matching_java_brace(changed, body_open)
+            if body_close is None:
+                continue
+            body = changed[body_open : body_close + 1]
+            pass_names = set(
+                re.findall(
+                    r"\b(?:com\.mojang\.renderpearl\.api\.commands\.)?RenderPass\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                    signature.group("params") + "\n" + body,
+                )
+            )
+            if pass_names:
+                compiled_pass_scopes.append((body_open, body_close, pass_names))
+
+        for body_open, body_close, pass_names in reversed(compiled_pass_scopes):
+            body = changed[body_open : body_close + 1]
+            rewritten = body
+            local_count = 0
+            for name in sorted(pass_names, key=len, reverse=True):
+                pattern = re.compile(
+                    rf"\b{re.escape(name)}\.setPipeline\(\s*"
+                    r"(?!RenderSystem\.getCompiledPipeline\()"
+                    r"((?:[^()\n;]|\([^()\n;]*\))+?)\s*\)"
+                )
+                rewritten, count = pattern.subn(
+                    lambda match: (
+                        f"{name}.setPipeline(RenderSystem.getCompiledPipeline("
+                        f"{match.group(1).strip()}))"
+                    ),
+                    rewritten,
+                )
+                local_count += count
+            if local_count:
+                changed = changed[:body_open] + rewritten + changed[body_close + 1 :]
+                compiled_pipeline_count += local_count
+
+        if compiled_pipeline_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.systems.RenderSystem")
+            file_rules.append(("minecraft-26.3-renderpearl-compiled-pipeline", compiled_pipeline_count))
 
         # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
         changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
@@ -648,6 +978,276 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             if "GLFW." not in changed:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-glfw-key-to-inputconstants", key_count))
+
+        # 26.3 replaced GLFW keyboard polling/action codes with SDL-backed InputConstants.
+        # These are one-to-one input semantics; cursor, clipboard, and key-name APIs are
+        # intentionally left for separate migrations.
+        input_core_count = 0
+        changed, poll_count = re.subn(
+            r"GLFW\.glfwGetKey\(\s*[^,\n]+,\s*([^)\n]+)\)\s*==\s*GLFW\.GLFW_PRESS",
+            lambda match: f"InputConstants.isKeyDown({match.group(1).strip()})",
+            changed,
+        )
+        input_core_count += poll_count
+
+        input_replacements = {
+            "GLFW.GLFW_PRESS": "InputConstants.PRESS",
+            "GLFW.GLFW_RELEASE": "InputConstants.RELEASE",
+            "GLFW.GLFW_REPEAT": "InputConstants.REPEAT",
+            "InputConstants.Type.KEYSYM": "InputConstants.Type.KEYBOARD",
+            "InputConstants.KEY_LEFT_SHIFT": "InputConstants.KEY_LSHIFT",
+            "InputConstants.KEY_RIGHT_SHIFT": "InputConstants.KEY_RSHIFT",
+            "InputConstants.KEY_LEFT_CONTROL": "InputConstants.KEY_LCONTROL",
+            "InputConstants.KEY_RIGHT_CONTROL": "InputConstants.KEY_RCONTROL",
+            "InputConstants.KEY_ENTER": "InputConstants.KEY_RETURN",
+        }
+        for old_value, new_value in input_replacements.items():
+            count = changed.count(old_value)
+            if count:
+                changed = changed.replace(old_value, new_value)
+                input_core_count += count
+
+        if input_core_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-sdl-input-core", input_core_count))
+
+        # 26.3 removed GLFW key-name and direct clipboard helpers. Minecraft's
+        # SDL-backed key display name preserves layout awareness, while KeyboardHandler
+        # remains the supported clipboard surface.
+        text_input_count = 0
+        changed, key_name_count = re.subn(
+            r"GLFW\.glfwGetKeyName\(\s*([^,\n]+),\s*(?:[^()\n]|\([^()\n]*\))+\)",
+            lambda match: (
+                f"InputConstants.Type.KEYBOARD.getOrCreate({match.group(1).strip()})"
+                ".getDisplayName().getString()"
+            ),
+            changed,
+        )
+        text_input_count += key_name_count
+
+        changed, clipboard_set_count = re.subn(
+            r"GLFW\.glfwSetClipboardString\(\s*[^,\n]+,\s*([^)\n]+)\)",
+            lambda match: f"Minecraft.getInstance().keyboardHandler.setClipboard({match.group(1).strip()})",
+            changed,
+        )
+        text_input_count += clipboard_set_count
+
+        changed, clipboard_get_count = re.subn(
+            r"GLFW\.glfwGetClipboardString\(\s*[^)\n]+\)",
+            "Minecraft.getInstance().keyboardHandler.getClipboard()",
+            changed,
+        )
+        text_input_count += clipboard_get_count
+
+        if text_input_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            changed = _ensure_java_import(changed, "net.minecraft.client.Minecraft")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-text-input-helpers", text_input_count))
+
+        # 26.3 standard cursors are CursorType objects instead of raw GLFW handles.
+        # This bounded wrapper migration applies only when a file actually creates
+        # GLFW standard cursors and stores them in the conventional cached cursor field.
+        cursor_factory_relocations = {
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR)": "CursorTypes.POINTING_HAND",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR)": "CursorTypes.IBEAM",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR)": "CursorTypes.RESIZE_EW",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR)": "CursorTypes.RESIZE_NS",
+            "GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR)": "CursorTypes.ARROW",
+        }
+        cursor_factory_count = 0
+        for old_value, new_value in cursor_factory_relocations.items():
+            count = changed.count(old_value)
+            if count:
+                changed = changed.replace(old_value, new_value)
+                cursor_factory_count += count
+
+        if cursor_factory_count:
+            changed, cursor_field_count = re.subn(
+                r"\bprivate\s+long\s+cursor\s*;",
+                "private CursorType cursor;",
+                changed,
+                count=1,
+            )
+            changed, cursor_return_count = re.subn(
+                r"\bpublic\s+long\s+getGlfwCursor\s*\(\s*\)",
+                "public CursorType getGlfwCursor()",
+                changed,
+                count=1,
+            )
+            if not cursor_field_count or not cursor_return_count:
+                raise ConversionBlock(
+                    f"standard GLFW cursor factories in {path} require an unrecognized cursor wrapper shape"
+                )
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.cursor.CursorType")
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.cursor.CursorTypes")
+
+        changed, cursor_select_count = re.subn(
+            r"GLFW\.glfwSetCursor\(\s*[^,\n]+,\s*([A-Za-z_$][A-Za-z0-9_$.]*\.getGlfwCursor\(\))\s*\)",
+            lambda match: f"{match.group(1)}.select()",
+            changed,
+        )
+        cursor_count = cursor_factory_count + cursor_select_count
+        if cursor_count:
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-standard-cursor-wrapper", cursor_count))
+
+        # 26.3 InputConstants no longer accepts a Window for key polling, and
+        # the old GLFW unknown-key sentinel is exposed through UNKNOWN.getValue().
+        input_signature_count = 0
+        changed, count = re.subn(
+            r"InputConstants\.isKeyDown\(\s*[^,\n]+,\s*([^)\n]+)\)",
+            lambda match: f"InputConstants.isKeyDown({match.group(1).strip()})",
+            changed,
+        )
+        input_signature_count += count
+        unknown_count = changed.count("InputConstants.KEY_UNKNOWN")
+        if unknown_count:
+            changed = changed.replace("InputConstants.KEY_UNKNOWN", "InputConstants.UNKNOWN.getValue()")
+            input_signature_count += unknown_count
+        if input_signature_count:
+            file_rules.append(("minecraft-26.3-inputconstants-signatures", input_signature_count))
+
+        # 26.3 EntityRenderDispatcher#shouldRender gained partial ticks. When a
+        # method already computes a single partial-tick float, preserve that exact timing.
+        should_render_count = 0
+        partial_tick_names = {
+            name
+            for name in re.findall(
+                r"\bfloat\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=",
+                changed,
+            )
+            if "partialtick" in name.lower()
+        }
+        if len(partial_tick_names) == 1:
+            partial_tick_name = next(iter(partial_tick_names))
+            should_pattern = re.compile(
+                r"\.shouldRender\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*"
+                r"([A-Za-z_$][A-Za-z0-9_$]*)\.x\(\)\s*,\s*\3\.y\(\)\s*,\s*\3\.z\(\)\s*\)"
+            )
+            changed, should_render_count = should_pattern.subn(
+                lambda match: (
+                    f".shouldRender({match.group(1).strip()}, {match.group(2).strip()}, "
+                    f"{match.group(3)}.x(), {match.group(3)}.y(), {match.group(3)}.z(), "
+                    f"{partial_tick_name})"
+                ),
+                changed,
+            )
+        if should_render_count:
+            file_rules.append(("minecraft-26.3-entity-should-render-partial-tick", should_render_count))
+
+        # ItemContainerContents renamed its all-slot copy stream in 26.3.
+        item_copy_count = changed.count(".allItemsCopyStream()")
+        if item_copy_count:
+            changed = changed.replace(".allItemsCopyStream()", ".itemCopies()")
+            file_rules.append(("minecraft-26.3-item-container-item-copies", item_copy_count))
+
+        # ServerboundUseItemPacket became a final record. Mixin accessor interfaces remain
+        # usable at runtime, but Java needs the canonical cast-through-Object for a final target.
+        record_accessor_count = 0
+        for accessor_name in sorted(use_item_record_accessors, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\({re.escape(accessor_name)}\)\s*(?!\(Object\))([A-Za-z_$][A-Za-z0-9_$]*)",
+                rf"({accessor_name}) (Object) \1",
+                changed,
+            )
+            record_accessor_count += count
+        if record_accessor_count:
+            file_rules.append(("minecraft-26.3-final-record-mixin-accessor-cast", record_accessor_count))
+
+        # 26.3 BonemealableBlock calls identify whether bone meal came from
+        # player interaction or a mob. Preserve client/player crop probes as INTERACTION.
+        bonemeal_count = 0
+        crop_names = set(
+            re.findall(r"\bCropBlock\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for crop_name in sorted(crop_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\b{re.escape(crop_name)}\.isBonemealSuccess\(\s*"
+                r"([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
+                lambda match: (
+                    f"{crop_name}.isBonemealSuccess("
+                    + ", ".join(group.strip() for group in match.groups())
+                    + ", BonemealSource.INTERACTION)"
+                ),
+                changed,
+            )
+            bonemeal_count += count
+        if bonemeal_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.level.block.BonemealSource")
+            file_rules.append(("minecraft-26.3-bonemeal-source-interaction", bonemeal_count))
+
+        # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
+        # Service construction is a separate semantic migration and is intentionally excluded.
+        authlib_relocations = {
+            "com.mojang.authlib.yggdrasil.ProfileResult": "com.mojang.authlib.services.ProfileResult",
+            "com.mojang.authlib.yggdrasil.FriendsService": "com.mojang.authlib.services.FriendsService",
+        }
+        authlib_count = 0
+        for old_fqcn, new_fqcn in authlib_relocations.items():
+            count = changed.count(old_fqcn)
+            if count:
+                changed = changed.replace(old_fqcn, new_fqcn)
+                authlib_count += count
+        if authlib_count:
+            file_rules.append(("minecraft-26.3-authlib-service-package-relocations", authlib_count))
+
+        # Authlib 10 replaced the single-proxy Yggdrasil service constructor with
+        # MinecraftServicesDiscoveryService.create(proxy). The downstream token factories
+        # retain createUserApiService/createFriendsService, so this exact pattern is safe.
+        changed, discovery_count = re.subn(
+            r"\bYggdrasilAuthenticationService\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*new\s+YggdrasilAuthenticationService\(\s*([^;\n]+?)\s*\)\s*;",
+            lambda match: (
+                f"MinecraftServicesDiscoveryService {match.group(1)} = "
+                f"MinecraftServicesDiscoveryService.create({match.group(2).strip()});"
+            ),
+            changed,
+        )
+        if discovery_count:
+            changed = _ensure_java_import(changed, "com.mojang.authlib.services.MinecraftServicesDiscoveryService")
+            without_yggdrasil_import = re.sub(
+                r"(?m)^\s*import\s+com\.mojang\.authlib\.yggdrasil\.YggdrasilAuthenticationService;\s*\n",
+                "",
+                changed,
+            )
+            if not re.search(r"\bYggdrasilAuthenticationService\b", without_yggdrasil_import):
+                changed = without_yggdrasil_import
+            file_rules.append(("minecraft-26.3-authlib-discovery-service-constructor", discovery_count))
+
+        # 26.3 SDL migration moved platform launch helpers to Blaze3D and
+        # simplified OptionsScreen construction.
+        platform_count = 0
+        changed, uri_count = re.subn(
+            r"(?s)Util\.getPlatform\(\)\.openUri\(\s*((?:[^();]|\([^();]*\))+?)\s*\)",
+            lambda match: f"Blaze3D.openUri(URI.create({match.group(1).strip()}))",
+            changed,
+        )
+        if uri_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.Blaze3D")
+            changed = _ensure_java_import(changed, "java.net.URI")
+            platform_count += uri_count
+
+        changed, path_count = re.subn(
+            r"Util\.getPlatform\(\)\.openPath\(([^;\n]+)\)",
+            lambda match: f"Blaze3D.openPath({match.group(1).strip()})",
+            changed,
+        )
+        if path_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.Blaze3D")
+            platform_count += path_count
+
+        changed, options_count = re.subn(
+            r"new\s+OptionsScreen\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*(?:true|false)\s*\)",
+            lambda match: f"new OptionsScreen({match.group(1).strip()}, {match.group(2).strip()})",
+            changed,
+        )
+        platform_count += options_count
+        if platform_count:
+            file_rules.append(("minecraft-26.3-platform-and-options-signatures", platform_count))
 
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
@@ -674,6 +1274,77 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if center_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
+
+        # 26.3 removed BlockState#blocksMotion. Vanilla 26.2 semantics were
+        # legacySolid/isSolid with COBWEB and BAMBOO_SAPLING explicitly walk-through.
+        # Preserve that exact predicate instead of silently broadening to plain isSolid().
+        blocks_motion_count = 0
+        block_state_names = set(
+            re.findall(r"\bBlockState\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for name in sorted(block_state_names, key=len, reverse=True):
+            replacement = (
+                f"({name}.getBlock() != Blocks.COBWEB && "
+                f"{name}.getBlock() != Blocks.BAMBOO_SAPLING && {name}.isSolid())"
+            )
+            changed, count = re.subn(
+                rf"\b{re.escape(name)}\.blocksMotion\(\)",
+                replacement,
+                changed,
+            )
+            blocks_motion_count += count
+
+        get_block_state_pattern = re.compile(
+            r"(?P<receiver>\b[A-Za-z_$][A-Za-z0-9_$.]*\.getBlockState\([^()\n]*\))\.blocksMotion\(\)"
+        )
+        def _blocks_motion_call(match: re.Match[str]) -> str:
+            receiver = match.group("receiver")
+            return (
+                f"({receiver}.getBlock() != Blocks.COBWEB && "
+                f"{receiver}.getBlock() != Blocks.BAMBOO_SAPLING && {receiver}.isSolid())"
+            )
+
+        changed, call_count = get_block_state_pattern.subn(_blocks_motion_call, changed)
+        blocks_motion_count += call_count
+        if blocks_motion_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.level.block.Blocks")
+            file_rules.append(("minecraft-26.3-blockstate-blocks-motion", blocks_motion_count))
+
+        # 26.3 split the old three-axis withinManhattan semantics. The old
+        # (origin, x, y, z) overload traversed the whole clipped box in Manhattan order;
+        # withinBoxByManhattanDistance is the exact replacement.
+        changed, manhattan_count = re.subn(
+            r"BlockPos\s*\.\s*withinManhattan\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
+            lambda match: (
+                "BlockPos.withinBoxByManhattanDistance("
+                + ", ".join(part.strip() for part in match.groups())
+                + ")"
+            ),
+            changed,
+        )
+        if manhattan_count:
+            file_rules.append(("minecraft-26.3-blockpos-within-manhattan", manhattan_count))
+
+        # 26.3 replaced RenderTarget's public useDepth field with hasDepth().
+        render_target_count = 0
+        changed, count = re.subn(
+            r"(\b[A-Za-z_$][A-Za-z0-9_$.]*\.mainRenderTarget\(\))\.useDepth\b",
+            r"\1.hasDepth()",
+            changed,
+        )
+        render_target_count += count
+        render_target_names = set(
+            re.findall(r"\bRenderTarget\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for target_name in sorted(render_target_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\b{re.escape(target_name)}\.useDepth\b",
+                f"{target_name}.hasDepth()",
+                changed,
+            )
+            render_target_count += count
+        if render_target_count:
+            file_rules.append(("minecraft-26.3-rendertarget-has-depth", render_target_count))
 
         # 26.3 renamed KeyEvent#scancode to keycode. Restrict the rewrite to
         # the body of a method/constructor whose parameter is source-typed as
@@ -752,12 +1423,40 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = without_axe_import
             file_rules.append(("minecraft-26.3-axeitem-to-item-tag", axe_count))
 
-        # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
-        changed, swing_count = re.subn(
+        # 26.3 collapsed LivingEntity swing calls onto swing(hand, animation, sync).
+        # Preserve 26.2 semantics exactly: swing(hand) delegated to sync=false, while
+        # swing(hand, boolean) preserved the caller's explicit sync flag.
+        swing_count = 0
+        changed, count = re.subn(
             r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*,\s*(true|false)\s*\)",
             r".swing(\1, SwingAnimation.DEFAULT, \2)",
             changed,
         )
+        swing_count += count
+        changed, count = re.subn(
+            r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*\)",
+            r".swing(\1, SwingAnimation.DEFAULT, false)",
+            changed,
+        )
+        swing_count += count
+
+        interaction_hand_names = set(
+            re.findall(r"\bInteractionHand\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for hand_name in sorted(interaction_hand_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\.swing\(\s*{re.escape(hand_name)}\s*,\s*(true|false)\s*\)",
+                rf".swing({hand_name}, SwingAnimation.DEFAULT, \1)",
+                changed,
+            )
+            swing_count += count
+            changed, count = re.subn(
+                rf"\.swing\(\s*{re.escape(hand_name)}\s*\)",
+                f".swing({hand_name}, SwingAnimation.DEFAULT, false)",
+                changed,
+            )
+            swing_count += count
+
         if swing_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.item.component.SwingAnimation")
             file_rules.append(("minecraft-26.3-swing-animation-argument", swing_count))
@@ -771,16 +1470,23 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if nametag_count:
             file_rules.append(("minecraft-26.2-submit-name-tag-drop-distance", nametag_count))
 
-        # 26.3 removed ServerboundSwingPacket. The new swing(..., SwingAnimation, sync)
-        # path owns synchronization, so the explicit legacy packet is redundant and invalid.
+        # 26.3 replaced the hand-carrying swing packet with a handless punch packet.
+        # Preserve packet-only swing modes; deleting the send would silently remove behavior.
         changed, packet_count = re.subn(
-            r"(?ms)^[ \t]*(?:[A-Za-z_$][A-Za-z0-9_$]*\.)*connection\s*(?:\.\s*)?send\(\s*new\s+ServerboundSwingPacket\([^)]*\)\s*\);\s*\n",
-            "",
+            r"\bnew\s+ServerboundSwingPacket\s*\(\s*(?:[^()\n]|\([^()\n]*\))*\)",
+            "ServerboundPunchPacket.INSTANCE",
             changed,
         )
         if packet_count:
-            changed = re.sub(r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n", "", changed)
-            file_rules.append(("minecraft-26.3-remove-serverbound-swing-packet", packet_count))
+            changed = _ensure_java_import(changed, "net.minecraft.network.protocol.game.ServerboundPunchPacket")
+            without_swing_import = re.sub(
+                r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n",
+                "",
+                changed,
+            )
+            if "ServerboundSwingPacket" not in without_swing_import:
+                changed = without_swing_import
+            file_rules.append(("minecraft-26.3-serverbound-swing-to-punch-packet", packet_count))
 
         if changed != text:
             path.write_text(changed, encoding="utf-8")
