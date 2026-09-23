@@ -772,6 +772,41 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-sdl-input-core", input_core_count))
 
+        # 26.3 removed GLFW key-name and direct clipboard helpers. Minecraft's
+        # SDL-backed key display name preserves layout awareness, while KeyboardHandler
+        # remains the supported clipboard surface.
+        text_input_count = 0
+        changed, key_name_count = re.subn(
+            r"GLFW\.glfwGetKeyName\(\s*([^,\n]+),\s*[^)\n]+\)",
+            lambda match: (
+                f"InputConstants.Type.KEYBOARD.getOrCreate({match.group(1).strip()})"
+                ".getDisplayName().getString()"
+            ),
+            changed,
+        )
+        text_input_count += key_name_count
+
+        changed, clipboard_set_count = re.subn(
+            r"GLFW\.glfwSetClipboardString\(\s*[^,\n]+,\s*([^)\n]+)\)",
+            lambda match: f"Minecraft.getInstance().keyboardHandler.setClipboard({match.group(1).strip()})",
+            changed,
+        )
+        text_input_count += clipboard_set_count
+
+        changed, clipboard_get_count = re.subn(
+            r"GLFW\.glfwGetClipboardString\(\s*[^)\n]+\)",
+            "Minecraft.getInstance().keyboardHandler.getClipboard()",
+            changed,
+        )
+        text_input_count += clipboard_get_count
+
+        if text_input_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            changed = _ensure_java_import(changed, "net.minecraft.client.Minecraft")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-text-input-helpers", text_input_count))
+
         # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
         # Service construction is a separate semantic migration and is intentionally excluded.
         authlib_relocations = {
