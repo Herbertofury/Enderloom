@@ -22,11 +22,9 @@ jobs:
           - name: librariantradefinder
             repository: itzwrld/LibrarianTradeFinder-26.2
             source: 285757d72aab0db76a5c9bc985e6cc968793601a
-            modid: librarian-trade-finder
           - name: aoba
             repository: Cocolots/Aoba-Client
             source: c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
-            modid: aoba
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,12 +36,13 @@ jobs:
           java-version: '25'
       - name: Prepare real graphics and audio runtime
         run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1 libflite1 flite1-dev
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: cache
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: devkit-native-${{ runner.os }}-26.3-${{ matrix.name }}-v1
+          key: devkit-native-${{ runner.os }}-26.3-${{ matrix.name }}-v2
           restore-keys: |
             devkit-native-${{ runner.os }}-26.3-
             fabric-${{ matrix.name }}-263-${{ runner.os }}-
@@ -58,94 +57,26 @@ jobs:
           git -C "$RUNNER_TEMP/source" fetch --depth=1 origin "$SOURCE_SHA"
           git -C "$RUNNER_TEMP/source" checkout --detach FETCH_HEAD
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py --project "$RUNNER_TEMP/source" --minecraft 26.3 --loader fabric --java 25 --workspace "$RUNNER_TEMP/candidate" --timeout 900
-      - name: Create independent native probe with the exact candidate JAR
-        env:
-          EXPECTED_MOD: ${{ matrix.modid }}
+      - name: Verify production JAR, resolve dependencies, exercise world sync and save-reopen
         run: |
-          git clone --depth=1 --branch=26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/probe"
-          git -C "$RUNNER_TEMP/probe" rev-parse HEAD > "$RUNNER_TEMP/candidate/probe-source.txt"
-          python - <<'PY'
-          from pathlib import Path
-          import os, json
-          root=Path(os.environ['RUNNER_TEMP'])
-          probe=root/'probe'
-          candidate=json.loads((root/'candidate/summary.json').read_text())
-          jar=Path(candidate['artifact_path']).resolve()
-          (probe/'candidate.jar').write_bytes(jar.read_bytes())
-          with (probe/'build.gradle').open('a') as f:
-              f.write('''
-          fabricApi {
-            configureTests {
-              createSourceSet = true
-              modId = "devkit-runtime-probe"
-              enableGameTests = false
-              enableClientGameTests = true
-              eula = true
-            }
-          }
-          dependencies {
-            productionRuntimeMods files("candidate.jar")
-            productionRuntimeMods "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-          }
-          tasks.register("devkitProbeJar", Jar) {
-            archiveClassifier = "gametest"
-            from sourceSets.gametest.output
-          }
-          tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
-            mods.from(tasks.named("devkitProbeJar"))
-            runDir = file("run/devkit-native")
-            jvmArgs.add("-Dfabric.client.gametest")
-            jvmArgs.add("--enable-native-access=ALL-UNNAMED")
-            useXVFB = true
-          }
-          ''')
-          java=probe/'src/gametest/java/devkit/RuntimeProbe.java'
-          java.parent.mkdir(parents=True,exist_ok=True)
-          java.write_text('''package devkit;
-          import net.fabricmc.loader.api.FabricLoader;
-          import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
-          import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
-          import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
-          public class RuntimeProbe implements FabricClientGameTest {
-            public void runTest(ClientGameTestContext context) {
-              if (!FabricLoader.getInstance().isModLoaded("EXPECTED_MOD")) throw new AssertionError("candidate not loaded");
-              try (TestSingleplayerContext world = context.worldBuilder().create()) {
-                world.getClientLevel().waitForChunksRender();
-                context.takeScreenshot("devkit-EXPECTED_MOD-integrated-world");
-                System.out.println("DEVKIT_NATIVE_WORLD_READY:EXPECTED_MOD");
-              }
-              System.out.println("DEVKIT_NATIVE_WORLD_CLOSED:EXPECTED_MOD");
-            }
-          }
-          '''.replace('EXPECTED_MOD',os.environ['EXPECTED_MOD']))
-          meta=probe/'src/gametest/resources/fabric.mod.json'
-          meta.parent.mkdir(parents=True,exist_ok=True)
-          meta.write_text(json.dumps({'schemaVersion':1,'id':'devkit-runtime-probe','version':'1.0.0','environment':'client','entrypoints':{'fabric-client-gametest':['devkit.RuntimeProbe']}}))
-          (root/'candidate/native-input.json').write_text(json.dumps(candidate,indent=2))
-          PY
-      - name: Run the packaged mod in real Minecraft and an integrated world
-        env:
-          LIBGL_ALWAYS_SOFTWARE: '1'
-          ALSOFT_DRIVERS: 'null'
-          EXPECTED_MOD: ${{ matrix.modid }}
-        run: |
-          cd "$RUNNER_TEMP/probe"
-          chmod +x gradlew
-          set -o pipefail
-          ./gradlew --no-daemon runProductionClientGameTest 2>&1 | tee "$RUNNER_TEMP/candidate/native-gradle.log"
-          grep -F "DEVKIT_NATIVE_WORLD_READY:$EXPECTED_MOD" run/devkit-native/logs/latest.log
-          grep -F "DEVKIT_NATIVE_WORLD_CLOSED:$EXPECTED_MOD" run/devkit-native/logs/latest.log
-      - name: Preserve native logs, exact artifact, screenshots and harness
+          JAR=$(python -c "import json,os;from pathlib import Path;print(json.loads((Path(os.environ['RUNNER_TEMP'])/'candidate/summary.json').read_text())['artifact_path'])")
+          python tools/minecraft-dev-kit/scripts/devkit_native.py --jar "$JAR" --workspace "$RUNNER_TEMP/native" --timeout 900
+      - name: Preserve native logs, exact artifact, screenshots, dependency locks and harness
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: devkit-native-${{ matrix.name }}-${{ github.run_id }}
           path: |
             ${{ runner.temp }}/candidate/
-            ${{ runner.temp }}/probe/run/
-            ${{ runner.temp }}/probe/build/reports/
-            ${{ runner.temp }}/probe/src/gametest/
-            ${{ runner.temp }}/probe/build.gradle
-            ${{ runner.temp }}/probe/gradle.properties
+            ${{ runner.temp }}/native/
+            !${{ runner.temp }}/native/**/.gradle/**
           if-no-files-found: error
           retention-days: 30
+      - name: Retain Gradle downloads after diagnostic failures too
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ steps.cache.outputs.cache-primary-key }}
