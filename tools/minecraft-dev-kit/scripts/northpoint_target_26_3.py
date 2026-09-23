@@ -641,6 +641,124 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         changed = text
         file_rules: list[tuple[str, int]] = []
 
+        # 26.3 changed OrderedSubmitNodeCollector's abstract signatures.
+        # Auto-adapt only collector implementations whose removed payloads were unused;
+        # otherwise stop instead of guessing at rendering semantics.
+        collector_signature_count = 0
+        if re.search(r"\bimplements\s+SubmitNodeCollector\b", changed):
+            submit_model_decl = re.compile(
+                r"(?s)public\s+<S>\s+void\s+submitModel\s*\((?P<params>.*?)\)\s*\{"
+            )
+            match = submit_model_decl.search(changed)
+            if match and "TextureAtlasSprite" in match.group("params") and "CrumblingOverlay" in match.group("params"):
+                body_open = match.end() - 1
+                body_close = _find_matching_java_brace(changed, body_open)
+                if body_close is None:
+                    raise ConversionBlock(f"cannot resolve submitModel body in {path}")
+                params = match.group("params")
+                overlay_name_match = re.search(
+                    r"ModelFeatureRenderer\.@Nullable\s+CrumblingOverlay\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if overlay_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitModel crumbling-overlay signature in {path}")
+                overlay_name = overlay_name_match.group(1)
+                body = changed[body_open : body_close + 1]
+                if re.search(rf"\b{re.escape(overlay_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitModel in {path} uses removed crumbling-overlay payload and needs semantic migration"
+                    )
+                new_params = re.sub(
+                    r"@Nullable\s+TextureAtlasSprite\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    r"@Nullable UvMapping \1",
+                    params,
+                    count=1,
+                )
+                new_params, removed = re.subn(
+                    r",\s*ModelFeatureRenderer\.@Nullable\s+CrumblingOverlay\s+[A-Za-z_$][A-Za-z0-9_$]*\s*$",
+                    "",
+                    new_params,
+                    count=1,
+                )
+                if not removed:
+                    raise ConversionBlock(f"could not remove old submitModel crumbling-overlay parameter in {path}")
+                old_decl = match.group(0)
+                new_decl = old_decl.replace(params, new_params, 1)
+                changed = changed[: match.start()] + new_decl + changed[match.end() :]
+                delta = len(new_decl) - len(old_decl)
+                body_open += delta
+                body_close += delta
+
+                crumbling_method = (
+                    "\n\n\t@Override\n"
+                    "\tpublic <S> void submitCrumblingOverlay(Model<? super S> model, S state, PoseStack poseStack, "
+                    "RenderType renderType,\n"
+                    "\t\t\tint lightCoords, int overlayCoords, int tintedColor, "
+                    "ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {\n"
+                    "\t}\n"
+                )
+                if "void submitCrumblingOverlay(" not in changed:
+                    changed = changed[: body_close + 1] + crumbling_method + changed[body_close + 1 :]
+                changed = _ensure_java_import(changed, "net.minecraft.client.renderer.texture.UvMapping")
+                if "TextureAtlasSprite" not in changed:
+                    changed = re.sub(
+                        r"(?m)^\s*import\s+net\.minecraft\.client\.renderer\.texture\.TextureAtlasSprite;\s*\n",
+                        "",
+                        changed,
+                    )
+                collector_signature_count += 1
+
+            changed, breaking_count = re.subn(
+                r"(submitBreakingBlockModel\s*\(\s*PoseStack\s+[A-Za-z_$][A-Za-z0-9_$]*\s*,\s*"
+                r"List<BlockStateModelPart>\s+[A-Za-z_$][A-Za-z0-9_$]*\s*,\s*int\s+[A-Za-z_$][A-Za-z0-9_$]*)\s*\)",
+                r"\1, boolean isBlockTranslucent)",
+                changed,
+            )
+            collector_signature_count += breaking_count
+
+            submit_item_decl = re.compile(
+                r"(?s)public\s+void\s+submitItem\s*\((?P<params>.*?)\)\s*\{"
+            )
+            item_match = submit_item_decl.search(changed)
+            if item_match and "List<BakedQuad>" in item_match.group("params"):
+                body_open = item_match.end() - 1
+                body_close = _find_matching_java_brace(changed, body_open)
+                if body_close is None:
+                    raise ConversionBlock(f"cannot resolve submitItem body in {path}")
+                params = item_match.group("params")
+                quads_name_match = re.search(
+                    r"List<BakedQuad>\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if quads_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitItem BakedQuad signature in {path}")
+                quads_name = quads_name_match.group(1)
+                body = changed[body_open : body_close + 1]
+                if re.search(rf"\b{re.escape(quads_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitItem in {path} uses old BakedQuad list and needs semantic ItemQuads migration"
+                    )
+                new_params = re.sub(
+                    r"List<BakedQuad>\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    r"ItemQuads \1",
+                    params,
+                    count=1,
+                )
+                old_decl = item_match.group(0)
+                new_decl = old_decl.replace(params, new_params, 1)
+                changed = changed[: item_match.start()] + new_decl + changed[item_match.end() :]
+                changed = _ensure_java_import(changed, "net.minecraft.client.resources.model.geometry.ItemQuads")
+                if "BakedQuad" not in changed:
+                    changed = re.sub(
+                        r"(?m)^\s*import\s+net\.minecraft\.client\.resources\.model\.geometry\.BakedQuad;\s*\n",
+                        "",
+                        changed,
+                    )
+                collector_signature_count += 1
+
+        if collector_signature_count:
+            file_rules.append(("minecraft-26.3-submit-node-collector-signatures", collector_signature_count))
+
         # 26.3 moved the public GPU/render API from Blaze3D into RenderPearl.
         # These are documented one-to-one API relocations only; semantic rendering
         # changes remain compiler-driven and are intentionally not rewritten here.
