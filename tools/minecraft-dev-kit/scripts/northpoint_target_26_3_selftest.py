@@ -76,6 +76,7 @@ mod_group_id=com.example.examplemod
     write(source / "gradlew", "#!/bin/sh\nexit 0\n")
     (source / "gradlew").chmod(0o755)
     write(source / "gradle/wrapper/gradle-wrapper.jar", "wrapper-placeholder\n")
+    write(source / "src/main/templates/custom/banner.txt", "preserve-template\n")
     write(source / "src/main/templates/META-INF/neoforge.mods.toml", """modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
@@ -132,6 +133,7 @@ class ExampleMod {
     assert "neo_version=26.3.0.7-beta" in props
     assert "gradle-9.2.1-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
     assert (output / "src/main/resources/assets/examplemod/lang/en_us.json").is_file()
+    assert (output / "src/main/templates/custom/banner.txt").read_text() == "preserve-template\n"
 
 
 def main() -> int:
