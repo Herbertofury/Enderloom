@@ -101,6 +101,16 @@ class LegacyCollector implements SubmitNodeCollector {
   @Override public OrderedSubmitNodeCollector order(int order) { return this; }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyPose.java", """package com.example;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+class LegacyPose {
+  void rotate(PoseStack stack, float yaw, float partialTicks, int tickCount) {
+    stack.mulPose(Axis.YP.rotationDegrees(180.0f - yaw));
+    stack.mulPose(Axis.YP.rotationDegrees((tickCount + partialTicks) * -75.0f));
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyRenderApi.java", """package com.example;
 import com.mojang.blaze3d.GpuFormat;
 import com.mojang.blaze3d.IndexType;
@@ -308,6 +318,11 @@ public class ExampleMod {
     assert "TextureAtlasSprite" not in collector_java
     assert "BakedQuad" not in collector_java
     assert "minecraft-26.3-submit-node-collector-signatures" in manifest["applied_rule_ids"]
+    pose_java = (output / "src/main/java/com/example/LegacyPose.java").read_text()
+    assert "stack.rotateDegrees(Axis.YP, 180.0f - yaw)" in pose_java
+    assert "stack.rotateDegrees(Axis.YP, (tickCount + partialTicks) * -75.0f)" in pose_java
+    assert ".mulPose(Axis." not in pose_java
+    assert "minecraft-26.3-posestack-axis-rotation" in manifest["applied_rule_ids"]
     render_java = (output / "src/main/java/com/example/LegacyRenderApi.java").read_text()
     assert "com.mojang.renderpearl.api.GpuFormat" in render_java
     assert "com.mojang.renderpearl.api.pipeline.IndexType" in render_java
@@ -417,6 +432,7 @@ public class ExampleMod {
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
+        "minecraft-26.3-posestack-axis-rotation",
         "minecraft-26.3-submit-node-collector-signatures",
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
