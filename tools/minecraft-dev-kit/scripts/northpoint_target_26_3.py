@@ -620,6 +620,26 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
 
+        # 26.3 renamed KeyEvent#scancode to keycode. Restrict this to variables
+        # proven by source typing to be Minecraft KeyEvent instances so unrelated
+        # project classes with a scancode() method are never rewritten.
+        key_event_names = set(
+            re.findall(
+                r"\\b(?:net\\.minecraft\\.client\\.input\\.)?KeyEvent\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b",
+                changed,
+            )
+        )
+        keycode_count = 0
+        for name in sorted(key_event_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\\b{re.escape(name)}\\.scancode\\(\\)",
+                f"{name}.keycode()",
+                changed,
+            )
+            keycode_count += count
+        if keycode_count:
+            file_rules.append(("minecraft-26.3-keyevent-scancode-to-keycode", keycode_count))
+
         # Screen.renderables is private on 26.3. For the exact legacy loop whose only
         # behavior is forwarding extractRenderState to every base Screen renderable,
         # super.extractRenderState(...) is behavior-equivalent to the 26.3 Screen implementation.
