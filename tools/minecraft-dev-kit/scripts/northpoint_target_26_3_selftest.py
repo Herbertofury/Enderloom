@@ -107,6 +107,35 @@ class LegacyRenderApi {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyCursorStyle.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+enum LegacyCursorStyle {
+  Default, Click, Type, HorizontalResize, VerticalResize;
+  private boolean created;
+  private long cursor;
+  public long getGlfwCursor() {
+    if (!created) {
+      switch (this) {
+        case Click -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR);
+        case Type -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
+        case HorizontalResize -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HRESIZE_CURSOR);
+        case VerticalResize -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_VRESIZE_CURSOR);
+        case Default -> cursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
+      }
+      created = true;
+    }
+    return cursor;
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyCursorInput.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+class LegacyCursorInput {
+  void set(LegacyCursorStyle style, long window) {
+    GLFW.glfwSetCursor(window, style.getGlfwCursor());
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyTextInput.java", """package com.example;
 import org.lwjgl.glfw.GLFW;
 class LegacyTextInput {
@@ -235,6 +264,19 @@ public class ExampleMod {
     assert 'pass.bindTexture("Sampler0", null, null);' in render_java
     assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
+    cursor_java = (output / "src/main/java/com/example/LegacyCursorStyle.java").read_text()
+    cursor_input_java = (output / "src/main/java/com/example/LegacyCursorInput.java").read_text()
+    assert "private CursorType cursor;" in cursor_java
+    assert "public CursorType getGlfwCursor()" in cursor_java
+    assert "CursorTypes.POINTING_HAND" in cursor_java
+    assert "CursorTypes.IBEAM" in cursor_java
+    assert "CursorTypes.RESIZE_EW" in cursor_java
+    assert "CursorTypes.RESIZE_NS" in cursor_java
+    assert "CursorTypes.ARROW" in cursor_java
+    assert "GLFW.glfwCreateStandardCursor" not in cursor_java
+    assert "style.getGlfwCursor().select();" in cursor_input_java
+    assert "GLFW.glfwSetCursor" not in cursor_input_java
+    assert "minecraft-26.3-glfw-standard-cursor-wrapper" in manifest["applied_rule_ids"]
     text_input_java = (output / "src/main/java/com/example/LegacyTextInput.java").read_text()
     assert "Minecraft.getInstance().keyboardHandler.setClipboard(value)" in text_input_java
     assert "Minecraft.getInstance().keyboardHandler.getClipboard()" in text_input_java
@@ -293,6 +335,7 @@ public class ExampleMod {
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-26.3-sdl-input-core",
         "minecraft-26.3-glfw-text-input-helpers",
+        "minecraft-26.3-glfw-standard-cursor-wrapper",
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
         "minecraft-gui-to-hud-overlay",
