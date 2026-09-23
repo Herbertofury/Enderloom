@@ -91,7 +91,21 @@ import com.mojang.blaze3d.textures.FilterMode;
 import com.mojang.blaze3d.textures.GpuSampler;
 import com.mojang.blaze3d.textures.GpuTexture;
 import com.mojang.blaze3d.textures.GpuTextureView;
-class LegacyRenderApi {}
+class LegacyRenderApi {
+  Object layout = BindGroupLayout.builder()
+      .withUniform("DynamicTransforms", UniformType.UNIFORM_BUFFER)
+      .withSampler("Sampler0")
+      .build();
+  void render(RenderPass pass, GpuTextureView view, GpuSampler sampler) {
+    pass.bindTexture("Sampler0", view, sampler);
+  }
+  static class OtherPass {
+    void bindTexture(String name, Object view, Object sampler) {}
+  }
+  void unrelated(OtherPass pass) {
+    pass.bindTexture("Sampler0", null, null);
+  }
+}
 """)
     write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
 import net.minecraft.client.input.KeyEvent;
@@ -177,7 +191,13 @@ public class ExampleMod {
     assert "com.mojang.renderpearl.api.textures.GpuTextureView" in render_java
     assert "com.mojang.blaze3d.buffers.Std140Builder" in render_java
     assert "com.mojang.blaze3d.systems.RenderSystem" in render_java
+    assert '.withUniform("Sampler0", UniformType.COMBINED_IMAGE_SAMPLER)' in render_java
+    assert '.withSampler("Sampler0")' not in render_java
+    assert 'pass.setUniform("Sampler0", view, sampler);' in render_java
+    assert 'void bindTexture(String name, Object view, Object sampler)' in render_java
+    assert 'pass.bindTexture("Sampler0", null, null);' in render_java
     assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -200,6 +220,7 @@ public class ExampleMod {
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
         "minecraft-26.3-renderpearl-api-relocations",
+        "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-gui-set-screen",
