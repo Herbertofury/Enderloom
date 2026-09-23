@@ -641,6 +641,38 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         changed = text
         file_rules: list[tuple[str, int]] = []
 
+        # 26.3 moved the public GPU/render API from Blaze3D into RenderPearl.
+        # These are documented one-to-one API relocations only; semantic rendering
+        # changes remain compiler-driven and are intentionally not rewritten here.
+        renderpearl_relocations = {
+            "com.mojang.blaze3d.GpuFormat": "com.mojang.renderpearl.api.GpuFormat",
+            "com.mojang.blaze3d.IndexType": "com.mojang.renderpearl.api.pipeline.IndexType",
+            "com.mojang.blaze3d.PrimitiveTopology": "com.mojang.renderpearl.api.pipeline.PrimitiveTopology",
+            "com.mojang.blaze3d.buffers.GpuBuffer": "com.mojang.renderpearl.api.buffers.GpuBuffer",
+            "com.mojang.blaze3d.buffers.GpuBufferSlice": "com.mojang.renderpearl.api.buffers.GpuBufferSlice",
+            "com.mojang.blaze3d.pipeline.BindGroupLayout": "com.mojang.renderpearl.api.pipeline.BindGroupLayout",
+            "com.mojang.blaze3d.pipeline.BlendFunction": "com.mojang.renderpearl.api.pipeline.BlendFunction",
+            "com.mojang.blaze3d.pipeline.ColorTargetState": "com.mojang.renderpearl.api.pipeline.ColorTargetState",
+            "com.mojang.blaze3d.pipeline.RenderPipeline": "com.mojang.renderpearl.api.pipeline.RenderPipeline",
+            "com.mojang.blaze3d.shaders.UniformType": "com.mojang.renderpearl.api.pipeline.UniformType",
+            "com.mojang.blaze3d.systems.CommandEncoder": "com.mojang.renderpearl.api.commands.CommandEncoder",
+            "com.mojang.blaze3d.systems.RenderPass": "com.mojang.renderpearl.api.commands.RenderPass",
+            "com.mojang.blaze3d.systems.GpuDevice": "com.mojang.renderpearl.api.device.GpuDevice",
+        }
+        renderpearl_count = 0
+        for old_fqcn, new_fqcn in renderpearl_relocations.items():
+            count = changed.count(old_fqcn)
+            if count:
+                changed = changed.replace(old_fqcn, new_fqcn)
+                renderpearl_count += count
+        texture_prefix = "com.mojang.blaze3d.textures."
+        texture_count = changed.count(texture_prefix)
+        if texture_count:
+            changed = changed.replace(texture_prefix, "com.mojang.renderpearl.api.textures.")
+            renderpearl_count += texture_count
+        if renderpearl_count:
+            file_rules.append(("minecraft-26.3-renderpearl-api-relocations", renderpearl_count))
+
         # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
         changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
         if key_count:
