@@ -205,7 +205,7 @@ jobs:
           java-version: "25"
 
       - name: Fetch real Fabric dependency-bearing mod
-        run: git clone --depth 1 https://github.com/Greeenman999/LibrarianTradeFinder.git "$RUNNER_TEMP/librarian-trade-finder"
+        run: git clone --depth 1 https://github.com/PotatoPresident/PetOwner.git "$RUNNER_TEMP/petowner"
 
       - name: Cache Fabric dependency graduation Gradle state
         uses: actions/cache@v4
@@ -213,14 +213,14 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: fabric-dependency-263-${{ runner.os }}-src-26.1.2-target-26.3-gradle-9.6.0
+          key: fabric-dependency-263-${{ runner.os }}-petowner-src-26.1.2-target-26.3-gradle-9.6.0
           restore-keys: |
             fabric-dependency-263-${{ runner.os }}-
 
       - name: Real Fabric dependency-preservation 26.3 conversion
         run: >-
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
-          --project "$RUNNER_TEMP/librarian-trade-finder"
+          --project "$RUNNER_TEMP/petowner"
           --minecraft 26.3
           --loader fabric
           --java 25
@@ -228,6 +228,7 @@ jobs:
           --expect-rewrite fabric-metadata-target-dependencies
           --expect-rewrite fabric-preserve-unsplit-source-layout
           --expect-preserved-property modmenu_version
+          --expect-preserved-property midnightlib_version
           --expect-preserved-build-block repositories
           --expect-preserved-build-block dependencies
           --timeout 600
