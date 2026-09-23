@@ -21,7 +21,7 @@ out=pathlib.Path(a.output)
 def w(rel,text):
  x=out/rel; x.parent.mkdir(parents=True,exist_ok=True); x.write_text(text,encoding='utf-8')
 if a.loader == 'fabric':
- w('build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '${loom_version}' }\\ndependencies { implementation 'net.fabricmc:fabric-loader:${loader_version}' }\\ntasks.withType(JavaCompile).configureEach { options.release = 25 }\\n")
+ w('build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '${loom_version}' }\\nloom {\\n splitEnvironmentSourceSets()\\n mods {\\n  \"${a.mod_id}\" {\\n   sourceSet sourceSets.main\\n   sourceSet sourceSets.client\\n  }\\n }\\n}\\ndependencies { implementation 'net.fabricmc:fabric-loader:${loader_version}' }\\ntasks.withType(JavaCompile).configureEach { options.release = 25 }\\n")
  w('gradle.properties','minecraft_version=26.3\\nloader_version=0.19.5\\nloom_version=1.17-SNAPSHOT\\nfabric_api_version=0.161.0+26.3\\nmod_version='+a.mod_version+'\\nmaven_group='+a.group+'\\narchives_base_name='+a.mod_id+'\\n')
  w('gradle/wrapper/gradle-wrapper.properties','distributionUrl=https\\\\://services.gradle.org/distributions/gradle-9.6.0-bin.zip\\n')
  w('src/main/java/com/example/modid/Stub.java','package com.example.modid; public class Stub {}\\n')
@@ -70,7 +70,7 @@ dependencies {
     assert before == tree_digest(source) == manifest["source"]["sha256"]
     assert manifest["source"]["mod_id"] == "mod-id"
     assert json.loads((output / "src/main/resources/fabric.mod.json").read_text())["id"] == "mod-id"
-    assert {"fabric-metadata-target-dependencies", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
+    assert {"fabric-metadata-target-dependencies", "fabric-preserve-unsplit-source-layout", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
     assert "Identifier" in (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
     assert "gradle-9.6.0-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
@@ -83,6 +83,8 @@ dependencies {
     assert "com.mojang:minecraft:" not in preserved
     assert "net.fabricmc:fabric-loader:" not in preserved
     target_build = (output / "build.gradle").read_text()
+    assert "splitEnvironmentSourceSets()" not in target_build
+    assert "sourceSet sourceSets.client" not in target_build
     assert 'apply from: file("northpoint-preserved.gradle")' in target_build
     assert (output / "gradle/libs.versions.toml").is_file()
     assert (output / "libs/local-helper.jar").is_file()
