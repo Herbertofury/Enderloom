@@ -86,6 +86,9 @@ jobs:
       - name: Fetch official Fabric example mod
         run: git clone --depth 1 --branch 1.21 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod"
 
+      - name: Fetch official NeoForge 1.21.1 MDK mod
+        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+
       - name: Official Fabric example mod production smoke
         run: >-
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
@@ -130,6 +133,20 @@ jobs:
           --minecraft 26.3
           --loader fabric
           --java 25
+          --timeout 600
+
+      - name: Official NeoForge 1.21.1 to 26.3 production conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+          --minecraft 26.3
+          --loader neoforge
+          --java 25
+          --expect-source-minecraft 1.21.1
+          --expect-rewrite neoforge-metadata-target-schema
+          --expect-rewrite neoforge-register-simple-block-properties-factory
+          --expect-rewrite neoforge-register-simple-item-properties-factory
+          --expect-rewrite resource-location-to-identifier
           --timeout 600
 
       - name: Fetch official NeoForge 26.3 MDK mod
