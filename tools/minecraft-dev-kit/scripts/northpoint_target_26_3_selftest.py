@@ -48,6 +48,7 @@ repositories {
 }
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:1.21+build.9:v2"
     implementation "net.fabricmc:fabric-loader:0.16.0"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
@@ -82,6 +83,8 @@ dependencies {
     assert "com.terraformersmc:modmenu:${project.modmenu_version}" in preserved
     assert "com.mojang:minecraft:" not in preserved
     assert "net.fabricmc:fabric-loader:" not in preserved
+    assert "mappings " not in preserved
+    assert "net.fabricmc:yarn:" not in preserved
     target_build = (output / "build.gradle").read_text()
     assert "splitEnvironmentSourceSets()" not in target_build
     assert "sourceSet sourceSets.client" not in target_build
