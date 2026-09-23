@@ -338,6 +338,8 @@ jobs:
           --expect-rewrite minecraft-26.3-blockstate-blocks-motion
           --expect-rewrite minecraft-26.3-submit-node-collector-signatures
           --expect-rewrite minecraft-26.3-inputconstants-signatures
+          --expect-rewrite minecraft-26.3-platform-and-options-signatures
+          --expect-rewrite minecraft-26.3-blockpos-within-manhattan
           --expect-rewrite minecraft-26.3-axeitem-to-item-tag
           --expect-preserved-property sodium_version
           --expect-preserved-property lithium_version
