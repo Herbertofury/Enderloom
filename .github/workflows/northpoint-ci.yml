@@ -331,6 +331,7 @@ jobs:
           --expect-rewrite minecraft-26.3-renderpearl-sampler-uniforms
           --expect-rewrite minecraft-26.3-keyevent-scancode-to-keycode
           --expect-rewrite minecraft-26.3-sdl-input-core
+          --expect-rewrite minecraft-26.3-glfw-text-input-helpers
           --expect-rewrite minecraft-26.3-authlib-service-package-relocations
           --expect-rewrite minecraft-26.3-authlib-discovery-service-constructor
           --expect-rewrite minecraft-26.3-axeitem-to-item-tag
