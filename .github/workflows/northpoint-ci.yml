@@ -226,6 +226,7 @@ jobs:
           --java 25
           --expect-source-minecraft 26.1.2
           --expect-rewrite fabric-metadata-target-dependencies
+          --expect-rewrite fabric-preserve-unsplit-source-layout
           --expect-preserved-property modmenu_version
           --expect-preserved-build-block repositories
           --expect-preserved-build-block dependencies
