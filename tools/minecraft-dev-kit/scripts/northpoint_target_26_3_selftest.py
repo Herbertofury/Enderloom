@@ -71,6 +71,28 @@ loom {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyRenderApi.java", """package com.example;
+import com.mojang.blaze3d.GpuFormat;
+import com.mojang.blaze3d.IndexType;
+import com.mojang.blaze3d.PrimitiveTopology;
+import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.buffers.GpuBufferSlice;
+import com.mojang.blaze3d.buffers.Std140Builder;
+import com.mojang.blaze3d.pipeline.BindGroupLayout;
+import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.shaders.UniformType;
+import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.GpuDevice;
+import com.mojang.blaze3d.systems.RenderPass;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.FilterMode;
+import com.mojang.blaze3d.textures.GpuSampler;
+import com.mojang.blaze3d.textures.GpuTexture;
+import com.mojang.blaze3d.textures.GpuTextureView;
+class LegacyRenderApi {}
+""")
     write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
 import net.minecraft.client.input.KeyEvent;
 class LegacyInput {
@@ -135,6 +157,27 @@ public class ExampleMod {
         "resource-location-to-identifier",
         "legacy-mixin-java-level",
     } <= set(manifest["applied_rule_ids"])
+    render_java = (output / "src/main/java/com/example/LegacyRenderApi.java").read_text()
+    assert "com.mojang.renderpearl.api.GpuFormat" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.IndexType" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.PrimitiveTopology" in render_java
+    assert "com.mojang.renderpearl.api.buffers.GpuBuffer;" in render_java
+    assert "com.mojang.renderpearl.api.buffers.GpuBufferSlice;" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.BindGroupLayout" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.BlendFunction" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.ColorTargetState" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.RenderPipeline" in render_java
+    assert "com.mojang.renderpearl.api.pipeline.UniformType" in render_java
+    assert "com.mojang.renderpearl.api.commands.CommandEncoder" in render_java
+    assert "com.mojang.renderpearl.api.commands.RenderPass" in render_java
+    assert "com.mojang.renderpearl.api.device.GpuDevice" in render_java
+    assert "com.mojang.renderpearl.api.textures.FilterMode" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuSampler" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuTexture;" in render_java
+    assert "com.mojang.renderpearl.api.textures.GpuTextureView" in render_java
+    assert "com.mojang.blaze3d.buffers.Std140Builder" in render_java
+    assert "com.mojang.blaze3d.systems.RenderSystem" in render_java
+    assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -156,6 +199,7 @@ public class ExampleMod {
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
+        "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-gui-set-screen",
