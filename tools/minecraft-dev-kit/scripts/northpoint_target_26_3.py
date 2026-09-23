@@ -476,6 +476,85 @@ def rewrite_neoforge_property_factories(output: pathlib.Path) -> list[dict[str, 
     return rows
 
 
+
+def _ensure_java_import(text: str, fqcn: str) -> str:
+    statement = f"import {fqcn};"
+    if statement in text:
+        return text
+    package_match = re.search(r"(?m)^package\s+[^;]+;\s*$", text)
+    if package_match:
+        end = package_match.end()
+        return text[:end] + "\n\n" + statement + text[end:]
+    return statement + "\n" + text
+
+
+def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in sorted(output.rglob("*.java")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        changed = text
+        file_rules: list[tuple[str, int]] = []
+
+        # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
+        changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
+        if key_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-key-to-inputconstants", key_count))
+
+        # 26.2 moved current-screen ownership from Minecraft to Gui.
+        replacements = [
+            ("minecraft-gui-set-screen", r"\bMinecraft\.getInstance\(\)\.setScreen\(", "Minecraft.getInstance().gui.setScreen("),
+            ("minecraft-gui-screen-accessor", r"\bMinecraft\.getInstance\(\)\.screen\b(?!\s*\()", "Minecraft.getInstance().gui.screen()"),
+            ("minecraft-gui-set-screen", r"\b(this\.minecraft|client|minecraft|mc)\.setScreen\(", r"\1.gui.setScreen("),
+            ("minecraft-gui-screen-accessor", r"\b(this\.minecraft|client|minecraft|mc)\.screen\b(?!\s*\()", r"\1.gui.screen()"),
+            ("minecraft-gui-to-hud-overlay", r"\.gui\.setOverlayMessage\(", ".gui.hud.setOverlayMessage("),
+        ]
+        for rule_id, pattern, replacement in replacements:
+            changed, count = re.subn(pattern, replacement, changed)
+            if count:
+                file_rules.append((rule_id, count))
+
+        # BlockPos#getCenter was removed; Vec3.atCenterOf preserves the exact center semantics.
+        block_pos_names = set(re.findall(r"\bBlockPos\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed))
+        center_count = 0
+        for name in sorted(block_pos_names, key=len, reverse=True):
+            pattern = rf"\b{re.escape(name)}\.getCenter\(\)"
+            changed, count = re.subn(pattern, f"Vec3.atCenterOf({name})", changed)
+            center_count += count
+        if center_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
+            file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
+
+        # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
+        changed, swing_count = re.subn(
+            r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*,\s*(true|false)\s*\)",
+            r".swing(\1, SwingAnimation.DEFAULT, \2)",
+            changed,
+        )
+        if swing_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.item.component.SwingAnimation")
+            file_rules.append(("minecraft-26.3-swing-animation-argument", swing_count))
+
+        # 26.3 removed ServerboundSwingPacket. The new swing(..., SwingAnimation, sync)
+        # path owns synchronization, so the explicit legacy packet is redundant and invalid.
+        changed, packet_count = re.subn(
+            r"(?ms)^[ \t]*(?:[A-Za-z_$][A-Za-z0-9_$]*\.)*connection\s*(?:\.\s*)?send\(\s*new\s+ServerboundSwingPacket\([^)]*\)\s*\);\s*\n",
+            "",
+            changed,
+        )
+        if packet_count:
+            changed = re.sub(r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-remove-serverbound-swing-packet", packet_count))
+
+        if changed != text:
+            path.write_text(changed, encoding="utf-8")
+            for rule_id, count in file_rules:
+                rows.append({"rule": rule_id, "path": path.relative_to(output).as_posix(), "count": count})
+    return rows
+
+
 def rewrite_resource_location_java(output: pathlib.Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted(output.rglob("*.java")):
@@ -560,6 +639,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
         for rule in migrate_neoforge_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/templates/META-INF/neoforge.mods.toml"})
         applied.extend(rewrite_neoforge_property_factories(output))
+    applied.extend(rewrite_minecraft_26_3_java(output))
     applied.extend(rewrite_resource_location_java(output))
     applied.extend(rewrite_mixin_java_level(output))
 
