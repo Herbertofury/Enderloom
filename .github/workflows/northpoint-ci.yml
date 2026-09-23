@@ -248,6 +248,57 @@ jobs:
           --expect-preserved-build-block dependencies
           --timeout 600
 
+
+  fabric-ui-access-widener-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch frozen LibrarianTradeFinder 26.1.2 source
+        run: |
+          git init "$RUNNER_TEMP/librariantradefinder"
+          git -C "$RUNNER_TEMP/librariantradefinder" remote add origin https://github.com/itzwrld/LibrarianTradeFinder-26.2.git
+          git -C "$RUNNER_TEMP/librariantradefinder" fetch --depth 1 origin 285757d72aab0db76a5c9bc985e6cc968793601a
+          git -C "$RUNNER_TEMP/librariantradefinder" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/librariantradefinder" rev-parse HEAD)" = "285757d72aab0db76a5c9bc985e6cc968793601a"
+
+      - name: Cache LibrarianTradeFinder 26.3 conversion Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-ui-aw-263-${{ runner.os }}-librarian-src-26.1.2-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-ui-aw-263-${{ runner.os }}-
+
+      - name: Real Fabric UI and access-widener 26.3 conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/librariantradefinder"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 26.1.2
+          --expect-rewrite fabric-preserve-access-widener-path
+          --expect-rewrite minecraft-26.3-screen-renderables-to-super-extract
+          --expect-rewrite minecraft-26.3-axeitem-to-item-tag
+          --expect-rewrite minecraft-26.3-swing-animation-argument
+          --expect-rewrite minecraft-26.3-remove-serverbound-swing-packet
+          --expect-preserved-property modmenu_version
+          --expect-preserved-build-block loom_access_widener
+          --timeout 600
+
   fabric-conversion:
     runs-on: ubuntu-latest
     timeout-minutes: 15
