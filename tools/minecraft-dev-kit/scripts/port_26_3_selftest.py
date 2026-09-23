@@ -63,6 +63,10 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import org.lwjgl.glfw.GLFW;
 class Old { int key = GLFW.GLFW_KEY_R; Object fuel = FuelRegistry.INSTANCE; Object group = ItemGroupEvents.class; Object trade = TradeOfferHelper.class; }
 """)
+    write(p / "src/main/java/example/LegacyListEntry.java", """package example;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+public class LegacyListEntry extends AbstractSelectionList.Entry<LegacyListEntry> {}
+""")
     write(p / "src/main/java/example/Registrations.java", """package example;
 class Registrations {
   static final String MOD_ID = "oldmod";
@@ -453,6 +457,7 @@ import net.minecraft.Target;
         assert "fabric-item-group-events-rename" in sem_ids
         assert "fabric-trade-offer-helper-data-driven" in sem_ids
         assert "legacy-fuel-compost-brewing-registry" in sem_ids
+        assert "abstract-selection-list-top-level-entry" in sem_ids
 
         # Zero-loss content identity treats known 26.3 path migrations as the same semantic content.
         src_content = content_inventory(old_fabric)
