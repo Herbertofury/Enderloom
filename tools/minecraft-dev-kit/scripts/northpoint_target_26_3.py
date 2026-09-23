@@ -772,6 +772,21 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-sdl-input-core", input_core_count))
 
+        # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
+        # Service construction is a separate semantic migration and is intentionally excluded.
+        authlib_relocations = {
+            "com.mojang.authlib.yggdrasil.ProfileResult": "com.mojang.authlib.services.ProfileResult",
+            "com.mojang.authlib.yggdrasil.FriendsService": "com.mojang.authlib.services.FriendsService",
+        }
+        authlib_count = 0
+        for old_fqcn, new_fqcn in authlib_relocations.items():
+            count = changed.count(old_fqcn)
+            if count:
+                changed = changed.replace(old_fqcn, new_fqcn)
+                authlib_count += count
+        if authlib_count:
+            file_rules.append(("minecraft-26.3-authlib-service-package-relocations", authlib_count))
+
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
             ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
