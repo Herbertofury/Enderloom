@@ -99,6 +99,35 @@ def detect_fabric_identity(source: pathlib.Path) -> dict[str, str]:
     return {"mod_id": mod_id, "group": group, "version": version, "name": name, "minecraft": minecraft}
 
 
+def _neoforge_metadata_path(source: pathlib.Path) -> pathlib.Path | None:
+    for rel in (
+        "src/main/templates/META-INF/neoforge.mods.toml",
+        "src/main/resources/META-INF/neoforge.mods.toml",
+    ):
+        path = source / rel
+        if path.is_file():
+            return path
+    return None
+
+
+def detect_neoforge_identity(source: pathlib.Path) -> dict[str, str]:
+    props = parse_properties(source / "gradle.properties")
+    mod_id = str(props.get("mod_id") or props.get("modId") or "").strip()
+    metadata = _neoforge_metadata_path(source)
+    if not mod_id and metadata:
+        text = metadata.read_text(encoding="utf-8", errors="replace")
+        match = re.search(r'(?m)^\s*modId\s*=\s*["\']([^"\']+)["\']', text)
+        if match and not match.group(1).startswith("${"):
+            mod_id = match.group(1).strip()
+    if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", mod_id):
+        raise ConversionBlock(f"invalid or missing NeoForge mod id: {mod_id!r}")
+    group = str(props.get("mod_group_id") or props.get("group") or "com.example").strip() or "com.example"
+    version = str(props.get("mod_version") or props.get("version") or "1.0.0").strip() or "1.0.0"
+    name = str(props.get("mod_name") or mod_id.replace("_", " ").title()).strip()
+    minecraft = str(props.get("minecraft_version") or "").strip()
+    return {"mod_id": mod_id, "group": group, "version": version, "name": name, "minecraft": minecraft}
+
+
 def copy_file(source: pathlib.Path, target: pathlib.Path) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, target)
@@ -132,9 +161,20 @@ def replace_source_roots(source: pathlib.Path, output: pathlib.Path) -> dict[str
 
 def carry_resources(source: pathlib.Path, output: pathlib.Path, loader: str) -> dict[str, int]:
     copied: dict[str, int] = {}
-    skips = {"fabric.mod.json"} if loader == "fabric" else set()
-    for rel in ("src/main/resources", "src/client/resources", "src/generated/resources"):
-        count = copy_tree_overlay(source / rel, output / rel, skip_names=skips if rel == "src/main/resources" else set())
+    skips: set[str] = set()
+    if loader == "fabric":
+        skips.add("fabric.mod.json")
+    elif loader == "neoforge":
+        skips.add("neoforge.mods.toml")
+    roots = ["src/main/resources", "src/client/resources", "src/generated/resources"]
+    if loader == "neoforge":
+        roots.append("src/main/templates")
+    for rel in roots:
+        count = copy_tree_overlay(
+            source / rel,
+            output / rel,
+            skip_names=skips if rel in {"src/main/resources", "src/main/templates"} else set(),
+        )
         if count:
             copied[rel] = count
     return copied
@@ -171,6 +211,61 @@ def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[
     merged["depends"] = depends
     write_json(dst_path, merged)
     return ["fabric-metadata-target-dependencies"]
+
+
+def migrate_neoforge_metadata(source: pathlib.Path, output: pathlib.Path) -> list[str]:
+    src_path = _neoforge_metadata_path(source)
+    if not src_path:
+        return []
+    text = src_path.read_text(encoding="utf-8", errors="replace")
+    lines: list[str] = []
+    active_dependency: str | None = None
+    for raw in text.splitlines():
+        stripped = raw.strip()
+        if re.match(r"^(?:modLoader|loaderVersion)\s*=", stripped):
+            continue
+        if stripped.startswith("[[dependencies."):
+            active_dependency = None
+        mod_match = re.match(r'^modId\s*=\s*["\']([^"\']+)["\']', stripped)
+        if mod_match:
+            dep_id = mod_match.group(1)
+            if dep_id in {"neoforge", "minecraft"}:
+                active_dependency = dep_id
+        if active_dependency and re.match(r"^versionRange\s*=", stripped):
+            indent = raw[: len(raw) - len(raw.lstrip())]
+            replacement = "[${neo_version},)" if active_dependency == "neoforge" else "${minecraft_version_range}"
+            raw = f'{indent}versionRange="{replacement}"'
+        lines.append(raw)
+    target = output / "src/main/templates/META-INF/neoforge.mods.toml"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    return ["neoforge-metadata-target-schema"]
+
+
+def rewrite_neoforge_property_factories(output: pathlib.Path) -> list[dict[str, Any]]:
+    rules = [
+        (
+            "neoforge-register-simple-block-properties-factory",
+            re.compile(r'(registerSimpleBlock\(\s*[^,\n]+,\s*)BlockBehaviour\.Properties\.of\(\)'),
+            r"\1p -> p",
+        ),
+        (
+            "neoforge-register-simple-item-properties-factory",
+            re.compile(r'(registerSimpleItem\(\s*[^,\n]+,\s*)new\s+Item\.Properties\(\)'),
+            r"\1p -> p",
+        ),
+    ]
+    rows: list[dict[str, Any]] = []
+    for path in sorted(output.rglob("*.java")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        changed = text
+        for rule_id, pattern, replacement in rules:
+            changed, count = pattern.subn(replacement, changed)
+            if count:
+                rows.append({"rule": rule_id, "path": path.relative_to(output).as_posix(), "count": count})
+        if changed != text:
+            path.write_text(changed, encoding="utf-8")
+    return rows
 
 
 def rewrite_resource_location_java(output: pathlib.Path) -> list[dict[str, Any]]:
@@ -229,9 +324,12 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     output = output.resolve()
     if not source.is_dir():
         raise ConversionBlock(f"source project does not exist: {source}")
-    if loader != "fabric":
-        raise ConversionBlock(f"automatic inferred-source 26.3 materialization is not yet implemented for loader {loader!r}; use an explicit Northpoint overlay/project config for this target")
-    identity = detect_fabric_identity(source)
+    if loader == "fabric":
+        identity = detect_fabric_identity(source)
+    elif loader == "neoforge":
+        identity = detect_neoforge_identity(source)
+    else:
+        raise ConversionBlock(f"automatic inferred-source 26.3 materialization is not implemented for loader {loader!r}")
     if identity["minecraft"] == TARGET_MINECRAFT:
         raise ConversionBlock("source already targets 26.3; conversion materialization is unnecessary")
     if output.exists():
@@ -243,8 +341,13 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     copied_resources = carry_resources(source, output, loader)
     wrapper_files = carry_wrapper(source, output)
     applied: list[dict[str, Any]] = []
-    for rule in migrate_fabric_metadata(source, output):
-        applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
+    if loader == "fabric":
+        for rule in migrate_fabric_metadata(source, output):
+            applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
+    elif loader == "neoforge":
+        for rule in migrate_neoforge_metadata(source, output):
+            applied.append({"rule": rule, "path": "src/main/templates/META-INF/neoforge.mods.toml"})
+        applied.extend(rewrite_neoforge_property_factories(output))
     applied.extend(rewrite_resource_location_java(output))
     applied.extend(rewrite_mixin_java_level(output))
 
@@ -258,7 +361,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
             "path": str(source),
             "sha256": source_before,
             "minecraft": identity.get("minecraft") or None,
-            "loader": "fabric",
+            "loader": loader,
             "mod_id": identity["mod_id"],
         },
         "target": {"path": str(output), "minecraft": TARGET_MINECRAFT, "loader": loader, "java": TARGET_JAVA},
