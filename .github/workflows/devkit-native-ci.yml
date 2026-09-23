@@ -37,7 +37,7 @@ jobs:
           distribution: temurin
           java-version: '25'
       - name: Prepare real graphics and audio runtime
-        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1 libflite1 flite1-dev
       - uses: actions/cache@v4
         with:
           path: |
@@ -47,6 +47,7 @@ jobs:
           restore-keys: |
             devkit-native-${{ runner.os }}-26.3-
             fabric-${{ matrix.name }}-263-${{ runner.os }}-
+            fabric-ui-aw-263-${{ runner.os }}-
       - name: Retrieve exact source and build through the production converter
         env:
           SOURCE_REPO: ${{ matrix.repository }}
@@ -62,6 +63,7 @@ jobs:
           EXPECTED_MOD: ${{ matrix.modid }}
         run: |
           git clone --depth=1 --branch=26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/probe"
+          git -C "$RUNNER_TEMP/probe" rev-parse HEAD > "$RUNNER_TEMP/candidate/probe-source.txt"
           python - <<'PY'
           from pathlib import Path
           import os, json
@@ -85,8 +87,15 @@ jobs:
             productionRuntimeMods files("candidate.jar")
             productionRuntimeMods "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
           }
+          tasks.register("devkitProbeJar", Jar) {
+            archiveClassifier = "gametest"
+            from sourceSets.gametest.output
+          }
           tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
+            mods.from(tasks.named("devkitProbeJar"))
+            runDir = file("run/devkit-native")
             jvmArgs.add("-Dfabric.client.gametest")
+            jvmArgs.add("--enable-native-access=ALL-UNNAMED")
             useXVFB = true
           }
           ''')
@@ -124,8 +133,8 @@ jobs:
           chmod +x gradlew
           set -o pipefail
           ./gradlew --no-daemon runProductionClientGameTest 2>&1 | tee "$RUNNER_TEMP/candidate/native-gradle.log"
-          grep -R "DEVKIT_NATIVE_WORLD_READY:$EXPECTED_MOD" build/run
-          grep -R "DEVKIT_NATIVE_WORLD_CLOSED:$EXPECTED_MOD" build/run
+          grep -F "DEVKIT_NATIVE_WORLD_READY:$EXPECTED_MOD" run/devkit-native/logs/latest.log
+          grep -F "DEVKIT_NATIVE_WORLD_CLOSED:$EXPECTED_MOD" run/devkit-native/logs/latest.log
       - name: Preserve native logs, exact artifact, screenshots and harness
         if: always()
         uses: actions/upload-artifact@v4
@@ -133,7 +142,7 @@ jobs:
           name: devkit-native-${{ matrix.name }}-${{ github.run_id }}
           path: |
             ${{ runner.temp }}/candidate/
-            ${{ runner.temp }}/probe/build/run/
+            ${{ runner.temp }}/probe/run/
             ${{ runner.temp }}/probe/build/reports/
             ${{ runner.temp }}/probe/src/gametest/
             ${{ runner.temp }}/probe/build.gradle
