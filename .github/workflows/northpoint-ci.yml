@@ -189,3 +189,44 @@ jobs:
           --expect-rewrite resource-location-to-identifier
           --timeout 600
 
+  fabric-dependency-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch real Fabric dependency-bearing mod
+        run: git clone --depth 1 https://github.com/Greeenman999/LibrarianTradeFinder.git "$RUNNER_TEMP/librarian-trade-finder"
+
+      - name: Cache Fabric dependency graduation Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-dependency-263-${{ runner.os }}-src-26.1.2-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-dependency-263-${{ runner.os }}-
+
+      - name: Real Fabric dependency-preservation 26.3 conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/librarian-trade-finder"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 26.1.2
+          --expect-rewrite fabric-metadata-target-dependencies
+          --expect-preserved-property modmenu_version
+          --expect-preserved-build-block repositories
+          --expect-preserved-build-block dependencies
+          --timeout 600
