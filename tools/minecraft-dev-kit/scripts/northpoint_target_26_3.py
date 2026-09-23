@@ -625,14 +625,14 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # project classes with a scancode() method are never rewritten.
         key_event_names = set(
             re.findall(
-                r"\\b(?:net\\.minecraft\\.client\\.input\\.)?KeyEvent\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b",
+                r"\b(?:net\.minecraft\.client\.input\.)?KeyEvent\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
                 changed,
             )
         )
         keycode_count = 0
         for name in sorted(key_event_names, key=len, reverse=True):
             changed, count = re.subn(
-                rf"\\b{re.escape(name)}\\.scancode\\(\\)",
+                rf"\b{re.escape(name)}\.scancode\(\)",
                 f"{name}.keycode()",
                 changed,
             )
