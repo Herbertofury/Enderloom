@@ -309,7 +309,11 @@ def _filter_dependency_block(block: str) -> str | None:
     kept: list[str] = []
     removed = 0
     for line in lines:
+        stripped = line.strip()
         if any(marker in line for marker in CORE_DEPENDENCY_MARKERS):
+            removed += 1
+            continue
+        if re.match(r"^mappings\b", stripped):
             removed += 1
             continue
         kept.append(line)
