@@ -345,6 +345,7 @@ jobs:
           --expect-rewrite minecraft-26.3-vertexconsumer-uv3
           --expect-rewrite minecraft-26.3-rendertarget-has-depth
           --expect-rewrite minecraft-26.3-serverbound-swing-to-punch-packet
+          --expect-rewrite minecraft-26.3-bonemeal-source-interaction
           --expect-rewrite minecraft-26.3-entity-should-render-partial-tick
           --expect-rewrite minecraft-26.3-item-container-item-copies
           --expect-rewrite minecraft-26.3-final-record-mixin-accessor-cast
