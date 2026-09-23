@@ -1390,16 +1390,23 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if nametag_count:
             file_rules.append(("minecraft-26.2-submit-name-tag-drop-distance", nametag_count))
 
-        # 26.3 removed ServerboundSwingPacket. The new swing(..., SwingAnimation, sync)
-        # path owns synchronization, so the explicit legacy packet is redundant and invalid.
+        # 26.3 replaced the hand-carrying swing packet with a handless punch packet.
+        # Preserve packet-only swing modes; deleting the send would silently remove behavior.
         changed, packet_count = re.subn(
-            r"(?ms)^[ \t]*(?:[A-Za-z_$][A-Za-z0-9_$]*\.)*connection\s*(?:\.\s*)?send\(\s*new\s+ServerboundSwingPacket\([^)]*\)\s*\);\s*\n",
-            "",
+            r"\bnew\s+ServerboundSwingPacket\s*\(\s*(?:[^()\n]|\([^()\n]*\))*\)",
+            "ServerboundPunchPacket.INSTANCE",
             changed,
         )
         if packet_count:
-            changed = re.sub(r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n", "", changed)
-            file_rules.append(("minecraft-26.3-remove-serverbound-swing-packet", packet_count))
+            changed = _ensure_java_import(changed, "net.minecraft.network.protocol.game.ServerboundPunchPacket")
+            without_swing_import = re.sub(
+                r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n",
+                "",
+                changed,
+            )
+            if "ServerboundSwingPacket" not in without_swing_import:
+                changed = without_swing_import
+            file_rules.append(("minecraft-26.3-serverbound-swing-to-punch-packet", packet_count))
 
         if changed != text:
             path.write_text(changed, encoding="utf-8")
