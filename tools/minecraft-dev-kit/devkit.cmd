@@ -1,9 +1,6 @@
 @echo off
 setlocal
-where py >nul 2>nul
-if not errorlevel 1 goto use_py
-python "%~dp0scripts\devkit.py" %*
-exit /b %errorlevel%
-:use_py
-py -3 "%~dp0scripts\devkit.py" %*
-exit /b %errorlevel%
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0bootstrap.ps1" %*
+set "DEVKIT_EXIT=%errorlevel%"
+if "%~1"=="" pause
+exit /b %DEVKIT_EXIT%

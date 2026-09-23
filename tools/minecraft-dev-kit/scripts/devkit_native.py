@@ -171,7 +171,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             dependencies=resolve([artifact],workspace/'dependencies',minecraft='26.3',java=25,
                                  loader_version=match[1],offline=offline)
             if dependencies['state']!='complete':
-                raise RuntimeError('dependency closure unresolved; see dependencies/dependency-lock.json')
+                raise RuntimeError('dependency closure unresolved: ' + json.dumps(dependencies['issues']) + '; see dependencies/dependency-lock.json')
             probe=prepare(template,artifact,run,dependencies,workspace/'dependencies')
             env=dict(os.environ,JAVA_HOME=str(Path(jdk['java_path']).parent.parent))
             env['PATH']=str(Path(jdk['java_path']).parent)+os.pathsep+env.get('PATH','')
@@ -183,7 +183,9 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             if offline:cmd.append('--offline')
             cp=run_logged(cmd,directory=run/'commands',name='native',cwd=probe,env=env,timeout=timeout)
             proof_path=probe/'run/devkit-native/devkit-runtime-proof.json'
-            if cp.returncode:raise RuntimeError('native process failed: '+str(cp.returncode)+'; see '+str(run/'commands'))
+            if cp.returncode:
+                tail = '\n'.join((cp.stdout + '\n' + cp.stderr).splitlines()[-70:])
+                raise RuntimeError('native process failed: '+str(cp.returncode)+'; full logs: '+str(run/'commands')+'\n'+tail)
             proof=json.loads(proof_path.read_text())
             if proof.get('artifact_sha256')!=result['artifact_sha256'] or not proof.get('world_reopened') or not proof.get('client_server_sync'):
                 raise ValueError('runtime proof does not match the candidate or required world gates')

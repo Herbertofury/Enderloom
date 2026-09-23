@@ -14,7 +14,7 @@ from northpoint_execution import atomic_json, sha256_file, workspace_lock
 
 
 def _version(value: str):
-    match = re.fullmatch(r'(\d+(?:\.\d+)*)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?', value)
+    match = re.fullmatch(r'(\d+(?:\.\d+)*)(?:-([0-9A-Za-z.-]*))?(?:\+[0-9A-Za-z.-]+)?', value)
     if not match: return None
     main = tuple(map(int, match[1].split('.')))
     return main, match[2]
@@ -29,6 +29,8 @@ def _compare(left: str, right: str):
     if a[1] == b[1]: return 0
     if a[1] is None: return 1
     if b[1] is None: return -1
+    if a[1] == '': return -1
+    if b[1] == '': return 1
     x, y = a[1].split('.'), b[1].split('.')
     for p, q in zip(x, y):
         if p == q: continue
@@ -68,13 +70,13 @@ def satisfies(version: str, requirement) -> bool | None:
     if op == '<=': return comparison <= 0
     if op == '>': return comparison > 0
     if op == '<': return comparison < 0
-    nums = list(_version(wanted)[0]); original_length = len(nums)
-    nums += [0] * max(0, 3-len(nums))
-    if op == '~': index = 0 if original_length == 1 else 1
-    else: index = next((i for i, n in enumerate(nums) if n), len(nums)-1)
-    nums[index] += 1
-    for i in range(index+1,len(nums)): nums[i] = 0
-    return comparison >= 0 and _compare(version, '.'.join(map(str,nums))) < 0
+    # Fabric operators are same-major (^), same-major/minor (~), not npm's
+    # special handling of zero-major versions. Empty prerelease is a lower bound.
+    actual, base = _version(version)[0], _version(wanted)[0]
+    actual += (0,) * max(0, 2-len(actual))
+    base += (0,) * max(0, 2-len(base))
+    return comparison >= 0 and actual[:2 if op == '~' else 1] == base[:2 if op == '~' else 1]
+
 
 
 def jar_inventory(path: Path) -> list[dict]:
