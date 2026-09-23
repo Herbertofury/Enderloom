@@ -171,7 +171,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: neoforge-263-${{ runner.os }}-${{ hashFiles(format('{0}/neoforge-mdk-1.21.1/**/gradle-wrapper.properties', runner.temp), format('{0}/neoforge-mdk-1.21.1/**/*.gradle*', runner.temp)) }}
+          key: neoforge-263-${{ runner.os }}-src-1.21.1-target-26.3.0.7-beta-gradle-9.2.1
           restore-keys: |
             neoforge-263-${{ runner.os }}-
 
