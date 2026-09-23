@@ -231,6 +231,17 @@
       "qa": ["build", "native-client", "input", "visual"]
     },
     {
+      "id": "screen-private-renderables-access",
+      "category": "ui",
+      "loader": "any",
+      "severity": "blocker",
+      "kind": "content_regex",
+      "pattern": "class\\s+\\w+[^\\n{]*extends\\s+[A-Za-z0-9_$.]*Screen\\b[\\s\\S]{0,8000}\\bthis\\.renderables\\b",
+      "replacement": "Minecraft 26.3 makes Screen.renderables private. For widgets registered through Screen APIs, prefer the target Screen/super extractRenderState lifecycle. If the source intentionally owns additional manual renderables, keep an explicit mod-owned collection. Preserve ordering, focus, tooltips, narration and avoid double extraction; do not blindly replace this.renderables with children().",
+      "automation": "semantic-structure",
+      "qa": ["build", "native-client", "input", "visual"]
+    },
+    {
       "id": "forge-to-neoforge-package-migration",
       "category": "loader-api",
       "loader": "neoforge",
