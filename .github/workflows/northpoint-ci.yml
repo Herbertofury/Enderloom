@@ -159,6 +159,23 @@ jobs:
       - name: Northpoint 26.3 target materialization QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
 
+
+      - name: Package exact tested source
+        run: |
+          mkdir -p "$RUNNER_TEMP/devkit-source"
+          git archive --format=zip --output="$RUNNER_TEMP/devkit-source/Enderloom-source.zip" HEAD
+          git rev-parse HEAD > "$RUNNER_TEMP/devkit-source/COMMIT.txt"
+          cd "$RUNNER_TEMP/devkit-source"
+          sha256sum Enderloom-source.zip > SHA256SUMS.txt
+
+      - name: Retain exact tested source
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-source-${{ github.run_id }}
+          path: ${{ runner.temp }}/devkit-source/
+          if-no-files-found: error
+          retention-days: 30
+
   neoforge-conversion:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -404,7 +421,7 @@ jobs:
           --expect-rewrite minecraft-26.3-screen-renderables-to-super-extract
           --expect-rewrite minecraft-26.3-axeitem-to-item-tag
           --expect-rewrite minecraft-26.3-swing-animation-argument
-          --expect-rewrite minecraft-26.3-remove-serverbound-swing-packet
+          --expect-rewrite minecraft-26.3-serverbound-swing-to-punch-packet
           --expect-preserved-property modmenu_version
           --expect-preserved-build-block loom_access_widener
           --timeout 600
