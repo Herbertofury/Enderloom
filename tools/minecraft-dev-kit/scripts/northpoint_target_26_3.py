@@ -810,6 +810,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             "com.mojang.blaze3d.systems.CommandEncoder": "com.mojang.renderpearl.api.commands.CommandEncoder",
             "com.mojang.blaze3d.systems.RenderPass": "com.mojang.renderpearl.api.commands.RenderPass",
             "com.mojang.blaze3d.systems.GpuDevice": "com.mojang.renderpearl.api.device.GpuDevice",
+            "com.mojang.blaze3d.vertex.VertexFormat": "com.mojang.renderpearl.api.vertex.VertexFormat",
         }
         renderpearl_count = 0
         for old_fqcn, new_fqcn in renderpearl_relocations.items():
@@ -881,6 +882,51 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
 
         if sampler_count:
             file_rules.append(("minecraft-26.3-renderpearl-sampler-uniforms", sampler_count))
+
+        # 26.3 RenderPass accepts only a CompiledRenderPipeline. Restrict the
+        # migration to variables source-typed as RenderPass inside the enclosing method.
+        compiled_pipeline_count = 0
+        compiled_pass_scopes: list[tuple[int, int, set[str]]] = []
+        for signature in render_pass_method.finditer(changed):
+            body_open = signature.end() - 1
+            body_close = _find_matching_java_brace(changed, body_open)
+            if body_close is None:
+                continue
+            body = changed[body_open : body_close + 1]
+            pass_names = set(
+                re.findall(
+                    r"\b(?:com\.mojang\.renderpearl\.api\.commands\.)?RenderPass\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                    signature.group("params") + "\n" + body,
+                )
+            )
+            if pass_names:
+                compiled_pass_scopes.append((body_open, body_close, pass_names))
+
+        for body_open, body_close, pass_names in reversed(compiled_pass_scopes):
+            body = changed[body_open : body_close + 1]
+            rewritten = body
+            local_count = 0
+            for name in sorted(pass_names, key=len, reverse=True):
+                pattern = re.compile(
+                    rf"\b{re.escape(name)}\.setPipeline\(\s*"
+                    r"(?!RenderSystem\.getCompiledPipeline\()"
+                    r"((?:[^()\n;]|\([^()\n;]*\))+?)\s*\)"
+                )
+                rewritten, count = pattern.subn(
+                    lambda match: (
+                        f"{name}.setPipeline(RenderSystem.getCompiledPipeline("
+                        f"{match.group(1).strip()}))"
+                    ),
+                    rewritten,
+                )
+                local_count += count
+            if local_count:
+                changed = changed[:body_open] + rewritten + changed[body_close + 1 :]
+                compiled_pipeline_count += local_count
+
+        if compiled_pipeline_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.systems.RenderSystem")
+            file_rules.append(("minecraft-26.3-renderpearl-compiled-pipeline", compiled_pipeline_count))
 
         # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
         changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
