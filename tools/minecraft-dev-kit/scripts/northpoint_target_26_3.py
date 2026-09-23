@@ -87,14 +87,14 @@ def detect_fabric_identity(source: pathlib.Path) -> dict[str, str]:
         raise ConversionBlock("Fabric source conversion requires src/main/resources/fabric.mod.json")
     mod = read_json(metadata)
     mod_id = str(mod.get("id") or "").strip()
-    if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", mod_id):
+    if not re.fullmatch(r"[a-z][a-z0-9_-]{1,63}", mod_id):
         raise ConversionBlock(f"invalid or missing Fabric mod id: {mod_id!r}")
     props = parse_properties(source / "gradle.properties")
     group = str(props.get("group") or props.get("maven_group") or "com.example").strip() or "com.example"
     version = str(props.get("version") or props.get("mod_version") or mod.get("version") or "1.0.0").strip()
     if version.startswith("${"):
         version = str(props.get("version") or props.get("mod_version") or "1.0.0")
-    name = str(mod.get("name") or mod_id.replace("_", " ").title()).strip()
+    name = str(mod.get("name") or re.sub(r"[_-]+", " ", mod_id).title()).strip()
     minecraft = str(props.get("minecraft_version") or "").strip()
     return {"mod_id": mod_id, "group": group, "version": version, "name": name, "minecraft": minecraft}
 
@@ -180,6 +180,184 @@ def carry_resources(source: pathlib.Path, output: pathlib.Path, loader: str) -> 
     return copied
 
 
+
+TARGET_OWNED_GRADLE_PROPERTIES = {
+    "minecraft_version", "minecraft_version_range", "loader_version", "loader_version_range",
+    "loom_version", "fabric_api_version", "neo_version", "parchment_minecraft_version",
+    "parchment_mappings_version", "mod_id", "mod_name", "mod_license", "mod_version",
+    "mod_group_id", "maven_group", "archives_base_name",
+}
+CORE_DEPENDENCY_MARKERS = (
+    "com.mojang:minecraft:",
+    "net.fabricmc:fabric-loader:",
+    "net.fabricmc.fabric-api:fabric-api:",
+)
+
+
+def merge_gradle_properties(source: pathlib.Path, output: pathlib.Path) -> list[str]:
+    src = source / "gradle.properties"
+    dst = output / "gradle.properties"
+    if not src.is_file() or not dst.is_file():
+        return []
+    target_props = parse_properties(dst)
+    preserved: list[str] = []
+    additions: list[str] = []
+    for raw in src.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw.strip()
+        if not line or line.startswith(("#", "!")):
+            continue
+        sep = "=" if "=" in line else ":" if ":" in line else None
+        if not sep:
+            continue
+        key, _ = line.split(sep, 1)
+        key = key.strip()
+        if key in TARGET_OWNED_GRADLE_PROPERTIES or key in target_props:
+            continue
+        additions.append(raw)
+        preserved.append(key)
+    if additions:
+        text = dst.read_text(encoding="utf-8", errors="replace").rstrip()
+        text += "\n\n# Preserved from legacy source by Northpoint\n" + "\n".join(additions) + "\n"
+        dst.write_text(text, encoding="utf-8")
+    return preserved
+
+
+def _copy_support_tree(source: pathlib.Path, output: pathlib.Path, rel: str, *, skip_prefixes: tuple[str, ...] = ()) -> int:
+    root = source / rel
+    if not root.is_dir():
+        return 0
+    count = 0
+    for path in sorted(p for p in root.rglob("*") if p.is_file()):
+        child = path.relative_to(root).as_posix()
+        if any(child == prefix or child.startswith(prefix.rstrip("/") + "/") for prefix in skip_prefixes):
+            continue
+        copy_file(path, output / rel / child)
+        count += 1
+    return count
+
+
+def carry_build_support_files(source: pathlib.Path, output: pathlib.Path) -> dict[str, int]:
+    copied: dict[str, int] = {}
+    specs = (
+        ("libs", ()),
+        ("gradle", ("wrapper",)),
+        ("buildSrc", ()),
+        ("build-logic", ()),
+    )
+    for rel, skips in specs:
+        count = _copy_support_tree(source, output, rel, skip_prefixes=skips)
+        if count:
+            copied[rel] = count
+    return copied
+
+
+def _brace_delta(line: str) -> int:
+    depth = 0
+    quote: str | None = None
+    escaped = False
+    i = 0
+    while i < len(line):
+        ch = line[i]
+        nxt = line[i + 1] if i + 1 < len(line) else ""
+        if quote:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == quote:
+                quote = None
+            i += 1
+            continue
+        if ch in {"'", '"'}:
+            quote = ch
+            i += 1
+            continue
+        if ch == "/" and nxt == "/":
+            break
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        i += 1
+    return depth
+
+
+def extract_gradle_blocks(text: str, names: set[str]) -> list[tuple[str, str]]:
+    lines = text.splitlines()
+    out: list[tuple[str, str]] = []
+    i = 0
+    while i < len(lines):
+        match = re.match(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*\{", lines[i])
+        if not match or match.group(1) not in names:
+            i += 1
+            continue
+        name = match.group(1)
+        block = [lines[i]]
+        depth = _brace_delta(lines[i])
+        i += 1
+        while i < len(lines) and depth > 0:
+            block.append(lines[i])
+            depth += _brace_delta(lines[i])
+            i += 1
+        if depth == 0:
+            out.append((name, "\n".join(block)))
+    return out
+
+
+def _filter_dependency_block(block: str) -> str | None:
+    lines = block.splitlines()
+    kept: list[str] = []
+    removed = 0
+    for line in lines:
+        stripped = line.strip()
+        if any(marker in line for marker in CORE_DEPENDENCY_MARKERS):
+            removed += 1
+            continue
+        if re.match(r"^mappings\b", stripped):
+            removed += 1
+            continue
+        kept.append(line)
+    body = "\n".join(kept)
+    if not re.search(r"(?m)^\s*[^}/\s].+", body):
+        return None
+    return body
+
+
+def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path) -> dict[str, int]:
+    source_build = source / "build.gradle"
+    target_build = output / "build.gradle"
+    if not source_build.is_file() or not target_build.is_file():
+        return {}
+    blocks = extract_gradle_blocks(
+        source_build.read_text(encoding="utf-8", errors="replace"),
+        {"repositories", "dependencies"},
+    )
+    fragments: list[str] = []
+    counts = {"repositories": 0, "dependencies": 0}
+    for name, block in blocks:
+        if name == "dependencies":
+            block = _filter_dependency_block(block)
+            if not block:
+                continue
+        fragments.append(block)
+        counts[name] += 1
+    if not fragments:
+        return {}
+    fragment_path = output / "northpoint-preserved.gradle"
+    fragment_path.write_text(
+        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\n\n"
+        + "\n\n".join(fragments).rstrip()
+        + "\n",
+        encoding="utf-8",
+    )
+    target = target_build.read_text(encoding="utf-8", errors="replace").rstrip()
+    apply_line = 'apply from: file("northpoint-preserved.gradle")'
+    if apply_line not in target:
+        target += "\n\n// Northpoint zero-loss source build metadata\n" + apply_line + "\n"
+        target_build.write_text(target, encoding="utf-8")
+    return {k: v for k, v in counts.items() if v}
+
+
 def carry_wrapper(source: pathlib.Path, output: pathlib.Path) -> list[str]:
     carried: list[str] = []
     for rel in ("gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.jar"):
@@ -189,6 +367,68 @@ def carry_wrapper(source: pathlib.Path, output: pathlib.Path) -> list[str]:
             carried.append(rel)
     # Keep the target scaffold's gradle-wrapper.properties: it is target toolchain authority.
     return carried
+
+
+
+def adapt_fabric_source_layout(source: pathlib.Path, output: pathlib.Path) -> list[dict[str, Any]]:
+    # Legacy/conventional Fabric projects commonly keep client and common code together in
+    # src/main. Loom's splitEnvironmentSourceSets() intentionally removes client Minecraft
+    # classes from the main compile classpath, so enabling it during conversion would break
+    # an otherwise valid source layout. Preserve explicit split projects; keep unsplit ones
+    # unsplit until a semantic migration deliberately separates ownership.
+    has_client_root = any(
+        (source / rel).is_dir()
+        for rel in ("src/client/java", "src/client/kotlin", "src/client/resources")
+    )
+    if has_client_root:
+        return []
+
+    build = output / "build.gradle"
+    if not build.is_file():
+        return []
+    text = build.read_text(encoding="utf-8", errors="replace")
+    changed = re.sub(r"(?m)^\s*splitEnvironmentSourceSets\(\)\s*\n", "", text)
+    changed = re.sub(r"(?m)^\s*sourceSet\s+sourceSets\.client\s*\n", "", changed)
+    if changed == text:
+        return []
+    build.write_text(changed, encoding="utf-8")
+    return [{
+        "rule": "fabric-preserve-unsplit-source-layout",
+        "path": "build.gradle",
+        "source_layout": "src/main",
+    }]
+
+
+
+def normalize_empty_fabric_access_wideners(output: pathlib.Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in sorted(output.rglob("*.accesswidener")):
+        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+        if not lines:
+            continue
+        header_index = next((i for i, line in enumerate(lines) if line.strip() and not line.lstrip().startswith("#")), None)
+        if header_index is None:
+            continue
+        header = lines[header_index]
+        match = re.match(r"^(\s*accessWidener\s+v\d+\s+)(named|intermediary)(\s*)$", header)
+        if not match:
+            continue
+        substantive = [
+            line for i, line in enumerate(lines)
+            if i != header_index and line.strip() and not line.lstrip().startswith("#")
+        ]
+        if substantive:
+            # Symbol-bearing wideners require exact namespace translation; never relabel them blindly.
+            continue
+        lines[header_index] = match.group(1) + "official" + match.group(3)
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        rows.append({
+            "rule": "fabric-empty-access-widener-official-namespace",
+            "path": path.relative_to(output).as_posix(),
+            "from": match.group(2),
+            "to": "official",
+        })
+    return rows
 
 
 def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[str]:
@@ -268,6 +508,96 @@ def rewrite_neoforge_property_factories(output: pathlib.Path) -> list[dict[str, 
     return rows
 
 
+
+def _ensure_java_import(text: str, fqcn: str) -> str:
+    statement = f"import {fqcn};"
+    if statement in text:
+        return text
+    package_match = re.search(r"(?m)^package\s+[^;]+;\s*$", text)
+    if package_match:
+        end = package_match.end()
+        return text[:end] + "\n\n" + statement + text[end:]
+    return statement + "\n" + text
+
+
+def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in sorted(output.rglob("*.java")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        changed = text
+        file_rules: list[tuple[str, int]] = []
+
+        # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
+        changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
+        if key_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-glfw-key-to-inputconstants", key_count))
+
+        # 26.2 moved current-screen ownership from Minecraft to Gui.
+        replacements = [
+            ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
+            ("minecraft-options-hide-gui-to-hud-hidden", r"\b(this\.minecraft|client|minecraft|mc)\.options\.hideGui\b", r"\1.gui.hud.isHidden()"),
+            ("minecraft-gui-set-screen", r"\bMinecraft\.getInstance\(\)\.setScreen\(", "Minecraft.getInstance().gui.setScreen("),
+            ("minecraft-gui-screen-accessor", r"\bMinecraft\.getInstance\(\)\.screen\b(?!\s*\()", "Minecraft.getInstance().gui.screen()"),
+            ("minecraft-gui-set-screen", r"\b(this\.minecraft|client|minecraft|mc)\.setScreen\(", r"\1.gui.setScreen("),
+            ("minecraft-gui-screen-accessor", r"\b(this\.minecraft|client|minecraft|mc)\.screen\b(?!\s*\()", r"\1.gui.screen()"),
+            ("minecraft-gui-to-hud-overlay", r"\.gui\.setOverlayMessage\(", ".gui.hud.setOverlayMessage("),
+        ]
+        for rule_id, pattern, replacement in replacements:
+            changed, count = re.subn(pattern, replacement, changed)
+            if count:
+                file_rules.append((rule_id, count))
+
+        # BlockPos#getCenter was removed; Vec3.atCenterOf preserves the exact center semantics.
+        block_pos_names = set(re.findall(r"\bBlockPos\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed))
+        center_count = 0
+        for name in sorted(block_pos_names, key=len, reverse=True):
+            pattern = rf"\b{re.escape(name)}\.getCenter\(\)"
+            changed, count = re.subn(pattern, f"Vec3.atCenterOf({name})", changed)
+            center_count += count
+        if center_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
+            file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
+
+        # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
+        changed, swing_count = re.subn(
+            r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*,\s*(true|false)\s*\)",
+            r".swing(\1, SwingAnimation.DEFAULT, \2)",
+            changed,
+        )
+        if swing_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.item.component.SwingAnimation")
+            file_rules.append(("minecraft-26.3-swing-animation-argument", swing_count))
+
+        # 26.2 removed the distance-to-camera argument from deferred name-tag submission.
+        changed, nametag_count = re.subn(
+            r"(submitNameTag\([^;\n]*?),\s*[A-Za-z_$][A-Za-z0-9_$.]*\.distanceToCameraSq\s*,\s*([A-Za-z_$][A-Za-z0-9_$]*)\s*\)",
+            r"\1, \2)",
+            changed,
+        )
+        if nametag_count:
+            file_rules.append(("minecraft-26.2-submit-name-tag-drop-distance", nametag_count))
+
+        # 26.3 removed ServerboundSwingPacket. The new swing(..., SwingAnimation, sync)
+        # path owns synchronization, so the explicit legacy packet is redundant and invalid.
+        changed, packet_count = re.subn(
+            r"(?ms)^[ \t]*(?:[A-Za-z_$][A-Za-z0-9_$]*\.)*connection\s*(?:\.\s*)?send\(\s*new\s+ServerboundSwingPacket\([^)]*\)\s*\);\s*\n",
+            "",
+            changed,
+        )
+        if packet_count:
+            changed = re.sub(r"(?m)^\s*import\s+net\.minecraft\.network\.protocol\.game\.ServerboundSwingPacket;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-remove-serverbound-swing-packet", packet_count))
+
+        if changed != text:
+            path.write_text(changed, encoding="utf-8")
+            for rule_id, count in file_rules:
+                rows.append({"rule": rule_id, "path": path.relative_to(output).as_posix(), "count": count})
+    return rows
+
+
 def rewrite_resource_location_java(output: pathlib.Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted(output.rglob("*.java")):
@@ -340,14 +670,20 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     copied_sources = replace_source_roots(source, output)
     copied_resources = carry_resources(source, output, loader)
     wrapper_files = carry_wrapper(source, output)
+    preserved_gradle_properties = merge_gradle_properties(source, output)
+    preserved_build_files = carry_build_support_files(source, output)
+    preserved_gradle_blocks = preserve_gradle_build_fragments(source, output)
     applied: list[dict[str, Any]] = []
     if loader == "fabric":
         for rule in migrate_fabric_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
+        applied.extend(adapt_fabric_source_layout(source, output))
+        applied.extend(normalize_empty_fabric_access_wideners(output))
     elif loader == "neoforge":
         for rule in migrate_neoforge_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/templates/META-INF/neoforge.mods.toml"})
         applied.extend(rewrite_neoforge_property_factories(output))
+    applied.extend(rewrite_minecraft_26_3_java(output))
     applied.extend(rewrite_resource_location_java(output))
     applied.extend(rewrite_mixin_java_level(output))
 
@@ -368,6 +704,9 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
         "copied_source_roots": copied_sources,
         "copied_resource_roots": copied_resources,
         "wrapper_files": wrapper_files,
+        "preserved_gradle_properties": preserved_gradle_properties,
+        "preserved_build_files": preserved_build_files,
+        "preserved_gradle_blocks": preserved_gradle_blocks,
         "applied_rewrites": applied,
         "applied_rule_ids": sorted({str(row.get("rule")) for row in applied}),
         "unresolved_semantics_evidence": "devkit-evidence/semantic-port-plan.json",

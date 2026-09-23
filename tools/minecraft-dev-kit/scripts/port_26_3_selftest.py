@@ -41,9 +41,9 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def scaffold(root: Path, name: str, loader: str = "fabric") -> Path:
+def scaffold(root: Path, name: str, loader: str = "fabric", mod_id: str = "testmod") -> Path:
     p = root / name
-    run(str(HERE / "port_scaffold_26_3.py"), "--loader", loader, "--output", str(p), "--mod-id", "testmod")
+    run(str(HERE / "port_scaffold_26_3.py"), "--loader", loader, "--output", str(p), "--mod-id", mod_id)
     return p
 
 
@@ -375,6 +375,20 @@ def main() -> int:
             if loader == "fabric":
                 assert guard["intake"]["mapping_plan"]["source"]["unobfuscated"] is True
                 assert "0.161.0+26.3" in (target / "gradle.properties").read_text()
+
+        # Fabric IDs may contain hyphens and must retain exact identity through the target scaffold.
+        hyphen_fabric = scaffold(root, "hyphen-fabric", "fabric", "hyphen-mod")
+        hyphen_meta = json.loads((hyphen_fabric / "src/main/resources/fabric.mod.json").read_text(encoding="utf-8"))
+        assert hyphen_meta["id"] == "hyphen-mod"
+        assert "archives_base_name=hyphen-mod" in (hyphen_fabric / "gradle.properties").read_text(encoding="utf-8")
+        assert any(x.name == "HyphenModMod.java" for x in (hyphen_fabric / "src/main/java").rglob("*.java"))
+        run(
+            str(HERE / "port_scaffold_26_3.py"),
+            "--loader", "neoforge",
+            "--output", str(root / "hyphen-neoforge"),
+            "--mod-id", "hyphen-mod",
+            expect=1,
+        )
 
         # Regression: stale direct GLFW in an otherwise clean 26.3 Fabric target must fail.
         dirty_glfw = scaffold(root, "dirty-glfw")

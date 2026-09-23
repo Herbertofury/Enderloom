@@ -21,7 +21,7 @@ out=pathlib.Path(a.output)
 def w(rel,text):
  x=out/rel; x.parent.mkdir(parents=True,exist_ok=True); x.write_text(text,encoding='utf-8')
 if a.loader == 'fabric':
- w('build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '${loom_version}' }\\ndependencies { implementation 'net.fabricmc:fabric-loader:${loader_version}' }\\ntasks.withType(JavaCompile).configureEach { options.release = 25 }\\n")
+ w('build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '${loom_version}' }\\nloom {\\n splitEnvironmentSourceSets()\\n mods {\\n  'fixture' {\\n   sourceSet sourceSets.main\\n   sourceSet sourceSets.client\\n  }\\n }\\n}\\ndependencies { implementation 'net.fabricmc:fabric-loader:${loader_version}' }\\ntasks.withType(JavaCompile).configureEach { options.release = 25 }\\n")
  w('gradle.properties','minecraft_version=26.3\\nloader_version=0.19.5\\nloom_version=1.17-SNAPSHOT\\nfabric_api_version=0.161.0+26.3\\nmod_version='+a.mod_version+'\\nmaven_group='+a.group+'\\narchives_base_name='+a.mod_id+'\\n')
  w('gradle/wrapper/gradle-wrapper.properties','distributionUrl=https\\\\://services.gradle.org/distributions/gradle-9.6.0-bin.zip\\n')
  w('src/main/java/com/example/modid/Stub.java','package com.example.modid; public class Stub {}\\n')
@@ -41,24 +41,107 @@ w('devkit-26.3-lock.json',json.dumps({'target':{'minecraft':'26.3','loader':a.lo
 
 def fabric_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
     source, output = root / "fabric-source", root / "fabric-target"
-    write(source / "gradle.properties", "minecraft_version=1.21\nversion=1.2.3\ngroup=com.example\n")
+    write(source / "gradle.properties", "minecraft_version=1.21\nversion=1.2.3\ngroup=com.example\nmodmenu_version=11.0.1\ncustom_flag=enabled\n")
+    write(source / "build.gradle", """plugins { id 'net.fabricmc.fabric-loom-remap' version '1.7.4' }
+repositories {
+    maven { url = 'https://maven.terraformersmc.com/releases' }
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:1.21+build.9:v2"
+    implementation "net.fabricmc:fabric-loader:0.16.0"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+}
+""")
+    write(source / "gradle/libs.versions.toml", "[versions]\nhelper = \"1.2.3\"\n")
+    write(source / "libs/local-helper.jar", "local-jar-placeholder\n")
+    write(source / "buildSrc/src/main/groovy/BuildHelpers.groovy", "class BuildHelpers {}\n")
     write(source / "gradlew", "#!/bin/sh\nexit 0\n")
     (source / "gradlew").chmod(0o755)
     write(source / "gradle/wrapper/gradle-wrapper.jar", "wrapper-placeholder\n")
     write(source / "src/main/resources/fabric.mod.json", json.dumps({
-        "schemaVersion": 1, "id": "modid", "version": "${version}", "name": "Legacy Example",
+        "schemaVersion": 1, "id": "mod-id", "version": "${version}", "name": "Legacy Example",
         "authors": ["Fixture"], "entrypoints": {"main": ["com.example.ExampleMod"]},
         "depends": {"fabricloader": ">=0.16.0", "minecraft": "~1.21", "java": ">=21", "fabric-api": "*"},
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
-    write(source / "src/main/java/com/example/ExampleMod.java", "package com.example; import net.minecraft.resources.ResourceLocation; public class ExampleMod { ResourceLocation id; }\n")
+    write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/ExampleMod.java", """package com.example;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.protocol.game.ServerboundSwingPacket;
+import org.lwjgl.glfw.GLFW;
+public class ExampleMod {
+  ResourceLocation id;
+  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos) {
+    int key = GLFW.GLFW_KEY_I;
+    Object current = client.screen;
+    client.setScreen(null);
+    net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
+    if (net.minecraft.client.Minecraft.getInstance().options.hideGui) return;
+    collector.submitNameTag(pose, state.nameTagAttachment, 10, label, true, state.lightCoords, state.distanceToCameraSq, camera);
+    Object center = pos.getCenter();
+    player.swing(InteractionHand.MAIN_HAND, true);
+    player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
+  }
+}
+""")
     before = tree_digest(source)
     manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
     assert before == tree_digest(source) == manifest["source"]["sha256"]
-    assert {"fabric-metadata-target-dependencies", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
-    assert "Identifier" in (output / "src/main/java/com/example/ExampleMod.java").read_text()
+    assert manifest["source"]["mod_id"] == "mod-id"
+    assert json.loads((output / "src/main/resources/fabric.mod.json").read_text())["id"] == "mod-id"
+    assert {"fabric-metadata-target-dependencies", "fabric-preserve-unsplit-source-layout", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
+    java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
+    assert "Identifier" in java
+    assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
+    assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
+    assert ".gui.hud.setOverlayMessage(" in java
+    assert "Minecraft.getInstance().gui.hud.isHidden()" in java
+    assert "state.lightCoords, camera)" in java
+    assert "state.lightCoords, state.distanceToCameraSq, camera)" not in java
+    assert "Vec3.atCenterOf(pos)" in java
+    assert "SwingAnimation.DEFAULT" in java
+    assert "ServerboundSwingPacket" not in java
+    expected_java_rules = {
+        "minecraft-26.3-glfw-key-to-inputconstants",
+        "minecraft-gui-set-screen",
+        "minecraft-gui-screen-accessor",
+        "minecraft-gui-to-hud-overlay",
+        "minecraft-options-hide-gui-to-hud-hidden",
+        "minecraft-26.2-submit-name-tag-drop-distance",
+        "minecraft-26.2-blockpos-center-to-vec3",
+        "minecraft-26.3-swing-animation-argument",
+        "minecraft-26.3-remove-serverbound-swing-packet",
+    }
+    assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
+    assert (output / "src/main/resources/mod-id.accesswidener").read_text().strip() == "accessWidener\tv1  official"
+    assert "fabric-empty-access-widener-official-namespace" in manifest["applied_rule_ids"]
     assert "gradle-9.6.0-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
+    target_props = (output / "gradle.properties").read_text()
+    assert "minecraft_version=26.3" in target_props
+    assert "modmenu_version=11.0.1" in target_props and "custom_flag=enabled" in target_props
+    preserved = (output / "northpoint-preserved.gradle").read_text()
+    assert "https://maven.terraformersmc.com/releases" in preserved
+    assert "com.terraformersmc:modmenu:${project.modmenu_version}" in preserved
+    assert "com.mojang:minecraft:" not in preserved
+    assert "net.fabricmc:fabric-loader:" not in preserved
+    assert "mappings " not in preserved
+    assert "net.fabricmc:yarn:" not in preserved
+    target_build = (output / "build.gradle").read_text()
+    assert "splitEnvironmentSourceSets()" not in target_build
+    assert "sourceSet sourceSets.client" not in target_build
+    assert 'apply from: file("northpoint-preserved.gradle")' in target_build
+    assert (output / "gradle/libs.versions.toml").is_file()
+    assert (output / "libs/local-helper.jar").is_file()
+    assert (output / "buildSrc/src/main/groovy/BuildHelpers.groovy").is_file()
+    assert set(manifest["preserved_gradle_properties"]) >= {"modmenu_version", "custom_flag"}
+    assert manifest["preserved_build_files"]["gradle"] == 1
+    assert manifest["preserved_build_files"]["libs"] == 1
+    assert manifest["preserved_build_files"]["buildSrc"] == 1
+    assert manifest["preserved_gradle_blocks"] == {"repositories": 1, "dependencies": 1}
 
 
 def neoforge_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
