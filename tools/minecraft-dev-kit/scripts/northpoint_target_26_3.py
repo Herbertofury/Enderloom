@@ -787,6 +787,28 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if authlib_count:
             file_rules.append(("minecraft-26.3-authlib-service-package-relocations", authlib_count))
 
+        # Authlib 10 replaced the single-proxy Yggdrasil service constructor with
+        # MinecraftServicesDiscoveryService.create(proxy). The downstream token factories
+        # retain createUserApiService/createFriendsService, so this exact pattern is safe.
+        changed, discovery_count = re.subn(
+            r"\bYggdrasilAuthenticationService\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*new\s+YggdrasilAuthenticationService\(\s*([^;\n]+?)\s*\)\s*;",
+            lambda match: (
+                f"MinecraftServicesDiscoveryService {match.group(1)} = "
+                f"MinecraftServicesDiscoveryService.create({match.group(2).strip()});"
+            ),
+            changed,
+        )
+        if discovery_count:
+            changed = _ensure_java_import(changed, "com.mojang.authlib.services.MinecraftServicesDiscoveryService")
+            without_yggdrasil_import = re.sub(
+                r"(?m)^\s*import\s+com\.mojang\.authlib\.yggdrasil\.YggdrasilAuthenticationService;\s*\n",
+                "",
+                changed,
+            )
+            if not re.search(r"\bYggdrasilAuthenticationService\b", without_yggdrasil_import):
+                changed = without_yggdrasil_import
+            file_rules.append(("minecraft-26.3-authlib-discovery-service-constructor", discovery_count))
+
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
             ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
