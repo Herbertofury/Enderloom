@@ -505,6 +505,8 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
 
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
+            ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
+            ("minecraft-options-hide-gui-to-hud-hidden", r"\b(this\.minecraft|client|minecraft|mc)\.options\.hideGui\b", r"\1.gui.hud.isHidden()"),
             ("minecraft-gui-set-screen", r"\bMinecraft\.getInstance\(\)\.setScreen\(", "Minecraft.getInstance().gui.setScreen("),
             ("minecraft-gui-screen-accessor", r"\bMinecraft\.getInstance\(\)\.screen\b(?!\s*\()", "Minecraft.getInstance().gui.screen()"),
             ("minecraft-gui-set-screen", r"\b(this\.minecraft|client|minecraft|mc)\.setScreen\(", r"\1.gui.setScreen("),
@@ -536,6 +538,15 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if swing_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.item.component.SwingAnimation")
             file_rules.append(("minecraft-26.3-swing-animation-argument", swing_count))
+
+        # 26.2 removed the distance-to-camera argument from deferred name-tag submission.
+        changed, nametag_count = re.subn(
+            r"(submitNameTag\([^;\n]*?),\s*[A-Za-z_$][A-Za-z0-9_$.]*\.distanceToCameraSq\s*,\s*([A-Za-z_$][A-Za-z0-9_$]*)\s*\)",
+            r"\1, \2)",
+            changed,
+        )
+        if nametag_count:
+            file_rules.append(("minecraft-26.2-submit-name-tag-drop-distance", nametag_count))
 
         # 26.3 removed ServerboundSwingPacket. The new swing(..., SwingAnimation, sync)
         # path owns synchronization, so the explicit legacy packet is redundant and invalid.
