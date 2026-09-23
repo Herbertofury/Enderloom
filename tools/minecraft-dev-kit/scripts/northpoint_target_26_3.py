@@ -180,6 +180,180 @@ def carry_resources(source: pathlib.Path, output: pathlib.Path, loader: str) -> 
     return copied
 
 
+
+TARGET_OWNED_GRADLE_PROPERTIES = {
+    "minecraft_version", "minecraft_version_range", "loader_version", "loader_version_range",
+    "loom_version", "fabric_api_version", "neo_version", "parchment_minecraft_version",
+    "parchment_mappings_version", "mod_id", "mod_name", "mod_license", "mod_version",
+    "mod_group_id", "maven_group", "archives_base_name",
+}
+CORE_DEPENDENCY_MARKERS = (
+    "com.mojang:minecraft:",
+    "net.fabricmc:fabric-loader:",
+    "net.fabricmc.fabric-api:fabric-api:",
+)
+
+
+def merge_gradle_properties(source: pathlib.Path, output: pathlib.Path) -> list[str]:
+    src = source / "gradle.properties"
+    dst = output / "gradle.properties"
+    if not src.is_file() or not dst.is_file():
+        return []
+    target_props = parse_properties(dst)
+    preserved: list[str] = []
+    additions: list[str] = []
+    for raw in src.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw.strip()
+        if not line or line.startswith(("#", "!")):
+            continue
+        sep = "=" if "=" in line else ":" if ":" in line else None
+        if not sep:
+            continue
+        key, _ = line.split(sep, 1)
+        key = key.strip()
+        if key in TARGET_OWNED_GRADLE_PROPERTIES or key in target_props:
+            continue
+        additions.append(raw)
+        preserved.append(key)
+    if additions:
+        text = dst.read_text(encoding="utf-8", errors="replace").rstrip()
+        text += "\n\n# Preserved from legacy source by Northpoint\n" + "\n".join(additions) + "\n"
+        dst.write_text(text, encoding="utf-8")
+    return preserved
+
+
+def _copy_support_tree(source: pathlib.Path, output: pathlib.Path, rel: str, *, skip_prefixes: tuple[str, ...] = ()) -> int:
+    root = source / rel
+    if not root.is_dir():
+        return 0
+    count = 0
+    for path in sorted(p for p in root.rglob("*") if p.is_file()):
+        child = path.relative_to(root).as_posix()
+        if any(child == prefix or child.startswith(prefix.rstrip("/") + "/") for prefix in skip_prefixes):
+            continue
+        copy_file(path, output / rel / child)
+        count += 1
+    return count
+
+
+def carry_build_support_files(source: pathlib.Path, output: pathlib.Path) -> dict[str, int]:
+    copied: dict[str, int] = {}
+    specs = (
+        ("libs", ()),
+        ("gradle", ("wrapper",)),
+        ("buildSrc", ()),
+        ("build-logic", ()),
+    )
+    for rel, skips in specs:
+        count = _copy_support_tree(source, output, rel, skip_prefixes=skips)
+        if count:
+            copied[rel] = count
+    return copied
+
+
+def _brace_delta(line: str) -> int:
+    depth = 0
+    quote: str | None = None
+    escaped = False
+    i = 0
+    while i < len(line):
+        ch = line[i]
+        nxt = line[i + 1] if i + 1 < len(line) else ""
+        if quote:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == quote:
+                quote = None
+            i += 1
+            continue
+        if ch in {"'", '"'}:
+            quote = ch
+            i += 1
+            continue
+        if ch == "/" and nxt == "/":
+            break
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        i += 1
+    return depth
+
+
+def extract_gradle_blocks(text: str, names: set[str]) -> list[tuple[str, str]]:
+    lines = text.splitlines()
+    out: list[tuple[str, str]] = []
+    i = 0
+    while i < len(lines):
+        match = re.match(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*\{", lines[i])
+        if not match or match.group(1) not in names:
+            i += 1
+            continue
+        name = match.group(1)
+        block = [lines[i]]
+        depth = _brace_delta(lines[i])
+        i += 1
+        while i < len(lines) and depth > 0:
+            block.append(lines[i])
+            depth += _brace_delta(lines[i])
+            i += 1
+        if depth == 0:
+            out.append((name, "\n".join(block)))
+    return out
+
+
+def _filter_dependency_block(block: str) -> str | None:
+    lines = block.splitlines()
+    kept: list[str] = []
+    removed = 0
+    for line in lines:
+        if any(marker in line for marker in CORE_DEPENDENCY_MARKERS):
+            removed += 1
+            continue
+        kept.append(line)
+    body = "\n".join(kept)
+    if not re.search(r"(?m)^\s*[^}/\s].+", body):
+        return None
+    return body
+
+
+def preserve_gradle_build_fragments(source: pathlib.Path, output: pathlib.Path) -> dict[str, int]:
+    source_build = source / "build.gradle"
+    target_build = output / "build.gradle"
+    if not source_build.is_file() or not target_build.is_file():
+        return {}
+    blocks = extract_gradle_blocks(
+        source_build.read_text(encoding="utf-8", errors="replace"),
+        {"repositories", "dependencies"},
+    )
+    fragments: list[str] = []
+    counts = {"repositories": 0, "dependencies": 0}
+    for name, block in blocks:
+        if name == "dependencies":
+            block = _filter_dependency_block(block)
+            if not block:
+                continue
+        fragments.append(block)
+        counts[name] += 1
+    if not fragments:
+        return {}
+    fragment_path = output / "northpoint-preserved.gradle"
+    fragment_path.write_text(
+        "// Preserved source build metadata. Target loader/Minecraft pins remain authoritative.\n\n"
+        + "\n\n".join(fragments).rstrip()
+        + "\n",
+        encoding="utf-8",
+    )
+    target = target_build.read_text(encoding="utf-8", errors="replace").rstrip()
+    apply_line = 'apply from: file("northpoint-preserved.gradle")'
+    if apply_line not in target:
+        target += "\n\n// Northpoint zero-loss source build metadata\n" + apply_line + "\n"
+        target_build.write_text(target, encoding="utf-8")
+    return {k: v for k, v in counts.items() if v}
+
+
 def carry_wrapper(source: pathlib.Path, output: pathlib.Path) -> list[str]:
     carried: list[str] = []
     for rel in ("gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.jar"):
@@ -340,6 +514,9 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     copied_sources = replace_source_roots(source, output)
     copied_resources = carry_resources(source, output, loader)
     wrapper_files = carry_wrapper(source, output)
+    preserved_gradle_properties = merge_gradle_properties(source, output)
+    preserved_build_files = carry_build_support_files(source, output)
+    preserved_gradle_blocks = preserve_gradle_build_fragments(source, output)
     applied: list[dict[str, Any]] = []
     if loader == "fabric":
         for rule in migrate_fabric_metadata(source, output):
@@ -368,6 +545,9 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
         "copied_source_roots": copied_sources,
         "copied_resource_roots": copied_resources,
         "wrapper_files": wrapper_files,
+        "preserved_gradle_properties": preserved_gradle_properties,
+        "preserved_build_files": preserved_build_files,
+        "preserved_gradle_blocks": preserved_gradle_blocks,
         "applied_rewrites": applied,
         "applied_rule_ids": sorted({str(row.get("rule")) for row in applied}),
         "unresolved_semantics_evidence": "devkit-evidence/semantic-port-plan.json",
