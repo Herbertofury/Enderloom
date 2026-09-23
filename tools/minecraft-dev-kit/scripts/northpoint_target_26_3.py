@@ -365,6 +365,36 @@ def carry_wrapper(source: pathlib.Path, output: pathlib.Path) -> list[str]:
     return carried
 
 
+
+def adapt_fabric_source_layout(source: pathlib.Path, output: pathlib.Path) -> list[dict[str, Any]]:
+    # Legacy/conventional Fabric projects commonly keep client and common code together in
+    # src/main. Loom's splitEnvironmentSourceSets() intentionally removes client Minecraft
+    # classes from the main compile classpath, so enabling it during conversion would break
+    # an otherwise valid source layout. Preserve explicit split projects; keep unsplit ones
+    # unsplit until a semantic migration deliberately separates ownership.
+    has_client_root = any(
+        (source / rel).is_dir()
+        for rel in ("src/client/java", "src/client/kotlin", "src/client/resources")
+    )
+    if has_client_root:
+        return []
+
+    build = output / "build.gradle"
+    if not build.is_file():
+        return []
+    text = build.read_text(encoding="utf-8", errors="replace")
+    changed = re.sub(r"(?m)^\s*splitEnvironmentSourceSets\(\)\s*\n", "", text)
+    changed = re.sub(r"(?m)^\s*sourceSet\s+sourceSets\.client\s*\n", "", changed)
+    if changed == text:
+        return []
+    build.write_text(changed, encoding="utf-8")
+    return [{
+        "rule": "fabric-preserve-unsplit-source-layout",
+        "path": "build.gradle",
+        "source_layout": "src/main",
+    }]
+
+
 def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[str]:
     src_path = source / "src/main/resources/fabric.mod.json"
     dst_path = output / "src/main/resources/fabric.mod.json"
@@ -521,6 +551,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     if loader == "fabric":
         for rule in migrate_fabric_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/resources/fabric.mod.json"})
+        applied.extend(adapt_fabric_source_layout(source, output))
     elif loader == "neoforge":
         for rule in migrate_neoforge_metadata(source, output):
             applied.append({"rule": rule, "path": "src/main/templates/META-INF/neoforge.mods.toml"})
