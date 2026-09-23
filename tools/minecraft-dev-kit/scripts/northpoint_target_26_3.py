@@ -777,7 +777,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # remains the supported clipboard surface.
         text_input_count = 0
         changed, key_name_count = re.subn(
-            r"GLFW\.glfwGetKeyName\(\s*([^,\n]+),\s*[^)\n]+\)",
+            r"GLFW\.glfwGetKeyName\(\s*([^,\n]+),\s*(?:[^()\n]|\([^()\n]*\))+\)",
             lambda match: (
                 f"InputConstants.Type.KEYBOARD.getOrCreate({match.group(1).strip()})"
                 ".getDisplayName().getString()"
