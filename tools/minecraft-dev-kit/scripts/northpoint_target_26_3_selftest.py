@@ -233,7 +233,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 public class ExampleMod {
   ResourceLocation id;
-  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos) {
+  void migrate(net.minecraft.client.Minecraft client, net.minecraft.client.player.LocalPlayer player, BlockPos pos, InteractionHand hand) {
     int key = GLFW.GLFW_KEY_I;
     int press = GLFW.GLFW_PRESS;
     int release = GLFW.GLFW_RELEASE;
@@ -256,6 +256,10 @@ public class ExampleMod {
     ItemStack stack = player.getMainHandItem();
     boolean axe = stack.getItem() instanceof AxeItem;
     player.swing(InteractionHand.MAIN_HAND, true);
+    player.swing(InteractionHand.OFF_HAND);
+    player.swing(hand);
+    boolean polled = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_A);
+    int unknown = InputConstants.KEY_UNKNOWN;
     player.connection.send(new ServerboundSwingPacket(InteractionHand.MAIN_HAND));
   }
 }
@@ -369,7 +373,12 @@ public class ExampleMod {
     assert "state.lightCoords, camera)" in java
     assert "state.lightCoords, state.distanceToCameraSq, camera)" not in java
     assert "Vec3.atCenterOf(pos)" in java
-    assert "SwingAnimation.DEFAULT" in java
+    assert "player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true)" in java
+    assert "player.swing(InteractionHand.OFF_HAND, SwingAnimation.DEFAULT, false)" in java
+    assert "player.swing(hand, SwingAnimation.DEFAULT, false)" in java
+    assert "InputConstants.isKeyDown(InputConstants.KEY_A)" in java
+    assert "InputConstants.UNKNOWN.getValue()" in java
+    assert "InputConstants.KEY_UNKNOWN" not in java
     assert "stack.is(ItemTags.AXES)" in java
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
@@ -392,6 +401,7 @@ public class ExampleMod {
         "minecraft-26.2-submit-name-tag-drop-distance",
         "minecraft-26.2-blockpos-center-to-vec3",
         "minecraft-26.3-swing-animation-argument",
+        "minecraft-26.3-inputconstants-signatures",
         "minecraft-26.3-axeitem-to-item-tag",
         "minecraft-26.3-remove-serverbound-swing-packet",
     }
