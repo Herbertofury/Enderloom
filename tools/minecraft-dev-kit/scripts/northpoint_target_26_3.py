@@ -520,6 +520,11 @@ def _ensure_java_import(text: str, fqcn: str) -> str:
     return statement + "\n" + text
 
 
+SEMANTIC_RESOLUTIONS_BY_REWRITE: dict[str, tuple[str, ...]] = {
+    "minecraft-26.3-screen-renderables-to-super-extract": ("screen-private-renderables-access",),
+}
+
+
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted(output.rglob("*.java")):
@@ -560,6 +565,31 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if center_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.phys.Vec3")
             file_rules.append(("minecraft-26.2-blockpos-center-to-vec3", center_count))
+
+        # Screen.renderables is private on 26.3. For the exact legacy loop whose only
+        # behavior is forwarding extractRenderState to every base Screen renderable,
+        # super.extractRenderState(...) is behavior-equivalent to the 26.3 Screen implementation.
+        is_screen_subclass = re.search(
+            r"\bclass\s+[A-Za-z_$][A-Za-z0-9_$]*[^{\n]*\bextends\s+[A-Za-z0-9_$.]*Screen\b",
+            changed,
+        )
+        if is_screen_subclass:
+            loop_pattern = re.compile(
+                r"(?ms)^(?P<indent>[ \t]*)for\s*\(\s*Renderable\s+(?P<var>[A-Za-z_$][A-Za-z0-9_$]*)"
+                r"\s*:\s*this\.renderables\s*\)\s*\{\s*(?P=var)\.extractRenderState\("
+                r"(?P<args>[^;{}]+)\)\s*;\s*\}"
+            )
+
+            def _screen_loop_replacement(match: re.Match[str]) -> str:
+                return f"{match.group('indent')}super.extractRenderState({match.group('args').strip()});"
+
+            changed, screen_loop_count = loop_pattern.subn(_screen_loop_replacement, changed)
+            if screen_loop_count:
+                renderable_import_pattern = r"(?m)^\s*import\s+net\.minecraft\.client\.gui\.components\.Renderable;\s*\n"
+                without_renderable_import = re.sub(renderable_import_pattern, "", changed)
+                if not re.search(r"\bRenderable\b", without_renderable_import):
+                    changed = without_renderable_import
+                file_rules.append(("minecraft-26.3-screen-renderables-to-super-extract", screen_loop_count))
 
         # 26.3 removed AxeItem; item tags preserve the semantic category and include modded axes.
         changed, axe_count = re.subn(
@@ -608,8 +638,76 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if changed != text:
             path.write_text(changed, encoding="utf-8")
             for rule_id, count in file_rules:
-                rows.append({"rule": rule_id, "path": path.relative_to(output).as_posix(), "count": count})
+                row: dict[str, Any] = {
+                    "rule": rule_id,
+                    "path": path.relative_to(output).as_posix(),
+                    "count": count,
+                }
+                resolves = SEMANTIC_RESOLUTIONS_BY_REWRITE.get(rule_id)
+                if resolves:
+                    row["resolves_semantic"] = list(resolves)
+                rows.append(row)
     return rows
+
+
+def semantic_resolution_complete(output: pathlib.Path, semantic_id: str) -> bool:
+    if semantic_id == "screen-private-renderables-access":
+        hazard = re.compile(
+            r"class\s+\w+[^\n{]*extends\s+[A-Za-z0-9_$.]*Screen\b[\s\S]{0,8000}\bthis\.renderables\b"
+        )
+        for path in sorted(output.rglob("*.java")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            if hazard.search(text):
+                return False
+        return True
+    return False
+
+
+def reconcile_semantic_ledger(output: pathlib.Path, applied: list[dict[str, Any]]) -> list[str]:
+    resolved: dict[str, list[dict[str, Any]]] = {}
+    for row in applied:
+        for semantic_id in row.get("resolves_semantic") or []:
+            resolved.setdefault(str(semantic_id), []).append({
+                "rule": row.get("rule"),
+                "path": row.get("path"),
+                "count": row.get("count", 1),
+            })
+    if not resolved:
+        return []
+
+    ledger_path = output / "porting-ledger.json"
+    if not ledger_path.is_file():
+        return []
+    ledger = read_json(ledger_path)
+    changed = False
+    for item in ledger.get("items") or []:
+        if not isinstance(item, dict):
+            continue
+        item_id = str(item.get("id") or "")
+        if not item_id.startswith("semantic:"):
+            continue
+        semantic_id = item_id.removeprefix("semantic:")
+        evidence = resolved.get(semantic_id)
+        if not evidence or item.get("status") != "missing":
+            continue
+        if not semantic_resolution_complete(output, semantic_id):
+            continue
+        item["status"] = "regenerated"
+        item["target_evidence"] = evidence
+        item["notes"] = f"Resolved by bounded Northpoint 26.3 rewrite(s): {', '.join(sorted({str(x.get('rule')) for x in evidence}))}"
+        changed = True
+    if changed:
+        write_json(ledger_path, ledger)
+    return sorted(
+        semantic_id
+        for semantic_id in resolved
+        if any(
+            isinstance(item, dict)
+            and item.get("id") == f"semantic:{semantic_id}"
+            and item.get("status") == "regenerated"
+            for item in ledger.get("items") or []
+        )
+    )
 
 
 def rewrite_resource_location_java(output: pathlib.Path) -> list[dict[str, Any]]:
@@ -700,6 +798,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
     applied.extend(rewrite_minecraft_26_3_java(output))
     applied.extend(rewrite_resource_location_java(output))
     applied.extend(rewrite_mixin_java_level(output))
+    resolved_semantic_ids = reconcile_semantic_ledger(output, applied)
 
     source_after = tree_digest(source)
     if source_after != source_before:
@@ -723,6 +822,7 @@ def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *,
         "preserved_gradle_blocks": preserved_gradle_blocks,
         "applied_rewrites": applied,
         "applied_rule_ids": sorted({str(row.get("rule")) for row in applied}),
+        "resolved_semantic_ids": resolved_semantic_ids,
         "unresolved_semantics_evidence": "devkit-evidence/semantic-port-plan.json",
         "target_sha256": tree_digest(output),
         "source_unchanged": True,

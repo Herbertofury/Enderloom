@@ -33,8 +33,10 @@ else:
  w('gradle/wrapper/gradle-wrapper.properties','distributionUrl=https\\\\://services.gradle.org/distributions/gradle-9.2.1-bin.zip\\n')
  w('src/main/java/com/example/examplemod/Stub.java','package com.example.examplemod; public class Stub {}\\n')
  w('src/main/templates/META-INF/neoforge.mods.toml','license="${mod_license}"\\n[[mods]]\\nmodId="${mod_id}"\\nversion="${mod_version}"\\ndisplayName="${mod_name}"\\n[[dependencies.${mod_id}]]\\nmodId="neoforge"\\nversionRange="[${neo_version},)"\\n[[dependencies.${mod_id}]]\\nmodId="minecraft"\\nversionRange="${minecraft_version_range}"\\n')
-w('devkit-evidence/semantic-port-plan.json',json.dumps({'tasks':[]},indent=2)+'\\n')
-w('porting-ledger.json',json.dumps({'schema_version':1,'items':[]},indent=2)+'\\n')
+semantic_tasks = [{'id':'screen-private-renderables-access'}] if a.loader == 'fabric' else []
+ledger_items = [{'id':'semantic:screen-private-renderables-access','source_count':1,'status':'missing','target_evidence':None,'notes':'screen renderables migration'}] if a.loader == 'fabric' else []
+w('devkit-evidence/semantic-port-plan.json',json.dumps({'tasks':semantic_tasks},indent=2)+'\\n')
+w('porting-ledger.json',json.dumps({'schema_version':1,'items':ledger_items},indent=2)+'\\n')
 w('devkit-26.3-lock.json',json.dumps({'target':{'minecraft':'26.3','loader':a.loader,'java':25}},indent=2)+'\\n')
 ''')
 
@@ -66,6 +68,19 @@ dependencies {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyScreen.java", """package com.example;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.screens.Screen;
+class LegacyScreen extends Screen {
+  @Override
+  public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+    for (Renderable drawable : this.renderables) {
+      drawable.extractRenderState(context, mouseX, mouseY, delta);
+    }
+  }
+}
+""")
     write(source / "src/main/java/com/example/ExampleMod.java", """package com.example;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
@@ -123,6 +138,16 @@ public class ExampleMod {
         "minecraft-26.3-remove-serverbound-swing-packet",
     }
     assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
+    screen_java = (output / "src/main/java/com/example/LegacyScreen.java").read_text()
+    assert "super.extractRenderState(context, mouseX, mouseY, delta);" in screen_java
+    assert "this.renderables" not in screen_java
+    assert "net.minecraft.client.gui.components.Renderable" not in screen_java
+    assert "minecraft-26.3-screen-renderables-to-super-extract" in manifest["applied_rule_ids"]
+    assert manifest["resolved_semantic_ids"] == ["screen-private-renderables-access"]
+    ledger = json.loads((output / "porting-ledger.json").read_text())
+    screen_item = next(x for x in ledger["items"] if x["id"] == "semantic:screen-private-renderables-access")
+    assert screen_item["status"] == "regenerated"
+    assert screen_item["target_evidence"][0]["rule"] == "minecraft-26.3-screen-renderables-to-super-extract"
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
     assert (output / "src/main/resources/mod-id.accesswidener").read_text().strip() == "accessWidener\tv1  official"
     assert "fabric-empty-access-widener-official-namespace" in manifest["applied_rule_ids"]
@@ -149,6 +174,38 @@ public class ExampleMod {
     assert manifest["preserved_build_files"]["libs"] == 1
     assert manifest["preserved_build_files"]["buildSrc"] == 1
     assert manifest["preserved_gradle_blocks"] == {"repositories": 1, "dependencies": 1}
+
+
+def fabric_complex_screen_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
+    source, output = root / "fabric-complex-source", root / "fabric-complex-target"
+    write(source / "gradle.properties", "minecraft_version=26.2\nversion=1.0.0\ngroup=com.example\n")
+    write(source / "src/main/resources/fabric.mod.json", json.dumps({
+        "schemaVersion": 1, "id": "complexscreen", "version": "1.0.0", "name": "Complex Screen",
+        "depends": {"fabricloader": ">=0.19.3", "minecraft": "~26.2", "java": ">=25"},
+    }, indent=2) + "\n")
+    write(source / "src/main/java/com/example/ComplexScreen.java", """package com.example;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.screens.Screen;
+class ComplexScreen extends Screen {
+  @Override
+  public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+    for (Renderable drawable : this.renderables) {
+      before(drawable);
+      drawable.extractRenderState(context, mouseX, mouseY, delta);
+    }
+  }
+  void before(Renderable drawable) {}
+}
+""")
+    manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
+    java = (output / "src/main/java/com/example/ComplexScreen.java").read_text()
+    assert "this.renderables" in java
+    assert "minecraft-26.3-screen-renderables-to-super-extract" not in manifest["applied_rule_ids"]
+    assert manifest["resolved_semantic_ids"] == []
+    ledger = json.loads((output / "porting-ledger.json").read_text())
+    screen_item = next(x for x in ledger["items"] if x["id"] == "semantic:screen-private-renderables-access")
+    assert screen_item["status"] == "missing"
 
 
 def neoforge_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
@@ -232,6 +289,7 @@ def main() -> int:
         pipeline = root / "fake_port_pipeline.py"
         fake_pipeline(pipeline)
         fabric_case(root, pipeline)
+        fabric_complex_screen_case(root, pipeline)
         neoforge_case(root, pipeline)
     print("Northpoint 26.3 target materialization self-test: PASS")
     return 0
