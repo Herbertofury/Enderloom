@@ -10,7 +10,7 @@ permissions:
   contents: read
 concurrency:
   group: devkit-native-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   fabric-production:
     runs-on: ubuntu-latest

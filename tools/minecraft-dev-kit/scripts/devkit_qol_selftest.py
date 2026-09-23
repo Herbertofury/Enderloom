@@ -51,7 +51,10 @@ class QoL(unittest.TestCase):
     def test_archive_zip_slip(self):
         for name in ['../escape','/absolute','C:/drive','folder\\escape','safe/file:ads']:
             p=self.root/'evil.zip'
-            with zipfile.ZipFile(p,'w') as z:z.writestr(name,'bad')
+            entry = zipfile.ZipInfo('placeholder')
+            entry.filename = entry.orig_filename = name
+            with zipfile.ZipFile(p,'w') as z:z.writestr(entry,'bad')
+            with zipfile.ZipFile(p) as z:self.assertEqual(z.infolist()[0].orig_filename, name)
             with self.assertRaises(ValueError):tc.safe_extract(p,self.root/'out')
         self.assertFalse((self.root/'escape').exists())
     def test_archive_tar_link(self):
@@ -78,7 +81,6 @@ class QoL(unittest.TestCase):
                ('1.2.0','1.x',True),('0.2.5','^0.2.1',True),('0.3.0','^0.2.1',True),
                ('2.0.0',['<1','>=2'],True),('1.0.0-beta.2','>=1.0.0',False),
                ('1.0.0-beta.11','>1.0.0-beta.2',True),('1.0.0','>=not-semver',None)]
-        # Fabric same-major is not npm's zero-major caret semantics.
         cases += [('26.3','~26.3-',True),('26.3-rc.1','~26.3-',True),
                   ('26.4-alpha','~26.3-',False),('1.9','~1',False)]
         for version,rule,result in cases:self.assertIs(dep.satisfies(version,rule),result,(version,rule))

@@ -90,7 +90,7 @@ def safe_extract(archive: Path, destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=True)
     def check(name):
         p = PurePosixPath(name)
-        if '\\' in name or p.is_absolute() or '..' in p.parts or any(':' in part for part in p.parts):
+        if '\x00' in name or '\\' in name or p.is_absolute() or '..' in p.parts or any(':' in part for part in p.parts):
             raise ValueError('unsafe archive member: ' + name)
         target = (destination / name).resolve()
         if not target.is_relative_to(destination.resolve()):
@@ -99,6 +99,7 @@ def safe_extract(archive: Path, destination: Path) -> None:
     if zipfile.is_zipfile(archive):
         with zipfile.ZipFile(archive) as source:
             for item in source.infolist():
+                check(item.orig_filename)
                 check(item.filename)
                 if stat.S_ISLNK(item.external_attr >> 16):
                     raise ValueError('ZIP symbolic links are not accepted')

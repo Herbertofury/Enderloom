@@ -1,3 +1,7 @@
 #!/bin/sh
 set -eu
-exec python3 "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/scripts/devkit.py" "$@"
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+ENTRY="$ROOT/scripts/devkit.py"
+if [ -f "$ROOT/worker/scripts/devkit.py" ]; then ENTRY="$ROOT/worker/scripts/devkit.py"; fi
+if [ "$#" -eq 0 ]; then set -- wizard; fi
+exec python3 "$ENTRY" "$@"
