@@ -738,6 +738,40 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-glfw-key-to-inputconstants", key_count))
 
+        # 26.3 replaced GLFW keyboard polling/action codes with SDL-backed InputConstants.
+        # These are one-to-one input semantics; cursor, clipboard, and key-name APIs are
+        # intentionally left for separate migrations.
+        input_core_count = 0
+        changed, poll_count = re.subn(
+            r"GLFW\.glfwGetKey\(\s*[^,\n]+,\s*([^)\n]+)\)\s*==\s*GLFW\.GLFW_PRESS",
+            lambda match: f"InputConstants.isKeyDown({match.group(1).strip()})",
+            changed,
+        )
+        input_core_count += poll_count
+
+        input_replacements = {
+            "GLFW.GLFW_PRESS": "InputConstants.PRESS",
+            "GLFW.GLFW_RELEASE": "InputConstants.RELEASE",
+            "GLFW.GLFW_REPEAT": "InputConstants.REPEAT",
+            "InputConstants.Type.KEYSYM": "InputConstants.Type.KEYBOARD",
+            "InputConstants.KEY_LEFT_SHIFT": "InputConstants.KEY_LSHIFT",
+            "InputConstants.KEY_RIGHT_SHIFT": "InputConstants.KEY_RSHIFT",
+            "InputConstants.KEY_LEFT_CONTROL": "InputConstants.KEY_LCONTROL",
+            "InputConstants.KEY_RIGHT_CONTROL": "InputConstants.KEY_RCONTROL",
+            "InputConstants.KEY_ENTER": "InputConstants.KEY_RETURN",
+        }
+        for old_value, new_value in input_replacements.items():
+            count = changed.count(old_value)
+            if count:
+                changed = changed.replace(old_value, new_value)
+                input_core_count += count
+
+        if input_core_count:
+            changed = _ensure_java_import(changed, "com.mojang.blaze3d.platform.InputConstants")
+            if "GLFW." not in changed:
+                changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
+            file_rules.append(("minecraft-26.3-sdl-input-core", input_core_count))
+
         # 26.2 moved current-screen ownership from Minecraft to Gui.
         replacements = [
             ("minecraft-options-hide-gui-to-hud-hidden", r"\bMinecraft\.getInstance\(\)\.options\.hideGui\b", "Minecraft.getInstance().gui.hud.isHidden()"),
