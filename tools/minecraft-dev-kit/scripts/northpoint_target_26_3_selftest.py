@@ -107,6 +107,16 @@ class LegacyRenderApi {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyAuthlib.java", """package com.example;
+import com.mojang.authlib.yggdrasil.ProfileResult;
+import com.mojang.authlib.yggdrasil.FriendsService;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+class LegacyAuthlib {
+  ProfileResult profile;
+  FriendsService friends;
+  YggdrasilAuthenticationService service;
+}
+""")
     write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
 import net.minecraft.client.input.KeyEvent;
 class LegacyInput {
@@ -208,6 +218,13 @@ public class ExampleMod {
     assert 'pass.bindTexture("Sampler0", null, null);' in render_java
     assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
+    auth_java = (output / "src/main/java/com/example/LegacyAuthlib.java").read_text()
+    assert "com.mojang.authlib.services.ProfileResult" in auth_java
+    assert "com.mojang.authlib.services.FriendsService" in auth_java
+    assert "com.mojang.authlib.yggdrasil.ProfileResult" not in auth_java
+    assert "com.mojang.authlib.yggdrasil.FriendsService" not in auth_java
+    assert "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService" in auth_java
+    assert "minecraft-26.3-authlib-service-package-relocations" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -242,6 +259,7 @@ public class ExampleMod {
     expected_java_rules = {
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
+        "minecraft-26.3-authlib-service-package-relocations",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-26.3-sdl-input-core",
