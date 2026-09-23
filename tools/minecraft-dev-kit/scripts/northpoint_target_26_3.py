@@ -1115,13 +1115,14 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # 26.3 EntityRenderDispatcher#shouldRender gained partial ticks. When a
         # method already computes a single partial-tick float, preserve that exact timing.
         should_render_count = 0
-        partial_tick_names = set(
-            re.findall(
-                r"\bfloat\s+([A-Za-z_$][A-Za-z0-9_$]*partialTicks?[A-Za-z0-9_$]*)\s*=",
+        partial_tick_names = {
+            name
+            for name in re.findall(
+                r"\bfloat\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=",
                 changed,
-                flags=re.IGNORECASE,
             )
-        )
+            if "partialtick" in name.lower()
+        }
         if len(partial_tick_names) == 1:
             partial_tick_name = next(iter(partial_tick_names))
             should_pattern = re.compile(
@@ -1157,6 +1158,28 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             record_accessor_count += count
         if record_accessor_count:
             file_rules.append(("minecraft-26.3-final-record-mixin-accessor-cast", record_accessor_count))
+
+        # 26.3 BonemealableBlock calls identify whether bone meal came from
+        # player interaction or a mob. Preserve client/player crop probes as INTERACTION.
+        bonemeal_count = 0
+        crop_names = set(
+            re.findall(r"\bCropBlock\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for crop_name in sorted(crop_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\b{re.escape(crop_name)}\.isBonemealSuccess\(\s*"
+                r"([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
+                lambda match: (
+                    f"{crop_name}.isBonemealSuccess("
+                    + ", ".join(group.strip() for group in match.groups())
+                    + ", BonemealSource.INTERACTION)"
+                ),
+                changed,
+            )
+            bonemeal_count += count
+        if bonemeal_count:
+            changed = _ensure_java_import(changed, "net.minecraft.world.level.block.BonemealSource")
+            file_rules.append(("minecraft-26.3-bonemeal-source-interaction", bonemeal_count))
 
         # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
         # Service construction is a separate semantic migration and is intentionally excluded.
@@ -1199,7 +1222,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # simplified OptionsScreen construction.
         platform_count = 0
         changed, uri_count = re.subn(
-            r"Util\.getPlatform\(\)\.openUri\(([^;\n]+)\)",
+            r"(?s)Util\.getPlatform\(\)\.openUri\(\s*((?:[^();]|\([^();]*\))+?)\s*\)",
             lambda match: f"Blaze3D.openUri(URI.create({match.group(1).strip()}))",
             changed,
         )
@@ -1291,7 +1314,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # (origin, x, y, z) overload traversed the whole clipped box in Manhattan order;
         # withinBoxByManhattanDistance is the exact replacement.
         changed, manhattan_count = re.subn(
-            r"BlockPos\.withinManhattan\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
+            r"BlockPos\s*\.\s*withinManhattan\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*([^)\n]+)\)",
             lambda match: (
                 "BlockPos.withinBoxByManhattanDistance("
                 + ", ".join(part.strip() for part in match.groups())
