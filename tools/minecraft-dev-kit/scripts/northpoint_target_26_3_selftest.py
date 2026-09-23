@@ -65,6 +65,7 @@ dependencies {
         "depends": {"fabricloader": ">=0.16.0", "minecraft": "~1.21", "java": ">=21", "fabric-api": "*"},
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
+    write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
     write(source / "src/main/java/com/example/ExampleMod.java", """package com.example;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
@@ -116,6 +117,8 @@ public class ExampleMod {
     }
     assert expected_java_rules <= set(manifest["applied_rule_ids"]), manifest["applied_rule_ids"]
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
+    assert (output / "src/main/resources/mod-id.accesswidener").read_text().strip() == "accessWidener\tv1  official"
+    assert "fabric-empty-access-widener-official-namespace" in manifest["applied_rule_ids"]
     assert "gradle-9.6.0-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
     target_props = (output / "gradle.properties").read_text()
     assert "minecraft_version=26.3" in target_props
