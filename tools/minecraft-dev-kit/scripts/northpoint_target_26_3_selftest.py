@@ -111,10 +111,16 @@ class LegacyRenderApi {
 import com.mojang.authlib.yggdrasil.ProfileResult;
 import com.mojang.authlib.yggdrasil.FriendsService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.mojang.authlib.minecraft.UserApiService;
+import java.net.Proxy;
 class LegacyAuthlib {
   ProfileResult profile;
   FriendsService friends;
-  YggdrasilAuthenticationService service;
+  void rebuild(Proxy proxy, String token) {
+    YggdrasilAuthenticationService service = new YggdrasilAuthenticationService(proxy);
+    UserApiService api = service.createUserApiService(token);
+    FriendsService currentFriends = service.createFriendsService(token);
+  }
 }
 """)
     write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
@@ -223,8 +229,13 @@ public class ExampleMod {
     assert "com.mojang.authlib.services.FriendsService" in auth_java
     assert "com.mojang.authlib.yggdrasil.ProfileResult" not in auth_java
     assert "com.mojang.authlib.yggdrasil.FriendsService" not in auth_java
-    assert "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService" in auth_java
+    assert "com.mojang.authlib.services.MinecraftServicesDiscoveryService" in auth_java
+    assert "MinecraftServicesDiscoveryService service = MinecraftServicesDiscoveryService.create(proxy);" in auth_java
+    assert "service.createUserApiService(token)" in auth_java
+    assert "service.createFriendsService(token)" in auth_java
+    assert "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService" not in auth_java
     assert "minecraft-26.3-authlib-service-package-relocations" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-authlib-discovery-service-constructor" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -260,6 +271,7 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-authlib-service-package-relocations",
+        "minecraft-26.3-authlib-discovery-service-constructor",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-26.3-sdl-input-core",
