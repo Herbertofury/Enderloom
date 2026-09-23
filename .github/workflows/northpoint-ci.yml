@@ -101,12 +101,6 @@ jobs:
           distribution: temurin
           java-version: "25"
 
-      - name: Northpoint full 26.3 conversion engine QA
-        run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
-
-      - name: Northpoint 26.3 target materialization QA
-        run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
-
       - name: Official Fabric 1.21 to 26.3 production conversion
         run: >-
           python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
@@ -143,6 +137,27 @@ jobs:
           --loader neoforge
           --java 25
           --timeout 600
+
+  port-engine-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Northpoint full 26.3 conversion engine QA
+        run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
+
+      - name: Northpoint 26.3 target materialization QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
 
   neoforge-conversion:
     runs-on: ubuntu-latest

@@ -220,6 +220,17 @@
       "qa": ["datagen", "server", "integrated"]
     },
     {
+      "id": "abstract-selection-list-top-level-entry",
+      "category": "ui",
+      "loader": "any",
+      "severity": "blocker",
+      "kind": "content_regex",
+      "pattern": "^(?:public\\s+)?(?:final\\s+|abstract\\s+)?class\\s+\\w+[^\\n{]*extends\\s+AbstractSelectionList\\.Entry\\s*<",
+      "replacement": "Minecraft 26.3 makes AbstractSelectionList.Entry a protected subclass surface. A top-level entry cannot extend it directly. Nest the entry inside the owning list subclass, or migrate to public ContainerObjectSelectionList.Entry while preserving the real child GuiEventListener/narratable widgets. Never inject empty children()/narratables() when the source owns interactive controls.",
+      "automation": "semantic-structure",
+      "qa": ["build", "native-client", "input", "visual"]
+    },
+    {
       "id": "forge-to-neoforge-package-migration",
       "category": "loader-api",
       "loader": "neoforge",
