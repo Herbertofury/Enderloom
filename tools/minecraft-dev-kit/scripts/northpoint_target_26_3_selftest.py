@@ -215,6 +215,41 @@ class LegacyTextInput {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyVisibility.java", """package com.example;
+class LegacyVisibility {
+  boolean visible(Dispatcher dispatcher, Object entity, Object frustum, Camera camera) {
+    float partialTicks = 0.5f;
+    return dispatcher.shouldRender(entity, frustum, camera.x(), camera.y(), camera.z());
+  }
+  static class Dispatcher {
+    boolean shouldRender(Object e, Object f, double x, double y, double z) { return true; }
+  }
+  record Camera(double x, double y, double z) {}
+}
+""")
+    write(source / "src/main/java/com/example/LegacyContainerCopies.java", """package com.example;
+class LegacyContainerCopies {
+  Object copies(ItemContainerContents contents) {
+    return contents.allItemsCopyStream().toList();
+  }
+  static class ItemContainerContents {
+    Object allItemsCopyStream() { return null; }
+  }
+}
+""")
+    write(source / "src/main/java/com/example/IUseItemAccessor.java", """package com.example;
+import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
+import org.spongepowered.asm.mixin.Mixin;
+@Mixin(ServerboundUseItemPacket.class)
+public interface IUseItemAccessor {}
+""")
+    write(source / "src/main/java/com/example/LegacyRecordCast.java", """package com.example;
+class LegacyRecordCast {
+  void cast(Object packet) {
+    IUseItemAccessor accessor = (IUseItemAccessor) packet;
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyAuthlib.java", """package com.example;
 import com.mojang.authlib.yggdrasil.ProfileResult;
 import com.mojang.authlib.yggdrasil.FriendsService;
@@ -409,6 +444,16 @@ public class ExampleMod {
     assert "InputConstants.Type.KEYBOARD.getOrCreate(key).getDisplayName().getString()" in text_input_java
     assert "org.lwjgl.glfw.GLFW" not in text_input_java
     assert "minecraft-26.3-glfw-text-input-helpers" in manifest["applied_rule_ids"]
+    visibility_java = (output / "src/main/java/com/example/LegacyVisibility.java").read_text()
+    assert "camera.z(), partialTicks)" in visibility_java
+    copies_java = (output / "src/main/java/com/example/LegacyContainerCopies.java").read_text()
+    assert ".itemCopies().toList()" in copies_java
+    assert ".allItemsCopyStream()" not in copies_java
+    record_cast_java = (output / "src/main/java/com/example/LegacyRecordCast.java").read_text()
+    assert "(IUseItemAccessor) (Object) packet" in record_cast_java
+    assert "minecraft-26.3-entity-should-render-partial-tick" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-item-container-item-copies" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-final-record-mixin-accessor-cast" in manifest["applied_rule_ids"]
     auth_java = (output / "src/main/java/com/example/LegacyAuthlib.java").read_text()
     assert "com.mojang.authlib.services.ProfileResult" in auth_java
     assert "com.mojang.authlib.services.FriendsService" in auth_java
@@ -480,6 +525,9 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-renderpearl-compiled-pipeline",
+        "minecraft-26.3-entity-should-render-partial-tick",
+        "minecraft-26.3-item-container-item-copies",
+        "minecraft-26.3-final-record-mixin-accessor-cast",
         "minecraft-26.3-authlib-service-package-relocations",
         "minecraft-26.3-authlib-discovery-service-constructor",
         "minecraft-26.3-platform-and-options-signatures",
