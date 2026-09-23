@@ -139,10 +139,11 @@ class LegacyCursorInput {
     write(source / "src/main/java/com/example/LegacyTextInput.java", """package com.example;
 import org.lwjgl.glfw.GLFW;
 class LegacyTextInput {
-  String migrate(long window, int key, int scan, String value) {
+  static class Event { int GetScanCode() { return 0; } }
+  String migrate(long window, int key, Event event, String value) {
     GLFW.glfwSetClipboardString(window, value);
     String clipboard = GLFW.glfwGetClipboardString(window);
-    String keyName = GLFW.glfwGetKeyName(key, scan);
+    String keyName = GLFW.glfwGetKeyName(key, event.GetScanCode());
     return clipboard + keyName;
   }
 }
