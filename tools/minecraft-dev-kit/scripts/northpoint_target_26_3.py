@@ -650,6 +650,19 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
     return rows
 
 
+def semantic_resolution_complete(output: pathlib.Path, semantic_id: str) -> bool:
+    if semantic_id == "screen-private-renderables-access":
+        hazard = re.compile(
+            r"class\s+\w+[^\n{]*extends\s+[A-Za-z0-9_$.]*Screen\b[\s\S]{0,8000}\bthis\.renderables\b"
+        )
+        for path in sorted(output.rglob("*.java")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            if hazard.search(text):
+                return False
+        return True
+    return False
+
+
 def reconcile_semantic_ledger(output: pathlib.Path, applied: list[dict[str, Any]]) -> list[str]:
     resolved: dict[str, list[dict[str, Any]]] = {}
     for row in applied:
@@ -676,6 +689,8 @@ def reconcile_semantic_ledger(output: pathlib.Path, applied: list[dict[str, Any]
         semantic_id = item_id.removeprefix("semantic:")
         evidence = resolved.get(semantic_id)
         if not evidence or item.get("status") != "missing":
+            continue
+        if not semantic_resolution_complete(output, semantic_id):
             continue
         item["status"] = "regenerated"
         item["target_evidence"] = evidence
