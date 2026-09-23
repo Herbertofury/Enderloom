@@ -328,6 +328,7 @@ jobs:
           --java 25
           --expect-source-minecraft 26.2
           --expect-rewrite minecraft-26.3-renderpearl-api-relocations
+          --expect-rewrite minecraft-26.3-renderpearl-sampler-uniforms
           --expect-rewrite minecraft-26.3-keyevent-scancode-to-keycode
           --expect-rewrite minecraft-26.3-axeitem-to-item-tag
           --expect-preserved-property sodium_version
