@@ -680,10 +680,10 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         # Minecraft KeyEvent, preventing same-name variables in other scopes from changing.
         method_scopes: list[tuple[int, int, set[str]]] = []
         method_signature = re.compile(
-            r"(?s)\\((?P<params>[^{};]*)\\)\\s*(?:throws\\s+[^{}]+)?\\{"
+            r"(?s)\((?P<params>[^{};]*)\)\s*(?:throws\s+[^{}]+)?\{"
         )
         key_event_param = re.compile(
-            r"\\b(?:net\\.minecraft\\.client\\.input\\.)?KeyEvent\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b"
+            r"\b(?:net\.minecraft\.client\.input\.)?KeyEvent\s+([A-Za-z_$][A-Za-z0-9_$]*)\b"
         )
         for signature in method_signature.finditer(changed):
             names = set(key_event_param.findall(signature.group("params")))
@@ -702,7 +702,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             local_count = 0
             for name in sorted(names, key=len, reverse=True):
                 rewritten, count = re.subn(
-                    rf"\\b{re.escape(name)}\\.scancode\\(\\)",
+                    rf"\b{re.escape(name)}\.scancode\(\)",
                     f"{name}.keycode()",
                     rewritten,
                 )
