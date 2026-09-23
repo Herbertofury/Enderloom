@@ -196,6 +196,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.protocol.game.ServerboundSwingPacket;
 import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
@@ -212,6 +213,9 @@ public class ExampleMod {
     int leftShift = InputConstants.KEY_LEFT_SHIFT;
     int rightShift = InputConstants.KEY_RIGHT_SHIFT;
     int enter = InputConstants.KEY_ENTER;
+    BlockState state = client.level.getBlockState(pos);
+    boolean blocks = state.blocksMotion();
+    boolean neighborOpen = !client.level.getBlockState(pos).blocksMotion();
     Object current = client.screen;
     client.setScreen(null);
     net.minecraft.client.Minecraft.getInstance().gui.setOverlayMessage(net.minecraft.network.chat.Component.empty(), false);
@@ -314,6 +318,9 @@ public class ExampleMod {
     assert "InputConstants.KEY_LSHIFT" in java
     assert "InputConstants.KEY_RSHIFT" in java
     assert "InputConstants.KEY_RETURN" in java
+    assert "(state.getBlock() != Blocks.COBWEB && state.getBlock() != Blocks.BAMBOO_SAPLING && state.isSolid())" in java
+    assert "!(client.level.getBlockState(pos).getBlock() != Blocks.COBWEB && client.level.getBlockState(pos).getBlock() != Blocks.BAMBOO_SAPLING && client.level.getBlockState(pos).isSolid())" in java
+    assert ".blocksMotion()" not in java
     assert "GLFW.GLFW_PRESS" not in java
     assert "InputConstants.Type.KEYSYM" not in java
     assert "client.gui.screen()" in java and "client.gui.setScreen(null)" in java
@@ -331,6 +338,7 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-authlib-service-package-relocations",
         "minecraft-26.3-authlib-discovery-service-constructor",
+        "minecraft-26.3-blockstate-blocks-motion",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-26.3-sdl-input-core",
