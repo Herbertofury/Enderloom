@@ -668,7 +668,7 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             )
         ):
             insert_match = re.search(
-                r"(?m)^(\s*)@Override\s*\n\s*public\s+VertexConsumer\s+setUv2\s*\(",
+                r"(?m)^(\s*)@Override\s+public\s+VertexConsumer\s+setUv2\s*\(",
                 changed,
             )
             if insert_match is None:
