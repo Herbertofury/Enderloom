@@ -14,6 +14,11 @@ import sys
 import zipfile
 from typing import Any
 
+from northpoint_execution import run_logged
+
+COMMAND_LOG_DIR: pathlib.Path | None = None
+COMMAND_SEQUENCE = 0
+
 from northpoint_compose import compose
 from northpoint_source_intake import infer_config, inspect_project
 from northpoint_target_26_3 import ConversionBlock, materialize_port
@@ -54,6 +59,15 @@ def sha256_file(path: pathlib.Path) -> str:
 
 
 def run(cmd: list[str], *, cwd: pathlib.Path | None = None, timeout: int = 180, env: dict[str, str] | None = None, check: bool = True) -> subprocess.CompletedProcess:
+    global COMMAND_SEQUENCE
+    if COMMAND_LOG_DIR is not None:
+        COMMAND_SEQUENCE += 1
+        cp = run_logged(cmd, directory=COMMAND_LOG_DIR, name=f"command-{COMMAND_SEQUENCE:03d}",
+                        cwd=cwd, env=env, timeout=timeout)
+        if check and cp.returncode:
+            raise RuntimeError(f"command exited {cp.returncode}; full logs: {COMMAND_LOG_DIR}\n" +
+                               (cp.stderr or cp.stdout or f"command failed: {cmd}").strip()[-16000:])
+        return cp
     cp = subprocess.run(
         cmd,
         cwd=str(cwd) if cwd else None,
@@ -529,6 +543,7 @@ def runtime_gate(composed: pathlib.Path, jar: pathlib.Path, work: pathlib.Path, 
 
 
 def main() -> int:
+    global COMMAND_LOG_DIR
     p = argparse.ArgumentParser(description='Build and verify a real Northpoint composed mod target.')
     p.add_argument('--probe', action='store_true')
     p.add_argument('--cell-json', type=pathlib.Path, required=True)
@@ -545,6 +560,7 @@ def main() -> int:
     if not args.work or not args.output:
         raise RuntimeError('--work and --output are required outside --probe')
     work = args.work.resolve(); out = args.output.resolve(); out.mkdir(parents=True, exist_ok=True)
+    COMMAND_LOG_DIR = work / 'evidence' / 'commands'
     try:
         conversion_root, conversion_manifest = materialize_legacy_target(project, cell, work)
     except ConversionBlock as exc:

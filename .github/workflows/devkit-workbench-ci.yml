@@ -1,0 +1,123 @@
+name: Minecraft Dev Kit Workbench
+
+on:
+  push:
+    branches: [main, devkit-v7-durable-workbench]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: devkit-workbench-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  workbench:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Process lifecycle and workspace protection
+        run: python tools/minecraft-dev-kit/scripts/northpoint_execution_selftest.py
+      - name: Real compiler, JVM, recovery and package workflow
+        env:
+          NORTHPOINT_TEST_ROOT: ${{ runner.temp }}
+        run: python tools/minecraft-dev-kit/scripts/devkit_workbench_selftest.py
+      - name: Runner cache and invalidation regressions
+        run: python tools/minecraft-dev-kit/scripts/northpoint_job_runner_selftest.py
+      - name: Runtime proof must match candidate hash
+        run: python tools/minecraft-dev-kit/scripts/northpoint_runtime_proof_selftest.py
+      - name: Retain workflow proof and candidate packages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-workbench-${{ matrix.os }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/workbench-*/candidate-and-evidence.zip
+            ${{ runner.temp }}/workbench-*/runtime-unverified.zip
+            ${{ runner.temp }}/workbench-*/session/result.json
+            ${{ runner.temp }}/workbench-*/session/state/session.json
+            ${{ runner.temp }}/workbench-*/session/state/work/**/evidence/**
+            ${{ runner.temp }}/workbench-*/session/runs/**
+          if-no-files-found: error
+          retention-days: 30
+
+  public-conversion:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: aoba
+            repository: Cocolots/Aoba-Client
+            revision: c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
+            source_mc: '26.2'
+          - name: librariantradefinder
+            repository: itzwrld/LibrarianTradeFinder-26.2
+            revision: 285757d72aab0db76a5c9bc985e6cc968793601a
+            source_mc: '26.1.2'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Fetch exact previously graduated source
+        env:
+          SOURCE_REPOSITORY: ${{ matrix.repository }}
+          SOURCE_REVISION: ${{ matrix.revision }}
+        run: |
+          git init "$RUNNER_TEMP/source"
+          git -C "$RUNNER_TEMP/source" remote add origin "https://github.com/$SOURCE_REPOSITORY.git"
+          git -C "$RUNNER_TEMP/source" fetch --depth 1 origin "$SOURCE_REVISION"
+          git -C "$RUNNER_TEMP/source" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/source" rev-parse HEAD)" = "$SOURCE_REVISION"
+      - name: Reuse verified Gradle downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: devkit-v7-${{ runner.os }}-${{ matrix.name }}-26.3-gradle-9.6.0
+          restore-keys: |
+            devkit-v7-${{ runner.os }}-${{ matrix.name }}-
+            fabric-aoba-263-${{ runner.os }}-
+            fabric-ui-aw-263-${{ runner.os }}-
+      - name: Convert and preserve the actual JAR and full proof
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "${{ runner.temp }}/source"
+          --workspace "${{ runner.temp }}/devkit-public"
+          --minecraft 26.3 --loader fabric --java 25
+          --expect-source-minecraft ${{ matrix.source_mc }}
+          --expect-rewrite minecraft-26.3-serverbound-swing-to-punch-packet
+          --timeout 600
+      - name: Retain actual conversion outputs even when a later gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-${{ matrix.name }}-26.3-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/devkit-public/output/
+            ${{ runner.temp }}/devkit-public/*.json
+            ${{ runner.temp }}/devkit-public/*.txt
+            ${{ runner.temp }}/devkit-public/work/evidence/
+          if-no-files-found: error
+          retention-days: 30
