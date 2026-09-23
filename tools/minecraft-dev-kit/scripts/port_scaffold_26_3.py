@@ -27,9 +27,14 @@ SNAPSHOT_DATE = "2026-09-22"
 
 
 def valid_mod_id(value: str) -> str:
-    value = value.lower().replace("-", "_")
+    if not re.fullmatch(r"[a-z][a-z0-9_-]{1,63}", value):
+        raise argparse.ArgumentTypeError("Fabric-compatible mod id must match [a-z][a-z0-9_-]{1,63}")
+    return value
+
+
+def require_neoforge_mod_id(value: str) -> str:
     if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", value):
-        raise argparse.ArgumentTypeError("mod id must match [a-z][a-z0-9_]{1,63}")
+        raise ValueError("NeoForge mod id must match [a-z][a-z0-9_]{1,63}")
     return value
 
 
@@ -155,7 +160,7 @@ java {
 """)
     pkg = f"{group}.{mod_id}".replace("-", "_")
     rel = package_path(group, mod_id)
-    main_class = "".join(part.capitalize() for part in mod_id.split("_")) + "Mod"
+    main_class = "".join(part.capitalize() for part in re.split(r"[_-]+", mod_id)) + "Mod"
     client_class = main_class + "Client"
     write(out / "src/main/java" / rel / f"{main_class}.java", f"""package {pkg};
 
@@ -265,7 +270,7 @@ tasks.withType(JavaCompile).configureEach {{ options.encoding = 'UTF-8'; options
 """)
     pkg = f"{group}.{mod_id}".replace("-", "_")
     rel = package_path(group, mod_id)
-    main_class = "".join(part.capitalize() for part in mod_id.split("_")) + "Mod"
+    main_class = "".join(part.capitalize() for part in re.split(r"[_-]+", mod_id)) + "Mod"
     write(out / "src/main/java" / rel / f"{main_class}.java", f"""package {pkg};
 
 import net.neoforged.fml.common.Mod;
@@ -317,7 +322,9 @@ def main() -> int:
     if out.exists() and any(out.iterdir()) and not args.force:
         raise SystemExit(f"refusing to write into non-empty directory without --force: {out}")
     out.mkdir(parents=True, exist_ok=True)
-    mod_name = args.mod_name or args.mod_id.replace("_", " ").title()
+    mod_name = args.mod_name or re.sub(r"[_-]+", " ", args.mod_id).title()
+    if args.loader == "neoforge":
+        require_neoforge_mod_id(args.mod_id)
     if args.loader == "fabric":
         fabric_scaffold(out, args.mod_id, mod_name, args.group, args.mod_version, dict(FABRIC))
     else:
