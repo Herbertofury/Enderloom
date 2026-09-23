@@ -59,7 +59,7 @@ dependencies {
     (source / "gradlew").chmod(0o755)
     write(source / "gradle/wrapper/gradle-wrapper.jar", "wrapper-placeholder\n")
     write(source / "src/main/resources/fabric.mod.json", json.dumps({
-        "schemaVersion": 1, "id": "modid", "version": "${version}", "name": "Legacy Example",
+        "schemaVersion": 1, "id": "mod-id", "version": "${version}", "name": "Legacy Example",
         "authors": ["Fixture"], "entrypoints": {"main": ["com.example.ExampleMod"]},
         "depends": {"fabricloader": ">=0.16.0", "minecraft": "~1.21", "java": ">=21", "fabric-api": "*"},
     }, indent=2) + "\n")
@@ -68,6 +68,8 @@ dependencies {
     before = tree_digest(source)
     manifest = materialize_port(source, output, "fabric", pipeline_script=pipeline)
     assert before == tree_digest(source) == manifest["source"]["sha256"]
+    assert manifest["source"]["mod_id"] == "mod-id"
+    assert json.loads((output / "src/main/resources/fabric.mod.json").read_text())["id"] == "mod-id"
     assert {"fabric-metadata-target-dependencies", "resource-location-to-identifier", "legacy-mixin-java-level"} <= set(manifest["applied_rule_ids"])
     assert "Identifier" in (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
