@@ -71,6 +71,20 @@ loom {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyInput.java", """package com.example;
+import net.minecraft.client.input.KeyEvent;
+class LegacyInput {
+  int minecraftKeycode(KeyEvent event) {
+    return event.scancode();
+  }
+  static class OtherEvent {
+    int scancode() { return 7; }
+  }
+  int unrelated(OtherEvent event) {
+    return event.scancode();
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyScreen.java", """package com.example;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
@@ -121,6 +135,13 @@ public class ExampleMod {
         "resource-location-to-identifier",
         "legacy-mixin-java-level",
     } <= set(manifest["applied_rule_ids"])
+    input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
+    assert "event.keycode()" in input_java
+    assert "minecraftKeycode(KeyEvent event)" in input_java
+    assert "int scancode() { return 7; }" in input_java
+    assert "unrelated(OtherEvent event)" in input_java
+    assert "return event.scancode();" in input_java
+    assert "minecraft-26.3-keyevent-scancode-to-keycode" in manifest["applied_rule_ids"]
     java = (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert "Identifier" in java
     assert "InputConstants.KEY_I" in java and "org.lwjgl.glfw.GLFW" not in java
@@ -135,6 +156,7 @@ public class ExampleMod {
     assert "AxeItem" not in java
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
+        "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
