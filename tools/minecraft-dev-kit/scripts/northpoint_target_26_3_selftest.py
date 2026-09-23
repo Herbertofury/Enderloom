@@ -41,7 +41,20 @@ w('devkit-26.3-lock.json',json.dumps({'target':{'minecraft':'26.3','loader':a.lo
 
 def fabric_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
     source, output = root / "fabric-source", root / "fabric-target"
-    write(source / "gradle.properties", "minecraft_version=1.21\nversion=1.2.3\ngroup=com.example\n")
+    write(source / "gradle.properties", "minecraft_version=1.21\nversion=1.2.3\ngroup=com.example\nmodmenu_version=11.0.1\ncustom_flag=enabled\n")
+    write(source / "build.gradle", """plugins { id 'net.fabricmc.fabric-loom-remap' version '1.7.4' }
+repositories {
+    maven { url = 'https://maven.terraformersmc.com/releases' }
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:0.16.0"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+}
+""")
+    write(source / "gradle/libs.versions.toml", "[versions]\nhelper = \"1.2.3\"\n")
+    write(source / "libs/local-helper.jar", "local-jar-placeholder\n")
+    write(source / "buildSrc/src/main/groovy/BuildHelpers.groovy", "class BuildHelpers {}\n")
     write(source / "gradlew", "#!/bin/sh\nexit 0\n")
     (source / "gradlew").chmod(0o755)
     write(source / "gradle/wrapper/gradle-wrapper.jar", "wrapper-placeholder\n")
@@ -59,6 +72,24 @@ def fabric_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
     assert "Identifier" in (output / "src/main/java/com/example/ExampleMod.java").read_text()
     assert json.loads((output / "src/main/resources/modid.mixins.json").read_text())["compatibilityLevel"] == "JAVA_25"
     assert "gradle-9.6.0-bin.zip" in (output / "gradle/wrapper/gradle-wrapper.properties").read_text()
+    target_props = (output / "gradle.properties").read_text()
+    assert "minecraft_version=26.3" in target_props
+    assert "modmenu_version=11.0.1" in target_props and "custom_flag=enabled" in target_props
+    preserved = (output / "northpoint-preserved.gradle").read_text()
+    assert "https://maven.terraformersmc.com/releases" in preserved
+    assert "com.terraformersmc:modmenu:${project.modmenu_version}" in preserved
+    assert "com.mojang:minecraft:" not in preserved
+    assert "net.fabricmc:fabric-loader:" not in preserved
+    target_build = (output / "build.gradle").read_text()
+    assert 'apply from: file("northpoint-preserved.gradle")' in target_build
+    assert (output / "gradle/libs.versions.toml").is_file()
+    assert (output / "libs/local-helper.jar").is_file()
+    assert (output / "buildSrc/src/main/groovy/BuildHelpers.groovy").is_file()
+    assert set(manifest["preserved_gradle_properties"]) >= {"modmenu_version", "custom_flag"}
+    assert manifest["preserved_build_files"]["gradle"] == 1
+    assert manifest["preserved_build_files"]["libs"] == 1
+    assert manifest["preserved_build_files"]["buildSrc"] == 1
+    assert manifest["preserved_gradle_blocks"] == {"repositories": 1, "dependencies": 1}
 
 
 def neoforge_case(root: pathlib.Path, pipeline: pathlib.Path) -> None:
