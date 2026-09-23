@@ -986,6 +986,22 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = re.sub(r"(?m)^\s*import\s+org\.lwjgl\.glfw\.GLFW;\s*\n", "", changed)
             file_rules.append(("minecraft-26.3-glfw-standard-cursor-wrapper", cursor_count))
 
+        # 26.3 InputConstants no longer accepts a Window for key polling, and
+        # the old GLFW unknown-key sentinel is exposed through UNKNOWN.getValue().
+        input_signature_count = 0
+        changed, count = re.subn(
+            r"InputConstants\.isKeyDown\(\s*[^,\n]+,\s*([^)\n]+)\)",
+            lambda match: f"InputConstants.isKeyDown({match.group(1).strip()})",
+            changed,
+        )
+        input_signature_count += count
+        unknown_count = changed.count("InputConstants.KEY_UNKNOWN")
+        if unknown_count:
+            changed = changed.replace("InputConstants.KEY_UNKNOWN", "InputConstants.UNKNOWN.getValue()")
+            input_signature_count += unknown_count
+        if input_signature_count:
+            file_rules.append(("minecraft-26.3-inputconstants-signatures", input_signature_count))
+
         # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
         # Service construction is a separate semantic migration and is intentionally excluded.
         authlib_relocations = {
@@ -1161,12 +1177,40 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 changed = without_axe_import
             file_rules.append(("minecraft-26.3-axeitem-to-item-tag", axe_count))
 
-        # The two-argument LivingEntity swing overload gained SwingAnimation in 26.3.
-        changed, swing_count = re.subn(
+        # 26.3 collapsed LivingEntity swing calls onto swing(hand, animation, sync).
+        # Preserve 26.2 semantics exactly: swing(hand) delegated to sync=false, while
+        # swing(hand, boolean) preserved the caller's explicit sync flag.
+        swing_count = 0
+        changed, count = re.subn(
             r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*,\s*(true|false)\s*\)",
             r".swing(\1, SwingAnimation.DEFAULT, \2)",
             changed,
         )
+        swing_count += count
+        changed, count = re.subn(
+            r"\.swing\(\s*(InteractionHand\.[A-Z_]+)\s*\)",
+            r".swing(\1, SwingAnimation.DEFAULT, false)",
+            changed,
+        )
+        swing_count += count
+
+        interaction_hand_names = set(
+            re.findall(r"\bInteractionHand\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for hand_name in sorted(interaction_hand_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\.swing\(\s*{re.escape(hand_name)}\s*,\s*(true|false)\s*\)",
+                rf".swing({hand_name}, SwingAnimation.DEFAULT, \1)",
+                changed,
+            )
+            swing_count += count
+            changed, count = re.subn(
+                rf"\.swing\(\s*{re.escape(hand_name)}\s*\)",
+                f".swing({hand_name}, SwingAnimation.DEFAULT, false)",
+                changed,
+            )
+            swing_count += count
+
         if swing_count:
             changed = _ensure_java_import(changed, "net.minecraft.world.item.component.SwingAnimation")
             file_rules.append(("minecraft-26.3-swing-animation-argument", swing_count))
