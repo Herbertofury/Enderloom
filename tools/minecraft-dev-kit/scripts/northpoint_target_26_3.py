@@ -781,6 +781,18 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if collector_signature_count:
             file_rules.append(("minecraft-26.3-submit-node-collector-signatures", collector_signature_count))
 
+        # 26.3 replaced quaternion-only PoseStack#mulPose with explicit rotation helpers.
+        # Axis.rotationDegrees(...) maps exactly to PoseStack.rotateDegrees(axis, angle).
+        changed, pose_rotate_count = re.subn(
+            r"([A-Za-z_$][A-Za-z0-9_$.]*)\.mulPose\(\s*(Axis\.[A-Z]+)\.rotationDegrees\(\s*((?:[^()\n]|\([^()\n]*\))+)\s*\)\s*\)",
+            lambda match: (
+                f"{match.group(1)}.rotateDegrees({match.group(2)}, {match.group(3).strip()})"
+            ),
+            changed,
+        )
+        if pose_rotate_count:
+            file_rules.append(("minecraft-26.3-posestack-axis-rotation", pose_rotate_count))
+
         # 26.3 moved the public GPU/render API from Blaze3D into RenderPearl.
         # These are documented one-to-one API relocations only; semantic rendering
         # changes remain compiler-driven and are intentionally not rewritten here.
