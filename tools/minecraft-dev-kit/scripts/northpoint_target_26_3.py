@@ -673,6 +673,63 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         if renderpearl_count:
             file_rules.append(("minecraft-26.3-renderpearl-api-relocations", renderpearl_count))
 
+        # 26.3 models texture/sampler bindings as combined-image-sampler uniforms.
+        # Restrict builder rewrites to BindGroupLayout chains and pass rewrites to
+        # variables source-typed as RenderPass inside the same method body.
+        sampler_count = 0
+        layout_pattern = re.compile(
+            r'(?s)(BindGroupLayout\\.builder\\(\\)(?:(?!\\.build\\(\\)).)*?)\\.withSampler\\(\\s*"([^"]+)"\\s*\\)'
+        )
+        changed, layout_count = layout_pattern.subn(
+            lambda match: (
+                match.group(1)
+                + '.withUniform("'
+                + match.group(2)
+                + '", UniformType.COMBINED_IMAGE_SAMPLER)'
+            ),
+            changed,
+        )
+        if layout_count:
+            changed = _ensure_java_import(changed, "com.mojang.renderpearl.api.pipeline.UniformType")
+            sampler_count += layout_count
+
+        render_pass_method = re.compile(
+            r"(?s)\\((?P<params>[^{};]*)\\)\\s*(?:throws\\s+[^{}]+)?\\{"
+        )
+        pass_scopes: list[tuple[int, int, set[str]]] = []
+        for signature in render_pass_method.finditer(changed):
+            body_open = signature.end() - 1
+            body_close = _find_matching_java_brace(changed, body_open)
+            if body_close is None:
+                continue
+            body = changed[body_open : body_close + 1]
+            pass_names = set(
+                re.findall(
+                    r"\\b(?:com\\.mojang\\.renderpearl\\.api\\.commands\\.)?RenderPass\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\b",
+                    signature.group("params") + "\\n" + body,
+                )
+            )
+            if pass_names:
+                pass_scopes.append((body_open, body_close, pass_names))
+
+        for body_open, body_close, pass_names in reversed(pass_scopes):
+            body = changed[body_open : body_close + 1]
+            rewritten = body
+            local_count = 0
+            for name in sorted(pass_names, key=len, reverse=True):
+                rewritten, count = re.subn(
+                    rf"\\b{re.escape(name)}\\.bindTexture\\(",
+                    f"{name}.setUniform(",
+                    rewritten,
+                )
+                local_count += count
+            if local_count:
+                changed = changed[:body_open] + rewritten + changed[body_close + 1 :]
+                sampler_count += local_count
+
+        if sampler_count:
+            file_rules.append(("minecraft-26.3-renderpearl-sampler-uniforms", sampler_count))
+
         # 26.3 moved keyboard constants off GLFW and onto Minecraft's SDL-backed InputConstants.
         changed, key_count = re.subn(r"\bGLFW\.GLFW_KEY_([A-Z0-9_]+)\b", r"InputConstants.KEY_\1", changed)
         if key_count:
