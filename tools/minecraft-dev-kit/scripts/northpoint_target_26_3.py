@@ -636,6 +636,17 @@ SEMANTIC_RESOLUTIONS_BY_REWRITE: dict[str, tuple[str, ...]] = {
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    use_item_record_accessors: set[str] = set()
+    for candidate in sorted(output.rglob("*.java")):
+        candidate_text = candidate.read_text(encoding="utf-8", errors="replace")
+        if re.search(r"@Mixin\(\s*ServerboundUseItemPacket\.class\s*\)", candidate_text):
+            interface_match = re.search(
+                r"\bpublic\s+interface\s+([A-Za-z_$][A-Za-z0-9_$]*)\b",
+                candidate_text,
+            )
+            if interface_match:
+                use_item_record_accessors.add(interface_match.group(1))
+
     for path in sorted(output.rglob("*.java")):
         text = path.read_text(encoding="utf-8", errors="replace")
         changed = text
@@ -1100,6 +1111,52 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
             input_signature_count += unknown_count
         if input_signature_count:
             file_rules.append(("minecraft-26.3-inputconstants-signatures", input_signature_count))
+
+        # 26.3 EntityRenderDispatcher#shouldRender gained partial ticks. When a
+        # method already computes a single partial-tick float, preserve that exact timing.
+        should_render_count = 0
+        partial_tick_names = set(
+            re.findall(
+                r"\bfloat\s+([A-Za-z_$][A-Za-z0-9_$]*partialTicks?[A-Za-z0-9_$]*)\s*=",
+                changed,
+                flags=re.IGNORECASE,
+            )
+        )
+        if len(partial_tick_names) == 1:
+            partial_tick_name = next(iter(partial_tick_names))
+            should_pattern = re.compile(
+                r"\.shouldRender\(\s*([^,\n]+)\s*,\s*([^,\n]+)\s*,\s*"
+                r"([A-Za-z_$][A-Za-z0-9_$]*)\.x\(\)\s*,\s*\3\.y\(\)\s*,\s*\3\.z\(\)\s*\)"
+            )
+            changed, should_render_count = should_pattern.subn(
+                lambda match: (
+                    f".shouldRender({match.group(1).strip()}, {match.group(2).strip()}, "
+                    f"{match.group(3)}.x(), {match.group(3)}.y(), {match.group(3)}.z(), "
+                    f"{partial_tick_name})"
+                ),
+                changed,
+            )
+        if should_render_count:
+            file_rules.append(("minecraft-26.3-entity-should-render-partial-tick", should_render_count))
+
+        # ItemContainerContents renamed its all-slot copy stream in 26.3.
+        item_copy_count = changed.count(".allItemsCopyStream()")
+        if item_copy_count:
+            changed = changed.replace(".allItemsCopyStream()", ".itemCopies()")
+            file_rules.append(("minecraft-26.3-item-container-item-copies", item_copy_count))
+
+        # ServerboundUseItemPacket became a final record. Mixin accessor interfaces remain
+        # usable at runtime, but Java needs the canonical cast-through-Object for a final target.
+        record_accessor_count = 0
+        for accessor_name in sorted(use_item_record_accessors, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\({re.escape(accessor_name)}\)\s*(?!\(Object\))([A-Za-z_$][A-Za-z0-9_$]*)",
+                rf"({accessor_name}) (Object) \1",
+                changed,
+            )
+            record_accessor_count += count
+        if record_accessor_count:
+            file_rules.append(("minecraft-26.3-final-record-mixin-accessor-cast", record_accessor_count))
 
         # Authlib 10 (Minecraft 26.3) moved stable service value types out of yggdrasil.
         # Service construction is a separate semantic migration and is intentionally excluded.
