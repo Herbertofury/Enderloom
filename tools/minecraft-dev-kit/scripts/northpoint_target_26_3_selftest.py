@@ -71,6 +71,28 @@ loom {
     }, indent=2) + "\n")
     write(source / "src/main/resources/modid.mixins.json", '{"required":true,"compatibilityLevel":"JAVA_21","mixins":[]}\n')
     write(source / "src/main/resources/mod-id.accesswidener", "accessWidener\tv1  named\n")
+    write(source / "src/main/java/com/example/LegacyVertexConsumer.java", """package com.example;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+class LegacyVertexConsumer implements VertexConsumer {
+  @Override public VertexConsumer addVertex(float x, float y, float z) { return this; }
+  @Override public VertexConsumer setColor(int r, int g, int b, int a) { return this; }
+  @Override public VertexConsumer setColor(int color) { return this; }
+  @Override public VertexConsumer setUv(float u, float v) { return this; }
+  @Override public VertexConsumer setUv1(int u, int v) { return this; }
+  @Override public VertexConsumer setUv2(int u, int v) { return this; }
+  @Override public VertexConsumer setNormal(float x, float y, float z) { return this; }
+  @Override public VertexConsumer setLineWidth(float w) { return this; }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyRenderTarget.java", """package com.example;
+import com.mojang.blaze3d.pipeline.RenderTarget;
+class LegacyRenderTarget {
+  boolean direct(RenderTarget target) { return target.useDepth; }
+  boolean chained(net.minecraft.client.Minecraft mc) {
+    return mc.gameRenderer.mainRenderTarget().useDepth;
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyCollector.java", """package com.example;
 import java.util.List;
 import org.jspecify.annotations.Nullable;
@@ -313,6 +335,14 @@ public class ExampleMod {
         "resource-location-to-identifier",
         "legacy-mixin-java-level",
     } <= set(manifest["applied_rule_ids"])
+    vertex_java = (output / "src/main/java/com/example/LegacyVertexConsumer.java").read_text()
+    assert "public VertexConsumer setUv3(float u, float v) { return this; }" in vertex_java
+    target_java = (output / "src/main/java/com/example/LegacyRenderTarget.java").read_text()
+    assert "target.hasDepth()" in target_java
+    assert "mc.gameRenderer.mainRenderTarget().hasDepth()" in target_java
+    assert ".useDepth" not in target_java
+    assert "minecraft-26.3-vertexconsumer-uv3" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-rendertarget-has-depth" in manifest["applied_rule_ids"]
     collector_java = (output / "src/main/java/com/example/LegacyCollector.java").read_text()
     assert "@Nullable UvMapping sprite" in collector_java
     assert "CrumblingOverlay crumblingOverlay)" not in collector_java.split("void submitModel", 1)[1].split("{", 1)[0]
@@ -443,6 +473,8 @@ public class ExampleMod {
     assert "ServerboundSwingPacket" not in java
     expected_java_rules = {
         "minecraft-26.3-posestack-axis-rotation",
+        "minecraft-26.3-vertexconsumer-uv3",
+        "minecraft-26.3-rendertarget-has-depth",
         "minecraft-26.3-submit-node-collector-signatures",
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
