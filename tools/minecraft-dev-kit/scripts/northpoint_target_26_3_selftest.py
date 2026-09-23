@@ -308,10 +308,11 @@ class LegacyPlatform {
 """)
     write(source / "src/main/java/com/example/LegacyManhattan.java", """package com.example;
 import net.minecraft.core.BlockPos;
+import net.minecraft.client.Minecraft;
 class LegacyManhattan {
-  Object migrate(BlockPos pos, int range) {
+  Object migrate(Minecraft client, int range) {
     return BlockPos
-        .withinManhattan(BlockPos.containing(pos.getCenter()).above(), range, range, range);
+        .withinManhattan(BlockPos.containing(client.player.position()).above(), range, range, range);
   }
 }
 """)
@@ -491,7 +492,7 @@ public class ExampleMod {
     assert "Util.getPlatform().openUri" not in platform_java
     assert "Util.getPlatform().openPath" not in platform_java
     manhattan_java = (output / "src/main/java/com/example/LegacyManhattan.java").read_text()
-    assert "BlockPos.withinBoxByManhattanDistance(BlockPos.containing(pos.getCenter()).above(), range, range, range)" in manhattan_java
+    assert "BlockPos.withinBoxByManhattanDistance(BlockPos.containing(client.player.position()).above(), range, range, range)" in manhattan_java
     assert "BlockPos.withinManhattan(" not in manhattan_java
     assert "minecraft-26.3-platform-and-options-signatures" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-blockpos-within-manhattan" in manifest["applied_rule_ids"]
