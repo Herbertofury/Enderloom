@@ -131,19 +131,24 @@ import com.mojang.blaze3d.textures.FilterMode;
 import com.mojang.blaze3d.textures.GpuSampler;
 import com.mojang.blaze3d.textures.GpuTexture;
 import com.mojang.blaze3d.textures.GpuTextureView;
+import com.mojang.blaze3d.vertex.VertexFormat;
 class LegacyRenderApi {
   Object layout = BindGroupLayout.builder()
       .withUniform("DynamicTransforms", UniformType.UNIFORM_BUFFER)
       .withSampler("Sampler0")
       .build();
-  void render(RenderPass pass, GpuTextureView view, GpuSampler sampler) {
+  void render(RenderPass pass, GpuTextureView view, GpuSampler sampler, RenderPipeline pipeline) {
     pass.bindTexture("Sampler0", view, sampler);
+    pass.setPipeline(pipeline);
+    pass.setPipeline(RenderPipeline.builder().build());
   }
   static class OtherPass {
     void bindTexture(String name, Object view, Object sampler) {}
+    void setPipeline(Object pipeline) {}
   }
   void unrelated(OtherPass pass) {
     pass.bindTexture("Sampler0", null, null);
+    pass.setPipeline("leave-me-alone");
   }
 }
 """)
@@ -341,15 +346,20 @@ public class ExampleMod {
     assert "com.mojang.renderpearl.api.textures.GpuSampler" in render_java
     assert "com.mojang.renderpearl.api.textures.GpuTexture;" in render_java
     assert "com.mojang.renderpearl.api.textures.GpuTextureView" in render_java
+    assert "com.mojang.renderpearl.api.vertex.VertexFormat" in render_java
     assert "com.mojang.blaze3d.buffers.Std140Builder" in render_java
     assert "com.mojang.blaze3d.systems.RenderSystem" in render_java
     assert '.withUniform("Sampler0", UniformType.COMBINED_IMAGE_SAMPLER)' in render_java
     assert '.withSampler("Sampler0")' not in render_java
     assert 'pass.setUniform("Sampler0", view, sampler);' in render_java
+    assert "pass.setPipeline(RenderSystem.getCompiledPipeline(pipeline));" in render_java
+    assert "pass.setPipeline(RenderSystem.getCompiledPipeline(RenderPipeline.builder().build()));" in render_java
     assert 'void bindTexture(String name, Object view, Object sampler)' in render_java
     assert 'pass.bindTexture("Sampler0", null, null);' in render_java
+    assert 'pass.setPipeline("leave-me-alone");' in render_java
     assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-renderpearl-compiled-pipeline" in manifest["applied_rule_ids"]
     cursor_java = (output / "src/main/java/com/example/LegacyCursorStyle.java").read_text()
     cursor_input_java = (output / "src/main/java/com/example/LegacyCursorInput.java").read_text()
     assert "private CursorType cursor;" in cursor_java
@@ -436,6 +446,7 @@ public class ExampleMod {
         "minecraft-26.3-submit-node-collector-signatures",
         "minecraft-26.3-renderpearl-api-relocations",
         "minecraft-26.3-renderpearl-sampler-uniforms",
+        "minecraft-26.3-renderpearl-compiled-pipeline",
         "minecraft-26.3-authlib-service-package-relocations",
         "minecraft-26.3-authlib-discovery-service-constructor",
         "minecraft-26.3-platform-and-options-signatures",
