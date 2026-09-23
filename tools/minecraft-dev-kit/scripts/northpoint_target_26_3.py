@@ -641,6 +641,38 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         changed = text
         file_rules: list[tuple[str, int]] = []
 
+        # 26.3 added VertexConsumer#setUv3. Auto-fill it only for capture/sink
+        # implementations that already intentionally ignore UV1 and line-width metadata.
+        vertex_consumer_count = 0
+        if (
+            re.search(r"\bimplements\s+VertexConsumer\b", changed)
+            and "setUv3(" not in changed
+            and re.search(
+                r"public\s+VertexConsumer\s+setUv1\s*\([^)]*\)\s*\{\s*return\s+this\s*;\s*\}",
+                changed,
+            )
+            and re.search(
+                r"public\s+VertexConsumer\s+setLineWidth\s*\([^)]*\)\s*\{\s*return\s+this\s*;\s*\}",
+                changed,
+            )
+        ):
+            insert_match = re.search(
+                r"(?m)^(\s*)@Override\s*\n\s*public\s+VertexConsumer\s+setUv2\s*\(",
+                changed,
+            )
+            if insert_match is None:
+                raise ConversionBlock(f"VertexConsumer sink in {path} needs setUv3 but insertion point is unknown")
+            indent = insert_match.group(1)
+            method = (
+                f"{indent}@Override\n"
+                f"{indent}public VertexConsumer setUv3(float u, float v) {{ return this; }}\n\n"
+            )
+            changed = changed[: insert_match.start()] + method + changed[insert_match.start() :]
+            vertex_consumer_count = 1
+
+        if vertex_consumer_count:
+            file_rules.append(("minecraft-26.3-vertexconsumer-uv3", vertex_consumer_count))
+
         # 26.3 changed OrderedSubmitNodeCollector's abstract signatures.
         # Auto-adapt only collector implementations whose removed payloads were unused;
         # otherwise stop instead of guessing at rendering semantics.
@@ -1212,6 +1244,27 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
         )
         if manhattan_count:
             file_rules.append(("minecraft-26.3-blockpos-within-manhattan", manhattan_count))
+
+        # 26.3 replaced RenderTarget's public useDepth field with hasDepth().
+        render_target_count = 0
+        changed, count = re.subn(
+            r"(\b[A-Za-z_$][A-Za-z0-9_$.]*\.mainRenderTarget\(\))\.useDepth\b",
+            r"\1.hasDepth()",
+            changed,
+        )
+        render_target_count += count
+        render_target_names = set(
+            re.findall(r"\bRenderTarget\s+([A-Za-z_$][A-Za-z0-9_$]*)\b", changed)
+        )
+        for target_name in sorted(render_target_names, key=len, reverse=True):
+            changed, count = re.subn(
+                rf"\b{re.escape(target_name)}\.useDepth\b",
+                f"{target_name}.hasDepth()",
+                changed,
+            )
+            render_target_count += count
+        if render_target_count:
+            file_rules.append(("minecraft-26.3-rendertarget-has-depth", render_target_count))
 
         # 26.3 renamed KeyEvent#scancode to keycode. Restrict the rewrite to
         # the body of a method/constructor whose parameter is source-typed as
