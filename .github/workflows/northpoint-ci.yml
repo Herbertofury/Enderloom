@@ -158,13 +158,22 @@ jobs:
         with:
           distribution: temurin
           java-version: "25"
-          cache: gradle
 
       - name: Northpoint 26.3 target materialization QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
 
       - name: Fetch official NeoForge 1.21.1 MDK mod
         run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+
+      - name: Cache NeoForge Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: neoforge-263-${{ runner.os }}-${{ hashFiles(format('{0}/neoforge-mdk-1.21.1/**/gradle-wrapper.properties', runner.temp), format('{0}/neoforge-mdk-1.21.1/**/*.gradle*', runner.temp)) }}
+          restore-keys: |
+            neoforge-263-${{ runner.os }}-
 
       - name: Official NeoForge 1.21.1 to 26.3 production conversion
         run: >-
