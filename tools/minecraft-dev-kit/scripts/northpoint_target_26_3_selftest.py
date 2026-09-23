@@ -107,6 +107,17 @@ class LegacyRenderApi {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyTextInput.java", """package com.example;
+import org.lwjgl.glfw.GLFW;
+class LegacyTextInput {
+  String migrate(long window, int key, int scan, String value) {
+    GLFW.glfwSetClipboardString(window, value);
+    String clipboard = GLFW.glfwGetClipboardString(window);
+    String keyName = GLFW.glfwGetKeyName(key, scan);
+    return clipboard + keyName;
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyAuthlib.java", """package com.example;
 import com.mojang.authlib.yggdrasil.ProfileResult;
 import com.mojang.authlib.yggdrasil.FriendsService;
@@ -224,6 +235,12 @@ public class ExampleMod {
     assert 'pass.bindTexture("Sampler0", null, null);' in render_java
     assert "minecraft-26.3-renderpearl-api-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-renderpearl-sampler-uniforms" in manifest["applied_rule_ids"]
+    text_input_java = (output / "src/main/java/com/example/LegacyTextInput.java").read_text()
+    assert "Minecraft.getInstance().keyboardHandler.setClipboard(value)" in text_input_java
+    assert "Minecraft.getInstance().keyboardHandler.getClipboard()" in text_input_java
+    assert "InputConstants.Type.KEYBOARD.getOrCreate(key).getDisplayName().getString()" in text_input_java
+    assert "org.lwjgl.glfw.GLFW" not in text_input_java
+    assert "minecraft-26.3-glfw-text-input-helpers" in manifest["applied_rule_ids"]
     auth_java = (output / "src/main/java/com/example/LegacyAuthlib.java").read_text()
     assert "com.mojang.authlib.services.ProfileResult" in auth_java
     assert "com.mojang.authlib.services.FriendsService" in auth_java
@@ -275,6 +292,7 @@ public class ExampleMod {
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
         "minecraft-26.3-sdl-input-core",
+        "minecraft-26.3-glfw-text-input-helpers",
         "minecraft-gui-set-screen",
         "minecraft-gui-screen-accessor",
         "minecraft-gui-to-hud-overlay",
