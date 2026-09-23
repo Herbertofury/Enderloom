@@ -663,7 +663,18 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 if overlay_name_match is None:
                     raise ConversionBlock(f"unrecognized submitModel crumbling-overlay signature in {path}")
                 overlay_name = overlay_name_match.group(1)
+                sprite_name_match = re.search(
+                    r"@Nullable\s+TextureAtlasSprite\s+([A-Za-z_$][A-Za-z0-9_$]*)",
+                    params,
+                )
+                if sprite_name_match is None:
+                    raise ConversionBlock(f"unrecognized submitModel sprite signature in {path}")
+                sprite_name = sprite_name_match.group(1)
                 body = changed[body_open : body_close + 1]
+                if re.search(rf"\b{re.escape(sprite_name)}\b", body[1:-1]):
+                    raise ConversionBlock(
+                        f"submitModel in {path} uses old TextureAtlasSprite payload and needs semantic UvMapping migration"
+                    )
                 if re.search(rf"\b{re.escape(overlay_name)}\b", body[1:-1]):
                     raise ConversionBlock(
                         f"submitModel in {path} uses removed crumbling-overlay payload and needs semantic migration"
@@ -700,12 +711,13 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 if "void submitCrumblingOverlay(" not in changed:
                     changed = changed[: body_close + 1] + crumbling_method + changed[body_close + 1 :]
                 changed = _ensure_java_import(changed, "net.minecraft.client.renderer.texture.UvMapping")
-                if "TextureAtlasSprite" not in changed:
-                    changed = re.sub(
-                        r"(?m)^\s*import\s+net\.minecraft\.client\.renderer\.texture\.TextureAtlasSprite;\s*\n",
-                        "",
-                        changed,
-                    )
+                without_texture_import = re.sub(
+                    r"(?m)^\s*import\s+net\.minecraft\.client\.renderer\.texture\.TextureAtlasSprite;\s*\n",
+                    "",
+                    changed,
+                )
+                if "TextureAtlasSprite" not in without_texture_import:
+                    changed = without_texture_import
                 collector_signature_count += 1
 
             changed, breaking_count = re.subn(
@@ -748,12 +760,13 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
                 new_decl = old_decl.replace(params, new_params, 1)
                 changed = changed[: item_match.start()] + new_decl + changed[item_match.end() :]
                 changed = _ensure_java_import(changed, "net.minecraft.client.resources.model.geometry.ItemQuads")
-                if "BakedQuad" not in changed:
-                    changed = re.sub(
-                        r"(?m)^\s*import\s+net\.minecraft\.client\.resources\.model\.geometry\.BakedQuad;\s*\n",
-                        "",
-                        changed,
-                    )
+                without_baked_quad_import = re.sub(
+                    r"(?m)^\s*import\s+net\.minecraft\.client\.resources\.model\.geometry\.BakedQuad;\s*\n",
+                    "",
+                    changed,
+                )
+                if "BakedQuad" not in without_baked_quad_import:
+                    changed = without_baked_quad_import
                 collector_signature_count += 1
 
         if collector_signature_count:
