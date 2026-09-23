@@ -87,14 +87,14 @@ def detect_fabric_identity(source: pathlib.Path) -> dict[str, str]:
         raise ConversionBlock("Fabric source conversion requires src/main/resources/fabric.mod.json")
     mod = read_json(metadata)
     mod_id = str(mod.get("id") or "").strip()
-    if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", mod_id):
+    if not re.fullmatch(r"[a-z][a-z0-9_-]{1,63}", mod_id):
         raise ConversionBlock(f"invalid or missing Fabric mod id: {mod_id!r}")
     props = parse_properties(source / "gradle.properties")
     group = str(props.get("group") or props.get("maven_group") or "com.example").strip() or "com.example"
     version = str(props.get("version") or props.get("mod_version") or mod.get("version") or "1.0.0").strip()
     if version.startswith("${"):
         version = str(props.get("version") or props.get("mod_version") or "1.0.0")
-    name = str(mod.get("name") or mod_id.replace("_", " ").title()).strip()
+    name = str(mod.get("name") or re.sub(r"[_-]+", " ", mod_id).title()).strip()
     minecraft = str(props.get("minecraft_version") or "").strip()
     return {"mod_id": mod_id, "group": group, "version": version, "name": name, "minecraft": minecraft}
 
