@@ -208,6 +208,28 @@ class LegacyInput {
   }
 }
 """)
+    write(source / "src/main/java/com/example/LegacyPlatform.java", """package com.example;
+import java.nio.file.Path;
+import net.minecraft.Util;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.screens.OptionsScreen;
+import net.minecraft.client.gui.screens.Screen;
+class LegacyPlatform {
+  void migrate(Screen parent, Options options, Path path, String url) {
+    Util.getPlatform().openUri(url);
+    Util.getPlatform().openPath(path);
+    Object screen = new OptionsScreen(parent, options, false);
+  }
+}
+""")
+    write(source / "src/main/java/com/example/LegacyManhattan.java", """package com.example;
+import net.minecraft.core.BlockPos;
+class LegacyManhattan {
+  Object migrate(BlockPos pos, int range) {
+    return BlockPos.withinManhattan(pos.above(), range, range, range);
+  }
+}
+""")
     write(source / "src/main/java/com/example/LegacyScreen.java", """package com.example;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
@@ -280,6 +302,7 @@ public class ExampleMod {
     assert "@Nullable UvMapping sprite" in collector_java
     assert "CrumblingOverlay crumblingOverlay)" not in collector_java.split("void submitModel", 1)[1].split("{", 1)[0]
     assert "void submitCrumblingOverlay(Model<? super S> model" in collector_java
+    assert "void submitTextBackground(PoseStack poseStack, float x0, float y0, float x1, float y1, int color, Font.DisplayMode displayMode, int lightCoords)" in collector_java
     assert "int progress, boolean isBlockTranslucent)" in collector_java
     assert "ItemQuads quads" in collector_java
     assert "TextureAtlasSprite" not in collector_java
@@ -343,6 +366,17 @@ public class ExampleMod {
     assert "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService" not in auth_java
     assert "minecraft-26.3-authlib-service-package-relocations" in manifest["applied_rule_ids"]
     assert "minecraft-26.3-authlib-discovery-service-constructor" in manifest["applied_rule_ids"]
+    platform_java = (output / "src/main/java/com/example/LegacyPlatform.java").read_text()
+    assert "Blaze3D.openUri(URI.create(url))" in platform_java
+    assert "Blaze3D.openPath(path)" in platform_java
+    assert "new OptionsScreen(parent, options)" in platform_java
+    assert "Util.getPlatform().openUri" not in platform_java
+    assert "Util.getPlatform().openPath" not in platform_java
+    manhattan_java = (output / "src/main/java/com/example/LegacyManhattan.java").read_text()
+    assert "BlockPos.withinBoxByManhattanDistance(pos.above(), range, range, range)" in manhattan_java
+    assert "BlockPos.withinManhattan(" not in manhattan_java
+    assert "minecraft-26.3-platform-and-options-signatures" in manifest["applied_rule_ids"]
+    assert "minecraft-26.3-blockpos-within-manhattan" in manifest["applied_rule_ids"]
     input_java = (output / "src/main/java/com/example/LegacyInput.java").read_text()
     assert "event.keycode()" in input_java
     assert "minecraftKeycode(KeyEvent event)" in input_java
@@ -388,6 +422,8 @@ public class ExampleMod {
         "minecraft-26.3-renderpearl-sampler-uniforms",
         "minecraft-26.3-authlib-service-package-relocations",
         "minecraft-26.3-authlib-discovery-service-constructor",
+        "minecraft-26.3-platform-and-options-signatures",
+        "minecraft-26.3-blockpos-within-manhattan",
         "minecraft-26.3-blockstate-blocks-motion",
         "minecraft-26.3-keyevent-scancode-to-keycode",
         "minecraft-26.3-glfw-key-to-inputconstants",
