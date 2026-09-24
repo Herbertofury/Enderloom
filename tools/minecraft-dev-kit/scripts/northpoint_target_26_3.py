@@ -16,6 +16,12 @@ if hashlib.sha256(_core_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() !
 import northpoint_target_26_3_core as _core
 from northpoint_target_26_3_core import *
 
+_RUNTIME_RULES_SHA256 = "f4682a7ef9b1344390961cf687835a89bb13f4d6bf286fc3acb91d1a90d24da3"
+_runtime_path = pathlib.Path(__file__).with_name("northpoint_runtime_mixin_rules.py")
+if hashlib.sha256(_runtime_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _RUNTIME_RULES_SHA256:
+    raise RuntimeError("runtime migration rules do not match the pinned engine")
+from northpoint_runtime_mixin_rules import rewrite_runtime_mixins
+
 
 def __getattr__(name):
     return getattr(_core, name)
@@ -99,7 +105,7 @@ def rewrite_network_tick_mixins(output: pathlib.Path) -> list[dict[str, Any]]:
 
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
-    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output)
+    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output)
 
 
 def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *, pipeline_script: pathlib.Path | None = None) -> dict[str, Any]:
