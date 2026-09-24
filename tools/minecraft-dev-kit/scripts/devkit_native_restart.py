@@ -27,7 +27,22 @@ METHODS = r'''
       return true;
     });
     if (customTitle) {
+      // Let deferred UI extraction/presentation complete before evaluating the menu.
+      context.waitTicks(20);
+      context.runOnClient(client -> {
+        long buttons = client.gui.screen().children().stream()
+            .filter(child -> child instanceof net.minecraft.client.gui.components.AbstractButton).count();
+        if (buttons < 7) throw new AssertionError("custom title lost its menu controls: " + buttons);
+      });
       context.takeScreenshot("devkit-EXPECTED_MOD-custom-title-" + System.getProperty("devkit.phase", "initial"));
+      context.clickScreenButton("Singleplayer");
+      context.waitForScreen(net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.class);
+      context.waitTicks(5);
+      context.takeScreenshot("devkit-EXPECTED_MOD-world-menu-" + System.getProperty("devkit.phase", "initial"));
+      context.clickScreenButton("gui.back");
+      context.waitFor(client -> client.gui.screen() != null &&
+          "net.aoba.gui.screens.MainMenuScreen".equals(client.gui.screen().getClass().getName()));
+      System.out.println("DEVKIT_NATIVE_CUSTOM_TITLE_INTERACTION:EXPECTED_MOD");
       System.out.println("DEVKIT_NATIVE_CUSTOM_TITLE_PRESERVED:EXPECTED_MOD");
       context.runOnClient(client -> client.gui.setScreen(new CleanupTitleScreen()));
     }
