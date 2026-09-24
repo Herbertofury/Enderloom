@@ -1,0 +1,79 @@
+name: Dev Kit Stonecutter Multiversion
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: devkit-stonecutter-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-stonecutter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.0'
+      - name: Prove actual Stonecutter API and generated sources
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/stonecutter-proof/src/main/java/example"
+          cd "$RUNNER_TEMP/stonecutter-proof"
+          cat > settings.gradle.kts <<'EOF'
+          pluginManagement { repositories { gradlePluginPortal(); maven("https://maven.kikugie.dev/releases") } }
+          plugins { id("dev.kikugie.stonecutter") version "0.9.8" }
+          stonecutter {
+            kotlinController = true
+            create(rootProject) {
+              version("26.2-fabric", "26.2")
+              version("26.3-fabric", "26.3")
+              vcsVersion = "26.3-fabric"
+            }
+          }
+          rootProject.name = "devkit-stonecutter-proof"
+          EOF
+          cat > stonecutter.gradle.kts <<'EOF'
+          plugins { id("dev.kikugie.stonecutter") }
+          stonecutter active "26.3-fabric"
+          EOF
+          cat > build.gradle.kts <<'EOF'
+          plugins { java }
+          tasks.register("report") {
+            dependsOn("stonecutterGenerate", "classes")
+            doLast {
+              println("DEVKIT_GENERATED=" + tasks.named("stonecutterGenerate").get().outputs.files.files)
+              println("DEVKIT_SOURCES=" + sourceSets["main"].allSource.srcDirs)
+            }
+          }
+          EOF
+          cat > src/main/java/example/Versioned.java <<'EOF'
+          package example;
+          public class Versioned {
+            public static String value() {
+              //? if >=26.3 {
+              return "modern";
+              //?} else {
+              /*return "legacy";*/
+              //?}
+            }
+          }
+          EOF
+          gradle --no-daemon :26.2-fabric:report :26.3-fabric:report --stacktrace 2>&1 | tee proof.log
+          find versions -type f -name Versioned.java -print -exec cat {} \;
+      - name: Preserve actual plugin evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stonecutter-proof-${{ github.run_id }}
+          path: ${{ runner.temp }}/stonecutter-proof/
+          if-no-files-found: error
