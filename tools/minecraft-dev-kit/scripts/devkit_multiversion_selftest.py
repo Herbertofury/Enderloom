@@ -156,6 +156,8 @@ def real(root: Path,gradle: Path | None):
     package=mv.archive_project(out,root/'multiversion-source.zip')
     with zipfile.ZipFile(package['file']) as z:
         assert z.testzip() is None
+        assert all('\\\\' not in name for name in z.namelist()), z.namelist()
+        assert '.devkit/build-results.json' in z.namelist()
         for line in z.read('MULTIVERSION-SHA256SUMS.txt').decode().splitlines():
             digest,name=line.split('  ',1);assert hashlib.sha256(z.read(name)).hexdigest()==digest
     mv.atomic_json(root/'REAL-PROOF.json',{'status':'PASS','plugin':mv.STONECUTTER,'targets':list(final['targets']),
