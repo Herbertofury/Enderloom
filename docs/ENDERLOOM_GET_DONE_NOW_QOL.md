@@ -17,6 +17,8 @@ The current desktop UI/screenshots show the exact repair targets behind this que
 
 This queue is intentionally bounded to those accepted UX/QoL repairs and the shared architecture needed to make them reliable. It does not authorize removing working features or weakening Enderloom's existing provenance, dependency, rollback, recovery, or compatibility guarantees.
 
+**Addon correction:** provider-backed addons/customizations must behave like first-class online projects, not like a loose-file junk drawer. When Enderloom can identify a real CurseForge/Modrinth/etc. project and release file, the Addons surface must retain that online identity, use that provider release for install/update, and present the same polished project-page/card UX as the Mods surface. Local/private addon files remain supported, but must be explicitly shown as local/unlinked rather than being given a fake provider identity.
+
 ## Constraints and preservation
 
 - Preserve existing instance files, worlds, configs, favorites, notes, provider bindings, artwork choices, browser state, and working functionality.
@@ -289,7 +291,9 @@ Test Windows Explorer behavior at minimum, including paths with spaces/unicode a
 
 - [ ] **T016** · One universal guided-install engine
 
-Replace narrow/siloed guided-install cards with one canonical flow for recognized installable Minecraft content, including as applicable:
+Replace narrow/siloed guided-install cards with one canonical flow for recognized installable Minecraft content. **Provider-backed content must enter this same flow from its online project/file page exactly like a normal mod install; “guided install” is a typed installation behavior, not a separate collection or alternate UI.**
+
+Recognized content includes, as applicable:
 
 - mods;
 - addons;
@@ -319,9 +323,59 @@ Inspect archive/root structure and authoritative manifests/metadata, e.g. loader
 - Unknown/generic `.json` or `.zip` stays a generic download/import candidate.
 - It must not pollute the Addons collection.
 - Every positive classification should retain evidence explaining *why* the file is that content type.
+- When the file corresponds to a real online project/release, classification must preserve/link that canonical provider project + exact provider file identity instead of reducing it to a filesystem-only addon.
 - Ambiguous files stay unresolved/generic rather than being forced into the wrong category.
+- A private/local addon with no provider record remains supported as **Local / Unlinked**; never fabricate a provider match just to make the UI look complete.
 
 Regression fixtures must include real recognized addon/datapack/config ZIPs plus unrelated JSON, source ZIPs, documentation ZIPs, arbitrary archives, and nested/malformed archives.
+
+### T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
+
+- [ ] **T023** · Make addons/customizations resolve to real online projects and release files just like mods
+
+Treat CurseForge **Customization** projects, Modrinth content types, and other supported provider-hosted addon families as first-class catalog projects rather than anonymous ZIP/JSON files.
+
+Required canonical flow:
+
+`local/provider candidate -> identify project -> identify exact provider file/release -> normalize compatibility/dependencies -> choose target instance -> download through normal provider pipeline -> typed destination install -> verify -> retain provider provenance -> update/favorite/freeze/remove through the same lifecycle`
+
+Implementation requirements:
+
+- Use the shared provider adapters and canonical project identity graph already used by mods. Do not build a second addon-only provider database.
+- Resolve provider identity using strongest available evidence: provider project/file IDs, provider API metadata, canonical project URL, file fingerprint/hash, exact release metadata, upstream/source links, dependency/relations data, and known content-family manifests. Filename/display-name matching alone is insufficient.
+- If an existing local addon is not yet linked, research supported providers for candidate project/files in the background. Auto-link only when the evidence is strong enough to avoid cross-project collisions; otherwise surface a compact **Link project / Research provider** action with candidate evidence.
+- Once linked, retain provider/project/file IDs so subsequent refreshes do not have to rediscover identity from scratch.
+- Provider-backed addon cards/details must expose the normal lifecycle: provider/source links, files/versions, compatible releases, dependencies/relations, changelog/release notes where available, favorite, update, freeze/pin, remove, reinstall/change-version, provenance, and **Open provider research**.
+- Installation must use the selected real provider release/download, not a scraped arbitrary attachment. Validate redirects, expected filename/size/hash when available, compatibility, and dependency closure through the normal download/install transaction.
+- Typed addon installers determine the correct destination **without pretending the artifact is a mod JAR**. For a recognized family such as TaCZ gunpacks, use the version/family adapter to install the provider-downloaded ZIP into the correct TaCZ content location for that target, preserving any required archive form.
+- Online project descriptions/instructions may inform a typed adapter and evidence, but raw prose must never be blindly executed as filesystem commands.
+- Detect required/strongly recommended host mods/libraries from provider relations plus validated project metadata/known family rules, and feed missing requirements into the same dependency planner used for normal mods.
+- Update checks compare the installed provider file identity against compatible online provider releases. Updating replaces the prior addon artifact transactionally and preserves the logical project identity, just like T001 requires for mods.
+- If a provider project disappears or is temporarily unreachable, preserve the installed addon, cached metadata, provider identity, and last-known release state; do not demote it into a random local file.
+- Cross-provider duplicates of the same addon project collapse under one canonical project with source badges/options using the same identity rules as T013.
+- Do not count arbitrary files inside `config/`, datapack folders, or addon working directories as separate “addons” merely because they are JSON/ZIP files.
+
+**Required real regression fixture:** `https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom` must resolve as one provider-backed customization/addon project, preserve its CurseForge project/file identity, show its compatible releases/files and relations, download a selected compatible provider file through the normal pipeline, and install it through the TaCZ-appropriate typed destination instead of `mods/`.
+
+### T024 — Addons must use the normal Mods-tab card/detail UI system
+
+- [ ] **T024** · Replace the current addon collection/“guided install” presentation with Mods-tab-quality project browsing
+
+The **Addons** tab is a content-type view over the same canonical project/catalog system as **Mods**. Reuse the normal Mods UI components and interaction language rather than maintaining a visually separate loose-file dashboard.
+
+Required behavior:
+
+- Same card/tile/list visual system as Mods: real project icon/artwork, title, concise installed/version state, provider badges, favorite state, update state, compact actions, and the same context-menu quality.
+- Same search/sort/filter/view-toggle behavior and large-dataset virtualization semantics as Mods.
+- Opening a provider-backed addon shows the same project-detail experience as a normal mod page: hero/icon, description, gallery/media when available, provider/source links, files/versions, changelog/release information, dependencies/relations, compatibility, install/update/change-version actions, favorite, provenance, and relevant “Why?” evidence.
+- Keep type-specific information (for example **TaCZ gunpack**, destination, host-mod requirement, config bundle, datapack, shader) as compact metadata/badges/installation details inside the common project UI rather than replacing the page with an unrelated guided-install layout.
+- Local/private content appears in the same cards/details with a clear **Local / Unlinked** badge and a provider-research/link action. It must not be pushed into a different ugly collection UI.
+- The Addons count represents logical addon projects/content records, not every JSON/file found under an instance.
+- Provider project pages, favorite state, updates, file/version picker, context menus, download progress, and install-to-instance chooser should feel and behave consistently across Mods and Addons.
+- Reuse the same responsive spacing, compact headers, card density, keyboard/focus behavior, and navigation history as the Mods tab.
+- No permanent full-width “guided install” cards or giant collection counters should consume the primary browsing area. Guidance appears only contextually when an install actually needs a typed destination/decision.
+
+**UI acceptance fixture:** the TaCZ Helldivers CurseForge customization above must look and behave like a normal provider-backed project in Enderloom, differing from a mod page only where its content type/install semantics genuinely differ.
 
 ---
 
@@ -384,12 +438,14 @@ Exercise the real desktop build through at least:
 2. provider instance artwork import;
 3. Update All where one installed mod is replaced despite identical destination filename;
 4. browser-authenticated download;
-5. universal guided install with both accepted and rejected generic ZIP/JSON fixtures;
-6. Show file -> Explorer reveal/select;
-7. external launch via CurseForge and Modrinth where compatible;
-8. F5 in browser and native Mod Manager;
-9. Logs tab search/tail;
-10. upgrade/migration from a prior packaged Enderloom profile.
+5. CurseForge TaCZ Helldivers customization -> canonical addon project -> normal Mods-style project page -> compatible provider file selection/download -> typed TaCZ install -> provider-linked update lifecycle;
+6. Addons tab containing provider-backed + Local/Unlinked content without duplicate provider projects or junk JSON/ZIP records;
+7. universal guided install with both accepted and rejected generic ZIP/JSON fixtures;
+8. Show file -> Explorer reveal/select;
+9. external launch via CurseForge and Modrinth where compatible;
+10. F5 in browser and native Mod Manager;
+11. Logs tab search/tail;
+12. upgrade/migration from a prior packaged Enderloom profile.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
@@ -399,4 +455,4 @@ This document is complete only when every leaf task and gate is checked with rea
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T022 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T024 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
