@@ -38,6 +38,8 @@ def main():
         large=root/'large-source.bin';large.write_bytes(b'x'*(21*1024*1024));original=engine.tree_digest(root)
         with large.open('r+b') as stream:stream.seek(-1,2);stream.write(b'y')
         assert engine.tree_digest(root)!=original
+    from devkit_mouse_bridge_selftest import main as mouse_bridge_tests
+    assert mouse_bridge_tests() == 0
     from devkit_runtime_mixin_selftest import main as runtime_mixin_tests
     assert runtime_mixin_tests() == 0
     print('Mixin exact owner/class/method scope, preserved body/ordinal/shift, local-capture guard, idempotence and large-source integrity: PASS')

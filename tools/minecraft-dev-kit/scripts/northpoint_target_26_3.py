@@ -22,6 +22,12 @@ if hashlib.sha256(_runtime_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(
     raise RuntimeError("runtime migration rules do not match the pinned engine")
 from northpoint_runtime_mixin_rules import rewrite_runtime_mixins
 
+_MOUSE_BRIDGE_SHA256 = "a761dc509113d1e1fb9245a9ebc70436b10531424a957812be6bf9304863dcf3"
+_mouse_path = pathlib.Path(__file__).with_name("northpoint_mouse_invoker_rules.py")
+if hashlib.sha256(_mouse_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _MOUSE_BRIDGE_SHA256:
+    raise RuntimeError("mouse bridge does not match the pinned engine")
+from northpoint_mouse_invoker_rules import rewrite_mouse_invokers
+
 
 def __getattr__(name):
     return getattr(_core, name)
@@ -105,7 +111,7 @@ def rewrite_network_tick_mixins(output: pathlib.Path) -> list[dict[str, Any]]:
 
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
-    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output)
+    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output)
 
 
 def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *, pipeline_script: pathlib.Path | None = None) -> dict[str, Any]:

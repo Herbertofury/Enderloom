@@ -1,71 +1,67 @@
-# Minecraft Dev Kit Workbench
+# Minecraft Dev Kit v8
 
-A persistent command-line front end to the **same Northpoint production engine used by Enderloom**. Build or convert real source projects, retain candidate JARs and complete command logs, resume exact-hash results, and package candidates with evidence.
+A durable workbench for building, converting, recovering, testing and packaging Minecraft mod projects through Enderloom's existing Northpoint engine.
 
 ## Start here
 
-Install Python 3.13 and the JDK required by the chosen Minecraft target, then run from this directory:
+**Windows:** extract the complete package and double-click `devkit.cmd`. The guided menu selects a source project, detects its metadata, chooses a target, provisions its JDK, and retains the result in a separate workspace. When Python is missing, the launcher downloads a checksum-pinned private Python runtime from python.org. It does not require administrator access, install globally or modify your system PATH.
+
+**Linux/macOS:** use `sh devkit.sh` with Python 3.12 or newer installed. The same menu and managed JDK setup are available. Use `sh devkit.sh doctor` for a noninteractive prerequisite check.
+
+Already use a terminal? The minimal Windows conversion command is:
+
+```powershell
+.\devkit.cmd convert --project "C:\Mods\MyMod" --minecraft 26.3 --loader fabric --workspace "C:\DevKit-Runs\MyMod-26.3" --verify
+```
+
+`--java` and `--java-path` are optional. The kit selects the required Java major, reuses an appropriate installed JDK or provisions a private verified Temurin JDK. An explicitly supplied JDK must actually contain matching `java` and `javac` binaries.
+
+## Everyday commands
 
 ```powershell
 .\devkit.cmd doctor
-.\devkit.cmd convert --project "C:\Mods\MyMod" --minecraft 26.3 --loader fabric --java 25 --java-path "C:\Java\jdk-25\bin\java.exe" --workspace "C:\DevKit-Runs\MyMod-26.3"
+.\devkit.cmd setup --minecraft 26.3
 .\devkit.cmd status --workspace "C:\DevKit-Runs\MyMod-26.3"
 .\devkit.cmd resume --workspace "C:\DevKit-Runs\MyMod-26.3"
 .\devkit.cmd package --workspace "C:\DevKit-Runs\MyMod-26.3" --output "C:\DevKit-Releases\MyMod-candidate.zip"
 ```
 
-On Linux/macOS use `sh devkit.sh` or `python3 scripts/devkit.py` with the same arguments and native paths. Source and workspace must be separate directory trees. Omit `--workspace` for a unique run beneath `~/.minecraft-dev-kit/runs/`. `--java-path` pins a real JDK; a JRE alone is insufficient.
+Do not run `convert` over a nonempty workspace: use `resume`. Exact unchanged candidate hashes are reused; changed source, missing files or corruption invalidates reuse. Previous attempts and compiler failures remain inspectable.
 
-Official setup: [Python](https://www.python.org/downloads/), [Temurin JDK](https://adoptium.net/temurin/releases/), [Git](https://git-scm.com/downloads). Enderloom's native app has a separate managed-JDK provisioning path; the standalone CLI currently uses an installed JDK.
+## Real native verification
 
-## Commands
+For an already built Fabric 26.3 candidate:
 
-| Command | Actual behavior |
-|---|---|
-| `doctor` | Reports Python, Java, javac, Git, the production engine path and its hash. |
-| `convert` | Inspects source, freezes a target manifest and invokes the canonical production worker without editing original source. |
-| `status` | Reports state, attempts, failure reason and candidate paths; independently re-hashes saved JARs. |
-| `resume` | Reuses unchanged intact candidates. Source/engine changes or corruption invalidate reuse. Previous work directories are archived, not deleted. |
-| `package` | Creates a new ZIP containing candidate bytes, state, receipts, command evidence and SHA-256 manifests. Never silently overwrites an existing package. |
-
-The inferred migration route implemented here is same-loader legacy Fabric/NeoForge to 26.3. Same-version conventional builds and explicit Northpoint overlays retain their existing support. Cross-loader transformations require an appropriate explicit adapter/overlay; selecting a target is not proof that arbitrary code can already be converted. Forge/Quilt choices preserve existing explicit configuration routes, not an automatic universal-port claim.
-
-## Evidence survives the command
-
-```text
-manifest.json                       Source and exact target configuration
-intake.json                         Read-only source intake
-result.json                         Latest user-facing result
-runs/<run-id>/                      Runner stdout, stderr and process receipt
-state/session.json                  Persistent attempts, hashes and gate states
-state/release/                      Candidate JARs and release matrix
-state/work/<cell>/receipt.json       Production receipt
-state/work/<cell>/evidence/commands/ Complete compiler/runtime command output
-state/work/history/<cell>/<run-id>/ Previous attempts and their evidence
+```powershell
+.\devkit.cmd verify --jar "C:\Mods\MyMod.jar" --workspace "C:\DevKit-Runs\MyMod-native"
 ```
 
-A process timeout is recorded as a timeout, not a successful build or proof that Minecraft itself hung. Only the owned process tree is targeted. OS-owned workspace locks prevent simultaneous writers and release automatically when their owner exits.
+The native route fetches and records the exact official Fabric template revision, closes required mod dependencies, builds an independent test probe, and starts the **packaged candidate in production Minecraft**. It checks the loaded candidate's SHA-256 from inside Fabric, creates an integrated world, synchronizes a server-owned block to the client, captures the real rendered world, saves/closes it, reopens it, and checks persistence on both sides. Fresh logs, screenshots, dependency locks and proof are retained.
 
-## Verification states
+This automated native probe currently targets **Fabric 26.3**. Other versions and loaders retain their existing build and runtime-adapter routes; selecting them is not a promise that this particular probe supports them. A native world smoke test is not exhaustive mod gameplay, multiplayer or hardware-GPU performance certification.
 
-**`runtime-unverified` is a preserved build candidate, not playable-release certification.** A configured JVM fixture is not a Minecraft client. Converted mods still need the appropriate dedicated-server/client/integrated-server gates, actual Mixin application, asset/gameplay checks and restart proof. Enderloom's native verification route can promote an exact candidate through SHA-bound proof without rebuilding it.
+The first native run needs network access for the official template, Gradle, game libraries/assets and required mods. On headless Linux it also needs Xvfb, Mesa/OpenGL, OpenAL and the narrator's native libraries. The repository's native CI workflow provisions these prerequisites. On a normal Windows desktop it uses the available graphics driver. This test fixture is not a substitute for a normal licensed gameplay account or launcher.
 
-Exit codes: `0` passes configured gates; `2` means the primary cell is blocked, failed or runtime-unverified; `3` means a secondary cell remains unresolved. `status` can exit successfully while reporting unresolved work. Read the actual state rather than treating every successful command as a finished conversion.
+## Required dependencies without source surgery
 
-`package` permits intact `runtime-unverified` candidates and retains that label in `VERIFICATION.json`. It excludes account state, Gradle caches and private source trees. Review full logs before external sharing because build tools can print sensitive project-specific values.
-
-## Regression commands
-
-```text
-python scripts/northpoint_execution_selftest.py
-python scripts/devkit_workbench_selftest.py
-python scripts/northpoint_production_driver_selftest.py
-python scripts/northpoint_job_runner_selftest.py
-python scripts/northpoint_runtime_proof_selftest.py
-python scripts/northpoint_target_26_3_selftest.py
-python scripts/port_26_3_selftest.py
+```powershell
+.\devkit.cmd dependencies --jar "C:\Mods\MyMod.jar" --minecraft 26.3 --loader-version 0.19.5 --output "C:\DevKit-Runs\MyMod-dependencies"
 ```
 
-The workbench test invokes actual javac, packages and inspects a JAR, runs its JVM entry point, proves zero-rebuild reuse, corrupts a candidate, introduces and recovers from a real compiler error, verifies package hashes, and proves pending runtime evidence stays pending. Its synthetic API fixture is explicitly **not** a native Minecraft test.
+The resolver reads nested Fabric JARs, evaluates required version predicates using Fabric's semantics, queries exact target-compatible Modrinth releases, verifies provider SHA-512/SHA-256, and resolves transitive requirements. Provider hash metadata can expose an old bundled library whose broad metadata incorrectly suggests newer compatibility. Compatible external versions are installed in a separate managed directory; original mod and embedded JAR bytes are not edited or deleted.
 
-Workbench CI covers Linux and Windows and retains real frozen Aoba and LibrarianTradeFinder conversion JARs. The original eight Northpoint lanes remain intact. Existing converter rules, mod IDs, packet behavior, source/build metadata and content-parity requirements are preserved.
+Use every dependency listed in the resulting lock when installing the candidate. Optional recommendations are reported, not silently installed. A missing provider identity, incompatible explicit top-level mod, unsupported constraint or unresolved dependency remains a visible failure. Supply `--projects mapping.json` with exact mod-ID-to-Modrinth-project-ID mappings when provider names differ. `--audit-only` reads metadata without downloading. This is a Fabric resolver, not an unverified Forge/NeoForge metadata translator.
+
+## Offline, integrity and recovery
+
+`setup --offline` reuses a previously verified installed/private JDK without network access. `dependencies --offline` uses verified lockfile bytes. Native `--offline` additionally requires a cached `--template` and already populated Gradle/game caches. `convert --offline` prevents JDK provisioning; source-owned build tools may still perform their normal dependency resolution.
+
+Private JDKs live under `~/.minecraft-dev-kit/cache` (override `DEVKIT_CACHE`). Private Windows Python lives under `%LOCALAPPDATA%\MinecraftDevKit` (override `DEVKIT_BOOTSTRAP_CACHE`). Set `DEVKIT_OFFLINE=1` to prevent the Windows bootstrap from downloading Python. No broad Java-process termination, global package installation or background watchdog is installed.
+
+Candidate/evidence ZIPs are created exclusively rather than overwritten. Packaging re-hashes candidate and runtime dependency bytes. `VERIFICATION.json` distinguishes build-only `runtime-unverified`, separately scoped `native_runtime`, failed and stale proof states. Full command logs can contain project-specific text emitted by your own build tools; review them before sharing publicly.
+
+## Tests and source
+
+The canonical worker is `tools/minecraft-dev-kit` in [Enderloom](https://github.com/Herbertofury/Enderloom). In the complete skill bundle, `worker/` isolates this import graph from the preserved model, animation, server-asset, mapping, caching and older runtime tools in `scripts/` and `references/`.
+
+Run `python scripts/devkit_qol_selftest.py` and `python scripts/devkit_workbench_selftest.py` from the repository kit, or replace `scripts/` with `worker/scripts/` in the skill bundle. The workbench fixture uses a real compiler/JVM but explicitly does **not** count as Minecraft. `devkit_setup_selftest.py` performs real provider downloads; the native CI executes real Minecraft independently.

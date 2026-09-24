@@ -149,7 +149,7 @@ def package(root: Path, output: Path) -> dict:
             for path in native.rglob('*'):
                 if path.is_file() and ('commands' in path.parts or
                     path.name in {'latest.log','debug.log','devkit-runtime-proof.json','template-origin.json'} or
-                    (path.name.startswith('devkit-') and path.suffix == '.png')):
+                    ('devkit-' in path.name and path.suffix == '.png')):
                     files.add(path)
         for path in files:
             if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
