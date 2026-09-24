@@ -747,7 +747,7 @@
 <a id="ux-05-details"></a>
 ## UX-05 - Honest progress and live findings
 
-[Outcome](Checklist.md#ux-05) / 40 source-derived details.
+[Outcome](Checklist.md#ux-05) / 43 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -975,6 +975,35 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G04 · GATE — Instance launching and presentation are polished / [ ] GDN-032 · Compact the oversized instance hero/header (1)</summary>
+
+<a id="d-94561c040c7c6bbceadc"></a>
+- [ ] **D-94561c040c7c6bbceadc** - Keep the attractive artwork, but bound the responsive hero height so it never consumes most of the useful viewport.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G04 · GATE — Instance launching and presentation are polished / [ ] GDN-032 · Compact the oversized instance hero/header
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 159-159](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L159-L159)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons (2)</summary>
+
+<a id="d-142be0a5edafe9722623"></a>
+- [ ] **D-142be0a5edafe9722623** - Inspect archive/root structure and authoritative manifests/metadata, e.g. loader metadata, pack metadata, known addon/config schemas, required asset/layout markers, and existing pr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Inspect archive/root structure and authoritative manifests/metadata, e.g. loader metadata, pack metadata, known addon/config schemas, required asset/layout markers, and existing provider classification.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 262-262](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L262-L262)
+
+<a id="d-2ebc9c1a1387c7ffef10"></a>
+- [ ] **D-2ebc9c1a1387c7ffef10** - Regression fixtures must include real recognized addon/datapack/config ZIPs plus unrelated JSON, source ZIPs, documentation ZIPs, arbitrary archives, and nested/malformed archives.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 269-269](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L269-L269)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 34. UI/UX / “it just works” QOL bar (1)</summary>
 
 <a id="d-58825612760e87b1e980"></a>
@@ -1186,7 +1215,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 45 source-derived details.
+[Outcome](Checklist.md#ux-07) / 50 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -1424,6 +1453,57 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. Replay / Capture / Showcase Studio
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 893-893](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L893-L893)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G04 · GATE — Instance launching and presentation are polished / [ ] GDN-033 · Redesign the top bar to be denser, sleeker, and more coherent (1)</summary>
+
+<a id="d-cfe7280e0419a5da608d"></a>
+- [ ] **D-cfe7280e0419a5da608d** - Do not turn the header into a second content panel.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G04 · GATE — Instance launching and presentation are polished / [ ] GDN-033 · Redesign the top bar to be denser, sleeker, and more coherent
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 179-179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L179-L179)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-051 · Fix “Show file” — reveal and select, do not open/execute (1)</summary>
+
+<a id="d-f325ef99556fd3ee3c4d"></a>
+- [ ] **D-f325ef99556fd3ee3c4d** - Show file must open the OS file manager at the containing folder and select/highlight the exact file.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-051 · Fix “Show file” — reveal and select, do not open/execute
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 231-231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L231-L231)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons (2)</summary>
+
+<a id="d-76287a1b59ec2449c19a"></a>
+- [ ] **D-76287a1b59ec2449c19a** - Do not treat extension alone as proof of an installable content type.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 260-260](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L260-L260)
+
+<a id="d-826a8dd08b649c79eb67"></a>
+- [ ] **D-826a8dd08b649c79eb67** - - Unknown/generic .json or .zip stays a generic download/import candidate. - It must not pollute the Addons collection. - Every positive classification should retain evidence expla...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Unknown/generic .json or .zip stays a generic download/import candidate. - It must not pollute the Addons collection. - Every positive classification should retain evidence explaining *why* the file is that content type. - Ambiguous files stay unresolved/generic rather than being forced into the wrong category.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software / [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 264-267](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L264-L267)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when (1)</summary>
+
+<a id="d-df95e8ef46859d76a86c"></a>
+- [ ] **D-df95e8ef46859d76a86c** - Resume rule: continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 331-331](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L331-L331)
 
 </details>
 
@@ -2166,7 +2246,7 @@
 <a id="ux-09-details"></a>
 ## UX-09 - First-launch and update experience
 
-[Outcome](Checklist.md#ux-09) / 39 source-derived details.
+[Outcome](Checklist.md#ux-09) / 40 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening (1)</summary>
@@ -2188,6 +2268,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 8. 3D Build / Schematic / Blueprint Studio / 8.1 Live 3D editing
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L455-L455)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G02 · GATE — Browser/download experience behaves like a normal modern browser / [ ] GDN-010 · Chrome-normal downloads in the embedded browser (1)</summary>
+
+<a id="d-afee48a3b6b572c797d4"></a>
+- [ ] **D-afee48a3b6b572c797d4** - Required behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G02 · GATE — Browser/download experience behaves like a normal modern browser / [ ] GDN-010 · Chrome-normal downloads in the embedded browser
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 78-78](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L78-L78)
 
 </details>
 

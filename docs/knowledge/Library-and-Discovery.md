@@ -48,12 +48,12 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [LIB-01 - Broad source-aware discovery](Acceptance-LIB.md#lib-01-details): 84 source details.
+- [LIB-01 - Broad source-aware discovery](Acceptance-LIB.md#lib-01-details): 85 source details.
 - [LIB-02 - Correct premium media and trailers](Acceptance-LIB.md#lib-02-details): 64 source details.
-- [LIB-03 - Real embedded browser](Acceptance-LIB.md#lib-03-details): 71 source details.
-- [LIB-04 - Catalog-to-instance bridge](Acceptance-LIB.md#lib-04-details): 58 source details.
+- [LIB-03 - Real embedded browser](Acceptance-LIB.md#lib-03-details): 72 source details.
+- [LIB-04 - Catalog-to-instance bridge](Acceptance-LIB.md#lib-04-details): 59 source details.
 - [LIB-05 - Dedicated Favorites workspace](Acceptance-LIB.md#lib-05-details): 138 source details.
-- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 85 source details.
-- [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 14 source details.
-- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 72 source details.
+- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 86 source details.
+- [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 15 source details.
+- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 77 source details.
 - [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 82 source details.

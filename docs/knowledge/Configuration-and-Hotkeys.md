@@ -37,6 +37,6 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [CONFIG-01 - Semantic config intelligence](Acceptance-CONFIG.md#config-01-details): 16 source details.
 - [CONFIG-02 - Config profiles, overlays and repair](Acceptance-CONFIG.md#config-02-details): 28 source details.
 - [CONFIG-03 - Dedicated Hotkeys top-level tab](Acceptance-CONFIG.md#config-03-details): 8 source details.
-- [CONFIG-04 - Data, functions and command debugger](Acceptance-CONFIG.md#config-04-details): 51 source details.
+- [CONFIG-04 - Data, functions and command debugger](Acceptance-CONFIG.md#config-04-details): 52 source details.
 - [CONFIG-05 - Scripted modpack logic](Acceptance-CONFIG.md#config-05-details): 5 source details.
 - [CONFIG-06 - Progression and softlock intelligence](Acceptance-CONFIG.md#config-06-details): 12 source details.

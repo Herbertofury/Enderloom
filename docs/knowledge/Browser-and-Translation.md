@@ -19,6 +19,7 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-c02109a541b38370ed6d](Acceptance-LIB.md#d-c02109a541b38370ed6d) - CraftTweaker/ZenScript project browser/editor;
 - [D-ab441400db53092acc25](Acceptance-LIB.md#d-ab441400db53092acc25) - Sound browser/mixer.
 - [D-15370d03ace9962e3183](Acceptance-LIB.md#d-15370d03ace9962e3183) - never fake hosted-cloud capability when no provider API is available.
+- [D-879211ae4a7be28ff70d](Acceptance-LIB.md#d-879211ae4a7be28ff70d) - The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
 - [D-afb050b3bb42c5bbdc64](Acceptance-LIB.md#d-afb050b3bb42c5bbdc64) - Browser — real Chromium browser tabs.
 - [D-69229290e9c1db450741](Acceptance-LIB.md#d-69229290e9c1db450741) - Split — resizable side-by-side app/browser or app/app research workflows.
 - [D-82eaf1d38c06ea68ac68](Acceptance-LIB.md#d-82eaf1d38c06ea68ac68) - Browse large curated catalogs.

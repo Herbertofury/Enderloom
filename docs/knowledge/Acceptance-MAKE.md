@@ -2355,7 +2355,7 @@
 <a id="make-08-details"></a>
 ## MAKE-08 - Animation, Molang, effects and audio
 
-[Outcome](Checklist.md#make-08) / 17 source-derived details.
+[Outcome](Checklist.md#make-08) / 18 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules (1)</summary>
@@ -2433,6 +2433,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Cross-Edition Resource-Pack Conversion
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 874-874](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L874-L874)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G01 · GATE — Updates behave like a first-class launcher / [ ] GDN-003 · Add the authorized CurseForge-style download-start animation (1)</summary>
+
+<a id="d-18e60f3413b50b42b71a"></a>
+- [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G01 · GATE — Updates behave like a first-class launcher / [ ] GDN-003 · Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 64-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L64-L68)
 
 </details>
 

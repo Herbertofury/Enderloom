@@ -538,7 +538,7 @@
 <a id="config-04-details"></a>
 ## CONFIG-04 - Data, functions and command debugger
 
-[Outcome](Checklist.md#config-04) / 51 source-derived details.
+[Outcome](Checklist.md#config-04) / 52 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -710,6 +710,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1135-1135](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1135-L1135)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G07 · GATE — Navigation and common desktop hotkeys feel native / [ ] GDN-060 · F5 / Ctrl+R refresh everywhere it makes sense (1)</summary>
+
+<a id="d-ae2b7c8c39f8773590f3"></a>
+- [ ] **D-ae2b7c8c39f8773590f3** - - F5 refreshes the current Enderloom view or embedded browser page. - Ctrl+R behaves equivalently. - Browser context performs normal page reload. - Native Enderloom views refresh c...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - F5 refreshes the current Enderloom view or embedded browser page. - Ctrl+R behaves equivalently. - Browser context performs normal page reload. - Native Enderloom views refresh canonical data, not the entire application process. - Preserve selection, filter, sort, scroll, and stable UI state when possible. - Refresh must not repeat destructive actions, installs, updates, or form submissions.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G07 · GATE — Navigation and common desktop hotkeys feel native / [ ] GDN-060 · F5 / Ctrl+R refresh everywhere it makes sense
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 277-282](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L277-L282)
 
 </details>
 
