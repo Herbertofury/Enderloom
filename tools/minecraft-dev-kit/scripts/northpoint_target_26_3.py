@@ -22,7 +22,7 @@ if hashlib.sha256(_runtime_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(
     raise RuntimeError("runtime migration rules do not match the pinned engine")
 from northpoint_runtime_mixin_rules import rewrite_runtime_mixins
 
-_MOUSE_BRIDGE_SHA256 = "a761dc509113d1e1fb9245a9ebc70436b10531424a957812be6bf9304863dcf3"
+_MOUSE_BRIDGE_SHA256 = "50c64f4d6af59b684c387c7eb76b6d1ae2600fbc39c95a970a89f4643e426d01"
 _mouse_path = pathlib.Path(__file__).with_name("northpoint_mouse_invoker_rules.py")
 if hashlib.sha256(_mouse_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _MOUSE_BRIDGE_SHA256:
     raise RuntimeError("mouse bridge does not match the pinned engine")

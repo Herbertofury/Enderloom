@@ -3,7 +3,7 @@
 from pathlib import Path
 import subprocess
 import tempfile
-from northpoint_mouse_invoker_rules import rewrite_mouse_invokers, ConversionBlock
+from northpoint_target_26_3 import rewrite_mouse_invokers, ConversionBlock
 
 
 def main():
