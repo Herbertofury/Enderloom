@@ -59,3 +59,17 @@ flowchart LR
 Keep world/scenario, entity population, features, draw/simulation distances, shaders, geometry, texture detail, AI/animation cadence, test coverage and output completeness constant. Separate a quick static risk signal from measured causality, and low-overhead measurement from intrusive attribution. Show sample size, spread, cold/warm conditions and per-lane regressions. Do not hide a slower lane in an average or manufacture a speedup by shortening the test.
 
 The selected mod/instance and Enderloom's own conversion pipeline are separate optimization targets. Both matter. A flat already-optimal test case may honestly show no gain, but required improvement fixtures cannot be waived.
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [PERF-01 - Real mod and instance optimization](Acceptance-PERF.md#perf-01-details): 88 source details.
+- [PERF-02 - Minimal measurement and rich attribution](Acceptance-PERF.md#perf-02-details): 26 source details.
+- [PERF-03 - Controlled A/B and full-pack attribution](Acceptance-PERF.md#perf-03-details): 31 source details.
+- [PERF-04 - Frame-time and GPU lab](Acceptance-PERF.md#perf-04-details): 77 source details.
+- [PERF-05 - Boot and fast-launch engine](Acceptance-PERF.md#perf-05-details): 7 source details.
+- [PERF-06 - Memory, tick and throughput gains](Acceptance-PERF.md#perf-06-details): 28 source details.
+- [PERF-07 - Fast conversion and responsive studio](Acceptance-PERF.md#perf-07-details): 7 source details.
+- [PERF-08 - Dedicated Performance workspace](Acceptance-PERF.md#perf-08-details): 74 source details.
+- [PERF-09 - Dual quality and speed acceptance](Acceptance-PERF.md#perf-09-details): 9 source details.

@@ -25,3 +25,13 @@
 [**KNOW-05**](Checklist.md#know-05) - Keep provider/tool/schema/contract registries extensible, versioned, cached and on-demand with pagination/rights/health/provenance and unknown-versus-absent states; no hidden polling watchdog.
 
 **[Every linked source clause](Sources-KNOW.md)** / **[Source manifest](Source-Map.md)**
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [KNOW-01 - Premium in-app Wiki](Acceptance-KNOW.md#know-01-details): 17 source details.
+- [KNOW-02 - Why installed and contextual explanations](Acceptance-KNOW.md#know-02-details): 20 source details.
+- [KNOW-03 - Adaptive ecosystem contracts](Acceptance-KNOW.md#know-03-details): 15 source details.
+- [KNOW-04 - Compatibility execution and matrix](Acceptance-KNOW.md#know-04-details): 61 source details.
+- [KNOW-05 - Source refresh and typed extensions](Acceptance-KNOW.md#know-05-details): 8 source details.

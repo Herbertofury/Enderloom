@@ -61,3 +61,22 @@
 [**PORT-14**](Checklist.md#port-14) - Production-wire selected researched tools or stronger proven equivalents; retain attribution and project-specific permissions, execute comparison fixtures and record exact versions/capabilities/dispositions.
 
 **[Every linked source clause](Sources-PORT.md)** / **[Source manifest](Source-Map.md)**
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [PORT-01 - Input and source authority](Acceptance-PORT.md#port-01-details): 110 source details.
+- [PORT-02 - Universal semantic representation](Acceptance-PORT.md#port-02-details): 7 source details.
+- [PORT-03 - Live version and toolchain atlas](Acceptance-PORT.md#port-03-details): 110 source details.
+- [PORT-04 - Exact mappings and symbol truth](Acceptance-PORT.md#port-04-details): 46 source details.
+- [PORT-05 - Source migration and semantic repair](Acceptance-PORT.md#port-05-details): 73 source details.
+- [PORT-06 - Mixin, access and reflection correctness](Acceptance-PORT.md#port-06-details): 52 source details.
+- [PORT-07 - JAR recovery and binary repair](Acceptance-PORT.md#port-07-details): 47 source details.
+- [PORT-08 - Modern and historical build matrix](Acceptance-PORT.md#port-08-details): 52 source details.
+- [PORT-09 - Native loader and compatibility modes](Acceptance-PORT.md#port-09-details): 64 source details.
+- [PORT-10 - Complete cross-edition conversion](Acceptance-PORT.md#port-10-details): 59 source details.
+- [PORT-11 - Authorized server content to native mod](Acceptance-PORT.md#port-11-details): 47 source details.
+- [PORT-12 - Incremental matrix and packaging](Acceptance-PORT.md#port-12-details): 19 source details.
+- [PORT-13 - Conversion parity and clean replay](Acceptance-PORT.md#port-13-details): 49 source details.
+- [PORT-14 - Ecosystem backend integration](Acceptance-PORT.md#port-14-details): 6 source details.

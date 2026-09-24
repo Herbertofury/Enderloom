@@ -53,7 +53,7 @@ class KnowledgeTests(unittest.TestCase):
   self.assertEqual(before,after)
  def test_single_checkbox_projection(self):
   for p in k.K.glob('*.md'):
-   if p.name!='Checklist.md':self.assertIsNone(re.search(r'^- \[[ x]\]',p.read_text(),re.M),p.name)
+   if p.name!='Checklist.md' and not p.name.startswith('Acceptance-'):self.assertIsNone(re.search(r'^- \[[ x]\]',p.read_text(),re.M),p.name)
  def test_links_and_sources(self):k.check(self.state,self.corpus)
 
 if __name__=='__main__':unittest.main(verbosity=2)

@@ -71,3 +71,18 @@ flowchart TD
 Keep **Favorites**, **Performance**, and the dedicated **Hotkeys** tab as first-class destinations. Preserve working Catalog, Source, Browser, Launcher and split/full views; connect them rather than cloning their state. Use deep graphite/plum, restrained amethyst, equally finished light/dark themes, readable controls, consistent spacing and short meaningful motion. Respect reduced motion; no decorative idle GPU loop.
 
 **Acceptance budgets, not measured claims:** local click/cancel acknowledgement within 100 ms; warm local view within 200 ms; first indexed search result within 300 ms on the recorded baseline. Measure p95 with large real projects. Test all specified viewport sizes, both themes, keyboard-only use and high-DPI scaling. Screenshots show composition; actual interaction tests prove behavior.
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [UX-01 - Four-action Home](Acceptance-UX.md#ux-01-details): 54 source details.
+- [UX-02 - One contextual workbench](Acceptance-UX.md#ux-02-details): 14 source details.
+- [UX-03 - Finished visual system](Acceptance-UX.md#ux-03-details): 6 source details.
+- [UX-04 - Discoverable contextual actions](Acceptance-UX.md#ux-04-details): 8 source details.
+- [UX-05 - Honest progress and live findings](Acceptance-UX.md#ux-05-details): 40 source details.
+- [UX-06 - Reliable editing and recovery](Acceptance-UX.md#ux-06-details): 10 source details.
+- [UX-07 - Large-data and bulk usability](Acceptance-UX.md#ux-07-details): 45 source details.
+- [UX-08 - Accessible responsive native UI](Acceptance-UX.md#ux-08-details): 75 source details.
+- [UX-09 - First-launch and update experience](Acceptance-UX.md#ux-09-details): 39 source details.
+- [UX-10 - Real-user journey acceptance](Acceptance-UX.md#ux-10-details): 19 source details.

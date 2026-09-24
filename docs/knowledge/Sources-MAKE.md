@@ -441,7 +441,7 @@
 [**MAKE-09**](Checklist.md#make-09)
 
 <details>
-<summary>Source clauses and aliases (111 distinct blocks)</summary>
+<summary>Source clauses and aliases (112 distinct blocks)</summary>
 
 - [1. Concept Source Intake](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L19-L56) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 6 distinct blocks.
 - [12. Actual Minecraft Visual QA](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L430-L430) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -487,6 +487,7 @@
 - [7. Model / Texture / Animation / Reference Reconstruction inside the one Studio / 7.2 Reference Reconstruction](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L534-L550) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
 - [10. Model / Texture / Animation / Reference Reconstruction](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L503-L536) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L99-L99) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Built-in test catalogs](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L23-L24) - README.md; 1 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L1-L10) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 4 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum / Definition of success](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L50-L52) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 2 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum / Exact implementation ordering](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L46-L48) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 2 distinct blocks.

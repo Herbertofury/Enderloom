@@ -40,7 +40,7 @@ const css=`:root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;f
 const browser=await puppeteer.launch({executablePath:executable,args:['--no-sandbox'],headless:true});
 const page=await browser.newPage();await page.setViewport({width:1360,height:1000,deviceScaleFactor:1});
 const checked=[];
-for(const name of ['Home','Checklist','Studio','Architecture','Ecosystem']){
+for(const name of ['Home','Checklist','Studio','Architecture','Ecosystem','Media-Integrity','Site-Adapters','Browser-and-Translation','Detailed-Acceptance','Acceptance-LIB']){
  const content=fs.readFileSync(path.join(dir,name+'.md'),'utf8');
  const html='<!doctype html><meta charset="utf-8"><title>'+name+'</title><style>'+css+'</style><main>'+md.render(content)+'</main>';
  const file=path.join(out,name+'.html');fs.writeFileSync(file,html);

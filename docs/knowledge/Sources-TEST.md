@@ -10,7 +10,7 @@
 [**TEST-01**](Checklist.md#test-01)
 
 <details>
-<summary>Source clauses and aliases (597 distinct blocks)</summary>
+<summary>Source clauses and aliases (598 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / MC-Runtime-Test — `headlesshq/mc-runtime-test`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L580-L598) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 5 distinct blocks.
 - [10. GitHub projects to learn from — current research / Mineflayer — `PrismarineJS/mineflayer`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L660-L661) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -247,6 +247,7 @@
 - [9. Performance / Testing becomes the Minecraft Control Plane / 9.7 Why Enderloom should be better than the current tools](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L858-L858) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod”](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L619-L619) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Base](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L623-L623) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Built-in test catalogs](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L21-L21) - README.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 0 — deterministic static/IR tests](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L586-L586) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 0 — deterministic static/IR tests](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L662-L662) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 0 — deterministic static/IR tests](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L662-L662) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.

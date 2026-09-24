@@ -10,7 +10,7 @@
 [**LIB-01**](Checklist.md#lib-01)
 
 <details>
-<summary>Source clauses and aliases (74 distinct blocks)</summary>
+<summary>Source clauses and aliases (85 distinct blocks)</summary>
 
 - [2. CANONICAL ENGINEERING REFERENCES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L162-L162) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L179-L179) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -18,8 +18,8 @@
 - [6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L277-L277) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [23. Full CLI everywhere / 23.1 Global automation contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1028-L1028) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [37. Implementation roadmap / Phase CLI-0 — shared CLI foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1487-L1487) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
-- [39. Definition of done — whole Enderloom vision](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1615-L1615) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L138-L144) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
+- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L146-L185) - ENDERLOOM_MASTER_REQUIREMENTS.md; 9 distinct blocks.
 - [5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L231-L241) - ENDERLOOM_MASTER_REQUIREMENTS.md; 4 distinct blocks.
 - [6. Content management / 6.1 Provider-backed discovery/install](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L336-L344) - ENDERLOOM_MASTER_REQUIREMENTS.md; 5 distinct blocks.
 - [2. Canonical Minecraft Knowledge Graph](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L111-L111) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -55,6 +55,9 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Eliminate broad repeated discovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L930-L930) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [Enderloom release evidence — 2026-08-31 / Launch](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L53-L53) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.1 Sources](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L47-L47) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L89-L94) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L69-L75) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Hot-drop catalogs + live source refresh](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L206-L212) - README.md; 1 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Eliminate broad repeated discovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L526-L526) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
 </details>
@@ -65,7 +68,7 @@
 [**LIB-02**](Checklist.md#lib-02)
 
 <details>
-<summary>Source clauses and aliases (49 distinct blocks)</summary>
+<summary>Source clauses and aliases (91 distinct blocks)</summary>
 
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.3 Preservation and safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L97-L97) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L119-L119) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -73,19 +76,22 @@
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L177-L177) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L311-L311) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.1 Core QOL/performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L315-L317) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 2 distinct blocks.
-- [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.2 Premium Steam-like autoplay trailers for mods](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L321-L338) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 13 distinct blocks.
+- [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.2 Premium Steam-like autoplay trailers for mods](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L321-L338) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 15 distinct blocks.
 - [1. North-star product](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L23-L33) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [2. Product principles — non-negotiable / 2.2 Preserve user data and external launcher ownership](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L59-L59) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
-- [39. Definition of done — whole Enderloom vision](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1602-L1602) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
-- [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L139-L139) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
-- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L179-L182) - ENDERLOOM_MASTER_REQUIREMENTS.md; 3 distinct blocks.
+- [39. Definition of done — whole Enderloom vision](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1602-L1615) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
+- [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L139-L141) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
+- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L179-L182) - ENDERLOOM_MASTER_REQUIREMENTS.md; 4 distinct blocks.
 - [0. North-star product promise](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L25-L25) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [4. Universal Project / Mod Detail Surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L187-L187) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [5. Right-click / Power Context Menu — obsessive QOL / 5.2 `Preview` submenu](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L280-L280) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [8. Minecraft Marketplace integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L443-L444) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
-- [21. Replay / Capture / Showcase Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L887-L887) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
+- [21. Replay / Capture / Showcase Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L887-L889) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 2 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.14 Storage intelligence and de-duplication](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1727-L1727) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.18 UI performance budgets and large-library behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1797-L1797) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.9 Screenshots and media library](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1294-L1309) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
+- [Enderloom verified checkpoint — 2026-09-01 / Acceptance results](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L30-L40) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
+- [Enderloom verified checkpoint — 2026-09-01 / Delivered in this checkpoint](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L7-L12) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
 - [19. CLI/automation — only for Favorites + Performance scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L643-L643) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [23. Acceptance tests / Favorites](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L786-L786) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [3. Performance / Testing tab — Premium Performance Lab / 3.2 Landing dashboard](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L134-L134) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
@@ -93,13 +99,37 @@
 - [2. One repair job, one durable state machine](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L65-L65) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [22. QA fixtures](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L648-L648) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.14 Storage intelligence and de-duplication](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1727-L1727) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.18 UI performance budgets and large-library behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1797-L1797) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.9 Screenshots and media library](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1294-L1309) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
 - [7. Food / Farming / Cooking Contracts / 7.1 Farmer’s Delight](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L308-L309) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Challenge-pass notes](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L711-L711) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
+- [Enderloom release evidence — 2026-08-31 / Acceptance results](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L15-L30) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
 - [Enderloom release evidence — 2026-08-31 / Built artifact SHA-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L34-L49) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
 - [Enderloom release evidence — 2026-08-31 / Code-level references](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L7-L11) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
 - [8. Premium Gorgeous Wiki / Documentation System / 8.1 Sources](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L591-L591) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
-- [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L358-L362) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.1 live off-site media fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L250-L255) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.11 ultra-fast live-media frontier](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L159-L169) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L155-L157) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L237-L241) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.4 native control-plane isolation](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L229-L233) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.6 browser-input + bottom-edge + media-latency repair](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L218-L225) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.7 transport + native split + live-media acceleration](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L196-L200) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.8 ByteString elimination + native modal isolation](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L190-L194) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L181-L186) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L146-L151) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.2.0 true parallel native live-media transport](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L134-L142) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.3.0 streamed-media latency removal](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L125-L132) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.4.0 same-session paint acceleration + fourth native transport](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L113-L121) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L98-L109) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.7.0 instant media ownership + role quarantine](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L77-L85) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L67-L67) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.9.3 CurseForge production gallery recovery + scoped fallback](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L55-L65) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.9.4 exact CurseForge gallery DOM rescue](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L44-L53) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L33-L42) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / Browser/catalog QoL](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L271-L280) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Security and privacy](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L324-L327) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L300-L312) - README.md; 1 distinct blocks.
+- [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L343-L362) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 
 </details>
 
@@ -109,15 +139,14 @@
 [**LIB-03**](Checklist.md#lib-03)
 
 <details>
-<summary>Source clauses and aliases (83 distinct blocks)</summary>
+<summary>Source clauses and aliases (90 distinct blocks)</summary>
 
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L178-L178) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [12. Split research + browser integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L498-L506) - ENDERLOOM_MASTER_REQUIREMENTS.md; 7 distinct blocks.
 - [3. Top-level Enderloom workspaces](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L113-L115) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [39. Definition of done — whole Enderloom vision](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1598-L1599) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
-- [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L133-L143) - ENDERLOOM_MASTER_REQUIREMENTS.md; 6 distinct blocks.
-- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L176-L185) - ENDERLOOM_MASTER_REQUIREMENTS.md; 3 distinct blocks.
-- [4. Catalog + research browser / 4.3 Browser capability](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L187-L198) - ENDERLOOM_MASTER_REQUIREMENTS.md; 10 distinct blocks.
+- [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L133-L143) - ENDERLOOM_MASTER_REQUIREMENTS.md; 5 distinct blocks.
+- [4. Catalog + research browser / 4.3 Browser capability](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L187-L199) - ENDERLOOM_MASTER_REQUIREMENTS.md; 12 distinct blocks.
 - [4. Catalog + research browser / 4.5 Catalog document interchange](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L223-L225) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [Enderloom launcher parity contract / Non-negotiable release gates](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L48-L54) - LAUNCHER_PARITY_MATRIX.md; 1 distinct blocks.
 - [0. North-star product promise](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L26-L26) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -143,6 +172,13 @@
 - [3. Provider Adapter architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L131-L131) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.11 Share instances without making users manually zip folders](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1662-L1662) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.12 Optional Windows integration that actually helps](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2160-L2164) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Enderloom 2.9.5](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L13-L13) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L171-L177) - README.md; 2 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L235-L235) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L179-L179) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L87-L87) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Browser/catalog QoL](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L269-L269) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L261-L265) - README.md; 2 distinct blocks.
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L220-L221) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 
 </details>
@@ -153,7 +189,7 @@
 [**LIB-04**](Checklist.md#lib-04)
 
 <details>
-<summary>Source clauses and aliases (72 distinct blocks)</summary>
+<summary>Source clauses and aliases (74 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-1 — launcher domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L847-L847) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [2. CLI executable contract / Stable exit-code families](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L103-L103) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -169,7 +205,6 @@
 - [37. Implementation roadmap / Phase CLI-1 — existing Enderloom domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1511-L1511) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [4. Catalog + research browser](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L129-L129) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L137-L137) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
-- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L178-L178) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [4. Catalog + research browser / 4.4 Catalog-to-manager bridge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L201-L212) - ENDERLOOM_MASTER_REQUIREMENTS.md; 11 distinct blocks.
 - [Enderloom release evidence — 2026-08-30 / Acceptance results](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-30.md#L7-L17) - RELEASE_EVIDENCE_2026-08-30.md; 1 distinct blocks.
 - [18. Autonomous AI Repair Loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L813-L813) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -204,6 +239,9 @@
 - [Adapter discovery and future-proofing](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L316-L316) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Runtime/release](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1359-L1359) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.1 Sources](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L49-L49) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.6 native bottom status bar](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L330-L331) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Built-in test catalogs](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L26-L26) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Keyboard shortcuts](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L284-L294) - README.md; 1 distinct blocks.
 - [27. Definition of Done — Enderloom Apex Conversion Engine / Core conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L1159-L1159) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [6. Semantic migration engine — answer “what replaces this?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L320-L320) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [27. Definition of Done — Enderloom Apex Conversion Engine / Core conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L1252-L1252) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
@@ -223,7 +261,7 @@
 [**LIB-05**](Checklist.md#lib-05)
 
 <details>
-<summary>Source clauses and aliases (155 distinct blocks)</summary>
+<summary>Source clauses and aliases (156 distinct blocks)</summary>
 
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L180-L180) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [12. Split research + browser integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L505-L505) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -260,6 +298,7 @@
 - [Enderloom — Performance + Favorites Focused Checklist](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L1-L5) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 3 distinct blocks.
 - [16. Performance Lab integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L502-L502) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.7 Play/Home experience and OS integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1249-L1256) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 1.2 -&gt; 2.0 zero-loss upgrade](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L259-L259) - README.md; 1 distinct blocks.
 
 </details>
 
@@ -269,7 +308,7 @@
 [**LIB-06**](Checklist.md#lib-06)
 
 <details>
-<summary>Source clauses and aliases (130 distinct blocks)</summary>
+<summary>Source clauses and aliases (129 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L678-L678) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / packwiz — `packwiz/packwiz`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L686-L689) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -352,7 +391,6 @@
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-04 — Implement Complete-Lineage conversion: strongest legitimate union, not one branch](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L124-L124) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [1. NORTHPOINT HARD INVARIANTS / 1.2 Zero-lag target](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L444-L448) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Zero-loss / lineage](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1319-L1319) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom release evidence — 2026-08-31 / Acceptance results](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L15-L30) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
 - [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Core / identity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L741-L746) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [11. World / Modpack / Content Operations](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L540-L540) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Content](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L641-L641) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
@@ -397,7 +435,7 @@
 [**LIB-07**](Checklist.md#lib-07)
 
 <details>
-<summary>Source clauses and aliases (19 distinct blocks)</summary>
+<summary>Source clauses and aliases (18 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L669-L674) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [6. Content management / 6.1 Provider-backed discovery/install](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L338-L339) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
@@ -408,7 +446,6 @@
 - [4. Universal Project / Mod Detail Surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L176-L207) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
 - [2. Security &amp; Supply-Chain Center — missing critical layer / 2.4 Dependency/SBOM/license risk](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L92-L92) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.1 One-click Safe Update / Update All](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L713-L713) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [Enderloom verified checkpoint — 2026-09-01 / Delivered in this checkpoint](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L7-L12) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
 - [Exact next implementation slice](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L910-L915) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.1 One-click Safe Update / Update All](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L713-L713) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Enderloom — Adaptive Minecraft Ecosystem Compatibility Contract Catalog](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L10-L10) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
@@ -421,7 +458,7 @@
 [**LIB-08**](Checklist.md#lib-08)
 
 <details>
-<summary>Source clauses and aliases (89 distinct blocks)</summary>
+<summary>Source clauses and aliases (86 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L755-L755) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [1. Research findings and integration decisions / 1.1 Integrate now — highest value / I. Vineflower + CFR — dual decompiler recovery lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L244-L244) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
@@ -429,7 +466,6 @@
 - [2. Product principles — non-negotiable / 2.3 No artificial caps or quality loss](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L71-L71) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [32. Update/distribution safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1371-L1371) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [33. Performance requirements for Enderloom itself](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1382-L1385) - ENDERLOOM_MASTER_REQUIREMENTS.md; 3 distinct blocks.
-- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L146-L183) - ENDERLOOM_MASTER_REQUIREMENTS.md; 4 distinct blocks.
 - [5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L239-L239) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [6. Content management / 6.1 Provider-backed discovery/install](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L346-L347) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [18. Autonomous AI Repair Loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L800-L800) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -440,11 +476,9 @@
 - [4. Universal Project / Mod Detail Surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L170-L170) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [41. Verification contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1518-L1518) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L672-L672) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
-- [21. Replay / Capture / Showcase Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L889-L889) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [25. Pack/Release Permission &amp; Policy Gate](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L968-L968) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.14 Storage intelligence and de-duplication](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1729-L1729) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.17 Offline and flaky-network behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1766-L1766) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.18 UI performance budgets and large-library behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1797-L1797) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.13 Enderloom settings/metadata disaster recovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2174-L2180) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / In-app browser rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L123-L123) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [1. Engine integration decisions / 1.1 Integrate now — highest value / I. Vineflower + CFR — dual decompiler recovery lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L406-L406) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
@@ -461,11 +495,13 @@
 - [3. Provider Adapter architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L93-L134) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 28 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.14 Storage intelligence and de-duplication](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1729-L1729) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.17 Offline and flaky-network behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1766-L1766) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.18 UI performance budgets and large-library behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1797-L1797) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.13 Enderloom settings/metadata disaster recovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2174-L2180) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1328-L1328) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.3 Optional dependencies must truly be optional](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L806-L807) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.1 Sources](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L51-L65) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L153-L153) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L96-L96) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L263-L263) - README.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L924-L924) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.3 Optional dependencies must truly be optional](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L402-L403) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
@@ -497,8 +533,6 @@
 - [13. Premium Testing workspace — Performance Lab / 13.4 Whole-pack dashboard](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L604-L604) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [23. Full CLI everywhere / 23.2 CLI parity domains](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1043-L1043) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [4. Catalog + research browser / 4.1 Core research behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L131-L134) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
-- [4. Catalog + research browser / 4.2 Provider universe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L148-L174) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
-- [4. Catalog + research browser / 4.3 Browser capability](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L192-L199) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [4. Catalog + research browser / 4.5 Catalog document interchange](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L214-L224) - ENDERLOOM_MASTER_REQUIREMENTS.md; 9 distinct blocks.
 - [5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L233-L233) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [7. Modpacks / pack interchange](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L390-L404) - ENDERLOOM_MASTER_REQUIREMENTS.md; 14 distinct blocks.
@@ -533,7 +567,6 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.6 Activity/download manager](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1219-L1219) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.7 Play/Home experience and OS integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1260-L1264) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2288-L2288) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [Enderloom verified checkpoint — 2026-09-01 / Acceptance results](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L30-L40) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
 - [Enderloom verified checkpoint — 2026-09-01 / Authenticated JetSetCraft acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L16-L24) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Objective](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L9-L9) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [16. Performance history and staleness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L587-L587) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
@@ -555,6 +588,10 @@
 - [11. Premium Whole-Modpack Migration Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L920-L920) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L90-L97) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [3. Spellbrook-Class Server -&gt; Fully Native Mod Conversion / 3.3 Native target rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L201-L201) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Hot-drop catalogs + live source refresh](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L204-L204) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L267-L267) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Run Enderloom now](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L19-L19) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L314-L320) - README.md; 2 distinct blocks.
 - [14. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L333-L333) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [2. Supported OpenAI Integration Lanes / 2.5 ChatGPT -&gt; Enderloom MCP/plugin lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L129-L129) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
 

@@ -26,6 +26,10 @@ flowchart LR
     Verify --> Deliver["Working, preserved result"]
 ```
 
+## Preserve the catalogue and browser
+
+**[Ad-free mod images](Media-Integrity.md) / [Site adapters](Site-Adapters.md) / [Browser and translation](Browser-and-Translation.md) / [Detailed source checklist](Detailed-Acceptance.md)**
+
 ## Choose your destination
 
 | Workstream | What you can find |
@@ -48,7 +52,7 @@ flowchart LR
 
 ## A checklist that cannot hide the details
 
-**118 canonical outcome owners** connect **45 located source documents** and **10,240 distinct source blocks**. Exact repeated occurrences share a source record; related specifications point to the same outcome rather than creating another progress checkbox. All original detailed clauses stay available through the [Source map](Source-Map.md).
+**118 canonical outcome owners** connect **46 located source documents** and **10,316 distinct source blocks**. Requirement-level checklists expose their full source details. Exact repeated occurrences share a source record; related specifications point to the same outcome rather than creating another progress checkbox. All original detailed clauses stay available through the [Source map](Source-Map.md).
 
 > [!NOTE]
 > Older specifications contain **235 checked task occurrences**. These remain recorded as historical source claims, not freshly verified app functionality. Current evidence and checkmarks are maintained in [one requirements ledger](requirements.json); this documentation build does not certify AoA or the application.

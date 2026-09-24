@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 45 |
-| Source lines processed | 35,742 |
-| Non-empty source blocks accounted for | 13,156 |
-| Distinct contextual/exact source blocks | 10,240 |
+| Located source documents | 46 |
+| Source lines processed | 36,073 |
+| Non-empty source blocks accounted for | 13,232 |
+| Distinct contextual/exact source blocks | 10,316 |
 | Exact repeated occurrences sharing an identity | 2,916 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 4,952 |
@@ -23,6 +23,19 @@ All Markdown/text/JSON sources under `docs/`, excluding generated knowledge page
 **Authority:** current explicit user goals and Studio brief determine the paired delivery and modern UI; Northpoint/Apex preserve exact conversion/content constraints; other specifications supply independent detailed obligations. Older conflicting directions and source-reported completion must be reconciled against current evidence, not silently copied as truth.
 
 ## Documents and fingerprints
+
+<a id="s-b335630551"></a>
+<details>
+<summary><strong>README.md</strong> - 331 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/README.md) | specification
+
+SHA-256: `acbbad123ae4bb9a60c0e0564c319a5d3e0567328db9a76155fa5cff604fa7d3`  
+Bytes: 48,683. Historical checked occurrences: 0.
+
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**MAKE-09**](Checklist.md#make-09), [**PERF-07**](Checklist.md#perf-07), [**PLAY-06**](Checklist.md#play-06), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**TEST-01**](Checklist.md#test-01), [**UX-01**](Checklist.md#ux-01), [**UX-07**](Checklist.md#ux-07)
+
+</details>
 
 <a id="s-607cec1ce6"></a>
 <details>
@@ -384,7 +397,7 @@ Bytes: 2,840. Historical checked occurrences: 0.
 SHA-256: `94c70e628a212e9f72fae9e7ed18e85fd8ba086f3dde11518441a1f6539bcf23`  
 Bytes: 7,367. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-06**](Checklist.md#lib-06), [**PLAY-04**](Checklist.md#play-04), [**SHIP-04**](Checklist.md#ship-04), [**UX-10**](Checklist.md#ux-10)
+**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**PLAY-04**](Checklist.md#play-04), [**SHIP-04**](Checklist.md#ship-04), [**UX-10**](Checklist.md#ux-10)
 
 </details>
 
@@ -397,7 +410,7 @@ Bytes: 7,367. Historical checked occurrences: 0.
 SHA-256: `9aa2c0eabf7b07d565ec80b7a6a8babe8fc2f0c67b20f2fd383bdd234b313983`  
 Bytes: 4,876. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**AOA-06**](Checklist.md#aoa-06), [**LIB-04**](Checklist.md#lib-04), [**LIB-07**](Checklist.md#lib-07), [**LIB-09**](Checklist.md#lib-09), [**PLAY-04**](Checklist.md#play-04), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**UX-10**](Checklist.md#ux-10)
+**Outcome owners:** [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**AOA-06**](Checklist.md#aoa-06), [**LIB-02**](Checklist.md#lib-02), [**LIB-04**](Checklist.md#lib-04), [**LIB-09**](Checklist.md#lib-09), [**PLAY-04**](Checklist.md#play-04), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**UX-10**](Checklist.md#ux-10)
 
 </details>
 
@@ -610,3 +623,7 @@ Bytes: 2,602. Historical checked occurrences: 0.
 </details>
 
 **[Machine-readable block/alias map](source-map.json)** / **[Source inventory](source-inventory.json)**
+
+## Requirement-level coverage
+
+Source-block accounting alone is not checklist coverage. The [detailed acceptance index](Detailed-Acceptance.md) exposes the actual source tasks and binding prose, including documented product behavior from README outside generated navigation. Each has exact locators and independent evidence-bound progress.

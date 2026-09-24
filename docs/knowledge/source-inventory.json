@@ -1,6 +1,16 @@
 {
   "sources": [
     {
+      "id": "S-b335630551",
+      "path": "README.md",
+      "sha256": "acbbad123ae4bb9a60c0e0564c319a5d3e0567328db9a76155fa5cff604fa7d3",
+      "bytes": 48683,
+      "lines": 331,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/README.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-607cec1ce6",
       "path": "docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md",
       "sha256": "f59d13e689a7c24f6d7ea1db7c12ea3bcea7c2ab90f3b0c363fb0fb666d8ac78",
@@ -452,11 +462,11 @@
     }
   ],
   "stats": {
-    "source_files": 45,
-    "source_bytes": 1617489,
-    "source_lines": 35742,
-    "source_blocks": 13156,
-    "unique_blocks": 10240,
+    "source_files": 46,
+    "source_bytes": 1666172,
+    "source_lines": 36073,
+    "source_blocks": 13232,
+    "unique_blocks": 10316,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
     "source_unchecked": 4952,

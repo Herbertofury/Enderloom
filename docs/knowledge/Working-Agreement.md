@@ -39,3 +39,18 @@ Commit the ledger, generator or source changes normally. The knowledge workflow 
 ## Locked product boundaries
 
 Preserve one Studio, dedicated Hotkeys, Favorites and Performance surfaces, the real browser/catalog/launcher, full CLI parity and both immediate product outcomes. Friend-hosting/P2P/reverse-tunnel services and a Voice/Social center were explicitly excluded. Optional image tools never replace real project previews or native proof. Reqsery's separate permission applies to MC Mod Porter, not unrelated restricted projects.
+
+## Detailed source progress
+
+The broad outcomes are rollups, not a substitute for the original requirements. `requirements.json` also owns `detail_progress`; `detailed-requirements.json` and `Acceptance-*.md` are generated views, not another editable backlog. Exact duplicates share a detail ID and retain every occurrence. Never edit generated Wiki checkboxes independently.
+
+```bash
+python scripts/knowledge/fidelity.py record DETAIL_ID --state in_progress --next "Implement the exact source requirement"
+python scripts/knowledge/fidelity.py record DETAIL_ID --state verified --proof docs/evidence/actual-proof.json
+python scripts/knowledge/knowledge.py build
+python scripts/knowledge/knowledge.py check
+```
+
+Replace DETAIL_ID with an actual D- or SITE- ID from the detailed checklist. A verification receipt uses that exact ID as `requirement_id`, and includes `acceptance_sha256` for the complete current detail, in addition to the existing artifact/source/commands/observations fields. The helper prints the acceptance fingerprint when queried with `show DETAIL_ID`. This is real evidence, not a dummy JSON file. Outcome verification rejects unresolved source details. Source modifications invalidate the detail fingerprint; source checkmarks never silently certify the current product.
+
+Navigation-only routing cannot establish semantic equivalence. If a historical instruction conflicts with a newer explicit decision, preserve both and document the actual resolution in the proof; never silently delete a difficult criterion or certify all children with one generic receipt. Source prose and enclosing sections remain binding even when not written as checkboxes.

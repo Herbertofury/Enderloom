@@ -10,13 +10,12 @@
 [**PERF-01**](Checklist.md#perf-01)
 
 <details>
-<summary>Source clauses and aliases (146 distinct blocks)</summary>
+<summary>Source clauses and aliases (145 distinct blocks)</summary>
 
 - [2. CLI executable contract / Stable exit-code families](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L106-L106) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Core commands](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L355-L355) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / JFR](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L504-L506) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [8. Profiler CLI adapters / Spark](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L513-L513) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
-- [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.2 Premium Steam-like autoplay trailers for mods](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L333-L333) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.7 Results surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L382-L382) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [13. Premium Testing workspace — Performance Lab / 13.3 Per-mod metrics / Server](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L578-L583) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L770-L770) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -368,7 +367,7 @@
 [**PERF-07**](Checklist.md#perf-07)
 
 <details>
-<summary>Source clauses and aliases (7 distinct blocks)</summary>
+<summary>Source clauses and aliases (8 distinct blocks)</summary>
 
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L555-L555) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.3 Spark adapter](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L807-L809) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
@@ -377,6 +376,7 @@
 - [0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L271-L271) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L717-L717) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L398-L398) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / 2.3.0 streamed-media latency removal](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L123-L123) - README.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T071`, `ENDERLOOM_STUDIO_EXECUTION.md::T071`, `ENDERLOOM_STUDIO_EXECUTION.md::T157`
 

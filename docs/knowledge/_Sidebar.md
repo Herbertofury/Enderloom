@@ -23,3 +23,10 @@
 [Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)
 
 [Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)
+
+### Source fidelity
+
+- [Ad-free mod images](Media-Integrity.md)
+- [Site adapters](Site-Adapters.md)
+- [Browser and translation](Browser-and-Translation.md)
+- [Detailed source checklist](Detailed-Acceptance.md)

@@ -29,3 +29,14 @@
 [**PLAY-06**](Checklist.md#play-06) - Provide authorized export/import/delta/share workflows from stable identities and hashes while preserving local overlays; do not impersonate proprietary cloud features.
 
 **[Every linked source clause](Sources-PLAY.md)** / **[Source manifest](Source-Map.md)**
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [PLAY-01 - External-launcher connection in place](Acceptance-PLAY.md#play-01-details): 54 source details.
+- [PLAY-02 - Instance creation and organization](Acceptance-PLAY.md#play-02-details): 59 source details.
+- [PLAY-03 - Secure Microsoft accounts and appearance](Acceptance-PLAY.md#play-03-details): 19 source details.
+- [PLAY-04 - Java, loaders and real launch](Acceptance-PLAY.md#play-04-details): 80 source details.
+- [PLAY-05 - Instance update and maintenance](Acceptance-PLAY.md#play-05-details): 14 source details.
+- [PLAY-06 - Native sharing and pack distribution](Acceptance-PLAY.md#play-06-details): 16 source details.

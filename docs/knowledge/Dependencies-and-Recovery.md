@@ -59,3 +59,16 @@ sequenceDiagram
 ```
 
 **QoL connections:** duplicate clicks attach to the same job; a lost connection preserves the selected dependency and continues after legitimate reconnect; changed source invalidates only dependent results; a crash leaves the original project and world untouched. These are connected scenarios for existing requirements, not new permission to bypass access controls or silently change intent.
+
+## Detailed acceptance from your specifications
+
+Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
+
+- [DEP-01 - Full dependency closure](Acceptance-DEP.md#dep-01-details): 71 source details.
+- [DEP-02 - Automatic safe acquisition](Acceptance-DEP.md#dep-02-details): 0 source details.
+- [DEP-03 - Conflict and change-impact graph](Acceptance-DEP.md#dep-03-details): 74 source details.
+- [DEP-04 - Managed immutable toolchains](Acceptance-DEP.md#dep-04-details): 13 source details.
+- [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 87 source details.
+- [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 11 source details.
+- [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 49 source details.
+- [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 9 source details.

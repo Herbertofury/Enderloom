@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse, collections, hashlib, html, json, os, re, sys, tempfile
 from pathlib import Path
 from urllib.parse import quote, urlsplit, urlunsplit
+import fidelity  # SOURCE-ACCEPTANCE-FIDELITY
 
 ROOT=Path(__file__).resolve().parents[2]
 K=ROOT/'docs/knowledge'
@@ -60,13 +61,15 @@ def safe_write(p:Path,txt:str):
 def load_sources():
  paths=sorted(p for p in (ROOT/'docs').rglob('*') if p.is_file() and p.suffix.lower() in {'.md','.txt','.json'} and K not in p.parents)
  # Do not ingest generated documentation or mutable README navigation into itself.
- return paths
+ return sorted(paths + [ROOT/'README.md'])
 
 def classify(text,context,path,groups):
  known={i['id']:i for g in groups for i in g['items']}
  ids=re.findall(r'\*\*(T\d{3,})\b',text)
  if ids and ('STUDIO_EXECUTION' in path or 'CONVERSION_ECOSYSTEM' in path):
   if ids[0] in TMAP:return TMAP[ids[0]]
+ hint=fidelity.owner_hint(text,context,path)
+ if hint in known:return hint
  t=terms(text);c=terms(context)
  score={k:sum(2 if v in t else 0 for v in voc.split())+sum(1.2 if v in c else 0 for v in voc.split()) for k,voc in VOCAB.items()}
  # Strong explicit semantics prevent broad parent titles swallowing specialties.
@@ -119,7 +122,7 @@ def blocks(txt):
 def scan(groups):
  sources=[];unique={};aliases=[];urls=set();checked=0;unchecked=0;total=0
  for p in load_sources():
-  b=p.read_bytes();text=b.decode('utf-8');rel=p.relative_to(ROOT).as_posix();sid='S-'+digest(rel.encode())[:10]
+  b=p.read_bytes();text=fidelity.source_text(p,b.decode('utf-8'));rel=p.relative_to(ROOT).as_posix();sid='S-'+digest(rel.encode())[:10]
   kind='specification'
   if any(x in p.name.lower() for x in ['archived','pre_selfref','_v5','_v6','checkpoint','release_evidence','changelog']):kind='lineage / reported evidence'
   if p.name=='ENDERLOOM_STUDIO_EXECUTION.md':kind='current studio and AoA execution authority'
@@ -510,6 +513,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
  for g in groups:pages['_Sidebar']+=f"- [{g['title']}]({g['page']}.md)\n"
  pages['_Sidebar']+='\n[Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)\n\n[Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)\n'
  pages['_Footer']='**Enderloom** - Fast at the loss of nothing. [Checklist](Checklist.md) / [Source map](Source-Map.md) / [Repository]('+REPO+')\n'
+ fidelity.augment(ROOT,state,corpus,pages)
  for name,text in pages.items():safe_write(K/(name+'.md'),text)
  safe_write(K/'source-inventory.json',json.dumps({'sources':corpus['sources'],'stats':stats},indent=2)+'\n')
  safe_write(K/'source-map.json',json.dumps({'schema_version':1,'clauses':corpus['clauses'],'aliases':corpus['aliases']},separators=(',',':'))+'\n')
@@ -564,6 +568,7 @@ def proof_valid(item):
   if not data.get('commands') or not data.get('observations'):raise ValueError('Empty command/observation proof')
 
 def check(state,corpus):
+ fidelity.validate(ROOT,state,corpus)
  ids=[i['id'] for g in state['groups'] for i in g['items']]
  if len(ids)!=len(set(ids)):raise ValueError('Duplicate outcome ID')
  for g in state['groups']:
@@ -585,7 +590,7 @@ def check(state,corpus):
     if anchor not in anchors:raise ValueError('Broken anchor '+name+' -> '+dst)
  # No generated domain checklist duplication: canonical Markdown progress only in Checklist.
  for name,text in pages.items():
-  if name!='Checklist.md' and re.search(r'^- \[[ x]\]',text,re.M):raise ValueError('Parallel checkbox owner '+name)
+  if name!='Checklist.md' and not name.startswith('Acceptance-') and re.search(r'^- \[[ x]\]',text,re.M):raise ValueError('Parallel checkbox owner '+name)
  print(json.dumps({'status':'passed','checks':['unique outcome IDs','all source blocks accounted for','all aliases mapped','local links and anchors','one progress owner','evidence identity guards'],'stats':corpus['stats']},indent=2))
 
 def main():
@@ -603,6 +608,7 @@ def main():
    if ROOT not in p.parents:raise ValueError('Out-of-repository proof path')
    data=json.loads(p.read_text())
    item['evidence']=[{'path':p.relative_to(ROOT).as_posix(),'artifact_sha256':data.get('artifact_sha256'),'source_commit':data.get('source_commit'),'proof_sha256':digest(p.read_bytes())}]
+  fidelity.validate_outcome(ROOT,state,args.id,scan(state['groups']))
   proof_valid(item);safe_write(K/'requirements.json',json.dumps(state,indent=2)+'\n')
  corpus=scan(state['groups'])
  if args.cmd in {'build','record'}:render(state,corpus)
