@@ -11,11 +11,27 @@ Fix the currently visible rough edges and missing common-sense behavior in Ender
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
+### Immediate execution priority override
+
+The embedded-browser/download repair is now the **highest-priority tranche** because it is the most disruptive everyday UX problem.
+
+Execute this tranche first, without waiting for unrelated queue items:
+
+1. **T026** — move Enderloom onto the latest production-stable Electron baseline;
+2. **T004** — finish the canonical Chromium download pipeline;
+3. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
+4. **T027** — make download persistence/resume/save behavior survive real use and restart;
+5. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+
+This priority override changes execution order only; it does not remove or weaken any other accepted task.
+
 ## Context
 
 The current desktop UI/screenshots show the exact repair targets behind this queue: browser downloads are exposed as a separate manual link/SHA panel instead of normal in-page browser downloads; update/version discovery can sit loading too long; Update All can hit a filename-collision error instead of replacing the installed mod; favorites can duplicate the same project across providers; the MCreator candidate surface consumes permanent vertical space; the instance hero/header is oversized; provider-linked artwork is not consistently reused; and expected desktop actions such as Logs, reveal-in-folder, direct favorite-to-instance install, and F5 refresh are incomplete or awkward.
 
 This queue is intentionally bounded to those accepted UX/QoL repairs and the shared architecture needed to make them reliable. It does not authorize removing working features or weakening Enderloom's existing provenance, dependency, rollback, recovery, or compatibility guarantees.
+
+**Electron/browser correction:** the current manifest declares `electron: ^44.0.0`. As of **2026-09-24**, the newest production-stable Electron release is **44.4.4** (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
 
 **Addon correction:** provider-backed addons/customizations must behave like first-class online projects, not like a loose-file junk drawer. When Enderloom can identify a real CurseForge/Modrinth/etc. project and release file, the Addons surface must retain that online identity, use that provider release for install/update, and present the same polished project-page/card UX as the Mods surface. Local/private addon files remain supported, but must be explicitly shown as local/unlinked rather than being given a fake provider identity.
 
@@ -116,6 +132,8 @@ Required behavior:
 
 The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
 
+**Canonical backend requirement:** webpage downloads, direct URL downloads, CurseForge/Modrinth/provider file transfers, addon downloads, and install/update transfers must converge on one shared download-state/service model where their semantics overlap. Browser-originated transfers must preserve the Chromium session/cookies/referrer/initiator origin; provider install/update transfers additionally retain project/file IDs, dependency/install transaction identity, and rollback state. Do not maintain competing download histories/progress engines that disagree about the same transfer.
+
 ### T005 — Browser extensions
 
 - [ ] **T005** · Browser extensions
@@ -130,6 +148,261 @@ Add a real persistent extension manager for Enderloom's Chromium profile:
 - persist across Enderloom restart and app upgrades;
 - keep extension/profile data outside replaceable packaged application binaries;
 - never silently copy browser secrets from unrelated profiles.
+
+
+### T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
+
+- [ ] **T025** · Ship a real Chrome-style Downloads toolbar control and non-modal pop-out
+
+The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-browser toolbar, backed by the real T004 download model.
+
+Required behavior:
+
+- The Downloads button is always in a predictable browser-toolbar location, compact when idle, and becomes active immediately when a download begins.
+- Starting a normal webpage download automatically opens a **non-modal pop-out bubble anchored under the Downloads button**, without navigating away from the current page and without opening a separate window.
+- The bubble shows the newest/relevant downloads first with favicon/file icon where appropriate, filename, source/origin, progress, received/total bytes, speed, ETA when meaningful, and clear state.
+- In-progress rows expose **Pause/Resume**, **Cancel**, and contextual retry/restart behavior.
+- Completed rows expose **Open**, **Show in Folder**, and useful secondary actions such as Copy Link / Copy Source when safe.
+- Failed/interrupted rows remain visible with a useful reason and **Retry/Resume** action instead of disappearing.
+- Multiple simultaneous transfers are represented coherently; the toolbar icon/ring/badge summarizes aggregate activity without spawning multiple pop-outs.
+- Clicking outside dismisses the bubble **without canceling or pausing downloads**.
+- Clicking the Downloads button reopens the bubble instantly with current/recent state.
+- The bubble remains correct across tab switches, browser navigation, opening Catalog/Mod Manager and returning, and provider installs that also use the shared download model.
+- **Ctrl+J** opens the full Downloads surface/history while the toolbar bubble remains the fast everyday control.
+- New downloads may briefly auto-open the bubble; completed downloads may optionally produce a restrained completion affordance, but no modal spam.
+- The UI honors reduced motion and does not delay transfer start while animating.
+- The bubble must not poll repeatedly for progress if T004 can push download events; use the canonical event stream.
+- The bubble must be keyboard accessible: focus enters predictably, rows/actions are reachable, Escape closes it, focus returns to the Downloads button, and screen-reader names expose meaningful state.
+
+**Hard acceptance path:** click a normal download link on a real webpage -> transfer begins -> Downloads button activates in the same browser toolbar -> bubble opens under it immediately -> live progress updates -> pause/resume/cancel work -> completion exposes Open and Show in Folder -> click elsewhere closes only the bubble -> click the button reopens it instantly -> Ctrl+J opens full Downloads -> browser navigation and tab switching do not lose the transfer/history.
+
+### T026 — Upgrade Enderloom to the latest production-stable Electron
+
+- [ ] **T026** · Upgrade and pin/test the newest stable Electron baseline before the browser modernization lands
+
+Current manifest observation: `package.json` declares `electron: ^44.0.0`.
+
+Implementation contract:
+
+- Immediately before implementation, verify the official Electron stable channel and select the **newest stable production release**, not alpha/beta/RC/nightly.
+- As of 2026-09-24 the verified target is **Electron 44.4.4**. If a newer stable exists when this task executes, use that newer stable after the same compatibility gates.
+- Update the package manifest + lockfile coherently; avoid a stale loose range that leaves the tested binary ambiguous.
+- Record the exact Electron/Chromium/Node/V8 runtime versions in the build evidence.
+- Exercise Enderloom's existing Electron self-test, UI acceptance, native chrome, browser/provider login, download, extension, titlebar, media, split-view, launcher integration, and release/package paths after the upgrade.
+- Fix migration fallout forward rather than downgrading simply to avoid repairs.
+- Validate the new download-origin/session APIs used by T004/T025, including initiator origin/frame data when available.
+- Verify Windows startup, hidden/ready-to-show behavior, DevTools, save dialogs, draggable regions/custom title bar, browser tabs, and GPU rendering on the packaged build.
+- Preserve all existing persistent profile data and browser sessions through the Electron upgrade.
+
+### T027 — Persistent/resumable Downloads and Chrome-normal save behavior
+
+- [ ] **T027** · Make interrupted downloads, save locations, and history behave like a real browser
+
+- Persist download history and terminal state outside replaceable application binaries.
+- Preserve enough legitimate metadata for interrupted/cancelled downloads to resume after restart when the server/session supports it; use Electron's supported interrupted-download/resume mechanisms rather than inventing a fake completed state.
+- If a signed/expiring provider URL cannot resume after restart, reacquire it through the provider adapter while preserving the logical transfer/install transaction.
+- Keep partial files explicitly marked and never expose them as a successful final artifact.
+- Support a configurable default Downloads folder plus **Ask where to save each file**.
+- Respect Content-Disposition and MIME metadata, sanitize filenames, handle same-name collisions predictably, write to partial/temp state, and atomically finalize.
+- Persist recent history independently from whether the user clears finished file rows from the pop-out.
+- A browser reload/tab close must not silently cancel unrelated active downloads.
+- A full app shutdown should either preserve resumable state or clearly mark a transfer as interrupted/retryable on next launch.
+
+### T028 — Proper browser tabs and new-window behavior
+
+- [ ] **T028** · Make links, target=_blank, middle-click, Ctrl+click, and window.open behave like a polished tabbed browser
+
+- Route ordinary foreground/background tab dispositions into Enderloom browser tabs.
+- Preserve referrer/post/form semantics where Electron exposes them; do not break legitimate login/payment/provider flows by naïvely rewriting every popup as a GET.
+- Allow an explicit **Open in New Window** path for pages that genuinely benefit from a separate window.
+- Middle-click / Ctrl+click opens a background tab; normal target=_blank opens the expected foreground tab unless the site semantics require otherwise.
+- Prevent remote content from choosing privileged BrowserWindow/webPreferences.
+- Keep per-tab back/forward history, title, favicon, loading state, URL, zoom, mute/audible state, and current browser session identity.
+- Opening provider/project links from Catalog/Mod Manager should reuse this same tab system instead of a second browser implementation.
+
+### T029 — Recently closed tabs and session/crash restore
+
+- [ ] **T029** · Add Ctrl+Shift+T, recently closed tabs, and durable browser-session restore
+
+- Track recently closed browser tabs/windows with enough safe navigation state to reopen them.
+- **Ctrl+Shift+T** restores the most recently closed tab and continues backward through the recent stack.
+- On normal restart, restore the prior browser workspace according to a user setting.
+- After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom's non-browser workspace.
+- Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical.
+- Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
+
+### T030 — Real browser History
+
+- [ ] **T030** · Add searchable browser history with Ctrl+H and sane privacy controls
+
+- Record normal navigations with URL, title, timestamp, favicon/origin metadata where appropriate.
+- **Ctrl+H** opens a proper History surface.
+- Search/filter history, open a result in the current/new tab, remove individual entries, and clear by time range/all history.
+- Deduplicate noisy same-document/hash changes where appropriate without losing meaningful visits.
+- Respect private/ephemeral browsing contexts if Enderloom adds them; do not leak them into durable history.
+- Clearing history must not erase unrelated favorites, provider identities, downloads, or authenticated cookies unless the user explicitly selects those data classes.
+
+### T031 — Chrome-quality context menus
+
+- [ ] **T031** · Add contextual browser menus instead of generic app-only right-click behavior
+
+Where relevant expose: Back, Forward, Reload, Stop, Open Link in New Tab, Open Link in New Window, Copy Link, Save Link As, Open Image in New Tab, Copy Image, Save Image As, text Copy/Cut/Paste/Select All, spelling suggestions, and optional Inspect for developer mode.
+
+- Use Electron/Chromium context metadata rather than DOM text guessing.
+- Disable impossible actions instead of hiding state misleadingly.
+- Route Save Link/Image through the canonical T004 download manager.
+- Keep dangerous external-protocol handling behind the security policy in T043.
+
+### T032 — Find-in-page and complete browser hotkey parity
+
+- [ ] **T032** · Implement real find-in-page plus normal browser navigation shortcuts
+
+At minimum support where appropriate:
+
+- **Ctrl+F** find in page;
+- **Enter/F3** next result and **Shift+Enter/Shift+F3** previous;
+- Escape closes find;
+- **Ctrl+L** focus/select omnibox;
+- **Ctrl+T** new tab;
+- **Ctrl+W** close tab;
+- **Ctrl+Shift+T** reopen closed tab;
+- **Ctrl+Tab / Ctrl+Shift+Tab** tab cycling;
+- **Ctrl++ / Ctrl+- / Ctrl+0** zoom;
+- **F5 / Ctrl+R** reload;
+- **Alt+Left / Alt+Right** back/forward;
+- **F11** fullscreen;
+- **Ctrl+J** Downloads;
+- **Ctrl+H** History.
+
+Integrate with Enderloom's canonical Hotkeys system so conflicts are visible/remappable instead of being silently hardcoded.
+
+### T033 — Omnibox/location bar polish
+
+- [ ] **T033** · Make the address/search bar behave like a real browser omnibox
+
+- Correctly distinguish URLs, hostnames, searches, pasted text, local/internal Enderloom routes, and supported custom/provider URLs.
+- Support paste-and-go/paste-and-search.
+- Show clean current URL and page security/origin context without spoofable site-controlled chrome.
+- Autocomplete from safe local history, open tabs, favorites/bookmarks/provider projects, and explicit search suggestions where configured.
+- Keyboard Up/Down selects candidates; Enter navigates; Escape restores current URL.
+- Copy URL should copy a clean canonical URL, not transient internal wrapper routes where avoidable.
+- Preserve exact logged-in/provider session behavior when navigating.
+
+### T034 — Chrome-like site-permission bubble and per-origin permission state
+
+- [ ] **T034** · Own camera/microphone/notification/clipboard/etc. permissions with contextual prompts
+
+- Never rely on permissive Chromium defaults for remote content.
+- Show a compact contextual permission bubble tied to the requesting origin and current tab.
+- Support Allow once / Allow while using / Remember Allow or Block where the underlying capability safely permits.
+- Expose per-origin permission state and a way to reset it.
+- Handle camera, microphone, notifications, clipboard, display/media capture, MIDI/serial/USB/Bluetooth/file-system access and other Electron-exposed permission families according to actual support.
+- A background/inactive tab cannot spoof a foreground permission prompt.
+- Permission state survives restart only where explicitly remembered.
+
+### T035 — Tab/renderer/GPU child-process crash recovery
+
+- [ ] **T035** · Recover the affected browser surface instead of destabilizing Enderloom
+
+- Detect renderer gone/unresponsive/load-failed/GPU or relevant child-process failures.
+- Replace only the affected tab/view with a clear recoverable error state and **Reload** action where possible.
+- Preserve tab URL/history/title and unaffected tabs.
+- Avoid infinite reload loops; repeated crashes surface diagnostics/evidence.
+- Repeated provider/browser crashes become regression fixtures.
+- Enderloom's launcher/mod-manager core must remain usable even if an external webpage crashes.
+
+### T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
+
+- [ ] **T036** · Use WebContentsView for embedded remote browsing wherever legacy BrowserView/webview architecture remains
+
+- Inspect the actual current browser embedding implementation once.
+- If it already uses `WebContentsView`, verify it and close this as proven rather than rewriting it.
+- If it uses deprecated `BrowserView` or the discouraged `<webview>` path for the main browser surface, migrate to `WebContentsView` while preserving session, navigation, tabs, split layout, sizing, focus, keyboard, media, downloads, auth and DevTools behavior.
+- Centralize view lifecycle/ownership so hidden/dead views cannot retain stale privileged references.
+- Do not perform this migration as a visual rewrite; preserve current accepted Enderloom shell UX while modernizing the browser substrate.
+
+### T037 — Native window-state persistence
+
+- [ ] **T037** · Persist/restore window bounds and display state with current Electron-supported behavior
+
+- Preserve main-window size, position, maximized/fullscreen state, and sensible multi-monitor placement across restart.
+- Clamp stale/off-screen bounds after monitor topology/DPI changes.
+- Avoid writing resize state on every pixel event; persist coherent settled state.
+- Keep window-state persistence separate from tab/browser history so clearing one does not erase the other.
+- Prefer current Electron-native capabilities where they satisfy the behavior rather than maintaining fragile duplicate code.
+
+### T038 — Durable browser profile plus honest extension compatibility/lifecycle
+
+- [ ] **T038** · Make the persistent Chromium profile and extensions survive Enderloom upgrades correctly
+
+- Keep cookies, local/session storage where applicable, cache policy, permissions, history, downloads, extension state and relevant browser preferences in the durable Enderloom profile, not packaged app files.
+- Preserve authenticated provider sessions across Enderloom upgrades unless the provider invalidates them.
+- Electron extensions must use persistent sessions.
+- Restore enabled unpacked extensions on every boot through the current Electron extension API; do not assume Electron remembers them automatically.
+- Show extension compatibility as **Compatible / Partial / Unsupported API** based on Electron's actual supported API surface and observed load warnings.
+- Do not claim Chrome Web Store/full Chrome-extension parity that Electron does not provide.
+- Do not silently copy secrets/cookies/extensions from another browser profile.
+
+### T039 — Native-feeling load, navigation, offline, certificate, and error states
+
+- [ ] **T039** · Make navigation state obvious without modal spam
+
+- Show favicon/loading spinner or equivalent compact activity indication while navigating.
+- Toolbar Reload becomes Stop while actively loading, then returns to Reload.
+- Back/Forward enabled state reflects the active tab's real navigation history.
+- Provide clear inline error pages for offline/DNS/TLS/certificate/connection/load failures with Retry and diagnostics/context actions.
+- Certificate/security errors must not be silently bypassed.
+- Restore normal content without layout jumps when navigation succeeds.
+- Authentication redirects/popups must remain attached to the originating browser context.
+
+### T040 — Picture-in-picture, media controls, mute/audible state
+
+- [ ] **T040** · Add browser-grade media behavior where Chromium/Electron supports it
+
+- Expose per-tab audible/muted state and quick mute/unmute.
+- Support picture-in-picture/native media behavior where available without reimplementing site players.
+- Honor site/user autoplay policy and never surprise-play audio.
+- Preserve media state appropriately across tab switching.
+- Do not allow background media to steal global shortcuts or spawn uncontrolled windows.
+
+### T041 — Browser/download/import drag-and-drop polish
+
+- [ ] **T041** · Make drag/drop routes predictable and useful
+
+- Drag URLs/text into the omnibox/tab strip where appropriate.
+- Drag completed downloaded files out from the Downloads bubble/full Downloads surface using supported OS drag behavior.
+- Dropping supported Minecraft mods/addons/datapacks/resource packs/shaders/config bundles/worlds onto Enderloom routes into the universal importer/typed installer rather than blindly opening/executing them.
+- Reject dangerous/unrecognized drops safely while preserving the original file.
+- Provide keyboard alternatives for drag-only actions.
+
+### T042 — Windows-native download/browser integration
+
+- [ ] **T042** · Integrate meaningful download/browser state with Windows
+
+- Reflect active aggregate download progress through the Windows taskbar progress indicator where appropriate.
+- On download completion, optionally show a restrained native notification when enabled; do not notify for invisible provider metadata requests.
+- Notification click opens/reveals the relevant download/project safely.
+- **Show in Folder** uses Explorer reveal/select, not file execution.
+- Save/Open dialogs use native Windows behavior and preserve the requesting tab/download context.
+- Verify high-DPI/multi-monitor positioning for the Downloads bubble and permission/context pop-outs.
+
+### T043 — Browser security hardening while adding Chrome-like capability
+
+- [ ] **T043** · Preserve strong Electron security boundaries for every browser feature above
+
+- Keep remote pages sandboxed with Node integration disabled and context isolation enabled.
+- Expose only narrow validated preload/contextBridge operations.
+- Validate IPC senders/origins for privileged actions.
+- Own permission requests explicitly (T034).
+- Route `window.open` / target=_blank through the tab/window policy (T028) and deny unexpected privileged creation.
+- Never pass arbitrary remote URLs straight to `shell.openExternal`; allowlist safe protocols/origins/actions.
+- Prevent remote content from choosing privileged webPreferences, preload paths, file URLs or internal Enderloom routes.
+- Keep navigation/protocol handlers path-safe and origin-aware.
+- Preserve secure storage for tokens/cookies/provider credentials.
+- Add negative regression fixtures proving a hostile webpage cannot invoke filesystem/install/launcher/provider privileged operations through the browser shell.
+
+**Explicit exclusions requested by the user:** do **not** add browser tab memory-suspension/management work and do **not** add a browser task-manager feature as part of this queue.
+
 
 ---
 
@@ -445,14 +718,26 @@ Exercise the real desktop build through at least:
 9. external launch via CurseForge and Modrinth where compatible;
 10. F5 in browser and native Mod Manager;
 11. Logs tab search/tail;
-12. upgrade/migration from a prior packaged Enderloom profile.
+12. upgrade/migration from a prior packaged Enderloom profile;
+13. packaged app reports the exact newest stable Electron runtime selected by T026 and passes its browser/native regression suite;
+14. normal webpage download -> automatic toolbar Downloads bubble -> live progress -> pause/resume/cancel -> completion -> Show in Folder -> bubble dismiss/reopen -> Ctrl+J full Downloads -> restart/history recovery;
+15. target=_blank / middle-click / Ctrl+click -> correct foreground/background Enderloom tabs with no unsafe child-window privilege;
+16. Ctrl+Shift+T + normal restart/crash restore + Ctrl+H History;
+17. right-click context menu, Ctrl+F find, Ctrl+L omnibox, zoom/tab/fullscreen shortcuts;
+18. per-origin permission request -> compact permission bubble -> remember/reset behavior;
+19. forced renderer/tab load failure -> recover only the affected tab with Reload while the rest of Enderloom remains usable;
+20. WebContentsView/current embedding verification or migration proof;
+21. persisted window state across restart and monitor/DPI change;
+22. persistent browser profile + extension reload/compatibility labeling across Enderloom upgrade;
+23. offline/certificate/load-state UI, media mute/PiP behavior, browser/download drag/drop, Windows taskbar progress/notification/reveal integration;
+24. hostile-page browser-security regression fixture proving no privileged Enderloom action is reachable through untrusted remote content.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content.
+This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T024 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T043 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
