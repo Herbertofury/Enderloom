@@ -16,6 +16,24 @@ Already use a terminal? The minimal Windows conversion command is:
 
 `--java` and `--java-path` are optional. The kit selects the required Java major, reuses an appropriate installed JDK or provisions a private verified Temurin JDK. An explicitly supplied JDK must actually contain matching `java` and `javac` binaries.
 
+## Reusable Stonecutter multiversion output
+
+A successful **conversion** is no longer treated as a disposable one-version folder. The production conversion automatically exports a reusable shared-source project and `multiversion-project.zip` in that run's evidence. It runs the actual Stonecutter Gradle plugin (pinned to 0.9.8) for version preprocessing; Enderloom does not fake Stonecutter with regex-only source copies.
+
+The workspace keeps shared `src/` code once, factors genuine version differences behind Stonecutter conditions where that is safe, keeps non-mergeable source/resource differences under `overrides/<minecraft-loader>/`, and preserves each target's full native Gradle/build/dependency/mapping/access-rule setup under `targets/<minecraft-loader>/build/`. This prevents a later port from starting over or forcing one loader/version's dependency graph onto another.
+
+From an extracted multiversion project:
+
+```powershell
+.\build-all.cmd
+.\.devkit\worker\devkit.cmd matrix-build --workspace . --target 26.3-fabric --verify
+.\.devkit\worker\devkit.cmd matrix-add --workspace . --project "C:\Ports\MyMod-Next" --minecraft <version> --loader fabric
+```
+
+On Linux/macOS use `sh build-all.sh` and `sh .devkit/worker/devkit.sh ...`. `matrix-build` runs real Stonecutter generation before the preserved native build for every requested target. `matrix-add` first materializes the existing targets through Stonecutter, then factors the new completed native port into the same shared project, retaining previous candidate/proof state so unchanged targets do not rebuild. A backup is kept before the workspace swap.
+
+Adding a target does **not** pretend arbitrary future Minecraft APIs are already compatible: semantic/API migrations still go through the normal converter and strongest applicable runtime QA. Stonecutter then makes the successfully ported variants maintainable together afterward.
+
 ## Everyday commands
 
 ```powershell

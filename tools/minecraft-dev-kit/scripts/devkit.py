@@ -248,8 +248,17 @@ def wizard() -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
+    matrix_commands={'matrix-init':'init','matrix-build':'build','matrix-add':'add'}
+    if argv and argv[0] in matrix_commands:
+        from devkit_multiversion import main as matrix_main
+        return matrix_main([matrix_commands[argv[0]], *argv[1:]])
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
+    for name, help_text in [('matrix-init','Create a real Stonecutter shared-source workspace'),
+                            ('matrix-build','Generate and build one or all version targets'),
+                            ('matrix-add','Import another native port without losing existing shared edits')]:
+        sub.add_parser(name, help=help_text)
     doctor = sub.add_parser('doctor', help='Inspect installed build prerequisites without changing them')
     doctor.add_argument('--java-path', type=Path)
     setup = sub.add_parser('setup', help='Provision and verify a private JDK; no administrator or PATH changes')

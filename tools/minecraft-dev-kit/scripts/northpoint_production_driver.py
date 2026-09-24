@@ -27,6 +27,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
 CONFIG_NAME = 'northpoint.project.json'
 ARTIFACT_ENGINE_FILES = (
+    'scripts/devkit_multiversion.py',
     'scripts/northpoint_compose.py',
     'scripts/northpoint_source_intake.py',
     'scripts/northpoint_target_26_3.py',
@@ -596,6 +597,12 @@ def main() -> int:
     if blockers:
         print(json.dumps({'state': 'failed', 'reason': 'static release blockers: ' + ', '.join(sorted(set(blockers))), 'evidence': evidence, 'conversion': conversion_manifest}))
         return 0
+
+    if conversion_manifest:
+        from devkit_multiversion import export_conversion
+        reusable = export_conversion(project, conversion_root, work, conversion_manifest)
+        conversion_manifest['multiversion'] = reusable
+        evidence.append('multiversion-project:' + reusable['archive']['sha256'])
 
     state, runtime_evidence, runtime_reason = runtime_gate(composed, jar, work, cfg, cell, args.timeout)
     evidence.extend(runtime_evidence)
