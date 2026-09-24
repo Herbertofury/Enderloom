@@ -18,7 +18,8 @@ def main():
     assert 'client.player != null || client.level != null || client.getSingleplayerServer() != null' in JAVA
     assert 'enableCustomTitle' not in JAVA, 'probe must not disable the user-visible custom menu'
     assert 'context.waitTicks(20);' in JAVA and 'buttons < 7' in JAVA
-    assert 'context.clickScreenButton("Singleplayer")' in JAVA
+    assert 'button.onPress(new net.minecraft.client.input.MouseButtonInfo' in JAVA
+    assert 'buttons.size() != 1' in JAVA and '.active' in JAVA and '.visible' in JAVA
     assert 'DEVKIT_NATIVE_CUSTOM_TITLE_INTERACTION' in JAVA
     with tempfile.TemporaryDirectory(prefix='devkit-restart-test-') as td:
         root=Path(td); probe=root/'probe';probe.mkdir()

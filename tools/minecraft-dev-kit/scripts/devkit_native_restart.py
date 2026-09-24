@@ -35,7 +35,18 @@ METHODS = r'''
         if (buttons < 7) throw new AssertionError("custom title lost its menu controls: " + buttons);
       });
       context.takeScreenshot("devkit-EXPECTED_MOD-custom-title-" + System.getProperty("devkit.phase", "initial"));
-      context.clickScreenButton("Singleplayer");
+      // Fabric's helper accepts Button/CycleButton, not arbitrary AbstractButton subclasses.
+      context.runOnClient(client -> {
+        var buttons = client.gui.screen().children().stream()
+            .filter(child -> child instanceof net.minecraft.client.gui.components.AbstractButton)
+            .map(child -> (net.minecraft.client.gui.components.AbstractButton) child)
+            .filter(button -> "Singleplayer".equals(button.getMessage().getString())).toList();
+        if (buttons.size() != 1 || !buttons.getFirst().active || !buttons.getFirst().visible)
+          throw new AssertionError("custom Singleplayer control is missing, ambiguous or disabled");
+        var button = buttons.getFirst();
+        System.out.println("DEVKIT_CUSTOM_BUTTON:" + button.getX() + "," + button.getY() + "," + button.getWidth() + "," + button.getHeight());
+        button.onPress(new net.minecraft.client.input.MouseButtonInfo(com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT, 0));
+      });
       context.waitForScreen(net.minecraft.client.gui.screens.worldselection.SelectWorldScreen.class);
       context.waitTicks(5);
       context.takeScreenshot("devkit-EXPECTED_MOD-world-menu-" + System.getProperty("devkit.phase", "initial"));
