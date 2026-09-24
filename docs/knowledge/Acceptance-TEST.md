@@ -3686,7 +3686,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 118 source-derived details.
+[Outcome](Checklist.md#test-03) / 120 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -3879,6 +3879,28 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 31. Cross-integration requirements for these newly added domains
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1118-1118](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1118-L1118)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof (1)</summary>
+
+<a id="d-137348411fc4a10d5471"></a>
+- [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 363-363](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L363-L363)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass (1)</summary>
+
+<a id="d-fca41c33fb0cfb2d8a42"></a>
+- [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 373-373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L373-L373)
 
 </details>
 
@@ -6639,7 +6661,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 40 source-derived details.
+[Outcome](Checklist.md#test-05) / 41 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -6735,6 +6757,17 @@
   - **Full requirement:** GATE — each changed conversion lane has targeted tests plus the strongest applicable real Minecraft runtime proof; package/build-only evidence is not used to close runtime-sensitive work.
   - **Binding context:** 6. Verification gates
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: G006 : 803-803](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L803-L803) / [ENDERLOOM_STUDIO_EXECUTION.md :: G006 : 964-964](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L964-L964)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof (1)</summary>
+
+<a id="d-6fb96681e733314382a3"></a>
+- [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 379-379](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L379-L379)
 
 </details>
 

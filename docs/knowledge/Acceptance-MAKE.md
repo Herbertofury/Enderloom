@@ -585,7 +585,7 @@
 <a id="make-02-details"></a>
 ## MAKE-02 - Safe visual and code round-tripping
 
-[Outcome](Checklist.md#make-02) / 38 source-derived details.
+[Outcome](Checklist.md#make-02) / 40 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -743,6 +743,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1137-1137](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1137-L1137)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation (1)</summary>
+
+<a id="d-ea688715513030a150e3"></a>
+- [ ] **D-ea688715513030a150e3** - Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rou...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rough lookalike when the authorized source is available.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 77-77](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L77-L77)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass (1)</summary>
+
+<a id="d-8aa2316c47da0425b6cf"></a>
+- [ ] **D-8aa2316c47da0425b6cf** - · Visual/performance regression pass
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 367-367](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L367-L367)
 
 </details>
 
@@ -2355,7 +2378,7 @@
 <a id="make-08-details"></a>
 ## MAKE-08 - Animation, Molang, effects and audio
 
-[Outcome](Checklist.md#make-08) / 18 source-derived details.
+[Outcome](Checklist.md#make-08) / 19 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules (1)</summary>
@@ -2437,14 +2460,20 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G01 · GATE — Updates behave like a first-class launcher / [ ] GDN-003 · Add the authorized CurseForge-style download-start animation (1)</summary>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation (2)</summary>
+
+<a id="d-a226249c259810f5bd6b"></a>
+- [ ] **D-a226249c259810f5bd6b** - · Add the authorized CurseForge-style download-start animation
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 75-75](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L75-L75)
 
 <a id="d-18e60f3413b50b42b71a"></a>
 - [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / [ ] GDN-G01 · GATE — Updates behave like a first-class launcher / [ ] GDN-003 · Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 64-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L64-L68)
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 79-83](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L79-L83)
 
 </details>
 

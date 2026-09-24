@@ -9,7 +9,7 @@
 <a id="play-01-details"></a>
 ## PLAY-01 - External-launcher connection in place
 
-[Outcome](Checklist.md#play-01) / 54 source-derived details.
+[Outcome](Checklist.md#play-01) / 55 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -52,6 +52,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 9. Startup / Boot-Time Profiler
   - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 237-237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L237-L237)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher (1)</summary>
+
+<a id="d-0ea7e908fc5cb786133a"></a>
+- [ ] **D-0ea7e908fc5cb786133a** - GATE — Updates behave like a first-class launcher
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 35-35](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L35-L35)
 
 </details>
 
@@ -556,7 +567,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 59 source-derived details.
+[Outcome](Checklist.md#play-02) / 60 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -599,6 +610,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. Hardware / JVM / Render Advisor
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 909-909](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L909-L909)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header (1)</summary>
+
+<a id="d-01867a6cb17cb20540cd"></a>
+- [ ] **D-01867a6cb17cb20540cd** - · Compact the oversized instance hero/header
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 192-192](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L192-L192)
 
 </details>
 

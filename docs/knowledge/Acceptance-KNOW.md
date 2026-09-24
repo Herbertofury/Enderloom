@@ -146,7 +146,7 @@
 <a id="know-02-details"></a>
 ## KNOW-02 - Why installed and contextual explanations
 
-[Outcome](Checklist.md#know-02) / 20 source-derived details.
+[Outcome](Checklist.md#know-02) / 21 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -234,6 +234,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 2. Security &amp; Supply-Chain Center — missing critical layer / 2.2 Threat intelligence and provenance
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 72-72](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L72-L72)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally (1)</summary>
+
+<a id="d-d4b07743af654670e28e"></a>
+- [ ] **D-d4b07743af654670e28e** - · Fix “File already exists” update failures — replace the installed mod transactionally
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 39-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L39-L39)
 
 </details>
 

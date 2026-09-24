@@ -31,7 +31,7 @@
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
 - [KNOW-01 - Premium in-app Wiki](Acceptance-KNOW.md#know-01-details): 17 source details.
-- [KNOW-02 - Why installed and contextual explanations](Acceptance-KNOW.md#know-02-details): 20 source details.
+- [KNOW-02 - Why installed and contextual explanations](Acceptance-KNOW.md#know-02-details): 21 source details.
 - [KNOW-03 - Adaptive ecosystem contracts](Acceptance-KNOW.md#know-03-details): 15 source details.
 - [KNOW-04 - Compatibility execution and matrix](Acceptance-KNOW.md#know-04-details): 61 source details.
 - [KNOW-05 - Source refresh and typed extensions](Acceptance-KNOW.md#know-05-details): 8 source details.

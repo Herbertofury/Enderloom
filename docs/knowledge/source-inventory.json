@@ -153,9 +153,9 @@
     {
       "id": "S-9eeb62007d",
       "path": "docs/ENDERLOOM_GET_DONE_NOW_QOL.md",
-      "sha256": "f130f6786bd80dc85b0c68752cafd9940ced69235faef1ee565bc90af92a29ca",
-      "bytes": 16647,
-      "lines": 331,
+      "sha256": "927d90c81e7d775edb9574d4e9a0701c12499c7e618eff9be689ec378b320aa9",
+      "bytes": 21130,
+      "lines": 402,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md",
       "source_checked": 0
@@ -473,13 +473,13 @@
   ],
   "stats": {
     "source_files": 47,
-    "source_bytes": 1682819,
-    "source_lines": 36404,
-    "source_blocks": 13331,
-    "unique_blocks": 10415,
+    "source_bytes": 1687302,
+    "source_lines": 36475,
+    "source_blocks": 13365,
+    "unique_blocks": 10449,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
-    "source_unchecked": 4952,
-    "alias_occurrences": 423
+    "source_unchecked": 4983,
+    "alias_occurrences": 454
   }
 }
