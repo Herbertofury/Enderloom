@@ -4,56 +4,169 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/enderloom-knowledge.yml'
+      - '.github/enderloom-knowledge-seed.json'
       - 'scripts/knowledge/**'
-      - 'docs/knowledge/**'
+      - 'docs/**'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: enderloom-knowledge
   cancel-in-progress: false
 jobs:
   knowledge:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ github.token }}
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
     steps:
-      - name: Read complete specification snapshot
-        env:
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.sha }}
+      - name: Read current repository without overwriting concurrent work
         run: |
-          git init source
-          git -C source remote add origin "https://github.com/$REPO.git"
-          git -C source fetch --depth 1 origin "$SHA"
-          git -C source checkout --detach FETCH_HEAD
+          git clone --depth 2 "https://github.com/$REPO.git" source
+          git -C source config user.name 'Enderloom Knowledge'
+          git -C source config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          git -C source config http.https://github.com/.extraheader "AUTHORIZATION: basic $AUTH"
+      - name: Restore the verified authored documentation payload when present
+        id: seed
+        working-directory: source
+        run: |
           python3 - <<'PY'
-          import pathlib, json, hashlib
-          root=pathlib.Path('source')
-          paths=[p for p in root.rglob('*') if p.is_file() and '.git' not in p.parts and (p.suffix.lower() in ('.md','.json','.yml') and (p.parts[1]=='docs' or p.name in ('README.md','package.json')))]
-          rows=[{'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(paths)]
-          pathlib.Path('source-inventory.json').write_text(json.dumps({'files':rows},indent=2)+'\n')
-          print('Complete source files:',len(rows))
+          import hashlib,io,json,pathlib,stat,urllib.request,urllib.parse,zipfile,os
+          seed=pathlib.Path('.github/enderloom-knowledge-seed.json')
+          if seed.exists():
+              d=json.loads(seed.read_text()); u=urllib.parse.urlsplit(d['url'])
+              if u.scheme!='https' or not u.hostname.endswith('.oaiusercontent.com'):
+                  raise SystemExit('Unexpected seed transport host')
+              with urllib.request.urlopen(d['url'],timeout=60) as response: data=response.read()
+              if hashlib.sha256(data).hexdigest()!=d['sha256']: raise SystemExit('Seed checksum mismatch')
+              with zipfile.ZipFile(io.BytesIO(data)) as z:
+                  manifest=json.loads(z.read('seed-manifest.json'))
+                  allowed={v['path']:v for v in manifest['files']}
+                  if len(allowed)!=len(manifest['files']): raise SystemExit('Duplicate seed paths')
+                  if set(z.namelist())!=set(allowed)|{'seed-manifest.json'}: raise SystemExit('Unexpected seed members')
+                  for name,meta in allowed.items():
+                      p=pathlib.Path(name)
+                      if p.is_absolute() or '..' in p.parts or not (name.startswith('scripts/knowledge/') or name.startswith('docs/specifications/') or name in ('docs/ENDERLOOM_STUDIO_EXECUTION.md','docs/knowledge/requirements.json')):
+                          raise SystemExit('Seed path outside owned documentation scope')
+                      if stat.S_ISLNK(z.getinfo(name).external_attr>>16): raise SystemExit('Seed symlink rejected')
+                      content=z.read(name)
+                      if len(content)!=meta['bytes'] or hashlib.sha256(content).hexdigest()!=meta['sha256']: raise SystemExit('Seed file integrity mismatch')
+                      if p.exists() and p.read_bytes()!=content: raise SystemExit('Concurrent authored file exists: '+name)
+                      p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(content)
+              seed.unlink()
+          ready=pathlib.Path('scripts/knowledge/knowledge.py').is_file()
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('ready='+str(ready).lower()+'\n')
+          if not ready: print('Publisher installed. Authored source payload has not arrived yet; no publication claimed.')
           PY
-      - name: Inspect native wiki availability
-        env:
-          REPO: ${{ github.repository }}
+      - name: Generate, validate and regression-test complete source coverage
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
         run: |
-          if git ls-remote "https://github.com/$REPO.wiki.git" > wiki-probe.txt 2>&1; then
-            git clone --depth 1 "https://github.com/$REPO.wiki.git" wiki
-          else
-            printf '\nNative wiki requires initialization or separate authorization.\n' >> wiki-probe.txt
+          mkdir -p build/knowledge
+          python3 scripts/knowledge/knowledge.py build | tee build/knowledge/validation.json
+          python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
+          cat build/knowledge/regression-tests.txt
+      - name: Install isolated documentation render tools
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: |
+          mkdir -p .knowledge-tools
+          npm install --prefix .knowledge-tools --no-audit --no-fund @mermaid-js/mermaid-cli@11.17.0 markdown-it@14.1.0
+          cp .knowledge-tools/package-lock.json build/knowledge/render-tool-lock.json
+      - name: Render every Mermaid diagram and inspect page layouts
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: node scripts/knowledge/render.mjs
+      - name: Publish repository knowledge without changing app source
+        if: steps.seed.outputs.ready == 'true'
+        id: repository
+        working-directory: source
+        run: |
+          git add docs/knowledge docs/specifications docs/ENDERLOOM_STUDIO_EXECUTION.md scripts/knowledge README.md
+          if git ls-files --error-unmatch .github/enderloom-knowledge-seed.json >/dev/null 2>&1; then git add -u .github/enderloom-knowledge-seed.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: generate complete Enderloom Studio knowledge and progress hub'
+            git fetch origin main
+            git rebase origin/main
+            python3 scripts/knowledge/knowledge.py build > build/knowledge/validation.json
+            python3 scripts/knowledge/knowledge.py check
+            git add docs/knowledge README.md
+            if ! git diff --cached --quiet; then git commit -m 'docs: reconcile knowledge against latest source'; fi
+            git push origin HEAD:main
           fi
-          cat wiki-probe.txt
-      - name: Preserve source snapshot
+          python3 - <<'PY'
+          import subprocess,pathlib,json
+          local=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          remote=subprocess.check_output(['git','ls-remote','origin','refs/heads/main'],text=True).split()[0]
+          if local!=remote: raise SystemExit('Remote repository verification mismatch')
+          pathlib.Path('build/knowledge/repository-publication.json').write_text(json.dumps({'status':'verified','commit':local},indent=2)+'\n')
+          print('Repository publication verified:',local)
+          PY
+      - name: Publish and read back the native GitHub Wiki
+        if: steps.seed.outputs.ready == 'true'
+        id: wiki
+        continue-on-error: true
+        env:
+          WIKI_TOKEN: ${{ secrets.ENDERLOOM_WIKI_TOKEN || github.token }}
+        working-directory: source
+        run: |
+          AUTH=$(printf 'x-access-token:%s' "$WIKI_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH" clone --depth 2 "https://github.com/$REPO.wiki.git" ../wiki
+          git -C ../wiki config user.name 'Enderloom Knowledge'
+          git -C ../wiki config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C ../wiki config http.https://github.com/.extraheader "AUTHORIZATION: basic $AUTH"
+          python3 - <<'PY'
+          import pathlib,json,hashlib
+          src=pathlib.Path('build/knowledge/wiki');dst=pathlib.Path('../wiki'); mf=dst/'.enderloom-knowledge-manifest.json'
+          previous=json.loads(mf.read_text()) if mf.exists() else {}
+          current={}
+          for p in sorted(src.glob('*.md')):
+              target=dst/p.name
+              if target.exists():
+                  old=target.read_bytes()
+                  if p.name in previous:
+                      if hashlib.sha256(old).hexdigest()!=previous[p.name] and old!=p.read_bytes():raise SystemExit('Unmerged native Wiki edit: '+p.name)
+                  elif old!=p.read_bytes() and not (p.name=='Home.md' and old.decode().strip()=='Welcome to the Enderloom wiki!'):
+                      raise SystemExit('Unowned native Wiki page collision: '+p.name)
+              target.write_bytes(p.read_bytes());current[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
+          mf.write_text(json.dumps(current,indent=2)+'\n')
+          PY
+          git -C ../wiki add '*.md' .enderloom-knowledge-manifest.json
+          if ! git -C ../wiki diff --cached --quiet; then
+            git -C ../wiki commit -m 'Publish Enderloom Studio knowledge and canonical progress views'
+            git -C ../wiki push origin HEAD
+          fi
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH" clone --depth 1 "https://github.com/$REPO.wiki.git" ../wiki-readback
+          python3 - <<'PY'
+          import pathlib,json,hashlib,subprocess
+          expected=json.loads(pathlib.Path('../wiki/.enderloom-knowledge-manifest.json').read_text());readback=pathlib.Path('../wiki-readback')
+          for name,sha in expected.items():
+              if hashlib.sha256((readback/name).read_bytes()).hexdigest()!=sha:raise SystemExit('Wiki readback mismatch: '+name)
+          commit=subprocess.check_output(['git','-C','../wiki-readback','rev-parse','HEAD'],text=True).strip()
+          pathlib.Path('build/knowledge/wiki-publication.json').write_text(json.dumps({'status':'verified','commit':commit,'pages':len(expected)},indent=2)+'\n')
+          print('Native Wiki verified:',commit,'pages:',len(expected))
+          PY
+      - name: Preserve complete documentation and publication evidence
+        if: always() && steps.seed.outputs.ready == 'true'
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: enderloom-knowledge-sources
+          name: enderloom-knowledge-complete
           path: |
-            source/docs/
+            source/docs/knowledge/
+            source/docs/specifications/
+            source/docs/ENDERLOOM_STUDIO_EXECUTION.md
+            source/scripts/knowledge/
             source/README.md
-            source/package.json
-            source-inventory.json
-            wiki-probe.txt
-            wiki/*.md
+            source/build/knowledge/
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 30
+      - name: Require truthful native Wiki publication result
+        if: steps.seed.outputs.ready == 'true' && steps.wiki.outcome != 'success'
+        run: |
+          echo 'Repository-backed knowledge and evidence remain preserved. Native Wiki publication did not pass; inspect its exact failure. END ERLOOM_WIKI_TOKEN is not inferred or self-granted.'
+          exit 1
