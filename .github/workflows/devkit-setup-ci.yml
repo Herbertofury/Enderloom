@@ -1,0 +1,67 @@
+name: Dev Kit First Run and Dependency Setup
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/minecraft-dev-kit/**'
+      - '.github/workflows/devkit-setup-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: devkit-setup-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  managed-setup:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Dependency, archive, checksum and guided workflow regressions
+        run: python tools/minecraft-dev-kit/scripts/devkit_qol_selftest.py
+      - name: Real private JDK install, offline reuse, and Windows Python bootstrap
+        run: python tools/minecraft-dev-kit/scripts/devkit_setup_selftest.py
+      - name: Preserve exact setup proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-setup-${{ matrix.os }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/devkit-setup-proof-*/SETUP-PROOF.json
+            ${{ runner.temp }}/devkit-setup-proof-*/bootstrap-*.txt
+            ${{ runner.temp }}/devkit-setup-proof-*/private-python-workbench.log
+          if-no-files-found: warn
+          retention-days: 30
+  target-symbols:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Export exact official target signatures for causal Mixin repair
+        run: python tools/minecraft-dev-kit/scripts/devkit_symbols.py --workspace "$RUNNER_TEMP" --output "$RUNNER_TEMP/devkit-target-symbols" --minecraft 26.3 --download
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: devkit-target-symbols-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/devkit-target-symbols/*.txt
+            ${{ runner.temp }}/devkit-target-symbols/*.json
+          if-no-files-found: error
