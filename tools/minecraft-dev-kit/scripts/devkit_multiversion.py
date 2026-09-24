@@ -96,6 +96,10 @@ def inventory(root: Path, *, skip_generated: bool=True) -> dict[str, bytes]:
 
 def file_record(data: bytes, path: str) -> dict:
     row = {'sha256': sha(data), 'size': len(data)}
+    if b'\r\n' in data and data.count(b'\n') == data.count(b'\r\n') and data.count(b'\r') == data.count(b'\r\n'):
+        row['line_endings']='crlf'
+    elif b'\r' not in data:row['line_endings']='lf'
+    else:row['line_endings']='mixed'
     if path.endswith(('.java', '.kt')):
         try: row['code_sha256'] = code_hash(data)
         except UnicodeError: pass
@@ -108,7 +112,7 @@ def merge_code(variants: dict[str, bytes], active: str) -> bytes | None:
     Comment/text-block/nested-preprocessor edge cases use exact file overlays rather
     than lossy escaping. No regex is allowed to rewrite program semantics here.
     """
-    try: text = {cid: data.decode('utf-8') for cid, data in variants.items()}
+    try: text = {cid: data.decode('utf-8').replace('\r\n','\n') for cid, data in variants.items()}
     except UnicodeError: return None
     if any('\r' in t or '//?' in t or '"""' in t or (t and not t.endswith('\n')) for t in text.values()): return None
     base = text[active].splitlines(keepends=True)
@@ -119,6 +123,11 @@ def merge_code(variants: dict[str, bytes], active: str) -> bytes | None:
         changes = [(i,j,lines[a:b]) for tag,i,j,a,b in difflib.SequenceMatcher(None, base, lines, autojunk=False).get_opcodes() if tag != 'equal']
         edits[cid] = changes
         intervals.extend((i,j) for i,j,_ in changes)
+    # Never insert directive comments inside an existing block comment.
+    offsets=[0]
+    for line in base:offsets.append(offsets[-1]+len(line))
+    comment_spans=[(m.start(),m.end()) for m in TOKEN.finditer(text[active]) if m[0].startswith('/*')]
+    if any(a < offsets[i] < b or a < offsets[j] < b for i,j in intervals for a,b in comment_spans):return None
     groups = []
     for start,end in sorted(intervals):
         if groups and start <= groups[-1][1]: groups[-1] = (groups[-1][0], max(end, groups[-1][1]))
@@ -137,7 +146,7 @@ def merge_code(variants: dict[str, bytes], active: str) -> bytes | None:
         for index,cid in enumerate(order):
             output.append(('//? if ' if index == 0 else '//?} else if ') + selector(cid) + ' {\n')
             content = alternatives[cid]
-            output.append(content if cid == active or not content else '/*' + content + '*/\n')
+            output.append(content if cid == active or not content else '/*' + content[:-1] + '*/\n')
         output.append('//?}\n'); cursor = end
     output.extend(base[cursor:])
     return ''.join(output).encode('utf-8')
@@ -149,7 +158,7 @@ def flatten_generated(data: bytes, cid: str) -> bytes:
     Actual Stonecutter has already selected the active source; original comments
     outside divergent hunks survive. This is not a replacement preprocessor.
     """
-    text = data.decode('utf-8')
+    text = data.decode('utf-8').replace('\r\n','\n')
     marker = re.compile(r'(?m)^[ \t]*(?:\*/)?//\?\s*(if (sc_[a-f0-9]{16}) \{|\} else if (sc_[a-f0-9]{16}) \{|\})[ \t]*\n?')
     out=[]; pos=0; included=True; inside=False
     for m in marker.finditer(text):
@@ -278,7 +287,9 @@ def export_project(variants: list[dict], output: Path, *, active: str | None=Non
         for p in sorted(allpaths):
             values={cid:files[p] for cid,files in sources.items() if p in files}
             is_src=p.startswith('src/')
-            if is_src and len(values)==len(specs):
+            mergeable_text=not p.endswith(('.java','.kt')) or all(
+                file_record(data,p)['line_endings']!='mixed' and b'//?' not in data for data in values.values())
+            if is_src and len(values)==len(specs) and mergeable_text:
                 content=next(iter(values.values())) if len(set(values.values()))==1 else (merge_code(values,active) if p.endswith(('.java','.kt')) else None)
                 if content is not None:
                     put(stage,p,content);manifest['shared_files'][p]=file_record(content,p)
@@ -372,6 +383,8 @@ def stage_target(root: Path, cid: str, output: Path, *, flatten: bool=True) -> d
                 if not target.is_file():raise RuntimeError('Stonecutter did not emit '+p+' for '+cid)
                 data=target.read_bytes()
                 if flatten:data=flatten_generated(data,cid)
+                data=data.replace(b'\r\n',b'\n')
+                if row['files'].get(p,{}).get('line_endings')=='crlf':data=data.replace(b'\n',b'\r\n')
             files[p]=data
     overlay=root/'overrides'/cid
     if overlay.is_dir():files.update(inventory(overlay,skip_generated=False))
@@ -380,9 +393,7 @@ def stage_target(root: Path, cid: str, output: Path, *, flatten: bool=True) -> d
         expected=row['files']
         if set(files)!=set(expected):raise RuntimeError('target file parity changed: '+cid)
         for p,data in files.items():
-            key='code_sha256' if p.endswith(('.java','.kt')) and 'code_sha256' in expected[p] else 'sha256'
-            actual=code_hash(data) if key=='code_sha256' else sha(data)
-            if actual!=expected[p][key]:raise RuntimeError('target source parity mismatch: '+cid+' / '+p)
+            if sha(data)!=expected[p]['sha256']:raise RuntimeError('target source parity mismatch: '+cid+' / '+p)
     output=output.resolve()
     if output==root.resolve() or root.resolve().is_relative_to(output):raise ValueError('invalid materialization destination')
     if any(output.is_relative_to(root.resolve()/d) for d in ['src','overrides','targets','.devkit/worker']):

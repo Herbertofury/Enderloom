@@ -77,6 +77,9 @@ def unit(root: Path):
         except ValueError:pass
         else:raise AssertionError('unsafe path accepted '+bad)
     assert mv.merge_code({'a':b'/*old*/\n','b':b'/*new*/\n'},'b') is None
+    notes=b'package x;\n/* notes\n * OLD note\n */\nclass Test {}\n'
+    assert mv.merge_code({'a':notes,'b':notes.replace(b'OLD',b'NEW')},'b') is None
+    assert mv.merge_code({'a':b'old\r\n','b':b'new\n'},'b') is not None
     assert mv.merge_code({'a':b'val x="""old"""\n','b':b'val x="""new"""\n'},'b') is None
     assert mv.merge_code({'a':b'//? if true\n','b':b'//? if false\n'},'b') is None
     # One target has inserted statements; another has a larger replacement.
