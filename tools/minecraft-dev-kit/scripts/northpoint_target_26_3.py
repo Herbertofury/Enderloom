@@ -28,6 +28,12 @@ if hashlib.sha256(_mouse_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() 
     raise RuntimeError("mouse bridge does not match the pinned engine")
 from northpoint_mouse_invoker_rules import rewrite_mouse_invokers
 
+_SHADER_RULES_SHA256 = "094f88923aad9c5c61c9cda87c30fc9fedc4d5fa6f790e9032967d4f9cad53f6"
+_shader_path = pathlib.Path(__file__).with_name("northpoint_shader_rules.py")
+if hashlib.sha256(_shader_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _SHADER_RULES_SHA256:
+    raise RuntimeError("shader rules do not match the pinned engine")
+from northpoint_shader_rules import rewrite_shader_interfaces
+
 
 def __getattr__(name):
     return getattr(_core, name)
@@ -111,7 +117,7 @@ def rewrite_network_tick_mixins(output: pathlib.Path) -> list[dict[str, Any]]:
 
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
-    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output)
+    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output) + rewrite_shader_interfaces(output)
 
 
 def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *, pipeline_script: pathlib.Path | None = None) -> dict[str, Any]:

@@ -110,6 +110,10 @@ public final class RuntimeProbe implements FabricClientGameTest {
 '''
 
 
+from devkit_native_restart import extend_probe, run_phases, valid_restart
+JAVA, GRADLE = extend_probe(JAVA, GRADLE)
+
+
 def _download_template(root: Path) -> Path:
     metadata=get_json('https://api.github.com/repos/FabricMC/fabric-example-mod/commits/26.3')
     sha=metadata['sha']
@@ -155,7 +159,7 @@ def prepare(template: Path, artifact: Path, root: Path, dependencies: dict, depe
 
 def verifier_fingerprint() -> str:
     digest=hashlib.sha256()
-    for name in ['devkit_native.py','devkit_dependencies.py','devkit_toolchains.py','northpoint_execution.py']:
+    for name in ['devkit_native.py','devkit_native_restart.py','devkit_dependencies.py','devkit_toolchains.py','northpoint_execution.py']:
         path=Path(__file__).with_name(name)
         digest.update(name.encode());digest.update(path.read_bytes().replace(b'\r\n',b'\n'))
     return digest.hexdigest()
@@ -174,7 +178,14 @@ def reusable_proof(workspace: Path, artifact: Path, java_path: Path) -> dict | N
         for row in json.loads(lock.read_text()).get('downloads',[]):
             dependency=(workspace/'dependencies/mods'/row['file']).resolve()
             if not dependency.is_relative_to((workspace/'dependencies/mods').resolve()) or sha256_file(dependency)!=row['sha256']:return None
-        if len(result.get('screenshots',[]))<2:return None
+        if not valid_restart(result.get('proof', {}), result['artifact_sha256']):return None
+        if len(result.get('screenshots',[]))<3:return None
+        evidence=result.get('evidence_files',[])
+        if not evidence or not any(Path(row['path']).name=='devkit-runtime-proof.json' for row in evidence):return None
+        for row in evidence:
+            item=Path(row['path']).resolve()
+            if not item.is_relative_to(workspace.resolve()) or sha256_file(item)!=row['sha256']:return None
+            if item.name=='devkit-runtime-proof.json' and json.loads(item.read_text())!=result['proof']:return None
         for row in result['screenshots']:
             image=Path(row['path']).resolve()
             if not image.is_relative_to(workspace.resolve()) or sha256_file(image)!=row['sha256']:return None
@@ -190,7 +201,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
         result={'schema_version':1,'state':'running','artifact_sha256':sha256_file(artifact),'artifact_path':str(artifact),
                 'minecraft':'26.3','loader':'fabric','run':str(run),
                 'verifier_sha256':verifier_fingerprint(),'platform':[platform.system(),platform.machine()],
-                'coverage':['exact-production-JAR','client-render','integrated-server','block-network-sync','world-save-reopen'],
+                'coverage':[], 'required_coverage':['exact-production-JAR','client-render','integrated-server','block-network-sync','world-save-reopen','independent-JVM-restart'],
                 'not_proven':['exhaustive-mod-gameplay','online-multiplayer','hardware-GPU-performance']}
         atomic_json(workspace/'native-result.json',result)
         try:
@@ -214,7 +225,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             if os.name!='nt':wrapper.chmod(wrapper.stat().st_mode|0o111)
             cmd=[str(wrapper),'--no-daemon','devkitNativeTest']
             if offline:cmd.append('--offline')
-            cp=run_logged(cmd,directory=run/'commands',name='native',cwd=probe,env=env,timeout=timeout)
+            cp=run_phases(cmd,run=run,probe=probe,env=env,timeout=timeout)
             proof_path=probe/'run/devkit-native/devkit-runtime-proof.json'
             if cp.returncode:
                 crashes = sorted((probe/'run').rglob('crash-*.txt'))
@@ -226,12 +237,15 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
                     detail = '\n'.join(lines[causal:causal+80] if causal is not None else lines[-70:])
                 raise RuntimeError('native process failed: '+str(cp.returncode)+'; full logs: '+str(run/'commands')+'\n'+detail)
             proof=json.loads(proof_path.read_text())
-            if proof.get('artifact_sha256')!=result['artifact_sha256'] or not proof.get('world_reopened') or not proof.get('client_server_sync'):
+            if not valid_restart(proof, result['artifact_sha256']):
                 raise ValueError('runtime proof does not match the candidate or required world gates')
             if sha256_file(artifact)!=result['artifact_sha256']:raise ValueError('candidate changed during native verification')
             screenshots=list((probe/'run').rglob('*devkit-*.png'))
-            if len(screenshots)<2:raise ValueError('expected both native world screenshots')
-            result.update(state='runtime-smoke-verified',proof=proof,
+            if len(screenshots)<3:raise ValueError('expected initial, reopened and restarted native world screenshots')
+            evidence=[proof_path, probe/'run/devkit-native/devkit-restart.properties', run/'phase.json']
+            evidence.extend(p for directory in [run/'phase-evidence',run/'commands'] for p in directory.rglob('*') if p.is_file())
+            result.update(state='runtime-smoke-verified',proof=proof,coverage=result['required_coverage'],
+                          evidence_files=[{'path':str(p),'sha256':sha256_file(p)} for p in evidence],
                           screenshots=[{'path':str(p),'sha256':sha256_file(p)} for p in screenshots],jdk=jdk,
                           dependency_lock_sha256=sha256_file(workspace/'dependencies/dependency-lock.json'))
         except Exception as error:

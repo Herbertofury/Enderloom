@@ -21,6 +21,8 @@ from northpoint_production_driver_selftest import fixture
 
 
 def main() -> int:
+    from devkit_native_restart_selftest import main as restart_tests
+    assert restart_tests()==0
     root=Path(tempfile.mkdtemp(prefix='devkit-resume-',dir=os.environ.get('RUNNER_TEMP'))).resolve()
     project=root/'project';fixture(project)
     cfg=json.loads((project/'northpoint.project.json').read_text());cfg['runtime']={'required':True}
@@ -35,10 +37,12 @@ def main() -> int:
         calls.append(sha256_file(artifact));directory.mkdir(parents=True,exist_ok=True)
         atomic_json(directory/'dependencies/dependency-lock.json',{'downloads':[]})
         shots=[]
-        for name in ['first.png','reopened.png']:
+        for name in ['first.png','reopened.png','restarted.png']:
             image=directory/name;image.write_bytes(b'UNIT-TEST-NOT-A-REAL-SCREENSHOT')
             shots.append({'path':str(image),'sha256':sha256_file(image)})
-        result={'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),
+        proof={'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),'world_reopened':True,'client_server_sync':True,'process_restart':True,'first_process_id':101,'restart_process_id':202}
+        proof_file=directory/'devkit-runtime-proof.json';atomic_json(proof_file,proof)
+        result={'proof':proof,'evidence_files':[{'path':str(proof_file),'sha256':sha256_file(proof_file)}],'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),
                 'verifier_sha256':native.verifier_fingerprint(),'platform':[platform.system(),platform.machine()],
                 'jdk':pair,'dependency_lock_sha256':sha256_file(directory/'dependencies/dependency-lock.json'),
                 'screenshots':shots,'coverage':['SIMULATED-RECEIPT-ORCHESTRATION-ONLY'],
@@ -60,6 +64,10 @@ def main() -> int:
             assert not devkit.status(workspace)['all_passed'],'tampered proof advertised success'
             assert devkit.main(['resume','--workspace',str(workspace),'--offline','--timeout','90'])==0
             assert len(calls)==2,'tampered native evidence was reused'
+            (workspace/'native/devkit-runtime-proof.json').write_text('{}')
+            assert not devkit.status(workspace)['all_passed'],'modified proof file advertised success'
+            assert devkit.main(['resume','--workspace',str(workspace),'--offline','--timeout','90'])==0
+            assert len(calls)==3,'modified proof file was reused'
         package=root/'candidate-and-evidence.zip';devkit.package(workspace,package)
         with zipfile.ZipFile(package) as archive:
             assert archive.testzip() is None

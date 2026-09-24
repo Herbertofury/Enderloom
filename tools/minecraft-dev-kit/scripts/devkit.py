@@ -148,7 +148,7 @@ def package(root: Path, output: Path) -> dict:
                 files.update(native.rglob(receipt_name))
             for path in native.rglob('*'):
                 if path.is_file() and ('commands' in path.parts or
-                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','template-origin.json'} or
+                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','devkit-restart.properties','phase.json','initial-proof.json','initial-client.log','template-origin.json'} or
                     ('devkit-' in path.name and path.suffix == '.png')):
                     files.add(path)
         for path in files:
@@ -167,7 +167,7 @@ def package(root: Path, output: Path) -> dict:
                 'Minecraft Dev Kit candidate and evidence bundle.\n'
                 'Use VERIFICATION.json for the actual verification state of every cell.\n'
                 'runtime-unverified means build evidence only; it is NOT a tested Minecraft release.\n'
-                'native_runtime records separately scoped world/render/sync/save-reopen proof, not exhaustive gameplay.\n'
+                'native_runtime records separately scoped world/render/sync/save-reopen/independent-JVM-restart proof, not exhaustive gameplay.\n'
                 'Install the candidate with ALL JARs in native/dependencies/mods for the recorded target.\n'
                 'Original embedded dependencies are preserved; Fabric selects the compatible external versions.\n'
                 'Private source projects, account data and Gradle caches are not included.\n')
