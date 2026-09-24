@@ -35,7 +35,7 @@
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
 - [CONFIG-01 - Semantic config intelligence](Acceptance-CONFIG.md#config-01-details): 16 source details.
-- [CONFIG-02 - Config profiles, overlays and repair](Acceptance-CONFIG.md#config-02-details): 30 source details.
+- [CONFIG-02 - Config profiles, overlays and repair](Acceptance-CONFIG.md#config-02-details): 31 source details.
 - [CONFIG-03 - Dedicated Hotkeys top-level tab](Acceptance-CONFIG.md#config-03-details): 9 source details.
 - [CONFIG-04 - Data, functions and command debugger](Acceptance-CONFIG.md#config-04-details): 52 source details.
 - [CONFIG-05 - Scripted modpack logic](Acceptance-CONFIG.md#config-05-details): 5 source details.

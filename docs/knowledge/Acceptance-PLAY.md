@@ -62,7 +62,7 @@
 - [ ] **D-0ea7e908fc5cb786133a** - GATE — Updates behave like a first-class launcher
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 37-37](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L37-L37)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 53-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L53-L53)
 
 </details>
 
@@ -620,7 +620,7 @@
 - [ ] **D-01867a6cb17cb20540cd** - · Compact the oversized instance hero/header
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 194-194](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L194-L194)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 467-467](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L467-L467)
 
 </details>
 

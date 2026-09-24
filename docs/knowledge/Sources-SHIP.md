@@ -79,8 +79,8 @@
 - [Codex Handoff — Enderloom Premium Testing + Full CLI / Done state for this handoff](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md#L255-L255) - CODEX_HANDOFF_PREMIUM_TESTING_CLI.md; 1 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1370-L1389) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 5 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.1 The acceptance rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L858-L858) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Constraints and preservation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L22-L22) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L452-L452) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Constraints and preservation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L38-L38) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L737-L737) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Objective](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L12-L12) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — Minecraft Workflow Parity Handoff Addendum / Spellbrook-class acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L32-L36) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md; 2 distinct blocks.
 - [11. Premium Whole-Modpack Migration Engine / 11.5 Acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L982-L982) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
@@ -115,7 +115,7 @@
 [**SHIP-02**](Checklist.md#ship-02)
 
 <details>
-<summary>Source clauses and aliases (69 distinct blocks)</summary>
+<summary>Source clauses and aliases (71 distinct blocks)</summary>
 
 - [22. Definition of Done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L725-L725) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L34-L34) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
@@ -148,6 +148,7 @@
 - [5. PRIMARY TARGET FIRST, THEN THE VERSION/LOADER MATRIX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L198-L198) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.4 RELEASE / HANDOFF — FINISH THE PRODUCT, NOT JUST THE FEATURE /   NP-22 — Final acceptance audit + durable checkpoint](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L405-L405) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [1. NORTHPOINT HARD INVARIANTS / 1.3 Complete-lineage conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L468-L472) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L389-L391) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [Enderloom — Minecraft Workflow Parity Handoff Addendum / Spellbrook-class acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L44-L44) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.5 Professional “it just works” quality](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L107-L107) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [15. Definition of done for this spec](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1159-L1173) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
@@ -167,6 +168,8 @@
 - [7. Maximum-Speed Execution Without Quality Loss / 7.4 Parallel independent specialists](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L456-L456) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
 - [1. NORTHPOINT HARD INVARIANTS / 1.3 Complete-lineage conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L64-L68) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T043`
+
 </details>
 
 <a id="ship-03"></a>
@@ -175,7 +178,7 @@
 [**SHIP-03**](Checklist.md#ship-03)
 
 <details>
-<summary>Source clauses and aliases (38 distinct blocks)</summary>
+<summary>Source clauses and aliases (39 distinct blocks)</summary>
 
 - [0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L44-L44) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L509-L509) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -207,7 +210,8 @@
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.4 RELEASE / HANDOFF — FINISH THE PRODUCT, NOT JUST THE FEATURE /   NP-22 — Final acceptance audit + durable checkpoint](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L407-L417) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 3 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1371-L1388) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
 - [16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER / Original compact execution order — preserved verbatim](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1438-L1438) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L334-L334) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T031 — Chrome-quality context menus](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L245-L245) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L607-L607) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — Minecraft Workflow Parity Handoff Addendum / Representative end-to-end acceptance fixtures](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L91-L91) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 - [7. Maximum-Speed Execution Without Quality Loss / 7.4 Parallel independent specialists](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L458-L458) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L967-L984) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 2 distinct blocks.
@@ -296,7 +300,7 @@
 [**SHIP-05**](Checklist.md#ship-05)
 
 <details>
-<summary>Source clauses and aliases (48 distinct blocks)</summary>
+<summary>Source clauses and aliases (50 distinct blocks)</summary>
 
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L919-L919) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [22. Definition of Done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L706-L706) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -331,6 +335,8 @@
 - [19. Definition of Done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L637-L637) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-00 — Freeze the real Enderloom baseline and implementation boundaries](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L64-L64) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1365-L1365) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L34-L34) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T031 — Chrome-quality context menus](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L251-L254) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [15. Definition of done for this spec](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1157-L1157) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [19. Definition of Done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L763-L765) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 2 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L118-L356) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 4 distinct blocks.

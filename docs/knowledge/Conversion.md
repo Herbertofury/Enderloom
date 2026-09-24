@@ -72,7 +72,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [PORT-04 - Exact mappings and symbol truth](Acceptance-PORT.md#port-04-details): 46 source details.
 - [PORT-05 - Source migration and semantic repair](Acceptance-PORT.md#port-05-details): 73 source details.
 - [PORT-06 - Mixin, access and reflection correctness](Acceptance-PORT.md#port-06-details): 52 source details.
-- [PORT-07 - JAR recovery and binary repair](Acceptance-PORT.md#port-07-details): 47 source details.
+- [PORT-07 - JAR recovery and binary repair](Acceptance-PORT.md#port-07-details): 48 source details.
 - [PORT-08 - Modern and historical build matrix](Acceptance-PORT.md#port-08-details): 52 source details.
 - [PORT-09 - Native loader and compatibility modes](Acceptance-PORT.md#port-09-details): 64 source details.
 - [PORT-10 - Complete cross-edition conversion](Acceptance-PORT.md#port-10-details): 59 source details.

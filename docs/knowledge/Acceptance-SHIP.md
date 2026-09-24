@@ -683,7 +683,7 @@
 <a id="ship-02-details"></a>
 ## SHIP-02 - Preserved product boundaries
 
-[Outcome](Checklist.md#ship-02) / 47 source-derived details.
+[Outcome](Checklist.md#ship-02) / 48 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -825,6 +825,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. Performance Patch Acceptance Contract
   - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 292-292](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L292-L292)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability (1)</summary>
+
+<a id="d-5a4cb75683f1f14fba94"></a>
+- [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 391-391](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L391-L391)
 
 </details>
 
@@ -1160,7 +1171,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 334-334](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L334-L334)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 607-607](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L607-L607)
 
 </details>
 
@@ -1691,7 +1702,7 @@
 <a id="ship-05-details"></a>
 ## SHIP-05 - Continuity, convergence and honest status
 
-[Outcome](Checklist.md#ship-05) / 25 source-derived details.
+[Outcome](Checklist.md#ship-05) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 23. Definition of done (2)</summary>
@@ -1820,6 +1831,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 31. Cross-integration requirements for these newly added domains
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1120-1120](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1120-L1120)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context (1)</summary>
+
+<a id="d-bd7bae56f265dc122cc6"></a>
+- [ ] **D-bd7bae56f265dc122cc6** - Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, No...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 34-34](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L34-L34)
 
 </details>
 

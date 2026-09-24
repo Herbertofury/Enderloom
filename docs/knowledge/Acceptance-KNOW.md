@@ -244,7 +244,7 @@
 - [ ] **D-d4b07743af654670e28e** - · Fix “File already exists” update failures — replace the installed mod transactionally
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 41-41](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L41-L41)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 57-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L57-L57)
 
 </details>
 
@@ -516,7 +516,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 61 source-derived details.
+[Outcome](Checklist.md#know-04) / 62 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -798,6 +798,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle (1)</summary>
+
+<a id="d-e226e7294556f439b44a"></a>
+- [ ] **D-e226e7294556f439b44a** - - Keep cookies, local/session storage where applicable, cache policy, permissions, history, downloads, extension state and relevant browser preferences in the durable Enderloom pro...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Keep cookies, local/session storage where applicable, cache policy, permissions, history, downloads, extension state and relevant browser preferences in the durable Enderloom profile, not packaged app files. - Preserve authenticated provider sessions across Enderloom upgrades unless the provider invalidates them. - Electron extensions must use persistent sessions. - Restore enabled unpacked extensions on every boot through the current Electron extension API; do not assume Electron remembers them automatically. - Show extension compatibility as Compatible / Partial / Unsupported API based on Electron&#x27;s actual supported API surface and observed load warnings. - Do not claim Chrome Web Store/full Chrome-extension parity that Electron does not provide. - Do not silently copy secrets/cookies/extensions from another browser profile.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 338-344](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L338-L344)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md / 5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.2 Version-specific source truth (1)</summary>
 
 <a id="d-20ac5537f3740c31ff5d"></a>
@@ -1056,7 +1068,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 8 source-derived details.
+[Outcome](Checklist.md#know-05) / 9 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1112,6 +1124,17 @@
   - **Full requirement:** · Add an on-demand refresh conversion ecosystem/toolchains operation that re-resolves upstream release/toolchain metadata when explicitly invoked or when a new conversion needs unsupported data. Do not create a background watchdog or polling service.
   - **Binding context:** 3. Execution work / 3.1 Preserve current execution state and create the integration ledger
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T004 : 453-453](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L453-L453) / [ENDERLOOM_STUDIO_EXECUTION.md :: T004 : 615-615](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L615-L615)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle (1)</summary>
+
+<a id="d-924c965d3a9f9195ad68"></a>
+- [ ] **D-924c965d3a9f9195ad68** - · Make the persistent Chromium profile and extensions survive Enderloom upgrades correctly
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T038 : 336-336](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L336-L336)
 
 </details>
 

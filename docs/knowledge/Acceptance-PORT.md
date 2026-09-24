@@ -3797,7 +3797,7 @@
 <a id="port-07-details"></a>
 ## PORT-07 - JAR recovery and binary repair
 
-[Outcome](Checklist.md#port-07) / 47 source-derived details.
+[Outcome](Checklist.md#port-07) / 48 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -3982,6 +3982,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1131-1131](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1131-L1131)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives (1)</summary>
+
+<a id="d-016e6ecf129975cc2941"></a>
+- [ ] **D-016e6ecf129975cc2941** - · Use WebContentsView for embedded remote browsing wherever legacy BrowserView/webview architecture remains
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 316-316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L316-L316)
 
 </details>
 

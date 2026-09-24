@@ -646,7 +646,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 90 source-derived details.
+[Outcome](Checklist.md#fix-03) / 91 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -998,6 +998,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 31. Cross-integration requirements for these newly added domains
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1119-1119](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1119-L1119)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore (1)</summary>
+
+<a id="d-81e1278f053152915d29"></a>
+- [ ] **D-81e1278f053152915d29** - - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through t...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 227-232](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L227-L232)
 
 </details>
 

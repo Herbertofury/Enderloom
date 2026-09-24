@@ -80,9 +80,9 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [UX-02 - One contextual workbench](Acceptance-UX.md#ux-02-details): 14 source details.
 - [UX-03 - Finished visual system](Acceptance-UX.md#ux-03-details): 7 source details.
 - [UX-04 - Discoverable contextual actions](Acceptance-UX.md#ux-04-details): 8 source details.
-- [UX-05 - Honest progress and live findings](Acceptance-UX.md#ux-05-details): 47 source details.
+- [UX-05 - Honest progress and live findings](Acceptance-UX.md#ux-05-details): 49 source details.
 - [UX-06 - Reliable editing and recovery](Acceptance-UX.md#ux-06-details): 11 source details.
-- [UX-07 - Large-data and bulk usability](Acceptance-UX.md#ux-07-details): 51 source details.
+- [UX-07 - Large-data and bulk usability](Acceptance-UX.md#ux-07-details): 52 source details.
 - [UX-08 - Accessible responsive native UI](Acceptance-UX.md#ux-08-details): 75 source details.
-- [UX-09 - First-launch and update experience](Acceptance-UX.md#ux-09-details): 42 source details.
-- [UX-10 - Real-user journey acceptance](Acceptance-UX.md#ux-10-details): 21 source details.
+- [UX-09 - First-launch and update experience](Acceptance-UX.md#ux-09-details): 50 source details.
+- [UX-10 - Real-user journey acceptance](Acceptance-UX.md#ux-10-details): 22 source details.
