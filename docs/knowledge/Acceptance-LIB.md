@@ -143,7 +143,7 @@
 - [ ] **D-96e3a0cfbabfd0c3e840** - · Make update discovery and Update All feel instant
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T002 : 63-63](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L63-L63)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T002 : 65-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L65-L65)
 
 </details>
 
@@ -155,7 +155,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** A logical mod/project appearing on multiple providers must show as one canonical favorite card with provider badges/source options, matching the rest of Enderloom&#x27;s cross-provider identity behavior.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T012 — Merge duplicate favorites across CurseForge/Modrinth/other providers
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 239-239](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L239-L239)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 241-241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L241-L241)
 
 </details>
 
@@ -695,7 +695,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 66 source-derived details.
+[Outcome](Checklist.md#lib-02) / 67 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1133,18 +1133,30 @@
 - [ ] **D-5f4b6103d634c5209a0a** - · MCreator candidates become a compact filter, not a permanent banner
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T013 — MCreator candidates become a compact filter, not a permanent banner
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T013 : 248-248](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L248-L248)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T013 : 250-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L250-L250)
 
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T016 — One universal guided-install engine (1)</summary>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine (1)</summary>
 
-<a id="d-ecd71e47a10b5cd3e172"></a>
-- [ ] **D-ecd71e47a10b5cd3e172** - · One universal guided-install engine
+<a id="d-fe6ffb89fb22ca0a6ec8"></a>
+- [ ] **D-fe6ffb89fb22ca0a6ec8** - · One universal guided-install engine
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T016 — One universal guided-install engine
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T016 : 290-290](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L290-L290)
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T016 : 292-292](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L292-L292)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system (1)</summary>
+
+<a id="d-46a610af7c5eee2ad050"></a>
+- [ ] **D-46a610af7c5eee2ad050** - - Same card/tile/list visual system as Mods: real project icon/artwork, title, concise installed/version state, provider badges, favorite state, update state, compact actions, and ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Same card/tile/list visual system as Mods: real project icon/artwork, title, concise installed/version state, provider badges, favorite state, update state, compact actions, and the same context-menu quality. - Same search/sort/filter/view-toggle behavior and large-dataset virtualization semantics as Mods. - Opening a provider-backed addon shows the same project-detail experience as a normal mod page: hero/icon, description, gallery/media when available, provider/source links, files/versions, changelog/release information, dependencies/relations, compatibility, install/update/change-version actions, favorite, provenance, and relevant “Why?” evidence. - Keep type-specific information (for example TaCZ gunpack, destination, host-mod requirement, config bundle, datapack, shader) as compact metadata/badges/installation details inside the common project UI rather than replacing the page with an unrelated guided-install layout. - Local/private content appears in the same cards/details with a clear Local / Unlinked badge and a provider-research/link action. It must not be pushed into a different ugly collection UI. - The Addons count represents logical addon projects/content records, not every JSON/file found under an instance. - Provider project pages, favorite state, updates, file/version picker, context menus, download progress, and install-to-instance chooser should feel and behave consistently across Mods and Addons. - Reuse the same responsive spacing, compact headers, card density, keyboard/focus behavior, and navigation history as the Mods tab. - No permanent full-width “guided install” cards or giant collection counters should consume the primary browsing area. Guidance appears only contextually when an install actually needs a typed destination/decision.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 368-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L368-L376)
 
 </details>
 
@@ -1474,7 +1486,7 @@
 - [ ] **D-9b695daaa5b1f9d3716b** - GATE — Browser/download experience behaves like a normal modern browser
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G002 : 89-89](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L89-L89)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G002 : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L91-L91)
 
 </details>
 
@@ -1485,13 +1497,13 @@
 - [ ] **D-ba6de9e3bdbf6b2c889d** - · Chrome-normal downloads in the embedded browser
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T004 : 93-93](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L93-L93)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T004 : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L95-L95)
 
 <a id="d-879211ae4a7be28ff70d"></a>
 - [ ] **D-879211ae4a7be28ff70d** - The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 115-115](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L115-L115)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 117-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L117-L117)
 
 </details>
 
@@ -1502,7 +1514,7 @@
 - [ ] **D-3ca8ca9454eb71ed9e8f** - · Browser extensions
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T005 — Browser extensions
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T005 : 119-119](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L119-L119)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T005 : 121-121](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L121-L121)
 
 </details>
 
@@ -2123,7 +2135,7 @@
 - [ ] **D-82970c36d9d29bb71dab** - · Launch any connected instance in place through Internal, CurseForge, or Modrinth
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T007 — Launch any connected instance in place through Internal, CurseForge, or Modrinth
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T007 : 168-168](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L168-L168)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T007 : 170-170](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L170-L170)
 
 </details>
 
@@ -2134,14 +2146,14 @@
 - [ ] **D-2d4be3d3c1ec88a992fb** - · Compact + button on favorite/mod cards for direct install
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T011 — Compact + button on favorite/mod cards for direct install
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T011 : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L226-L226)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T011 : 228-228](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L228-L228)
 
 <a id="d-fb761242b98aaaf5ba55"></a>
 - [ ] **D-fb761242b98aaaf5ba55** - - If the most recent/default compatible instance is unambiguous, allow one-click install. - Otherwise open a tiny searchable instance picker. - Reuse the normal dependency, compati...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - If the most recent/default compatible instance is unambiguous, allow one-click install. - Otherwise open a tiny searchable instance picker. - Reuse the normal dependency, compatibility, snapshot/risk, staged install, and verification transaction. - Never bypass the canonical install operation for speed.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T011 — Compact + button on favorite/mod cards for direct install
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 230-233](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L230-L233)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 232-235](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L232-L235)
 
 </details>
 
@@ -2616,7 +2628,7 @@
 - [ ] **D-6d0a3b519b37fdee9721** - GATE — Favorites/catalog identity and quick actions are clean
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G005 : 222-222](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L222-L222)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G005 : 224-224](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L224-L224)
 
 </details>
 
@@ -2627,7 +2639,7 @@
 - [ ] **D-91e986e1ce19afc60c63** - · Merge duplicate favorites across CurseForge/Modrinth/other providers
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T012 — Merge duplicate favorites across CurseForge/Modrinth/other providers
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T012 : 237-237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L237-L237)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T012 : 239-239](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L239-L239)
 
 </details>
 
@@ -3587,7 +3599,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 86 source-derived details.
+[Outcome](Checklist.md#lib-06) / 91 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -3760,6 +3772,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context (1)</summary>
+
+<a id="d-fda0dd6a0481e5bf2b41"></a>
+- [ ] **D-fda0dd6a0481e5bf2b41** - Addon correction: provider-backed addons/customizations must behave like first-class online projects, not like a loose-file junk drawer. When Enderloom can identify a real CurseFor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Addon correction: provider-backed addons/customizations must behave like first-class online projects, not like a loose-file junk drawer. When Enderloom can identify a real CurseForge/Modrinth/etc. project and release file, the Addons surface must retain that online identity, use that provider release for install/update, and present the same polished project-page/card UX as the Mods surface. Local/private addon files remain supported, but must be explicitly shown as local/unlinked rather than being given a fake provider identity.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L20-L20)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T005 — Browser extensions (1)</summary>
 
 <a id="d-9bf9db19f1b7f5cd3c9a"></a>
@@ -3767,7 +3791,50 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - install/import supported extensions; - enable/disable; - remove; - inspect permissions/source; - show compatibility/update state; - persist across Enderloom restart and app upgrades; - keep extension/profile data outside replaceable packaged application binaries; - never silently copy browser secrets from unrelated profiles.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T005 — Browser extensions
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 123-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L123-L130)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 125-132](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L125-L132)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine (1)</summary>
+
+<a id="d-fa323829a78509c34d04"></a>
+- [ ] **D-fa323829a78509c34d04** - Replace narrow/siloed guided-install cards with one canonical flow for recognized installable Minecraft content. Provider-backed content must enter this same flow from its online p...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Replace narrow/siloed guided-install cards with one canonical flow for recognized installable Minecraft content. Provider-backed content must enter this same flow from its online project/file page exactly like a normal mod install; “guided install” is a typed installation behavior, not a separate collection or alternate UI.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 294-294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L294-L294)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle (2)</summary>
+
+<a id="d-f410a832a8bd6cc25ff1"></a>
+- [ ] **D-f410a832a8bd6cc25ff1** - - Use the shared provider adapters and canonical project identity graph already used by mods. Do not build a second addon-only provider database. - Resolve provider identity using ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Use the shared provider adapters and canonical project identity graph already used by mods. Do not build a second addon-only provider database. - Resolve provider identity using strongest available evidence: provider project/file IDs, provider API metadata, canonical project URL, file fingerprint/hash, exact release metadata, upstream/source links, dependency/relations data, and known content-family manifests. Filename/display-name matching alone is insufficient. - If an existing local addon is not yet linked, research supported providers for candidate project/files in the background. Auto-link only when the evidence is strong enough to avoid cross-project collisions; otherwise surface a compact Link project / Research provider action with candidate evidence. - Once linked, retain provider/project/file IDs so subsequent refreshes do not have to rediscover identity from scratch. - Provider-backed addon cards/details must expose the normal lifecycle: provider/source links, files/versions, compatible releases, dependencies/relations, changelog/release notes where available, favorite, update, freeze/pin, remove, reinstall/change-version, provenance, and Open provider research. - Installation must use the selected real provider release/download, not a scraped arbitrary attachment. Validate redirects, expected filename/size/hash when available, compatibility, and dependency closure through the normal download/install transaction. - Typed addon installers determine the correct destination without pretending the artifact is a mod JAR. For a recognized family such as TaCZ gunpacks, use the version/family adapter to install the provider-downloaded ZIP into the correct TaCZ content location for that target, preserving any required archive form. - Online project descriptions/instructions may inform a typed adapter and evidence, but raw prose must never be blindly executed as filesystem commands. - Detect required/strongly recommended host mods/libraries from provider relations plus validated project metadata/known family rules, and feed missing requirements into the same dependency planner used for normal mods. - Update checks compare the installed provider file identity against compatible online provider releases. Updating replaces the prior addon artifact transactionally and preserves the logical project identity, just like T001 requires for mods. - If a provider project disappears or is temporarily unreachable, preserve the installed addon, cached metadata, provider identity, and last-known release state; do not demote it into a random local file. - Cross-provider duplicates of the same addon project collapse under one canonical project with source badges/options using the same identity rules as T012. - Do not count arbitrary files inside config/, datapack folders, or addon working directories as separate “addons” merely because they are JSON/ZIP files.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 344-356](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L344-L356)
+
+<a id="d-3ab5412335f99b120a28"></a>
+- [ ] **D-3ab5412335f99b120a28** - Required real regression fixture: https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom (CurseForge project ID 1091118) must resolve as one provi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Required real regression fixture: https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom (CurseForge project ID 1091118) must resolve as one provider-backed customization/addon project, preserve its CurseForge project/file identity, show its compatible releases/files and relations, download a selected compatible provider file through the normal pipeline, and install it through the TaCZ-appropriate typed destination instead of mods/. The fixture must remain provider-linked after restart and must update from a later compatible provider file without becoming an anonymous ZIP.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 358-358](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L358-L358)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system (1)</summary>
+
+<a id="d-4ca958e4b0ca6d184a89"></a>
+- [ ] **D-4ca958e4b0ca6d184a89** - UI acceptance fixture: the TaCZ Helldivers CurseForge customization above must look and behave like a normal provider-backed project in Enderloom, differing from a mod page only wh...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** UI acceptance fixture: the TaCZ Helldivers CurseForge customization above must look and behave like a normal provider-backed project in Enderloom, differing from a mod page only where its content type/install semantics genuinely differ.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 378-378](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L378-L378)
 
 </details>
 
@@ -4403,7 +4470,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** 1. Resolve the installed logical project + provider/file identity and the selected replacement artifact. 2. Download the candidate to Enderloom-owned staging/temp storage, never directly over the live JAR. 3. Validate expected provider identity, compatibility, size/hash when available, and dependency plan. 4. Snapshot/retain the previous installed artifact long enough for rollback. 5. Commit the update atomically: - if the new artifact has the same filename, replace the old file atomically; - if it has a different filename, install the verified new artifact and remove/retire the superseded old artifact as one transaction; - never reject a legitimate update merely because the destination/current filename exists. 6. Preserve enabled/disabled state, provider association, notes, favorites, freeze/pin state, config/world data, and canonical project identity unless the requested update explicitly changes an allowed field. 7. If the exact target artifact is already installed, report Already up to date / no change instead of failure. 8. A same-name filesystem collision belonging to a *different* canonical project is a real conflict: stop only that item, explain the identity conflict, and do not overwrite unrelated content. 9. Roll back cleanly on validation/commit failure so the prior working mod remains installed. 10. Bulk Update must continue independent updates after one item fails and provide a final per-item result instead of collapsing the whole batch.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 45-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L45-L57)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 47-59](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L47-L59)
 
 </details>
 
@@ -4900,7 +4967,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Preserve existing instance files, worlds, configs, favorites, notes, provider bindings, artwork choices, browser state, and working functionality. - Do not gain speed by skipping dependency closure, provenance, hash verification, rollback, recovery, compatibility checks, or result coverage. - GUI actions must use the canonical service/domain operation rather than private UI-only logic. - No placeholder or decorative controls: every button, tab, menu item, hotkey, launcher choice, and download/update action in this scope must work end-to-end through real production domain logic and persistence. - Provider/project identity must use stable IDs/provenance/hashes where available, not display-name guessing. - Repeated real failures become regression fixtures. - A build alone is not proof. Exercise the changed desktop workflow in the packaged/current app when practical. - If a later change breaks a completed item, reopen that item and its parent gate.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Constraints and preservation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 22-29](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L22-L29)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 24-31](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L24-L31)
 
 </details>
 
@@ -4912,7 +4979,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel. - Eliminate serial provider waterfalls, duplicate identical fetches, hidden full rescans, and modal-blocking metadata work. - Use conditional/delta metadata requests, single-flight request coalescing, bounded provider concurrency, content-addressed download cache reuse, and dependency-plan reuse. - Pipeline independent Update All downloads/verification instead of waiting for each full update to finish serially. - Navigation/cancel must abort abandoned provider/download work without corrupting the batch. - Measure cold and warm: first useful update list, full refresh time, click-to-download-start, aggregate throughput, UI responsiveness, and apply/commit latency. - Benchmark the same instance on the same machine/network against installed CurseForge and Modrinth clients. Enderloom must not be slower than either client on comparable median user-visible update latency, and this task remains open until the key update path is measurably faster than both where the comparison is technically equivalent, while preserving Enderloom&#x27;s stronger checks and complete results. If either client is faster, profile the bottleneck and change architecture rather than weakening validation.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 65-71](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L65-L71)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 67-73](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L67-L73)
 
 </details>
 
@@ -4923,13 +4990,13 @@
 - [ ] **D-dcb11b862c8ddde8f9d7** - · Carry over real provider instance artwork
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T008 — Carry over real provider instance artwork
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T008 : 182-182](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L182-L182)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T008 : 184-184](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L184-L184)
 
 <a id="d-4b8d3ab2145a4d6d816f"></a>
 - [ ] **D-4b8d3ab2145a4d6d816f** - - Preserve user-selected artwork overrides. - Refresh provider artwork without erasing an override. - Never synthesize replacement artwork.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T008 — Carry over real provider instance artwork
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 186-188](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L186-L188)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 188-190](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L188-L190)
 
 </details>
 
@@ -4941,7 +5008,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Merge using stable provider/project identity, upstream links, hashes, metadata/evidence, and explicit mappings. - Do not merge unrelated same-name projects. - Preserve each provider&#x27;s project URL, release availability, and source preference. - Discovering another source for an already-favorited project must not create a duplicate favorite.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T012 — Merge duplicate favorites across CurseForge/Modrinth/other providers
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 241-244](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L241-L244)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 243-246](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L243-L246)
 
 </details>
 
@@ -4953,19 +5020,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Prove that provider fetches, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 369-369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L369-L369)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 423-423](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L423-L423)
 
 </details>
 
 <details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when (1)</summary>
 
-<a id="d-a20510722c65ff53baec"></a>
-- [ ] **D-a20510722c65ff53baec** - FINAL COMPLETION GATE — All T001-T022 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data...
+<a id="d-79e5369ee8518b6b23db"></a>
+- [ ] **D-79e5369ee8518b6b23db** - FINAL COMPLETION GATE — All T001-T024 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data...
   - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** FINAL COMPLETION GATE — All T001-T022 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+  - **Full requirement:** FINAL COMPLETION GATE — All T001-T024 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G009 : 402-402](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L402-L402)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G009 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L458-L458)
 
 </details>
 

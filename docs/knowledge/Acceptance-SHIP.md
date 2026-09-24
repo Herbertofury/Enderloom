@@ -1105,7 +1105,7 @@
 <a id="ship-03-details"></a>
 ## SHIP-03 - Platform, locale and accessibility finish
 
-[Outcome](Checklist.md#ship-03) / 18 source-derived details.
+[Outcome](Checklist.md#ship-03) / 19 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1150,6 +1150,17 @@
   - **Full requirement:** requires a repeatable material improvement in a conversion hot path and an end-to-end workload, with preserved/improved capability and fidelity and no unexplained protected regression elsewhere. Publish per-lane results; aggregates must not conceal regressions. Flat performance with equal quality does not finish the improvement objective. Validate new capabilities separately when the old build lacks a comparable path. Decompose mixed upgrades, retain gains, repair regressive pieces and rerun invalidated tests. Never slow the baseline, disable validation, reduce content density or omit difficult fixtures.
   - **Binding context:** 5B. Production completion hardening - revision 3 / 5B.7 Measured excellence and release proof / 5B. Production requirements / 5B.7 Measured excellence and release proof
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 773-773](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L773-L773) / [ENDERLOOM_STUDIO_EXECUTION.md : 934-934](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L934-L934)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle (1)</summary>
+
+<a id="d-f41bd81b2fd37ef778e2"></a>
+- [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 334-334](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L334-L334)
 
 </details>
 

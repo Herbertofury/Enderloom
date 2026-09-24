@@ -303,7 +303,7 @@
 - [ ] **D-2681edf6d9d2f85f3a68** - GATE — Navigation and common desktop hotkeys feel native
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G007 : 330-330](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L330-L330)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G007 : 384-384](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L384-L384)
 
 </details>
 
@@ -314,7 +314,7 @@
 - [ ] **D-064a0891fcdecf0dd9de** - · F5 / Ctrl+R refresh everywhere it makes sense
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T018 — F5 / Ctrl+R refresh everywhere it makes sense
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T018 : 334-334](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L334-L334)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T018 : 388-388](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L388-L388)
 
 </details>
 
@@ -528,7 +528,7 @@
 - [ ] **D-4fe3b64bae9fa213e0d2** - · Add/verify standard navigation hotkeys
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T019 — Add/verify standard navigation hotkeys
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T019 : 345-345](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L345-L345)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T019 : 399-399](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L399-L399)
 
 </details>
 
@@ -754,7 +754,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - F5 refreshes the current Enderloom view or embedded browser page. - Ctrl+R behaves equivalently. - Browser context performs normal page reload. - Native Enderloom views refresh canonical data, not the entire application process. - Preserve selection, filter, sort, scroll, and stable UI state when possible. - Refresh must not repeat destructive actions, installs, updates, or form submissions.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T018 — F5 / Ctrl+R refresh everywhere it makes sense
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 336-341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L336-L341)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 390-395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L390-L395)
 
 </details>
 

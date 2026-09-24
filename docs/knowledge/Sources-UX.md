@@ -37,7 +37,7 @@
 - [11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1183-L1183) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1-L6) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L14-L14) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L284-L284) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L286-L286) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Objective](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L8-L8) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L243-L243) - README.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L685-L712) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 2 distinct blocks.
@@ -86,7 +86,7 @@
 - [0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Product experience](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L139-L139) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L249-L252) - ENDERLOOM_STUDIO_EXECUTION.md; 2 distinct blocks.
 - [5. TARGET-FIRST UNIVERSAL VERSION / LOADER MATRIX / 5.2 Data-driven support cells](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L690-L690) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T016 — One universal guided-install engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L305-L305) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L309-L309) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L31-L31) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.1 Top-level UX law](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L33-L53) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 5 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.2 Core workspace shell](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L57-L59) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
@@ -109,7 +109,7 @@
 [**UX-03**](Checklist.md#ux-03)
 
 <details>
-<summary>Source clauses and aliases (10 distinct blocks)</summary>
+<summary>Source clauses and aliases (13 distinct blocks)</summary>
 
 - [23. Full CLI everywhere / 23.2 CLI parity domains](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1056-L1056) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [24. Visual QA Showcase](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1089-L1089) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -122,6 +122,7 @@
 - [5. Metrics to capture / 5.1 Startup](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L187-L187) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.21 Consistent interaction rules](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1866-L1866) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Ecosystem research and ideas to absorb / Task Manager — `Wueffi/TaskManager`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L518-L524) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L360-L366) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::G015`, `ENDERLOOM_STUDIO_EXECUTION.md::T136`
 
@@ -142,7 +143,7 @@
 - [0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L269-L269) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [18. UI: repair job center](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L530-L530) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1192-L1192) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L196-L199) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L198-L201) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L227-L227) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L788-L788) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
@@ -156,7 +157,7 @@
 [**UX-05**](Checklist.md#ux-05)
 
 <details>
-<summary>Source clauses and aliases (92 distinct blocks)</summary>
+<summary>Source clauses and aliases (93 distinct blocks)</summary>
 
 - [15. Progress UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L491-L511) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 3 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L54-L54) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
@@ -191,11 +192,12 @@
 - [3. Provider Adapter architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L128-L128) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-13 — Implement deterministic artifacts, hashes, evidence bundle, and truthful release reports](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L282-L282) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-14 — Implement the Northpoint UI as a truthful control surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L297-L309) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 7 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L162-L164) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L194-L194) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L205-L205) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L259-L261) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L311-L324) - ENDERLOOM_GET_DONE_NOW_QOL.md; 4 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L164-L166) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L196-L196) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L207-L207) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L261-L263) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L315-L330) - ENDERLOOM_GET_DONE_NOW_QOL.md; 4 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L362-L362) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.2 Core workspace shell](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L75-L75) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L192-L196) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L56-L56) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
@@ -203,7 +205,7 @@
 - [3. Render / GPU / Client Frame-Time Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L65-L65) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L132-L132) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T024`
 
 </details>
 
@@ -228,9 +230,9 @@
 - [0. Codex launch contract - implement, verify, finish / 0.8 Universal capability, ease of use and product proof / It-just-works defaults](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L214-L214) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L263-L267) - ENDERLOOM_STUDIO_EXECUTION.md; 2 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L18-L18) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L134-L136) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L144-L144) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T016 — One universal guided-install engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L307-L307) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L136-L138) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L146-L146) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L311-L311) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::T149`, `ENDERLOOM_STUDIO_EXECUTION.md::T153`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G003`
 
@@ -242,7 +244,7 @@
 [**UX-07**](Checklist.md#ux-07)
 
 <details>
-<summary>Source clauses and aliases (66 distinct blocks)</summary>
+<summary>Source clauses and aliases (65 distinct blocks)</summary>
 
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L696-L696) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.1 Canonical truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L75-L75) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -265,10 +267,10 @@
 - [ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L8-L8) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.18 UI performance budgets and large-library behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1780-L1799) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2257-L2285) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L400-L400) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L201-L216) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L278-L282) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L315-L322) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L456-L456) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L203-L218) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L280-L284) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L319-L319) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.4 Project types are contexts, not separate apps](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L91-L91) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L245-L248) - README.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L722-L722) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
@@ -357,7 +359,7 @@
 [**UX-09**](Checklist.md#ux-09)
 
 <details>
-<summary>Source clauses and aliases (64 distinct blocks)</summary>
+<summary>Source clauses and aliases (66 distinct blocks)</summary>
 
 - [5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L792-L792) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.2 Interactive map](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L852-L859) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
@@ -384,10 +386,11 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.4 Dependency and conflict intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L809-L809) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.5 Mod behavior, side, vanilla-impact, and Forever World intelligence / 13.5.9 Install/remove/update UX should use this automatically](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1160-L1164) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2277-L2277) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L41-L43) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L95-L97) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T014 — Add a first-class Logs tab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L263-L267) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L286-L286) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L43-L45) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L97-L99) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T014 — Add a first-class Logs tab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L265-L269) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L288-L288) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L338-L342) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [10. First-Launch / Update UX Testing inside Performance / Testing](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L872-L908) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 3 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T125`, `ENDERLOOM_STUDIO_EXECUTION.md::T125`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T014`
@@ -400,7 +403,7 @@
 [**UX-10**](Checklist.md#ux-10)
 
 <details>
-<summary>Source clauses and aliases (27 distinct blocks)</summary>
+<summary>Source clauses and aliases (28 distinct blocks)</summary>
 
 - [15. Progress UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L516-L516) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
 - [2. Observed vs Inferred vs Authored Truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L72-L72) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -424,8 +427,9 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.8 Live external-change reconciliation and concurrent-launcher safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2104-L2104) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2255-L2264) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [Enderloom release evidence — 2026-08-31](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md#L3-L3) - RELEASE_EVIDENCE_2026-08-31.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L138-L140) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L381-L381) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L140-L142) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L323-L328) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L435-L435) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L34-L34) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 1 distinct blocks.
 - [18. Backend API / IPC contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L877-L877) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [18. Backend API / IPC contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L953-L953) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.

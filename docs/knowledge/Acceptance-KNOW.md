@@ -244,7 +244,7 @@
 - [ ] **D-d4b07743af654670e28e** - · Fix “File already exists” update failures — replace the installed mod transactionally
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 39-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L39-L39)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 41-41](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L41-L41)
 
 </details>
 

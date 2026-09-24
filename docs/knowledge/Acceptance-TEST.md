@@ -3889,7 +3889,7 @@
 - [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 363-363](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L363-L363)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 417-417](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L417-L417)
 
 </details>
 
@@ -3900,7 +3900,7 @@
 - [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 373-373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L373-L373)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 427-427](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L427-L427)
 
 </details>
 
@@ -6767,7 +6767,7 @@
 - [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 379-379](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L379-L379)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 433-433](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L433-L433)
 
 </details>
 

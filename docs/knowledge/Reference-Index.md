@@ -832,6 +832,7 @@
 - [https://plugins.gradle.org/plugin/dev.kikugie.stonecutter](https://plugins.gradle.org/plugin/dev.kikugie.stonecutter)
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
+- [https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom](https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom)
 - [https://www.curseforge.com/minecraft/mc-mods/apothic-curios](https://www.curseforge.com/minecraft/mc-mods/apothic-curios)
 - [https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler](https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler)
 - [https://www.curseforge.com/minecraft/mc-mods/crash-assistant](https://www.curseforge.com/minecraft/mc-mods/crash-assistant)

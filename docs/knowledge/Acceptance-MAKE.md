@@ -754,7 +754,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rough lookalike when the authorized source is available.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 77-77](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L77-L77)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 79-79](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L79-L79)
 
 </details>
 
@@ -765,7 +765,7 @@
 - [ ] **D-8aa2316c47da0425b6cf** - · Visual/performance regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 367-367](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L367-L367)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L421-L421)
 
 </details>
 
@@ -2466,14 +2466,14 @@
 - [ ] **D-a226249c259810f5bd6b** - · Add the authorized CurseForge-style download-start animation
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 75-75](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L75-L75)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 77-77](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L77-L77)
 
 <a id="d-18e60f3413b50b42b71a"></a>
 - [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 79-83](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L79-L83)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 81-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L81-L85)
 
 </details>
 
