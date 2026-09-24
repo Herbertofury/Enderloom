@@ -16,7 +16,7 @@ if hashlib.sha256(_core_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() !
 import northpoint_target_26_3_core as _core
 from northpoint_target_26_3_core import *
 
-_RUNTIME_RULES_SHA256 = "f4682a7ef9b1344390961cf687835a89bb13f4d6bf286fc3acb91d1a90d24da3"
+_RUNTIME_RULES_SHA256 = "b2e330528041a3b4de5aeaf0a27b82e41efba62d4a77a834598640a23094e86d"
 _runtime_path = pathlib.Path(__file__).with_name("northpoint_runtime_mixin_rules.py")
 if hashlib.sha256(_runtime_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _RUNTIME_RULES_SHA256:
     raise RuntimeError("runtime migration rules do not match the pinned engine")

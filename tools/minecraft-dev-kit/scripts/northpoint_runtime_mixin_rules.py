@@ -53,7 +53,7 @@ def handlers(text: str, fqcn: str):
         region = next((row for row in regions if row[0] < match.start() < row[1]), None)
         if not region: continue
         end = closing(masked, match.end()-1)
-        signature = re.match(r'\s*(?:private|protected|public)\s+(?:final\s+)?(void|float)\s+(\w+)\s*\(([^()]*)\)\s*\{', masked[end:])
+        signature = re.match(r'\s*(?:private|protected|public)\s+(?:(?:static|final)\s+)*(void|float)\s+(\w+)\s*\(([^()]*)\)\s*\{', masked[end:])
         if not signature: continue
         body_start = end + signature.end() - 1
         body_end = _find_matching_java_brace(text, body_start)
@@ -165,6 +165,24 @@ def rewrite_runtime_mixins(root: Path) -> list[dict]:
                 updated=annotation.replace('renderLevel(Lnet/minecraft/client/DeltaTracker;)V','renderLevel()V').replace('"INVOKE"','"FIELD"').replace('Lnet/minecraft/util/Mth;lerp(FFF)F','Lnet/minecraft/client/renderer/state/level/PlayerRenderState;nauseaEffectIntensity:F')
                 replacement=signature_replace(handler,updated,'net.minecraft.client.renderer.state.level.PlayerRenderState northpointPlayerState',newbody)
                 edits.append((handler['start'],handler['end'],replacement,'minecraft-26.3-nausea-render-state-redirect'))
+        # Exact 26.3 ScreenEffectRenderer.submitWater descriptor from official
+        # bytecode. Fire keeps its existing signature and is deliberately untouched.
+        for handler in handlers(text,'net.minecraft.client.renderer.ScreenEffectRenderer'):
+            annotation=handler['annotation']
+            old='submitWater(Lnet/minecraft/client/Minecraft;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V'
+            if handler['kind']!='Inject' or not re.search(r'\bmethod\s*=\s*"(?:submitWater|'+re.escape(old)+')"',annotation):continue
+            params=param_rows(handler['params'])
+            types=[t.rsplit('.',1)[-1] for t,n in params]
+            if types!=['Minecraft','PoseStack','SubmitNodeCollector','CallbackInfo']:continue
+            if params[0][0]=='Minecraft' and not re.search(r'import\s+net\.minecraft\.client\.Minecraft\s*;',mask_comments(text)):continue
+            if params[0][0] not in {'Minecraft','net.minecraft.client.Minecraft'}:continue
+            require_no_locals(handler)
+            if re.search(r'\b'+re.escape(params[0][1])+r'\b',mask_comments(handler['body'])):
+                raise ConversionBlock('water overlay callback consumes the old client parameter; explicit state bridge required')
+            selected=[('net.minecraft.client.renderer.state.level.PlayerRenderState.WaterOverlay',params[0][1])]+params[1:]
+            updated=annotation.replace(old,old.replace('Lnet/minecraft/client/Minecraft;','Lnet/minecraft/client/renderer/state/level/PlayerRenderState$WaterOverlay;'))
+            replacement=signature_replace(handler,updated,', '.join(t+' '+n for t,n in selected))
+            edits.append((handler['start'],handler['end'],replacement,'minecraft-26.3-water-overlay-render-state'))
         for handler in handlers(text,'net.minecraft.client.renderer.LevelRenderer'):
             annotation=handler['annotation']
             old='render(Lcom/mojang/blaze3d/resource/GraphicsResourceAllocator;Lnet/minecraft/client/DeltaTracker;ZLnet/minecraft/client/renderer/state/level/CameraRenderState;Lorg/joml/Matrix4fc;Lcom/mojang/blaze3d/buffers/GpuBufferSlice;Lorg/joml/Vector4f;Z)V'

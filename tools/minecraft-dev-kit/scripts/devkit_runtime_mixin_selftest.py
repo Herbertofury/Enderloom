@@ -36,7 +36,40 @@ private void render(GraphicsResourceAllocator allocator,DeltaTracker ticks,boole
 }
 '''
 
+def overlay_tests():
+    water = '''import net.minecraft.client.renderer.ScreenEffectRenderer;
+import net.minecraft.client.Minecraft;
+@Mixin(ScreenEffectRenderer.class) class Overlay {
+@Inject(method="submitWater",at=@At("HEAD"),cancellable=true)
+private static void water(Minecraft client, PoseStack poses, SubmitNodeCollector nodes, CallbackInfo ci) { if(Config.noWater()) ci.cancel(); }
+@Inject(method="submitFire",at=@At("HEAD"),cancellable=true)
+private static void fire(PoseStack poses, SubmitNodeCollector nodes, TextureAtlasSprite sprite, CallbackInfo ci) { if(Config.noFire()) ci.cancel(); }
+}'''
+    with tempfile.TemporaryDirectory() as raw:
+        root=Path(raw); path=root/'Overlay.java';path.write_text(water)
+        rows=rewrite_runtime_mixins(root);assert len(rows)==1 and rows[0]['rule']=='minecraft-26.3-water-overlay-render-state'
+        expected=water.replace('Minecraft client','net.minecraft.client.renderer.state.level.PlayerRenderState.WaterOverlay client')
+        # Only parameter type/spacing changes; staticness, fire, cancellation and body survive.
+        assert path.read_text()==expected
+        assert not rewrite_runtime_mixins(root)
+        for negative in [water.replace('net.minecraft.client.Minecraft','foreign.Minecraft'),
+                         water.replace('net.minecraft.client.renderer.ScreenEffectRenderer','foreign.ScreenEffectRenderer'),
+                         '/* '+water+' */']:
+            path.write_text(negative);assert not rewrite_runtime_mixins(root);assert path.read_text()==negative
+        path.write_text(water.replace('if(Config.noWater())','if(client.isPaused())'))
+        try:rewrite_runtime_mixins(root)
+        except ConversionBlock:pass
+        else:raise AssertionError('consumed old overlay state was dropped')
+        assert 'Minecraft client' in path.read_text()
+        path.write_text(water.replace('method="submitWater"','locals=LocalCapture.CAPTURE_FAILHARD,method="submitWater"'))
+        try:rewrite_runtime_mixins(root)
+        except ConversionBlock:pass
+        else:raise AssertionError('overlay local capture was discarded')
+    print('Water overlay exact owner/type, static handler, body/cancellation/fire preservation and unsafe-state controls PASS')
+
+
 def main():
+    overlay_tests()
     with tempfile.TemporaryDirectory(prefix='runtime-mixin-regression-') as raw:
         root=Path(raw);(root/'MouseMixin.java').write_text(MOUSE)
         (root/'RenderMixin.java').write_text(RENDER);(root/'WorldMixin.java').write_text(LEVEL)
