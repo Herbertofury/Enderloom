@@ -1,0 +1,331 @@
+# Enderloom — GET DONE NOW: Core UX / QoL Repair Queue
+
+**Status:** ACTIVE / IMMEDIATE EXECUTION QUEUE  
+**Created:** 2026-09-24  
+**Repository:** `Herbertofury/Enderloom`  
+**Priority:** finish this queue as a coherent repair pass before treating ordinary launcher/mod-manager UX as polished.
+
+## Objective
+
+Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation feel at least as immediate and dependable as CurseForge/Modrinth while preserving Enderloom's stronger provenance, rollback, dependency, and recovery guarantees.
+
+This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
+
+## Non-negotiable behavior
+
+- Preserve existing instance files, worlds, configs, favorites, notes, provider bindings, artwork choices, browser state, and working functionality.
+- Do not gain speed by skipping dependency closure, provenance, hash verification, rollback, recovery, compatibility checks, or result coverage.
+- GUI actions must use the canonical service/domain operation rather than private UI-only logic.
+- Provider/project identity must use stable IDs/provenance/hashes where available, not display-name guessing.
+- Repeated real failures become regression fixtures.
+- A build alone is not proof. Exercise the changed desktop workflow in the packaged/current app when practical.
+- If a later change breaks a completed item, reopen that item and its parent gate.
+
+---
+
+## [ ] GDN-G01 · GATE — Updates behave like a first-class launcher
+
+### [ ] GDN-001 · Fix “File already exists” update failures — replace the installed mod transactionally
+
+**Observed failure:** Update All can fail individual mods with errors such as **“File already exists”** instead of updating them.
+
+Implement update semantics like a proper mod manager:
+
+1. Resolve the installed logical project + provider/file identity and the selected replacement artifact.
+2. Download the candidate to Enderloom-owned staging/temp storage, never directly over the live JAR.
+3. Validate expected provider identity, compatibility, size/hash when available, and dependency plan.
+4. Snapshot/retain the previous installed artifact long enough for rollback.
+5. Commit the update atomically:
+   - if the new artifact has the **same filename**, replace the old file atomically;
+   - if it has a **different filename**, install the verified new artifact and remove/retire the superseded old artifact as one transaction;
+   - never reject a legitimate update merely because the destination/current filename exists.
+6. Preserve enabled/disabled state, provider association, notes, favorites, freeze/pin state, config/world data, and canonical project identity unless the requested update explicitly changes an allowed field.
+7. If the exact target artifact is already installed, report **Already up to date / no change** instead of failure.
+8. A same-name filesystem collision belonging to a *different* canonical project is a real conflict: stop only that item, explain the identity conflict, and do not overwrite unrelated content.
+9. Roll back cleanly on validation/commit failure so the prior working mod remains installed.
+10. Bulk Update must continue independent updates after one item fails and provide a final per-item result instead of collapsing the whole batch.
+
+**Regression fixtures:** same-filename replacement, versioned-filename replacement, already-current artifact, disabled mod update, pinned/frozen mod behavior, duplicate-provider identity, unrelated same-name collision, interrupted commit, failed validation rollback, Update All with one isolated failure.
+
+### [ ] GDN-002 · Make update discovery and Update All feel instant
+
+- Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel.
+- Eliminate serial provider waterfalls, duplicate identical fetches, hidden full rescans, and modal-blocking metadata work.
+- Use conditional/delta metadata requests, single-flight request coalescing, bounded provider concurrency, content-addressed download cache reuse, and dependency-plan reuse.
+- Pipeline independent Update All downloads/verification instead of waiting for each full update to finish serially.
+- Navigation/cancel must abort abandoned provider/download work without corrupting the batch.
+- Measure cold and warm: first useful update list, full refresh time, click-to-download-start, aggregate throughput, UI responsiveness, and apply/commit latency.
+- Benchmark the same instance on the same machine/network against installed CurseForge and Modrinth clients. Target equal-or-better median user-visible latency while preserving Enderloom's stronger checks.
+
+### [ ] GDN-003 · Add the authorized CurseForge-style download-start animation
+
+Integrate the user's authorized CurseForge download-start animation implementation/assets where source is available under the stated permission grant.
+
+- Preserve required copyright/attribution/provenance.
+- Use it consistently for mod installs/updates and other appropriate content downloads.
+- Start the transfer immediately; animation must never gate or delay network I/O.
+- Keep animation/compositing off blocking main-thread work and honor reduced-motion settings.
+- Fall back gracefully if the visual asset cannot load; the download still starts.
+
+---
+
+## [ ] GDN-G02 · GATE — Browser/download experience behaves like a normal modern browser
+
+### [ ] GDN-010 · Chrome-normal downloads in the embedded browser
+
+Replace the separate/manual-feeling download behavior with a first-class Chromium download pipeline.
+
+Required behavior:
+
+- ordinary click-to-download from a webpage;
+- authenticated/session-aware downloads using the current browser profile;
+- redirects and provider-generated/expiring URLs;
+- Content-Disposition filename handling;
+- collision-safe filenames;
+- visible state/progress/speed/size;
+- pause/resume when supported;
+- cancel/retry;
+- interrupted download recovery;
+- persistent recent download history;
+- open file, **show in folder**, copy source link, and clear-history actions;
+- safe temp/partial file + atomic finalize;
+- provider/source provenance and expected hash/size verification when known.
+
+The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
+
+### [ ] GDN-011 · Browser extensions
+
+Add a real persistent extension manager for Enderloom's Chromium profile:
+
+- install/import supported extensions;
+- enable/disable;
+- remove;
+- inspect permissions/source;
+- show compatibility/update state;
+- persist across Enderloom restart and app upgrades;
+- keep extension/profile data outside replaceable packaged application binaries;
+- never silently copy browser secrets from unrelated profiles.
+
+---
+
+## [ ] GDN-G03 · GATE — User/profile state survives updates and restarts
+
+### [ ] GDN-020 · Stop Enderloom upgrades from losing the user's profile
+
+Separate durable user/profile data from replaceable app files and add atomic schema migration + rollback backup.
+
+At minimum preserve:
+
+- favorites and cross-provider merged identity;
+- notes/tags/collections;
+- provider bindings and connected-in-place instances;
+- instance artwork/user overrides;
+- browser profile + extensions;
+- settings;
+- UI preferences/layout;
+- recent/default launch target;
+- recent/default install instance;
+- freeze/pin/update preferences;
+- logs/history metadata that is intentionally durable.
+
+Regression-test a real prior packaged build -> current packaged build migration, including crash/interruption during migration and rollback/retry.
+
+---
+
+## [ ] GDN-G04 · GATE — Instance launching and presentation are polished
+
+### [ ] GDN-030 · Launch any connected instance in place through Internal, CurseForge, or Modrinth
+
+Every compatible connected instance exposes a compact launcher chooser:
+
+- **Internal**
+- **CurseForge app**
+- **Modrinth app**
+
+Use canonical physical path + provider profile identifiers or supported launcher handoff/deep-link behavior. Do **not** copy, move, clone, duplicate, reshuffle, or temporarily rewrite the instance merely to launch it.
+
+Remember the per-instance preferred launcher. If an external app genuinely cannot own/launch that profile, explain the exact limitation and keep Internal available.
+
+### [ ] GDN-031 · Carry over real provider instance artwork
+
+When a connected CurseForge or Modrinth profile has real saved/project artwork, import/cache and display that exact art with provider/source provenance.
+
+- Preserve user-selected artwork overrides.
+- Refresh provider artwork without erasing an override.
+- Never synthesize replacement artwork.
+
+### [ ] GDN-032 · Compact the oversized instance hero/header
+
+Keep the attractive artwork, but bound the responsive hero height so it never consumes most of the useful viewport.
+
+- Keep instance identity/status + primary actions visible.
+- Leave useful tabs/content above the fold on common desktop heights.
+- Collapse further on short-height windows.
+- Avoid layout jumps while artwork loads.
+
+### [ ] GDN-033 · Redesign the top bar to be denser, sleeker, and more coherent
+
+Reduce redundant chrome, borders, spacing, and competing controls.
+
+Unify Catalog / Mod Manager / instance / embedded-browser context while preserving fast access to:
+
+- back/forward;
+- refresh;
+- current instance/context;
+- split/browser actions;
+- primary contextual action;
+- account/provider state when relevant.
+
+Do not turn the header into a second content panel.
+
+---
+
+## [ ] GDN-G05 · GATE — Favorites/catalog identity and quick actions are clean
+
+### [ ] GDN-040 · Compact + button on favorite/mod cards for direct install
+
+Add a small polished **+** action on favorite/catalog cards.
+
+- If the most recent/default compatible instance is unambiguous, allow one-click install.
+- Otherwise open a tiny searchable instance picker.
+- Reuse the normal dependency, compatibility, snapshot/risk, staged install, and verification transaction.
+- Never bypass the canonical install operation for speed.
+
+### [ ] GDN-041 · Merge duplicate favorites across CurseForge/Modrinth/other providers
+
+A logical mod/project appearing on multiple providers must show as **one canonical favorite card** with provider badges/source options, matching the rest of Enderloom's cross-provider identity behavior.
+
+- Merge using stable provider/project identity, upstream links, hashes, metadata/evidence, and explicit mappings.
+- Do not merge unrelated same-name projects.
+- Preserve each provider's project URL, release availability, and source preference.
+- Discovering another source for an already-favorited project must not create a duplicate favorite.
+
+### [ ] GDN-042 · MCreator candidates become a compact filter, not a permanent banner
+
+Remove the full-width MCreator candidate strip from the normal Mod Manager layout.
+
+- Expose MCreator detection as a compact filter/chip/badge.
+- Only render candidate-specific details when the filter is active or matching records exist.
+- Zero candidates should consume effectively zero vertical space.
+- Keep the evidence explaining why a mod is considered a candidate inside the filtered/detail view.
+
+---
+
+## [ ] GDN-G06 · GATE — Files, logs, and guided installs act like desktop software
+
+### [ ] GDN-050 · Add a first-class Logs tab
+
+Add a compact instance **Logs** tab covering applicable:
+
+- latest.log;
+- debug.log;
+- launcher/native logs;
+- crash reports;
+- Enderloom operation logs;
+- server logs.
+
+Include follow/tail, search, severity/source filters, copy/export, open containing folder, and direct evidence/diagnostic backlinks. Missing optional logs should be an empty state, not an error.
+
+### [ ] GDN-051 · Fix “Show file” — reveal and select, do not open/execute
+
+**Show file** must open the OS file manager at the containing folder and select/highlight the exact file.
+
+Keep **Open** as a separate explicit action where opening the file is appropriate.
+
+Test Windows Explorer behavior at minimum, including paths with spaces/unicode and files in connected external launcher profiles.
+
+### [ ] GDN-052 · One universal guided-install engine
+
+Replace narrow/siloed guided-install cards with one canonical flow for recognized installable Minecraft content, including as applicable:
+
+- mods;
+- addons;
+- datapacks;
+- resource packs;
+- shaders;
+- configs/config bundles;
+- worlds;
+- scripts;
+- server/plugin content;
+- other already-supported typed content.
+
+Flow:
+
+`detect -> classify -> choose target instance -> preview destination/dependencies/compatibility -> stage -> commit -> verify -> rollback on failure`
+
+Use the same canonical operation graph as normal installs; no private installer islands.
+
+### [ ] GDN-053 · Stop classifying random JSON/ZIP files as addons
+
+Do not treat extension alone as proof of an installable content type.
+
+Inspect archive/root structure and authoritative manifests/metadata, e.g. loader metadata, pack metadata, known addon/config schemas, required asset/layout markers, and existing provider classification.
+
+- Unknown/generic `.json` or `.zip` stays a generic download/import candidate.
+- It must not pollute the Addons collection.
+- Every positive classification should retain evidence explaining *why* the file is that content type.
+- Ambiguous files stay unresolved/generic rather than being forced into the wrong category.
+
+Regression fixtures must include real recognized addon/datapack/config ZIPs plus unrelated JSON, source ZIPs, documentation ZIPs, arbitrary archives, and nested/malformed archives.
+
+---
+
+## [ ] GDN-G07 · GATE — Navigation and common desktop hotkeys feel native
+
+### [ ] GDN-060 · F5 / Ctrl+R refresh everywhere it makes sense
+
+- **F5** refreshes the current Enderloom view or embedded browser page.
+- **Ctrl+R** behaves equivalently.
+- Browser context performs normal page reload.
+- Native Enderloom views refresh canonical data, not the entire application process.
+- Preserve selection, filter, sort, scroll, and stable UI state when possible.
+- Refresh must not repeat destructive actions, installs, updates, or form submissions.
+
+### [ ] GDN-061 · Add/verify standard navigation hotkeys
+
+Where applicable, support platform-standard:
+
+- back / forward;
+- focus search;
+- close tab;
+- reopen closed tab;
+- new tab;
+- refresh;
+- escape/cancel.
+
+Route conflicts through the canonical Hotkeys system instead of hardcoding competing shortcuts.
+
+---
+
+## [ ] GDN-G08 · GATE — Whole queue convergence and runtime proof
+
+### [ ] GDN-070 · Visual/performance regression pass
+
+Prove that provider fetches, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
+
+### [ ] GDN-071 · State/restart regression pass
+
+Restart the app and verify favorites, provider merge state, default launcher, install target, browser extensions/profile, update state, artwork overrides, logs preferences, filters, and layout survive as intended.
+
+### [ ] GDN-072 · Packaged-app workflow proof
+
+Exercise the real desktop build through at least:
+
+1. cross-provider favorite -> **+** install;
+2. provider instance artwork import;
+3. Update All where one installed mod is replaced despite identical destination filename;
+4. browser-authenticated download;
+5. universal guided install with both accepted and rejected generic ZIP/JSON fixtures;
+6. Show file -> Explorer reveal/select;
+7. external launch via CurseForge and Modrinth where compatible;
+8. F5 in browser and native Mod Manager;
+9. Logs tab search/tail;
+10. upgrade/migration from a prior packaged Enderloom profile.
+
+Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
+
+## Done when
+
+This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content.
+
+**Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
