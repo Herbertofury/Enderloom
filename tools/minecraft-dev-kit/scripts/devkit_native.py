@@ -217,13 +217,19 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             cp=run_logged(cmd,directory=run/'commands',name='native',cwd=probe,env=env,timeout=timeout)
             proof_path=probe/'run/devkit-native/devkit-runtime-proof.json'
             if cp.returncode:
-                tail = '\n'.join((cp.stdout + '\n' + cp.stderr).splitlines()[-70:])
-                raise RuntimeError('native process failed: '+str(cp.returncode)+'; full logs: '+str(run/'commands')+'\n'+tail)
+                crashes = sorted((probe/'run').rglob('crash-*.txt'))
+                if crashes:
+                    detail = '\n'.join(crashes[-1].read_text(encoding='utf-8',errors='replace').splitlines()[:80])
+                else:
+                    lines = (cp.stdout + '\n' + cp.stderr).splitlines()
+                    causal = next((index for index,line in enumerate(lines) if any(word in line for word in ['Caused by:', 'Critical injection failure', 'AssertionError', '* What went wrong:'])), None)
+                    detail = '\n'.join(lines[causal:causal+80] if causal is not None else lines[-70:])
+                raise RuntimeError('native process failed: '+str(cp.returncode)+'; full logs: '+str(run/'commands')+'\n'+detail)
             proof=json.loads(proof_path.read_text())
             if proof.get('artifact_sha256')!=result['artifact_sha256'] or not proof.get('world_reopened') or not proof.get('client_server_sync'):
                 raise ValueError('runtime proof does not match the candidate or required world gates')
             if sha256_file(artifact)!=result['artifact_sha256']:raise ValueError('candidate changed during native verification')
-            screenshots=list((probe/'run').rglob('devkit-*.png'))
+            screenshots=list((probe/'run').rglob('*devkit-*.png'))
             if len(screenshots)<2:raise ValueError('expected both native world screenshots')
             result.update(state='runtime-smoke-verified',proof=proof,
                           screenshots=[{'path':str(p),'sha256':sha256_file(p)} for p in screenshots],jdk=jdk,

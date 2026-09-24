@@ -22,6 +22,9 @@ def capture(workspace: Path, minecraft: str, output: Path, download: bool = Fals
         text = path.read_text(encoding='utf-8', errors='replace')
         roots.update(re.findall(r'Mixin transformation of ([A-Za-z0-9_.$]+) failed', text))
     roots.update({'net.minecraft.client.player.LocalPlayer','net.minecraft.client.multiplayer.ClientPacketListener'})
+    owners_file = Path(__file__).resolve().parents[1]/'references/native-mixin-owners-26.3.json'
+    if owners_file.is_file():
+        roots.update(json.loads(owners_file.read_text())['owners'])
     jdk = ensure_jdk(25)
     javap = Path(jdk['java_path']).with_name('javap.exe' if Path(jdk['java_path']).suffix == '.exe' else 'javap')
     cache = Path.home()/'.gradle/caches/fabric-loom'
