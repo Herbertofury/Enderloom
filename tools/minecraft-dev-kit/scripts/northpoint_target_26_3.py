@@ -34,6 +34,12 @@ if hashlib.sha256(_shader_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
     raise RuntimeError("shader rules do not match the pinned engine")
 from northpoint_shader_rules import rewrite_shader_interfaces
 
+_CHUNK_RULES_SHA256 = "651d05ad93365cbf898ad2353f40123793bb749fef53a8be91f4af24059ce47e"
+_chunk_path = pathlib.Path(__file__).with_name("northpoint_chunk_packet_rules.py")
+if hashlib.sha256(_chunk_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _CHUNK_RULES_SHA256:
+    raise RuntimeError("chunk packet rules do not match the pinned engine")
+from northpoint_chunk_packet_rules import rewrite_chunk_packet_mixins
+
 
 def __getattr__(name):
     return getattr(_core, name)
@@ -117,7 +123,7 @@ def rewrite_network_tick_mixins(output: pathlib.Path) -> list[dict[str, Any]]:
 
 
 def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
-    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output) + rewrite_shader_interfaces(output)
+    return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output) + rewrite_shader_interfaces(output) + rewrite_chunk_packet_mixins(output)
 
 
 def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *, pipeline_script: pathlib.Path | None = None) -> dict[str, Any]:

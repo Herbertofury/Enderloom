@@ -19,6 +19,8 @@ private void unrelated(CallbackInfo ci) { event.tick(); }
 def main():
     from devkit_shader_selftest import main as shader_tests
     assert shader_tests()==0
+    from devkit_chunk_packet_selftest import main as chunk_tests
+    assert chunk_tests()==0
     with tempfile.TemporaryDirectory(prefix='mixin-target-test-') as td:
         root=Path(td);p=root/'Test.java';p.write_text(SOURCE)
         rows=engine.rewrite_network_tick_mixins(root)
