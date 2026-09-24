@@ -7,6 +7,7 @@ on:
       - '.github/enderloom-knowledge-seed.json'
       - 'scripts/knowledge/**'
       - 'docs/**'
+      - 'README.md'
   workflow_dispatch:
 permissions:
   contents: write
@@ -34,14 +35,18 @@ jobs:
         id: seed
         working-directory: source
         run: python3 scripts/knowledge/bootstrap.py
-      - name: Generate and regression-test complete source coverage
+      - name: Generate and regression-test source-level acceptance
         if: steps.seed.outputs.ready == 'true'
         working-directory: source
         run: |
+          set -euo pipefail
           mkdir -p build/knowledge
+          python3 scripts/knowledge/fidelity.py install
           python3 scripts/knowledge/knowledge.py build | tee build/knowledge/validation.json
           python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
           cat build/knowledge/regression-tests.txt
+          python3 scripts/knowledge/fidelity.py test > build/knowledge/fidelity-tests.txt 2>&1
+          cat build/knowledge/fidelity-tests.txt
       - name: Install isolated documentation render tools
         if: steps.seed.outputs.ready == 'true'
         working-directory: source
@@ -57,16 +62,24 @@ jobs:
         if: steps.seed.outputs.ready == 'true'
         working-directory: source
         run: |
+          set -euo pipefail
+          BASE=$(git rev-parse HEAD)
           git add docs/knowledge docs/specifications docs/ENDERLOOM_STUDIO_EXECUTION.md scripts/knowledge README.md
           if git ls-files --error-unmatch .github/enderloom-knowledge-seed.json >/dev/null 2>&1; then git add -u .github/enderloom-knowledge-seed.json; fi
           if ! git diff --cached --quiet; then
-            git commit -m 'docs: generate complete Enderloom Studio knowledge and progress hub'
+            git commit -m 'docs: generate source-complete Enderloom acceptance and progress hub'
             git fetch origin main
-            git rebase origin/main
-            python3 scripts/knowledge/knowledge.py build > build/knowledge/validation.json
+            if [ "$BASE" != "$(git rev-parse origin/main)" ]; then
+              git rebase origin/main
+              python3 scripts/knowledge/fidelity.py install
+              python3 scripts/knowledge/knowledge.py build > build/knowledge/validation.json
+              python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
+              python3 scripts/knowledge/fidelity.py test > build/knowledge/fidelity-tests.txt 2>&1
+              node scripts/knowledge/render.mjs
+              git add docs/knowledge scripts/knowledge README.md
+              if ! git diff --cached --quiet; then git commit -m 'docs: reconcile source-level acceptance against latest project'; fi
+            fi
             python3 scripts/knowledge/knowledge.py check
-            git add docs/knowledge README.md
-            if ! git diff --cached --quiet; then git commit -m 'docs: reconcile knowledge against latest source'; fi
             git push origin HEAD:main
           fi
           python3 - <<'PY'
@@ -107,7 +120,7 @@ jobs:
           PY
           git -C ../wiki add '*.md' .enderloom-knowledge-manifest.json
           if ! git -C ../wiki diff --cached --quiet; then
-            git -C ../wiki commit -m 'Publish Enderloom Studio knowledge and canonical progress views'
+            git -C ../wiki commit -m 'Publish Enderloom Studio source-level acceptance and canonical progress'
             git -C ../wiki push origin HEAD
           fi
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH" clone --depth 1 "https://github.com/$REPO.wiki.git" ../wiki-readback
@@ -120,15 +133,13 @@ jobs:
           pathlib.Path('build/knowledge/wiki-publication.json').write_text(json.dumps({'status':'verified','commit':commit,'pages':len(expected)},indent=2)+'\n')
           print('Native Wiki verified:',commit,'pages:',len(expected))
           PY
-      - name: Preserve complete documentation and publication evidence
+      - name: Preserve full source, documentation and publication evidence
         if: always() && steps.seed.outputs.ready == 'true'
         uses: actions/upload-artifact@v7.0.1
         with:
           name: enderloom-knowledge-complete
           path: |
-            source/docs/knowledge/
-            source/docs/specifications/
-            source/docs/ENDERLOOM_STUDIO_EXECUTION.md
+            source/docs/
             source/scripts/knowledge/
             source/README.md
             source/build/knowledge/
