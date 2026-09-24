@@ -1,0 +1,59 @@
+name: Enderloom knowledge
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/enderloom-knowledge.yml'
+      - 'scripts/knowledge/**'
+      - 'docs/knowledge/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: enderloom-knowledge
+  cancel-in-progress: false
+jobs:
+  knowledge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Read complete specification snapshot
+        env:
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          git init source
+          git -C source remote add origin "https://github.com/$REPO.git"
+          git -C source fetch --depth 1 origin "$SHA"
+          git -C source checkout --detach FETCH_HEAD
+          python3 - <<'PY'
+          import pathlib, json, hashlib
+          root=pathlib.Path('source')
+          paths=[p for p in root.rglob('*') if p.is_file() and '.git' not in p.parts and (p.suffix.lower() in ('.md','.json','.yml') and (p.parts[1]=='docs' or p.name in ('README.md','package.json')))]
+          rows=[{'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(paths)]
+          pathlib.Path('source-inventory.json').write_text(json.dumps({'files':rows},indent=2)+'\n')
+          print('Complete source files:',len(rows))
+          PY
+      - name: Inspect native wiki availability
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          if git ls-remote "https://github.com/$REPO.wiki.git" > wiki-probe.txt 2>&1; then
+            git clone --depth 1 "https://github.com/$REPO.wiki.git" wiki
+          else
+            printf '\nNative wiki requires initialization or separate authorization.\n' >> wiki-probe.txt
+          fi
+          cat wiki-probe.txt
+      - name: Preserve source snapshot
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: enderloom-knowledge-sources
+          path: |
+            source/docs/
+            source/README.md
+            source/package.json
+            source-inventory.json
+            wiki-probe.txt
+            wiki/*.md
+          if-no-files-found: error
+          retention-days: 7
