@@ -10,8 +10,12 @@ concurrency:
   cancel-in-progress: true
 jobs:
   real-stonecutter:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v5
@@ -24,56 +28,71 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.6.0'
-      - name: Prove actual Stonecutter API and generated sources
+      - name: Actual Stonecutter, shared changes, native JVM matrix and target extension
         shell: bash
-        run: |
-          mkdir -p "$RUNNER_TEMP/stonecutter-proof/src/main/java/example"
-          cd "$RUNNER_TEMP/stonecutter-proof"
-          cat > settings.gradle.kts <<'EOF'
-          pluginManagement { repositories { gradlePluginPortal(); maven("https://maven.kikugie.dev/releases") } }
-          plugins { id("dev.kikugie.stonecutter") version "0.9.8" }
-          stonecutter {
-            kotlinController = true
-            create(rootProject) {
-              version("26.2-fabric", "26.2")
-              version("26.3-fabric", "26.3")
-              vcsVersion = "26.3-fabric"
-            }
-          }
-          rootProject.name = "devkit-stonecutter-proof"
-          EOF
-          cat > stonecutter.gradle.kts <<'EOF'
-          plugins { id("dev.kikugie.stonecutter") }
-          stonecutter active "26.3-fabric"
-          EOF
-          cat > build.gradle.kts <<'EOF'
-          plugins { java }
-          tasks.register("report") {
-            dependsOn("stonecutterGenerate", "classes")
-            doLast {
-              println("DEVKIT_GENERATED=" + tasks.named("stonecutterGenerate").get().outputs.files.files)
-              println("DEVKIT_SOURCES=" + sourceSets["main"].allSource.srcDirs)
-            }
-          }
-          EOF
-          cat > src/main/java/example/Versioned.java <<'EOF'
-          package example;
-          public class Versioned {
-            public static String value() {
-              //? if >=26.3 {
-              return "modern";
-              //?} else {
-              /*return "legacy";*/
-              //?}
-            }
-          }
-          EOF
-          gradle --no-daemon :26.2-fabric:report :26.3-fabric:report --stacktrace 2>&1 | tee proof.log
-          find versions -type f -name Versioned.java -print -exec cat {} \;
-      - name: Preserve actual plugin evidence
+        run: python tools/minecraft-dev-kit/scripts/devkit_multiversion_selftest.py --real --output "${{ runner.temp }}/multiversion-test"
+      - name: Preserve exact outputs and all failure evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: stonecutter-proof-${{ github.run_id }}
-          path: ${{ runner.temp }}/stonecutter-proof/
+          name: multiversion-${{ matrix.os }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/multiversion-test/
+            !${{ runner.temp }}/multiversion-test/**/.gradle/**
+          include-hidden-files: true
           if-no-files-found: error
+          retention-days: 30
+  aoba-multiversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.0'
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: devkit-stonecutter-aoba-26.2-26.3-v1
+          restore-keys: |
+            devkit-native-Linux-26.3-aoba-
+            fabric-aoba-263-Linux-
+      - name: Native graphics prerequisites
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1 libflite1 flite1-dev
+      - name: Normal conversion must export the reusable original and target source
+        shell: bash
+        run: |
+          git init "$RUNNER_TEMP/source"
+          git -C "$RUNNER_TEMP/source" remote add origin https://github.com/Cocolots/Aoba-Client.git
+          git -C "$RUNNER_TEMP/source" fetch --depth=1 origin c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
+          git -C "$RUNNER_TEMP/source" checkout --detach FETCH_HEAD
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py --project "$RUNNER_TEMP/source" --minecraft 26.3 --loader fabric --java 25 --workspace "$RUNNER_TEMP/candidate" --timeout 900
+          test -f "$RUNNER_TEMP/candidate/work/evidence/multiversion-project.zip"
+      - name: Build both real Minecraft targets from Stonecutter-processed shared sources
+        shell: bash
+        run: |
+          python tools/minecraft-dev-kit/scripts/devkit.py matrix-build --workspace "$RUNNER_TEMP/candidate/work/multiversion" --gradle "$(command -v gradle)" --timeout 900
+      - name: Reuse intact build then prove generated 26.3 JAR in native Minecraft and restart
+        shell: bash
+        run: |
+          python tools/minecraft-dev-kit/scripts/devkit.py matrix-build --workspace "$RUNNER_TEMP/candidate/work/multiversion" --gradle "$(command -v gradle)" --target 26.3-fabric --verify --timeout 900
+      - name: Preserve actual source, builds, dependencies, native screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multiversion-aoba-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/candidate/
+            !${{ runner.temp }}/candidate/**/.gradle/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
