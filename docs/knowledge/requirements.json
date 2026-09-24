@@ -1,0 +1,951 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "id": "AOA",
+      "title": "Complete Advent of Ascension",
+      "page": "Advent-of-Ascension",
+      "summary": "A finished original mod, not an endlessly running converter demonstration.",
+      "items": [
+        {
+          "id": "AOA-01",
+          "title": "Source lineage and original identity",
+          "acceptance": "Use the accepted union of authoritative AoA source and content, retain fingerprints, mod name/public IDs and approved migrations, and continue the active project rather than choosing a smaller branch or renamed fork.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AOA-02",
+          "title": "Complete semantic port",
+          "acceptance": "Complete every requested target's code, registries, loader APIs, networking, optional integrations and persistence through reproducible Enderloom/Dev Kit transformations.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AOA-03",
+          "title": "Complete gameplay and assets",
+          "acceptance": "Account for all accepted items, blocks, equipment, skills, progression, dimensions, structures, mobs, bosses, AI, models, animation, audio, particles, recipes, loot and tags; no substitutes, hidden omissions or placeholders.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AOA-04",
+          "title": "Native gameplay and migration proof",
+          "acceptance": "Exercise the full applicable client, dedicated/integrated server, unique mechanics, dimension travel, provider-present/absent and save/restart/migration inventory on the actual packaged artifact.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AOA-05",
+          "title": "Clean conversion replay",
+          "acceptance": "Reproduce from original inputs in a fresh generated workspace, with exact dependencies, reusable fixes and equivalent-work performance; no hand-fixed target tree or developer-global tools.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AOA-06",
+          "title": "AoA delivered through the studio",
+          "acceptance": "Ship installable complete source/mod outputs and evidence; the real AoA project opens, converts, repairs, builds, play-tests and installs safely through normal studio controls.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "UX",
+      "title": "Beautiful unified studio",
+      "page": "Studio",
+      "summary": "Welcoming on the surface; professional depth one click away.",
+      "items": [
+        {
+          "id": "UX-01",
+          "title": "Four-action Home",
+          "acceptance": "Create a Mod, Convert to Version, Repair / Fix Issues and Improve Performance are obvious production actions beside import/drop, useful empty states and real recent-project previews.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-02",
+          "title": "One contextual workbench",
+          "acceptance": "One Studio contains persistent resizable content tree/outliner, center viewport/editor, contextual inspector, timeline, source/debug panes and collapsible details; project types are contexts, not disconnected studios.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-03",
+          "title": "Finished visual system",
+          "acceptance": "Apply cohesive graphite/plum/amethyst and equally complete light/dark/system themes, readable typography, consistent icons/spacing/elevation/focus, purposeful motion and native window chrome across every screen.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-04",
+          "title": "Discoverable contextual actions",
+          "acceptance": "Global command palette, contextual search, shallow navigation, keyboard alternatives, accurate tooltips, meaningful next actions and exact deep links connect projects, mods, issues, configs, evidence and outputs.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-05",
+          "title": "Honest progress and live findings",
+          "acceptance": "Real stages/events, task graph, current action, per-item results, repair iterations and useful findings remain visible; logs are secondary and percentages never fabricate knowledge.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-06",
+          "title": "Reliable editing and recovery",
+          "acceptance": "Autosave, undo/redo, dirty-state indicators, snapshots, unsaved-change guards, conflict detection and restart restoration preserve selection, editor tabs, target and job state.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-07",
+          "title": "Large-data and bulk usability",
+          "acceptance": "Search, counts, filters, sorting, select-all, tagging and batch operations address the entire logical dataset; virtualized views do not cap results or drop errors.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-08",
+          "title": "Accessible responsive native UI",
+          "acceptance": "Verify both themes, contrast/focus/non-color status, screen-reader names, reduced motion, keyboard operation, specified desktop/portrait sizes and scaling without clipping primary actions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-09",
+          "title": "First-launch and update experience",
+          "acceptance": "First launch provisions ordinary requirements with minimal questions; upgrades preserve projects/preferences/accounts/jobs; loading, empty, error and offline states remain actionable and polished.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "UX-10",
+          "title": "Real-user journey acceptance",
+          "acceptance": "Exercise all four journeys in the actual package with clean inputs, real domain services, native runtime, persisted state and rollback; capture real screens, not mockups or generated showcase imagery.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "MAKE",
+      "title": "Authoring and real assets",
+      "page": "Creation-and-Assets",
+      "summary": "Visual creation and expert code operate on the same editable project.",
+      "items": [
+        {
+          "id": "MAKE-01",
+          "title": "Arbitrary native mod creation",
+          "acceptance": "Create blank, starter or imported projects with functioning content, stable identity, build/test setup and source escape hatches; templates and block/item examples are not the ceiling.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-02",
+          "title": "Safe visual and code round-tripping",
+          "acceptance": "Visual properties, source editor, language tooling and semantic representation stay connected; user code/unknown syntax remains recoverable without silently losing build or conversion behavior.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-03",
+          "title": "Items, blocks and equipment editors",
+          "acceptance": "Author materials, states, tools, armor, equipment and inventories with target-aware properties, references and in-game proof.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-04",
+          "title": "Entities, bosses and gameplay graphs",
+          "acceptance": "Author entities, AI/events/procedures, interaction, combat, progression and custom systems with meaningful behavior and network/persistence validation, not empty registrations.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-05",
+          "title": "Recipes, loot, tags and data editing",
+          "acceptance": "Use visual recipes and structured validated data editors, reference navigation, error repair, target schemas and deterministic datagen without dropping unknown fields.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-06",
+          "title": "World, biome, structure and dimension authoring",
+          "acceptance": "Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-07",
+          "title": "Model, UV and texture fidelity",
+          "acceptance": "Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-08",
+          "title": "Animation, Molang, effects and audio",
+          "acceptance": "Timeline/scrubbing, easing/interpolation, expressions/scopes, locators, sounds/particles/custom tracks and real audio playback preserve behavior, timing and thread isolation.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-09",
+          "title": "Reference and concept reconstruction",
+          "acceptance": "Lawfully ingest images/GIFs/models/server resources, distinguish observed/inferred/authored facts, reconstruct from multiple views/times, preserve intended Minecraft style and verify native visuals.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-10",
+          "title": "Compound content and ecosystem integration",
+          "acceptance": "Build interacting content families with version-specific integrations, edit/play/rebuild and convert them; a decorative block or asset pack alone is not a complete created mod.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "MAKE-11",
+          "title": "Real preview and native comparison",
+          "acceptance": "Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PORT",
+      "title": "Universal conversion engine",
+      "page": "Conversion",
+      "summary": "One semantic project; the strongest proven backend for each real target.",
+      "items": [
+        {
+          "id": "PORT-01",
+          "title": "Input and source authority",
+          "acceptance": "Identify repositories/folders/source archives/JARs/Bedrock/plugin packs by real identity and lineage; inventory before execution, deduplicate identical imports and retain originals.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-02",
+          "title": "Universal semantic representation",
+          "acceptance": "Represent code, behavior, content, assets, dependencies and lineage once; preserve unknown constructs and generate version/loader/edition adapters without cloning disconnected mod projects.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-03",
+          "title": "Live version and toolchain atlas",
+          "acceptance": "Enumerate the full actual version/loader catalogue, including historical and preview distinctions, runtime/build JVM constraints and future published metadata; never invent support or impose one backend's limited matrix.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-04",
+          "title": "Exact mappings and symbol truth",
+          "acceptance": "Descriptor/owner/hierarchy/overload-aware mappings, classpath/JAR validation and API deltas distinguish exact symbols, candidates and unresolved semantics with source evidence.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-05",
+          "title": "Source migration and semantic repair",
+          "acceptance": "Apply structured Java/Kotlin/AST/source-range transformations, version-hop rules, metadata/resources/build/config changes and stronger equivalents; do not trust global text replacement.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-06",
+          "title": "Mixin, access and reflection correctness",
+          "acceptance": "Remap and prove selectors, injections, locals/slices/ordinals, refmaps, AW/AT/ClassTweaker, interface/enum changes and reflection/MethodHandles in the actual packaged loader.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-07",
+          "title": "JAR recovery and binary repair",
+          "acceptance": "Preserve original binaries, use differential decompilers/remappers/constant evidence, reconcile signatures/control flow/resources and verify signed/multi-release/nested JAR behavior.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-08",
+          "title": "Modern and historical build matrix",
+          "acceptance": "Integrate appropriate Stonecutter/Modstitch/official/Architectury/Unimined/RFG routes, immutable workspaces, target-first scheduling and correct legacy/JVM backport support.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-09",
+          "title": "Native loader and compatibility modes",
+          "acceptance": "Translate loader semantics with real Sinytra/Kilt/Porting-Lib/Architectury evidence; explicitly distinguish native source ports, modified JARs and compatibility runtimes.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-10",
+          "title": "Complete cross-edition conversion",
+          "acceptance": "Convert Java/Bedrock logic as well as resources, manifests, scripts, entities/events/components/Molang/world rules; a visual pack or stubbed method never satisfies gameplay conversion.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-11",
+          "title": "Authorized server content to native mod",
+          "acceptance": "Separate visual/model-runtime/gameplay source layers, recover supplied plugin/resource configurations and ship native behavior without requiring the original commercial server stack.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-12",
+          "title": "Incremental matrix and packaging",
+          "acceptance": "Cache exact valid inputs/results, build independent cells safely, retry only invalidated cells, preserve per-cell artifacts and test optional merged packaging in every claimed included runtime.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-13",
+          "title": "Conversion parity and clean replay",
+          "acceptance": "Compare source-authoritative IDs, graphs and semantics, not output-derived counters; unresolved/unread content fails certification; reproduce from original inputs through the normal toolchain.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PORT-14",
+          "title": "Ecosystem backend integration",
+          "acceptance": "Production-wire selected researched tools or stronger proven equivalents; retain attribution and project-specific permissions, execute comparison fixtures and record exact versions/capabilities/dispositions.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEP",
+      "title": "Dependencies and shared operations",
+      "page": "Dependencies-and-Recovery",
+      "summary": "The app finds the requirements and resumes the original job.",
+      "items": [
+        {
+          "id": "DEP-01",
+          "title": "Full dependency closure",
+          "acceptance": "Resolve source/target/transitive/nested/build/runtime/client/server and optional dependencies together, preserving ranges, provider identity, hashes and semantic target-side equivalents.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-02",
+          "title": "Automatic safe acquisition",
+          "acceptance": "Fetch ordinary compatible requirements through authorized routes, verify complete bytes, resume interrupted downloads and original jobs; explain provider challenges without bypassing them.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-03",
+          "title": "Conflict and change-impact graph",
+          "acceptance": "Explain diamonds/cycles/conflicts, dependents, world/config/benchmark impact and why a component is installed; no arbitrary replacement, constraint relaxation or silent dependency deletion.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-04",
+          "title": "Managed immutable toolchains",
+          "acceptance": "Provision versioned JDKs/Gradle/loaders/tools, single-flight shared downloads and fingerprints, isolate tool versus game runtimes and reuse verified offline cache without developer-global assumptions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-05",
+          "title": "Canonical identity and action registry",
+          "acceptance": "GUI/CLI/MCP/agents share stable project/artifact/instance/provider identities and typed operations, with no private bypass or duplicate resolver/state owner.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-06",
+          "title": "Staged transactions and concurrent safety",
+          "acceptance": "Use immutable inputs, owned staging, revision/hash guards, atomic promotion, scoped rollback and late-worker rejection; preserve external files and concurrent Codex/user edits.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-07",
+          "title": "Durable jobs and cancellation",
+          "acceptance": "Persist operation/process identities, completed-stage fingerprints, logs, retries and exact next action across restart; cancel only owned work and never promote partial outputs.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "DEP-08",
+          "title": "Adapter proof and truthful failures",
+          "acceptance": "Probe actual CLI/library contracts and pair-specific fixtures; reject exit-zero/no-output/stale/malformed reports, distinguish unknown from absent and route failed backends to real recovery.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "FIX",
+      "title": "Repair and forensics",
+      "page": "Repair-and-Diagnostics",
+      "summary": "Fix the causal owner, retain content, and prove the repaired result.",
+      "items": [
+        {
+          "id": "FIX-01",
+          "title": "Root-cause repair workflow",
+          "acceptance": "Attach logs to correct input/run, identify earliest failure, show concise findings, apply scoped fixes and validate; Fix/Fix Issues/View Changes/Undo are real operations.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-02",
+          "title": "Reusable diagnostics adapters",
+          "acceptance": "Version-aware adapter catalog, analyzer selection, shared evidence and auto-provisioning in owned test clones select appropriate tools for crashes, TPS, FPS, memory and loading.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-03",
+          "title": "Crash, linkage, data and configuration repair",
+          "acceptance": "Repair real loader/dependency/Mixin/registration/data/resource/config faults without suppressing diagnostics, wholesale disabling or content deletion.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-04",
+          "title": "Freeze, lock and concurrency forensics",
+          "acceptance": "Correlate threads, dumps, deadlocks/races, locks and runtime phase; repair causal concurrency while preserving semantics, with failing-before/passing-after fixtures.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-05",
+          "title": "Heap and memory-leak diagnosis",
+          "acceptance": "Capture useful allocation/retention/GC evidence, reproduce growth and fix ownership/lifecycle leaks with equivalent-work soak validation.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-06",
+          "title": "Black Box incident timeline",
+          "acceptance": "Owned bounded rolling evidence, meaningful triggers and cross-tool timeline preserve causal context with export/privacy controls; not a hidden perpetual patching watchdog.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-07",
+          "title": "Dependency-safe bisect and reproducer",
+          "acceptance": "Isolate faults using dependency closure, controlled scenarios and delta debugging, retain source content and deliver a working minimized reproduction with provenance.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "FIX-08",
+          "title": "Generalized repair knowledge",
+          "acceptance": "Every nontrivial verified fix becomes a scoped reusable transformation/incident recipe with negative regressions, applicability/invalidation and clean replay; no hidden hand-patched outputs.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "TEST",
+      "title": "Native testing and control plane",
+      "page": "Testing-and-Proof",
+      "summary": "Cheap decisive checks during iteration; strongest required proof at certification.",
+      "items": [
+        {
+          "id": "TEST-01",
+          "title": "Deterministic test sandbox",
+          "acceptance": "Clone/snapshot only into Enderloom-owned test space, never benchmark live saves; fingerprint full mods/config/world/scenario/Java/loader/hardware conditions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-02",
+          "title": "Scenario and GameTest compiler",
+          "acceptance": "Unify declarative startup/idle/traversal/stress/soak/gameplay scenarios, setup/teardown/assertions, GameTest adapters and deterministic replay across supported targets.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-03",
+          "title": "Runtime supervision and automation",
+          "acceptance": "Control real client/dedicated/integrated/Bedrock processes, commands/RCON, readiness, isolated accounts where appropriate, cancellation and restart with exact process/build identity.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-04",
+          "title": "Full CLI, JSON and MCP parity",
+          "acceptance": "Expose every accepted domain command and job/evidence operation headlessly through the same service layer, structured events/errors/cancellation, recordable replay and CI integration.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-05",
+          "title": "Artifact-bound native proof",
+          "acceptance": "Bind native runs/logs/captures to exact hashes/target/dependencies; verify gameplay and persistence, not only build/menu/server-ready or a script named runtime.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-06",
+          "title": "Compatibility and hostile fixtures",
+          "acceptance": "Select full applicable ecosystem, provider-present/absent, platform, source/JAR, data/world, cross-loader/direction and false-success tests without sampling away required scope.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-07",
+          "title": "Results and repeatability",
+          "acceptance": "Keep baseline/candidate history, current/stale/confidence states, logs/profiles/screens and reproducible actions; targeted invalidation reuses only still-valid proof.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "TEST-08",
+          "title": "Machine-verifiable release gates",
+          "acceptance": "Fail on missing/skipped/stale/wrong-artifact evidence, no-op production paths, partial parity or unjustified demotion; a checklist tick alone cannot satisfy certification.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PERF",
+      "title": "Performance without loss",
+      "page": "Performance",
+      "summary": "Optimize measured work, not the amount of content or verification.",
+      "items": [
+        {
+          "id": "PERF-01",
+          "title": "Real mod and instance optimization",
+          "acceptance": "Profile and repair dominant CPU/tick/render/worldgen/memory/I/O costs, apply reversible changes and retest; recommendations alone do not count as Optimize.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-02",
+          "title": "Minimal measurement and rich attribution",
+          "acceptance": "Separate low-overhead measurements from diagnostic runs; integrate native telemetry/JFR/spark/Observable/probes and correlate causality without misreporting overhead as mod cost.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-03",
+          "title": "Controlled A/B and full-pack attribution",
+          "acceptance": "Use equivalent fingerprints, dependency-safe with/without plans, repeated samples, variance/confidence and stale-baseline detection; static risk is not measured causality.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-04",
+          "title": "Frame-time and GPU lab",
+          "acceptance": "Measure distributions/stutters/render-thread/GPU behavior in real native scenarios; fix hot paths without reducing visual fidelity, shaders, distance, geometry or animation cadence.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-05",
+          "title": "Boot and fast-launch engine",
+          "acceptance": "Reuse verified immutable setup and classpath/toolchain/asset caches, profile startup phases and preserve full required initialization; no fake faster launch by skipping work.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-06",
+          "title": "Memory, tick and throughput gains",
+          "acceptance": "Report allocation/GC/memory/MSPT/TPS/load/throughput as relevant, repair regressions and show per-lane results instead of averages hiding loss.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-07",
+          "title": "Fast conversion and responsive studio",
+          "acceptance": "Single-flight/index/cache/batch/diff-aware workers improve first useful result and end-to-end latency with bounded resources; meet measured local UI budgets without reduced result sets.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-08",
+          "title": "Dedicated Performance workspace",
+          "acceptance": "Provide understandable before/after charts, conditions, bottlenecks, scenario control, drill-down and exact optimize/rollback actions in the dedicated first-class surface.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PERF-09",
+          "title": "Dual quality and speed acceptance",
+          "acceptance": "Demonstrate material repeatable improvement on required fixtures and preservation of full content/correctness/compatibility/verification; repair mixed regressions and never invent gains for already-optimal cases.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "LIB",
+      "title": "Discovery, favorites and content",
+      "page": "Library-and-Discovery",
+      "summary": "Research a project, act on it, and return to its evidence without losing context.",
+      "items": [
+        {
+          "id": "LIB-01",
+          "title": "Broad source-aware discovery",
+          "acceptance": "Preserve the full provider universe and real project identities, source links, creator attribution, all logical results and source health; native APIs/session-aware fallbacks remain truthful.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-02",
+          "title": "Correct premium media and trailers",
+          "acceptance": "Keep project icons/avatars/gallery/post/video roles distinct, exact-project ownership, full-resolution media/lightbox and source-grounded autoplay trailer preferences; no synthetic replacements or unrelated promotions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-03",
+          "title": "Real embedded browser",
+          "acceptance": "Preserve Chromium tabs, persistent authorized sessions, real login, split/full/source modes, filtered networking and safe translation/original toggles without fake static pages.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-04",
+          "title": "Catalog-to-instance bridge",
+          "acceptance": "Install from research, choose exact compatible versions and multiple instances, review dependencies and reopen focused research from installed content.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-05",
+          "title": "Dedicated Favorites workspace",
+          "acceptance": "Favorites independent of installation, tags/groups/notes, grid/list/table, full-dataset bulk actions, latest/tested/installed states and exact-context actions persist; unfavorite never uninstalls.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-06",
+          "title": "Content lifecycle and provenance",
+          "acceptance": "Manage mods/resource packs/shaders/data packs, manual and provider-backed content, enable/disable/remove/update with snapshots, dependents, exact file hashes and preserved local configs.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-07",
+          "title": "Exact versions, freeze and upgrades",
+          "acceptance": "Search full compatible/incompatible version choices, changelogs, pin/freeze/unfreeze and rollback; frozen content stays fixed unless explicitly changed.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-08",
+          "title": "Provider downloads and account recovery",
+          "acceptance": "Respect author-disabled third-party downloads, safe browser handoff and verified adoption, reconnect legitimate sessions and resume exact jobs without guessed identities or bypass.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "LIB-09",
+          "title": "Pack and research interchange",
+          "acceptance": "Support accepted MRPack/CurseForge ZIP/packwiz and CSV/JSON/XLSX/HTML/PDF research interchange with provenance, original fields and clickable links; no cloned proprietary share-code service.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PLAY",
+      "title": "Launcher, accounts and instances",
+      "page": "Launcher-and-Instances",
+      "summary": "Keep the existing launcher and catalogue working while the studio grows.",
+      "items": [
+        {
+          "id": "PLAY-01",
+          "title": "External-launcher connection in place",
+          "acceptance": "Discover real CurseForge/Modrinth/accepted launcher instances, identify junctions physically, connect without forced copy, reconcile moves and disconnect without deleting external files.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PLAY-02",
+          "title": "Instance creation and organization",
+          "acceptance": "Create vanilla/loader/imported instances, persistent aliases/groups/tags/favorites/views/reordering/search/bulk operations and transactional cancellation; cloning is explicit and verified.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PLAY-03",
+          "title": "Secure Microsoft accounts and appearance",
+          "acceptance": "Real authorized login/entitlements/token refresh, OS-backed secret storage, account switching and polished skin/cape library/3D preview preserve supported official operations.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PLAY-04",
+          "title": "Java, loaders and real launch",
+          "acceptance": "Discover/install correct Java/loaders, configure memory/arguments/environment, launch the actual game and supervise logs/processes with identity-checked termination and restart adoption.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PLAY-05",
+          "title": "Instance update and maintenance",
+          "acceptance": "Show change impact, local/manual content, exact dependencies, disk use and maintenance actions with pre-change backups, rollback and user-config preservation.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "PLAY-06",
+          "title": "Native sharing and pack distribution",
+          "acceptance": "Provide authorized export/import/delta/share workflows from stable identities and hashes while preserving local overlays; do not impersonate proprietary cloud features.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "CONFIG",
+      "title": "Configuration, hotkeys and progression",
+      "page": "Configuration-and-Hotkeys",
+      "summary": "Turn obscure settings and conflicts into clear, reversible actions.",
+      "items": [
+        {
+          "id": "CONFIG-01",
+          "title": "Semantic config intelligence",
+          "acceptance": "Discover file/owner/scope/schema identity, explain known settings, three-way migrate upstream default/old default/user overrides and preserve comments/unknown fields where formats permit.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "CONFIG-02",
+          "title": "Config profiles, overlays and repair",
+          "acceptance": "Apply scoped profiles and performance-linked changes transactionally, validate diffs, diagnose bad config without blanket deletion and preserve user intent across versions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "CONFIG-03",
+          "title": "Dedicated Hotkeys top-level tab",
+          "acceptance": "Inventory full bindings with owner/default/current/context, find real conflicts, rebind/reset and manage profiles/import/export/migration with correct runtime/UI integration.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "CONFIG-04",
+          "title": "Data, functions and command debugger",
+          "acceptance": "Provide target-aware parser/diagnostics, execution traces/watches/state diff, supported breakpoint-like behavior, command-block graphs and deterministic regression generation.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "CONFIG-05",
+          "title": "Scripted modpack logic",
+          "acceptance": "Integrate relevant KubeJS/CraftTweaker/Bedrock script bridges, source/owner links and safe tested changes; never run untrusted scripts merely to inspect inputs.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "CONFIG-06",
+          "title": "Progression and softlock intelligence",
+          "acceptance": "Analyze quest/recipe/loot/unlock dependencies, detect reachability and progression traps, explain causes and verify fixes in actual gameplay.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "WORLD",
+      "title": "Worlds, servers and migration",
+      "page": "Worlds-and-Servers",
+      "summary": "Preserve Forever Worlds, external ownership and every meaningful migration field.",
+      "items": [
+        {
+          "id": "WORLD-01",
+          "title": "World browser and safe editing",
+          "acceptance": "Inspect/import/rename/present worlds, NBT/data packs/maps/regions where supported, associate exact instance/runtime and use safe staged edits rather than live experimentation.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "WORLD-02",
+          "title": "Backups, recovery and Forever Worlds",
+          "acceptance": "Create verified immutable snapshots, diagnose ticking data/world failures, recover/recreate faithfully and test restore/restart; never prune/delete dimensions or data to manufacture repair.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "WORLD-03",
+          "title": "Whole-modpack migration",
+          "acceptance": "Inventory mods/configs/hotkeys/scripts/quests/wiki/worlds/dependencies, plan native equivalents and version transitions, preserve intent and prove the migrated pack with rollback.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "WORLD-04",
+          "title": "Cross-edition world conversion",
+          "acceptance": "Use exact-pair Chunker/je2be or stronger adapters, reconcile blocks/states/items/entities/dimensions/metadata and real loading; world conversion is not mod-code conversion.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "WORLD-05",
+          "title": "Real server management",
+          "acceptance": "Manage/import/install accepted server software, EULA consent, properties/console/RCON/commands/players/backups/processes and explicit maintenance automation through GUI/CLI parity.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "WORLD-06",
+          "title": "Network, proxy and plugin semantics",
+          "acceptance": "Diagnose supported protocol/proxy/server issues and convert authorized plugin/threading behavior with real ownership/scheduler/teleport/network proof; no fabricated universal compatibility.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "AI",
+      "title": "AI operator and evidence brain",
+      "page": "AI-and-Evidence",
+      "summary": "One job and one evidence model, regardless of who drives the interface.",
+      "items": [
+        {
+          "id": "AI-01",
+          "title": "Authorized provider lanes",
+          "acceptance": "Integrate supported configured OpenAI API/Agents, embedded Codex, authenticated ChatGPT browser and MCP lanes without confusing subscription entitlement with API billing or requiring a new paid service for ordinary actions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-02",
+          "title": "Natural-language job compiler",
+          "acceptance": "Resolve project/intent/target, compile scoped typed domain actions, expose progress and execute full app capabilities through the same validation/storage/runtime contract.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-03",
+          "title": "Quarantined changes and repair loop",
+          "acceptance": "Inspect returned source/binaries, verify identities/hashes, stage changes, build/test, feed exact failures back to the authorized thread and iterate; model confidence cannot approve itself.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-04",
+          "title": "Approval, privacy and quality controls",
+          "acceptance": "Keep secrets out of bundles/logs, explain outbound context and necessary approvals, respect user quality choices and legitimate authentication/challenges, and resume after required user action.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-05",
+          "title": "Parallel specialists and context reuse",
+          "acceptance": "Share stable project context, dependency ownership and exact jobs across AI/local work, reuse valid prompts/artifacts and avoid racing source writes or repeated rediscovery.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-06",
+          "title": "Evidence Brain promotion and rollback",
+          "acceptance": "Learn only source-bound verified fixes/contracts, challenge/generalize/shadow-test with applicability and invalidation, prevent poisoned guesses, audit and roll back learned rules.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "AI-07",
+          "title": "AI evaluation and observability",
+          "acceptance": "Record model/provider/tool versions, costs/quotas when actually available, iterations/errors/outcomes and quality fixtures; no hidden truncation, fabricated unlimited access or unverified capability claims.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "KNOW",
+      "title": "Knowledge and compatibility",
+      "page": "Knowledge-and-Compatibility",
+      "summary": "Explanations and documentation connect directly to the working project.",
+      "items": [
+        {
+          "id": "KNOW-01",
+          "title": "Premium in-app Wiki",
+          "acceptance": "Build source-grounded project/mod documentation with real media, diagrams, config/hotkey/recipe/progression/evidence links, exports and useful maintenance; this is separate from the GitHub Wiki documenting development.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "KNOW-02",
+          "title": "Why installed and contextual explanations",
+          "acceptance": "Answer dependency/choice/score/change questions from the canonical graph with evidence, distinguish facts/inferences and link to exact actionable objects.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "KNOW-03",
+          "title": "Adaptive ecosystem contracts",
+          "acceptance": "Select behavior-driven integrations for storage/backpacks/accessories/recipes/Create/Apotheosis/food/guides/tooltips/scripts/animation/energy/quests/worldgen/rendering, not arbitrary mandatory dependencies.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "KNOW-04",
+          "title": "Compatibility execution and matrix",
+          "acceptance": "Generate version-specific contract fixtures, provider-present/absent tests and exact target evidence; compiled API calls or similar names do not prove equivalent behavior.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "KNOW-05",
+          "title": "Source refresh and typed extensions",
+          "acceptance": "Keep provider/tool/schema/contract registries extensible, versioned, cached and on-demand with pagination/rights/health/provenance and unknown-versus-absent states; no hidden polling watchdog.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "SHIP",
+      "title": "Security, preservation and release",
+      "page": "Quality-and-Release",
+      "summary": "A fast result is only a win when the entire intended result survives.",
+      "items": [
+        {
+          "id": "SHIP-01",
+          "title": "Supply-chain and untrusted input safety",
+          "acceptance": "Validate archives/paths/hashes/notices, isolate code/build/filter execution, protect credentials and preserve input on malformed/resource-exhausted runs; external content is data, not instructions.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "SHIP-02",
+          "title": "Preserved product boundaries",
+          "acceptance": "Retain established launcher/catalog/browser, full CLI and studio scope; no friend-hosting/P2P/reverse-tunnel or Voice/Social center absent a new explicit user decision.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "SHIP-03",
+          "title": "Platform, locale and accessibility finish",
+          "acceptance": "Test all affected claimed platforms, localization/keyboard/focus/high-DPI/native chrome, first-run/update and sustained workload; do not remove support to pass tests.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "SHIP-04",
+          "title": "Complete reproducible release",
+          "acceptance": "Package working source, runnable app/mod artifacts, locks/licenses/notices, hashes, runtime/benchmark evidence and clear first-run/replay instructions; verify authorized Drive and repository publication.",
+          "status": "unverified",
+          "evidence": []
+        },
+        {
+          "id": "SHIP-05",
+          "title": "Continuity, convergence and honest status",
+          "acceptance": "Preserve IDs/jobs/checkpoints, mutate-test-checkpoint, repair after two unchanged failures via a new route, reopen invalid proof and keep required blocked work incomplete; no status ceremony instead of implementation.",
+          "status": "unverified",
+          "evidence": []
+        }
+      ]
+    }
+  ]
+}

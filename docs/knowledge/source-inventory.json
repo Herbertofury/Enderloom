@@ -1,0 +1,465 @@
+{
+  "sources": [
+    {
+      "id": "S-607cec1ce6",
+      "path": "docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md",
+      "sha256": "f59d13e689a7c24f6d7ea1db7c12ea3bcea7c2ab90f3b0c363fb0fb666d8ac78",
+      "bytes": 29723,
+      "lines": 707,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-7651c91168",
+      "path": "docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md",
+      "sha256": "76c72062805bdadee0b48b140359df41ce4a3a73ab448892944251278e4d7fc7",
+      "bytes": 10909,
+      "lines": 257,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-428cf41654",
+      "path": "docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md",
+      "sha256": "4828fdf49e333407347976d4328463d9e8047a11008e3f1f0494f598d413c004",
+      "bytes": 25404,
+      "lines": 320,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-24626601a0",
+      "path": "docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
+      "sha256": "d2a5ac5329d28f409fe5a9d3c2482a2b303fd53ee40759ce5bf53b1f2e757601",
+      "bytes": 51391,
+      "lines": 707,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-c309228b8b",
+      "path": "docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md",
+      "sha256": "a77df0ecf53588c57558bfe1d9050330f4d6c19d75a54a252b73bb03ed0eb238",
+      "bytes": 3888,
+      "lines": 52,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-132f0a8648",
+      "path": "docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md",
+      "sha256": "87cffb13a77ff2da1278835f71ae00dc7cdb479fec9278abac4bd9224ce2d67b",
+      "bytes": 22011,
+      "lines": 725,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-261278c05e",
+      "path": "docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md",
+      "sha256": "041b833859db7e9d1c61d2ac132f71c5c8172b42e1b9bc7551e3aae29f52f6ce",
+      "bytes": 109977,
+      "lines": 879,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-d89a3aae6f",
+      "path": "docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md",
+      "sha256": "6c0c8660d6e2efaa84ebb1e4ac1a3e890b845c725b76d2249936c564adacb1a0",
+      "bytes": 14793,
+      "lines": 333,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-55ba94042e",
+      "path": "docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md",
+      "sha256": "552eca406894f35e1c9349e0ceb01cf36d3317eeb62663b265ccd7531d8a2300",
+      "bytes": 26420,
+      "lines": 801,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-915d0bf153",
+      "path": "docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md",
+      "sha256": "0c1067d94908c256039a6c119077bc34579b3a50621be91eff6ffcf46b6293f8",
+      "bytes": 9700,
+      "lines": 338,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-cf5bd633d7",
+      "path": "docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG_CHANGELOG.md",
+      "sha256": "a00d547b632b18635b044c0290b52605ff7c9fa6494672ddc955e7b54ee9e8c6",
+      "bytes": 670,
+      "lines": 23,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG_CHANGELOG.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-eb94b58299",
+      "path": "docs/ENDERLOOM_DIAGNOSTICS_HANDOFF_ADDENDUM.md",
+      "sha256": "4087127291046cdc962b33d82ca36b33c4ebd8e81aecf303d0b17f309738f8bb",
+      "bytes": 2212,
+      "lines": 29,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_HANDOFF_ADDENDUM.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-7249e558a8",
+      "path": "docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md",
+      "sha256": "fdff93a66121c5209ddeb5e4ca62abf3adb6df9e5abf88b4abfb5bd12a3fde8f",
+      "bytes": 17005,
+      "lines": 654,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-340f96a4c3",
+      "path": "docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md",
+      "sha256": "b3b8e28440e667a3c82844ea7d8df192bc7b3961c34fed10d199e07543b0539a",
+      "bytes": 44861,
+      "lines": 1208,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-2886991cd9",
+      "path": "docs/ENDERLOOM_MASTER_REQUIREMENTS.md",
+      "sha256": "0c393c5cfdc0b71135362e22bafa6a00d37b5ad5f0e972bf716409db70db6c6a",
+      "bytes": 50826,
+      "lines": 1659,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md",
+      "source_checked": 225
+    },
+    {
+      "id": "S-acb64cc5b8",
+      "path": "docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md",
+      "sha256": "435bb93de5ccc3db17fe664a69eb1bef6435f6779e39f1c289abdadac0ce8ee0",
+      "bytes": 6760,
+      "lines": 108,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-acef933db4",
+      "path": "docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md",
+      "sha256": "7affcc9300c2e953ae527e3c2ae818b7d4201993b5e53f55d15553c9b6af038b",
+      "bytes": 24665,
+      "lines": 776,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-6404755796",
+      "path": "docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md",
+      "sha256": "e836036f7de21873e980907c2e6fb7362a4866af04d4ade66fc13a6d6d9a53fe",
+      "bytes": 203896,
+      "lines": 4868,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-e64a0bae23",
+      "path": "docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md",
+      "sha256": "5cb5a6860ce3d6030882f037bd7f44acbd58491f2fe00dfa770006644a61c810",
+      "bytes": 27268,
+      "lines": 786,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-60579b0ee5",
+      "path": "docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md",
+      "sha256": "6b069a7f47023553bdd710ac2f3870c67988fc016531771004e9dbf03875434c",
+      "bytes": 29954,
+      "lines": 915,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-5e76a745e1",
+      "path": "docs/ENDERLOOM_STUDIO_EXECUTION.md",
+      "sha256": "4325c68fa789056b68ef56c622e96fb4bed10edb72117381df0eab53bc907062",
+      "bytes": 142296,
+      "lines": 1044,
+      "kind": "current studio and AoA execution authority",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-30b908e766",
+      "path": "docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
+      "sha256": "1b6249ff79636dd8b201dc1221921bbcaf6b2e0f7fc7a87a288024d4a17e5f29",
+      "bytes": 57582,
+      "lines": 1773,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-ace9d00dca",
+      "path": "docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
+      "sha256": "3affbfd34834cc7f246b63fa2a5937c45bb8a1c176c4ef844c30cc9446673020",
+      "bytes": 43282,
+      "lines": 1173,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-2a4d588670",
+      "path": "docs/LAUNCHER_PARITY_MATRIX.md",
+      "sha256": "1ee4be3b0cdb48c77f868500b1a114910bb06dd5108ebc2a68e8b222be1df4ac",
+      "bytes": 10197,
+      "lines": 54,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-0929d532cb",
+      "path": "docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md",
+      "sha256": "b75efa7d89c8c03a4fc6fb5c73b5f0f0bab45d223ee2a37344ed22c143b6a477",
+      "bytes": 37602,
+      "lines": 933,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md",
+      "source_checked": 10
+    },
+    {
+      "id": "S-7480832881",
+      "path": "docs/PREMIUM_TESTING_LAB_SPEC.md",
+      "sha256": "bf30714ed9d8104d3ec558e16e6e3d53985b800002f359e88d355fbcc2261812",
+      "bytes": 26994,
+      "lines": 732,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-2e6a0f1f28",
+      "path": "docs/RELEASE_EVIDENCE_2026-08-30.md",
+      "sha256": "105903001a6655c3751c374ee9dd50f767067a32f2a6d54692dae15b7385d255",
+      "bytes": 2840,
+      "lines": 33,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-30.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-9df7960be1",
+      "path": "docs/RELEASE_EVIDENCE_2026-08-31.md",
+      "sha256": "94c70e628a212e9f72fae9e7ed18e85fd8ba086f3dde11518441a1f6539bcf23",
+      "bytes": 7367,
+      "lines": 53,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-31.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-391c67bfe1",
+      "path": "docs/RELEASE_EVIDENCE_2026-09-01.md",
+      "sha256": "9aa2c0eabf7b07d565ec80b7a6a8babe8fc2f0c67b20f2fd383bdd234b313983",
+      "bytes": 4876,
+      "lines": 62,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-dcda01dafe",
+      "path": "docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md",
+      "sha256": "f992e1c1694dbd3257eb5dfe13ef3ca607b4b5f6d4e5422fe7b1318a4bd1fffa",
+      "bytes": 8286,
+      "lines": 157,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-73c0db4da9",
+      "path": "docs/northpoint/ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md",
+      "sha256": "ce876cb263424bd98b832f21d45c133341d5871acafdb3972764aa03337c6bfe",
+      "bytes": 1908,
+      "lines": 32,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-48798eea7e",
+      "path": "docs/northpoint/ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json",
+      "sha256": "1bfb1376b132731c978fca5887e5cd53be6a6417bc613372cba4f276a5adbea8",
+      "bytes": 2407,
+      "lines": 36,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json",
+      "source_checked": 0
+    },
+    {
+      "id": "S-7391947a57",
+      "path": "docs/northpoint/minecraft-version-profiles.json",
+      "sha256": "9c38e98cc33c83152085ac4b6438fc5b42675470ca8a690e6346f2c0a20c336e",
+      "bytes": 1456,
+      "lines": 50,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/minecraft-version-profiles.json",
+      "source_checked": 0
+    },
+    {
+      "id": "S-24000ef630",
+      "path": "docs/specifications/ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json",
+      "sha256": "1bfb1376b132731c978fca5887e5cd53be6a6417bc613372cba4f276a5adbea8",
+      "bytes": 2407,
+      "lines": 36,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json",
+      "source_checked": 0
+    },
+    {
+      "id": "S-14ef3a651c",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md",
+      "sha256": "8b99bad29303b018fc8408f16259fd60b99103ef5913b2226308b6d2e8851f91",
+      "bytes": 40768,
+      "lines": 1210,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-c5aabd12e0",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md",
+      "sha256": "8225c6931ffe692135d8c6199c82cd8986c6754301454e6e8863bc6da118ce96",
+      "bytes": 44703,
+      "lines": 1249,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-e4a8c5a94c",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md",
+      "sha256": "2824b5f4f0ccd1511a3d480a2d09ef5faa261d62a4a363699e314bee6b1647f6",
+      "bytes": 55339,
+      "lines": 1353,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-ca8a184b38",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md",
+      "sha256": "e375f90ef3b0cf286040ffb47d0f6091f6be054976497766dbe83feddf3e63d4",
+      "bytes": 55347,
+      "lines": 1353,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-3752999add",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md",
+      "sha256": "6f41edbd898adbde61770baf6458f6683adfa3efbf1495479d442ef57c546c54",
+      "bytes": 202172,
+      "lines": 4833,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-5dfc8fb748",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md",
+      "sha256": "4d69b5c1acc6f8005e009efc10aad45cebc91ff4798e4b768636f9d4b66233f3",
+      "bytes": 19581,
+      "lines": 515,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-e748801850",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md",
+      "sha256": "82430b26ac1b3b521d52d80608359a51707af4b4ed97dce02cdb8f7b640fa9f1",
+      "bytes": 35979,
+      "lines": 1004,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-9a00452822",
+      "path": "docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md",
+      "sha256": "4f8492e959aa199ddbfc038008f80e25399aa62fb679e32af5e1bebc0eb87447",
+      "bytes": 58306,
+      "lines": 1438,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-c317d81d69",
+      "path": "docs/specifications/Enderloom Ultimate Minecraft Workbench \u2014 Codex Handoff Checkpoint \u2014 2026-09-07.txt",
+      "sha256": "f182478897fdc79b27f9c60920ce42d5589df73113fa94e307754e8a96aacb7d",
+      "bytes": 36159,
+      "lines": 364,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt",
+      "source_checked": 0
+    },
+    {
+      "id": "S-1a0d4b13ee",
+      "path": "docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md",
+      "sha256": "b3c9c1c329e78d401413d64d027e31953387bc62508585f7b4f5b2a64a9db8b1",
+      "bytes": 4700,
+      "lines": 62,
+      "kind": "lineage / reported evidence",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-1a3867f38c",
+      "path": "docs/specifications/MC-26.3-APEX-HARDENING-2026-09-22.md",
+      "sha256": "4d68c7eaaf3ca7e47fcc0aaf1bb46a946f4f19d5f613c02a1ca385fddc5a413d",
+      "bytes": 2602,
+      "lines": 48,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/MC-26.3-APEX-HARDENING-2026-09-22.md",
+      "source_checked": 0
+    }
+  ],
+  "stats": {
+    "source_files": 45,
+    "source_bytes": 1617489,
+    "source_lines": 35742,
+    "source_blocks": 13156,
+    "unique_blocks": 10240,
+    "exact_duplicate_occurrences": 2916,
+    "source_checked": 235,
+    "source_unchecked": 4952,
+    "alias_occurrences": 423
+  }
+}

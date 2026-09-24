@@ -1,0 +1,364 @@
+Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07
+
+STATUS
+This Drive checkpoint mirrors the new canonical GitHub expansion state for Enderloom. The complete executable backlog remains repo-native so Codex can work directly against it without copy drift.
+
+CANONICAL REPOSITORY
+https://github.com/Herbertofury/Enderloom
+
+PRIMARY NEW CODEX BACKLOG
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md
+Commit that added it: 00dbbd1c93baf8b8027a32ba72f53acef3415825
+
+AUTONOMOUS IN-APP AI REPAIR SPEC
+https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md
+Commit that added it: 488b57118f9371fd3df1ca34c59f5757c0186732
+
+CODEX TRACKER
+https://github.com/Herbertofury/Enderloom/issues/3
+Title: Ultimate Minecraft Workbench: integrated Bedrock/Java conversion, world/model tools, and autonomous repair
+
+EXISTING PERFORMANCE CONTINUITY
+Keep GitHub issue #1 and the existing Performance Lab / CLI specifications intact. The new backlog does not restart that work; it requires Performance evidence to feed the same shared mod/project graph used by the rest of Enderloom.
+
+NON-NEGOTIABLE INTEGRATION LAW
+No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performance results must appear directly on mods, Favorites, update planning and repair. Crashes must open the exact culprit mod/source/config. World hotspots should link back to owning mods/entities/blocks. Config and version changes invalidate only evidence that actually depends on them. Conversion failures can enter the same repair/test loop. Returned AI candidates update source history, repair history, compatibility and performance provenance.
+
+ULTIMATE PRODUCT TARGET
+Enderloom becomes one integrated Minecraft workbench for Java and Bedrock content: launcher/mod manager, real embedded Chromium research browser, universal project/mod details, exhaustive context menus, authoritative media/video previews, Bedrock pack inspection, user-authorized Bedrock-to-Java conversion, Java version/loader porting, Stonecutter-style multiversion projects, source/JAR patching, compatibility testing, Performance Lab, autonomous AI repair, world editing/pruning/NBT/repair/conversion, model/texture/animation authoring, Blockbench interoperability, reference reconstruction, visual QA, modpacks, servers, diagnostics, CLI/CI and release prep.
+
+AUTONOMOUS REPAIR LOOP
+Default browser-chat lane stays inside Enderloom’s persistent authenticated Chromium session. Intended flow:
+Fix with AI -> gather exact mod/source/log/config/performance/dependency evidence -> user reviews outbound packet -> submit in ChatGPT/Codex-compatible browser UI -> persist the exact conversation/task -> wait for provider completion or user action -> collect the returned patch/JAR/source -> quarantine/hash/inspect -> build -> test in an isolated Minecraft sandbox -> if a gate fails, generate a precise failure packet and send it back to the same conversation -> iterate while materially progressing -> once applicable gates pass, install transactionally -> smoke the real connected instance -> automatically roll back on failure.
+
+The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a separate API key, but it must respect the provider’s normal authentication, subscription quotas, rate limits, UI and terms. Never bypass CAPTCHA, paywalls, DRM, quota controls or access restrictions.
+
+BEDROCK / MARKETPLACE BOUNDARY
+Enderloom should deeply understand behavior packs, resource packs, manifest v2/v3, dependencies, Script API, Molang, items, blocks, entities, recipes, loot, spawn rules, structures, worldgen, geometry, animations, animation controllers, render controllers, particles, sounds, textures, localization and related content. Marketplace PDPs can be researched/viewed in-app. Conversion requires user-authorized accessible source bytes. Never decrypt or bypass DRM/paywalls/entitlement to obtain protected Marketplace content.
+
+CODEx IMPLEMENTATION WAVES
+A. Integration Spine — canonical graph, evidence/staleness, durable tasks, transactions/rollback, shared capability registry, universal project detail data model.
+B. Universal Mod Surface — right-click sources/configs/files/previews/performance/repair/port/conversion actions.
+C. Continue Performance Lab issue #1 exactly from its current contract; project measured evidence back into the shared mod surface.
+D. Autonomous Repair Loop — persisted RepairJob, evidence bundle, candidate quarantine, build/test integration, provider-neutral browser adapter, ChatGPT web adapter, failure retry packets, install/rollback.
+E. Bedrock Studio parser — complete semantic inventory and reference validation.
+F. Universal Minecraft Intermediate Representation + first rich Bedrock-to-Java vertical conversion with native runtime parity.
+G. Version/loader port engine + Stonecutter-style multiversion workspace.
+H. World Studio core — map, selection, filters, safe prune/export, NBT, snapshots, repair.
+I. Asset Studio + reference reconstruction + native Minecraft visual QA.
+J. Cross-system intelligence — world hotspots -> mod, performance -> repair, update -> staleness, conversion -> repair, config -> test invalidation, compatibility -> patch.
+K. Ecosystem parity/challenge pass against the strongest relevant standalone tool categories.
+
+QUALITY BAR
+No dead buttons. No fake progress. No fake provider success. No fake measured metrics. No silent content loss in ports/conversions. No live instance/world as automated test scratch space. No AI-returned artifact installed before verification. Preserve exact hashes, source provenance, rollback, licenses and user edits. Use dedicated-server/native-client/integrated-server proof where applicable. Every recommendation needs a Why/evidence path. GUI and CLI share the same native domain logic. Enderloom itself must stay fast on enormous packs, catalogs and worlds.
+
+EXACT NEXT ACTION FOR CODEX
+Read:
+1. docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md
+2. docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md
+3. docs/ENDERLOOM_MASTER_REQUIREMENTS.md
+4. issue #1 Performance Lab continuity and its child specs
+Then implement Wave A — Integration Spine. Do not start with broad mockup UI. Preserve current accepted Catalog/Browser/Launcher behavior, preserve solved Performance Lab research, and make the first vertical slice prove that one real installed mod is represented by a canonical detail/evidence object consumed by Mod Manager, Catalog, CLI and Testing without duplicated truth.
+
+
+DIRECT CODEX START FILE
+https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md
+Commit that added it: c54cce843c2240e78211b1778b7fecbff7cc99e3
+
+LATEST CHECKPOINTED REPOSITORY HEAD FROM THIS PLANNING RUN
+c54cce843c2240e78211b1778b7fecbff7cc99e3 on main
+
+Drive verification: this checkpoint was read back after creation, is stored in the canonical Enderloom Drive folder, and records the repo-native specs plus exact next Codex action.
+
+
+GAP-AUDIT EXPANSION — 2026-09-07
+
+A second independent challenge pass found material Minecraft capability families that were still under-specified in the first master backlog. They are now mandatory in the Codex contract rather than optional ideas.
+
+Canonical audit addendum:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md
+Gap-audit commit: 5c30336de38ce1f53826ae3265c1da272fae7b7f
+
+Updated Codex handoff:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md
+Updated handoff commit: 5ebfffd997a70603f9c2b7f485fdd6d8aabe90bb
+
+New mandatory capability families include:
+- Security & Supply-Chain Center with static capability analysis, update capability diffs, SBOM/license/provenance, threat intelligence and quarantine.
+- Full Bedrock creator/developer loop: TypeScript/JavaScript project tooling, Script Debugger, Script Profiler, Content Log, Diagnostics/Debug Utilities, Creator Tools-style deploy workflows, Bedrock Editor and Editor Extensions.
+- Enderloom Developer IDE with language intelligence, build/task/terminal/Git integration.
+- Mapping/Remap/Mixin/Bytecode Lab spanning Mojmap, Yarn, Intermediary, Parchment, SRG/MCP and production remap/linkage proof.
+- Visual Gameplay Authoring / native procedure, AI-behavior, boss, machine, UI and worldgen authoring with generated source visible and editable.
+- Misode/MCStacker-grade command/data/resource/worldgen generator studio.
+- Axiom/WorldEdit/Litematica-grade 3D building, schematic, hologram/material-list and blueprint workflows.
+- Particle, audio, UI/HUD, font and material/PBR/Vibrant-Visuals-aware studios.
+- Runtime Registry/Recipe/Content Explorer with owning-mod/source/config/world backlinks.
+- Full Bukkit/Spigot/Paper/Purpur/Folia/Velocity plugin/proxy development and management; Folia compatibility must be proven separately.
+- Geyser/Floodgate, ViaVersion-family, packet inspection and controlled network-chaos testing.
+- Shared instances/team pack collaboration, portable/offline workflows and diff/review/rollback.
+- Enderloom MCP server plus optional local-AI provider adapters, all behind normal Enderloom build/test/install safety gates.
+- Legacy archaeology for genuinely broad version porting across old Java runtimes, Forge/FML/LaunchWrapper/Coremods/MCP/SRG and historical Bedrock schemas.
+- Hot-reload/fast-dev support with truthful full-restart boundaries.
+- Multiplayer chaos/soak tests, extreme teleport/chunk travel, restart/rejoin and long-running memory/thread validation.
+- Seed/worldgen diff, pregeneration and retrogen intelligence.
+- Incremental world snapshot version control and selective chunk/region restore.
+- Dedicated Java<->Bedrock resource-pack conversion with visual QA and explicit unsupported-feature reports.
+- Runtime replay/capture/showcase studio using actual Minecraft evidence rather than synthetic replacement imagery.
+- Hardware/JVM/render advisor based on measured machine-specific evidence.
+- Accessibility/localization for Enderloom and Minecraft projects.
+- Provider/changelog/known-issue intelligence without fabricated quality/popularity scores.
+- Pack redistribution/license/policy gate.
+- No Unknown Files invariant: every source file in a JAR/pack/world/archive/conversion/AI candidate must be classified, preserved, deliberately ignored with reason, or surfaced as unsupported.
+- Canary/staged update engine for mods, dependency clusters, whole packs and server stacks before live apply.
+- Remote server adapters only through legitimate supported protocols/APIs such as SSH/SFTP or configured management-panel APIs.
+
+ARCHITECTURE CONSEQUENCE
+Wave A remains the exact next action, but its typed graph/evidence/task architecture must anticipate these domains now. Do not build opaque shadow JSON stores that force another rewrite later. Security findings, code/mapping/Mixin symbols, plugin/proxy/protocol objects, Bedrock creator projects/script profiles/editor extensions, visual logic graphs, schematics/blueprints, particle/audio/UI/font/material assets, registry entries, collaboration changes, remote targets, protocol captures, world snapshot deltas, hardware profiles, localization bundles and permission findings all need typed/extensible places in the shared graph.
+
+The gap audit expands acceptance; it does not restart the existing Wave A / issue #1 work.
+
+
+FINAL RECURRING DEV KIT WORKFLOW CHALLENGE PASS — 2026-09-07
+
+Canonical supplement:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md
+Commit: 7cebce3e665ecad482bc83631fd9d0d4c5d8b931
+
+Updated Codex handoff commit: 88b23d42e455598949bddae010e3b90f70a0d19c
+
+This pass makes recurring real-world Dev Kit workflows explicit: freeze/deadlock/JFR forensics; heap/memory-leak analysis; render/GPU/frame-time profiling; concurrency correctness for async optimization; automatic dependency-aware mod bisection and minimal-reproducer generation; unified Forge/NeoForge/Fabric/Bedrock GameTest/scenario compilation; reusable deep compatibility contracts; KubeJS/CraftTweaker/datapack scripted-pack logic; startup profiling; world recreation/seed/dimension recovery; and strict performance-patch parity ledgers.
+
+Wave A remains the exact next implementation action. Its typed graph/evidence/task model must be extensible for StallIncident, ThreadSnapshot, profile/JFR artifacts, memory/render observations, concurrency findings, BisectRun/MinimalReproducer, ScenarioDefinition/Run, CompatibilityContract, ScriptProject, StartupProfile, WorldRecoveryFinding and PerformancePatchAcceptanceLedger without creating shadow stores.
+
+
+THIRD-PASS PRODUCT DECISIONS — UNIFIED STUDIO / CONFIGS / HOTKEYS / BLACK BOX / FULL CLI / PREMIUM WIKI+MIGRATION / EVIDENCE BRAIN — 2026-09-07
+
+New mandatory specification:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md
+Created in commit: 175218cda11c02a493580ecb931d773632c4efe5
+
+Updated Codex handoff commit:
+b62312dcd127ec52d6ec1dc4c326d79d9b6fa79c
+
+Locked product decisions:
+- One top-level Studio, not endless separate creation Studio tabs. Model/texture/animation/reference reconstruction/particles/audio/UI/quests/progression/datapacks/worldgen/code/Bedrock/Java/plugin/wiki authoring are contextual Unreal/Unity-style panes/tools inside one composable Studio workspace.
+- Progression/Softlock Intelligence is included inside Studio for pack/project contexts.
+- Configuration Intelligence accepted in full: canonical config ownership, three-way semantic migration, comment/order preservation, renamed/type/range/enum migration, profiles/overlays, orphan handling, config A/B performance evidence, repair and rollback.
+- Hotkeys is explicitly a dedicated top-level tab with ownership/default/current inventory, contextual conflict detection, fast rebinding, profiles, migration, import/export, update/first-launch QA, wiki and CLI integration.
+- Black Box Incident Recorder accepted under Performance/Testing with rolling action/log/thread/JFR/render/network/world/perf capture, triggers, causal timeline, healthy-vs-broken comparison, bisect/scenario/AI-repair integration.
+- Minecraft Data/Function Debugger accepted and expanded: mcfunction call graph/timing/coverage, scoreboard/storage/NBT watches, state diffs, controlled tracepoints, command-block network debugging, recipe/predicate/loot/advancement tracing, KubeJS/CraftTweaker/Bedrock bridges and regression scenario generation.
+- All MCModels/Blockbench/reference reconstruction work accepted inside the unified Studio: authorized image/GIF/video reconstruction, rig/UV/animation/interchange, deterministic comparison and actual Minecraft visual QA.
+- Premium gorgeous Wiki accepted: searchable, versioned, offline-capable knowledge graph with recipes/progression/controls/models/runtime evidence/source/provider links plus evidence-backed Why-is-this-installed / Can-I-remove-it analysis.
+- Performance/Testing becomes the Minecraft control plane. CLI benchmark includes PortableMC, Prism CLI, Ferium, packwiz, mcman, mrpack-install, Mojang Creator Tools CLI, HeadlessMC/MC-Runtime-Test, Minecraft Console Client, RCON CLIs, MCA Selector CLI, Chunky, spark, NBT CLIs and GameTest tooling. Enderloom should exceed them by using one GUI/service/CLI operation registry with resumable tasks, stable JSON/JSONL, dry-run, snapshots, rollback, runtime proof and repair integration.
+- Premium whole-modpack version/loader migration accepted across mods/configs/hotkeys/scripts/quests/data/resources/worlds/compatibility with semantic coverage and actual runtime proof.
+- Evidence Brain accepted at maximum ambition with anti-poisoning: Observation -> Hypothesis -> Candidate Rule -> Verified Scoped Rule -> Generalized Rule; exact hashes/versions/evidence/counterexamples/staleness; shadow mode, challenge fixtures, contradictions and rollback. AI/web/community text cannot self-promote to verified truth.
+
+Explicit rejections:
+- Do NOT add the proposed Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature.
+- Do NOT add the proposed Voice/Social compatibility center.
+- The third-pass Content Replacement Assistant was not approved by this decision set and is not promoted to a locked requirement here.
+
+Wave A remains the exact next implementation action. This expands the typed graph/task/evidence/operation-registry architecture requirements without restarting the project.
+
+
+FULL OPENAI / CHATGPT / CODEX AI OPERATOR — 2026-09-07
+
+Canonical specification:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md
+Created in commit: 3163d551131d016f95c3051199b1bdd7cc654d3e
+
+Updated Codex handoff commit:
+e1e9dd8eee2c798108e704cf7da1a9d099890522
+
+Locked AI product law:
+- AI is a core execution surface, not a side-panel assistant.
+- Anything a capable human can do through Enderloom's canonical tools should eventually be callable by AI through the same typed operation/task/evidence layer with equal or stronger verification.
+- Support synchronized OpenAI lanes: native OpenAI API (Responses/Agents + Enderloom tools/MCP), embedded Codex (supported SDK/app-server/noninteractive automation surfaces), and the existing in-app ChatGPT web lane.
+- Enderloom itself exposes an MCP server over the canonical operation registry so ChatGPT/Codex can invoke real Minecraft project/config/runtime/test/world/Studio operations without guessing shell commands.
+- Full AI parity includes complete mod creation, authorized reference-driven model/texture/animation reconstruction, Bedrock->Java conversion, Java version/loader ports, repair/optimization, whole-pack migration, models/assets, quests/data/worldgen/scripts, configs/hotkeys, safe world/NBT operations, Performance/Testing/GameTest/Black Box/bisect/profiling, Premium Wiki, security/provenance and release packaging.
+- AI never self-declares success. Enderloom acceptance gates remain authoritative.
+- Fast means warm toolchain/assets/mapping caches, prepared sandboxes/QA worlds, diff-aware invalidation, cheap decisive gates first, safe persistent runtime supervisors, authoritative headless/protocol lanes, isolated parallel specialists/worktrees, overlapping model and local build/test time, cached stable context and same-thread failure retries.
+- Fast never means replacing required native client/integrated-server/visual/persistence/performance/production-linkage proof with a weaker shortcut.
+- Natural-language requests compile into durable AiMinecraftJob + AcceptanceContract objects rather than one giant prompt.
+- Failed candidates produce exact causal FailurePackets and retry in the same AI thread; after two no-progress candidates the strategy must change.
+- Model routing is capability/policy based and should not hardcode one model forever. Maximum Quality, Balanced and Fast Iteration policies may change latency/cost but never reduce the final acceptance contract.
+- Evidence Brain receives AI findings only as scoped candidate learnings; verified runtime/build/test evidence is required for promotion.
+
+OpenAI architecture research refreshed 2026-09-07 from current official developer documentation. Current platform guidance supports Responses-based tool calling for current models, and current OpenAI/Codex developer surfaces include agent/tool integration and Codex-oriented automation. Keep adapters versioned because OpenAI platform/model capabilities evolve.
+
+Wave A remains the immediate coding action, now explicitly including typed AI job/provider/model/thread/tool invocation/approval/context/failure/gate/usage/eval objects linked into the same project/artifact/task/evidence graph. No AI shadow database.
+
+
+UNIFIED DIAGNOSTICS ADAPTERS + GORGEOUS LIVE PROGRESS UX — 2026-09-07
+
+Canonical specification:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md
+Created in commit: 49333b1144ddba7e11e8dec9d793f9eabcc78779
+
+GitHub issue #3 continuity comment: 5575557065
+GitHub issue #1 Performance Lab continuity comment: 5575558284
+
+Locked diagnostics direction:
+- Add a first-class DiagnosticsAdapterRegistry over the same GUI/CLI/MCP/AI operation/evidence layer.
+- Starting adapter set: spark; Observable classic; Observable Remake/descendants; Crash Assistant; Task Manager-style client profilers; Chunk Loading Profiler/stage profilers; JFR/jcmd/async-profiler/thread dumps/heap/GC/system counters; Enderloom low-overhead deterministic probes.
+- Detect compatible versions, import existing report/profile URLs/files, and safely test-inject missing diagnostics tools only into isolated clones/sandboxes under policy. Never silently modify the live pack.
+- Preserve raw third-party evidence and normalize it to owning mod/source/config/world/test objects.
+- Hard performance rule: collect minimally instrumented measurement runs first, then targeted attribution passes. Never let profiler overhead become the claimed FPS/TPS/MSPT baseline.
+- Correlate tools instead of treating them as islands: e.g. frame spike -> Black Box -> render sample -> owning mod/source; MSPT spike -> Observable hotspot -> spark stack -> source symbol; teleport stall -> chunk stage profiler -> worldgen feature owner.
+- Confidence labels include measured, sampled, estimated, inferred, externally reported and reproduced.
+
+Locked progress/QoL direction:
+- One shared hierarchical progress engine for Performance tests, repairs, AI jobs, mod creation, conversions, ports, whole-pack migration, world repair and releases.
+- Honest progress bars derive from known work units/gates, never elapsed-time fake percentages.
+- Unknown-duration work uses indeterminate state with concrete live events.
+- Content-aware progress for conversions/mod creation: items/blocks/entities/models/animations/recipes/scripts/compatibility scenarios/unknown files.
+- Simple / Detailed / Expert density modes in the same workflow surface.
+- Plain-English current action card explains exactly what Enderloom is doing and why.
+- Findings rail surfaces culprit confidence, failed gates, visual/performance/config/world/security findings and automated response without interrupting the job.
+- Repair candidate history explains what changed, why the last candidate failed, and which gates are retained vs invalidated.
+- Why-this? explanations are generated from the actual acceptance/evidence graph, not canned copy.
+- GUI, interactive CLI, JSON/JSONL, MCP and AI all consume the same structured progress stream.
+- No job reaches 100% until every mandatory acceptance gate really passes.
+
+Wave A remains the immediate coding action and must preserve typed extension paths for diagnostics adapters/raw+normalized evidence/measurement-vs-attribution data and one canonical progress event stream. No profiler-specific shadow databases.
+
+
+MINECRAFT WORKFLOW PARITY + ADAPTIVE ECOSYSTEM COMPATIBILITY — 2026-09-07
+
+Canonical specs:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md
+
+Commits:
+- workflow parity master: 5dba9436a6cfddbb9d1e4f20f1eaf385e0715a74
+- ecosystem compatibility catalog: 828fa697f72688753e8434cd7f9a7113c0b1c92c
+- handoff addendum: 0c513d3593bb4b938b7ce2b633a82130c3a580c7
+- issue #3 continuity comment: 5575669241
+
+Locked product law:
+If ChatGPT + Minecraft Dev Kit can perform a serious Minecraft workflow for the user, Enderloom must ultimately be able to perform it through the same canonical GUI/CLI/MCP/AI operation/task/evidence layer with equal or stronger verification.
+
+Explicit workflow parity now includes:
+- authorized server/client asset capture and staging;
+- Spellbrook-class authorized server -> standalone native Java mod conversion;
+- full server custom-content reconstruction across visual, model-runtime and gameplay semantics;
+- Bedrock .mcpack/.mcaddon -> native Java mod conversion;
+- Java version/loader ports and backports;
+- binary/JAR repair and source ownership analysis where lawful;
+- performance optimization with profiler attribution + before/after no-regression proof;
+- crash/freeze/deadlock/world/save repair;
+- MCModels/Blockbench/image/GIF/video reference model/texture/animation reconstruction;
+- whole-modpack migration and compatibility;
+- configs/hotkeys/world/NBT/progression/wiki/release operations.
+
+Spellbrook-class conversion rule:
+A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legitimately delivered assets and author-supplied source/configs, inventory every relevant plugin/content family, recover visual/model-runtime/gameplay layers independently, and reconstruct unknown hidden behavior only from authorized observable evidence while labeling inference/unknowns. Never bypass DRM, protected delivery, server authorization, paywalls or proprietary licensing.
+
+Bedrock conversion rule:
+Inventory the entire behavior/resource/source tree including Script API, Molang, entities/components/groups/events, AI, blocks/permutations, items, recipes, loot/trades, geometry, animations/controllers/render controllers, particles/sounds/UI/fonts/localization, structures/worldgen/functions/subpacks/unknown files; translate through a versioned semantic model into a real Forge/NeoForge/Fabric/Quilt mod as requested. Do not stop at datapack/KubeJS wrappers when the requested product is a native mod.
+
+Adaptive compatibility rule:
+Enderloom classifies project semantics and selects the right ecosystem contracts for the exact target version/loader instead of blindly adding every popular mod.
+Examples include:
+- backpack/storage: Sophisticated Backpacks/Sophisticated Core, Curios if wearable, JEI/EMI/REI, generic inventory/item-handler/automation, persistence/multiplayer/no-dupe tests;
+- accessory/equipment: Curios or loader-appropriate Trinkets/Accessories family;
+- machinery/kinetics: Create/Ponder/Flywheel/Registrate + standard item/fluid/energy capabilities where relevant;
+- RPG gear: Apotheosis/Apothic Curios-style category/affix/socket paths where relevant;
+- food/cooking: Farmer's Delight where semantically useful;
+- guidebooks: Patchouli export/integration;
+- tooltip/info: Jade/WTHIT-style providers;
+- scripting: KubeJS/CraftTweaker integration while native mod logic remains canonical;
+- storage/automation: optional AE2/Refined Storage/Create fixtures when relevant;
+- render-heavy content: target-pack-specific Embeddium/Sodium/Oculus/Iris/Create/Flywheel/Distant Horizons compatibility tests.
+
+Compatibility is behavioral. Co-loading is insufficient. Contracts test actual inventory transfer, equip/unequip, persistence, automation, recipe exposure/transfer, multiplayer sync, optional-provider absent/present lanes, world/chunk reload, visual/render behavior and content-specific semantics.
+
+Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create's own 1.20.1 developer page pins exact Create/Ponder/Flywheel/Registrate versions and explicitly warns that 1.20.1 no longer receives feature updates or bug fixes. Enderloom must always resolve exact compatible artifacts rather than use newest library versions blindly.
+
+Wave A remains the exact next implementation action and must preserve typed extension paths for acquisition receipts/rights, server capture/content inventory, conversion coverage/mappings, Bedrock semantic nodes, compatibility profiles/contracts/scenarios/results, ecosystem adapters, provider version constraints, port/binary patch projects and parity/release ledgers. No conversion-specific or compatibility-specific shadow database.
+
+
+CONCEPT ART -> NATIVE MINECRAFT MOD PIPELINE — 2026-09-07
+
+Canonical spec:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md
+Commit: 702d32cb8a96ab6982bfa80ab9e18b98d402ee64
+
+Mandatory handoff addendum:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md
+Commit: 1280ec59d6811bd82323a7ec31568be11d891caf
+
+GitHub issue #3 continuity comment: 5575739554
+
+Locked product law:
+- Concept art/reference material is a first-class Enderloom project source.
+- Workflow: immutable/provenanced reference intake -> observed/constrained/inferred/authored design dossier -> native editable geometry/textures/UV/rig/animation -> gameplay implementation -> semantic ecosystem compatibility -> deterministic fidelity compare -> actual Minecraft native-client/server QA -> iterative repair -> packaged release.
+- Lives inside the one unified Studio; no separate top-level Concept Studio.
+- Original references remain hash-addressed and derived assets retain lineage.
+- Unseen/ambiguous details remain explicitly inferred, never falsely claimed exact.
+- Multi-reference projects can assign separate shape, texture, motion, gameplay and style authority.
+- Concept visuals may suggest gameplay, but implied mechanics never silently become canonical gameplay.
+- CompatibilityProfile selects Sophisticated Backpacks/Curios/Create/Apotheosis/Farmer's Delight/Patchouli/rendering-stack contracts only where semantically applicable.
+- Deterministic renders/metrics complement but never replace actual Minecraft runtime proof.
+- Visual acceptance includes scale, grounding, texture/atlas integrity, animation state, culling, clipping, hitbox alignment, non-obvious frames and no transform accumulation.
+- Gameplay acceptance still requires applicable dedicated-server/native-client/integrated-server/persistence/multiplayer/performance proof.
+- Shared progress UI exposes real stages and content-aware completion for reference intake, dossier, geometry, texture, rig, animation, gameplay, compatibility, native QA and release.
+- Synthetic image generation is not required. If Enderloom ever integrates such providers, use is explicit opt-in per job and generated pictures remain authored references, never proof or substitutes for native assets/runtime evidence.
+- AI/headless lanes use the same operation/task/evidence graph and cannot self-declare acceptance.
+- Wave A must preserve typed concept/reference/fidelity/native-visual/acceptance extension paths with no shadow database.
+
+Definition of success: a concept-art job reaches 100% only when the packaged target mod actually loads in Minecraft and passes its applicable visual, gameplay, compatibility, persistence, performance, provenance and release gates. A pretty preview is not the product; the verified native mod is the product.
+
+
+CANONICAL ASTRA MASTER EXECUTION CHECKLIST — 2026-09-07
+
+Single execution entrypoint:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md
+
+Create commit: 71f930bd34960a74e9217afbfc36abae4d19e315
+Verified blob SHA: 6f7acbeee286dd7124e8b51df7d1d8d7e8123892
+GitHub issue #3 continuity comment: 5575876081
+
+This file is now the canonical execution-order runbook for Astra/Codex/ChatGPT. Older Enderloom requirements, gap audits, testing specs, diagnostics specs, AI operator specs, workflow-parity specs, compatibility catalog and concept-art specs remain child engineering references, but Astra should start from the Astra Master Execution Checklist and not ask the user to restate decisions already captured there.
+
+Run law:
+- Start at the first incomplete hard dependency and continue automatically.
+- Implement instead of merely planning.
+- Preserve already-working launcher/catalog/browser/mod-manager behavior.
+- Wave A Integration Spine remains first real implementation priority: canonical identity/evidence/task/transaction/operation-registry/progress architecture, then one real installed-mod vertical consumed by Mod Manager + Catalog + CLI/service + Testing with zero duplicate truth.
+- Checkpoints are recovery anchors, not stopping points.
+- After two no-progress waves, change strategy; retry only with new information or a different route.
+- Compile is intermediate evidence; use strongest applicable Minecraft runtime proof.
+- Keep exact operation/build/test/evidence identities and update the checklist as acceptance changes.
+- Material checkpoints continue to GitHub + Drive.
+- Do not silently reduce scope, content, quality, compatibility, verification or safety.
+- Do not call Enderloom complete until the golden end-to-end challenge suite and final release gates pass.
+
+The checklist consolidates everything currently accepted: existing launcher/catalog/provider/instance/server/world/snapshot behavior; shared CLI/service/MCP/progress spine; Performance Lab + Probe + deterministic scenarios; diagnostics adapters; crash/freeze/memory/concurrency/bisect repair; config intelligence; dedicated Hotkeys; Data/Function debugger; progression/softlock; Premium Wiki and Why-is-this-installed; unified Studio; IDE/mapping/Mixin/bytecode/legacy tooling; native Java mod development/ports/JAR repair; authorized Spellbrook-class server->mod conversion; Bedrock addon->full Java mod and Bedrock Developer Center; concept-art/MCModels/reference->native mod; adaptive Sophisticated Backpacks/Curios/Create/Apotheosis/Farmer's Delight/recipe-viewer/etc compatibility; whole-pack migration; world/server/proxy/protocol tooling; authoring tools; security/SBOM/license/update gates; full OpenAI/ChatGPT/Codex operator; Evidence Brain; accessibility/localization/QOL; golden challenge scenarios; and release/runtime/publication acceptance.
+
+Rejected scope remains locked: no Enderloom Friend Hosting/P2P/reverse-tunnel feature, no Voice/Social compatibility center, and no unapproved Content Replacement Assistant.
+
+
+ASTRA MASTER DEDUP + PREMIUM MOD TRAILERS — 2026-09-07
+
+Canonical checklist:
+https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md
+
+Updated commit: dff30e6390864b36f6ca2bbd54c52c97e53659b2
+Updated blob SHA: 18bc4fcc66decc3a97831730bb5fd6f2178d1b25
+GitHub issue #3 continuity comment: 5575960753
+
+Checklist refinement law:
+- Every requirement now has one canonical home with stable requirement IDs.
+- Later phases, Golden Challenges and final release gates reference those IDs instead of repeating the same detailed feature lists.
+- Detail remains in the owning phase; duplicates are collapsed rather than losing scope.
+- New requirements should extend an existing canonical requirement when they overlap instead of creating duplicate checklist entries.
+
+Premium media decision locked:
+- DEC-016: Steam-like automatic mod trailer preview is a Premium feature.
+- Manual legitimate trailer playback may remain ordinary media behavior; the automatic Steam-like browsing experience is Premium.
+- Phase D PD-010..021 owns the complete implementation: exact project/media provenance; legitimate author/provider/user-supplied videos only; no synthetic or unrelated trailer fallback; muted autoplay; one active preview at a time; Catalog stable hover/focus/dwell autoplay; detail-page hero autoplay; pause/stop on viewport/focus/background/navigation ownership changes; explicit user action for sound; global and per-context autoplay controls; reduced-motion and reduced-data/network-sensitive behavior; captions/subtitles when available; deferred/bounded buffering and cancellation; rights-aware caching/streaming; real screenshots/gallery fallback when no trailer exists; regression tests for virtualization/navigation/provider login/playback leaks.
+- Golden Challenge GX-15 verifies the Premium trailer experience across valid/missing/login-sensitive media, reduced-motion mode and rapid navigation.
+
+The Astra master remains the single execution-order authority.
