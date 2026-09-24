@@ -258,9 +258,9 @@ Remove the full-width MCreator candidate strip from the normal Mod Manager layou
 
 ---
 
-## G006 — Files, logs, and guided installs act like desktop software
+## G006 — Files, logs, addons, and guided installs act like desktop software
 
-- [ ] **G006 · GATE** — Files, logs, and guided installs act like desktop software
+- [ ] **G006 · GATE** — Files, logs, addons, and guided installs act like desktop software
 
 ### T014 — Add a first-class Logs tab
 
@@ -352,10 +352,10 @@ Implementation requirements:
 - Detect required/strongly recommended host mods/libraries from provider relations plus validated project metadata/known family rules, and feed missing requirements into the same dependency planner used for normal mods.
 - Update checks compare the installed provider file identity against compatible online provider releases. Updating replaces the prior addon artifact transactionally and preserves the logical project identity, just like T001 requires for mods.
 - If a provider project disappears or is temporarily unreachable, preserve the installed addon, cached metadata, provider identity, and last-known release state; do not demote it into a random local file.
-- Cross-provider duplicates of the same addon project collapse under one canonical project with source badges/options using the same identity rules as T013.
+- Cross-provider duplicates of the same addon project collapse under one canonical project with source badges/options using the same identity rules as T012.
 - Do not count arbitrary files inside `config/`, datapack folders, or addon working directories as separate “addons” merely because they are JSON/ZIP files.
 
-**Required real regression fixture:** `https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom` must resolve as one provider-backed customization/addon project, preserve its CurseForge project/file identity, show its compatible releases/files and relations, download a selected compatible provider file through the normal pipeline, and install it through the TaCZ-appropriate typed destination instead of `mods/`.
+**Required real regression fixture:** `https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom` (CurseForge project ID **1091118**) must resolve as one provider-backed customization/addon project, preserve its CurseForge project/file identity, show its compatible releases/files and relations, download a selected compatible provider file through the normal pipeline, and install it through the TaCZ-appropriate typed destination instead of `mods/`. The fixture must remain provider-linked after restart and must update from a later compatible provider file without becoming an anonymous ZIP.
 
 ### T024 — Addons must use the normal Mods-tab card/detail UI system
 
