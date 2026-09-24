@@ -10,7 +10,7 @@ permissions:
   contents: read
 concurrency:
   group: devkit-native-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   fabric-production:
     runs-on: ubuntu-latest
@@ -34,6 +34,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '25'
+      - name: Mixin scope and native proof orchestration regressions
+        run: |
+          python tools/minecraft-dev-kit/scripts/devkit_mixin_selftest.py
+          python tools/minecraft-dev-kit/scripts/devkit_resume_selftest.py
       - name: Prepare real graphics and audio runtime
         run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1 libflite1 flite1-dev
       - uses: actions/cache/restore@v4
@@ -42,7 +46,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: devkit-native-${{ runner.os }}-26.3-${{ matrix.name }}-v2
+          key: devkit-native-${{ runner.os }}-26.3-${{ matrix.name }}-v3
           restore-keys: |
             devkit-native-${{ runner.os }}-26.3-
             fabric-${{ matrix.name }}-263-${{ runner.os }}-

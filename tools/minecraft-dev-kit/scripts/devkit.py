@@ -45,19 +45,35 @@ def status(root: Path) -> dict:
         cells.append({'id': cell['id'], 'minecraft': cell['minecraft'], 'loader': cell['loader'],
                       'state': record.get('state', 'pending'), 'attempts': record.get('attempts', 0),
                       'artifact': artifact or None, 'reason': record.get('reason')})
-    native_path = root / 'native' / 'native-result.json'
-    native = load(native_path) if native_path.is_file() else None
-    if native:
-        native = dict(native)
-        native['artifact_match'] = any(c['artifact'] and c['artifact']['integrity_verified'] and
-             c['artifact']['sha256'] == native.get('artifact_sha256') for c in cells)
-        if not native['artifact_match']:
-            native['state'] = 'stale-proof'
+    def native_for(cell):
+        directory=root/'native' if len(cells)==1 else root/'native'/cell['id']
+        receipt=directory/'native-result.json'
+        if not receipt.is_file():return None
+        value=load(receipt)
+        artifact=cell.get('artifact') or {}
+        value['artifact_match']=bool(artifact.get('integrity_verified') and artifact.get('sha256')==value.get('artifact_sha256'))
+        if not value['artifact_match']:value['state']='stale-proof'
+        elif value.get('state') == 'runtime-smoke-verified':
+            from devkit_native import reusable_proof
+            configured = next(row for row in manifest['cells'] if row['id'] == cell['id'])
+            java = Path(configured.get('java_path') or '')
+            if not java.is_file() or reusable_proof(directory, Path(artifact['path']), java) is None:
+                value['state'] = 'stale-proof'
+        return value
+    native_rows={cell['id']:native_for(cell) for cell in cells}
+    if len(cells)==1:
+        native=native_rows[cells[0]['id']]
+    elif any(native_rows.values()):
+        matched=all(row and row.get('artifact_match') for row in native_rows.values())
+        verified=matched and all(row.get('state')=='runtime-smoke-verified' for row in native_rows.values())
+        native={'state':'runtime-smoke-verified' if verified else 'incomplete','artifact_match':matched,'cells':native_rows}
+    else:native=None
+    all_passed = bool(cells) and all(c['state'] == 'passed' and c['artifact'] and c['artifact']['integrity_verified'] for c in cells)
+    if manifest.get('native_verify'):
+        all_passed = all_passed and bool(native and native.get('artifact_match') and native.get('state') == 'runtime-smoke-verified')
     return {'schema_version': 1, 'workspace': str(root), 'project': manifest['project_root'],
             'cells': cells, 'last_run': (state.get('runs') or [None])[-1], 'native_runtime': native,
-            'all_passed': bool(cells) and all(c['state'] == 'passed' and
-                           c['artifact'] and c['artifact']['integrity_verified'] for c in cells)}
-
+            'all_passed': all_passed}
 
 
 def run_workspace(root: Path, timeout: int, *, proofs: Path | None = None, offline: bool = False) -> int:
@@ -66,7 +82,6 @@ def run_workspace(root: Path, timeout: int, *, proofs: Path | None = None, offli
         source = Path(manifest['project_root']).resolve()
         if not source.is_dir():
             raise ValueError(f'source project is unavailable; saved work was preserved: {source}')
-        # Legacy manifests keep their already verified JDK unless it is unavailable.
         for cell in manifest['cells']:
             pinned = Path(cell['java_path']) if cell.get('java_path') else None
             jdk = ensure_jdk(int(cell['java']), explicit=pinned if pinned and pinned.is_file() else None, offline=offline)
@@ -99,7 +114,6 @@ def package(root: Path, output: Path) -> dict:
         raise ValueError('package output must be outside its workspace')
     with workspace_lock(root):
         snapshot = status(root)
-        release = root / 'state' / 'release'
         rows = [row for row in snapshot['cells'] if row['artifact'] and
                 row['state'] in {'passed', 'runtime-unverified'}]
         if not rows or any(not row['artifact']['integrity_verified'] for row in rows):
@@ -108,43 +122,39 @@ def package(root: Path, output: Path) -> dict:
         for row in rows:
             files.add(Path(row['artifact']['path']))
         for name in ['manifest.json', 'result.json', 'intake.json', 'state/session.json',
-                     'state/release/release-matrix.json', 'state/release/SHA256SUMS.txt']:
+                     'state/release/release-matrix.json', 'state/release/SHA256SUMS.txt', 'runtime-proofs.json', 'toolchain.json']:
             path = root / name
-            if path.is_file():
-                files.add(path)
+            if path.is_file():files.add(path)
         for cell in snapshot['cells']:
             work = root / 'state' / 'work' / cell['id']
             for name in ['cell.json', 'receipt.json', 'driver.stdout.txt', 'driver.stderr.txt', 'driver.process.json']:
                 path = work / name
-                if path.is_file():
-                    files.add(path)
+                if path.is_file():files.add(path)
             if (work / 'evidence').is_dir():
                 files.update(p for p in (work / 'evidence').rglob('*') if p.is_file())
-        # Include native proof plus the exact external dependency JARs that were
-        # actually used. Keep source trees, account data and download caches out.
         native = root / 'native'
         if native.is_dir():
-            for name in ['native-result.json', 'dependencies/dependency-lock.json',
-                         'dependencies/provider-compatibility.json']:
+            for name in ['native-result.json', 'dependencies/dependency-lock.json', 'dependencies/provider-compatibility.json']:
                 path = native / name
-                if path.is_file(): files.add(path)
-            dependency_lock = native / 'dependencies/dependency-lock.json'
-            if dependency_lock.is_file():
+                if path.is_file():files.add(path)
+            for dependency_lock in native.rglob('dependency-lock.json'):
+                files.add(dependency_lock)
                 for row in load(dependency_lock).get('downloads', []):
-                    path = native / 'dependencies/mods' / row['file']
+                    path = dependency_lock.parent / 'mods' / row['file']
                     if not path.is_file() or sha256_file(path) != row['sha256']:
                         raise ValueError('runtime dependency changed or missing: ' + row['file'])
                     files.add(path)
-            for path in (native / 'runs').rglob('*') if (native / 'runs').is_dir() else []:
+            for receipt_name in ['native-result.json','provider-compatibility.json']:
+                files.update(native.rglob(receipt_name))
+            for path in native.rglob('*'):
                 if path.is_file() and ('commands' in path.parts or
-                    (path.name in {'latest.log','debug.log','devkit-runtime-proof.json','template-origin.json'}) or
+                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','template-origin.json'} or
                     (path.name.startswith('devkit-') and path.suffix == '.png')):
                     files.add(path)
         for path in files:
             if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
                 raise ValueError(f'unsafe package input: {path}')
         output.parent.mkdir(parents=True, exist_ok=True)
-        # Exclusive creation: a package is immutable, never silently overwritten.
         with zipfile.ZipFile(output, 'x', compression=zipfile.ZIP_DEFLATED) as archive:
             hashes = []
             for path in sorted(files):
@@ -165,20 +175,54 @@ def package(root: Path, output: Path) -> dict:
                 'file_count': len(files), 'all_passed': snapshot['all_passed']}
 
 
+def verify_workspace(root: Path, timeout: int, *, offline: bool=False) -> int:
+    """Finish the existing build/verify/promote route without source surgery or rebuild."""
+    from devkit_native import verify, reusable_proof
+    from northpoint_job_runner import now
+    manifest=load(root/'manifest.json')
+    order=[manifest['primary_cell']]+[row['id'] for row in manifest['cells'] if row['id']!=manifest['primary_cell']]
+    proofs=[]
+    for index,cid in enumerate(order):
+        snapshot=status(root)
+        cell=next(row for row in snapshot['cells'] if row['id']==cid)
+        artifact=cell.get('artifact') or {}
+        if cell['state'] not in {'passed','runtime-unverified'} or not artifact.get('integrity_verified'):return 2
+        if cell['minecraft']!='26.3' or cell['loader']!='fabric':
+            print('Native client automation requires its loader-specific adapter; candidate and prior evidence are retained.',file=sys.stderr)
+            return 2
+        native=root/'native' if len(order)==1 else root/'native'/cid
+        configured=next(row for row in manifest['cells'] if row['id']==cid)
+        java=Path(configured['java_path'])
+        result=reusable_proof(native,Path(artifact['path']),java)
+        if result is None:
+            result=verify(Path(artifact['path']),native,timeout=timeout,offline=offline,java_path=java)
+        if result['state']!='runtime-smoke-verified':
+            atomic_json(root/'result.json',status(root));print(json.dumps(result,indent=2));return 2
+        proofs.append({'cell_id':cid,'artifact_sha256':artifact['sha256'],'passed':True,
+                       'verified_at':now(),'evidence':[{'scope':result['coverage'],'not_proven':result['not_proven'],
+                         'receipt':str(native/'native-result.json'),'receipt_sha256':sha256_file(native/'native-result.json')}]})
+        proof_file=root/'runtime-proofs.json';atomic_json(proof_file,{'proofs':proofs})
+        if index==0 and len(order)>1:
+            code=run_workspace(root,timeout,proofs=proof_file,offline=offline)
+            if code not in {0,2,3}:return code
+    code=run_workspace(root,timeout,proofs=root/'runtime-proofs.json',offline=offline)
+    return 0 if code==0 and status(root)['all_passed'] else code or 2
+
+
 def wizard() -> int:
     """Interactive front door over the same tested CLI operations."""
     print('Minecraft Dev Kit | Build, recover, verify and package')
     print('1. Convert a source project   2. Resume a workspace   3. Set up Java   4. Inspect prerequisites')
     try:
         choice = input('Choose [1]: ').strip() or '1'
-        if choice == '4': return main(['doctor'])
+        if choice == '4':return main(['doctor'])
         if choice == '3':
             target = input('Minecraft version [26.3]: ').strip() or '26.3'
             return main(['setup', '--minecraft', target])
         if choice == '2':
             workspace = Path(input('Saved workspace folder: ').strip().strip('"')).expanduser().resolve()
             return main(['resume', '--workspace', str(workspace)])
-        if choice != '1': raise ValueError('Choose 1, 2, 3 or 4')
+        if choice != '1':raise ValueError('Choose 1, 2, 3 or 4')
         project = Path(input('Source project folder (you may drag it here): ').strip().strip('"')).expanduser().resolve()
         info = inspect_project(project)
         print('Detected:', info.get('mod_id') or project.name, '|', info.get('loader') or 'unknown loader', '| Minecraft', info.get('minecraft'))
@@ -245,6 +289,7 @@ def main(argv: list[str] | None = None) -> int:
     resume.add_argument('--timeout', type=int, default=600)
     resume.add_argument('--runtime-proofs', type=Path)
     resume.add_argument('--offline', action='store_true')
+    resume.add_argument('--verify', action='store_true', help='Verify and remember the native runtime gate for future resumes')
     inspect = sub.add_parser('status', help='Read actual state and re-hash the saved candidate')
     inspect.add_argument('--workspace', type=Path, required=True)
     pack = sub.add_parser('package', help='Package real candidates, hashes and evidence without caches')
@@ -252,10 +297,8 @@ def main(argv: list[str] | None = None) -> int:
     pack.add_argument('--output', type=Path, required=True)
     sub.add_parser('wizard', help='Guided conversion, resume and setup without memorizing commands')
     args = parser.parse_args(argv)
-    if hasattr(args, 'timeout') and args.timeout <= 0:
-        parser.error('--timeout must be positive')
-    if args.command == 'wizard':
-        return wizard()
+    if hasattr(args, 'timeout') and args.timeout <= 0:parser.error('--timeout must be positive')
+    if args.command == 'wizard':return wizard()
     if args.command == 'verify':
         from devkit_native import verify
         result = verify(args.jar, args.workspace, template=args.template, java_path=args.java_path,
@@ -289,42 +332,33 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if pair else 2
     if args.command == 'convert':
         project = args.project.resolve()
-        if not project.is_dir():
-            parser.error(f'project does not exist: {project}')
+        if not project.is_dir():parser.error(f'project does not exist: {project}')
         root = args.workspace.resolve() if args.workspace else (Path.home() / '.minecraft-dev-kit' / 'runs' / new_run_id())
         if root == project or root.is_relative_to(project) or project.is_relative_to(root):
             parser.error('workspace and source project must be disjoint')
-        if root.exists() and any(root.iterdir()):
-            parser.error(f'workspace already contains data; use resume: {root}')
+        if root.exists() and any(root.iterdir()):parser.error(f'workspace already contains data; use resume: {root}')
         root.mkdir(parents=True, exist_ok=True)
         major = args.java or target_java(args.minecraft)
         jdk = ensure_jdk(major, explicit=args.java_path, offline=args.offline)
         atomic_json(root / 'toolchain.json', jdk)
         cell = {'id': f'mc-{args.minecraft}-{args.loader}', 'minecraft': args.minecraft, 'loader': args.loader,
                 'java': major, 'java_path': jdk['java_path'], 'primary': True}
-        # Validate path-bearing identity before any worker invocation.
         from northpoint_job_runner import normalized_cell
         cell = normalized_cell(cell)
         atomic_json(root / 'intake.json', inspect_project(project))
         atomic_json(root / 'manifest.json', {'schema_version': 1, 'project_root': str(project),
-                    'primary_cell': cell['id'], 'cells': [cell], 'config': {'zero_loss': True}})
+                    'primary_cell': cell['id'], 'cells': [cell], 'config': {'zero_loss': True}, 'native_verify':args.verify})
         code = run_workspace(root, args.timeout, offline=args.offline)
-        if args.verify:
-            if args.minecraft != '26.3' or args.loader != 'fabric':
-                print('This native automation targets Fabric 26.3. Candidate retained for its loader-specific runtime gate.',file=sys.stderr)
-                return 2
-            snapshot = status(root)
-            cells = snapshot.get('cells', [])
-            if not cells or not (cells[0].get('artifact') or {}).get('integrity_verified'): return code or 2
-            from devkit_native import verify
-            result = verify(Path(cells[0]['artifact']['path']), root/'native', timeout=args.timeout,
-                            offline=args.offline, java_path=Path(jdk['java_path']))
-            print(json.dumps(result, indent=2))
-            return 0 if result['state'] == 'runtime-smoke-verified' else 2
+        if args.verify:return verify_workspace(root,args.timeout,offline=args.offline)
         return code
     root = args.workspace.resolve()
     if args.command == 'resume':
-        return run_workspace(root, args.timeout, proofs=args.runtime_proofs, offline=args.offline)
+        manifest=load(root/'manifest.json')
+        if args.verify:
+            manifest['native_verify']=True;atomic_json(root/'manifest.json',manifest)
+        code=run_workspace(root,args.timeout,proofs=args.runtime_proofs,offline=args.offline)
+        if manifest.get('native_verify'):return verify_workspace(root,args.timeout,offline=args.offline)
+        return code
     if args.command == 'status':
         print(json.dumps(status(root), indent=2))
         return 0
@@ -335,8 +369,7 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == '__main__':
-    try:
-        raise SystemExit(main())
+    try:raise SystemExit(main())
     except (OSError, ValueError, RuntimeError, KeyError) as exc:
         print(json.dumps({'status': 'ERROR', 'reason': str(exc)}, indent=2), file=sys.stderr)
         raise SystemExit(1)

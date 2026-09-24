@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import shutil
 import sys
@@ -32,6 +33,7 @@ tasks.register("devkitProbeJar", Jar) {
 }
 dependencies {
   productionRuntimeMods files("candidate.jar")
+  productionRuntimeMods fabricApi.module("fabric-client-gametest-api-v1", project.fabric_api_version)
   productionRuntimeMods fileTree("verified-dependencies") { include "*.jar" }
 }
 tasks.register("devkitNativeTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
@@ -146,8 +148,38 @@ def prepare(template: Path, artifact: Path, root: Path, dependencies: dict, depe
     path.write_text(JAVA.replace('EXPECTED_MOD',primary['id']).replace('EXPECTED_SHA',original_hash),encoding='utf-8')
     meta=probe/'src/gametest/resources/fabric.mod.json';meta.parent.mkdir(parents=True,exist_ok=True)
     atomic_json(meta,{'schemaVersion':1,'id':'devkit-runtime-probe','version':'1.0.0','environment':'client',
-                     'entrypoints':{'fabric-client-gametest':['devkit.RuntimeProbe']}})
+                     'entrypoints':{'fabric-client-gametest':['devkit.RuntimeProbe']},
+                     'depends':{'fabric-client-gametest-api-v1':'*'}})
     return probe
+
+
+def verifier_fingerprint() -> str:
+    digest=hashlib.sha256()
+    for name in ['devkit_native.py','devkit_dependencies.py','devkit_toolchains.py','northpoint_execution.py']:
+        path=Path(__file__).with_name(name)
+        digest.update(name.encode());digest.update(path.read_bytes().replace(b'\r\n',b'\n'))
+    return digest.hexdigest()
+
+
+def reusable_proof(workspace: Path, artifact: Path, java_path: Path) -> dict | None:
+    path=workspace/'native-result.json'
+    if not path.is_file():return None
+    try:
+        result=json.loads(path.read_text())
+        if result.get('state')!='runtime-smoke-verified' or result.get('artifact_sha256')!=sha256_file(artifact):return None
+        if result.get('verifier_sha256')!=verifier_fingerprint() or result.get('platform')!=[platform.system(),platform.machine()]:return None
+        if result.get('jdk',{}).get('java_sha256')!=sha256_file(java_path):return None
+        lock=workspace/'dependencies/dependency-lock.json'
+        if sha256_file(lock)!=result.get('dependency_lock_sha256'):return None
+        for row in json.loads(lock.read_text()).get('downloads',[]):
+            dependency=(workspace/'dependencies/mods'/row['file']).resolve()
+            if not dependency.is_relative_to((workspace/'dependencies/mods').resolve()) or sha256_file(dependency)!=row['sha256']:return None
+        if len(result.get('screenshots',[]))<2:return None
+        for row in result['screenshots']:
+            image=Path(row['path']).resolve()
+            if not image.is_relative_to(workspace.resolve()) or sha256_file(image)!=row['sha256']:return None
+        return result
+    except (OSError,ValueError,KeyError):return None
 
 
 def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeout: int=900,
@@ -157,6 +189,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
         run=workspace/'runs'/new_run_id();run.mkdir(parents=True)
         result={'schema_version':1,'state':'running','artifact_sha256':sha256_file(artifact),'artifact_path':str(artifact),
                 'minecraft':'26.3','loader':'fabric','run':str(run),
+                'verifier_sha256':verifier_fingerprint(),'platform':[platform.system(),platform.machine()],
                 'coverage':['exact-production-JAR','client-render','integrated-server','block-network-sync','world-save-reopen'],
                 'not_proven':['exhaustive-mod-gameplay','online-multiplayer','hardware-GPU-performance']}
         atomic_json(workspace/'native-result.json',result)
@@ -193,7 +226,8 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             screenshots=list((probe/'run').rglob('devkit-*.png'))
             if len(screenshots)<2:raise ValueError('expected both native world screenshots')
             result.update(state='runtime-smoke-verified',proof=proof,
-                          screenshots=[{'path':str(p),'sha256':sha256_file(p)} for p in screenshots],jdk=jdk)
+                          screenshots=[{'path':str(p),'sha256':sha256_file(p)} for p in screenshots],jdk=jdk,
+                          dependency_lock_sha256=sha256_file(workspace/'dependencies/dependency-lock.json'))
         except Exception as error:
             result.update(state='failed',error=str(error))
         atomic_json(workspace/'native-result.json',result)
