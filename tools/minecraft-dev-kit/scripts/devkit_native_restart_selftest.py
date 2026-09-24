@@ -9,6 +9,14 @@ from devkit_native_restart import run_phases, valid_restart
 
 
 def main():
+    from devkit_native import JAVA
+    assert JAVA.count('finishOnTitleScreen(context);') == 2
+    assert 'screen instanceof net.minecraft.client.gui.screens.TitleScreen' in JAVA
+    assert 'net.aoba.gui.screens.MainMenuScreen' in JAVA
+    assert '@Override public void init() { }' in JAVA
+    assert JAVA.index('devkit-EXPECTED_MOD-custom-title-') < JAVA.index('client.gui.setScreen(new CleanupTitleScreen())')
+    assert 'client.player != null || client.level != null || client.getSingleplayerServer() != null' in JAVA
+    assert 'enableCustomTitle' not in JAVA, 'probe must not disable the user-visible custom menu'
     with tempfile.TemporaryDirectory(prefix='devkit-restart-test-') as td:
         root=Path(td); probe=root/'probe';probe.mkdir()
         script=probe/'protocol.py'

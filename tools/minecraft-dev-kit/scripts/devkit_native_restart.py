@@ -10,6 +10,28 @@ from northpoint_execution import atomic_json, run_logged
 # Isolated adapter, not shipped mod logic. This constructor was checked against
 # the exact Fabric 26.3 API and is compiled before any Minecraft launch.
 METHODS = r'''
+  // Test-framework cleanup only, after the actual menu and closed-world state
+  // were asserted and captured. Never ship this class or modify mod settings.
+  private static final class CleanupTitleScreen extends net.minecraft.client.gui.screens.TitleScreen {
+    @Override public void init() { }
+  }
+  private static void finishOnTitleScreen(ClientGameTestContext context) {
+    boolean customTitle = context.computeOnClient(client -> {
+      if (client.player != null || client.level != null || client.getSingleplayerServer() != null)
+        throw new AssertionError("native verification returned before its world/server closed");
+      var screen = client.gui.screen();
+      if (screen instanceof net.minecraft.client.gui.screens.TitleScreen) return false;
+      if (!"aoba".equals("EXPECTED_MOD") || screen == null ||
+          !"net.aoba.gui.screens.MainMenuScreen".equals(screen.getClass().getName()))
+        throw new AssertionError("unexpected terminal screen: " + (screen == null ? "null" : screen.getClass().getName()));
+      return true;
+    });
+    if (customTitle) {
+      context.takeScreenshot("devkit-EXPECTED_MOD-custom-title-" + System.getProperty("devkit.phase", "initial"));
+      System.out.println("DEVKIT_NATIVE_CUSTOM_TITLE_PRESERVED:EXPECTED_MOD");
+      context.runOnClient(client -> client.gui.setScreen(new CleanupTitleScreen()));
+    }
+  }
   private static void recordRestart(TestWorldSave save, BlockPos marker) throws Exception {
     java.util.Properties state = new java.util.Properties();
     state.setProperty("artifact", "EXPECTED_SHA");
@@ -48,6 +70,7 @@ METHODS = r'''
     }
     Files.writeString(Path.of("devkit-runtime-proof.json"), "{\"state\":\"runtime-smoke-verified\",\"artifact_sha256\":\"EXPECTED_SHA\",\"modid\":\"EXPECTED_MOD\",\"world_reopened\":true,\"client_server_sync\":true,\"process_restart\":true,\"first_process_id\":" + firstPid + ",\"restart_process_id\":" + currentPid + "}");
     System.out.println("DEVKIT_NATIVE_PROCESS_RESTARTED:EXPECTED_MOD");
+    finishOnTitleScreen(context);
   }
 '''
 
@@ -59,6 +82,10 @@ def extend_probe(java: str, gradle: str) -> tuple[str, str]:
     java = java.replace(anchor, '      if ("restart".equals(System.getProperty("devkit.phase"))) { restart(context); return; }\n' + anchor)
     java = java.replace('      Files.writeString(Path.of("devkit-runtime-proof.json")',
                         '      recordRestart(save, marker.get());\n      Files.writeString(Path.of("devkit-runtime-proof.json")')
+    marker = '      System.out.println("DEVKIT_NATIVE_PROOF_COMPLETE:EXPECTED_MOD");'
+    if java.count(marker) != 1:
+        raise ValueError('native completion marker changed; reconcile custom-title cleanup')
+    java = java.replace(marker, marker + '\n      finishOnTitleScreen(context);')
     end = java.rfind('}')
     java = java[:end] + METHODS + java[end:]
     anchor = '  jvmArgs.add("-Dfabric.client.gametest")'

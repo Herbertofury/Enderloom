@@ -23,6 +23,8 @@ from northpoint_production_driver_selftest import fixture
 def main() -> int:
     from devkit_native_restart_selftest import main as restart_tests
     assert restart_tests()==0
+    from devkit_diagnostics_selftest import main as diagnostic_tests
+    assert diagnostic_tests()==0
     root=Path(tempfile.mkdtemp(prefix='devkit-resume-',dir=os.environ.get('RUNNER_TEMP'))).resolve()
     project=root/'project';fixture(project)
     cfg=json.loads((project/'northpoint.project.json').read_text());cfg['runtime']={'required':True}

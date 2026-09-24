@@ -159,7 +159,7 @@ def prepare(template: Path, artifact: Path, root: Path, dependencies: dict, depe
 
 def verifier_fingerprint() -> str:
     digest=hashlib.sha256()
-    for name in ['devkit_native.py','devkit_native_restart.py','devkit_dependencies.py','devkit_toolchains.py','northpoint_execution.py']:
+    for name in ['devkit_native.py','devkit_native_restart.py','devkit_diagnostics.py','devkit_dependencies.py','devkit_toolchains.py','northpoint_execution.py']:
         path=Path(__file__).with_name(name)
         digest.update(name.encode());digest.update(path.read_bytes().replace(b'\r\n',b'\n'))
     return digest.hexdigest()
@@ -228,13 +228,10 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             cp=run_phases(cmd,run=run,probe=probe,env=env,timeout=timeout)
             proof_path=probe/'run/devkit-native/devkit-runtime-proof.json'
             if cp.returncode:
-                crashes = sorted((probe/'run').rglob('crash-*.txt'))
-                if crashes:
-                    detail = '\n'.join(crashes[-1].read_text(encoding='utf-8',errors='replace').splitlines()[:80])
-                else:
-                    lines = (cp.stdout + '\n' + cp.stderr).splitlines()
-                    causal = next((index for index,line in enumerate(lines) if any(word in line for word in ['Caused by:', 'Critical injection failure', 'AssertionError', '* What went wrong:'])), None)
-                    detail = '\n'.join(lines[causal:causal+80] if causal is not None else lines[-70:])
+                from devkit_diagnostics import native_failure
+                diagnosis=native_failure(probe, cp.stdout, cp.stderr)
+                result['diagnosis']=diagnosis
+                detail=diagnosis['family']+': '+diagnosis['summary']+'\n'+diagnosis['context']
                 raise RuntimeError('native process failed: '+str(cp.returncode)+'; full logs: '+str(run/'commands')+'\n'+detail)
             proof=json.loads(proof_path.read_text())
             if not valid_restart(proof, result['artifact_sha256']):
