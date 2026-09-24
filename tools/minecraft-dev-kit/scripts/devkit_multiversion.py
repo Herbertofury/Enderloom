@@ -488,14 +488,18 @@ def archive_project(root: Path, output: Path) -> dict:
     root=root.resolve();output=output.resolve()
     if output.is_relative_to(root):raise ValueError('archive must be outside the multiversion project')
     output.parent.mkdir(parents=True,exist_ok=True)
+    archived: list[tuple[str, str]] = []
     with zipfile.ZipFile(output,'x',compression=zipfile.ZIP_DEFLATED) as z:
         for p in sorted(root.rglob('*')):
             rel=p.relative_to(root)
             if p.is_symlink():raise ValueError('cannot package symlink')
             if rel.parts[0]=='versions' or any(part in {'.gradle','__pycache__'} for part in rel.parts):continue
             if rel.parts[:2] in {('.devkit','runs'),('.devkit','materialized'),('.devkit','history'),('.devkit','locks')}:continue
-            if p.is_file():z.write(p,rel.as_posix())
-        checksums=''.join(sha(z.read(name))+'  '+name+'\n' for name in z.namelist())
+            if p.is_file():
+                name='/'.join(rel.parts)
+                z.write(p,name)
+                archived.append((name,sha256_file(p)))
+        checksums=''.join(digest+'  '+name+'\n' for name,digest in archived)
         z.writestr('MULTIVERSION-SHA256SUMS.txt',checksums)
     return {'file':str(output),'sha256':sha256_file(output),'size':output.stat().st_size}
 
