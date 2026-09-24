@@ -55,8 +55,45 @@ def rewrite_stage(text: str, rows: list, locations: dict, path: Path) -> str:
     return text
 
 
+
+# Official 26.3 DynamicGpuData.Transform.write(ByteBuffer): Mat4, Mat4, Vec4, Vec3.
+# Old inline copies read ColorModulator from the texture matrix (alpha becomes 0).
+TRANSFORM_FIELDS = [('mat4', 'ModelViewMat'), ('vec4', 'ColorModulator'),
+                    ('vec3', 'ModelOffset'), ('mat4', 'TextureMat')]
+TARGET_TRANSFORM_FIELDS = [TRANSFORM_FIELDS[i] for i in (0, 3, 1, 2)]
+
+
+def rewrite_dynamic_transforms(text: str, path: Path) -> str:
+    """Reorder only the complete known vanilla block, preserving declarations/math."""
+    masked = mask_comments(text)
+    pattern = re.compile(r'layout\s*\(\s*std140\s*\)\s*uniform\s+DynamicTransforms\s*\{([^{}]*)\}\s*;')
+    blocks = list(pattern.finditer(masked))
+    if not blocks:
+        if re.search(r'\buniform\s+DynamicTransforms\b', masked):
+            raise ConversionBlock('custom DynamicTransforms layout needs explicit adaptation: ' + str(path))
+        return text
+    if len(blocks) != 1:
+        raise ConversionBlock('duplicate DynamicTransforms block: ' + str(path))
+    block = blocks[0]
+    members = list(re.finditer(r'\b(mat4|vec[34])\s+(\w+)\s*;', block[1]))
+    remainder = re.sub(r'\b(mat4|vec[34])\s+(\w+)\s*;', '', block[1])
+    signature = [(m[1], m[2]) for m in members]
+    if remainder.strip() or signature not in (TRANSFORM_FIELDS, TARGET_TRANSFORM_FIELDS):
+        raise ConversionBlock('unrecognized DynamicTransforms payload; no fields may be dropped: ' + str(path))
+    if signature == TARGET_TRANSFORM_FIELDS:
+        return text
+    original = text[block.start(1):block.end(1)]
+    chunks, end = {}, 0
+    for member in members:
+        chunks[(member[1], member[2])] = original[end:member.end()]
+        end = member.end()
+    body = ''.join(chunks[field] for field in TARGET_TRANSFORM_FIELDS) + original[end:]
+    return text[:block.start(1)] + body + text[block.end(1):]
+
+
 def rewrite_shader_interfaces(root: Path) -> list[dict]:
     families = set()
+    transform_families = set()
     for path in sorted(root.rglob('*.java')):
         text = mask_comments(path.read_text(encoding='utf-8'))
         if not re.search(r'import\s+com\.mojang\.blaze3d\.vertex\.DefaultVertexFormat\s*;', text): continue
@@ -75,6 +112,8 @@ def rewrite_shader_interfaces(root: Path) -> list[dict]:
             if bindings != [('0','POSITION_TEX')]: continue
             namespace, prefix = helpers[calls[0][1]]
             families.add((namespace, prefix, prefix+calls[0][2]))
+            if re.search(r'\.withUniform\(\s*"DynamicTransforms"\s*,\s*UniformType\.UNIFORM_BUFFER\s*\)', body):
+                transform_families.add((namespace, prefix, prefix+calls[0][2]))
     staged = {}
     for namespace, prefix, vertex_id in sorted(families):
         vertices = list(root.glob('**/resources/assets/'+namespace+'/shaders/'+vertex_id+'.vsh'))
@@ -103,14 +142,20 @@ def rewrite_shader_interfaces(root: Path) -> list[dict]:
             flocations[('out',fout[0][6])] = 0
             stages.append((fragment,ftext,rewrite_stage(ftext,fr,flocations,fragment)))
         for path,old,new in stages:
+            rules = ['minecraft-26.3-linked-shader-interface-locations'] if old != new else []
+            if (namespace, prefix, vertex_id) in transform_families:
+                transformed = rewrite_dynamic_transforms(new, path)
+                if transformed != new:
+                    rules.append('minecraft-26.3-dynamic-transform-uniform-layout')
+                    new = transformed
             if path in staged and staged[path][1]!=new:
                 raise ConversionBlock('shared shader has contradictory pipeline layouts: '+str(path))
-            staged[path] = (old,new)
+            staged[path] = (old,new,rules)
     changes=[]
     # No file changes occur until every linked stage passed the complete audit.
-    for path,(old,new) in sorted(staged.items()):
+    for path,(old,new,rules) in sorted(staged.items()):
         if old!=new:
             path.write_text(new,encoding='utf-8')
-            changes.append({'rule':'minecraft-26.3-linked-shader-interface-locations',
-                            'path':path.relative_to(root).as_posix(),'count':1})
+            for rule in rules:
+                changes.append({'rule':rule, 'path':path.relative_to(root).as_posix(),'count':1})
     return changes

@@ -28,7 +28,7 @@ if hashlib.sha256(_mouse_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() 
     raise RuntimeError("mouse bridge does not match the pinned engine")
 from northpoint_mouse_invoker_rules import rewrite_mouse_invokers
 
-_SHADER_RULES_SHA256 = "094f88923aad9c5c61c9cda87c30fc9fedc4d5fa6f790e9032967d4f9cad53f6"
+_SHADER_RULES_SHA256 = "568b7214287bf7e2c7be5d22dfd8ae1bfd0cdc4769427a79d3d11fe04ae87960"
 _shader_path = pathlib.Path(__file__).with_name("northpoint_shader_rules.py")
 if hashlib.sha256(_shader_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != _SHADER_RULES_SHA256:
     raise RuntimeError("shader rules do not match the pinned engine")

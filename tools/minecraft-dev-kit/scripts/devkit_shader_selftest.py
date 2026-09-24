@@ -22,7 +22,52 @@ out vec4 color;
 void main() { color=vec4(uv,0,1); }
 '''
 
+def uniform_layout_tests():
+ import struct
+ from northpoint_shader_rules import rewrite_dynamic_transforms
+ block = """layout(std140) uniform DynamicTransforms {
+    mat4 ModelViewMat; // original transform
+    vec4 ColorModulator;
+    vec3 ModelOffset;
+    mat4 TextureMat;
+};
+"""
+ expected = [('mat4', 'ModelViewMat'), ('mat4', 'TextureMat'), ('vec4', 'ColorModulator'), ('vec3', 'ModelOffset')]
+ import re
+ changed = rewrite_dynamic_transforms(block, Path('inline.fsh'))
+ assert re.findall(r'(mat4|vec[34])\s+(\w+)\s*;', changed) == expected
+ assert '// original transform' in changed
+ assert rewrite_dynamic_transforms(changed, Path('inline.fsh')) == changed
+ identity = [1.0 if i % 5 == 0 else 0.0 for i in range(16)]
+ gpu = struct.pack('<40f', *(identity + identity + [1.0]*4 + [0.0]*4))
+ assert struct.unpack_from('<4f', gpu, 64)[3] == 0.0, 'original invisible-alpha reproducer changed'
+ assert struct.unpack_from('<4f', gpu, 128) == (1.0, 1.0, 1.0, 1.0)
+ with tempfile.TemporaryDirectory() as td:
+  root=Path(td); (root/'Pipelines.java').write_text(JAVA.replace('.withVertexBinding', '.withUniform("DynamicTransforms", UniformType.UNIFORM_BUFFER).withVertexBinding'))
+  shaders=root/'src/main/resources/assets/example/shaders';shaders.mkdir(parents=True)
+  vertex=shaders/'effect_.vsh'; fragment=shaders/'effect_gradient.fsh'
+  vertex.write_text(VERT.replace('in vec3 Position;',block+'in vec3 Position;'))
+  fragment.write_text(FRAG.replace('in vec2 uv;',block+'in vec2 uv;'))
+  rows=rewrite_shader_interfaces(root)
+  assert sum(r['rule']=='minecraft-26.3-dynamic-transform-uniform-layout' for r in rows)==2
+  assert VERT[VERT.index('void main'):]==vertex.read_text()[vertex.read_text().index('void main'):]
+  assert FRAG[FRAG.index('void main'):]==fragment.read_text()[fragment.read_text().index('void main'):]
+  assert not rewrite_shader_interfaces(root)
+  for invalid in [block.replace('mat4 TextureMat;', 'mat4 TextureMat; float Extra;'), block.replace('vec3 ModelOffset;', 'vec4 ModelOffset;'),block.replace('std140','std430')]:
+   oldvert=VERT.replace('in vec3 Position;',block+'in vec3 Position;')
+   oldfrag=FRAG.replace('in vec2 uv;',invalid+'in vec2 uv;')
+   vertex.write_text(oldvert);fragment.write_text(oldfrag)
+   try:rewrite_shader_interfaces(root)
+   except ConversionBlock:pass
+   else:raise AssertionError('unknown uniform payload accepted')
+   assert vertex.read_text()==oldvert and fragment.read_text()==oldfrag
+  foreign=block.replace('DynamicTransforms','PrivateTransforms')
+  assert rewrite_dynamic_transforms(foreign,Path('private.fsh'))==foreign
+ print('Uniform ABI: transparent-alpha reproducer, complete field order, math/comment retention, atomic negatives and idempotence PASS')
+
+
 def main():
+ uniform_layout_tests()
  with tempfile.TemporaryDirectory() as td:
   root=Path(td);(root/'Pipelines.java').write_text(JAVA)
   shaders=root/'src/main/resources/assets/example/shaders';shaders.mkdir(parents=True)
