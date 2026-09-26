@@ -22,4 +22,5 @@ assert(noProjectReturn>0&&project.lastIndexOf('useMemo(',noProjectReturn)>0&&pro
 const title=read('launcher/src/components/TitleBar.tsx'),app=read('launcher/src/App.tsx');
 assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manager title remains');
 assert(app.includes('(!embedded || hasContextHeader)'),'embedded manager still reserves the empty title row');
+assert(app.includes('new MutationObserver')&&app.includes('inspectCommittedDom')&&!app.includes('requestAnimationFrame(inspect)'),'seeded Browse runtime timing regressed to compositor-throttled requestAnimationFrame polling');
 console.log(JSON.stringify({passed:true,dragReorder:true,providerPromotion:true,providerPane:true,groups:true,detachReattach:true,fullscreen:true,compactManager:true}));
