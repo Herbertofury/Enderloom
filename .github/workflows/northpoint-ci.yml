@@ -48,7 +48,8 @@ jobs:
             libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            patchelf
+            patchelf \
+            xvfb
 
       - name: Install shell dependencies
         run: npm ci
@@ -64,6 +65,12 @@ jobs:
 
       - name: Browse provider identity regression
         run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
+
+      - name: Browse provider pane static QA
+        run: node scripts/workspace-tabs-qa.js
+
+      - name: Browse provider pane Electron runtime QA
+        run: xvfb-run -a npm run electron-self-test
 
       - name: Northpoint compose config QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_compose_selftest.py
