@@ -112,16 +112,17 @@ pub async fn project_mirrors(
         }
     }
 
-    let mut candidates = std::collections::HashMap::<String, ProjectSummary>::new();
-    for query_text in queries {
+    let searches = queries.into_iter().map(|query_text| async move {
         let query = SearchQuery {
             query: query_text,
             limit: 50,
             ..SearchQuery::default()
         };
-        let Ok(page) = search(state, other, kind, &query).await else {
-            continue;
-        };
+        search(state, other, kind, &query).await
+    });
+
+    let mut candidates = std::collections::HashMap::<String, ProjectSummary>::new();
+    for page in futures::future::join_all(searches).await.into_iter().flatten() {
         for candidate in page.hits {
             candidates.entry(candidate.id.clone()).or_insert(candidate);
         }
