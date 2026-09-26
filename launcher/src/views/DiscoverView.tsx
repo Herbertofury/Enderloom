@@ -197,6 +197,7 @@ export function DiscoverView() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const isPack = kind === "modpacks";
+  const canResolveProviderMirror = provider !== "modrinth" || hasCfKey;
   const usesLoaders = kind === "mods" || kind === "modpacks";
   const modsBlocked = kind === "mods" && !!target && !target.loader;
 
@@ -435,10 +436,11 @@ export function DiscoverView() {
     (project: ProjectSummary) => {
       cancelProjectIntent();
       intentRef.current = setTimeout(() => {
-        prefetchProject(provider, project.id, kind);
+        if (canResolveProviderMirror) prefetchProject(provider, project.id, kind);
+        else prefetchProjectDetails(provider, project.id);
       }, 80);
     },
-    [provider, kind, cancelProjectIntent],
+    [provider, kind, canResolveProviderMirror, cancelProjectIntent],
   );
 
   useEffect(() => cancelProjectIntent, [cancelProjectIntent]);
@@ -947,7 +949,8 @@ export function DiscoverView() {
                             : undefined,
                     onOpen: () => {
                       cancelProjectIntent();
-                      prefetchProject(provider, project.id, kind);
+                      if (canResolveProviderMirror) prefetchProject(provider, project.id, kind);
+                      else prefetchProjectDetails(provider, project.id);
                       openProject(provider, project.id, kind, project.title, project);
                     },
                     onIntent: () => scheduleProjectIntent(project),
