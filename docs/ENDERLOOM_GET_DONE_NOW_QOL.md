@@ -66,6 +66,7 @@ Default behavior while Minecraft runs:
 - Benchmark **Windows CPU Sets** as a soft-affinity tool so Enderloom background workers can prefer cores/sets that minimize interference with Minecraft. Do not hard-code core numbers or assume P/E topology; discover current CPU sets/topology and keep the mapping reversible.
 - Never change Minecraft's priority/affinity/CPU-set/power policy merely to make Enderloom's benchmark look good unless the user separately asks for a game-tuning feature.
 - Reduce Enderloom memory churn and promptly release cold media/WebContents/tool state so the game does not lose useful cache/working-set headroom.
+- A/B Windows **ThreadMemoryPriority/ProcessMemoryPriority** for background workers so low-value Enderloom pages are trimmed before latency-sensitive foreground/game pages; keep only the measured winner.
 - Keep foreground Enderloom control/UI handling responsive through tiny high-priority control-plane work while expensive work remains throttled.
 - A visible user action may temporarily raise only the minimum threads/stages required to acknowledge and plan that action; heavy CPU/disk/network execution remains inside the live game budget.
 - Resource policy must be reversible immediately when Minecraft exits.
@@ -81,6 +82,7 @@ Required:
 - Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom.
 - Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data.
 - Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection.
+- For eligible nonurgent HTTP(S) transfers, A/B Windows **BITS** against Enderloom's own throttled downloader and use whichever preserves foreground/game network responsiveness better without breaking auth, signed URLs, hashes, provenance or resume semantics.
 - Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache.
 - CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed "N cores for Enderloom" merely because the machine usually has spare cores.
 - On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class.
@@ -188,12 +190,17 @@ This rule means **risk-tolerant engineering, not reckless user-data experiments*
 
 Current first-shot challenger set includes where applicable:
 
+- full Windows rich browser shell: **direct Rust + `windows-window` + `windows-webview`/WebView2, optionally `windows-reactor` for native shell chrome** versus the current Electron rich shell;
 - standalone Windows tool host: **Microsoft `windows-window` / `windows-webview` / `windows-reactor`** versus stable Tauri/Wry;
 - very-high-volume Rust-to-Rust bulk IPC/data plane: **iceoryx2 and/or shared-memory+rkyv experiments** versus stable Tokio named pipes + versioned Prost/typed control messages;
+- high-throughput Windows file data plane: **Compio IOCP and/or native Windows IoRing** versus Tokio blocking-filesystem/background-worker paths;
 - allocator: **mimalloc v3** versus Windows/system allocator;
-- provider JSON hot paths: **Sonic-rs** versus serde_json;
-- JAR/ZIP metadata path: **rawzip + zlib-rs** versus generic zip/flate2 path;
+- provider JSON hot paths: **Sonic-rs and simd-json** versus serde_json;
+- JAR/ZIP metadata path: **rawzip + zlib-rs/libdeflate bakeoff** versus generic zip/flate2 path;
 - image resize pipeline: **fast_image_resize** versus current image/libvips candidate paths;
+- shared tool UI: **React 19.3 + React Compiler** versus **SolidJS** on the real Enderloom 10,000-result workload;
+- web build pipeline: current toolchain versus **TypeScript 7 + Vite 8/Rolldown + current Bun** after compatibility proof;
+- game-running background transfers: Enderloom token-bucket downloader versus **Windows BITS** for eligible nonurgent transfers;
 - release-code optimization: ThinLTO/FatLTO/codegen-units/representative PGO variants versus default release profile.
 
 Do not add novelty for its own sake. A challenger needs a plausible measurable advantage in Enderloom's real workload.
@@ -284,7 +291,213 @@ No challenger is promoted if it:
 - meaningfully worsens cold/warm startup or tail latency elsewhere;
 - reduces supported hardware/Windows behavior without an intentional documented compatibility decision.
 
-**G015 closes only when every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven; unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
+### T091 — Direct Rust + WebView2 full-shell challenger
+
+- [ ] **T091** · Give a direct Rust + Microsoft WebView2 shell a full production-shaped A/B opportunity against Electron, and promote it only if it preserves every browser/tool capability while materially improving startup/resource/game-impact performance
+
+Candidate architecture:
+
+- `enderloom-core` remains unchanged as the canonical domain backend.
+- Use `windows-window` + `windows-webview`/WebView2 as the primary direct-Rust challenger; `windows-reactor` may provide lightweight native shell chrome where it benchmarks better than rendering shell chrome inside a WebView.
+- Reuse the same shared Enderloom tool UI source wherever practical; do not create a second private Mod Manager implementation merely for the challenger.
+- The browser/tool capability bridge remains host-agnostic so Electron and WebView2 can be compared without rewriting domain actions.
+
+Exact capability parity fixture before promotion:
+
+- authenticated CurseForge/Modrinth/GitHub/provider sessions;
+- normal tabs, tab restore, back/forward/history, popup/new-window behavior and drag detach/reattach;
+- first-class downloads + T004/T025/T027 behavior;
+- provider/site favorites -> Enderloom state bridge;
+- browser extensions where Enderloom supports them;
+- cookies/profiles/session persistence;
+- permissions and per-origin decisions;
+- context menus, find, keyboard shortcuts and omnibox behavior;
+- DevTools/debug route;
+- media/PiP/mute where supported by accepted browser requirements;
+- exact Open in Mod Manager/World Editor/tool capability flows;
+- split view and cross-tool drag/drop;
+- crash/restart/session recovery.
+
+Performance A/B:
+
+- cold/warm process start -> first visible shell -> interactive shell -> first browser page;
+- first/second/20th browser tab creation and switch latency;
+- process count, private working set, commit, CPU, GPU and disk/network idle cost;
+- page navigation/render latency;
+- hidden/minimized resource use;
+- 1/5/20-tab mixed provider workloads;
+- G014 Minecraft coexistence with shell idle, minimized, visible and actively browsing.
+
+Promotion rule:
+
+- Direct WebView2 wins only if it is **strictly better overall** after complete capability parity and privacy hardening from T092.
+- If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins.
+- Do not maintain two full browser shells indefinitely after the winner is proven; keep one canonical production owner plus only the minimum compatibility/fallback path justified by evidence.
+
+### T092 — WebView2 zero-baggage privacy + zero-jank contract
+
+- [ ] **T092** · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracking surfaces, preload work, or idle resource cost
+
+Privacy / tracking:
+
+- **Tracking prevention must remain enabled for arbitrary/provider web browsing.** Start with WebView2 profile tracking prevention at **Strict** and test every required provider/auth/download flow.
+- A provider may receive a narrowly scoped **Balanced** compatibility exception only when Strict is proven to break an accepted user workflow and the exception is required for that origin. Never globally use `None` merely for speed.
+- Preserve Enderloom's native/adblock/privacy filtering in addition to WebView2 tracking prevention where it can run without breaking required provider functionality. Prefer efficient host/network-level filtering over heavy page-wide JavaScript injection.
+- WebView2 uses an **Enderloom-owned User Data Folder/profile**, local to a fast local app-data path. Never silently reuse/import the user's Edge browser profile, Microsoft account sync, browsing history, favorites, passwords, ad personalization state, shopping/rewards/sidebar/Copilot/news/feed surfaces, or unrelated Edge state.
+- Do not add Enderloom analytics, behavioral telemetry or advertising identifiers to compensate for the host change.
+- Set **custom crash reporting mode** where supported so WebView2 crash data is not automatically sent to Microsoft endpoints; keep local crash evidence and make any external diagnostic upload an explicit user action/opt-in.
+- Audit blank-start, idle, provider-navigation and shutdown network destinations in test builds. Any unexplained Enderloom-owned analytics/ads/rewards/news/consumer-service traffic is a blocker. Required runtime update/security/certificate/provider endpoints must be classified separately rather than mislabeled as tracking.
+- Never weaken HTTPS/certificate validation, reputation/malware protections, sandboxing, process isolation or other browser security merely to reduce latency.
+- Remote pages remain untrusted and cannot directly access privileged Enderloom core operations.
+
+Performance / lag:
+
+- Follow a **native-shell-first / browser-on-demand** policy: do not create WebView2 controls for splash/simple dialogs or start provider browser processes before there is a real browser/tool need unless measured warm-start evidence proves a specific preload improves user latency **without violating G014**.
+- Keep the WebView2 UDF on a fast local physical disk; never place it on a network share/slow roaming path.
+- Reuse compatible WebView2 environments/browser processes rather than constantly destroying/recreating controls, but never share Enderloom's UDF with unrelated applications just to save RAM.
+- Keep hardware acceleration enabled except for a narrow diagnosed compatibility fallback.
+- Use async/batched host<->WebView messages and compact deltas; no synchronous giant object bridge.
+- For invisible/minimized/cold tabs, A/B **TrySuspend** versus WebView2's low `MemoryUsageTargetLevel`; use the winning supported approach, not both simultaneously. Resume before visible interaction.
+- While Minecraft runs, hidden WebViews should be suspended/low-memory and speculative browser preloads must remain off unless G014 proves no game impact.
+- Never suspend a WebView that is intentionally playing media, performing a user-requested critical browser action, or owning state that WebView2 documents as incompatible with suspension; use the resource governor rather than blindly freezing it.
+- Instrument ETW/WebView2 process lifecycle, long tasks, navigation, renderer/GPU CPU, working set and idle wakeups. A shell that feels lighter while hiding periodic 100ms+ stalls or background wakeups fails.
+
+**Hard acceptance:** same provider/profile dataset -> Electron baseline and privacy-hardened WebView2 challenger -> verify identical accepted capability -> inspect startup/idle network destinations -> Strict tracking prevention works or only minimal origin-scoped Balanced exceptions are recorded -> no automatic Microsoft crash reporting -> 20-tab stress + hidden-tab suspend/resume -> zero state loss -> G014 coexistence -> promote WebView2 only if the complete result is superior.
+
+### T093 — Compio / Windows IoRing high-throughput file data-plane challenger
+
+- [ ] **T093** · A/B Tokio's normal filesystem path against Compio IOCP and native Windows IoRing for high-volume file/CAS operations while retaining Tokio as the general control plane
+
+Target workloads:
+
+- CAS object read/write/promotion;
+- download staging/finalize;
+- large pack import/export;
+- multi-file verification/hash reads;
+- JAR metadata reads where access patterns fit;
+- bulk copy/materialization;
+- future World Editor region/chunk data I/O.
+
+Rules:
+
+- Do **not** rewrite the whole runtime around Compio/IoRing. Tokio remains the general control/network/IPC scheduler unless a separate benchmark proves otherwise.
+- Compio/IoRing becomes a specialized file data plane only where completion-based I/O materially reduces CPU, context switches, tail latency or game interference.
+- IoRing is Windows-only and file-I/O-specific; keep the normal supported filesystem fallback for unsupported Windows versions/filesystems/operations.
+- Ensure buffer/file lifetime ownership is memory-safe and cancellation cannot publish partial data.
+- Integrate through the same staging/hash/CAS/atomic-commit semantics; a faster I/O backend may not bypass T060/T061/T065/T069.
+- A/B across NVMe, SATA SSD, small-file-heavy JAR sets, large sequential pack files, concurrent Minecraft loading and G014 game coexistence.
+- If completion-based I/O adds complexity without a meaningful real-world win, defer it and tune the stable path.
+
+### T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
+
+- [ ] **T094** · Make Minecraft JAR/ZIP inspection use the fastest proven parser/decompressor combination for each workload without reducing format coverage or hostile-input safety
+
+Required:
+
+- Use **rawzip** as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archive extraction.
+- Compare **zlib-rs** and **libdeflate** on real Forge/NeoForge/Fabric/Quilt/modpack archives.
+- Prefer zlib-rs for streaming/unknown-length paths when it wins and libdeflate for complete known compressed buffers when its bulk decompression wins; do not force one backend across every pattern.
+- Retain a current full-featured ZIP implementation for writer/exotic compatibility paths that rawzip deliberately does not own.
+- Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, CPU/RAM and G014 impact.
+- Fuzz malformed/truncated/encrypted/Zip64/path-traversal/zip-bomb-style inputs and require equivalent-or-better rejection behavior before promotion.
+- Persist parsed metadata by content identity so even the winning parser is not called again for unchanged artifacts.
+
+### T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun
+
+- [ ] **T095** · Modernize the web/tool build baseline and A/B the shared UI runtime using Enderloom's real large-catalog workloads rather than framework microbenchmarks
+
+Build/tooling baseline candidate:
+
+- current production-compatible **TypeScript 7**;
+- current **Vite 8/Rolldown**;
+- current stable **Bun** where the repo already uses Bun;
+- retain npm/package-lock compatibility where release tooling actually depends on it.
+
+Shared UI A/B:
+
+- stable baseline: **React 19.3 + React Compiler** with measured memoization/render cleanup;
+- challenger: current production-ready **SolidJS** using the same visual design, state contract, Enderloom core bridge and browser/tool capability surface.
+
+Required fixture:
+
+- 10,000 logical Mods/Browse results;
+- provider reconciliation/deltas;
+- rapid typing/fuzzy search;
+- sort/filter changes;
+- Ctrl+A and range selection;
+- update/download progress across many cards;
+- favorite toggles;
+- image-heavy scroll;
+- context menus;
+- tab detach/reattach;
+- running-Minecraft G014 test.
+
+Measure:
+
+- cold/warm JS parse/evaluate + first interactive paint;
+- update/render CPU;
+- long tasks;
+- GC;
+- RAM;
+- scroll frame consistency;
+- state propagation latency;
+- blank/pop-in events under T067;
+- build/check iteration time separately from runtime performance.
+
+Promotion:
+
+- Framework/build upgrades are candidates until complete workflow compatibility passes.
+- Do not rewrite the UI to Solid merely because synthetic benchmarks are favorable; it must materially improve Enderloom's real workload and preserve the one-UI/multi-host platform.
+- If React Compiler closes the gap or React remains superior overall, keep React and retain the benchmark fixture.
+
+### T096 — BITS + Windows memory-priority challengers for Minecraft Game Running Mode
+
+- [ ] **T096** · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
+
+BITS challenger:
+
+- For **eligible nonurgent/background HTTP(S) artifacts only**, A/B Enderloom's token-bucket downloader against Windows BITS.
+- BITS is attractive because it intentionally uses idle bandwidth and backs off as foreground network demand rises; use that behavior only when provider auth/signed-URL/session semantics remain correct.
+- Do not route short-lived authenticated/provider-browser requests, user-clicked foreground downloads or flows BITS cannot faithfully represent through BITS just to simplify code.
+- Preserve download provenance/hash/resume/CAS validation after BITS completes; BITS is a transport lane, not a trust decision.
+- If BITS causes worse start latency, provider incompatibility or lower G014 coexistence than Enderloom's own governor, use the native downloader.
+
+Memory-priority challenger:
+
+- During Game Running Mode, use Windows **ThreadMemoryPriority/ProcessMemoryPriority** on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages.
+- Keep foreground UI/control-plane memory at normal priority.
+- Never set Minecraft's memory priority for benchmark manipulation.
+- A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
+
+### T097 — Modernize and harden the existing provider transport stack without downgrading it
+
+- [ ] **T097** · Keep Enderloom's existing wreq/BoringSSL + impit multi-transport advantage, update compatible transport components, and make trust/rate/failure behavior explicit
+
+Required:
+
+- Test/upgrade **impit 0.14.5 or current newer stable** from the repo's older baseline only after existing browser-impersonation/HTTP3/provider QA passes unchanged or better.
+- Do not replace wreq/impit with plain reqwest merely because reqwest is familiar; the existing native transport/race/hedging system is a proven Enderloom capability.
+- Deliberately configure certificate trust per lane. Normal provider/API traffic should support the host's legitimate system trust requirements where safe, including managed/private CA environments, while impersonation-specific lanes preserve their required TLS fidelity.
+- Never use `ignoreTlsErrors`/equivalent in production provider traffic as a performance shortcut.
+- Keep origin/provider-specific connection pools, rate budgets, Retry-After handling, cancellation and single-flight.
+- Hedge/race only idempotent operations with historical evidence that the extra request cost buys a real latency/tail win; do not duplicate every request.
+- Capture provider/network latency separately from local Enderloom overhead so a transport change cannot claim victory by hitting a faster external response sample.
+
+### T098 — Expand G015 into a permanent whole-stack challenger matrix
+
+- [ ] **T098** · Treat the selected stack as the strongest proven baseline, never as untouchable dogma, and continuously admit superior challengers without destabilizing releases
+
+Required:
+
+- Maintain a machine-readable subsystem matrix: current canonical implementation, fallback, current challenger, version/build flags, benchmark fixtures, last result, promotion/defer reason and next invalidator.
+- At architecture/release checkpoints, perform a bounded freshness scan for material upstream changes in the selected technologies and their credible challengers.
+- A newly superior candidate enters G015; it does not trigger an automatic rewrite.
+- If a promoted risky technology later regresses after an upstream/runtime/Windows update, fail back to the last proven compatible implementation and reopen the challenger rather than forcing users through the regression.
+- Use exact workload profiles: launch, Browse, Mods, search, DB, filesystem, archive, IPC, media, networking, UI rendering, standalone host, full browser shell and G014 Minecraft coexistence.
+- The permanent target is the **best measured composition**, even when that composition mixes stable and bleeding-edge components from different ecosystems.
+
+
+**G015 closes only when T085-T098 are complete and every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven; unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
 
 ---
 
@@ -2142,4 +2355,4 @@ This document is complete only when **G014, G015, G012, G013, G010, and G011 are
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; **with Minecraft running, Enderloom remains within G014's zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.**
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T098, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; **with Minecraft running, Enderloom remains within G014's zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.**
