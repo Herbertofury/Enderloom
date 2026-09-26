@@ -188,13 +188,13 @@ function App() {
             </div>
           </div>
         ) : (
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync" initial={false}>
             <motion.div
               key={view}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: view === "discover" || view === "project" ? 0.06 : 0.15 }}
               className="flex min-h-0 flex-1 flex-col"
             >
               <Suspense fallback={<div className="flex-1" />}>
