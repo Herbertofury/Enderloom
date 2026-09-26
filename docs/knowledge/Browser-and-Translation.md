@@ -24,6 +24,7 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-879211ae4a7be28ff70d](Acceptance-LIB.md#d-879211ae4a7be28ff70d) - The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
 - [D-3ca8ca9454eb71ed9e8f](Acceptance-LIB.md#d-3ca8ca9454eb71ed9e8f) - · Browser extensions [T005]
 - [D-c1b8a296542828aae260](Acceptance-LIB.md#d-c1b8a296542828aae260) - · Upgrade and pin/test the newest stable Electron baseline before the browser modernization lands [T026]
+- [D-d6ff45a777131478beaa](Acceptance-LIB.md#d-d6ff45a777131478beaa) - Observed failure: a project opened from one provider can fail to expose its real listing on the other provider. The concrete regression is Punchy!: CurseForge presents “P...
 - [D-99f676cb2b242d5c2fd3](Acceptance-LIB.md#d-99f676cb2b242d5c2fd3) - · GitHub opens directly inside Browse like Modrinth/CurseForge, with compact promotion into a normal Enderloom tab [T044]
 - [D-2e01c06469aa6e78f992](Acceptance-LIB.md#d-2e01c06469aa6e78f992) - Required behavior:
 - [D-455bc90b83252f329ac4](Acceptance-LIB.md#d-455bc90b83252f329ac4) - · Add Ctrl+Shift+T, recently closed tabs, and durable browser-session restore [T029]
