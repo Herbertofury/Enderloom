@@ -29,13 +29,57 @@ import { ConversionView } from "./views/ConversionView";
 import { ProjectView } from "./views/ProjectView";
 import { SettingsView } from "./views/SettingsView";
 import { useStore } from "./store";
-import type { View } from "./lib/types";
+import type { ProjectSummary, View } from "./lib/types";
 
 const StatsView = lazy(() =>
   import("./views/StatsView").then((module) => ({ default: module.StatsView })),
 );
 
 const embedded = window.enderloomLauncher?.embedded === true;
+
+if (window.enderloomLauncher?.selfTest) {
+  const testWindow = window as Window & {
+    __enderloomBrowseTest?: {
+      openSeededProject: (
+        seed: ProjectSummary,
+      ) => Promise<{ elapsedMs: number; heading: string; timedOut: boolean }>;
+    };
+  };
+
+  testWindow.__enderloomBrowseTest = {
+    openSeededProject: (seed) =>
+      new Promise((resolve) => {
+        const started = performance.now();
+        let settled = false;
+        let timer = 0;
+        const finish = (heading: string, timedOut: boolean) => {
+          if (settled) return;
+          settled = true;
+          if (timer) window.clearTimeout(timer);
+          resolve({
+            elapsedMs: performance.now() - started,
+            heading,
+            timedOut,
+          });
+        };
+        const inspect = () => {
+          const heading = document.querySelector("h1")?.textContent?.trim() ?? "";
+          if (heading === seed.title) {
+            requestAnimationFrame(() => finish(heading, false));
+            return;
+          }
+          if (!settled) requestAnimationFrame(inspect);
+        };
+
+        useStore.setState({ catalogInstallRequest: null });
+        useStore.getState().openProject("modrinth", seed.id, "mods", seed.title, seed);
+        requestAnimationFrame(inspect);
+        timer = window.setTimeout(() => {
+          finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
+        }, 2_000);
+      }),
+  };
+}
 
 const VIEWS: Record<View, React.ComponentType> = {
   home: HomeView,
