@@ -86,6 +86,9 @@ function githubSourceFrom(details: Array<ProjectDetails | null>): string | null 
 
 export function ProjectView() {
   const projectRef = useStore((s) => s.projectRef);
+  const hasCurseForgeAccess = useStore(
+    (s) => !!s.settings?.curseforge_api_key || s.bundledCurseforgeKey,
+  );
   const storeKind = useStore((s) => s.searchKind);
   const kind: ContentKind = storeKind ?? "mods";
   const instance = useStore((s) =>
@@ -179,6 +182,8 @@ export function ProjectView() {
   const [pickingTarget, setPickingTarget] = useState(false);
 
   const isPack = kind === "modpacks";
+  const canResolveProviderMirror =
+    projectRef?.provider !== "modrinth" || hasCurseForgeAccess;
   const loader = kind === "mods" ? (destination?.loader ?? null) : null;
   const contentInstaller = useContentInstaller();
 
@@ -225,17 +230,19 @@ export function ProjectView() {
         if (live) setLoading(false);
       });
 
-    void detailRequest
-      .then(() => loadProjectMirrors(projectRef.provider, projectRef.id, kind))
-      .then((value) => {
-        if (live) setMirrors(value);
-      })
-      .catch(() => {});
+    if (canResolveProviderMirror) {
+      void detailRequest
+        .then(() => loadProjectMirrors(projectRef.provider, projectRef.id, kind))
+        .then((value) => {
+          if (live) setMirrors(value);
+        })
+        .catch(() => {});
+    }
 
     return () => {
       live = false;
     };
-  }, [projectRef?.provider, projectRef?.id, kind]);
+  }, [projectRef?.provider, projectRef?.id, kind, canResolveProviderMirror]);
 
   useEffect(() => {
     let live = true;
