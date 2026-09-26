@@ -17,24 +17,23 @@ import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
 import { CatalogInstallModal } from "./components/CatalogInstallModal";
 import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
-import { AccountsView } from "./views/AccountsView";
 import { HomeView } from "./views/HomeView";
-import { InstanceView } from "./views/InstanceView";
-import { InstancesView } from "./views/InstancesView";
-import { ServerView } from "./views/ServerView";
-import { ServersView } from "./views/ServersView";
 import { DiscoverView } from "./views/DiscoverView";
-import { LogsView } from "./views/LogsView";
-import { ConversionView } from "./views/ConversionView";
 import { ProjectView } from "./views/ProjectView";
-import { SettingsView } from "./views/SettingsView";
 import { useStore } from "./store";
 import { buildInstalledInstancesByProject } from "./lib/browse-index";
+import { DEFERRED_VIEW_LOADERS } from "./lib/view-modules";
 import type { Instance, ProjectSummary, View } from "./lib/types";
 
-const StatsView = lazy(() =>
-  import("./views/StatsView").then((module) => ({ default: module.StatsView })),
-);
+const AccountsView = lazy(DEFERRED_VIEW_LOADERS.accounts!);
+const InstanceView = lazy(DEFERRED_VIEW_LOADERS.instance!);
+const InstancesView = lazy(DEFERRED_VIEW_LOADERS.instances!);
+const ServerView = lazy(DEFERRED_VIEW_LOADERS.server!);
+const ServersView = lazy(DEFERRED_VIEW_LOADERS.servers!);
+const LogsView = lazy(DEFERRED_VIEW_LOADERS.logs!);
+const ConversionView = lazy(DEFERRED_VIEW_LOADERS.convert!);
+const SettingsView = lazy(DEFERRED_VIEW_LOADERS.settings!);
+const StatsView = lazy(DEFERRED_VIEW_LOADERS.stats!);
 
 const embedded = window.enderloomLauncher?.embedded === true;
 
