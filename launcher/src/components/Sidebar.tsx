@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import {
@@ -30,9 +30,14 @@ import type { Instance, VersionMedia, View } from "../lib/types";
 import { PlayerHead } from "./Avatar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { ContextMenu, useContextMenu, type MenuItem } from "./ContextMenu";
-import { EditInstanceModal } from "./EditInstanceModal";
-import { ExportPackModal } from "./ExportPackModal";
 import { useStore } from "../store";
+
+const EditInstanceModal = lazy(() =>
+  import("./EditInstanceModal").then((module) => ({ default: module.EditInstanceModal })),
+);
+const ExportPackModal = lazy(() =>
+  import("./ExportPackModal").then((module) => ({ default: module.ExportPackModal })),
+);
 
 const MAX_TILES = 8;
 const TILE_SIZE = 44;
@@ -526,8 +531,16 @@ export function Sidebar() {
 
       <ContextMenu menu={menu} onClose={closeMenu} />
 
-      <EditInstanceModal instance={editing} onClose={() => setEditing(null)} />
-      <ExportPackModal instance={exporting} onClose={() => setExporting(null)} />
+      {editing && (
+        <Suspense fallback={null}>
+          <EditInstanceModal instance={editing} onClose={() => setEditing(null)} />
+        </Suspense>
+      )}
+      {exporting && (
+        <Suspense fallback={null}>
+          <ExportPackModal instance={exporting} onClose={() => setExporting(null)} />
+        </Suspense>
+      )}
 
       <ConfirmDialog
         open={!!removing}
