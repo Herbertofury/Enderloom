@@ -8,7 +8,7 @@
 
 ## Objective
 
-Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation feel at least as immediate and dependable as CurseForge/Modrinth while preserving Enderloom's stronger provenance, rollback, dependency, and recovery guarantees.
+Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation are **strictly faster and richer than both CurseForge and Modrinth** wherever technically comparable, while preserving or improving Enderloom's stronger provenance, rollback, dependency, recovery, correctness, and coverage guarantees.
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
@@ -22,10 +22,11 @@ The target is not merely "fewer spinners." The target is **lower real latency an
 
 ### Non-negotiable zero-loss performance law
 
-A performance change is accepted only when **both** are true:
+A performance/coverage change is accepted only when **all three** are true:
 
-1. **Performance improves materially** on the targeted hot path; and
-2. **Result equivalence is preserved or improved**: no fewer projects, files, versions, provider matches, metadata fields, dependencies, relations, screenshots/media, validation steps, hashes, provenance, compatibility checks, rollback guarantees, supported content types, UI capability, or correctness.
+1. **Speed superiority:** the targeted technically equivalent hot path is measurably faster than **both** CurseForge and Modrinth; a tie with either comparator is not completion.
+2. **Amount/coverage superiority:** Enderloom's complete comparable result/capability set is strictly larger and more useful than **both** clients, measured with deduplicated canonical projects/sources, compatible files/releases, metadata fields, dependency/relations intelligence, media/changelogs, provenance/context, and available actions — never by padding duplicates or irrelevant records.
+3. **Zero regression:** no protected dimension becomes worse: projects, files, versions, provider matches, metadata, dependencies, relations, screenshots/media, validation steps, hashes, provenance, compatibility checks, rollback guarantees, supported content types, UI capability, correctness, persistence, or recovery.
 
 The following are **not optimizations** and must fail review:
 
@@ -45,7 +46,7 @@ The following are **not optimizations** and must fail review:
 
 ### Authorized CurseForge + Modrinth desktop reference access
 
-For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform **strictly better than both in speed and useful amount/coverage****.
+For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform strictly better than both in speed and useful amount/coverage.**
 
 Treat those locally installed clients as first-class authorized reference implementations:
 
@@ -166,7 +167,6 @@ Acceptance:
 
 - Enderloom must be **measurably faster than both clients** on comparable median user-visible latency after separating external network/provider time where appropriate; equality with either client leaves the task open.
 - Enderloom must also beat both on p95/p99 responsiveness where the workflow is technically comparable, so a fast median cannot hide severe stalls.
-- p95 responsiveness must not hide severe stalls even when the median looks good.
 - Result counts and coverage must be reconciled: expected/discovered/returned/accepted/rejected/unresolved, plus canonical deduplication so duplicate padding cannot fake superiority.
 - Search, Browse, provider reconciliation, update discovery, dependency plans, downloads, installs, and local content views must expose **strictly more useful aggregate information/capability than each comparator** while preserving at least the full pre-optimization Enderloom result set.
 - No individual protected dimension may regress below either comparator when that dimension is technically comparable; superiority must come from real extra coverage/intelligence/capability, not noise.
