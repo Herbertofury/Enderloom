@@ -4,11 +4,11 @@
 **Created:** 2026-09-24  
 **Repository:** `Herbertofury/Enderloom`  
 **Updated:** 2026-09-26  
-**Priority:** **ARCHITECTURE PRIORITY -1 is the Rust-native `enderloom-core`; ABSOLUTE PRIORITY ZERO remains whole-app speed/responsiveness AND useful amount/coverage superiority.** Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster **and** equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be **strictly faster than both** installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
+**Priority:** **ABSOLUTE PRIORITY -2 is Minecraft-running zero-impact supremacy; ARCHITECTURE PRIORITY -1 is the Rust-native `enderloom-core` + reusable Tool Platform; ABSOLUTE PRIORITY ZERO remains whole-app speed/responsiveness AND useful amount/coverage superiority.** Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster **and** equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be **strictly faster than both** installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
 
 ## Objective
 
-Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation are **strictly faster and richer than both CurseForge and Modrinth** wherever technically comparable, while preserving or improving Enderloom's stronger provenance, rollback, dependency, recovery, correctness, and coverage guarantees.
+Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation are **strictly faster and richer than both CurseForge and Modrinth** wherever technically comparable, while preserving or improving Enderloom's stronger provenance, rollback, dependency, recovery, correctness, and coverage guarantees. **When Minecraft is running, Enderloom must be effectively performance-invisible to the game while remaining fully usable for safe management of the running instance and other instances.**
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
@@ -20,6 +20,273 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 - After two materially unchanged failed attempts without new evidence, change strategy: repair the missing capability/environment/abstraction or use a different supported route instead of repeating the same failure.
 - Never close on "cannot", a provider miss, a failed tool, stale auth, build failure, test failure, performance miss, or incomplete proof; failures are routing signals until the accepted requirement is actually resolved or a genuine user-only authorization/action is required.
 - Resume from stable task IDs and existing proof after interruption/compaction; never regenerate or silently shrink this contract just to make the remaining work easier.
+
+## G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy
+
+- [ ] **G014 · RELEASE-BLOCKING GAME IMPACT GATE** — Whenever one or more Minecraft client/server instances are actively running, Enderloom must have **no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited**, while Enderloom remains responsive and capable of safely managing the running instance and other instances.
+
+This is the **highest product invariant in this document**. It applies to every architecture, cache, indexer, provider fetcher, benchmark, background task, updater, downloader, World Editor/tool host, Electron surface, standalone tool, and future Enderloom feature. If an optimization makes Enderloom itself faster but measurably hurts a running Minecraft process, the optimization fails.
+
+### Zero-impact definition
+
+The target is literal **0.0 user-visible impact**. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
+
+- Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped.
+- Candidate B: the exact same Minecraft workload with Enderloom running idle, then with representative management UI open, then with bounded background work active.
+- A passing result shows **no statistically significant regression and remains inside a predeclared equivalence/noise band** for median FPS, 1%/0.1% lows, p95/p99/p99.9 frame time, stutter count, tick/simulation metrics where available, and load/transition timings.
+- As an initial hard engineering guardrail, any repeatable Minecraft degradation around **0.5% or greater in FPS/lows, or any repeatable frame-time/stutter regression that is visible above run-to-run noise, fails** and must be profiled/fixed even if average FPS still looks high.
+- The gate may tighten below 0.5% whenever the benchmark environment is stable enough to resolve a smaller effect.
+- "Task Manager looks low", low average CPU, or a synthetic microbenchmark is not game-impact proof.
+
+### T078 — Robust Minecraft lifecycle detection and game-running operating state
+
+- [ ] **T078** · Detect every Enderloom-relevant running Minecraft instance reliably and enter/leave Game Running Mode without polling storms or false positives
+
+Required:
+
+- Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, and other strong evidence rather than matching every `java.exe`.
+- Track multiple simultaneous clients/servers independently.
+- Know which Enderloom instance/profile/world/server each recognized process belongs to when evidence supports it.
+- External launcher/process disappearance or telemetry failure becomes unresolved state, not permission to assume the game exited and resume heavy background work.
+- Transition into Game Running Mode promptly after launch/process detection and remain there through launcher handoff/startup transitions that still materially contend with game startup.
+- Exit only after all recognized Minecraft workloads are gone or a safe cooldown confirms the relevant process lifecycle ended.
+- Process detection itself must be event-driven or very low-cost and must not create the overhead this gate is trying to eliminate.
+
+### T079 — Game Running Resource Governor: Minecraft always wins resource contention
+
+- [ ] **T079** · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
+
+Default behavior while Minecraft runs:
+
+- P2 speculative prefetch and P3 maintenance/cleanup/deep verification/compaction pause or become near-idle unless required for the current foreground action.
+- Background provider refresh, catalog enrichment, cache maintenance, image transcoding, indexing, hash verification, dependency precomputation, update scans and non-user-requested downloads are deferred, coalesced or severely budgeted.
+- Core/database/provider/download workers that are not directly serving the visible Enderloom interaction enter Windows background/EcoQoS-style execution where supported.
+- Use Windows **PROCESS_MODE_BACKGROUND_BEGIN/END** or equivalent thread-scoped scheduling for real background work so CPU **and I/O scheduling pressure** are lowered; lowering CPU priority alone is explicitly insufficient.
+- Use **ProcessPowerThrottling / EcoQoS** for non-foreground/non-latency-critical workers where supported.
+- Benchmark **Windows CPU Sets** as a soft-affinity tool so Enderloom background workers can prefer cores/sets that minimize interference with Minecraft. Do not hard-code core numbers or assume P/E topology; discover current CPU sets/topology and keep the mapping reversible.
+- Never change Minecraft's priority/affinity/CPU-set/power policy merely to make Enderloom's benchmark look good unless the user separately asks for a game-tuning feature.
+- Reduce Enderloom memory churn and promptly release cold media/WebContents/tool state so the game does not lose useful cache/working-set headroom.
+- Keep foreground Enderloom control/UI handling responsive through tiny high-priority control-plane work while expensive work remains throttled.
+- A visible user action may temporarily raise only the minimum threads/stages required to acknowledge and plan that action; heavy CPU/disk/network execution remains inside the live game budget.
+- Resource policy must be reversible immediately when Minecraft exits.
+
+### T080 — Adaptive CPU / disk / memory / network interference budgets
+
+- [ ] **T080** · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
+
+Required:
+
+- Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-safe telemetry.
+- Where practical capture game-facing frame/tick/load telemetry in benchmark/perf builds; production mode may use lighter process/system headroom signals.
+- Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom.
+- Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data.
+- Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection.
+- Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache.
+- CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed "N cores for Enderloom" merely because the machine usually has spare cores.
+- On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class.
+- All adaptive decisions are bounded/hysteretic so the scheduler does not oscillate every few milliseconds.
+
+### T081 — Full management remains available while Minecraft runs
+
+- [ ] **T081** · Keep Enderloom genuinely useful during gameplay without paying for that capability in game performance
+
+While a game is running the user must still be able to:
+
+- instantly open/switch Enderloom, Mod Manager, Browse and supported standalone/tabbed tools;
+- inspect the running instance, installed content, provider identity, versions, dependency state, favorites and logs from cached/incremental canonical state;
+- manage **other** Minecraft instances normally, with heavy work throttled to the game-safe budget;
+- queue/install/update/download content for another instance without freezing the UI or stealing game frametime;
+- inspect the running instance's logs, crash evidence, launch/runtime metadata, screenshots and other safe live information;
+- prepare changes for the running instance and clearly mark anything that cannot safely take effect until restart;
+- perform safe live actions where the actual content/runtime permits them.
+
+Safety:
+
+- Never replace/remove a JAR or mutate files whose live use can corrupt the running instance merely because the UI action was requested. Stage the desired state and apply it at the correct safe lifecycle boundary.
+- Config/world changes follow the tool/content-specific live-safety contract; ambiguous live mutation asks for explicit user confirmation or schedules the change for restart rather than guessing.
+- Game Running Mode is not "disable Enderloom." It is "perform the same useful management through smarter scheduling, caches, deltas, staging and low-interference execution."
+
+### T082 — Automated Minecraft coexistence benchmark harness
+
+- [ ] **T082** · Build a repeatable real-Minecraft A/B harness that proves Enderloom is invisible to game performance
+
+Required test families:
+
+- vanilla/current supported client baseline;
+- representative Forge/NeoForge/Fabric instances;
+- a large/heavy modpack fixture;
+- chunk traversal/loading stress;
+- inventory/menu/UI-heavy interaction;
+- world load and dimension transition;
+- game idle in-world;
+- active gameplay/camera traversal;
+- optional server/tick fixture where applicable.
+
+Compare at minimum:
+
+1. Minecraft with Enderloom completely exited;
+2. Minecraft + Enderloom core/service idle;
+3. Minecraft + Electron shell idle/minimized;
+4. Minecraft + standalone Mod Manager open;
+5. Minecraft + active Browse/Mod Manager interaction;
+6. Minecraft + bounded background provider/index/cache work;
+7. Minecraft + user-requested download/update/install on another instance.
+
+Capture where practical:
+
+- PresentMon/ETW or equivalent frame-present evidence;
+- average/median FPS;
+- 1% and 0.1% lows;
+- p95/p99/p99.9 frame time and stutter/event counts;
+- CPU scheduling/utilization;
+- disk I/O/latency/queueing;
+- memory/commit/working-set pressure;
+- GPU utilization where Enderloom UI/compositing could interfere;
+- network throughput/latency;
+- Minecraft server tick/TPS/MSPT where relevant.
+
+Use repeated paired runs, stable workload/world/camera route where practical, release builds, and enough trials to characterize noise. A one-run "FPS looked the same" result is invalid.
+
+### T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
+
+- [ ] **T083** · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
+
+Acceptance:
+
+- Enderloom's game-impact result must remain statistically equivalent to the **fully-exited Enderloom baseline** and no worse than either comparator's game-impact result.
+- When all clients are effectively zero-impact within measurement resolution, Enderloom wins through lower background CPU/disk/network/memory footprint, faster management interactions, richer capability/coverage, or a combination thereof without worsening Minecraft.
+- Compare idle/minimized, mod-manager open, browse interaction, provider refresh, another-instance update/download and restart/restore.
+- Record exact comparator builds and repeat when they materially update.
+- If a comparator protects Minecraft better on any equivalent workload, G014 remains open until Enderloom meets or exceeds it.
+
+### T084 — Permanent game-impact ratchet
+
+- [ ] **T084** · Make zero-impact coexistence a permanent CI/release/performance invariant
+
+Required:
+
+- Store machine-readable game-impact baselines and equivalence bands tied to Enderloom commit/build, Minecraft fixture/version, modpack/world fixture, hardware class and test methodology.
+- Every change touching scheduler, IPC, Electron/Tauri/WebView, database, filesystem indexer, provider work, downloader, media pipeline, background service, caching or tool hosting runs the cheapest decisive affected coexistence test.
+- Full T082/T083 suites run at release gates and after major architecture changes.
+- A later change cannot trade game performance for a faster Enderloom benchmark.
+- If the test environment is too noisy to prove equivalence, the result is **unverified**, not pass.
+- Release is blocked on repeatable game-impact regression until the causal Enderloom work is fixed or removed.
+
+**G014 closes only when T078-T084 are production-wired and packaged-runtime proof shows Minecraft with Enderloom active is equivalent within measurement noise to Minecraft with Enderloom fully exited across the accepted coexistence workloads.**
+
+---
+
+## G015 — Bleeding-edge challenger-first technology promotion
+
+- [ ] **G015 · TECHNOLOGY PROMOTION GATE** — For performance-critical subsystems, Enderloom gives credible bleeding-edge/risky technology the **first serious challenger attempt** when it has a plausible architectural advantage, but promotes it only after it beats the stable implementation on equivalent speed/resources **and** passes stronger correctness, crash, data-integrity, compatibility and recovery proof. Stable fallbacks remain available until the challenger earns removal of the old path.
+
+This rule means **risk-tolerant engineering, not reckless user-data experiments**.
+
+### T085 — Maintain stable baselines and explicit challenger candidates
+
+- [ ] **T085** · For each material performance subsystem, name the stable baseline and the strongest credible challenger before freezing the architecture
+
+Current first-shot challenger set includes where applicable:
+
+- standalone Windows tool host: **Microsoft `windows-window` / `windows-webview` / `windows-reactor`** versus stable Tauri/Wry;
+- very-high-volume Rust-to-Rust bulk IPC/data plane: **iceoryx2 and/or shared-memory+rkyv experiments** versus stable Tokio named pipes + versioned Prost/typed control messages;
+- allocator: **mimalloc v3** versus Windows/system allocator;
+- provider JSON hot paths: **Sonic-rs** versus serde_json;
+- JAR/ZIP metadata path: **rawzip + zlib-rs** versus generic zip/flate2 path;
+- image resize pipeline: **fast_image_resize** versus current image/libvips candidate paths;
+- release-code optimization: ThinLTO/FatLTO/codegen-units/representative PGO variants versus default release profile.
+
+Do not add novelty for its own sake. A challenger needs a plausible measurable advantage in Enderloom's real workload.
+
+### T086 — Risky challenger gets the first isolated implementation shot
+
+- [ ] **T086** · When a challenger is credible and reversible, prototype/repair it first in an isolated production-shaped path rather than automatically defaulting to the conservative option
+
+Rules:
+
+- Use the real Enderloom command/state schema and workload, not a toy benchmark that hides integration cost.
+- Before touching live user state, run the challenger against fixtures, copied/synthetic instances, shadow databases, disposable CAS roots, and isolated benchmark profiles.
+- Mirror/read-only/shadow mode is preferred where the challenger can execute alongside the stable path and compare outputs without becoming authoritative.
+- Challenger failure never corrupts or blocks the existing working stable path.
+- Record exact library/runtime versions, build flags and hardware/OS conditions so results can be reproduced.
+
+### T087 — A/B promotion requires speed + complete-result + reliability superiority
+
+- [ ] **T087** · Promote the risky challenger only when an apples-to-apples A/B proves it is genuinely better overall
+
+For each candidate compare:
+
+- cold/warm latency;
+- throughput;
+- p95/p99 tail latency;
+- CPU;
+- memory;
+- disk/network I/O;
+- startup/packaging cost;
+- complete result/output equivalence;
+- freshness/canonical identity correctness;
+- crash/restart behavior;
+- malformed/hostile input handling where applicable;
+- data integrity and interrupted-write/operation recovery;
+- game-running coexistence under G014.
+
+Promotion rule:
+
+- A challenger that is faster but less correct, less complete, less portable, less crash-safe, or more damaging to Minecraft **loses**.
+- A stable path that is slower but only because the challenger silently does less work remains the loser only after the challenger performs the exact same accepted work.
+- If the risky candidate wins materially and passes all protected dimensions, **use the risky candidate as the new canonical implementation** rather than keeping the slower stable technology merely because it is familiar.
+- Once promoted, its measured wins become the next stable baseline/ratchet.
+
+### T088 — Hard-failure breaker and automatic stable fallback
+
+- [ ] **T088** · Do not let a bleeding-edge dependency stall Enderloom indefinitely
+
+Hard-failure policy:
+
+- First failure: diagnose earliest causal owner and repair the challenger.
+- Second materially different failure without meaningful new progress: change strategy/adapter/integration approach once more if a credible route remains.
+- If the candidate still cannot pass the real vertical slice, crashes/corrupts data, lacks a required Windows/security/runtime capability, or consumes disproportionate engineering effort with no measured advantage, mark it **CHALLENGER-DEFERRED** for the current release and activate the proven stable path.
+- Stable fallback is a successful recovery route, **not permission to stop performance work**; tune the stable path and retain the challenger fixture/version evidence for later re-evaluation.
+- Re-test a deferred challenger only after a real invalidator such as a materially improved upstream release, fixed missing capability, new adapter, or evidence that the prior blocker is gone.
+- Never loop the same broken experimental integration indefinitely.
+
+### T089 — Canary/shadow graduation before live user-state authority
+
+- [ ] **T089** · Graduate risky storage/IPC/host/parser/runtime technology through increasing authority instead of jumping directly into user data
+
+Recommended stages where relevant:
+
+1. benchmark-only disposable fixture;
+2. shadow/read-only output comparison;
+3. writable disposable copy with crash injection;
+4. migration/rollback test against copied real-shaped data;
+5. opt-in/internal canary;
+6. packaged runtime proof;
+7. canonical production owner.
+
+At every stage preserve a one-command/one-setting rollback to the last proven stable owner until the new path has passed the relevant final gate.
+
+### T090 — Experimental technology can never weaken G014/G010/G011
+
+- [ ] **T090** · Treat risky-tech success as subordinate to Enderloom's complete product invariants
+
+No challenger is promoted if it:
+
+- increases Minecraft game impact;
+- causes blank/missing UI results;
+- loses provider/project metadata;
+- breaks authenticated browser/tool capabilities;
+- creates stale/false search state;
+- weakens canonical identity;
+- increases corruption/migration risk;
+- removes rollback/undo/recovery;
+- makes another host/tool inconsistent;
+- meaningfully worsens cold/warm startup or tail latency elsewhere;
+- reduces supported hardware/Windows behavior without an intentional documented compatibility decision.
+
+**G015 closes only when every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven; unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
+
+---
 
 ## G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
 
@@ -694,9 +961,13 @@ Required behavior:
 
 ### Immediate execution priority override
 
-The **G012/G013 architecture work and G010 whole-app performance program are one concurrent highest-priority stream**: build each Rust/tool-platform vertical slice, benchmark and tune it immediately under G010/T070, ratchet the stronger baseline, then continue. Do **not** interpret the numbered order below as permission to postpone performance until architecture work is finished. Within that concurrent stream, the embedded-browser/download/Browse repair remains a major tactical tranche because it is among the most disruptive everyday UX problems.
+The **G014 Minecraft zero-impact invariant is the absolute highest rule and is active during every task. G015 challenger-first selection, G012/G013 architecture work, and G010 whole-app performance are one concurrent execution stream beneath it**: build each Rust/tool-platform vertical slice, benchmark and tune it immediately under G010/T070, ratchet the stronger baseline, then continue. Do **not** interpret the numbered order below as permission to postpone performance until architecture work is finished. Within that concurrent stream, the embedded-browser/download/Browse repair remains a major tactical tranche because it is among the most disruptive everyday UX problems.
 
-Execute in this priority order, without waiting for unrelated queue items:
+**Always-on super-priority before and during every numbered item below:**
+- **G014 / T078-T084** — detect Minecraft, activate the zero-impact resource governor, and continuously prove Enderloom is performance-invisible to the running game while management remains usable.
+- **G015 / T085-T090** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts.
+
+Execute the remaining work in this priority order, without waiting for unrelated queue items:
 
 1. **T056 + T057 + T070** — establish production `enderloom-core`, make Rust/native ownership the default for heavy hot paths, and benchmark/tune every migrated vertical slice immediately rather than later;
 2. **T071 + T072 + T076** — establish the reusable multi-host Tool Platform and make Mod Manager its first standalone + Electron-tabbed reference while sharing one live core/state;
@@ -1867,8 +2138,8 @@ Record exact build/commit and observed evidence. No item in accepted scope close
 
 ## Done when
 
-This document is complete only when **G012, G013, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G014, G015, G012, G013, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content, and Minecraft coexistence satisfies G014's zero-impact release gate. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T077, G001-G008, G010, G011, G012, and G013 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
