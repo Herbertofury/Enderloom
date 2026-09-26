@@ -412,6 +412,19 @@ export function ProjectView() {
     loader,
   ]);
 
+  const heroServerVersion = useMemo(
+    () =>
+      (versions ?? []).find(
+        (version) => version.server_pack_file_id || serverPackFile(version.files),
+      ) ?? null,
+    [versions],
+  );
+
+  const githubSource = useMemo(
+    () => githubSourceFrom([details, ...mirrorDetails]),
+    [details, mirrorDetails],
+  );
+
   if (!projectRef) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-2 text-sm text-content-muted">
@@ -493,14 +506,6 @@ export function ProjectView() {
     }
   };
 
-  const heroServerVersion = useMemo(
-    () =>
-      (versions ?? []).find(
-        (version) => version.server_pack_file_id || serverPackFile(version.files),
-      ) ?? null,
-    [versions],
-  );
-
   const openServerPack = async (version: ProjectVersion) => {
     setError(null);
     try {
@@ -580,10 +585,6 @@ export function ProjectView() {
     }
   };
 
-  const githubSource = useMemo(
-    () => githubSourceFrom([details, ...mirrorDetails]),
-    [details, mirrorDetails],
-  );
   const gallery = details?.gallery ?? [];
   const tabs: Array<{ id: Tab; label: string }> = [
     { id: "description", label: "Description" },
