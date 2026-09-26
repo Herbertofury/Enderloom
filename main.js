@@ -3362,6 +3362,10 @@ async function runSelfTest() {
     JSON.stringify(seededProjectPaint),
   );
   stage('browse-seeded-paint');
+  // The Browse latency probe temporarily activates the launcher workspace. Restore the
+  // historical Catalog fixture state before exercising the existing media/browser suite
+  // so the new benchmark cannot perturb visibility/focus/compositor assumptions downstream.
+  activateTab(CATALOG_ID);
   const primeRuntime = await catalogView.webContents.executeJavaScript(`new Promise(resolve=>{const key='self-prime-'+Date.now();let first=null;const off=window.mobCompanion.onMedia(p=>{if(p?.key!==key)return;if(p.media&&!first)first=p.media;if(p.done){off();resolve({done:true,first,delivered:p.delivered,elapsedMs:p.elapsedMs})}});window.mobCompanion.primeMedia([{key,urls:['http://127.0.0.1:${port}/'],priority:2000000,context:{projectId:key,title:'Fixture One',author:'Fixture Creator'}}]);setTimeout(()=>{try{off()}catch{}resolve({done:false,first})},3500)})`, true);
   check('main-process streaming media prime runtime', primeRuntime?.done===true && primeRuntime?.first?.gallery?.length>=1, JSON.stringify(primeRuntime));
   stage('media-prime');
