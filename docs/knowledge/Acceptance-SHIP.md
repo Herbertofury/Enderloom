@@ -835,7 +835,7 @@
 - [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 391-391](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L391-L391)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 418-418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L418-L418)
 
 </details>
 
@@ -1171,7 +1171,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 607-607](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L607-L607)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 634-634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L634-L634)
 
 </details>
 

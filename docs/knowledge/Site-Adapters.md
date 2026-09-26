@@ -68,6 +68,7 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-04750a5d1430d5302e84](Acceptance-LIB.md#d-04750a5d1430d5302e84) - old Windows/UWP development-folder discovery only when user points Enderloom at legitimate local content.
 - [D-d6ed79500bd6c53df16d](Acceptance-LIB.md#d-d6ed79500bd6c53df16d) - Record source/provider/license/permission where known.
 - [D-96e3a0cfbabfd0c3e840](Acceptance-LIB.md#d-96e3a0cfbabfd0c3e840) - · Make update discovery and Update All feel instant [T002]
+- [D-bf0d7a91049cff89c919](Acceptance-LIB.md#d-bf0d7a91049cff89c919) - Observed gap: the project source row can expose GitHub beside Modrinth/CurseForge, but GitHub must not stop at a hyperlink that ejects the user from the integrated browsi...
 - [D-828742cb69bccebbcad6](Acceptance-LIB.md#d-828742cb69bccebbcad6) - A logical mod/project appearing on multiple providers must show as one canonical favorite card with provider badges/source options, matching the rest of Enderloom&#x27;s cross...
 - [D-0cafc4fc4d4c19e94ca2](Acceptance-LIB.md#d-0cafc4fc4d4c19e94ca2) - Exact project/source links.
 - [D-484306048f65a7aa2d22](Acceptance-LIB.md#d-484306048f65a7aa2d22) - Source health / refresh behavior.

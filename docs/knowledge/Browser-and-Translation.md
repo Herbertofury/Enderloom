@@ -24,12 +24,15 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-879211ae4a7be28ff70d](Acceptance-LIB.md#d-879211ae4a7be28ff70d) - The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
 - [D-3ca8ca9454eb71ed9e8f](Acceptance-LIB.md#d-3ca8ca9454eb71ed9e8f) - · Browser extensions [T005]
 - [D-c1b8a296542828aae260](Acceptance-LIB.md#d-c1b8a296542828aae260) - · Upgrade and pin/test the newest stable Electron baseline before the browser modernization lands [T026]
+- [D-99f676cb2b242d5c2fd3](Acceptance-LIB.md#d-99f676cb2b242d5c2fd3) - · GitHub opens directly inside Browse like Modrinth/CurseForge, with compact promotion into a normal Enderloom tab [T044]
+- [D-2e01c06469aa6e78f992](Acceptance-LIB.md#d-2e01c06469aa6e78f992) - Required behavior:
 - [D-455bc90b83252f329ac4](Acceptance-LIB.md#d-455bc90b83252f329ac4) - · Add Ctrl+Shift+T, recently closed tabs, and durable browser-session restore [T029]
 - [D-cd3ed0be4280e5b7b77f](Acceptance-LIB.md#d-cd3ed0be4280e5b7b77f) - · Add searchable browser history with Ctrl+H and sane privacy controls [T030]
 - [D-8b36bc443b9b7233c693](Acceptance-LIB.md#d-8b36bc443b9b7233c693) - · Add contextual browser menus instead of generic app-only right-click behavior [T031]
 - [D-44d79e64eb503b0e2202](Acceptance-LIB.md#d-44d79e64eb503b0e2202) - · Make the address/search bar behave like a real browser omnibox [T033]
 - [D-b19d16308edf64f12554](Acceptance-LIB.md#d-b19d16308edf64f12554) - · Recover the affected browser surface instead of destabilizing Enderloom [T035]
 - [D-4dfbc961bc5cd66d3b24](Acceptance-LIB.md#d-4dfbc961bc5cd66d3b24) - · Integrate meaningful download/browser state with Windows [T042]
+- [D-5ddd316ca91c19b925bc](Acceptance-LIB.md#d-5ddd316ca91c19b925bc) - This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains ope...
 - [D-afb050b3bb42c5bbdc64](Acceptance-LIB.md#d-afb050b3bb42c5bbdc64) - Browser — real Chromium browser tabs.
 - [D-69229290e9c1db450741](Acceptance-LIB.md#d-69229290e9c1db450741) - Split — resizable side-by-side app/browser or app/app research workflows.
 - [D-82eaf1d38c06ea68ac68](Acceptance-LIB.md#d-82eaf1d38c06ea68ac68) - Browse large curated catalogs.
