@@ -364,15 +364,17 @@ pub async fn search(
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
     let api_key = key(state)?;
+    let detail_cache_key = format!("cf:project:{project_id}");
+    let body_cache_key = format!("cf:body:{project_id}");
     let detail_request = cache::fetch_swr(
         state,
-        &format!("cf:project:{project_id}"),
+        &detail_cache_key,
         cache::TTL_PROJECT,
         request(state, format!("{API}/mods/{project_id}"), &api_key),
     );
     let body_request = cache::fetch_swr::<Wrapped<String>>(
         state,
-        &format!("cf:body:{project_id}"),
+        &body_cache_key,
         cache::TTL_PROJECT,
         request(
             state,
