@@ -666,6 +666,71 @@ mod tests {
     }
 
     #[test]
+    fn bulk_content_file_query_preserves_rows_and_scales_better() {
+        let db = Db::open_in_memory().unwrap();
+        let instance_count = 180usize;
+        let files_per_instance = 12usize;
+
+        for instance_index in 0..instance_count {
+            let instance_id = format!("instance-{instance_index:03}");
+            for file_index in 0..files_per_instance {
+                db.record_content_file(
+                    &instance_id,
+                    "mods",
+                    &ContentFile {
+                        file_name: format!("mod-{file_index:02}.jar"),
+                        provider: Some("modrinth".into()),
+                        project_id: Some(format!("project-{file_index:02}")),
+                        version_id: Some(format!("v-{instance_index}-{file_index}")),
+                        origin: "user".into(),
+                        installed_at: (instance_index * files_per_instance + file_index) as i64,
+                        ..Default::default()
+                    },
+                )
+                .unwrap();
+            }
+        }
+
+        let bulk = db.content_files_for_kind("mods").unwrap();
+        assert_eq!(bulk.len(), instance_count * files_per_instance);
+        assert!(bulk.iter().all(|(instance_id, file)| {
+            instance_id.starts_with("instance-")
+                && file.provider.as_deref() == Some("modrinth")
+                && file.project_id.as_deref().is_some_and(|id| id.starts_with("project-"))
+        }));
+
+        let cycles = 4;
+        let legacy_started = std::time::Instant::now();
+        let mut legacy_count = 0usize;
+        for _ in 0..cycles {
+            for instance_index in 0..instance_count {
+                legacy_count += db
+                    .content_files(&format!("instance-{instance_index:03}"), "mods")
+                    .unwrap()
+                    .len();
+            }
+        }
+        let legacy = legacy_started.elapsed();
+
+        let bulk_started = std::time::Instant::now();
+        let mut bulk_count = 0usize;
+        for _ in 0..cycles {
+            bulk_count += db.content_files_for_kind("mods").unwrap().len();
+        }
+        let bulk_elapsed = bulk_started.elapsed();
+
+        assert_eq!(legacy_count, bulk_count);
+        eprintln!(
+            "content source query benchmark: per-instance={legacy:?} bulk={bulk_elapsed:?} speedup={:.1}x",
+            legacy.as_secs_f64() / bulk_elapsed.as_secs_f64().max(f64::EPSILON)
+        );
+        assert!(
+            bulk_elapsed * 2 < legacy,
+            "bulk content query should be at least 2x faster: per-instance={legacy:?}, bulk={bulk_elapsed:?}"
+        );
+    }
+
+    #[test]
     fn restoring_snapshot_metadata_is_transactional_and_preserves_identity() {
         let db = Db::open_in_memory().unwrap();
         let mut current = instance("1.21.1");
