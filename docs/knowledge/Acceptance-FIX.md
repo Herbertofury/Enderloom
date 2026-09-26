@@ -646,7 +646,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 96 source-derived details.
+[Outcome](Checklist.md#fix-03) / 97 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1049,13 +1049,25 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate (1)</summary>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate (1)</summary>
 
-<a id="d-e9561edb823433bcf070"></a>
-- [ ] **D-e9561edb823433bcf070** - · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
+<a id="d-65c3d3eaf976f3eb9b55"></a>
+- [ ] **D-65c3d3eaf976f3eb9b55** - · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 739-739](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L739-L739)
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 720-720](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L720-L720)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Cross-phase clarification (1)</summary>
+
+<a id="d-5d41865e8c3009bad703"></a>
+- [ ] **D-5d41865e8c3009bad703** - - A Phase 1 reference to Minecraft means only a cheap obvious-regression smoke check. It never authorizes full G014 governor tuning or makes G014 a Phase 1 dependency. - Full stati...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - A Phase 1 reference to Minecraft means only a cheap obvious-regression smoke check. It never authorizes full G014 governor tuning or makes G014 a Phase 1 dependency. - Full statistical Minecraft coexistence benchmarking, EcoQoS/background-mode/CPU-set/BITS/memory-priority tuning, and the persisted Game Performance Protection feature belong to Phase 2. - If a later architecture change invalidates the chosen Phase 1 baseline, repair/re-certify that Phase 1 path first, then rerun only the affected G014 coexistence proof. - Performance never permits doing less work: result quantity, metadata, provider coverage, correctness, freshness, validation, rollback, safety, and user-visible capability must remain equal or better.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Cross-phase clarification
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1380-1383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1380-L1383)
 
 </details>
 
@@ -1067,7 +1079,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1779-1784](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1779-L1784)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1759-1764](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1759-L1764)
 
 </details>
 
