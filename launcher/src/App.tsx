@@ -53,24 +53,36 @@ if (window.enderloomLauncher?.selfTest) {
         const started = performance.now();
         let settled = false;
         let timer = 0;
+        let observer: MutationObserver | null = null;
         const finish = (heading: string, timedOut: boolean) => {
           if (settled) return;
           settled = true;
           if (timer) window.clearTimeout(timer);
+          observer?.disconnect();
           resolve({
             elapsedMs: performance.now() - started,
             heading,
             timedOut,
           });
         };
-        const inspect = () => {
+        const inspectCommittedDom = () => {
           const heading = document.querySelector("h1")?.textContent?.trim() ?? "";
-          if (heading === seed.title) {
-            requestAnimationFrame(() => finish(heading, false));
-            return;
-          }
-          if (!settled) requestAnimationFrame(inspect);
+          if (heading !== seed.title) return false;
+          queueMicrotask(() => finish(heading, false));
+          return true;
         };
+
+        // requestAnimationFrame can be throttled for an embedded WebContentsView in Xvfb
+        // even when React has already committed the visible project. Observe the real DOM
+        // commit instead so this runtime check measures Enderloom, not CI compositor policy.
+        observer = new MutationObserver(() => {
+          inspectCommittedDom();
+        });
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
 
         const state = useStore.getState();
         useStore.setState({
@@ -80,7 +92,7 @@ if (window.enderloomLauncher?.selfTest) {
             : state.settings,
         });
         useStore.getState().openProject("modrinth", seed.id, "mods", seed.title, seed);
-        requestAnimationFrame(inspect);
+        inspectCommittedDom();
         timer = window.setTimeout(() => {
           finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
         }, 2_000);
