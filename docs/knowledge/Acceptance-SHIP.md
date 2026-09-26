@@ -9,7 +9,7 @@
 <a id="ship-01-details"></a>
 ## SHIP-01 - Supply-chain and untrusted input safety
 
-[Outcome](Checklist.md#ship-01) / 85 source-derived details.
+[Outcome](Checklist.md#ship-01) / 86 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -284,6 +284,18 @@
   - **Full requirement:** The target is literal 0.0 user-visible impact. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / Zero-impact definition
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 32-32](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L32-L32)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T092 — WebView2 zero-baggage privacy + zero-jank contract (1)</summary>
+
+<a id="d-5d7db45f62f765df8dd1"></a>
+- [ ] **D-5d7db45f62f765df8dd1** - · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracki...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracking surfaces, preload work, or idle resource cost
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T092 — WebView2 zero-baggage privacy + zero-jank contract
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T092 : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L339-L339)
 
 </details>
 
@@ -847,7 +859,7 @@
 - [ ] **D-232d8a0323cb85d6296f** - · Treat risky-tech success as subordinate to Enderloom&#x27;s complete product invariants
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T090 — Experimental technology can never weaken G014/G010/G011
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T090 : 271-271](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L271-L271)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T090 : 278-278](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L278-L278)
 
 </details>
 
@@ -858,7 +870,7 @@
 - [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 1544-1544](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1544-L1544)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 1757-1757](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1757-L1757)
 
 </details>
 
@@ -1194,7 +1206,7 @@
 - [ ] **D-4853b782b4a72e8f14ba** - · Allow tools to move between tab, Electron pop-out, and standalone-host presentations without losing state or forcing reload/recomputation
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T073 — Instant dock / undock / pop-out / reattach with workspace continuity
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T073 : 650-650](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L650-L650)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T073 : 863-863](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L863-L863)
 
 </details>
 
@@ -1205,7 +1217,7 @@
 - [ ] **D-af7c8f89dcca1f0be38e** - Use the same machine, network, instance context, project set, and equivalent result coverage for comparisons. Do not benchmark an artificially simplified Enderloom workload.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1302-1302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1302-L1302)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1515-1515](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1515-L1515)
 
 </details>
 
@@ -1216,7 +1228,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 1760-1760](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1760-L1760)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 1973-1973](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1973-L1973)
 
 </details>
 
@@ -1504,7 +1516,7 @@
 - [ ] **D-4183cd89e8ff39e9afa3** - · Make zero-impact coexistence a permanent CI/release/performance invariant
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T084 — Permanent game-impact ratchet
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T084 : 164-164](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L164-L164)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T084 : 166-166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L166-L166)
 
 </details>
 
@@ -1515,7 +1527,7 @@
 - [ ] **D-4ba9acdc9983f475defd** - · Make strict speed + useful-amount superiority a permanent release/CI acceptance condition, not a one-time benchmark
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T050 : 943-943](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L943-L943)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T050 : 1156-1156](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1156-L1156)
 
 </details>
 
@@ -1909,7 +1921,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1012-1012](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1012-L1012)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1225-1225](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1225-L1225)
 
 </details>
 

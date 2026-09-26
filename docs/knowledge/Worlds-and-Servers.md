@@ -39,4 +39,4 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [WORLD-03 - Whole-modpack migration](Acceptance-WORLD.md#world-03-details): 19 source details.
 - [WORLD-04 - Cross-edition world conversion](Acceptance-WORLD.md#world-04-details): 56 source details.
 - [WORLD-05 - Real server management](Acceptance-WORLD.md#world-05-details): 89 source details.
-- [WORLD-06 - Network, proxy and plugin semantics](Acceptance-WORLD.md#world-06-details): 80 source details.
+- [WORLD-06 - Network, proxy and plugin semantics](Acceptance-WORLD.md#world-06-details): 81 source details.

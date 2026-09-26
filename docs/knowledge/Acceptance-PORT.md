@@ -3797,7 +3797,7 @@
 <a id="port-07-details"></a>
 ## PORT-07 - JAR recovery and binary repair
 
-[Outcome](Checklist.md#port-07) / 48 source-derived details.
+[Outcome](Checklist.md#port-07) / 49 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -3986,13 +3986,24 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff (1)</summary>
+
+<a id="d-a7ee80a6ebe4f6f2e879"></a>
+- [ ] **D-a7ee80a6ebe4f6f2e879** - · Make Minecraft JAR/ZIP inspection use the fastest proven parser/decompressor combination for each workload without reducing format coverage or hostile-input safety
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T094 : 393-393](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L393-L393)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives (1)</summary>
 
 <a id="d-016e6ecf129975cc2941"></a>
 - [ ] **D-016e6ecf129975cc2941** - · Use WebContentsView for embedded remote browsing wherever legacy BrowserView/webview architecture remains
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 1469-1469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1469-L1469)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 1682-1682](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1682-L1682)
 
 </details>
 

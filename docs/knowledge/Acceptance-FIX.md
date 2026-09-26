@@ -646,7 +646,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 96 source-derived details.
+[Outcome](Checklist.md#fix-03) / 97 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1021,7 +1021,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** TECHNOLOGY PROMOTION GATE — For performance-critical subsystems, Enderloom gives credible bleeding-edge/risky technology the first serious challenger attempt when it has a plausible architectural advantage, but promotes it only after it beats the stable implementation on equivalent speed/resources and passes stronger correctness, crash, data-integrity, compatibility and recovery proof. Stable fallbacks remain available until the challenger earns removal of the old path.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G015 : 181-181](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L181-L181)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G015 : 183-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L183-L183)
 
 </details>
 
@@ -1032,7 +1032,7 @@
 - [ ] **D-c826b40ed5e5e462c15b** - · When a challenger is credible and reversible, prototype/repair it first in an isolated production-shaped path rather than automatically defaulting to the conservative option
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T086 — Risky challenger gets the first isolated implementation shot
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T086 : 203-203](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L203-L203)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T086 : 210-210](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L210-L210)
 
 </details>
 
@@ -1044,7 +1044,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - First failure: diagnose earliest causal owner and repair the challenger. - Second materially different failure without meaningful new progress: change strategy/adapter/integration approach once more if a credible route remains. - If the candidate still cannot pass the real vertical slice, crashes/corrupts data, lacks a required Windows/security/runtime capability, or consumes disproportionate engineering effort with no measured advantage, mark it CHALLENGER-DEFERRED for the current release and activate the proven stable path. - Stable fallback is a successful recovery route, not permission to stop performance work; tune the stable path and retain the challenger fixture/version evidence for later re-evaluation. - Re-test a deferred challenger only after a real invalidator such as a materially improved upstream release, fixed missing capability, new adapter, or evidence that the prior blocker is gone. - Never loop the same broken experimental integration indefinitely.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 246-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L246-L251)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 253-258](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L253-L258)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger (1)</summary>
+
+<a id="d-97069964717437049b0c"></a>
+- [ ] **D-97069964717437049b0c** - - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser c...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins. - Do not maintain two full browser shells indefinitely after the winner is proven; keep one canonical production owner plus only the minimum compatibility/fallback path justified by evidence.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 333-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L333-L335)
 
 </details>
 
@@ -1055,7 +1067,7 @@
 - [ ] **D-e9561edb823433bcf070** - · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 574-574](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L574-L574)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 787-787](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L787-L787)
 
 </details>
 
@@ -1067,7 +1079,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1380-1385](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1380-L1385)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1593-1598](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1593-L1598)
 
 </details>
 

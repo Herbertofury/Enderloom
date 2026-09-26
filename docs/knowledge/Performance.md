@@ -66,7 +66,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 
 - [PERF-01 - Real mod and instance optimization](Acceptance-PERF.md#perf-01-details): 89 source details.
 - [PERF-02 - Minimal measurement and rich attribution](Acceptance-PERF.md#perf-02-details): 26 source details.
-- [PERF-03 - Controlled A/B and full-pack attribution](Acceptance-PERF.md#perf-03-details): 35 source details.
+- [PERF-03 - Controlled A/B and full-pack attribution](Acceptance-PERF.md#perf-03-details): 36 source details.
 - [PERF-04 - Frame-time and GPU lab](Acceptance-PERF.md#perf-04-details): 79 source details.
 - [PERF-05 - Boot and fast-launch engine](Acceptance-PERF.md#perf-05-details): 7 source details.
 - [PERF-06 - Memory, tick and throughput gains](Acceptance-PERF.md#perf-06-details): 29 source details.
