@@ -16,7 +16,7 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 
 - [ ] **G010 · ABSOLUTE PRIORITY GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
 
-This gate is **above every other tranche in this document**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: application launch, restoring the prior workspace, opening Browse, showing Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
+This gate is **above every other tranche in this document**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: first launch/onboarding, account sign-in/reconnect, application launch, restoring the prior workspace, creating/importing/cloning instances, opening Browse, showing unified cross-provider Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, running dependency diagnosis, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, bulk mod operations, native context menus/keyboard actions, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
 
 The target is not merely "fewer spinners." The target is **lower real latency and higher throughput for equivalent-or-better work**.
 
@@ -206,16 +206,21 @@ Execute in this priority order, without waiting for unrelated queue items:
 
 1. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the real hot paths;
 2. **T048** — repair the shared launch/Browse/Mods/update/download/install/IPC/storage architecture causing broad slowness;
-3. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-4. **T004** — finish the canonical Chromium download pipeline;
-5. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-6. **T027** — make download persistence/resume/save behavior survive real use and restart;
-7. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-8. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-9. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
-10. **T049** — run the strict faster-and-richer-than-both certification;
-11. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
-12. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+3. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
+4. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
+5. **T026** — move Enderloom onto the latest production-stable Electron baseline;
+6. **T004** — finish the canonical Chromium download pipeline;
+7. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
+8. **T027** — make download persistence/resume/save behavior survive real use and restart;
+9. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
+10. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
+11. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
+12. **T052** — ship the user-confirmed Instance Dependency Doctor;
+13. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
+14. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
+15. **T049** — run the strict faster-and-richer-than-both certification;
+16. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
+17. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
 
@@ -1054,6 +1059,232 @@ Route conflicts through the canonical Hotkeys system instead of hardcoding compe
 
 ---
 
+## G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers
+
+- [ ] **G011 · GATE** — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-controlled, runtime-proven, and satisfy G010's strict faster-and-richer-than-both contract where technically comparable.
+
+### T051 — Unified Discovery Supremacy
+
+- [ ] **T051** · Make Enderloom discovery the fast canonical union of CurseForge + Modrinth + GitHub/upstream + every other supported provider, with more useful unique results than either launcher
+
+Enderloom discovery must not behave like one provider search wearing a different skin. Build one canonical discovery layer that searches every enabled/supported source in parallel, reconciles the same logical project into one result, preserves source-specific detail, and returns a **larger useful deduplicated project/capability set than CurseForge or Modrinth individually** while still appearing faster.
+
+Required behavior:
+
+- Query supported CurseForge, Modrinth, verified GitHub/upstream, and other enabled provider adapters concurrently with per-provider rate limits, cancellation, circuit/degraded state, and single-flight coalescing.
+- Search exact names, normalized aliases, subtitles, slugs, author/owner, provider IDs, known upstream/source identity, categories/tags, loader, game version, content type, and reasonable typo/fuzzy variants.
+- A project present on multiple providers renders as **one canonical result** with compact source badges/options; provider duplicates never inflate the result count used to claim superiority.
+- Preserve provider-specific files/releases, descriptions, galleries, changelogs, license/category metadata, dependencies/relations, download availability, update intelligence, and canonical URLs behind the merged project.
+- Rank relevance intelligently across the canonical union without secretly favoring one provider. Explicit user sort/filter choices remain authoritative.
+- Search/filter/sort/count/select-all semantics operate on the full logical dataset, not only the first page or rendered rows.
+- Exhaust provider pagination/continuation until the requested discovery scope is terminal; reconcile expected/discovered/accepted/rejected/unresolved counts before claiming complete coverage.
+- Return last-verified cached canonical results immediately, stream fresh provider additions/changes in place, and never blank the entire result set while one provider refreshes.
+- Slow/offline/auth-expired providers cannot hide already-known or other-provider results; show truthful per-source degraded/reconnect state and continue.
+- Persist confirmed cross-provider identity so repeat searches never rediscover obvious mappings from scratch.
+- Prefetch high-value visible/hovered result details through the same T045 cache/intent architecture.
+- Support direct provider/source switching without losing the unified result's project identity, search context, target instance, filter state, or scroll position.
+- Keep discovery extensible: adding another provider adapter must automatically participate in canonical search/identity/coverage accounting instead of needing a separate UI silo.
+- Measure **first useful result**, **full canonical result set**, unique useful project count, provider-source count, metadata richness, and interaction latency against both installed clients on the same queries/machine/network. A tie in speed or a smaller/equivalent useful aggregate result/capability set leaves T051 open.
+- "More results" means more **relevant canonical projects/sources/releases/intelligence**, never duplicates, mirrors counted twice, irrelevant noise, broken results, or unsupported artifacts.
+
+**Required regression fixtures:** exact-title project, subtitle drift, alias/rename, same-name different-author negative control, project on CurseForge+Modrinth+GitHub, project on only one provider, typo query, author query, provider outage, expired auth, 250/1,000/10,000 logical results, terminal pagination, and the existing Punchy! cross-provider fixture.
+
+**Hard acceptance path:** enter one query -> cached canonical results appear immediately -> CurseForge/Modrinth/GitHub/other supported sources enrich in parallel -> duplicates collapse into one project with source badges -> typo/alias/author variations still resolve correctly -> slow provider does not block others -> filters/sort operate over the full logical set -> compare against both launchers and prove Enderloom is faster **and** exposes more useful deduplicated discovery coverage/capability.
+
+### T052 — Instance Dependency Doctor with explicit Yes / No user control
+
+- [ ] **T052** · Add an intelligent Instance Dependency Doctor that finds and explains problems automatically but never mutates the instance without an explicit Yes / No decision
+
+The Doctor should make dependency repair feel automatic **without taking control away from the user**.
+
+Detect at minimum:
+
+- missing required dependencies/libraries;
+- required dependency present but disabled;
+- incompatible dependency version/range;
+- wrong Minecraft version;
+- wrong loader/platform;
+- client-only/server-only side mismatch where metadata supports it;
+- duplicate/superseded JARs or provider files for the same logical project;
+- stale old-version artifacts left beside the current replacement;
+- orphaned libraries no longer required by any installed project;
+- dependency cycles/conflicting version constraints;
+- missing host mods/frameworks for recognized addons/customizations;
+- broken/unresolved provider identity that prevents reliable dependency/update decisions;
+- dependency/provider metadata disagreements that require user review rather than guesswork.
+
+User-control contract:
+
+- Diagnosis may run automatically/cached in the background when cheap, but **no repair/install/update/downgrade/enable/disable/quarantine/remove action commits silently**.
+- When a repair plan is ready, always show a compact decision surface with **Yes**, **No**, and **Review Details**.
+- **Yes** applies the currently previewed recommended plan transactionally.
+- **No** leaves the instance unchanged and dismisses/snoozes that proposal without nagging.
+- **Review Details** shows every proposed change, reason/evidence, old -> new version/file/provider, dependency relationship, risk, and lets the user include/exclude individual items before returning to the same **Yes / No** decision.
+- For grouped repairs, one Yes may approve the entire visible reviewed plan; independent failures do not silently expand the user's approval into additional changes.
+- Never hide a destructive/downgrade/remove/quarantine operation inside a generic "Fix" button. The exact effect must be visible before Yes.
+- Remember harmless UI preferences, but **do not remove the user's ability to choose Yes or No at the commit point** for a newly proposed mutation plan.
+- If the app can prove no filesystem/provider mutation is required, it may resolve a purely diagnostic false-positive state without asking.
+
+Repair engine:
+
+- Reuse canonical provider identity, T001 transactional update semantics, T016 installer, T023 addon lifecycle, dependency planner, content-addressed download cache, snapshots, and rollback.
+- Stage/download/verify all required artifacts before removing working live artifacts when possible.
+- Quarantine replaced/removed suspect artifacts through T053 rather than permanently deleting them by default.
+- Preserve configs, worlds, saves, screenshots, resource data, user notes, favorites, pins/freeze state, and unrelated content.
+- Ambiguous fixes remain **Needs review / unresolved-active**; never invent a provider match or dependency version to make the screen green.
+- Explain why each issue was detected and why the recommended fix satisfies the dependency graph.
+- After commit, rescan only the affected graph/files, verify the problem is actually gone, and offer **Undo** when rollback is valid.
+- Run quickly from persisted identity/index state; do not full-rescan/re-hash the entire instance on every Doctor open.
+
+**Hard acceptance path:** open an instance with missing + wrong-version + duplicate + ambiguous dependency fixtures -> Doctor immediately shows known issues -> inspect recommended repair -> choose **No** and prove nothing changes -> reopen -> Review Details -> exclude one item -> choose **Yes** -> staged verified repair commits -> removed/replaced files are recoverable through quarantine/undo -> affected graph rechecks cleanly -> ambiguous item remains explicitly unresolved rather than guessed.
+
+### T053 — Bulk Mod Manager + Undo / Quarantine
+
+- [ ] **T053** · Add fast dependency-aware bulk actions across the full logical mod dataset with durable Undo and safe Quarantine
+
+Required selection behavior:
+
+- Ctrl+click toggle, Shift+click range, keyboard range/selection, **Ctrl+A selects the full filtered logical dataset**, not merely currently rendered rows.
+- Selection survives virtualization and ordinary non-destructive sorting/filtering changes where identity remains valid.
+- Show a compact selected-count/action bar without covering useful content.
+
+Bulk actions must include where applicable:
+
+- enable / disable;
+- update;
+- change version;
+- reinstall / repair;
+- pin/freeze / unpin;
+- favorite / unfavorite;
+- run Dependency Doctor on selection;
+- reveal/show files;
+- copy useful project/provider/file information;
+- quarantine;
+- remove/uninstall;
+- restore from quarantine;
+- retry failed operation items.
+
+Safety / QoL:
+
+- Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic.
+- Before dependency-affecting or destructive bulk mutations, show exactly what will change, impacted dependents, required additions/replacements/removals, and a clear **Yes / No** confirmation.
+- Allow per-item exclusion from the preview before Yes.
+- Quarantine is the default safety route for removed/replaced suspect mod artifacts: move/retain them in Enderloom-managed recoverable storage with original path, project/file identity, reason, timestamp, and operation ID.
+- Permanent deletion is a separate explicit action, never the hidden meaning of Quarantine.
+- Preserve configs/worlds/saves and unrelated user data unless the user explicitly selects an operation that includes them.
+- Maintain a durable operation history with **Undo** when the prior state can be restored safely; restart must not erase valid undo/quarantine metadata.
+- Undo restores the exact prior enabled/disabled artifact/version/path/provider identity where possible and revalidates dependencies afterward.
+- Partial failure is per-item: successful independent items remain truthful, failed items retain the old state or rollback, and the final result clearly lists each outcome.
+- Cancel stops not-yet-committed independent work safely; it never leaves half-renamed live JARs presented as success.
+- Large selections must remain responsive through virtualization, batched domain operations, bounded concurrency, and incremental affected-graph verification.
+
+**Hard acceptance path:** select a filtered 500+ logical-mod fixture with Ctrl+A -> exclude several items -> preview disable/update/quarantine mix -> inspect dependent impact -> choose No and prove zero mutation -> repeat and choose Yes -> progress remains responsive -> one injected failure rolls back only its item -> quarantine/history persists across restart -> Undo restores the selected prior state and dependency verification passes.
+
+### T054 — First-run / account / create / import / clone performance supremacy
+
+- [ ] **T054** · Make first-run, account connection, instance creation, import, and clone flows strictly faster and more capable than both launchers without losing fidelity
+
+First-run/onboarding:
+
+- First launch must reach a usable shell quickly; optional discovery/account/provider enrichment cannot block the entire app.
+- Detect likely existing Minecraft/CurseForge/Modrinth/Enderloom instance roots efficiently from known configured locations and bounded discovery, then present candidates for user approval instead of silently importing everything.
+- Let the user **Import/Link**, **Skip**, or review detected candidates; skipping onboarding never blocks later setup.
+- Do not perform expensive full recursive scans of unrelated disks at startup.
+
+Accounts:
+
+- Reuse legitimate existing authorized sessions where supported.
+- Account connect/reconnect uses the provider's supported OAuth/device/browser flow and returns to the interrupted Enderloom action automatically.
+- Never store raw account passwords or bypass MFA/CAPTCHA/security challenges.
+- Show truthful connected/reconnect-required/offline state without making unrelated local instance management unavailable.
+- Keep account UI responsive while remote profile/entitlement data enriches.
+
+Create instance:
+
+- Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order.
+- Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes.
+- Dependency/runtime preparation stays off the renderer and shows truthful granular progress.
+- Cancel/retry/resume must not leave fake complete profiles.
+
+Import:
+
+- Support existing accepted import sources/formats through one canonical import transaction.
+- Analyze manifest/pack metadata once, reuse provider resolution/download cache, parallelize independent transfers, preserve exact requested files/configs/overrides, and verify the final instance.
+- Existing local CurseForge/Modrinth profiles imported/linked in place must not be copied merely for convenience when a safe connected-in-place mode applies.
+- Archive/provider imports that do require a new physical instance use staging + atomic finalize/rollback.
+
+Clone:
+
+- Offer a clear clone dialog for destination/name and inclusion choices where applicable.
+- Preserve the original instance untouched.
+- Mutable user data such as worlds/configs must never become unsafe shared hardlinks between original and clone.
+- Immutable verified artifacts may reuse content-addressed storage/copy-on-write/reflink/hardlink techniques only when the platform/filesystem semantics are safe and Enderloom prevents one instance mutation from corrupting another.
+- The clone must be independently usable and removable after completion.
+
+Strict performance proof:
+
+- Benchmark first launch -> usable shell, account action -> usable authenticated state, create -> usable instance, import -> usable verified instance, and clone -> independently usable clone against both installed clients on equivalent fixtures.
+- Enderloom must be measurably faster than **both** on technically comparable median and p95 paths while preserving more useful setup/import intelligence and the full intended instance contents.
+- Record bytes downloaded vs reused, files/projects preserved, dependency/provider resolution counts, CPU/disk/network cost, and cold/warm behavior.
+- A "fast" result that omits overrides/configs/mods/dependencies or defers an unavoidable blocking copy/download to first launch is a regression, not a win.
+
+**Hard acceptance path:** clean-profile first run -> shell usable promptly -> detect existing provider instances -> choose Skip and prove nothing imported -> rerun discovery and approve one link/import -> connect/reconnect supported account -> create a fresh instance -> import a representative provider/archive pack -> clone an existing instance -> verify original and clone independence/content fidelity -> benchmark all equivalent flows against both launchers and prove strict speed superiority.
+
+### T055 — Native Mod / Instance context menus and keyboard bulk actions
+
+- [ ] **T055** · Add instant native right-click / keyboard action surfaces for Mods and Instances, backed by the same canonical operations as visible buttons and bulk actions
+
+Mod/project context menu should expose contextually valid actions such as:
+
+- Open project/details;
+- switch/open provider source;
+- install to instance / change version;
+- update;
+- enable / disable;
+- pin/freeze / unpin;
+- favorite / unfavorite;
+- reinstall / repair;
+- run Dependency Doctor;
+- reveal/show file;
+- copy canonical project URL/provider URL/file name/hash/version where available;
+- quarantine / restore;
+- remove/uninstall;
+- view dependencies/dependents;
+- open logs/evidence relevant to the selected mod when available.
+
+Instance context menu should expose contextually valid actions such as:
+
+- Launch using remembered/default launcher;
+- launcher chooser;
+- open instance;
+- open folder;
+- Logs;
+- Settings;
+- Browse/Add Content;
+- check updates;
+- run Dependency Doctor;
+- clone;
+- export where already supported;
+- backup/snapshot where already supported;
+- reveal provider/source identity;
+- rename when supported;
+- remove/trash through the normal protected instance lifecycle.
+
+Keyboard / accessibility / bulk behavior:
+
+- **Shift+F10** and the keyboard Menu key open the same context menu for the focused item.
+- Arrow keys navigate; Enter activates; Escape closes; focus returns correctly.
+- Ctrl/Shift selection semantics match T053; context actions apply to the complete selected logical set when the action is bulk-capable.
+- Bulk-capable context actions use the same preview/Yes/No/Undo/Quarantine safeguards as T053.
+- Disabled/impossible actions remain truthful and explain why when useful; never expose clickable no-op menu items.
+- Menu content comes from current canonical state and should open perceptually instantly from cached/local data; remote enrichment may patch secondary items but cannot block the menu.
+- Context menus, toolbar buttons, card actions, hotkeys, and automation must all call the same canonical domain operation and therefore produce identical validation, persistence, progress, rollback, and result semantics.
+- Hotkey conflicts route through Enderloom's canonical Hotkeys system.
+
+**Hard acceptance path:** right-click and Shift+F10 the same mod -> identical actions/state -> multi-select logical rows and invoke a bulk-capable action from context menu -> preview -> choose No and prove zero mutation -> repeat Yes -> operation uses T053 history/quarantine/undo -> right-click an instance -> launch/folder/logs/Doctor/clone actions route to real workflows -> restart and verify action/state consistency.
+
+---
+
 ## G008 — Whole queue convergence and runtime proof
 
 - [ ] **G008 · GATE** — Whole queue convergence and runtime proof
@@ -1062,13 +1293,13 @@ Route conflicts through the canonical Hotkeys system instead of hardcoding compe
 
 - [ ] **T020** · Visual/performance regression pass
 
-Prove that provider fetches, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
+Prove that provider fetches, unified discovery, Dependency Doctor scans/repair previews, bulk operations, first-run/import/clone work, native context menus, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
 
 ### T021 — State/restart regression pass
 
 - [ ] **T021** · State/restart regression pass
 
-Restart the app and verify favorites, provider merge state, default launcher, install target, browser extensions/profile, update state, artwork overrides, logs preferences, filters, and layout survive as intended.
+Restart the app and verify favorites, provider merge state, discovery cache/mappings, default launcher, install target, browser extensions/profile, update state, Dependency Doctor evidence/snooze state, quarantine/undo history, bulk-selection-safe persisted state, artwork overrides, logs preferences, filters, account/provider connection state, and layout survive as intended.
 
 ### T022 — Packaged-app workflow proof
 
@@ -1102,13 +1333,18 @@ Exercise the real desktop build through at least:
 24. hostile-page browser-security regression fixture proving no privileged Enderloom action is reachable through untrusted remote content.
 25. verified GitHub project source -> GitHub renders directly inside the Browse provider pane -> navigate deeper -> compact Open in New Tab preserves the exact URL/session -> drag the GitHub provider tab/chip onto the top tab strip also promotes it -> promoted tab behaves like a normal restorable Enderloom browser tab while the original project/source state remains intact.
 26. instrumented Browse performance fixture: warm/cold Browse + project opens, back/forward, offline cache, one throttled provider, rapid A -> B -> A navigation, large result set, and restart cache persistence; compare equivalent full-result workflows against current CurseForge and Modrinth clients and prove latency gains without provider/result/metadata/dependency/fidelity loss.
+27. unified discovery query -> multi-provider parallel results -> canonical dedupe -> typo/alias/author resolution -> degraded provider -> terminal pagination -> prove more useful unique coverage and faster latency than both clients.
+28. Dependency Doctor -> detect missing/wrong/duplicate/ambiguous issues -> choose **No** and verify no mutation -> review/exclude -> choose **Yes** -> transactional repair -> quarantine/undo -> affected graph verifies clean.
+29. Bulk Mod Manager -> Ctrl+A full filtered logical set -> preview -> No -> zero mutation -> Yes -> bounded concurrent operation with injected partial failure -> restart -> quarantine/history -> Undo restore.
+30. clean-profile first run -> detect existing provider instances -> Skip -> approve one import/link -> account connect/reconnect -> create -> import -> clone -> verify full fidelity/independence -> benchmark each comparable flow against both clients.
+31. Mod/Instance right-click + Shift+F10 -> real context actions -> multi-select bulk context action -> Yes/No safeguards -> launch/folder/logs/Doctor/clone paths -> restart consistency.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when **G010 is closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G010 and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T050, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T055, G001-G008, G010, and G011 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
