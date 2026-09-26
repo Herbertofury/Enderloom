@@ -60,8 +60,8 @@ jobs:
       - name: Build launcher frontend
         run: npm run build:launcher
 
-      - name: Check native launcher service
-        run: cargo check --manifest-path native/Cargo.toml --bin enderloom-service
+      - name: Build native launcher service
+        run: cargo build --manifest-path native/Cargo.toml --bin enderloom-service
 
       - name: Browse provider identity regression
         run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
