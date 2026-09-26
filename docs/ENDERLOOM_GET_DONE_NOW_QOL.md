@@ -12,6 +12,15 @@ Fix the currently visible rough edges and missing common-sense behavior in Ender
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
+### Execution continuity / blocker law
+
+- Read the full contract once, then execute in bounded dependency-aware windows (normally one coherent subsystem or roughly 6-12 ready leaf tasks) so long runs do not lose requirements to context pressure.
+- At each window boundary, update the real inline T/G task state, retain concise proof/blocker evidence, checkpoint coherent source state, and continue automatically to the next ready work; the window is never permission to stop early or reduce scope.
+- A blocked accepted task stays unchecked and records `BLOCKED: <exact causal reason>; NEXT: <materially different recovery action>`. Independent ready tasks continue while recovery is pursued.
+- After two materially unchanged failed attempts without new evidence, change strategy: repair the missing capability/environment/abstraction or use a different supported route instead of repeating the same failure.
+- Never close on "cannot", a provider miss, a failed tool, stale auth, build failure, test failure, performance miss, or incomplete proof; failures are routing signals until the accepted requirement is actually resolved or a genuine user-only authorization/action is required.
+- Resume from stable task IDs and existing proof after interruption/compaction; never regenerate or silently shrink this contract just to make the remaining work easier.
+
 ## G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
 
 - [ ] **G012 · ARCHITECTURE GATE** — `enderloom-core` is the canonical production owner for performance-critical filesystem/indexing, database/cache, provider/data, hashing/fingerprinting, archive inspection, dependency/compatibility solving, transfer/install pipelines, background scheduling, and native media work; Electron/JavaScript is reduced to UI/browser/native-shell orchestration except where measured production evidence proves a JS implementation is genuinely superior with no protected regression.
