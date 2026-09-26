@@ -5860,10 +5860,10 @@
 <details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when (1)</summary>
 
-<a id="d-163a772e0497551a8a5b"></a>
-- [ ] **D-163a772e0497551a8a5b** - FINAL COMPLETION GATE — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted ...
+<a id="d-e52a19d86a22036470d3"></a>
+- [ ] **D-e52a19d86a22036470d3** - FINAL COMPLETION GATE — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted ...
   - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** FINAL COMPLETION GATE — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+  - **Full requirement:** FINAL COMPLETION GATE — All T001-T090, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; with Minecraft running, Enderloom remains within G014&#x27;s zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G009 : 2145-2145](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2145-L2145)
 
