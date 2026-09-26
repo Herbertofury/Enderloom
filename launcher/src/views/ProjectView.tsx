@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  ExternalLink,
   Loader2,
   Package,
   RefreshCw,
@@ -720,6 +721,24 @@ export function ProjectView() {
               className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content"
             >
               <SquareArrowOutUpRight className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => providerCommand("external")}
+              title="Open current provider page in your default browser"
+              aria-label="Open provider page in your browser"
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content"
+            >
+              <ExternalLink className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => providerCommand("copy-url")}
+              title="Copy current provider page URL"
+              aria-label="Copy provider page URL"
+              className="rounded-md p-1.5 text-[10px] font-black text-content-muted hover:bg-surface-3 hover:text-content"
+            >
+              URL
             </button>
             <button
               type="button"
