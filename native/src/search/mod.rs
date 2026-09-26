@@ -92,6 +92,30 @@ fn short_identity_query(title: &str) -> Option<String> {
         .find(|token| token.len() >= 4)
 }
 
+fn mirror_confidence(
+    current_title: &str,
+    current_author: &str,
+    candidate_title: &str,
+    candidate_author: &str,
+) -> u8 {
+    let title_score = title_similarity(current_title, candidate_title);
+    let current_author = identity_key(current_author);
+    let candidate_author = identity_key(candidate_author);
+    let same_author = !current_author.is_empty()
+        && !candidate_author.is_empty()
+        && current_author == candidate_author;
+
+    if same_author && title_score >= 75 {
+        95
+    } else if same_author && title_score >= 55 {
+        88
+    } else if title_score == 100 {
+        82
+    } else {
+        0
+    }
+}
+
 pub async fn project_mirrors(
     state: &AppState,
     provider: Provider,
@@ -103,8 +127,6 @@ pub async fn project_mirrors(
         Provider::Modrinth => Provider::Curseforge,
         Provider::Curseforge => Provider::Modrinth,
     };
-    let current_author = identity_key(&current.author);
-
     let mut queries = vec![current.title.clone()];
     if let Some(short) = short_identity_query(&current.title) {
         if identity_key(&short) != identity_key(&current.title) {
@@ -130,21 +152,12 @@ pub async fn project_mirrors(
 
     let mut mirrors = Vec::new();
     for candidate in candidates.into_values() {
-        let title_score = title_similarity(&current.title, &candidate.title);
-        let candidate_author = identity_key(&candidate.author);
-        let same_author = !current_author.is_empty()
-            && !candidate_author.is_empty()
-            && current_author == candidate_author;
-
-        let confidence = if same_author && title_score >= 75 {
-            95
-        } else if same_author && title_score >= 55 {
-            88
-        } else if title_score == 100 {
-            82
-        } else {
-            0
-        };
+        let confidence = mirror_confidence(
+            &current.title,
+            &current.author,
+            &candidate.title,
+            &candidate.author,
+        );
 
         if confidence > 0 {
             mirrors.push(ProjectMirror {
@@ -289,7 +302,7 @@ pub fn download_url(version: &ProjectVersion) -> Result<(String, VersionFile)> {
 
 #[cfg(test)]
 mod tests {
-    use super::{pick_best, title_similarity, ProjectVersion};
+    use super::{mirror_confidence, pick_best, title_similarity, ProjectVersion};
 
     fn version(id: &str, channel: &str, date: &str, compatible: bool) -> ProjectVersion {
         ProjectVersion {
@@ -320,6 +333,15 @@ mod tests {
         );
         assert_eq!(title_similarity("Grimoire of Gaia", "Grimoire of Gaia"), 100);
         assert!(title_similarity("Sodium", "Completely Different Mod") < 50);
+        assert_eq!(
+            mirror_confidence(
+                "Punchy! - First person animations",
+                "DevPunchyMan",
+                "Punchy!",
+                "DevPunchyMan",
+            ),
+            95
+        );
     }
 
     #[test]
