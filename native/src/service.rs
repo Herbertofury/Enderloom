@@ -627,6 +627,14 @@ async fn dispatch(state: &Arc<AppState>, command: &str, args: &Value) -> Result<
                 .await?,
             )
         }
+        "list_content_source_index" => {
+            let instance_ids = required_strings(args, "instanceIds")?;
+            value(crate::commands::content_commands::list_content_source_index_core(
+                state,
+                &instance_ids,
+                &required_string(args, "kind")?,
+            )?)
+        }
         "find_project_mirrors" => {
             let provider = crate::search::Provider::parse(&required_string(args, "provider")?)?;
             let kind = crate::search::ContentKind::parse(&required_string(args, "kind")?)?;
