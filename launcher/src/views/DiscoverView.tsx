@@ -18,6 +18,10 @@ import {
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
+import {
+  buildInstalledInstancesByProject,
+  buildPackInstancesByProject,
+} from "../lib/browse-index";
 import { prefetchProject, prefetchProjectDetails } from "../lib/project-cache";
 import type {
   Instance,
@@ -278,31 +282,18 @@ export function DiscoverView() {
     refreshServerContentSources,
   ]);
 
-  const installedInstancesByProject = useMemo(() => {
-    const index = new Map<string, Instance[]>();
-    if (target) return index;
+  const installedInstancesByProject = useMemo(
+    () =>
+      target
+        ? new Map<string, Instance[]>()
+        : buildInstalledInstancesByProject(instances, allSources, kind),
+    [target, instances, allSources, kind],
+  );
 
-    for (const instance of instances) {
-      const sourceMap = allSources[`${instance.id}:${kind}`];
-      if (!sourceMap) continue;
-      for (const projectId of Object.keys(sourceMap)) {
-        const found = index.get(projectId);
-        if (found) found.push(instance);
-        else index.set(projectId, [instance]);
-      }
-    }
-    return index;
-  }, [target, instances, allSources, kind]);
-
-  const packInstancesByProject = useMemo(() => {
-    const index = new Map<string, Instance>();
-    for (const instance of instances) {
-      if (instance.pack_project_id && !index.has(instance.pack_project_id)) {
-        index.set(instance.pack_project_id, instance);
-      }
-    }
-    return index;
-  }, [instances]);
+  const packInstancesByProject = useMemo(
+    () => buildPackInstancesByProject(instances),
+    [instances],
+  );
 
   const installedIn = useCallback(
     (projectId: string) => installedInstancesByProject.get(projectId) ?? [],
