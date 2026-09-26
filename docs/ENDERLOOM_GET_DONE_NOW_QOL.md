@@ -175,7 +175,26 @@ Acceptance:
 - If CurseForge **or** Modrinth is still faster **or tied** on an equivalent path, profile the difference and continue improving architecture. Do **not** close G010 by documenting the loss or accepting parity.
 - If Enderloom becomes faster by dropping work, metadata, results, validation, or fidelity, reopen the responsible task and reject the optimization.
 
-**G010 closes only when T047, T048, T049 and every existing performance-sensitive task they touch are runtime-proven on the packaged/current desktop build.**
+**G010 closes only when T047, T048, T049, T050 and every existing performance-sensitive task they touch are runtime-proven on the packaged/current desktop build.**
+
+### T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
+
+- [ ] **T050** · Make strict speed + useful-amount superiority a permanent release/CI acceptance condition, not a one-time benchmark
+
+Once T049 establishes a proven benchmark/coverage baseline, preserve it as a versioned machine-readable acceptance artifact tied to exact Enderloom build/commit, comparator versions/builds, datasets, hardware/network context, result counts, and timing distributions.
+
+Required behavior:
+
+- Every performance-sensitive change must run the cheapest decisive affected-path benchmark + coverage-equivalence check before merge/release; broader comparator certification runs at release gates and after material architecture/provider changes.
+- A change that is slower than the current proven Enderloom baseline, returns less useful deduplicated coverage/capability, or reintroduces a protected regression **fails** even if it still beats an older comparator build.
+- Never replace a stronger Enderloom baseline with a weaker one merely because a benchmark is noisy or a new implementation is convenient. Improvements ratchet forward.
+- Track median, p95/p99, first-useful-result, full-completion, throughput, CPU/memory/disk/network, and logical result/metadata/dependency/media/action coverage where relevant.
+- Use stable fixtures plus representative large/cold/warm/degraded-provider cases. Preserve exact expected/discovered/returned/accepted/rejected/unresolved counts and canonical deduplication.
+- When installed CurseForge or Modrinth updates materially, capture the new exact build/hash, rerun the comparable benchmark matrix, and raise Enderloom's target if either comparator improved. Comparator progress can only raise the bar, never lower Enderloom's existing proven baseline.
+- If an external provider/network event makes a comparator run non-equivalent, mark that sample invalid and rerun under comparable conditions; do not use bad external conditions to manufacture a win.
+- Keep an explicit history of benchmark/coverage regressions and the fix that restored superiority so the same regression class becomes a reusable test/fixture.
+- Final packaged releases must carry a concise superiority receipt proving which comparator builds and workflows were beaten and which non-comparable/proprietary workflows were excluded with reasons.
+- No release may claim this queue complete while T050 detects a regression, tie, stale comparator baseline, reduced result/capability coverage, or unverified affected hot path.
 
 ---
 
@@ -194,8 +213,9 @@ Execute in this priority order, without waiting for unrelated queue items:
 7. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
 8. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
 9. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
-10. **T049** — run the no-loss comparator certification;
-11. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+10. **T049** — run the strict faster-and-richer-than-both certification;
+11. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
+12. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
 
@@ -1091,4 +1111,4 @@ This document is complete only when **G010 is closed** and every leaf task and g
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T049, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T050, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
