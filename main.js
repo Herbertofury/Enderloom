@@ -3338,6 +3338,30 @@ async function runSelfTest() {
   const galleryEnhancerTest = await catalogView.webContents.executeJavaScript('window.__mobGalleryEnhancerTest ? window.__mobGalleryEnhancerTest() : ({passed:false})', true);
   check('streaming media enhancer bridge', galleryEnhancerTest?.passed===true && galleryEnhancerTest?.primePipelineAvailable===true && galleryEnhancerTest?.cacheBatchAvailable===true, JSON.stringify(galleryEnhancerTest));
   stage('catalog-renderer');
+  activateTab(LAUNCHER_ID);
+  const seededProjectPaint = await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.openSeededProject({
+    id:'sodium',
+    slug:'sodium',
+    title:'Sodium',
+    description:'Modern rendering engine',
+    icon_url:null,
+    downloads:100000000,
+    follows:1000000,
+    author:'jellysquid3',
+    categories:['optimization'],
+    game_versions:['1.20.1'],
+    loaders:['fabric'],
+    updated:null,
+    color:null
+  })`, true);
+  check(
+    'seeded Browse project paints without a network-gated page spinner',
+    seededProjectPaint?.timedOut===false &&
+      seededProjectPaint?.heading==='Sodium' &&
+      Number(seededProjectPaint?.elapsedMs)<300,
+    JSON.stringify(seededProjectPaint),
+  );
+  stage('browse-seeded-paint');
   const primeRuntime = await catalogView.webContents.executeJavaScript(`new Promise(resolve=>{const key='self-prime-'+Date.now();let first=null;const off=window.mobCompanion.onMedia(p=>{if(p?.key!==key)return;if(p.media&&!first)first=p.media;if(p.done){off();resolve({done:true,first,delivered:p.delivered,elapsedMs:p.elapsedMs})}});window.mobCompanion.primeMedia([{key,urls:['http://127.0.0.1:${port}/'],priority:2000000,context:{projectId:key,title:'Fixture One',author:'Fixture Creator'}}]);setTimeout(()=>{try{off()}catch{}resolve({done:false,first})},3500)})`, true);
   check('main-process streaming media prime runtime', primeRuntime?.done===true && primeRuntime?.first?.gallery?.length>=1, JSON.stringify(primeRuntime));
   stage('media-prime');
