@@ -71,6 +71,7 @@ jobs:
           cargo test --manifest-path native/Cargo.toml --lib content_source_index_preserves_installed_badges_without_stale_rows
           cargo test --manifest-path native/Cargo.toml --lib cold_fetches_share_only_live_identical_key_locks
           cargo test --manifest-path native/Cargo.toml --lib direct_instance_lookup_matches_full_listing_and_scales_better -- --nocapture
+          cargo test --manifest-path native/Cargo.toml --lib logo_index_matches_existing_priority_and_reduces_probe_work -- --nocapture
 
       - name: Browse provider pane static QA
         run: node scripts/workspace-tabs-qa.js
