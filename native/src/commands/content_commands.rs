@@ -98,8 +98,7 @@ pub(crate) fn list_content_source_index_core(
             let Some(project_id) = source.project_id.clone() else {
                 continue;
             };
-            let path = content::resolve_path(&state.files, &dir, &source.file_name);
-            if !state.files.is_file(&path).unwrap_or(false) {
+            if content::resolve_existing_path(&state.files, &dir, &source.file_name).is_none() {
                 continue;
             }
 
