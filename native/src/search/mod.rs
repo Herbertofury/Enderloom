@@ -209,15 +209,18 @@ pub async fn project_mirrors(
     }
 
     if let Some(current_source) = current_source {
-        let checks = source_checks.into_iter().map(|candidate| async move {
-            let details = project_details(state, other, &candidate.id).await.ok()?;
-            (normalized_source(&details).as_deref() == Some(current_source.as_str())).then_some(
-                ProjectMirror {
-                    provider: other.as_str().to_string(),
-                    project: candidate,
-                    confidence: 100,
-                },
-            )
+        let checks = source_checks.into_iter().map(|candidate| {
+            let current_source = current_source.clone();
+            async move {
+                let details = project_details(state, other, &candidate.id).await.ok()?;
+                (normalized_source(&details).as_deref() == Some(current_source.as_str())).then_some(
+                    ProjectMirror {
+                        provider: other.as_str().to_string(),
+                        project: candidate,
+                        confidence: 100,
+                    },
+                )
+            }
         });
         mirrors.extend(
             futures::future::join_all(checks)
