@@ -77,6 +77,7 @@ const SORTS: Array<{ id: SortOrder; label: string }> = [
 const PAGE_SIZE = 40;
 const MAX_BROWSE_PAGE_CACHE = 48;
 const browsePageCache = new Map<string, SearchPage>();
+const taxonomyCache = new Map<string, FilterTaxonomy>();
 
 function rememberBrowsePage(signature: string, page: SearchPage) {
   browsePageCache.delete(signature);
@@ -140,6 +141,7 @@ export function DiscoverView() {
   const allSources = useStore((s) => s.contentSources);
   const sources = allSources[`${serverId ?? targetId}:${kind}`];
   const refreshContentSources = useStore((s) => s.refreshContentSources);
+  const refreshContentSourcesBatch = useStore((s) => s.refreshContentSourcesBatch);
   const refreshServerContentSources = useStore((s) => s.refreshServerContentSources);
   const settings = useStore((s) => s.settings);
   const hasCfKey = useStore((s) => !!s.settings?.curseforge_api_key || s.bundledCurseforgeKey);
@@ -196,18 +198,27 @@ export function DiscoverView() {
 
   useEffect(() => {
     let live = true;
-    setTaxonomy(null);
-    if (provider === "curseforge" && !hasCfKey) return () => {
-      live = false;
-    };
+    const taxonomyKey = `${provider}:${kind}`;
+    const cached = taxonomyCache.get(taxonomyKey) ?? null;
+    setTaxonomy(cached);
+    if (provider === "curseforge" && !hasCfKey) {
+      return () => {
+        live = false;
+      };
+    }
     api
       .getFilterTaxonomy(provider, kind)
-      .then((t) => live && setTaxonomy(t))
-      .catch(() => live && setTaxonomy(null));
+      .then((taxonomy) => {
+        taxonomyCache.set(taxonomyKey, taxonomy);
+        if (live) setTaxonomy(taxonomy);
+      })
+      .catch(() => {
+        if (live && !cached) setTaxonomy(null);
+      });
     return () => {
       live = false;
     };
-  }, [provider, kind]);
+  }, [provider, kind, hasCfKey]);
 
   const scope = `${provider}:${kind}`;
 
@@ -247,26 +258,55 @@ export function DiscoverView() {
   }, [query, sort, filters]);
 
   useEffect(() => {
-    if (kind === "modpacks") return;
+    if (kind === "modpacks" || kind === "datapacks") return;
     if (target) {
       if (target.isServer) void refreshServerContentSources(target.id);
       else void refreshContentSources(target.id, kind);
       return;
     }
-    for (const instance of instances) void refreshContentSources(instance.id, kind);
+    void refreshContentSourcesBatch(
+      instances.map((instance) => instance.id),
+      kind,
+    );
   }, [
     target?.id,
     target?.isServer,
     kind,
     instances,
     refreshContentSources,
+    refreshContentSourcesBatch,
     refreshServerContentSources,
   ]);
 
+  const installedInstancesByProject = useMemo(() => {
+    const index = new Map<string, Instance[]>();
+    if (target) return index;
+
+    for (const instance of instances) {
+      const sourceMap = allSources[`${instance.id}:${kind}`];
+      if (!sourceMap) continue;
+      for (const projectId of Object.keys(sourceMap)) {
+        const found = index.get(projectId);
+        if (found) found.push(instance);
+        else index.set(projectId, [instance]);
+      }
+    }
+    return index;
+  }, [target, instances, allSources, kind]);
+
+  const packInstancesByProject = useMemo(() => {
+    const index = new Map<string, Instance>();
+    for (const instance of instances) {
+      if (instance.pack_project_id && !index.has(instance.pack_project_id)) {
+        index.set(instance.pack_project_id, instance);
+      }
+    }
+    return index;
+  }, [instances]);
+
   const installedIn = useCallback(
-    (projectId: string) =>
-      instances.filter((instance) => !!allSources[`${instance.id}:${kind}`]?.[projectId]),
-    [instances, allSources, kind],
+    (projectId: string) => installedInstancesByProject.get(projectId) ?? [],
+    [installedInstancesByProject],
   );
 
   const signature = JSON.stringify({ provider, kind, query, sort, filters, offset });
@@ -885,9 +925,7 @@ export function DiscoverView() {
               <ContentResults
                 view={resultView}
                 rows={hits.map((project) => {
-                  const packInstance = instances.find(
-                    (i) => i.pack_project_id === project.id,
-                  );
+                  const packInstance = packInstancesByProject.get(project.id);
                   const installedFile = sources?.[project.id]?.file_name;
                   const alsoIn = target ? [] : installedIn(project.id);
                   const busy =
