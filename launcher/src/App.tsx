@@ -43,6 +43,7 @@ if (window.enderloomLauncher?.selfTest) {
       openSeededProject: (
         seed: ProjectSummary,
       ) => Promise<{ elapsedMs: number; heading: string; timedOut: boolean }>;
+      reset: () => void;
     };
   };
 
@@ -71,13 +72,27 @@ if (window.enderloomLauncher?.selfTest) {
           if (!settled) requestAnimationFrame(inspect);
         };
 
-        useStore.setState({ catalogInstallRequest: null });
+        const state = useStore.getState();
+        useStore.setState({
+          catalogInstallRequest: null,
+          settings: state.settings
+            ? { ...state.settings, onboarded: true }
+            : state.settings,
+        });
         useStore.getState().openProject("modrinth", seed.id, "mods", seed.title, seed);
         requestAnimationFrame(inspect);
         timer = window.setTimeout(() => {
           finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
         }, 2_000);
       }),
+    reset: () => {
+      useStore.setState({
+        view: "home",
+        viewStack: [],
+        projectRef: null,
+        catalogInstallRequest: null,
+      });
+    },
   };
 }
 
