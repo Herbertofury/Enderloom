@@ -29,7 +29,8 @@ import { ConversionView } from "./views/ConversionView";
 import { ProjectView } from "./views/ProjectView";
 import { SettingsView } from "./views/SettingsView";
 import { useStore } from "./store";
-import type { ProjectSummary, View } from "./lib/types";
+import { buildInstalledInstancesByProject } from "./lib/browse-index";
+import type { Instance, ProjectSummary, View } from "./lib/types";
 
 const StatsView = lazy(() =>
   import("./views/StatsView").then((module) => ({ default: module.StatsView })),
@@ -43,6 +44,12 @@ if (window.enderloomLauncher?.selfTest) {
       openSeededProject: (
         seed: ProjectSummary,
       ) => Promise<{ elapsedMs: number; heading: string; timedOut: boolean }>;
+      benchmarkInstalledIndex: () => {
+        legacyMs: number;
+        indexedMs: number;
+        speedup: number;
+        equivalent: boolean;
+      };
       reset: () => void;
     };
   };
@@ -97,6 +104,72 @@ if (window.enderloomLauncher?.selfTest) {
           finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
         }, 2_000);
       }),
+    benchmarkInstalledIndex: () => {
+      const instanceCount = 1_000;
+      const sourcesPerInstance = 64;
+      const visibleProjects = Array.from({ length: 40 }, (_, index) => `project-${index * 7}`);
+      const instances = Array.from({ length: instanceCount }, (_, index) => ({
+        id: `instance-${index}`,
+        name: `Instance ${index}`,
+      })) as unknown as Instance[];
+      const contentSources: Record<
+        string,
+        Record<string, { file_name: string; version_id: string | null }>
+      > = {};
+
+      for (let instanceIndex = 0; instanceIndex < instanceCount; instanceIndex += 1) {
+        const sourceMap: Record<string, { file_name: string; version_id: string | null }> = {};
+        for (let sourceIndex = 0; sourceIndex < sourcesPerInstance; sourceIndex += 1) {
+          const projectId = `project-${(instanceIndex * 17 + sourceIndex * 13) % 800}`;
+          sourceMap[projectId] = {
+            file_name: `${projectId}.jar`,
+            version_id: `v-${sourceIndex}`,
+          };
+        }
+        contentSources[`${instances[instanceIndex].id}:mods`] = sourceMap;
+      }
+
+      const legacy = () =>
+        visibleProjects.map((projectId) =>
+          instances
+            .filter(
+              (instance) =>
+                !!contentSources[`${instance.id}:mods`]?.[projectId],
+            )
+            .map((instance) => instance.id),
+        );
+
+      const expected = legacy();
+      const cycles = 80;
+      let legacyChecksum = 0;
+      const legacyStarted = performance.now();
+      for (let cycle = 0; cycle < cycles; cycle += 1) {
+        for (const matches of legacy()) legacyChecksum += matches.length;
+      }
+      const legacyMs = performance.now() - legacyStarted;
+
+      const indexedStarted = performance.now();
+      const index = buildInstalledInstancesByProject(instances, contentSources, "mods");
+      let indexedChecksum = 0;
+      for (let cycle = 0; cycle < cycles; cycle += 1) {
+        for (const projectId of visibleProjects) {
+          indexedChecksum += index.get(projectId)?.length ?? 0;
+        }
+      }
+      const indexedMs = performance.now() - indexedStarted;
+      const actual = visibleProjects.map((projectId) =>
+        (index.get(projectId) ?? []).map((instance) => instance.id),
+      );
+
+      return {
+        legacyMs,
+        indexedMs,
+        speedup: legacyMs / Math.max(indexedMs, 0.001),
+        equivalent:
+          legacyChecksum === indexedChecksum &&
+          JSON.stringify(expected) === JSON.stringify(actual),
+      };
+    },
     reset: () => {
       useStore.setState({
         view: "home",
