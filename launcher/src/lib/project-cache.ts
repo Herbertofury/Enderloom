@@ -144,8 +144,9 @@ export function prefetchProject(
   projectId: string,
   kind: ContentKind,
 ): void {
-  prefetchProjectDetails(provider, projectId);
-  void loadProjectMirrors(provider, projectId, kind).catch(() => {
-    // Mirror discovery is enrichment and must never block project navigation.
-  });
+  void loadProjectDetails(provider, projectId)
+    .then(() => loadProjectMirrors(provider, projectId, kind))
+    .catch(() => {
+      // Prefetch is speculative. Real navigation reports detail failures itself.
+    });
 }
