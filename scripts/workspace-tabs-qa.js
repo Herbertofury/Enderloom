@@ -10,9 +10,9 @@ assert(main.includes("ipcMain.handle('detached:command'")&&preload.includes("ipc
 assert(shell.includes("application/x-enderloom-tab")&&shell.includes("cmd('reorder-tab'")&&shell.includes("cmd('detach-tab'"),'shell tabs are not draggable/reorderable/detachable');
 assert(html.includes('workspaceFullscreen')&&html.includes('popoutMenu')&&detached.includes('reattach')&&detached.includes('fullscreen'),'fullscreen/pop-out/reattach controls are incomplete');
 assert(main.includes("groups=['Research','Mods','Reference']")&&shell.includes('tab-group-label'),'workspace groups are not wired end to end');
-assert(main.includes('function openLauncherProviderSurface(')&&main.includes("ipcMain.handle('launcher:provider-surface'")&&main.includes("case 'promote-provider-page'"),'Browse provider WebContentsView bridge is incomplete');
+assert(main.includes('function openLauncherProviderSurface(')&&main.includes("page-favicon-updated")&&main.includes("getZoomFactor()")&&main.includes("ipcMain.handle('launcher:provider-surface'")&&main.includes("case 'promote-provider-page'"),'Browse provider WebContentsView bridge is incomplete');
 assert(launcherPreload.includes("ipcRenderer.invoke('launcher:provider-surface'")&&project.includes('application/x-enderloom-provider-page')&&project.includes('SquareArrowOutUpRight'),'launcher provider pane/promote controls are not wired end to end');
-assert(shell.includes('application/x-enderloom-provider-page')&&shell.includes("cmd('promote-provider-page'")&&shell.includes('provider-drop-ready'),'provider chip drag promotion is not wired to the native tab strip');
+assert(shell.includes('application/x-enderloom-provider-page')&&shell.includes("types.includes('text/uri-list')")&&shell.includes("cmd('promote-provider-page'")&&shell.includes('provider-drop-ready'),'provider chip/URI drag promotion is not wired to the native tab strip');
 assert(main.includes('session.fromPartition(PARTITION)')&&main.includes('nodeIntegration: false')&&main.includes('contextIsolation: true')&&main.includes('sandbox: true')&&main.includes('webSecurity: true'),'provider surface did not inherit secure persistent browser isolation');
 const title=read('launcher/src/components/TitleBar.tsx'),app=read('launcher/src/App.tsx');
 assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manager title remains');
