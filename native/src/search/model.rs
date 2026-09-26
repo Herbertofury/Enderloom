@@ -147,6 +147,13 @@ pub struct SearchPage {
 }
 
 #[derive(Debug, Clone, Serialize)]
+pub struct ProjectMirror {
+    pub provider: String,
+    pub project: ProjectSummary,
+    pub confidence: u8,
+}
+
+#[derive(Debug, Clone, Serialize)]
 pub struct ProjectLink {
     pub label: String,
     pub url: String,
