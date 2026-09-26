@@ -360,26 +360,43 @@ export function ProjectView() {
   useEffect(() => {
     if (versions !== null || !projectRef) return;
     let live = true;
-    api
-      .listProjectVersions(
-        projectRef.provider,
-        projectRef.id,
-        kind,
-        destination?.version_id ?? "",
-        loader,
-      )
-      .then((v) => live && setVersions(v))
-      .catch((e) => {
-        if (live) {
-          setVersions([]);
-          setError(String(e));
-        }
-      });
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const loadVersions = () => {
+      void api
+        .listProjectVersions(
+          projectRef.provider,
+          projectRef.id,
+          kind,
+          destination?.version_id ?? "",
+          loader,
+        )
+        .then((v) => live && setVersions(v))
+        .catch((e) => {
+          if (live) {
+            setVersions([]);
+            setError(String(e));
+          }
+        });
+    };
+
+    // Keep the project-open critical path dedicated to the visible description/details.
+    // Versions still prewarm shortly after paint, and load immediately if the user asks
+    // for them or a modpack needs server-pack metadata in the hero.
+    if (tab === "versions" || isPack) {
+      loadVersions();
+    } else {
+      timer = setTimeout(loadVersions, 450);
+    }
+
     return () => {
       live = false;
+      if (timer) clearTimeout(timer);
     };
   }, [
     versions,
+    tab,
+    isPack,
     projectRef?.provider,
     projectRef?.id,
     destination?.id,
