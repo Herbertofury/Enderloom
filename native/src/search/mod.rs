@@ -36,6 +36,132 @@ pub async fn project_details(
     }
 }
 
+fn identity_key(value: &str) -> String {
+    value
+        .chars()
+        .filter(|ch| ch.is_ascii_alphanumeric())
+        .flat_map(char::to_lowercase)
+        .collect()
+}
+
+fn title_tokens(value: &str) -> Vec<String> {
+    value
+        .split(|ch: char| !ch.is_ascii_alphanumeric())
+        .filter(|part| !part.is_empty())
+        .map(str::to_lowercase)
+        .collect()
+}
+
+fn title_similarity(left: &str, right: &str) -> u8 {
+    let left_key = identity_key(left);
+    let right_key = identity_key(right);
+    if left_key.is_empty() || right_key.is_empty() {
+        return 0;
+    }
+    if left_key == right_key {
+        return 100;
+    }
+
+    let left_tokens = title_tokens(left);
+    let right_tokens = title_tokens(right);
+    if left_tokens.is_empty() || right_tokens.is_empty() {
+        return 0;
+    }
+
+    let shorter = left_tokens.len().min(right_tokens.len());
+    if left_tokens[0] == right_tokens[0]
+        && left_tokens
+            .iter()
+            .zip(right_tokens.iter())
+            .take(shorter)
+            .all(|(a, b)| a == b)
+    {
+        return if shorter == 1 { 80 } else { 90 };
+    }
+
+    let common = left_tokens
+        .iter()
+        .filter(|token| right_tokens.contains(token))
+        .count();
+    ((common * 100) / left_tokens.len().max(right_tokens.len())) as u8
+}
+
+fn short_identity_query(title: &str) -> Option<String> {
+    title_tokens(title)
+        .into_iter()
+        .find(|token| token.len() >= 4)
+}
+
+pub async fn project_mirrors(
+    state: &AppState,
+    provider: Provider,
+    project_id: &str,
+    kind: ContentKind,
+) -> Result<Vec<ProjectMirror>> {
+    let current = project_details(state, provider, project_id).await?;
+    let other = match provider {
+        Provider::Modrinth => Provider::Curseforge,
+        Provider::Curseforge => Provider::Modrinth,
+    };
+    let current_author = identity_key(&current.author);
+
+    let mut queries = vec![current.title.clone()];
+    if let Some(short) = short_identity_query(&current.title) {
+        if identity_key(&short) != identity_key(&current.title) {
+            queries.push(short);
+        }
+    }
+
+    let mut candidates = std::collections::HashMap::<String, ProjectSummary>::new();
+    for query_text in queries {
+        let query = SearchQuery {
+            query: query_text,
+            limit: 50,
+            ..SearchQuery::default()
+        };
+        let Ok(page) = search(state, other, kind, &query).await else {
+            continue;
+        };
+        for candidate in page.hits {
+            candidates.entry(candidate.id.clone()).or_insert(candidate);
+        }
+    }
+
+    let mut mirrors = Vec::new();
+    for candidate in candidates.into_values() {
+        let title_score = title_similarity(&current.title, &candidate.title);
+        let candidate_author = identity_key(&candidate.author);
+        let same_author = !current_author.is_empty()
+            && !candidate_author.is_empty()
+            && current_author == candidate_author;
+
+        let confidence = if same_author && title_score >= 75 {
+            95
+        } else if same_author && title_score >= 55 {
+            88
+        } else if title_score == 100 {
+            82
+        } else {
+            0
+        };
+
+        if confidence > 0 {
+            mirrors.push(ProjectMirror {
+                provider: other.as_str().to_string(),
+                project: candidate,
+                confidence,
+            });
+        }
+    }
+
+    mirrors.sort_by(|a, b| {
+        b.confidence
+            .cmp(&a.confidence)
+            .then_with(|| b.project.downloads.cmp(&a.project.downloads))
+    });
+    Ok(mirrors)
+}
+
 pub async fn project_versions(
     state: &AppState,
     provider: Provider,
@@ -162,7 +288,7 @@ pub fn download_url(version: &ProjectVersion) -> Result<(String, VersionFile)> {
 
 #[cfg(test)]
 mod tests {
-    use super::{pick_best, ProjectVersion};
+    use super::{pick_best, title_similarity, ProjectVersion};
 
     fn version(id: &str, channel: &str, date: &str, compatible: bool) -> ProjectVersion {
         ProjectVersion {
@@ -183,6 +309,16 @@ mod tests {
             dependencies: Vec::new(),
             files: Vec::new(),
         }
+    }
+
+    #[test]
+    fn provider_title_matching_handles_subtitle_drift() {
+        assert_eq!(
+            title_similarity("Punchy! - First person animations", "Punchy!"),
+            80
+        );
+        assert_eq!(title_similarity("Grimoire of Gaia", "Grimoire of Gaia"), 100);
+        assert!(title_similarity("Sodium", "Completely Different Mod") < 50);
     }
 
     #[test]
