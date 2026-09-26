@@ -4,25 +4,25 @@
 
 > The actual tasks and binding clauses from the specifications, not just an index of headings.
 
-**5,242 source-task occurrences**, **5,830 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
+**5,308 source-task occurrences**, **6,024 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
 
 | Workstream | Detailed requirements |
 | :--- | ---: |
 | [Complete Advent of Ascension](Acceptance-AOA.md) | 464 |
-| [Beautiful unified studio](Acceptance-UX.md) | 346 |
-| [Authoring and real assets](Acceptance-MAKE.md) | 373 |
-| [Universal conversion engine](Acceptance-PORT.md) | 742 |
-| [Dependencies and shared operations](Acceptance-DEP.md) | 315 |
-| [Repair and forensics](Acceptance-FIX.md) | 241 |
-| [Native testing and control plane](Acceptance-TEST.md) | 905 |
-| [Performance without loss](Acceptance-PERF.md) | 348 |
-| [Discovery, favorites and content](Acceptance-LIB.md) | 729 |
-| [Launcher, accounts and instances](Acceptance-PLAY.md) | 244 |
-| [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 125 |
-| [Worlds, servers and migration](Acceptance-WORLD.md) | 359 |
-| [AI operator and evidence brain](Acceptance-AI.md) | 294 |
-| [Knowledge and compatibility](Acceptance-KNOW.md) | 124 |
-| [Security, preservation and release](Acceptance-SHIP.md) | 221 |
+| [Beautiful unified studio](Acceptance-UX.md) | 395 |
+| [Authoring and real assets](Acceptance-MAKE.md) | 377 |
+| [Universal conversion engine](Acceptance-PORT.md) | 743 |
+| [Dependencies and shared operations](Acceptance-DEP.md) | 335 |
+| [Repair and forensics](Acceptance-FIX.md) | 248 |
+| [Native testing and control plane](Acceptance-TEST.md) | 916 |
+| [Performance without loss](Acceptance-PERF.md) | 367 |
+| [Discovery, favorites and content](Acceptance-LIB.md) | 779 |
+| [Launcher, accounts and instances](Acceptance-PLAY.md) | 252 |
+| [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 128 |
+| [Worlds, servers and migration](Acceptance-WORLD.md) | 361 |
+| [AI operator and evidence brain](Acceptance-AI.md) | 297 |
+| [Knowledge and compatibility](Acceptance-KNOW.md) | 125 |
+| [Security, preservation and release](Acceptance-SHIP.md) | 237 |
 
 ## Source accounting is not semantic certification
 

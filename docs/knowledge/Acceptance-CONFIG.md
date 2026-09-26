@@ -135,7 +135,7 @@
 <a id="config-02-details"></a>
 ## CONFIG-02 - Config profiles, overlays and repair
 
-[Outcome](Checklist.md#config-02) / 31 source-derived details.
+[Outcome](Checklist.md#config-02) / 33 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -297,13 +297,37 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T071 — One tool implementation, multiple hosts (1)</summary>
+
+<a id="d-e5a4a8d8fb02797375e9"></a>
+- [ ] **D-e5a4a8d8fb02797375e9** - - Tool domain logic/state lives in enderloom-core or another canonical native/domain module, never duplicated separately for Electron and standalone. - Tool UI should be shared fro...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Tool domain logic/state lives in enderloom-core or another canonical native/domain module, never duplicated separately for Electron and standalone. - Tool UI should be shared from one source where technically practical; host-specific adapters handle only shell/window/browser/native differences. - Support at least these host modes: - Electron tab inside full Enderloom; - Electron pop-out/window for instant detach while retaining full Electron/browser capability; - lightweight standalone host (Tauri/native/webview or another benchmark-proven production host) that can launch without booting the full Electron/browser shell. - Choose the standalone host by measured startup/runtime/resource/capability evidence. Tauri is a strong candidate, not a cargo-cult requirement. - The same action IDs, commands, state schema, progress events, permissions, validation, undo/rollback semantics, hotkeys, and persistence apply regardless of host. - Host adapters cannot reimplement private business logic merely because an API differs. - A tool declares capability requirements; unavailable optional host capabilities produce a truthful alternate path, not a crippled hidden failure. - New features added to the canonical tool implementation become available in every compatible host automatically.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T071 — One tool implementation, multiple hosts
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 769-779](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L769-L779)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture (1)</summary>
+
+<a id="d-00c22c766112a8b12e41"></a>
+- [ ] **D-00c22c766112a8b12e41** - - stable tool ID/name/icon/routes; - shared UI entrypoint(s); - required/optional host capabilities; - canonical domain commands/events; - state serialization/restore contract for ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - stable tool ID/name/icon/routes; - shared UI entrypoint(s); - required/optional host capabilities; - canonical domain commands/events; - state serialization/restore contract for safe view/workspace state; - context actions and hotkeys; - drag/drop/import/export intents; - permissions/security needs; - standalone host eligibility/config; - Electron tab/pop-out eligibility; - deep links such as enderloom://tool/&lt;id&gt;/...; - diagnostics/health/version compatibility.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 895-906](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L895-L906)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T032 — Find-in-page and complete browser hotkey parity (1)</summary>
 
 <a id="d-7cb7bfbf9431c31693e5"></a>
 - [ ] **D-7cb7bfbf9431c31693e5** - · Implement real find-in-page plus normal browser navigation shortcuts
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T032 — Find-in-page and complete browser hotkey parity
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T032 : 435-435](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L435-L435)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T032 : 1790-1790](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1790-L1790)
 
 </details>
 
@@ -314,7 +338,7 @@
 - [ ] **D-2681edf6d9d2f85f3a68** - GATE — Navigation and common desktop hotkeys feel native
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G007 : 834-834](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L834-L834)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G007 : 2189-2189](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2189-L2189)
 
 </details>
 
@@ -325,7 +349,7 @@
 - [ ] **D-064a0891fcdecf0dd9de** - · F5 / Ctrl+R refresh everywhere it makes sense
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T018 — F5 / Ctrl+R refresh everywhere it makes sense
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T018 : 838-838](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L838-L838)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T018 : 2193-2193](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2193-L2193)
 
 </details>
 
@@ -539,7 +563,7 @@
 - [ ] **D-4fe3b64bae9fa213e0d2** - · Add/verify standard navigation hotkeys
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T019 — Add/verify standard navigation hotkeys
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T019 : 849-849](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L849-L849)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T019 : 2204-2204](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2204-L2204)
 
 </details>
 
@@ -582,7 +606,7 @@
 <a id="config-04-details"></a>
 ## CONFIG-04 - Data, functions and command debugger
 
-[Outcome](Checklist.md#config-04) / 52 source-derived details.
+[Outcome](Checklist.md#config-04) / 53 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -765,7 +789,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - F5 refreshes the current Enderloom view or embedded browser page. - Ctrl+R behaves equivalently. - Browser context performs normal page reload. - Native Enderloom views refresh canonical data, not the entire application process. - Preserve selection, filter, sort, scroll, and stable UI state when possible. - Refresh must not repeat destructive actions, installs, updates, or form submissions.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native / T018 — F5 / Ctrl+R refresh everywhere it makes sense
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 840-845](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L840-L845)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2195-2200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2195-L2200)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T055 — Native Mod / Instance context menus and keyboard bulk actions (1)</summary>
+
+<a id="d-08878bcf7338a463c9aa"></a>
+- [ ] **D-08878bcf7338a463c9aa** - - Shift+F10 and the keyboard Menu key open the same context menu for the focused item. - Arrow keys navigate; Enter activates; Escape closes; focus returns correctly. - Ctrl/Shift ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Shift+F10 and the keyboard Menu key open the same context menu for the focused item. - Arrow keys navigate; Enter activates; Escape closes; focus returns correctly. - Ctrl/Shift selection semantics match T053; context actions apply to the complete selected logical set when the action is bulk-capable. - Bulk-capable context actions use the same preview/Yes/No/Undo/Quarantine safeguards as T053. - Disabled/impossible actions remain truthful and explain why when useful; never expose clickable no-op menu items. - Menu content comes from current canonical state and should open perceptually instantly from cached/local data; remote enrichment may patch secondary items but cannot block the menu. - Context menus, toolbar buttons, card actions, hotkeys, and automation must all call the same canonical domain operation and therefore produce identical validation, persistence, progress, rollback, and result semantics. - Hotkey conflicts route through Enderloom&#x27;s canonical Hotkeys system.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T055 — Native Mod / Instance context menus and keyboard bulk actions
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2433-2440](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2433-L2440)
 
 </details>
 

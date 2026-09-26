@@ -753,7 +753,7 @@
 <a id="world-02-details"></a>
 ## WORLD-02 - Backups, recovery and Forever Worlds
 
-[Outcome](Checklist.md#world-02) / 31 source-derived details.
+[Outcome](Checklist.md#world-02) / 32 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 10. World Recovery / Recreation Doctor (1)</summary>
@@ -791,6 +791,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 678-678](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L678-L678)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core` (1)</summary>
+
+<a id="d-1bc3bc6944890dc0597f"></a>
+- [ ] **D-1bc3bc6944890dc0597f** - · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 456-456](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L456-L456)
 
 </details>
 
@@ -2623,7 +2634,7 @@
 <a id="world-06-details"></a>
 ## WORLD-06 - Network, proxy and plugin semantics
 
-[Outcome](Checklist.md#world-06) / 80 source-derived details.
+[Outcome](Checklist.md#world-06) / 81 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -3073,6 +3084,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1146-1146](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1146-L1146)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode (1)</summary>
+
+<a id="d-931b0eed2a546ae68f4a"></a>
+- [ ] **D-931b0eed2a546ae68f4a** - · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T096 : 1284-1284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1284-L1284)
 
 </details>
 

@@ -62,7 +62,7 @@
 - [ ] **D-0ea7e908fc5cb786133a** - GATE — Updates behave like a first-class launcher
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 57-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L57-L57)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 1412-1412](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1412-L1412)
 
 </details>
 
@@ -567,7 +567,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 60 source-derived details.
+[Outcome](Checklist.md#play-02) / 64 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -614,13 +614,54 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T078 — Robust Minecraft lifecycle detection and game-running operating state (1)</summary>
+
+<a id="d-c9e845c90e7446c95ae9"></a>
+- [ ] **D-c9e845c90e7446c95ae9** - · Detect every Enderloom-relevant running Minecraft instance reliably and enter/leave Game Running Mode without polling storms or false positives
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T078 — Robust Minecraft lifecycle detection and game-running operating state
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T078 : 1148-1148](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1148-L1148)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header (1)</summary>
 
 <a id="d-01867a6cb17cb20540cd"></a>
 - [ ] **D-01867a6cb17cb20540cd** - · Compact the oversized instance hero/header
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 644-644](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L644-L644)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 1999-1999](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1999-L1999)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers (1)</summary>
+
+<a id="d-fbeee118c9f65f9b2021"></a>
+- [ ] **D-fbeee118c9f65f9b2021** - GATE — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-contro...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-controlled, runtime-proven, and satisfy G010&#x27;s strict faster-and-richer-than-both contract where technically comparable.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G011 : 2222-2222](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2222-L2222)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy (2)</summary>
+
+<a id="d-9a22d616168253a29122"></a>
+- [ ] **D-9a22d616168253a29122** - · Make first-run, account connection, instance creation, import, and clone flows strictly faster and more capable than both launchers without losing fidelity
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T054 : 2343-2343](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2343-L2343)
+
+<a id="d-22fc96576ade8894442a"></a>
+- [ ] **D-22fc96576ade8894442a** - - Benchmark first launch -&gt; usable shell, account action -&gt; usable authenticated state, create -&gt; usable instance, import -&gt; usable verified instance, and clone -&gt; i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Benchmark first launch -&gt; usable shell, account action -&gt; usable authenticated state, create -&gt; usable instance, import -&gt; usable verified instance, and clone -&gt; independently usable clone against both installed clients on equivalent fixtures. - Enderloom must be measurably faster than both on technically comparable median and p95 paths while preserving more useful setup/import intelligence and the full intended instance contents. - Record bytes downloaded vs reused, files/projects preserved, dependency/provider resolution counts, CPU/disk/network cost, and cold/warm behavior. - A &quot;fast&quot; result that omits overrides/configs/mods/dependencies or defers an unavoidable blocking copy/download to first launch is a regression, not a win.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2384-2387](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2384-L2387)
 
 </details>
 
@@ -1244,7 +1285,7 @@
 <a id="play-04-details"></a>
 ## PLAY-04 - Java, loaders and real launch
 
-[Outcome](Checklist.md#play-04) / 80 source-derived details.
+[Outcome](Checklist.md#play-04) / 83 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 5. PHASE B — FIRST REAL CANONICAL VERTICAL (1)</summary>
@@ -1287,6 +1328,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 28. Remote Server Operations — real adapters only
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1035-1035](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1035-L1035)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T072 — Mod Manager is the first dual-host reference implementation (1)</summary>
+
+<a id="d-1f9149f58b000340c5f9"></a>
+- [ ] **D-1f9149f58b000340c5f9** - · Make the Enderloom Mod Manager launch instantly as its own lightweight application and remain the exact same first-class tool when docked inside Electron
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T072 — Mod Manager is the first dual-host reference implementation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T072 : 783-783](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L783-L783)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes (1)</summary>
+
+<a id="d-37c273c57af410aaf888"></a>
+- [ ] **D-37c273c57af410aaf888** - Startup / launch - Keep the true startup critical path minimal: create/render the usable shell first, then schedule non-blocking enrichment. - Do not synchronously rescan every ins...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Startup / launch - Keep the true startup critical path minimal: create/render the usable shell first, then schedule non-blocking enrichment. - Do not synchronously rescan every instance, mod, provider, artwork file, cache, log, or browser state before showing a usable window. - Persist validated indexes/snapshots so restart can restore known-good state immediately and then reconcile deltas. - Use filesystem change tracking / dirtiness / mtimes / hashes intelligently so unchanged directories are not repeatedly rescanned. - Parallelize genuinely independent startup work with bounded concurrency. - Lazy-load heavy code/routes only when that does not move an unavoidable stall to the first click; prefetch high-probability routes after shell readiness. - Remove synchronous disk, JSON, hashing, SQLite, child-process, network, and IPC work from Electron main/renderer hot loops.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1008-1015](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1008-L1015)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T078 — Robust Minecraft lifecycle detection and game-running operating state (1)</summary>
+
+<a id="d-12955caca78d259c8653"></a>
+- [ ] **D-12955caca78d259c8653** - - Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, an...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, and other strong evidence rather than matching every java.exe. - Track multiple simultaneous clients/servers independently. - Know which Enderloom instance/profile/world/server each recognized process belongs to when evidence supports it. - External launcher/process disappearance or telemetry failure becomes unresolved state, not permission to assume the game exited and resume heavy background work. - Transition into Game Running Mode promptly after launch/process detection and remain there through launcher handoff/startup transitions that still materially contend with game startup. - Exit only after all recognized Minecraft workloads are gone or a safe cooldown confirms the relevant process lifecycle ended. - Process detection itself must be event-driven or very low-cost and must not create the overhead this gate is trying to eliminate.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T078 — Robust Minecraft lifecycle detection and game-running operating state
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1152-1158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1152-L1158)
 
 </details>
 
@@ -1929,7 +2005,7 @@
 <a id="play-05-details"></a>
 ## PLAY-05 - Instance update and maintenance
 
-[Outcome](Checklist.md#play-05) / 14 source-derived details.
+[Outcome](Checklist.md#play-05) / 15 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 2. Security &amp; Supply-Chain Center — missing critical layer / 2.3 Update capability diff (1)</summary>
@@ -1961,6 +2037,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1147-1147](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1147-L1147)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy (1)</summary>
+
+<a id="d-50111aafe21132c2d193"></a>
+- [ ] **D-50111aafe21132c2d193** - - Reuse legitimate existing authorized sessions where supported. - Account connect/reconnect uses the provider&#x27;s supported OAuth/device/browser flow and returns to the interru...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Reuse legitimate existing authorized sessions where supported. - Account connect/reconnect uses the provider&#x27;s supported OAuth/device/browser flow and returns to the interrupted Enderloom action automatically. - Never store raw account passwords or bypass MFA/CAPTCHA/security challenges. - Show truthful connected/reconnect-required/offline state without making unrelated local instance management unavailable. - Keep account UI responsive while remote profile/entitlement data enriches.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2354-2358](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2354-L2358)
 
 </details>
 

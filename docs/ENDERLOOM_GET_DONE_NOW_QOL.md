@@ -3,29 +3,1384 @@
 **Status:** ACTIVE / IMMEDIATE EXECUTION QUEUE  
 **Created:** 2026-09-24  
 **Repository:** `Herbertofury/Enderloom`  
-**Priority:** finish this queue as a coherent repair pass before treating ordinary launcher/mod-manager UX as polished.
+**Updated:** 2026-09-26  
+**Priority:** **PHASE 1 ABSOLUTE PRIORITY is the performance/stack upgrade: G015 challenger selection + G012 Rust-native `enderloom-core` + G013/G016 host/tool architecture where applicable + G010 whole-app speed/coverage supremacy. PHASE 2 is G014 Minecraft-running zero-impact protection only after the Phase 1 stack is already proven fast, stable, feature-complete for the affected paths, and amazing in normal use.** Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster **and** equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be **strictly faster than both** installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
 
 ## Objective
 
-Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation feel at least as immediate and dependable as CurseForge/Modrinth while preserving Enderloom's stronger provenance, rollback, dependency, and recovery guarantees.
+Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation are **strictly faster and richer than both CurseForge and Modrinth** wherever technically comparable, while preserving or improving Enderloom's stronger provenance, rollback, dependency, recovery, correctness, and coverage guarantees. **After the Phase 1 performance/stack baseline is proven, Enderloom must add an optional persisted Game Performance Protection mode that can make the app effectively performance-invisible to running Minecraft while keeping normal Enderloom interaction fast; the baseline architecture must always remain resource-efficient even when that optional protection is disabled.**
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
-### Immediate execution priority override
+### Execution continuity / blocker law
 
-The embedded-browser/download repair is now the **highest-priority tranche** because it is the most disruptive everyday UX problem.
+- Read the full contract once, then execute in bounded execution windows that are dependency-aware (normally one coherent subsystem or roughly 6-12 ready leaf tasks) so long runs do not lose requirements to context pressure.
+- At each window boundary, update the real inline T/G task state, retain concise proof/blocker evidence, checkpoint coherent source state, and continue automatically to the next ready work; the window is never permission to stop early or reduce scope.
+- A blocked accepted task stays unchecked and records `BLOCKED: <exact causal reason>; NEXT: <materially different recovery action>`. Independent ready tasks continue while recovery is pursued.
+- After two materially unchanged failed attempts without new evidence, change strategy: repair the missing capability/environment/abstraction or use a different supported route instead of repeating the same failure.
+- Never close on "cannot", a provider miss, a failed tool, stale auth, build failure, test failure, performance miss, or incomplete proof; failures are routing signals until the accepted requirement is actually resolved or a genuine user-only authorization/action is required.
+- Resume from stable task IDs and existing proof after interruption/compaction; never regenerate or silently shrink this contract just to make the remaining work easier.
 
-Execute this tranche first, without waiting for unrelated queue items:
+## PHASE 1 — PERFORMANCE / STACK SUPREMACY — EXECUTE FIRST
 
-1. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-2. **T004** — finish the canonical Chromium download pipeline;
-3. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-4. **T027** — make download persistence/resume/save behavior survive real use and restart;
-5. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-6. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-7. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+**This entire phase must be implemented, benchmarked, tuned, runtime-proven, and brought to an excellent normal-use baseline before Phase 2 begins.** The selected stack/core/shell/tool architecture must already be fast, stable, feature-complete for the affected paths, and ratcheted under G010/T070. Do not jump ahead to Minecraft-specific throttling/governor work while the underlying application architecture is still changing or still slow.
 
-This priority override changes execution order only; it does not remove or weaken any other accepted task.
+## G015 — Bleeding-edge challenger-first technology promotion
+
+- [ ] **G015 · TECHNOLOGY PROMOTION GATE** — For performance-critical subsystems, Enderloom gives credible bleeding-edge/risky technology the **first serious challenger attempt** when it has a plausible architectural advantage, but promotes it only after it beats the stable implementation on equivalent speed/resources **and** passes stronger correctness, crash, data-integrity, compatibility and recovery proof. Stable fallbacks remain available until the challenger earns removal of the old path.
+
+This rule means **risk-tolerant engineering, not reckless user-data experiments**.
+
+### T085 — Maintain stable baselines and explicit challenger candidates
+
+- [ ] **T085** · For each material performance subsystem, name the stable baseline and the strongest credible challenger before freezing the architecture
+
+Current first-shot challenger set includes where applicable:
+
+- full Windows rich browser shell: **direct Rust + `windows-window` + `windows-webview`/WebView2, optionally `windows-reactor` for native shell chrome** versus the current Electron rich shell;
+- standalone Windows tool host: **Microsoft `windows-window` / `windows-webview` / `windows-reactor`** versus stable Tauri/Wry;
+- very-high-volume Rust-to-Rust bulk IPC/data plane: **iceoryx2 and/or shared-memory+rkyv experiments** versus stable Tokio named pipes + versioned Prost/typed control messages;
+- high-throughput Windows file data plane: **Compio IOCP and/or native Windows IoRing** versus Tokio blocking-filesystem/background-worker paths;
+- allocator: **mimalloc v3** versus Windows/system allocator;
+- provider JSON hot paths: **Sonic-rs and simd-json** versus serde_json;
+- JAR/ZIP metadata path: **rawzip + zlib-rs/libdeflate bakeoff** versus generic zip/flate2 path;
+- image resize pipeline: **fast_image_resize** versus current image/libvips candidate paths;
+- shared tool UI: **React 19.3 + React Compiler** versus **SolidJS** on the real Enderloom 10,000-result workload;
+- web build pipeline: current toolchain versus **TypeScript 7 + Vite 8/Rolldown + current Bun** after compatibility proof;
+- **Phase 2 reserved:** game-running background transfers use Enderloom token-bucket downloader versus **Windows BITS** for eligible nonurgent transfers under T096/G014; list it here for technology tracking only, not Phase 1 execution;
+- release-code optimization: ThinLTO/FatLTO/codegen-units/representative PGO variants versus default release profile.
+
+Do not add novelty for its own sake. A challenger needs a plausible measurable advantage in Enderloom's real workload.
+
+### T086 — Risky challenger gets the first isolated implementation shot
+
+- [ ] **T086** · When a challenger is credible and reversible, prototype/repair it first in an isolated production-shaped path rather than automatically defaulting to the conservative option
+
+Rules:
+
+- Use the real Enderloom command/state schema and workload, not a toy benchmark that hides integration cost.
+- Before touching live user state, run the challenger against fixtures, copied/synthetic instances, shadow databases, disposable CAS roots, and isolated benchmark profiles.
+- Mirror/read-only/shadow mode is preferred where the challenger can execute alongside the stable path and compare outputs without becoming authoritative.
+- Challenger failure never corrupts or blocks the existing working stable path.
+- Record exact library/runtime versions, build flags and hardware/OS conditions so results can be reproduced.
+
+### T087 — A/B promotion requires speed + complete-result + reliability superiority
+
+- [ ] **T087** · Promote the risky challenger only when an apples-to-apples A/B proves it is genuinely better overall
+
+For each candidate compare:
+
+- cold/warm latency;
+- throughput;
+- p95/p99 tail latency;
+- CPU;
+- memory;
+- disk/network I/O;
+- startup/packaging cost;
+- complete result/output equivalence;
+- freshness/canonical identity correctness;
+- crash/restart behavior;
+- malformed/hostile input handling where applicable;
+- data integrity and interrupted-write/operation recovery;
+- **Phase 1 only:** when a real running-Minecraft fixture is already available, run a cheap coexistence smoke check so an obvious regression cannot be promoted. **Do not run/tune the full G014 suite here; definitive Minecraft zero-impact proof is Phase 2 and does not block Phase 1 stack promotion.**
+
+Promotion rule:
+
+- A challenger that is faster but less correct, less complete, less portable, less crash-safe, or more damaging to Minecraft **loses**.
+- A stable path that is slower but only because the challenger silently does less work remains the loser only after the challenger performs the exact same accepted work.
+- If the risky candidate wins materially and passes all protected dimensions, **use the risky candidate as the new canonical implementation** rather than keeping the slower stable technology merely because it is familiar.
+- Once promoted, its measured wins become the next stable baseline/ratchet.
+
+### T088 — Hard-failure breaker and automatic stable fallback
+
+- [ ] **T088** · Do not let a bleeding-edge dependency stall Enderloom indefinitely
+
+Hard-failure policy:
+
+- First failure: diagnose earliest causal owner and repair the challenger.
+- Second materially different failure without meaningful new progress: change strategy/adapter/integration approach once more if a credible route remains.
+- If the candidate still cannot pass the real vertical slice, crashes/corrupts data, lacks a required Windows/security/runtime capability, or consumes disproportionate engineering effort with no measured advantage, mark it **CHALLENGER-DEFERRED** for the current release and activate the proven stable path.
+- Stable fallback is a successful recovery route, **not permission to stop performance work**; tune the stable path and retain the challenger fixture/version evidence for later re-evaluation.
+- Re-test a deferred challenger only after a real invalidator such as a materially improved upstream release, fixed missing capability, new adapter, or evidence that the prior blocker is gone.
+- Never loop the same broken experimental integration indefinitely.
+
+### T089 — Canary/shadow graduation before live user-state authority
+
+- [ ] **T089** · Graduate risky storage/IPC/host/parser/runtime technology through increasing authority instead of jumping directly into user data
+
+Recommended stages where relevant:
+
+1. benchmark-only disposable fixture;
+2. shadow/read-only output comparison;
+3. writable disposable copy with crash injection;
+4. migration/rollback test against copied real-shaped data;
+5. opt-in/internal canary;
+6. packaged runtime proof;
+7. canonical production owner.
+
+At every stage preserve a one-command/one-setting rollback to the last proven stable owner until the new path has passed the relevant final gate.
+
+### T090 — Experimental technology can never weaken G010/G011 or introduce an obvious Minecraft regression
+
+- [ ] **T090** · Treat risky-tech success as subordinate to Enderloom's complete product invariants
+
+No challenger is promoted if it:
+
+- creates an **obvious** Minecraft regression in the cheap Phase 1 coexistence smoke check, or later fails the definitive G014 Phase 2 coexistence gate;
+- causes blank/missing UI results;
+- loses provider/project metadata;
+- breaks authenticated browser/tool capabilities;
+- creates stale/false search state;
+- weakens canonical identity;
+- increases corruption/migration risk;
+- removes rollback/undo/recovery;
+- makes another host/tool inconsistent;
+- meaningfully worsens cold/warm startup or tail latency elsewhere;
+- reduces supported hardware/Windows behavior without an intentional documented compatibility decision.
+
+### T091 — Direct Rust + WebView2 full-shell challenger
+
+- [ ] **T091** · Give a direct Rust + Microsoft WebView2 shell a full production-shaped A/B opportunity against Electron, and promote it only if it preserves every browser/tool capability while materially improving startup/resource/game-impact performance
+
+Candidate architecture:
+
+- `enderloom-core` remains unchanged as the canonical domain backend.
+- Use `windows-window` + `windows-webview`/WebView2 as the primary direct-Rust challenger; `windows-reactor` may provide lightweight native shell chrome where it benchmarks better than rendering shell chrome inside a WebView.
+- Reuse the same shared Enderloom tool UI source wherever practical; do not create a second private Mod Manager implementation merely for the challenger.
+- The browser/tool capability bridge remains host-agnostic so Electron and WebView2 can be compared without rewriting domain actions.
+
+Exact capability parity fixture before promotion:
+
+- authenticated CurseForge/Modrinth/GitHub/provider sessions;
+- normal tabs, tab restore, back/forward/history, popup/new-window behavior and drag detach/reattach;
+- first-class downloads + T004/T025/T027 behavior;
+- provider/site favorites -> Enderloom state bridge;
+- browser extensions where Enderloom supports them;
+- cookies/profiles/session persistence;
+- permissions and per-origin decisions;
+- context menus, find, keyboard shortcuts and omnibox behavior;
+- DevTools/debug route;
+- media/PiP/mute where supported by accepted browser requirements;
+- exact Open in Mod Manager/World Editor/tool capability flows;
+- split view and cross-tool drag/drop;
+- crash/restart/session recovery.
+
+Performance A/B:
+
+- cold/warm process start -> first visible shell -> interactive shell -> first browser page;
+- first/second/20th browser tab creation and switch latency;
+- process count, private working set, commit, CPU, GPU and disk/network idle cost;
+- page navigation/render latency;
+- hidden/minimized resource use;
+- 1/5/20-tab mixed provider workloads;
+- **Phase 1 smoke check only:** run a lightweight running-Minecraft comparison with shell idle/minimized/visible/actively browsing to reject any obvious shell regression; reserve full statistical coexistence tuning/certification for G014 in Phase 2.
+
+Promotion rule:
+
+- Direct WebView2 wins only if it is **strictly better overall** after complete capability parity and privacy hardening from T092.
+- If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins.
+- **User override: if direct Rust/WebView2 wins and is promoted, do NOT retire Electron.** WebView2 becomes the primary/default edition, while Electron remains a fully supported second release edition built from the same Enderloom release/core. The two shells may differ only in host/browser-engine implementation and engine-specific integrations; they must not fork domain logic, Mod Manager behavior, Tool Platform behavior, provider identity, persistence, or accepted product features.
+- If WebView2 does not win T091/T092, Electron remains the primary edition and no artificial second WebView2 production release is required merely to satisfy this dual-edition rule.
+
+### T092 — WebView2 zero-baggage privacy + zero-jank contract
+
+- [ ] **T092** · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracking surfaces, preload work, or idle resource cost
+
+Privacy / tracking:
+
+- **Tracking prevention must remain enabled for arbitrary/provider web browsing.** Start with WebView2 profile tracking prevention at **Strict** and test every required provider/auth/download flow.
+- A provider may receive a narrowly scoped **Balanced** compatibility exception only when Strict is proven to break an accepted user workflow and the exception is required for that origin. Never globally use `None` merely for speed.
+- Preserve Enderloom's native/adblock/privacy filtering in addition to WebView2 tracking prevention where it can run without breaking required provider functionality. Prefer efficient host/network-level filtering over heavy page-wide JavaScript injection.
+- WebView2 uses an **Enderloom-owned User Data Folder/profile**, local to a fast local app-data path. Never silently reuse/import the user's Edge browser profile, Microsoft account sync, browsing history, favorites, passwords, ad personalization state, shopping/rewards/sidebar/Copilot/news/feed surfaces, or unrelated Edge state.
+- Do not add Enderloom analytics, behavioral telemetry or advertising identifiers to compensate for the host change.
+- Set **custom crash reporting mode** where supported so WebView2 crash data is not automatically sent to Microsoft endpoints; keep local crash evidence and make any external diagnostic upload an explicit user action/opt-in.
+- Audit blank-start, idle, provider-navigation and shutdown network destinations in test builds. Any unexplained Enderloom-owned analytics/ads/rewards/news/consumer-service traffic is a blocker. Required runtime update/security/certificate/provider endpoints must be classified separately rather than mislabeled as tracking.
+- Never weaken HTTPS/certificate validation, reputation/malware protections, sandboxing, process isolation or other browser security merely to reduce latency.
+- Remote pages remain untrusted and cannot directly access privileged Enderloom core operations.
+
+Performance / lag:
+
+- Follow a **native-shell-first / browser-on-demand** policy: do not create WebView2 controls for splash/simple dialogs or start provider browser processes before there is a real browser/tool need unless measured warm-start evidence proves a specific preload improves user latency **without creating an obvious running-Minecraft regression in the Phase 1 smoke check**; full G014 tuning remains Phase 2.
+- Keep the WebView2 UDF on a fast local physical disk; never place it on a network share/slow roaming path.
+- Reuse compatible WebView2 environments/browser processes rather than constantly destroying/recreating controls, but never share Enderloom's UDF with unrelated applications just to save RAM.
+- Keep hardware acceleration enabled except for a narrow diagnosed compatibility fallback.
+- Use async/batched host<->WebView messages and compact deltas; no synchronous giant object bridge.
+- For invisible/minimized/cold tabs, A/B **TrySuspend** versus WebView2's low `MemoryUsageTargetLevel`; use the winning supported approach, not both simultaneously. Resume before visible interaction.
+- Before Phase 2, do not add special Minecraft-only WebView throttling as an architecture dependency. Keep ordinary hidden-tab behavior efficient; once G014 starts, A/B suspend/low-memory/preload policies there and keep only the policy that protects Minecraft without slowing Enderloom foreground interaction.
+- Never suspend a WebView that is intentionally playing media, performing a user-requested critical browser action, or owning state that WebView2 documents as incompatible with suspension; use the resource governor rather than blindly freezing it.
+- Instrument ETW/WebView2 process lifecycle, long tasks, navigation, renderer/GPU CPU, working set and idle wakeups. A shell that feels lighter while hiding periodic 100ms+ stalls or background wakeups fails.
+
+**Hard acceptance:** same provider/profile dataset -> Electron baseline and privacy-hardened WebView2 challenger -> verify identical accepted capability -> inspect startup/idle network destinations -> Strict tracking prevention works or only minimal origin-scoped Balanced exceptions are recorded -> no automatic Microsoft crash reporting -> 20-tab stress + hidden-tab suspend/resume -> zero state loss -> lightweight Phase 1 running-Minecraft smoke check shows no obvious regression -> promote WebView2 only if the complete result is superior; full G014 coexistence proof follows in Phase 2.
+
+### T093 — Compio / Windows IoRing high-throughput file data-plane challenger
+
+- [ ] **T093** · A/B Tokio's normal filesystem path against Compio IOCP and native Windows IoRing for high-volume file/CAS operations while retaining Tokio as the general control plane
+
+Target workloads:
+
+- CAS object read/write/promotion;
+- download staging/finalize;
+- large pack import/export;
+- multi-file verification/hash reads;
+- JAR metadata reads where access patterns fit;
+- bulk copy/materialization;
+- future World Editor region/chunk data I/O.
+
+Rules:
+
+- Do **not** rewrite the whole runtime around Compio/IoRing. Tokio remains the general control/network/IPC scheduler unless a separate benchmark proves otherwise.
+- Compio/IoRing becomes a specialized file data plane only where completion-based I/O materially reduces CPU, context switches, tail latency or game interference.
+- IoRing is Windows-only and file-I/O-specific; keep the normal supported filesystem fallback for unsupported Windows versions/filesystems/operations.
+- Ensure buffer/file lifetime ownership is memory-safe and cancellation cannot publish partial data.
+- Integrate through the same staging/hash/CAS/atomic-commit semantics; a faster I/O backend may not bypass T060/T061/T065/T069.
+- A/B across NVMe, SATA SSD, small-file-heavy JAR sets and large sequential pack files. A cheap concurrent-Minecraft smoke check may reject an obvious regression in Phase 1, but full G014 coexistence tuning/certification is Phase 2.
+- If completion-based I/O adds complexity without a meaningful real-world win, defer it and tune the stable path.
+
+### T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
+
+- [ ] **T094** · Make Minecraft JAR/ZIP inspection use the fastest proven parser/decompressor combination for each workload without reducing format coverage or hostile-input safety
+
+Required:
+
+- Use **rawzip** as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archive extraction.
+- Compare **zlib-rs** and **libdeflate** on real Forge/NeoForge/Fabric/Quilt/modpack archives.
+- Prefer zlib-rs for streaming/unknown-length paths when it wins and libdeflate for complete known compressed buffers when its bulk decompression wins; do not force one backend across every pattern.
+- Retain a current full-featured ZIP implementation for writer/exotic compatibility paths that rawzip deliberately does not own.
+- Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, and CPU/RAM. If a running-Minecraft fixture is already available, add only a cheap obvious-regression smoke check here; full G014 proof is Phase 2.
+- Fuzz malformed/truncated/encrypted/Zip64/path-traversal/zip-bomb-style inputs and require equivalent-or-better rejection behavior before promotion.
+- Persist parsed metadata by content identity so even the winning parser is not called again for unchanged artifacts.
+
+### T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun
+
+- [ ] **T095** · Modernize the web/tool build baseline and A/B the shared UI runtime using Enderloom's real large-catalog workloads rather than framework microbenchmarks
+
+Build/tooling baseline candidate:
+
+- current production-compatible **TypeScript 7**;
+- current **Vite 8/Rolldown**;
+- current stable **Bun** where the repo already uses Bun;
+- retain npm/package-lock compatibility where release tooling actually depends on it.
+
+Shared UI A/B:
+
+- stable baseline: **React 19.3 + React Compiler** with measured memoization/render cleanup;
+- challenger: current production-ready **SolidJS** using the same visual design, state contract, Enderloom core bridge and browser/tool capability surface.
+
+Required fixture:
+
+- 10,000 logical Mods/Browse results;
+- provider reconciliation/deltas;
+- rapid typing/fuzzy search;
+- sort/filter changes;
+- Ctrl+A and range selection;
+- update/download progress across many cards;
+- favorite toggles;
+- image-heavy scroll;
+- context menus;
+- tab detach/reattach;
+- optional Phase 1 running-Minecraft smoke check for obvious UI/runtime regressions; full G014 proof/tuning is Phase 2.
+
+Measure:
+
+- cold/warm JS parse/evaluate + first interactive paint;
+- update/render CPU;
+- long tasks;
+- GC;
+- RAM;
+- scroll frame consistency;
+- state propagation latency;
+- blank/pop-in events under T067;
+- build/check iteration time separately from runtime performance.
+
+Promotion:
+
+- Framework/build upgrades are candidates until complete workflow compatibility passes.
+- Do not rewrite the UI to Solid merely because synthetic benchmarks are favorable; it must materially improve Enderloom's real workload and preserve the one-UI/multi-host platform.
+- If React Compiler closes the gap or React remains superior overall, keep React and retain the benchmark fixture.
+
+### T097 — Modernize and harden the existing provider transport stack without downgrading it
+
+- [ ] **T097** · Keep Enderloom's existing wreq/BoringSSL + impit multi-transport advantage, update compatible transport components, and make trust/rate/failure behavior explicit
+
+Required:
+
+- Test/upgrade **impit 0.14.5 or current newer stable** from the repo's older baseline only after existing browser-impersonation/HTTP3/provider QA passes unchanged or better.
+- Do not replace wreq/impit with plain reqwest merely because reqwest is familiar; the existing native transport/race/hedging system is a proven Enderloom capability.
+- Deliberately configure certificate trust per lane. Normal provider/API traffic should support the host's legitimate system trust requirements where safe, including managed/private CA environments, while impersonation-specific lanes preserve their required TLS fidelity.
+- Never use `ignoreTlsErrors`/equivalent in production provider traffic as a performance shortcut.
+- Keep origin/provider-specific connection pools, rate budgets, Retry-After handling, cancellation and single-flight.
+- Hedge/race only idempotent operations with historical evidence that the extra request cost buys a real latency/tail win; do not duplicate every request.
+- Capture provider/network latency separately from local Enderloom overhead so a transport change cannot claim victory by hitting a faster external response sample.
+
+### T098 — Expand G015 into a permanent whole-stack challenger matrix
+
+- [ ] **T098** · Treat the selected stack as the strongest proven baseline, never as untouchable dogma, and continuously admit superior challengers without destabilizing releases
+
+Required:
+
+- Maintain a machine-readable subsystem matrix: current canonical implementation, fallback, current challenger, version/build flags, benchmark fixtures, last result, promotion/defer reason and next invalidator.
+- At architecture/release checkpoints, perform a bounded freshness scan for material upstream changes in the selected technologies and their credible challengers.
+- A newly superior candidate enters G015; it does not trigger an automatic rewrite.
+- If a promoted risky technology later regresses after an upstream/runtime/Windows update, fail back to the last proven compatible implementation and reopen the challenger rather than forcing users through the regression.
+- Use exact workload profiles: launch, Browse, Mods, search, DB, filesystem, archive, IPC, media, networking, UI rendering, standalone host and full browser shell. After Phase 2 is active, the permanent matrix also carries the proven G014 Minecraft-coexistence workload; it is not a Phase 1 blocker.
+- The permanent target is the **best measured composition**, even when that composition mixes stable and bleeding-edge components from different ecosystems.
+
+
+**G015 closes in Phase 1 when T085-T095 and T097-T098 are complete and every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven. T096 is intentionally reserved for G014/Phase 2 and is not a Phase 1 closure dependency. Unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
+
+---
+
+## G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins
+
+- [ ] **G016 · DUAL-SHELL RELEASE GATE** — If T091/T092 promote direct Rust/WebView2 to Enderloom's primary Windows shell, every normal Enderloom release must also produce and verify a maintained **Electron Edition** from the same source/core release so a WebView2/Windows runtime regression never leaves the user without a full-featured proven shell.
+
+This gate activates only after WebView2 actually wins G015 promotion. It does **not** weaken the challenger-first rule or require shipping an inferior WebView2 build if Electron remains the winner.
+
+### T099 — Two real release editions from one canonical product
+
+- [ ] **T099** · When WebView2 is promoted, ship two explicit Windows release artifacts: primary Rust/WebView2 Edition and maintained Electron Edition
+
+Required release shape:
+
+- Produce separately installable, clearly named artifacts such as:
+  - **Enderloom — Rust/WebView2 Edition** (primary/default after promotion);
+  - **Enderloom — Electron Edition** (compatibility/safety edition).
+- Both artifacts are produced from the **same Enderloom version, source commit, `enderloom-core` build/API schema, migration set, Tool SDK contract and accepted feature set**.
+- The release/version number remains one Enderloom product version; the shell edition is build metadata/flavor, not a divergent product fork.
+- Core/domain features, Mod Manager, Browse canonical data, provider mappings, downloads/install transactions, dependency Doctor, bulk management, favorites, instances, worlds, configs, notes, CAS, SQLite state, quarantine/undo and future tools must not be reimplemented independently per edition.
+- Shell-specific code is limited to browser/window/session/permissions/download-host integration and other unavoidable engine adapters behind the same typed capability interfaces.
+- Feature work lands once in shared core/shared tool UI and appears in both editions automatically wherever the underlying shell supports the accepted capability.
+- Build/package/update pipelines must be able to produce both editions from a clean checkout without manual source edits or cherry-picking between long-lived divergent branches.
+
+### T100 — Shared canonical state with safe shell-specific browser profiles
+
+- [ ] **T100** · Let both editions coexist safely against one canonical Enderloom state while keeping incompatible browser-engine profile data isolated
+
+Shared between editions through `enderloom-core`:
+
+- instance catalog and launch ownership;
+- SQLite WAL durable Enderloom state;
+- MFT/USN indexes;
+- CAS objects;
+- provider/project/file identity;
+- favorites/notes/pins;
+- dependency graph and Doctor evidence;
+- downloads/install/update transaction state where host-independent;
+- quarantine/undo/history;
+- Tool Platform state and operation progress;
+- settings that are genuinely engine-agnostic.
+
+Isolated by browser engine:
+
+- Electron/Chromium profile/session storage;
+- WebView2 User Data Folder/profile storage;
+- engine-specific cookies/cache/service workers/extensions/DevTools/browser-internal state.
+
+Rules:
+
+- Never point Electron and WebView2 at the same physical browser profile directory or attempt to make their private browser databases interchangeable.
+- Do not copy raw cookies/password stores/browser secrets between engines as a convenience feature.
+- Provider account state that Enderloom legitimately owns through OAuth/API tokens may be reused through the canonical provider/account layer when its security model allows it; browser-only website sessions remain engine-profile-specific unless a supported secure re-auth handoff exists.
+- Running both editions simultaneously attaches to the same supervised `enderloom-core` ownership model from T076 rather than creating two SQLite writers, two MFT scans, duplicate downloads or competing mutations.
+- Shell-specific settings live in namespaced state so one engine cannot corrupt the other's profile/preferences.
+- Schema/core upgrades are forward/backward gated so opening one edition cannot migrate shared state into a form the other same-release edition cannot understand.
+
+### T101 — Instant edition fallback / handoff without losing Enderloom work
+
+- [ ] **T101** · Make switching from WebView2 Edition to Electron Edition (or back) a polished recovery path rather than a reinstall/reconfiguration event
+
+Required:
+
+- Settings/About/Troubleshooting exposes the current shell edition and an **Open this workspace in Electron Edition / Open this workspace in WebView2 Edition** action when both matching-version editions are installed.
+- The installer/updater may provide a compact **Install both editions** option and always makes the Electron safety edition easy to obtain when WebView2 is primary.
+- The handoff preserves safe host-neutral workspace context: active Enderloom tool, instance/world/project, canonical provider URL/project identity, search/filter/sort, selection, operation IDs/progress and other T073-restorable state.
+- Browser-only state that cannot safely cross engines is never faked. Reopen the canonical URL in the target engine and reuse provider/API auth when legitimately available; otherwise present the target site's normal login state.
+- If WebView2 fails to initialize after a Windows/WebView2 runtime update, Enderloom must be able to offer/launch the matching Electron Edition without first requiring the broken WebView2 UI to finish booting.
+- If Electron fails while WebView2 remains healthy, the same recovery principle applies in the opposite direction.
+- Shell handoff never restarts an already-running core download/install/index operation merely because the UI host changed.
+- Side-by-side shortcuts/file associations/deep links are deterministic and do not fight each other; one user-selected default shell handles normal `enderloom://` links while **Open with other edition** remains available.
+
+### T102 — Both editions stay healthy; Electron cannot become a rotten fallback
+
+- [ ] **T102** · Put both editions through permanent feature/parity/performance/recovery testing whenever WebView2 is the promoted primary
+
+For every release with dual editions:
+
+- Build and launch both packaged artifacts on supported Windows versions.
+- Run the same shared-core migrations and verify both can open the same canonical Enderloom state sequentially and simultaneously under T076.
+- Run browser/provider smoke suites on both: sign-in/session, tabs, project pages, favorites bridge, downloads, permissions, history/find/context menus, GitHub provider view, Browser -> Tool actions, restart restore and crash recovery.
+- Run Mod Manager/Tool Platform parity on both.
+- During Phase 1, run the same cheap obvious-regression running-Minecraft smoke check on **both editions individually** so the Electron safety edition cannot become a resource-hogging afterthought. Run the full G014 coexistence suite on both editions only in Phase 2.
+- Run G010 comparator paths on both editions. WebView2 may remain the faster recommended edition, but Electron must still meet Enderloom's accepted quality/coverage/correctness guarantees and remain a strong, responsive client rather than an intentionally crippled fallback.
+- Track edition-specific bugs/performance separately while fixing shared causes in common code whenever possible.
+- A feature may be implemented through different shell APIs, but user-visible capability must converge; "WebView2-only because Electron is the backup" is not acceptable for an already accepted Enderloom feature that Electron can technically support.
+- Before removing Electron Edition in any future roadmap, require a **new explicit user decision**. G015 benchmark superiority alone is no longer authorization to delete it.
+
+### T103 — Dual-edition updater, provenance and rollback
+
+- [ ] **T103** · Make updates/signing/provenance unambiguous when two Windows shell editions exist
+
+Required:
+
+- Distinct signed artifact IDs/names/channels for Electron vs WebView2 Edition, sharing the same semantic Enderloom version.
+- An edition never silently transforms itself into the other shell during an ordinary patch update.
+- Cross-edition switching is explicit through T101.
+- Updater verifies artifact signature/hash/edition identity before install.
+- If a newly released WebView2 Edition regresses after OS/runtime rollout, the release service can recommend the matching-version Electron Edition without downgrading shared core/user data.
+- Rollback rules prevent a shell rollback from applying an incompatible older shared schema/core without a supported migration/compatibility path.
+- Release notes/performance receipts identify which shell edition was tested and which is recommended/default for that release.
+
+**G016 closes only when WebView2 has actually been promoted and T099-T103 prove both packaged editions are maintained from one canonical codebase/core, can coexist without data/profile corruption, can hand off safely, and remain runtime-tested. If Electron remains the T091 winner, G016 is recorded as NOT-ACTIVATED rather than blocking completion.**
+
+---
+
+## G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture
+
+- [ ] **G012 · ARCHITECTURE GATE** — `enderloom-core` is the canonical production owner for performance-critical filesystem/indexing, database/cache, provider/data, hashing/fingerprinting, archive inspection, dependency/compatibility solving, transfer/install pipelines, background scheduling, and native media work; Electron/JavaScript is reduced to UI/browser/native-shell orchestration except where measured production evidence proves a JS implementation is genuinely superior with no protected regression.
+
+This gate executes **underneath and in continuous parallel with G010**. It is not a rewrite-for-rewrite's-sake. **Do not finish the Rust architecture first and benchmark later:** every migrated vertical slice must immediately run its equivalent-work performance/coverage proof, be tuned until it advances or at least preserves the strongest proven Enderloom baseline, and ratchet that evidence before the next dependent slice proceeds. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
+
+### Rust-first ownership law
+
+The default ownership rule is:
+
+- **Rust/native core:** filesystem discovery/change tracking, local indexing, database access, search indexes, cache management, provider transport/normalization, identity/fingerprint/hash work, ZIP/JAR inspection, dependency graphs/solving, compatibility analysis, bulk operation planning, download/install/update pipelines, transaction/rollback state, artifact storage, image decode/resize/thumbnail generation, priority/background scheduling, and performance instrumentation.
+- **Electron main:** window/process lifecycle, WebContents/session/browser APIs, native dialogs/menus/permissions, and thin validated IPC adapters only.
+- **Renderer JavaScript:** presentation, user interaction, local view state, accessibility, and lightweight formatting only.
+- Browser-native work that must occur through Electron/Chromium remains a thin JS/native-shell adapter; expensive follow-up processing belongs in `enderloom-core`.
+- A JS hot-path implementation may remain only after a reproducible benchmark on the real workload proves it beats the Rust/native alternative on latency/throughput **without increasing CPU/RAM/disk/network cost unacceptably and without reducing correctness, result coverage, freshness, crash safety, validation, or maintainability**.
+- Never keep duplicate Rust and JS production engines indefinitely. After migration/proof, one canonical owner remains and all GUI/CLI/automation surfaces route through it.
+
+### T056 — Build and production-wire `enderloom-core`
+
+- [ ] **T056** · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
+
+Required:
+
+- Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists.
+- Choose and benchmark the narrowest production-grade bridge appropriate to the current Electron architecture (for example N-API/native module versus a supervised local sidecar) on startup overhead, IPC throughput, crash isolation, packaging/update complexity, and debugging.
+- Expose typed versioned commands/events, stable operation IDs, cancellation, progress, structured errors, and compact delta responses.
+- One end-to-end vertical slice must exercise: renderer action -> thin Electron adapter -> Rust domain operation -> persisted state/files/provider work -> progress/event -> visible UI result -> restart persistence.
+- Core crash/failure must fail the affected operation truthfully and keep the Electron shell recoverable; never let a native panic corrupt live state or masquerade as success.
+- Package/sign/distribute the Rust component as part of the normal Enderloom build, not as a developer-only optional binary.
+- Record exact Rust toolchain/native binary hash/API schema in packaged-runtime evidence.
+
+### T057 — Remove heavy JavaScript work unless JS is proven superior
+
+- [ ] **T057** · Profile and migrate CPU/I/O/data hot paths out of Electron/Node/renderer; retain JS only where benchmark evidence proves it better without protected regressions
+
+Audit and migrate, where currently present:
+
+- recursive instance/mod filesystem scans;
+- stat/hash/fingerprint loops;
+- JAR/ZIP parsing;
+- dependency/compatibility solving;
+- provider response normalization/reconciliation;
+- large JSON transforms;
+- database/index/search work;
+- download verification/install/update preparation;
+- image decoding/resizing/thumbnail work;
+- bulk operation planning;
+- large sort/filter canonicalization;
+- repeated IPC marshaling of giant object graphs.
+
+Rules:
+
+- No renderer path may synchronously perform filesystem, hashing, archive, DB, network, dependency-solver, or large transform work.
+- No "migration" is accepted if it merely moves the same blocking algorithm from renderer to Electron main.
+- For every moved hot path capture old JS vs Rust/native cold/warm timing, CPU, memory, I/O, result counts and correctness.
+- If JS genuinely wins on a narrow operation, preserve the benchmark fixture and keep it there; "Rust is always faster" is not an assumption.
+- JS/Rust parity failures are correctness bugs. Do not switch ownership until outputs reconcile or the intended new behavior is explicitly proven better.
+
+### T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+
+- [ ] **T058** · Make initial Windows NTFS discovery fast from filesystem metadata and subsequent instance refreshes change-driven so unchanged files are not rescanned/rehashed/reparsed
+
+Windows/NTFS fast path:
+
+- Build a narrowly privileged helper/service only if required for volume/MFT/USN access; **never elevate the whole Enderloom Electron app**.
+- Initial registered-root discovery may use NTFS MFT enumeration to construct path/file identity quickly instead of recursive per-entry directory walking.
+- Persist volume identity, file/reference identity, path mapping, size, timestamps, relevant USN/journal position, and Enderloom index generation.
+- After the initial trusted snapshot, consume the NTFS USN Change Journal to identify exactly which relevant files/directories changed since the stored checkpoint.
+- Opening Mods/Instance views uses the last verified index immediately; delta reconciliation runs in the background and patches only changed records.
+
+Safety/correctness:
+
+- MFT/USN data is an **acceleration signal**, not proof of artifact contents or provider identity.
+- Detect journal ID change/reset, journal wrap/truncation, missing range, volume replacement, root move, file-ID reuse ambiguity, helper failure, and unsupported filesystem. Any such condition invalidates only the affected scope and triggers a bounded authoritative rescan rather than trusting incomplete deltas.
+- Directory rename/move handling must keep file-reference -> current-path mapping coherent.
+- Never interpret a watcher/provider failure as "file deleted" without authoritative filesystem confirmation.
+- Non-NTFS, removable, network, cloud-backed, or unsupported filesystems use a safe persistent snapshot + OS watcher/change notification + bounded parallel reconciliation fallback.
+- Full rescans happen only when evidence says the persisted index cannot be trusted, and should be scoped to the affected instance/root/volume rather than every Enderloom instance.
+- A forced "Verify/Rescan" remains available for troubleshooting but ordinary navigation must not depend on it.
+
+Required proof:
+
+- unchanged 1,000+ mod instance reopen performs effectively zero JAR reads/hashes/parses;
+- add/remove/rename/update a handful of files and prove only affected records are reprocessed;
+- simulate USN journal discontinuity and prove safe targeted recovery;
+- compare cold initial scan and warm change-detection against prior Enderloom and installed launchers.
+
+### T059 — SQLite WAL canonical state store + FTS/search/sort indexes
+
+- [ ] **T059** · Use SQLite WAL as the durable canonical metadata/index store with indexed hot queries, FTS search, batched writes, migrations, and integrity protection
+
+Required architecture:
+
+- Use SQLite WAL mode for the production local metadata/index database where platform/storage semantics support it.
+- Use one coordinated write queue/transaction owner rather than allowing worker pools to fight over many tiny writes.
+- Batch coherent mutations into transactions; readers must remain available while background indexing/provider refreshes write.
+- Add real indexes for measured query/sort/filter paths: canonical project/provider/file IDs, instance/path/file identity, game version, loader, content type, installed/update/favorite/pin/enabled state, dates/sizes, and other proven hot predicates.
+- Use FTS5/prefix/trigram capabilities where appropriate for instant local name/author/alias/substring discovery, but reconcile fuzzy matches against canonical provider identity before any mutation.
+- Common sorts/filters should be database/index-backed instead of repeatedly sorting giant JS object arrays.
+- Avoid full-table/full-JSON rewrites for small deltas.
+- Control WAL checkpointing so a user click is not randomly forced to perform a giant checkpoint; checkpoint/compact during appropriate idle/maintenance windows with bounded impact.
+
+Integrity:
+
+- Version every schema migration; migrate atomically with rollback/backup path.
+- Enable/verify relational constraints appropriate to the schema.
+- On suspicious shutdown/migration/storage errors, perform cheap integrity checks first and escalate to full integrity verification when warranted.
+- Never delete the only good database because one cache table is corrupt; distinguish rebuildable caches/indexes from durable user state.
+- If rebuildable indexes are invalid, reconstruct them from authoritative durable state/files/providers while preserving user data.
+- Do not weaken SQLite durability/synchronous settings merely to win a benchmark; any tuning must pass crash/power-loss simulation appropriate to the protected data class.
+
+### T060 — Global content-addressed artifact store with corruption-safe reuse
+
+- [ ] **T060** · Download/verify immutable artifacts once and safely reuse them across installs/instances without coupling mutable user data
+
+Store by strong content identity with provider provenance and expected hashes/size where available:
+
+- mod JARs;
+- provider pack/addon archives;
+- Minecraft libraries/assets;
+- verified Java/runtime artifacts where Enderloom manages them;
+- resource packs/shaders/datapacks and other immutable provider artifacts;
+- provider/media assets when useful.
+
+Rules:
+
+- New network bytes enter staging, are streamed through required hashes, validated, and only then atomically promoted into the content-addressed store.
+- Never trust filename, URL, or cache key alone as content identity.
+- Exact validated cache hit means zero re-download and zero duplicate hash work where persisted verification evidence remains trustworthy.
+- Reference tracking/garbage collection must never evict an object still referenced by an instance, active transaction, rollback snapshot, or quarantine entry.
+- Mutable worlds/configs/saves/screenshots/user-edited files are never hardlinked/shared as immutable CAS objects.
+- Prefer safe copy-on-write/reflink/clone mechanisms when the filesystem supports them. Hardlink immutable artifacts only when Enderloom can guarantee that no instance/tool path will mutate the linked bytes in place; otherwise materialize a normal copy.
+- Detect external tampering of a materialized immutable artifact before relying on cached identity for update/Doctor decisions.
+- Cache cleanup is transactional and recoverable; a cleanup crash cannot strand referenced artifacts as missing.
+- Cross-instance dedupe is a speed/storage optimization only; instances remain independently usable/removable.
+
+### T061 — One-pass multi-hash/fingerprint streaming + selective JAR/ZIP parsing
+
+- [ ] **T061** · Read artifact bytes the minimum number of times while preserving every provider-required hash/fingerprint and exact metadata result
+
+Required:
+
+- During a necessary artifact read, compute internal BLAKE3/content identity plus all provider/security hashes/fingerprints required by current adapters in one streaming pass when algorithms permit.
+- Persist verified hash/fingerprint results keyed to trustworthy file/content identity so unchanged files do not get re-read.
+- Do not replace provider-required algorithms with BLAKE3; BLAKE3 is an internal fast identity/cache primitive in addition to required provider hashes.
+- For ZIP/JAR identification, read the central directory and only the metadata entries required for classification/manifest/dependency work (`fabric.mod.json`, Quilt/Forge/NeoForge metadata, manifests, pack metadata, relevant known schemas, etc.) instead of inflating the entire archive.
+- Fall back to deeper/full archive inspection when classification, security, corruption detection, a content adapter, or a specific accepted feature truly requires it.
+- Archive parser must reject malformed/path-traversal/zip-bomb-style hostile structures safely and never extract arbitrary content merely to inspect metadata.
+- Cache parsed metadata by verified immutable content identity, not filename.
+- Benchmark buffered, memory-mapped, and streaming I/O on representative tiny/mixed/large artifact sets and choose adaptively; never assume mmap is universally faster.
+
+### T062 — Tokio async I/O + Rayon CPU work-stealing + foreground-priority scheduler
+
+- [ ] **T062** · Separate I/O concurrency from CPU parallelism and keep user-blocking work ahead of maintenance without starving correctness
+
+Use distinct bounded execution lanes:
+
+- **Tokio/async I/O:** provider HTTP, downloads, filesystem async tasks where appropriate, waiting, reconnect/retry.
+- **Rayon/bounded CPU workers:** hashes/fingerprints, archive parsing/decompression, dependency graph work, canonicalization, heavy local search transforms, native image work.
+- **Serialized/coordinated commit lane:** database/file transaction commits that must be ordered/atomic.
+
+Priority model:
+
+1. P0 user-blocking: clicked project/install/update/launch/search action;
+2. P1 visible: current viewport/cards, active operation progress, visible artwork;
+3. P2 predictive prefetch: hover/focus/likely next navigation and scroll-ahead preparation;
+4. P3 maintenance: cleanup, deep cache verification, non-visible enrichment, compaction.
+
+Rules:
+
+- Work stealing/bounded queues prevent one slow item from pinning an entire static partition.
+- Background work yields/deprioritizes when P0/P1 arrives.
+- Enforce per-provider and global concurrency budgets with rate-limit/backpressure awareness.
+- Auto-tune disk concurrency conservatively by observed storage behavior; more threads are not automatically faster.
+- Avoid unbounded task spawning, thread-per-request, and duplicate in-flight work.
+- Cancellation/generation ownership prevents abandoned A -> B -> A work from committing stale results.
+- Record queue wait, execution time and cancellation to expose scheduler-induced latency regressions.
+
+### T063 — Freshness-safe provider/query cache: instant without false, stale, or bad-link results
+
+- [ ] **T063** · Make cached Browse/search/project data instant while preserving authoritative freshness, provenance, canonical URLs, and uncertainty
+
+Every cached provider/query record must retain enough provenance to reason about freshness:
+
+- provider + canonical project/file/release IDs;
+- canonical URL/source identity;
+- fetched/verified time;
+- TTL/freshness policy by data class;
+- ETag/Last-Modified/provider revision when available;
+- compatibility/query context;
+- source/result status and last authoritative error.
+
+Rules:
+
+- Last-verified data may render instantly while revalidation runs, but the UI/service must never represent stale cached data as newly verified/current when freshness materially matters.
+- Install/update/change-version/Dependency Doctor commits revalidate the selected release/file identity, compatibility, dependency plan, expected hash/size, and current signed/download URL when required before mutation.
+- Signed/expiring CDN URLs are never stored as canonical project links; reacquire them through the provider adapter.
+- Canonical external links must derive from verified provider/API/upstream identity and safe schemes/hosts, not transient scraped redirects or display-name guesses.
+- Treat provider timeout, auth failure, rate limit, parser failure, offline state, or search transport failure as **unresolved/degraded**, never as authoritative "no project/no result".
+- Negative-cache only real authoritative misses with short evidence-based TTL/invalidation and exact provider/query context; provider recovery or identity evidence invalidates them immediately.
+- Query caches reconcile terminal pagination and canonical dedupe; cached partial pages cannot masquerade as full search coverage.
+- When fresh data differs, patch the current canonical record/result set without blanking the view or silently preserving outdated links/files.
+- Preserve a visible/inspectable "last verified" state when stale data could affect a user's decision.
+- Cache/schema corruption invalidates only the affected rebuildable entries and triggers authoritative re-fetch/rebuild; it must not poison durable user state.
+
+### T064 — Incremental dependency/compatibility graph
+
+- [ ] **T064** · Persist and update the dependency/compatibility graph incrementally so one changed mod does not force a complete instance solve
+
+Required:
+
+- Key graph nodes/edges to canonical project/provider/file/content identity and target Minecraft/loader/side context.
+- Persist required/optional/incompatible/breaks/provides/recommends/host-framework relationships with provenance/evidence.
+- On add/remove/update/enable/disable/provider-metadata change, invalidate only the affected connected graph plus anything whose constraints depend on it.
+- Reuse unchanged solved subgraphs across Browse install previews, Update All, T052 Dependency Doctor, T053 bulk operations, and startup health.
+- Detect cycles, conflicting version ranges, unresolved identities and provider disagreements explicitly; never manufacture a satisfying answer.
+- A provider metadata refresh can expand invalidation when dependency evidence actually changed.
+- Compare incremental result to periodic/full-solve oracle fixtures so speed never creates a stale or false compatibility answer.
+
+### T065 — Pipelined transfer -> hash -> inspect -> dependency -> verify -> atomic commit
+
+- [ ] **T065** · Remove serial install/update/download waterfalls while preserving the exact final verification and rollback gate
+
+Required:
+
+- Start network transfer immediately once request/destination/auth are valid.
+- Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive metadata inspection as soon as sufficient validated structure is available.
+- Plan independent dependency/provider branches concurrently.
+- While artifact A verifies/commits, artifact B may download/verify when transactions are independent.
+- Reuse exact validated CAS artifacts/dependency plans/provider metadata instead of repeating work.
+- No artifact reaches a live instance until all required identity, hash, compatibility, dependency and transaction prerequisites for that commit are satisfied.
+- Partial/temp files are never exposed as successful artifacts.
+- Cancellation and failure cleanly release staged resources or preserve resumable state.
+- Commit is atomic and rollback-capable; same-filename replacement follows T001 rather than in-place overwrite.
+- Progress reports real pipeline stages/bytes/work and never fabricates "done" while deferred blocking verification remains.
+
+### T066 — Native image/media pipeline with demand-driven sizes
+
+- [ ] **T066** · Keep provider artwork/media from blocking Browse by processing/caching only the size actually needed through a native demand-driven pipeline
+
+Required:
+
+- Use a native high-performance image pipeline (for example libvips/sharp-backed/native-equivalent after benchmark) rather than renderer-side full-resolution decode/resize loops.
+- Cache content-hash/URL-validated size variants appropriate to card/icon/detail/gallery use.
+- Decode/shrink-on-load where supported; never decode a huge hero/gallery image merely to paint a tiny card.
+- Visible/next-visible media has P1/P2 priority; below-fold gallery enrichment cannot delay text/actions.
+- Preserve full media coverage and original source/provenance. Optimization may defer decode until needed but may never omit media from the logical project.
+- Corrupt/unsupported media yields a localized placeholder/error while project text/actions remain usable.
+- Cache invalidates when verified source identity changes; a stale image cannot overwrite a newer asset after late completion.
+
+### T067 — Zero-blank large-list rendering; virtualization only if literally unnoticeable
+
+- [ ] **T067** · Keep huge Mods/Browse lists smooth without blank cards, pop-in, missing rows, scroll jumps, or delayed logical results; use virtualization only after it passes a zero-visibility-defect gate
+
+Policy:
+
+- **Do not introduce or keep virtualization merely because it benchmarks lower DOM count.** It must be visually and behaviorally invisible.
+- Prefer indexed data + fast incremental rendering/browser-native containment techniques where they meet performance without windowing defects.
+- If windowing/virtualization is used, it must render **severely ahead of scroll** with velocity-adaptive overscan/prefetch. Maintain enough ready rows/cards ahead and behind that abusive wheel/touchpad/PageDown/scrollbar-drag/Home/End navigation never reveals empty placeholders caused by the windowing engine.
+- Data for the ahead-of-scroll window must be prepared before DOM promotion; do not show blank/skeleton cards for records already known locally.
+- Overscan expands proactively with measured scroll velocity and renderer load; if the system cannot maintain the lead, degrade to a safer larger/non-virtualized window rather than showing holes.
+- Focus, Shift-range selection, Ctrl+A logical selection, context menus, screen readers, scroll restoration, anchored item position, variable-height content, image loading and keyboard navigation must remain correct across recycled rows.
+- Search/filter/sort/count/bulk semantics always cover the complete logical dataset, never only mounted DOM rows.
+- Add runtime instrumentation for "viewport requested but row/card not ready"; **the acceptance value is zero** in release fixtures.
+- Required torture fixture: 10,000 logical results, rapid trackpad/wheel fling, scrollbar thumb drag, repeated Home/End/PageDown, fast filter changes and image-heavy cards on the supported Windows target. Capture video/frame telemetry and prove no blank gap/pop-in/scroll jump/missing result/focus loss.
+- If that gate cannot be met consistently, disable virtualization for the affected surface and optimize the underlying data/render architecture instead.
+
+### T068 — Compact delta IPC and single-flight cross-process state
+
+- [ ] **T068** · Stop moving giant duplicate object graphs between Rust/Electron/renderer and push only coherent snapshots/deltas needed by the current UI
+
+Required:
+
+- Use stable IDs + compact typed deltas for changed records instead of retransmitting entire 10,000-item catalogs on each small update.
+- Batch high-frequency progress/index/provider events to an appropriate frame/latency budget without hiding state transitions.
+- Use transferable/binary buffers where profiling proves materially better for large payloads, with versioned schema and bounds validation.
+- Single-flight equivalent core requests so multiple cards/views do not independently trigger the same provider/DB/hash operation.
+- Maintain monotonic generation/revision IDs; renderer rejects stale deltas from superseded queries/navigation.
+- Provide a full snapshot/recovery route when a revision gap is detected; never apply an incomplete delta chain as authoritative state.
+- Benchmark serialization/deserialization + IPC queue time separately from core work.
+
+### T069 — Crash consistency, cache correctness, and zero-corruption performance gate
+
+- [ ] **T069** · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
+
+Cross-cutting rules:
+
+- File mutations use staging/temp -> validate -> durable/atomic replace/rename semantics appropriate to Windows/filesystem; never overwrite live JARs/configs in place as a performance shortcut.
+- Use per-instance/per-artifact operation locks or transaction ownership so concurrent update/install/Doctor/bulk operations cannot race the same live artifact.
+- Persist operation intent/state before destructive commit where needed for recovery; startup reconciles interrupted operations deterministically.
+- Distinguish **durable user state** from **rebuildable derived/cache state**. Derived corruption can be discarded/rebuilt; durable favorites/notes/settings/provider bindings/history/quarantine/rollback/user choices cannot.
+- Cache entries/artifact metadata include schema/version/content identity so incompatible/stale bytes cannot be misinterpreted after upgrade.
+- Detect impossible DB/file/CAS identity mismatches and stop the affected mutation before damage.
+- Run crash injection at each important pipeline boundary: during download, hash, DB write, CAS promotion, live-file swap, rollback snapshot, migration, WAL/checkpoint, index update and quarantine move.
+- After restart, prove the instance is either at the verified prior state or verified new state—never half-installed while reported successful.
+- Performance benchmarks run with all integrity/freshness/rollback protections enabled. Disabling them invalidates the benchmark.
+- Any performance optimization that causes a false search result, stale "latest" claim, broken/outdated link, provider mis-merge, missing logical result, lost user data, silent corruption, unrecoverable partial operation, or weaker verification is automatically rejected and the responsible task reopened.
+
+### T070 — Continuous performance proof during every architecture/tool migration slice
+
+- [ ] **T070** · Run G010 performance/coverage proof continuously while G012/G013 are implemented instead of deferring optimization until after architecture work
+
+Required execution loop for every material migrated or newly hosted path:
+
+`implement one real vertical slice -> benchmark equivalent work immediately -> reconcile complete results/capability -> profile measured bottleneck -> tune architecture/scheduling/cache/IPC/rendering -> runtime verify -> ratchet the new baseline -> continue`
+
+Rules:
+
+- No broad "Rust migration complete; optimize later" phase is allowed.
+- Every meaningful G012/G013 slice records cold/warm first-useful latency, full-completion latency, p95/p99 where relevant, CPU/RAM/disk/network cost, result/metadata/capability counts, and regression evidence before the next dependent slice is considered stable.
+- Run comparison against the previous proven Enderloom build continuously; run the full CurseForge/Modrinth comparator matrix at representative milestones and any time a touched path could materially alter the final superiority result.
+- If a new architecture is cleaner but slower, it remains incomplete: profile and repair it rather than accepting the regression for "future optimization."
+- Performance work may proceed in parallel with independent implementation tasks when shared state/contracts are settled, but never by racing conflicting migrations or weakening verification.
+- Preserve deterministic benchmark fixtures so improvements become permanent regression gates rather than anecdotes.
+- User-visible responsiveness remains P0 throughout migration; background conversion/indexing/benchmark work must not make the development build architecturally "fast later but miserable now."
+
+**G012 closes only when T056-T070 are production-wired, packaged-runtime proven, and the migrated hot paths preserve or improve the complete G010/G011 result/quality contract.**
+
+---
+
+## G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable
+
+- [ ] **G013 · PLATFORM GATE** — Enderloom provides one reusable host-agnostic tool platform so the Mod Manager and future tools such as a World Editor can run as lightweight standalone applications, dock as first-class Enderloom Electron tabs, pop out/reattach instantly, share one canonical Rust/domain state, and invoke richer Electron/browser/provider capabilities when available without duplicate implementations, stale state, feature loss, or corruption.
+
+This is a **platform invariant**, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host model is necessary.
+
+### T071 — One tool implementation, multiple hosts
+
+- [ ] **T071** · Define and production-wire a shared tool contract so one tool implementation can render/work inside Electron or a lightweight standalone host without forking domain behavior
+
+Architecture:
+
+- Tool domain logic/state lives in `enderloom-core` or another canonical native/domain module, never duplicated separately for Electron and standalone.
+- Tool UI should be shared from one source where technically practical; host-specific adapters handle only shell/window/browser/native differences.
+- Support at least these host modes:
+  - **Electron tab** inside full Enderloom;
+  - **Electron pop-out/window** for instant detach while retaining full Electron/browser capability;
+  - **lightweight standalone host** (Tauri/native/webview or another benchmark-proven production host) that can launch without booting the full Electron/browser shell.
+- Choose the standalone host by measured startup/runtime/resource/capability evidence. Tauri is a strong candidate, not a cargo-cult requirement.
+- The same action IDs, commands, state schema, progress events, permissions, validation, undo/rollback semantics, hotkeys, and persistence apply regardless of host.
+- Host adapters cannot reimplement private business logic merely because an API differs.
+- A tool declares capability requirements; unavailable optional host capabilities produce a truthful alternate path, not a crippled hidden failure.
+- New features added to the canonical tool implementation become available in every compatible host automatically.
+
+### T072 — Mod Manager is the first dual-host reference implementation
+
+- [ ] **T072** · Make the Enderloom Mod Manager launch instantly as its own lightweight application and remain the exact same first-class tool when docked inside Electron
+
+Required:
+
+- Provide a direct Mod Manager executable/launcher/shortcut path that starts only the minimum standalone host + shared core required for Mod Manager use.
+- Standalone launch must not initialize Chromium browser tabs/WebContents/provider-page surfaces that the user did not request.
+- The standalone manager retains full Mod Manager capability: instances, Mods/Addons, discovery, updates, dependency Doctor, bulk manager, favorites, version changes, installs/removals, quarantine/undo, logs/context actions, and relevant provider metadata.
+- Opening the same Mod Manager as an Electron tab uses the same canonical state/actions and should not trigger a rescan/reindex merely because the host changed.
+- Standalone and Electron-hosted UI should maintain visual/interaction parity except where Electron adds meaningful browser-shell capabilities.
+- Benchmark standalone cold/warm launch -> interactive Mod Manager against full Electron launch and both comparator launchers. The lightweight path must materially reduce unnecessary startup/runtime cost without reducing Mod Manager capability.
+
+### T073 — Instant dock / undock / pop-out / reattach with workspace continuity
+
+- [ ] **T073** · Allow tools to move between tab, Electron pop-out, and standalone-host presentations without losing state or forcing reload/recomputation
+
+User-visible behavior:
+
+- Every compatible tool exposes compact **Open Standalone**, **Open in New Window / Pop Out**, and **Dock/Reattach to Enderloom** actions where appropriate.
+- Drag-to-detach / drag-back-to-tab-strip may supplement explicit controls when it can be implemented reliably; keyboard/context-menu alternatives always exist.
+- Detaching/reattaching preserves tool route, active instance/world/project, selection, filters, sort, search text, scroll position, expanded panels, unsaved editor state, operation progress, and other safe workspace context.
+- A host transition must not cancel independent downloads/indexing/provider refreshes/tool operations unless the operation is truly owned by a closing host-specific resource.
+- Where a WebContents/browser page itself is being detached, preserve its exact Electron session/history/URL/profile using the existing browser infrastructure rather than serializing secrets into generic tool state.
+- Transition should feel instant: reuse canonical core state and persisted/transferable view state instead of reconstructing the tool from scratch.
+- If full Electron is not running and the user requests Dock/Open in Enderloom, launch/reuse the shell and restore the exact requested tool context.
+- If the standalone host exits while work continues in the core, the operation remains truthful/recoverable and reconnecting rehydrates current progress rather than restarting it.
+
+### T074 — Capability bridge: standalone tools gain Electron/browser powers when hosted inside Enderloom
+
+- [ ] **T074** · Give tools a typed capability bridge so the same tool can request Electron-only/browser-rich functionality when docked without embedding Electron assumptions into its core
+
+Capability examples:
+
+- open exact provider/project/research page in current/new Enderloom browser tab;
+- open provider page beside the tool in split view;
+- use authenticated Enderloom Chromium sessions/cookies through approved browser actions;
+- browser back/forward/history/tab promotion;
+- normal T004/T025/T027 Downloads integration;
+- site permission prompts;
+- external-protocol handling;
+- browser context menus;
+- drag/drop between browser downloads and tool installers;
+- reveal/download/open actions;
+- exact contextual "Open in Mod Manager / Open in World Editor / Send to Tool" actions;
+- Electron notifications/taskbar/native dialogs when relevant.
+
+Rules:
+
+- Tool code requests abstract typed capabilities (for example `browser.openProviderProject(canonicalProjectId)`) rather than directly reaching into Electron internals.
+- Electron host fulfills supported capabilities through the canonical browser/session/security systems.
+- Standalone host either fulfills an equivalent lightweight/native capability or offers a clean **Open in Enderloom** continuation preserving exact context.
+- Remote webpages remain untrusted and never receive raw `enderloom-core` privileges.
+- Capability negotiation is explicit/versioned so future tools can detect supported host features without brittle host-name checks.
+
+### T075 — Cross-surface action/event sync: browser/provider actions immediately update Enderloom tools
+
+- [ ] **T075** · Make meaningful actions taken in embedded provider sites/browser surfaces converge into canonical Enderloom state and immediately propagate to every open host/tool
+
+Required canonical flow:
+
+`trusted observed provider/site action -> provider adapter resolves canonical identity -> validated Enderloom domain action/event -> SQLite/core commit -> live event bus -> Mod Manager/other tools update everywhere`
+
+Concrete required fixture:
+
+- User opens a real CurseForge project in Enderloom's authenticated embedded browser.
+- User clicks the real CurseForge site **Favorite** control.
+- Enderloom detects/validates the resulting provider favorite state through the strongest supported route (official API/provider state first; structured network/page state only when necessary and robust).
+- Resolve the CurseForge project to Enderloom's canonical project identity.
+- Add/update the Enderloom favorite immediately.
+- An already-open standalone Mod Manager and an Electron-tabbed Mod Manager both reflect the favorite without refresh, duplicate card, rescan, or app restart.
+- Unfavorite/state-change behavior follows the user's explicit provider action and reconciles cleanly; never infer an unfavorite from a transient page/API failure.
+
+Generalize the bridge for other high-value provider/tool actions where reliable and safe, such as:
+
+- install/download intent;
+- version/file selection;
+- following/favorite/bookmark equivalents;
+- opening dependencies/relations into the appropriate tool;
+- sending a downloaded/imported artifact to the correct Enderloom tool;
+- provider identity/linking updates.
+
+Correctness/security:
+
+- Prefer official provider APIs/state/events where available.
+- Do not rely on fragile visible text or pixel/button-position scraping.
+- If the website/API changes and confidence drops, mark the bridge degraded/unresolved rather than committing a false state change.
+- Browser page content cannot directly invoke privileged mutations; every bridge event is normalized and revalidated by the provider/domain layer.
+- Provider favorite state and Enderloom favorite state retain provenance so synchronization conflicts are explainable and recoverable.
+- A site outage/auth expiry/blocked request must never erase local favorites.
+
+### T076 — One live core, many hosts: multi-process concurrency and instant state propagation
+
+- [ ] **T076** · Allow Electron plus multiple standalone/pop-out tools to coexist safely against one canonical live state without duplicate scans, racing writes, or contradictory UI
+
+Required:
+
+- Use a single canonical ownership model for SQLite WAL, filesystem index state, provider caches, download/install transactions, dependency graph, favorites, quarantine/undo and operation history.
+- Prefer one supervised shared `enderloom-core` service/process for multi-host sessions when that provides the best correctness/performance; if native in-process modules are used, add an equivalent safe cross-process ownership/locking/event architecture.
+- A second host connecting must attach to existing indexes/caches/operations rather than launching another MFT scan/provider refresh/download of the same work.
+- Every committed domain change emits versioned live events/deltas to all subscribed hosts.
+- Hosts detect revision gaps and request a coherent snapshot; never guess missing events.
+- Concurrent actions against the same artifact/instance/world use operation ownership/locks and deterministic conflict handling.
+- Tool/UI crash does not kill durable core operations unnecessarily; core crash is detected and all hosts recover/reconnect truthfully.
+- Closing Electron must not destroy a standalone tool's safe ongoing state simply because Electron happened to start first.
+- Closing the last client allows the core to exit cleanly after durable state is committed unless an explicitly approved background operation requires otherwise.
+- No secret/session material is broadcast to tools that do not need it; browser sessions stay owned by the Electron/browser capability layer.
+
+### T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture
+
+- [ ] **T077** · Make future Enderloom tools plug into the same standalone/tabbed/pop-out platform without bespoke shell rewrites
+
+Create a small versioned internal Tool SDK/manifest contract covering:
+
+- stable tool ID/name/icon/routes;
+- shared UI entrypoint(s);
+- required/optional host capabilities;
+- canonical domain commands/events;
+- state serialization/restore contract for safe view/workspace state;
+- context actions and hotkeys;
+- drag/drop/import/export intents;
+- permissions/security needs;
+- standalone host eligibility/config;
+- Electron tab/pop-out eligibility;
+- deep links such as `enderloom://tool/<id>/...`;
+- diagnostics/health/version compatibility.
+
+World Editor reference fixture:
+
+- Implement or stub only enough real production wiring for the existing/planned World Editor to prove the platform boundary—not a fake decorative tab.
+- It can launch standalone without full Electron.
+- The exact same editor surface can dock as an Enderloom tab and pop out/reattach.
+- It can request Electron browser capabilities when hosted, e.g. open documentation/resource/provider pages or send downloaded world resources through canonical downloads/import.
+- Shared world/instance context transfers safely from Mod Manager -> World Editor and back without copying/moving the world unexpectedly.
+- Unsaved editor changes are never silently lost during host transitions; prompt/retain them according to the editor's real persistence model.
+- This fixture proves future tools can adopt the platform with mostly tool-specific domain/UI work rather than recreating host integration.
+
+**G013 closes only when T071-T077 are production-wired around the Mod Manager reference path, multi-host state/event behavior is runtime-proven, and the Tool SDK contract is demonstrated by the World Editor fixture or an equivalently real second tool.**
+
+---
+
+## G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss
+
+- [ ] **G010 · PHASE 1 PERFORMANCE GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
+
+This gate is the **Phase 1 performance acceptance umbrella over every implementation tranche in Phase 1**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: first launch/onboarding, account sign-in/reconnect, application launch, restoring the prior workspace, creating/importing/cloning instances, opening Browse, showing unified cross-provider Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, running dependency diagnosis, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, bulk mod operations, native context menus/keyboard actions, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
+
+The target is not merely "fewer spinners." The target is **lower real latency and higher throughput for equivalent-or-better work**.
+
+### Non-negotiable zero-loss performance law
+
+A performance/coverage change is accepted only when **all three** are true:
+
+1. **Speed superiority:** the targeted technically equivalent hot path is measurably faster than **both** CurseForge and Modrinth; a tie with either comparator is not completion.
+2. **Amount/coverage superiority:** Enderloom's complete comparable result/capability set is strictly larger and more useful than **both** clients, measured with deduplicated canonical projects/sources, compatible files/releases, metadata fields, dependency/relations intelligence, media/changelogs, provenance/context, and available actions — never by padding duplicates or irrelevant records.
+3. **Zero regression:** no protected dimension becomes worse: projects, files, versions, provider matches, metadata, dependencies, relations, screenshots/media, validation steps, hashes, provenance, compatibility checks, rollback guarantees, supported content types, UI capability, correctness, persistence, or recovery.
+
+The following are **not optimizations** and must fail review:
+
+- hiding work that still blocks later;
+- returning fewer results;
+- silently truncating provider pagination;
+- reducing metadata/detail quality;
+- skipping dependency closure;
+- skipping compatibility/hash/provenance validation;
+- disabling provider/source reconciliation;
+- replacing exact provider identity with weaker name guessing;
+- reducing media/gallery coverage;
+- dropping history, rollback, recovery, or persistence;
+- delaying necessary work until the user hits another stall;
+- removing features, controls, loaders, providers, content types, or supported workflows;
+- making cold paths worse to make a hand-picked warm demo look fast.
+
+### Authorized CurseForge + Modrinth desktop reference access
+
+For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform strictly better than both in speed and useful amount/coverage.**
+
+Treat those locally installed clients as first-class authorized reference implementations:
+
+- Record the exact installed client versions/builds and hashes before analysis so findings are reproducible.
+- Analyze **read-only copies** whenever practical; do not mutate the user's working CurseForge/Modrinth installations merely to study them.
+- Inspect their actual startup flow, cache/index strategy, request scheduling, provider search/detail loading, project identity handling, download/update pipelines, list virtualization, IPC boundaries, persistence, browser/webview reuse, concurrency, and error/retry behavior.
+- Use runtime tracing/profiling as well as code inspection. Do not guess why they are faster when the local implementation can be measured.
+- Under the stated authorization, reuse/adapt exact implementation ideas or code/assets where useful; integrate them cleanly into Enderloom's canonical architecture rather than bolting on isolated duplicate engines.
+- Preserve any required provenance/notices and do not copy unrelated credentials, tokens, cookies, private account data, or other user secrets.
+- If CurseForge and Modrinth use different strong techniques, combine the best compatible ideas instead of choosing one client wholesale.
+- When Enderloom can safely do better, do better; the comparators are a floor/reference, not a ceiling.
+
+### T047 — Establish real comparator baselines and profile every major Enderloom latency path
+
+- [ ] **T047** · Capture reproducible, apples-to-apples CurseForge / Modrinth / Enderloom performance evidence before and during optimization
+
+Use the **same computer, network, Minecraft instance/content set, provider query, and comparable user workflow** wherever technically possible. Run enough repeated cold/warm trials to distinguish a real gain from noise.
+
+Measure at minimum:
+
+- process start -> first visible window;
+- process start -> usable/interactive shell;
+- prior workspace/session restoration;
+- Mods/Addons view -> first useful installed-content rows/cards;
+- Mods/Addons -> complete logical dataset available to search/filter/sort;
+- Browse click -> first useful results;
+- Browse click -> full requested result set/provider reconciliation;
+- provider/category/search change -> useful results;
+- project-card click -> useful project details;
+- back/forward/reopen project;
+- update check -> first useful update state and full update scan;
+- Update click -> transfer actually starts;
+- Update click -> verified/committed replacement;
+- download click -> network transfer starts;
+- sustained download throughput and CPU cost;
+- install click -> dependency plan visible;
+- install click -> verified committed install;
+- tab/provider/browser open and switch latency;
+- first artwork/media render and later enrichment;
+- idle CPU, active CPU, memory, disk I/O, network requests, main-thread/event-loop stalls, renderer frame responsiveness, and IPC volume on those workflows.
+
+For network-backed paths, report **Enderloom-local overhead separately from provider/network latency** so slow providers do not hide slow Enderloom code and fast providers do not hide architectural waste.
+
+Persist a compact benchmark matrix with exact build/commit, comparator versions, test dataset, cold/warm status, counts returned, and timings. Reuse the same fixtures after each major performance change.
+
+### T048 — Remove whole-app latency at the shared architectural causes
+
+- [ ] **T048** · Make launch, Browse, Mods, updates, downloads, installs, and navigation fast through shared architecture instead of isolated cosmetic patches
+
+Profile first, then fix the earliest causal owner. Apply these techniques wherever evidence shows they fit:
+
+**Startup / launch**
+- Keep the true startup critical path minimal: create/render the usable shell first, then schedule non-blocking enrichment.
+- Do not synchronously rescan every instance, mod, provider, artwork file, cache, log, or browser state before showing a usable window.
+- Persist validated indexes/snapshots so restart can restore known-good state immediately and then reconcile deltas.
+- Use filesystem change tracking / dirtiness / mtimes / hashes intelligently so unchanged directories are not repeatedly rescanned.
+- Parallelize genuinely independent startup work with bounded concurrency.
+- Lazy-load heavy code/routes only when that does not move an unavoidable stall to the first click; prefetch high-probability routes after shell readiness.
+- Remove synchronous disk, JSON, hashing, SQLite, child-process, network, and IPC work from Electron main/renderer hot loops.
+
+**Browse / provider/project opening**
+- Render last-verified cached results immediately and stale-while-revalidate in the background.
+- Search supported providers in parallel with bounded concurrency and single-flight identical requests.
+- Persist normalized project/provider identity so the same CurseForge/Modrinth/GitHub project is not rediscovered/reconciled from scratch on every navigation.
+- Prefetch likely project details/media on user intent (hover/focus/viewport proximity) when cheap and cancel stale work.
+- Stream useful results progressively without changing the final complete result set.
+- Use conditional requests/ETags/delta refresh where providers support them.
+- Keep browser/provider WebContents/session/view objects warm/reusable where safe instead of rebuilding expensive state on every open.
+- Prevent stale A -> B -> A responses from overwriting newer navigation intent.
+
+**Mods / Addons / local instance content**
+- Maintain an incremental persistent local content index keyed by stable path/file identity, provider IDs, fingerprints/hashes, and relevant manifest metadata.
+- Reconcile only changed files/directories instead of full rescans for every view open.
+- Virtualize large lists/grids without changing logical search/sort/filter/select-all semantics.
+- Batch filesystem/stat/hash/database work and move CPU-heavy work off the UI thread.
+- Cache parsed manifests/fingerprints by file identity + size/mtime/hash validity.
+- Share canonical provider/project metadata with Browse/Favorites/Updates instead of refetching equivalent data in separate UI silos.
+
+**Updates**
+- Reuse known installed project identity, compatible-release metadata, dependency plans, and content-addressed artifacts.
+- Run provider checks in parallel with request coalescing, rate-limit awareness, and stale-while-revalidate UI.
+- Pipeline independent download/verify/commit stages where safe; do not serialize unrelated mod updates.
+- Start useful visible progress immediately.
+- Preserve T001 transactional replacement, rollback, freeze/pin behavior, identity safety, and validation in full.
+
+**Downloads / installs**
+- Start the actual transfer as soon as the destination/authorization/request is valid; UI animation/enrichment must never delay bytes.
+- Reuse one shared transfer service/event stream for browser/provider/install/update downloads.
+- Avoid duplicate download, hash, metadata, and dependency work when the exact artifact/plan is already valid in cache.
+- Use streaming I/O, appropriate buffers, bounded concurrent transfers, resumable/range support, and atomic finalization.
+- Keep hashing/verification off the renderer and pipeline verification without weakening the final commit gate.
+- Preserve exact content, hash/provenance checks, dependencies, rollback, history, and resumability.
+
+**Renderer / IPC / persistence**
+- Remove chatty per-row/per-card IPC waterfalls; batch or push coherent state changes.
+- Prefer event-driven updates over polling.
+- Index actual database query patterns; eliminate repeated full-table/full-JSON rewrites when incremental updates are safe.
+- Avoid parsing/serializing giant state blobs for tiny changes.
+- Memoize derived view models only with correct invalidation.
+- Keep expensive image/media work asynchronous and cache decoded/processed variants where appropriate.
+- Prevent background work from starving the foreground interaction queue.
+
+**Performance UX rule**
+- Every direct user gesture should acknowledge/respond within roughly one frame to 100 ms when local state can answer it.
+- Cached/local useful content should normally appear within roughly 100-250 ms.
+- Remote freshness may continue asynchronously, but the user must immediately see valid known state plus truthful refresh status.
+- Do not fake instant behavior with empty shells when valid cached/known content exists.
+
+T048 does not close because one screen is fast. It closes only after the shared causes behind the broad slow-app behavior are repaired and the detailed existing tasks (including T002, T004, T025, T027, T045, and T046 where applicable) still pass their own contracts.
+
+### T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression
+
+- [ ] **T049** · Run the final equivalent-work performance + completeness certification
+
+For every comparable major workflow, benchmark Enderloom against both installed clients. **Enderloom must beat each comparator individually**; the faster comparator is therefore the minimum speed target, and the richer comparator is the minimum amount/coverage target.
+
+Acceptance:
+
+- Enderloom must be **measurably faster than both clients** on comparable median user-visible latency after separating external network/provider time where appropriate; equality with either client leaves the task open.
+- Enderloom must also beat both on p95/p99 responsiveness where the workflow is technically comparable, so a fast median cannot hide severe stalls.
+- Result counts and coverage must be reconciled: expected/discovered/returned/accepted/rejected/unresolved, plus canonical deduplication so duplicate padding cannot fake superiority.
+- Search, Browse, provider reconciliation, update discovery, dependency plans, downloads, installs, and local content views must expose **strictly more useful aggregate information/capability than each comparator** while preserving at least the full pre-optimization Enderloom result set.
+- No individual protected dimension may regress below either comparator when that dimension is technically comparable; superiority must come from real extra coverage/intelligence/capability, not noise.
+- Existing stronger Enderloom guarantees must remain intact.
+- Test both warm and cold state, restart, large instances/catalogs, one degraded provider, offline cache behavior, rapid navigation/cancellation, simultaneous downloads/updates, and a provider/account reconnect case.
+- If CurseForge **or** Modrinth is still faster **or tied** on an equivalent path, profile the difference and continue improving architecture. Do **not** close G010 by documenting the loss or accepting parity.
+- If Enderloom becomes faster by dropping work, metadata, results, validation, or fidelity, reopen the responsible task and reject the optimization.
+
+**G010 closes only when T047, T048, T049, T050 and every existing performance-sensitive task they touch are runtime-proven on the packaged/current desktop build.**
+
+### T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
+
+- [ ] **T050** · Make strict speed + useful-amount superiority a permanent release/CI acceptance condition, not a one-time benchmark
+
+Once T049 establishes a proven benchmark/coverage baseline, preserve it as a versioned machine-readable acceptance artifact tied to exact Enderloom build/commit, comparator versions/builds, datasets, hardware/network context, result counts, and timing distributions.
+
+Required behavior:
+
+- Every performance-sensitive change must run the cheapest decisive affected-path benchmark + coverage-equivalence check before merge/release; broader comparator certification runs at release gates and after material architecture/provider changes.
+- A change that is slower than the current proven Enderloom baseline, returns less useful deduplicated coverage/capability, or reintroduces a protected regression **fails** even if it still beats an older comparator build.
+- Never replace a stronger Enderloom baseline with a weaker one merely because a benchmark is noisy or a new implementation is convenient. Improvements ratchet forward.
+- Track median, p95/p99, first-useful-result, full-completion, throughput, CPU/memory/disk/network, and logical result/metadata/dependency/media/action coverage where relevant.
+- Use stable fixtures plus representative large/cold/warm/degraded-provider cases. Preserve exact expected/discovered/returned/accepted/rejected/unresolved counts and canonical deduplication.
+- When installed CurseForge or Modrinth updates materially, capture the new exact build/hash, rerun the comparable benchmark matrix, and raise Enderloom's target if either comparator improved. Comparator progress can only raise the bar, never lower Enderloom's existing proven baseline.
+- If an external provider/network event makes a comparator run non-equivalent, mark that sample invalid and rerun under comparable conditions; do not use bad external conditions to manufacture a win.
+- Keep an explicit history of benchmark/coverage regressions and the fix that restored superiority so the same regression class becomes a reusable test/fixture.
+- Final packaged releases must carry a concise superiority receipt proving which comparator builds and workflows were beaten and which non-comparable/proprietary workflows were excluded with reasons.
+- No release may claim this queue complete while T050 detects a regression, tie, stale comparator baseline, reduced result/capability coverage, or unverified affected hot path.
+
+---
+
+
+## PHASE 2 — MINECRAFT-RUNNING ZERO-IMPACT PROTECTION — EXECUTE ONLY AFTER PHASE 1
+
+**Entry gate:** Phase 1 above is already proven excellent on the selected production stack. Phase 2 tunes coexistence around that finished high-performance baseline; it is never allowed to hide, compensate for, or normalize a slow Phase 1 implementation.
+
+## G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+
+- [ ] **G014 · PHASE-2 GAME IMPACT GATE** — **Only after the Phase 1 performance/stack baseline is proven**, Game Performance Protection must be able to keep Enderloom at **no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited**, while Enderloom itself remains fast, responsive, and capable of safely managing the running instance and other instances.
+
+This is the **highest Phase-2 coexistence invariant, not the first implementation priority**. **Do not begin tuning Enderloom around G014 until the Phase 1 stack/performance work is already proven excellent.** Phase 1 establishes the fastest correct architecture first; Phase 2 then makes that already-fast architecture coexist with Minecraft with effectively zero impact.
+
+G014 must never become an excuse to make the application itself feel slow. The special Game Performance Protection governor may deliberately reduce/defer **background P2/P3 throughput** while Minecraft runs, but ordinary P0/P1 interaction, navigation, cached search, Mod Manager use, logs, tabs, settings, and explicit management controls must remain within the strongest proven Enderloom responsiveness baseline/equivalence band. If a governor technique causes user-visible Enderloom lag, that technique fails and must be retuned/replaced rather than accepted as the price of zero game impact.
+
+Even with Game Performance Protection disabled, the permanent Phase 1 architecture still uses efficient incremental indexing, caching, single-flight, bounded concurrency, priority scheduling, low idle wakeups, and other proven low-overhead behavior. Disabling the optional governor means **do not apply the special Minecraft-specific throttling/protection policy**; it does not authorize wasteful resource use.
+
+### Phase-activation prerequisite
+
+Do not execute G014 as an architecture-shaping first pass. Enter Phase 2 only after:
+
+- the active G015 stack challengers for the affected runtime paths have either won and been promoted or been cleanly deferred to their proven stable fallbacks;
+- G012's Rust/native core ownership and T070 continuous performance loop are production-wired for the affected paths;
+- G013/G016 host/shell architecture needed by the tested build is stable enough that G014 is tuning the real intended runtime rather than a temporary shell;
+- T047/T048 have established and repaired the major normal-use latency/resource baselines on the chosen stack;
+- representative normal-use paths are already fast enough that the governor is optimizing **coexistence**, not masking an intrinsically slow app.
+
+If later stack work materially changes scheduling, IPC, shell, database, filesystem, downloader, media, or background behavior, reopen the affected G014 proof after that stack change rather than optimizing the old architecture.
+
+### Zero-impact definition
+
+The target is literal **0.0 user-visible impact**. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
+
+- Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped.
+- Candidate B: the exact same Minecraft workload with Enderloom running idle, then with representative management UI open, then with bounded background work active.
+- A passing result shows **no statistically significant regression and remains inside a predeclared equivalence/noise band** for median FPS, 1%/0.1% lows, p95/p99/p99.9 frame time, stutter count, tick/simulation metrics where available, and load/transition timings.
+- As an initial hard engineering guardrail, any repeatable Minecraft degradation around **0.5% or greater in FPS/lows, or any repeatable frame-time/stutter regression that is visible above run-to-run noise, fails** and must be profiled/fixed even if average FPS still looks high.
+- The gate may tighten below 0.5% whenever the benchmark environment is stable enough to resolve a smaller effect.
+- "Task Manager looks low", low average CPU, or a synthetic microbenchmark is not game-impact proof.
+
+### T078 — Robust Minecraft lifecycle detection and game-running operating state
+
+- [ ] **T078** · Detect every Enderloom-relevant running Minecraft instance reliably and enter/leave Game Running Mode without polling storms or false positives
+
+Required:
+
+- Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, and other strong evidence rather than matching every `java.exe`.
+- Track multiple simultaneous clients/servers independently.
+- Know which Enderloom instance/profile/world/server each recognized process belongs to when evidence supports it.
+- External launcher/process disappearance or telemetry failure becomes unresolved state, not permission to assume the game exited and resume heavy background work.
+- Transition into Game Running Mode promptly after launch/process detection and remain there through launcher handoff/startup transitions that still materially contend with game startup.
+- Exit only after all recognized Minecraft workloads are gone or a safe cooldown confirms the relevant process lifecycle ended.
+- Process detection itself must be event-driven or very low-cost and must not create the overhead this gate is trying to eliminate.
+
+### T079 — Game Running Resource Governor: Minecraft always wins resource contention
+
+- [ ] **T079** · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
+
+Default behavior while Minecraft runs:
+
+- P2 speculative prefetch and P3 maintenance/cleanup/deep verification/compaction pause or become near-idle unless required for the current foreground action.
+- Background provider refresh, catalog enrichment, cache maintenance, image transcoding, indexing, hash verification, dependency precomputation, update scans and non-user-requested downloads are deferred, coalesced or severely budgeted.
+- Core/database/provider/download workers that are not directly serving the visible Enderloom interaction enter Windows background/EcoQoS-style execution where supported.
+- Use Windows **PROCESS_MODE_BACKGROUND_BEGIN/END** or equivalent thread-scoped scheduling for real background work so CPU **and I/O scheduling pressure** are lowered; lowering CPU priority alone is explicitly insufficient.
+- Use **ProcessPowerThrottling / EcoQoS** for non-foreground/non-latency-critical workers where supported.
+- Benchmark **Windows CPU Sets** as a soft-affinity tool so Enderloom background workers can prefer cores/sets that minimize interference with Minecraft. Do not hard-code core numbers or assume P/E topology; discover current CPU sets/topology and keep the mapping reversible.
+- Never change Minecraft's priority/affinity/CPU-set/power policy merely to make Enderloom's benchmark look good unless the user separately asks for a game-tuning feature.
+- Reduce Enderloom memory churn and promptly release cold media/WebContents/tool state so the game does not lose useful cache/working-set headroom.
+- A/B Windows **ThreadMemoryPriority/ProcessMemoryPriority** for background workers so low-value Enderloom pages are trimmed before latency-sensitive foreground/game pages; keep only the measured winner.
+- Keep foreground Enderloom control/UI handling responsive through tiny high-priority control-plane work while expensive work remains throttled.
+- A visible user action may temporarily raise only the minimum threads/stages required to acknowledge and plan that action; heavy CPU/disk/network execution remains inside the live game budget.
+- Resource policy must be reversible immediately when Minecraft exits.
+
+### T080 — Adaptive CPU / disk / memory / network interference budgets
+
+- [ ] **T080** · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
+
+Required:
+
+- Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-safe telemetry.
+- Where practical capture game-facing frame/tick/load telemetry in benchmark/perf builds; production mode may use lighter process/system headroom signals.
+- Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom.
+- Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data.
+- Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection.
+- For eligible nonurgent HTTP(S) transfers, A/B Windows **BITS** against Enderloom's own throttled downloader and use whichever preserves foreground/game network responsiveness better without breaking auth, signed URLs, hashes, provenance or resume semantics.
+- Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache.
+- CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed "N cores for Enderloom" merely because the machine usually has spare cores.
+- On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class.
+- All adaptive decisions are bounded/hysteretic so the scheduler does not oscillate every few milliseconds.
+
+### T081 — Full management remains available while Minecraft runs
+
+- [ ] **T081** · Keep Enderloom genuinely useful during gameplay without paying for that capability in game performance
+
+While a game is running the user must still be able to:
+
+- instantly open/switch Enderloom, Mod Manager, Browse and supported standalone/tabbed tools;
+- inspect the running instance, installed content, provider identity, versions, dependency state, favorites and logs from cached/incremental canonical state;
+- manage **other** Minecraft instances normally, with heavy work throttled to the game-safe budget;
+- queue/install/update/download content for another instance without freezing the UI or stealing game frametime;
+- inspect the running instance's logs, crash evidence, launch/runtime metadata, screenshots and other safe live information;
+- prepare changes for the running instance and clearly mark anything that cannot safely take effect until restart;
+- perform safe live actions where the actual content/runtime permits them.
+
+Safety:
+
+- Never replace/remove a JAR or mutate files whose live use can corrupt the running instance merely because the UI action was requested. Stage the desired state and apply it at the correct safe lifecycle boundary.
+- Config/world changes follow the tool/content-specific live-safety contract; ambiguous live mutation asks for explicit user confirmation or schedules the change for restart rather than guessing.
+- Game Running Mode is not "disable Enderloom." It is "perform the same useful management through smarter scheduling, caches, deltas, staging and low-interference execution."
+
+### T082 — Automated Minecraft coexistence benchmark harness
+
+- [ ] **T082** · Build a repeatable real-Minecraft A/B harness that proves Enderloom is invisible to game performance
+
+Required test families:
+
+- vanilla/current supported client baseline;
+- representative Forge/NeoForge/Fabric instances;
+- a large/heavy modpack fixture;
+- chunk traversal/loading stress;
+- inventory/menu/UI-heavy interaction;
+- world load and dimension transition;
+- game idle in-world;
+- active gameplay/camera traversal;
+- optional server/tick fixture where applicable.
+
+Compare at minimum:
+
+1. Minecraft with Enderloom completely exited;
+2. Minecraft + Enderloom core/service idle;
+3. Minecraft + Electron shell idle/minimized;
+4. Minecraft + standalone Mod Manager open;
+5. Minecraft + active Browse/Mod Manager interaction;
+6. Minecraft + bounded background provider/index/cache work;
+7. Minecraft + user-requested download/update/install on another instance.
+
+Capture where practical:
+
+- PresentMon/ETW or equivalent frame-present evidence;
+- average/median FPS;
+- 1% and 0.1% lows;
+- p95/p99/p99.9 frame time and stutter/event counts;
+- CPU scheduling/utilization;
+- disk I/O/latency/queueing;
+- memory/commit/working-set pressure;
+- GPU utilization where Enderloom UI/compositing could interfere;
+- network throughput/latency;
+- Minecraft server tick/TPS/MSPT where relevant.
+
+Use repeated paired runs, stable workload/world/camera route where practical, release builds, and enough trials to characterize noise. A one-run "FPS looked the same" result is invalid.
+
+### T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
+
+- [ ] **T083** · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
+
+Acceptance:
+
+- Enderloom's game-impact result must remain statistically equivalent to the **fully-exited Enderloom baseline** and no worse than either comparator's game-impact result.
+- When all clients are effectively zero-impact within measurement resolution, Enderloom wins through lower background CPU/disk/network/memory footprint, faster management interactions, richer capability/coverage, or a combination thereof without worsening Minecraft.
+- Compare idle/minimized, mod-manager open, browse interaction, provider refresh, another-instance update/download and restart/restore.
+- Record exact comparator builds and repeat when they materially update.
+- If a comparator protects Minecraft better on any equivalent workload, G014 remains open until Enderloom meets or exceeds it.
+
+### T084 — Permanent game-impact ratchet
+
+- [ ] **T084** · Make zero-impact coexistence a permanent CI/release/performance invariant
+
+Required:
+
+- Store machine-readable game-impact baselines and equivalence bands tied to Enderloom commit/build, Minecraft fixture/version, modpack/world fixture, hardware class and test methodology.
+- Every change touching scheduler, IPC, Electron/Tauri/WebView, database, filesystem indexer, provider work, downloader, media pipeline, background service, caching or tool hosting runs the cheapest decisive affected coexistence test.
+- Full T082/T083 suites run at release gates and after major architecture changes.
+- A later change cannot trade game performance for a faster Enderloom benchmark.
+- If the test environment is too noisy to prove equivalence, the result is **unverified**, not pass.
+- Release is blocked on repeatable game-impact regression until the causal Enderloom work is fixed or removed.
+
+### T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode
+
+- [ ] **T096** · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
+
+BITS challenger:
+
+- For **eligible nonurgent/background HTTP(S) artifacts only**, A/B Enderloom's token-bucket downloader against Windows BITS.
+- BITS is attractive because it intentionally uses idle bandwidth and backs off as foreground network demand rises; use that behavior only when provider auth/signed-URL/session semantics remain correct.
+- Do not route short-lived authenticated/provider-browser requests, user-clicked foreground downloads or flows BITS cannot faithfully represent through BITS just to simplify code.
+- Preserve download provenance/hash/resume/CAS validation after BITS completes; BITS is a transport lane, not a trust decision.
+- If BITS causes worse start latency, provider incompatibility or lower G014 coexistence than Enderloom's own governor, use the native downloader.
+
+Memory-priority challenger:
+
+- During Game Running Mode, use Windows **ThreadMemoryPriority/ProcessMemoryPriority** on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages.
+- Keep foreground UI/control-plane memory at normal priority.
+- Never set Minecraft's memory priority for benchmark manipulation.
+- A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
+
+### T104 — Persistent Game Performance Protection setting
+
+- [ ] **T104** · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom's always-on efficient baseline
+
+Required UX:
+
+- Add **Settings -> Performance -> Game Performance Protection** with a clear persisted **On / Off** control shared across Electron/WebView2/standalone tool hosts through canonical Enderloom settings.
+- After G014 is fully runtime-proven, the production default may be **On** because the feature has demonstrated zero game impact **and** no meaningful Enderloom interaction regression. During development/canary work it remains explicitly testable without silently changing existing user settings.
+- **On:** the protection system remains armed across restart and automatically activates its Minecraft-specific governor only when T078 detects a relevant running Minecraft workload.
+- **Off:** do not activate the special Minecraft-specific EcoQoS/background-mode/CPU-set/BITS/memory-priority/throttling policy merely because Minecraft starts. Preserve the normal Phase 1 scheduler, incremental index, caches, single-flight, bounded concurrency and idle-efficiency behavior.
+- Changing the setting applies safely without app restart where technically practical and persists across restart/edition handoff.
+- Show a compact truthful status in Performance/Diagnostics such as **Protection enabled / Active for 1 Minecraft instance / Disabled**, without noisy notifications.
+- Do not silently force the setting back on after updates.
+- Never use the toggle to bypass live-file safety rules, transaction integrity, provider validation or other unrelated protections.
+
+### T105 — Protection must not regress Enderloom responsiveness
+
+- [ ] **T105** · Prove the zero-impact governor protects Minecraft by removing background interference, not by making Enderloom itself feel broken or slow
+
+Required A/B while Minecraft is running:
+
+1. Game Performance Protection **Off** using the already-optimized Phase 1 stack.
+2. Game Performance Protection **On** using the exact same build/workspace.
+
+Measure at minimum:
+
+- Enderloom window activation/focus;
+- tab/tool switching;
+- Mod Manager open and cached dataset readiness;
+- cached/local search/filter/sort;
+- Browse/project shell from valid local cache;
+- logs/runtime status;
+- favorites and lightweight state changes;
+- explicit user-started install/update/download planning;
+- UI input latency, renderer long tasks, queue wait and p95/p99 interaction latency.
+
+Acceptance:
+
+- P0/P1 Enderloom interactions with protection On must remain statistically equivalent to the protection-Off Phase 1 baseline or inside a very small predeclared/noise-equivalence band.
+- Protection may intentionally slow **background/non-visible P2/P3 completion throughput** when needed to protect Minecraft. That is expected scheduling, not an app responsiveness regression.
+- Explicit user-requested heavy operations remain functional. Use the minimum temporary safe resource burst needed for the foreground request while preserving G014; never silently unthrottle every worker.
+- If a specific governor mechanism (EcoQoS, background process mode, CPU Sets, memory priority, BITS, worker shrink, WebView suspension, etc.) creates visible Enderloom lag or poor tail latency, disable/retune that mechanism and keep testing alternatives rather than accepting the slowdown.
+- The governor's own telemetry/detection loop must be extremely cheap; do not consume meaningful CPU/GPU/disk/network just to prove the app is lightweight.
+- When protection is Off, ordinary Enderloom still targets best-in-class low resource use and G010 performance; Off is not a "maximum resource abuse" mode.
+- When protection is On and Minecraft exits, normal full-speed background scheduling resumes promptly and reversibly.
+
+**G014 closes only when T078-T084 + T096 + T104-T105 are production-wired and packaged-runtime proof shows both sides of the contract: Minecraft is protected within the zero-impact equivalence/noise envelope, and Enderloom's foreground interaction remains within its own Phase 1 responsiveness/equivalence envelope.**
+
+
+
+---
+
+
+### Authoritative execution order
+
+**This is the single authoritative ordering rule for this document.** Any older/local wording such as "priority", "highest", or a task's numerical ID describes importance within its own gate only and must never override the phase/stage order below. Stable T/G IDs are identifiers, not execution rank.
+
+### PHASE 1 — performance / stack supremacy
+
+**G010 is active continuously throughout Phase 1.** Every implementation slice is benchmarked/tuned as it lands; do not postpone performance until a later certification task.
+
+1. **Challenger preflight — T085-T092 + T097-T098.** Establish the current stable baselines, credible bleeding-edge challengers, exact versions/build flags, A/B fixtures, WebView2 privacy contract, transport baseline, and machine-readable challenger matrix. Execute challenger experiments that already have a real comparable path. If a challenger depends on a core/UI path that does not exist yet, mark that experiment ready-for-corresponding-stage rather than blocking the phase or inventing a toy comparison. **T096 is explicitly not part of this stage; it belongs to Phase 2.**
+2. **Core vertical slice — T056 + T057 + T070.** Production-wire `enderloom-core`, migrate one real heavy path, and immediately benchmark/tune it against the prior implementation with complete-result equivalence.
+3. **Core/data hot-path stack — T058-T069 plus T093-T094 as their corresponding paths become real.** Implement MFT/USN, SQLite WAL/indexes/FTS, CAS, one-pass hashing, archive fast paths, scheduler, freshness-safe cache, incremental dependency graph, transfer pipeline, native media, zero-blank rendering, delta IPC, crash consistency, and the Compio/IoRing + rawzip/zlib-rs/libdeflate challengers. Promote/defer each risky candidate through G015 instead of waiting until the end.
+4. **Shared UI/runtime challenger — T095.** Run the real Enderloom React 19.3+Compiler vs SolidJS and TypeScript/Vite/Bun modernization bakeoff on the production-shaped 10,000-result workload once the shared state/IPC path is stable enough for an honest comparison.
+5. **Tool Platform — T071-T077.** Stabilize the host-agnostic standalone/tabbed/pop-out tool architecture on the selected core, with Mod Manager as the reference implementation and the World Editor fixture proving future-tool reuse.
+6. **Dual-shell resilience if activated — T099-T103.** Only if T091/T092 promoted Rust/WebView2, produce and prove both the primary WebView2 Edition and maintained Electron Edition from the same core/release. If Electron remains the winner, record G016 as NOT-ACTIVATED.
+7. **Whole-app performance/UX convergence — T047-T048 plus all affected performance-sensitive product tasks.** Capture apples-to-apples Enderloom/CurseForge/Modrinth baselines, repair remaining shared latency causes, then finish the affected high-value flows including T051, T054, T026, T004, T025, T027, T045, T046, T002/T001, T052, T053, and T055. These tasks remain zero-loss and use the selected Phase 1 architecture rather than bypassing it.
+8. **Phase 1 certification — T049 + T050.** Prove the chosen production stack is faster and richer than both comparators on equivalent work, then ratchet that result into permanent release/CI acceptance.
+
+**Phase 1 exit gate:** the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal use. Do not enter Phase 2 merely because the architecture compiles.
+
+### PHASE 2 — Minecraft-running zero-impact protection
+
+9. **Only after the Phase 1 exit gate passes:** execute **T078-T084 + T096 + T104-T105**. Add/tune Game Performance Protection, including BITS/memory-priority challengers, and prove Minecraft coexistence reaches the G014 zero-impact/noise envelope **without regressing Enderloom foreground responsiveness**.
+10. After G014 closes, continue any remaining non-performance browser/QoL tasks in their ordinary earliest-ready dependency order while preserving both the G010 Phase 1 baseline and the G014 coexistence ratchet.
+
+### Cross-phase clarification
+
+- A Phase 1 reference to Minecraft means **only a cheap obvious-regression smoke check**. It never authorizes full G014 governor tuning or makes G014 a Phase 1 dependency.
+- Full statistical Minecraft coexistence benchmarking, EcoQoS/background-mode/CPU-set/BITS/memory-priority tuning, and the persisted Game Performance Protection feature belong to Phase 2.
+- If a later architecture change invalidates the chosen Phase 1 baseline, repair/re-certify that Phase 1 path first, then rerun only the affected G014 coexistence proof.
+- Performance never permits doing less work: result quantity, metadata, provider coverage, correctness, freshness, validation, rollback, safety, and user-visible capability must remain equal or better.
 
 ## Context
 
@@ -154,7 +1509,7 @@ Add a real persistent extension manager for Enderloom's Chromium profile:
 - never silently copy browser secrets from unrelated profiles.
 
 
-### T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
+### T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002
 
 - [ ] **T025** · Ship a real Chrome-style Downloads toolbar control and non-modal pop-out
 
@@ -327,7 +1682,7 @@ Use the **same machine, network, instance context, project set, and equivalent r
 
 - **Warm Browse/category reopen:** destination shell + cached results should be perceptually instant; target **<=100 ms median click-to-meaningful-paint** and **<=150 ms p95** where data is already cached locally.
 - **Warm project detail open from a visible card:** target **<=100 ms median** to cached core content/usable controls and **<=200 ms p95**, with background revalidation not blocking input.
-- **Cold project open:** route/shell must still paint immediately; first useful provider-backed content should beat the current baseline materially and must not be slower than the fastest comparable CurseForge/Modrinth client median for the same project/result scope.
+- **Cold project open:** route/shell must still paint immediately; first useful provider-backed content should beat the current baseline materially and must be measurably faster than **both** comparable CurseForge and Modrinth client medians for the same project/result scope.
 - **Back/forward restoration:** target **<=50 ms median** to restore prior cached Browse/project state.
 - **UI thread:** no navigation-triggered long task >50 ms without a documented platform exception; eliminate repeated long tasks from normal Browse opens.
 - **Zero-loss equivalence:** cached/optimized result counts, provider badges, compatible release selection, dependency closure, provenance, descriptions/media, and user-visible project actions must reconcile to the unoptimized authoritative result after background refresh.
@@ -350,7 +1705,7 @@ Use the **same machine, network, instance context, project set, and equivalent r
 - provider metadata change proving stale data updates without full-page blanking;
 - exact same workflows timed against current CurseForge and Modrinth clients on the same machine/network.
 
-**Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is not slower on equivalent user-visible Browse/project latency and no content/correctness was removed.
+**Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is measurably faster than both clients on equivalent user-visible Browse/project latency **and** exposes more useful aggregate coverage/capability with no content/correctness regression.
 
 ### T046 — Reconcile the same logical project across Modrinth and CurseForge
 
@@ -862,6 +2217,232 @@ Route conflicts through the canonical Hotkeys system instead of hardcoding compe
 
 ---
 
+## G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers
+
+- [ ] **G011 · GATE** — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-controlled, runtime-proven, and satisfy G010's strict faster-and-richer-than-both contract where technically comparable.
+
+### T051 — Unified Discovery Supremacy
+
+- [ ] **T051** · Make Enderloom discovery the fast canonical union of CurseForge + Modrinth + GitHub/upstream + every other supported provider, with more useful unique results than either launcher
+
+Enderloom discovery must not behave like one provider search wearing a different skin. Build one canonical discovery layer that searches every enabled/supported source in parallel, reconciles the same logical project into one result, preserves source-specific detail, and returns a **larger useful deduplicated project/capability set than CurseForge or Modrinth individually** while still appearing faster.
+
+Required behavior:
+
+- Query supported CurseForge, Modrinth, verified GitHub/upstream, and other enabled provider adapters concurrently with per-provider rate limits, cancellation, circuit/degraded state, and single-flight coalescing.
+- Search exact names, normalized aliases, subtitles, slugs, author/owner, provider IDs, known upstream/source identity, categories/tags, loader, game version, content type, and reasonable typo/fuzzy variants.
+- A project present on multiple providers renders as **one canonical result** with compact source badges/options; provider duplicates never inflate the result count used to claim superiority.
+- Preserve provider-specific files/releases, descriptions, galleries, changelogs, license/category metadata, dependencies/relations, download availability, update intelligence, and canonical URLs behind the merged project.
+- Rank relevance intelligently across the canonical union without secretly favoring one provider. Explicit user sort/filter choices remain authoritative.
+- Search/filter/sort/count/select-all semantics operate on the full logical dataset, not only the first page or rendered rows.
+- Exhaust provider pagination/continuation until the requested discovery scope is terminal; reconcile expected/discovered/accepted/rejected/unresolved counts before claiming complete coverage.
+- Return last-verified cached canonical results immediately, stream fresh provider additions/changes in place, and never blank the entire result set while one provider refreshes.
+- Slow/offline/auth-expired providers cannot hide already-known or other-provider results; show truthful per-source degraded/reconnect state and continue.
+- Persist confirmed cross-provider identity so repeat searches never rediscover obvious mappings from scratch.
+- Prefetch high-value visible/hovered result details through the same T045 cache/intent architecture.
+- Support direct provider/source switching without losing the unified result's project identity, search context, target instance, filter state, or scroll position.
+- Keep discovery extensible: adding another provider adapter must automatically participate in canonical search/identity/coverage accounting instead of needing a separate UI silo.
+- Measure **first useful result**, **full canonical result set**, unique useful project count, provider-source count, metadata richness, and interaction latency against both installed clients on the same queries/machine/network. A tie in speed or a smaller/equivalent useful aggregate result/capability set leaves T051 open.
+- "More results" means more **relevant canonical projects/sources/releases/intelligence**, never duplicates, mirrors counted twice, irrelevant noise, broken results, or unsupported artifacts.
+
+**Required regression fixtures:** exact-title project, subtitle drift, alias/rename, same-name different-author negative control, project on CurseForge+Modrinth+GitHub, project on only one provider, typo query, author query, provider outage, expired auth, 250/1,000/10,000 logical results, terminal pagination, and the existing Punchy! cross-provider fixture.
+
+**Hard acceptance path:** enter one query -> cached canonical results appear immediately -> CurseForge/Modrinth/GitHub/other supported sources enrich in parallel -> duplicates collapse into one project with source badges -> typo/alias/author variations still resolve correctly -> slow provider does not block others -> filters/sort operate over the full logical set -> compare against both launchers and prove Enderloom is faster **and** exposes more useful deduplicated discovery coverage/capability.
+
+### T052 — Instance Dependency Doctor with explicit Yes / No user control
+
+- [ ] **T052** · Add an intelligent Instance Dependency Doctor that finds and explains problems automatically but never mutates the instance without an explicit Yes / No decision
+
+The Doctor should make dependency repair feel automatic **without taking control away from the user**.
+
+Detect at minimum:
+
+- missing required dependencies/libraries;
+- required dependency present but disabled;
+- incompatible dependency version/range;
+- wrong Minecraft version;
+- wrong loader/platform;
+- client-only/server-only side mismatch where metadata supports it;
+- duplicate/superseded JARs or provider files for the same logical project;
+- stale old-version artifacts left beside the current replacement;
+- orphaned libraries no longer required by any installed project;
+- dependency cycles/conflicting version constraints;
+- missing host mods/frameworks for recognized addons/customizations;
+- broken/unresolved provider identity that prevents reliable dependency/update decisions;
+- dependency/provider metadata disagreements that require user review rather than guesswork.
+
+User-control contract:
+
+- Diagnosis may run automatically/cached in the background when cheap, but **no repair/install/update/downgrade/enable/disable/quarantine/remove action commits silently**.
+- When a repair plan is ready, always show a compact decision surface with **Yes**, **No**, and **Review Details**.
+- **Yes** applies the currently previewed recommended plan transactionally.
+- **No** leaves the instance unchanged and dismisses/snoozes that proposal without nagging.
+- **Review Details** shows every proposed change, reason/evidence, old -> new version/file/provider, dependency relationship, risk, and lets the user include/exclude individual items before returning to the same **Yes / No** decision.
+- For grouped repairs, one Yes may approve the entire visible reviewed plan; independent failures do not silently expand the user's approval into additional changes.
+- Never hide a destructive/downgrade/remove/quarantine operation inside a generic "Fix" button. The exact effect must be visible before Yes.
+- Remember harmless UI preferences, but **do not remove the user's ability to choose Yes or No at the commit point** for a newly proposed mutation plan.
+- If the app can prove no filesystem/provider mutation is required, it may resolve a purely diagnostic false-positive state without asking.
+
+Repair engine:
+
+- Reuse canonical provider identity, T001 transactional update semantics, T016 installer, T023 addon lifecycle, dependency planner, content-addressed download cache, snapshots, and rollback.
+- Stage/download/verify all required artifacts before removing working live artifacts when possible.
+- Quarantine replaced/removed suspect artifacts through T053 rather than permanently deleting them by default.
+- Preserve configs, worlds, saves, screenshots, resource data, user notes, favorites, pins/freeze state, and unrelated content.
+- Ambiguous fixes remain **Needs review / unresolved-active**; never invent a provider match or dependency version to make the screen green.
+- Explain why each issue was detected and why the recommended fix satisfies the dependency graph.
+- After commit, rescan only the affected graph/files, verify the problem is actually gone, and offer **Undo** when rollback is valid.
+- Run quickly from persisted identity/index state; do not full-rescan/re-hash the entire instance on every Doctor open.
+
+**Hard acceptance path:** open an instance with missing + wrong-version + duplicate + ambiguous dependency fixtures -> Doctor immediately shows known issues -> inspect recommended repair -> choose **No** and prove nothing changes -> reopen -> Review Details -> exclude one item -> choose **Yes** -> staged verified repair commits -> removed/replaced files are recoverable through quarantine/undo -> affected graph rechecks cleanly -> ambiguous item remains explicitly unresolved rather than guessed.
+
+### T053 — Bulk Mod Manager + Undo / Quarantine
+
+- [ ] **T053** · Add fast dependency-aware bulk actions across the full logical mod dataset with durable Undo and safe Quarantine
+
+Required selection behavior:
+
+- Ctrl+click toggle, Shift+click range, keyboard range/selection, **Ctrl+A selects the full filtered logical dataset**, not merely currently rendered rows.
+- Selection survives virtualization and ordinary non-destructive sorting/filtering changes where identity remains valid.
+- Show a compact selected-count/action bar without covering useful content.
+
+Bulk actions must include where applicable:
+
+- enable / disable;
+- update;
+- change version;
+- reinstall / repair;
+- pin/freeze / unpin;
+- favorite / unfavorite;
+- run Dependency Doctor on selection;
+- reveal/show files;
+- copy useful project/provider/file information;
+- quarantine;
+- remove/uninstall;
+- restore from quarantine;
+- retry failed operation items.
+
+Safety / QoL:
+
+- Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic.
+- Before dependency-affecting or destructive bulk mutations, show exactly what will change, impacted dependents, required additions/replacements/removals, and a clear **Yes / No** confirmation.
+- Allow per-item exclusion from the preview before Yes.
+- Quarantine is the default safety route for removed/replaced suspect mod artifacts: move/retain them in Enderloom-managed recoverable storage with original path, project/file identity, reason, timestamp, and operation ID.
+- Permanent deletion is a separate explicit action, never the hidden meaning of Quarantine.
+- Preserve configs/worlds/saves and unrelated user data unless the user explicitly selects an operation that includes them.
+- Maintain a durable operation history with **Undo** when the prior state can be restored safely; restart must not erase valid undo/quarantine metadata.
+- Undo restores the exact prior enabled/disabled artifact/version/path/provider identity where possible and revalidates dependencies afterward.
+- Partial failure is per-item: successful independent items remain truthful, failed items retain the old state or rollback, and the final result clearly lists each outcome.
+- Cancel stops not-yet-committed independent work safely; it never leaves half-renamed live JARs presented as success.
+- Large selections must remain responsive through virtualization, batched domain operations, bounded concurrency, and incremental affected-graph verification.
+
+**Hard acceptance path:** select a filtered 500+ logical-mod fixture with Ctrl+A -> exclude several items -> preview disable/update/quarantine mix -> inspect dependent impact -> choose No and prove zero mutation -> repeat and choose Yes -> progress remains responsive -> one injected failure rolls back only its item -> quarantine/history persists across restart -> Undo restores the selected prior state and dependency verification passes.
+
+### T054 — First-run / account / create / import / clone performance supremacy
+
+- [ ] **T054** · Make first-run, account connection, instance creation, import, and clone flows strictly faster and more capable than both launchers without losing fidelity
+
+First-run/onboarding:
+
+- First launch must reach a usable shell quickly; optional discovery/account/provider enrichment cannot block the entire app.
+- Detect likely existing Minecraft/CurseForge/Modrinth/Enderloom instance roots efficiently from known configured locations and bounded discovery, then present candidates for user approval instead of silently importing everything.
+- Let the user **Import/Link**, **Skip**, or review detected candidates; skipping onboarding never blocks later setup.
+- Do not perform expensive full recursive scans of unrelated disks at startup.
+
+Accounts:
+
+- Reuse legitimate existing authorized sessions where supported.
+- Account connect/reconnect uses the provider's supported OAuth/device/browser flow and returns to the interrupted Enderloom action automatically.
+- Never store raw account passwords or bypass MFA/CAPTCHA/security challenges.
+- Show truthful connected/reconnect-required/offline state without making unrelated local instance management unavailable.
+- Keep account UI responsive while remote profile/entitlement data enriches.
+
+Create instance:
+
+- Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order.
+- Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes.
+- Dependency/runtime preparation stays off the renderer and shows truthful granular progress.
+- Cancel/retry/resume must not leave fake complete profiles.
+
+Import:
+
+- Support existing accepted import sources/formats through one canonical import transaction.
+- Analyze manifest/pack metadata once, reuse provider resolution/download cache, parallelize independent transfers, preserve exact requested files/configs/overrides, and verify the final instance.
+- Existing local CurseForge/Modrinth profiles imported/linked in place must not be copied merely for convenience when a safe connected-in-place mode applies.
+- Archive/provider imports that do require a new physical instance use staging + atomic finalize/rollback.
+
+Clone:
+
+- Offer a clear clone dialog for destination/name and inclusion choices where applicable.
+- Preserve the original instance untouched.
+- Mutable user data such as worlds/configs must never become unsafe shared hardlinks between original and clone.
+- Immutable verified artifacts may reuse content-addressed storage/copy-on-write/reflink/hardlink techniques only when the platform/filesystem semantics are safe and Enderloom prevents one instance mutation from corrupting another.
+- The clone must be independently usable and removable after completion.
+
+Strict performance proof:
+
+- Benchmark first launch -> usable shell, account action -> usable authenticated state, create -> usable instance, import -> usable verified instance, and clone -> independently usable clone against both installed clients on equivalent fixtures.
+- Enderloom must be measurably faster than **both** on technically comparable median and p95 paths while preserving more useful setup/import intelligence and the full intended instance contents.
+- Record bytes downloaded vs reused, files/projects preserved, dependency/provider resolution counts, CPU/disk/network cost, and cold/warm behavior.
+- A "fast" result that omits overrides/configs/mods/dependencies or defers an unavoidable blocking copy/download to first launch is a regression, not a win.
+
+**Hard acceptance path:** clean-profile first run -> shell usable promptly -> detect existing provider instances -> choose Skip and prove nothing imported -> rerun discovery and approve one link/import -> connect/reconnect supported account -> create a fresh instance -> import a representative provider/archive pack -> clone an existing instance -> verify original and clone independence/content fidelity -> benchmark all equivalent flows against both launchers and prove strict speed superiority.
+
+### T055 — Native Mod / Instance context menus and keyboard bulk actions
+
+- [ ] **T055** · Add instant native right-click / keyboard action surfaces for Mods and Instances, backed by the same canonical operations as visible buttons and bulk actions
+
+Mod/project context menu should expose contextually valid actions such as:
+
+- Open project/details;
+- switch/open provider source;
+- install to instance / change version;
+- update;
+- enable / disable;
+- pin/freeze / unpin;
+- favorite / unfavorite;
+- reinstall / repair;
+- run Dependency Doctor;
+- reveal/show file;
+- copy canonical project URL/provider URL/file name/hash/version where available;
+- quarantine / restore;
+- remove/uninstall;
+- view dependencies/dependents;
+- open logs/evidence relevant to the selected mod when available.
+
+Instance context menu should expose contextually valid actions such as:
+
+- Launch using remembered/default launcher;
+- launcher chooser;
+- open instance;
+- open folder;
+- Logs;
+- Settings;
+- Browse/Add Content;
+- check updates;
+- run Dependency Doctor;
+- clone;
+- export where already supported;
+- backup/snapshot where already supported;
+- reveal provider/source identity;
+- rename when supported;
+- remove/trash through the normal protected instance lifecycle.
+
+Keyboard / accessibility / bulk behavior:
+
+- **Shift+F10** and the keyboard Menu key open the same context menu for the focused item.
+- Arrow keys navigate; Enter activates; Escape closes; focus returns correctly.
+- Ctrl/Shift selection semantics match T053; context actions apply to the complete selected logical set when the action is bulk-capable.
+- Bulk-capable context actions use the same preview/Yes/No/Undo/Quarantine safeguards as T053.
+- Disabled/impossible actions remain truthful and explain why when useful; never expose clickable no-op menu items.
+- Menu content comes from current canonical state and should open perceptually instantly from cached/local data; remote enrichment may patch secondary items but cannot block the menu.
+- Context menus, toolbar buttons, card actions, hotkeys, and automation must all call the same canonical domain operation and therefore produce identical validation, persistence, progress, rollback, and result semantics.
+- Hotkey conflicts route through Enderloom's canonical Hotkeys system.
+
+**Hard acceptance path:** right-click and Shift+F10 the same mod -> identical actions/state -> multi-select logical rows and invoke a bulk-capable action from context menu -> preview -> choose No and prove zero mutation -> repeat Yes -> operation uses T053 history/quarantine/undo -> right-click an instance -> launch/folder/logs/Doctor/clone actions route to real workflows -> restart and verify action/state consistency.
+
+---
+
 ## G008 — Whole queue convergence and runtime proof
 
 - [ ] **G008 · GATE** — Whole queue convergence and runtime proof
@@ -870,13 +2451,13 @@ Route conflicts through the canonical Hotkeys system instead of hardcoding compe
 
 - [ ] **T020** · Visual/performance regression pass
 
-Prove that provider fetches, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
+Prove that `enderloom-core`, MFT/USN delta indexing, SQLite WAL/indexing, CAS/hash/archive pipelines, native schedulers, freshness-safe caches, incremental dependency graphs, pipelined transfers, media processing, zero-blank list rendering, delta IPC, provider fetches, unified discovery, Dependency Doctor scans/repair previews, bulk operations, first-run/import/clone work, native context menus, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window, corrupt state, present stale/false authority, or trigger unnecessary full-instance rescans.
 
 ### T021 — State/restart regression pass
 
 - [ ] **T021** · State/restart regression pass
 
-Restart the app and verify favorites, provider merge state, default launcher, install target, browser extensions/profile, update state, artwork overrides, logs preferences, filters, and layout survive as intended.
+Restart the app and verify favorites, provider merge state, discovery cache/mappings, default launcher, install target, browser extensions/profile, update state, Dependency Doctor evidence/snooze state, quarantine/undo history, bulk-selection-safe persisted state, artwork overrides, logs preferences, filters, account/provider connection state, and layout survive as intended.
 
 ### T022 — Packaged-app workflow proof
 
@@ -910,13 +2491,34 @@ Exercise the real desktop build through at least:
 24. hostile-page browser-security regression fixture proving no privileged Enderloom action is reachable through untrusted remote content.
 25. verified GitHub project source -> GitHub renders directly inside the Browse provider pane -> navigate deeper -> compact Open in New Tab preserves the exact URL/session -> drag the GitHub provider tab/chip onto the top tab strip also promotes it -> promoted tab behaves like a normal restorable Enderloom browser tab while the original project/source state remains intact.
 26. instrumented Browse performance fixture: warm/cold Browse + project opens, back/forward, offline cache, one throttled provider, rapid A -> B -> A navigation, large result set, and restart cache persistence; compare equivalent full-result workflows against current CurseForge and Modrinth clients and prove latency gains without provider/result/metadata/dependency/fidelity loss.
+27. unified discovery query -> multi-provider parallel results -> canonical dedupe -> typo/alias/author resolution -> degraded provider -> terminal pagination -> prove more useful unique coverage and faster latency than both clients.
+28. Dependency Doctor -> detect missing/wrong/duplicate/ambiguous issues -> choose **No** and verify no mutation -> review/exclude -> choose **Yes** -> transactional repair -> quarantine/undo -> affected graph verifies clean.
+29. Bulk Mod Manager -> Ctrl+A full filtered logical set -> preview -> No -> zero mutation -> Yes -> bounded concurrent operation with injected partial failure -> restart -> quarantine/history -> Undo restore.
+30. clean-profile first run -> detect existing provider instances -> Skip -> approve one import/link -> account connect/reconnect -> create -> import -> clone -> verify full fidelity/independence -> benchmark each comparable flow against both clients.
+31. Mod/Instance right-click + Shift+F10 -> real context actions -> multi-select bulk context action -> Yes/No safeguards -> launch/folder/logs/Doctor/clone paths -> restart consistency.
+32. packaged `enderloom-core` vertical slice -> prove renderer/main stay responsive -> kill/restart native core during a non-destructive operation -> truthful recovery -> verify binary/schema/version evidence.
+33. 1,000+ mod NTFS instance -> warm reopen performs zero unnecessary JAR reads -> change 3 files -> only 3 affected records process -> simulate USN reset/wrap -> targeted authoritative recovery.
+34. SQLite WAL/index/search fixture -> concurrent reader/background writer -> instant indexed sort/search -> migration interruption -> rollback/recovery -> integrity verification -> no durable user-state loss.
+35. CAS/hash/JAR fixture -> duplicate artifact install across instances -> one verified network object -> safe materialization -> one-pass hashes/fingerprints -> selective metadata parse -> tamper one materialization -> detect/reverify without poisoning other instances.
+36. scheduler/pipeline fixture -> P0 user click preempts P2/P3 work -> provider concurrency limits respected -> downloads/hash/inspect/verify overlap -> stale cancelled generation cannot commit.
+37. freshness/link fixture -> cached search paints instantly -> provider data changes -> revalidation patches it -> outage/auth/rate-limit never becomes false 'not found' -> expired signed URL is reacquired -> canonical project link remains valid.
+38. incremental dependency fixture -> update one graph node -> only affected connected graph recalculates -> result reconciles with full-solve oracle -> ambiguous/conflicting constraints remain unresolved rather than guessed.
+39. image/media fixture -> card uses right-sized native cached image -> huge gallery image never blocks text/actions -> stale late image cannot overwrite newer source.
+40. 10,000-result rendering torture -> rapid wheel/trackpad/scrollbar/Home/End/PageDown + filters + images -> zero viewport-not-ready events, blank cards, pop-in gaps, scroll jumps, focus loss, or missing logical results; disable virtualization if the gate fails.
+41. crash-injection matrix across DB/WAL/CAS/download/hash/live swap/migration/quarantine -> restart always yields verified old or verified new state, never half-success/corruption.
+42. dual-host Mod Manager -> launch standalone without Electron -> open same instance/search/filter state as Electron tab -> pop out -> dock back -> open standalone again -> prove no rescan/reload/state drift and benchmark each transition/launch.
+43. simultaneous Electron + standalone Mod Manager -> mutate favorites/update state in one host -> other host updates live -> inject revision gap -> coherent snapshot recovery -> concurrent same-artifact action resolves safely without duplicate scans/writes.
+44. embedded CurseForge provider page -> user clicks real site Favorite -> provider bridge validates canonical project/state -> Enderloom favorite commits -> standalone Mod Manager + Electron-tabbed Mod Manager update immediately without refresh; unfavorite likewise follows explicit user action and transient provider failure never erases local favorite.
+45. Electron capability bridge -> from Mod Manager open exact provider page/split view/download -> return/send artifact to Mod Manager -> preserve authenticated browser session and canonical project context; standalone host offers equivalent lightweight action or exact Open in Enderloom continuation.
+46. tool docking fixture -> detach/reattach with active selection/search/scroll/operation -> zero lost view state or cancelled independent work -> drag/tab/context/keyboard paths agree.
+47. future-tool platform fixture -> World Editor (or equivalently real second tool) launches standalone, docks as Electron tab, pops out/reattaches, shares canonical instance/world context, invokes browser/download capability through the typed bridge, and preserves unsaved editor state safely.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G014, G015, G012, G013, G010, and G011 are closed, and G016 is either closed or correctly NOT-ACTIVATED because Electron remained the shell winner** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content, and Minecraft coexistence satisfies G014's zero-impact release gate. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T046 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T105, G001-G008, G010, G011, G012, G013, G014, and G015 are complete, with G016/T099-T103 either runtime-complete after WebView2 promotion or explicitly NOT-ACTIVATED because Electron remained the shell winner with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; **with Minecraft running, Enderloom remains within G014's zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.**

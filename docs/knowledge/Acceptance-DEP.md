@@ -9,7 +9,7 @@
 <a id="dep-01-details"></a>
 ## DEP-01 - Full dependency closure
 
-[Outcome](Checklist.md#dep-01) / 71 source-derived details.
+[Outcome](Checklist.md#dep-01) / 74 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -253,6 +253,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. Hot Reload / Fast Dev Loop
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 798-798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L798-L798)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T062 — Tokio async I/O + Rayon CPU work-stealing + foreground-priority scheduler (1)</summary>
+
+<a id="d-19b4241b65f062401872"></a>
+- [ ] **D-19b4241b65f062401872** - - Tokio/async I/O: provider HTTP, downloads, filesystem async tasks where appropriate, waiting, reconnect/retry. - Rayon/bounded CPU workers: hashes/fingerprints, archive parsing/d...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Tokio/async I/O: provider HTTP, downloads, filesystem async tasks where appropriate, waiting, reconnect/retry. - Rayon/bounded CPU workers: hashes/fingerprints, archive parsing/decompression, dependency graph work, canonicalization, heavy local search transforms, native image work. - Serialized/coordinated commit lane: database/file transaction commits that must be ordered/atomic.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T062 — Tokio async I/O + Rayon CPU work-stealing + foreground-priority scheduler
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 594-596](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L594-L596)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T064 — Incremental dependency/compatibility graph (1)</summary>
+
+<a id="d-7be287d9f46460ba5ab7"></a>
+- [ ] **D-7be287d9f46460ba5ab7** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T064 — Incremental dependency/compatibility graph
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 646-646](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L646-L646)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control (1)</summary>
+
+<a id="d-e4ace0e38988ba3d9e0d"></a>
+- [ ] **D-e4ace0e38988ba3d9e0d** - - missing required dependencies/libraries; - required dependency present but disabled; - incompatible dependency version/range; - wrong Minecraft version; - wrong loader/platform; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - missing required dependencies/libraries; - required dependency present but disabled; - incompatible dependency version/range; - wrong Minecraft version; - wrong loader/platform; - client-only/server-only side mismatch where metadata supports it; - duplicate/superseded JARs or provider files for the same logical project; - stale old-version artifacts left beside the current replacement; - orphaned libraries no longer required by any installed project; - dependency cycles/conflicting version constraints; - missing host mods/frameworks for recognized addons/customizations; - broken/unresolved provider identity that prevents reliable dependency/update decisions; - dependency/provider metadata disagreements that require user review rather than guesswork.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2260-2272](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2260-L2272)
 
 </details>
 
@@ -728,7 +763,7 @@
 <a id="dep-03-details"></a>
 ## DEP-03 - Conflict and change-impact graph
 
-[Outcome](Checklist.md#dep-03) / 74 source-derived details.
+[Outcome](Checklist.md#dep-03) / 78 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 21. Security and trust boundaries (1)</summary>
@@ -884,6 +919,46 @@
   - **Full requirement:** It is not acceptable to omit a domain because “another tool already does it.” Enderloom may interoperate with another tool where that is the best engineering choice, but the workflow still needs to feel continuous inside Enderloom and its state/evidence must return to the shared project graph.
   - **Binding context:** 34. Definition of done for the gap audit
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1202-1202](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1202-L1202)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback (1)</summary>
+
+<a id="d-e844b1aa9d6cd2f3474f"></a>
+- [ ] **D-e844b1aa9d6cd2f3474f** - · Do not let a bleeding-edge dependency stall Enderloom indefinitely
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T088 : 96-96](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L96-L96)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T064 — Incremental dependency/compatibility graph (2)</summary>
+
+<a id="d-46dbe37be9e58de8087d"></a>
+- [ ] **D-46dbe37be9e58de8087d** - · Persist and update the dependency/compatibility graph incrementally so one changed mod does not force a complete instance solve
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T064 — Incremental dependency/compatibility graph
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T064 : 644-644](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L644-L644)
+
+<a id="d-e1a274af968b816af1ca"></a>
+- [ ] **D-e1a274af968b816af1ca** - - Key graph nodes/edges to canonical project/provider/file/content identity and target Minecraft/loader/side context. - Persist required/optional/incompatible/breaks/provides/recom...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Key graph nodes/edges to canonical project/provider/file/content identity and target Minecraft/loader/side context. - Persist required/optional/incompatible/breaks/provides/recommends/host-framework relationships with provenance/evidence. - On add/remove/update/enable/disable/provider-metadata change, invalidate only the affected connected graph plus anything whose constraints depend on it. - Reuse unchanged solved subgraphs across Browse install previews, Update All, T052 Dependency Doctor, T053 bulk operations, and startup health. - Detect cycles, conflicting version ranges, unresolved identities and provider disagreements explicitly; never manufacture a satisfying answer. - A provider metadata refresh can expand invalidation when dependency evidence actually changed. - Compare incremental result to periodic/full-solve oracle fixtures so speed never creates a stale or false compatibility answer.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T064 — Incremental dependency/compatibility graph
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 648-654](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L648-L654)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control (1)</summary>
+
+<a id="d-225271b5a4da8e7da06e"></a>
+- [ ] **D-225271b5a4da8e7da06e** - · Add an intelligent Instance Dependency Doctor that finds and explains problems automatically but never mutates the instance without an explicit Yes / No decision
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T052 : 2254-2254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2254-L2254)
 
 </details>
 
@@ -1574,7 +1649,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 88 source-derived details.
+[Outcome](Checklist.md#dep-05) / 95 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2044,6 +2119,77 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / Rust-first ownership law (1)</summary>
+
+<a id="d-98511b85bc7c744a2062"></a>
+- [ ] **D-98511b85bc7c744a2062** - - Rust/native core: filesystem discovery/change tracking, local indexing, database access, search indexes, cache management, provider transport/normalization, identity/fingerprint/...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Rust/native core: filesystem discovery/change tracking, local indexing, database access, search indexes, cache management, provider transport/normalization, identity/fingerprint/hash work, ZIP/JAR inspection, dependency graphs/solving, compatibility analysis, bulk operation planning, download/install/update pipelines, transaction/rollback state, artifact storage, image decode/resize/thumbnail generation, priority/background scheduling, and performance instrumentation. - Electron main: window/process lifecycle, WebContents/session/browser APIs, native dialogs/menus/permissions, and thin validated IPC adapters only. - Renderer JavaScript: presentation, user interaction, local view state, accessibility, and lightweight formatting only. - Browser-native work that must occur through Electron/Chromium remains a thin JS/native-shell adapter; expensive follow-up processing belongs in enderloom-core. - A JS hot-path implementation may remain only after a reproducible benchmark on the real workload proves it beats the Rust/native alternative on latency/throughput without increasing CPU/RAM/disk/network cost unacceptably and without reducing correctness, result coverage, freshness, crash safety, validation, or maintainability. - Never keep duplicate Rust and JS production engines indefinitely. After migration/proof, one canonical owner remains and all GUI/CLI/automation surfaces route through it.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / Rust-first ownership law
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 447-452](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L447-L452)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes (1)</summary>
+
+<a id="d-6237b909dc91b4146566"></a>
+- [ ] **D-6237b909dc91b4146566** - · Use SQLite WAL as the durable canonical metadata/index store with indexed hot queries, FTS search, batched writes, migrations, and integrity protection
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T059 : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L526-L526)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T060 — Global content-addressed artifact store with corruption-safe reuse (1)</summary>
+
+<a id="d-c1613b5aa23709ecfa3a"></a>
+- [ ] **D-c1613b5aa23709ecfa3a** - - New network bytes enter staging, are streamed through required hashes, validated, and only then atomically promoted into the content-addressed store. - Never trust filename, URL,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - New network bytes enter staging, are streamed through required hashes, validated, and only then atomically promoted into the content-addressed store. - Never trust filename, URL, or cache key alone as content identity. - Exact validated cache hit means zero re-download and zero duplicate hash work where persisted verification evidence remains trustworthy. - Reference tracking/garbage collection must never evict an object still referenced by an instance, active transaction, rollback snapshot, or quarantine entry. - Mutable worlds/configs/saves/screenshots/user-edited files are never hardlinked/shared as immutable CAS objects. - Prefer safe copy-on-write/reflink/clone mechanisms when the filesystem supports them. Hardlink immutable artifacts only when Enderloom can guarantee that no instance/tool path will mutate the linked bytes in place; otherwise materialize a normal copy. - Detect external tampering of a materialized immutable artifact before relying on cached identity for update/Doctor decisions. - Cache cleanup is transactional and recoverable; a cleanup crash cannot strand referenced artifacts as missing. - Cross-instance dedupe is a speed/storage optimization only; instances remain independently usable/removable.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T060 — Global content-addressed artifact store with corruption-safe reuse
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 563-571](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L563-L571)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T061 — One-pass multi-hash/fingerprint streaming + selective JAR/ZIP parsing (1)</summary>
+
+<a id="d-ff2809a5283ea595e7b7"></a>
+- [ ] **D-ff2809a5283ea595e7b7** - - During a necessary artifact read, compute internal BLAKE3/content identity plus all provider/security hashes/fingerprints required by current adapters in one streaming pass when ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - During a necessary artifact read, compute internal BLAKE3/content identity plus all provider/security hashes/fingerprints required by current adapters in one streaming pass when algorithms permit. - Persist verified hash/fingerprint results keyed to trustworthy file/content identity so unchanged files do not get re-read. - Do not replace provider-required algorithms with BLAKE3; BLAKE3 is an internal fast identity/cache primitive in addition to required provider hashes. - For ZIP/JAR identification, read the central directory and only the metadata entries required for classification/manifest/dependency work (fabric.mod.json, Quilt/Forge/NeoForge metadata, manifests, pack metadata, relevant known schemas, etc.) instead of inflating the entire archive. - Fall back to deeper/full archive inspection when classification, security, corruption detection, a content adapter, or a specific accepted feature truly requires it. - Archive parser must reject malformed/path-traversal/zip-bomb-style hostile structures safely and never extract arbitrary content merely to inspect metadata. - Cache parsed metadata by verified immutable content identity, not filename. - Benchmark buffered, memory-mapped, and streaming I/O on representative tiny/mixed/large artifact sets and choose adaptively; never assume mmap is universally faster.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T061 — One-pass multi-hash/fingerprint streaming + selective JAR/ZIP parsing
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 579-586](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L579-L586)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T063 — Freshness-safe provider/query cache: instant without false, stale, or bad-link results (1)</summary>
+
+<a id="d-e9974cb1e8487fe436da"></a>
+- [ ] **D-e9974cb1e8487fe436da** - - Last-verified data may render instantly while revalidation runs, but the UI/service must never represent stale cached data as newly verified/current when freshness materially mat...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Last-verified data may render instantly while revalidation runs, but the UI/service must never represent stale cached data as newly verified/current when freshness materially matters. - Install/update/change-version/Dependency Doctor commits revalidate the selected release/file identity, compatibility, dependency plan, expected hash/size, and current signed/download URL when required before mutation. - Signed/expiring CDN URLs are never stored as canonical project links; reacquire them through the provider adapter. - Canonical external links must derive from verified provider/API/upstream identity and safe schemes/hosts, not transient scraped redirects or display-name guesses. - Treat provider timeout, auth failure, rate limit, parser failure, offline state, or search transport failure as unresolved/degraded, never as authoritative &quot;no project/no result&quot;. - Negative-cache only real authoritative misses with short evidence-based TTL/invalidation and exact provider/query context; provider recovery or identity evidence invalidates them immediately. - Query caches reconcile terminal pagination and canonical dedupe; cached partial pages cannot masquerade as full search coverage. - When fresh data differs, patch the current canonical record/result set without blanking the view or silently preserving outdated links/files. - Preserve a visible/inspectable &quot;last verified&quot; state when stale data could affect a user&#x27;s decision. - Cache/schema corruption invalidates only the affected rebuildable entries and triggers authoritative re-fetch/rebuild; it must not poison durable user state.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T063 — Freshness-safe provider/query cache: instant without false, stale, or bad-link results
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 631-640](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L631-L640)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes (1)</summary>
+
+<a id="d-ad71725e06aa8fba6cf0"></a>
+- [ ] **D-ad71725e06aa8fba6cf0** - Updates - Reuse known installed project identity, compatible-release metadata, dependency plans, and content-addressed artifacts. - Run provider checks in parallel with request coa...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Updates - Reuse known installed project identity, compatible-release metadata, dependency plans, and content-addressed artifacts. - Run provider checks in parallel with request coalescing, rate-limit awareness, and stale-while-revalidate UI. - Pipeline independent download/verify/commit stages where safe; do not serialize unrelated mod updates. - Start useful visible progress immediately. - Preserve T001 transactional replacement, rollback, freeze/pin behavior, identity safety, and validation in full.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1035-1040](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1035-L1040)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (1)</summary>
 
 <a id="d-273c005cc7dc2b164e23"></a>
@@ -2051,7 +2197,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads. - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently. - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits. - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others. - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 278-284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L278-L284)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1633-1639](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1633-L1639)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine (1)</summary>
+
+<a id="d-dd241f60209e0f3b2c88"></a>
+- [ ] **D-dd241f60209e0f3b2c88** - - Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic. - Before dependency-affecting or destructive bulk mutations, s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic. - Before dependency-affecting or destructive bulk mutations, show exactly what will change, impacted dependents, required additions/replacements/removals, and a clear Yes / No confirmation. - Allow per-item exclusion from the preview before Yes. - Quarantine is the default safety route for removed/replaced suspect mod artifacts: move/retain them in Enderloom-managed recoverable storage with original path, project/file identity, reason, timestamp, and operation ID. - Permanent deletion is a separate explicit action, never the hidden meaning of Quarantine. - Preserve configs/worlds/saves and unrelated user data unless the user explicitly selects an operation that includes them. - Maintain a durable operation history with Undo when the prior state can be restored safely; restart must not erase valid undo/quarantine metadata. - Undo restores the exact prior enabled/disabled artifact/version/path/provider identity where possible and revalidates dependencies afterward. - Partial failure is per-item: successful independent items remain truthful, failed items retain the old state or rollback, and the final result clearly lists each outcome. - Cancel stops not-yet-committed independent work safely; it never leaves half-renamed live JARs presented as success. - Large selections must remain responsive through virtualization, batched domain operations, bounded concurrency, and incremental affected-graph verification.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2327-2337](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2327-L2337)
 
 </details>
 
@@ -2433,7 +2591,7 @@
 <a id="dep-06-details"></a>
 ## DEP-06 - Staged transactions and concurrent safety
 
-[Outcome](Checklist.md#dep-06) / 11 source-derived details.
+[Outcome](Checklist.md#dep-06) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.3 Preservation and safety (1)</summary>
@@ -2504,6 +2662,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit (1)</summary>
+
+<a id="d-84f69f4ec3c80e5f9cb7"></a>
+- [ ] **D-84f69f4ec3c80e5f9cb7** - - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive meta...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive metadata inspection as soon as sufficient validated structure is available. - Plan independent dependency/provider branches concurrently. - While artifact A verifies/commits, artifact B may download/verify when transactions are independent. - Reuse exact validated CAS artifacts/dependency plans/provider metadata instead of repeating work. - No artifact reaches a live instance until all required identity, hash, compatibility, dependency and transaction prerequisites for that commit are satisfied. - Partial/temp files are never exposed as successful artifacts. - Cancellation and failure cleanly release staged resources or preserve resumable state. - Commit is atomic and rollback-capable; same-filename replacement follows T001 rather than in-place overwrite. - Progress reports real pipeline stages/bytes/work and never fabricates &quot;done&quot; while deferred blocking verification remains.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 662-671](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L662-L671)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.2 Safe Test — disposable staging copies without making the user clone things manually (1)</summary>
 
 <a id="d-5eac71bf4defe3156698"></a>
@@ -2563,7 +2733,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 49 source-derived details.
+[Outcome](Checklist.md#dep-07) / 52 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -2720,6 +2890,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 4. Enderloom Developer IDE — actual coding workbench / 4.3 Build/task/terminal
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 219-219](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L219-L219)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core` (1)</summary>
+
+<a id="d-811ff41f744b8a6f5efe"></a>
+- [ ] **D-811ff41f744b8a6f5efe** - - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest pr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest production-grade bridge appropriate to the current Electron architecture (for example N-API/native module versus a supervised local sidecar) on startup overhead, IPC throughput, crash isolation, packaging/update complexity, and debugging. - Expose typed versioned commands/events, stable operation IDs, cancellation, progress, structured errors, and compact delta responses. - One end-to-end vertical slice must exercise: renderer action -&gt; thin Electron adapter -&gt; Rust domain operation -&gt; persisted state/files/provider work -&gt; progress/event -&gt; visible UI result -&gt; restart persistence. - Core crash/failure must fail the affected operation truthfully and keep the Electron shell recoverable; never let a native panic corrupt live state or masquerade as success. - Package/sign/distribute the Rust component as part of the normal Enderloom build, not as a developer-only optional binary. - Record exact Rust toolchain/native binary hash/API schema in packaged-runtime evidence.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 460-466](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L460-L466)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes (1)</summary>
+
+<a id="d-6d7cdf5313011144a708"></a>
+- [ ] **D-6d7cdf5313011144a708** - - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration/storage errors, perform cheap integrity checks first and escalate to full integrity verification when warranted. - Never delete the only good database because one cache table is corrupt; distinguish rebuildable caches/indexes from durable user state. - If rebuildable indexes are invalid, reconstruct them from authoritative durable state/files/providers while preserving user data. - Do not weaken SQLite durability/synchronous settings merely to win a benchmark; any tuning must pass crash/power-loss simulation appropriate to the protected data class.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 541-546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L541-L546)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine (1)</summary>
+
+<a id="d-f1fb9c0d02af4bdb7849"></a>
+- [ ] **D-f1fb9c0d02af4bdb7849** - · Add fast dependency-aware bulk actions across the full logical mod dataset with durable Undo and safe Quarantine
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T053 : 2301-2301](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2301-L2301)
 
 </details>
 
@@ -3003,7 +3208,7 @@
 <a id="dep-08-details"></a>
 ## DEP-08 - Adapter proof and truthful failures
 
-[Outcome](Checklist.md#dep-08) / 9 source-derived details.
+[Outcome](Checklist.md#dep-08) / 11 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / Enderloom Conversion Ecosystem Integration Directive — 2026-09-23 (1)</summary>
@@ -3054,6 +3259,30 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 1. Diagnostics Adapter Registry
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 45-45](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L45-L45)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority (1)</summary>
+
+<a id="d-398e7612a3b6dbc4e04c"></a>
+- [ ] **D-398e7612a3b6dbc4e04c** - - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonica...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonical identity correctness; - crash/restart behavior; - malformed/hostile input handling where applicable; - data integrity and interrupted-write/operation recovery; - Phase 1 only: when a real running-Minecraft fixture is already available, run a cheap coexistence smoke check so an obvious regression cannot be promoted. Do not run/tune the full G014 suite here; definitive Minecraft zero-impact proof is Phase 2 and does not block Phase 1 stack promotion.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 73-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L73-L85)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior (1)</summary>
+
+<a id="d-3fa64af94b181c15a6c9"></a>
+- [ ] **D-3fa64af94b181c15a6c9** - - No renderer path may synchronously perform filesystem, hashing, archive, DB, network, dependency-solver, or large transform work. - No &quot;migration&quot; is accepted if it mer...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - No renderer path may synchronously perform filesystem, hashing, archive, DB, network, dependency-solver, or large transform work. - No &quot;migration&quot; is accepted if it merely moves the same blocking algorithm from renderer to Electron main. - For every moved hot path capture old JS vs Rust/native cold/warm timing, CPU, memory, I/O, result counts and correctness. - If JS genuinely wins on a narrow operation, preserve the benchmark fixture and keep it there; &quot;Rust is always faster&quot; is not an assumption. - JS/Rust parity failures are correctness bugs. Do not switch ownership until outputs reconcile or the intended new behavior is explicitly proven better.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 489-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L489-L493)
 
 </details>
 

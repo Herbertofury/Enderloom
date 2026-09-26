@@ -9,7 +9,7 @@
 <a id="ship-01-details"></a>
 ## SHIP-01 - Supply-chain and untrusted input safety
 
-[Outcome](Checklist.md#ship-01) / 84 source-derived details.
+[Outcome](Checklist.md#ship-01) / 86 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -272,6 +272,30 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.1 Command builder
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 378-378](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L378-L378)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T092 — WebView2 zero-baggage privacy + zero-jank contract (1)</summary>
+
+<a id="d-5d7db45f62f765df8dd1"></a>
+- [ ] **D-5d7db45f62f765df8dd1** - · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracki...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · If WebView2 is used anywhere in Enderloom, configure and host it as a lean private rendering/browser engine rather than inheriting unnecessary Microsoft/Edge app behavior, tracking surfaces, preload work, or idle resource cost
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T092 — WebView2 zero-baggage privacy + zero-jank contract
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T092 : 187-187](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L187-L187)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Zero-impact definition (1)</summary>
+
+<a id="d-a00450d207bec87b6c90"></a>
+- [ ] **D-a00450d207bec87b6c90** - The target is literal 0.0 user-visible impact. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rat...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The target is literal 0.0 user-visible impact. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Zero-impact definition
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1137-1137](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1137-L1137)
 
 </details>
 
@@ -683,7 +707,7 @@
 <a id="ship-02-details"></a>
 ## SHIP-02 - Preserved product boundaries
 
-[Outcome](Checklist.md#ship-02) / 48 source-derived details.
+[Outcome](Checklist.md#ship-02) / 49 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -829,13 +853,24 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T090 — Experimental technology can never weaken G010/G011 or introduce an obvious Minecraft regression (1)</summary>
+
+<a id="d-39f5699c571adb010410"></a>
+- [ ] **D-39f5699c571adb010410** - · Treat risky-tech success as subordinate to Enderloom&#x27;s complete product invariants
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T090 — Experimental technology can never weaken G010/G011 or introduce an obvious Minecraft regression
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T090 : 125-125](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L125-L125)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability (1)</summary>
 
 <a id="d-5a4cb75683f1f14fba94"></a>
 - [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 568-568](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L568-L568)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 1923-1923](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1923-L1923)
 
 </details>
 
@@ -1116,7 +1151,7 @@
 <a id="ship-03-details"></a>
 ## SHIP-03 - Platform, locale and accessibility finish
 
-[Outcome](Checklist.md#ship-03) / 20 source-derived details.
+[Outcome](Checklist.md#ship-03) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1165,13 +1200,36 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T100 — Shared canonical state with safe shell-specific browser profiles (1)</summary>
+
+<a id="d-f747868f85b538bacd96"></a>
+- [ ] **D-f747868f85b538bacd96** - - Never point Electron and WebView2 at the same physical browser profile directory or attempt to make their private browser databases interchangeable. - Do not copy raw cookies/pas...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Never point Electron and WebView2 at the same physical browser profile directory or attempt to make their private browser databases interchangeable. - Do not copy raw cookies/password stores/browser secrets between engines as a convenience feature. - Provider account state that Enderloom legitimately owns through OAuth/API tokens may be reused through the canonical provider/account layer when its security model allows it; browser-only website sessions remain engine-profile-specific unless a supported secure re-auth handoff exists. - Running both editions simultaneously attaches to the same supervised enderloom-core ownership model from T076 rather than creating two SQLite writers, two MFT scans, duplicate downloads or competing mutations. - Shell-specific settings live in namespaced state so one engine cannot corrupt the other&#x27;s profile/preferences. - Schema/core upgrades are forward/backward gated so opening one edition cannot migrate shared state into a form the other same-release edition cannot understand.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T100 — Shared canonical state with safe shell-specific browser profiles
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 381-386](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L381-L386)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T073 — Instant dock / undock / pop-out / reattach with workspace continuity (1)</summary>
+
+<a id="d-4853b782b4a72e8f14ba"></a>
+- [ ] **D-4853b782b4a72e8f14ba** - · Allow tools to move between tab, Electron pop-out, and standalone-host presentations without losing state or forcing reload/recomputation
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T073 — Instant dock / undock / pop-out / reattach with workspace continuity
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T073 : 796-796](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L796-L796)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance (1)</summary>
 
 <a id="d-af7c8f89dcca1f0be38e"></a>
 - [ ] **D-af7c8f89dcca1f0be38e** - Use the same machine, network, instance context, project set, and equivalent result coverage for comparisons. Do not benchmark an artificially simplified Enderloom workload.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 326-326](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L326-L326)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1681-1681](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1681-L1681)
 
 </details>
 
@@ -1182,7 +1240,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 784-784](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L784-L784)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 2139-2139](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2139-L2139)
 
 </details>
 
@@ -1322,7 +1380,7 @@
 <a id="ship-04-details"></a>
 ## SHIP-04 - Complete reproducible release
 
-[Outcome](Checklist.md#ship-04) / 43 source-derived details.
+[Outcome](Checklist.md#ship-04) / 50 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law (1)</summary>
@@ -1460,6 +1518,79 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 29. Ecosystem Challenge Matrix — expanded benchmark set
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1067-1067](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1067-L1067)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins (1)</summary>
+
+<a id="d-2e340229864d858f24ca"></a>
+- [ ] **D-2e340229864d858f24ca** - DUAL-SHELL RELEASE GATE — If T091/T092 promote direct Rust/WebView2 to Enderloom&#x27;s primary Windows shell, every normal Enderloom release must also produce and verify a maintai...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** DUAL-SHELL RELEASE GATE — If T091/T092 promote direct Rust/WebView2 to Enderloom&#x27;s primary Windows shell, every normal Enderloom release must also produce and verify a maintained Electron Edition from the same source/core release so a WebView2/Windows runtime regression never leaves the user without a full-featured proven shell.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G016 : 335-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L335-L335)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T099 — Two real release editions from one canonical product (2)</summary>
+
+<a id="d-c6a67e01e48acfeb3cbb"></a>
+- [ ] **D-c6a67e01e48acfeb3cbb** - · When WebView2 is promoted, ship two explicit Windows release artifacts: primary Rust/WebView2 Edition and maintained Electron Edition
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T099 — Two real release editions from one canonical product
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T099 : 341-341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L341-L341)
+
+<a id="d-61456292d2d8fb60b3d5"></a>
+- [ ] **D-61456292d2d8fb60b3d5** - Required release shape:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T099 — Two real release editions from one canonical product
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 343-343](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L343-L343)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work (1)</summary>
+
+<a id="d-26fd6ed1069f2f2e596c"></a>
+- [ ] **D-26fd6ed1069f2f2e596c** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 392-392](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L392-L392)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T102 — Both editions stay healthy; Electron cannot become a rotten fallback (1)</summary>
+
+<a id="d-874897bf2bef3163548b"></a>
+- [ ] **D-874897bf2bef3163548b** - · Put both editions through permanent feature/parity/performance/recovery testing whenever WebView2 is the promoted primary
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T102 — Both editions stay healthy; Electron cannot become a rotten fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T102 : 405-405](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L405-L405)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline (1)</summary>
+
+<a id="d-dcef66b1afc8998f0db2"></a>
+- [ ] **D-dcef66b1afc8998f0db2** - · Make strict speed + useful-amount superiority a permanent release/CI acceptance condition, not a one-time benchmark
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T050 : 1089-1089](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1089-L1089)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet (1)</summary>
+
+<a id="d-72ae52216b714643b373"></a>
+- [ ] **D-72ae52216b714643b373** - · Make zero-impact coexistence a permanent CI/release/performance invariant
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T084 : 1271-1271](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1271-L1271)
 
 </details>
 
@@ -1713,7 +1844,7 @@
 <a id="ship-05-details"></a>
 ## SHIP-05 - Continuity, convergence and honest status
 
-[Outcome](Checklist.md#ship-05) / 26 source-derived details.
+[Outcome](Checklist.md#ship-05) / 30 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 23. Definition of done (2)</summary>
@@ -1846,6 +1977,42 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger (1)</summary>
+
+<a id="d-e2617d9a2751f39e451a"></a>
+- [ ] **D-e2617d9a2751f39e451a** - - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser c...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins. - User override: if direct Rust/WebView2 wins and is promoted, do NOT retire Electron. WebView2 becomes the primary/default edition, while Electron remains a fully supported second release edition built from the same Enderloom release/core. The two shells may differ only in host/browser-engine implementation and engine-specific integrations; they must not fork domain logic, Mod Manager behavior, Tool Platform behavior, provider identity, persistence, or accepted product features. - If WebView2 does not win T091/T092, Electron remains the primary edition and no artificial second WebView2 production release is required merely to satisfy this dual-edition rule.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 180-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L180-L183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T103 — Dual-edition updater, provenance and rollback (3)</summary>
+
+<a id="d-1f16eaa91431f0c7cac3"></a>
+- [ ] **D-1f16eaa91431f0c7cac3** - · Make updates/signing/provenance unambiguous when two Windows shell editions exist
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T103 — Dual-edition updater, provenance and rollback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T103 : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L421-L421)
+
+<a id="d-b8d2eda9d829e5b83fb7"></a>
+- [ ] **D-b8d2eda9d829e5b83fb7** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T103 — Dual-edition updater, provenance and rollback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 423-423](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L423-L423)
+
+<a id="d-65e25536836bc1821115"></a>
+- [ ] **D-65e25536836bc1821115** - - Distinct signed artifact IDs/names/channels for Electron vs WebView2 Edition, sharing the same semantic Enderloom version. - An edition never silently transforms itself into the ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Distinct signed artifact IDs/names/channels for Electron vs WebView2 Edition, sharing the same semantic Enderloom version. - An edition never silently transforms itself into the other shell during an ordinary patch update. - Cross-edition switching is explicit through T101. - Updater verifies artifact signature/hash/edition identity before install. - If a newly released WebView2 Edition regresses after OS/runtime rollout, the release service can recommend the matching-version Electron Edition without downgrading shared core/user data. - Rollback rules prevent a shell rollback from applying an incompatible older shared schema/core without a supported migration/compatibility path. - Release notes/performance receipts identify which shell edition was tested and which is recommended/default for that release.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T103 — Dual-edition updater, provenance and rollback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 425-431](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L425-L431)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context (1)</summary>
 
 <a id="d-bd7bae56f265dc122cc6"></a>
@@ -1853,7 +2020,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 36-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L36-L36)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1391-1391](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1391-L1391)
 
 </details>
 
