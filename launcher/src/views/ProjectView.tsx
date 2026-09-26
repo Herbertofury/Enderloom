@@ -275,7 +275,7 @@ export function ProjectView() {
     () => () => {
       void window.enderloomLauncher?.providerSurface({ action: "dispose" }).catch(() => {});
     },
-    [projectRef?.provider, projectRef?.id],
+    [],
   );
 
   const syncProviderSurfaceBounds = useCallback(() => {
@@ -308,7 +308,13 @@ export function ProjectView() {
     const element = providerPaneRef.current;
     if (!element) return;
     const rect = element.getBoundingClientRect();
-    const projectKey = `${projectRef.provider}:${projectRef.id}:${providerSurface.provider}`;
+    // Key embedded source surfaces by the canonical source URL, not whichever
+    // Modrinth/CurseForge mirror is currently selected. That preserves the live
+    // GitHub page/history while switching provider mirrors for the same project.
+    const projectKey = `${providerSurface.provider}:${providerSurface.url
+      .replace(/\.git\/?$/i, "")
+      .replace(/\/+$/, "")
+      .toLowerCase()}`;
     void bridge
       .providerSurface({
         action: "open",
