@@ -60,12 +60,12 @@
 
 [Welcoming on the surface; professional depth one click away.](Studio.md)
 
-**[Open 54 detailed checks](Acceptance-UX.md#ux-01-details)**
+**[Open 55 detailed checks](Acceptance-UX.md#ux-01-details)**
 
 <a id="ux-01"></a>
 - [ ] **UX-01 - Four-action Home**
   - **Accept:** Create a Mod, Convert to Version, Repair / Fix Issues and Improve Performance are obvious production actions beside import/drop, useful empty states and real recent-project previews.
-  - **State:** unverified. **Details:** [70 source blocks](Sources-UX.md#ux-01); 19 source documents.
+  - **State:** unverified. **Details:** [71 source blocks](Sources-UX.md#ux-01); 19 source documents.
 
 **[Open 14 detailed checks](Acceptance-UX.md#ux-02-details)**
 
@@ -93,7 +93,7 @@
 <a id="ux-05"></a>
 - [ ] **UX-05 - Honest progress and live findings**
   - **Accept:** Real stages/events, task graph, current action, per-item results, repair iterations and useful findings remain visible; logs are secondary and percentages never fabricate knowledge.
-  - **State:** unverified. **Details:** [97 source blocks](Sources-UX.md#ux-05); 18 source documents.
+  - **State:** unverified. **Details:** [98 source blocks](Sources-UX.md#ux-05); 18 source documents.
 
 **[Open 11 detailed checks](Acceptance-UX.md#ux-06-details)**
 
@@ -571,12 +571,12 @@
   - **Accept:** Preserve the full provider universe and real project identities, source links, creator attribution, all logical results and source health; native APIs/session-aware fallbacks remain truthful.
   - **State:** unverified. **Details:** [90 source blocks](Sources-LIB.md#lib-01); 17 source documents.
 
-**[Open 75 detailed checks](Acceptance-LIB.md#lib-02-details)**
+**[Open 76 detailed checks](Acceptance-LIB.md#lib-02-details)**
 
 <a id="lib-02"></a>
 - [ ] **LIB-02 - Correct premium media and trailers**
   - **Accept:** Keep project icons/avatars/gallery/post/video roles distinct, exact-project ownership, full-resolution media/lightbox and source-grounded autoplay trailer preferences; no synthetic replacements or unrelated promotions.
-  - **State:** unverified. **Details:** [113 source blocks](Sources-LIB.md#lib-02); 16 source documents.
+  - **State:** unverified. **Details:** [114 source blocks](Sources-LIB.md#lib-02); 16 source documents.
 
 **[Open 86 detailed checks](Acceptance-LIB.md#lib-03-details)**
 
@@ -866,7 +866,7 @@
 <a id="ship-01"></a>
 - [ ] **SHIP-01 - Supply-chain and untrusted input safety**
   - **Accept:** Validate archives/paths/hashes/notices, isolate code/build/filter execution, protect credentials and preserve input on malformed/resource-exhausted runs; external content is data, not instructions.
-  - **State:** unverified. **Details:** [149 source blocks](Sources-SHIP.md#ship-01); 29 source documents.
+  - **State:** unverified. **Details:** [150 source blocks](Sources-SHIP.md#ship-01); 29 source documents.
 
 **[Open 48 detailed checks](Acceptance-SHIP.md#ship-02-details)**
 
@@ -882,12 +882,12 @@
   - **Accept:** Test all affected claimed platforms, localization/keyboard/focus/high-DPI/native chrome, first-run/update and sustained workload; do not remove support to pass tests.
   - **State:** unverified. **Details:** [40 source blocks](Sources-SHIP.md#ship-03); 14 source documents.
 
-**[Open 43 detailed checks](Acceptance-SHIP.md#ship-04-details)**
+**[Open 44 detailed checks](Acceptance-SHIP.md#ship-04-details)**
 
 <a id="ship-04"></a>
 - [ ] **SHIP-04 - Complete reproducible release**
   - **Accept:** Package working source, runnable app/mod artifacts, locks/licenses/notices, hashes, runtime/benchmark evidence and clear first-run/replay instructions; verify authorized Drive and repository publication.
-  - **State:** unverified. **Details:** [71 source blocks](Sources-SHIP.md#ship-04); 26 source documents.
+  - **State:** unverified. **Details:** [72 source blocks](Sources-SHIP.md#ship-04); 27 source documents.
 
 **[Open 26 detailed checks](Acceptance-SHIP.md#ship-05-details)**
 

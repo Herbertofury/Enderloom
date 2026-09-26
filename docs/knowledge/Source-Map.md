@@ -9,13 +9,13 @@
 | Measure | Count |
 | :--- | ---: |
 | Located source documents | 47 |
-| Source lines processed | 37,167 |
-| Non-empty source blocks accounted for | 13,528 |
-| Distinct contextual/exact source blocks | 10,612 |
+| Source lines processed | 37,187 |
+| Non-empty source blocks accounted for | 13,533 |
+| Distinct contextual/exact source blocks | 10,617 |
 | Exact repeated occurrences sharing an identity | 2,916 |
 | Original checked occurrences retained as source claims | 235 |
-| Original unchecked occurrences | 5,011 |
-| Namespaced original task aliases | 482 |
+| Original unchecked occurrences | 5,012 |
+| Namespaced original task aliases | 483 |
 | Canonical outcome progress owners | 118 |
 
 All Markdown/text/JSON sources under `docs/`, excluding generated knowledge pages, are processed without a per-file or per-result cap. This corpus contains the located repository specs, current attached Studio brief and connected Drive lineage snapshots. It does not claim knowledge of files never uploaded, inaccessible private documents, or unpublished local edits. Source coverage is not product completion.
@@ -221,14 +221,14 @@ Bytes: 44,861. Historical checked occurrences: 0.
 
 <a id="s-9eeb62007d"></a>
 <details>
-<summary><strong>ENDERLOOM_GET_DONE_NOW_QOL.md</strong> - 1,094 lines</summary>
+<summary><strong>ENDERLOOM_GET_DONE_NOW_QOL.md</strong> - 1,114 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md) | specification
 
-SHA-256: `a2ec38488d73237e998c53257509e892f9d27bfd4ffbd1169fb8cfbb1aae1d9b`  
-Bytes: 90,438. Historical checked occurrences: 0.
+SHA-256: `e7c47c0b54bcb67ef789ef7fc6f3a76ed0e361d0a1a82783a216512c0568bbcc`  
+Bytes: 93,122. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AI-03**](Checklist.md#ai-03), [**CONFIG-02**](Checklist.md#config-02), [**CONFIG-03**](Checklist.md#config-03), [**CONFIG-04**](Checklist.md#config-04), [**DEP-05**](Checklist.md#dep-05), [**FIX-01**](Checklist.md#fix-01), [**FIX-03**](Checklist.md#fix-03), [**KNOW-02**](Checklist.md#know-02), [**KNOW-04**](Checklist.md#know-04), [**KNOW-05**](Checklist.md#know-05), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-06**](Checklist.md#lib-06), [**LIB-07**](Checklist.md#lib-07), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**MAKE-02**](Checklist.md#make-02), [**MAKE-08**](Checklist.md#make-08), [**MAKE-09**](Checklist.md#make-09), [**PERF-01**](Checklist.md#perf-01), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PERF-07**](Checklist.md#perf-07), [**PERF-08**](Checklist.md#perf-08), [**PLAY-01**](Checklist.md#play-01), [**PLAY-02**](Checklist.md#play-02), [**PLAY-04**](Checklist.md#play-04), [**PLAY-05**](Checklist.md#play-05), [**PORT-07**](Checklist.md#port-07), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**SHIP-03**](Checklist.md#ship-03), [**SHIP-05**](Checklist.md#ship-05), [**TEST-03**](Checklist.md#test-03), [**TEST-05**](Checklist.md#test-05), [**TEST-06**](Checklist.md#test-06), [**UX-01**](Checklist.md#ux-01), [**UX-02**](Checklist.md#ux-02), [**UX-03**](Checklist.md#ux-03), [**UX-04**](Checklist.md#ux-04), [**UX-05**](Checklist.md#ux-05), [**UX-06**](Checklist.md#ux-06), [**UX-07**](Checklist.md#ux-07), [**UX-08**](Checklist.md#ux-08), [**UX-09**](Checklist.md#ux-09), [**UX-10**](Checklist.md#ux-10), [**WORLD-01**](Checklist.md#world-01), [**WORLD-06**](Checklist.md#world-06)
+**Outcome owners:** [**AI-03**](Checklist.md#ai-03), [**CONFIG-02**](Checklist.md#config-02), [**CONFIG-03**](Checklist.md#config-03), [**CONFIG-04**](Checklist.md#config-04), [**DEP-05**](Checklist.md#dep-05), [**FIX-01**](Checklist.md#fix-01), [**FIX-03**](Checklist.md#fix-03), [**KNOW-02**](Checklist.md#know-02), [**KNOW-04**](Checklist.md#know-04), [**KNOW-05**](Checklist.md#know-05), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-06**](Checklist.md#lib-06), [**LIB-07**](Checklist.md#lib-07), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**MAKE-02**](Checklist.md#make-02), [**MAKE-08**](Checklist.md#make-08), [**MAKE-09**](Checklist.md#make-09), [**PERF-01**](Checklist.md#perf-01), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PERF-07**](Checklist.md#perf-07), [**PERF-08**](Checklist.md#perf-08), [**PLAY-01**](Checklist.md#play-01), [**PLAY-02**](Checklist.md#play-02), [**PLAY-04**](Checklist.md#play-04), [**PLAY-05**](Checklist.md#play-05), [**PORT-07**](Checklist.md#port-07), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**SHIP-03**](Checklist.md#ship-03), [**SHIP-04**](Checklist.md#ship-04), [**SHIP-05**](Checklist.md#ship-05), [**TEST-03**](Checklist.md#test-03), [**TEST-05**](Checklist.md#test-05), [**TEST-06**](Checklist.md#test-06), [**UX-01**](Checklist.md#ux-01), [**UX-02**](Checklist.md#ux-02), [**UX-03**](Checklist.md#ux-03), [**UX-04**](Checklist.md#ux-04), [**UX-05**](Checklist.md#ux-05), [**UX-06**](Checklist.md#ux-06), [**UX-07**](Checklist.md#ux-07), [**UX-08**](Checklist.md#ux-08), [**UX-09**](Checklist.md#ux-09), [**UX-10**](Checklist.md#ux-10), [**WORLD-01**](Checklist.md#world-01), [**WORLD-06**](Checklist.md#world-06)
 
 </details>
 

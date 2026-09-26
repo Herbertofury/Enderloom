@@ -244,7 +244,7 @@
 - [ ] **D-d4b07743af654670e28e** - · Fix “File already exists” update failures — replace the installed mod transactionally
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T001 — Fix “File already exists” update failures — replace the installed mod transactionally
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 233-233](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L233-L233)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T001 : 253-253](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L253-L253)
 
 </details>
 
@@ -805,7 +805,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Keep cookies, local/session storage where applicable, cache policy, permissions, history, downloads, extension state and relevant browser preferences in the durable Enderloom profile, not packaged app files. - Preserve authenticated provider sessions across Enderloom upgrades unless the provider invalidates them. - Electron extensions must use persistent sessions. - Restore enabled unpacked extensions on every boot through the current Electron extension API; do not assume Electron remembers them automatically. - Show extension compatibility as Compatible / Partial / Unsupported API based on Electron&#x27;s actual supported API surface and observed load warnings. - Do not claim Chrome Web Store/full Chrome-extension parity that Electron does not provide. - Do not silently copy secrets/cookies/extensions from another browser profile.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 687-693](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L687-L693)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 707-713](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L707-L713)
 
 </details>
 
@@ -1134,7 +1134,7 @@
 - [ ] **D-924c965d3a9f9195ad68** - · Make the persistent Chromium profile and extensions survive Enderloom upgrades correctly
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T038 — Durable browser profile plus honest extension compatibility/lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T038 : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L685-L685)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T038 : 705-705](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L705-L705)
 
 </details>
 

@@ -76,7 +76,7 @@ Keep **Favorites**, **Performance**, and the dedicated **Hotkeys** tab as first-
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [UX-01 - Four-action Home](Acceptance-UX.md#ux-01-details): 54 source details.
+- [UX-01 - Four-action Home](Acceptance-UX.md#ux-01-details): 55 source details.
 - [UX-02 - One contextual workbench](Acceptance-UX.md#ux-02-details): 14 source details.
 - [UX-03 - Finished visual system](Acceptance-UX.md#ux-03-details): 7 source details.
 - [UX-04 - Discoverable contextual actions](Acceptance-UX.md#ux-04-details): 8 source details.
