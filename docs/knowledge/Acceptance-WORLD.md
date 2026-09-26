@@ -801,7 +801,7 @@
 - [ ] **D-7d26884b0aa68925c37c** - · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L43-L43)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 310-310](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L310-L310)
 
 </details>
 

@@ -9,7 +9,7 @@
 <a id="test-01-details"></a>
 ## TEST-01 - Deterministic test sandbox
 
-[Outcome](Checklist.md#test-01) / 384 source-derived details.
+[Outcome](Checklist.md#test-01) / 385 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -516,6 +516,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1145-1145](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1145-L1145)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T082 — Automated Minecraft coexistence benchmark harness (1)</summary>
+
+<a id="d-985c01981686c59fbe41"></a>
+- [ ] **D-985c01981686c59fbe41** - Required test families:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T082 — Automated Minecraft coexistence benchmark harness
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 113-113](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L113-L113)
 
 </details>
 
@@ -3686,7 +3697,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 120 source-derived details.
+[Outcome](Checklist.md#test-03) / 122 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -3883,13 +3894,36 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T086 — Risky challenger gets the first isolated implementation shot (1)</summary>
+
+<a id="d-346721e841cc157d8f08"></a>
+- [ ] **D-346721e841cc157d8f08** - - Use the real Enderloom command/state schema and workload, not a toy benchmark that hides integration cost. - Before touching live user state, run the challenger against fixtures,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Use the real Enderloom command/state schema and workload, not a toy benchmark that hides integration cost. - Before touching live user state, run the challenger against fixtures, copied/synthetic instances, shadow databases, disposable CAS roots, and isolated benchmark profiles. - Mirror/read-only/shadow mode is preferred where the challenger can execute alongside the stable path and compare outputs without becoming authoritative. - Challenger failure never corrupts or blocks the existing working stable path. - Record exact library/runtime versions, build flags and hardware/OS conditions so results can be reproduced.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T086 — Risky challenger gets the first isolated implementation shot
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 207-211](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L207-L211)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T089 — Canary/shadow graduation before live user-state authority (1)</summary>
+
+<a id="d-8546221ad07f4410a6d7"></a>
+- [ ] **D-8546221ad07f4410a6d7** - · Graduate risky storage/IPC/host/parser/runtime technology through increasing authority instead of jumping directly into user data
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T089 — Canary/shadow graduation before live user-state authority
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T089 : 255-255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L255-L255)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof (1)</summary>
 
 <a id="d-137348411fc4a10d5471"></a>
 - [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1798-1798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1798-L1798)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 2069-2069](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2069-L2069)
 
 </details>
 
@@ -3900,7 +3934,7 @@
 - [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1808-1808](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1808-L1808)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 2079-2079](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2079-L2079)
 
 </details>
 
@@ -6661,7 +6695,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 43 source-derived details.
+[Outcome](Checklist.md#test-05) / 45 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -6761,6 +6795,29 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / Zero-impact definition (1)</summary>
+
+<a id="d-f233c0ef164c860a88ee"></a>
+- [ ] **D-f233c0ef164c860a88ee** - - Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped. - Candidate B: the exact same Minecraft workload with Enderloom running idle, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped. - Candidate B: the exact same Minecraft workload with Enderloom running idle, then with representative management UI open, then with bounded background work active. - A passing result shows no statistically significant regression and remains inside a predeclared equivalence/noise band for median FPS, 1%/0.1% lows, p95/p99/p99.9 frame time, stutter count, tick/simulation metrics where available, and load/transition timings. - As an initial hard engineering guardrail, any repeatable Minecraft degradation around 0.5% or greater in FPS/lows, or any repeatable frame-time/stutter regression that is visible above run-to-run noise, fails and must be profiled/fixed even if average FPS still looks high. - The gate may tighten below 0.5% whenever the benchmark environment is stable enough to resolve a smaller effect. - &quot;Task Manager looks low&quot;, low average CPU, or a synthetic microbenchmark is not game-impact proof.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / Zero-impact definition
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 34-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L34-L39)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T082 — Automated Minecraft coexistence benchmark harness (1)</summary>
+
+<a id="d-88bd7ea0d5c3e018d644"></a>
+- [ ] **D-88bd7ea0d5c3e018d644** - · Build a repeatable real-Minecraft A/B harness that proves Enderloom is invisible to game performance
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T082 — Automated Minecraft coexistence benchmark harness
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T082 : 111-111](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L111-L111)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture (1)</summary>
 
 <a id="d-f7dc4892d8550b9c1b70"></a>
@@ -6768,7 +6825,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** This gate executes underneath and in continuous parallel with G010. It is not a rewrite-for-rewrite&#x27;s-sake. Do not finish the Rust architecture first and benchmark later: every migrated vertical slice must immediately run its equivalent-work performance/coverage proof, be tuned until it advances or at least preserves the strongest proven Enderloom baseline, and ratchet that evidence before the next dependent slice proceeds. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 28-28](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L28-L28)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 295-295](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L295-L295)
 
 </details>
 
@@ -6779,7 +6836,7 @@
 - [ ] **D-3e717dfdbd8befe59e1f** - Required proof:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 104-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L104-L104)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 371-371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L371-L371)
 
 </details>
 
@@ -6790,7 +6847,7 @@
 - [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1814-1814](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1814-L1814)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 2085-2085](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2085-L2085)
 
 </details>
 
@@ -7226,7 +7283,7 @@
 - [ ] **D-89c1f4068bef22ed2880** - · Profile and migrate CPU/I/O/data hot paths out of Electron/Node/renderer; retain JS only where benchmark evidence proves it better without protected regressions
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T057 : 57-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L57-L57)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T057 : 324-324](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L324-L324)
 
 </details>
 

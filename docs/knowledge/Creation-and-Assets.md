@@ -57,7 +57,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [MAKE-01 - Arbitrary native mod creation](Acceptance-MAKE.md#make-01-details): 65 source details.
 - [MAKE-02 - Safe visual and code round-tripping](Acceptance-MAKE.md#make-02-details): 40 source details.
 - [MAKE-03 - Items, blocks and equipment editors](Acceptance-MAKE.md#make-03-details): 4 source details.
-- [MAKE-04 - Entities, bosses and gameplay graphs](Acceptance-MAKE.md#make-04-details): 10 source details.
+- [MAKE-04 - Entities, bosses and gameplay graphs](Acceptance-MAKE.md#make-04-details): 11 source details.
 - [MAKE-05 - Recipes, loot, tags and data editing](Acceptance-MAKE.md#make-05-details): 10 source details.
 - [MAKE-06 - World, biome, structure and dimension authoring](Acceptance-MAKE.md#make-06-details): 39 source details.
 - [MAKE-07 - Model, UV and texture fidelity](Acceptance-MAKE.md#make-07-details): 97 source details.

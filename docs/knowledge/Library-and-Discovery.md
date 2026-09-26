@@ -55,5 +55,5 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [LIB-05 - Dedicated Favorites workspace](Acceptance-LIB.md#lib-05-details): 140 source details.
 - [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 104 source details.
 - [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 17 source details.
-- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 106 source details.
-- [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 82 source details.
+- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 109 source details.
+- [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 83 source details.
