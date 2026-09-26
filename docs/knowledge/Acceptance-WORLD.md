@@ -753,7 +753,7 @@
 <a id="world-02-details"></a>
 ## WORLD-02 - Backups, recovery and Forever Worlds
 
-[Outcome](Checklist.md#world-02) / 31 source-derived details.
+[Outcome](Checklist.md#world-02) / 32 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 10. World Recovery / Recreation Doctor (1)</summary>
@@ -791,6 +791,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 678-678](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L678-L678)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core` (1)</summary>
+
+<a id="d-7d26884b0aa68925c37c"></a>
+- [ ] **D-7d26884b0aa68925c37c** - · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L43-L43)
 
 </details>
 

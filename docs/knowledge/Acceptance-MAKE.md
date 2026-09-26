@@ -754,7 +754,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rough lookalike when the authorized source is available.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 296-296](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L296-L296)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 618-618](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L618-L618)
 
 </details>
 
@@ -765,7 +765,7 @@
 - [ ] **D-8aa2316c47da0425b6cf** - · Visual/performance regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 1294-1294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1294-L1294)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 1616-1616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1616-L1616)
 
 </details>
 
@@ -2466,14 +2466,14 @@
 - [ ] **D-a226249c259810f5bd6b** - · Add the authorized CurseForge-style download-start animation
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 294-294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L294-L294)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 616-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L616-L616)
 
 <a id="d-18e60f3413b50b42b71a"></a>
 - [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 298-302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L298-L302)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 620-624](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L620-L624)
 
 </details>
 
@@ -2571,7 +2571,7 @@
 <a id="make-09-details"></a>
 ## MAKE-09 - Reference and concept reconstruction
 
-[Outcome](Checklist.md#make-09) / 46 source-derived details.
+[Outcome](Checklist.md#make-09) / 47 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Built-in test catalogs (1)</summary>
@@ -2776,6 +2776,18 @@
   - **Full requirement:** A later layer must not be distorted to conceal an earlier error. Example: do not warp textures to hide wrong geometry, and do not fake foot placement with animation offsets when the pivot / limb proportions are wrong.
   - **Binding context:** 5. Reference Reconstruction Pipeline
   - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 209-209](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L209-L209)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback (1)</summary>
+
+<a id="d-628f304bc4778602db86"></a>
+- [ ] **D-628f304bc4778602db86** - - Build a narrowly privileged helper/service only if required for volume/MFT/USN access; never elevate the whole Enderloom Electron app. - Initial registered-root discovery may use...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Build a narrowly privileged helper/service only if required for volume/MFT/USN access; never elevate the whole Enderloom Electron app. - Initial registered-root discovery may use NTFS MFT enumeration to construct path/file identity quickly instead of recursive per-entry directory walking. - Persist volume identity, file/reference identity, path mapping, size, timestamps, relevant USN/journal position, and Enderloom index generation. - After the initial trusted snapshot, consume the NTFS USN Change Journal to identify exactly which relevant files/directories changed since the stored checkpoint. - Opening Mods/Instance views uses the last verified index immediately; delta reconciliation runs in the background and patches only changed records.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 88-92](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L88-L92)
 
 </details>
 
@@ -3111,7 +3123,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order. - Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes. - Dependency/runtime preparation stays off the renderer and shows truthful granular progress. - Cancel/retry/resume must not leave fake complete profiles.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1204-1207](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1204-L1207)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1526-1529](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1526-L1529)
 
 </details>
 

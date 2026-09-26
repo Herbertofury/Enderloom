@@ -3889,7 +3889,7 @@
 - [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1290-1290](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1290-L1290)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1612-1612](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1612-L1612)
 
 </details>
 
@@ -3900,7 +3900,7 @@
 - [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1300-1300](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1300-L1300)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1622-1622](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1622-L1622)
 
 </details>
 
@@ -6661,7 +6661,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 41 source-derived details.
+[Outcome](Checklist.md#test-05) / 42 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -6761,13 +6761,24 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback (1)</summary>
+
+<a id="d-3e717dfdbd8befe59e1f"></a>
+- [ ] **D-3e717dfdbd8befe59e1f** - Required proof:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 104-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L104-L104)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof (1)</summary>
 
 <a id="d-6fb96681e733314382a3"></a>
 - [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1306-1306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1306-L1306)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1628-1628](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1628-L1628)
 
 </details>
 
@@ -7104,7 +7115,7 @@
 <a id="test-06-details"></a>
 ## TEST-06 - Compatibility and hostile fixtures
 
-[Outcome](Checklist.md#test-06) / 19 source-derived details.
+[Outcome](Checklist.md#test-06) / 20 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.2 Ingest MC Mod Porter under the granted permission (1)</summary>
@@ -7193,6 +7204,17 @@
   - **Full requirement:** - Add registry regression fixtures for two same-name PortKit projects, moved Mecha/Class Tweaker sources, a Codeberg access failure, stale release-page dates versus actual build timestamps, and a restricted license. Unknown/offline must not become absent, unsupported or permission-granted.
   - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / D. World safety, proof and delivery / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / D. World safety, proof and delivery
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T111 : 708-708](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L708-L708) / [ENDERLOOM_STUDIO_EXECUTION.md :: T111 : 870-870](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L870-L870)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior (1)</summary>
+
+<a id="d-89c1f4068bef22ed2880"></a>
+- [ ] **D-89c1f4068bef22ed2880** - · Profile and migrate CPU/I/O/data hot paths out of Electron/Node/renderer; retain JS only where benchmark evidence proves it better without protected regressions
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T057 : 57-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L57-L57)
 
 </details>
 

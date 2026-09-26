@@ -911,7 +911,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Diagnosis may run automatically/cached in the background when cheap, but no repair/install/update/downgrade/enable/disable/quarantine/remove action commits silently. - When a repair plan is ready, always show a compact decision surface with Yes, No, and Review Details. - Yes applies the currently previewed recommended plan transactionally. - No leaves the instance unchanged and dismisses/snoozes that proposal without nagging. - Review Details shows every proposed change, reason/evidence, old -&gt; new version/file/provider, dependency relationship, risk, and lets the user include/exclude individual items before returning to the same Yes / No decision. - For grouped repairs, one Yes may approve the entire visible reviewed plan; independent failures do not silently expand the user&#x27;s approval into additional changes. - Never hide a destructive/downgrade/remove/quarantine operation inside a generic &quot;Fix&quot; button. The exact effect must be visible before Yes. - Remember harmless UI preferences, but do not remove the user&#x27;s ability to choose Yes or No at the commit point for a newly proposed mutation plan. - If the app can prove no filesystem/provider mutation is required, it may resolve a purely diagnostic false-positive state without asking.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1118-1126](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1118-L1126)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1440-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1440-L1448)
 
 </details>
 
@@ -1136,7 +1136,7 @@
 <a id="ai-05-details"></a>
 ## AI-05 - Parallel specialists and context reuse
 
-[Outcome](Checklist.md#ai-05) / 13 source-derived details.
+[Outcome](Checklist.md#ai-05) / 14 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.1 Canonical project state (1)</summary>
@@ -1186,6 +1186,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. AI / MCP / Local-Model Integration / 14.3 Context optimizer
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 742-742](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L742-L742)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback (1)</summary>
+
+<a id="d-07deeea3a2946a54db83"></a>
+- [ ] **D-07deeea3a2946a54db83** - - MFT/USN data is an acceleration signal, not proof of artifact contents or provider identity. - Detect journal ID change/reset, journal wrap/truncation, missing range, volume repl...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - MFT/USN data is an acceleration signal, not proof of artifact contents or provider identity. - Detect journal ID change/reset, journal wrap/truncation, missing range, volume replacement, root move, file-ID reuse ambiguity, helper failure, and unsupported filesystem. Any such condition invalidates only the affected scope and triggers a bounded authoritative rescan rather than trusting incomplete deltas. - Directory rename/move handling must keep file-reference -&gt; current-path mapping coherent. - Never interpret a watcher/provider failure as &quot;file deleted&quot; without authoritative filesystem confirmation. - Non-NTFS, removable, network, cloud-backed, or unsupported filesystems use a safe persistent snapshot + OS watcher/change notification + bounded parallel reconciliation fallback. - Full rescans happen only when evidence says the persisted index cannot be trusted, and should be scoped to the affected instance/root/volume rather than every Enderloom instance. - A forced &quot;Verify/Rescan&quot; remains available for troubleshooting but ordinary navigation must not depend on it.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 96-102](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L96-L102)
 
 </details>
 
