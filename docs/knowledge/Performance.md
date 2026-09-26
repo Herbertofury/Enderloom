@@ -70,6 +70,6 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [PERF-04 - Frame-time and GPU lab](Acceptance-PERF.md#perf-04-details): 78 source details.
 - [PERF-05 - Boot and fast-launch engine](Acceptance-PERF.md#perf-05-details): 7 source details.
 - [PERF-06 - Memory, tick and throughput gains](Acceptance-PERF.md#perf-06-details): 28 source details.
-- [PERF-07 - Fast conversion and responsive studio](Acceptance-PERF.md#perf-07-details): 8 source details.
-- [PERF-08 - Dedicated Performance workspace](Acceptance-PERF.md#perf-08-details): 74 source details.
+- [PERF-07 - Fast conversion and responsive studio](Acceptance-PERF.md#perf-07-details): 9 source details.
+- [PERF-08 - Dedicated Performance workspace](Acceptance-PERF.md#perf-08-details): 75 source details.
 - [PERF-09 - Dual quality and speed acceptance](Acceptance-PERF.md#perf-09-details): 10 source details.

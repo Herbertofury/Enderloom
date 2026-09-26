@@ -835,7 +835,7 @@
 - [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 1087-1087](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1087-L1087)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 1273-1273](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1273-L1273)
 
 </details>
 
@@ -1116,7 +1116,7 @@
 <a id="ship-03-details"></a>
 ## SHIP-03 - Platform, locale and accessibility finish
 
-[Outcome](Checklist.md#ship-03) / 20 source-derived details.
+[Outcome](Checklist.md#ship-03) / 21 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1165,13 +1165,24 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T073 — Instant dock / undock / pop-out / reattach with workspace continuity (1)</summary>
+
+<a id="d-4853b782b4a72e8f14ba"></a>
+- [ ] **D-4853b782b4a72e8f14ba** - · Allow tools to move between tab, Electron pop-out, and standalone-host presentations without losing state or forcing reload/recomputation
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T073 — Instant dock / undock / pop-out / reattach with workspace continuity
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T073 : 383-383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L383-L383)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance (1)</summary>
 
 <a id="d-af7c8f89dcca1f0be38e"></a>
 - [ ] **D-af7c8f89dcca1f0be38e** - Use the same machine, network, instance context, project set, and equivalent result coverage for comparisons. Do not benchmark an artificially simplified Enderloom workload.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 845-845](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L845-L845)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1031-1031](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1031-L1031)
 
 </details>
 
@@ -1182,7 +1193,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 1303-1303](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1303-L1303)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 1489-1489](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1489-L1489)
 
 </details>
 
@@ -1470,7 +1481,7 @@
 - [ ] **D-4ba9acdc9983f475defd** - · Make strict speed + useful-amount superiority a permanent release/CI acceptance condition, not a one-time benchmark
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T050 : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L493-L493)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T050 : 676-676](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L676-L676)
 
 </details>
 
@@ -1864,7 +1875,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 555-555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L555-L555)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 741-741](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L741-L741)
 
 </details>
 

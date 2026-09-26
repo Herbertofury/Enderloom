@@ -793,7 +793,7 @@
 <a id="ai-03-details"></a>
 ## AI-03 - Quarantined changes and repair loop
 
-[Outcome](Checklist.md#ai-03) / 23 source-derived details.
+[Outcome](Checklist.md#ai-03) / 24 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (2)</summary>
@@ -904,6 +904,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture (1)</summary>
+
+<a id="d-f85b3d1cdc1235633f52"></a>
+- [ ] **D-f85b3d1cdc1235633f52** - - Implement or stub only enough real production wiring for the existing/planned World Editor to prove the platform boundary—not a fake decorative tab. - It can launch standalone wi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Implement or stub only enough real production wiring for the existing/planned World Editor to prove the platform boundary—not a fake decorative tab. - It can launch standalone without full Electron. - The exact same editor surface can dock as an Enderloom tab and pop out/reattach. - It can request Electron browser capabilities when hosted, e.g. open documentation/resource/provider pages or send downloaded world resources through canonical downloads/import. - Shared world/instance context transfers safely from Mod Manager -&gt; World Editor and back without copying/moving the world unexpectedly. - Unsaved editor changes are never silently lost during host transitions; prompt/retain them according to the editor&#x27;s real persistence model. - This fixture proves future tools can adopt the platform with mostly tool-specific domain/UI work rather than recreating host integration.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 497-503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L497-L503)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control (1)</summary>
 
 <a id="d-2f6e9c2506e9b2363b88"></a>
@@ -911,7 +923,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Diagnosis may run automatically/cached in the background when cheap, but no repair/install/update/downgrade/enable/disable/quarantine/remove action commits silently. - When a repair plan is ready, always show a compact decision surface with Yes, No, and Review Details. - Yes applies the currently previewed recommended plan transactionally. - No leaves the instance unchanged and dismisses/snoozes that proposal without nagging. - Review Details shows every proposed change, reason/evidence, old -&gt; new version/file/provider, dependency relationship, risk, and lets the user include/exclude individual items before returning to the same Yes / No decision. - For grouped repairs, one Yes may approve the entire visible reviewed plan; independent failures do not silently expand the user&#x27;s approval into additional changes. - Never hide a destructive/downgrade/remove/quarantine operation inside a generic &quot;Fix&quot; button. The exact effect must be visible before Yes. - Remember harmless UI preferences, but do not remove the user&#x27;s ability to choose Yes or No at the commit point for a newly proposed mutation plan. - If the app can prove no filesystem/provider mutation is required, it may resolve a purely diagnostic false-positive state without asking.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1440-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1440-L1448)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1626-1634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1626-L1634)
 
 </details>
 

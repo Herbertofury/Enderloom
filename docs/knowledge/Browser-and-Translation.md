@@ -19,6 +19,8 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-c02109a541b38370ed6d](Acceptance-LIB.md#d-c02109a541b38370ed6d) - CraftTweaker/ZenScript project browser/editor;
 - [D-ab441400db53092acc25](Acceptance-LIB.md#d-ab441400db53092acc25) - Sound browser/mixer.
 - [D-15370d03ace9962e3183](Acceptance-LIB.md#d-15370d03ace9962e3183) - never fake hosted-cloud capability when no provider API is available.
+- [D-c5bc590a63bd71c42ec3](Acceptance-LIB.md#d-c5bc590a63bd71c42ec3) - · Give tools a typed capability bridge so the same tool can request Electron-only/browser-rich functionality when docked without embedding Electron assumptions into its c... [T074]
+- [D-0954a2af74ff8ec803a0](Acceptance-LIB.md#d-0954a2af74ff8ec803a0) - - User opens a real CurseForge project in Enderloom&#x27;s authenticated embedded browser. - User clicks the real CurseForge site Favorite control. - Enderloom detects/validat...
 - [D-9b695daaa5b1f9d3716b](Acceptance-LIB.md#d-9b695daaa5b1f9d3716b) - GATE — Browser/download experience behaves like a normal modern browser [G002]
 - [D-ba6de9e3bdbf6b2c889d](Acceptance-LIB.md#d-ba6de9e3bdbf6b2c889d) - · Chrome-normal downloads in the embedded browser [T004]
 - [D-879211ae4a7be28ff70d](Acceptance-LIB.md#d-879211ae4a7be28ff70d) - The existing paste-a-file-link / optional SHA utility may remain as an advanced direct-download tool, but it must not be the normal browser download workflow.
@@ -33,7 +35,7 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-44d79e64eb503b0e2202](Acceptance-LIB.md#d-44d79e64eb503b0e2202) - · Make the address/search bar behave like a real browser omnibox [T033]
 - [D-b19d16308edf64f12554](Acceptance-LIB.md#d-b19d16308edf64f12554) - · Recover the affected browser surface instead of destabilizing Enderloom [T035]
 - [D-4dfbc961bc5cd66d3b24](Acceptance-LIB.md#d-4dfbc961bc5cd66d3b24) - · Integrate meaningful download/browser state with Windows [T042]
-- [D-af08ff9eafa4d5643598](Acceptance-LIB.md#d-af08ff9eafa4d5643598) - This document is complete only when G012, G010, and G011 are closed and every leaf task and gate is checked with real implementation + applicable runtime/regression evide...
+- [D-387e865ea3efba9e728d](Acceptance-LIB.md#d-387e865ea3efba9e728d) - This document is complete only when G012, G013, G010, and G011 are closed and every leaf task and gate is checked with real implementation + applicable runtime/regression...
 - [D-afb050b3bb42c5bbdc64](Acceptance-LIB.md#d-afb050b3bb42c5bbdc64) - Browser — real Chromium browser tabs.
 - [D-69229290e9c1db450741](Acceptance-LIB.md#d-69229290e9c1db450741) - Split — resizable side-by-side app/browser or app/app research workflows.
 - [D-82eaf1d38c06ea68ac68](Acceptance-LIB.md#d-82eaf1d38c06ea68ac68) - Browse large curated catalogs.

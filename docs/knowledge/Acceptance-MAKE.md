@@ -754,7 +754,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rough lookalike when the authorized source is available.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 618-618](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L618-L618)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 804-804](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L804-L804)
 
 </details>
 
@@ -765,7 +765,7 @@
 - [ ] **D-8aa2316c47da0425b6cf** - · Visual/performance regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 1616-1616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1616-L1616)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 1802-1802](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1802-L1802)
 
 </details>
 
@@ -1563,7 +1563,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 96 source-derived details.
+[Outcome](Checklist.md#make-07) / 97 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1818,6 +1818,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. Replay / Capture / Showcase Studio
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 894-894](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L894-L894)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable (1)</summary>
+
+<a id="d-c2a0e32682b327e197b6"></a>
+- [ ] **D-c2a0e32682b327e197b6** - This is a platform invariant, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host mo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This is a platform invariant, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host model is necessary.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 348-348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L348-L348)
 
 </details>
 
@@ -2466,14 +2478,14 @@
 - [ ] **D-a226249c259810f5bd6b** - · Add the authorized CurseForge-style download-start animation
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 616-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L616-L616)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 802-802](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L802-L802)
 
 <a id="d-18e60f3413b50b42b71a"></a>
 - [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 620-624](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L620-L624)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 806-810](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L806-L810)
 
 </details>
 
@@ -3123,7 +3135,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order. - Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes. - Dependency/runtime preparation stays off the renderer and shows truthful granular progress. - Cancel/retry/resume must not leave fake complete profiles.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1526-1529](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1526-L1529)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1712-1715](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1712-L1715)
 
 </details>
 

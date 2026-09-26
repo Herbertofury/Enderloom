@@ -3889,7 +3889,7 @@
 - [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1612-1612](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1612-L1612)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1798-1798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1798-L1798)
 
 </details>
 
@@ -3900,7 +3900,7 @@
 - [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1622-1622](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1622-L1622)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1808-1808](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1808-L1808)
 
 </details>
 
@@ -6661,7 +6661,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 42 source-derived details.
+[Outcome](Checklist.md#test-05) / 43 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -6761,6 +6761,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture (1)</summary>
+
+<a id="d-f7dc4892d8550b9c1b70"></a>
+- [ ] **D-f7dc4892d8550b9c1b70** - This gate executes underneath and in continuous parallel with G010. It is not a rewrite-for-rewrite&#x27;s-sake. Do not finish the Rust architecture first and benchmark later: ever...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This gate executes underneath and in continuous parallel with G010. It is not a rewrite-for-rewrite&#x27;s-sake. Do not finish the Rust architecture first and benchmark later: every migrated vertical slice must immediately run its equivalent-work performance/coverage proof, be tuned until it advances or at least preserves the strongest proven Enderloom baseline, and ratchet that evidence before the next dependent slice proceeds. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 28-28](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L28-L28)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback (1)</summary>
 
 <a id="d-3e717dfdbd8befe59e1f"></a>
@@ -6778,7 +6790,7 @@
 - [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1628-1628](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1628-L1628)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1814-1814](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1814-L1814)
 
 </details>
 
