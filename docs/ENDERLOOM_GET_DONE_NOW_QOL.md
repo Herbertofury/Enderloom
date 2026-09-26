@@ -4,13 +4,315 @@
 **Created:** 2026-09-24  
 **Repository:** `Herbertofury/Enderloom`  
 **Updated:** 2026-09-26  
-**Priority:** **ABSOLUTE PRIORITY ZERO is whole-app speed/responsiveness AND useful amount/coverage superiority, with zero quality, fidelity, validation, correctness, or feature loss.** On every technically equivalent workflow Enderloom must be **strictly faster than both** the installed CurseForge and Modrinth clients, and the complete Enderloom experience must expose **strictly more useful non-duplicate content, provider coverage, metadata, project/release intelligence, and capability than either client**, while preserving or improving Enderloom's stronger guarantees.
+**Priority:** **ARCHITECTURE PRIORITY -1 is the Rust-native `enderloom-core`; ABSOLUTE PRIORITY ZERO remains whole-app speed/responsiveness AND useful amount/coverage superiority.** Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster **and** equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be **strictly faster than both** installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
 
 ## Objective
 
 Fix the currently visible rough edges and missing common-sense behavior in Enderloom so everyday browsing, downloads, updates, favorites, instance launching, file actions, guided installs, logs, and navigation are **strictly faster and richer than both CurseForge and Modrinth** wherever technically comparable, while preserving or improving Enderloom's stronger provenance, rollback, dependency, recovery, correctness, and coverage guarantees.
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
+
+## G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
+
+- [ ] **G012 · ARCHITECTURE GATE** — `enderloom-core` is the canonical production owner for performance-critical filesystem/indexing, database/cache, provider/data, hashing/fingerprinting, archive inspection, dependency/compatibility solving, transfer/install pipelines, background scheduling, and native media work; Electron/JavaScript is reduced to UI/browser/native-shell orchestration except where measured production evidence proves a JS implementation is genuinely superior with no protected regression.
+
+This gate executes **before and underneath G010**. It is not a rewrite-for-rewrite's-sake. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
+
+### Rust-first ownership law
+
+The default ownership rule is:
+
+- **Rust/native core:** filesystem discovery/change tracking, local indexing, database access, search indexes, cache management, provider transport/normalization, identity/fingerprint/hash work, ZIP/JAR inspection, dependency graphs/solving, compatibility analysis, bulk operation planning, download/install/update pipelines, transaction/rollback state, artifact storage, image decode/resize/thumbnail generation, priority/background scheduling, and performance instrumentation.
+- **Electron main:** window/process lifecycle, WebContents/session/browser APIs, native dialogs/menus/permissions, and thin validated IPC adapters only.
+- **Renderer JavaScript:** presentation, user interaction, local view state, accessibility, and lightweight formatting only.
+- Browser-native work that must occur through Electron/Chromium remains a thin JS/native-shell adapter; expensive follow-up processing belongs in `enderloom-core`.
+- A JS hot-path implementation may remain only after a reproducible benchmark on the real workload proves it beats the Rust/native alternative on latency/throughput **without increasing CPU/RAM/disk/network cost unacceptably and without reducing correctness, result coverage, freshness, crash safety, validation, or maintainability**.
+- Never keep duplicate Rust and JS production engines indefinitely. After migration/proof, one canonical owner remains and all GUI/CLI/automation surfaces route through it.
+
+### T056 — Build and production-wire `enderloom-core`
+
+- [ ] **T056** · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
+
+Required:
+
+- Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists.
+- Choose and benchmark the narrowest production-grade bridge appropriate to the current Electron architecture (for example N-API/native module versus a supervised local sidecar) on startup overhead, IPC throughput, crash isolation, packaging/update complexity, and debugging.
+- Expose typed versioned commands/events, stable operation IDs, cancellation, progress, structured errors, and compact delta responses.
+- One end-to-end vertical slice must exercise: renderer action -> thin Electron adapter -> Rust domain operation -> persisted state/files/provider work -> progress/event -> visible UI result -> restart persistence.
+- Core crash/failure must fail the affected operation truthfully and keep the Electron shell recoverable; never let a native panic corrupt live state or masquerade as success.
+- Package/sign/distribute the Rust component as part of the normal Enderloom build, not as a developer-only optional binary.
+- Record exact Rust toolchain/native binary hash/API schema in packaged-runtime evidence.
+
+### T057 — Remove heavy JavaScript work unless JS is proven superior
+
+- [ ] **T057** · Profile and migrate CPU/I/O/data hot paths out of Electron/Node/renderer; retain JS only where benchmark evidence proves it better without protected regressions
+
+Audit and migrate, where currently present:
+
+- recursive instance/mod filesystem scans;
+- stat/hash/fingerprint loops;
+- JAR/ZIP parsing;
+- dependency/compatibility solving;
+- provider response normalization/reconciliation;
+- large JSON transforms;
+- database/index/search work;
+- download verification/install/update preparation;
+- image decoding/resizing/thumbnail work;
+- bulk operation planning;
+- large sort/filter canonicalization;
+- repeated IPC marshaling of giant object graphs.
+
+Rules:
+
+- No renderer path may synchronously perform filesystem, hashing, archive, DB, network, dependency-solver, or large transform work.
+- No "migration" is accepted if it merely moves the same blocking algorithm from renderer to Electron main.
+- For every moved hot path capture old JS vs Rust/native cold/warm timing, CPU, memory, I/O, result counts and correctness.
+- If JS genuinely wins on a narrow operation, preserve the benchmark fixture and keep it there; "Rust is always faster" is not an assumption.
+- JS/Rust parity failures are correctness bugs. Do not switch ownership until outputs reconcile or the intended new behavior is explicitly proven better.
+
+### T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+
+- [ ] **T058** · Make initial Windows NTFS discovery fast from filesystem metadata and subsequent instance refreshes change-driven so unchanged files are not rescanned/rehashed/reparsed
+
+Windows/NTFS fast path:
+
+- Build a narrowly privileged helper/service only if required for volume/MFT/USN access; **never elevate the whole Enderloom Electron app**.
+- Initial registered-root discovery may use NTFS MFT enumeration to construct path/file identity quickly instead of recursive per-entry directory walking.
+- Persist volume identity, file/reference identity, path mapping, size, timestamps, relevant USN/journal position, and Enderloom index generation.
+- After the initial trusted snapshot, consume the NTFS USN Change Journal to identify exactly which relevant files/directories changed since the stored checkpoint.
+- Opening Mods/Instance views uses the last verified index immediately; delta reconciliation runs in the background and patches only changed records.
+
+Safety/correctness:
+
+- MFT/USN data is an **acceleration signal**, not proof of artifact contents or provider identity.
+- Detect journal ID change/reset, journal wrap/truncation, missing range, volume replacement, root move, file-ID reuse ambiguity, helper failure, and unsupported filesystem. Any such condition invalidates only the affected scope and triggers a bounded authoritative rescan rather than trusting incomplete deltas.
+- Directory rename/move handling must keep file-reference -> current-path mapping coherent.
+- Never interpret a watcher/provider failure as "file deleted" without authoritative filesystem confirmation.
+- Non-NTFS, removable, network, cloud-backed, or unsupported filesystems use a safe persistent snapshot + OS watcher/change notification + bounded parallel reconciliation fallback.
+- Full rescans happen only when evidence says the persisted index cannot be trusted, and should be scoped to the affected instance/root/volume rather than every Enderloom instance.
+- A forced "Verify/Rescan" remains available for troubleshooting but ordinary navigation must not depend on it.
+
+Required proof:
+
+- unchanged 1,000+ mod instance reopen performs effectively zero JAR reads/hashes/parses;
+- add/remove/rename/update a handful of files and prove only affected records are reprocessed;
+- simulate USN journal discontinuity and prove safe targeted recovery;
+- compare cold initial scan and warm change-detection against prior Enderloom and installed launchers.
+
+### T059 — SQLite WAL canonical state store + FTS/search/sort indexes
+
+- [ ] **T059** · Use SQLite WAL as the durable canonical metadata/index store with indexed hot queries, FTS search, batched writes, migrations, and integrity protection
+
+Required architecture:
+
+- Use SQLite WAL mode for the production local metadata/index database where platform/storage semantics support it.
+- Use one coordinated write queue/transaction owner rather than allowing worker pools to fight over many tiny writes.
+- Batch coherent mutations into transactions; readers must remain available while background indexing/provider refreshes write.
+- Add real indexes for measured query/sort/filter paths: canonical project/provider/file IDs, instance/path/file identity, game version, loader, content type, installed/update/favorite/pin/enabled state, dates/sizes, and other proven hot predicates.
+- Use FTS5/prefix/trigram capabilities where appropriate for instant local name/author/alias/substring discovery, but reconcile fuzzy matches against canonical provider identity before any mutation.
+- Common sorts/filters should be database/index-backed instead of repeatedly sorting giant JS object arrays.
+- Avoid full-table/full-JSON rewrites for small deltas.
+- Control WAL checkpointing so a user click is not randomly forced to perform a giant checkpoint; checkpoint/compact during appropriate idle/maintenance windows with bounded impact.
+
+Integrity:
+
+- Version every schema migration; migrate atomically with rollback/backup path.
+- Enable/verify relational constraints appropriate to the schema.
+- On suspicious shutdown/migration/storage errors, perform cheap integrity checks first and escalate to full integrity verification when warranted.
+- Never delete the only good database because one cache table is corrupt; distinguish rebuildable caches/indexes from durable user state.
+- If rebuildable indexes are invalid, reconstruct them from authoritative durable state/files/providers while preserving user data.
+- Do not weaken SQLite durability/synchronous settings merely to win a benchmark; any tuning must pass crash/power-loss simulation appropriate to the protected data class.
+
+### T060 — Global content-addressed artifact store with corruption-safe reuse
+
+- [ ] **T060** · Download/verify immutable artifacts once and safely reuse them across installs/instances without coupling mutable user data
+
+Store by strong content identity with provider provenance and expected hashes/size where available:
+
+- mod JARs;
+- provider pack/addon archives;
+- Minecraft libraries/assets;
+- verified Java/runtime artifacts where Enderloom manages them;
+- resource packs/shaders/datapacks and other immutable provider artifacts;
+- provider/media assets when useful.
+
+Rules:
+
+- New network bytes enter staging, are streamed through required hashes, validated, and only then atomically promoted into the content-addressed store.
+- Never trust filename, URL, or cache key alone as content identity.
+- Exact validated cache hit means zero re-download and zero duplicate hash work where persisted verification evidence remains trustworthy.
+- Reference tracking/garbage collection must never evict an object still referenced by an instance, active transaction, rollback snapshot, or quarantine entry.
+- Mutable worlds/configs/saves/screenshots/user-edited files are never hardlinked/shared as immutable CAS objects.
+- Prefer safe copy-on-write/reflink/clone mechanisms when the filesystem supports them. Hardlink immutable artifacts only when Enderloom can guarantee that no instance/tool path will mutate the linked bytes in place; otherwise materialize a normal copy.
+- Detect external tampering of a materialized immutable artifact before relying on cached identity for update/Doctor decisions.
+- Cache cleanup is transactional and recoverable; a cleanup crash cannot strand referenced artifacts as missing.
+- Cross-instance dedupe is a speed/storage optimization only; instances remain independently usable/removable.
+
+### T061 — One-pass multi-hash/fingerprint streaming + selective JAR/ZIP parsing
+
+- [ ] **T061** · Read artifact bytes the minimum number of times while preserving every provider-required hash/fingerprint and exact metadata result
+
+Required:
+
+- During a necessary artifact read, compute internal BLAKE3/content identity plus all provider/security hashes/fingerprints required by current adapters in one streaming pass when algorithms permit.
+- Persist verified hash/fingerprint results keyed to trustworthy file/content identity so unchanged files do not get re-read.
+- Do not replace provider-required algorithms with BLAKE3; BLAKE3 is an internal fast identity/cache primitive in addition to required provider hashes.
+- For ZIP/JAR identification, read the central directory and only the metadata entries required for classification/manifest/dependency work (`fabric.mod.json`, Quilt/Forge/NeoForge metadata, manifests, pack metadata, relevant known schemas, etc.) instead of inflating the entire archive.
+- Fall back to deeper/full archive inspection when classification, security, corruption detection, a content adapter, or a specific accepted feature truly requires it.
+- Archive parser must reject malformed/path-traversal/zip-bomb-style hostile structures safely and never extract arbitrary content merely to inspect metadata.
+- Cache parsed metadata by verified immutable content identity, not filename.
+- Benchmark buffered, memory-mapped, and streaming I/O on representative tiny/mixed/large artifact sets and choose adaptively; never assume mmap is universally faster.
+
+### T062 — Tokio async I/O + Rayon CPU work-stealing + foreground-priority scheduler
+
+- [ ] **T062** · Separate I/O concurrency from CPU parallelism and keep user-blocking work ahead of maintenance without starving correctness
+
+Use distinct bounded execution lanes:
+
+- **Tokio/async I/O:** provider HTTP, downloads, filesystem async tasks where appropriate, waiting, reconnect/retry.
+- **Rayon/bounded CPU workers:** hashes/fingerprints, archive parsing/decompression, dependency graph work, canonicalization, heavy local search transforms, native image work.
+- **Serialized/coordinated commit lane:** database/file transaction commits that must be ordered/atomic.
+
+Priority model:
+
+1. P0 user-blocking: clicked project/install/update/launch/search action;
+2. P1 visible: current viewport/cards, active operation progress, visible artwork;
+3. P2 predictive prefetch: hover/focus/likely next navigation and scroll-ahead preparation;
+4. P3 maintenance: cleanup, deep cache verification, non-visible enrichment, compaction.
+
+Rules:
+
+- Work stealing/bounded queues prevent one slow item from pinning an entire static partition.
+- Background work yields/deprioritizes when P0/P1 arrives.
+- Enforce per-provider and global concurrency budgets with rate-limit/backpressure awareness.
+- Auto-tune disk concurrency conservatively by observed storage behavior; more threads are not automatically faster.
+- Avoid unbounded task spawning, thread-per-request, and duplicate in-flight work.
+- Cancellation/generation ownership prevents abandoned A -> B -> A work from committing stale results.
+- Record queue wait, execution time and cancellation to expose scheduler-induced latency regressions.
+
+### T063 — Freshness-safe provider/query cache: instant without false, stale, or bad-link results
+
+- [ ] **T063** · Make cached Browse/search/project data instant while preserving authoritative freshness, provenance, canonical URLs, and uncertainty
+
+Every cached provider/query record must retain enough provenance to reason about freshness:
+
+- provider + canonical project/file/release IDs;
+- canonical URL/source identity;
+- fetched/verified time;
+- TTL/freshness policy by data class;
+- ETag/Last-Modified/provider revision when available;
+- compatibility/query context;
+- source/result status and last authoritative error.
+
+Rules:
+
+- Last-verified data may render instantly while revalidation runs, but the UI/service must never represent stale cached data as newly verified/current when freshness materially matters.
+- Install/update/change-version/Dependency Doctor commits revalidate the selected release/file identity, compatibility, dependency plan, expected hash/size, and current signed/download URL when required before mutation.
+- Signed/expiring CDN URLs are never stored as canonical project links; reacquire them through the provider adapter.
+- Canonical external links must derive from verified provider/API/upstream identity and safe schemes/hosts, not transient scraped redirects or display-name guesses.
+- Treat provider timeout, auth failure, rate limit, parser failure, offline state, or search transport failure as **unresolved/degraded**, never as authoritative "no project/no result".
+- Negative-cache only real authoritative misses with short evidence-based TTL/invalidation and exact provider/query context; provider recovery or identity evidence invalidates them immediately.
+- Query caches reconcile terminal pagination and canonical dedupe; cached partial pages cannot masquerade as full search coverage.
+- When fresh data differs, patch the current canonical record/result set without blanking the view or silently preserving outdated links/files.
+- Preserve a visible/inspectable "last verified" state when stale data could affect a user's decision.
+- Cache/schema corruption invalidates only the affected rebuildable entries and triggers authoritative re-fetch/rebuild; it must not poison durable user state.
+
+### T064 — Incremental dependency/compatibility graph
+
+- [ ] **T064** · Persist and update the dependency/compatibility graph incrementally so one changed mod does not force a complete instance solve
+
+Required:
+
+- Key graph nodes/edges to canonical project/provider/file/content identity and target Minecraft/loader/side context.
+- Persist required/optional/incompatible/breaks/provides/recommends/host-framework relationships with provenance/evidence.
+- On add/remove/update/enable/disable/provider-metadata change, invalidate only the affected connected graph plus anything whose constraints depend on it.
+- Reuse unchanged solved subgraphs across Browse install previews, Update All, T052 Dependency Doctor, T053 bulk operations, and startup health.
+- Detect cycles, conflicting version ranges, unresolved identities and provider disagreements explicitly; never manufacture a satisfying answer.
+- A provider metadata refresh can expand invalidation when dependency evidence actually changed.
+- Compare incremental result to periodic/full-solve oracle fixtures so speed never creates a stale or false compatibility answer.
+
+### T065 — Pipelined transfer -> hash -> inspect -> dependency -> verify -> atomic commit
+
+- [ ] **T065** · Remove serial install/update/download waterfalls while preserving the exact final verification and rollback gate
+
+Required:
+
+- Start network transfer immediately once request/destination/auth are valid.
+- Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive metadata inspection as soon as sufficient validated structure is available.
+- Plan independent dependency/provider branches concurrently.
+- While artifact A verifies/commits, artifact B may download/verify when transactions are independent.
+- Reuse exact validated CAS artifacts/dependency plans/provider metadata instead of repeating work.
+- No artifact reaches a live instance until all required identity, hash, compatibility, dependency and transaction prerequisites for that commit are satisfied.
+- Partial/temp files are never exposed as successful artifacts.
+- Cancellation and failure cleanly release staged resources or preserve resumable state.
+- Commit is atomic and rollback-capable; same-filename replacement follows T001 rather than in-place overwrite.
+- Progress reports real pipeline stages/bytes/work and never fabricates "done" while deferred blocking verification remains.
+
+### T066 — Native image/media pipeline with demand-driven sizes
+
+- [ ] **T066** · Keep provider artwork/media from blocking Browse by processing/caching only the size actually needed through a native demand-driven pipeline
+
+Required:
+
+- Use a native high-performance image pipeline (for example libvips/sharp-backed/native-equivalent after benchmark) rather than renderer-side full-resolution decode/resize loops.
+- Cache content-hash/URL-validated size variants appropriate to card/icon/detail/gallery use.
+- Decode/shrink-on-load where supported; never decode a huge hero/gallery image merely to paint a tiny card.
+- Visible/next-visible media has P1/P2 priority; below-fold gallery enrichment cannot delay text/actions.
+- Preserve full media coverage and original source/provenance. Optimization may defer decode until needed but may never omit media from the logical project.
+- Corrupt/unsupported media yields a localized placeholder/error while project text/actions remain usable.
+- Cache invalidates when verified source identity changes; a stale image cannot overwrite a newer asset after late completion.
+
+### T067 — Zero-blank large-list rendering; virtualization only if literally unnoticeable
+
+- [ ] **T067** · Keep huge Mods/Browse lists smooth without blank cards, pop-in, missing rows, scroll jumps, or delayed logical results; use virtualization only after it passes a zero-visibility-defect gate
+
+Policy:
+
+- **Do not introduce or keep virtualization merely because it benchmarks lower DOM count.** It must be visually and behaviorally invisible.
+- Prefer indexed data + fast incremental rendering/browser-native containment techniques where they meet performance without windowing defects.
+- If windowing/virtualization is used, it must render **severely ahead of scroll** with velocity-adaptive overscan/prefetch. Maintain enough ready rows/cards ahead and behind that abusive wheel/touchpad/PageDown/scrollbar-drag/Home/End navigation never reveals empty placeholders caused by the windowing engine.
+- Data for the ahead-of-scroll window must be prepared before DOM promotion; do not show blank/skeleton cards for records already known locally.
+- Overscan expands proactively with measured scroll velocity and renderer load; if the system cannot maintain the lead, degrade to a safer larger/non-virtualized window rather than showing holes.
+- Focus, Shift-range selection, Ctrl+A logical selection, context menus, screen readers, scroll restoration, anchored item position, variable-height content, image loading and keyboard navigation must remain correct across recycled rows.
+- Search/filter/sort/count/bulk semantics always cover the complete logical dataset, never only mounted DOM rows.
+- Add runtime instrumentation for "viewport requested but row/card not ready"; **the acceptance value is zero** in release fixtures.
+- Required torture fixture: 10,000 logical results, rapid trackpad/wheel fling, scrollbar thumb drag, repeated Home/End/PageDown, fast filter changes and image-heavy cards on the supported Windows target. Capture video/frame telemetry and prove no blank gap/pop-in/scroll jump/missing result/focus loss.
+- If that gate cannot be met consistently, disable virtualization for the affected surface and optimize the underlying data/render architecture instead.
+
+### T068 — Compact delta IPC and single-flight cross-process state
+
+- [ ] **T068** · Stop moving giant duplicate object graphs between Rust/Electron/renderer and push only coherent snapshots/deltas needed by the current UI
+
+Required:
+
+- Use stable IDs + compact typed deltas for changed records instead of retransmitting entire 10,000-item catalogs on each small update.
+- Batch high-frequency progress/index/provider events to an appropriate frame/latency budget without hiding state transitions.
+- Use transferable/binary buffers where profiling proves materially better for large payloads, with versioned schema and bounds validation.
+- Single-flight equivalent core requests so multiple cards/views do not independently trigger the same provider/DB/hash operation.
+- Maintain monotonic generation/revision IDs; renderer rejects stale deltas from superseded queries/navigation.
+- Provide a full snapshot/recovery route when a revision gap is detected; never apply an incomplete delta chain as authoritative state.
+- Benchmark serialization/deserialization + IPC queue time separately from core work.
+
+### T069 — Crash consistency, cache correctness, and zero-corruption performance gate
+
+- [ ] **T069** · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
+
+Cross-cutting rules:
+
+- File mutations use staging/temp -> validate -> durable/atomic replace/rename semantics appropriate to Windows/filesystem; never overwrite live JARs/configs in place as a performance shortcut.
+- Use per-instance/per-artifact operation locks or transaction ownership so concurrent update/install/Doctor/bulk operations cannot race the same live artifact.
+- Persist operation intent/state before destructive commit where needed for recovery; startup reconciles interrupted operations deterministically.
+- Distinguish **durable user state** from **rebuildable derived/cache state**. Derived corruption can be discarded/rebuilt; durable favorites/notes/settings/provider bindings/history/quarantine/rollback/user choices cannot.
+- Cache entries/artifact metadata include schema/version/content identity so incompatible/stale bytes cannot be misinterpreted after upgrade.
+- Detect impossible DB/file/CAS identity mismatches and stop the affected mutation before damage.
+- Run crash injection at each important pipeline boundary: during download, hash, DB write, CAS promotion, live-file swap, rollback snapshot, migration, WAL/checkpoint, index update and quarantine move.
+- After restart, prove the instance is either at the verified prior state or verified new state—never half-installed while reported successful.
+- Performance benchmarks run with all integrity/freshness/rollback protections enabled. Disabling them invalidates the benchmark.
+- Any performance optimization that causes a false search result, stale "latest" claim, broken/outdated link, provider mis-merge, missing logical result, lost user data, silent corruption, unrecoverable partial operation, or weaker verification is automatically rejected and the responsible task reopened.
+
+**G012 closes only when T056-T069 are production-wired, packaged-runtime proven, and the migrated hot paths preserve or improve the complete G010/G011 result/quality contract.**
+
+---
 
 ## G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss
 
@@ -204,23 +506,34 @@ The **G010 / T047-T049 whole-app performance program is the absolute highest pri
 
 Execute in this priority order, without waiting for unrelated queue items:
 
-1. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the real hot paths;
-2. **T048** — repair the shared launch/Browse/Mods/update/download/install/IPC/storage architecture causing broad slowness;
-3. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
-4. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
-5. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-6. **T004** — finish the canonical Chromium download pipeline;
-7. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-8. **T027** — make download persistence/resume/save behavior survive real use and restart;
-9. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-10. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-11. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
-12. **T052** — ship the user-confirmed Instance Dependency Doctor;
-13. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
-14. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
-15. **T049** — run the strict faster-and-richer-than-both certification;
-16. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
-17. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+1. **T056 + T057** — establish production `enderloom-core` and make Rust/native ownership the default for heavy hot paths;
+2. **T058** — replace repeat recursive scans with MFT/USN change-driven indexing plus safe authoritative fallbacks;
+3. **T059** — move canonical metadata/search/index state to SQLite WAL + measured indexes/FTS with integrity-safe migrations;
+4. **T060 + T061** — add corruption-safe CAS reuse, one-pass hashing/fingerprints, and selective JAR/ZIP parsing;
+5. **T062 + T068** — add Tokio/Rayon priority scheduling plus compact delta/single-flight IPC;
+6. **T063** — make every cache/search/link path freshness-safe so instant never means false/stale/bad-link;
+7. **T064** — make dependency/compatibility solving incremental and shared across install/update/Doctor/bulk flows;
+8. **T065** — pipeline transfer/hash/inspect/dependency/verify/commit without weakening the atomic final gate;
+9. **T066** — move media decode/resize/cache work to the native demand-driven pipeline;
+10. **T067** — prove zero-blank large-list rendering; virtualization stays disabled anywhere it is perceptible or can miss visible rows;
+11. **T069** — crash-inject and prove every fast path cannot corrupt or manufacture freshness/success;
+12. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the remaining real hot paths;
+13. **T048** — repair any remaining shared launch/Browse/Mods/update/download/install/IPC/storage latency;
+14. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
+15. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
+16. **T026** — move Enderloom onto the latest production-stable Electron baseline;
+17. **T004** — finish the canonical Chromium download pipeline;
+18. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
+19. **T027** — make download persistence/resume/save behavior survive real use and restart;
+20. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
+21. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
+22. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
+23. **T052** — ship the user-confirmed Instance Dependency Doctor;
+24. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
+25. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
+26. **T049** — run the strict faster-and-richer-than-both certification;
+27. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
+28. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
 
@@ -1293,7 +1606,7 @@ Keyboard / accessibility / bulk behavior:
 
 - [ ] **T020** · Visual/performance regression pass
 
-Prove that provider fetches, unified discovery, Dependency Doctor scans/repair previews, bulk operations, first-run/import/clone work, native context menus, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window or trigger unnecessary full-instance rescans.
+Prove that `enderloom-core`, MFT/USN delta indexing, SQLite WAL/indexing, CAS/hash/archive pipelines, native schedulers, freshness-safe caches, incremental dependency graphs, pipelined transfers, media processing, zero-blank list rendering, delta IPC, provider fetches, unified discovery, Dependency Doctor scans/repair previews, bulk operations, first-run/import/clone work, native context menus, download animations, card enrichment, update progress, logs tailing, artwork loading, and browser downloads do not freeze the main window, corrupt state, present stale/false authority, or trigger unnecessary full-instance rescans.
 
 ### T021 — State/restart regression pass
 
@@ -1338,13 +1651,23 @@ Exercise the real desktop build through at least:
 29. Bulk Mod Manager -> Ctrl+A full filtered logical set -> preview -> No -> zero mutation -> Yes -> bounded concurrent operation with injected partial failure -> restart -> quarantine/history -> Undo restore.
 30. clean-profile first run -> detect existing provider instances -> Skip -> approve one import/link -> account connect/reconnect -> create -> import -> clone -> verify full fidelity/independence -> benchmark each comparable flow against both clients.
 31. Mod/Instance right-click + Shift+F10 -> real context actions -> multi-select bulk context action -> Yes/No safeguards -> launch/folder/logs/Doctor/clone paths -> restart consistency.
+32. packaged `enderloom-core` vertical slice -> prove renderer/main stay responsive -> kill/restart native core during a non-destructive operation -> truthful recovery -> verify binary/schema/version evidence.
+33. 1,000+ mod NTFS instance -> warm reopen performs zero unnecessary JAR reads -> change 3 files -> only 3 affected records process -> simulate USN reset/wrap -> targeted authoritative recovery.
+34. SQLite WAL/index/search fixture -> concurrent reader/background writer -> instant indexed sort/search -> migration interruption -> rollback/recovery -> integrity verification -> no durable user-state loss.
+35. CAS/hash/JAR fixture -> duplicate artifact install across instances -> one verified network object -> safe materialization -> one-pass hashes/fingerprints -> selective metadata parse -> tamper one materialization -> detect/reverify without poisoning other instances.
+36. scheduler/pipeline fixture -> P0 user click preempts P2/P3 work -> provider concurrency limits respected -> downloads/hash/inspect/verify overlap -> stale cancelled generation cannot commit.
+37. freshness/link fixture -> cached search paints instantly -> provider data changes -> revalidation patches it -> outage/auth/rate-limit never becomes false 'not found' -> expired signed URL is reacquired -> canonical project link remains valid.
+38. incremental dependency fixture -> update one graph node -> only affected connected graph recalculates -> result reconciles with full-solve oracle -> ambiguous/conflicting constraints remain unresolved rather than guessed.
+39. image/media fixture -> card uses right-sized native cached image -> huge gallery image never blocks text/actions -> stale late image cannot overwrite newer source.
+40. 10,000-result rendering torture -> rapid wheel/trackpad/scrollbar/Home/End/PageDown + filters + images -> zero viewport-not-ready events, blank cards, pop-in gaps, scroll jumps, focus loss, or missing logical results; disable virtualization if the gate fails.
+41. crash-injection matrix across DB/WAL/CAS/download/hash/live swap/migration/quarantine -> restart always yields verified old or verified new state, never half-success/corruption.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when **G010 and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G012, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T055, G001-G008, G010, and G011 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T069, G001-G008, G010, G011, and G012 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
