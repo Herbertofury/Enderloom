@@ -24,6 +24,7 @@ assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manag
 assert(app.includes('(!embedded || hasContextHeader)'),'embedded manager still reserves the empty title row');
 assert(app.includes('new MutationObserver')&&app.includes('inspectCommittedDom')&&!app.includes('requestAnimationFrame(inspect)'),'seeded Browse runtime timing regressed to compositor-throttled requestAnimationFrame polling');
 assert(app.includes('const AccountsView = lazy(DEFERRED_VIEW_LOADERS.accounts!)')&&app.includes('import { DiscoverView } from "./views/DiscoverView"')&&app.includes('import { ProjectView } from "./views/ProjectView"'),'secondary workspaces are no longer split while latency-critical Browse/project views stay eager');
+assert(app.includes('const loadCatalogInstallModal = () =>')&&app.includes('void loadCatalogInstallModal();'),'Catalog install UI is not warmed after the launcher becomes ready');
 assert(viewModules.includes('accounts: () =>')&&viewModules.includes('instances: () =>')&&viewModules.includes('server: () =>')&&viewModules.includes('convert: () =>')&&viewModules.includes('settings: () =>'),'deferred workspace loader registry is incomplete');
 assert(sidebar.includes('onMouseEnter={onIntent}')&&sidebar.includes('onFocus={onIntent}')&&sidebar.includes('preloadView(id)'),'deferred workspaces are not preloaded from navigation intent');
 assert(sidebar.includes('{editing && (')&&sidebar.includes('{exporting && (')&&!sidebar.includes('import { EditInstanceModal }'),'sidebar-only modal workflows regressed to eager startup imports');
