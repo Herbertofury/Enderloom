@@ -646,7 +646,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 97 source-derived details.
+[Outcome](Checklist.md#fix-03) / 96 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1049,25 +1049,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger (1)</summary>
-
-<a id="d-97069964717437049b0c"></a>
-- [ ] **D-97069964717437049b0c** - - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser c...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Direct WebView2 wins only if it is strictly better overall after complete capability parity and privacy hardening from T092. - If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins. - Do not maintain two full browser shells indefinitely after the winner is proven; keep one canonical production owner plus only the minimum compatibility/fallback path justified by evidence.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 333-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L333-L335)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate (1)</summary>
 
 <a id="d-e9561edb823433bcf070"></a>
 - [ ] **D-e9561edb823433bcf070** - · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 787-787](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L787-L787)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 892-892](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L892-L892)
 
 </details>
 
@@ -1079,7 +1067,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1593-1598](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1593-L1598)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1699-1704](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1699-L1704)
 
 </details>
 

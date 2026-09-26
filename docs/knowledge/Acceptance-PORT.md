@@ -3992,7 +3992,7 @@
 - [ ] **D-a7ee80a6ebe4f6f2e879** - · Make Minecraft JAR/ZIP inspection use the fastest proven parser/decompressor combination for each workload without reducing format coverage or hostile-input safety
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T094 : 393-393](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L393-L393)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T094 : 394-394](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L394-L394)
 
 </details>
 
@@ -4003,7 +4003,7 @@
 - [ ] **D-016e6ecf129975cc2941** - · Use WebContentsView for embedded remote browsing wherever legacy BrowserView/webview architecture remains
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 1682-1682](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1682-L1682)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 1788-1788](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1788-L1788)
 
 </details>
 
