@@ -69,6 +69,9 @@ jobs:
       - name: Browse provider pane static QA
         run: node scripts/workspace-tabs-qa.js
 
+      - name: Launcher IPC command coverage QA
+        run: node scripts/launcher-command-coverage-qa.js
+
       - name: Configure Electron sandbox helper for CI
         run: |
           node -e "require('electron')"
