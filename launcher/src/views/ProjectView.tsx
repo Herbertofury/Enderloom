@@ -156,7 +156,8 @@ export function ProjectView() {
     setChangelogs({});
     setResolvedProjects({});
 
-    loadProjectDetails(projectRef.provider, projectRef.id)
+    const detailRequest = loadProjectDetails(projectRef.provider, projectRef.id);
+    detailRequest
       .then((value) => {
         if (!live) return;
         setDetails(value);
@@ -170,7 +171,8 @@ export function ProjectView() {
         if (live) setLoading(false);
       });
 
-    loadProjectMirrors(projectRef.provider, projectRef.id, kind)
+    void detailRequest
+      .then(() => loadProjectMirrors(projectRef.provider, projectRef.id, kind))
       .then((value) => {
         if (live) setMirrors(value);
       })
