@@ -560,6 +560,8 @@ function launcherProviderSurfaceState() {
       loading: false,
       canBack: false,
       canForward: false,
+      favicon: '',
+      zoom: 1,
       error: null,
     };
   }
@@ -570,6 +572,8 @@ function launcherProviderSurfaceState() {
     projectKey: surface.projectKey,
     url: wc.getURL() || surface.url,
     title: surface.title || '',
+    favicon: surface.favicon || '',
+    zoom: wc.getZoomFactor(),
     loading: !!surface.loading,
     canBack: navCanBack(wc),
     canForward: navCanForward(wc),
@@ -655,6 +659,7 @@ function openLauncherProviderSurface(request = {}) {
     projectKey,
     url,
     title: provider,
+    favicon: '',
     loading: true,
     error: null,
     visible: true,
@@ -673,6 +678,10 @@ function openLauncherProviderSurface(request = {}) {
   });
   view.webContents.on('page-title-updated', (_event, title) => {
     surface.title = title || provider;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('page-favicon-updated', (_event, favicons) => {
+    surface.favicon = favicons?.[0] || '';
     publishLauncherProviderSurfaceState();
   });
   view.webContents.on('did-start-loading', () => {
@@ -762,6 +771,9 @@ async function launcherProviderSurfaceCommand(action, request = {}) {
       const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
       if (!target) throw new Error('No provider page is available to open in a new tab');
       const tab = createBrowserTab(target, true);
+      if (wc && !wc.isDestroyed()) {
+        tab.view.webContents.setZoomFactor(wc.getZoomFactor());
+      }
       return { ...launcherProviderSurfaceState(), promoted: true, tabId: tab.id, promotedUrl: target };
     }
     case 'external': {
@@ -1222,9 +1234,12 @@ async function command(name, payload) {
     case 'new-tab': createBrowserTab(payload?.url || 'https://www.google.com/', true); break;
     case 'promote-provider-page': {
       const current = launcherProviderSurfaceState();
-      const target = safeHttpUrl((current.open && current.url) || payload?.url);
+      const target = safeHttpUrl(payload?.url) || safeHttpUrl(current.open && current.url);
       if (!target) throw new Error('No provider page is available to promote');
       const tab = createBrowserTab(target, true);
+      if (current.open && current.url === target && launcherProviderSurface?.view?.webContents) {
+        tab.view.webContents.setZoomFactor(launcherProviderSurface.view.webContents.getZoomFactor());
+      }
       return { promoted: true, tabId: tab.id, url: target };
     }
     case 'close-tab': closeTab(payload?.id || activeId); break;
