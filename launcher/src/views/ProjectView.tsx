@@ -752,9 +752,49 @@ export function ProjectView() {
         {providerSurface ? (
           <div
             ref={providerPaneRef}
-            className="h-full min-h-[240px] bg-void"
+            className="relative h-full min-h-[240px] bg-void"
             aria-label={`${providerSurface.provider} project page`}
-          />
+          >
+            {providerSurfaceState?.error && (
+              <div className="absolute inset-0 grid place-items-center px-6">
+                <div className="w-full max-w-xl rounded-2xl border border-warn/30 bg-surface-2 p-5 text-center shadow-xl">
+                  <TriangleAlert className="mx-auto size-6 text-warn" />
+                  <div className="mt-3 text-sm font-semibold text-content">
+                    Could not load {providerSurface.provider}
+                  </div>
+                  <p className="mt-1 break-words text-xs leading-5 text-content-muted">
+                    {providerSurfaceState.error.description || "The provider page could not be loaded."}
+                  </p>
+                  <p className="mt-1 truncate text-[11px] text-content-faint">
+                    {providerSurfaceState.error.url || providerSurface.url}
+                  </p>
+                  <div className="mt-4 flex flex-wrap justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => providerCommand("reload")}
+                      className="rounded-lg bg-surface-3 px-3 py-2 text-xs font-semibold text-content hover:bg-surface-4"
+                    >
+                      Retry
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => providerCommand("external")}
+                      className="rounded-lg border border-border-soft px-3 py-2 text-xs font-medium text-content-muted hover:bg-surface-3 hover:text-content"
+                    >
+                      Open in your browser
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => providerCommand("copy-url")}
+                      className="rounded-lg border border-border-soft px-3 py-2 text-xs font-medium text-content-muted hover:bg-surface-3 hover:text-content"
+                    >
+                      Copy URL
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         ) : !details ? (
           <div className="flex items-center justify-center gap-2 py-16 text-sm text-content-muted">
             <Loader2 className="size-4 animate-spin" />
