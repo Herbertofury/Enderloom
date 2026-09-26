@@ -3216,6 +3216,64 @@ async function runSelfTest() {
     catalogInstallUi?.dialogTitle==='Install project' && catalogInstallUi?.hasInstanceSearch===true && /compatible instance|Checking every instance/i.test(catalogInstallUi?.bodyText||''),
     JSON.stringify({dialogTitle:catalogInstallUi?.dialogTitle,hasInstanceSearch:catalogInstallUi?.hasInstanceSearch}),
   );
+
+  const providerOpened = openLauncherProviderSurface({
+    provider:'github',
+    projectKey:'self-test-provider',
+    url:`http://127.0.0.1:${port}/`,
+    rect:{x:48,y:210,width:Math.max(320,(launcherView.getBounds().width||900)-96),height:300},
+  });
+  const providerDeadline=Date.now()+2500;
+  while(launcherProviderSurface?.loading && Date.now()<providerDeadline)await new Promise(resolve=>setTimeout(resolve,25));
+  const providerPrefs=launcherProviderSurface?.view?.webContents?.getLastWebPreferences?.()||{};
+  const providerBounds=launcherProviderSurface?.view?.getBounds?.()||{};
+  check(
+    'Browse provider pane is a secure persistent WebContentsView',
+    providerOpened?.open===true &&
+      launcherProviderSurface?.view?.getVisible?.()===true &&
+      providerPrefs.sandbox===true &&
+      providerPrefs.nodeIntegration===false &&
+      providerPrefs.contextIsolation===true &&
+      providerPrefs.webSecurity===true &&
+      launcherProviderSurface?.view?.webContents?.session===session.fromPartition(PARTITION) &&
+      providerBounds.width>300 && providerBounds.height>=280,
+    JSON.stringify({providerOpened,providerPrefs,providerBounds}),
+  );
+  await launcherProviderSurface.view.webContents.loadURL(`http://127.0.0.1:${port}/two`);
+  const providerDeepUrl=launcherProviderSurface.view.webContents.getURL();
+  const providerTabsBefore=tabs.length;
+  const providerPromoted=await launcherProviderSurfaceCommand('promote',{});
+  check(
+    'Browse provider pane promotes the exact current page into a normal tab',
+    /\/two$/.test(providerDeepUrl) &&
+      providerPromoted?.promoted===true &&
+      providerPromoted?.promotedUrl===providerDeepUrl &&
+      tabs.length===providerTabsBefore+1 &&
+      getTab(providerPromoted.tabId)?.view?.webContents?.getURL?.()===providerDeepUrl,
+    JSON.stringify({providerDeepUrl,providerPromoted,tabs:tabs.length}),
+  );
+  activateTab(LAUNCHER_ID);
+  const providerRestoredVisible=launcherProviderSurface?.view?.getVisible?.()===true;
+  await launcherProviderSurfaceCommand('hide',{});
+  const providerHidden=launcherProviderSurface?.view?.getVisible?.()===false;
+  const providerReopened=openLauncherProviderSurface({
+    provider:'github',
+    projectKey:'self-test-provider',
+    url:`http://127.0.0.1:${port}/`,
+    rect:{x:48,y:210,width:Math.max(320,(launcherView.getBounds().width||900)-96),height:300},
+  });
+  check(
+    'Browse provider pane preserves deep navigation while hidden and reopened',
+    providerRestoredVisible &&
+      providerHidden &&
+      providerReopened?.visible===true &&
+      launcherProviderSurface?.view?.webContents?.getURL?.()===providerDeepUrl,
+    JSON.stringify({providerRestoredVisible,providerHidden,providerReopened,url:launcherProviderSurface?.view?.webContents?.getURL?.()}),
+  );
+  if(providerPromoted?.tabId)closeTab(providerPromoted.tabId);
+  disposeLauncherProviderSurface();
+  stage('provider-surface');
+
   const catalogResearchReceived = catalogView.webContents.executeJavaScript(`new Promise(resolve => {
     let settled=false;
     const off=window.mobCompanion.onResearch(payload => { if(!settled){settled=true;off();resolve(payload)} });
