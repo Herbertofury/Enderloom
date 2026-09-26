@@ -202,6 +202,54 @@ pub fn instance_logo(files: &FileManager, instance_id: &str) -> Option<String> {
         .map(|path| path.display().to_string())
 }
 
+/// Builds the same per-instance logo choice as `instance_logo`, but scans the media
+/// directory once. This avoids five filesystem metadata probes for every instance during
+/// launcher startup while preserving the existing extension-priority semantics.
+pub fn instance_logo_index(files: &FileManager) -> std::collections::HashMap<String, String> {
+    let media_dir = files.paths().root.join("media");
+    let mut selected =
+        std::collections::HashMap::<String, (usize, String)>::new();
+
+    for path in files.read_dir(&media_dir).unwrap_or_default() {
+        let Some(name) = path.file_name().and_then(|value| value.to_str()) else {
+            continue;
+        };
+        let Some(rest) = name.strip_prefix("logo-") else {
+            continue;
+        };
+        let Some((instance_id, ext)) = rest.rsplit_once('.') else {
+            continue;
+        };
+        let Some(priority) = BANNER_EXTENSIONS
+            .iter()
+            .position(|candidate| candidate.eq_ignore_ascii_case(ext))
+        else {
+            continue;
+        };
+        if !files.metadata(&path).is_ok_and(|metadata| metadata.is_file()) {
+            continue;
+        }
+
+        let candidate = path.display().to_string();
+        match selected.entry(instance_id.to_string()) {
+            std::collections::hash_map::Entry::Vacant(entry) => {
+                entry.insert((priority, candidate));
+            }
+            std::collections::hash_map::Entry::Occupied(mut entry)
+                if priority < entry.get().0 =>
+            {
+                entry.insert((priority, candidate));
+            }
+            std::collections::hash_map::Entry::Occupied(_) => {}
+        }
+    }
+
+    selected
+        .into_iter()
+        .map(|(instance_id, (_, path))| (instance_id, path))
+        .collect()
+}
+
 pub async fn clear_instance_logo(files: &FileManager, instance_id: &str) {
     let paths = files.paths();
     for path in logo_paths(paths, instance_id) {
@@ -304,4 +352,78 @@ pub async fn media_for(
         local: false,
         kind: default_media_kind(),
     })
+}
+
+
+#[cfg(test)]
+mod logo_index_tests {
+    use super::{instance_logo, instance_logo_index};
+    use crate::{files::FileManager, paths::Paths};
+    use std::time::Instant;
+
+    #[test]
+    fn logo_index_matches_existing_priority_and_reduces_probe_work() {
+        let root = std::env::temp_dir().join(format!(
+            "enderloom-logo-index-{}",
+            uuid::Uuid::new_v4()
+        ));
+        std::fs::create_dir_all(&root).unwrap();
+        let files = FileManager::new(Paths::plain(root.clone())).unwrap();
+        let media = root.join("media");
+        files.ensure_dir(&media).unwrap();
+
+        files.write_atomic(media.join("logo-alpha.webp"), b"webp").unwrap();
+        files.write_atomic(media.join("logo-alpha.png"), b"png").unwrap();
+        files.write_atomic(media.join("logo-beta.gif"), b"gif").unwrap();
+        files.write_atomic(media.join("logo-ignore.txt"), b"ignore").unwrap();
+        files.ensure_dir(media.join("logo-directory.png")).unwrap();
+
+        let index = instance_logo_index(&files);
+        for id in ["alpha", "beta", "missing", "directory"] {
+            assert_eq!(index.get(id).cloned(), instance_logo(&files, id));
+        }
+        assert!(
+            index["alpha"].ends_with("logo-alpha.png"),
+            "the batch path must preserve png-before-webp priority"
+        );
+        assert!(!index.contains_key("ignore"));
+        assert!(!index.contains_key("directory"));
+
+        let ids = (0..360)
+            .map(|index| format!("bench-{index:04}"))
+            .collect::<Vec<_>>();
+        let cycles = 8;
+
+        let legacy_started = Instant::now();
+        let mut legacy_hits = 0usize;
+        for _ in 0..cycles {
+            for id in &ids {
+                legacy_hits += instance_logo(&files, id).is_some() as usize;
+            }
+        }
+        let legacy = legacy_started.elapsed();
+
+        let indexed_started = Instant::now();
+        let mut indexed_hits = 0usize;
+        for _ in 0..cycles {
+            let indexed = instance_logo_index(&files);
+            for id in &ids {
+                indexed_hits += indexed.contains_key(id) as usize;
+            }
+        }
+        let indexed = indexed_started.elapsed();
+
+        assert_eq!(legacy_hits, indexed_hits);
+        eprintln!(
+            "logo lookup benchmark: probes={legacy:?} index={indexed:?} speedup={:.1}x",
+            legacy.as_secs_f64() / indexed.as_secs_f64().max(f64::EPSILON)
+        );
+        assert!(
+            indexed * 3 < legacy,
+            "one directory index should be at least 3x faster than repeated missing-file probes: legacy={legacy:?}, indexed={indexed:?}"
+        );
+
+        drop(files);
+        std::fs::remove_dir_all(root).unwrap();
+    }
 }

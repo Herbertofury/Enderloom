@@ -7,33 +7,42 @@ import { api } from "./lib/api";
 import { isLive } from "./lib/servers";
 import { cn } from "./lib/cn";
 import { ConfirmDialog } from "./components/ConfirmDialog";
-import { Onboarding } from "./components/onboarding/Onboarding";
 import { Sidebar } from "./components/Sidebar";
 import { RecoveryBanner } from "./components/RecoveryBanner";
 import { TitleBar } from "./components/TitleBar";
 import { WindowFrame } from "./components/WindowFrame";
 import { UpdateNotifications } from "./components/UpdateNotifications";
-import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
-import { CatalogInstallModal } from "./components/CatalogInstallModal";
+import { ContentInstallerProvider } from "./components/ContentInstallerProvider";
 import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
-import { AccountsView } from "./views/AccountsView";
 import { HomeView } from "./views/HomeView";
-import { InstanceView } from "./views/InstanceView";
-import { InstancesView } from "./views/InstancesView";
-import { ServerView } from "./views/ServerView";
-import { ServersView } from "./views/ServersView";
 import { DiscoverView } from "./views/DiscoverView";
-import { LogsView } from "./views/LogsView";
-import { ConversionView } from "./views/ConversionView";
 import { ProjectView } from "./views/ProjectView";
-import { SettingsView } from "./views/SettingsView";
 import { useStore } from "./store";
-import type { ProjectSummary, View } from "./lib/types";
+import { buildInstalledInstancesByProject } from "./lib/browse-index";
+import { DEFERRED_VIEW_LOADERS } from "./lib/view-modules";
+import type { Instance, ProjectSummary, View } from "./lib/types";
 
-const StatsView = lazy(() =>
-  import("./views/StatsView").then((module) => ({ default: module.StatsView })),
+const Onboarding = lazy(() =>
+  import("./components/onboarding/Onboarding").then((module) => ({
+    default: module.Onboarding,
+  })),
 );
+const CatalogInstallModal = lazy(() =>
+  import("./components/CatalogInstallModal").then((module) => ({
+    default: module.CatalogInstallModal,
+  })),
+);
+
+const AccountsView = lazy(DEFERRED_VIEW_LOADERS.accounts!);
+const InstanceView = lazy(DEFERRED_VIEW_LOADERS.instance!);
+const InstancesView = lazy(DEFERRED_VIEW_LOADERS.instances!);
+const ServerView = lazy(DEFERRED_VIEW_LOADERS.server!);
+const ServersView = lazy(DEFERRED_VIEW_LOADERS.servers!);
+const LogsView = lazy(DEFERRED_VIEW_LOADERS.logs!);
+const ConversionView = lazy(DEFERRED_VIEW_LOADERS.convert!);
+const SettingsView = lazy(DEFERRED_VIEW_LOADERS.settings!);
+const StatsView = lazy(DEFERRED_VIEW_LOADERS.stats!);
 
 const embedded = window.enderloomLauncher?.embedded === true;
 
@@ -43,6 +52,12 @@ if (window.enderloomLauncher?.selfTest) {
       openSeededProject: (
         seed: ProjectSummary,
       ) => Promise<{ elapsedMs: number; heading: string; timedOut: boolean }>;
+      benchmarkInstalledIndex: () => {
+        legacyMs: number;
+        indexedMs: number;
+        speedup: number;
+        equivalent: boolean;
+      };
       reset: () => void;
     };
   };
@@ -97,6 +112,72 @@ if (window.enderloomLauncher?.selfTest) {
           finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
         }, 2_000);
       }),
+    benchmarkInstalledIndex: () => {
+      const instanceCount = 1_000;
+      const sourcesPerInstance = 64;
+      const visibleProjects = Array.from({ length: 40 }, (_, index) => `project-${index * 7}`);
+      const instances = Array.from({ length: instanceCount }, (_, index) => ({
+        id: `instance-${index}`,
+        name: `Instance ${index}`,
+      })) as unknown as Instance[];
+      const contentSources: Record<
+        string,
+        Record<string, { file_name: string; version_id: string | null }>
+      > = {};
+
+      for (let instanceIndex = 0; instanceIndex < instanceCount; instanceIndex += 1) {
+        const sourceMap: Record<string, { file_name: string; version_id: string | null }> = {};
+        for (let sourceIndex = 0; sourceIndex < sourcesPerInstance; sourceIndex += 1) {
+          const projectId = `project-${(instanceIndex * 17 + sourceIndex * 13) % 800}`;
+          sourceMap[projectId] = {
+            file_name: `${projectId}.jar`,
+            version_id: `v-${sourceIndex}`,
+          };
+        }
+        contentSources[`${instances[instanceIndex].id}:mods`] = sourceMap;
+      }
+
+      const legacy = () =>
+        visibleProjects.map((projectId) =>
+          instances
+            .filter(
+              (instance) =>
+                !!contentSources[`${instance.id}:mods`]?.[projectId],
+            )
+            .map((instance) => instance.id),
+        );
+
+      const expected = legacy();
+      const cycles = 80;
+      let legacyChecksum = 0;
+      const legacyStarted = performance.now();
+      for (let cycle = 0; cycle < cycles; cycle += 1) {
+        for (const matches of legacy()) legacyChecksum += matches.length;
+      }
+      const legacyMs = performance.now() - legacyStarted;
+
+      const indexedStarted = performance.now();
+      const index = buildInstalledInstancesByProject(instances, contentSources, "mods");
+      let indexedChecksum = 0;
+      for (let cycle = 0; cycle < cycles; cycle += 1) {
+        for (const projectId of visibleProjects) {
+          indexedChecksum += index.get(projectId)?.length ?? 0;
+        }
+      }
+      const indexedMs = performance.now() - indexedStarted;
+      const actual = visibleProjects.map((projectId) =>
+        (index.get(projectId) ?? []).map((instance) => instance.id),
+      );
+
+      return {
+        legacyMs,
+        indexedMs,
+        speedup: legacyMs / Math.max(indexedMs, 0.001),
+        equivalent:
+          legacyChecksum === indexedChecksum &&
+          JSON.stringify(expected) === JSON.stringify(actual),
+      };
+    },
     reset: () => {
       useStore.setState({
         view: "home",
@@ -220,10 +301,14 @@ function App() {
         }}
       />
       <UpdateNotifications />
-      <CatalogInstallModal
-        request={catalogInstallRequest}
-        onClose={dismissCatalogInstall}
-      />
+      {catalogInstallRequest && (
+        <Suspense fallback={null}>
+          <CatalogInstallModal
+            request={catalogInstallRequest}
+            onClose={dismissCatalogInstall}
+          />
+        </Suspense>
+      )}
       {!ready ? (
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
           <TitleBar />
@@ -239,7 +324,20 @@ function App() {
       ) : onboarding ? (
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
           <TitleBar />
-          <Onboarding />
+          <Suspense
+            fallback={
+              <div className="grid flex-1 place-items-center">
+                <img
+                  src="./logo.png"
+                  alt=""
+                  draggable={false}
+                  className="size-12 animate-pulse object-contain opacity-60"
+                />
+              </div>
+            }
+          >
+            <Onboarding />
+          </Suspense>
         </div>
       ) : (
         <>

@@ -181,7 +181,7 @@ function Row({
   );
 }
 
-function ManualDownloadDialog({
+export function ManualDownloadDialog({
   request,
   onClose,
   onReady,

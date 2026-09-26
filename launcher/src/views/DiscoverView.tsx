@@ -18,6 +18,10 @@ import {
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
+import {
+  buildInstalledInstancesByProject,
+  buildPackInstancesByProject,
+} from "../lib/browse-index";
 import { prefetchProject, prefetchProjectDetails } from "../lib/project-cache";
 import type {
   Instance,
@@ -40,7 +44,7 @@ import {
   FilterRail,
   type FilterState,
 } from "../components/FilterRail";
-import { useContentInstaller } from "../components/CurseForgeDownloadModal";
+import { useContentInstaller } from "../lib/contentInstaller";
 import { Modal, ModalHeader } from "../components/Modal";
 import { WorldTargetPicker } from "../components/WorldTargetPicker";
 import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
@@ -77,6 +81,7 @@ const SORTS: Array<{ id: SortOrder; label: string }> = [
 const PAGE_SIZE = 40;
 const MAX_BROWSE_PAGE_CACHE = 48;
 const browsePageCache = new Map<string, SearchPage>();
+const taxonomyCache = new Map<string, FilterTaxonomy>();
 
 function rememberBrowsePage(signature: string, page: SearchPage) {
   browsePageCache.delete(signature);
@@ -140,6 +145,7 @@ export function DiscoverView() {
   const allSources = useStore((s) => s.contentSources);
   const sources = allSources[`${serverId ?? targetId}:${kind}`];
   const refreshContentSources = useStore((s) => s.refreshContentSources);
+  const refreshContentSourcesBatch = useStore((s) => s.refreshContentSourcesBatch);
   const refreshServerContentSources = useStore((s) => s.refreshServerContentSources);
   const settings = useStore((s) => s.settings);
   const hasCfKey = useStore((s) => !!s.settings?.curseforge_api_key || s.bundledCurseforgeKey);
@@ -191,23 +197,33 @@ export function DiscoverView() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const isPack = kind === "modpacks";
+  const canResolveProviderMirror = provider !== "modrinth" || hasCfKey;
   const usesLoaders = kind === "mods" || kind === "modpacks";
   const modsBlocked = kind === "mods" && !!target && !target.loader;
 
   useEffect(() => {
     let live = true;
-    setTaxonomy(null);
-    if (provider === "curseforge" && !hasCfKey) return () => {
-      live = false;
-    };
+    const taxonomyKey = `${provider}:${kind}`;
+    const cached = taxonomyCache.get(taxonomyKey) ?? null;
+    setTaxonomy(cached);
+    if (provider === "curseforge" && !hasCfKey) {
+      return () => {
+        live = false;
+      };
+    }
     api
       .getFilterTaxonomy(provider, kind)
-      .then((t) => live && setTaxonomy(t))
-      .catch(() => live && setTaxonomy(null));
+      .then((taxonomy) => {
+        taxonomyCache.set(taxonomyKey, taxonomy);
+        if (live) setTaxonomy(taxonomy);
+      })
+      .catch(() => {
+        if (live && !cached) setTaxonomy(null);
+      });
     return () => {
       live = false;
     };
-  }, [provider, kind]);
+  }, [provider, kind, hasCfKey]);
 
   const scope = `${provider}:${kind}`;
 
@@ -247,26 +263,42 @@ export function DiscoverView() {
   }, [query, sort, filters]);
 
   useEffect(() => {
-    if (kind === "modpacks") return;
+    if (kind === "modpacks" || kind === "datapacks") return;
     if (target) {
       if (target.isServer) void refreshServerContentSources(target.id);
       else void refreshContentSources(target.id, kind);
       return;
     }
-    for (const instance of instances) void refreshContentSources(instance.id, kind);
+    void refreshContentSourcesBatch(
+      instances.map((instance) => instance.id),
+      kind,
+    );
   }, [
     target?.id,
     target?.isServer,
     kind,
     instances,
     refreshContentSources,
+    refreshContentSourcesBatch,
     refreshServerContentSources,
   ]);
 
+  const installedInstancesByProject = useMemo(
+    () =>
+      target
+        ? new Map<string, Instance[]>()
+        : buildInstalledInstancesByProject(instances, allSources, kind),
+    [target, instances, allSources, kind],
+  );
+
+  const packInstancesByProject = useMemo(
+    () => buildPackInstancesByProject(instances),
+    [instances],
+  );
+
   const installedIn = useCallback(
-    (projectId: string) =>
-      instances.filter((instance) => !!allSources[`${instance.id}:${kind}`]?.[projectId]),
-    [instances, allSources, kind],
+    (projectId: string) => installedInstancesByProject.get(projectId) ?? [],
+    [installedInstancesByProject],
   );
 
   const signature = JSON.stringify({ provider, kind, query, sort, filters, offset });
@@ -404,10 +436,11 @@ export function DiscoverView() {
     (project: ProjectSummary) => {
       cancelProjectIntent();
       intentRef.current = setTimeout(() => {
-        prefetchProject(provider, project.id, kind);
+        if (canResolveProviderMirror) prefetchProject(provider, project.id, kind);
+        else prefetchProjectDetails(provider, project.id);
       }, 80);
     },
-    [provider, kind, cancelProjectIntent],
+    [provider, kind, canResolveProviderMirror, cancelProjectIntent],
   );
 
   useEffect(() => cancelProjectIntent, [cancelProjectIntent]);
@@ -885,9 +918,7 @@ export function DiscoverView() {
               <ContentResults
                 view={resultView}
                 rows={hits.map((project) => {
-                  const packInstance = instances.find(
-                    (i) => i.pack_project_id === project.id,
-                  );
+                  const packInstance = packInstancesByProject.get(project.id);
                   const installedFile = sources?.[project.id]?.file_name;
                   const alsoIn = target ? [] : installedIn(project.id);
                   const busy =
@@ -918,7 +949,8 @@ export function DiscoverView() {
                             : undefined,
                     onOpen: () => {
                       cancelProjectIntent();
-                      prefetchProject(provider, project.id, kind);
+                      if (canResolveProviderMirror) prefetchProject(provider, project.id, kind);
+                      else prefetchProjectDetails(provider, project.id);
                       openProject(provider, project.id, kind, project.title, project);
                     },
                     onIntent: () => scheduleProjectIntent(project),

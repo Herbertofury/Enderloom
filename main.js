@@ -3194,7 +3194,16 @@ async function runSelfTest() {
   check('Enderloom React workspace boots through the Electron preload', launcherUi?.bridge===true && launcherUi?.rootChildren>0 && /Enderloom/i.test(launcherUi?.title||''), JSON.stringify(launcherUi));
   const launcherCoreInfo = await launcherService.request('get_app_info');
   const launcherCoreInstances = await launcherService.request('list_instances');
+  const emptyContentSourceIndex = await launcherService.request('list_content_source_index', {
+    instanceIds: [],
+    kind: 'mods',
+  });
   check('Electron invokes the real Rust launcher core', !!launcherCoreInfo?.version && Array.isArray(launcherCoreInstances), JSON.stringify({version:launcherCoreInfo?.version,instances:launcherCoreInstances?.length}));
+  check(
+    'Browse installed-state index crosses the Electron/Rust IPC boundary',
+    emptyContentSourceIndex && typeof emptyContentSourceIndex==='object' && Object.keys(emptyContentSourceIndex).length===0,
+    JSON.stringify(emptyContentSourceIndex),
+  );
   await command('launcher');
   const launcherBounds = launcherView?.getBounds?.() || {};
   const [launcherW,launcherH] = win.getContentSize();
@@ -3378,6 +3387,16 @@ async function runSelfTest() {
       seededProjectPaint?.heading==='Sodium' &&
       Number(seededProjectPaint?.elapsedMs)<300,
     JSON.stringify(seededProjectPaint),
+  );
+  const installedIndexBenchmark = await launcherView.webContents.executeJavaScript(
+    `window.__enderloomBrowseTest?.benchmarkInstalledIndex?.()`,
+    true,
+  );
+  check(
+    'Browse installed-state indexing preserves results and materially reduces repeated render work',
+    installedIndexBenchmark?.equivalent===true &&
+      Number(installedIndexBenchmark?.speedup)>=2,
+    JSON.stringify(installedIndexBenchmark),
   );
   stage('browse-seeded-paint');
   await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.reset?.(); true`, true);

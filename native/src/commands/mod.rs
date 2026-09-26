@@ -27,9 +27,7 @@ pub(crate) mod worlds;
 pub(crate) fn find_instance(state: &AppState, instance_id: &str) -> Result<Instance> {
     state
         .db
-        .list_instances(&state.files)?
-        .into_iter()
-        .find(|i| i.id == instance_id)
+        .instance(&state.files, instance_id)?
         .ok_or_else(|| Error::NotFound(format!("instance {instance_id}")))
 }
 

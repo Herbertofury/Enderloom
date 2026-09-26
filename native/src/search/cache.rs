@@ -1,6 +1,6 @@
 use std::{
-    collections::HashSet,
-    sync::{Arc, Mutex, OnceLock},
+    collections::{HashMap, HashSet},
+    sync::{Arc, Mutex, OnceLock, Weak},
 };
 
 use reqwest::{header::IF_NONE_MATCH, RequestBuilder, StatusCode};
@@ -87,6 +87,25 @@ pub async fn fetch<T: DeserializeOwned>(
 fn background_refreshes() -> &'static Mutex<HashSet<String>> {
     static REFRESHING: OnceLock<Mutex<HashSet<String>>> = OnceLock::new();
     REFRESHING.get_or_init(|| Mutex::new(HashSet::new()))
+}
+
+fn cold_fetch_locks() -> &'static Mutex<HashMap<String, Weak<tokio::sync::Mutex<()>>>> {
+    static LOCKS: OnceLock<Mutex<HashMap<String, Weak<tokio::sync::Mutex<()>>>>> =
+        OnceLock::new();
+    LOCKS.get_or_init(|| Mutex::new(HashMap::new()))
+}
+
+fn cold_fetch_lock(key: &str) -> Arc<tokio::sync::Mutex<()>> {
+    let mut locks = cold_fetch_locks().lock().unwrap();
+    if let Some(existing) = locks.get(key).and_then(Weak::upgrade) {
+        return existing;
+    }
+    if locks.len() > 512 {
+        locks.retain(|_, entry| entry.strong_count() > 0);
+    }
+    let lock = Arc::new(tokio::sync::Mutex::new(()));
+    locks.insert(key.to_string(), Arc::downgrade(&lock));
+    lock
 }
 
 fn spawn_background_refresh(
@@ -182,6 +201,26 @@ pub async fn fetch_swr<T: DeserializeOwned>(
         }
     }
 
+    // Cold misses can arrive concurrently from hover prefetch, project navigation,
+    // Catalog handoff, and provider enrichment. Serialize only identical cache keys,
+    // then recheck SQLite after the leader finishes so equivalent requests share one
+    // authoritative network fetch instead of consuming multiple provider/rate-limit slots.
+    let lock = cold_fetch_lock(key);
+    let _guard = lock.lock().await;
+
+    let cached = state.db.cache_get(key, now()).ok().flatten();
+    if let Some(entry) = &cached {
+        if let Ok(value) = serde_json::from_str(&entry.body) {
+            if entry.fresh {
+                return Ok(value);
+            }
+            if servable_stale(&cached).is_some() {
+                spawn_background_refresh(state, key, ttl_secs, request, entry);
+                return Ok(value);
+            }
+        }
+    }
+
     fetch(state, key, ttl_secs, request).await
 }
 
@@ -216,7 +255,7 @@ pub async fn post<T: DeserializeOwned>(state: &AppState, request: RequestBuilder
 
 #[cfg(test)]
 mod tests {
-    use super::{rejects_key, servable_stale, MAX_STALE_FALLBACK};
+    use super::{cold_fetch_lock, rejects_key, servable_stale, MAX_STALE_FALLBACK};
     use crate::db::CachedResponse;
     use reqwest::StatusCode;
 
@@ -235,6 +274,21 @@ mod tests {
         assert!(servable_stale(&entry(MAX_STALE_FALLBACK)).is_some());
         assert!(servable_stale(&entry(MAX_STALE_FALLBACK + 1)).is_none());
         assert!(servable_stale(&None).is_none());
+    }
+
+    #[test]
+    fn cold_fetches_share_only_live_identical_key_locks() {
+        let key = "test:cold-singleflight:project";
+        let first = cold_fetch_lock(key);
+        let second = cold_fetch_lock(key);
+        assert!(std::sync::Arc::ptr_eq(&first, &second));
+
+        drop(first);
+        drop(second);
+
+        let replacement = cold_fetch_lock(key);
+        let other = cold_fetch_lock("test:cold-singleflight:other");
+        assert!(!std::sync::Arc::ptr_eq(&replacement, &other));
     }
 
     #[test]
