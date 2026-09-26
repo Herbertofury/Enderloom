@@ -92,6 +92,21 @@ fn short_identity_query(title: &str) -> Option<String> {
         .find(|token| token.len() >= 4)
 }
 
+fn normalized_source(details: &ProjectDetails) -> Option<String> {
+    let source = details
+        .links
+        .iter()
+        .find(|link| link.label.eq_ignore_ascii_case("View source"))?
+        .url
+        .trim()
+        .trim_end_matches('/')
+        .trim_end_matches(".git")
+        .to_ascii_lowercase()
+        .replace("https://", "")
+        .replace("http://", "");
+    (!source.is_empty()).then_some(source)
+}
+
 fn mirror_confidence(
     current_title: &str,
     current_author: &str,
@@ -109,8 +124,6 @@ fn mirror_confidence(
         95
     } else if same_author && title_score >= 55 {
         88
-    } else if title_score == 100 {
-        82
     } else {
         0
     }
@@ -150,7 +163,10 @@ pub async fn project_mirrors(
         }
     }
 
+    let current_source = normalized_source(&current);
     let mut mirrors = Vec::new();
+    let mut source_checks = Vec::new();
+
     for candidate in candidates.into_values() {
         let confidence = mirror_confidence(
             &current.title,
@@ -165,7 +181,31 @@ pub async fn project_mirrors(
                 project: candidate,
                 confidence,
             });
+            continue;
         }
+
+        if current_source.is_some() && title_similarity(&current.title, &candidate.title) >= 55 {
+            source_checks.push(candidate);
+        }
+    }
+
+    if let Some(current_source) = current_source {
+        let checks = source_checks.into_iter().map(|candidate| async move {
+            let details = project_details(state, other, &candidate.id).await.ok()?;
+            (normalized_source(&details).as_deref() == Some(current_source.as_str())).then_some(
+                ProjectMirror {
+                    provider: other.as_str().to_string(),
+                    project: candidate,
+                    confidence: 100,
+                },
+            )
+        });
+        mirrors.extend(
+            futures::future::join_all(checks)
+                .await
+                .into_iter()
+                .flatten(),
+        );
     }
 
     mirrors.sort_by(|a, b| {
@@ -341,6 +381,10 @@ mod tests {
                 "DevPunchyMan",
             ),
             95
+        );
+        assert_eq!(
+            mirror_confidence("Example Mod", "Alice", "Example Mod", "Bob"),
+            0
         );
     }
 
