@@ -18,6 +18,7 @@ import {
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
+import { prefetchProject, prefetchProjectDetails } from "../lib/project-cache";
 import type {
   Instance,
   ContentKind,
@@ -74,8 +75,18 @@ const SORTS: Array<{ id: SortOrder; label: string }> = [
 ];
 
 const PAGE_SIZE = 40;
+const MAX_BROWSE_PAGE_CACHE = 48;
+const browsePageCache = new Map<string, SearchPage>();
 
-
+function rememberBrowsePage(signature: string, page: SearchPage) {
+  browsePageCache.delete(signature);
+  browsePageCache.set(signature, page);
+  while (browsePageCache.size > MAX_BROWSE_PAGE_CACHE) {
+    const oldest = browsePageCache.keys().next().value as string | undefined;
+    if (!oldest) break;
+    browsePageCache.delete(oldest);
+  }
+}
 
 export function DiscoverView() {
   const kind = useStore((s) => s.discoverKind);
@@ -174,6 +185,8 @@ export function DiscoverView() {
   const contentInstaller = useContentInstaller();
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const intentRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const lastIssuedQueryRef = useRef(query);
   const requestRef = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -257,7 +270,6 @@ export function DiscoverView() {
   );
 
   const signature = JSON.stringify({ provider, kind, query, sort, filters, offset });
-  const firstRun = useRef(true);
 
   useEffect(() => {
     if (provider === "curseforge" && !hasCfKey) {
@@ -267,16 +279,27 @@ export function DiscoverView() {
       setError(null);
       return;
     }
-    const restored = firstRun.current && browse.page !== null && browse.signature === signature;
-    firstRun.current = false;
-    if (restored) {
-      setSearching(false);
-      return;
+
+    const cached =
+      browse.signature === signature && browse.page !== null
+        ? browse.page
+        : (browsePageCache.get(signature) ?? null);
+
+    if (cached && (browse.signature !== signature || browse.page !== cached)) {
+      setBrowse({ page: cached, signature });
     }
 
     const ticket = ++requestRef.current;
-    setSearching(true);
+    setSearching(cached === null);
     clearTimeout(debounceRef.current);
+
+    // Only free-text typing needs a tiny debounce. Provider, filter, page and restored
+    // navigation changes start immediately; an unconditional 300 ms delay made a cache hit
+    // feel slow before any real work even began.
+    const queryChanged = lastIssuedQueryRef.current !== query;
+    lastIssuedQueryRef.current = query;
+    const delay = queryChanged ? 120 : 0;
+
     debounceRef.current = setTimeout(async () => {
       try {
         const result = await api.searchContent(provider, kind, {
@@ -291,18 +314,47 @@ export function DiscoverView() {
           limit: PAGE_SIZE,
         });
         if (ticket !== requestRef.current) return;
+        rememberBrowsePage(signature, result);
         setBrowse({ page: result, signature });
         setError(null);
+
+        if (result.offset + result.limit < result.total) {
+          const nextOffset = result.offset + result.limit;
+          const nextSignature = JSON.stringify({
+            provider,
+            kind,
+            query,
+            sort,
+            filters,
+            offset: nextOffset,
+          });
+          if (!browsePageCache.has(nextSignature)) {
+            void api
+              .searchContent(provider, kind, {
+                query,
+                game_versions: filters.gameVersions,
+                loaders: filters.loaders,
+                categories: filters.categories,
+                environment: filters.environment,
+                open_source_only: filters.openSourceOnly,
+                sort,
+                offset: nextOffset,
+                limit: PAGE_SIZE,
+              })
+              .then((nextPage) => rememberBrowsePage(nextSignature, nextPage))
+              .catch(() => {});
+          }
+        }
       } catch (e) {
         if (ticket !== requestRef.current) return;
-        setPage(null);
+        if (!cached) setPage(null);
         setError(String(e));
       } finally {
         if (ticket === requestRef.current) setSearching(false);
       }
-    }, 300);
+    }, delay);
     return () => clearTimeout(debounceRef.current);
-  }, [provider, kind, query, sort, filters, offset, hasCfKey]);
+  }, [provider, kind, query, sort, filters, offset, hasCfKey, signature]);
 
   const connectCurseForge = async () => {
     const key = curseForgeKey.trim();
@@ -342,6 +394,23 @@ export function DiscoverView() {
     setOffset(next);
     scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  const cancelProjectIntent = useCallback(() => {
+    clearTimeout(intentRef.current);
+    intentRef.current = undefined;
+  }, []);
+
+  const scheduleProjectIntent = useCallback(
+    (project: ProjectSummary) => {
+      cancelProjectIntent();
+      intentRef.current = setTimeout(() => {
+        prefetchProject(provider, project.id, kind);
+      }, 80);
+    },
+    [provider, kind, cancelProjectIntent],
+  );
+
+  useEffect(() => cancelProjectIntent, [cancelProjectIntent]);
 
   const isCompatible = useCallback(
     (instance: Instance, project: ProjectSummary) => {
@@ -504,6 +573,22 @@ export function DiscoverView() {
   };
 
   const hits = page?.hits ?? [];
+  const visibleWarmKey = hits
+    .slice(0, 6)
+    .map((project) => project.id)
+    .join("|");
+
+  useEffect(() => {
+    if (!visibleWarmKey) return;
+    const visible = hits.slice(0, 6);
+    const timer = setTimeout(() => {
+      for (const project of visible) {
+        prefetchProjectDetails(provider, project.id);
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [provider, visibleWarmKey]);
+
   const total = page?.total ?? 0;
   const activeFilters = countActive(filters);
   const pageIndex = Math.floor(offset / PAGE_SIZE);
@@ -831,7 +916,13 @@ export function DiscoverView() {
                           : alsoIn.length > 0
                             ? `Installed in ${alsoIn.map((i) => i.name).join(", ")}`
                             : undefined,
-                    onOpen: () => openProject(provider, project.id, kind, project.title),
+                    onOpen: () => {
+                      cancelProjectIntent();
+                      prefetchProject(provider, project.id, kind);
+                      openProject(provider, project.id, kind, project.title, project);
+                    },
+                    onIntent: () => scheduleProjectIntent(project),
+                    onIntentEnd: cancelProjectIntent,
                     action: done ? (
                       <button
                         onClick={(e) => {

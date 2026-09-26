@@ -19,6 +19,40 @@ interface EnderloomLauncherBridge {
     projectId?: string;
     kind?: string;
   }): Promise<{ opened: true; query: string }>;
+  providerSurface(request: {
+    action:
+      | "open"
+      | "layout"
+      | "hide"
+      | "dispose"
+      | "back"
+      | "forward"
+      | "reload"
+      | "promote"
+      | "external"
+      | "copy-url"
+      | "state";
+    provider?: string;
+    projectKey?: string;
+    url?: string;
+    rect?: { x: number; y: number; width: number; height: number };
+  }): Promise<{
+    open: boolean;
+    visible: boolean;
+    provider: string;
+    projectKey: string;
+    url: string;
+    title: string;
+    favicon: string;
+    zoom: number;
+    loading: boolean;
+    canBack: boolean;
+    canForward: boolean;
+    error: { code: number; description: string; url: string } | null;
+    promoted?: boolean;
+    tabId?: string;
+    promotedUrl?: string;
+  }>;
   revealInFolder(path: string): Promise<void>;
   assetUrl(path: string): string;
   windowCommand(command: string, payload?: unknown): Promise<unknown>;

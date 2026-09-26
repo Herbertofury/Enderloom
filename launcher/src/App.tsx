@@ -29,13 +29,84 @@ import { ConversionView } from "./views/ConversionView";
 import { ProjectView } from "./views/ProjectView";
 import { SettingsView } from "./views/SettingsView";
 import { useStore } from "./store";
-import type { View } from "./lib/types";
+import type { ProjectSummary, View } from "./lib/types";
 
 const StatsView = lazy(() =>
   import("./views/StatsView").then((module) => ({ default: module.StatsView })),
 );
 
 const embedded = window.enderloomLauncher?.embedded === true;
+
+if (window.enderloomLauncher?.selfTest) {
+  const testWindow = window as Window & {
+    __enderloomBrowseTest?: {
+      openSeededProject: (
+        seed: ProjectSummary,
+      ) => Promise<{ elapsedMs: number; heading: string; timedOut: boolean }>;
+      reset: () => void;
+    };
+  };
+
+  testWindow.__enderloomBrowseTest = {
+    openSeededProject: (seed) =>
+      new Promise((resolve) => {
+        const started = performance.now();
+        let settled = false;
+        let timer = 0;
+        let observer: MutationObserver | null = null;
+        const finish = (heading: string, timedOut: boolean) => {
+          if (settled) return;
+          settled = true;
+          if (timer) window.clearTimeout(timer);
+          observer?.disconnect();
+          resolve({
+            elapsedMs: performance.now() - started,
+            heading,
+            timedOut,
+          });
+        };
+        const inspectCommittedDom = () => {
+          const heading = document.querySelector("h1")?.textContent?.trim() ?? "";
+          if (heading !== seed.title) return false;
+          queueMicrotask(() => finish(heading, false));
+          return true;
+        };
+
+        // requestAnimationFrame can be throttled for an embedded WebContentsView in Xvfb
+        // even when React has already committed the visible project. Observe the real DOM
+        // commit instead so this runtime check measures Enderloom, not CI compositor policy.
+        observer = new MutationObserver(() => {
+          inspectCommittedDom();
+        });
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
+
+        const state = useStore.getState();
+        useStore.setState({
+          catalogInstallRequest: null,
+          settings: state.settings
+            ? { ...state.settings, onboarded: true }
+            : state.settings,
+        });
+        useStore.getState().openProject("modrinth", seed.id, "mods", seed.title, seed);
+        inspectCommittedDom();
+        timer = window.setTimeout(() => {
+          finish(document.querySelector("h1")?.textContent?.trim() ?? "", true);
+        }, 2_000);
+      }),
+    reset: () => {
+      useStore.setState({
+        view: "home",
+        viewStack: [],
+        projectRef: null,
+        catalogInstallRequest: null,
+      });
+    },
+  };
+}
 
 const VIEWS: Record<View, React.ComponentType> = {
   home: HomeView,
@@ -188,13 +259,13 @@ function App() {
             </div>
           </div>
         ) : (
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync" initial={false}>
             <motion.div
               key={view}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: view === "discover" || view === "project" ? 0.06 : 0.15 }}
               className="flex min-h-0 flex-1 flex-col"
             >
               <Suspense fallback={<div className="flex-1" />}>

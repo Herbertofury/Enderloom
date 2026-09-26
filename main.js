@@ -53,6 +53,7 @@ let chromeOverlayHeight = BASE_TOP;
 let statusBarCollapsed = false;
 let catalogView = null;
 let launcherView = null;
+let launcherProviderSurface = null;
 let tabs = [];
 let activeId = CATALOG_ID;
 let splitMode = false;
@@ -545,6 +546,256 @@ function scheduleChromeGuard() {
     }, delay);
   }
 }
+function launcherProviderSurfaceState() {
+  const surface = launcherProviderSurface;
+  const wc = surface?.view?.webContents;
+  if (!surface || !wc || wc.isDestroyed()) {
+    return {
+      open: false,
+      visible: false,
+      provider: '',
+      projectKey: '',
+      url: '',
+      title: '',
+      loading: false,
+      canBack: false,
+      canForward: false,
+      favicon: '',
+      zoom: 1,
+      error: null,
+    };
+  }
+  return {
+    open: true,
+    visible: !!surface.visible,
+    provider: surface.provider,
+    projectKey: surface.projectKey,
+    url: wc.getURL() || surface.url,
+    title: surface.title || '',
+    favicon: surface.favicon || '',
+    zoom: wc.getZoomFactor(),
+    loading: !!surface.loading,
+    canBack: navCanBack(wc),
+    canForward: navCanForward(wc),
+    error: surface.error || null,
+  };
+}
+function publishLauncherProviderSurfaceState() {
+  if (launcherView && !launcherView.webContents.isDestroyed()) {
+    launcherView.webContents.send('provider-surface-state', launcherProviderSurfaceState());
+  }
+}
+function providerSurfaceBounds(rect) {
+  if (!launcherView || !rect) return null;
+  const host = launcherView.getBounds();
+  const x = Math.max(0, Math.min(host.width - 1, Math.round(Number(rect.x) || 0)));
+  const y = Math.max(0, Math.min(host.height - 1, Math.round(Number(rect.y) || 0)));
+  const width = Math.max(1, Math.min(host.width - x, Math.round(Number(rect.width) || 1)));
+  const height = Math.max(1, Math.min(host.height - y, Math.round(Number(rect.height) || 1)));
+  return { x: host.x + x, y: host.y + y, width, height };
+}
+function layoutLauncherProviderSurface() {
+  const surface = launcherProviderSurface;
+  if (!surface?.view || surface.view.webContents.isDestroyed()) return;
+  const launcherVisible = !!launcherView?.getVisible?.();
+  const bounds = providerSurfaceBounds(surface.rect);
+  if (!surface.visible || !launcherVisible || !bounds || bounds.width < 2 || bounds.height < 2) {
+    setViewVisible(surface.view, false);
+    return;
+  }
+  showView(surface.view, bounds);
+}
+function disposeLauncherProviderSurface() {
+  const surface = launcherProviderSurface;
+  launcherProviderSurface = null;
+  if (!surface?.view) {
+    publishLauncherProviderSurfaceState();
+    return false;
+  }
+  try { detach(surface.view); } catch {}
+  try { if (!surface.view.webContents.isDestroyed()) surface.view.webContents.close(); } catch {}
+  publishLauncherProviderSurfaceState();
+  return true;
+}
+function openLauncherProviderSurface(request = {}) {
+  const url = safeHttpUrl(request.url);
+  if (!url) throw new Error('Provider pages require an HTTP or HTTPS URL');
+  const provider = String(request.provider || 'provider').slice(0, 32).toLowerCase();
+  const projectKey = String(request.projectKey || url).slice(0, 512);
+  const rect = request.rect && typeof request.rect === 'object' ? request.rect : null;
+
+  const existing = launcherProviderSurface;
+  if (
+    existing?.view &&
+    !existing.view.webContents.isDestroyed() &&
+    existing.provider === provider &&
+    existing.projectKey === projectKey
+  ) {
+    existing.visible = true;
+    if (rect) existing.rect = rect;
+    layoutLauncherProviderSurface();
+    publishLauncherProviderSurfaceState();
+    return launcherProviderSurfaceState();
+  }
+
+  disposeLauncherProviderSurface();
+  const view = new WebContentsView({
+    webPreferences: {
+      session: session.fromPartition(PARTITION),
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: true,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      spellcheck: true,
+      backgroundThrottling: false,
+    },
+  });
+  view.setBackgroundColor('#0b0d15');
+  setViewVisible(view, false);
+  const surface = {
+    id: 'launcher-provider-surface',
+    provider,
+    projectKey,
+    url,
+    title: provider,
+    favicon: '',
+    loading: true,
+    error: null,
+    visible: true,
+    rect,
+    view,
+  };
+  launcherProviderSurface = surface;
+
+  view.webContents.setWindowOpenHandler((details) => {
+    const target = safeHttpUrl(details.url);
+    if (target) createBrowserTab(target, true);
+    return { action: 'deny' };
+  });
+  view.webContents.on('will-navigate', (event, targetUrl) => {
+    if (!safeHttpUrl(targetUrl)) event.preventDefault();
+  });
+  view.webContents.on('page-title-updated', (_event, title) => {
+    surface.title = title || provider;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('page-favicon-updated', (_event, favicons) => {
+    surface.favicon = favicons?.[0] || '';
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-start-loading', () => {
+    surface.loading = true;
+    surface.error = null;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-stop-loading', () => {
+    surface.loading = false;
+    surface.url = view.webContents.getURL() || surface.url;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-navigate', (_event, nextUrl) => {
+    surface.url = nextUrl;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-navigate-in-page', (_event, nextUrl) => {
+    surface.url = nextUrl;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-fail-load', (_event, code, description, failedUrl, isMainFrame) => {
+    if (!isMainFrame || code === -3) return;
+    surface.loading = false;
+    surface.error = { code, description, url: failedUrl || surface.url };
+    surface.visible = false;
+    layoutLauncherProviderSurface();
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('render-process-gone', (_event, details) => {
+    surface.loading = false;
+    surface.error = {
+      code: -1,
+      description: `Renderer stopped: ${details?.reason || 'unknown'}`,
+      url: surface.url,
+    };
+    surface.visible = false;
+    layoutLauncherProviderSurface();
+    publishLauncherProviderSurfaceState();
+  });
+  setupContextMenu(surface);
+  layoutLauncherProviderSurface();
+  view.webContents.loadURL(url).catch((error) => {
+    if (/ERR_ABORTED|\(-3\)/i.test(String(error?.message || error))) return;
+    surface.loading = false;
+    surface.error = { code: -1, description: error.message, url };
+    publishLauncherProviderSurfaceState();
+  });
+  publishLauncherProviderSurfaceState();
+  return launcherProviderSurfaceState();
+}
+async function launcherProviderSurfaceCommand(action, request = {}) {
+  const surface = launcherProviderSurface;
+  const wc = surface?.view?.webContents;
+  switch (action) {
+    case 'open':
+      return openLauncherProviderSurface(request);
+    case 'layout':
+      if (surface && request.rect && typeof request.rect === 'object') {
+        surface.rect = request.rect;
+        layoutLauncherProviderSurface();
+      }
+      return launcherProviderSurfaceState();
+    case 'hide':
+      if (surface) {
+        surface.visible = false;
+        layoutLauncherProviderSurface();
+        publishLauncherProviderSurfaceState();
+      }
+      return launcherProviderSurfaceState();
+    case 'dispose':
+      disposeLauncherProviderSurface();
+      return launcherProviderSurfaceState();
+    case 'back':
+      if (wc && navCanBack(wc)) navBack(wc);
+      break;
+    case 'forward':
+      if (wc && navCanForward(wc)) navForward(wc);
+      break;
+    case 'reload':
+      if (wc && surface) {
+        surface.visible = true;
+        surface.error = null;
+        layoutLauncherProviderSurface();
+        surface.loading ? wc.stop() : wc.reload();
+      }
+      break;
+    case 'promote': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (!target) throw new Error('No provider page is available to open in a new tab');
+      const tab = createBrowserTab(target, true, {
+        zoom: wc && !wc.isDestroyed() ? wc.getZoomFactor() : 1,
+      });
+      return { ...launcherProviderSurfaceState(), promoted: true, tabId: tab.id, promotedUrl: target };
+    }
+    case 'external': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (!target) throw new Error('No provider page is available to open externally');
+      await shell.openExternal(target);
+      break;
+    }
+    case 'copy-url': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (target) clipboard.writeText(target);
+      break;
+    }
+    case 'state':
+      break;
+    default:
+      throw new Error('Unsupported provider surface action');
+  }
+  publishLauncherProviderSurfaceState();
+  return launcherProviderSurfaceState();
+}
+
 function layoutViews() {
   if (!win || win.isDestroyed()) return;
   const [w, h] = win.getContentSize();
@@ -584,6 +835,7 @@ function layoutViews() {
   for (const t of tabs) if (!visible.has(t.view)&&!viewIsDetached(t.view)) setViewVisible(t.view, false);
   if (catalogView && !visible.has(catalogView)&&!viewIsDetached(catalogView)) setViewVisible(catalogView, false);
   if (launcherView && !visible.has(launcherView)&&!viewIsDetached(launcherView)) setViewVisible(launcherView, false);
+  layoutLauncherProviderSurface();
   layoutSplitterOverlay();
   layoutStatusOverlay();
   layoutChromeOverlay();
@@ -638,8 +890,11 @@ function setupContextMenu(t) {
     Menu.buildFromTemplate(items).popup({ window: win });
   });
 }
-function createBrowserTab(rawUrl, activate = true) {
+function createBrowserTab(rawUrl, activate = true, options = {}) {
   const url = normalizeAddress(rawUrl);
+  const preferredZoom = Number.isFinite(Number(options.zoom))
+    ? Math.max(.5, Math.min(2.5, Number(options.zoom)))
+    : null;
   const id = `web-${Date.now().toString(36)}-${nextTab++}`;
   const liveSession = session.fromPartition(PARTITION);
   const view = new WebContentsView({
@@ -657,7 +912,10 @@ function createBrowserTab(rawUrl, activate = true) {
   view.setBackgroundColor('#0b0d15');
   setViewVisible(view, false);
   try { view.setBounds({ x: 0, y: BASE_TOP, width: 1, height: 1 }); } catch {}
-  const t = { id, url, title: 'Loading…', loading: true, favicon: '', view };
+  const t = { id, url, title: 'Loading…', loading: true, favicon: '', view, preferredZoom };
+  if (preferredZoom !== null) {
+    try { view.webContents.setZoomFactor(preferredZoom); } catch {}
+  }
   tabs.push(t);
   tabOrder.push(id);
   view.webContents.setWindowOpenHandler(details => {
@@ -671,7 +929,14 @@ function createBrowserTab(rawUrl, activate = true) {
   view.webContents.on('page-title-updated', (_e, title) => { t.title = title || new URL(view.webContents.getURL()).hostname; publishState(); scheduleSave(); });
   view.webContents.on('page-favicon-updated', (_e, favicons) => { t.favicon = favicons?.[0] || ''; publishState(); });
   view.webContents.on('did-start-loading', () => { t.loading = true; publishState(); refreshShellChrome(); send('status', `Loading ${t.title || url}`); });
-  view.webContents.on('did-stop-loading', () => { t.loading = false; t.url = view.webContents.getURL() || url; publishState(); scheduleSave(); scheduleChromeGuard(); scheduleTabTranslator(t,{immediate:true}); send('status', `Ready · ${t.title || t.url}`); });
+  view.webContents.on('did-stop-loading', () => {
+    t.loading = false;
+    t.url = view.webContents.getURL() || url;
+    if (t.preferredZoom !== null) {
+      try { view.webContents.setZoomFactor(t.preferredZoom); } catch {}
+    }
+    publishState(); scheduleSave(); scheduleChromeGuard(); scheduleTabTranslator(t,{immediate:true}); send('status', `Ready · ${t.title || t.url}`);
+  });
   view.webContents.on('focus', refreshShellChrome);
   view.webContents.on('dom-ready', () => scheduleChromeGuard());
   view.webContents.on('did-navigate', (_e, u) => { t.url = u; publishState(); scheduleSave(); });
@@ -698,7 +963,11 @@ function closeTab(id) {
   if(tabIsDetached(id))disposeDetachedWindow(id,{reattach:false});
   tabOrder=tabOrder.filter(value=>value!==id);tabGroups.delete(id);
   stopTabTranslatorTimer(t);
-  closedTabs.unshift({ url: t.view.webContents.getURL() || t.url, title: t.title });
+  closedTabs.unshift({
+    url: t.view.webContents.getURL() || t.url,
+    title: t.title,
+    zoom: t.preferredZoom ?? t.view.webContents.getZoomFactor(),
+  });
   closedTabs = closedTabs.slice(0, 20);
   detach(t.view);
   try { t.view.webContents.close(); } catch {}
@@ -790,6 +1059,7 @@ function setupLauncher() {
   launcherView.webContents.on('focus', refreshShellChrome);
   launcherView.webContents.on('render-process-gone', () => {
     if (!win || win.isDestroyed()) return;
+    disposeLauncherProviderSurface();
     try { detach(launcherView); } catch {}
     launcherView = null;
     setupLauncher();
@@ -979,8 +1249,25 @@ async function command(name, payload) {
   switch (name) {
     case 'activate': activateTab(payload?.id); break;
     case 'new-tab': createBrowserTab(payload?.url || 'https://www.google.com/', true); break;
+    case 'promote-provider-page': {
+      const current = launcherProviderSurfaceState();
+      const target = safeHttpUrl(payload?.url) || safeHttpUrl(current.open && current.url);
+      if (!target) throw new Error('No provider page is available to promote');
+      const tab = createBrowserTab(target, true, {
+        zoom:
+          current.open && current.url === target && launcherProviderSurface?.view?.webContents
+            ? launcherProviderSurface.view.webContents.getZoomFactor()
+            : 1,
+      });
+      return { promoted: true, tabId: tab.id, url: target };
+    }
     case 'close-tab': closeTab(payload?.id || activeId); break;
-    case 'reopen-tab': { const x = closedTabs.shift(); if (x) createBrowserTab(x.url, true); break; }
+    case 'reopen-tab': {
+      const x = closedTabs.shift();
+      if (!x) return { reopened:false };
+      const reopened = createBrowserTab(x.url, true, { zoom: x.zoom });
+      return { reopened:true, tabId:reopened.id, url:x.url };
+    }
     case 'reorder-tab': reorderTab(String(payload?.id||''),String(payload?.beforeId||'')); break;
     case 'tab-group': setTabGroup(String(payload?.id||''),String(payload?.group||'')); break;
     case 'detach-tab': detachTab(String(payload?.id||activeId),{maximize:!!payload?.maximize,fullscreen:!!payload?.fullscreen}); break;
@@ -1025,7 +1312,7 @@ async function command(name, payload) {
     case 'external': { const u = safeHttpUrl(payload?.url || currentUrl()); if (u) await shell.openExternal(u); break; }
     case 'copy-url': { const value = payload?.url || currentUrl(); if (/^https?:/i.test(value)) clipboard.writeText(value); break; }
     case 'find': if (t) { if (payload?.text) t.view.webContents.findInPage(payload.text, { forward: payload.forward !== false, findNext: !!payload.findNext }); else t.view.webContents.stopFindInPage('clearSelection'); } break;
-    case 'zoom': if (t) { const current = t.view.webContents.getZoomFactor(); const next = payload?.mode === 'in' ? Math.min(2.5, current + .1) : payload?.mode === 'out' ? Math.max(.5, current - .1) : 1; t.view.webContents.setZoomFactor(next); publishState(); } break;
+    case 'zoom': if (t) { const current = t.view.webContents.getZoomFactor(); const next = payload?.mode === 'in' ? Math.min(2.5, current + .1) : payload?.mode === 'out' ? Math.max(.5, current - .1) : 1; t.preferredZoom=next; t.view.webContents.setZoomFactor(next); publishState(); } break;
     case 'devtools': if (t) t.view.webContents.openDevTools({ mode: 'detach' }); else if (activeId === LAUNCHER_ID) launcherView?.webContents.openDevTools({ mode: 'detach' }); else catalogView.webContents.openDevTools({ mode: 'detach' }); break;
     case 'downloads-folder': await shell.openPath(app.getPath('downloads')); break;
     case 'open-download': if (payload?.path) await shell.openPath(payload.path); break;
@@ -1966,7 +2253,11 @@ function orderMediaPrimeUrls(urls=[]) {
 function enqueueMediaPrime(sender, raw={}, deferPump=false) {
   if(!sender||sender.isDestroyed())return;
   const key=String(raw?.key||'').slice(0,300);if(!key)return;
-  const urls=orderMediaPrimeUrls([...new Set((Array.isArray(raw?.urls)?raw.urls:[]).map(safeHttpUrl).filter(Boolean))]);if(!urls.length)return;
+  let urls=orderMediaPrimeUrls([...new Set((Array.isArray(raw?.urls)?raw.urls:[]).map(safeHttpUrl).filter(Boolean))]);if(!urls.length)return;
+  if(testMode){
+    urls=urls.filter(value=>{try{const host=new URL(value).hostname;return host==='127.0.0.1'||host==='localhost'}catch{return false}});
+    if(!urls.length)return;
+  }
   const context=mediaContext(raw?.context||{}),priority=Number(raw?.priority)||0;
   const id=mediaPrimeJobId(sender,key),existing=mediaPrimeJobs.get(id);
   if(existing){existing.priority=Math.max(existing.priority,priority);existing.urls=orderMediaPrimeUrls([...new Set([...urls,...existing.urls])]);return;}
@@ -2638,6 +2929,18 @@ ipcMain.handle('launcher:open-external', async (event, rawUrl) => {
   if (!url) throw new Error('Only HTTPS/HTTP links can be opened');
   await shell.openExternal(url);
 });
+ipcMain.handle('launcher:provider-surface', async (event, raw) => {
+  launcherSender(event);
+  const action = String(raw?.action || '').trim().toLowerCase();
+  const request = {
+    ...raw,
+    action,
+    provider: String(raw?.provider || '').slice(0, 32),
+    projectKey: String(raw?.projectKey || '').slice(0, 512),
+    url: String(raw?.url || '').slice(0, 4096),
+  };
+  return launcherProviderSurfaceCommand(action, request);
+});
 ipcMain.handle('launcher:open-catalog-research', async (event, raw) => {
   launcherSender(event);
   const query = String(raw?.query || '').trim().replace(/[\u0000-\u001f\u007f]/g, '').slice(0, 256);
@@ -2965,6 +3268,80 @@ async function runSelfTest() {
     catalogInstallUi?.dialogTitle==='Install project' && catalogInstallUi?.hasInstanceSearch===true && /compatible instance|Checking every instance/i.test(catalogInstallUi?.bodyText||''),
     JSON.stringify({dialogTitle:catalogInstallUi?.dialogTitle,hasInstanceSearch:catalogInstallUi?.hasInstanceSearch}),
   );
+
+  const providerOpened = openLauncherProviderSurface({
+    provider:'github',
+    projectKey:'self-test-provider',
+    url:`http://127.0.0.1:${port}/`,
+    rect:{x:48,y:210,width:Math.max(320,(launcherView.getBounds().width||900)-96),height:300},
+  });
+  const providerDeadline=Date.now()+2500;
+  while(launcherProviderSurface?.loading && Date.now()<providerDeadline)await new Promise(resolve=>setTimeout(resolve,25));
+  const providerPrefs=launcherProviderSurface?.view?.webContents?.getLastWebPreferences?.()||{};
+  const providerBounds=launcherProviderSurface?.view?.getBounds?.()||{};
+  check(
+    'Browse provider pane is a secure persistent WebContentsView',
+    providerOpened?.open===true &&
+      launcherProviderSurface?.view?.getVisible?.()===true &&
+      providerPrefs.sandbox===true &&
+      providerPrefs.nodeIntegration===false &&
+      providerPrefs.contextIsolation===true &&
+      providerPrefs.webSecurity===true &&
+      launcherProviderSurface?.view?.webContents?.session===session.fromPartition(PARTITION) &&
+      providerBounds.width>300 && providerBounds.height>=280,
+    JSON.stringify({providerOpened,providerPrefs,providerBounds}),
+  );
+  await launcherProviderSurface.view.webContents.loadURL(`http://127.0.0.1:${port}/two`);
+  launcherProviderSurface.view.webContents.setZoomFactor(1.25);
+  const providerDeepUrl=launcherProviderSurface.view.webContents.getURL();
+  const providerTabsBefore=tabs.length;
+  const providerPromoted=await launcherProviderSurfaceCommand('promote',{});
+  const promotedTab=getTab(providerPromoted.tabId);
+  if (promotedTab?.loading) await new Promise(resolve => promotedTab.view.webContents.once('did-stop-loading', resolve));
+  check(
+    'Browse provider pane promotes the exact current page and zoom into a normal tab',
+    /\/two$/.test(providerDeepUrl) &&
+      providerPromoted?.promoted===true &&
+      providerPromoted?.promotedUrl===providerDeepUrl &&
+      tabs.length===providerTabsBefore+1 &&
+      promotedTab?.view?.webContents?.getURL?.()===providerDeepUrl &&
+      Math.abs((promotedTab?.view?.webContents?.getZoomFactor?.()||0)-1.25)<.01,
+    JSON.stringify({providerDeepUrl,providerPromoted,zoom:promotedTab?.view?.webContents?.getZoomFactor?.(),tabs:tabs.length}),
+  );
+  if(providerPromoted?.tabId)closeTab(providerPromoted.tabId);
+  const reopenedProvider=await command('reopen-tab',{});
+  const reopenedProviderTab=getTab(reopenedProvider?.tabId);
+  if (reopenedProviderTab?.loading) await new Promise(resolve => reopenedProviderTab.view.webContents.once('did-stop-loading', resolve));
+  check(
+    'Promoted provider page participates in recently-closed restore',
+    reopenedProvider?.reopened===true &&
+      reopenedProvider?.url===providerDeepUrl &&
+      reopenedProviderTab?.view?.webContents?.getURL?.()===providerDeepUrl &&
+      Math.abs((reopenedProviderTab?.view?.webContents?.getZoomFactor?.()||0)-1.25)<.01,
+    JSON.stringify({reopenedProvider,url:reopenedProviderTab?.view?.webContents?.getURL?.(),zoom:reopenedProviderTab?.view?.webContents?.getZoomFactor?.()}),
+  );
+  if(reopenedProvider?.tabId)closeTab(reopenedProvider.tabId);
+  activateTab(LAUNCHER_ID);
+  const providerRestoredVisible=launcherProviderSurface?.view?.getVisible?.()===true;
+  await launcherProviderSurfaceCommand('hide',{});
+  const providerHidden=launcherProviderSurface?.view?.getVisible?.()===false;
+  const providerReopened=openLauncherProviderSurface({
+    provider:'github',
+    projectKey:'self-test-provider',
+    url:`http://127.0.0.1:${port}/`,
+    rect:{x:48,y:210,width:Math.max(320,(launcherView.getBounds().width||900)-96),height:300},
+  });
+  check(
+    'Browse provider pane preserves deep navigation while hidden and reopened',
+    providerRestoredVisible &&
+      providerHidden &&
+      providerReopened?.visible===true &&
+      launcherProviderSurface?.view?.webContents?.getURL?.()===providerDeepUrl,
+    JSON.stringify({providerRestoredVisible,providerHidden,providerReopened,url:launcherProviderSurface?.view?.webContents?.getURL?.()}),
+  );
+  disposeLauncherProviderSurface();
+  stage('provider-surface');
+
   const catalogResearchReceived = catalogView.webContents.executeJavaScript(`new Promise(resolve => {
     let settled=false;
     const off=window.mobCompanion.onResearch(payload => { if(!settled){settled=true;off();resolve(payload)} });
@@ -2979,6 +3356,36 @@ async function runSelfTest() {
   const galleryEnhancerTest = await catalogView.webContents.executeJavaScript('window.__mobGalleryEnhancerTest ? window.__mobGalleryEnhancerTest() : ({passed:false})', true);
   check('streaming media enhancer bridge', galleryEnhancerTest?.passed===true && galleryEnhancerTest?.primePipelineAvailable===true && galleryEnhancerTest?.cacheBatchAvailable===true, JSON.stringify(galleryEnhancerTest));
   stage('catalog-renderer');
+  activateTab(LAUNCHER_ID);
+  const seededProjectPaint = await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.openSeededProject({
+    id:'sodium',
+    slug:'sodium',
+    title:'Sodium',
+    description:'Modern rendering engine',
+    icon_url:null,
+    downloads:100000000,
+    follows:1000000,
+    author:'jellysquid3',
+    categories:['optimization'],
+    game_versions:['1.20.1'],
+    loaders:['fabric'],
+    updated:null,
+    color:null
+  })`, true);
+  check(
+    'seeded Browse project paints without a network-gated page spinner',
+    seededProjectPaint?.timedOut===false &&
+      seededProjectPaint?.heading==='Sodium' &&
+      Number(seededProjectPaint?.elapsedMs)<300,
+    JSON.stringify(seededProjectPaint),
+  );
+  stage('browse-seeded-paint');
+  await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.reset?.(); true`, true);
+  await new Promise(resolve => setTimeout(resolve, 40));
+  // The Browse latency probe temporarily activates the launcher workspace. Restore the
+  // historical Catalog fixture state before exercising the existing media/browser suite
+  // so the new benchmark cannot perturb visibility/focus/compositor assumptions downstream.
+  activateTab(CATALOG_ID);
   const primeRuntime = await catalogView.webContents.executeJavaScript(`new Promise(resolve=>{const key='self-prime-'+Date.now();let first=null;const off=window.mobCompanion.onMedia(p=>{if(p?.key!==key)return;if(p.media&&!first)first=p.media;if(p.done){off();resolve({done:true,first,delivered:p.delivered,elapsedMs:p.elapsedMs})}});window.mobCompanion.primeMedia([{key,urls:['http://127.0.0.1:${port}/'],priority:2000000,context:{projectId:key,title:'Fixture One',author:'Fixture Creator'}}]);setTimeout(()=>{try{off()}catch{}resolve({done:false,first})},3500)})`, true);
   check('main-process streaming media prime runtime', primeRuntime?.done===true && primeRuntime?.first?.gallery?.length>=1, JSON.stringify(primeRuntime));
   stage('media-prime');
@@ -3150,6 +3557,7 @@ function shutdownApplication(code=0){
     try { translatorUpdater?.dispose(); } catch {}
     try { translator?.dispose(); } catch {}
     for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}
+    try { disposeLauncherProviderSurface(); } catch {}
     for(const slot of mediaViewPool.splice(0)){try{slot.view?.webContents?.close()}catch{}}
     mediaViewWaiters.length=0;
     await Promise.allSettled([

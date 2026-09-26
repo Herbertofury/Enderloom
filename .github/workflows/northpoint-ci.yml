@@ -48,7 +48,8 @@ jobs:
             libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            patchelf
+            patchelf \
+            xvfb
 
       - name: Install shell dependencies
         run: npm ci
@@ -59,8 +60,25 @@ jobs:
       - name: Build launcher frontend
         run: npm run build:launcher
 
-      - name: Check native launcher service
-        run: cargo check --manifest-path native/Cargo.toml --bin enderloom-service
+      - name: Build native launcher service
+        run: cargo build --manifest-path native/Cargo.toml --bin enderloom-service
+
+      - name: Browse provider identity regression
+        run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
+
+      - name: Browse provider pane static QA
+        run: node scripts/workspace-tabs-qa.js
+
+      - name: Configure Electron sandbox helper for CI
+        run: |
+          node -e "require('electron')"
+          test -f node_modules/electron/dist/chrome-sandbox
+          sudo chown root:root node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+          test "$(stat -c '%U:%G %a' node_modules/electron/dist/chrome-sandbox)" = "root:root 4755"
+
+      - name: Browse provider pane Electron runtime QA
+        run: xvfb-run -a npm run electron-self-test
 
       - name: Northpoint compose config QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_compose_selftest.py

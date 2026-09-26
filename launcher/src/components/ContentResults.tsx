@@ -134,6 +134,8 @@ export interface ResultRow {
   project: ProjectSummary;
   subline?: string;
   onOpen: () => void;
+  onIntent?: () => void;
+  onIntentEnd?: () => void;
   action: React.ReactNode;
 }
 
@@ -141,12 +143,24 @@ export function ContentResults({ view, rows }: { view: ResultView; rows: ResultR
   if (view === "grid") {
     return (
       <div className="grid auto-rows-min grid-cols-[repeat(auto-fill,minmax(250px,1fr))] content-start gap-3">
-        {rows.map(({ project, subline, onOpen, action }) => {
+        {rows.map(({ project, subline, onOpen, onIntent, onIntentEnd, action }) => {
           const accent = accentFrom(project.color);
           return (
             <div
               key={project.id}
               onClick={onOpen}
+              onMouseEnter={onIntent}
+              onMouseLeave={onIntentEnd}
+              onFocus={onIntent}
+              onBlur={onIntentEnd}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onOpen();
+                }
+              }}
+              role="button"
+              tabIndex={0}
               className="group relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-border-soft bg-surface-2/60 p-4 transition-colors hover:border-content-faint/30 hover:bg-surface-2"
             >
               {accent && (
@@ -196,10 +210,22 @@ export function ContentResults({ view, rows }: { view: ResultView; rows: ResultR
 
   return (
     <div className="flex flex-col">
-      {rows.map(({ project, subline, onOpen, action }) => (
+      {rows.map(({ project, subline, onOpen, onIntent, onIntentEnd, action }) => (
         <div
           key={project.id}
           onClick={onOpen}
+          onMouseEnter={onIntent}
+          onMouseLeave={onIntentEnd}
+          onFocus={onIntent}
+          onBlur={onIntentEnd}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              onOpen();
+            }
+          }}
+          role="button"
+          tabIndex={0}
           className="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-surface-2"
         >
           <Icon url={project.icon_url} size="size-14" accent={accentFrom(project.color)} />
