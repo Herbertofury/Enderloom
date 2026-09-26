@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -32,17 +32,34 @@ import type {
   VersionFile,
 } from "../lib/types";
 import { useContentInstaller } from "../lib/contentInstaller";
-import { GetServerModal } from "../components/GetServerModal";
-import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
 import { Markdown } from "../components/project/Markdown";
-import { ProjectGallery } from "../components/project/ProjectGallery";
 import { ProjectHero } from "../components/project/ProjectHero";
 import { ProjectSidebar } from "../components/project/ProjectSidebar";
-import { VersionBrowser } from "../components/project/VersionBrowser";
 import { useActiveProjectIds } from "../lib/useTasks";
 import { serverPackFile } from "../lib/servers";
 import type { InstallTarget } from "../lib/target";
 import { useStore } from "../store";
+
+const VersionBrowser = lazy(() =>
+  import("../components/project/VersionBrowser").then((module) => ({
+    default: module.VersionBrowser,
+  })),
+);
+const ProjectGallery = lazy(() =>
+  import("../components/project/ProjectGallery").then((module) => ({
+    default: module.ProjectGallery,
+  })),
+);
+const GetServerModal = lazy(() =>
+  import("../components/GetServerModal").then((module) => ({
+    default: module.GetServerModal,
+  })),
+);
+const InstanceTargetPicker = lazy(() =>
+  import("../components/InstanceTargetPicker").then((module) => ({
+    default: module.InstanceTargetPicker,
+  })),
+);
 
 interface PendingInstall {
   key: string;
@@ -890,7 +907,8 @@ export function ProjectView() {
                 Loading versions
               </div>
             ) : (
-              <VersionBrowser
+              <Suspense fallback={<div className="py-8" />}>
+                <VersionBrowser
                 versions={versions}
                 kind={kind}
                 isPack={isPack}
@@ -915,47 +933,56 @@ export function ProjectView() {
                   openProject(projectRef.provider, projectId, kind)
                 }
                 onChooseInstance={() => setPickingTarget(true)}
-              />
+                />
+              </Suspense>
             )}
           </div>
         ) : tab === "gallery" ? (
-          <ProjectGallery images={gallery} />
+          <Suspense fallback={<div className="flex-1" />}>
+            <ProjectGallery images={gallery} />
+          </Suspense>
         ) : null}
       </div>
 
-      <GetServerModal
-        open={serverPack !== null}
-        title={details?.title ?? projectRef.title ?? "Modpack"}
-        version={serverPack?.version ?? null}
-        file={serverPack?.file ?? null}
-        fileId={serverPack?.fileId ?? null}
-        projectId={projectRef.id}
-        onClose={() => setServerPack(null)}
-      />
+      {serverPack && (
+        <Suspense fallback={null}>
+          <GetServerModal
+            open
+            title={details?.title ?? projectRef.title ?? "Modpack"}
+            version={serverPack.version}
+            file={serverPack.file}
+            fileId={serverPack.fileId}
+            projectId={projectRef.id}
+            onClose={() => setServerPack(null)}
+          />
+        </Suspense>
+      )}
 
       {(needsTarget || pickingTarget) && (
-        <InstanceTargetPicker
-          instances={instances}
-          selected={null}
-          modalFor={details?.title ?? "this project"}
-          onSelect={(picked) => {
-            const target = needsTarget;
-            setNeedsTarget(null);
-            setPickingTarget(false);
-            if (picked) {
-              setDiscoverTarget(picked.id);
-              if (target) {
-                void beginInstall(target, {
-                  id: picked.id,
-                  name: picked.name,
-                  version_id: picked.version_id,
-                  loader: picked.loader,
-                  isServer: false,
-                });
+        <Suspense fallback={null}>
+          <InstanceTargetPicker
+            instances={instances}
+            selected={null}
+            modalFor={details?.title ?? "this project"}
+            onSelect={(picked) => {
+              const target = needsTarget;
+              setNeedsTarget(null);
+              setPickingTarget(false);
+              if (picked) {
+                setDiscoverTarget(picked.id);
+                if (target) {
+                  void beginInstall(target, {
+                    id: picked.id,
+                    name: picked.name,
+                    version_id: picked.version_id,
+                    loader: picked.loader,
+                    isServer: false,
+                  });
+                }
               }
-            }
-          }}
-        />
+            }}
+          />
+        </Suspense>
       )}
     </div>
   );
