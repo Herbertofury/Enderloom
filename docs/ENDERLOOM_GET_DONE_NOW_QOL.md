@@ -14,7 +14,7 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 
 ### Execution continuity / blocker law
 
-- Read the full contract once, then execute in bounded dependency-aware windows (normally one coherent subsystem or roughly 6-12 ready leaf tasks) so long runs do not lose requirements to context pressure.
+- Read the full contract once, then execute in bounded execution windows that are dependency-aware (normally one coherent subsystem or roughly 6-12 ready leaf tasks) so long runs do not lose requirements to context pressure.
 - At each window boundary, update the real inline T/G task state, retain concise proof/blocker evidence, checkpoint coherent source state, and continue automatically to the next ready work; the window is never permission to stop early or reduce scope.
 - A blocked accepted task stays unchecked and records `BLOCKED: <exact causal reason>; NEXT: <materially different recovery action>`. Independent ready tasks continue while recovery is pursued.
 - After two materially unchanged failed attempts without new evidence, change strategy: repair the missing capability/environment/abstraction or use a different supported route instead of repeating the same failure.
