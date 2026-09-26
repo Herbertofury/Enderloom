@@ -155,7 +155,7 @@ pub async fn search(
     ];
 
     let cache_key = format!("mr:search:{params:?}");
-    let response: SearchResponse = cache::fetch(
+    let response: SearchResponse = cache::fetch_swr(
         state,
         &cache_key,
         cache::TTL_SEARCH,
@@ -252,7 +252,7 @@ struct User {
 }
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
-    let project: Project = cache::fetch(
+    let project: Project = cache::fetch_swr(
         state,
         &format!("mr:project:{project_id}"),
         cache::TTL_PROJECT,
@@ -260,7 +260,7 @@ pub async fn project_details(state: &AppState, project_id: &str) -> Result<Proje
     )
     .await?;
 
-    let author = cache::fetch::<Vec<Member>>(
+    let author = cache::fetch_swr::<Vec<Member>>(
         state,
         &format!("mr:members:{project_id}"),
         cache::TTL_PROJECT,
@@ -528,7 +528,7 @@ pub async fn resolve_projects(state: &AppState, ids: &[String]) -> Result<Vec<Pr
     sorted.sort();
     sorted.dedup();
 
-    let projects: Vec<ProjectListItem> = cache::fetch(
+    let projects: Vec<ProjectListItem> = cache::fetch_swr(
         state,
         &format!("mr:projects:{}", sorted.join(",")),
         cache::TTL_PROJECT,

@@ -3,6 +3,11 @@ import { Loader2, Package, TriangleAlert } from "lucide-react";
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
+import {
+  loadProjectDetails,
+  peekProjectDetails,
+  projectDetailsFromSummary,
+} from "../lib/project-cache";
 import type {
   Changelog,
   ContentKind,
@@ -86,10 +91,18 @@ export function ProjectView() {
   );
   const refreshContentSources = useStore((s) => s.refreshContentSources);
 
+  const initialCached = projectRef
+    ? peekProjectDetails(projectRef.provider, projectRef.id)
+    : null;
+  const initialDetails =
+    initialCached ??
+    (projectRef?.seed ? projectDetailsFromSummary(projectRef.provider, projectRef.seed) : null);
+
   const [tab, setTab] = useState<Tab>("description");
-  const [details, setDetails] = useState<ProjectDetails | null>(null);
+  const [details, setDetails] = useState<ProjectDetails | null>(initialDetails);
+  const [detailsComplete, setDetailsComplete] = useState(initialCached !== null);
   const [versions, setVersions] = useState<ProjectVersion[] | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(initialDetails === null);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [installing, setInstalling] = useState<string | null>(null);
@@ -119,8 +132,14 @@ export function ProjectView() {
   useEffect(() => {
     if (!projectRef) return;
     let live = true;
-    setLoading(true);
-    setDetails(null);
+    const cached = peekProjectDetails(projectRef.provider, projectRef.id);
+    const seed =
+      cached ??
+      (projectRef.seed ? projectDetailsFromSummary(projectRef.provider, projectRef.seed) : null);
+
+    setLoading(seed === null);
+    setDetails(seed);
+    setDetailsComplete(cached !== null);
     setVersions(null);
     setInstalled(new Set());
     setTab("description");
@@ -129,11 +148,21 @@ export function ProjectView() {
     setExpandedId(null);
     setChangelogs({});
     setResolvedProjects({});
-    api
-      .getProjectDetails(projectRef.provider, projectRef.id)
-      .then((d) => live && setDetails(d))
-      .catch((e) => live && setError(String(e)))
-      .finally(() => live && setLoading(false));
+
+    loadProjectDetails(projectRef.provider, projectRef.id)
+      .then((value) => {
+        if (!live) return;
+        setDetails(value);
+        setDetailsComplete(true);
+        setError(null);
+      })
+      .catch((cause) => {
+        if (live) setError(String(cause));
+      })
+      .finally(() => {
+        if (live) setLoading(false);
+      });
+
     return () => {
       live = false;
     };
@@ -408,15 +437,27 @@ export function ProjectView() {
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto">
-        {loading ? (
+        {!details ? (
           <div className="flex items-center justify-center gap-2 py-16 text-sm text-content-muted">
             <Loader2 className="size-4 animate-spin" />
             Loading project
           </div>
-        ) : tab === "description" && details ? (
+        ) : tab === "description" ? (
           <div className="mx-auto flex max-w-5xl items-start gap-6 px-6 py-6">
             <div className="min-w-0 flex-1">
-              {details.body.trim() ? (
+              {!detailsComplete ? (
+                <div className="space-y-3">
+                  {details.description ? (
+                    <p className="max-w-3xl text-sm leading-6 text-content-muted">
+                      {details.description}
+                    </p>
+                  ) : null}
+                  <div className="inline-flex items-center gap-2 text-xs text-content-faint">
+                    <Loader2 className="size-3 animate-spin" />
+                    Refreshing complete project details
+                  </div>
+                </div>
+              ) : details.body.trim() ? (
                 <Markdown body={details.body} format={details.body_format} />
               ) : (
                 <p className="text-sm text-content-faint">

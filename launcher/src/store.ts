@@ -43,6 +43,7 @@ import type {
   ServerRunningInfo,
   ServerUsage,
   SearchPage,
+  ProjectSummary,
   SearchProvider,
   SortOrder,
   TaskKind,
@@ -198,7 +199,7 @@ interface AppStore {
   discoverServerId: string | null;
   discoverWorld: string | null;
   discoverBrowse: DiscoverBrowse;
-  projectRef: { provider: SearchProvider; id: string; title?: string } | null;
+  projectRef: { provider: SearchProvider; id: string; title?: string; seed?: ProjectSummary } | null;
   contentSources: Record<string, Record<string, { file_name: string; version_id: string | null }>>;
   updates: Record<string, ContentUpdate[]>;
   interrupted: PendingOperation[];
@@ -302,6 +303,7 @@ interface AppStore {
     id: string,
     kind?: ContentKind,
     title?: string,
+    seed?: ProjectSummary,
   ) => void;
   openDiscover: (
     kind?: ContentKind,
@@ -872,9 +874,9 @@ export const useStore = create<AppStore>((set) => ({
     await useStore.getState().refreshContentSources(instanceId, kind);
   },
 
-  openProject: (provider, id, kind, title) =>
+  openProject: (provider, id, kind, title, seed) =>
     set((s) => ({
-      projectRef: { provider, id, title },
+      projectRef: { provider, id, title, seed },
       searchKind: kind ?? s.searchKind,
       view: "project",
       viewStack: pushStack(s.viewStack, s.view, "project"),
@@ -1850,15 +1852,6 @@ export const useStore = create<AppStore>((set) => ({
     }
   },
 }));
-
-const BROWSE_VIEWS = new Set<View>(["discover", "project"]);
-
-useStore.subscribe((state, previous) => {
-  if (state.view === previous.view) return;
-  if (BROWSE_VIEWS.has(previous.view) && !BROWSE_VIEWS.has(state.view)) {
-    state.resetDiscoverBrowse({});
-  }
-});
 
 if (import.meta.env.DEV) {
   (window as unknown as { __store: typeof useStore }).__store = useStore;

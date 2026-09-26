@@ -340,7 +340,7 @@ pub async fn search(
     }
 
     let cache_key = format!("cf:search:{}:{:?}", kind.as_str(), params);
-    let response: Paged<Mod> = cache::fetch(
+    let response: Paged<Mod> = cache::fetch_swr(
         state,
         &cache_key,
         cache::TTL_SEARCH,
@@ -364,7 +364,7 @@ pub async fn search(
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
     let api_key = key(state)?;
-    let detail: Wrapped<Mod> = cache::fetch(
+    let detail: Wrapped<Mod> = cache::fetch_swr(
         state,
         &format!("cf:project:{project_id}"),
         cache::TTL_PROJECT,
@@ -373,7 +373,7 @@ pub async fn project_details(state: &AppState, project_id: &str) -> Result<Proje
     .await?;
     let detail = detail.data;
 
-    let body = cache::fetch::<Wrapped<String>>(
+    let body = cache::fetch_swr::<Wrapped<String>>(
         state,
         &format!("cf:body:{project_id}"),
         cache::TTL_PROJECT,
