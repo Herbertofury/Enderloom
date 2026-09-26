@@ -31,7 +31,7 @@ import type {
   ProjectVersion,
   VersionFile,
 } from "../lib/types";
-import { useContentInstaller } from "../components/CurseForgeDownloadModal";
+import { useContentInstaller } from "../lib/contentInstaller";
 import { GetServerModal } from "../components/GetServerModal";
 import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
 import { Markdown } from "../components/project/Markdown";
