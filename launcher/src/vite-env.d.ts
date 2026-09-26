@@ -43,6 +43,8 @@ interface EnderloomLauncherBridge {
     projectKey: string;
     url: string;
     title: string;
+    favicon: string;
+    zoom: number;
     loading: boolean;
     canBack: boolean;
     canForward: boolean;
