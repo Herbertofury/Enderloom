@@ -10,7 +10,7 @@
 [**PERF-01**](Checklist.md#perf-01)
 
 <details>
-<summary>Source clauses and aliases (145 distinct blocks)</summary>
+<summary>Source clauses and aliases (148 distinct blocks)</summary>
 
 - [2. CLI executable contract / Stable exit-code families](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L106-L106) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Core commands](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L355-L355) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -97,6 +97,8 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Never “async” unsafe Minecraft state](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1000-L1002) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Preserve real simulation](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L994-L998) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 3 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Replace polling with write/lifecycle events](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L974-L978) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 3 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L21-L21) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L61-L63) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [8. Performance Optimization Without Regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L429-L449) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
 - [9. Startup / Boot-Time Profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L239-L239) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L937-L937) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
@@ -111,7 +113,7 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Preserve real simulation](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L590-L594) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 3 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Replace polling with write/lifecycle events](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L570-L574) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 3 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::T143`
+**Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::T143`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T047`
 
 </details>
 
@@ -170,7 +172,7 @@
 [**PERF-03**](Checklist.md#perf-03)
 
 <details>
-<summary>Source clauses and aliases (65 distinct blocks)</summary>
+<summary>Source clauses and aliases (66 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-5 — profiler adapters + whole-pack intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L877-L877) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L643-L643) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
@@ -221,7 +223,8 @@
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.3 RUNTIME + PERFORMANCE PROOF — THESE ARE NOT OPTIONAL CEREMONY /   NP-18 — Prove Northpoint performance on final integrated candidates](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L355-L355) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1404-L1404) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.1 Diagnose earliest cause, not loudest warning](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L781-L784) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L229-L229) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L400-L400) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L199-L199) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [3. Configuration Intelligence — make Enderloom absurdly good at configs / 3.5 Config + Performance Lab integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L259-L263) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [8. Performance Optimization Without Regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L431-L431) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [11. Performance Patch Acceptance Contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L275-L294) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
@@ -237,7 +240,7 @@
 [**PERF-04**](Checklist.md#perf-04)
 
 <details>
-<summary>Source clauses and aliases (117 distinct blocks)</summary>
+<summary>Source clauses and aliases (118 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / HeadlessMc — `headlesshq/headlessmc`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L576-L578) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Runtime modes](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L328-L328) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -291,6 +294,7 @@
 - [Tier B — high-value specialized adapters / Task Manager-style client profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L144-L155) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1339-L1343) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 3 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.3 Metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L906-L912) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L151-L155) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L198-L199) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 1 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L61-L63) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L67-L81) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 10 distinct blocks.
@@ -370,7 +374,7 @@
 [**PERF-07**](Checklist.md#perf-07)
 
 <details>
-<summary>Source clauses and aliases (8 distinct blocks)</summary>
+<summary>Source clauses and aliases (10 distinct blocks)</summary>
 
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L555-L555) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.3 Spark adapter](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L807-L809) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
@@ -379,6 +383,8 @@
 - [0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L271-L271) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L717-L717) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L398-L398) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L90-L90) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L94-L94) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.3.0 streamed-media latency removal](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L123-L123) - README.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T071`, `ENDERLOOM_STUDIO_EXECUTION.md::T071`, `ENDERLOOM_STUDIO_EXECUTION.md::T157`
@@ -391,7 +397,7 @@
 [**PERF-08**](Checklist.md#perf-08)
 
 <details>
-<summary>Source clauses and aliases (121 distinct blocks)</summary>
+<summary>Source clauses and aliases (123 distinct blocks)</summary>
 
 - [25. Performance / anti-stall requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L1075-L1079) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 2 distinct blocks.
 - [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.1 Core QOL/performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L313-L313) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -451,6 +457,7 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.1 The acceptance rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L862-L868) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.2 Equivalent workload means equivalent workload](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L872-L887) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.3 Metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L924-L924) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Non-negotiable zero-loss performance law](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L23-L25) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L784-L788) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L652-L652) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [25. Performance / anti-stall requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L1110-L1114) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 2 distinct blocks.
