@@ -74,7 +74,10 @@ function renderTabs() {
 function clearTabDropMarks(){$('tabs').querySelectorAll('.drop-before').forEach(tab=>tab.classList.remove('drop-before'))}
 function providerPageDrag(event){
   const types=Array.from(event.dataTransfer?.types||[]);
-  return types.includes('application/x-enderloom-provider-page');
+  return !types.includes('Files') && (
+    types.includes('application/x-enderloom-provider-page') ||
+    types.includes('text/uri-list')
+  );
 }
 function clearProviderDropMark(){$('tabs').classList.remove('provider-drop-ready')}
 function bindTabDragging(){
