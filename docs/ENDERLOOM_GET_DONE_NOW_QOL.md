@@ -332,7 +332,8 @@ Promotion rule:
 
 - Direct WebView2 wins only if it is **strictly better overall** after complete capability parity and privacy hardening from T092.
 - If WebView2 is lighter but loses accepted browser capability, site compatibility, privacy, smoothness or game coexistence, repair it through G015; if the gap remains hard, keep Electron as canonical rich shell and use WebView2 only where it genuinely wins.
-- Do not maintain two full browser shells indefinitely after the winner is proven; keep one canonical production owner plus only the minimum compatibility/fallback path justified by evidence.
+- **User override: if direct Rust/WebView2 wins and is promoted, do NOT retire Electron.** WebView2 becomes the primary/default edition, while Electron remains a fully supported second release edition built from the same Enderloom release/core. The two shells may differ only in host/browser-engine implementation and engine-specific integrations; they must not fork domain logic, Mod Manager behavior, Tool Platform behavior, provider identity, persistence, or accepted product features.
+- If WebView2 does not win T091/T092, Electron remains the primary edition and no artificial second WebView2 production release is required merely to satisfy this dual-edition rule.
 
 ### T092 — WebView2 zero-baggage privacy + zero-jank contract
 
@@ -498,6 +499,110 @@ Required:
 
 
 **G015 closes only when T085-T098 are complete and every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven; unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
+
+---
+
+## G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins
+
+- [ ] **G016 · DUAL-SHELL RELEASE GATE** — If T091/T092 promote direct Rust/WebView2 to Enderloom's primary Windows shell, every normal Enderloom release must also produce and verify a maintained **Electron Edition** from the same source/core release so a WebView2/Windows runtime regression never leaves the user without a full-featured proven shell.
+
+This gate activates only after WebView2 actually wins G015 promotion. It does **not** weaken the challenger-first rule or require shipping an inferior WebView2 build if Electron remains the winner.
+
+### T099 — Two real release editions from one canonical product
+
+- [ ] **T099** · When WebView2 is promoted, ship two explicit Windows release artifacts: primary Rust/WebView2 Edition and maintained Electron Edition
+
+Required release shape:
+
+- Produce separately installable, clearly named artifacts such as:
+  - **Enderloom — Rust/WebView2 Edition** (primary/default after promotion);
+  - **Enderloom — Electron Edition** (compatibility/safety edition).
+- Both artifacts are produced from the **same Enderloom version, source commit, `enderloom-core` build/API schema, migration set, Tool SDK contract and accepted feature set**.
+- The release/version number remains one Enderloom product version; the shell edition is build metadata/flavor, not a divergent product fork.
+- Core/domain features, Mod Manager, Browse canonical data, provider mappings, downloads/install transactions, dependency Doctor, bulk management, favorites, instances, worlds, configs, notes, CAS, SQLite state, quarantine/undo and future tools must not be reimplemented independently per edition.
+- Shell-specific code is limited to browser/window/session/permissions/download-host integration and other unavoidable engine adapters behind the same typed capability interfaces.
+- Feature work lands once in shared core/shared tool UI and appears in both editions automatically wherever the underlying shell supports the accepted capability.
+- Build/package/update pipelines must be able to produce both editions from a clean checkout without manual source edits or cherry-picking between long-lived divergent branches.
+
+### T100 — Shared canonical state with safe shell-specific browser profiles
+
+- [ ] **T100** · Let both editions coexist safely against one canonical Enderloom state while keeping incompatible browser-engine profile data isolated
+
+Shared between editions through `enderloom-core`:
+
+- instance catalog and launch ownership;
+- SQLite WAL durable Enderloom state;
+- MFT/USN indexes;
+- CAS objects;
+- provider/project/file identity;
+- favorites/notes/pins;
+- dependency graph and Doctor evidence;
+- downloads/install/update transaction state where host-independent;
+- quarantine/undo/history;
+- Tool Platform state and operation progress;
+- settings that are genuinely engine-agnostic.
+
+Isolated by browser engine:
+
+- Electron/Chromium profile/session storage;
+- WebView2 User Data Folder/profile storage;
+- engine-specific cookies/cache/service workers/extensions/DevTools/browser-internal state.
+
+Rules:
+
+- Never point Electron and WebView2 at the same physical browser profile directory or attempt to make their private browser databases interchangeable.
+- Do not copy raw cookies/password stores/browser secrets between engines as a convenience feature.
+- Provider account state that Enderloom legitimately owns through OAuth/API tokens may be reused through the canonical provider/account layer when its security model allows it; browser-only website sessions remain engine-profile-specific unless a supported secure re-auth handoff exists.
+- Running both editions simultaneously attaches to the same supervised `enderloom-core` ownership model from T076 rather than creating two SQLite writers, two MFT scans, duplicate downloads or competing mutations.
+- Shell-specific settings live in namespaced state so one engine cannot corrupt the other's profile/preferences.
+- Schema/core upgrades are forward/backward gated so opening one edition cannot migrate shared state into a form the other same-release edition cannot understand.
+
+### T101 — Instant edition fallback / handoff without losing Enderloom work
+
+- [ ] **T101** · Make switching from WebView2 Edition to Electron Edition (or back) a polished recovery path rather than a reinstall/reconfiguration event
+
+Required:
+
+- Settings/About/Troubleshooting exposes the current shell edition and an **Open this workspace in Electron Edition / Open this workspace in WebView2 Edition** action when both matching-version editions are installed.
+- The installer/updater may provide a compact **Install both editions** option and always makes the Electron safety edition easy to obtain when WebView2 is primary.
+- The handoff preserves safe host-neutral workspace context: active Enderloom tool, instance/world/project, canonical provider URL/project identity, search/filter/sort, selection, operation IDs/progress and other T073-restorable state.
+- Browser-only state that cannot safely cross engines is never faked. Reopen the canonical URL in the target engine and reuse provider/API auth when legitimately available; otherwise present the target site's normal login state.
+- If WebView2 fails to initialize after a Windows/WebView2 runtime update, Enderloom must be able to offer/launch the matching Electron Edition without first requiring the broken WebView2 UI to finish booting.
+- If Electron fails while WebView2 remains healthy, the same recovery principle applies in the opposite direction.
+- Shell handoff never restarts an already-running core download/install/index operation merely because the UI host changed.
+- Side-by-side shortcuts/file associations/deep links are deterministic and do not fight each other; one user-selected default shell handles normal `enderloom://` links while **Open with other edition** remains available.
+
+### T102 — Both editions stay healthy; Electron cannot become a rotten fallback
+
+- [ ] **T102** · Put both editions through permanent feature/parity/performance/recovery testing whenever WebView2 is the promoted primary
+
+For every release with dual editions:
+
+- Build and launch both packaged artifacts on supported Windows versions.
+- Run the same shared-core migrations and verify both can open the same canonical Enderloom state sequentially and simultaneously under T076.
+- Run browser/provider smoke suites on both: sign-in/session, tabs, project pages, favorites bridge, downloads, permissions, history/find/context menus, GitHub provider view, Browser -> Tool actions, restart restore and crash recovery.
+- Run Mod Manager/Tool Platform parity on both.
+- Run G014 Minecraft coexistence on **both editions individually**; the Electron safety edition is not allowed to become a resource-hogging afterthought.
+- Run G010 comparator paths on both editions. WebView2 may remain the faster recommended edition, but Electron must still meet Enderloom's accepted quality/coverage/correctness guarantees and remain a strong, responsive client rather than an intentionally crippled fallback.
+- Track edition-specific bugs/performance separately while fixing shared causes in common code whenever possible.
+- A feature may be implemented through different shell APIs, but user-visible capability must converge; "WebView2-only because Electron is the backup" is not acceptable for an already accepted Enderloom feature that Electron can technically support.
+- Before removing Electron Edition in any future roadmap, require a **new explicit user decision**. G015 benchmark superiority alone is no longer authorization to delete it.
+
+### T103 — Dual-edition updater, provenance and rollback
+
+- [ ] **T103** · Make updates/signing/provenance unambiguous when two Windows shell editions exist
+
+Required:
+
+- Distinct signed artifact IDs/names/channels for Electron vs WebView2 Edition, sharing the same semantic Enderloom version.
+- An edition never silently transforms itself into the other shell during an ordinary patch update.
+- Cross-edition switching is explicit through T101.
+- Updater verifies artifact signature/hash/edition identity before install.
+- If a newly released WebView2 Edition regresses after OS/runtime rollout, the release service can recommend the matching-version Electron Edition without downgrading shared core/user data.
+- Rollback rules prevent a shell rollback from applying an incompatible older shared schema/core without a supported migration/compatibility path.
+- Release notes/performance receipts identify which shell edition was tested and which is recommended/default for that release.
+
+**G016 closes only when WebView2 has actually been promoted and T099-T103 prove both packaged editions are maintained from one canonical codebase/core, can coexist without data/profile corruption, can hand off safely, and remain runtime-tested. If Electron remains the T091 winner, G016 is recorded as NOT-ACTIVATED rather than blocking completion.**
 
 ---
 
@@ -1178,7 +1283,8 @@ The **G014 Minecraft zero-impact invariant is the absolute highest rule and is a
 
 **Always-on super-priority before and during every numbered item below:**
 - **G014 / T078-T084** — detect Minecraft, activate the zero-impact resource governor, and continuously prove Enderloom is performance-invisible to the running game while management remains usable.
-- **G015 / T085-T090** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts.
+- **G015 / T085-T098** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts.
+- **G016 / T099-T103** — if WebView2 wins, preserve a fully maintained Electron Edition in parallel from the same core/release so shell/runtime regressions always have a first-class fallback.
 
 Execute the remaining work in this priority order, without waiting for unrelated queue items:
 
@@ -2351,8 +2457,8 @@ Record exact build/commit and observed evidence. No item in accepted scope close
 
 ## Done when
 
-This document is complete only when **G014, G015, G012, G013, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content, and Minecraft coexistence satisfies G014's zero-impact release gate. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G014, G015, G012, G013, G010, and G011 are closed, and G016 is either closed or correctly NOT-ACTIVATED because Electron remained the shell winner** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content, and Minecraft coexistence satisfies G014's zero-impact release gate. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T098, G001-G008, G010, G011, G012, G013, G014, and G015 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; **with Minecraft running, Enderloom remains within G014's zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.**
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T103, G001-G008, G010, G011, G012, G013, G014, and G015 are complete, with G016/T099-T103 either runtime-complete after WebView2 promotion or explicitly NOT-ACTIVATED because Electron remained the shell winner with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade; **with Minecraft running, Enderloom remains within G014's zero-impact statistical-equivalence/noise envelope while still providing the accepted live-management capability.**
