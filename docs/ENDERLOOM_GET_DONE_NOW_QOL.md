@@ -4,7 +4,7 @@
 **Created:** 2026-09-24  
 **Repository:** `Herbertofury/Enderloom`  
 **Updated:** 2026-09-26  
-**Priority:** **ABSOLUTE PRIORITY ZERO is whole-app speed/responsiveness with zero quality, quantity, fidelity, coverage, validation, or feature loss.** Enderloom must match or beat the installed CurseForge and Modrinth clients on comparable user-visible workflows while preserving or improving Enderloom's stronger guarantees.
+**Priority:** **ABSOLUTE PRIORITY ZERO is whole-app speed/responsiveness AND useful amount/coverage superiority, with zero quality, fidelity, validation, correctness, or feature loss.** On every technically equivalent workflow Enderloom must be **strictly faster than both** the installed CurseForge and Modrinth clients, and the complete Enderloom experience must expose **strictly more useful non-duplicate content, provider coverage, metadata, project/release intelligence, and capability than either client**, while preserving or improving Enderloom's stronger guarantees.
 
 ## Objective
 
@@ -14,7 +14,7 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 
 ## G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss
 
-- [ ] **G010 · ABSOLUTE PRIORITY GATE** — Enderloom is measurably as fast as or faster than the better of the installed CurseForge and Modrinth clients on technically equivalent workflows, while returning **the same or greater quantity, quality, metadata, dependency closure, validation, fidelity, compatibility, provenance, rollback safety, and user-visible capability**.
+- [ ] **G010 · ABSOLUTE PRIORITY GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
 
 This gate is **above every other tranche in this document**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: application launch, restoring the prior workspace, opening Browse, showing Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
 
@@ -45,7 +45,7 @@ The following are **not optimizations** and must fail review:
 
 ### Authorized CurseForge + Modrinth desktop reference access
 
-For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform at least as well as both**.
+For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform **strictly better than both in speed and useful amount/coverage****.
 
 Treat those locally installed clients as first-class authorized reference implementations:
 
@@ -156,22 +156,23 @@ Profile first, then fix the earliest causal owner. Apply these techniques wherev
 
 T048 does not close because one screen is fast. It closes only after the shared causes behind the broad slow-app behavior are repaired and the detailed existing tasks (including T002, T004, T025, T027, T045, and T046 where applicable) still pass their own contracts.
 
-### T049 — Prove Enderloom matches/beats CurseForge and Modrinth without regression
+### T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression
 
 - [ ] **T049** · Run the final equivalent-work performance + completeness certification
 
-For every comparable major workflow, benchmark Enderloom against both installed clients and use the **faster comparator** as the performance floor.
+For every comparable major workflow, benchmark Enderloom against both installed clients. **Enderloom must beat each comparator individually**; the faster comparator is therefore the minimum speed target, and the richer comparator is the minimum amount/coverage target.
 
 Acceptance:
 
-- Enderloom must be no slower on comparable median user-visible latency after separating external network/provider time where appropriate.
-- Enderloom should be measurably faster on hot paths where its architecture can reasonably outperform the comparators.
+- Enderloom must be **measurably faster than both clients** on comparable median user-visible latency after separating external network/provider time where appropriate; equality with either client leaves the task open.
+- Enderloom must also beat both on p95/p99 responsiveness where the workflow is technically comparable, so a fast median cannot hide severe stalls.
 - p95 responsiveness must not hide severe stalls even when the median looks good.
-- Result counts and coverage must be reconciled: expected/discovered/returned/accepted/rejected/unresolved.
-- Search, Browse, provider reconciliation, update discovery, dependency plans, downloads, installs, and local content views must return the same or greater useful information/capability as before.
+- Result counts and coverage must be reconciled: expected/discovered/returned/accepted/rejected/unresolved, plus canonical deduplication so duplicate padding cannot fake superiority.
+- Search, Browse, provider reconciliation, update discovery, dependency plans, downloads, installs, and local content views must expose **strictly more useful aggregate information/capability than each comparator** while preserving at least the full pre-optimization Enderloom result set.
+- No individual protected dimension may regress below either comparator when that dimension is technically comparable; superiority must come from real extra coverage/intelligence/capability, not noise.
 - Existing stronger Enderloom guarantees must remain intact.
 - Test both warm and cold state, restart, large instances/catalogs, one degraded provider, offline cache behavior, rapid navigation/cancellation, simultaneous downloads/updates, and a provider/account reconnect case.
-- If CurseForge or Modrinth is still faster on an equivalent path, profile the difference and continue improving architecture. Do **not** close G010 by documenting the loss.
+- If CurseForge **or** Modrinth is still faster **or tied** on an equivalent path, profile the difference and continue improving architecture. Do **not** close G010 by documenting the loss or accepting parity.
 - If Enderloom becomes faster by dropping work, metadata, results, validation, or fidelity, reopen the responsible task and reject the optimization.
 
 **G010 closes only when T047, T048, T049 and every existing performance-sensitive task they touch are runtime-proven on the packaged/current desktop build.**
@@ -498,7 +499,7 @@ Use the **same machine, network, instance context, project set, and equivalent r
 
 - **Warm Browse/category reopen:** destination shell + cached results should be perceptually instant; target **<=100 ms median click-to-meaningful-paint** and **<=150 ms p95** where data is already cached locally.
 - **Warm project detail open from a visible card:** target **<=100 ms median** to cached core content/usable controls and **<=200 ms p95**, with background revalidation not blocking input.
-- **Cold project open:** route/shell must still paint immediately; first useful provider-backed content should beat the current baseline materially and must not be slower than the fastest comparable CurseForge/Modrinth client median for the same project/result scope.
+- **Cold project open:** route/shell must still paint immediately; first useful provider-backed content should beat the current baseline materially and must be measurably faster than **both** comparable CurseForge and Modrinth client medians for the same project/result scope.
 - **Back/forward restoration:** target **<=50 ms median** to restore prior cached Browse/project state.
 - **UI thread:** no navigation-triggered long task >50 ms without a documented platform exception; eliminate repeated long tasks from normal Browse opens.
 - **Zero-loss equivalence:** cached/optimized result counts, provider badges, compatible release selection, dependency closure, provenance, descriptions/media, and user-visible project actions must reconcile to the unoptimized authoritative result after background refresh.
@@ -521,7 +522,7 @@ Use the **same machine, network, instance context, project set, and equivalent r
 - provider metadata change proving stale data updates without full-page blanking;
 - exact same workflows timed against current CurseForge and Modrinth clients on the same machine/network.
 
-**Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is not slower on equivalent user-visible Browse/project latency and no content/correctness was removed.
+**Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is measurably faster than both clients on equivalent user-visible Browse/project latency **and** exposes more useful aggregate coverage/capability with no content/correctness regression.
 
 ### T046 — Reconcile the same logical project across Modrinth and CurseForge
 
@@ -1090,4 +1091,4 @@ This document is complete only when **G010 is closed** and every leaf task and g
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T049, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T049, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
