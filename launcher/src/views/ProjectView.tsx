@@ -5,13 +5,16 @@ import { cn } from "../lib/cn";
 import { api } from "../lib/api";
 import {
   loadProjectDetails,
+  loadProjectMirrors,
   peekProjectDetails,
+  peekProjectMirrors,
   projectDetailsFromSummary,
 } from "../lib/project-cache";
 import type {
   Changelog,
   ContentKind,
   ProjectDetails,
+  ProjectMirror,
   ProjectSummary,
   ProjectVersion,
   VersionFile,
@@ -101,6 +104,9 @@ export function ProjectView() {
   const [tab, setTab] = useState<Tab>("description");
   const [details, setDetails] = useState<ProjectDetails | null>(initialDetails);
   const [detailsComplete, setDetailsComplete] = useState(initialCached !== null);
+  const [mirrors, setMirrors] = useState<ProjectMirror[]>(() =>
+    projectRef ? (peekProjectMirrors(projectRef.provider, projectRef.id, kind) ?? []) : [],
+  );
   const [versions, setVersions] = useState<ProjectVersion[] | null>(null);
   const [loading, setLoading] = useState(initialDetails === null);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +146,7 @@ export function ProjectView() {
     setLoading(seed === null);
     setDetails(seed);
     setDetailsComplete(cached !== null);
+    setMirrors(peekProjectMirrors(projectRef.provider, projectRef.id, kind) ?? []);
     setVersions(null);
     setInstalled(new Set());
     setTab("description");
@@ -163,10 +170,16 @@ export function ProjectView() {
         if (live) setLoading(false);
       });
 
+    loadProjectMirrors(projectRef.provider, projectRef.id, kind)
+      .then((value) => {
+        if (live) setMirrors(value);
+      })
+      .catch(() => {});
+
     return () => {
       live = false;
     };
-  }, [projectRef?.provider, projectRef?.id]);
+  }, [projectRef?.provider, projectRef?.id, kind]);
 
   useEffect(() => {
     setVersions(null);
@@ -405,6 +418,34 @@ export function ProjectView() {
           isPack && packInstance ? openInstance(packInstance.id) : setTab("versions")
         }
       />
+
+      <div className="flex items-center gap-1 border-b border-border-soft px-6 py-2">
+        <button
+          type="button"
+          className="rounded-lg bg-surface-3 px-2.5 py-1.5 text-xs font-semibold capitalize text-content"
+        >
+          {projectRef.provider}
+        </button>
+        {mirrors.map((mirror) => (
+          <button
+            key={`${mirror.provider}:${mirror.project.id}`}
+            type="button"
+            onClick={() =>
+              openProject(
+                mirror.provider,
+                mirror.project.id,
+                kind,
+                mirror.project.title,
+                mirror.project,
+              )
+            }
+            title={`Same project on ${mirror.provider} · ${mirror.confidence}% identity confidence`}
+            className="rounded-lg px-2.5 py-1.5 text-xs font-medium capitalize text-content-muted transition-colors hover:bg-surface-3 hover:text-content"
+          >
+            {mirror.provider}
+          </button>
+        ))}
+      </div>
 
       <div className="flex gap-1 border-b border-border-soft px-6">
         {tabs.map((t) => (
