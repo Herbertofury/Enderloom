@@ -254,10 +254,11 @@ export function Sidebar() {
 
   const tiles = [...dock.pinned, ...dock.recents];
   const shownTiles = tiles.slice(0, capacity);
+  const shownTileIds = shownTiles.map((instance) => instance.id).join("|");
 
   useEffect(() => {
-    tiles.forEach((i) => void loadMedia(i.id));
-  }, [instances, pins, loadMedia]);
+    for (const instance of shownTiles) void loadMedia(instance.id);
+  }, [shownTileIds, loadMedia]);
 
   const tileMenu = (instance: Instance): MenuItem[] => {
     const isRunning = runningIds.has(instance.id);
