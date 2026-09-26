@@ -82,7 +82,7 @@ For each candidate compare:
 - crash/restart behavior;
 - malformed/hostile input handling where applicable;
 - data integrity and interrupted-write/operation recovery;
-- game-running coexistence under G014.
+- **Phase 1 only:** when a real running-Minecraft fixture is already available, run a cheap coexistence smoke check so an obvious regression cannot be promoted. **Do not run/tune the full G014 suite here; definitive Minecraft zero-impact proof is Phase 2 and does not block Phase 1 stack promotion.**
 
 Promotion rule:
 
@@ -120,7 +120,7 @@ Recommended stages where relevant:
 
 At every stage preserve a one-command/one-setting rollback to the last proven stable owner until the new path has passed the relevant final gate.
 
-### T090 — Experimental technology can never weaken G014/G010/G011
+### T090 — Experimental technology can never weaken G010/G011 or introduce an obvious Minecraft regression
 
 - [ ] **T090** · Treat risky-tech success as subordinate to Enderloom's complete product invariants
 
@@ -173,7 +173,7 @@ Performance A/B:
 - page navigation/render latency;
 - hidden/minimized resource use;
 - 1/5/20-tab mixed provider workloads;
-- G014 Minecraft coexistence with shell idle, minimized, visible and actively browsing.
+- **Phase 1 smoke check only:** run a lightweight running-Minecraft comparison with shell idle/minimized/visible/actively browsing to reject any obvious shell regression; reserve full statistical coexistence tuning/certification for G014 in Phase 2.
 
 Promotion rule:
 
@@ -200,17 +200,17 @@ Privacy / tracking:
 
 Performance / lag:
 
-- Follow a **native-shell-first / browser-on-demand** policy: do not create WebView2 controls for splash/simple dialogs or start provider browser processes before there is a real browser/tool need unless measured warm-start evidence proves a specific preload improves user latency **without violating G014**.
+- Follow a **native-shell-first / browser-on-demand** policy: do not create WebView2 controls for splash/simple dialogs or start provider browser processes before there is a real browser/tool need unless measured warm-start evidence proves a specific preload improves user latency **without creating an obvious running-Minecraft regression in the Phase 1 smoke check**; full G014 tuning remains Phase 2.
 - Keep the WebView2 UDF on a fast local physical disk; never place it on a network share/slow roaming path.
 - Reuse compatible WebView2 environments/browser processes rather than constantly destroying/recreating controls, but never share Enderloom's UDF with unrelated applications just to save RAM.
 - Keep hardware acceleration enabled except for a narrow diagnosed compatibility fallback.
 - Use async/batched host<->WebView messages and compact deltas; no synchronous giant object bridge.
 - For invisible/minimized/cold tabs, A/B **TrySuspend** versus WebView2's low `MemoryUsageTargetLevel`; use the winning supported approach, not both simultaneously. Resume before visible interaction.
-- While Minecraft runs, hidden WebViews should be suspended/low-memory and speculative browser preloads must remain off unless G014 proves no game impact.
+- Before Phase 2, do not add special Minecraft-only WebView throttling as an architecture dependency. Keep ordinary hidden-tab behavior efficient; once G014 starts, A/B suspend/low-memory/preload policies there and keep only the policy that protects Minecraft without slowing Enderloom foreground interaction.
 - Never suspend a WebView that is intentionally playing media, performing a user-requested critical browser action, or owning state that WebView2 documents as incompatible with suspension; use the resource governor rather than blindly freezing it.
 - Instrument ETW/WebView2 process lifecycle, long tasks, navigation, renderer/GPU CPU, working set and idle wakeups. A shell that feels lighter while hiding periodic 100ms+ stalls or background wakeups fails.
 
-**Hard acceptance:** same provider/profile dataset -> Electron baseline and privacy-hardened WebView2 challenger -> verify identical accepted capability -> inspect startup/idle network destinations -> Strict tracking prevention works or only minimal origin-scoped Balanced exceptions are recorded -> no automatic Microsoft crash reporting -> 20-tab stress + hidden-tab suspend/resume -> zero state loss -> G014 coexistence -> promote WebView2 only if the complete result is superior.
+**Hard acceptance:** same provider/profile dataset -> Electron baseline and privacy-hardened WebView2 challenger -> verify identical accepted capability -> inspect startup/idle network destinations -> Strict tracking prevention works or only minimal origin-scoped Balanced exceptions are recorded -> no automatic Microsoft crash reporting -> 20-tab stress + hidden-tab suspend/resume -> zero state loss -> lightweight Phase 1 running-Minecraft smoke check shows no obvious regression -> promote WebView2 only if the complete result is superior; full G014 coexistence proof follows in Phase 2.
 
 ### T093 — Compio / Windows IoRing high-throughput file data-plane challenger
 
@@ -233,7 +233,7 @@ Rules:
 - IoRing is Windows-only and file-I/O-specific; keep the normal supported filesystem fallback for unsupported Windows versions/filesystems/operations.
 - Ensure buffer/file lifetime ownership is memory-safe and cancellation cannot publish partial data.
 - Integrate through the same staging/hash/CAS/atomic-commit semantics; a faster I/O backend may not bypass T060/T061/T065/T069.
-- A/B across NVMe, SATA SSD, small-file-heavy JAR sets, large sequential pack files, concurrent Minecraft loading and G014 game coexistence.
+- A/B across NVMe, SATA SSD, small-file-heavy JAR sets and large sequential pack files. A cheap concurrent-Minecraft smoke check may reject an obvious regression in Phase 1, but full G014 coexistence tuning/certification is Phase 2.
 - If completion-based I/O adds complexity without a meaningful real-world win, defer it and tune the stable path.
 
 ### T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
@@ -246,7 +246,7 @@ Required:
 - Compare **zlib-rs** and **libdeflate** on real Forge/NeoForge/Fabric/Quilt/modpack archives.
 - Prefer zlib-rs for streaming/unknown-length paths when it wins and libdeflate for complete known compressed buffers when its bulk decompression wins; do not force one backend across every pattern.
 - Retain a current full-featured ZIP implementation for writer/exotic compatibility paths that rawzip deliberately does not own.
-- Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, CPU/RAM and G014 impact.
+- Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, and CPU/RAM. If a running-Minecraft fixture is already available, add only a cheap obvious-regression smoke check here; full G014 proof is Phase 2.
 - Fuzz malformed/truncated/encrypted/Zip64/path-traversal/zip-bomb-style inputs and require equivalent-or-better rejection behavior before promotion.
 - Persist parsed metadata by content identity so even the winning parser is not called again for unchanged artifacts.
 
@@ -278,7 +278,7 @@ Required fixture:
 - image-heavy scroll;
 - context menus;
 - tab detach/reattach;
-- running-Minecraft G014 test.
+- optional Phase 1 running-Minecraft smoke check for obvious UI/runtime regressions; full G014 proof/tuning is Phase 2.
 
 Measure:
 
@@ -297,25 +297,6 @@ Promotion:
 - Framework/build upgrades are candidates until complete workflow compatibility passes.
 - Do not rewrite the UI to Solid merely because synthetic benchmarks are favorable; it must materially improve Enderloom's real workload and preserve the one-UI/multi-host platform.
 - If React Compiler closes the gap or React remains superior overall, keep React and retain the benchmark fixture.
-
-### T096 — BITS + Windows memory-priority challengers for Minecraft Game Running Mode
-
-- [ ] **T096** · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
-
-BITS challenger:
-
-- For **eligible nonurgent/background HTTP(S) artifacts only**, A/B Enderloom's token-bucket downloader against Windows BITS.
-- BITS is attractive because it intentionally uses idle bandwidth and backs off as foreground network demand rises; use that behavior only when provider auth/signed-URL/session semantics remain correct.
-- Do not route short-lived authenticated/provider-browser requests, user-clicked foreground downloads or flows BITS cannot faithfully represent through BITS just to simplify code.
-- Preserve download provenance/hash/resume/CAS validation after BITS completes; BITS is a transport lane, not a trust decision.
-- If BITS causes worse start latency, provider incompatibility or lower G014 coexistence than Enderloom's own governor, use the native downloader.
-
-Memory-priority challenger:
-
-- During Game Running Mode, use Windows **ThreadMemoryPriority/ProcessMemoryPriority** on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages.
-- Keep foreground UI/control-plane memory at normal priority.
-- Never set Minecraft's memory priority for benchmark manipulation.
-- A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
 
 ### T097 — Modernize and harden the existing provider transport stack without downgrading it
 
@@ -341,11 +322,11 @@ Required:
 - At architecture/release checkpoints, perform a bounded freshness scan for material upstream changes in the selected technologies and their credible challengers.
 - A newly superior candidate enters G015; it does not trigger an automatic rewrite.
 - If a promoted risky technology later regresses after an upstream/runtime/Windows update, fail back to the last proven compatible implementation and reopen the challenger rather than forcing users through the regression.
-- Use exact workload profiles: launch, Browse, Mods, search, DB, filesystem, archive, IPC, media, networking, UI rendering, standalone host, full browser shell and G014 Minecraft coexistence.
+- Use exact workload profiles: launch, Browse, Mods, search, DB, filesystem, archive, IPC, media, networking, UI rendering, standalone host and full browser shell. After Phase 2 is active, the permanent matrix also carries the proven G014 Minecraft-coexistence workload; it is not a Phase 1 blocker.
 - The permanent target is the **best measured composition**, even when that composition mixes stable and bleeding-edge components from different ecosystems.
 
 
-**G015 closes only when T085-T098 are complete and every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven; unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
+**G015 closes in Phase 1 when T085-T095 and T097-T098 are complete and every risky technology actually selected for this execution window has either (a) been promoted by T087 with proof, or (b) been cleanly deferred through T088 with the stable fallback runtime-proven. T096 is intentionally reserved for G014/Phase 2 and is not a Phase 1 closure dependency. Unresolved experiments cannot block the rest of the accepted Enderloom work forever.**
 
 ---
 
@@ -429,7 +410,7 @@ For every release with dual editions:
 - Run the same shared-core migrations and verify both can open the same canonical Enderloom state sequentially and simultaneously under T076.
 - Run browser/provider smoke suites on both: sign-in/session, tabs, project pages, favorites bridge, downloads, permissions, history/find/context menus, GitHub provider view, Browser -> Tool actions, restart restore and crash recovery.
 - Run Mod Manager/Tool Platform parity on both.
-- Run G014 Minecraft coexistence on **both editions individually**; the Electron safety edition is not allowed to become a resource-hogging afterthought.
+- During Phase 1, run the same cheap obvious-regression running-Minecraft smoke check on **both editions individually** so the Electron safety edition cannot become a resource-hogging afterthought. Run the full G014 coexistence suite on both editions only in Phase 2.
 - Run G010 comparator paths on both editions. WebView2 may remain the faster recommended edition, but Electron must still meet Enderloom's accepted quality/coverage/correctness guarantees and remain a strong, responsive client rather than an intentionally crippled fallback.
 - Track edition-specific bugs/performance separately while fixing shared causes in common code whenever possible.
 - A feature may be implemented through different shell APIs, but user-visible capability must converge; "WebView2-only because Electron is the backup" is not acceptable for an already accepted Enderloom feature that Electron can technically support.
@@ -1298,6 +1279,25 @@ Required:
 - If the test environment is too noisy to prove equivalence, the result is **unverified**, not pass.
 - Release is blocked on repeatable game-impact regression until the causal Enderloom work is fixed or removed.
 
+### T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode
+
+- [ ] **T096** · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
+
+BITS challenger:
+
+- For **eligible nonurgent/background HTTP(S) artifacts only**, A/B Enderloom's token-bucket downloader against Windows BITS.
+- BITS is attractive because it intentionally uses idle bandwidth and backs off as foreground network demand rises; use that behavior only when provider auth/signed-URL/session semantics remain correct.
+- Do not route short-lived authenticated/provider-browser requests, user-clicked foreground downloads or flows BITS cannot faithfully represent through BITS just to simplify code.
+- Preserve download provenance/hash/resume/CAS validation after BITS completes; BITS is a transport lane, not a trust decision.
+- If BITS causes worse start latency, provider incompatibility or lower G014 coexistence than Enderloom's own governor, use the native downloader.
+
+Memory-priority challenger:
+
+- During Game Running Mode, use Windows **ThreadMemoryPriority/ProcessMemoryPriority** on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages.
+- Keep foreground UI/control-plane memory at normal priority.
+- Never set Minecraft's memory priority for benchmark manipulation.
+- A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
+
 ### T104 — Persistent Game Performance Protection setting
 
 - [ ] **T104** · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom's always-on efficient baseline
@@ -1344,7 +1344,7 @@ Acceptance:
 - When protection is Off, ordinary Enderloom still targets best-in-class low resource use and G010 performance; Off is not a "maximum resource abuse" mode.
 - When protection is On and Minecraft exits, normal full-speed background scheduling resumes promptly and reversibly.
 
-**G014 closes only when T078-T084 + T104-T105 are production-wired and packaged-runtime proof shows both sides of the contract: Minecraft is protected within the zero-impact equivalence/noise envelope, and Enderloom's foreground interaction remains within its own Phase 1 responsiveness/equivalence envelope.**
+**G014 closes only when T078-T084 + T096 + T104-T105 are production-wired and packaged-runtime proof shows both sides of the contract: Minecraft is protected within the zero-impact equivalence/noise envelope, and Enderloom's foreground interaction remains within its own Phase 1 responsiveness/equivalence envelope.**
 
 
 
@@ -1356,16 +1356,16 @@ Acceptance:
 The **Phase 1 performance/stack program runs first: G015 challenger-first selection, G012/G013 architecture work, G016 dual-shell work when activated, and G010 whole-app performance are one concurrent highest-priority stream. G014 is Phase 2 and starts only after that chosen stack is already proven fast/stable on the affected paths.** Build each Rust/tool-platform vertical slice, benchmark and tune it immediately under G010/T070, ratchet the stronger baseline, then continue. Do **not** interpret the numbered order below as permission to postpone performance until architecture work is finished. Within that concurrent stream, the embedded-browser/download/Browse repair remains a major tactical tranche because it is among the most disruptive everyday UX problems.
 
 **Phase 1 super-priority — do these before G014 tuning:**
-- **G015 / T085-T098** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts.
+- **G015 / T085-T095 + T097-T098** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts. **T096 is deliberately Phase 2.**
 - **G012 / T056-T070** — production-wire and optimize the Rust/native core and permanent performance architecture.
 - **G013 / T071-T077** — stabilize the reusable multi-host Tool Platform on the chosen core.
 - **G016 / T099-T103** — if WebView2 wins, preserve a fully maintained Electron Edition in parallel from the same core/release so shell/runtime regressions always have a first-class fallback.
 - **G010 / T047-T050** — establish, repair and ratchet whole-app normal-use performance/coverage superiority on the selected stack.
 
 **Phase 2 only after the above performance/stack baseline is amazing and stable:**
-- **G014 / T078-T084 + T104-T105** — add/tune the optional persisted Game Performance Protection governor and prove zero Minecraft impact **without regressing Enderloom foreground responsiveness**.
+- **G014 / T078-T084 + T096 + T104-T105** — add/tune the optional persisted Game Performance Protection governor, including BITS/memory-priority challengers, and prove zero Minecraft impact **without regressing Enderloom foreground responsiveness**.
 
-Execute the remaining work in this priority order, without waiting for unrelated queue items. **Do not pull G014 ahead of the Phase 1 stack/performance work merely because its section appears earlier in this document:**
+Execute the remaining work in this priority order, without waiting for unrelated queue items. **A Phase 1 reference to Minecraft is only an obvious-regression smoke check; never treat such a reference as permission to pull the full G014 governor/tuning work ahead of the Phase 1 stack/performance program:**
 
 1. **T056 + T057 + T070** — establish production `enderloom-core`, make Rust/native ownership the default for heavy hot paths, and benchmark/tune every migrated vertical slice immediately rather than later;
 2. **T071 + T072 + T076** — establish the reusable multi-host Tool Platform and make Mod Manager its first standalone + Electron-tabbed reference while sharing one live core/state;
@@ -1397,7 +1397,7 @@ Execute the remaining work in this priority order, without waiting for unrelated
 28. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
 29. **T049** — run the strict faster-and-richer-than-both certification on the chosen Phase 1 stack;
 30. **T050** — lock that normal-use win in as a permanent release/CI ratchet so future work cannot regress it;
-31. **T078-T084 + T104-T105** — only now tune/validate Game Performance Protection, preserving Enderloom foreground responsiveness while eliminating measurable Minecraft impact;
+31. **T078-T084 + T096 + T104-T105** — only now tune/validate Game Performance Protection, including BITS/memory-priority challengers, preserving Enderloom foreground responsiveness while eliminating measurable Minecraft impact;
 32. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
