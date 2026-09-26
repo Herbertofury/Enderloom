@@ -697,6 +697,8 @@ function openLauncherProviderSurface(request = {}) {
     if (!isMainFrame || code === -3) return;
     surface.loading = false;
     surface.error = { code, description, url: failedUrl || surface.url };
+    surface.visible = false;
+    layoutLauncherProviderSurface();
     publishLauncherProviderSurfaceState();
   });
   view.webContents.on('render-process-gone', (_event, details) => {
@@ -706,6 +708,8 @@ function openLauncherProviderSurface(request = {}) {
       description: `Renderer stopped: ${details?.reason || 'unknown'}`,
       url: surface.url,
     };
+    surface.visible = false;
+    layoutLauncherProviderSurface();
     publishLauncherProviderSurfaceState();
   });
   setupContextMenu(surface);
@@ -747,7 +751,12 @@ async function launcherProviderSurfaceCommand(action, request = {}) {
       if (wc && navCanForward(wc)) navForward(wc);
       break;
     case 'reload':
-      if (wc) surface.loading ? wc.stop() : wc.reload();
+      if (wc && surface) {
+        surface.visible = true;
+        surface.error = null;
+        layoutLauncherProviderSurface();
+        surface.loading ? wc.stop() : wc.reload();
+      }
       break;
     case 'promote': {
       const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
