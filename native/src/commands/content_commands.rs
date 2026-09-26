@@ -83,10 +83,18 @@ pub(crate) fn list_content_source_index_core(
     instance_ids: &[String],
     kind: &str,
 ) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
+    let known_instances = state
+        .db
+        .list_instances(&state.files)?
+        .into_iter()
+        .map(|instance| instance.id)
+        .collect::<std::collections::HashSet<_>>();
     let mut index = std::collections::HashMap::with_capacity(instance_ids.len());
 
     for instance_id in instance_ids {
-        find_instance(state, instance_id)?;
+        if !known_instances.contains(instance_id) {
+            return Err(Error::NotFound(format!("instance {instance_id}")));
+        }
         let dir = content::dir_for(state.files.paths(), instance_id, kind)?;
         let mut projects =
             std::collections::HashMap::<String, (i64, InstalledProjectSource)>::new();
