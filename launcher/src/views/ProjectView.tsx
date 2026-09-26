@@ -650,10 +650,14 @@ export function ProjectView() {
             type="button"
             draggable
             onDragStart={(event) => {
+              const dragUrl =
+                providerSurface?.provider === "github" && providerSurfaceState?.url
+                  ? providerSurfaceState.url
+                  : githubSource;
               event.dataTransfer.effectAllowed = "copy";
-              event.dataTransfer.setData("application/x-enderloom-provider-page", githubSource);
-              event.dataTransfer.setData("text/uri-list", githubSource);
-              event.dataTransfer.setData("text/plain", githubSource);
+              event.dataTransfer.setData("application/x-enderloom-provider-page", dragUrl);
+              event.dataTransfer.setData("text/uri-list", dragUrl);
+              event.dataTransfer.setData("text/plain", dragUrl);
             }}
             onClick={() => {
               if (typeof window.enderloomLauncher?.providerSurface === "function") {
