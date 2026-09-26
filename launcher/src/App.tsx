@@ -28,11 +28,11 @@ const Onboarding = lazy(() =>
     default: module.Onboarding,
   })),
 );
-const CatalogInstallModal = lazy(() =>
+const loadCatalogInstallModal = () =>
   import("./components/CatalogInstallModal").then((module) => ({
     default: module.CatalogInstallModal,
-  })),
-);
+  }));
+const CatalogInstallModal = lazy(loadCatalogInstallModal);
 
 const AccountsView = lazy(DEFERRED_VIEW_LOADERS.accounts!);
 const InstanceView = lazy(DEFERRED_VIEW_LOADERS.instance!);
@@ -227,6 +227,14 @@ function App() {
   useEffect(() => {
     init();
   }, [init]);
+
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setTimeout(() => {
+      void loadCatalogInstallModal();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [ready]);
 
   const stopServersAndClose = async () => {
     const running = Object.values(useStore.getState().serverRunning).filter(isLive);
