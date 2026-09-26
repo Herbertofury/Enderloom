@@ -86,7 +86,7 @@
 - [ ] **D-4123fc35452f64a47692** - · Capture reproducible, apples-to-apples CurseForge / Modrinth / Enderloom performance evidence before and during optimization
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T047 : 1143-1143](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1143-L1143)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T047 : 1207-1207](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1207-L1207)
 
 </details>
 
@@ -1090,7 +1090,7 @@
 <a id="perf-03-details"></a>
 ## PERF-03 - Controlled A/B and full-pack attribution
 
-[Outcome](Checklist.md#perf-03) / 36 source-derived details.
+[Outcome](Checklist.md#perf-03) / 37 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1206,6 +1206,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness (1)</summary>
+
+<a id="d-440f366b55335140138d"></a>
+- [ ] **D-440f366b55335140138d** - - P0/P1 Enderloom interactions with protection On must remain statistically equivalent to the protection-Off Phase 1 baseline or inside a very small predeclared/noise-equivalence b...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - P0/P1 Enderloom interactions with protection On must remain statistically equivalent to the protection-Off Phase 1 baseline or inside a very small predeclared/noise-equivalence band. - Protection may intentionally slow background/non-visible P2/P3 completion throughput when needed to protect Minecraft. That is expected scheduling, not an app responsiveness regression. - Explicit user-requested heavy operations remain functional. Use the minimum temporary safe resource burst needed for the foreground request while preserving G014; never silently unthrottle every worker. - If a specific governor mechanism (EcoQoS, background process mode, CPU Sets, memory priority, BITS, worker shrink, WebView suspension, etc.) creates visible Enderloom lag or poor tail latency, disable/retune that mechanism and keep testing alternatives rather than accepting the slowdown. - The governor&#x27;s own telemetry/detection loop must be extremely cheap; do not consume meaningful CPU/GPU/disk/network just to prove the app is lightweight. - When protection is Off, ordinary Enderloom still targets best-in-class low resource use and G010 performance; Off is not a &quot;maximum resource abuse&quot; mode. - When protection is On and Minecraft exits, normal full-speed background scheduling resumes promptly and reversibly.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 231-237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L231-L237)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger (1)</summary>
 
 <a id="d-eda32db59a5cb0ba8b5d"></a>
@@ -1213,7 +1225,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** · Give a direct Rust + Microsoft WebView2 shell a full production-shaped A/B opportunity against Electron, and promote it only if it preserves every browser/tool capability while materially improving startup/resource/game-impact performance
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T091 — Direct Rust + WebView2 full-shell challenger
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T091 : 296-296](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L296-L296)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T091 : 360-360](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L360-L360)
 
 </details>
 
@@ -1225,7 +1237,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** · Keep huge Mods/Browse lists smooth without blank cards, pop-in, missing rows, scroll jumps, or delayed logical results; use virtualization only after it passes a zero-visibility-defect gate
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T067 — Zero-blank large-list rendering; virtualization only if literally unnoticeable
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T067 : 861-861](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L861-L861)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T067 : 925-925](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L925-L925)
 
 </details>
 
@@ -1237,7 +1249,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Use stable IDs + compact typed deltas for changed records instead of retransmitting entire 10,000-item catalogs on each small update. - Batch high-frequency progress/index/provider events to an appropriate frame/latency budget without hiding state transitions. - Use transferable/binary buffers where profiling proves materially better for large payloads, with versioned schema and bounds validation. - Single-flight equivalent core requests so multiple cards/views do not independently trigger the same provider/DB/hash operation. - Maintain monotonic generation/revision IDs; renderer rejects stale deltas from superseded queries/navigation. - Provide a full snapshot/recovery route when a revision gap is detected; never apply an incomplete delta chain as authoritative state. - Benchmark serialization/deserialization + IPC queue time separately from core work.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T068 — Compact delta IPC and single-flight cross-process state
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 882-888](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L882-L888)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 946-952](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L946-L952)
 
 </details>
 
@@ -1249,7 +1261,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** This priority override changes execution order only; it does not remove or weaken any other accepted task. When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1323-1323](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1323-L1323)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1393-1393](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1393-L1393)
 
 </details>
 
@@ -1260,7 +1272,7 @@
 - [ ] **D-084b8f57e98f814756a8** - · Eliminate Browse/open-project latency through better architecture, never by doing less work
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 1524-1524](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1524-L1524)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 1594-1594](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1594-L1594)
 
 </details>
 
@@ -1475,7 +1487,7 @@
 <a id="perf-04-details"></a>
 ## PERF-04 - Frame-time and GPU lab
 
-[Outcome](Checklist.md#perf-04) / 79 source-derived details.
+[Outcome](Checklist.md#perf-04) / 78 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1679,18 +1691,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy (1)</summary>
-
-<a id="d-1733d187d8ea9f69cef6"></a>
-- [ ] **D-1733d187d8ea9f69cef6** - RELEASE-BLOCKING GAME IMPACT GATE — Whenever one or more Minecraft client/server instances are actively running, Enderloom must have no statistically meaningful or user-perceptible...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** RELEASE-BLOCKING GAME IMPACT GATE — Whenever one or more Minecraft client/server instances are actively running, Enderloom must have no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited, while Enderloom remains responsive and capable of safely managing the running instance and other instances.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G014 : 26-26](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L26-L26)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes (1)</summary>
 
 <a id="d-832fe72e2e119d34afe3"></a>
@@ -1698,7 +1698,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Performance UX rule - Every direct user gesture should acknowledge/respond within roughly one frame to 100 ms when local state can answer it. - Cached/local useful content should normally appear within roughly 100-250 ms. - Remote freshness may continue asynchronously, but the user must immediately see valid known state plus truthful refresh status. - Do not fake instant behavior with empty shells when valid cached/known content exists.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1231-1235](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1231-L1235)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1295-1299](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1295-L1299)
 
 </details>
 
@@ -2194,7 +2194,7 @@
 <a id="perf-06-details"></a>
 ## PERF-06 - Memory, tick and throughput gains
 
-[Outcome](Checklist.md#perf-06) / 29 source-derived details.
+[Outcome](Checklist.md#perf-06) / 30 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (2)</summary>
@@ -2264,14 +2264,26 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T080 — Adaptive CPU / disk / memory / network interference budgets (1)</summary>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow (1)</summary>
+
+<a id="d-4090620a46e80cf4b760"></a>
+- [ ] **D-4090620a46e80cf4b760** - must never become an excuse to make the application itself feel slow. The special Game Performance Protection governor may deliberately reduce/defer background P2/P3 throughput whi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** must never become an excuse to make the application itself feel slow. The special Game Performance Protection governor may deliberately reduce/defer background P2/P3 throughput while Minecraft runs, but ordinary P0/P1 interaction, navigation, cached search, Mod Manager use, logs, tabs, settings, and explicit management controls must remain within the strongest proven Enderloom responsiveness baseline/equivalence band. If a governor technique causes user-visible Enderloom lag, that technique fails and must be retuned/replaced rather than accepted as the price of zero game impact.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 30-30](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L30-L30)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets (1)</summary>
 
 <a id="d-4df0781eb5abbf99e9db"></a>
 - [ ] **D-4df0781eb5abbf99e9db** - - Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-saf...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-safe telemetry. - Where practical capture game-facing frame/tick/load telemetry in benchmark/perf builds; production mode may use lighter process/system headroom signals. - Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom. - Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data. - Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection. - For eligible nonurgent HTTP(S) transfers, A/B Windows BITS against Enderloom&#x27;s own throttled downloader and use whichever preserves foreground/game network responsiveness better without breaking auth, signed URLs, hashes, provenance or resume semantics. - Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache. - CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed &quot;N cores for Enderloom&quot; merely because the machine usually has spare cores. - On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class. - All adaptive decisions are bounded/hysteretic so the scheduler does not oscillate every few milliseconds.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — ABSOLUTE PRIORITY -2: Minecraft-running zero-impact supremacy / T080 — Adaptive CPU / disk / memory / network interference budgets
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 80-89](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L80-L89)
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 96-105](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L96-L105)
 
 </details>
 
@@ -2469,7 +2481,7 @@
 <a id="perf-07-details"></a>
 ## PERF-07 - Fast conversion and responsive studio
 
-[Outcome](Checklist.md#perf-07) / 9 source-derived details.
+[Outcome](Checklist.md#perf-07) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5. Performance acceptance (1)</summary>
@@ -2484,6 +2496,32 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow (3)</summary>
+
+<a id="d-e975897f2b39ded22f58"></a>
+- [ ] **D-e975897f2b39ded22f58** - GAME IMPACT GATE — Only after the Phase 1 performance/stack baseline is proven, Game Performance Protection must be able to keep Enderloom at no statistically meaningful or user-pe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GAME IMPACT GATE — Only after the Phase 1 performance/stack baseline is proven, Game Performance Protection must be able to keep Enderloom at no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited, while Enderloom itself remains fast, responsive, and capable of safely managing the running instance and other instances.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G014 : 26-26](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L26-L26)
+
+<a id="d-8bf3010237b5b6510b04"></a>
+- [ ] **D-8bf3010237b5b6510b04** - This is the highest Phase-2 coexistence invariant, not the first implementation priority. Do not begin tuning Enderloom around G014 until the Phase 1 stack/performance work is alre...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This is the highest Phase-2 coexistence invariant, not the first implementation priority. Do not begin tuning Enderloom around G014 until the Phase 1 stack/performance work is already proven excellent. Phase 1 establishes the fastest correct architecture first; Phase 2 then makes that already-fast architecture coexist with Minecraft with effectively zero impact.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 28-28](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L28-L28)
+
+<a id="d-5d53f0a20d54fadd512a"></a>
+- [ ] **D-5d53f0a20d54fadd512a** - Even with Game Performance Protection disabled, the permanent Phase 1 architecture still uses efficient incremental indexing, caching, single-flight, bounded concurrency, priority ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Even with Game Performance Protection disabled, the permanent Phase 1 architecture still uses efficient incremental indexing, caching, single-flight, bounded concurrency, priority scheduling, low idle wakeups, and other proven low-overhead behavior. Disabling the optional governor means do not apply the special Minecraft-specific throttling/protection policy; it does not authorize wasteful resource use.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 32-32](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L32-L32)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T070 — Continuous performance proof during every architecture/tool migration slice (1)</summary>
 
 <a id="d-4eb7a0cee19c8b67758a"></a>
@@ -2491,7 +2529,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - No broad &quot;Rust migration complete; optimize later&quot; phase is allowed. - Every meaningful G012/G013 slice records cold/warm first-useful latency, full-completion latency, p95/p99 where relevant, CPU/RAM/disk/network cost, result/metadata/capability counts, and regression evidence before the next dependent slice is considered stable. - Run comparison against the previous proven Enderloom build continuously; run the full CurseForge/Modrinth comparator matrix at representative milestones and any time a touched path could materially alter the final superiority result. - If a new architecture is cleaner but slower, it remains incomplete: profile and repair it rather than accepting the regression for &quot;future optimization.&quot; - Performance work may proceed in parallel with independent implementation tasks when shared state/contracts are settled, but never by racing conflicting migrations or weakening verification. - Preserve deterministic benchmark fixtures so improvements become permanent regression gates rather than anecdotes. - User-visible responsiveness remains P0 throughout migration; background conversion/indexing/benchmark work must not make the development build architecturally &quot;fast later but miserable now.&quot;
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T070 — Continuous performance proof during every architecture/tool migration slice
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 917-923](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L917-L923)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 981-987](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L981-L987)
 
 </details>
 
@@ -2503,7 +2541,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** For network-backed paths, report Enderloom-local overhead separately from provider/network latency so slow providers do not hide slow Enderloom code and fast providers do not hide architectural waste.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1170-1170](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1170-L1170)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1234-1234](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1234-L1234)
 
 </details>
 
@@ -2567,7 +2605,7 @@
 <a id="perf-08-details"></a>
 ## PERF-08 - Dedicated Performance workspace
 
-[Outcome](Checklist.md#perf-08) / 75 source-derived details.
+[Outcome](Checklist.md#perf-08) / 76 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2745,7 +2783,19 @@
 - [ ] **D-116eed258c072ff50c63** - · Run G010 performance/coverage proof continuously while G012/G013 are implemented instead of deferring optimization until after architecture work
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T070 — Continuous performance proof during every architecture/tool migration slice
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T070 : 909-909](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L909-L909)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T070 : 973-973](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L973-L973)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override (1)</summary>
+
+<a id="d-25e462d8ba87123c4056"></a>
+- [ ] **D-25e462d8ba87123c4056** - Execute the remaining work in this priority order, without waiting for unrelated queue items. Do not pull G014 ahead of the Phase 1 stack/performance work merely because its sectio...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Execute the remaining work in this priority order, without waiting for unrelated queue items. Do not pull G014 ahead of the Phase 1 stack/performance work merely because its section appears earlier in this document:
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1358-1358](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1358-L1358)
 
 </details>
 
@@ -3302,7 +3352,7 @@
 - [ ] **D-569eaa25221f0b555b1d** - · For each material performance subsystem, name the stable baseline and the strongest credible challenger before freezing the architecture
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T085 — Maintain stable baselines and explicit challenger candidates
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T085 : 189-189](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L189-L189)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T085 : 253-253](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L253-L253)
 
 </details>
 
@@ -3314,7 +3364,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Do not introduce or keep virtualization merely because it benchmarks lower DOM count. It must be visually and behaviorally invisible. - Prefer indexed data + fast incremental rendering/browser-native containment techniques where they meet performance without windowing defects. - If windowing/virtualization is used, it must render severely ahead of scroll with velocity-adaptive overscan/prefetch. Maintain enough ready rows/cards ahead and behind that abusive wheel/touchpad/PageDown/scrollbar-drag/Home/End navigation never reveals empty placeholders caused by the windowing engine. - Data for the ahead-of-scroll window must be prepared before DOM promotion; do not show blank/skeleton cards for records already known locally. - Overscan expands proactively with measured scroll velocity and renderer load; if the system cannot maintain the lead, degrade to a safer larger/non-virtualized window rather than showing holes. - Focus, Shift-range selection, Ctrl+A logical selection, context menus, screen readers, scroll restoration, anchored item position, variable-height content, image loading and keyboard navigation must remain correct across recycled rows. - Search/filter/sort/count/bulk semantics always cover the complete logical dataset, never only mounted DOM rows. - Add runtime instrumentation for &quot;viewport requested but row/card not ready&quot;; the acceptance value is zero in release fixtures. - Required torture fixture: 10,000 logical results, rapid trackpad/wheel fling, scrollbar thumb drag, repeated Home/End/PageDown, fast filter changes and image-heavy cards on the supported Windows target. Capture video/frame telemetry and prove no blank gap/pop-in/scroll jump/missing result/focus loss. - If that gate cannot be met consistently, disable virtualization for the affected surface and optimize the underlying data/render architecture instead.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T067 — Zero-blank large-list rendering; virtualization only if literally unnoticeable
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 865-874](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L865-L874)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 929-938](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L929-L938)
 
 </details>
 
