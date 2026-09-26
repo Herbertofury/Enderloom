@@ -55,6 +55,20 @@ contextBridge.exposeInMainWorld('enderloomLauncher', {
     projectId: String(request?.projectId || '').slice(0, 128),
     kind: String(request?.kind || '').slice(0, 32),
   }),
+  providerSurface: (request) => ipcRenderer.invoke('launcher:provider-surface', {
+    action: String(request?.action || '').slice(0, 32),
+    provider: String(request?.provider || '').slice(0, 32),
+    projectKey: String(request?.projectKey || '').slice(0, 512),
+    url: String(request?.url || '').slice(0, 4096),
+    rect: request?.rect && typeof request.rect === 'object'
+      ? {
+          x: Number(request.rect.x) || 0,
+          y: Number(request.rect.y) || 0,
+          width: Number(request.rect.width) || 0,
+          height: Number(request.rect.height) || 0,
+        }
+      : undefined,
+  }),
   revealInFolder: (filePath) => ipcRenderer.invoke('launcher:reveal', filePath),
   assetUrl: (filePath) => {
     const encoded = Buffer.from(String(filePath), 'utf8')
