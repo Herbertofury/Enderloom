@@ -14,10 +14,17 @@ const INSTANCE_COLUMNS: &str = "id, name, version_id, created_at, min_memory_mb,
     wrapper_command, pre_launch_command, post_exit_command,
     external_dir";
 
-fn read_instance_row(files: &FileManager, row: &rusqlite::Row<'_>) -> rusqlite::Result<Instance> {
+fn read_instance_row(
+    files: &FileManager,
+    logos: Option<&std::collections::HashMap<String, String>>,
+    row: &rusqlite::Row<'_>,
+) -> rusqlite::Result<Instance> {
     let id: String = row.get(0)?;
     let created_at: String = row.get(3)?;
     let external_dir: Option<String> = row.get(26)?;
+    let logo = logos
+        .and_then(|index| index.get(&id).cloned())
+        .or_else(|| logos.is_none().then(|| crate::meta::media::instance_logo(files, &id)).flatten());
     Ok(Instance {
         dir: external_dir
             .filter(|value| !value.trim().is_empty())
@@ -25,7 +32,7 @@ fn read_instance_row(files: &FileManager, row: &rusqlite::Row<'_>) -> rusqlite::
             .unwrap_or_else(|| files.paths().instance_dir(&id))
             .display()
             .to_string(),
-        logo: crate::meta::media::instance_logo(files, &id),
+        logo,
         id,
         name: row.get(1)?,
         version_id: row.get(2)?,
@@ -122,10 +129,11 @@ impl Db {
     }
 
     pub fn list_instances(&self, files: &FileManager) -> Result<Vec<Instance>> {
+        let logos = crate::meta::media::instance_logo_index(files);
         let conn = self.0.lock().unwrap();
         let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances ORDER BY created_at");
         let mut stmt = conn.prepare(&sql)?;
-        let rows = stmt.query_map([], |row| read_instance_row(files, row))?;
+        let rows = stmt.query_map([], |row| read_instance_row(files, Some(&logos), row))?;
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
     }
 
@@ -133,7 +141,7 @@ impl Db {
         let conn = self.0.lock().unwrap();
         let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances WHERE id = ?1");
         Ok(conn
-            .query_row(&sql, params![instance_id], |row| read_instance_row(files, row))
+            .query_row(&sql, params![instance_id], |row| read_instance_row(files, None, row))
             .optional()?)
     }
 
