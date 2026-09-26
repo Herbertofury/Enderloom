@@ -3992,7 +3992,7 @@
 - [ ] **D-016e6ecf129975cc2941** - · Use WebContentsView for embedded remote browsing wherever legacy BrowserView/webview architecture remains
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L472-L472)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T036 : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L493-L493)
 
 </details>
 
