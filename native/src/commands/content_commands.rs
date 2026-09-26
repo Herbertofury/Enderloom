@@ -62,6 +62,74 @@ pub(crate) async fn list_instance_content_core(
     Ok(items)
 }
 
+#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+pub struct InstalledProjectSource {
+    pub file_name: String,
+    pub version_id: Option<String>,
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state, instance_ids), err)]
+pub fn list_content_source_index(
+    state: State<'_, AppState>,
+    instance_ids: Vec<String>,
+    kind: String,
+) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
+    list_content_source_index_core(&state, &instance_ids, &kind)
+}
+
+pub(crate) fn list_content_source_index_core(
+    state: &AppState,
+    instance_ids: &[String],
+    kind: &str,
+) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
+    let mut index = std::collections::HashMap::with_capacity(instance_ids.len());
+
+    for instance_id in instance_ids {
+        find_instance(state, instance_id)?;
+        let dir = content::dir_for(state.files.paths(), instance_id, kind)?;
+        let mut projects =
+            std::collections::HashMap::<String, (i64, InstalledProjectSource)>::new();
+
+        for source in state.db.content_files(instance_id, kind)? {
+            let Some(project_id) = source.project_id.clone() else {
+                continue;
+            };
+            let path = content::resolve_path(&state.files, &dir, &source.file_name);
+            if !state.files.is_file(&path).unwrap_or(false) {
+                continue;
+            }
+
+            let installed_at = source.installed_at;
+            let candidate = InstalledProjectSource {
+                file_name: source.file_name,
+                version_id: source.version_id,
+            };
+            match projects.entry(project_id) {
+                std::collections::hash_map::Entry::Vacant(entry) => {
+                    entry.insert((installed_at, candidate));
+                }
+                std::collections::hash_map::Entry::Occupied(mut entry)
+                    if installed_at >= entry.get().0 =>
+                {
+                    entry.insert((installed_at, candidate));
+                }
+                std::collections::hash_map::Entry::Occupied(_) => {}
+            }
+        }
+
+        index.insert(
+            instance_id.clone(),
+            projects
+                .into_iter()
+                .map(|(project_id, (_, source))| (project_id, source))
+                .collect(),
+        );
+    }
+
+    Ok(index)
+}
+
 #[tauri::command]
 #[tracing::instrument(skip(state), err)]
 pub async fn list_instance_content_bundle(
