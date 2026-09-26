@@ -53,6 +53,7 @@ let chromeOverlayHeight = BASE_TOP;
 let statusBarCollapsed = false;
 let catalogView = null;
 let launcherView = null;
+let launcherProviderSurface = null;
 let tabs = [];
 let activeId = CATALOG_ID;
 let splitMode = false;
@@ -545,6 +546,235 @@ function scheduleChromeGuard() {
     }, delay);
   }
 }
+function launcherProviderSurfaceState() {
+  const surface = launcherProviderSurface;
+  const wc = surface?.view?.webContents;
+  if (!surface || !wc || wc.isDestroyed()) {
+    return {
+      open: false,
+      visible: false,
+      provider: '',
+      projectKey: '',
+      url: '',
+      title: '',
+      loading: false,
+      canBack: false,
+      canForward: false,
+      error: null,
+    };
+  }
+  return {
+    open: true,
+    visible: !!surface.visible,
+    provider: surface.provider,
+    projectKey: surface.projectKey,
+    url: wc.getURL() || surface.url,
+    title: surface.title || '',
+    loading: !!surface.loading,
+    canBack: navCanBack(wc),
+    canForward: navCanForward(wc),
+    error: surface.error || null,
+  };
+}
+function publishLauncherProviderSurfaceState() {
+  if (launcherView && !launcherView.webContents.isDestroyed()) {
+    launcherView.webContents.send('provider-surface-state', launcherProviderSurfaceState());
+  }
+}
+function providerSurfaceBounds(rect) {
+  if (!launcherView || !rect) return null;
+  const host = launcherView.getBounds();
+  const x = Math.max(0, Math.min(host.width - 1, Math.round(Number(rect.x) || 0)));
+  const y = Math.max(0, Math.min(host.height - 1, Math.round(Number(rect.y) || 0)));
+  const width = Math.max(1, Math.min(host.width - x, Math.round(Number(rect.width) || 1)));
+  const height = Math.max(1, Math.min(host.height - y, Math.round(Number(rect.height) || 1)));
+  return { x: host.x + x, y: host.y + y, width, height };
+}
+function layoutLauncherProviderSurface() {
+  const surface = launcherProviderSurface;
+  if (!surface?.view || surface.view.webContents.isDestroyed()) return;
+  const launcherVisible = !!launcherView?.getVisible?.();
+  const bounds = providerSurfaceBounds(surface.rect);
+  if (!surface.visible || !launcherVisible || !bounds || bounds.width < 2 || bounds.height < 2) {
+    setViewVisible(surface.view, false);
+    return;
+  }
+  showView(surface.view, bounds);
+}
+function disposeLauncherProviderSurface() {
+  const surface = launcherProviderSurface;
+  launcherProviderSurface = null;
+  if (!surface?.view) {
+    publishLauncherProviderSurfaceState();
+    return false;
+  }
+  try { detach(surface.view); } catch {}
+  try { if (!surface.view.webContents.isDestroyed()) surface.view.webContents.close(); } catch {}
+  publishLauncherProviderSurfaceState();
+  return true;
+}
+function openLauncherProviderSurface(request = {}) {
+  const url = safeHttpUrl(request.url);
+  if (!url) throw new Error('Provider pages require an HTTP or HTTPS URL');
+  const provider = String(request.provider || 'provider').slice(0, 32).toLowerCase();
+  const projectKey = String(request.projectKey || url).slice(0, 512);
+  const rect = request.rect && typeof request.rect === 'object' ? request.rect : null;
+
+  const existing = launcherProviderSurface;
+  if (
+    existing?.view &&
+    !existing.view.webContents.isDestroyed() &&
+    existing.provider === provider &&
+    existing.projectKey === projectKey
+  ) {
+    existing.visible = true;
+    if (rect) existing.rect = rect;
+    layoutLauncherProviderSurface();
+    publishLauncherProviderSurfaceState();
+    return launcherProviderSurfaceState();
+  }
+
+  disposeLauncherProviderSurface();
+  const view = new WebContentsView({
+    webPreferences: {
+      session: session.fromPartition(PARTITION),
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: true,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      spellcheck: true,
+      backgroundThrottling: false,
+    },
+  });
+  view.setBackgroundColor('#0b0d15');
+  setViewVisible(view, false);
+  const surface = {
+    id: 'launcher-provider-surface',
+    provider,
+    projectKey,
+    url,
+    title: provider,
+    loading: true,
+    error: null,
+    visible: true,
+    rect,
+    view,
+  };
+  launcherProviderSurface = surface;
+
+  view.webContents.setWindowOpenHandler((details) => {
+    const target = safeHttpUrl(details.url);
+    if (target) createBrowserTab(target, true);
+    return { action: 'deny' };
+  });
+  view.webContents.on('will-navigate', (event, targetUrl) => {
+    if (!safeHttpUrl(targetUrl)) event.preventDefault();
+  });
+  view.webContents.on('page-title-updated', (_event, title) => {
+    surface.title = title || provider;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-start-loading', () => {
+    surface.loading = true;
+    surface.error = null;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-stop-loading', () => {
+    surface.loading = false;
+    surface.url = view.webContents.getURL() || surface.url;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-navigate', (_event, nextUrl) => {
+    surface.url = nextUrl;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-navigate-in-page', (_event, nextUrl) => {
+    surface.url = nextUrl;
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('did-fail-load', (_event, code, description, failedUrl, isMainFrame) => {
+    if (!isMainFrame || code === -3) return;
+    surface.loading = false;
+    surface.error = { code, description, url: failedUrl || surface.url };
+    publishLauncherProviderSurfaceState();
+  });
+  view.webContents.on('render-process-gone', (_event, details) => {
+    surface.loading = false;
+    surface.error = {
+      code: -1,
+      description: `Renderer stopped: ${details?.reason || 'unknown'}`,
+      url: surface.url,
+    };
+    publishLauncherProviderSurfaceState();
+  });
+  setupContextMenu(surface);
+  layoutLauncherProviderSurface();
+  view.webContents.loadURL(url).catch((error) => {
+    surface.loading = false;
+    surface.error = { code: -1, description: error.message, url };
+    publishLauncherProviderSurfaceState();
+  });
+  publishLauncherProviderSurfaceState();
+  return launcherProviderSurfaceState();
+}
+async function launcherProviderSurfaceCommand(action, request = {}) {
+  const surface = launcherProviderSurface;
+  const wc = surface?.view?.webContents;
+  switch (action) {
+    case 'open':
+      return openLauncherProviderSurface(request);
+    case 'layout':
+      if (surface && request.rect && typeof request.rect === 'object') {
+        surface.rect = request.rect;
+        layoutLauncherProviderSurface();
+      }
+      return launcherProviderSurfaceState();
+    case 'hide':
+      if (surface) {
+        surface.visible = false;
+        layoutLauncherProviderSurface();
+        publishLauncherProviderSurfaceState();
+      }
+      return launcherProviderSurfaceState();
+    case 'dispose':
+      disposeLauncherProviderSurface();
+      return launcherProviderSurfaceState();
+    case 'back':
+      if (wc && navCanBack(wc)) navBack(wc);
+      break;
+    case 'forward':
+      if (wc && navCanForward(wc)) navForward(wc);
+      break;
+    case 'reload':
+      if (wc) surface.loading ? wc.stop() : wc.reload();
+      break;
+    case 'promote': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (!target) throw new Error('No provider page is available to open in a new tab');
+      const tab = createBrowserTab(target, true);
+      return { ...launcherProviderSurfaceState(), promoted: true, tabId: tab.id, promotedUrl: target };
+    }
+    case 'external': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (!target) throw new Error('No provider page is available to open externally');
+      await shell.openExternal(target);
+      break;
+    }
+    case 'copy-url': {
+      const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
+      if (target) clipboard.writeText(target);
+      break;
+    }
+    case 'state':
+      break;
+    default:
+      throw new Error('Unsupported provider surface action');
+  }
+  publishLauncherProviderSurfaceState();
+  return launcherProviderSurfaceState();
+}
+
 function layoutViews() {
   if (!win || win.isDestroyed()) return;
   const [w, h] = win.getContentSize();
@@ -584,6 +814,7 @@ function layoutViews() {
   for (const t of tabs) if (!visible.has(t.view)&&!viewIsDetached(t.view)) setViewVisible(t.view, false);
   if (catalogView && !visible.has(catalogView)&&!viewIsDetached(catalogView)) setViewVisible(catalogView, false);
   if (launcherView && !visible.has(launcherView)&&!viewIsDetached(launcherView)) setViewVisible(launcherView, false);
+  layoutLauncherProviderSurface();
   layoutSplitterOverlay();
   layoutStatusOverlay();
   layoutChromeOverlay();
@@ -790,6 +1021,7 @@ function setupLauncher() {
   launcherView.webContents.on('focus', refreshShellChrome);
   launcherView.webContents.on('render-process-gone', () => {
     if (!win || win.isDestroyed()) return;
+    disposeLauncherProviderSurface();
     try { detach(launcherView); } catch {}
     launcherView = null;
     setupLauncher();
@@ -979,6 +1211,13 @@ async function command(name, payload) {
   switch (name) {
     case 'activate': activateTab(payload?.id); break;
     case 'new-tab': createBrowserTab(payload?.url || 'https://www.google.com/', true); break;
+    case 'promote-provider-page': {
+      const current = launcherProviderSurfaceState();
+      const target = safeHttpUrl((current.open && current.url) || payload?.url);
+      if (!target) throw new Error('No provider page is available to promote');
+      const tab = createBrowserTab(target, true);
+      return { promoted: true, tabId: tab.id, url: target };
+    }
     case 'close-tab': closeTab(payload?.id || activeId); break;
     case 'reopen-tab': { const x = closedTabs.shift(); if (x) createBrowserTab(x.url, true); break; }
     case 'reorder-tab': reorderTab(String(payload?.id||''),String(payload?.beforeId||'')); break;
@@ -2638,6 +2877,18 @@ ipcMain.handle('launcher:open-external', async (event, rawUrl) => {
   if (!url) throw new Error('Only HTTPS/HTTP links can be opened');
   await shell.openExternal(url);
 });
+ipcMain.handle('launcher:provider-surface', async (event, raw) => {
+  launcherSender(event);
+  const action = String(raw?.action || '').trim().toLowerCase();
+  const request = {
+    ...raw,
+    action,
+    provider: String(raw?.provider || '').slice(0, 32),
+    projectKey: String(raw?.projectKey || '').slice(0, 512),
+    url: String(raw?.url || '').slice(0, 4096),
+  };
+  return launcherProviderSurfaceCommand(action, request);
+});
 ipcMain.handle('launcher:open-catalog-research', async (event, raw) => {
   launcherSender(event);
   const query = String(raw?.query || '').trim().replace(/[\u0000-\u001f\u007f]/g, '').slice(0, 256);
@@ -3150,6 +3401,7 @@ function shutdownApplication(code=0){
     try { translatorUpdater?.dispose(); } catch {}
     try { translator?.dispose(); } catch {}
     for(const [id,entry] of [...detachedWindows]){entry.destroying=true;removeViewFromOwner(entry.window,entry.view);detachedWindows.delete(id);try{if(!entry.window.isDestroyed())entry.window.destroy()}catch{}}
+    try { disposeLauncherProviderSurface(); } catch {}
     for(const slot of mediaViewPool.splice(0)){try{slot.view?.webContents?.close()}catch{}}
     mediaViewWaiters.length=0;
     await Promise.allSettled([
