@@ -278,6 +278,23 @@ impl Db {
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
     }
 
+    pub fn content_source_rows(
+        &self,
+        instance_id: &str,
+        kind: &str,
+    ) -> Result<Vec<(String, String, Option<String>, i64)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare(
+            "SELECT file_name, project_id, version_id, installed_at
+             FROM content_files
+             WHERE instance_id = ?1 AND kind = ?2 AND project_id IS NOT NULL",
+        )?;
+        let rows = stmt.query_map(params![instance_id, kind], |row| {
+            Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?))
+        })?;
+        Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
     pub fn content_source_rows_for_kind(
         &self,
         kind: &str,
