@@ -694,7 +694,7 @@ Required behavior:
 
 ### Immediate execution priority override
 
-The **G010 / T047-T049 whole-app performance program is the absolute highest priority**. Within that program, the embedded-browser/download/Browse repair remains the first tactical tranche because it is among the most disruptive everyday UX problems.
+The **G012/G013 architecture work and G010 whole-app performance program are one concurrent highest-priority stream**: build each Rust/tool-platform vertical slice, benchmark and tune it immediately under G010/T070, ratchet the stronger baseline, then continue. Do **not** interpret the numbered order below as permission to postpone performance until architecture work is finished. Within that concurrent stream, the embedded-browser/download/Browse repair remains a major tactical tranche because it is among the most disruptive everyday UX problems.
 
 Execute in this priority order, without waiting for unrelated queue items:
 
@@ -1856,6 +1856,12 @@ Exercise the real desktop build through at least:
 39. image/media fixture -> card uses right-sized native cached image -> huge gallery image never blocks text/actions -> stale late image cannot overwrite newer source.
 40. 10,000-result rendering torture -> rapid wheel/trackpad/scrollbar/Home/End/PageDown + filters + images -> zero viewport-not-ready events, blank cards, pop-in gaps, scroll jumps, focus loss, or missing logical results; disable virtualization if the gate fails.
 41. crash-injection matrix across DB/WAL/CAS/download/hash/live swap/migration/quarantine -> restart always yields verified old or verified new state, never half-success/corruption.
+42. dual-host Mod Manager -> launch standalone without Electron -> open same instance/search/filter state as Electron tab -> pop out -> dock back -> open standalone again -> prove no rescan/reload/state drift and benchmark each transition/launch.
+43. simultaneous Electron + standalone Mod Manager -> mutate favorites/update state in one host -> other host updates live -> inject revision gap -> coherent snapshot recovery -> concurrent same-artifact action resolves safely without duplicate scans/writes.
+44. embedded CurseForge provider page -> user clicks real site Favorite -> provider bridge validates canonical project/state -> Enderloom favorite commits -> standalone Mod Manager + Electron-tabbed Mod Manager update immediately without refresh; unfavorite likewise follows explicit user action and transient provider failure never erases local favorite.
+45. Electron capability bridge -> from Mod Manager open exact provider page/split view/download -> return/send artifact to Mod Manager -> preserve authenticated browser session and canonical project context; standalone host offers equivalent lightweight action or exact Open in Enderloom continuation.
+46. tool docking fixture -> detach/reattach with active selection/search/scroll/operation -> zero lost view state or cancelled independent work -> drag/tab/context/keyboard paths agree.
+47. future-tool platform fixture -> World Editor (or equivalently real second tool) launches standalone, docks as Electron tab, pops out/reattaches, shares canonical instance/world context, invokes browser/download capability through the typed bridge, and preserves unsaved editor state safely.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
