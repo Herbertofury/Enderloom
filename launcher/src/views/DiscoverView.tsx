@@ -18,7 +18,7 @@ import {
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
-import { prefetchProject } from "../lib/project-cache";
+import { prefetchProject, prefetchProjectDetails } from "../lib/project-cache";
 import type {
   Instance,
   ContentKind,
@@ -573,6 +573,22 @@ export function DiscoverView() {
   };
 
   const hits = page?.hits ?? [];
+  const visibleWarmKey = hits
+    .slice(0, 6)
+    .map((project) => project.id)
+    .join("|");
+
+  useEffect(() => {
+    if (!visibleWarmKey) return;
+    const visible = hits.slice(0, 6);
+    const timer = setTimeout(() => {
+      for (const project of visible) {
+        prefetchProjectDetails(provider, project.id);
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [provider, visibleWarmKey]);
+
   const total = page?.total ?? 0;
   const activeFilters = countActive(filters);
   const pageIndex = Math.floor(offset / PAGE_SIZE);
