@@ -32,6 +32,7 @@ import type {
   VersionFile,
 } from "../lib/types";
 import { useContentInstaller } from "../lib/contentInstaller";
+import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
 import { Markdown } from "../components/project/Markdown";
 import { ProjectHero } from "../components/project/ProjectHero";
 import { ProjectSidebar } from "../components/project/ProjectSidebar";
@@ -58,12 +59,6 @@ const GetServerModal = lazy(() =>
     default: module.GetServerModal,
   })),
 );
-const InstanceTargetPicker = lazy(() =>
-  import("../components/InstanceTargetPicker").then((module) => ({
-    default: module.InstanceTargetPicker,
-  })),
-);
-
 interface PendingInstall {
   key: string;
   projectId: string;
@@ -970,30 +965,28 @@ export function ProjectView() {
       )}
 
       {(needsTarget || pickingTarget) && (
-        <Suspense fallback={null}>
-          <InstanceTargetPicker
-            instances={instances}
-            selected={null}
-            modalFor={details?.title ?? "this project"}
-            onSelect={(picked) => {
-              const target = needsTarget;
-              setNeedsTarget(null);
-              setPickingTarget(false);
-              if (picked) {
-                setDiscoverTarget(picked.id);
-                if (target) {
-                  void beginInstall(target, {
-                    id: picked.id,
-                    name: picked.name,
-                    version_id: picked.version_id,
-                    loader: picked.loader,
-                    isServer: false,
-                  });
-                }
+        <InstanceTargetPicker
+          instances={instances}
+          selected={null}
+          modalFor={details?.title ?? "this project"}
+          onSelect={(picked) => {
+            const target = needsTarget;
+            setNeedsTarget(null);
+            setPickingTarget(false);
+            if (picked) {
+              setDiscoverTarget(picked.id);
+              if (target) {
+                void beginInstall(target, {
+                  id: picked.id,
+                  name: picked.name,
+                  version_id: picked.version_id,
+                  loader: picked.loader,
+                  isServer: false,
+                });
               }
-            }}
-          />
-        </Suspense>
+            }
+          }}
+        />
       )}
     </div>
   );
