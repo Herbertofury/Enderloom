@@ -588,3 +588,113 @@ impl Db {
         Ok(true)
     }
 }
+
+
+#[cfg(test)]
+mod direct_instance_lookup_tests {
+    use super::*;
+    use crate::{files::FileManager, paths::Paths};
+    use std::time::Instant;
+
+    fn fixture_instance(id: &str, created_at: chrono::DateTime<chrono::Utc>) -> Instance {
+        Instance {
+            id: id.to_string(),
+            name: format!("Instance {id}"),
+            version_id: "1.20.1".to_string(),
+            created_at,
+            min_memory_mb: Some(1024),
+            max_memory_mb: Some(4096),
+            java_path: None,
+            last_played_at: None,
+            playtime_secs: 0,
+            dir: String::new(),
+            logo: None,
+            loader: Some("fabric".to_string()),
+            loader_version: Some("0.16.0".to_string()),
+            launch_version_id: None,
+            pack_provider: None,
+            pack_project_id: None,
+            pack_version_id: None,
+            jvm_args: None,
+            jvm_args_mode: None,
+            env_vars: None,
+            env_vars_mode: None,
+            import_source: None,
+            import_source_id: None,
+            banner_id: None,
+            notes: None,
+            wrapper_command: None,
+            pre_launch_command: None,
+            post_exit_command: None,
+        }
+    }
+
+    #[test]
+    fn direct_instance_lookup_matches_full_listing_and_scales_better() {
+        let root = std::env::temp_dir().join(format!(
+            "enderloom-direct-instance-{}",
+            uuid::Uuid::new_v4()
+        ));
+        std::fs::create_dir_all(&root).unwrap();
+        let files = FileManager::new(Paths::plain(root.clone())).unwrap();
+        let db = Db::open_in_memory().unwrap();
+
+        let count = 320;
+        let base = chrono::Utc::now();
+        for index in 0..count {
+            let instance = fixture_instance(
+                &format!("instance-{index:04}"),
+                base + chrono::Duration::seconds(index as i64),
+            );
+            db.insert_instance(&instance).unwrap();
+        }
+
+        let target_id = "instance-0319";
+        let direct = db.instance(&files, target_id).unwrap().unwrap();
+        let listed = db
+            .list_instances(&files)
+            .unwrap()
+            .into_iter()
+            .find(|instance| instance.id == target_id)
+            .unwrap();
+        assert_eq!(direct.id, listed.id);
+        assert_eq!(direct.name, listed.name);
+        assert_eq!(direct.version_id, listed.version_id);
+        assert_eq!(direct.loader, listed.loader);
+        assert_eq!(direct.logo, listed.logo);
+        assert_eq!(direct.dir, listed.dir);
+
+        let cycles = 12;
+        let legacy_started = Instant::now();
+        for _ in 0..cycles {
+            let found = db
+                .list_instances(&files)
+                .unwrap()
+                .into_iter()
+                .find(|instance| instance.id == target_id)
+                .unwrap();
+            std::hint::black_box(found);
+        }
+        let legacy = legacy_started.elapsed();
+
+        let direct_started = Instant::now();
+        for _ in 0..cycles {
+            let found = db.instance(&files, target_id).unwrap().unwrap();
+            std::hint::black_box(found);
+        }
+        let direct_elapsed = direct_started.elapsed();
+
+        eprintln!(
+            "direct instance lookup benchmark: legacy={legacy:?} direct={direct_elapsed:?} speedup={:.1}x",
+            legacy.as_secs_f64() / direct_elapsed.as_secs_f64().max(f64::EPSILON)
+        );
+        assert!(
+            direct_elapsed * 4 < legacy,
+            "direct lookup should be at least 4x faster: legacy={legacy:?}, direct={direct_elapsed:?}"
+        );
+
+        drop(db);
+        drop(files);
+        std::fs::remove_dir_all(root).unwrap();
+    }
+}
