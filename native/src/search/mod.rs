@@ -135,6 +135,16 @@ pub async fn project_mirrors(
     project_id: &str,
     kind: ContentKind,
 ) -> Result<Vec<ProjectMirror>> {
+    let mapping_key = format!(
+        "provider-map:{}:{}:{}",
+        kind.as_str(),
+        provider.as_str(),
+        project_id
+    );
+    if let Some(cached) = cache::local_json::<Vec<ProjectMirror>>(state, &mapping_key) {
+        return Ok(cached);
+    }
+
     let current = project_details(state, provider, project_id).await?;
     let other = match provider {
         Provider::Modrinth => Provider::Curseforge,
@@ -156,8 +166,17 @@ pub async fn project_mirrors(
         search(state, other, kind, &query).await
     });
 
+    let search_results = futures::future::join_all(searches).await;
+    let successful_searches = search_results.iter().filter(|result| result.is_ok()).count();
+    if successful_searches == 0 {
+        return Err(Error::other(format!(
+            "Could not resolve the {} mirror for this project yet.",
+            other.as_str()
+        )));
+    }
+
     let mut candidates = std::collections::HashMap::<String, ProjectSummary>::new();
-    for page in futures::future::join_all(searches).await.into_iter().flatten() {
+    for page in search_results.into_iter().flatten() {
         for candidate in page.hits {
             candidates.entry(candidate.id.clone()).or_insert(candidate);
         }
@@ -213,6 +232,15 @@ pub async fn project_mirrors(
             .cmp(&a.confidence)
             .then_with(|| b.project.downloads.cmp(&a.project.downloads))
     });
+
+    let ttl = if mirrors.is_empty() {
+        cache::TTL_PROVIDER_MAP_MISS
+    } else {
+        cache::TTL_PROVIDER_MAP
+    };
+    if let Err(error) = cache::put_local_json(state, &mapping_key, ttl, &mirrors) {
+        tracing::warn!(%error, "could not persist provider mirror mapping");
+    }
     Ok(mirrors)
 }
 
