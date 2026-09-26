@@ -86,7 +86,7 @@
 - [ ] **D-4123fc35452f64a47692** - · Capture reproducible, apples-to-apples CurseForge / Modrinth / Enderloom performance evidence before and during optimization
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T047 : 63-63](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L63-L63)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T047 : 64-64](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L64-L64)
 
 </details>
 
@@ -1213,7 +1213,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** This priority override changes execution order only; it does not remove or weaken any other accepted task. When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 199-199](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L199-L199)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 200-200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L200-L200)
 
 </details>
 
@@ -1224,7 +1224,7 @@
 - [ ] **D-084b8f57e98f814756a8** - · Eliminate Browse/open-project latency through better architecture, never by doing less work
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 400-400](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L400-L400)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 401-401](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L401-L401)
 
 </details>
 
@@ -1650,7 +1650,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Performance UX rule - Every direct user gesture should acknowledge/respond within roughly one frame to 100 ms when local state can answer it. - Cached/local useful content should normally appear within roughly 100-250 ms. - Remote freshness may continue asynchronously, but the user must immediately see valid known state plus truthful refresh status. - Do not fake instant behavior with empty shells when valid cached/known content exists.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 151-155](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L151-L155)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 152-156](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L152-L156)
 
 </details>
 
@@ -2431,7 +2431,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** For network-backed paths, report Enderloom-local overhead separately from provider/network latency so slow providers do not hide slow Enderloom code and fast providers do not hide architectural waste.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 90-90](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L90-L90)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L91-L91)
 
 </details>
 

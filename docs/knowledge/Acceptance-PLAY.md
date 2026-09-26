@@ -62,7 +62,7 @@
 - [ ] **D-0ea7e908fc5cb786133a** - GATE — Updates behave like a first-class launcher
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 228-228](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L228-L228)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 229-229](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L229-L229)
 
 </details>
 
@@ -620,7 +620,7 @@
 - [ ] **D-01867a6cb17cb20540cd** - · Compact the oversized instance hero/header
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 815-815](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L815-L815)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 816-816](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L816-L816)
 
 </details>
 
@@ -1298,7 +1298,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Startup / launch - Keep the true startup critical path minimal: create/render the usable shell first, then schedule non-blocking enrichment. - Do not synchronously rescan every instance, mod, provider, artwork file, cache, log, or browser state before showing a usable window. - Persist validated indexes/snapshots so restart can restore known-good state immediately and then reconcile deltas. - Use filesystem change tracking / dirtiness / mtimes / hashes intelligently so unchanged directories are not repeatedly rescanned. - Parallelize genuinely independent startup work with bounded concurrency. - Lazy-load heavy code/routes only when that does not move an unavoidable stall to the first click; prefetch high-probability routes after shell readiness. - Remove synchronous disk, JSON, hashing, SQLite, child-process, network, and IPC work from Electron main/renderer hot loops.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 100-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L100-L107)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 101-108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L101-L108)
 
 </details>
 

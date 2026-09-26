@@ -835,7 +835,7 @@
 - [ ] **D-5a4cb75683f1f14fba94** - · Preserve strong Electron security boundaries for every browser feature above
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 739-739](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L739-L739)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T043 : 740-740](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L740-L740)
 
 </details>
 
@@ -1171,7 +1171,7 @@
 - [ ] **D-af7c8f89dcca1f0be38e** - Use the same machine, network, instance context, project set, and equivalent result coverage for comparisons. Do not benchmark an artificially simplified Enderloom workload.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Hard performance acceptance
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 497-497](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L497-L497)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 498-498](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L498-L498)
 
 </details>
 
@@ -1182,7 +1182,7 @@
 - [ ] **D-f41bd81b2fd37ef778e2** - · Make addons/customizations resolve to real online projects and release files just like mods
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 955-955](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L955-L955)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 956-956](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L956-L956)
 
 </details>
 
@@ -1853,7 +1853,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Electron/browser correction: the current manifest declares electron: ^44.0.0. As of 2026-09-24, the newest production-stable Electron release is 44.4.4 (Chromium 152.0.7977.130, Node 24.21.0, V8 15.2.124.28); Electron 45 is still pre-stable on this date. T026 must re-check the official stable channel immediately before implementation and use the newest stable release available then, never an alpha/beta/RC merely because it has a larger version number.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Context
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 207-207](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L207-L207)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 208-208](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L208-L208)
 
 </details>
 

@@ -571,12 +571,12 @@
   - **Accept:** Preserve the full provider universe and real project identities, source links, creator attribution, all logical results and source health; native APIs/session-aware fallbacks remain truthful.
   - **State:** unverified. **Details:** [90 source blocks](Sources-LIB.md#lib-01); 17 source documents.
 
-**[Open 73 detailed checks](Acceptance-LIB.md#lib-02-details)**
+**[Open 75 detailed checks](Acceptance-LIB.md#lib-02-details)**
 
 <a id="lib-02"></a>
 - [ ] **LIB-02 - Correct premium media and trailers**
   - **Accept:** Keep project icons/avatars/gallery/post/video roles distinct, exact-project ownership, full-resolution media/lightbox and source-grounded autoplay trailer preferences; no synthetic replacements or unrelated promotions.
-  - **State:** unverified. **Details:** [112 source blocks](Sources-LIB.md#lib-02); 16 source documents.
+  - **State:** unverified. **Details:** [113 source blocks](Sources-LIB.md#lib-02); 16 source documents.
 
 **[Open 86 detailed checks](Acceptance-LIB.md#lib-03-details)**
 
@@ -599,7 +599,7 @@
   - **Accept:** Favorites independent of installation, tags/groups/notes, grid/list/table, full-dataset bulk actions, latest/tested/installed states and exact-context actions persist; unfavorite never uninstalls.
   - **State:** unverified. **Details:** [160 source blocks](Sources-LIB.md#lib-05); 10 source documents.
 
-**[Open 99 detailed checks](Acceptance-LIB.md#lib-06-details)**
+**[Open 100 detailed checks](Acceptance-LIB.md#lib-06-details)**
 
 <a id="lib-06"></a>
 - [ ] **LIB-06 - Content lifecycle and provenance**
@@ -620,12 +620,12 @@
   - **Accept:** Respect author-disabled third-party downloads, safe browser handoff and verified adoption, reconnect legitimate sessions and resume exact jobs without guessed identities or bypass.
   - **State:** unverified. **Details:** [119 source blocks](Sources-LIB.md#lib-08); 16 source documents.
 
-**[Open 83 detailed checks](Acceptance-LIB.md#lib-09-details)**
+**[Open 82 detailed checks](Acceptance-LIB.md#lib-09-details)**
 
 <a id="lib-09"></a>
 - [ ] **LIB-09 - Pack and research interchange**
   - **Accept:** Support accepted MRPack/CurseForge ZIP/packwiz and CSV/JSON/XLSX/HTML/PDF research interchange with provenance, original fields and clickable links; no cloned proprietary share-code service.
-  - **State:** unverified. **Details:** [131 source blocks](Sources-LIB.md#lib-09); 19 source documents.
+  - **State:** unverified. **Details:** [130 source blocks](Sources-LIB.md#lib-09); 19 source documents.
 
 ## Launcher, accounts and instances
 
