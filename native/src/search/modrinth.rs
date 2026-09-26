@@ -252,15 +252,17 @@ struct User {
 }
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
+    let project_cache_key = format!("mr:project:{project_id}");
+    let members_cache_key = format!("mr:members:{project_id}");
     let project_request = cache::fetch_swr(
         state,
-        &format!("mr:project:{project_id}"),
+        &project_cache_key,
         cache::TTL_PROJECT,
         state.network.get(format!("{API}/project/{project_id}")),
     );
     let members_request = cache::fetch_swr::<Vec<Member>>(
         state,
-        &format!("mr:members:{project_id}"),
+        &members_cache_key,
         cache::TTL_PROJECT,
         state
             .network
