@@ -121,7 +121,7 @@ impl Default for SearchQuery {
     }
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProjectSummary {
     pub id: String,
     pub slug: Option<String>,
@@ -146,7 +146,7 @@ pub struct SearchPage {
     pub limit: u32,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProjectMirror {
     pub provider: String,
     pub project: ProjectSummary,
