@@ -84,17 +84,46 @@ pub(crate) fn list_content_source_index_core(
     kind: &str,
 ) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
     let known_instances = state.db.instance_ids()?;
-    let mut index = std::collections::HashMap::with_capacity(instance_ids.len());
-
     for instance_id in instance_ids {
         if !known_instances.contains(instance_id) {
             return Err(Error::NotFound(format!("instance {instance_id}")));
         }
+    }
+
+    let requested = instance_ids
+        .iter()
+        .map(String::as_str)
+        .collect::<std::collections::HashSet<_>>();
+    let mut sources_by_instance =
+        std::collections::HashMap::<String, Vec<crate::db::ContentFile>>::with_capacity(
+            instance_ids.len(),
+        );
+
+    if instance_ids.len() <= 1 {
+        for instance_id in instance_ids {
+            sources_by_instance.insert(
+                instance_id.clone(),
+                state.db.content_files(instance_id, kind)?,
+            );
+        }
+    } else {
+        for (instance_id, source) in state.db.content_files_for_kind(kind)? {
+            if requested.contains(instance_id.as_str()) {
+                sources_by_instance
+                    .entry(instance_id)
+                    .or_default()
+                    .push(source);
+            }
+        }
+    }
+
+    let mut index = std::collections::HashMap::with_capacity(instance_ids.len());
+    for instance_id in instance_ids {
         let dir = content::dir_for(state.files.paths(), instance_id, kind)?;
         let mut projects =
             std::collections::HashMap::<String, (i64, InstalledProjectSource)>::new();
 
-        for source in state.db.content_files(instance_id, kind)? {
+        for source in sources_by_instance.remove(instance_id).unwrap_or_default() {
             let Some(project_id) = source.project_id.clone() else {
                 continue;
             };
