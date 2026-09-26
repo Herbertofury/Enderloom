@@ -621,7 +621,7 @@
 - [ ] **D-cf45549d8f09141dc7f1** - Required behavior:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 666-666](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L666-L666)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 795-795](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L795-L795)
 
 </details>
 
@@ -993,14 +993,14 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - The Downloads button is always in a predictable browser-toolbar location, compact when idle, and becomes active immediately when a download begins. - Starting a normal webpage download automatically opens a non-modal pop-out bubble anchored under the Downloads button, without navigating away from the current page and without opening a separate window. - The bubble shows the newest/relevant downloads first with favicon/file icon where appropriate, filename, source/origin, progress, received/total bytes, speed, ETA when meaningful, and clear state. - In-progress rows expose Pause/Resume, Cancel, and contextual retry/restart behavior. - Completed rows expose Open, Show in Folder, and useful secondary actions such as Copy Link / Copy Source when safe. - Failed/interrupted rows remain visible with a useful reason and Retry/Resume action instead of disappearing. - Multiple simultaneous transfers are represented coherently; the toolbar icon/ring/badge summarizes aggregate activity without spawning multiple pop-outs. - Clicking outside dismisses the bubble without canceling or pausing downloads. - Clicking the Downloads button reopens the bubble instantly with current/recent state. - The bubble remains correct across tab switches, browser navigation, opening Catalog/Mod Manager and returning, and provider installs that also use the shared download model. - Ctrl+J opens the full Downloads surface/history while the toolbar bubble remains the fast everyday control. - New downloads may briefly auto-open the bubble; completed downloads may optionally produce a restrained completion affordance, but no modal spam. - The UI honors reduced motion and does not delay transfer start while animating. - The bubble must not poll repeatedly for progress if T004 can push download events; use the canonical event stream. - The bubble must be keyboard accessible: focus enters predictably, rows/actions are reachable, Escape closes it, focus returns to the Downloads button, and screen-reader names expose meaningful state.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 163-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L163-L177)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 164-178](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L164-L178)
 
 <a id="d-5e10898ea29aa58b00b2"></a>
 - [ ] **D-5e10898ea29aa58b00b2** - Hard acceptance path: click a normal download link on a real webpage -&gt; transfer begins -&gt; Downloads button activates in the same browser toolbar -&gt; bubble opens under it ...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Hard acceptance path: click a normal download link on a real webpage -&gt; transfer begins -&gt; Downloads button activates in the same browser toolbar -&gt; bubble opens under it immediately -&gt; live progress updates -&gt; pause/resume/cancel work -&gt; completion exposes Open and Show in Folder -&gt; click elsewhere closes only the bubble -&gt; click the button reopens it instantly -&gt; Ctrl+J opens full Downloads -&gt; browser navigation and tab switching do not lose the transfer/history.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 179-179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L179-L179)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 180-180](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L180-L180)
 
 </details>
 
@@ -1011,7 +1011,7 @@
 - [ ] **D-51de265c87e30b77a4a3** - GATE — Instance launching and presentation are polished
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G004 : 466-466](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L466-L466)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G004 : 595-595](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L595-L595)
 
 </details>
 
@@ -1022,7 +1022,7 @@
 - [ ] **D-5bba9957b2bc21ac1041** - Keep the attractive artwork, but bound the responsive hero height so it never consumes most of the useful viewport.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 496-496](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L496-L496)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 625-625](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L625-L625)
 
 </details>
 
@@ -1033,7 +1033,7 @@
 - [ ] **D-9cf4fa200d1247537a21** - GATE — Files, logs, addons, and guided installs act like desktop software
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G006 : 563-563](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L563-L563)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G006 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L692-L692)
 
 </details>
 
@@ -1044,20 +1044,20 @@
 - [ ] **D-992aa1f8edae143fae99** - · Stop classifying random JSON/ZIP files as addons
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T017 : 617-617](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L617-L617)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T017 : 746-746](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L746-L746)
 
 <a id="d-142be0a5edafe9722623"></a>
 - [ ] **D-142be0a5edafe9722623** - Inspect archive/root structure and authoritative manifests/metadata, e.g. loader metadata, pack metadata, known addon/config schemas, required asset/layout markers, and existing pr...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Inspect archive/root structure and authoritative manifests/metadata, e.g. loader metadata, pack metadata, known addon/config schemas, required asset/layout markers, and existing provider classification.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 621-621](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L621-L621)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 750-750](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L750-L750)
 
 <a id="d-2ebc9c1a1387c7ffef10"></a>
 - [ ] **D-2ebc9c1a1387c7ffef10** - Regression fixtures must include real recognized addon/datapack/config ZIPs plus unrelated JSON, source ZIPs, documentation ZIPs, arbitrary archives, and nested/malformed archives.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 630-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L630-L630)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 759-759](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L759-L759)
 
 </details>
 
@@ -1068,7 +1068,7 @@
 - [ ] **D-4dcd7166bf4be0310281** - · Replace the current addon collection/“guided install” presentation with Mods-tab-quality project browsing
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T024 — Addons must use the normal Mods-tab card/detail UI system
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T024 : 662-662](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L662-L662)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T024 : 791-791](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L791-L791)
 
 </details>
 
@@ -1224,7 +1224,7 @@
 - [ ] **D-2ac0f88313c5c5678f1a** - GATE — User/profile state survives updates and restarts
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G003 : 438-438](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L438-L438)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G003 : 567-567](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L567-L567)
 
 </details>
 
@@ -1295,7 +1295,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 52 source-derived details.
+[Outcome](Checklist.md#ux-07) / 55 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -1537,6 +1537,37 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work (1)</summary>
+
+<a id="d-96b006df590ab134aeab"></a>
+- [ ] **D-96b006df590ab134aeab** - Observed failure: opening Browse, switching Browse categories/providers, opening project cards/details, and other Browse-originated navigation can sit visibly loading for seconds. ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Observed failure: opening Browse, switching Browse categories/providers, opening project cards/details, and other Browse-originated navigation can sit visibly loading for seconds. This is a release-blocking interaction-performance defect. The user-visible shell and already-known project data should appear effectively immediately; fresh remote enrichment must not hold navigation hostage.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 230-230](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L230-L230)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (2)</summary>
+
+<a id="d-b9d6073352e42faa0996"></a>
+- [ ] **D-b9d6073352e42faa0996** - 6. Keep expensive work off the renderer/UI thread - Network parsing, archive/hash work, compatibility resolution, provider reconciliation, large JSON transforms, image decoding/res...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 6. Keep expensive work off the renderer/UI thread - Network parsing, archive/hash work, compatibility resolution, provider reconciliation, large JSON transforms, image decoding/resizing, and DB work must not block Electron&#x27;s renderer event loop. - Move CPU-heavy canonicalization/indexing to worker/native/main-process services as appropriate. - Avoid synchronous filesystem calls and giant IPC payloads in navigation hot paths. - Pass compact normalized records/deltas across IPC rather than full duplicated provider payloads. - Profile long tasks, layout/reflow, image decode, GC, IPC serialization, DB locks, and provider waterfalls; fix the measured owners rather than guessing.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 285-290](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L285-L290)
+
+<a id="d-d656819b8c0198884499"></a>
+- [ ] **D-d656819b8c0198884499** - 8. Browse search/filter/sort must be local-first where semantics allow - Debounce only remote query issuance, not keystroke/UI feedback. - Filter/sort already-loaded logical result...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 8. Browse search/filter/sort must be local-first where semantics allow - Debounce only remote query issuance, not keystroke/UI feedback. - Filter/sort already-loaded logical results immediately in local state. - Cache query+facet pages with canonical query keys and reuse them on back/forward. - Preserve scroll position, selected card, filters, sort, provider/source choice, and current instance context. - Under virtualization/pagination, counts/search/filter/bulk semantics must still represent the promised logical dataset, not only rendered rows.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 299-304](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L299-L304)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives (1)</summary>
 
 <a id="d-c7f5d98a4a0f25bc6886"></a>
@@ -1544,7 +1575,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Inspect the actual current browser embedding implementation once. - If it already uses WebContentsView, verify it and close this as proven rather than rewriting it. - If it uses deprecated BrowserView or the discouraged &lt;webview&gt; path for the main browser surface, migrate to WebContentsView while preserving session, navigation, tabs, split layout, sizing, focus, keyboard, media, downloads, auth and DevTools behavior. - Centralize view lifecycle/ownership so hidden/dead views cannot retain stale privileged references. - Do not perform this migration as a visual rewrite; preserve current accepted Enderloom shell UX while modernizing the browser substrate.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 345-349](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L345-L349)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 474-478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L474-L478)
 
 </details>
 
@@ -1555,13 +1586,13 @@
 - [ ] **D-3e10cde48d71c6cc27fe** - · Redesign the top bar to be denser, sleeker, and more coherent
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T010 : 505-505](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L505-L505)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T010 : 634-634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L634-L634)
 
 <a id="d-cfe048820fce46c5c21e"></a>
 - [ ] **D-cfe048820fce46c5c21e** - Do not turn the header into a second content panel.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T010 — Redesign the top bar to be denser, sleeker, and more coherent
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 518-518](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L518-L518)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 647-647](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L647-L647)
 
 </details>
 
@@ -1572,13 +1603,13 @@
 - [ ] **D-11ab3bbe677a2ef7075f** - · Fix “Show file” — reveal and select, do not open/execute
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T015 : 582-582](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L582-L582)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T015 : 711-711](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L711-L711)
 
 <a id="d-5a750647dfe1ccea0a2e"></a>
 - [ ] **D-5a750647dfe1ccea0a2e** - Show file must open the OS file manager at the containing folder and select/highlight the exact file.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T015 — Fix “Show file” — reveal and select, do not open/execute
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 584-584](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L584-L584)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 713-713](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L713-L713)
 
 </details>
 
@@ -1589,7 +1620,7 @@
 - [ ] **D-f8a669eb9d1db7bd5a61** - Do not treat extension alone as proof of an installable content type.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 619-619](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L619-L619)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 748-748](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L748-L748)
 
 </details>
 
@@ -1600,7 +1631,7 @@
 - [ ] **D-df95e8ef46859d76a86c** - Resume rule: continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 769-769](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L769-L769)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 899-899](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L899-L899)
 
 </details>
 
@@ -2343,7 +2374,7 @@
 <a id="ux-09-details"></a>
 ## UX-09 - First-launch and update experience
 
-[Outcome](Checklist.md#ux-09) / 50 source-derived details.
+[Outcome](Checklist.md#ux-09) / 51 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening (1)</summary>
@@ -2375,7 +2406,7 @@
 - [ ] **D-751513df3d7e9b4c860f** - Required behavior:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 117-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L117-L117)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 118-118](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L118-L118)
 
 </details>
 
@@ -2386,13 +2417,13 @@
 - [ ] **D-1b9429a6067de8585b74** - · Ship a real Chrome-style Downloads toolbar control and non-modal pop-out
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T025 : 157-157](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L157-L157)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T025 : 158-158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L158-L158)
 
 <a id="d-10791ddbd0a690e9b993"></a>
 - [ ] **D-10791ddbd0a690e9b993** - Required behavior:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 161-161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L161-L161)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 162-162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L162-L162)
 
 </details>
 
@@ -2403,7 +2434,19 @@
 - [ ] **D-2ce4a7ad04d274b433d9** - · Make links, target=_blank, middle-click, Ctrl+click, and window.open behave like a polished tabbed browser
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T028 — Proper browser tabs and new-window behavior
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T028 : 215-215](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L215-L215)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T028 : 216-216](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L216-L216)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (1)</summary>
+
+<a id="d-43e0be05c6982b466b20"></a>
+- [ ] **D-43e0be05c6982b466b20** - 1. Instant shell + cache-first navigation - Route changes and project-card clicks commit immediately; never wait for provider network requests before showing the destination shell....
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Instant shell + cache-first navigation - Route changes and project-card clicks commit immediately; never wait for provider network requests before showing the destination shell. - Hydrate the new view synchronously from the canonical local cache/database when any prior-known project/search/provider data exists. - Keep the previous usable Browse result set visible during compatible filter/provider refresh instead of blanking the screen into a spinner. - Use skeletons only for fields genuinely unknown locally; never replace already-known data with skeletons while revalidating.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 250-254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L250-L254)
 
 </details>
 
@@ -2414,7 +2457,7 @@
 - [ ] **D-20095ddbfaf86f44208f** - · Own camera/microphone/notification/clipboard/etc. permissions with contextual prompts
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T034 — Chrome-like site-permission bubble and per-origin permission state
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T034 : 320-320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L320-L320)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T034 : 449-449](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L449-L449)
 
 </details>
 
@@ -2425,7 +2468,7 @@
 - [ ] **D-f2a350a447f267ef92b0** - · Persist/restore window bounds and display state with current Electron-supported behavior
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T037 — Native window-state persistence
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T037 : 353-353](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L353-L353)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T037 : 482-482](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L482-L482)
 
 </details>
 
@@ -2436,14 +2479,14 @@
 - [ ] **D-68f50a88df133335fcf0** - · Make navigation state obvious without modal spam
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T039 — Native-feeling load, navigation, offline, certificate, and error states
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T039 : 375-375](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L375-L375)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T039 : 504-504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L504-L504)
 
 <a id="d-004c03dbb7c3ab4fdb82"></a>
 - [ ] **D-004c03dbb7c3ab4fdb82** - - Show favicon/loading spinner or equivalent compact activity indication while navigating. - Toolbar Reload becomes Stop while actively loading, then returns to Reload. - Back/Forw...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Show favicon/loading spinner or equivalent compact activity indication while navigating. - Toolbar Reload becomes Stop while actively loading, then returns to Reload. - Back/Forward enabled state reflects the active tab&#x27;s real navigation history. - Provide clear inline error pages for offline/DNS/TLS/certificate/connection/load failures with Retry and diagnostics/context actions. - Certificate/security errors must not be silently bypassed. - Restore normal content without layout jumps when navigation succeeds. - Authentication redirects/popups must remain attached to the originating browser context.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T039 — Native-feeling load, navigation, offline, certificate, and error states
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 377-383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L377-L383)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 506-512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L506-L512)
 
 </details>
 
@@ -2454,7 +2497,7 @@
 - [ ] **D-7ab5b84d56150b6e7953** - · Make drag/drop routes predictable and useful
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T041 — Browser/download/import drag-and-drop polish
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T041 : 397-397](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L397-L397)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T041 : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L526-L526)
 
 </details>
 
@@ -2465,7 +2508,7 @@
 - [ ] **D-eb59ed9a3e4aef6cff9f** - · Add a first-class Logs tab
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T014 — Add a first-class Logs tab
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T014 : 567-567](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L567-L567)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T014 : 696-696](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L696-L696)
 
 </details>
 
@@ -2476,7 +2519,7 @@
 - [ ] **D-7c53a2a41071756c9769** - Required canonical flow:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 638-638](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L638-L638)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 767-767](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L767-L767)
 
 </details>
 
@@ -2842,7 +2885,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-browser toolbar, backed by the real T004 download model.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 159-159](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L159-L159)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 160-160](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L160-L160)
 
 </details>
 
@@ -2853,7 +2896,7 @@
 - [ ] **D-ed7a0162b233fa1c912e** - · Stop Enderloom upgrades from losing the user&#x27;s profile
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T006 : 442-442](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L442-L442)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T006 : 571-571](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L571-L571)
 
 </details>
 
@@ -2865,7 +2908,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Unknown/generic .json or .zip stays a generic download/import candidate. - It must not pollute the Addons collection. - Every positive classification should retain evidence explaining *why* the file is that content type. - When the file corresponds to a real online project/release, classification must preserve/link that canonical provider project + exact provider file identity instead of reducing it to a filesystem-only addon. - Ambiguous files stay unresolved/generic rather than being forced into the wrong category. - A private/local addon with no provider record remains supported as Local / Unlinked; never fabricate a provider match just to make the UI look complete.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T017 — Stop classifying random JSON/ZIP files as addons
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 623-628](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L623-L628)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 752-757](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L752-L757)
 
 </details>
 

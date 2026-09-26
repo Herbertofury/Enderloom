@@ -1079,7 +1079,7 @@
 <a id="perf-03-details"></a>
 ## PERF-03 - Controlled A/B and full-pack attribution
 
-[Outcome](Checklist.md#perf-03) / 31 source-derived details.
+[Outcome](Checklist.md#perf-03) / 32 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1191,6 +1191,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Adapter discovery and future-proofing
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 338-338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L338-L338)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work (1)</summary>
+
+<a id="d-084b8f57e98f814756a8"></a>
+- [ ] **D-084b8f57e98f814756a8** - · Eliminate Browse/open-project latency through better architecture, never by doing less work
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 228-228](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L228-L228)
 
 </details>
 

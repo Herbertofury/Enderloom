@@ -1574,7 +1574,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 87 source-derived details.
+[Outcome](Checklist.md#dep-05) / 88 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2040,6 +2040,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 25. Pack/Release Permission &amp; Policy Gate
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L974-L974)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (1)</summary>
+
+<a id="d-273c005cc7dc2b164e23"></a>
+- [ ] **D-273c005cc7dc2b164e23** - 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where suppor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads. - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently. - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits. - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others. - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 277-283](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L277-L283)
 
 </details>
 

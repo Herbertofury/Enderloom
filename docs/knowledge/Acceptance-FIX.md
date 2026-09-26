@@ -1009,7 +1009,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 254-259](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L254-L259)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 383-388](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L383-L388)
 
 </details>
 
