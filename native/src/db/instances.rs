@@ -6,6 +6,57 @@ use crate::{config::Instance, error::Result, files::FileManager};
 
 use super::{Db, ExternalInstanceLink};
 
+const INSTANCE_COLUMNS: &str = "id, name, version_id, created_at, min_memory_mb, max_memory_mb,
+    java_path, last_played_at, playtime_secs, loader, loader_version,
+    launch_version_id, pack_provider, pack_project_id, pack_version_id,
+    jvm_args, jvm_args_mode, env_vars, env_vars_mode,
+    import_source, import_source_id, banner_id, notes,
+    wrapper_command, pre_launch_command, post_exit_command,
+    external_dir";
+
+fn read_instance_row(files: &FileManager, row: &rusqlite::Row<'_>) -> rusqlite::Result<Instance> {
+    let id: String = row.get(0)?;
+    let created_at: String = row.get(3)?;
+    let external_dir: Option<String> = row.get(26)?;
+    Ok(Instance {
+        dir: external_dir
+            .filter(|value| !value.trim().is_empty())
+            .map(PathBuf::from)
+            .unwrap_or_else(|| files.paths().instance_dir(&id))
+            .display()
+            .to_string(),
+        logo: crate::meta::media::instance_logo(files, &id),
+        id,
+        name: row.get(1)?,
+        version_id: row.get(2)?,
+        created_at: chrono::DateTime::parse_from_rfc3339(&created_at)
+            .map(|dt| dt.with_timezone(&chrono::Utc))
+            .unwrap_or_else(|_| chrono::Utc::now()),
+        min_memory_mb: row.get(4)?,
+        max_memory_mb: row.get(5)?,
+        java_path: row.get(6)?,
+        last_played_at: row.get(7)?,
+        playtime_secs: row.get(8)?,
+        loader: row.get(9)?,
+        loader_version: row.get(10)?,
+        launch_version_id: row.get(11)?,
+        pack_provider: row.get(12)?,
+        pack_project_id: row.get(13)?,
+        pack_version_id: row.get(14)?,
+        jvm_args: row.get(15)?,
+        jvm_args_mode: row.get(16)?,
+        env_vars: row.get(17)?,
+        env_vars_mode: row.get(18)?,
+        import_source: row.get(19)?,
+        import_source_id: row.get(20)?,
+        banner_id: row.get(21)?,
+        notes: row.get(22)?,
+        wrapper_command: row.get(23)?,
+        pre_launch_command: row.get(24)?,
+        post_exit_command: row.get(25)?,
+    })
+}
+
 fn record_playtime_tx(
     tx: &Transaction<'_>,
     instance_id: &str,
@@ -71,61 +122,19 @@ impl Db {
     }
 
     pub fn list_instances(&self, files: &FileManager) -> Result<Vec<Instance>> {
-        let paths = files.paths();
         let conn = self.0.lock().unwrap();
-        let mut stmt = conn.prepare(
-            "SELECT id, name, version_id, created_at, min_memory_mb, max_memory_mb,
-                    java_path, last_played_at, playtime_secs, loader, loader_version,
-                    launch_version_id, pack_provider, pack_project_id, pack_version_id,
-                    jvm_args, jvm_args_mode, env_vars, env_vars_mode,
-                    import_source, import_source_id, banner_id, notes,
-                    wrapper_command, pre_launch_command, post_exit_command,
-                    external_dir
-             FROM instances ORDER BY created_at",
-        )?;
-        let rows = stmt.query_map([], |row| {
-            let id: String = row.get(0)?;
-            let created_at: String = row.get(3)?;
-            let external_dir: Option<String> = row.get(26)?;
-            Ok(Instance {
-                dir: external_dir
-                    .filter(|value| !value.trim().is_empty())
-                    .map(PathBuf::from)
-                    .unwrap_or_else(|| paths.instance_dir(&id))
-                    .display()
-                    .to_string(),
-                logo: crate::meta::media::instance_logo(files, &id),
-                id,
-                name: row.get(1)?,
-                version_id: row.get(2)?,
-                created_at: chrono::DateTime::parse_from_rfc3339(&created_at)
-                    .map(|dt| dt.with_timezone(&chrono::Utc))
-                    .unwrap_or_else(|_| chrono::Utc::now()),
-                min_memory_mb: row.get(4)?,
-                max_memory_mb: row.get(5)?,
-                java_path: row.get(6)?,
-                last_played_at: row.get(7)?,
-                playtime_secs: row.get(8)?,
-                loader: row.get(9)?,
-                loader_version: row.get(10)?,
-                launch_version_id: row.get(11)?,
-                pack_provider: row.get(12)?,
-                pack_project_id: row.get(13)?,
-                pack_version_id: row.get(14)?,
-                jvm_args: row.get(15)?,
-                jvm_args_mode: row.get(16)?,
-                env_vars: row.get(17)?,
-                env_vars_mode: row.get(18)?,
-                import_source: row.get(19)?,
-                import_source_id: row.get(20)?,
-                banner_id: row.get(21)?,
-                notes: row.get(22)?,
-                wrapper_command: row.get(23)?,
-                pre_launch_command: row.get(24)?,
-                post_exit_command: row.get(25)?,
-            })
-        })?;
+        let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances ORDER BY created_at");
+        let mut stmt = conn.prepare(&sql)?;
+        let rows = stmt.query_map([], |row| read_instance_row(files, row))?;
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
+    pub fn instance(&self, files: &FileManager, instance_id: &str) -> Result<Option<Instance>> {
+        let conn = self.0.lock().unwrap();
+        let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances WHERE id = ?1");
+        Ok(conn
+            .query_row(&sql, params![instance_id], |row| read_instance_row(files, row))
+            .optional()?)
     }
 
     pub fn set_instance_launch_tools(
