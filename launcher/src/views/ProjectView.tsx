@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  Github,
   Loader2,
   Package,
   RefreshCw,
@@ -654,7 +653,7 @@ export function ProjectView() {
                 : "text-content-muted hover:bg-surface-3 hover:text-content",
             )}
           >
-            <Github className="size-3.5" />
+            <span aria-hidden className="text-[10px] font-black tracking-tight text-content-faint">GH</span>
             GitHub
           </button>
         )}
