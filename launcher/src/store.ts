@@ -326,6 +326,7 @@ interface AppStore {
   goBack: () => void;
   goBackTo: (index: number) => void;
   refreshContentSources: (instanceId: string, kind: string) => Promise<void>;
+  refreshContentSourcesBatch: (instanceIds: string[], kind: string) => Promise<void>;
   refreshServerContentSources: (serverId: string) => Promise<void>;
   installContent: (params: {
     provider: SearchProvider;
@@ -703,19 +704,29 @@ export const useStore = create<AppStore>((set) => ({
 
   refreshContentSources: async (instanceId, kind) => {
     try {
-      const items = await api.listInstanceContent(instanceId, kind);
-      const map: Record<string, { file_name: string; version_id: string | null }> = {};
-      items.forEach((item) => {
-        if (item.source?.project_id) {
-          map[item.source.project_id] = {
-            file_name: item.file_name,
-            version_id: item.source.version_id,
-          };
-        }
-      });
+      const index = await api.listContentSourceIndex([instanceId], kind);
       set((s) => ({
-        contentSources: { ...s.contentSources, [`${instanceId}:${kind}`]: map },
+        contentSources: {
+          ...s.contentSources,
+          [`${instanceId}:${kind}`]: index[instanceId] ?? {},
+        },
       }));
+    } catch {
+      return;
+    }
+  },
+
+  refreshContentSourcesBatch: async (instanceIds, kind) => {
+    if (instanceIds.length === 0) return;
+    try {
+      const index = await api.listContentSourceIndex(instanceIds, kind);
+      set((s) => {
+        const contentSources = { ...s.contentSources };
+        for (const instanceId of instanceIds) {
+          contentSources[`${instanceId}:${kind}`] = index[instanceId] ?? {};
+        }
+        return { contentSources };
+      });
     } catch {
       return;
     }
