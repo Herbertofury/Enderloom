@@ -137,6 +137,13 @@ impl Db {
             .optional()?)
     }
 
+    pub fn instance_ids(&self) -> Result<std::collections::HashSet<String>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare("SELECT id FROM instances")?;
+        let rows = stmt.query_map([], |row| row.get::<_, String>(0))?;
+        Ok(rows.collect::<std::result::Result<std::collections::HashSet<_>, _>>()?)
+    }
+
     pub fn set_instance_launch_tools(
         &self,
         instance_id: &str,
