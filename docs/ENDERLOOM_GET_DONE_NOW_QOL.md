@@ -3,7 +3,8 @@
 **Status:** ACTIVE / IMMEDIATE EXECUTION QUEUE  
 **Created:** 2026-09-24  
 **Repository:** `Herbertofury/Enderloom`  
-**Priority:** finish this queue as a coherent repair pass before treating ordinary launcher/mod-manager UX as polished.
+**Updated:** 2026-09-26  
+**Priority:** **ABSOLUTE PRIORITY ZERO is whole-app speed/responsiveness with zero quality, quantity, fidelity, coverage, validation, or feature loss.** Enderloom must match or beat the installed CurseForge and Modrinth clients on comparable user-visible workflows while preserving or improving Enderloom's stronger guarantees.
 
 ## Objective
 
@@ -11,21 +12,191 @@ Fix the currently visible rough edges and missing common-sense behavior in Ender
 
 This is a **get-done-now execution list**, not a future ideas backlog. Continue from the earliest ready unchecked item, implement through the real production paths, run targeted regression proof, and keep going automatically.
 
+## G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss
+
+- [ ] **G010 · ABSOLUTE PRIORITY GATE** — Enderloom is measurably as fast as or faster than the better of the installed CurseForge and Modrinth clients on technically equivalent workflows, while returning **the same or greater quantity, quality, metadata, dependency closure, validation, fidelity, compatibility, provenance, rollback safety, and user-visible capability**.
+
+This gate is **above every other tranche in this document**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: application launch, restoring the prior workspace, opening Browse, showing Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
+
+The target is not merely "fewer spinners." The target is **lower real latency and higher throughput for equivalent-or-better work**.
+
+### Non-negotiable zero-loss performance law
+
+A performance change is accepted only when **both** are true:
+
+1. **Performance improves materially** on the targeted hot path; and
+2. **Result equivalence is preserved or improved**: no fewer projects, files, versions, provider matches, metadata fields, dependencies, relations, screenshots/media, validation steps, hashes, provenance, compatibility checks, rollback guarantees, supported content types, UI capability, or correctness.
+
+The following are **not optimizations** and must fail review:
+
+- hiding work that still blocks later;
+- returning fewer results;
+- silently truncating provider pagination;
+- reducing metadata/detail quality;
+- skipping dependency closure;
+- skipping compatibility/hash/provenance validation;
+- disabling provider/source reconciliation;
+- replacing exact provider identity with weaker name guessing;
+- reducing media/gallery coverage;
+- dropping history, rollback, recovery, or persistence;
+- delaying necessary work until the user hits another stall;
+- removing features, controls, loaders, providers, content types, or supported workflows;
+- making cold paths worse to make a hand-picked warm demo look fast.
+
+### Authorized CurseForge + Modrinth desktop reference access
+
+For this Enderloom work, **the user states that they have full authorization to inspect, unpack where necessary, trace, benchmark, analyze, extract, adapt, and integrate implementation/code/assets from the locally installed CurseForge and Modrinth desktop applications for the purpose of making Enderloom behave correctly and perform at least as well as both**.
+
+Treat those locally installed clients as first-class authorized reference implementations:
+
+- Record the exact installed client versions/builds and hashes before analysis so findings are reproducible.
+- Analyze **read-only copies** whenever practical; do not mutate the user's working CurseForge/Modrinth installations merely to study them.
+- Inspect their actual startup flow, cache/index strategy, request scheduling, provider search/detail loading, project identity handling, download/update pipelines, list virtualization, IPC boundaries, persistence, browser/webview reuse, concurrency, and error/retry behavior.
+- Use runtime tracing/profiling as well as code inspection. Do not guess why they are faster when the local implementation can be measured.
+- Under the stated authorization, reuse/adapt exact implementation ideas or code/assets where useful; integrate them cleanly into Enderloom's canonical architecture rather than bolting on isolated duplicate engines.
+- Preserve any required provenance/notices and do not copy unrelated credentials, tokens, cookies, private account data, or other user secrets.
+- If CurseForge and Modrinth use different strong techniques, combine the best compatible ideas instead of choosing one client wholesale.
+- When Enderloom can safely do better, do better; the comparators are a floor/reference, not a ceiling.
+
+### T047 — Establish real comparator baselines and profile every major Enderloom latency path
+
+- [ ] **T047** · Capture reproducible, apples-to-apples CurseForge / Modrinth / Enderloom performance evidence before and during optimization
+
+Use the **same computer, network, Minecraft instance/content set, provider query, and comparable user workflow** wherever technically possible. Run enough repeated cold/warm trials to distinguish a real gain from noise.
+
+Measure at minimum:
+
+- process start -> first visible window;
+- process start -> usable/interactive shell;
+- prior workspace/session restoration;
+- Mods/Addons view -> first useful installed-content rows/cards;
+- Mods/Addons -> complete logical dataset available to search/filter/sort;
+- Browse click -> first useful results;
+- Browse click -> full requested result set/provider reconciliation;
+- provider/category/search change -> useful results;
+- project-card click -> useful project details;
+- back/forward/reopen project;
+- update check -> first useful update state and full update scan;
+- Update click -> transfer actually starts;
+- Update click -> verified/committed replacement;
+- download click -> network transfer starts;
+- sustained download throughput and CPU cost;
+- install click -> dependency plan visible;
+- install click -> verified committed install;
+- tab/provider/browser open and switch latency;
+- first artwork/media render and later enrichment;
+- idle CPU, active CPU, memory, disk I/O, network requests, main-thread/event-loop stalls, renderer frame responsiveness, and IPC volume on those workflows.
+
+For network-backed paths, report **Enderloom-local overhead separately from provider/network latency** so slow providers do not hide slow Enderloom code and fast providers do not hide architectural waste.
+
+Persist a compact benchmark matrix with exact build/commit, comparator versions, test dataset, cold/warm status, counts returned, and timings. Reuse the same fixtures after each major performance change.
+
+### T048 — Remove whole-app latency at the shared architectural causes
+
+- [ ] **T048** · Make launch, Browse, Mods, updates, downloads, installs, and navigation fast through shared architecture instead of isolated cosmetic patches
+
+Profile first, then fix the earliest causal owner. Apply these techniques wherever evidence shows they fit:
+
+**Startup / launch**
+- Keep the true startup critical path minimal: create/render the usable shell first, then schedule non-blocking enrichment.
+- Do not synchronously rescan every instance, mod, provider, artwork file, cache, log, or browser state before showing a usable window.
+- Persist validated indexes/snapshots so restart can restore known-good state immediately and then reconcile deltas.
+- Use filesystem change tracking / dirtiness / mtimes / hashes intelligently so unchanged directories are not repeatedly rescanned.
+- Parallelize genuinely independent startup work with bounded concurrency.
+- Lazy-load heavy code/routes only when that does not move an unavoidable stall to the first click; prefetch high-probability routes after shell readiness.
+- Remove synchronous disk, JSON, hashing, SQLite, child-process, network, and IPC work from Electron main/renderer hot loops.
+
+**Browse / provider/project opening**
+- Render last-verified cached results immediately and stale-while-revalidate in the background.
+- Search supported providers in parallel with bounded concurrency and single-flight identical requests.
+- Persist normalized project/provider identity so the same CurseForge/Modrinth/GitHub project is not rediscovered/reconciled from scratch on every navigation.
+- Prefetch likely project details/media on user intent (hover/focus/viewport proximity) when cheap and cancel stale work.
+- Stream useful results progressively without changing the final complete result set.
+- Use conditional requests/ETags/delta refresh where providers support them.
+- Keep browser/provider WebContents/session/view objects warm/reusable where safe instead of rebuilding expensive state on every open.
+- Prevent stale A -> B -> A responses from overwriting newer navigation intent.
+
+**Mods / Addons / local instance content**
+- Maintain an incremental persistent local content index keyed by stable path/file identity, provider IDs, fingerprints/hashes, and relevant manifest metadata.
+- Reconcile only changed files/directories instead of full rescans for every view open.
+- Virtualize large lists/grids without changing logical search/sort/filter/select-all semantics.
+- Batch filesystem/stat/hash/database work and move CPU-heavy work off the UI thread.
+- Cache parsed manifests/fingerprints by file identity + size/mtime/hash validity.
+- Share canonical provider/project metadata with Browse/Favorites/Updates instead of refetching equivalent data in separate UI silos.
+
+**Updates**
+- Reuse known installed project identity, compatible-release metadata, dependency plans, and content-addressed artifacts.
+- Run provider checks in parallel with request coalescing, rate-limit awareness, and stale-while-revalidate UI.
+- Pipeline independent download/verify/commit stages where safe; do not serialize unrelated mod updates.
+- Start useful visible progress immediately.
+- Preserve T001 transactional replacement, rollback, freeze/pin behavior, identity safety, and validation in full.
+
+**Downloads / installs**
+- Start the actual transfer as soon as the destination/authorization/request is valid; UI animation/enrichment must never delay bytes.
+- Reuse one shared transfer service/event stream for browser/provider/install/update downloads.
+- Avoid duplicate download, hash, metadata, and dependency work when the exact artifact/plan is already valid in cache.
+- Use streaming I/O, appropriate buffers, bounded concurrent transfers, resumable/range support, and atomic finalization.
+- Keep hashing/verification off the renderer and pipeline verification without weakening the final commit gate.
+- Preserve exact content, hash/provenance checks, dependencies, rollback, history, and resumability.
+
+**Renderer / IPC / persistence**
+- Remove chatty per-row/per-card IPC waterfalls; batch or push coherent state changes.
+- Prefer event-driven updates over polling.
+- Index actual database query patterns; eliminate repeated full-table/full-JSON rewrites when incremental updates are safe.
+- Avoid parsing/serializing giant state blobs for tiny changes.
+- Memoize derived view models only with correct invalidation.
+- Keep expensive image/media work asynchronous and cache decoded/processed variants where appropriate.
+- Prevent background work from starving the foreground interaction queue.
+
+**Performance UX rule**
+- Every direct user gesture should acknowledge/respond within roughly one frame to 100 ms when local state can answer it.
+- Cached/local useful content should normally appear within roughly 100-250 ms.
+- Remote freshness may continue asynchronously, but the user must immediately see valid known state plus truthful refresh status.
+- Do not fake instant behavior with empty shells when valid cached/known content exists.
+
+T048 does not close because one screen is fast. It closes only after the shared causes behind the broad slow-app behavior are repaired and the detailed existing tasks (including T002, T004, T025, T027, T045, and T046 where applicable) still pass their own contracts.
+
+### T049 — Prove Enderloom matches/beats CurseForge and Modrinth without regression
+
+- [ ] **T049** · Run the final equivalent-work performance + completeness certification
+
+For every comparable major workflow, benchmark Enderloom against both installed clients and use the **faster comparator** as the performance floor.
+
+Acceptance:
+
+- Enderloom must be no slower on comparable median user-visible latency after separating external network/provider time where appropriate.
+- Enderloom should be measurably faster on hot paths where its architecture can reasonably outperform the comparators.
+- p95 responsiveness must not hide severe stalls even when the median looks good.
+- Result counts and coverage must be reconciled: expected/discovered/returned/accepted/rejected/unresolved.
+- Search, Browse, provider reconciliation, update discovery, dependency plans, downloads, installs, and local content views must return the same or greater useful information/capability as before.
+- Existing stronger Enderloom guarantees must remain intact.
+- Test both warm and cold state, restart, large instances/catalogs, one degraded provider, offline cache behavior, rapid navigation/cancellation, simultaneous downloads/updates, and a provider/account reconnect case.
+- If CurseForge or Modrinth is still faster on an equivalent path, profile the difference and continue improving architecture. Do **not** close G010 by documenting the loss.
+- If Enderloom becomes faster by dropping work, metadata, results, validation, or fidelity, reopen the responsible task and reject the optimization.
+
+**G010 closes only when T047, T048, T049 and every existing performance-sensitive task they touch are runtime-proven on the packaged/current desktop build.**
+
+---
+
 ### Immediate execution priority override
 
-The embedded-browser/download repair is now the **highest-priority tranche** because it is the most disruptive everyday UX problem.
+The **G010 / T047-T049 whole-app performance program is the absolute highest priority**. Within that program, the embedded-browser/download/Browse repair remains the first tactical tranche because it is among the most disruptive everyday UX problems.
 
-Execute this tranche first, without waiting for unrelated queue items:
+Execute in this priority order, without waiting for unrelated queue items:
 
-1. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-2. **T004** — finish the canonical Chromium download pipeline;
-3. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-4. **T027** — make download persistence/resume/save behavior survive real use and restart;
-5. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-6. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-7. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+1. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the real hot paths;
+2. **T048** — repair the shared launch/Browse/Mods/update/download/install/IPC/storage architecture causing broad slowness;
+3. **T026** — move Enderloom onto the latest production-stable Electron baseline;
+4. **T004** — finish the canonical Chromium download pipeline;
+5. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
+6. **T027** — make download persistence/resume/save behavior survive real use and restart;
+7. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
+8. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
+9. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
+10. **T049** — run the no-loss comparator certification;
+11. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
-This priority override changes execution order only; it does not remove or weaken any other accepted task.
+This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
 
 ## Context
 
@@ -915,8 +1086,8 @@ Record exact build/commit and observed evidence. No item in accepted scope close
 
 ## Done when
 
-This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G010 is closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T046 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T049, G001-G008, and G010 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
