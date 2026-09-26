@@ -35,6 +35,8 @@ This queue is intentionally bounded to those accepted UX/QoL repairs and the sha
 
 **Addon correction:** provider-backed addons/customizations must behave like first-class online projects, not like a loose-file junk drawer. When Enderloom can identify a real CurseForge/Modrinth/etc. project and release file, the Addons surface must retain that online identity, use that provider release for install/update, and present the same polished project-page/card UX as the Mods surface. Local/private addon files remain supported, but must be explicitly shown as local/unlinked rather than being given a fake provider identity.
 
+**GitHub Browse correction:** when a canonical project has a verified GitHub/upstream repository, GitHub must be a first-class in-app provider surface beside Modrinth and CurseForge. Selecting the GitHub source must render that exact repository/page directly inside Enderloom Browse rather than behaving as a hyperlink-only escape hatch, while still allowing the user to promote the provider view into a normal Enderloom browser tab through an unobtrusive control or drag-to-tab-strip gesture.
+
 ## Constraints and preservation
 
 - Preserve existing instance files, worlds, configs, favorites, notes, provider bindings, artwork choices, browser state, and working functionality.
@@ -219,6 +221,31 @@ Implementation contract:
 - Prevent remote content from choosing privileged BrowserWindow/webPreferences.
 - Keep per-tab back/forward history, title, favicon, loading state, URL, zoom, mute/audible state, and current browser session identity.
 - Opening provider/project links from Catalog/Mod Manager should reuse this same tab system instead of a second browser implementation.
+
+### T044 — Make GitHub a first-class embedded Browse provider surface with tear-off/new-tab promotion
+
+- [ ] **T044** · GitHub opens directly inside Browse like Modrinth/CurseForge, with compact promotion into a normal Enderloom tab
+
+**Observed gap:** the project source row can expose **GitHub** beside Modrinth/CurseForge, but GitHub must not stop at a hyperlink that ejects the user from the integrated browsing flow.
+
+Required behavior:
+
+- When the canonical project identity has a verified GitHub/upstream repository, selecting the **GitHub** provider/source tab loads the exact canonical repository/page **inside the current Browse project surface**, just as the in-app Modrinth/CurseForge provider views do.
+- Keep the normal Enderloom project shell and compact source row available while GitHub is active so the user can switch among **Modrinth / CurseForge / GitHub** without losing project identity or returning through a separate workflow.
+- Render GitHub through Enderloom's real browser/WebContentsView tab infrastructure rather than an iframe or scraped imitation. GitHub CSP/X-Frame restrictions must therefore not degrade the feature into a dead placeholder.
+- Preserve the exact current GitHub URL, navigation history, favicon/title/loading state, back/forward state, zoom, authentication/session profile, and download initiator context supported by the shared browser model.
+- Add one compact, unobtrusive **Open in New Tab** icon/button in the provider-view chrome/source-row area when a provider page is active. It must have a tooltip/accessibility name, remain out of the content's way, and promote the **current exact page** into a normal top-level Enderloom browser tab.
+- Support direct tear-off/promotion by dragging the provider source tab/chip upward onto the main/top browser tab strip. Crossing the real tab-strip drop target promotes that provider view into a normal Enderloom tab; cancelling or dropping elsewhere leaves the current page exactly where it was.
+- Drag promotion must have a sensible movement threshold and visible drop affordance so ordinary clicks do not accidentally create tabs. Keyboard/mouse users must always have the explicit **Open in New Tab** control as the non-drag equivalent.
+- Reuse **T028** for tab creation/disposition, **T029** for restore/reopen behavior, **T031** for context-menu equivalents, and the canonical browser session/profile. Do not build a GitHub-only tab/window implementation.
+- Generalize the promotion action to provider source tabs where technically applicable so Modrinth/CurseForge/GitHub behave consistently, while the missing first-class GitHub embedding is the required regression target.
+- A promoted provider page must remain a real Enderloom browser tab: reorderable/closable like other tabs, eligible for Ctrl+Shift+T/session restore, and capable of opening its own links/downloads through the normal browser/download systems.
+- Remote GitHub content remains untrusted. Never expose Node/Electron privileged APIs or Enderloom mutation operations to the page; use the same isolation, navigation, permission, external-protocol, and hostile-page protections required elsewhere in G002/T043.
+- Provider-page downloads route through **T004/T025/T027** instead of bypassing Enderloom's download history, provenance, save, resume, and verification behavior.
+- If the verified GitHub repository is temporarily unavailable, show the normal in-pane browser error/retry state while preserving the canonical source binding. Do not silently demote the project to an unlinked record or replace the requested in-app view with a generic external-browser redirect.
+- Do not display a fake/guessed GitHub tab. The source appears as first-class only when canonical identity/upstream evidence resolves the repository with sufficient confidence.
+
+**Hard acceptance path:** open a project in **Browse** with Modrinth/CurseForge/GitHub sources -> click **GitHub** -> the exact GitHub repository renders in the existing Browse content area -> navigate to a deeper GitHub page -> use the compact **Open in New Tab** control -> a normal Enderloom tab opens on that exact page/session -> return and repeat by dragging the GitHub source tab/chip onto the top tab strip -> promotion succeeds without losing navigation/project state -> close/reopen through Ctrl+Shift+T -> downloads/back/forward continue through the shared browser model.
 
 ### T029 — Recently closed tabs and session/crash restore
 
@@ -731,13 +758,14 @@ Exercise the real desktop build through at least:
 22. persistent browser profile + extension reload/compatibility labeling across Enderloom upgrade;
 23. offline/certificate/load-state UI, media mute/PiP behavior, browser/download drag/drop, Windows taskbar progress/notification/reveal integration;
 24. hostile-page browser-security regression fixture proving no privileged Enderloom action is reachable through untrusted remote content.
+25. verified GitHub project source -> GitHub renders directly inside the Browse provider pane -> navigate deeper -> compact Open in New Tab preserves the exact URL/session -> drag the GitHub provider tab/chip onto the top tab strip also promotes it -> promoted tab behaves like a normal restorable Enderloom browser tab while the original project/source state remains intact.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue.
+This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T043 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T044 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
