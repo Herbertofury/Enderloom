@@ -950,7 +950,11 @@ function closeTab(id) {
   if(tabIsDetached(id))disposeDetachedWindow(id,{reattach:false});
   tabOrder=tabOrder.filter(value=>value!==id);tabGroups.delete(id);
   stopTabTranslatorTimer(t);
-  closedTabs.unshift({ url: t.view.webContents.getURL() || t.url, title: t.title });
+  closedTabs.unshift({
+    url: t.view.webContents.getURL() || t.url,
+    title: t.title,
+    zoom: t.view.webContents.getZoomFactor(),
+  });
   closedTabs = closedTabs.slice(0, 20);
   detach(t.view);
   try { t.view.webContents.close(); } catch {}
@@ -1243,7 +1247,15 @@ async function command(name, payload) {
       return { promoted: true, tabId: tab.id, url: target };
     }
     case 'close-tab': closeTab(payload?.id || activeId); break;
-    case 'reopen-tab': { const x = closedTabs.shift(); if (x) createBrowserTab(x.url, true); break; }
+    case 'reopen-tab': {
+      const x = closedTabs.shift();
+      if (!x) return { reopened:false };
+      const reopened = createBrowserTab(x.url, true);
+      if (Number.isFinite(Number(x.zoom))) {
+        reopened.view.webContents.setZoomFactor(Math.max(.5, Math.min(2.5, Number(x.zoom))));
+      }
+      return { reopened:true, tabId:reopened.id, url:x.url };
+    }
     case 'reorder-tab': reorderTab(String(payload?.id||''),String(payload?.beforeId||'')); break;
     case 'tab-group': setTabGroup(String(payload?.id||''),String(payload?.group||'')); break;
     case 'detach-tab': detachTab(String(payload?.id||activeId),{maximize:!!payload?.maximize,fullscreen:!!payload?.fullscreen}); break;
@@ -3264,18 +3276,33 @@ async function runSelfTest() {
     JSON.stringify({providerOpened,providerPrefs,providerBounds}),
   );
   await launcherProviderSurface.view.webContents.loadURL(`http://127.0.0.1:${port}/two`);
+  launcherProviderSurface.view.webContents.setZoomFactor(1.25);
   const providerDeepUrl=launcherProviderSurface.view.webContents.getURL();
   const providerTabsBefore=tabs.length;
   const providerPromoted=await launcherProviderSurfaceCommand('promote',{});
+  const promotedTab=getTab(providerPromoted.tabId);
   check(
-    'Browse provider pane promotes the exact current page into a normal tab',
+    'Browse provider pane promotes the exact current page and zoom into a normal tab',
     /\/two$/.test(providerDeepUrl) &&
       providerPromoted?.promoted===true &&
       providerPromoted?.promotedUrl===providerDeepUrl &&
       tabs.length===providerTabsBefore+1 &&
-      getTab(providerPromoted.tabId)?.view?.webContents?.getURL?.()===providerDeepUrl,
-    JSON.stringify({providerDeepUrl,providerPromoted,tabs:tabs.length}),
+      promotedTab?.view?.webContents?.getURL?.()===providerDeepUrl &&
+      Math.abs((promotedTab?.view?.webContents?.getZoomFactor?.()||0)-1.25)<.01,
+    JSON.stringify({providerDeepUrl,providerPromoted,zoom:promotedTab?.view?.webContents?.getZoomFactor?.(),tabs:tabs.length}),
   );
+  if(providerPromoted?.tabId)closeTab(providerPromoted.tabId);
+  const reopenedProvider=await command('reopen-tab',{});
+  const reopenedProviderTab=getTab(reopenedProvider?.tabId);
+  check(
+    'Promoted provider page participates in recently-closed restore',
+    reopenedProvider?.reopened===true &&
+      reopenedProvider?.url===providerDeepUrl &&
+      reopenedProviderTab?.view?.webContents?.getURL?.()===providerDeepUrl &&
+      Math.abs((reopenedProviderTab?.view?.webContents?.getZoomFactor?.()||0)-1.25)<.01,
+    JSON.stringify({reopenedProvider,url:reopenedProviderTab?.view?.webContents?.getURL?.(),zoom:reopenedProviderTab?.view?.webContents?.getZoomFactor?.()}),
+  );
+  if(reopenedProvider?.tabId)closeTab(reopenedProvider.tabId);
   activateTab(LAUNCHER_ID);
   const providerRestoredVisible=launcherProviderSurface?.view?.getVisible?.()===true;
   await launcherProviderSurfaceCommand('hide',{});
@@ -3294,7 +3321,6 @@ async function runSelfTest() {
       launcherProviderSurface?.view?.webContents?.getURL?.()===providerDeepUrl,
     JSON.stringify({providerRestoredVisible,providerHidden,providerReopened,url:launcherProviderSurface?.view?.webContents?.getURL?.()}),
   );
-  if(providerPromoted?.tabId)closeTab(providerPromoted.tabId);
   disposeLauncherProviderSurface();
   stage('provider-surface');
 
