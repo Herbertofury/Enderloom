@@ -18,7 +18,7 @@ import {
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
-import { prefetchProjectDetails } from "../lib/project-cache";
+import { prefetchProject } from "../lib/project-cache";
 import type {
   Instance,
   ContentKind,
@@ -317,6 +317,34 @@ export function DiscoverView() {
         rememberBrowsePage(signature, result);
         setBrowse({ page: result, signature });
         setError(null);
+
+        if (result.offset + result.limit < result.total) {
+          const nextOffset = result.offset + result.limit;
+          const nextSignature = JSON.stringify({
+            provider,
+            kind,
+            query,
+            sort,
+            filters,
+            offset: nextOffset,
+          });
+          if (!browsePageCache.has(nextSignature)) {
+            void api
+              .searchContent(provider, kind, {
+                query,
+                game_versions: filters.gameVersions,
+                loaders: filters.loaders,
+                categories: filters.categories,
+                environment: filters.environment,
+                open_source_only: filters.openSourceOnly,
+                sort,
+                offset: nextOffset,
+                limit: PAGE_SIZE,
+              })
+              .then((nextPage) => rememberBrowsePage(nextSignature, nextPage))
+              .catch(() => {});
+          }
+        }
       } catch (e) {
         if (ticket !== requestRef.current) return;
         if (!cached) setPage(null);
@@ -376,10 +404,10 @@ export function DiscoverView() {
     (project: ProjectSummary) => {
       cancelProjectIntent();
       intentRef.current = setTimeout(() => {
-        prefetchProjectDetails(provider, project.id);
-      }, 180);
+        prefetchProject(provider, project.id, kind);
+      }, 80);
     },
-    [provider, cancelProjectIntent],
+    [provider, kind, cancelProjectIntent],
   );
 
   useEffect(() => cancelProjectIntent, [cancelProjectIntent]);
@@ -874,7 +902,7 @@ export function DiscoverView() {
                             : undefined,
                     onOpen: () => {
                       cancelProjectIntent();
-                      prefetchProjectDetails(provider, project.id);
+                      prefetchProject(provider, project.id, kind);
                       openProject(provider, project.id, kind, project.title, project);
                     },
                     onIntent: () => scheduleProjectIntent(project),
