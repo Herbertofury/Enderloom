@@ -25,7 +25,7 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 
 - [ ] **G012 · ARCHITECTURE GATE** — `enderloom-core` is the canonical production owner for performance-critical filesystem/indexing, database/cache, provider/data, hashing/fingerprinting, archive inspection, dependency/compatibility solving, transfer/install pipelines, background scheduling, and native media work; Electron/JavaScript is reduced to UI/browser/native-shell orchestration except where measured production evidence proves a JS implementation is genuinely superior with no protected regression.
 
-This gate executes **before and underneath G010**. It is not a rewrite-for-rewrite's-sake. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
+This gate executes **underneath and in continuous parallel with G010**. It is not a rewrite-for-rewrite's-sake. **Do not finish the Rust architecture first and benchmark later:** every migrated vertical slice must immediately run its equivalent-work performance/coverage proof, be tuned until it advances or at least preserves the strongest proven Enderloom baseline, and ratchet that evidence before the next dependent slice proceeds. Migrate a hot path only through a real vertical slice, preserve accepted behavior/data, compare equivalent results, and keep the faster implementation only when runtime evidence proves it. If profiling exposes another material shared hot path not explicitly listed here, use common-sense product/engineering agency to add it to the nearest appropriate task with the next unused stable ID and fix it before closing G012.
 
 ### Rust-first ownership law
 
@@ -319,7 +319,190 @@ Cross-cutting rules:
 - Performance benchmarks run with all integrity/freshness/rollback protections enabled. Disabling them invalidates the benchmark.
 - Any performance optimization that causes a false search result, stale "latest" claim, broken/outdated link, provider mis-merge, missing logical result, lost user data, silent corruption, unrecoverable partial operation, or weaker verification is automatically rejected and the responsible task reopened.
 
-**G012 closes only when T056-T069 are production-wired, packaged-runtime proven, and the migrated hot paths preserve or improve the complete G010/G011 result/quality contract.**
+### T070 — Continuous performance proof during every architecture/tool migration slice
+
+- [ ] **T070** · Run G010 performance/coverage proof continuously while G012/G013 are implemented instead of deferring optimization until after architecture work
+
+Required execution loop for every material migrated or newly hosted path:
+
+`implement one real vertical slice -> benchmark equivalent work immediately -> reconcile complete results/capability -> profile measured bottleneck -> tune architecture/scheduling/cache/IPC/rendering -> runtime verify -> ratchet the new baseline -> continue`
+
+Rules:
+
+- No broad "Rust migration complete; optimize later" phase is allowed.
+- Every meaningful G012/G013 slice records cold/warm first-useful latency, full-completion latency, p95/p99 where relevant, CPU/RAM/disk/network cost, result/metadata/capability counts, and regression evidence before the next dependent slice is considered stable.
+- Run comparison against the previous proven Enderloom build continuously; run the full CurseForge/Modrinth comparator matrix at representative milestones and any time a touched path could materially alter the final superiority result.
+- If a new architecture is cleaner but slower, it remains incomplete: profile and repair it rather than accepting the regression for "future optimization."
+- Performance work may proceed in parallel with independent implementation tasks when shared state/contracts are settled, but never by racing conflicting migrations or weakening verification.
+- Preserve deterministic benchmark fixtures so improvements become permanent regression gates rather than anecdotes.
+- User-visible responsiveness remains P0 throughout migration; background conversion/indexing/benchmark work must not make the development build architecturally "fast later but miserable now."
+
+**G012 closes only when T056-T070 are production-wired, packaged-runtime proven, and the migrated hot paths preserve or improve the complete G010/G011 result/quality contract.**
+
+---
+
+## G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable
+
+- [ ] **G013 · PLATFORM GATE** — Enderloom provides one reusable host-agnostic tool platform so the Mod Manager and future tools such as a World Editor can run as lightweight standalone applications, dock as first-class Enderloom Electron tabs, pop out/reattach instantly, share one canonical Rust/domain state, and invoke richer Electron/browser/provider capabilities when available without duplicate implementations, stale state, feature loss, or corruption.
+
+This is a **platform invariant**, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host model is necessary.
+
+### T071 — One tool implementation, multiple hosts
+
+- [ ] **T071** · Define and production-wire a shared tool contract so one tool implementation can render/work inside Electron or a lightweight standalone host without forking domain behavior
+
+Architecture:
+
+- Tool domain logic/state lives in `enderloom-core` or another canonical native/domain module, never duplicated separately for Electron and standalone.
+- Tool UI should be shared from one source where technically practical; host-specific adapters handle only shell/window/browser/native differences.
+- Support at least these host modes:
+  - **Electron tab** inside full Enderloom;
+  - **Electron pop-out/window** for instant detach while retaining full Electron/browser capability;
+  - **lightweight standalone host** (Tauri/native/webview or another benchmark-proven production host) that can launch without booting the full Electron/browser shell.
+- Choose the standalone host by measured startup/runtime/resource/capability evidence. Tauri is a strong candidate, not a cargo-cult requirement.
+- The same action IDs, commands, state schema, progress events, permissions, validation, undo/rollback semantics, hotkeys, and persistence apply regardless of host.
+- Host adapters cannot reimplement private business logic merely because an API differs.
+- A tool declares capability requirements; unavailable optional host capabilities produce a truthful alternate path, not a crippled hidden failure.
+- New features added to the canonical tool implementation become available in every compatible host automatically.
+
+### T072 — Mod Manager is the first dual-host reference implementation
+
+- [ ] **T072** · Make the Enderloom Mod Manager launch instantly as its own lightweight application and remain the exact same first-class tool when docked inside Electron
+
+Required:
+
+- Provide a direct Mod Manager executable/launcher/shortcut path that starts only the minimum standalone host + shared core required for Mod Manager use.
+- Standalone launch must not initialize Chromium browser tabs/WebContents/provider-page surfaces that the user did not request.
+- The standalone manager retains full Mod Manager capability: instances, Mods/Addons, discovery, updates, dependency Doctor, bulk manager, favorites, version changes, installs/removals, quarantine/undo, logs/context actions, and relevant provider metadata.
+- Opening the same Mod Manager as an Electron tab uses the same canonical state/actions and should not trigger a rescan/reindex merely because the host changed.
+- Standalone and Electron-hosted UI should maintain visual/interaction parity except where Electron adds meaningful browser-shell capabilities.
+- Benchmark standalone cold/warm launch -> interactive Mod Manager against full Electron launch and both comparator launchers. The lightweight path must materially reduce unnecessary startup/runtime cost without reducing Mod Manager capability.
+
+### T073 — Instant dock / undock / pop-out / reattach with workspace continuity
+
+- [ ] **T073** · Allow tools to move between tab, Electron pop-out, and standalone-host presentations without losing state or forcing reload/recomputation
+
+User-visible behavior:
+
+- Every compatible tool exposes compact **Open Standalone**, **Open in New Window / Pop Out**, and **Dock/Reattach to Enderloom** actions where appropriate.
+- Drag-to-detach / drag-back-to-tab-strip may supplement explicit controls when it can be implemented reliably; keyboard/context-menu alternatives always exist.
+- Detaching/reattaching preserves tool route, active instance/world/project, selection, filters, sort, search text, scroll position, expanded panels, unsaved editor state, operation progress, and other safe workspace context.
+- A host transition must not cancel independent downloads/indexing/provider refreshes/tool operations unless the operation is truly owned by a closing host-specific resource.
+- Where a WebContents/browser page itself is being detached, preserve its exact Electron session/history/URL/profile using the existing browser infrastructure rather than serializing secrets into generic tool state.
+- Transition should feel instant: reuse canonical core state and persisted/transferable view state instead of reconstructing the tool from scratch.
+- If full Electron is not running and the user requests Dock/Open in Enderloom, launch/reuse the shell and restore the exact requested tool context.
+- If the standalone host exits while work continues in the core, the operation remains truthful/recoverable and reconnecting rehydrates current progress rather than restarting it.
+
+### T074 — Capability bridge: standalone tools gain Electron/browser powers when hosted inside Enderloom
+
+- [ ] **T074** · Give tools a typed capability bridge so the same tool can request Electron-only/browser-rich functionality when docked without embedding Electron assumptions into its core
+
+Capability examples:
+
+- open exact provider/project/research page in current/new Enderloom browser tab;
+- open provider page beside the tool in split view;
+- use authenticated Enderloom Chromium sessions/cookies through approved browser actions;
+- browser back/forward/history/tab promotion;
+- normal T004/T025/T027 Downloads integration;
+- site permission prompts;
+- external-protocol handling;
+- browser context menus;
+- drag/drop between browser downloads and tool installers;
+- reveal/download/open actions;
+- exact contextual "Open in Mod Manager / Open in World Editor / Send to Tool" actions;
+- Electron notifications/taskbar/native dialogs when relevant.
+
+Rules:
+
+- Tool code requests abstract typed capabilities (for example `browser.openProviderProject(canonicalProjectId)`) rather than directly reaching into Electron internals.
+- Electron host fulfills supported capabilities through the canonical browser/session/security systems.
+- Standalone host either fulfills an equivalent lightweight/native capability or offers a clean **Open in Enderloom** continuation preserving exact context.
+- Remote webpages remain untrusted and never receive raw `enderloom-core` privileges.
+- Capability negotiation is explicit/versioned so future tools can detect supported host features without brittle host-name checks.
+
+### T075 — Cross-surface action/event sync: browser/provider actions immediately update Enderloom tools
+
+- [ ] **T075** · Make meaningful actions taken in embedded provider sites/browser surfaces converge into canonical Enderloom state and immediately propagate to every open host/tool
+
+Required canonical flow:
+
+`trusted observed provider/site action -> provider adapter resolves canonical identity -> validated Enderloom domain action/event -> SQLite/core commit -> live event bus -> Mod Manager/other tools update everywhere`
+
+Concrete required fixture:
+
+- User opens a real CurseForge project in Enderloom's authenticated embedded browser.
+- User clicks the real CurseForge site **Favorite** control.
+- Enderloom detects/validates the resulting provider favorite state through the strongest supported route (official API/provider state first; structured network/page state only when necessary and robust).
+- Resolve the CurseForge project to Enderloom's canonical project identity.
+- Add/update the Enderloom favorite immediately.
+- An already-open standalone Mod Manager and an Electron-tabbed Mod Manager both reflect the favorite without refresh, duplicate card, rescan, or app restart.
+- Unfavorite/state-change behavior follows the user's explicit provider action and reconciles cleanly; never infer an unfavorite from a transient page/API failure.
+
+Generalize the bridge for other high-value provider/tool actions where reliable and safe, such as:
+
+- install/download intent;
+- version/file selection;
+- following/favorite/bookmark equivalents;
+- opening dependencies/relations into the appropriate tool;
+- sending a downloaded/imported artifact to the correct Enderloom tool;
+- provider identity/linking updates.
+
+Correctness/security:
+
+- Prefer official provider APIs/state/events where available.
+- Do not rely on fragile visible text or pixel/button-position scraping.
+- If the website/API changes and confidence drops, mark the bridge degraded/unresolved rather than committing a false state change.
+- Browser page content cannot directly invoke privileged mutations; every bridge event is normalized and revalidated by the provider/domain layer.
+- Provider favorite state and Enderloom favorite state retain provenance so synchronization conflicts are explainable and recoverable.
+- A site outage/auth expiry/blocked request must never erase local favorites.
+
+### T076 — One live core, many hosts: multi-process concurrency and instant state propagation
+
+- [ ] **T076** · Allow Electron plus multiple standalone/pop-out tools to coexist safely against one canonical live state without duplicate scans, racing writes, or contradictory UI
+
+Required:
+
+- Use a single canonical ownership model for SQLite WAL, filesystem index state, provider caches, download/install transactions, dependency graph, favorites, quarantine/undo and operation history.
+- Prefer one supervised shared `enderloom-core` service/process for multi-host sessions when that provides the best correctness/performance; if native in-process modules are used, add an equivalent safe cross-process ownership/locking/event architecture.
+- A second host connecting must attach to existing indexes/caches/operations rather than launching another MFT scan/provider refresh/download of the same work.
+- Every committed domain change emits versioned live events/deltas to all subscribed hosts.
+- Hosts detect revision gaps and request a coherent snapshot; never guess missing events.
+- Concurrent actions against the same artifact/instance/world use operation ownership/locks and deterministic conflict handling.
+- Tool/UI crash does not kill durable core operations unnecessarily; core crash is detected and all hosts recover/reconnect truthfully.
+- Closing Electron must not destroy a standalone tool's safe ongoing state simply because Electron happened to start first.
+- Closing the last client allows the core to exit cleanly after durable state is committed unless an explicitly approved background operation requires otherwise.
+- No secret/session material is broadcast to tools that do not need it; browser sessions stay owned by the Electron/browser capability layer.
+
+### T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture
+
+- [ ] **T077** · Make future Enderloom tools plug into the same standalone/tabbed/pop-out platform without bespoke shell rewrites
+
+Create a small versioned internal Tool SDK/manifest contract covering:
+
+- stable tool ID/name/icon/routes;
+- shared UI entrypoint(s);
+- required/optional host capabilities;
+- canonical domain commands/events;
+- state serialization/restore contract for safe view/workspace state;
+- context actions and hotkeys;
+- drag/drop/import/export intents;
+- permissions/security needs;
+- standalone host eligibility/config;
+- Electron tab/pop-out eligibility;
+- deep links such as `enderloom://tool/<id>/...`;
+- diagnostics/health/version compatibility.
+
+World Editor reference fixture:
+
+- Implement or stub only enough real production wiring for the existing/planned World Editor to prove the platform boundary—not a fake decorative tab.
+- It can launch standalone without full Electron.
+- The exact same editor surface can dock as an Enderloom tab and pop out/reattach.
+- It can request Electron browser capabilities when hosted, e.g. open documentation/resource/provider pages or send downloaded world resources through canonical downloads/import.
+- Shared world/instance context transfers safely from Mod Manager -> World Editor and back without copying/moving the world unexpectedly.
+- Unsaved editor changes are never silently lost during host transitions; prompt/retain them according to the editor's real persistence model.
+- This fixture proves future tools can adopt the platform with mostly tool-specific domain/UI work rather than recreating host integration.
+
+**G013 closes only when T071-T077 are production-wired around the Mod Manager reference path, multi-host state/event behavior is runtime-proven, and the Tool SDK contract is demonstrated by the World Editor fixture or an equivalently real second tool.**
 
 ---
 
@@ -515,34 +698,37 @@ The **G010 / T047-T049 whole-app performance program is the absolute highest pri
 
 Execute in this priority order, without waiting for unrelated queue items:
 
-1. **T056 + T057** — establish production `enderloom-core` and make Rust/native ownership the default for heavy hot paths;
-2. **T058** — replace repeat recursive scans with MFT/USN change-driven indexing plus safe authoritative fallbacks;
-3. **T059** — move canonical metadata/search/index state to SQLite WAL + measured indexes/FTS with integrity-safe migrations;
-4. **T060 + T061** — add corruption-safe CAS reuse, one-pass hashing/fingerprints, and selective JAR/ZIP parsing;
-5. **T062 + T068** — add Tokio/Rayon priority scheduling plus compact delta/single-flight IPC;
-6. **T063** — make every cache/search/link path freshness-safe so instant never means false/stale/bad-link;
-7. **T064** — make dependency/compatibility solving incremental and shared across install/update/Doctor/bulk flows;
-8. **T065** — pipeline transfer/hash/inspect/dependency/verify/commit without weakening the atomic final gate;
-9. **T066** — move media decode/resize/cache work to the native demand-driven pipeline;
-10. **T067** — prove zero-blank large-list rendering; virtualization stays disabled anywhere it is perceptible or can miss visible rows;
-11. **T069** — crash-inject and prove every fast path cannot corrupt or manufacture freshness/success;
-12. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the remaining real hot paths;
-13. **T048** — repair any remaining shared launch/Browse/Mods/update/download/install/IPC/storage latency;
-14. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
-15. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
-16. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-17. **T004** — finish the canonical Chromium download pipeline;
-18. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-19. **T027** — make download persistence/resume/save behavior survive real use and restart;
-20. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-21. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-22. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
-23. **T052** — ship the user-confirmed Instance Dependency Doctor;
-24. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
-25. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
-26. **T049** — run the strict faster-and-richer-than-both certification;
-27. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
-28. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+1. **T056 + T057 + T070** — establish production `enderloom-core`, make Rust/native ownership the default for heavy hot paths, and benchmark/tune every migrated vertical slice immediately rather than later;
+2. **T071 + T072 + T076** — establish the reusable multi-host Tool Platform and make Mod Manager its first standalone + Electron-tabbed reference while sharing one live core/state;
+3. **T073 + T074 + T075** — make dock/undock/pop-out/reattach instant, bridge Electron/browser capabilities, and synchronize trusted provider/browser actions into canonical Enderloom state;
+4. **T077** — lock the pattern in for future tools with the Tool SDK/manifest and World Editor integration fixture;
+5. **T058** — replace repeat recursive scans with MFT/USN change-driven indexing plus safe authoritative fallbacks;
+6. **T059** — move canonical metadata/search/index state to SQLite WAL + measured indexes/FTS with integrity-safe migrations;
+7. **T060 + T061** — add corruption-safe CAS reuse, one-pass hashing/fingerprints, and selective JAR/ZIP parsing;
+8. **T062 + T068** — add Tokio/Rayon priority scheduling plus compact delta/single-flight IPC;
+9. **T063** — make every cache/search/link path freshness-safe so instant never means false/stale/bad-link;
+10. **T064** — make dependency/compatibility solving incremental and shared across install/update/Doctor/bulk flows;
+11. **T065** — pipeline transfer/hash/inspect/dependency/verify/commit without weakening the atomic final gate;
+12. **T066** — move media decode/resize/cache work to the native demand-driven pipeline;
+13. **T067** — prove zero-blank large-list rendering; virtualization stays disabled anywhere it is perceptible or can miss visible rows;
+14. **T069** — crash-inject and prove every fast path cannot corrupt or manufacture freshness/success;
+15. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the remaining real hot paths;
+16. **T048** — repair any remaining shared launch/Browse/Mods/update/download/install/IPC/storage latency;
+17. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
+18. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
+19. **T026** — move Enderloom onto the latest production-stable Electron baseline;
+20. **T004** — finish the canonical Chromium download pipeline;
+21. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
+22. **T027** — make download persistence/resume/save behavior survive real use and restart;
+23. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
+24. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
+25. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
+26. **T052** — ship the user-confirmed Instance Dependency Doctor;
+27. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
+28. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
+29. **T049** — run the strict faster-and-richer-than-both certification;
+30. **T050** — lock that win in as a permanent release/CI ratchet so future work cannot regress it;
+31. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
 
@@ -1675,8 +1861,8 @@ Record exact build/commit and observed evidence. No item in accepted scope close
 
 ## Done when
 
-This document is complete only when **G012, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
+This document is complete only when **G012, G013, G010, and G011 are closed** and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T069, G001-G008, G010, G011, and G012 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T077, G001-G008, G010, G011, G012, and G013 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably faster than both comparator clients and the complete app exposes more useful non-duplicate coverage/capability than both without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
