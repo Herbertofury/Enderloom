@@ -724,6 +724,7 @@ function openLauncherProviderSurface(request = {}) {
   setupContextMenu(surface);
   layoutLauncherProviderSurface();
   view.webContents.loadURL(url).catch((error) => {
+    if (/ERR_ABORTED|\(-3\)/i.test(String(error?.message || error))) return;
     surface.loading = false;
     surface.error = { code: -1, description: error.message, url };
     publishLauncherProviderSurfaceState();
@@ -770,10 +771,9 @@ async function launcherProviderSurfaceCommand(action, request = {}) {
     case 'promote': {
       const target = safeHttpUrl((wc && !wc.isDestroyed() ? wc.getURL() : '') || request.url);
       if (!target) throw new Error('No provider page is available to open in a new tab');
-      const tab = createBrowserTab(target, true);
-      if (wc && !wc.isDestroyed()) {
-        tab.view.webContents.setZoomFactor(wc.getZoomFactor());
-      }
+      const tab = createBrowserTab(target, true, {
+        zoom: wc && !wc.isDestroyed() ? wc.getZoomFactor() : 1,
+      });
       return { ...launcherProviderSurfaceState(), promoted: true, tabId: tab.id, promotedUrl: target };
     }
     case 'external': {
@@ -890,8 +890,11 @@ function setupContextMenu(t) {
     Menu.buildFromTemplate(items).popup({ window: win });
   });
 }
-function createBrowserTab(rawUrl, activate = true) {
+function createBrowserTab(rawUrl, activate = true, options = {}) {
   const url = normalizeAddress(rawUrl);
+  const preferredZoom = Number.isFinite(Number(options.zoom))
+    ? Math.max(.5, Math.min(2.5, Number(options.zoom)))
+    : null;
   const id = `web-${Date.now().toString(36)}-${nextTab++}`;
   const liveSession = session.fromPartition(PARTITION);
   const view = new WebContentsView({
@@ -909,7 +912,10 @@ function createBrowserTab(rawUrl, activate = true) {
   view.setBackgroundColor('#0b0d15');
   setViewVisible(view, false);
   try { view.setBounds({ x: 0, y: BASE_TOP, width: 1, height: 1 }); } catch {}
-  const t = { id, url, title: 'Loading…', loading: true, favicon: '', view };
+  const t = { id, url, title: 'Loading…', loading: true, favicon: '', view, preferredZoom };
+  if (preferredZoom !== null) {
+    try { view.webContents.setZoomFactor(preferredZoom); } catch {}
+  }
   tabs.push(t);
   tabOrder.push(id);
   view.webContents.setWindowOpenHandler(details => {
@@ -923,7 +929,14 @@ function createBrowserTab(rawUrl, activate = true) {
   view.webContents.on('page-title-updated', (_e, title) => { t.title = title || new URL(view.webContents.getURL()).hostname; publishState(); scheduleSave(); });
   view.webContents.on('page-favicon-updated', (_e, favicons) => { t.favicon = favicons?.[0] || ''; publishState(); });
   view.webContents.on('did-start-loading', () => { t.loading = true; publishState(); refreshShellChrome(); send('status', `Loading ${t.title || url}`); });
-  view.webContents.on('did-stop-loading', () => { t.loading = false; t.url = view.webContents.getURL() || url; publishState(); scheduleSave(); scheduleChromeGuard(); scheduleTabTranslator(t,{immediate:true}); send('status', `Ready · ${t.title || t.url}`); });
+  view.webContents.on('did-stop-loading', () => {
+    t.loading = false;
+    t.url = view.webContents.getURL() || url;
+    if (t.preferredZoom !== null) {
+      try { view.webContents.setZoomFactor(t.preferredZoom); } catch {}
+    }
+    publishState(); scheduleSave(); scheduleChromeGuard(); scheduleTabTranslator(t,{immediate:true}); send('status', `Ready · ${t.title || t.url}`);
+  });
   view.webContents.on('focus', refreshShellChrome);
   view.webContents.on('dom-ready', () => scheduleChromeGuard());
   view.webContents.on('did-navigate', (_e, u) => { t.url = u; publishState(); scheduleSave(); });
@@ -953,7 +966,7 @@ function closeTab(id) {
   closedTabs.unshift({
     url: t.view.webContents.getURL() || t.url,
     title: t.title,
-    zoom: t.view.webContents.getZoomFactor(),
+    zoom: t.preferredZoom ?? t.view.webContents.getZoomFactor(),
   });
   closedTabs = closedTabs.slice(0, 20);
   detach(t.view);
@@ -1240,20 +1253,19 @@ async function command(name, payload) {
       const current = launcherProviderSurfaceState();
       const target = safeHttpUrl(payload?.url) || safeHttpUrl(current.open && current.url);
       if (!target) throw new Error('No provider page is available to promote');
-      const tab = createBrowserTab(target, true);
-      if (current.open && current.url === target && launcherProviderSurface?.view?.webContents) {
-        tab.view.webContents.setZoomFactor(launcherProviderSurface.view.webContents.getZoomFactor());
-      }
+      const tab = createBrowserTab(target, true, {
+        zoom:
+          current.open && current.url === target && launcherProviderSurface?.view?.webContents
+            ? launcherProviderSurface.view.webContents.getZoomFactor()
+            : 1,
+      });
       return { promoted: true, tabId: tab.id, url: target };
     }
     case 'close-tab': closeTab(payload?.id || activeId); break;
     case 'reopen-tab': {
       const x = closedTabs.shift();
       if (!x) return { reopened:false };
-      const reopened = createBrowserTab(x.url, true);
-      if (Number.isFinite(Number(x.zoom))) {
-        reopened.view.webContents.setZoomFactor(Math.max(.5, Math.min(2.5, Number(x.zoom))));
-      }
+      const reopened = createBrowserTab(x.url, true, { zoom: x.zoom });
       return { reopened:true, tabId:reopened.id, url:x.url };
     }
     case 'reorder-tab': reorderTab(String(payload?.id||''),String(payload?.beforeId||'')); break;
@@ -1300,7 +1312,7 @@ async function command(name, payload) {
     case 'external': { const u = safeHttpUrl(payload?.url || currentUrl()); if (u) await shell.openExternal(u); break; }
     case 'copy-url': { const value = payload?.url || currentUrl(); if (/^https?:/i.test(value)) clipboard.writeText(value); break; }
     case 'find': if (t) { if (payload?.text) t.view.webContents.findInPage(payload.text, { forward: payload.forward !== false, findNext: !!payload.findNext }); else t.view.webContents.stopFindInPage('clearSelection'); } break;
-    case 'zoom': if (t) { const current = t.view.webContents.getZoomFactor(); const next = payload?.mode === 'in' ? Math.min(2.5, current + .1) : payload?.mode === 'out' ? Math.max(.5, current - .1) : 1; t.view.webContents.setZoomFactor(next); publishState(); } break;
+    case 'zoom': if (t) { const current = t.view.webContents.getZoomFactor(); const next = payload?.mode === 'in' ? Math.min(2.5, current + .1) : payload?.mode === 'out' ? Math.max(.5, current - .1) : 1; t.preferredZoom=next; t.view.webContents.setZoomFactor(next); publishState(); } break;
     case 'devtools': if (t) t.view.webContents.openDevTools({ mode: 'detach' }); else if (activeId === LAUNCHER_ID) launcherView?.webContents.openDevTools({ mode: 'detach' }); else catalogView.webContents.openDevTools({ mode: 'detach' }); break;
     case 'downloads-folder': await shell.openPath(app.getPath('downloads')); break;
     case 'open-download': if (payload?.path) await shell.openPath(payload.path); break;
@@ -2241,7 +2253,11 @@ function orderMediaPrimeUrls(urls=[]) {
 function enqueueMediaPrime(sender, raw={}, deferPump=false) {
   if(!sender||sender.isDestroyed())return;
   const key=String(raw?.key||'').slice(0,300);if(!key)return;
-  const urls=orderMediaPrimeUrls([...new Set((Array.isArray(raw?.urls)?raw.urls:[]).map(safeHttpUrl).filter(Boolean))]);if(!urls.length)return;
+  let urls=orderMediaPrimeUrls([...new Set((Array.isArray(raw?.urls)?raw.urls:[]).map(safeHttpUrl).filter(Boolean))]);if(!urls.length)return;
+  if(testMode){
+    urls=urls.filter(value=>{try{const host=new URL(value).hostname;return host==='127.0.0.1'||host==='localhost'}catch{return false}});
+    if(!urls.length)return;
+  }
   const context=mediaContext(raw?.context||{}),priority=Number(raw?.priority)||0;
   const id=mediaPrimeJobId(sender,key),existing=mediaPrimeJobs.get(id);
   if(existing){existing.priority=Math.max(existing.priority,priority);existing.urls=orderMediaPrimeUrls([...new Set([...urls,...existing.urls])]);return;}
@@ -3281,6 +3297,7 @@ async function runSelfTest() {
   const providerTabsBefore=tabs.length;
   const providerPromoted=await launcherProviderSurfaceCommand('promote',{});
   const promotedTab=getTab(providerPromoted.tabId);
+  if (promotedTab?.loading) await new Promise(resolve => promotedTab.view.webContents.once('did-stop-loading', resolve));
   check(
     'Browse provider pane promotes the exact current page and zoom into a normal tab',
     /\/two$/.test(providerDeepUrl) &&
@@ -3294,6 +3311,7 @@ async function runSelfTest() {
   if(providerPromoted?.tabId)closeTab(providerPromoted.tabId);
   const reopenedProvider=await command('reopen-tab',{});
   const reopenedProviderTab=getTab(reopenedProvider?.tabId);
+  if (reopenedProviderTab?.loading) await new Promise(resolve => reopenedProviderTab.view.webContents.once('did-stop-loading', resolve));
   check(
     'Promoted provider page participates in recently-closed restore',
     reopenedProvider?.reopened===true &&
@@ -3362,6 +3380,8 @@ async function runSelfTest() {
     JSON.stringify(seededProjectPaint),
   );
   stage('browse-seeded-paint');
+  await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.reset?.(); true`, true);
+  await new Promise(resolve => setTimeout(resolve, 40));
   // The Browse latency probe temporarily activates the launcher workspace. Restore the
   // historical Catalog fixture state before exercising the existing media/browser suite
   // so the new benchmark cannot perturb visibility/focus/compositor assumptions downstream.
