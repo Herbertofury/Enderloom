@@ -231,8 +231,7 @@ export function ProjectView() {
       });
 
     if (canResolveProviderMirror) {
-      void detailRequest
-        .then(() => loadProjectMirrors(projectRef.provider, projectRef.id, kind))
+      void loadProjectMirrors(projectRef.provider, projectRef.id, kind)
         .then((value) => {
           if (live) setMirrors(value);
         })
