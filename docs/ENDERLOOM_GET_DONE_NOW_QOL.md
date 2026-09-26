@@ -21,7 +21,8 @@ Execute this tranche first, without waiting for unrelated queue items:
 2. **T004** — finish the canonical Chromium download pipeline;
 3. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
 4. **T027** — make download persistence/resume/save behavior survive real use and restart;
-5. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+5. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
+6. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task.
 
@@ -221,6 +222,134 @@ Implementation contract:
 - Prevent remote content from choosing privileged BrowserWindow/webPreferences.
 - Keep per-tab back/forward history, title, favicon, loading state, URL, zoom, mute/audible state, and current browser session identity.
 - Opening provider/project links from Catalog/Mod Manager should reuse this same tab system instead of a second browser implementation.
+
+### T045 — Make Browse/project opening effectively instant without reducing work
+
+- [ ] **T045** · Eliminate Browse/open-project latency through better architecture, never by doing less work
+
+**Observed failure:** opening **Browse**, switching Browse categories/providers, opening project cards/details, and other Browse-originated navigation can sit visibly loading for seconds. This is a release-blocking interaction-performance defect. The user-visible shell and already-known project data should appear effectively immediately; fresh remote enrichment must not hold navigation hostage.
+
+**Zero-loss performance contract:** preserve the exact same or better project coverage, provider reconciliation, compatibility/dependency checks, artwork/media, descriptions, versions/files, favorites, installed state, provenance, update intelligence, security checks, and provider identity. Do **not** make Browse faster by removing providers, skipping metadata, lowering result counts, disabling validation, rendering less content permanently, hiding slow failures, or postponing required correctness forever. Speed must come from architecture and scheduling.
+
+#### Research basis to copy/improve, not cargo-cult
+
+- **Modrinth's current open-source app/frontend is the inspectable reference implementation.** It uses a persistent app cache with typed cache entries, provider/project/search/version caches, and different expiries; its app frontend uses cached project/search/version helpers and parallel loading; its web discovery page warms project caches for visible results and begins project/detail prefetch after a short hover dwell before the click.
+- Verified Modrinth patterns worth adopting/improving:
+  - persistent cache for project/project-v3/version/search metadata rather than fetching from scratch on every open;
+  - separate TTL/invalidation by data class instead of one global freshness rule;
+  - batching helpers such as project/version-many rather than N serial calls;
+  - parallel independent metadata fetches;
+  - stale-while-revalidate behavior for browse/search data;
+  - visible-card cache warming and intent prefetch before navigation;
+  - avoid carrying/rendering fields that the current surface cannot use until needed.
+- **CurseForge desktop internals are not assumed to be open source.** Treat its installed/current client as a black-box UX/performance benchmark: measure the same cold/warm Browse -> project workflows and beat its median user-visible latency without claiming undocumented internal implementation details.
+- Re-check current Modrinth/CurseForge behavior immediately before implementation so stale research does not become the architecture.
+
+#### Required architecture
+
+1. **Instant shell + cache-first navigation**
+   - Route changes and project-card clicks commit immediately; never wait for provider network requests before showing the destination shell.
+   - Hydrate the new view synchronously from the canonical local cache/database when any prior-known project/search/provider data exists.
+   - Keep the previous usable Browse result set visible during compatible filter/provider refresh instead of blanking the screen into a spinner.
+   - Use skeletons only for fields genuinely unknown locally; never replace already-known data with skeletons while revalidating.
+
+2. **Persistent normalized Browse cache**
+   - Add/repair a durable normalized cache keyed by canonical project/provider IDs and immutable release/file IDs, not display names.
+   - Cache separately: browse/search result summaries, project core metadata, provider mappings, descriptions, media manifests, compatibility facets, release/version summaries, dependency relations, installed/favorite state projections, and artwork metadata.
+   - Give each data class an evidence-based TTL/invalidation policy. Immutable/hash-addressed metadata can be retained aggressively; mutable project/search data refreshes more often.
+   - Persist cache outside replaceable app binaries and retain valid cache across normal Enderloom upgrades.
+   - Use schema/version migrations instead of deleting the entire cache on every app update.
+
+3. **Stale-while-revalidate, with precise invalidation**
+   - Serve last-verified local data immediately when safe, then refresh in the background.
+   - Revalidate only data whose TTL, ETag/Last-Modified/provider revision, dependency, target instance, loader/game-version context, or user action makes it stale.
+   - Do not full-rescan every instance or every provider when opening one project.
+   - When fresh data arrives, patch only changed fields/rows instead of rebuilding the whole Browse view.
+   - Show a subtle stale/revalidating indicator only when meaningful; do not block interaction.
+
+4. **Intent-driven prefetch**
+   - Warm the next likely project before click from **hover/focus**, keyboard selection, visible-card ranking, recently used/favorite projects, and provider-source hover.
+   - Use a short dwell/intent threshold so simply moving the pointer across a grid does not DDOS providers.
+   - Prefetch the minimum high-value project bundle first: canonical project identity, summary/core metadata, current compatible release summary, provider mappings, icon/artwork, and installed/favorite projection.
+   - Once bandwidth/CPU are idle, opportunistically prefetch secondary detail such as gallery/media, changelog preview, dependency graph, and alternate provider pages.
+   - Cancel/deprioritize speculative work when intent changes. User-initiated navigation always outranks background prefetch.
+
+5. **Request graph, batching, single-flight, and bounded concurrency**
+   - Replace serial provider waterfalls with a dependency-aware request DAG.
+   - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads.
+   - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently.
+   - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits.
+   - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others.
+   - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
+
+6. **Keep expensive work off the renderer/UI thread**
+   - Network parsing, archive/hash work, compatibility resolution, provider reconciliation, large JSON transforms, image decoding/resizing, and DB work must not block Electron's renderer event loop.
+   - Move CPU-heavy canonicalization/indexing to worker/native/main-process services as appropriate.
+   - Avoid synchronous filesystem calls and giant IPC payloads in navigation hot paths.
+   - Pass compact normalized records/deltas across IPC rather than full duplicated provider payloads.
+   - Profile long tasks, layout/reflow, image decode, GC, IPC serialization, DB locks, and provider waterfalls; fix the measured owners rather than guessing.
+
+7. **Fast image/icon/media path**
+   - Cache project icons/artwork by stable URL/hash with decoded-size variants appropriate to card/detail use.
+   - Paint a locally cached icon immediately and swap only when a verified newer asset arrives.
+   - Lazy-load below-fold gallery/media, but never omit it from the project; it must appear as the user reaches it.
+   - Avoid decoding full-resolution hero/gallery assets merely to draw tiny cards.
+   - Do not let broken/slow media delay text/project controls.
+
+8. **Browse search/filter/sort must be local-first where semantics allow**
+   - Debounce only remote query issuance, not keystroke/UI feedback.
+   - Filter/sort already-loaded logical results immediately in local state.
+   - Cache query+facet pages with canonical query keys and reuse them on back/forward.
+   - Preserve scroll position, selected card, filters, sort, provider/source choice, and current instance context.
+   - Under virtualization/pagination, counts/search/filter/bulk semantics must still represent the promised logical dataset, not only rendered rows.
+
+9. **Pre-open from likely navigation origins**
+   - Favorites, My Modpacks, recent projects, update lists, Addons, provider-source chips, and instance content should all be able to hand Browse a canonical project seed so the destination can paint immediately.
+   - Never throw away data already present on the source card just to refetch the same title/icon/summary after navigation.
+   - Back/forward should restore the previous view from memory/cache immediately and then revalidate only if needed.
+
+10. **No global loading lock**
+    - Replace giant page-level loading booleans with field/section-level readiness.
+    - Primary actions that are already safe from cached/canonical state remain usable while secondary enrichment runs.
+    - A slow GitHub/CurseForge/Modrinth secondary source cannot block the rest of the project page.
+    - A failed optional enrichment branch shows its own retry/error state while preserving the usable page.
+
+11. **Instrumentation and evidence**
+    - Add trace spans/metrics for: click -> route commit, click -> first meaningful paint, click -> cached project shell, click -> primary actions usable, click -> all above-fold data settled, click -> full enrichment settled.
+    - Attribute time to local DB, cache miss, each provider, IPC, parsing, compatibility, reconciliation, image decode, render/layout, and background prefetch.
+    - Record cold cache, warm cache, offline cache, degraded-one-provider, and 250/1,000/10,000-result Browse cases.
+    - Keep instrumentation cheap in production and detailed enough to regress-test performance.
+
+#### Hard performance acceptance
+
+Use the **same machine, network, instance context, project set, and equivalent result coverage** for comparisons. Do not benchmark an artificially simplified Enderloom workload.
+
+- **Warm Browse/category reopen:** destination shell + cached results should be perceptually instant; target **<=100 ms median click-to-meaningful-paint** and **<=150 ms p95** where data is already cached locally.
+- **Warm project detail open from a visible card:** target **<=100 ms median** to cached core content/usable controls and **<=200 ms p95**, with background revalidation not blocking input.
+- **Cold project open:** route/shell must still paint immediately; first useful provider-backed content should beat the current baseline materially and must not be slower than the fastest comparable CurseForge/Modrinth client median for the same project/result scope.
+- **Back/forward restoration:** target **<=50 ms median** to restore prior cached Browse/project state.
+- **UI thread:** no navigation-triggered long task >50 ms without a documented platform exception; eliminate repeated long tasks from normal Browse opens.
+- **Zero-loss equivalence:** cached/optimized result counts, provider badges, compatible release selection, dependency closure, provenance, descriptions/media, and user-visible project actions must reconcile to the unoptimized authoritative result after background refresh.
+- If these targets expose a platform/provider lower bound that cannot be met for uncached remote completion, keep the instant cached shell requirement and profile/optimize until no Enderloom-owned serial/network/IPC/render work unnecessarily extends the critical path. Do not weaken the target merely because the first implementation misses it.
+
+#### Required regression fixtures
+
+- warm Browse -> project -> back -> same project;
+- cold Browse -> project with empty local cache;
+- cached project while fully offline;
+- one provider delayed by 3-5 s while another responds immediately;
+- provider timeout/error with usable cached data;
+- project with Modrinth + CurseForge + GitHub sources;
+- project with large description/gallery/version history;
+- 250 / 1,000 / 10,000 logical browse results with virtualization;
+- rapid hover across many cards proving bounded prefetch/cancellation;
+- rapid click A -> B -> A proving stale responses cannot overwrite current intent;
+- repeated opening of the same card proving single-flight/cache reuse;
+- restart proving persistent cache still gives immediate warm open;
+- provider metadata change proving stale data updates without full-page blanking;
+- exact same workflows timed against current CurseForge and Modrinth clients on the same machine/network.
+
+**Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is not slower on equivalent user-visible Browse/project latency and no content/correctness was removed.
 
 ### T044 — Make GitHub a first-class embedded Browse provider surface with tear-off/new-tab promotion
 
@@ -759,13 +888,14 @@ Exercise the real desktop build through at least:
 23. offline/certificate/load-state UI, media mute/PiP behavior, browser/download drag/drop, Windows taskbar progress/notification/reveal integration;
 24. hostile-page browser-security regression fixture proving no privileged Enderloom action is reachable through untrusted remote content.
 25. verified GitHub project source -> GitHub renders directly inside the Browse provider pane -> navigate deeper -> compact Open in New Tab preserves the exact URL/session -> drag the GitHub provider tab/chip onto the top tab strip also promotes it -> promoted tab behaves like a normal restorable Enderloom browser tab while the original project/source state remains intact.
+26. instrumented Browse performance fixture: warm/cold Browse + project opens, back/forward, offline cache, one throttled provider, rapid A -> B -> A navigation, large result set, and restart cache persistence; compare equivalent full-result workflows against current CurseForge and Modrinth clients and prove latency gains without provider/result/metadata/dependency/fidelity loss.
 
 Record exact build/commit and observed evidence. No item in accepted scope closes on a mock handler, static markup, compile-only proof, or a test that bypasses production wiring.
 
 ## Done when
 
-This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source.
+This document is complete only when every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted blocker remains open, the packaged app preserves existing user data/functionality, the embedded browser feels like a coherent modern Chromium browser rather than an Electron wrapper, and the update/download/install paths are both **faster/responsive** and **more reliable** without deleting validation or content. The Chrome-style Downloads button/pop-out in T025 is a release-blocking acceptance item for this queue. GitHub must likewise function as the first-class embedded Browse provider surface defined by T044 rather than a hyperlink-only source. Browse/project opening must also satisfy T045's cache-first/intent-prefetch/parallel-loading performance gates with complete result equivalence; a spinner-free shell achieved by omitting work is not completion.
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T044 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T045 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
