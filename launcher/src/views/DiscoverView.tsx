@@ -44,7 +44,7 @@ import {
   FilterRail,
   type FilterState,
 } from "../components/FilterRail";
-import { useContentInstaller } from "../components/CurseForgeDownloadModal";
+import { useContentInstaller } from "../lib/contentInstaller";
 import { Modal, ModalHeader } from "../components/Modal";
 import { WorldTargetPicker } from "../components/WorldTargetPicker";
 import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
