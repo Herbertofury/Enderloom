@@ -7,14 +7,12 @@ import { api } from "./lib/api";
 import { isLive } from "./lib/servers";
 import { cn } from "./lib/cn";
 import { ConfirmDialog } from "./components/ConfirmDialog";
-import { Onboarding } from "./components/onboarding/Onboarding";
 import { Sidebar } from "./components/Sidebar";
 import { RecoveryBanner } from "./components/RecoveryBanner";
 import { TitleBar } from "./components/TitleBar";
 import { WindowFrame } from "./components/WindowFrame";
 import { UpdateNotifications } from "./components/UpdateNotifications";
 import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
-import { CatalogInstallModal } from "./components/CatalogInstallModal";
 import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
 import { HomeView } from "./views/HomeView";
@@ -24,6 +22,17 @@ import { useStore } from "./store";
 import { buildInstalledInstancesByProject } from "./lib/browse-index";
 import { DEFERRED_VIEW_LOADERS } from "./lib/view-modules";
 import type { Instance, ProjectSummary, View } from "./lib/types";
+
+const Onboarding = lazy(() =>
+  import("./components/onboarding/Onboarding").then((module) => ({
+    default: module.Onboarding,
+  })),
+);
+const CatalogInstallModal = lazy(() =>
+  import("./components/CatalogInstallModal").then((module) => ({
+    default: module.CatalogInstallModal,
+  })),
+);
 
 const AccountsView = lazy(DEFERRED_VIEW_LOADERS.accounts!);
 const InstanceView = lazy(DEFERRED_VIEW_LOADERS.instance!);
@@ -292,10 +301,14 @@ function App() {
         }}
       />
       <UpdateNotifications />
-      <CatalogInstallModal
-        request={catalogInstallRequest}
-        onClose={dismissCatalogInstall}
-      />
+      {catalogInstallRequest && (
+        <Suspense fallback={null}>
+          <CatalogInstallModal
+            request={catalogInstallRequest}
+            onClose={dismissCatalogInstall}
+          />
+        </Suspense>
+      )}
       {!ready ? (
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
           <TitleBar />
@@ -311,7 +324,20 @@ function App() {
       ) : onboarding ? (
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
           <TitleBar />
-          <Onboarding />
+          <Suspense
+            fallback={
+              <div className="grid flex-1 place-items-center">
+                <img
+                  src="./logo.png"
+                  alt=""
+                  draggable={false}
+                  className="size-12 animate-pulse object-contain opacity-60"
+                />
+              </div>
+            }
+          >
+            <Onboarding />
+          </Suspense>
         </div>
       ) : (
         <>
