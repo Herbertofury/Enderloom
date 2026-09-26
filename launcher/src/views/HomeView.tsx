@@ -116,8 +116,8 @@ export function HomeView() {
   const installed = selected ? installedIds.includes(selected.id) : false;
 
   useEffect(() => {
-    instances.forEach((i) => loadMedia(i.id));
-  }, [instances, loadMedia]);
+    if (selected) void loadMedia(selected.id);
+  }, [selected?.id, loadMedia]);
 
   const refreshJava = useCallback(async () => {
     const request = ++javaRequest.current;
