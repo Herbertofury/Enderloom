@@ -21,226 +21,9 @@ This is a **get-done-now execution list**, not a future ideas backlog. Continue 
 - Never close on "cannot", a provider miss, a failed tool, stale auth, build failure, test failure, performance miss, or incomplete proof; failures are routing signals until the accepted requirement is actually resolved or a genuine user-only authorization/action is required.
 - Resume from stable task IDs and existing proof after interruption/compaction; never regenerate or silently shrink this contract just to make the remaining work easier.
 
-## G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+## PHASE 1 — PERFORMANCE / STACK SUPREMACY — EXECUTE FIRST
 
-- [ ] **G014 · PHASE-2 GAME IMPACT GATE** — **Only after the Phase 1 performance/stack baseline is proven**, Game Performance Protection must be able to keep Enderloom at **no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited**, while Enderloom itself remains fast, responsive, and capable of safely managing the running instance and other instances.
-
-This is the **highest Phase-2 coexistence invariant, not the first implementation priority**. **Do not begin tuning Enderloom around G014 until the Phase 1 stack/performance work is already proven excellent.** Phase 1 establishes the fastest correct architecture first; Phase 2 then makes that already-fast architecture coexist with Minecraft with effectively zero impact.
-
-G014 must never become an excuse to make the application itself feel slow. The special Game Performance Protection governor may deliberately reduce/defer **background P2/P3 throughput** while Minecraft runs, but ordinary P0/P1 interaction, navigation, cached search, Mod Manager use, logs, tabs, settings, and explicit management controls must remain within the strongest proven Enderloom responsiveness baseline/equivalence band. If a governor technique causes user-visible Enderloom lag, that technique fails and must be retuned/replaced rather than accepted as the price of zero game impact.
-
-Even with Game Performance Protection disabled, the permanent Phase 1 architecture still uses efficient incremental indexing, caching, single-flight, bounded concurrency, priority scheduling, low idle wakeups, and other proven low-overhead behavior. Disabling the optional governor means **do not apply the special Minecraft-specific throttling/protection policy**; it does not authorize wasteful resource use.
-
-### Phase-activation prerequisite
-
-Do not execute G014 as an architecture-shaping first pass. Enter Phase 2 only after:
-
-- the active G015 stack challengers for the affected runtime paths have either won and been promoted or been cleanly deferred to their proven stable fallbacks;
-- G012's Rust/native core ownership and T070 continuous performance loop are production-wired for the affected paths;
-- G013/G016 host/shell architecture needed by the tested build is stable enough that G014 is tuning the real intended runtime rather than a temporary shell;
-- T047/T048 have established and repaired the major normal-use latency/resource baselines on the chosen stack;
-- representative normal-use paths are already fast enough that the governor is optimizing **coexistence**, not masking an intrinsically slow app.
-
-If later stack work materially changes scheduling, IPC, shell, database, filesystem, downloader, media, or background behavior, reopen the affected G014 proof after that stack change rather than optimizing the old architecture.
-
-### Zero-impact definition
-
-The target is literal **0.0 user-visible impact**. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
-
-- Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped.
-- Candidate B: the exact same Minecraft workload with Enderloom running idle, then with representative management UI open, then with bounded background work active.
-- A passing result shows **no statistically significant regression and remains inside a predeclared equivalence/noise band** for median FPS, 1%/0.1% lows, p95/p99/p99.9 frame time, stutter count, tick/simulation metrics where available, and load/transition timings.
-- As an initial hard engineering guardrail, any repeatable Minecraft degradation around **0.5% or greater in FPS/lows, or any repeatable frame-time/stutter regression that is visible above run-to-run noise, fails** and must be profiled/fixed even if average FPS still looks high.
-- The gate may tighten below 0.5% whenever the benchmark environment is stable enough to resolve a smaller effect.
-- "Task Manager looks low", low average CPU, or a synthetic microbenchmark is not game-impact proof.
-
-### T078 — Robust Minecraft lifecycle detection and game-running operating state
-
-- [ ] **T078** · Detect every Enderloom-relevant running Minecraft instance reliably and enter/leave Game Running Mode without polling storms or false positives
-
-Required:
-
-- Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, and other strong evidence rather than matching every `java.exe`.
-- Track multiple simultaneous clients/servers independently.
-- Know which Enderloom instance/profile/world/server each recognized process belongs to when evidence supports it.
-- External launcher/process disappearance or telemetry failure becomes unresolved state, not permission to assume the game exited and resume heavy background work.
-- Transition into Game Running Mode promptly after launch/process detection and remain there through launcher handoff/startup transitions that still materially contend with game startup.
-- Exit only after all recognized Minecraft workloads are gone or a safe cooldown confirms the relevant process lifecycle ended.
-- Process detection itself must be event-driven or very low-cost and must not create the overhead this gate is trying to eliminate.
-
-### T079 — Game Running Resource Governor: Minecraft always wins resource contention
-
-- [ ] **T079** · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
-
-Default behavior while Minecraft runs:
-
-- P2 speculative prefetch and P3 maintenance/cleanup/deep verification/compaction pause or become near-idle unless required for the current foreground action.
-- Background provider refresh, catalog enrichment, cache maintenance, image transcoding, indexing, hash verification, dependency precomputation, update scans and non-user-requested downloads are deferred, coalesced or severely budgeted.
-- Core/database/provider/download workers that are not directly serving the visible Enderloom interaction enter Windows background/EcoQoS-style execution where supported.
-- Use Windows **PROCESS_MODE_BACKGROUND_BEGIN/END** or equivalent thread-scoped scheduling for real background work so CPU **and I/O scheduling pressure** are lowered; lowering CPU priority alone is explicitly insufficient.
-- Use **ProcessPowerThrottling / EcoQoS** for non-foreground/non-latency-critical workers where supported.
-- Benchmark **Windows CPU Sets** as a soft-affinity tool so Enderloom background workers can prefer cores/sets that minimize interference with Minecraft. Do not hard-code core numbers or assume P/E topology; discover current CPU sets/topology and keep the mapping reversible.
-- Never change Minecraft's priority/affinity/CPU-set/power policy merely to make Enderloom's benchmark look good unless the user separately asks for a game-tuning feature.
-- Reduce Enderloom memory churn and promptly release cold media/WebContents/tool state so the game does not lose useful cache/working-set headroom.
-- A/B Windows **ThreadMemoryPriority/ProcessMemoryPriority** for background workers so low-value Enderloom pages are trimmed before latency-sensitive foreground/game pages; keep only the measured winner.
-- Keep foreground Enderloom control/UI handling responsive through tiny high-priority control-plane work while expensive work remains throttled.
-- A visible user action may temporarily raise only the minimum threads/stages required to acknowledge and plan that action; heavy CPU/disk/network execution remains inside the live game budget.
-- Resource policy must be reversible immediately when Minecraft exits.
-
-### T080 — Adaptive CPU / disk / memory / network interference budgets
-
-- [ ] **T080** · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
-
-Required:
-
-- Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-safe telemetry.
-- Where practical capture game-facing frame/tick/load telemetry in benchmark/perf builds; production mode may use lighter process/system headroom signals.
-- Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom.
-- Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data.
-- Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection.
-- For eligible nonurgent HTTP(S) transfers, A/B Windows **BITS** against Enderloom's own throttled downloader and use whichever preserves foreground/game network responsiveness better without breaking auth, signed URLs, hashes, provenance or resume semantics.
-- Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache.
-- CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed "N cores for Enderloom" merely because the machine usually has spare cores.
-- On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class.
-- All adaptive decisions are bounded/hysteretic so the scheduler does not oscillate every few milliseconds.
-
-### T081 — Full management remains available while Minecraft runs
-
-- [ ] **T081** · Keep Enderloom genuinely useful during gameplay without paying for that capability in game performance
-
-While a game is running the user must still be able to:
-
-- instantly open/switch Enderloom, Mod Manager, Browse and supported standalone/tabbed tools;
-- inspect the running instance, installed content, provider identity, versions, dependency state, favorites and logs from cached/incremental canonical state;
-- manage **other** Minecraft instances normally, with heavy work throttled to the game-safe budget;
-- queue/install/update/download content for another instance without freezing the UI or stealing game frametime;
-- inspect the running instance's logs, crash evidence, launch/runtime metadata, screenshots and other safe live information;
-- prepare changes for the running instance and clearly mark anything that cannot safely take effect until restart;
-- perform safe live actions where the actual content/runtime permits them.
-
-Safety:
-
-- Never replace/remove a JAR or mutate files whose live use can corrupt the running instance merely because the UI action was requested. Stage the desired state and apply it at the correct safe lifecycle boundary.
-- Config/world changes follow the tool/content-specific live-safety contract; ambiguous live mutation asks for explicit user confirmation or schedules the change for restart rather than guessing.
-- Game Running Mode is not "disable Enderloom." It is "perform the same useful management through smarter scheduling, caches, deltas, staging and low-interference execution."
-
-### T082 — Automated Minecraft coexistence benchmark harness
-
-- [ ] **T082** · Build a repeatable real-Minecraft A/B harness that proves Enderloom is invisible to game performance
-
-Required test families:
-
-- vanilla/current supported client baseline;
-- representative Forge/NeoForge/Fabric instances;
-- a large/heavy modpack fixture;
-- chunk traversal/loading stress;
-- inventory/menu/UI-heavy interaction;
-- world load and dimension transition;
-- game idle in-world;
-- active gameplay/camera traversal;
-- optional server/tick fixture where applicable.
-
-Compare at minimum:
-
-1. Minecraft with Enderloom completely exited;
-2. Minecraft + Enderloom core/service idle;
-3. Minecraft + Electron shell idle/minimized;
-4. Minecraft + standalone Mod Manager open;
-5. Minecraft + active Browse/Mod Manager interaction;
-6. Minecraft + bounded background provider/index/cache work;
-7. Minecraft + user-requested download/update/install on another instance.
-
-Capture where practical:
-
-- PresentMon/ETW or equivalent frame-present evidence;
-- average/median FPS;
-- 1% and 0.1% lows;
-- p95/p99/p99.9 frame time and stutter/event counts;
-- CPU scheduling/utilization;
-- disk I/O/latency/queueing;
-- memory/commit/working-set pressure;
-- GPU utilization where Enderloom UI/compositing could interfere;
-- network throughput/latency;
-- Minecraft server tick/TPS/MSPT where relevant.
-
-Use repeated paired runs, stable workload/world/camera route where practical, release builds, and enough trials to characterize noise. A one-run "FPS looked the same" result is invalid.
-
-### T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
-
-- [ ] **T083** · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
-
-Acceptance:
-
-- Enderloom's game-impact result must remain statistically equivalent to the **fully-exited Enderloom baseline** and no worse than either comparator's game-impact result.
-- When all clients are effectively zero-impact within measurement resolution, Enderloom wins through lower background CPU/disk/network/memory footprint, faster management interactions, richer capability/coverage, or a combination thereof without worsening Minecraft.
-- Compare idle/minimized, mod-manager open, browse interaction, provider refresh, another-instance update/download and restart/restore.
-- Record exact comparator builds and repeat when they materially update.
-- If a comparator protects Minecraft better on any equivalent workload, G014 remains open until Enderloom meets or exceeds it.
-
-### T084 — Permanent game-impact ratchet
-
-- [ ] **T084** · Make zero-impact coexistence a permanent CI/release/performance invariant
-
-Required:
-
-- Store machine-readable game-impact baselines and equivalence bands tied to Enderloom commit/build, Minecraft fixture/version, modpack/world fixture, hardware class and test methodology.
-- Every change touching scheduler, IPC, Electron/Tauri/WebView, database, filesystem indexer, provider work, downloader, media pipeline, background service, caching or tool hosting runs the cheapest decisive affected coexistence test.
-- Full T082/T083 suites run at release gates and after major architecture changes.
-- A later change cannot trade game performance for a faster Enderloom benchmark.
-- If the test environment is too noisy to prove equivalence, the result is **unverified**, not pass.
-- Release is blocked on repeatable game-impact regression until the causal Enderloom work is fixed or removed.
-
-### T104 — Persistent Game Performance Protection setting
-
-- [ ] **T104** · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom's always-on efficient baseline
-
-Required UX:
-
-- Add **Settings -> Performance -> Game Performance Protection** with a clear persisted **On / Off** control shared across Electron/WebView2/standalone tool hosts through canonical Enderloom settings.
-- After G014 is fully runtime-proven, the production default may be **On** because the feature has demonstrated zero game impact **and** no meaningful Enderloom interaction regression. During development/canary work it remains explicitly testable without silently changing existing user settings.
-- **On:** the protection system remains armed across restart and automatically activates its Minecraft-specific governor only when T078 detects a relevant running Minecraft workload.
-- **Off:** do not activate the special Minecraft-specific EcoQoS/background-mode/CPU-set/BITS/memory-priority/throttling policy merely because Minecraft starts. Preserve the normal Phase 1 scheduler, incremental index, caches, single-flight, bounded concurrency and idle-efficiency behavior.
-- Changing the setting applies safely without app restart where technically practical and persists across restart/edition handoff.
-- Show a compact truthful status in Performance/Diagnostics such as **Protection enabled / Active for 1 Minecraft instance / Disabled**, without noisy notifications.
-- Do not silently force the setting back on after updates.
-- Never use the toggle to bypass live-file safety rules, transaction integrity, provider validation or other unrelated protections.
-
-### T105 — Protection must not regress Enderloom responsiveness
-
-- [ ] **T105** · Prove the zero-impact governor protects Minecraft by removing background interference, not by making Enderloom itself feel broken or slow
-
-Required A/B while Minecraft is running:
-
-1. Game Performance Protection **Off** using the already-optimized Phase 1 stack.
-2. Game Performance Protection **On** using the exact same build/workspace.
-
-Measure at minimum:
-
-- Enderloom window activation/focus;
-- tab/tool switching;
-- Mod Manager open and cached dataset readiness;
-- cached/local search/filter/sort;
-- Browse/project shell from valid local cache;
-- logs/runtime status;
-- favorites and lightweight state changes;
-- explicit user-started install/update/download planning;
-- UI input latency, renderer long tasks, queue wait and p95/p99 interaction latency.
-
-Acceptance:
-
-- P0/P1 Enderloom interactions with protection On must remain statistically equivalent to the protection-Off Phase 1 baseline or inside a very small predeclared/noise-equivalence band.
-- Protection may intentionally slow **background/non-visible P2/P3 completion throughput** when needed to protect Minecraft. That is expected scheduling, not an app responsiveness regression.
-- Explicit user-requested heavy operations remain functional. Use the minimum temporary safe resource burst needed for the foreground request while preserving G014; never silently unthrottle every worker.
-- If a specific governor mechanism (EcoQoS, background process mode, CPU Sets, memory priority, BITS, worker shrink, WebView suspension, etc.) creates visible Enderloom lag or poor tail latency, disable/retune that mechanism and keep testing alternatives rather than accepting the slowdown.
-- The governor's own telemetry/detection loop must be extremely cheap; do not consume meaningful CPU/GPU/disk/network just to prove the app is lightweight.
-- When protection is Off, ordinary Enderloom still targets best-in-class low resource use and G010 performance; Off is not a "maximum resource abuse" mode.
-- When protection is On and Minecraft exits, normal full-speed background scheduling resumes promptly and reversibly.
-
-**G014 closes only when T078-T084 + T104-T105 are production-wired and packaged-runtime proof shows both sides of the contract: Minecraft is protected within the zero-impact equivalence/noise envelope, and Enderloom's foreground interaction remains within its own Phase 1 responsiveness/equivalence envelope.**
-
-
-
----
+**This entire phase must be implemented, benchmarked, tuned, runtime-proven, and brought to an excellent normal-use baseline before Phase 2 begins.** The selected stack/core/shell/tool architecture must already be fast, stable, feature-complete for the affected paths, and ratcheted under G010/T070. Do not jump ahead to Minecraft-specific throttling/governor work while the underlying application architecture is still changing or still slow.
 
 ## G015 — Bleeding-edge challenger-first technology promotion
 
@@ -1159,7 +942,7 @@ World Editor reference fixture:
 
 - [ ] **G010 · ABSOLUTE PRIORITY GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
 
-This gate is **above every other tranche in this document**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: first launch/onboarding, account sign-in/reconnect, application launch, restoring the prior workspace, creating/importing/cloning instances, opening Browse, showing unified cross-provider Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, running dependency diagnosis, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, bulk mod operations, native context menus/keyboard actions, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
+This gate is the **Phase 1 performance acceptance umbrella over every implementation tranche in Phase 1**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: first launch/onboarding, account sign-in/reconnect, application launch, restoring the prior workspace, creating/importing/cloning instances, opening Browse, showing unified cross-provider Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, running dependency diagnosis, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, bulk mod operations, native context menus/keyboard actions, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
 
 The target is not merely "fewer spinners." The target is **lower real latency and higher throughput for equivalent-or-better work**.
 
@@ -1340,6 +1123,233 @@ Required behavior:
 - No release may claim this queue complete while T050 detects a regression, tie, stale comparator baseline, reduced result/capability coverage, or unverified affected hot path.
 
 ---
+
+
+## PHASE 2 — MINECRAFT-RUNNING ZERO-IMPACT PROTECTION — EXECUTE ONLY AFTER PHASE 1
+
+**Entry gate:** Phase 1 above is already proven excellent on the selected production stack. Phase 2 tunes coexistence around that finished high-performance baseline; it is never allowed to hide, compensate for, or normalize a slow Phase 1 implementation.
+
+## G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow
+
+- [ ] **G014 · PHASE-2 GAME IMPACT GATE** — **Only after the Phase 1 performance/stack baseline is proven**, Game Performance Protection must be able to keep Enderloom at **no statistically meaningful or user-perceptible negative effect on Minecraft FPS, 1%/0.1% lows, frame-time consistency, input responsiveness, simulation/tick stability, disk/network latency, or loading behavior compared with Enderloom fully exited**, while Enderloom itself remains fast, responsive, and capable of safely managing the running instance and other instances.
+
+This is the **highest Phase-2 coexistence invariant, not the first implementation priority**. **Do not begin tuning Enderloom around G014 until the Phase 1 stack/performance work is already proven excellent.** Phase 1 establishes the fastest correct architecture first; Phase 2 then makes that already-fast architecture coexist with Minecraft with effectively zero impact.
+
+G014 must never become an excuse to make the application itself feel slow. The special Game Performance Protection governor may deliberately reduce/defer **background P2/P3 throughput** while Minecraft runs, but ordinary P0/P1 interaction, navigation, cached search, Mod Manager use, logs, tabs, settings, and explicit management controls must remain within the strongest proven Enderloom responsiveness baseline/equivalence band. If a governor technique causes user-visible Enderloom lag, that technique fails and must be retuned/replaced rather than accepted as the price of zero game impact.
+
+Even with Game Performance Protection disabled, the permanent Phase 1 architecture still uses efficient incremental indexing, caching, single-flight, bounded concurrency, priority scheduling, low idle wakeups, and other proven low-overhead behavior. Disabling the optional governor means **do not apply the special Minecraft-specific throttling/protection policy**; it does not authorize wasteful resource use.
+
+### Phase-activation prerequisite
+
+Do not execute G014 as an architecture-shaping first pass. Enter Phase 2 only after:
+
+- the active G015 stack challengers for the affected runtime paths have either won and been promoted or been cleanly deferred to their proven stable fallbacks;
+- G012's Rust/native core ownership and T070 continuous performance loop are production-wired for the affected paths;
+- G013/G016 host/shell architecture needed by the tested build is stable enough that G014 is tuning the real intended runtime rather than a temporary shell;
+- T047/T048 have established and repaired the major normal-use latency/resource baselines on the chosen stack;
+- representative normal-use paths are already fast enough that the governor is optimizing **coexistence**, not masking an intrinsically slow app.
+
+If later stack work materially changes scheduling, IPC, shell, database, filesystem, downloader, media, or background behavior, reopen the affected G014 proof after that stack change rather than optimizing the old architecture.
+
+### Zero-impact definition
+
+The target is literal **0.0 user-visible impact**. Since real machines contain measurement noise, runtime acceptance must use repeated paired A/B trials and statistical equivalence rather than pretending a single FPS number is exact:
+
+- Baseline A: Minecraft workload with Enderloom fully exited and its background core/service stopped.
+- Candidate B: the exact same Minecraft workload with Enderloom running idle, then with representative management UI open, then with bounded background work active.
+- A passing result shows **no statistically significant regression and remains inside a predeclared equivalence/noise band** for median FPS, 1%/0.1% lows, p95/p99/p99.9 frame time, stutter count, tick/simulation metrics where available, and load/transition timings.
+- As an initial hard engineering guardrail, any repeatable Minecraft degradation around **0.5% or greater in FPS/lows, or any repeatable frame-time/stutter regression that is visible above run-to-run noise, fails** and must be profiled/fixed even if average FPS still looks high.
+- The gate may tighten below 0.5% whenever the benchmark environment is stable enough to resolve a smaller effect.
+- "Task Manager looks low", low average CPU, or a synthetic microbenchmark is not game-impact proof.
+
+### T078 — Robust Minecraft lifecycle detection and game-running operating state
+
+- [ ] **T078** · Detect every Enderloom-relevant running Minecraft instance reliably and enter/leave Game Running Mode without polling storms or false positives
+
+Required:
+
+- Detect Minecraft client/server processes from canonical Enderloom launch ownership, process identity/command line/runtime metadata, connected external-launcher instance state, and other strong evidence rather than matching every `java.exe`.
+- Track multiple simultaneous clients/servers independently.
+- Know which Enderloom instance/profile/world/server each recognized process belongs to when evidence supports it.
+- External launcher/process disappearance or telemetry failure becomes unresolved state, not permission to assume the game exited and resume heavy background work.
+- Transition into Game Running Mode promptly after launch/process detection and remain there through launcher handoff/startup transitions that still materially contend with game startup.
+- Exit only after all recognized Minecraft workloads are gone or a safe cooldown confirms the relevant process lifecycle ended.
+- Process detection itself must be event-driven or very low-cost and must not create the overhead this gate is trying to eliminate.
+
+### T079 — Game Running Resource Governor: Minecraft always wins resource contention
+
+- [ ] **T079** · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
+
+Default behavior while Minecraft runs:
+
+- P2 speculative prefetch and P3 maintenance/cleanup/deep verification/compaction pause or become near-idle unless required for the current foreground action.
+- Background provider refresh, catalog enrichment, cache maintenance, image transcoding, indexing, hash verification, dependency precomputation, update scans and non-user-requested downloads are deferred, coalesced or severely budgeted.
+- Core/database/provider/download workers that are not directly serving the visible Enderloom interaction enter Windows background/EcoQoS-style execution where supported.
+- Use Windows **PROCESS_MODE_BACKGROUND_BEGIN/END** or equivalent thread-scoped scheduling for real background work so CPU **and I/O scheduling pressure** are lowered; lowering CPU priority alone is explicitly insufficient.
+- Use **ProcessPowerThrottling / EcoQoS** for non-foreground/non-latency-critical workers where supported.
+- Benchmark **Windows CPU Sets** as a soft-affinity tool so Enderloom background workers can prefer cores/sets that minimize interference with Minecraft. Do not hard-code core numbers or assume P/E topology; discover current CPU sets/topology and keep the mapping reversible.
+- Never change Minecraft's priority/affinity/CPU-set/power policy merely to make Enderloom's benchmark look good unless the user separately asks for a game-tuning feature.
+- Reduce Enderloom memory churn and promptly release cold media/WebContents/tool state so the game does not lose useful cache/working-set headroom.
+- A/B Windows **ThreadMemoryPriority/ProcessMemoryPriority** for background workers so low-value Enderloom pages are trimmed before latency-sensitive foreground/game pages; keep only the measured winner.
+- Keep foreground Enderloom control/UI handling responsive through tiny high-priority control-plane work while expensive work remains throttled.
+- A visible user action may temporarily raise only the minimum threads/stages required to acknowledge and plan that action; heavy CPU/disk/network execution remains inside the live game budget.
+- Resource policy must be reversible immediately when Minecraft exits.
+
+### T080 — Adaptive CPU / disk / memory / network interference budgets
+
+- [ ] **T080** · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
+
+Required:
+
+- Track Enderloom CPU time, runnable queue/waits, disk throughput/latency, memory pressure/working set, network throughput, queue depth and scheduler wait with cheap production-safe telemetry.
+- Where practical capture game-facing frame/tick/load telemetry in benchmark/perf builds; production mode may use lighter process/system headroom signals.
+- Background scheduler budgets shrink immediately when game frametime/system contention worsens and recover gradually only after sustained headroom.
+- Disk-heavy operations use low/background I/O scheduling and bounded queue depth. Never let cache/index/hash work saturate the same drive while Minecraft is loading chunks/assets/world data.
+- Provider/media/background downloads use a token-bucket/bandwidth budget and deprioritize immediately if the game or explicit foreground task is using network capacity. User-requested Enderloom transfers remain functional but cannot monopolize the connection.
+- For eligible nonurgent HTTP(S) transfers, A/B Windows **BITS** against Enderloom's own throttled downloader and use whichever preserves foreground/game network responsiveness better without breaking auth, signed URLs, hashes, provenance or resume semantics.
+- Memory caches use pressure-aware limits; release/reduce cold cache before forcing the OS to page Minecraft or its hot file cache.
+- CPU worker counts/concurrency dynamically shrink while the game runs. Do not reserve a fixed "N cores for Enderloom" merely because the machine usually has spare cores.
+- On hybrid CPUs, benchmark whether EcoQoS/efficient-core-biased CPU Sets improve game isolation; keep only the measured winning policy for that hardware class.
+- All adaptive decisions are bounded/hysteretic so the scheduler does not oscillate every few milliseconds.
+
+### T081 — Full management remains available while Minecraft runs
+
+- [ ] **T081** · Keep Enderloom genuinely useful during gameplay without paying for that capability in game performance
+
+While a game is running the user must still be able to:
+
+- instantly open/switch Enderloom, Mod Manager, Browse and supported standalone/tabbed tools;
+- inspect the running instance, installed content, provider identity, versions, dependency state, favorites and logs from cached/incremental canonical state;
+- manage **other** Minecraft instances normally, with heavy work throttled to the game-safe budget;
+- queue/install/update/download content for another instance without freezing the UI or stealing game frametime;
+- inspect the running instance's logs, crash evidence, launch/runtime metadata, screenshots and other safe live information;
+- prepare changes for the running instance and clearly mark anything that cannot safely take effect until restart;
+- perform safe live actions where the actual content/runtime permits them.
+
+Safety:
+
+- Never replace/remove a JAR or mutate files whose live use can corrupt the running instance merely because the UI action was requested. Stage the desired state and apply it at the correct safe lifecycle boundary.
+- Config/world changes follow the tool/content-specific live-safety contract; ambiguous live mutation asks for explicit user confirmation or schedules the change for restart rather than guessing.
+- Game Running Mode is not "disable Enderloom." It is "perform the same useful management through smarter scheduling, caches, deltas, staging and low-interference execution."
+
+### T082 — Automated Minecraft coexistence benchmark harness
+
+- [ ] **T082** · Build a repeatable real-Minecraft A/B harness that proves Enderloom is invisible to game performance
+
+Required test families:
+
+- vanilla/current supported client baseline;
+- representative Forge/NeoForge/Fabric instances;
+- a large/heavy modpack fixture;
+- chunk traversal/loading stress;
+- inventory/menu/UI-heavy interaction;
+- world load and dimension transition;
+- game idle in-world;
+- active gameplay/camera traversal;
+- optional server/tick fixture where applicable.
+
+Compare at minimum:
+
+1. Minecraft with Enderloom completely exited;
+2. Minecraft + Enderloom core/service idle;
+3. Minecraft + Electron shell idle/minimized;
+4. Minecraft + standalone Mod Manager open;
+5. Minecraft + active Browse/Mod Manager interaction;
+6. Minecraft + bounded background provider/index/cache work;
+7. Minecraft + user-requested download/update/install on another instance.
+
+Capture where practical:
+
+- PresentMon/ETW or equivalent frame-present evidence;
+- average/median FPS;
+- 1% and 0.1% lows;
+- p95/p99/p99.9 frame time and stutter/event counts;
+- CPU scheduling/utilization;
+- disk I/O/latency/queueing;
+- memory/commit/working-set pressure;
+- GPU utilization where Enderloom UI/compositing could interfere;
+- network throughput/latency;
+- Minecraft server tick/TPS/MSPT where relevant.
+
+Use repeated paired runs, stable workload/world/camera route where practical, release builds, and enough trials to characterize noise. A one-run "FPS looked the same" result is invalid.
+
+### T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
+
+- [ ] **T083** · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
+
+Acceptance:
+
+- Enderloom's game-impact result must remain statistically equivalent to the **fully-exited Enderloom baseline** and no worse than either comparator's game-impact result.
+- When all clients are effectively zero-impact within measurement resolution, Enderloom wins through lower background CPU/disk/network/memory footprint, faster management interactions, richer capability/coverage, or a combination thereof without worsening Minecraft.
+- Compare idle/minimized, mod-manager open, browse interaction, provider refresh, another-instance update/download and restart/restore.
+- Record exact comparator builds and repeat when they materially update.
+- If a comparator protects Minecraft better on any equivalent workload, G014 remains open until Enderloom meets or exceeds it.
+
+### T084 — Permanent game-impact ratchet
+
+- [ ] **T084** · Make zero-impact coexistence a permanent CI/release/performance invariant
+
+Required:
+
+- Store machine-readable game-impact baselines and equivalence bands tied to Enderloom commit/build, Minecraft fixture/version, modpack/world fixture, hardware class and test methodology.
+- Every change touching scheduler, IPC, Electron/Tauri/WebView, database, filesystem indexer, provider work, downloader, media pipeline, background service, caching or tool hosting runs the cheapest decisive affected coexistence test.
+- Full T082/T083 suites run at release gates and after major architecture changes.
+- A later change cannot trade game performance for a faster Enderloom benchmark.
+- If the test environment is too noisy to prove equivalence, the result is **unverified**, not pass.
+- Release is blocked on repeatable game-impact regression until the causal Enderloom work is fixed or removed.
+
+### T104 — Persistent Game Performance Protection setting
+
+- [ ] **T104** · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom's always-on efficient baseline
+
+Required UX:
+
+- Add **Settings -> Performance -> Game Performance Protection** with a clear persisted **On / Off** control shared across Electron/WebView2/standalone tool hosts through canonical Enderloom settings.
+- After G014 is fully runtime-proven, the production default may be **On** because the feature has demonstrated zero game impact **and** no meaningful Enderloom interaction regression. During development/canary work it remains explicitly testable without silently changing existing user settings.
+- **On:** the protection system remains armed across restart and automatically activates its Minecraft-specific governor only when T078 detects a relevant running Minecraft workload.
+- **Off:** do not activate the special Minecraft-specific EcoQoS/background-mode/CPU-set/BITS/memory-priority/throttling policy merely because Minecraft starts. Preserve the normal Phase 1 scheduler, incremental index, caches, single-flight, bounded concurrency and idle-efficiency behavior.
+- Changing the setting applies safely without app restart where technically practical and persists across restart/edition handoff.
+- Show a compact truthful status in Performance/Diagnostics such as **Protection enabled / Active for 1 Minecraft instance / Disabled**, without noisy notifications.
+- Do not silently force the setting back on after updates.
+- Never use the toggle to bypass live-file safety rules, transaction integrity, provider validation or other unrelated protections.
+
+### T105 — Protection must not regress Enderloom responsiveness
+
+- [ ] **T105** · Prove the zero-impact governor protects Minecraft by removing background interference, not by making Enderloom itself feel broken or slow
+
+Required A/B while Minecraft is running:
+
+1. Game Performance Protection **Off** using the already-optimized Phase 1 stack.
+2. Game Performance Protection **On** using the exact same build/workspace.
+
+Measure at minimum:
+
+- Enderloom window activation/focus;
+- tab/tool switching;
+- Mod Manager open and cached dataset readiness;
+- cached/local search/filter/sort;
+- Browse/project shell from valid local cache;
+- logs/runtime status;
+- favorites and lightweight state changes;
+- explicit user-started install/update/download planning;
+- UI input latency, renderer long tasks, queue wait and p95/p99 interaction latency.
+
+Acceptance:
+
+- P0/P1 Enderloom interactions with protection On must remain statistically equivalent to the protection-Off Phase 1 baseline or inside a very small predeclared/noise-equivalence band.
+- Protection may intentionally slow **background/non-visible P2/P3 completion throughput** when needed to protect Minecraft. That is expected scheduling, not an app responsiveness regression.
+- Explicit user-requested heavy operations remain functional. Use the minimum temporary safe resource burst needed for the foreground request while preserving G014; never silently unthrottle every worker.
+- If a specific governor mechanism (EcoQoS, background process mode, CPU Sets, memory priority, BITS, worker shrink, WebView suspension, etc.) creates visible Enderloom lag or poor tail latency, disable/retune that mechanism and keep testing alternatives rather than accepting the slowdown.
+- The governor's own telemetry/detection loop must be extremely cheap; do not consume meaningful CPU/GPU/disk/network just to prove the app is lightweight.
+- When protection is Off, ordinary Enderloom still targets best-in-class low resource use and G010 performance; Off is not a "maximum resource abuse" mode.
+- When protection is On and Minecraft exits, normal full-speed background scheduling resumes promptly and reversibly.
+
+**G014 closes only when T078-T084 + T104-T105 are production-wired and packaged-runtime proof shows both sides of the contract: Minecraft is protected within the zero-impact equivalence/noise envelope, and Enderloom's foreground interaction remains within its own Phase 1 responsiveness/equivalence envelope.**
+
+
+
+---
+
 
 ### Immediate execution priority override
 
