@@ -66,6 +66,11 @@ jobs:
       - name: Browse provider identity regression
         run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
 
+      - name: Browse zero-loss performance regressions
+        run: |
+          cargo test --manifest-path native/Cargo.toml --lib content_source_index_preserves_installed_badges_without_stale_rows
+          cargo test --manifest-path native/Cargo.toml --lib cold_fetches_share_only_live_identical_key_locks
+
       - name: Browse provider pane static QA
         run: node scripts/workspace-tabs-qa.js
 
