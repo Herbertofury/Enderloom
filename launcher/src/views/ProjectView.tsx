@@ -40,13 +40,16 @@ import { serverPackFile } from "../lib/servers";
 import type { InstallTarget } from "../lib/target";
 import { useStore } from "../store";
 
+const loadVersionBrowser = () => import("../components/project/VersionBrowser");
+const loadProjectGallery = () => import("../components/project/ProjectGallery");
+
 const VersionBrowser = lazy(() =>
-  import("../components/project/VersionBrowser").then((module) => ({
+  loadVersionBrowser().then((module) => ({
     default: module.VersionBrowser,
   })),
 );
 const ProjectGallery = lazy(() =>
-  import("../components/project/ProjectGallery").then((module) => ({
+  loadProjectGallery().then((module) => ({
     default: module.ProjectGallery,
   })),
 );
@@ -787,6 +790,14 @@ export function ProjectView() {
         {tabs.map((t) => (
           <button
             key={t.id}
+            onMouseEnter={() => {
+              if (t.id === "versions") void loadVersionBrowser();
+              if (t.id === "gallery") void loadProjectGallery();
+            }}
+            onFocus={() => {
+              if (t.id === "versions") void loadVersionBrowser();
+              if (t.id === "gallery") void loadProjectGallery();
+            }}
             onClick={() => {
               setProviderSurface(null);
               setTab(t.id);
