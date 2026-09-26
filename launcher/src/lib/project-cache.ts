@@ -1,5 +1,11 @@
 import { api } from "./api";
-import type { ProjectDetails, ProjectSummary, SearchProvider } from "./types";
+import type {
+  ContentKind,
+  ProjectDetails,
+  ProjectMirror,
+  ProjectSummary,
+  SearchProvider,
+} from "./types";
 
 const DETAIL_FRESH_MS = 60_000;
 const MAX_DETAILS = 256;
@@ -11,6 +17,8 @@ interface DetailEntry {
 
 const details = new Map<string, DetailEntry>();
 const inFlight = new Map<string, Promise<ProjectDetails>>();
+const mirrors = new Map<string, ProjectMirror[]>();
+const mirrorInFlight = new Map<string, Promise<ProjectMirror[]>>();
 
 function key(provider: SearchProvider, projectId: string): string {
   return `${provider}:${projectId}`;
@@ -96,5 +104,48 @@ export function prefetchProjectDetails(
 ): void {
   void loadProjectDetails(provider, projectId).catch(() => {
     // Prefetch is speculative. The real navigation path reports an error if it still fails.
+  });
+}
+
+
+export function peekProjectMirrors(
+  provider: SearchProvider,
+  projectId: string,
+  kind: ContentKind,
+): ProjectMirror[] | null {
+  return mirrors.get(`${key(provider, projectId)}:${kind}`) ?? null;
+}
+
+export function loadProjectMirrors(
+  provider: SearchProvider,
+  projectId: string,
+  kind: ContentKind,
+): Promise<ProjectMirror[]> {
+  const cacheKey = `${key(provider, projectId)}:${kind}`;
+  const cached = mirrors.get(cacheKey);
+  if (cached) return Promise.resolve(cached);
+
+  const active = mirrorInFlight.get(cacheKey);
+  if (active) return active;
+
+  const request = api
+    .findProjectMirrors(provider, projectId, kind)
+    .then((value) => {
+      mirrors.set(cacheKey, value);
+      return value;
+    })
+    .finally(() => mirrorInFlight.delete(cacheKey));
+  mirrorInFlight.set(cacheKey, request);
+  return request;
+}
+
+export function prefetchProject(
+  provider: SearchProvider,
+  projectId: string,
+  kind: ContentKind,
+): void {
+  prefetchProjectDetails(provider, projectId);
+  void loadProjectMirrors(provider, projectId, kind).catch(() => {
+    // Mirror discovery is enrichment and must never block project navigation.
   });
 }
