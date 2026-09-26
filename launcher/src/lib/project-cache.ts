@@ -7,7 +7,9 @@ import type {
   SearchProvider,
 } from "./types";
 
-const DETAIL_FRESH_MS = 60_000;
+// Match the native provider cache: re-entering a project inside this window should not
+// pay another renderer -> Electron -> Rust -> SQLite JSON round trip for identical data.
+const DETAIL_FRESH_MS = 60 * 60_000;
 const MAX_DETAILS = 256;
 
 interface DetailEntry {
@@ -39,7 +41,12 @@ export function peekProjectDetails(
   provider: SearchProvider,
   projectId: string,
 ): ProjectDetails | null {
-  return details.get(key(provider, projectId))?.value ?? null;
+  const cacheKey = key(provider, projectId);
+  const cached = details.get(cacheKey);
+  if (!cached) return null;
+  details.delete(cacheKey);
+  details.set(cacheKey, cached);
+  return cached.value;
 }
 
 export function projectDetailsFromSummary(
@@ -84,6 +91,8 @@ export function loadProjectDetails(
   const cacheKey = key(provider, projectId);
   const cached = details.get(cacheKey);
   if (!force && cached && Date.now() - cached.fetchedAt < DETAIL_FRESH_MS) {
+    details.delete(cacheKey);
+    details.set(cacheKey, cached);
     return Promise.resolve(cached.value);
   }
 
