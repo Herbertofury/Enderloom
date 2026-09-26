@@ -22,7 +22,8 @@ Execute this tranche first, without waiting for unrelated queue items:
 3. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
 4. **T027** — make download persistence/resume/save behavior survive real use and restart;
 5. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-6. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+6. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
+7. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
 
 This priority override changes execution order only; it does not remove or weaken any other accepted task.
 
@@ -351,6 +352,26 @@ Use the **same machine, network, instance context, project set, and equivalent r
 
 **Hard acceptance path:** launch packaged Enderloom -> open Browse -> click among several visible projects rapidly -> every destination shell/known content appears immediately -> no full-page spinner or renderer stall -> back/forward restores instantly -> disconnect network and reopen a previously visited project successfully from cache -> reconnect and observe background revalidation patch changed data only -> throttle one provider and verify the other provider/cached page stays usable -> compare cold/warm timings and complete result coverage against CurseForge/Modrinth -> keep profiling/repairing until Enderloom is not slower on equivalent user-visible Browse/project latency and no content/correctness was removed.
 
+### T046 — Reconcile the same logical project across Modrinth and CurseForge
+
+- [ ] **T046** · Canonical cross-provider project identity must discover and join alternate provider pages without false duplication
+
+**Observed failure:** a project opened from one provider can fail to expose its real listing on the other provider. The concrete regression is **Punchy!**: CurseForge presents **“Punchy! - First person animations”** while Modrinth presents **“Punchy!”**. Enderloom must recognize those as the same logical project when the identity evidence supports it rather than requiring display titles to be byte-for-byte identical.
+
+Required behavior:
+
+- Resolve alternate Modrinth/CurseForge listings asynchronously after the current project shell is already usable; mirror discovery must never block navigation.
+- Use stable provider IDs/provenance first when already known. When a direct provider binding is not yet known, use a conservative identity pipeline that can tolerate provider title/subtitle drift and verifies independent evidence such as matching author/owner identity, source/upstream identity, hashes/release overlap, or another strong canonical signal.
+- Never join projects merely because names are vaguely similar. Ambiguous candidates remain separate/unresolved until stronger evidence exists.
+- Search fallback must handle provider naming differences (for example a long CurseForge subtitle versus a shorter Modrinth title) rather than concluding the alternate page does not exist after one exact-title miss.
+- Cache confirmed provider mappings and single-flight repeated resolution so hover/prefetch/project rendering do not duplicate the same network work.
+- Once reconciled, show compact provider chips/rows for every confirmed source and switching provider keeps the same logical project context/target instance.
+- Provider switching must reuse the same cache-first project path from T045; the alternate provider should seed immediately from the matched search summary while its full details revalidate.
+- Preserve provider-specific descriptions, downloads, versions/files, galleries, categories, licenses, and URLs. Canonical identity joins the project; it does not flatten or discard provider-specific data.
+- Add a permanent regression fixture for **CurseForge `Punchy! - First person animations` by `DevPunchyMan` <-> Modrinth `Punchy!` by `DevPunchyMan`** so this exact failure cannot return.
+- Failure to access one provider is `unresolved-active`, not proof that no mirror exists; keep the working provider page fully usable and retry only through a materially different/fresh route.
+
+**Hard acceptance path:** open Punchy from CurseForge -> Enderloom paints the CurseForge page immediately -> Modrinth is discovered as the same project without user search -> click Modrinth -> its cached summary paints immediately and full Modrinth details enrich in place -> switch back to CurseForge -> no refetch waterfall/full-page spinner -> repeat from Modrinth first -> both directions resolve to the same logical project -> verify a deliberately similar-name/different-author control does **not** merge.
 ### T044 — Make GitHub a first-class embedded Browse provider surface with tear-off/new-tab promotion
 
 - [ ] **T044** · GitHub opens directly inside Browse like Modrinth/CurseForge, with compact promotion into a normal Enderloom tab
@@ -898,4 +919,4 @@ This document is complete only when every leaf task and gate is checked with rea
 
 **Resume rule:** continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
 
-- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T045 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
+- [ ] **G009 · FINAL COMPLETION GATE** — All T001-T046 and G001-G008 are complete with applicable packaged-runtime/regression/performance evidence; no accepted blocker remains open; no working data/capability was removed; no placeholder/no-op UI remains; update/download/install behavior is measurably fast without doing less work; and the delivered build preserves user profile, favorites, instances, provider identity, worlds, configs, browser state, and rollback/recovery behavior across restart and upgrade.
