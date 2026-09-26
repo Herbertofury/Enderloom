@@ -3,7 +3,7 @@ const assert=require('assert');
 const fs=require('fs');
 const path=require('path');
 const read=name=>fs.readFileSync(path.resolve(__dirname,'..',name),'utf8');
-const main=read('main.js'),shell=read('shell.js'),html=read('shell.html'),detached=read('detached.html'),preload=read('detached-preload.js'),launcherPreload=read('launcher-preload.js'),project=read('launcher/src/views/ProjectView.tsx');
+const main=read('main.js'),shell=read('shell.js'),html=read('shell.html'),detached=read('detached.html'),preload=read('detached-preload.js'),launcherPreload=read('launcher-preload.js'),project=read('launcher/src/views/ProjectView.tsx'),runScript=read('scripts/run.js');
 assert(main.includes('function detachTab(')&&main.includes('function reattachTab(')&&main.includes('function reorderTab(')&&main.includes('function setTabGroup('),'native tab workspace lifecycle is incomplete');
 assert(main.includes('child.contentView.addChildView(view)'),'detach created another app instead of moving the existing WebContentsView');
 assert(main.includes("ipcMain.handle('detached:command'")&&preload.includes("ipcRenderer.invoke('detached:command'"),'detached window IPC boundary is missing');
@@ -15,6 +15,7 @@ assert(launcherPreload.includes("ipcRenderer.invoke('launcher:provider-surface'"
 assert(project.includes('Key embedded source surfaces by the canonical source URL')&&project.includes('.replace(/\\.git\\/?$/i, "")')&&project.includes('    [],\n  );'),'provider source history is still tied to a single Modrinth/CurseForge mirror');
 assert(shell.includes('application/x-enderloom-provider-page')&&shell.includes("types.includes('text/uri-list')")&&shell.includes("cmd('promote-provider-page'")&&shell.includes('provider-drop-ready'),'provider chip/URI drag promotion is not wired to the native tab strip');
 assert(main.includes('session.fromPartition(PARTITION)')&&main.includes('nodeIntegration: false')&&main.includes('contextIsolation: true')&&main.includes('sandbox: true')&&main.includes('webSecurity: true'),'provider surface did not inherit secure persistent browser isolation');
+assert(runScript.includes("require('electron')")&&runScript.includes("moduleElectron")&&runScript.includes("ELECTRON_PATH"),'Electron runtime resolution regressed to one hard-coded dist path');
 const title=read('launcher/src/components/TitleBar.tsx'),app=read('launcher/src/App.tsx');
 assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manager title remains');
 assert(app.includes('(!embedded || hasContextHeader)'),'embedded manager still reserves the empty title row');
