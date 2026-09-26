@@ -3,7 +3,7 @@ const assert=require('assert');
 const fs=require('fs');
 const path=require('path');
 const read=name=>fs.readFileSync(path.resolve(__dirname,'..',name),'utf8');
-const main=read('main.js'),shell=read('shell.js'),html=read('shell.html'),detached=read('detached.html'),preload=read('detached-preload.js'),launcherPreload=read('launcher-preload.js'),project=read('launcher/src/views/ProjectView.tsx'),runScript=read('scripts/run.js');
+const main=read('main.js'),shell=read('shell.js'),html=read('shell.html'),detached=read('detached.html'),preload=read('detached-preload.js'),launcherPreload=read('launcher-preload.js'),project=read('launcher/src/views/ProjectView.tsx'),runScript=read('scripts/run.js'),service=read('native/src/service.rs');
 assert(main.includes('function detachTab(')&&main.includes('function reattachTab(')&&main.includes('function reorderTab(')&&main.includes('function setTabGroup('),'native tab workspace lifecycle is incomplete');
 assert(main.includes('child.contentView.addChildView(view)'),'detach created another app instead of moving the existing WebContentsView');
 assert(main.includes("ipcMain.handle('detached:command'")&&preload.includes("ipcRenderer.invoke('detached:command'"),'detached window IPC boundary is missing');
@@ -16,6 +16,9 @@ assert(project.includes('Key embedded source surfaces by the canonical source UR
 assert(shell.includes('application/x-enderloom-provider-page')&&shell.includes("types.includes('text/uri-list')")&&shell.includes("cmd('promote-provider-page'")&&shell.includes('provider-drop-ready'),'provider chip/URI drag promotion is not wired to the native tab strip');
 assert(main.includes('session.fromPartition(PARTITION)')&&main.includes('nodeIntegration: false')&&main.includes('contextIsolation: true')&&main.includes('sandbox: true')&&main.includes('webSecurity: true'),'provider surface did not inherit secure persistent browser isolation');
 assert(runScript.includes("require('electron')")&&runScript.includes("moduleElectron")&&runScript.includes("ELECTRON_PATH"),'Electron runtime resolution regressed to one hard-coded dist path');
+assert(service.includes('"find_project_mirrors" =>')&&service.includes('crate::search::project_mirrors('),'find_project_mirrors is missing from the Electron Rust IPC service');
+const noProjectReturn=project.indexOf('if (!projectRef) {');
+assert(noProjectReturn>0&&project.lastIndexOf('useMemo(',noProjectReturn)>0&&project.indexOf('useMemo(',noProjectReturn)===-1,'ProjectView introduces hooks after the nullable projectRef early return');
 const title=read('launcher/src/components/TitleBar.tsx'),app=read('launcher/src/App.tsx');
 assert(!title.includes('ENDERLOOM · BASALT CORE'),'redundant embedded Mod Manager title remains');
 assert(app.includes('(!embedded || hasContextHeader)'),'embedded manager still reserves the empty title row');
