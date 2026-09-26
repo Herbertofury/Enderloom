@@ -278,6 +278,39 @@ impl Db {
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
     }
 
+    pub fn content_files_for_kind(&self, kind: &str) -> Result<Vec<(String, ContentFile)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare(
+            "SELECT instance_id, file_name, sha1, sha512, murmur2, provider, project_id,
+                    version_id, title, icon_url, mod_id, mod_version, dependencies, origin,
+                    pack_version_id, installed_at
+             FROM content_files WHERE kind = ?1",
+        )?;
+        let rows = stmt.query_map([kind], |row| {
+            Ok((
+                row.get(0)?,
+                ContentFile {
+                    file_name: row.get(1)?,
+                    sha1: row.get(2)?,
+                    sha512: row.get(3)?,
+                    murmur2: row.get(4)?,
+                    provider: row.get(5)?,
+                    project_id: row.get(6)?,
+                    version_id: row.get(7)?,
+                    title: row.get(8)?,
+                    icon_url: row.get(9)?,
+                    mod_id: row.get(10)?,
+                    mod_version: row.get(11)?,
+                    dependencies: row.get(12)?,
+                    origin: row.get(13)?,
+                    pack_version_id: row.get(14)?,
+                    installed_at: row.get(15)?,
+                },
+            ))
+        })?;
+        Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
     pub fn content_file(
         &self,
         instance_id: &str,
