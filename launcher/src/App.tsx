@@ -12,7 +12,7 @@ import { RecoveryBanner } from "./components/RecoveryBanner";
 import { TitleBar } from "./components/TitleBar";
 import { WindowFrame } from "./components/WindowFrame";
 import { UpdateNotifications } from "./components/UpdateNotifications";
-import { ContentInstallerProvider } from "./components/CurseForgeDownloadModal";
+import { ContentInstallerProvider } from "./components/ContentInstallerProvider";
 import { MinecraftNav } from "./components/MinecraftNav";
 import { Toaster } from "sonner";
 import { HomeView } from "./views/HomeView";
