@@ -1213,7 +1213,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** This priority override changes execution order only; it does not remove or weaken any other accepted task. When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss / Immediate execution priority override
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 220-220](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L220-L220)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 225-225](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L225-L225)
 
 </details>
 
@@ -1224,7 +1224,7 @@
 - [ ] **D-084b8f57e98f814756a8** - · Eliminate Browse/open-project latency through better architecture, never by doing less work
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L421-L421)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T045 : 426-426](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L426-L426)
 
 </details>
 

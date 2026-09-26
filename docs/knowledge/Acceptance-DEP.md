@@ -9,7 +9,7 @@
 <a id="dep-01-details"></a>
 ## DEP-01 - Full dependency closure
 
-[Outcome](Checklist.md#dep-01) / 71 source-derived details.
+[Outcome](Checklist.md#dep-01) / 72 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -253,6 +253,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. Hot Reload / Fast Dev Loop
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 798-798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L798-L798)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control (1)</summary>
+
+<a id="d-e4ace0e38988ba3d9e0d"></a>
+- [ ] **D-e4ace0e38988ba3d9e0d** - - missing required dependencies/libraries; - required dependency present but disabled; - incompatible dependency version/range; - wrong Minecraft version; - wrong loader/platform; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - missing required dependencies/libraries; - required dependency present but disabled; - incompatible dependency version/range; - wrong Minecraft version; - wrong loader/platform; - client-only/server-only side mismatch where metadata supports it; - duplicate/superseded JARs or provider files for the same logical project; - stale old-version artifacts left beside the current replacement; - orphaned libraries no longer required by any installed project; - dependency cycles/conflicting version constraints; - missing host mods/frameworks for recognized addons/customizations; - broken/unresolved provider identity that prevents reliable dependency/update decisions; - dependency/provider metadata disagreements that require user review rather than guesswork.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1102-1114](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1102-L1114)
 
 </details>
 
@@ -728,7 +740,7 @@
 <a id="dep-03-details"></a>
 ## DEP-03 - Conflict and change-impact graph
 
-[Outcome](Checklist.md#dep-03) / 74 source-derived details.
+[Outcome](Checklist.md#dep-03) / 75 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 21. Security and trust boundaries (1)</summary>
@@ -884,6 +896,17 @@
   - **Full requirement:** It is not acceptable to omit a domain because “another tool already does it.” Enderloom may interoperate with another tool where that is the best engineering choice, but the workflow still needs to feel continuous inside Enderloom and its state/evidence must return to the shared project graph.
   - **Binding context:** 34. Definition of done for the gap audit
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1202-1202](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1202-L1202)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control (1)</summary>
+
+<a id="d-225271b5a4da8e7da06e"></a>
+- [ ] **D-225271b5a4da8e7da06e** - · Add an intelligent Instance Dependency Doctor that finds and explains problems automatically but never mutates the instance without an explicit Yes / No decision
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T052 : 1096-1096](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1096-L1096)
 
 </details>
 
@@ -1574,7 +1597,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 89 source-derived details.
+[Outcome](Checklist.md#dep-05) / 90 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2063,7 +2086,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads. - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently. - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits. - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others. - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 470-476](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L470-L476)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 475-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L475-L481)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine (1)</summary>
+
+<a id="d-dd241f60209e0f3b2c88"></a>
+- [ ] **D-dd241f60209e0f3b2c88** - - Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic. - Before dependency-affecting or destructive bulk mutations, s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Bulk operations route through the same canonical domain services as single-item actions; no private shortcut logic. - Before dependency-affecting or destructive bulk mutations, show exactly what will change, impacted dependents, required additions/replacements/removals, and a clear Yes / No confirmation. - Allow per-item exclusion from the preview before Yes. - Quarantine is the default safety route for removed/replaced suspect mod artifacts: move/retain them in Enderloom-managed recoverable storage with original path, project/file identity, reason, timestamp, and operation ID. - Permanent deletion is a separate explicit action, never the hidden meaning of Quarantine. - Preserve configs/worlds/saves and unrelated user data unless the user explicitly selects an operation that includes them. - Maintain a durable operation history with Undo when the prior state can be restored safely; restart must not erase valid undo/quarantine metadata. - Undo restores the exact prior enabled/disabled artifact/version/path/provider identity where possible and revalidates dependencies afterward. - Partial failure is per-item: successful independent items remain truthful, failed items retain the old state or rollback, and the final result clearly lists each outcome. - Cancel stops not-yet-committed independent work safely; it never leaves half-renamed live JARs presented as success. - Large selections must remain responsive through virtualization, batched domain operations, bounded concurrency, and incremental affected-graph verification.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1169-1179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1169-L1179)
 
 </details>
 
@@ -2575,7 +2610,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 49 source-derived details.
+[Outcome](Checklist.md#dep-07) / 50 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -2732,6 +2767,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 4. Enderloom Developer IDE — actual coding workbench / 4.3 Build/task/terminal
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 219-219](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L219-L219)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine (1)</summary>
+
+<a id="d-f1fb9c0d02af4bdb7849"></a>
+- [ ] **D-f1fb9c0d02af4bdb7849** - · Add fast dependency-aware bulk actions across the full logical mod dataset with durable Undo and safe Quarantine
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T053 : 1143-1143](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1143-L1143)
 
 </details>
 

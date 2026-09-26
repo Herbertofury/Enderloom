@@ -160,7 +160,7 @@
 [**AI-03**](Checklist.md#ai-03)
 
 <details>
-<summary>Source clauses and aliases (67 distinct blocks)</summary>
+<summary>Source clauses and aliases (70 distinct blocks)</summary>
 
 - [28. Performance staleness / regression tracking](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1236-L1236) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [6. Content management / 6.4 Change-impact intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L386-L386) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -212,7 +212,9 @@
 - [9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.4 If the AI gives Enderloom a bad result](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L516-L518) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.5 ChatGPT/Codex can operate Enderloom too](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L528-L538) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [FINAL IMPLEMENTATION LAW](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4829-L4829) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
-- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L510-L514) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L515-L519) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1118-L1126) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1141-L1181) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [8. Premium Gorgeous Wiki / Documentation System / 8.2 Page quality](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L618-L631) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L30-L61) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 3 distinct blocks.
 - [2. Supported OpenAI Integration Lanes / 2.2 OpenAI Agents SDK lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L92-L92) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.

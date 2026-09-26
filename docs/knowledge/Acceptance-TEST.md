@@ -3889,7 +3889,7 @@
 - [ ] **D-137348411fc4a10d5471** - GATE — Whole queue convergence and runtime proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1059-1059](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1059-L1059)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G008 : 1290-1290](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1290-L1290)
 
 </details>
 
@@ -3900,7 +3900,7 @@
 - [ ] **D-fca41c33fb0cfb2d8a42** - · State/restart regression pass
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T021 — State/restart regression pass
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1069-1069](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1069-L1069)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T021 : 1300-1300](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1300-L1300)
 
 </details>
 
@@ -6767,7 +6767,7 @@
 - [ ] **D-6fb96681e733314382a3** - · Packaged-app workflow proof
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1075-1075](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1075-L1075)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 1306-1306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1306-L1306)
 
 </details>
 

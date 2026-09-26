@@ -33,7 +33,7 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-44d79e64eb503b0e2202](Acceptance-LIB.md#d-44d79e64eb503b0e2202) - · Make the address/search bar behave like a real browser omnibox [T033]
 - [D-b19d16308edf64f12554](Acceptance-LIB.md#d-b19d16308edf64f12554) - · Recover the affected browser surface instead of destabilizing Enderloom [T035]
 - [D-4dfbc961bc5cd66d3b24](Acceptance-LIB.md#d-4dfbc961bc5cd66d3b24) - · Integrate meaningful download/browser state with Windows [T042]
-- [D-0b2215b3e32ee41c05cb](Acceptance-LIB.md#d-0b2215b3e32ee41c05cb) - This document is complete only when G010 is closed and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no accepted ...
+- [D-308fa5b83abfa4e0a0cb](Acceptance-LIB.md#d-308fa5b83abfa4e0a0cb) - This document is complete only when G010 and G011 are closed and every leaf task and gate is checked with real implementation + applicable runtime/regression evidence, no...
 - [D-afb050b3bb42c5bbdc64](Acceptance-LIB.md#d-afb050b3bb42c5bbdc64) - Browser — real Chromium browser tabs.
 - [D-69229290e9c1db450741](Acceptance-LIB.md#d-69229290e9c1db450741) - Split — resizable side-by-side app/browser or app/app research workflows.
 - [D-82eaf1d38c06ea68ac68](Acceptance-LIB.md#d-82eaf1d38c06ea68ac68) - Browse large curated catalogs.

@@ -62,7 +62,7 @@
 - [ ] **D-0ea7e908fc5cb786133a** - GATE — Updates behave like a first-class launcher
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L249-L249)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G001 : 254-254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L254-L254)
 
 </details>
 
@@ -567,7 +567,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 60 source-derived details.
+[Outcome](Checklist.md#play-02) / 63 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -620,7 +620,37 @@
 - [ ] **D-01867a6cb17cb20540cd** - · Compact the oversized instance hero/header
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 836-836](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L836-L836)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T009 : 841-841](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L841-L841)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers (1)</summary>
+
+<a id="d-fbeee118c9f65f9b2021"></a>
+- [ ] **D-fbeee118c9f65f9b2021** - GATE — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-contro...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Unified discovery, dependency repair, bulk mod management, first-run/account/create/import/clone flows, and native Mod/Instance actions are all production-wired, user-controlled, runtime-proven, and satisfy G010&#x27;s strict faster-and-richer-than-both contract where technically comparable.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G011 : 1064-1064](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1064-L1064)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy (2)</summary>
+
+<a id="d-9a22d616168253a29122"></a>
+- [ ] **D-9a22d616168253a29122** - · Make first-run, account connection, instance creation, import, and clone flows strictly faster and more capable than both launchers without losing fidelity
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T054 : 1185-1185](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1185-L1185)
+
+<a id="d-22fc96576ade8894442a"></a>
+- [ ] **D-22fc96576ade8894442a** - - Benchmark first launch -&gt; usable shell, account action -&gt; usable authenticated state, create -&gt; usable instance, import -&gt; usable verified instance, and clone -&gt; i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Benchmark first launch -&gt; usable shell, account action -&gt; usable authenticated state, create -&gt; usable instance, import -&gt; usable verified instance, and clone -&gt; independently usable clone against both installed clients on equivalent fixtures. - Enderloom must be measurably faster than both on technically comparable median and p95 paths while preserving more useful setup/import intelligence and the full intended instance contents. - Record bytes downloaded vs reused, files/projects preserved, dependency/provider resolution counts, CPU/disk/network cost, and cold/warm behavior. - A &quot;fast&quot; result that omits overrides/configs/mods/dependencies or defers an unavoidable blocking copy/download to first launch is a regression, not a win.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1226-1229](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1226-L1229)
 
 </details>
 
@@ -1941,7 +1971,7 @@
 <a id="play-05-details"></a>
 ## PLAY-05 - Instance update and maintenance
 
-[Outcome](Checklist.md#play-05) / 14 source-derived details.
+[Outcome](Checklist.md#play-05) / 15 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 2. Security &amp; Supply-Chain Center — missing critical layer / 2.3 Update capability diff (1)</summary>
@@ -1973,6 +2003,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1147-1147](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1147-L1147)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy (1)</summary>
+
+<a id="d-50111aafe21132c2d193"></a>
+- [ ] **D-50111aafe21132c2d193** - - Reuse legitimate existing authorized sessions where supported. - Account connect/reconnect uses the provider&#x27;s supported OAuth/device/browser flow and returns to the interru...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Reuse legitimate existing authorized sessions where supported. - Account connect/reconnect uses the provider&#x27;s supported OAuth/device/browser flow and returns to the interrupted Enderloom action automatically. - Never store raw account passwords or bypass MFA/CAPTCHA/security challenges. - Show truthful connected/reconnect-required/offline state without making unrelated local instance management unavailable. - Keep account UI responsive while remote profile/entitlement data enriches.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1196-1200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1196-L1200)
 
 </details>
 
