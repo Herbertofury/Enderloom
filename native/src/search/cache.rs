@@ -4,7 +4,7 @@ use std::{
 };
 
 use reqwest::{header::IF_NONE_MATCH, RequestBuilder, StatusCode};
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{db::CachedResponse, error::Result, state::AppState};
 
@@ -12,6 +12,8 @@ pub const TTL_TAGS: i64 = 60 * 60 * 24;
 pub const TTL_SEARCH: i64 = 60 * 5;
 pub const TTL_PROJECT: i64 = 60 * 60;
 pub const TTL_VERSIONS: i64 = 60 * 15;
+pub const TTL_PROVIDER_MAP: i64 = 60 * 60 * 24;
+pub const TTL_PROVIDER_MAP_MISS: i64 = 60 * 10;
 
 pub const MAX_STALE_FALLBACK: i64 = 60 * 60 * 24;
 
@@ -181,6 +183,24 @@ pub async fn fetch_swr<T: DeserializeOwned>(
     }
 
     fetch(state, key, ttl_secs, request).await
+}
+
+pub fn local_json<T: DeserializeOwned>(state: &AppState, key: &str) -> Option<T> {
+    let entry = state.db.cache_get(key, now()).ok().flatten()?;
+    if !entry.fresh {
+        return None;
+    }
+    serde_json::from_str(&entry.body).ok()
+}
+
+pub fn put_local_json<T: Serialize>(
+    state: &AppState,
+    key: &str,
+    ttl_secs: i64,
+    value: &T,
+) -> Result<()> {
+    let body = serde_json::to_string(value)?;
+    state.db.cache_put(key, &body, None, now(), ttl_secs)
 }
 
 pub async fn post<T: DeserializeOwned>(state: &AppState, request: RequestBuilder) -> Result<T> {
