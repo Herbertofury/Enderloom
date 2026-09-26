@@ -1792,7 +1792,7 @@
 - [ ] **D-df95e8ef46859d76a86c** - Resume rule: continue from the earliest unchecked or invalidated ready task; do not regenerate this plan or move these items into a separate shadow backlog.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1866-1866](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1866-L1866)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1872-1872](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1872-L1872)
 
 </details>
 

@@ -72,7 +72,7 @@
 <a id="ux-02"></a>
 - [ ] **UX-02 - One contextual workbench**
   - **Accept:** One Studio contains persistent resizable content tree/outliner, center viewport/editor, contextual inspector, timeline, source/debug panes and collapsible details; project types are contexts, not disconnected studios.
-  - **State:** unverified. **Details:** [54 source blocks](Sources-UX.md#ux-02); 18 source documents.
+  - **State:** unverified. **Details:** [55 source blocks](Sources-UX.md#ux-02); 18 source documents.
 
 **[Open 7 detailed checks](Acceptance-UX.md#ux-03-details)**
 
@@ -121,7 +121,7 @@
 <a id="ux-09"></a>
 - [ ] **UX-09 - First-launch and update experience**
   - **Accept:** First launch provisions ordinary requirements with minimal questions; upgrades preserve projects/preferences/accounts/jobs; loading, empty, error and offline states remain actionable and polished.
-  - **State:** unverified. **Details:** [96 source blocks](Sources-UX.md#ux-09); 8 source documents.
+  - **State:** unverified. **Details:** [95 source blocks](Sources-UX.md#ux-09); 8 source documents.
 
 **[Open 22 detailed checks](Acceptance-UX.md#ux-10-details)**
 
