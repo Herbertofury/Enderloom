@@ -47,7 +47,7 @@ Current first-shot challenger set includes where applicable:
 - image resize pipeline: **fast_image_resize** versus current image/libvips candidate paths;
 - shared tool UI: **React 19.3 + React Compiler** versus **SolidJS** on the real Enderloom 10,000-result workload;
 - web build pipeline: current toolchain versus **TypeScript 7 + Vite 8/Rolldown + current Bun** after compatibility proof;
-- game-running background transfers: Enderloom token-bucket downloader versus **Windows BITS** for eligible nonurgent transfers;
+- **Phase 2 reserved:** game-running background transfers use Enderloom token-bucket downloader versus **Windows BITS** for eligible nonurgent transfers under T096/G014; list it here for technology tracking only, not Phase 1 execution;
 - release-code optimization: ThinLTO/FatLTO/codegen-units/representative PGO variants versus default release profile.
 
 Do not add novelty for its own sake. A challenger needs a plausible measurable advantage in Enderloom's real workload.
@@ -126,7 +126,7 @@ At every stage preserve a one-command/one-setting rollback to the last proven st
 
 No challenger is promoted if it:
 
-- increases Minecraft game impact;
+- creates an **obvious** Minecraft regression in the cheap Phase 1 coexistence smoke check, or later fails the definitive G014 Phase 2 coexistence gate;
 - causes blank/missing UI results;
 - loses provider/project metadata;
 - breaks authenticated browser/tool capabilities;
@@ -434,7 +434,7 @@ Required:
 
 ---
 
-## G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture
+## G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture
 
 - [ ] **G012 · ARCHITECTURE GATE** — `enderloom-core` is the canonical production owner for performance-critical filesystem/indexing, database/cache, provider/data, hashing/fingerprinting, archive inspection, dependency/compatibility solving, transfer/install pipelines, background scheduling, and native media work; Electron/JavaScript is reduced to UI/browser/native-shell orchestration except where measured production evidence proves a JS implementation is genuinely superior with no protected regression.
 
@@ -919,9 +919,9 @@ World Editor reference fixture:
 
 ---
 
-## G010 — ABSOLUTE PRIORITY ZERO: make the entire app feel instant, with zero loss
+## G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss
 
-- [ ] **G010 · ABSOLUTE PRIORITY GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
+- [ ] **G010 · PHASE 1 PERFORMANCE GATE** — On every technically equivalent benchmarked workflow, Enderloom is **measurably faster than BOTH** installed CurseForge **and** Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes **strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH**, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
 
 This gate is the **Phase 1 performance acceptance umbrella over every implementation tranche in Phase 1**. Performance is not a later polish pass. Almost every ordinary Enderloom workflow must be treated as a performance-critical product path: first launch/onboarding, account sign-in/reconnect, application launch, restoring the prior workspace, creating/importing/cloning instances, opening Browse, showing unified cross-provider Browse results, changing providers/categories, searching/filtering/sorting, opening project pages, opening Mods/Addons, discovering installed content, running dependency diagnosis, checking updates, updating one mod or many mods, beginning a download, sustaining download throughput, installing content, resolving dependencies, bulk mod operations, native context menus/keyboard actions, opening provider/browser tabs, switching views, returning/back-forward, favorites, artwork/media enrichment, file actions, logs, and restart/resume.
 
@@ -1351,56 +1351,36 @@ Acceptance:
 ---
 
 
-### Immediate execution priority override
+### Authoritative execution order
 
-The **Phase 1 performance/stack program runs first: G015 challenger-first selection, G012/G013 architecture work, G016 dual-shell work when activated, and G010 whole-app performance are one concurrent highest-priority stream. G014 is Phase 2 and starts only after that chosen stack is already proven fast/stable on the affected paths.** Build each Rust/tool-platform vertical slice, benchmark and tune it immediately under G010/T070, ratchet the stronger baseline, then continue. Do **not** interpret the numbered order below as permission to postpone performance until architecture work is finished. Within that concurrent stream, the embedded-browser/download/Browse repair remains a major tactical tranche because it is among the most disruptive everyday UX problems.
+**This is the single authoritative ordering rule for this document.** Any older/local wording such as "priority", "highest", or a task's numerical ID describes importance within its own gate only and must never override the phase/stage order below. Stable T/G IDs are identifiers, not execution rank.
 
-**Phase 1 super-priority — do these before G014 tuning:**
-- **G015 / T085-T095 + T097-T098** — give credible bleeding-edge challengers the first isolated A/B attempt; promote them when they truly win, otherwise fall back cleanly to the proven stable path after bounded materially different recovery attempts. **T096 is deliberately Phase 2.**
-- **G012 / T056-T070** — production-wire and optimize the Rust/native core and permanent performance architecture.
-- **G013 / T071-T077** — stabilize the reusable multi-host Tool Platform on the chosen core.
-- **G016 / T099-T103** — if WebView2 wins, preserve a fully maintained Electron Edition in parallel from the same core/release so shell/runtime regressions always have a first-class fallback.
-- **G010 / T047-T050** — establish, repair and ratchet whole-app normal-use performance/coverage superiority on the selected stack.
+### PHASE 1 — performance / stack supremacy
 
-**Phase 2 only after the above performance/stack baseline is amazing and stable:**
-- **G014 / T078-T084 + T096 + T104-T105** — add/tune the optional persisted Game Performance Protection governor, including BITS/memory-priority challengers, and prove zero Minecraft impact **without regressing Enderloom foreground responsiveness**.
+**G010 is active continuously throughout Phase 1.** Every implementation slice is benchmarked/tuned as it lands; do not postpone performance until a later certification task.
 
-Execute the remaining work in this priority order, without waiting for unrelated queue items. **A Phase 1 reference to Minecraft is only an obvious-regression smoke check; never treat such a reference as permission to pull the full G014 governor/tuning work ahead of the Phase 1 stack/performance program:**
+1. **Challenger preflight — T085-T092 + T097-T098.** Establish the current stable baselines, credible bleeding-edge challengers, exact versions/build flags, A/B fixtures, WebView2 privacy contract, transport baseline, and machine-readable challenger matrix. Execute challenger experiments that already have a real comparable path. If a challenger depends on a core/UI path that does not exist yet, mark that experiment ready-for-corresponding-stage rather than blocking the phase or inventing a toy comparison. **T096 is explicitly not part of this stage; it belongs to Phase 2.**
+2. **Core vertical slice — T056 + T057 + T070.** Production-wire `enderloom-core`, migrate one real heavy path, and immediately benchmark/tune it against the prior implementation with complete-result equivalence.
+3. **Core/data hot-path stack — T058-T069 plus T093-T094 as their corresponding paths become real.** Implement MFT/USN, SQLite WAL/indexes/FTS, CAS, one-pass hashing, archive fast paths, scheduler, freshness-safe cache, incremental dependency graph, transfer pipeline, native media, zero-blank rendering, delta IPC, crash consistency, and the Compio/IoRing + rawzip/zlib-rs/libdeflate challengers. Promote/defer each risky candidate through G015 instead of waiting until the end.
+4. **Shared UI/runtime challenger — T095.** Run the real Enderloom React 19.3+Compiler vs SolidJS and TypeScript/Vite/Bun modernization bakeoff on the production-shaped 10,000-result workload once the shared state/IPC path is stable enough for an honest comparison.
+5. **Tool Platform — T071-T077.** Stabilize the host-agnostic standalone/tabbed/pop-out tool architecture on the selected core, with Mod Manager as the reference implementation and the World Editor fixture proving future-tool reuse.
+6. **Dual-shell resilience if activated — T099-T103.** Only if T091/T092 promoted Rust/WebView2, produce and prove both the primary WebView2 Edition and maintained Electron Edition from the same core/release. If Electron remains the winner, record G016 as NOT-ACTIVATED.
+7. **Whole-app performance/UX convergence — T047-T048 plus all affected performance-sensitive product tasks.** Capture apples-to-apples Enderloom/CurseForge/Modrinth baselines, repair remaining shared latency causes, then finish the affected high-value flows including T051, T054, T026, T004, T025, T027, T045, T046, T002/T001, T052, T053, and T055. These tasks remain zero-loss and use the selected Phase 1 architecture rather than bypassing it.
+8. **Phase 1 certification — T049 + T050.** Prove the chosen production stack is faster and richer than both comparators on equivalent work, then ratchet that result into permanent release/CI acceptance.
 
-1. **T056 + T057 + T070** — establish production `enderloom-core`, make Rust/native ownership the default for heavy hot paths, and benchmark/tune every migrated vertical slice immediately rather than later;
-2. **T071 + T072 + T076** — establish the reusable multi-host Tool Platform and make Mod Manager its first standalone + Electron-tabbed reference while sharing one live core/state;
-3. **T073 + T074 + T075** — make dock/undock/pop-out/reattach instant, bridge Electron/browser capabilities, and synchronize trusted provider/browser actions into canonical Enderloom state;
-4. **T077** — lock the pattern in for future tools with the Tool SDK/manifest and World Editor integration fixture;
-5. **T058** — replace repeat recursive scans with MFT/USN change-driven indexing plus safe authoritative fallbacks;
-6. **T059** — move canonical metadata/search/index state to SQLite WAL + measured indexes/FTS with integrity-safe migrations;
-7. **T060 + T061** — add corruption-safe CAS reuse, one-pass hashing/fingerprints, and selective JAR/ZIP parsing;
-8. **T062 + T068** — add Tokio/Rayon priority scheduling plus compact delta/single-flight IPC;
-9. **T063** — make every cache/search/link path freshness-safe so instant never means false/stale/bad-link;
-10. **T064** — make dependency/compatibility solving incremental and shared across install/update/Doctor/bulk flows;
-11. **T065** — pipeline transfer/hash/inspect/dependency/verify/commit without weakening the atomic final gate;
-12. **T066** — move media decode/resize/cache work to the native demand-driven pipeline;
-13. **T067** — prove zero-blank large-list rendering; virtualization stays disabled anywhere it is perceptible or can miss visible rows;
-14. **T069** — crash-inject and prove every fast path cannot corrupt or manufacture freshness/success;
-15. **T047** — capture apples-to-apples Enderloom / CurseForge / Modrinth baselines and profile the remaining real hot paths;
-16. **T048** — repair any remaining shared launch/Browse/Mods/update/download/install/IPC/storage latency;
-17. **T051** — make unified discovery return a faster, larger, deduplicated, richer union than either launcher;
-18. **T054** — make first-run, account, create/import/clone flows faster than both launchers with full fidelity;
-19. **T026** — move Enderloom onto the latest production-stable Electron baseline;
-20. **T004** — finish the canonical Chromium download pipeline;
-21. **T025** — ship the Chrome-style toolbar Downloads button + automatic pop-out bubble;
-22. **T027** — make download persistence/resume/save behavior survive real use and restart;
-23. **T045** — eliminate Browse/project-opening latency through cache-first/prefetch/parallel architecture with zero result loss;
-24. **T046** — reconcile the same logical project across Modrinth/CurseForge instead of treating provider listings as unrelated projects;
-25. **T002 + T001** — make update discovery/application fast while preserving transactional correctness;
-26. **T052** — ship the user-confirmed Instance Dependency Doctor;
-27. **T053** — ship Bulk Mod Manager + Undo/Quarantine;
-28. **T055** — ship native Mod/Instance context menus + keyboard bulk actions;
-29. **T049** — run the strict faster-and-richer-than-both certification on the chosen Phase 1 stack;
-30. **T050** — lock that normal-use win in as a permanent release/CI ratchet so future work cannot regress it;
-31. **T078-T084 + T096 + T104-T105** — only now tune/validate Game Performance Protection, including BITS/memory-priority challengers, preserving Enderloom foreground responsiveness while eliminating measurable Minecraft impact;
-32. then continue the remaining browser modernization tasks in G002 before returning to the ordinary earliest-ready queue order.
+**Phase 1 exit gate:** the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal use. Do not enter Phase 2 merely because the architecture compiles.
 
-This priority override changes execution order only; it does not remove or weaken any other accepted task. **When any later task touches a performance-critical path, G010 remains active and that task must preserve or improve the measured baseline rather than reintroducing latency.**
+### PHASE 2 — Minecraft-running zero-impact protection
+
+9. **Only after the Phase 1 exit gate passes:** execute **T078-T084 + T096 + T104-T105**. Add/tune Game Performance Protection, including BITS/memory-priority challengers, and prove Minecraft coexistence reaches the G014 zero-impact/noise envelope **without regressing Enderloom foreground responsiveness**.
+10. After G014 closes, continue any remaining non-performance browser/QoL tasks in their ordinary earliest-ready dependency order while preserving both the G010 Phase 1 baseline and the G014 coexistence ratchet.
+
+### Cross-phase clarification
+
+- A Phase 1 reference to Minecraft means **only a cheap obvious-regression smoke check**. It never authorizes full G014 governor tuning or makes G014 a Phase 1 dependency.
+- Full statistical Minecraft coexistence benchmarking, EcoQoS/background-mode/CPU-set/BITS/memory-priority tuning, and the persisted Game Performance Protection feature belong to Phase 2.
+- If a later architecture change invalidates the chosen Phase 1 baseline, repair/re-certify that Phase 1 path first, then rerun only the affected G014 coexistence proof.
+- Performance never permits doing less work: result quantity, metadata, provider coverage, correctness, freshness, validation, rollback, safety, and user-visible capability must remain equal or better.
 
 ## Context
 
@@ -1529,7 +1509,7 @@ Add a real persistent extension manager for Enderloom's Chromium profile:
 - never silently copy browser secrets from unrelated profiles.
 
 
-### T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — HIGHEST UX PRIORITY
+### T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002
 
 - [ ] **T025** · Ship a real Chrome-style Downloads toolbar control and non-modal pop-out
 
