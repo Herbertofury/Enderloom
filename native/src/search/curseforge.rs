@@ -364,16 +364,13 @@ pub async fn search(
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
     let api_key = key(state)?;
-    let detail: Wrapped<Mod> = cache::fetch_swr(
+    let detail_request = cache::fetch_swr(
         state,
         &format!("cf:project:{project_id}"),
         cache::TTL_PROJECT,
         request(state, format!("{API}/mods/{project_id}"), &api_key),
-    )
-    .await?;
-    let detail = detail.data;
-
-    let body = cache::fetch_swr::<Wrapped<String>>(
+    );
+    let body_request = cache::fetch_swr::<Wrapped<String>>(
         state,
         &format!("cf:body:{project_id}"),
         cache::TTL_PROJECT,
@@ -382,10 +379,11 @@ pub async fn project_details(state: &AppState, project_id: &str) -> Result<Proje
             format!("{API}/mods/{project_id}/description"),
             &api_key,
         ),
-    )
-    .await
-    .map(|d| d.data)
-    .unwrap_or_default();
+    );
+    let (detail, body) = tokio::join!(detail_request, body_request);
+    let detail: Wrapped<Mod> = detail?;
+    let detail = detail.data;
+    let body = body.map(|d| d.data).unwrap_or_default();
 
     let website_url = detail.links.as_ref().and_then(|l| l.website_url.clone());
     let mut links = Vec::new();
