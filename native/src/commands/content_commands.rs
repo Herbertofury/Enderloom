@@ -94,25 +94,27 @@ pub(crate) fn list_content_source_index_core(
         .iter()
         .map(String::as_str)
         .collect::<std::collections::HashSet<_>>();
-    let mut sources_by_instance =
-        std::collections::HashMap::<String, Vec<crate::db::ContentFile>>::with_capacity(
-            instance_ids.len(),
-        );
+    let mut sources_by_instance = std::collections::HashMap::<
+        String,
+        Vec<(String, String, Option<String>, i64)>,
+    >::with_capacity(instance_ids.len());
 
     if instance_ids.len() <= 1 {
         for instance_id in instance_ids {
             sources_by_instance.insert(
                 instance_id.clone(),
-                state.db.content_files(instance_id, kind)?,
+                state.db.content_source_rows(instance_id, kind)?,
             );
         }
     } else {
-        for (instance_id, source) in state.db.content_files_for_kind(kind)? {
+        for (instance_id, file_name, project_id, version_id, installed_at) in
+            state.db.content_source_rows_for_kind(kind)?
+        {
             if requested.contains(instance_id.as_str()) {
                 sources_by_instance
                     .entry(instance_id)
                     .or_default()
-                    .push(source);
+                    .push((file_name, project_id, version_id, installed_at));
             }
         }
     }
@@ -123,18 +125,16 @@ pub(crate) fn list_content_source_index_core(
         let mut projects =
             std::collections::HashMap::<String, (i64, InstalledProjectSource)>::new();
 
-        for source in sources_by_instance.remove(instance_id).unwrap_or_default() {
-            let Some(project_id) = source.project_id.clone() else {
-                continue;
-            };
-            if content::resolve_existing_path(&state.files, &dir, &source.file_name).is_none() {
+        for (file_name, project_id, version_id, installed_at) in
+            sources_by_instance.remove(instance_id).unwrap_or_default()
+        {
+            if content::resolve_existing_path(&state.files, &dir, &file_name).is_none() {
                 continue;
             }
 
-            let installed_at = source.installed_at;
             let candidate = InstalledProjectSource {
-                file_name: source.file_name,
-                version_id: source.version_id,
+                file_name,
+                version_id,
             };
             match projects.entry(project_id) {
                 std::collections::hash_map::Entry::Vacant(entry) => {
