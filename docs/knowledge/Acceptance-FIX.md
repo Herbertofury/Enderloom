@@ -1021,7 +1021,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** TECHNOLOGY PROMOTION GATE — For performance-critical subsystems, Enderloom gives credible bleeding-edge/risky technology the first serious challenger attempt when it has a plausible architectural advantage, but promotes it only after it beats the stable implementation on equivalent speed/resources and passes stronger correctness, crash, data-integrity, compatibility and recovery proof. Stable fallbacks remain available until the challenger earns removal of the old path.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G015 : 247-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L247-L247)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G015 : 30-30](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L30-L30)
 
 </details>
 
@@ -1032,7 +1032,7 @@
 - [ ] **D-c826b40ed5e5e462c15b** - · When a challenger is credible and reversible, prototype/repair it first in an isolated production-shaped path rather than automatically defaulting to the conservative option
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T086 — Risky challenger gets the first isolated implementation shot
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T086 : 274-274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L274-L274)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T086 : 57-57](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L57-L57)
 
 </details>
 
@@ -1044,7 +1044,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - First failure: diagnose earliest causal owner and repair the challenger. - Second materially different failure without meaningful new progress: change strategy/adapter/integration approach once more if a credible route remains. - If the candidate still cannot pass the real vertical slice, crashes/corrupts data, lacks a required Windows/security/runtime capability, or consumes disproportionate engineering effort with no measured advantage, mark it CHALLENGER-DEFERRED for the current release and activate the proven stable path. - Stable fallback is a successful recovery route, not permission to stop performance work; tune the stable path and retain the challenger fixture/version evidence for later re-evaluation. - Re-test a deferred challenger only after a real invalidator such as a materially improved upstream release, fixed missing capability, new adapter, or evidence that the prior blocker is gone. - Never loop the same broken experimental integration indefinitely.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 317-322](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L317-L322)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 100-105](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L100-L105)
 
 </details>
 
@@ -1055,7 +1055,7 @@
 - [ ] **D-e9561edb823433bcf070** - · Prove every new fast path is crash-safe, freshness-safe, corruption-detecting, and able to rebuild derived state without losing user data
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T069 — Crash consistency, cache correctness, and zero-corruption performance gate
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 956-956](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L956-L956)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T069 : 739-739](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L739-L739)
 
 </details>
 
@@ -1067,7 +1067,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Track recently closed browser tabs/windows with enough safe navigation state to reopen them. - Ctrl+Shift+T restores the most recently closed tab and continues backward through the recent stack. - On normal restart, restore the prior browser workspace according to a user setting. - After a crash/forced close, offer automatic safe recovery of the prior browser session without losing Enderloom&#x27;s non-browser workspace. - Restore the active tab, tab order, pinned/important state if implemented, and navigation URL/history where practical. - Do not restore one-time sensitive POST bodies, file upload selections, or secrets blindly.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T029 — Recently closed tabs and session/crash restore
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1769-1774](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1769-L1774)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1779-1784](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1779-L1784)
 
 </details>
 
@@ -1748,7 +1748,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Add Settings -&gt; Performance -&gt; Game Performance Protection with a clear persisted On / Off control shared across Electron/WebView2/standalone tool hosts through canonical Enderloom settings. - After G014 is fully runtime-proven, the production default may be On because the feature has demonstrated zero game impact and no meaningful Enderloom interaction regression. During development/canary work it remains explicitly testable without silently changing existing user settings. - On: the protection system remains armed across restart and automatically activates its Minecraft-specific governor only when T078 detects a relevant running Minecraft workload. - Off: do not activate the special Minecraft-specific EcoQoS/background-mode/CPU-set/BITS/memory-priority/throttling policy merely because Minecraft starts. Preserve the normal Phase 1 scheduler, incremental index, caches, single-flight, bounded concurrency and idle-efficiency behavior. - Changing the setting applies safely without app restart where technically practical and persists across restart/edition handoff. - Show a compact truthful status in Performance/Diagnostics such as Protection enabled / Active for 1 Minecraft instance / Disabled, without noisy notifications. - Do not silently force the setting back on after updates. - Never use the toggle to bypass live-file safety rules, transaction integrity, provider validation or other unrelated protections.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 199-206](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L199-L206)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1307-1314](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1307-L1314)
 
 </details>
 

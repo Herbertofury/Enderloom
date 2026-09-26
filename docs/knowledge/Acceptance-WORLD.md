@@ -801,7 +801,7 @@
 - [ ] **D-7d26884b0aa68925c37c** - · Establish the Rust-native core as the shared canonical backend and move one real end-to-end hot path through it before widening migration
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PRIORITY -1: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L692-L692)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T056 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L475-L475)
 
 </details>
 
@@ -3094,7 +3094,7 @@
 - [ ] **D-0cda78c1cce6ab45283b** - · Extend G014 with Windows-native background network and memory-pressure controls where they measurably reduce interference
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T096 — BITS + Windows memory-priority challengers for Minecraft Game Running Mode
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T096 : 520-520](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L520-L520)
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T096 : 303-303](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L303-L303)
 
 </details>
 

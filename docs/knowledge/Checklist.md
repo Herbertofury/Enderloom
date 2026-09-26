@@ -65,7 +65,7 @@
 <a id="ux-01"></a>
 - [ ] **UX-01 - Four-action Home**
   - **Accept:** Create a Mod, Convert to Version, Repair / Fix Issues and Improve Performance are obvious production actions beside import/drop, useful empty states and real recent-project previews.
-  - **State:** unverified. **Details:** [83 source blocks](Sources-UX.md#ux-01); 19 source documents.
+  - **State:** unverified. **Details:** [84 source blocks](Sources-UX.md#ux-01); 19 source documents.
 
 **[Open 15 detailed checks](Acceptance-UX.md#ux-02-details)**
 
@@ -451,12 +451,12 @@
   - **Accept:** Unify declarative startup/idle/traversal/stress/soak/gameplay scenarios, setup/teardown/assertions, GameTest adapters and deterministic replay across supported targets.
   - **State:** unverified. **Details:** [143 source blocks](Sources-TEST.md#test-02); 16 source documents.
 
-**[Open 122 detailed checks](Acceptance-TEST.md#test-03-details)**
+**[Open 123 detailed checks](Acceptance-TEST.md#test-03-details)**
 
 <a id="test-03"></a>
 - [ ] **TEST-03 - Runtime supervision and automation**
   - **Accept:** Control real client/dedicated/integrated/Bedrock processes, commands/RCON, readiness, isolated accounts where appropriate, cancellation and restart with exact process/build identity.
-  - **State:** unverified. **Details:** [214 source blocks](Sources-TEST.md#test-03); 25 source documents.
+  - **State:** unverified. **Details:** [215 source blocks](Sources-TEST.md#test-03); 25 source documents.
 
 **[Open 232 detailed checks](Acceptance-TEST.md#test-04-details)**
 
@@ -511,12 +511,12 @@
   - **Accept:** Separate low-overhead measurements from diagnostic runs; integrate native telemetry/JFR/spark/Observable/probes and correlate causality without misreporting overhead as mod cost.
   - **State:** unverified. **Details:** [50 source blocks](Sources-PERF.md#perf-02); 13 source documents.
 
-**[Open 37 detailed checks](Acceptance-PERF.md#perf-03-details)**
+**[Open 38 detailed checks](Acceptance-PERF.md#perf-03-details)**
 
 <a id="perf-03"></a>
 - [ ] **PERF-03 - Controlled A/B and full-pack attribution**
   - **Accept:** Use equivalent fingerprints, dependency-safe with/without plans, repeated samples, variance/confidence and stale-baseline detection; static risk is not measured causality.
-  - **State:** unverified. **Details:** [75 source blocks](Sources-PERF.md#perf-03); 20 source documents.
+  - **State:** unverified. **Details:** [76 source blocks](Sources-PERF.md#perf-03); 20 source documents.
 
 **[Open 78 detailed checks](Acceptance-PERF.md#perf-04-details)**
 
@@ -551,7 +551,7 @@
 <a id="perf-08"></a>
 - [ ] **PERF-08 - Dedicated Performance workspace**
   - **Accept:** Provide understandable before/after charts, conditions, bottlenecks, scenario control, drill-down and exact optimize/rollback actions in the dedicated first-class surface.
-  - **State:** unverified. **Details:** [131 source blocks](Sources-PERF.md#perf-08); 23 source documents.
+  - **State:** unverified. **Details:** [132 source blocks](Sources-PERF.md#perf-08); 23 source documents.
 
 **[Open 11 detailed checks](Acceptance-PERF.md#perf-09-details)**
 
