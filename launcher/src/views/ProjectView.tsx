@@ -1,5 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
-import { Loader2, Package, TriangleAlert } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Github,
+  Loader2,
+  Package,
+  RefreshCw,
+  SquareArrowOutUpRight,
+  TriangleAlert,
+  X,
+} from "lucide-react";
 
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
@@ -39,6 +49,38 @@ interface PendingInstall {
 }
 
 type Tab = "description" | "versions" | "gallery";
+
+interface ProviderSurfaceState {
+  open: boolean;
+  visible: boolean;
+  provider: string;
+  projectKey: string;
+  url: string;
+  title: string;
+  loading: boolean;
+  canBack: boolean;
+  canForward: boolean;
+  error: { code: number; description: string; url: string } | null;
+  promoted?: boolean;
+  tabId?: string;
+  promotedUrl?: string;
+}
+
+function githubSourceFrom(details: Array<ProjectDetails | null>): string | null {
+  for (const project of details) {
+    const source = project?.links.find((link) => link.label.toLowerCase() === "view source");
+    if (!source) continue;
+    try {
+      const url = new URL(source.url);
+      if (url.protocol === "https:" && /(^|\.)github\.com$/i.test(url.hostname)) {
+        return url.toString();
+      }
+    } catch {
+      // Provider supplied an invalid source URL; do not create a guessed GitHub tab.
+    }
+  }
+  return null;
+}
 
 export function ProjectView() {
   const projectRef = useStore((s) => s.projectRef);
@@ -107,6 +149,14 @@ export function ProjectView() {
   const [mirrors, setMirrors] = useState<ProjectMirror[]>(() =>
     projectRef ? (peekProjectMirrors(projectRef.provider, projectRef.id, kind) ?? []) : [],
   );
+  const [mirrorDetails, setMirrorDetails] = useState<ProjectDetails[]>([]);
+  const [providerSurface, setProviderSurface] = useState<{
+    provider: "github";
+    url: string;
+  } | null>(null);
+  const [providerSurfaceState, setProviderSurfaceState] =
+    useState<ProviderSurfaceState | null>(null);
+  const providerPaneRef = useRef<HTMLDivElement>(null);
   const [versions, setVersions] = useState<ProjectVersion[] | null>(null);
   const [loading, setLoading] = useState(initialDetails === null);
   const [error, setError] = useState<string | null>(null);
@@ -147,6 +197,8 @@ export function ProjectView() {
     setDetails(seed);
     setDetailsComplete(cached !== null);
     setMirrors(peekProjectMirrors(projectRef.provider, projectRef.id, kind) ?? []);
+    setMirrorDetails([]);
+    setProviderSurface(null);
     setVersions(null);
     setInstalled(new Set());
     setTab("description");
@@ -182,6 +234,122 @@ export function ProjectView() {
       live = false;
     };
   }, [projectRef?.provider, projectRef?.id, kind]);
+
+  useEffect(() => {
+    let live = true;
+    if (mirrors.length === 0) {
+      setMirrorDetails([]);
+      return () => {
+        live = false;
+      };
+    }
+
+    void Promise.all(
+      mirrors.map((mirror) =>
+        loadProjectDetails(mirror.provider, mirror.project.id).catch(() => null),
+      ),
+    ).then((resolved) => {
+      if (live) setMirrorDetails(resolved.filter((value): value is ProjectDetails => value !== null));
+    });
+
+    return () => {
+      live = false;
+    };
+  }, [mirrors]);
+
+  useEffect(() => {
+    let unlisten: (() => void) | undefined;
+    void window.enderloomLauncher
+      ?.listen<ProviderSurfaceState>("provider-surface-state", (state) => {
+        setProviderSurfaceState(state);
+      })
+      .then((stop) => {
+        unlisten = stop;
+      });
+    return () => unlisten?.();
+  }, []);
+
+  useEffect(
+    () => () => {
+      void window.enderloomLauncher?.providerSurface({ action: "dispose" }).catch(() => {});
+    },
+    [projectRef?.provider, projectRef?.id],
+  );
+
+  const syncProviderSurfaceBounds = useCallback(() => {
+    const element = providerPaneRef.current;
+    if (!element || !providerSurface) return;
+    const rect = element.getBoundingClientRect();
+    void window.enderloomLauncher
+      ?.providerSurface({
+        action: "layout",
+        rect: {
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height,
+        },
+      })
+      .catch(() => {});
+  }, [providerSurface]);
+
+  useEffect(() => {
+    const bridge = window.enderloomLauncher;
+    if (!bridge) return;
+
+    if (!providerSurface) {
+      void bridge.providerSurface({ action: "hide" }).catch(() => {});
+      return;
+    }
+
+    const element = providerPaneRef.current;
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const projectKey = `${projectRef.provider}:${projectRef.id}:${providerSurface.provider}`;
+    void bridge
+      .providerSurface({
+        action: "open",
+        provider: providerSurface.provider,
+        projectKey,
+        url: providerSurface.url,
+        rect: {
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height,
+        },
+      })
+      .then((state) => setProviderSurfaceState(state))
+      .catch((cause) => setError(String(cause)));
+
+    const observer = new ResizeObserver(syncProviderSurfaceBounds);
+    observer.observe(element);
+    window.addEventListener("resize", syncProviderSurfaceBounds);
+    const frame = requestAnimationFrame(syncProviderSurfaceBounds);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", syncProviderSurfaceBounds);
+    };
+  }, [
+    projectRef.provider,
+    projectRef.id,
+    providerSurface,
+    syncProviderSurfaceBounds,
+  ]);
+
+  const providerCommand = useCallback(
+    (action: "back" | "forward" | "reload" | "promote" | "external" | "copy-url") => {
+      void window.enderloomLauncher
+        ?.providerSurface({
+          action,
+          url: providerSurface?.url,
+        })
+        .then((state) => setProviderSurfaceState(state))
+        .catch((cause) => setError(String(cause)));
+    },
+    [providerSurface?.url],
+  );
 
   useEffect(() => {
     setVersions(null);
@@ -386,6 +554,10 @@ export function ProjectView() {
     }
   };
 
+  const githubSource = useMemo(
+    () => githubSourceFrom([details, ...mirrorDetails]),
+    [details, mirrorDetails],
+  );
   const gallery = details?.gallery ?? [];
   const tabs: Array<{ id: Tab; label: string }> = [
     { id: "description", label: "Description" },
@@ -424,7 +596,13 @@ export function ProjectView() {
       <div className="flex items-center gap-1 border-b border-border-soft px-6 py-2">
         <button
           type="button"
-          className="rounded-lg bg-surface-3 px-2.5 py-1.5 text-xs font-semibold capitalize text-content"
+          onClick={() => setProviderSurface(null)}
+          className={cn(
+            "rounded-lg px-2.5 py-1.5 text-xs font-semibold capitalize transition-colors",
+            !providerSurface
+              ? "bg-surface-3 text-content"
+              : "text-content-muted hover:bg-surface-3 hover:text-content",
+          )}
         >
           {projectRef.provider}
         </button>
@@ -432,35 +610,118 @@ export function ProjectView() {
           <button
             key={`${mirror.provider}:${mirror.project.id}`}
             type="button"
-            onClick={() =>
+            onClick={() => {
+              setProviderSurface(null);
               openProject(
                 mirror.provider,
                 mirror.project.id,
                 kind,
                 mirror.project.title,
                 mirror.project,
-              )
-            }
+              );
+            }}
             title={`Same project on ${mirror.provider} · ${mirror.confidence}% identity confidence`}
             className="rounded-lg px-2.5 py-1.5 text-xs font-medium capitalize text-content-muted transition-colors hover:bg-surface-3 hover:text-content"
           >
             {mirror.provider}
           </button>
         ))}
+        {githubSource && (
+          <button
+            type="button"
+            draggable
+            onDragStart={(event) => {
+              event.dataTransfer.effectAllowed = "copy";
+              event.dataTransfer.setData("application/x-enderloom-provider-page", githubSource);
+              event.dataTransfer.setData("text/uri-list", githubSource);
+              event.dataTransfer.setData("text/plain", githubSource);
+            }}
+            onClick={() => setProviderSurface({ provider: "github", url: githubSource })}
+            title="Verified source repository · drag to the top tab strip to promote it"
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors",
+              providerSurface?.provider === "github"
+                ? "bg-surface-3 text-content"
+                : "text-content-muted hover:bg-surface-3 hover:text-content",
+            )}
+          >
+            <Github className="size-3.5" />
+            GitHub
+          </button>
+        )}
+        {providerSurface && (
+          <div className="ml-auto flex items-center gap-1">
+            {providerSurfaceState?.loading && (
+              <Loader2 className="mr-1 size-3.5 animate-spin text-content-faint" />
+            )}
+            <button
+              type="button"
+              onClick={() => providerCommand("back")}
+              disabled={!providerSurfaceState?.canBack}
+              title="Back"
+              aria-label="Back in provider page"
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content disabled:opacity-30"
+            >
+              <ArrowLeft className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => providerCommand("forward")}
+              disabled={!providerSurfaceState?.canForward}
+              title="Forward"
+              aria-label="Forward in provider page"
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content disabled:opacity-30"
+            >
+              <ArrowRight className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => providerCommand("reload")}
+              title={providerSurfaceState?.loading ? "Stop" : "Reload"}
+              aria-label={providerSurfaceState?.loading ? "Stop provider page" : "Reload provider page"}
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content"
+            >
+              <RefreshCw className={cn("size-3.5", providerSurfaceState?.loading && "animate-spin")} />
+            </button>
+            <button
+              type="button"
+              onClick={() => providerCommand("promote")}
+              title="Open current provider page in a normal Enderloom tab"
+              aria-label="Open provider page in new tab"
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content"
+            >
+              <SquareArrowOutUpRight className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setProviderSurface(null)}
+              title="Close provider page"
+              aria-label="Close provider page"
+              className="rounded-md p-1.5 text-content-muted hover:bg-surface-3 hover:text-content"
+            >
+              <X className="size-3.5" />
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-1 border-b border-border-soft px-6">
         {tabs.map((t) => (
           <button
             key={t.id}
-            onClick={() => setTab(t.id)}
+            onClick={() => {
+              setProviderSurface(null);
+              setTab(t.id);
+            }}
             className={cn(
               "relative px-4 py-2.5 text-sm font-medium transition-colors",
-              tab === t.id ? "text-content" : "text-content-faint hover:text-content-muted",
+              !providerSurface && tab === t.id
+                ? "text-content"
+                : "text-content-faint hover:text-content-muted",
             )}
           >
             {t.label}
-            {tab === t.id && (
+            {!providerSurface && tab === t.id && (
               <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-(--accent) transition-colors duration-500" />
             )}
           </button>
@@ -480,7 +741,13 @@ export function ProjectView() {
       )}
 
       <div className="min-h-0 flex-1 overflow-y-auto">
-        {!details ? (
+        {providerSurface ? (
+          <div
+            ref={providerPaneRef}
+            className="h-full min-h-[240px] bg-void"
+            aria-label={`${providerSurface.provider} project page`}
+          />
+        ) : !details ? (
           <div className="flex items-center justify-center gap-2 py-16 text-sm text-content-muted">
             <Loader2 className="size-4 animate-spin" />
             Loading project
