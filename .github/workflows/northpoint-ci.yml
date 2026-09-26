@@ -62,6 +62,9 @@ jobs:
       - name: Check native launcher service
         run: cargo check --manifest-path native/Cargo.toml --bin enderloom-service
 
+      - name: Browse provider identity regression
+        run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
+
       - name: Northpoint compose config QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_compose_selftest.py
 
