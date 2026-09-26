@@ -252,23 +252,24 @@ struct User {
 }
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
-    let project: Project = cache::fetch_swr(
+    let project_request = cache::fetch_swr(
         state,
         &format!("mr:project:{project_id}"),
         cache::TTL_PROJECT,
         state.network.get(format!("{API}/project/{project_id}")),
-    )
-    .await?;
-
-    let author = cache::fetch_swr::<Vec<Member>>(
+    );
+    let members_request = cache::fetch_swr::<Vec<Member>>(
         state,
         &format!("mr:members:{project_id}"),
         cache::TTL_PROJECT,
         state
             .network
             .get(format!("{API}/project/{project_id}/members")),
-    )
-    .await
+    );
+    let (project, members) = tokio::join!(project_request, members_request);
+    let project: Project = project?;
+
+    let author = members
     .ok()
     .and_then(|members| {
         members
