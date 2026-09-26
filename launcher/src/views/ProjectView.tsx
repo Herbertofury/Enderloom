@@ -11,6 +11,8 @@ import {
   X,
 } from "lucide-react";
 
+import { openUrl } from "@tauri-apps/plugin-opener";
+
 import { cn } from "../lib/cn";
 import { api } from "../lib/api";
 import {
@@ -636,7 +638,13 @@ export function ProjectView() {
               event.dataTransfer.setData("text/uri-list", githubSource);
               event.dataTransfer.setData("text/plain", githubSource);
             }}
-            onClick={() => setProviderSurface({ provider: "github", url: githubSource })}
+            onClick={() => {
+              if (typeof window.enderloomLauncher?.providerSurface === "function") {
+                setProviderSurface({ provider: "github", url: githubSource });
+              } else {
+                void openUrl(githubSource);
+              }
+            }}
             title="Verified source repository · drag to the top tab strip to promote it"
             className={cn(
               "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors",
