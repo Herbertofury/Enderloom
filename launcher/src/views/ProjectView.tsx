@@ -296,6 +296,7 @@ export function ProjectView() {
   }, [providerSurface]);
 
   useEffect(() => {
+    if (!projectRef) return;
     const bridge = window.enderloomLauncher;
     if (!bridge) return;
 
@@ -334,8 +335,8 @@ export function ProjectView() {
       window.removeEventListener("resize", syncProviderSurfaceBounds);
     };
   }, [
-    projectRef.provider,
-    projectRef.id,
+    projectRef?.provider,
+    projectRef?.id,
     providerSurface,
     syncProviderSurfaceBounds,
   ]);
