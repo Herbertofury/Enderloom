@@ -501,3 +501,36 @@ New invariants:
 - `HighFidelityModel` preserves rich material channels even when the active backend cannot display all of them; exporters choose the richest compatible path and emit an explicit fallback.
 - Model backend acceptance requires deterministic locked-view/state reference captures suitable for automatic image diffs in addition to live runtime inspection.
 - Server-side virtual/display backends are export compatibility routes, not automatic replacements for the native client renderer.
+
+
+### 17.5 Blockbench automation, richer IK and optional native physics
+
+The fourth sweep makes Blockbench automation a first-class backend rather than an informal manual editor step.
+
+Required challenger/integration lanes:
+
+- **jasonjgardner/blockbench-mcp-plugin** for live Blockbench + headless `.bbmodel` edit/validate/convert/render architecture and plugin capability registration;
+- **sosadly/blockbench-mcp** for procedural detail, reference matching, measured rig/animation QA, multi-view inspection and artist-review workflow;
+- current **Blockbench IK evolution** including two-bone/FABRIK/spline/aim IK, pole guidance and IK/FK blending semantics;
+- **Velthoric/Jolt JNI** only as an optional heavy physics backend where actual rope/cloth/soft-body/rigid-body interaction is required.
+
+Add/extend typed objects:
+
+- `BlockbenchAutomationBackend`
+- `BlockbenchCapabilityReport`
+- `ModelReferenceMatchResult`
+- `RigReadinessResult`
+- `AnimationMeasurementResult`
+- `IKConstraint`
+- `IKChain`
+- `IKBakeReceipt`
+- `PhysicsBackendProfile`
+
+Hard rules:
+
+- headless and live Blockbench use the same canonical Enderloom model/variant graph;
+- batch biome generation defaults to headless-safe operations and opens the live editor only when useful;
+- reference/editor proof never replaces native Minecraft proof;
+- IK data stays editable and semantic until an output format forces baking;
+- heavy native physics is opt-in/capability-selected and never replaces the cheaper secondary-motion path without measured benefit;
+- third-party MCP/Blockbench integrations obey exact licenses and are wrapped/reimplemented when direct source reuse would make distribution incompatible.
