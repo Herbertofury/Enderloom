@@ -234,7 +234,7 @@
 - [ ] **D-1e958ae04309ffc41596** - — Parallelize independent secondary cells only after the primary gate unlocks and resource limits are known.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T210 — Bounded parallel fanout
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T210 : 1287-1287](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1287-L1287)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T210 : 1332-1332](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1332-L1332)
 
 </details>
 
@@ -246,7 +246,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Production failures are diagnosable without guesswork, crashes preserve safe evidence, performance optimization is profile-driven and the Rust/JVM/vendored dependency chain has enforceable policy.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G071 : 2308-2308](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2308-L2308)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G071 : 2379-2379](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2379-L2379)
 
 </details>
 
@@ -257,7 +257,7 @@
 - [ ] **D-d50c77e7c3a8668af31e** - — Maintain repeatable macrobenchmarks and use samply, platform profilers and flamegraphs to identify actual bottlenecks before adopting specialized caches/parsers/runtime changes.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T275 — Make performance work profiler-driven
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T275 : 2324-2324](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2324-L2324)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T275 : 2395-2395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2395-L2395)
 
 </details>
 
@@ -1386,7 +1386,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — After T240, choose the smallest architecture change that achieves the performance/product targets: - retain and optimize React/TypeScript if it meets the gates; - migrate only demonstrated bottleneck surfaces if a hybrid approach is best; or - perform a broader Rust-UI migration only if the bakeoff proves material equivalent-work gains that justify it.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T241 : 1986-1989](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1986-L1989)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T241 : 2049-2052](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2049-L2052)
 
 </details>
 
@@ -1812,7 +1812,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Before considering a broad UI framework migration, benchmark upgrading the existing frontend to current production baselines: Vite 8.1/Rolldown, current @vitejs/plugin-react/Oxc path, React 19.3, TypeScript 6, and the current high-performance TanStack Virtual release. Resolve deprecations/fallout forward and measure packaged startup, dev cold start, HMR, build time, Browse interaction latency, memory and frame stability.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T333 — Current frontend toolchain bakeoff before framework rewrite
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T333 : 1995-1995](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1995-L1995)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T333 : 2058-2058](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2058-L2058)
 
 </details>
 
@@ -1823,7 +1823,7 @@
 - [ ] **D-5bcc49a8f6a6cf6d534e** - — Where profiling shows lock contention or read-heavy snapshot pressure:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T259 : 2176-2176](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2176-L2176)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T259 : 2245-2245](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2245-L2245)
 
 </details>
 
@@ -2246,7 +2246,7 @@
 - [ ] **D-75740b4eb2b43fa954ef** - GATE — The full engine is faster through incremental architecture while returning the same complete result.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G054 — Resumability, caching and performance
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G054 : 1271-1271](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1271-L1271)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G054 : 1316-1316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1316-L1316)
 
 </details>
 
@@ -2257,7 +2257,7 @@
 - [ ] **D-2ba2572a44c088346b7b** - Everything IPC may be an optional accelerator, never canonical state.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1295-1295](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1295-L1295)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1340-1340](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1340-L1340)
 
 </details>
 
@@ -2269,7 +2269,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Evaluate cargo-pgo/LLVM PGO for the release core after architecture/hot paths stabilize. Train on representative startup/search/browse/download/archive/launch/conversion workloads and promote only if equivalent-work wall-clock/CPU performance materially improves without pathological regressions on untrained paths.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T276 — Bake off PGO only against representative real workloads
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T276 : 2328-2328](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2328-L2328)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T276 : 2399-2399](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2399-L2399)
 
 </details>
 

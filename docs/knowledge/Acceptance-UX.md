@@ -1272,13 +1272,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Use the current Tauri + React 19 + TypeScript + Vite frontend as the baseline and compare it against Tauri + Leptos and Dioxus Desktop only on a production-shaped Enderloom vertical slice: Browse/search results, filters, project details, a download action, progress, settings persistence and one embedded-browser handoff.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T237 : 1941-1941](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1941-L1941)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T237 : 2004-2004](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2004-L2004)
 
 <a id="d-ded4038ed78fb1459654"></a>
 - [ ] **D-ded4038ed78fb1459654** - Evaluation must include:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1943-1943](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1943-L1943)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2006-2006](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2006-L2006)
 
 </details>
 
@@ -1290,7 +1290,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - UI code never reaches SQLite/files/providers directly; - UI controls call canonical domain actions; - long-running actions return stable operation IDs; - progress is machine-readable and resumable; - stale responses cannot overwrite newer user intent; - user-visible success follows committed domain state, not optimistic UI-only state.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T238 — Freeze a typed frontend/domain contract
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1965-1970](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1965-L1970)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2028-2033](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2028-L2033)
 
 </details>
 
@@ -1301,13 +1301,13 @@
 - [ ] **D-b60e3b07fe09ba32bf0d** - — Bake off/migrate to current official Tauri plugins for single-instance, deep-link and window-state behavior where they supersede current custom/community handling.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T244 : 2023-2023](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2023-L2023)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T244 : 2086-2086](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2086-L2086)
 
 <a id="d-e3ef8ff95eac802691b8"></a>
 - [ ] **D-e3ef8ff95eac802691b8** - Required behavior:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2025-2025](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2025-L2025)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2088-2088](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2088-L2088)
 
 </details>
 
@@ -1487,7 +1487,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — The native shell follows least-privilege Tauri security, signed/recoverable updates, truthful single-instance/deep-link behavior and restart-persistent desktop state without reducing browser/app capability.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G065 : 2007-2007](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2007-L2007)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G065 : 2070-2070](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2070-L2070)
 
 </details>
 
@@ -2044,7 +2044,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Enderloom uses the frontend architecture that delivers the best measured combination of responsiveness, memory use, browser integration, accessibility, maintainability and delivery speed; React/TypeScript may remain when it wins or ties the challengers, while heavy/domain-critical work stays behind typed native/JVM service boundaries.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G064 : 1937-1937](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1937-L1937)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G064 : 2000-2000](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2000-L2000)
 
 </details>
 
@@ -2055,7 +2055,7 @@
 - [ ] **D-51dac801778fec91e3ef** - Do not begin a framework-wide rewrite until this slice proves that the rewrite is actually needed and beneficial in a real packaged build.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1982-1982](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1982-L1982)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2045-2045](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2045-L2045)
 
 </details>
 
@@ -2067,7 +2067,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Preserve all accepted functionality, keyboard/focus behavior, drag/drop, context actions, browser navigation, downloads UI, settings and state persistence. Do not move logic between languages merely to satisfy an aesthetic stack preference.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1991-1991](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1991-L1991)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2054-2054](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2054-L2054)
 
 </details>
 
@@ -2078,7 +2078,7 @@
 - [ ] **D-d6a2f8e674e48b499bdf** - — Define explicit capability/permission scopes for the main shell, browser surfaces, dialogs, filesystem paths, updater, opener, clipboard and any future extension host.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T243 — Apply least-privilege Tauri capabilities per window/WebView
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T243 : 2017-2017](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2017-L2017)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T243 : 2080-2080](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2080-L2080)
 
 </details>
 
@@ -2089,7 +2089,7 @@
 - [ ] **D-e4e12d6f31ded94d691a** - The updater must prove:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2040-2040](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2040-L2040)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2103-2103](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2103-L2103)
 
 </details>
 
@@ -3590,7 +3590,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Add native notifications for completed/failed long operations (downloads, installs, conversions, updates) and optional global shortcuts only when they reduce real friction. Deduplicate notifications and make them configurable.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T245 — Add useful native notifications and global shortcuts only for real workflows
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T245 : 2034-2034](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2034-L2034)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T245 : 2097-2097](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2097-L2097)
 
 </details>
 

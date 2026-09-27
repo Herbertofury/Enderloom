@@ -20,6 +20,14 @@
 
 </details>
 
+<a id="actions-attest"></a>
+<details>
+<summary>actions/attest (1 cited locations)</summary>
+
+- [https://github.com/actions/attest](https://github.com/actions/attest)
+
+</details>
+
 <a id="amulet-team-pymctranslate"></a>
 <details>
 <summary>Amulet-Team/PyMCTranslate (2 cited locations)</summary>
@@ -122,6 +130,14 @@
 <summary>badasintended/ravel (1 cited locations)</summary>
 
 - [https://github.com/badasintended/ravel](https://github.com/badasintended/ravel)
+
+</details>
+
+<a id="bawnorton-mixinsquared"></a>
+<details>
+<summary>Bawnorton/MixinSquared (1 cited locations)</summary>
+
+- [https://github.com/Bawnorton/MixinSquared](https://github.com/Bawnorton/MixinSquared)
 
 </details>
 
@@ -315,6 +331,14 @@
 <summary>Creators-of-Create/wiki (1 cited locations)</summary>
 
 - [https://github.com/Creators-of-Create/wiki](https://github.com/Creators-of-Create/wiki)
+
+</details>
+
+<a id="cyclonedx-cyclonedx-gradle-plugin"></a>
+<details>
+<summary>CycloneDX/cyclonedx-gradle-plugin (1 cited locations)</summary>
+
+- [https://github.com/CycloneDX/cyclonedx-gradle-plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 
 </details>
 
@@ -543,6 +567,22 @@
 
 </details>
 
+<a id="goldorion-fabric-generator-mcreator"></a>
+<details>
+<summary>Goldorion/Fabric-Generator-MCreator (1 cited locations)</summary>
+
+- [https://github.com/Goldorion/Fabric-Generator-MCreator](https://github.com/Goldorion/Fabric-Generator-MCreator)
+
+</details>
+
+<a id="google-osv-scanner"></a>
+<details>
+<summary>google/osv-scanner (1 cited locations)</summary>
+
+- [https://github.com/google/osv-scanner](https://github.com/google/osv-scanner)
+
+</details>
+
 <a id="gorilla-devs-ferium"></a>
 <details>
 <summary>gorilla-devs/ferium (1 cited locations)</summary>
@@ -687,6 +727,14 @@
 
 </details>
 
+<a id="in-toto-attestation"></a>
+<details>
+<summary>in-toto/attestation (1 cited locations)</summary>
+
+- [https://github.com/in-toto/attestation](https://github.com/in-toto/attestation)
+
+</details>
+
 <a id="inria-spoon"></a>
 <details>
 <summary>INRIA/spoon (1 cited locations)</summary>
@@ -708,6 +756,14 @@
 <summary>isXander/modstitch-toolkit (1 cited locations)</summary>
 
 - [https://github.com/isXander/modstitch-toolkit](https://github.com/isXander/modstitch-toolkit)
+
+</details>
+
+<a id="itzg-mc-image-helper"></a>
+<details>
+<summary>itzg/mc-image-helper (1 cited locations)</summary>
+
+- [https://github.com/itzg/mc-image-helper](https://github.com/itzg/mc-image-helper)
 
 </details>
 
@@ -740,6 +796,14 @@
 <summary>jaredlll08/MultiLoader-Template (1 cited locations)</summary>
 
 - [https://github.com/jaredlll08/MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template)
+
+</details>
+
+<a id="jarettr-intermed"></a>
+<details>
+<summary>jarettr/intermed (1 cited locations)</summary>
+
+- [https://github.com/jarettr/intermed](https://github.com/jarettr/intermed)
 
 </details>
 
@@ -895,6 +959,46 @@
 
 </details>
 
+<a id="mcmodlauncher-bootstraplauncher"></a>
+<details>
+<summary>McModLauncher/bootstraplauncher (1 cited locations)</summary>
+
+- [https://github.com/McModLauncher/bootstraplauncher](https://github.com/McModLauncher/bootstraplauncher)
+
+</details>
+
+<a id="mcmodlauncher-modlauncher"></a>
+<details>
+<summary>McModLauncher/modlauncher (1 cited locations)</summary>
+
+- [https://github.com/McModLauncher/modlauncher](https://github.com/McModLauncher/modlauncher)
+
+</details>
+
+<a id="mcmodlauncher-securejarhandler"></a>
+<details>
+<summary>McModLauncher/securejarhandler (1 cited locations)</summary>
+
+- [https://github.com/McModLauncher/securejarhandler](https://github.com/McModLauncher/securejarhandler)
+
+</details>
+
+<a id="mcphackers-retrodebuginjector"></a>
+<details>
+<summary>MCPHackers/RetroDebugInjector (1 cited locations)</summary>
+
+- [https://github.com/MCPHackers/RetroDebugInjector](https://github.com/MCPHackers/RetroDebugInjector)
+
+</details>
+
+<a id="mcreator-mcreator"></a>
+<details>
+<summary>MCreator/MCreator (1 cited locations)</summary>
+
+- [https://github.com/MCreator/MCreator](https://github.com/MCreator/MCreator)
+
+</details>
+
 <a id="md-5-specialsource"></a>
 <details>
 <summary>md-5/SpecialSource (1 cited locations)</summary>
@@ -956,6 +1060,14 @@
 <summary>microsoft/tracing-etw (1 cited locations)</summary>
 
 - [https://github.com/microsoft/tracing-etw](https://github.com/microsoft/tracing-etw)
+
+</details>
+
+<a id="milkdromedastudios-octo-loader"></a>
+<details>
+<summary>MilkdromedaStudios/Octo-Loader (1 cited locations)</summary>
+
+- [https://github.com/MilkdromedaStudios/Octo-Loader](https://github.com/MilkdromedaStudios/Octo-Loader)
 
 </details>
 
@@ -1052,6 +1164,14 @@
 <summary>modmuss50/mod-publish-plugin (1 cited locations)</summary>
 
 - [https://github.com/modmuss50/mod-publish-plugin](https://github.com/modmuss50/mod-publish-plugin)
+
+</details>
+
+<a id="modrinth-daedalus"></a>
+<details>
+<summary>modrinth/daedalus (1 cited locations)</summary>
+
+- [https://github.com/modrinth/daedalus](https://github.com/modrinth/daedalus)
 
 </details>
 
@@ -1256,6 +1376,14 @@
 
 </details>
 
+<a id="openjdk-sigtest"></a>
+<details>
+<summary>openjdk/sigtest (1 cited locations)</summary>
+
+- [https://github.com/openjdk/sigtest](https://github.com/openjdk/sigtest)
+
+</details>
+
 <a id="openrewrite-rewrite"></a>
 <details>
 <summary>openrewrite/rewrite (1 cited locations)</summary>
@@ -1269,6 +1397,14 @@
 <summary>OpenShock/Integrations.Minecraft (1 cited locations)</summary>
 
 - [https://github.com/OpenShock/Integrations.Minecraft](https://github.com/OpenShock/Integrations.Minecraft)
+
+</details>
+
+<a id="opensuse-libsolv"></a>
+<details>
+<summary>openSUSE/libsolv (1 cited locations)</summary>
+
+- [https://github.com/openSUSE/libsolv](https://github.com/openSUSE/libsolv)
 
 </details>
 
@@ -1456,6 +1592,22 @@
 
 </details>
 
+<a id="prismlauncher-meta"></a>
+<details>
+<summary>PrismLauncher/meta (1 cited locations)</summary>
+
+- [https://github.com/PrismLauncher/meta](https://github.com/PrismLauncher/meta)
+
+</details>
+
+<a id="prismlauncher-meta-launcher"></a>
+<details>
+<summary>PrismLauncher/meta-launcher (1 cited locations)</summary>
+
+- [https://github.com/PrismLauncher/meta-launcher](https://github.com/PrismLauncher/meta-launcher)
+
+</details>
+
 <a id="prismlauncher-prismlauncher"></a>
 <details>
 <summary>PrismLauncher/PrismLauncher (1 cited locations)</summary>
@@ -1494,6 +1646,22 @@
 <summary>QuiltMC/quilt-loader (1 cited locations)</summary>
 
 - [https://github.com/QuiltMC/quilt-loader](https://github.com/QuiltMC/quilt-loader)
+
+</details>
+
+<a id="quiltmc-quilt-loom"></a>
+<details>
+<summary>QuiltMC/quilt-loom (1 cited locations)</summary>
+
+- [https://github.com/QuiltMC/quilt-loom](https://github.com/QuiltMC/quilt-loom)
+
+</details>
+
+<a id="quiltmc-quilt-mappings"></a>
+<details>
+<summary>QuiltMC/quilt-mappings (1 cited locations)</summary>
+
+- [https://github.com/QuiltMC/quilt-mappings](https://github.com/QuiltMC/quilt-mappings)
 
 </details>
 
@@ -1980,6 +2148,7 @@
 - [https://plugins.gradle.org/plugin/dev.kikugie.stonecutter](https://plugins.gradle.org/plugin/dev.kikugie.stonecutter)
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
+- [https://slsa.dev/spec/v1.0/provenance](https://slsa.dev/spec/v1.0/provenance)
 - [https://stonecutter.kikugie.dev/](https://stonecutter.kikugie.dev/)
 - [https://theupdateframework.io/](https://theupdateframework.io/)
 - [https://v2.tauri.app/develop/calling-frontend/](https://v2.tauri.app/develop/calling-frontend/)

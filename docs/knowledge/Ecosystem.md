@@ -53,6 +53,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 
 - [0x676e67/effectum](https://github.com/0x676e67/effectum) - [specific cited locations](Reference-Index.md#0x676e67-effectum).
 - [aboutcode-org/scancode-toolkit](https://github.com/aboutcode-org/scancode-toolkit) - [specific cited locations](Reference-Index.md#aboutcode-org-scancode-toolkit).
+- [actions/attest](https://github.com/actions/attest) - [specific cited locations](Reference-Index.md#actions-attest).
 - [anchapin/portkit](https://github.com/anchapin/portkit) - [specific cited locations](Reference-Index.md#anchapin-portkit).
 - [apache/maven-resolver](https://github.com/apache/maven-resolver) - [specific cited locations](Reference-Index.md#apache-maven-resolver).
 - [apalis-dev/apalis-sqlite](https://github.com/apalis-dev/apalis-sqlite) - [specific cited locations](Reference-Index.md#apalis-dev-apalis-sqlite).
@@ -64,6 +65,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [async-profiler/async-profiler](https://github.com/async-profiler/async-profiler) - [specific cited locations](Reference-Index.md#async-profiler-async-profiler).
 - [ATLauncher/ATLauncher](https://github.com/ATLauncher/ATLauncher) - [specific cited locations](Reference-Index.md#atlauncher-atlauncher).
 - [azalea-rs/simdnbt](https://github.com/azalea-rs/simdnbt) - [specific cited locations](Reference-Index.md#azalea-rs-simdnbt).
+- [Bawnorton/MixinSquared](https://github.com/Bawnorton/MixinSquared) - [specific cited locations](Reference-Index.md#bawnorton-mixinsquared).
 - [BLAKE3-team/BLAKE3](https://github.com/BLAKE3-team/BLAKE3) - [specific cited locations](Reference-Index.md#blake3-team-blake3).
 - [bnjbvr/cargo-machete](https://github.com/bnjbvr/cargo-machete) - [specific cited locations](Reference-Index.md#bnjbvr-cargo-machete).
 - [booky10/StackDeobfuscator](https://github.com/booky10/StackDeobfuscator) - [specific cited locations](Reference-Index.md#booky10-stackdeobfuscator).
@@ -84,6 +86,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [ComunidadAylas/PackSquash](https://github.com/ComunidadAylas/PackSquash) - [specific cited locations](Reference-Index.md#comunidadaylas-packsquash).
 - [Creators-of-Create/Ponder](https://github.com/Creators-of-Create/Ponder) - [specific cited locations](Reference-Index.md#creators-of-create-ponder).
 - [Creators-of-Create/wiki](https://github.com/Creators-of-Create/wiki) - [specific cited locations](Reference-Index.md#creators-of-create-wiki).
+- [CycloneDX/cyclonedx-gradle-plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin) - [specific cited locations](Reference-Index.md#cyclonedx-cyclonedx-gradle-plugin).
 - [Cykooz/fast_image_resize](https://github.com/Cykooz/fast_image_resize) - [specific cited locations](Reference-Index.md#cykooz-fast-image-resize).
 - [deniz-blue/mcman](https://github.com/deniz-blue/mcman) - [specific cited locations](Reference-Index.md#deniz-blue-mcman).
 - [DioxusLabs/dioxus](https://github.com/DioxusLabs/dioxus) - [specific cited locations](Reference-Index.md#dioxuslabs-dioxus).
@@ -108,6 +111,8 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [fjall-rs/fjall](https://github.com/fjall-rs/fjall) - [specific cited locations](Reference-Index.md#fjall-rs-fjall).
 - [foyer-rs/foyer](https://github.com/foyer-rs/foyer) - [specific cited locations](Reference-Index.md#foyer-rs-foyer).
 - [Fuzss/forge-config-api-port](https://github.com/Fuzss/forge-config-api-port) - [specific cited locations](Reference-Index.md#fuzss-forge-config-api-port).
+- [Goldorion/Fabric-Generator-MCreator](https://github.com/Goldorion/Fabric-Generator-MCreator) - [specific cited locations](Reference-Index.md#goldorion-fabric-generator-mcreator).
+- [google/osv-scanner](https://github.com/google/osv-scanner) - [specific cited locations](Reference-Index.md#google-osv-scanner).
 - [gorilla-devs/ferium](https://github.com/gorilla-devs/ferium) - [specific cited locations](Reference-Index.md#gorilla-devs-ferium).
 - [gorilla-devs/GDLauncher-Carbon](https://github.com/gorilla-devs/GDLauncher-Carbon) - [specific cited locations](Reference-Index.md#gorilla-devs-gdlauncher-carbon).
 - [gradle/gradle-profiler](https://github.com/gradle/gradle-profiler) - [specific cited locations](Reference-Index.md#gradle-gradle-profiler).
@@ -121,10 +126,13 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [hickory-dns/hickory-dns](https://github.com/hickory-dns/hickory-dns) - [specific cited locations](Reference-Index.md#hickory-dns-hickory-dns).
 - [HMCL-dev/HMCL](https://github.com/HMCL-dev/HMCL) - [specific cited locations](Reference-Index.md#hmcl-dev-hmcl).
 - [ibraheemdev/papaya](https://github.com/ibraheemdev/papaya) - [specific cited locations](Reference-Index.md#ibraheemdev-papaya).
+- [in-toto/attestation](https://github.com/in-toto/attestation) - [specific cited locations](Reference-Index.md#in-toto-attestation).
 - [INRIA/spoon](https://github.com/INRIA/spoon) - [specific cited locations](Reference-Index.md#inria-spoon).
+- [itzg/mc-image-helper](https://github.com/itzg/mc-image-helper) - [specific cited locations](Reference-Index.md#itzg-mc-image-helper).
 - [itzg/rcon-cli](https://github.com/itzg/rcon-cli) - [specific cited locations](Reference-Index.md#itzg-rcon-cli).
 - [JakobDev/minecraft-launcher-lib](https://github.com/JakobDev/minecraft-launcher-lib) - [specific cited locations](Reference-Index.md#jakobdev-minecraft-launcher-lib).
 - [jaredlll08/MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template) - [specific cited locations](Reference-Index.md#jaredlll08-multiloader-template).
+- [jarettr/intermed](https://github.com/jarettr/intermed) - [specific cited locations](Reference-Index.md#jarettr-intermed).
 - [juraj-hrivnak/Pakku](https://github.com/juraj-hrivnak/Pakku) - [specific cited locations](Reference-Index.md#juraj-hrivnak-pakku).
 - [KiltMC/Kilt](https://github.com/KiltMC/Kilt) - [specific cited locations](Reference-Index.md#kiltmc-kilt).
 - [KiltMC/KnitLoader](https://github.com/KiltMC/KnitLoader) - [specific cited locations](Reference-Index.md#kiltmc-knitloader).
@@ -140,6 +148,11 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [manifold-systems/manifold](https://github.com/manifold-systems/manifold) - [specific cited locations](Reference-Index.md#manifold-systems-manifold).
 - [mcbeet/mecha](https://github.com/mcbeet/mecha) - [specific cited locations](Reference-Index.md#mcbeet-mecha).
 - [MCCTeam/Minecraft-Console-Client](https://github.com/MCCTeam/Minecraft-Console-Client) - [specific cited locations](Reference-Index.md#mccteam-minecraft-console-client).
+- [McModLauncher/bootstraplauncher](https://github.com/McModLauncher/bootstraplauncher) - [specific cited locations](Reference-Index.md#mcmodlauncher-bootstraplauncher).
+- [McModLauncher/modlauncher](https://github.com/McModLauncher/modlauncher) - [specific cited locations](Reference-Index.md#mcmodlauncher-modlauncher).
+- [McModLauncher/securejarhandler](https://github.com/McModLauncher/securejarhandler) - [specific cited locations](Reference-Index.md#mcmodlauncher-securejarhandler).
+- [MCPHackers/RetroDebugInjector](https://github.com/MCPHackers/RetroDebugInjector) - [specific cited locations](Reference-Index.md#mcphackers-retrodebuginjector).
+- [MCreator/MCreator](https://github.com/MCreator/MCreator) - [specific cited locations](Reference-Index.md#mcreator-mcreator).
 - [md-5/SpecialSource](https://github.com/md-5/SpecialSource) - [specific cited locations](Reference-Index.md#md-5-specialsource).
 - [meza/Stonecraft-template](https://github.com/meza/Stonecraft-template) - [specific cited locations](Reference-Index.md#meza-stonecraft-template).
 - [Microck/jarspect](https://github.com/Microck/jarspect) - [specific cited locations](Reference-Index.md#microck-jarspect).
@@ -147,6 +160,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [microsoft/minecraft-scripting-samples](https://github.com/microsoft/minecraft-scripting-samples) - [specific cited locations](Reference-Index.md#microsoft-minecraft-scripting-samples).
 - [microsoft/rust_win_etw](https://github.com/microsoft/rust_win_etw) - [specific cited locations](Reference-Index.md#microsoft-rust-win-etw).
 - [microsoft/tracing-etw](https://github.com/microsoft/tracing-etw) - [specific cited locations](Reference-Index.md#microsoft-tracing-etw).
+- [MilkdromedaStudios/Octo-Loader](https://github.com/MilkdromedaStudios/Octo-Loader) - [specific cited locations](Reference-Index.md#milkdromedastudios-octo-loader).
 - [minecraft-dev/MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) - [specific cited locations](Reference-Index.md#minecraft-dev-minecraftdev).
 - [MinecraftForge/BinaryPatcher](https://github.com/MinecraftForge/BinaryPatcher) - [specific cited locations](Reference-Index.md#minecraftforge-binarypatcher).
 - [MinecraftForge/ForgeFlower](https://github.com/MinecraftForge/ForgeFlower) - [specific cited locations](Reference-Index.md#minecraftforge-forgeflower).
@@ -159,6 +173,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [misode/technical-changes](https://github.com/misode/technical-changes) - [specific cited locations](Reference-Index.md#misode-technical-changes).
 - [ModificationStation/StationAPI](https://github.com/ModificationStation/StationAPI) - [specific cited locations](Reference-Index.md#modificationstation-stationapi).
 - [modmuss50/mod-publish-plugin](https://github.com/modmuss50/mod-publish-plugin) - [specific cited locations](Reference-Index.md#modmuss50-mod-publish-plugin).
+- [modrinth/daedalus](https://github.com/modrinth/daedalus) - [specific cited locations](Reference-Index.md#modrinth-daedalus).
 - [modrinth/minotaur](https://github.com/modrinth/minotaur) - [specific cited locations](Reference-Index.md#modrinth-minotaur).
 - [Mojang/bedrock-protocol-docs](https://github.com/Mojang/bedrock-protocol-docs) - [specific cited locations](Reference-Index.md#mojang-bedrock-protocol-docs).
 - [Mojang/bedrock-samples](https://github.com/Mojang/bedrock-samples) - [specific cited locations](Reference-Index.md#mojang-bedrock-samples).
@@ -181,8 +196,10 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [notify-rs/notify](https://github.com/notify-rs/notify) - [specific cited locations](Reference-Index.md#notify-rs-notify).
 - [obi1kenobi/cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks) - [specific cited locations](Reference-Index.md#obi1kenobi-cargo-semver-checks).
 - [oliveryasuna/modkit](https://github.com/oliveryasuna/modkit) - [specific cited locations](Reference-Index.md#oliveryasuna-modkit).
+- [openjdk/sigtest](https://github.com/openjdk/sigtest) - [specific cited locations](Reference-Index.md#openjdk-sigtest).
 - [openrewrite/rewrite](https://github.com/openrewrite/rewrite) - [specific cited locations](Reference-Index.md#openrewrite-rewrite).
 - [OpenShock/Integrations.Minecraft](https://github.com/OpenShock/Integrations.Minecraft) - [specific cited locations](Reference-Index.md#openshock-integrations-minecraft).
+- [openSUSE/libsolv](https://github.com/openSUSE/libsolv) - [specific cited locations](Reference-Index.md#opensuse-libsolv).
 - [OrnitheMC/calamus](https://github.com/OrnitheMC/calamus) - [specific cited locations](Reference-Index.md#ornithemc-calamus).
 - [OrnitheMC/feather](https://github.com/OrnitheMC/feather) - [specific cited locations](Reference-Index.md#ornithemc-feather).
 - [OrnitheMC/ploceus](https://github.com/OrnitheMC/ploceus) - [specific cited locations](Reference-Index.md#ornithemc-ploceus).
@@ -205,11 +222,15 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [PrismarineJS/minecraft-data](https://github.com/PrismarineJS/minecraft-data) - [specific cited locations](Reference-Index.md#prismarinejs-minecraft-data).
 - [PrismarineJS/mineflayer](https://github.com/PrismarineJS/mineflayer) - [specific cited locations](Reference-Index.md#prismarinejs-mineflayer).
 - [PrismarineJS/node-minecraft-protocol](https://github.com/PrismarineJS/node-minecraft-protocol) - [specific cited locations](Reference-Index.md#prismarinejs-node-minecraft-protocol).
+- [PrismLauncher/meta](https://github.com/PrismLauncher/meta) - [specific cited locations](Reference-Index.md#prismlauncher-meta).
+- [PrismLauncher/meta-launcher](https://github.com/PrismLauncher/meta-launcher) - [specific cited locations](Reference-Index.md#prismlauncher-meta-launcher).
 - [PrismLauncher/PrismLauncher](https://github.com/PrismLauncher/PrismLauncher) - [specific cited locations](Reference-Index.md#prismlauncher-prismlauncher).
 - [pubgrub-rs/pubgrub](https://github.com/pubgrub-rs/pubgrub) - [specific cited locations](Reference-Index.md#pubgrub-rs-pubgrub).
 - [Querz/mcaselector](https://github.com/Querz/mcaselector) - [specific cited locations](Reference-Index.md#querz-mcaselector).
 - [quickwit-oss/tantivy](https://github.com/quickwit-oss/tantivy) - [specific cited locations](Reference-Index.md#quickwit-oss-tantivy).
 - [QuiltMC/quilt-loader](https://github.com/QuiltMC/quilt-loader) - [specific cited locations](Reference-Index.md#quiltmc-quilt-loader).
+- [QuiltMC/quilt-loom](https://github.com/QuiltMC/quilt-loom) - [specific cited locations](Reference-Index.md#quiltmc-quilt-loom).
+- [QuiltMC/quilt-mappings](https://github.com/QuiltMC/quilt-mappings) - [specific cited locations](Reference-Index.md#quiltmc-quilt-mappings).
 - [Railroad-Team/Railroad](https://github.com/Railroad-Team/Railroad) - [specific cited locations](Reference-Index.md#railroad-team-railroad).
 - [raphw/byte-buddy](https://github.com/raphw/byte-buddy) - [specific cited locations](Reference-Index.md#raphw-byte-buddy).
 - [RelativityMC/neo-loom](https://github.com/RelativityMC/neo-loom) - [specific cited locations](Reference-Index.md#relativitymc-neo-loom).

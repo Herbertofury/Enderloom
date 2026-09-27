@@ -380,7 +380,7 @@
 - [ ] **D-e25fea4adba18b4d7825** - — Reconcile every T134–T232 and every parent gate.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T233 : 1886-1886](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1886-L1886)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T233 : 1949-1949](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1949-L1949)
 
 </details>
 
@@ -392,7 +392,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Audit every app-controlled WebView origin/resource need and replace the current app.security.csp: null with the narrowest Content Security Policy that preserves required functionality.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T242 : 2011-2011](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2011-L2011)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T242 : 2074-2074](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2074-L2074)
 
 </details>
 
@@ -404,7 +404,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Bake off Syft as a cross-language/archive SBOM aggregator and cargo-about for Rust license notices. Evaluate cargo-dist + cargo-auditable/cargo-cyclonedx where they simplify reproducible native release provenance without fighting Tauri packaging. Existing ORT/ScanCode and cargo-deny/audit/vet remain complementary policy/provenance controls.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T343 — Release/SBOM/license tooling convergence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T343 : 2369-2369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2369-L2369)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T343 : 2458-2458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2458-L2458)
 
 </details>
 
@@ -1309,7 +1309,7 @@
 - [ ] **D-d8f6b815e085f8d73469** - A candidate does not enter production merely because it appears in this table. Its relevant bakeoff/acceptance task must pass.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G059 — Final promotion matrix for researched technologies
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1806-1806](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1806-L1806)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1869-1869](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1869-L1869)
 
 </details>
 
@@ -1321,7 +1321,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Audit the complete updater path, including the current createUpdaterArtifacts: false configuration, CI/release artifact generation, signature verification, platform packages, update manifests, failed-update recovery and key rotation/recovery procedure.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T246 : 2038-2038](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2038-L2038)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T246 : 2101-2101](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2101-L2101)
 
 </details>
 
@@ -2180,7 +2180,7 @@
 - [ ] **D-f09cd5c42e1d77a53633** - GATE — A material regression/gap challenge has been performed after the implementation is otherwise green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G062 : 1882-1882](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1882-L1882)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G062 : 1945-1945](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1945-L1945)
 
 </details>
 
@@ -2191,7 +2191,7 @@
 - [ ] **D-9608a4375337c56ccdba** - — Checkpoint the completed implementation with:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T236 — Artifact/provenance checkpoint
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T236 : 1916-1916](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1916-L1916)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T236 : 1979-1979](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1979-L1979)
 
 </details>
 

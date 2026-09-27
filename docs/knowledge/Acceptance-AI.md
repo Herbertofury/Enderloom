@@ -357,7 +357,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Benchmark SQLite FTS5 trigram for smaller/local substring search and identity lookup workloads before creating a second full-text authority. Keep Tantivy for large ranked/full-text corpora only where it materially outperforms SQLite while returning equivalent logical results. Persist one canonical project/provider identity model regardless of index backend.
   - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T336 — SQLite FTS5 trigram vs Tantivy scope boundary
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T336 : 2120-2120](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2120-L2120)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T336 : 2183-2183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2183-L2183)
 
 </details>
 
@@ -369,7 +369,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Capture sanitized provider responses/DOM/network contracts where lawful and convert every real breakage into an adapter-level deterministic fixture so fixes improve the platform instead of becoming one-off patches.
   - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T272 — Turn provider breakages into adapter regression fixtures
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T272 : 2302-2302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2302-L2302)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T272 : 2373-2373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2373-L2373)
 
 </details>
 
@@ -754,7 +754,7 @@
 - [ ] **D-142e63e451458a9c48a0** - — Evaluate Extism if it materially simplifies packaging/versioning/cross-language plugins while preserving the same WIT/capability/security model. Otherwise use Wasmtime directly.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T270 — Bake off Extism as a convenience host, not as a second architecture
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T270 : 2294-2294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2294-L2294)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T270 : 2365-2365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2365-L2365)
 
 </details>
 
@@ -1177,7 +1177,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Keep the OS resolver by default. Evaluate Hickory DNS/DoH/DoQ only if measured provider latency/failure evidence points to resolver behavior and the privacy/enterprise-network implications are acceptable.
   - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T267 : 2245-2245](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2245-L2245)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T267 : 2314-2314](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2314-L2314)
 
 </details>
 
@@ -1347,7 +1347,7 @@
 <a id="ai-06-details"></a>
 ## AI-06 - Evidence Brain promotion and rollback
 
-[Outcome](Checklist.md#ai-06) / 103 source-derived details.
+[Outcome](Checklist.md#ai-06) / 104 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1868,6 +1868,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T372 — Independent API/signature compatibility oracle (1)</summary>
+
+<a id="d-41d35fda3157ce463cd6"></a>
+- [ ] **D-41d35fda3157ce463cd6** - — Add current OpenJDK SigTest as another independent source/binary API-signature oracle beside NeoForge JarCompatibilityChecker, Revapi and japicmp for fixtures where its signature...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add current OpenJDK SigTest as another independent source/binary API-signature oracle beside NeoForge JarCompatibilityChecker, Revapi and japicmp for fixtures where its signature-file/API-coverage model adds unique evidence. Normalize results into the same API-delta graph and keep disagreement visible.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T372 — Independent API/signature compatibility oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T372 : 826-826](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L826-L826)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T356 — Exact artifact identity before heuristic project matching (1)</summary>
 
 <a id="d-e4705f02caf9bc68d749"></a>
@@ -1875,7 +1887,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Persist evidence tiers: exact cryptographic byte match &gt; provider fingerprint/exact file match &gt; verified source/repository identity &gt; metadata/slug alias &gt; heuristic similarity. Never merge projects based only on display name or author/name similarity; ambiguity stays separate until stronger evidence arrives.
   - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T356 — Exact artifact identity before heuristic project matching
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2103-2103](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2103-L2103)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2166-2166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2166-L2166)
 
 </details>
 
@@ -1887,7 +1899,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** High-confidence known signatures may quarantine an artifact; heuristic capability hits produce warnings/review rather than an unsupported &quot;malware&quot; verdict. Recursively inspect nested JARs with strict size/depth/inflation budgets. Never execute suspicious code merely to classify it; any dynamic analysis belongs in a true disposable sandbox. Preserve provider URL/file hash/rule revision and matched evidence in the receipt.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T355 — Static mod-JAR threat screening before install/launch
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2347-2347](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2347-L2347)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2418-2418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2418-L2418)
 
 </details>
 
@@ -1898,7 +1910,7 @@
 - [ ] **D-41e731b53578f0dee3ce** - — Use this disposition unless new measured evidence changes it:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T279 : 2387-2387](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2387-L2387)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T279 : 2476-2476](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2476-L2476)
 
 </details>
 

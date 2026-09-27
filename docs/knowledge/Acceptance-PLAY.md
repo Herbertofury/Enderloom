@@ -884,7 +884,7 @@
 - [ ] **D-6b439f9b700162896c60** - GATE — Enderloom can inspect/build third-party mod projects without silently granting arbitrary host access and can account for imported/vendored code provenance.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G049 : 980-980](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L980-L980)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G049 : 1025-1025](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1025-L1025)
 
 </details>
 
@@ -1313,7 +1313,7 @@
 <a id="play-04-details"></a>
 ## PLAY-04 - Java, loaders and real launch
 
-[Outcome](Checklist.md#play-04) / 85 source-derived details.
+[Outcome](Checklist.md#play-04) / 87 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 5. PHASE B — FIRST REAL CANONICAL VERTICAL (1)</summary>
@@ -1662,25 +1662,49 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T367 — Launcher metadata and managed-Java differential authority (1)</summary>
+
+<a id="d-c01bf0879de4c3386758"></a>
+- [ ] **D-c01bf0879de4c3386758** - — Add a launcher/toolchain metadata evidence lane using official Mojang/Piston metadata first plus current PrismLauncher meta/meta-launcher as a strong normalized differential corp...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add a launcher/toolchain metadata evidence lane using official Mojang/Piston metadata first plus current PrismLauncher meta/meta-launcher as a strong normalized differential corpus for Minecraft libraries/assets/natives, compatible Java majors/runtime families, Forge/NeoForge/Fabric/Quilt/LiteLoader component metadata and installer manifests.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T367 — Launcher metadata and managed-Java differential authority
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T367 : 1015-1015](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1015-L1015)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof (1)</summary>
 
 <a id="d-280744c785fb58eb4b8d"></a>
 - [ ] **D-280744c785fb58eb4b8d** - — Launch a real target client through the QA-safe native launch path and prove resource reload/mod initialization plus affected behavior markers where possible.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T202 : 1222-1222](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1222-L1222)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T202 : 1267-1267](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1267-L1267)
 
 </details>
 
 <details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T358 — Launcher/install behavior corpus (1)</summary>
 
-<a id="d-9f838dc3e71a71ba8f3d"></a>
-- [ ] **D-9f838dc3e71a71ba8f3d** - — Maintain a differential behavior corpus from current HMCL, GDLauncher Carbon, Modrinth Theseus, PrismLauncher, ATLauncher and the Codeberg-origin minecraft-launcher-lib where eac...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Maintain a differential behavior corpus from current HMCL, GDLauncher Carbon, Modrinth Theseus, PrismLauncher, ATLauncher and the Codeberg-origin minecraft-launcher-lib where each provides unique evidence. Add current Rust-native comparators such as Rusty Minecraft Launcher, MiaoMinecraftLauncher (MMCL) and mc-launcher-core specifically for structured launch-command construction, metadata inheritance, cross-platform native extraction, loader installation, provider/modpack integration and progress/cancellation patterns. Mine loader installation, automatic Java selection/provisioning, Microsoft auth/session boundaries, native/library resolution, instance import/export, modpack formats, architecture/platform handling and recovery semantics.
+<a id="d-5d089d96d686836a2b54"></a>
+- [ ] **D-5d089d96d686836a2b54** - Use Prism meta/meta-launcher and official Mojang metadata as versioned launch/toolchain evidence per T367. Treat Modrinth Daedalus and bleeding-edge cross-loader projects such as O...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use Prism meta/meta-launcher and official Mojang metadata as versioned launch/toolchain evidence per T367. Treat Modrinth Daedalus and bleeding-edge cross-loader projects such as Octo Loader as research/differential corpora only until their claimed semantics are independently proven; never make Enderloom depend on experimental runtime translation just because a demo can start mixed-loader mods.
   - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T358 — Launcher/install behavior corpus
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T358 : 2255-2255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2255-L2255)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2326-2326](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2326-L2326)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T376 — Suspicious-mod dynamic detonation remains isolated and conditional (1)</summary>
+
+<a id="d-d929d4e91b89b30e35f0"></a>
+- [ ] **D-d929d4e91b89b30e35f0** - — Add an optional second-stage dynamic security lane only for suspicious/unknown artifacts that static evidence cannot resolve. Run the mod inside a disposable VM/container/sandbox...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add an optional second-stage dynamic security lane only for suspicious/unknown artifacts that static evidence cannot resolve. Run the mod inside a disposable VM/container/sandboxed Minecraft/JVM environment with no ambient credentials, restricted filesystem/network, recorded child processes/network destinations/file mutations and strict timeout/resource limits.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T376 — Suspicious-mod dynamic detonation remains isolated and conditional
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T376 : 2438-2438](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2438-L2438)
 
 </details>
 
@@ -2121,7 +2145,7 @@
 - [ ] **D-a2c6cc99999e42040e8c** - — Preserve the earlier MFT+USN Windows indexing plan for large local project/instance catalogs, with safe filesystem-walk fallback.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T211 : 1293-1293](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1293-L1293)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T211 : 1338-1338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1338-L1338)
 
 </details>
 
