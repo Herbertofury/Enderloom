@@ -33,6 +33,25 @@
 | [mcbeet/beet](https://github.com/mcbeet/beet) | Packs/commands | Current Beet/Mecha source pipeline and command validation. |
 | [SpyglassMC/Spyglass](https://github.com/SpyglassMC/Spyglass) | Diagnostics | Structured data-pack language diagnostics linked to real runtime tests. |
 | [JannisX11/blockbench](https://github.com/JannisX11/blockbench) | Visual codecs | Model/UV/animation round-trip reference and real assets. |
+| [VAST-AI-Research/AniGen](https://github.com/VAST-AI-Research/AniGen) | Concept -> rig | Single-image animate-ready mesh/skeleton/skinning challenger; exact third-party/model licenses remain gated. |
+| [VAST-AI-Research/SkinTokens](https://github.com/VAST-AI-Research/SkinTokens) | Auto-rigging | Current TokenRig skeleton + skin-weight challenger and UniRig successor; benchmark on Minecraft creature fixtures. |
+| [Isabella98Liu/RigAnything](https://github.com/Isabella98Liu/RigAnything) | Auto-rigging | Independent template-free skeleton/skinning oracle for unusual assets. |
+| [microsoft/TRELLIS.2](https://github.com/microsoft/TRELLIS.2) | 3D generation | Current high-fidelity image-to-3D/PBR challenger; Minecraftization remains a separate measured stage. |
+| [VAST-AI-Research/TripoSG](https://github.com/VAST-AI-Research/TripoSG) | 3D generation | High-fidelity image/scribble-to-3D challenger with face-budget control. |
+| [Tencent-Hunyuan/Hunyuan3D-Part](https://github.com/Tencent-Hunyuan/Hunyuan3D-Part) | Part decomposition | Semantic part segmentation/decomposition proposal stage before editable Minecraft hierarchy. |
+| [wgsxm/PartCrafter](https://github.com/wgsxm/PartCrafter) | Part generation | Structured multi-part generation challenger for separable creature/prop components. |
+| [buaacyw/MeshAnythingV2](https://github.com/buaacyw/MeshAnythingV2) | Retopology | Artist-like low-face topology challenger; compare against deterministic remesh/simplification. |
+| [MopicMP/gltf-to-minecraft](https://github.com/MopicMP/gltf-to-minecraft) | Minecraftization | glTF/GLB -> Minecraft cubes/GeckoLib/Bedrock/CPM bridge with animation and atlas handling. |
+| [toxicity188/BetterModel](https://github.com/toxicity188/BetterModel) | Model runtime | Bedrock-style Java model benchmark for meshes, Molang, IK, locators, player/armor and synchronization. |
+| [tomalbrc/blockbench-import-library](https://github.com/tomalbrc/blockbench-import-library) | Model runtime | bbmodel/ajmodel + Molang/effects/variants/locators and efficient virtual-display compatibility reference. |
+| [Animated-Java/animated-java](https://github.com/Animated-Java/animated-java) | Animation tooling | Rich Java Blockbench animation semantics; AGPL means adapter/oracle unless distribution deliberately complies. |
+| [Engine-Room/Flywheel](https://github.com/Engine-Room/Flywheel) | Rendering performance | GPU instancing/shader architecture challenger for high-detail crowds. |
+| [FoundryMC/Veil](https://github.com/FoundryMC/Veil) | Advanced rendering | Optional advanced rendering/tooling challenger; verify exact target compatibility. |
+| [zeux/meshoptimizer](https://github.com/zeux/meshoptimizer) | Mesh performance | Offline mesh cache/fetch/overdraw/simplification/LOD preprocessing candidate. |
+| [jpcy/xatlas](https://github.com/jpcy/xatlas) | UV tooling | Deterministic UV chart/unwrap/atlas candidate for mesh-assisted assets. |
+| [vrm-c/vrm-specification](https://github.com/vrm-c/vrm-specification) | Secondary motion | SpringBone semantics baseline for hair/vines/tails/cloth plus Enderloom extensions. |
+| [xloveee/jiggle-physics](https://github.com/xloveee/jiggle-physics) | Secondary motion | Weight-painted soft-region + damped spring reference for optional mesh deformation. |
+| [Low-Drag-MC/Photon](https://github.com/Low-Drag-MC/Photon) | VFX reference | Powerful VFX/editor benchmark; current non-commercial licensing makes source reuse rights-gated. |
 | [unnamed/mocha](https://github.com/unnamed/mocha) | Molang | Parser/evaluator/compiler comparisons with state/timing/thread correctness. |
 | [HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker) | Worlds | Staged exact-pair world translation, full field reconciliation and rollback. |
 | [kbinani/je2be-core](https://github.com/kbinani/je2be-core) | Worlds | Alternative/differential world backend; never a mod-code translator. |
@@ -117,6 +136,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [fjall-rs/fjall](https://github.com/fjall-rs/fjall) - [specific cited locations](Reference-Index.md#fjall-rs-fjall).
 - [foyer-rs/foyer](https://github.com/foyer-rs/foyer) - [specific cited locations](Reference-Index.md#foyer-rs-foyer).
 - [Fuzss/forge-config-api-port](https://github.com/Fuzss/forge-config-api-port) - [specific cited locations](Reference-Index.md#fuzss-forge-config-api-port).
+- [FxMorin/MoreCulling](https://github.com/FxMorin/MoreCulling) - [specific cited locations](Reference-Index.md#fxmorin-moreculling).
 - [Goldorion/Fabric-Generator-MCreator](https://github.com/Goldorion/Fabric-Generator-MCreator) - [specific cited locations](Reference-Index.md#goldorion-fabric-generator-mcreator).
 - [google/osv-scanner](https://github.com/google/osv-scanner) - [specific cited locations](Reference-Index.md#google-osv-scanner).
 - [gorilla-devs/ferium](https://github.com/gorilla-devs/ferium) - [specific cited locations](Reference-Index.md#gorilla-devs-ferium).
@@ -137,6 +157,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [itzg/mc-image-helper](https://github.com/itzg/mc-image-helper) - [specific cited locations](Reference-Index.md#itzg-mc-image-helper).
 - [itzg/rcon-cli](https://github.com/itzg/rcon-cli) - [specific cited locations](Reference-Index.md#itzg-rcon-cli).
 - [JakobDev/minecraft-launcher-lib](https://github.com/JakobDev/minecraft-launcher-lib) - [specific cited locations](Reference-Index.md#jakobdev-minecraft-launcher-lib).
+- [JannisX11/blockbench-plugins](https://github.com/JannisX11/blockbench-plugins) - [specific cited locations](Reference-Index.md#jannisx11-blockbench-plugins).
 - [jaredlll08/MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template) - [specific cited locations](Reference-Index.md#jaredlll08-multiloader-template).
 - [jarettr/intermed](https://github.com/jarettr/intermed) - [specific cited locations](Reference-Index.md#jarettr-intermed).
 - [juraj-hrivnak/Pakku](https://github.com/juraj-hrivnak/Pakku) - [specific cited locations](Reference-Index.md#juraj-hrivnak-pakku).
@@ -151,6 +172,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [Legacy-Fabric/Legacy-Intermediaries](https://github.com/Legacy-Fabric/Legacy-Intermediaries) - [specific cited locations](Reference-Index.md#legacy-fabric-legacy-intermediaries).
 - [leptos-rs/leptos](https://github.com/leptos-rs/leptos) - [specific cited locations](Reference-Index.md#leptos-rs-leptos).
 - [LlamaLad7/MixinExtras](https://github.com/LlamaLad7/MixinExtras) - [specific cited locations](Reference-Index.md#llamalad7-mixinextras).
+- [LodestarMC/Lodestone](https://github.com/LodestarMC/Lodestone) - [specific cited locations](Reference-Index.md#lodestarmc-lodestone).
 - [lucko/spark-docs](https://github.com/lucko/spark-docs) - [specific cited locations](Reference-Index.md#lucko-spark-docs).
 - [manifold-systems/manifold](https://github.com/manifold-systems/manifold) - [specific cited locations](Reference-Index.md#manifold-systems-manifold).
 - [mcbeet/mecha](https://github.com/mcbeet/mecha) - [specific cited locations](Reference-Index.md#mcbeet-mecha).
@@ -190,6 +212,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [mozilla/cargo-vet](https://github.com/mozilla/cargo-vet) - [specific cited locations](Reference-Index.md#mozilla-cargo-vet).
 - [mozilla/sccache](https://github.com/mozilla/sccache) - [specific cited locations](Reference-Index.md#mozilla-sccache).
 - [mstange/samply](https://github.com/mstange/samply) - [specific cited locations](Reference-Index.md#mstange-samply).
+- [naelstrof/JigglePhysics](https://github.com/naelstrof/JigglePhysics) - [specific cited locations](Reference-Index.md#naelstrof-jigglephysics).
 - [neoforged/AccessTransformers](https://github.com/neoforged/AccessTransformers) - [specific cited locations](Reference-Index.md#neoforged-accesstransformers).
 - [neoforged/FancyModLoader](https://github.com/neoforged/FancyModLoader) - [specific cited locations](Reference-Index.md#neoforged-fancymodloader).
 - [neoforged/InstallerTools](https://github.com/neoforged/InstallerTools) - [specific cited locations](Reference-Index.md#neoforged-installertools).
@@ -203,6 +226,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [nothub/mrpack-install](https://github.com/nothub/mrpack-install) - [specific cited locations](Reference-Index.md#nothub-mrpack-install).
 - [notify-rs/notify](https://github.com/notify-rs/notify) - [specific cited locations](Reference-Index.md#notify-rs-notify).
 - [obi1kenobi/cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks) - [specific cited locations](Reference-Index.md#obi1kenobi-cargo-semver-checks).
+- [Ocelot5836/molang-compiler](https://github.com/Ocelot5836/molang-compiler) - [specific cited locations](Reference-Index.md#ocelot5836-molang-compiler).
 - [oliveryasuna/modkit](https://github.com/oliveryasuna/modkit) - [specific cited locations](Reference-Index.md#oliveryasuna-modkit).
 - [openjdk/sigtest](https://github.com/openjdk/sigtest) - [specific cited locations](Reference-Index.md#openjdk-sigtest).
 - [openrewrite/rewrite](https://github.com/openrewrite/rewrite) - [specific cited locations](Reference-Index.md#openrewrite-rewrite).
@@ -240,6 +264,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [QuiltMC/quilt-loom](https://github.com/QuiltMC/quilt-loom) - [specific cited locations](Reference-Index.md#quiltmc-quilt-loom).
 - [QuiltMC/quilt-mappings](https://github.com/QuiltMC/quilt-mappings) - [specific cited locations](Reference-Index.md#quiltmc-quilt-mappings).
 - [Railroad-Team/Railroad](https://github.com/Railroad-Team/Railroad) - [specific cited locations](Reference-Index.md#railroad-team-railroad).
+- [RaphiMC/ImmediatelyFast](https://github.com/RaphiMC/ImmediatelyFast) - [specific cited locations](Reference-Index.md#raphimc-immediatelyfast).
 - [raphw/byte-buddy](https://github.com/raphw/byte-buddy) - [specific cited locations](Reference-Index.md#raphw-byte-buddy).
 - [RelativityMC/neo-loom](https://github.com/RelativityMC/neo-loom) - [specific cited locations](Reference-Index.md#relativitymc-neo-loom).
 - [ReplayMod/preprocessor](https://github.com/ReplayMod/preprocessor) - [specific cited locations](Reference-Index.md#replaymod-preprocessor).
@@ -272,6 +297,10 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [theorzr/portablemc](https://github.com/theorzr/portablemc) - [specific cited locations](Reference-Index.md#theorzr-portablemc).
 - [TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury) - [specific cited locations](Reference-Index.md#timstewartj-themightyarchitectury).
 - [tom5454/CustomPlayerModels](https://github.com/tom5454/CustomPlayerModels) - [specific cited locations](Reference-Index.md#tom5454-customplayermodels).
+- [toxicity188/ArmorModel](https://github.com/toxicity188/ArmorModel) - [specific cited locations](Reference-Index.md#toxicity188-armormodel).
+- [toxicity188/DynamicUV](https://github.com/toxicity188/DynamicUV) - [specific cited locations](Reference-Index.md#toxicity188-dynamicuv).
+- [toxicity188/java-mesh](https://github.com/toxicity188/java-mesh) - [specific cited locations](Reference-Index.md#toxicity188-java-mesh).
+- [tr7zw/EntityCulling](https://github.com/tr7zw/EntityCulling) - [specific cited locations](Reference-Index.md#tr7zw-entityculling).
 - [Traben-0/Entity_Model_Features](https://github.com/Traben-0/Entity_Model_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-model-features).
 - [Traben-0/Entity_Texture_Features](https://github.com/Traben-0/Entity_Texture_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-texture-features).
 - [trigram-mrp/fractureiser](https://github.com/trigram-mrp/fractureiser) - [specific cited locations](Reference-Index.md#trigram-mrp-fractureiser).
@@ -286,8 +315,10 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [ViaVersion/Mappings](https://github.com/ViaVersion/Mappings) - [specific cited locations](Reference-Index.md#viaversion-mappings).
 - [vorner/arc-swap](https://github.com/vorner/arc-swap) - [specific cited locations](Reference-Index.md#vorner-arc-swap).
 - [Voxelum/x-minecraft-launcher](https://github.com/Voxelum/x-minecraft-launcher) - [specific cited locations](Reference-Index.md#voxelum-x-minecraft-launcher).
+- [vrm-c/UniVRM](https://github.com/vrm-c/UniVRM) - [specific cited locations](Reference-Index.md#vrm-c-univrm).
 - [wangfu91/usn-journal-rs](https://github.com/wangfu91/usn-journal-rs) - [specific cited locations](Reference-Index.md#wangfu91-usn-journal-rs).
 - [wild-linker/wild](https://github.com/wild-linker/wild) - [specific cited locations](Reference-Index.md#wild-linker-wild).
+- [wjakob/instant-meshes](https://github.com/wjakob/instant-meshes) - [specific cited locations](Reference-Index.md#wjakob-instant-meshes).
 - [wvwwvwwv/scalable-concurrent-containers](https://github.com/wvwwvwwv/scalable-concurrent-containers) - [specific cited locations](Reference-Index.md#wvwwvwwv-scalable-concurrent-containers).
 - [YoshiKuro-Modding/MinecraftJavatoBedrockPorter](https://github.com/YoshiKuro-Modding/MinecraftJavatoBedrockPorter) - [specific cited locations](Reference-Index.md#yoshikuro-modding-minecraftjavatobedrockporter).
 - [ZerixNetwork/Bridger](https://github.com/ZerixNetwork/Bridger) - [specific cited locations](Reference-Index.md#zerixnetwork-bridger).

@@ -174,14 +174,14 @@
 <a id="make-06"></a>
 - [ ] **MAKE-06 - World, biome, structure and dimension authoring**
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
-  - **State:** unverified. **Details:** [94 source blocks](Sources-MAKE.md#make-06); 18 source documents.
+  - **State:** unverified. **Details:** [97 source blocks](Sources-MAKE.md#make-06); 19 source documents.
 
-**[Open 120 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 125 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [259 source blocks](Sources-MAKE.md#make-07); 30 source documents.
+  - **State:** unverified. **Details:** [288 source blocks](Sources-MAKE.md#make-07); 31 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
@@ -195,7 +195,7 @@
 <a id="make-09"></a>
 - [ ] **MAKE-09 - Reference and concept reconstruction**
   - **Accept:** Lawfully ingest images/GIFs/models/server resources, distinguish observed/inferred/authored facts, reconstruct from multiple views/times, preserve intended Minecraft style and verify native visuals.
-  - **State:** unverified. **Details:** [126 source blocks](Sources-MAKE.md#make-09); 18 source documents.
+  - **State:** unverified. **Details:** [128 source blocks](Sources-MAKE.md#make-09); 20 source documents.
 
 **[Open 29 detailed checks](Acceptance-MAKE.md#make-10-details)**
 
@@ -248,7 +248,7 @@
 <a id="port-05"></a>
 - [ ] **PORT-05 - Source migration and semantic repair**
   - **Accept:** Apply structured Java/Kotlin/AST/source-range transformations, version-hop rules, metadata/resources/build/config changes and stronger equivalents; do not trust global text replacement.
-  - **State:** unverified. **Details:** [277 source blocks](Sources-PORT.md#port-05); 33 source documents.
+  - **State:** unverified. **Details:** [278 source blocks](Sources-PORT.md#port-05); 34 source documents.
 
 **[Open 68 detailed checks](Acceptance-PORT.md#port-06-details)**
 
@@ -276,7 +276,7 @@
 <a id="port-09"></a>
 - [ ] **PORT-09 - Native loader and compatibility modes**
   - **Accept:** Translate loader semantics with real Sinytra/Kilt/Porting-Lib/Architectury evidence; explicitly distinguish native source ports, modified JARs and compatibility runtimes.
-  - **State:** unverified. **Details:** [209 source blocks](Sources-PORT.md#port-09); 28 source documents.
+  - **State:** unverified. **Details:** [210 source blocks](Sources-PORT.md#port-09); 29 source documents.
 
 **[Open 68 detailed checks](Acceptance-PORT.md#port-10-details)**
 
@@ -290,7 +290,7 @@
 <a id="port-11"></a>
 - [ ] **PORT-11 - Authorized server content to native mod**
   - **Accept:** Separate visual/model-runtime/gameplay source layers, recover supplied plugin/resource configurations and ship native behavior without requiring the original commercial server stack.
-  - **State:** unverified. **Details:** [134 source blocks](Sources-PORT.md#port-11); 32 source documents.
+  - **State:** unverified. **Details:** [136 source blocks](Sources-PORT.md#port-11); 33 source documents.
 
 **[Open 21 detailed checks](Acceptance-PORT.md#port-12-details)**
 
@@ -442,7 +442,7 @@
 <a id="test-01"></a>
 - [ ] **TEST-01 - Deterministic test sandbox**
   - **Accept:** Clone/snapshot only into Enderloom-owned test space, never benchmark live saves; fingerprint full mods/config/world/scenario/Java/loader/hardware conditions.
-  - **State:** unverified. **Details:** [623 source blocks](Sources-TEST.md#test-01); 30 source documents.
+  - **State:** unverified. **Details:** [624 source blocks](Sources-TEST.md#test-01); 31 source documents.
 
 **[Open 93 detailed checks](Acceptance-TEST.md#test-02-details)**
 
@@ -463,7 +463,7 @@
 <a id="test-04"></a>
 - [ ] **TEST-04 - Full CLI, JSON and MCP parity**
   - **Accept:** Expose every accepted domain command and job/evidence operation headlessly through the same service layer, structured events/errors/cancellation, recordable replay and CI integration.
-  - **State:** unverified. **Details:** [490 source blocks](Sources-TEST.md#test-04); 30 source documents.
+  - **State:** unverified. **Details:** [491 source blocks](Sources-TEST.md#test-04); 31 source documents.
 
 **[Open 61 detailed checks](Acceptance-TEST.md#test-05-details)**
 
@@ -502,7 +502,7 @@
 <a id="perf-01"></a>
 - [ ] **PERF-01 - Real mod and instance optimization**
   - **Accept:** Profile and repair dominant CPU/tick/render/worldgen/memory/I/O costs, apply reversible changes and retest; recommendations alone do not count as Optimize.
-  - **State:** unverified. **Details:** [154 source blocks](Sources-PERF.md#perf-01); 21 source documents.
+  - **State:** unverified. **Details:** [156 source blocks](Sources-PERF.md#perf-01); 23 source documents.
 
 **[Open 26 detailed checks](Acceptance-PERF.md#perf-02-details)**
 
@@ -516,7 +516,7 @@
 <a id="perf-03"></a>
 - [ ] **PERF-03 - Controlled A/B and full-pack attribution**
   - **Accept:** Use equivalent fingerprints, dependency-safe with/without plans, repeated samples, variance/confidence and stale-baseline detection; static risk is not measured causality.
-  - **State:** unverified. **Details:** [86 source blocks](Sources-PERF.md#perf-03); 23 source documents.
+  - **State:** unverified. **Details:** [87 source blocks](Sources-PERF.md#perf-03); 23 source documents.
 
 **[Open 81 detailed checks](Acceptance-PERF.md#perf-04-details)**
 
@@ -657,7 +657,7 @@
 <a id="play-04"></a>
 - [ ] **PLAY-04 - Java, loaders and real launch**
   - **Accept:** Discover/install correct Java/loaders, configure memory/arguments/environment, launch the actual game and supervise logs/processes with identity-checked termination and restart adoption.
-  - **State:** unverified. **Details:** [148 source blocks](Sources-PLAY.md#play-04); 27 source documents.
+  - **State:** unverified. **Details:** [149 source blocks](Sources-PLAY.md#play-04); 28 source documents.
 
 **[Open 16 detailed checks](Acceptance-PLAY.md#play-05-details)**
 
@@ -841,14 +841,14 @@
 <a id="know-03"></a>
 - [ ] **KNOW-03 - Adaptive ecosystem contracts**
   - **Accept:** Select behavior-driven integrations for storage/backpacks/accessories/recipes/Create/Apotheosis/food/guides/tooltips/scripts/animation/energy/quests/worldgen/rendering, not arbitrary mandatory dependencies.
-  - **State:** unverified. **Details:** [62 source blocks](Sources-KNOW.md#know-03); 10 source documents.
+  - **State:** unverified. **Details:** [63 source blocks](Sources-KNOW.md#know-03); 11 source documents.
 
 **[Open 75 detailed checks](Acceptance-KNOW.md#know-04-details)**
 
 <a id="know-04"></a>
 - [ ] **KNOW-04 - Compatibility execution and matrix**
   - **Accept:** Generate version-specific contract fixtures, provider-present/absent tests and exact target evidence; compiled API calls or similar names do not prove equivalent behavior.
-  - **State:** unverified. **Details:** [176 source blocks](Sources-KNOW.md#know-04); 30 source documents.
+  - **State:** unverified. **Details:** [177 source blocks](Sources-KNOW.md#know-04); 31 source documents.
 
 **[Open 12 detailed checks](Acceptance-KNOW.md#know-05-details)**
 

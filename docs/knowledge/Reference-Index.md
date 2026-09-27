@@ -45,6 +45,14 @@
 
 </details>
 
+<a id="animated-java-animated-java"></a>
+<details>
+<summary>Animated-Java/animated-java (1 cited locations)</summary>
+
+- [https://github.com/Animated-Java/animated-java](https://github.com/Animated-Java/animated-java)
+
+</details>
+
 <a id="apache-maven-resolver"></a>
 <details>
 <summary>apache/maven-resolver (1 cited locations)</summary>
@@ -219,6 +227,14 @@
 <summary>BrilliantTeam/Minecraft-ResourcePack-Migrator (1 cited locations)</summary>
 
 - [https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator](https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator)
+
+</details>
+
+<a id="buaacyw-meshanythingv2"></a>
+<details>
+<summary>buaacyw/MeshAnythingV2 (1 cited locations)</summary>
+
+- [https://github.com/buaacyw/MeshAnythingV2](https://github.com/buaacyw/MeshAnythingV2)
 
 </details>
 
@@ -446,6 +462,14 @@
 
 </details>
 
+<a id="engine-room-flywheel"></a>
+<details>
+<summary>Engine-Room/Flywheel (1 cited locations)</summary>
+
+- [https://github.com/Engine-Room/Flywheel](https://github.com/Engine-Room/Flywheel)
+
+</details>
+
 <a id="extism-extism"></a>
 <details>
 <summary>extism/extism (1 cited locations)</summary>
@@ -583,6 +607,14 @@
 
 </details>
 
+<a id="foundrymc-veil"></a>
+<details>
+<summary>FoundryMC/Veil (1 cited locations)</summary>
+
+- [https://github.com/FoundryMC/Veil](https://github.com/FoundryMC/Veil)
+
+</details>
+
 <a id="foyer-rs-foyer"></a>
 <details>
 <summary>foyer-rs/foyer (1 cited locations)</summary>
@@ -596,6 +628,14 @@
 <summary>Fuzss/forge-config-api-port (1 cited locations)</summary>
 
 - [https://github.com/Fuzss/forge-config-api-port](https://github.com/Fuzss/forge-config-api-port)
+
+</details>
+
+<a id="fxmorin-moreculling"></a>
+<details>
+<summary>FxMorin/MoreCulling (1 cited locations)</summary>
+
+- [https://github.com/FxMorin/MoreCulling](https://github.com/FxMorin/MoreCulling)
 
 </details>
 
@@ -791,6 +831,14 @@
 
 </details>
 
+<a id="isabella98liu-riganything"></a>
+<details>
+<summary>Isabella98Liu/RigAnything (1 cited locations)</summary>
+
+- [https://github.com/Isabella98Liu/RigAnything](https://github.com/Isabella98Liu/RigAnything)
+
+</details>
+
 <a id="isxander-modstitch"></a>
 <details>
 <summary>isXander/modstitch (1 cited locations)</summary>
@@ -839,6 +887,14 @@
 
 </details>
 
+<a id="jannisx11-blockbench-plugins"></a>
+<details>
+<summary>JannisX11/blockbench-plugins (1 cited locations)</summary>
+
+- [https://github.com/JannisX11/blockbench-plugins](https://github.com/JannisX11/blockbench-plugins)
+
+</details>
+
 <a id="jaredlll08-multiloader-template"></a>
 <details>
 <summary>jaredlll08/MultiLoader-Template (1 cited locations)</summary>
@@ -852,6 +908,14 @@
 <summary>jarettr/intermed (1 cited locations)</summary>
 
 - [https://github.com/jarettr/intermed](https://github.com/jarettr/intermed)
+
+</details>
+
+<a id="jpcy-xatlas"></a>
+<details>
+<summary>jpcy/xatlas (1 cited locations)</summary>
+
+- [https://github.com/jpcy/xatlas](https://github.com/jpcy/xatlas)
 
 </details>
 
@@ -964,6 +1028,22 @@
 <summary>LlamaLad7/MixinExtras (1 cited locations)</summary>
 
 - [https://github.com/LlamaLad7/MixinExtras](https://github.com/LlamaLad7/MixinExtras)
+
+</details>
+
+<a id="lodestarmc-lodestone"></a>
+<details>
+<summary>LodestarMC/Lodestone (1 cited locations)</summary>
+
+- [https://github.com/LodestarMC/Lodestone](https://github.com/LodestarMC/Lodestone)
+
+</details>
+
+<a id="low-drag-mc-photon"></a>
+<details>
+<summary>Low-Drag-MC/Photon (1 cited locations)</summary>
+
+- [https://github.com/Low-Drag-MC/Photon](https://github.com/Low-Drag-MC/Photon)
 
 </details>
 
@@ -1127,6 +1207,14 @@
 
 </details>
 
+<a id="microsoft-trellis-2"></a>
+<details>
+<summary>microsoft/TRELLIS.2 (1 cited locations)</summary>
+
+- [https://github.com/microsoft/TRELLIS.2](https://github.com/microsoft/TRELLIS.2)
+
+</details>
+
 <a id="milkdromedastudios-octo-loader"></a>
 <details>
 <summary>MilkdromedaStudios/Octo-Loader (1 cited locations)</summary>
@@ -1279,6 +1367,14 @@
 
 </details>
 
+<a id="mopicmp-gltf-to-minecraft"></a>
+<details>
+<summary>MopicMP/gltf-to-minecraft (1 cited locations)</summary>
+
+- [https://github.com/MopicMP/gltf-to-minecraft](https://github.com/MopicMP/gltf-to-minecraft)
+
+</details>
+
 <a id="mozilla-cargo-vet"></a>
 <details>
 <summary>mozilla/cargo-vet (1 cited locations)</summary>
@@ -1300,6 +1396,14 @@
 <summary>mstange/samply (1 cited locations)</summary>
 
 - [https://github.com/mstange/samply](https://github.com/mstange/samply)
+
+</details>
+
+<a id="naelstrof-jigglephysics"></a>
+<details>
+<summary>naelstrof/JigglePhysics (1 cited locations)</summary>
+
+- [https://github.com/naelstrof/JigglePhysics](https://github.com/naelstrof/JigglePhysics)
 
 </details>
 
@@ -1429,6 +1533,14 @@
 <summary>obi1kenobi/cargo-semver-checks (1 cited locations)</summary>
 
 - [https://github.com/obi1kenobi/cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks)
+
+</details>
+
+<a id="ocelot5836-molang-compiler"></a>
+<details>
+<summary>Ocelot5836/molang-compiler (1 cited locations)</summary>
+
+- [https://github.com/Ocelot5836/molang-compiler](https://github.com/Ocelot5836/molang-compiler)
 
 </details>
 
@@ -1737,6 +1849,14 @@
 
 </details>
 
+<a id="raphimc-immediatelyfast"></a>
+<details>
+<summary>RaphiMC/ImmediatelyFast (1 cited locations)</summary>
+
+- [https://github.com/RaphiMC/ImmediatelyFast](https://github.com/RaphiMC/ImmediatelyFast)
+
+</details>
+
 <a id="raphw-byte-buddy"></a>
 <details>
 <summary>raphw/byte-buddy (1 cited locations)</summary>
@@ -1987,6 +2107,14 @@
 
 </details>
 
+<a id="tencent-hunyuan-hunyuan3d-part"></a>
+<details>
+<summary>Tencent-Hunyuan/Hunyuan3D-Part (1 cited locations)</summary>
+
+- [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part](https://github.com/Tencent-Hunyuan/Hunyuan3D-Part)
+
+</details>
+
 <a id="tencentarc-instantmesh"></a>
 <details>
 <summary>TencentARC/InstantMesh (1 cited locations)</summary>
@@ -2024,6 +2152,54 @@
 <summary>tom5454/CustomPlayerModels (1 cited locations)</summary>
 
 - [https://github.com/tom5454/CustomPlayerModels](https://github.com/tom5454/CustomPlayerModels)
+
+</details>
+
+<a id="tomalbrc-blockbench-import-library"></a>
+<details>
+<summary>tomalbrc/blockbench-import-library (1 cited locations)</summary>
+
+- [https://github.com/tomalbrc/blockbench-import-library](https://github.com/tomalbrc/blockbench-import-library)
+
+</details>
+
+<a id="toxicity188-armormodel"></a>
+<details>
+<summary>toxicity188/ArmorModel (1 cited locations)</summary>
+
+- [https://github.com/toxicity188/ArmorModel](https://github.com/toxicity188/ArmorModel)
+
+</details>
+
+<a id="toxicity188-bettermodel"></a>
+<details>
+<summary>toxicity188/BetterModel (1 cited locations)</summary>
+
+- [https://github.com/toxicity188/BetterModel](https://github.com/toxicity188/BetterModel)
+
+</details>
+
+<a id="toxicity188-dynamicuv"></a>
+<details>
+<summary>toxicity188/DynamicUV (1 cited locations)</summary>
+
+- [https://github.com/toxicity188/DynamicUV](https://github.com/toxicity188/DynamicUV)
+
+</details>
+
+<a id="toxicity188-java-mesh"></a>
+<details>
+<summary>toxicity188/java-mesh (1 cited locations)</summary>
+
+- [https://github.com/toxicity188/java-mesh](https://github.com/toxicity188/java-mesh)
+
+</details>
+
+<a id="tr7zw-entityculling"></a>
+<details>
+<summary>tr7zw/EntityCulling (1 cited locations)</summary>
+
+- [https://github.com/tr7zw/EntityCulling](https://github.com/tr7zw/EntityCulling)
 
 </details>
 
@@ -2107,6 +2283,30 @@
 
 </details>
 
+<a id="vast-ai-research-anigen"></a>
+<details>
+<summary>VAST-AI-Research/AniGen (1 cited locations)</summary>
+
+- [https://github.com/VAST-AI-Research/AniGen](https://github.com/VAST-AI-Research/AniGen)
+
+</details>
+
+<a id="vast-ai-research-skintokens"></a>
+<details>
+<summary>VAST-AI-Research/SkinTokens (1 cited locations)</summary>
+
+- [https://github.com/VAST-AI-Research/SkinTokens](https://github.com/VAST-AI-Research/SkinTokens)
+
+</details>
+
+<a id="vast-ai-research-triposg"></a>
+<details>
+<summary>VAST-AI-Research/TripoSG (1 cited locations)</summary>
+
+- [https://github.com/VAST-AI-Research/TripoSG](https://github.com/VAST-AI-Research/TripoSG)
+
+</details>
+
 <a id="vast-ai-research-triposr"></a>
 <details>
 <summary>VAST-AI-Research/TripoSR (1 cited locations)</summary>
@@ -2171,11 +2371,35 @@
 
 </details>
 
+<a id="vrm-c-univrm"></a>
+<details>
+<summary>vrm-c/UniVRM (1 cited locations)</summary>
+
+- [https://github.com/vrm-c/UniVRM](https://github.com/vrm-c/UniVRM)
+
+</details>
+
+<a id="vrm-c-vrm-specification"></a>
+<details>
+<summary>vrm-c/vrm-specification (1 cited locations)</summary>
+
+- [https://github.com/vrm-c/vrm-specification](https://github.com/vrm-c/vrm-specification)
+
+</details>
+
 <a id="wangfu91-usn-journal-rs"></a>
 <details>
 <summary>wangfu91/usn-journal-rs (1 cited locations)</summary>
 
 - [https://github.com/wangfu91/usn-journal-rs](https://github.com/wangfu91/usn-journal-rs)
+
+</details>
+
+<a id="wgsxm-partcrafter"></a>
+<details>
+<summary>wgsxm/PartCrafter (1 cited locations)</summary>
+
+- [https://github.com/wgsxm/PartCrafter](https://github.com/wgsxm/PartCrafter)
 
 </details>
 
@@ -2187,11 +2411,27 @@
 
 </details>
 
+<a id="wjakob-instant-meshes"></a>
+<details>
+<summary>wjakob/instant-meshes (1 cited locations)</summary>
+
+- [https://github.com/wjakob/instant-meshes](https://github.com/wjakob/instant-meshes)
+
+</details>
+
 <a id="wvwwvwwv-scalable-concurrent-containers"></a>
 <details>
 <summary>wvwwvwwv/scalable-concurrent-containers (1 cited locations)</summary>
 
 - [https://github.com/wvwwvwwv/scalable-concurrent-containers](https://github.com/wvwwvwwv/scalable-concurrent-containers)
+
+</details>
+
+<a id="xloveee-jiggle-physics"></a>
+<details>
+<summary>xloveee/jiggle-physics (1 cited locations)</summary>
+
+- [https://github.com/xloveee/jiggle-physics](https://github.com/xloveee/jiggle-physics)
 
 </details>
 
@@ -2208,6 +2448,14 @@
 <summary>ZerixNetwork/Bridger (1 cited locations)</summary>
 
 - [https://github.com/ZerixNetwork/Bridger](https://github.com/ZerixNetwork/Bridger)
+
+</details>
+
+<a id="zeux-meshoptimizer"></a>
+<details>
+<summary>zeux/meshoptimizer (1 cited locations)</summary>
+
+- [https://github.com/zeux/meshoptimizer](https://github.com/zeux/meshoptimizer)
 
 </details>
 

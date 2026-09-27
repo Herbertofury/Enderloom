@@ -20,6 +20,8 @@
 - [Knowledge and compatibility](Knowledge-and-Compatibility.md)
 - [Security, preservation and release](Quality-and-Release.md)
 
+[Variant Foundry & High-Fidelity Java Models](Variant-Foundry-and-High-Fidelity-Java-Models.md)
+
 [Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)
 
 [Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)

@@ -1831,7 +1831,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 120 source-derived details.
+[Outcome](Checklist.md#make-07) / 125 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2195,6 +2195,29 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 14. Challenger/integration policy
   - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L361-L361)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates (1)</summary>
+
+<a id="d-8bb3af3e4c664cfa4062"></a>
+- [ ] **D-8bb3af3e4c664cfa4062** - The runtime/authoring plan must now explicitly challenge itself against:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 441-441](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L441-L441)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep (1)</summary>
+
+<a id="d-743f0b2e04083bfe29bb"></a>
+- [ ] **D-743f0b2e04083bfe29bb** - - glTF/GLB becomes a first-class typed interchange format. Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - glTF/GLB becomes a first-class typed interchange format. Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-specific reduction. - IK becomes part of the animation IR. Preserve IK targets/chains/constraints when a backend supports them; otherwise bake with explicit loss evidence. - Part segmentation is an evidence source, not truth. Generated semantic parts must reconcile against SubjectDNA, source landmarks and editable Blockbench hierarchy. - Mesh-assisted output gets an approximation ledger. If the target backend requires cuboids/planes, report exactly which mesh regions were approximated and how much silhouette/texture fidelity changed. - Secondary motion uses portable spring-bone semantics. Support rest pose, stiffness, drag/damping, gravity, inertia, angle limits and sphere/capsule collision, then extend with Bloom &amp; Boom wind/water/material phenotypes. - Offline preprocessing is preferred over per-frame waste. UV packing, atlas generation, mesh optimization/LOD candidates, expression compilation and immutable pose/controller data are built/cached ahead of runtime when safe. - License/model-weight checks are machine-readable gates. A source-code license does not automatically cover bundled third-party code or model weights.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 455-461](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L455-L461)
 
 </details>
 
@@ -2841,6 +2864,42 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
   - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 376-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L376-L376)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Concept/reference -&gt; animate-ready asset (1)</summary>
+
+<a id="d-0b6da11963b8f473c3c4"></a>
+- [ ] **D-0b6da11963b8f473c3c4** - - VAST-AI-Research/AniGen — single image -&gt; coherent mesh + skeleton + skinning in one animate-ready pipeline. This is the strongest new direct challenger for concept-art blocko...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - VAST-AI-Research/AniGen — single image -&gt; coherent mesh + skeleton + skinning in one animate-ready pipeline. This is the strongest new direct challenger for concept-art blockout/rig hypotheses. Source is MIT, but its repository documents third-party components with additional restrictions, so Enderloom must license-gate the exact dependency path rather than treating the whole stack as unrestricted. - https://github.com/VAST-AI-Research/AniGen - VAST-AI-Research/SkinTokens / TokenRig — successor to UniRig; mesh -&gt; unified skeleton hierarchy + skin weights. Prefer it as the current auto-rig challenger while retaining UniRig and RigAnything as differential oracles. - https://github.com/VAST-AI-Research/SkinTokens - Isabella98Liu/RigAnything — template-free mesh rigging; useful differential rig oracle for unusual mobs, quadrupeds and non-humanoid assets. - https://github.com/Isabella98Liu/RigAnything - Microsoft TRELLIS.2 — current high-fidelity image-to-3D candidate with PBR attributes, opacity and difficult topology support. It supersedes the first-pass TRELLIS-only comparison lane; keep both only where the older pipeline still wins an exact fixture. - https://github.com/microsoft/TRELLIS.2 - VAST-AI-Research/TripoSG — high-fidelity image-to-3D challenger with controllable face limits and a scribble+prompt route useful for concept correction. - https://github.com/VAST-AI-Research/TripoSG
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Concept/reference -&gt; animate-ready asset
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 14-23](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L14-L23)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Java/server runtime semantics (1)</summary>
+
+<a id="d-a6278d28d0a4c04745b6"></a>
+- [ ] **D-a6278d28d0a4c04745b6** - - toxicity188/BetterModel — current Bedrock-style Java model engine benchmark with Blockbench cubes/meshes/nulls/locators, Molang, IK, player models/custom armor, syncing and perfo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - toxicity188/BetterModel — current Bedrock-style Java model engine benchmark with Blockbench cubes/meshes/nulls/locators, Molang, IK, player models/custom armor, syncing and performance-oriented packet rendering. Its mesh/IK/Molang architecture is a major challenger for Enderloom&#x27;s high-fidelity IR/runtime decisions. - https://github.com/toxicity188/BetterModel - tomalbrc/blockbench-import-library — imports .bbmodel/.ajmodel, supports animations/Molang/effect keyframes/variants/locators, virtual Item Displays, asynchronous transforms, culling boxes and many vanilla entity behaviors. Use as an adapter/fixture/reference for efficient server-model compatibility. - https://github.com/tomalbrc/blockbench-import-library - Animated-Java/animated-java — rich Java display-entity animation semantics: variants, easing, tweening, locators, cameras and Molang. Its AGPL licensing means Enderloom must not silently vendor source into an incompatible distribution; use an adapter, subprocess/export boundary or behavioral oracle unless the chosen distribution intentionally complies. - https://github.com/Animated-Java/animated-java - toxicity188/java-mesh, DynamicUV, ArmorModel, and Ocelot5836/molang-compiler — BetterModel&#x27;s component ecosystem is worth evaluating independently for mesh rendering, dynamic UV/player skin handling, armor and compiled Molang. - https://github.com/toxicity188/java-mesh - https://github.com/toxicity188/DynamicUV - https://github.com/toxicity188/ArmorModel - https://github.com/Ocelot5836/molang-compiler
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Java/server runtime semantics
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 38-48](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L38-L48)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Architecture decisions from this sweep (1)</summary>
+
+<a id="d-88e1fa0b481ff4154862"></a>
+- [ ] **D-88e1fa0b481ff4154862** - 1. Make glTF a first-class interchange lane. Concept-generation and auto-rig challengers commonly emit GLB/glTF. Enderloom should preserve rig, skin, material and provenance throug...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Make glTF a first-class interchange lane. Concept-generation and auto-rig challengers commonly emit GLB/glTF. Enderloom should preserve rig, skin, material and provenance through a typed glTF intake before Minecraftization. 2. Separate shape, part decomposition, rigging and Minecraftization. Do not let one generative model become an all-or-nothing dependency. AniGen can propose all three, but Hunyuan3D-Part, SkinTokens/RigAnything and glTF-to-Minecraft provide independent challenge lanes. 3. Add IK to the high-fidelity animation IR. BetterModel proves this is useful in the Minecraft model ecosystem; Enderloom should support authored/solved IK constraints and bake only when the target backend requires it. 4. Support mesh-assisted Java without abandoning cuboid-native output. Preserve mesh primitives where the selected renderer can actually handle them; otherwise use measured cuboid/plane fitting with an explicit approximation report. 5. Adopt a portable spring-bone semantics layer. VRM SpringBone concepts + Enderloom extensions for water/wind/material phenotype are a better baseline than bespoke one-off vine code. 6. Optimize offline before spending frame time. Atlas/UV generation, mesh simplification, cache/fetch ordering, expression compilation and immutable shared data should be preprocessing steps whenever possible. 7. Crowd performance needs GPU/renderer challengers. Benchmark Flywheel-style instancing and optional custom GPU skinning/matrix upload against normal GeckoLib/native paths; promote only when compatibility and actual frame-time improve. 8. License is part of the adapter contract. AGPL/non-commercial/research-only components stay isolated or reference-only unless the chosen Enderloom distribution and user authorization make direct integration lawful. 9. Blockbench plugin parity is a QoL floor. Enderloom Studio should import/export or expose equivalent/better workflows for the useful plugin features above while keeping one canonical Enderloom model/animation truth. 10. Every candidate becomes a regression fixture. The Bloom &amp; Boom creature family should benchmark concept -&gt; shape -&gt; parts -&gt; rig -&gt; Minecraft model -&gt; secondary motion -&gt; native runtime -&gt; crowd performance so future challengers can be compared without subjective replacement.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Architecture decisions from this sweep
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 108-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L108-L117)
 
 </details>
 
