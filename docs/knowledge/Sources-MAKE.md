@@ -10,7 +10,7 @@
 [**MAKE-01**](Checklist.md#make-01)
 
 <details>
-<summary>Source clauses and aliases (125 distinct blocks)</summary>
+<summary>Source clauses and aliases (126 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Snapshots / backups / recovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L220-L220) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L646-L648) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -56,6 +56,7 @@
 - [30. Architecture additions required in Wave A](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1077-L1077) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [4. Enderloom Developer IDE — actual coding workbench / 4.4 Git/source control](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L228-L228) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L294-L326) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 29 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L139-L139) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 9. Server-model -&gt; native Java upgrade](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L254-L254) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [12. IMPLEMENTATION ORDER — BUILD THE PRODUCT, DO NOT WRITE MORE PLANS / Pass 2 — Make Create / Convert / Repair / Optimize use one execution engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L629-L629) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2221-L2221) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
@@ -359,7 +360,7 @@
 [**MAKE-07**](Checklist.md#make-07)
 
 <details>
-<summary>Source clauses and aliases (288 distinct blocks)</summary>
+<summary>Source clauses and aliases (293 distinct blocks)</summary>
 
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L98-L104) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G042 — Canonical conversion IR family / T144 — Implement `ProjectIR`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L403-L403) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -421,6 +422,7 @@
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Java/server runtime semantics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L38-L48) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Part decomposition / Minecraftization](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L25-L25) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — effects / materials / authoring QoL](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L81-L104) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep / Consequences](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L163-L169) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 2 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — performance and rendering architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L52-L65) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — secondary motion / physics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L67-L77) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 3 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Required benchmark matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L121-L136) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 3 distinct blocks.
@@ -435,6 +437,7 @@
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L435-L451) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 5 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L453-L461) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 2 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.2 Blockbench parity floor](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L463-L467) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 3 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L472-L481) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 3 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 2. Compatibility and inspiration lanes](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L25-L38) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L44-L74) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 4 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 4. Bedrock parity translation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L82-L91) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
@@ -526,7 +529,7 @@
 [**MAKE-08**](Checklist.md#make-08)
 
 <details>
-<summary>Source clauses and aliases (33 distinct blocks)</summary>
+<summary>Source clauses and aliases (34 distinct blocks)</summary>
 
 - [6. Native Asset Authoring / Animation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L247-L265) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 2 distinct blocks.
 - [6. Native Asset Authoring / VFX / SFX hooks](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L269-L275) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -541,6 +544,7 @@
 - [4. Enderloom Developer IDE — actual coding workbench / 4.1 Editors/languages](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L189-L189) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L353-L353) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [9. Particle / Audio / UI / Font / Material Studio / 9.1 Particle editor](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L501-L501) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L141-L141) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.14 Differential original-vs-port testing](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4595-L4604) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.3 Test lanes ordered by cost / Lane 0 — pure static/semantic checks](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4029-L4044) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Bedrock / Marketplace rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L127-L127) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
@@ -709,7 +713,7 @@
 [**MAKE-11**](Checklist.md#make-11)
 
 <details>
-<summary>Source clauses and aliases (38 distinct blocks)</summary>
+<summary>Source clauses and aliases (40 distinct blocks)</summary>
 
 - [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L699-L699) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L816-L816) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -728,9 +732,11 @@
 - [33. File / Storage Intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1274-L1274) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L341-L341) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [7. Command / Data / Worldgen Generator Studio / 7.4 Specialized utilities](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L424-L424) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L143-L161) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 16. Non-negotiable invariants](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L422-L432) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.3 Determinism and replay](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L160-L160) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [12. IMPLEMENTATION ORDER — BUILD THE PRODUCT, DO NOT WRITE MORE PLANS / Pass 8 — Real convergence QA and package](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L669-L669) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / More Java-native references from the second pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L251-L256) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L510-L510) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [2. BUILD A REAL STONECUTTER-LIKE MATRIX, BUT MAKE IT ENDERLOOM-NATIVE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L43-L71) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 2 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Information architecture and screen contracts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L151-L162) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.

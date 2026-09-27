@@ -52,6 +52,15 @@
 | [vrm-c/vrm-specification](https://github.com/vrm-c/vrm-specification) | Secondary motion | SpringBone semantics baseline for hair/vines/tails/cloth plus Enderloom extensions. |
 | [xloveee/jiggle-physics](https://github.com/xloveee/jiggle-physics) | Secondary motion | Weight-painted soft-region + damped spring reference for optional mesh deformation. |
 | [Low-Drag-MC/Photon](https://github.com/Low-Drag-MC/Photon) | VFX reference | Powerful VFX/editor benchmark; current non-commercial licensing makes source reuse rights-gated. |
+| [team-abnormals/blueprint](https://github.com/team-abnormals/blueprint) | Animation runtime | Endimator is a lightweight native animation lane/oracle for simpler Java entities. |
+| [FoundationGames/JsonEM](https://github.com/FoundationGames/JsonEM) | Model introspection | JSON entity model dump/load reference for live model inventory and resource-defined fixtures. |
+| [Gamepiaynmo/CustomPlayerModel](https://github.com/Gamepiaynmo/CustomPlayerModel) | Model physics | Independent Java JSON model/scripting/particle/physics runtime for players and other entities. |
+| [mchorse/bbs-mod](https://github.com/mchorse/bbs-mod) | Animation studio reference | Archived Minecraft animation studio; mine behavior/fixtures, do not adopt as current runtime dependency. |
+| [BBS-Engine/bbs](https://github.com/BBS-Engine/bbs) | Animation studio | Active Java voxel animation-studio architecture for timeline/camera/model-preview ideas. |
+| [FiguraMC/figura-core](https://github.com/FiguraMC/figura-core) | Avatar architecture | Minecraft-independent Figura core is a portability/reference lane for Enderloom model runtime. |
+| [FiguraMC/figura-client](https://github.com/FiguraMC/figura-client) | Avatar architecture | Thin Minecraft/version integration reference for portable model/avatar logic. |
+| [FiguraMC/figura-molang](https://github.com/FiguraMC/figura-molang) | Expressions | Current Figura Molang-like expression module is a differential parser/evaluator reference. |
+| [AlexModGuy/Citadel](https://github.com/AlexModGuy/Citadel) | Legacy animation reference | Mature hierarchical/default-pose model utilities; reference/fixture rather than preferred modern backend. |
 | [unnamed/mocha](https://github.com/unnamed/mocha) | Molang | Parser/evaluator/compiler comparisons with state/timing/thread correctness. |
 | [HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker) | Worlds | Staged exact-pair world translation, full field reconciliation and rollback. |
 | [kbinani/je2be-core](https://github.com/kbinani/je2be-core) | Worlds | Alternative/differential world backend; never a mod-code translator. |

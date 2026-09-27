@@ -139,7 +139,7 @@
 <a id="make-01"></a>
 - [ ] **MAKE-01 - Arbitrary native mod creation**
   - **Accept:** Create blank, starter or imported projects with functioning content, stable identity, build/test setup and source escape hatches; templates and block/item examples are not the ceiling.
-  - **State:** unverified. **Details:** [125 source blocks](Sources-MAKE.md#make-01); 31 source documents.
+  - **State:** unverified. **Details:** [126 source blocks](Sources-MAKE.md#make-01); 32 source documents.
 
 **[Open 44 detailed checks](Acceptance-MAKE.md#make-02-details)**
 
@@ -176,19 +176,19 @@
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
   - **State:** unverified. **Details:** [97 source blocks](Sources-MAKE.md#make-06); 19 source documents.
 
-**[Open 125 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 126 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [288 source blocks](Sources-MAKE.md#make-07); 31 source documents.
+  - **State:** unverified. **Details:** [293 source blocks](Sources-MAKE.md#make-07); 31 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
 <a id="make-08"></a>
 - [ ] **MAKE-08 - Animation, Molang, effects and audio**
   - **Accept:** Timeline/scrubbing, easing/interpolation, expressions/scopes, locators, sounds/particles/custom tracks and real audio playback preserve behavior, timing and thread isolation.
-  - **State:** unverified. **Details:** [33 source blocks](Sources-MAKE.md#make-08); 13 source documents.
+  - **State:** unverified. **Details:** [34 source blocks](Sources-MAKE.md#make-08); 14 source documents.
 
 **[Open 48 detailed checks](Acceptance-MAKE.md#make-09-details)**
 
@@ -204,12 +204,12 @@
   - **Accept:** Build interacting content families with version-specific integrations, edit/play/rebuild and convert them; a decorative block or asset pack alone is not a complete created mod.
   - **State:** unverified. **Details:** [52 source blocks](Sources-MAKE.md#make-10); 21 source documents.
 
-**[Open 21 detailed checks](Acceptance-MAKE.md#make-11-details)**
+**[Open 22 detailed checks](Acceptance-MAKE.md#make-11-details)**
 
 <a id="make-11"></a>
 - [ ] **MAKE-11 - Real preview and native comparison**
   - **Accept:** Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
-  - **State:** unverified. **Details:** [38 source blocks](Sources-MAKE.md#make-11); 20 source documents.
+  - **State:** unverified. **Details:** [40 source blocks](Sources-MAKE.md#make-11); 22 source documents.
 
 ## Universal conversion engine
 
@@ -220,7 +220,7 @@
 <a id="port-01"></a>
 - [ ] **PORT-01 - Input and source authority**
   - **Accept:** Identify repositories/folders/source archives/JARs/Bedrock/plugin packs by real identity and lineage; inventory before execution, deduplicate identical imports and retain originals.
-  - **State:** unverified. **Details:** [282 source blocks](Sources-PORT.md#port-01); 32 source documents.
+  - **State:** unverified. **Details:** [283 source blocks](Sources-PORT.md#port-01); 32 source documents.
 
 **[Open 8 detailed checks](Acceptance-PORT.md#port-02-details)**
 
@@ -248,7 +248,7 @@
 <a id="port-05"></a>
 - [ ] **PORT-05 - Source migration and semantic repair**
   - **Accept:** Apply structured Java/Kotlin/AST/source-range transformations, version-hop rules, metadata/resources/build/config changes and stronger equivalents; do not trust global text replacement.
-  - **State:** unverified. **Details:** [278 source blocks](Sources-PORT.md#port-05); 34 source documents.
+  - **State:** unverified. **Details:** [279 source blocks](Sources-PORT.md#port-05); 35 source documents.
 
 **[Open 68 detailed checks](Acceptance-PORT.md#port-06-details)**
 
@@ -290,7 +290,7 @@
 <a id="port-11"></a>
 - [ ] **PORT-11 - Authorized server content to native mod**
   - **Accept:** Separate visual/model-runtime/gameplay source layers, recover supplied plugin/resource configurations and ship native behavior without requiring the original commercial server stack.
-  - **State:** unverified. **Details:** [136 source blocks](Sources-PORT.md#port-11); 33 source documents.
+  - **State:** unverified. **Details:** [137 source blocks](Sources-PORT.md#port-11); 33 source documents.
 
 **[Open 21 detailed checks](Acceptance-PORT.md#port-12-details)**
 
@@ -816,7 +816,7 @@
 <a id="ai-07"></a>
 - [ ] **AI-07 - AI evaluation and observability**
   - **Accept:** Record model/provider/tool versions, costs/quotas when actually available, iterations/errors/outcomes and quality fixtures; no hidden truncation, fabricated unlimited access or unverified capability claims.
-  - **State:** unverified. **Details:** [137 source blocks](Sources-AI.md#ai-07); 24 source documents.
+  - **State:** unverified. **Details:** [138 source blocks](Sources-AI.md#ai-07); 25 source documents.
 
 ## Knowledge and compatibility
 

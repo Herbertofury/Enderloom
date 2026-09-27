@@ -1831,7 +1831,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 125 source-derived details.
+[Outcome](Checklist.md#make-07) / 126 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2218,6 +2218,18 @@
   - **Full requirement:** - glTF/GLB becomes a first-class typed interchange format. Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-specific reduction. - IK becomes part of the animation IR. Preserve IK targets/chains/constraints when a backend supports them; otherwise bake with explicit loss evidence. - Part segmentation is an evidence source, not truth. Generated semantic parts must reconcile against SubjectDNA, source landmarks and editable Blockbench hierarchy. - Mesh-assisted output gets an approximation ledger. If the target backend requires cuboids/planes, report exactly which mesh regions were approximated and how much silhouette/texture fidelity changed. - Secondary motion uses portable spring-bone semantics. Support rest pose, stiffness, drag/damping, gravity, inertia, angle limits and sphere/capsule collision, then extend with Bloom &amp; Boom wind/water/material phenotypes. - Offline preprocessing is preferred over per-frame waste. UV packing, atlas generation, mesh optimization/LOD candidates, expression compilation and immutable pose/controller data are built/cached ahead of runtime when safe. - License/model-weight checks are machine-readable gates. A source-code license does not automatically cover bundled third-party code or model weights.
   - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep
   - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 455-461](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L455-L461)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures (1)</summary>
+
+<a id="d-a0eec4ed0f625c71e057"></a>
+- [ ] **D-a0eec4ed0f625c71e057** - Use source only under the exact project&#x27;s license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable j...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use source only under the exact project&#x27;s license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable just because the runtime source is open.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L481-L481)
 
 </details>
 
@@ -3911,7 +3923,7 @@
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 21 source-derived details.
+[Outcome](Checklist.md#make-11) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -4093,6 +4105,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 33. File / Storage Intelligence
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1274-1274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1274-L1274)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep (1)</summary>
+
+<a id="d-4e2f580f4adf74d89d83"></a>
+- [ ] **D-4e2f580f4adf74d89d83** - - Cobblemon runtime + model pipeline — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Cobblemon runtime + model pipeline — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation, and its current source has a mature PosableModel/Bedrock animation repository architecture. Use its MPL-2.0 source code as a lawful differential design reference where applicable; do not reuse Cobblemon art assets as general Enderloom source because the separate asset repository is CC BY-NC. - https://gitlab.com/cable-mc/cobblemon - https://gitlab.com/cable-mc/cobblemon-assets - https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model - BBS / BBS Engine — McHorse&#x27;s animation-studio lineage is valuable for animation timelines, cameras, model/pose editing and Java voxel-model tooling. The old Minecraft bbs-mod repository is archived, so use it as a behavioral/reference corpus; compare reusable engine ideas with the active standalone BBS engine rather than adopting an archived runtime blindly. - https://github.com/mchorse/bbs-mod - https://github.com/BBS-Engine/bbs - Team Abnormals Blueprint / Endimator — a lightweight native Java animation API in a widely used mod library. Keep it as a simple-animation backend/oracle for projects where GeckoLib-class runtime weight is unnecessary. - https://github.com/team-abnormals/blueprint - FoundationGames/JsonEM — data-driven JSON entity model library that can dump registered vanilla/modded entity models and load JSON bones/cuboids. Useful for model introspection, resource-pack-friendly model editing and regression fixtures. - https://github.com/FoundationGames/JsonEM - Gamepiaynmo/CustomPlayerModel — MIT Java custom-model runtime with JSON models, scripting, particles and physics simulation, and it can target animals/monsters as well as players. This is an important secondary-motion/runtime reference independent of modern CPM. - https://github.com/Gamepiaynmo/CustomPlayerModel - Figura&#x27;s 2026 modular repositories — in addition to the monolithic Figura reference, compare the newer split figura-core, figura-client and figura-molang projects. The separation of Minecraft-independent avatar logic, thin client/version integration and Molang-like expression handling is directly relevant to Enderloom&#x27;s portability goals. - https://github.com/FiguraMC/figura-core - https://github.com/FiguraMC/figura-client - https://github.com/FiguraMC/figura-molang - Citadel — retain as a legacy/mature advanced-model animation reference, especially for default-pose management and hierarchical model utilities; do not prefer it over a stronger modern target merely because many old mods use it. - https://github.com/AlexModGuy/Citadel
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 143-161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L143-L161)
 
 </details>
 

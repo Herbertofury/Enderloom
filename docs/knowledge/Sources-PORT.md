@@ -10,7 +10,7 @@
 [**PORT-01**](Checklist.md#port-01)
 
 <details>
-<summary>Source clauses and aliases (282 distinct blocks)</summary>
+<summary>Source clauses and aliases (283 distinct blocks)</summary>
 
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L930-L930) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L247-L247) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -119,6 +119,7 @@
 - [9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.2 Hand Off](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L471-L484) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [ENDERLOOM NORTHPOINT](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1-L1) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [ENDERLOOM NORTHPOINT / Make Enderloom Just Work](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2-L2) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / More Java-native references from the second pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L258-L258) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / Bedrock-like behavior on Java](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L134-L134) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / Bloom &amp; Boom example](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L20-L20) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / CPM / Figura-class player models](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L136-L156) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 7 distinct blocks.
@@ -639,7 +640,7 @@
 [**PORT-05**](Checklist.md#port-05)
 
 <details>
-<summary>Source clauses and aliases (278 distinct blocks)</summary>
+<summary>Source clauses and aliases (279 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Catalog / research workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L285-L285) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / Semantic/source/API intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2675-L2683) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -719,6 +720,7 @@
 - [4. Enderloom Developer IDE — actual coding workbench / 4.1 Editors/languages](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L183-L183) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [4. Enderloom Developer IDE — actual coding workbench / 4.4 Git/source control](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L229-L231) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 2 distinct blocks.
 - [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Part decomposition / Minecraftization](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L27-L34) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L470-L470) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [1. THE PRODUCT EXPERIENCE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L18-L24) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [1. THE PRODUCT EXPERIENCE / 1.1 No babysitting rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L63-L63) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [11. IMPLEMENT THIS INSIDE THE EXISTING ENDERLOOM ARCHITECTURE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L613-L613) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
@@ -1611,7 +1613,7 @@
 [**PORT-11**](Checklist.md#port-11)
 
 <details>
-<summary>Source clauses and aliases (136 distinct blocks)</summary>
+<summary>Source clauses and aliases (137 distinct blocks)</summary>
 
 - [G041 — Native Rust conversion service replaces JS orchestration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L311-L311) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T139 — Implement durable native session state](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L335-L335) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -1665,6 +1667,7 @@
 - [ENDERLOOM NORTHPOINT / Make Enderloom Just Work](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L6-L8) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [FINAL IMPLEMENTATION LAW](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4819-L4819) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L213-L213) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / More Java-native references from the second pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L247-L247) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / Bedrock-like behavior on Java](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L124-L124) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / CPM / Figura-class player models](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L158-L158) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / Technical specifications](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L206-L206) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.

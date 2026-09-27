@@ -163,9 +163,9 @@
     {
       "id": "S-36d560497f",
       "path": "docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
-      "sha256": "f895008a73c5adc2a1631f74a1ea4e46cef21705e7a20dac3d4b4928298b665d",
-      "bytes": 20152,
-      "lines": 467,
+      "sha256": "a65005935331c4f20fad659da34801b2b54f34dee00de5b2fb1e0378039fb8d4",
+      "bytes": 21021,
+      "lines": 481,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
       "source_checked": 0
@@ -293,9 +293,9 @@
     {
       "id": "S-36920e7906",
       "path": "docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md",
-      "sha256": "8f9a392eb45b5d7aacb4300762cbc9e5d95c86594a7b12567feb22001a2567b1",
-      "bytes": 11418,
-      "lines": 136,
+      "sha256": "7f86705c73285370df4accbe9dbe0f737cc9332bb7e7c26f65a9cbbe29765b05",
+      "bytes": 15309,
+      "lines": 169,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md",
       "source_checked": 0
@@ -523,9 +523,9 @@
     {
       "id": "S-3a3df7e216",
       "path": "docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
-      "sha256": "20773840033d84176b80656130abf87633b9f1b0b1e8c7e79e725e170cbbdfc1",
-      "bytes": 10544,
-      "lines": 244,
+      "sha256": "2b320998d4cb1a689d1677268237c1df83450642a0b27f9f2d734153d509d560",
+      "bytes": 11669,
+      "lines": 258,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
       "source_checked": 0
@@ -533,10 +533,10 @@
   ],
   "stats": {
     "source_files": 53,
-    "source_bytes": 2224831,
-    "source_lines": 44639,
-    "source_blocks": 15624,
-    "unique_blocks": 12708,
+    "source_bytes": 2230716,
+    "source_lines": 44700,
+    "source_blocks": 15637,
+    "unique_blocks": 12721,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
     "source_unchecked": 5479,

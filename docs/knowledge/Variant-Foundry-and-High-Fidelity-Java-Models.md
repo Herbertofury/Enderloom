@@ -242,3 +242,17 @@ The official Blockbench plugin catalog also surfaced workflows Enderloom Studio 
 The full integration/rights/benchmark matrix lives in [the challenger scan](../ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md).
 
 The rule remains simple: **the best proven route wins each stage.** Newer projects are challengers, not automatic replacements; Enderloom compares fidelity, editability, Minecraft compatibility and measured performance on the same Bloom & Boom fixtures.
+
+
+### More Java-native references from the second pass
+
+The sweep also found useful mature Java-side references beyond the headline AI/model generators:
+
+- **Cobblemon** is especially valuable because it already runs Bedrock-style entity models and flexible animation semantics on Java at real mod scale.
+- **Blueprint / Endimator** gives us a lighter native animation comparison lane.
+- **JsonEM** is useful for dumping/introspecting registered models and data-driven JSON model fixtures.
+- **CustomPlayerModel** provides another open Java model runtime with scripting, particles and physics, including non-player entities.
+- **BBS / BBS Engine** contributes strong timeline, camera and model-preview/editor ideas for Enderloom Studio.
+- Figura's newer **figura-core / figura-client / figura-molang** split is a useful architecture reference for keeping model/avatar logic portable while loader/version integration stays thin.
+
+These are now tracked in the full challenger scan with rights boundaries; Cobblemon's MPL runtime source and separately non-commercial art repository are deliberately treated as different things.

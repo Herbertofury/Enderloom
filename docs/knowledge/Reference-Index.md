@@ -28,6 +28,14 @@
 
 </details>
 
+<a id="alexmodguy-citadel"></a>
+<details>
+<summary>AlexModGuy/Citadel (1 cited locations)</summary>
+
+- [https://github.com/AlexModGuy/Citadel](https://github.com/AlexModGuy/Citadel)
+
+</details>
+
 <a id="amulet-team-pymctranslate"></a>
 <details>
 <summary>Amulet-Team/PyMCTranslate (2 cited locations)</summary>
@@ -154,6 +162,14 @@
 <summary>Bawnorton/MixinSquared (1 cited locations)</summary>
 
 - [https://github.com/Bawnorton/MixinSquared](https://github.com/Bawnorton/MixinSquared)
+
+</details>
+
+<a id="bbs-engine-bbs"></a>
+<details>
+<summary>BBS-Engine/bbs (1 cited locations)</summary>
+
+- [https://github.com/BBS-Engine/bbs](https://github.com/BBS-Engine/bbs)
 
 </details>
 
@@ -599,11 +615,43 @@
 
 </details>
 
+<a id="figuramc-figura-client"></a>
+<details>
+<summary>FiguraMC/figura-client (1 cited locations)</summary>
+
+- [https://github.com/FiguraMC/figura-client](https://github.com/FiguraMC/figura-client)
+
+</details>
+
+<a id="figuramc-figura-core"></a>
+<details>
+<summary>FiguraMC/figura-core (1 cited locations)</summary>
+
+- [https://github.com/FiguraMC/figura-core](https://github.com/FiguraMC/figura-core)
+
+</details>
+
+<a id="figuramc-figura-molang"></a>
+<details>
+<summary>FiguraMC/figura-molang (1 cited locations)</summary>
+
+- [https://github.com/FiguraMC/figura-molang](https://github.com/FiguraMC/figura-molang)
+
+</details>
+
 <a id="fjall-rs-fjall"></a>
 <details>
 <summary>fjall-rs/fjall (1 cited locations)</summary>
 
 - [https://github.com/fjall-rs/fjall](https://github.com/fjall-rs/fjall)
+
+</details>
+
+<a id="foundationgames-jsonem"></a>
+<details>
+<summary>FoundationGames/JsonEM (1 cited locations)</summary>
+
+- [https://github.com/FoundationGames/JsonEM](https://github.com/FoundationGames/JsonEM)
 
 </details>
 
@@ -636,6 +684,14 @@
 <summary>FxMorin/MoreCulling (1 cited locations)</summary>
 
 - [https://github.com/FxMorin/MoreCulling](https://github.com/FxMorin/MoreCulling)
+
+</details>
+
+<a id="gamepiaynmo-customplayermodel"></a>
+<details>
+<summary>Gamepiaynmo/CustomPlayerModel (1 cited locations)</summary>
+
+- [https://github.com/Gamepiaynmo/CustomPlayerModel](https://github.com/Gamepiaynmo/CustomPlayerModel)
 
 </details>
 
@@ -1092,6 +1148,14 @@
 <summary>MCCTeam/Minecraft-Console-Client (1 cited locations)</summary>
 
 - [https://github.com/MCCTeam/Minecraft-Console-Client](https://github.com/MCCTeam/Minecraft-Console-Client)
+
+</details>
+
+<a id="mchorse-bbs-mod"></a>
+<details>
+<summary>mchorse/bbs-mod (1 cited locations)</summary>
+
+- [https://github.com/mchorse/bbs-mod](https://github.com/mchorse/bbs-mod)
 
 </details>
 
@@ -2099,6 +2163,14 @@
 
 </details>
 
+<a id="team-abnormals-blueprint"></a>
+<details>
+<summary>team-abnormals/blueprint (1 cited locations)</summary>
+
+- [https://github.com/team-abnormals/blueprint](https://github.com/team-abnormals/blueprint)
+
+</details>
+
 <a id="tencent-hunyuan-hunyuan3d-2-1"></a>
 <details>
 <summary>Tencent-Hunyuan/Hunyuan3D-2.1 (1 cited locations)</summary>
@@ -2495,6 +2567,8 @@
 - [https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view](https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view)
 - [https://github.com/KiltMC](https://github.com/KiltMC)
 - [https://github.com/marketplace/actions/mc-runtime-test](https://github.com/marketplace/actions/mc-runtime-test)
+- [https://gitlab.com/cable-mc/cobblemon](https://gitlab.com/cable-mc/cobblemon)
+- [https://gitlab.com/cable-mc/cobblemon-assets](https://gitlab.com/cable-mc/cobblemon-assets)
 - [https://gitlab.ow2.org/asm/asm](https://gitlab.ow2.org/asm/asm)
 - [https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6](https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6)
 - [https://kotlin.github.io/analysis-api/](https://kotlin.github.io/analysis-api/)
@@ -2525,6 +2599,7 @@
 - [https://v2.tauri.app/security/capabilities/](https://v2.tauri.app/security/capabilities/)
 - [https://v2.tauri.app/security/csp/](https://v2.tauri.app/security/csp/)
 - [https://v2.tauri.app/start/create-project/](https://v2.tauri.app/start/create-project/)
+- [https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model](https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model)
 - [https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom](https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom)
 - [https://www.curseforge.com/minecraft/mc-mods/apothic-curios](https://www.curseforge.com/minecraft/mc-mods/apothic-curios)
 - [https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler](https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler)

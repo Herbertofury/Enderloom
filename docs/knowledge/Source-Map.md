@@ -9,9 +9,9 @@
 | Measure | Count |
 | :--- | ---: |
 | Located source documents | 53 |
-| Source lines processed | 44,639 |
-| Non-empty source blocks accounted for | 15,624 |
-| Distinct contextual/exact source blocks | 12,708 |
+| Source lines processed | 44,700 |
+| Non-empty source blocks accounted for | 15,637 |
+| Distinct contextual/exact source blocks | 12,721 |
 | Exact repeated occurrences sharing an identity | 2,916 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,479 |
@@ -234,14 +234,14 @@ Bytes: 220,250. Historical checked occurrences: 0.
 
 <a id="s-36d560497f"></a>
 <details>
-<summary><strong>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md</strong> - 467 lines</summary>
+<summary><strong>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md</strong> - 481 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md) | specification
 
-SHA-256: `f895008a73c5adc2a1631f74a1ea4e46cef21705e7a20dac3d4b4928298b665d`  
-Bytes: 20,152. Historical checked occurrences: 0.
+SHA-256: `a65005935331c4f20fad659da34801b2b54f34dee00de5b2fb1e0378039fb8d4`  
+Bytes: 21,021. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**KNOW-01**](Checklist.md#know-01), [**KNOW-04**](Checklist.md#know-04), [**LIB-02**](Checklist.md#lib-02), [**LIB-06**](Checklist.md#lib-06), [**MAKE-01**](Checklist.md#make-01), [**MAKE-04**](Checklist.md#make-04), [**MAKE-07**](Checklist.md#make-07), [**MAKE-10**](Checklist.md#make-10), [**MAKE-11**](Checklist.md#make-11), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**PORT-09**](Checklist.md#port-09), [**PORT-11**](Checklist.md#port-11), [**PORT-13**](Checklist.md#port-13), [**SHIP-01**](Checklist.md#ship-01), [**TEST-03**](Checklist.md#test-03), [**TEST-04**](Checklist.md#test-04), [**TEST-05**](Checklist.md#test-05), [**UX-01**](Checklist.md#ux-01), [**UX-02**](Checklist.md#ux-02)
+**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**KNOW-01**](Checklist.md#know-01), [**KNOW-04**](Checklist.md#know-04), [**LIB-02**](Checklist.md#lib-02), [**LIB-06**](Checklist.md#lib-06), [**MAKE-01**](Checklist.md#make-01), [**MAKE-04**](Checklist.md#make-04), [**MAKE-07**](Checklist.md#make-07), [**MAKE-10**](Checklist.md#make-10), [**MAKE-11**](Checklist.md#make-11), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**PORT-09**](Checklist.md#port-09), [**PORT-11**](Checklist.md#port-11), [**PORT-13**](Checklist.md#port-13), [**SHIP-01**](Checklist.md#ship-01), [**TEST-03**](Checklist.md#test-03), [**TEST-04**](Checklist.md#test-04), [**TEST-05**](Checklist.md#test-05), [**UX-01**](Checklist.md#ux-01), [**UX-02**](Checklist.md#ux-02)
 
 </details>
 
@@ -403,14 +403,14 @@ Bytes: 17,504. Historical checked occurrences: 0.
 
 <a id="s-36920e7906"></a>
 <details>
-<summary><strong>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md</strong> - 136 lines</summary>
+<summary><strong>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md</strong> - 169 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md) | specification
 
-SHA-256: `8f9a392eb45b5d7aacb4300762cbc9e5d95c86594a7b12567feb22001a2567b1`  
-Bytes: 11,418. Historical checked occurrences: 0.
+SHA-256: `7f86705c73285370df4accbe9dbe0f737cc9332bb7e7c26f65a9cbbe29765b05`  
+Bytes: 15,309. Historical checked occurrences: 0.
 
-**Outcome owners:** [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-09**](Checklist.md#make-09), [**PERF-01**](Checklist.md#perf-01), [**PORT-05**](Checklist.md#port-05), [**PORT-11**](Checklist.md#port-11), [**TEST-01**](Checklist.md#test-01)
+**Outcome owners:** [**MAKE-01**](Checklist.md#make-01), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-08**](Checklist.md#make-08), [**MAKE-09**](Checklist.md#make-09), [**MAKE-11**](Checklist.md#make-11), [**PERF-01**](Checklist.md#perf-01), [**PORT-05**](Checklist.md#port-05), [**PORT-11**](Checklist.md#port-11), [**TEST-01**](Checklist.md#test-01)
 
 </details>
 
@@ -702,14 +702,14 @@ Bytes: 2,602. Historical checked occurrences: 0.
 
 <a id="s-3a3df7e216"></a>
 <details>
-<summary><strong>Variant-Foundry-and-High-Fidelity-Java-Models.md</strong> - 244 lines</summary>
+<summary><strong>Variant-Foundry-and-High-Fidelity-Java-Models.md</strong> - 258 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md) | specification
 
-SHA-256: `20773840033d84176b80656130abf87633b9f1b0b1e8c7e79e725e170cbbdfc1`  
-Bytes: 10,544. Historical checked occurrences: 0.
+SHA-256: `2b320998d4cb1a689d1677268237c1df83450642a0b27f9f2d734153d509d560`  
+Bytes: 11,669. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**CONFIG-02**](Checklist.md#config-02), [**DEP-02**](Checklist.md#dep-02), [**DEP-03**](Checklist.md#dep-03), [**DEP-05**](Checklist.md#dep-05), [**KNOW-01**](Checklist.md#know-01), [**KNOW-03**](Checklist.md#know-03), [**KNOW-04**](Checklist.md#know-04), [**LIB-02**](Checklist.md#lib-02), [**MAKE-01**](Checklist.md#make-01), [**MAKE-02**](Checklist.md#make-02), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-09**](Checklist.md#make-09), [**PERF-01**](Checklist.md#perf-01), [**PERF-03**](Checklist.md#perf-03), [**PERF-08**](Checklist.md#perf-08), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**PORT-02**](Checklist.md#port-02), [**PORT-03**](Checklist.md#port-03), [**PORT-05**](Checklist.md#port-05), [**PORT-07**](Checklist.md#port-07), [**PORT-09**](Checklist.md#port-09), [**PORT-10**](Checklist.md#port-10), [**PORT-11**](Checklist.md#port-11), [**PORT-14**](Checklist.md#port-14), [**TEST-04**](Checklist.md#test-04), [**UX-04**](Checklist.md#ux-04), [**WORLD-02**](Checklist.md#world-02), [**WORLD-06**](Checklist.md#world-06)
+**Outcome owners:** [**AI-06**](Checklist.md#ai-06), [**AI-07**](Checklist.md#ai-07), [**CONFIG-02**](Checklist.md#config-02), [**DEP-02**](Checklist.md#dep-02), [**DEP-03**](Checklist.md#dep-03), [**DEP-05**](Checklist.md#dep-05), [**KNOW-01**](Checklist.md#know-01), [**KNOW-03**](Checklist.md#know-03), [**KNOW-04**](Checklist.md#know-04), [**LIB-02**](Checklist.md#lib-02), [**MAKE-01**](Checklist.md#make-01), [**MAKE-02**](Checklist.md#make-02), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-09**](Checklist.md#make-09), [**MAKE-11**](Checklist.md#make-11), [**PERF-01**](Checklist.md#perf-01), [**PERF-03**](Checklist.md#perf-03), [**PERF-08**](Checklist.md#perf-08), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**PORT-02**](Checklist.md#port-02), [**PORT-03**](Checklist.md#port-03), [**PORT-05**](Checklist.md#port-05), [**PORT-07**](Checklist.md#port-07), [**PORT-09**](Checklist.md#port-09), [**PORT-10**](Checklist.md#port-10), [**PORT-11**](Checklist.md#port-11), [**PORT-14**](Checklist.md#port-14), [**TEST-04**](Checklist.md#test-04), [**UX-04**](Checklist.md#ux-04), [**WORLD-02**](Checklist.md#world-02), [**WORLD-06**](Checklist.md#world-06)
 
 </details>
 
