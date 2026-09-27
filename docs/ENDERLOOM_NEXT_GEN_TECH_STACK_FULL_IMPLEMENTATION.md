@@ -815,6 +815,18 @@ These are references/selective backends, not a requirement to convert Enderloom 
 
 Prefer an explicit classpath from the Gradle/tooling model over reflective classloader discovery. Do not enable encapsulation-bypass/native reflection hacks merely to make a scanner work when Enderloom already knows the authoritative classpath.
 
+### T366 — Legacy bytecode reconstruction/remap oracle
+
+- [ ] **T366** — Add **MCPHackers RetroDebugInjector** (and its proven descendants/algorithms where applicable) as a legacy compiled-artifact differential oracle for bytecode debug-info injection, decomposition/remap/reconstruction cases that modern mapping pipelines do not model well. Exercise it only on version cells where its semantics are relevant and compare exact owner/name/descriptor/signature/output class validity against Enderloom's JDK Class-File API/ASM/mapping lane.
+
+Do not make an old tool a universal dependency. If the useful behavior is small/stable, port the algorithm behind Enderloom's canonical IR/evidence layer; otherwise invoke a pinned/hash-verified specialist backend and retain the input/output proof.
+
+### T372 — Independent API/signature compatibility oracle
+
+- [ ] **T372** — Add current **OpenJDK SigTest** as another independent source/binary API-signature oracle beside NeoForge JarCompatibilityChecker, Revapi and japicmp for fixtures where its signature-file/API-coverage model adds unique evidence. Normalize results into the same API-delta graph and keep disagreement visible.
+
+No compatibility checker is allowed to overrule real compilation/linkage/runtime proof; the purpose is earlier and more complete diagnosis, not another pass/fail authority.
+
 ---
 
 # G047 — Loader capability translation knowledge
@@ -881,6 +893,31 @@ For every mined correspondence store direction, version bounds, fidelity caveats
 - [ ] **T318** — Parse and validate loader access/mutation formats against the loader's current formal implementation/specification rather than ad-hoc text handling. Include current **NeoForged AccessTransformers** and Fabric **Class Tweaker** semantics (including transitive access, interface injection and enum extension where supported), and version-aware **MixinExtras** selectors/expressions.
 
 Ravel's lack of MixinExtras Expression remapping is an explicit coverage gap Enderloom must close itself or with another proven oracle. Exact owner/member/JVM descriptor plus target-runtime PREPARE/APPLY remains mandatory.
+
+### T363 — First-class Quilt target and historical compatibility lane
+
+- [ ] **T363** — Treat **Quilt** as an explicit loader/version target where supported, not as a synonym for Fabric. Parse/emit `quilt.mod.json` losslessly and model Quilt Loader dependency/version semantics, `provides`/aliases, JiJ, transitive access wideners/interface injection, Quilt-specific entrypoints/metadata and Fabric compatibility classes with exact version bounds.
+
+Use current **Quilt Loader**, **Quilt Loom** and **Quilt Mappings** as authority for supported historical/current cells. Record the lifecycle/status of QSL/QFAPI and other archived/superseded bridges per Minecraft generation; never force a modern project onto a dead API merely because older Quilt projects used it. Generated/converted Quilt cells must configure, build and run through the actual Quilt toolchain when that cell is claimed supported.
+
+### T364 — NeoForge/FML discovery, module-layer and package-ownership proof
+
+- [ ] **T364** — Make packaged NeoForge/modern Forge verification understand the loader's real discovery/module model. Differentially test against current **FancyModLoader**, **SecureJarHandler**, **BootstrapLauncher** and relevant **ModLauncher** behavior for:
+
+- mod candidate locators/readers and ServiceLoader discovery;
+- Jar-in-Jar/nested candidates;
+- module names/descriptors and merged modules;
+- split/duplicate package ownership and class/resource shadowing;
+- transformation-service/resource layers;
+- production-client vs production-server launch shape.
+
+Use FML's own `runProductionClient`/`runProductionServer`-style tests where useful, but still graduate the exact Enderloom artifact through Enderloom's native runtime path. Package/module conflicts that only appear after SecureJar/module-layer construction must be detected before declaring a JAR healthy.
+
+### T365 — Advanced Mixin transformation graph fixtures
+
+- [ ] **T365** — Extend `MixinIR`/repair/runtime fixtures for advanced transformation relationships rather than assuming every Mixin independently targets vanilla code. Include **MixinSquared/mixin-into-mixin** style behavior, MixinExtras expressions/selectors, connectors/config ordering and loader-provided Mixin versions where encountered.
+
+Automate safe use of Mixin's supported debug evidence (`mixin.debug.export`, target dump-on-failure, audit/check/profiler facilities where applicable) so repair can compare pre-transform, post-transform and failing target bytes. Unsupported nested/third-party transformation semantics must become explicit assisted/blocked evidence, never flattened into a normal target Mixin.
 
 ---
 
@@ -972,6 +1009,14 @@ For each version cell record the strongest supported mapping/build/runtime route
 - [ ] **T361** — Use **Gradle TestKit/GradleRunner** (or the loader's stronger native equivalent) to execute real disposable builds for Enderloom's generated Gradle logic and adapters. Matrix the critical Fabric/NeoForge/Forge/legacy target cells, assert task outcomes/generated artifacts and include expected-failure fixtures.
 
 Unit-testing a build-script renderer is insufficient: the generated project must configure and execute with the real pinned plugin/toolchain in an isolated fixture.
+
+### T367 — Launcher metadata and managed-Java differential authority
+
+- [ ] **T367** — Add a launcher/toolchain metadata evidence lane using **official Mojang/Piston metadata first** plus current **PrismLauncher `meta`/`meta-launcher`** as a strong normalized differential corpus for Minecraft libraries/assets/natives, compatible Java majors/runtime families, Forge/NeoForge/Fabric/Quilt/LiteLoader component metadata and installer manifests.
+
+Evaluate Modrinth **Daedalus** only as a secondary metadata-pipeline/reference while it remains work-in-progress. Never let a third-party mirror override signed/hash-verified official artifacts silently. Cache metadata with provenance, ETag/hash/timestamp and a deterministic offline fallback; conflicting sources remain visible until reconciled by the authoritative upstream/actual runtime.
+
+Use this lane to strengthen T285 automatic toolchain closure and clean-room launch/install tests rather than creating a second launcher database.
 
 ---
 
@@ -1466,6 +1511,18 @@ Never delete/regenerate corrupt world data as an implicit "fix". Preserve backup
 
 Also turn known Prism/other-launcher dependency/provider mistakes (cross-provider identity mismatch, prerelease selection, dependency false negatives) into negative solver fixtures so Enderloom does not repeat them.
 
+### T369 — InterMed differential repair-analysis integration
+
+- [ ] **T369** — Evaluate current **InterMed** as a serious Minecraft-specific differential analyzer for repair intake. Compare its evidence/fact graph against Enderloom on mod metadata/dependencies, resources/data collisions, Mixins/overwrites, KubeJS/CraftTweaker scripts, security/SBOM surfaces, logs and Spark-profile ownership.
+
+Promote useful parsers/rules/graph concepts only after isolated fixtures and AoA-scale comparison prove correctness. InterMed's alpha output/schema is not a stable product contract; Enderloom must normalize any adopted evidence into its own canonical `RepairPlan`/ownership graph and remain functional if the external CLI/schema changes or is absent.
+
+### T370 — Server/modpack install-repair automation comparator
+
+- [ ] **T370** — Mine current **itzg/mc-image-helper** behavior as a production-shaped comparator for deterministic Forge/NeoForge/Fabric/Quilt installation, CurseForge/Modrinth pack synchronization, include/exclude rules, dependency downloads, retries/timeouts, bounded concurrency, version resolution and machine-readable results.
+
+Do not embed a Docker/server helper as Enderloom's canonical installer. Reproduce or selectively wrap proven semantics behind the same solver/download/transaction primitives used by desktop instances, and add server clean-room fixtures that prove equivalent results.
+
 ### T296 — Repair graduation suite
 
 - [ ] **T296** — Maintain broken fixtures covering project build, dependency, Mixin/access, package/linkage, data/resource and runtime failure classes plus at least one real-world production-shaped repair. Graduation requires diagnosis -> repair -> rebuild -> exact packaged artifact -> strongest applicable runtime gate, with no manual source surgery hidden outside the recorded repair action.
@@ -1562,6 +1619,12 @@ Do not add an MCP server as a second canonical implementation when the same capa
 - [ ] **T360** — Detect Scala projects explicitly and activate a Scala-specific migration/authoring adapter only when needed. Use the Scala compiler/TASTy model and **Scalafix** or stronger maintained semantic tooling for source-aware rewrites; understand loader/language-provider expectations such as **SLP** for modern Forge/NeoForge and **Scalar** for Cleanroom 1.12.2, plus Fabric-side Scala providers where present.
 
 Do not force Scala libraries/providers into Java/Kotlin projects. Preserve the source project's Scala major line unless an explicit migration is required, and prove generated/converted Scala mods through their loader-native compile and runtime path.
+
+### T368 — Live MCreator generator differential corpus
+
+- [ ] **T368** — Use current **MCreator** NeoForge generator output and maintained Fabric generator plugins as a broad live authoring corpus across blocks/items/entities/biomes/worldgen/GUI/procedures/network/data/resource content that Enderloom claims to create. Generate representative fixtures in both systems, then compare buildability, registrations, generated resources/data, runtime behavior, content identity and user-editability.
+
+MCreator is an oracle/corpus, not Enderloom's architecture. Respect generator/template licensing exactly: generated-output permissions do not automatically permit copying generator templates into another code generator. Prefer behavioral/differential learning or independently implemented emitters unless the exact upstream license/permission clearly covers integration. Bugs or unsupported features in a current MCreator/Fabric generator become negative fixtures, not Enderloom limitations.
 
 ### T307 — Authoring capability receipt
 
@@ -2151,6 +2214,12 @@ Reuse/upgrade the existing task layer if it meets or exceeds those semantics. In
 
 ---
 
+### T377 — Solver stress oracle beyond Minecraft-native fixtures
+
+- [ ] **T377** — Add **libsolv** only as a stress/differential oracle for large adversarial package graphs, conflict explanations and complex query behavior beside Resolvo/PubGrub and the actual Fabric/Quilt/Forge/NeoForge semantics. Enderloom stays Rust-native unless libsolv demonstrates a material capability/correctness advantage that justifies the FFI/native dependency.
+
+Use disagreement to expand solver fixtures; do not ship two solver authorities.
+
 # G068 — Cache, CAS, archive and filesystem acceleration
 
 - [ ] **G068 · GATE** — Hot-path caches and file operations measurably reduce latency/IO while canonical state, artifact identity and complete results remain unchanged.
@@ -2252,7 +2321,9 @@ A delta is never the sole recovery path: verify the reconstructed artifact's fin
 
 ### T358 — Launcher/install behavior corpus
 
-- [ ] **T358** — Maintain a differential behavior corpus from current **HMCL**, **GDLauncher Carbon**, Modrinth **Theseus**, PrismLauncher, ATLauncher and the Codeberg-origin `minecraft-launcher-lib` where each provides unique evidence. Add current Rust-native comparators such as **Rusty Minecraft Launcher**, **MiaoMinecraftLauncher (MMCL)** and **mc-launcher-core** specifically for structured launch-command construction, metadata inheritance, cross-platform native extraction, loader installation, provider/modpack integration and progress/cancellation patterns. Mine loader installation, automatic Java selection/provisioning, Microsoft auth/session boundaries, native/library resolution, instance import/export, modpack formats, architecture/platform handling and recovery semantics.
+- [ ] **T358** — Maintain a differential behavior corpus from current **HMCL**, **GDLauncher Carbon**, Modrinth **Theseus/app-lib**, **PrismLauncher + Prism metadata**, **XMCL/@xmcl core**, ATLauncher and the Codeberg-origin `minecraft-launcher-lib` where each provides unique evidence. Add current Rust-native comparators such as **Rusty Minecraft Launcher**, **MiaoMinecraftLauncher (MMCL)** and **mc-launcher-core** specifically for structured launch-command construction, metadata inheritance, cross-platform native extraction, loader installation, provider/modpack integration and progress/cancellation patterns. Mine loader installation, automatic Java selection/provisioning, Microsoft auth/session boundaries, native/library resolution, content-addressed/shared resource storage (hardlink/reflink/symlink where safe), instance import/export, Modrinth/CurseForge pack formats, architecture/platform handling and recovery semantics.
+
+Use **Prism `meta`/`meta-launcher`** and official Mojang metadata as versioned launch/toolchain evidence per T367. Treat Modrinth **Daedalus** and bleeding-edge cross-loader projects such as **Octo Loader** as research/differential corpora only until their claimed semantics are independently proven; never make Enderloom depend on experimental runtime translation just because a demo can start mixed-loader mods.
 
 Adopt code only with compatible licensing/provenance; otherwise reproduce validated behavior through Enderloom's own canonical launch/install services. The corpus is a comparator, not permission to create multiple launcher authorities or duplicate the canonical instance state.
 
@@ -2349,6 +2420,24 @@ High-confidence known signatures may quarantine an artifact; heuristic capabilit
 ### T278 — Produce a release SBOM/provenance manifest
 
 - [ ] **T278** — Generate an SBOM/provenance record covering Rust crates, JVM libraries, bundled runtimes, vendored tools, extensions and directly integrated permitted upstream code. Include versions/hashes/licenses/source locations and the final artifact identity.
+
+### T374 — Cross-ecosystem vulnerability scanning with offline-safe evidence
+
+- [ ] **T374** — Add **OSV-Scanner v2/OSV** as an independent vulnerability evidence source for Rust, Java/Maven/Gradle, JavaScript/npm and other shipped dependency manifests/SBOMs, with an offline/local-database mode for privacy/reproducibility where practical. Feed findings into Enderloom's existing supply-chain receipt; do not let a network scanner silently transmit source code or become the only advisory authority.
+
+Cross-check critical release findings with the ecosystem-native sources already used (`cargo audit`/RustSec, Gradle/Maven locks, GitHub advisories where available). Any call-analysis mode that executes `build.rs`, compiler plugins or other dependency code must run under the untrusted-build sandbox and is opt-in/explicitly isolated.
+
+### T375 — Resolved-dependency SBOM + verifiable build provenance
+
+- [ ] **T375** — For JVM/Gradle deliverables, generate **CycloneDX** from the *resolved* dependency graph (post conflict-resolution/substitution/constraints), not merely declared coordinates; for Rust/native/bundled assets merge this with T343's cross-language SBOM. Keep SBOM generation out of unrelated hot build paths when the plugin/tool would otherwise force eager dependency resolution.
+
+For GitHub release artifacts, evaluate current **GitHub artifact attestations (`actions/attest`)** / in-toto **SLSA provenance v1** as the preferred verifiable provenance path when repository/plan support permits it. Bind attestations to exact artifact digests, source commit/workflow and SBOM, verify them in release QA, and retain a local hash/provenance receipt when remote attestation is unavailable.
+
+### T376 — Suspicious-mod dynamic detonation remains isolated and conditional
+
+- [ ] **T376** — Add an optional second-stage dynamic security lane only for suspicious/unknown artifacts that static evidence cannot resolve. Run the mod inside a disposable VM/container/sandboxed Minecraft/JVM environment with no ambient credentials, restricted filesystem/network, recorded child processes/network destinations/file mutations and strict timeout/resource limits.
+
+Study `jarsec`/malware-research sandbox workflows only for techniques/fixtures. Never execute an untrusted mod on the user's normal JVM/session merely to improve a verdict, and never auto-upload proprietary/private mods to a third-party analysis service. Dynamic behavior is evidence, not permission to auto-delete or rewrite a mod.
 
 ### T340 — Concrete crash monitor + async diagnostics
 
@@ -2454,6 +2543,14 @@ These gates supplement real workflow/runtime proof; never game coverage/mutation
 | HMCL / GDLauncher / Theseus / Prism / ATLauncher | launcher/install comparator corpus | **REFERENCE / SELECTIVE ADOPTION** |
 | Wry WebContext + adblock-rust | embedded browser substrate/filtering | **BAKEOFF AGAINST CURRENT UBO PATH** |
 | Scalafix + SLP/Scalar/provider metadata | Scala conversion/authoring | **CONDITIONAL WHEN SCALA DETECTED** |
+| Quilt Loader/Loom/Mappings | first-class Quilt target semantics | **IMPLEMENT FOR CLAIMED QUILT CELLS** |
+| FancyModLoader + SecureJarHandler/BootstrapLauncher | NeoForge discovery/module/package truth | **INTEGRATE AS PACKAGE/RUNTIME ORACLE** |
+| Prism meta/meta-launcher | launch/toolchain metadata differential source | **INTEGRATE WITH OFFICIAL-UPSTREAM PRIORITY** |
+| MCreator current generators | broad authoring output corpus | **DIFFERENTIAL ORACLE; LICENSE-AWARE** |
+| InterMed | Minecraft repair/static-analysis challenger | **BAKEOFF / SELECTIVE INTEGRATION** |
+| OSV-Scanner + CycloneDX Gradle | vulnerability + resolved-JVM SBOM evidence | **IMPLEMENT AS COMPLEMENTARY RELEASE GATES** |
+| GitHub actions/attest + SLSA/in-toto | release provenance | **IMPLEMENT WHERE HOST/PLAN SUPPORTS** |
+| libsolv | adversarial solver oracle | **REFERENCE/DIFFERENTIAL ONLY UNLESS IT CLEARLY WINS** |
 | Gradle TestKit | generated build/plugin functional proof | **IMPLEMENT FOR BUILD ADAPTERS** |
 
 
@@ -2743,9 +2840,34 @@ Refresh exact commits/releases when integrating; these links are implementation 
 - Kotlin Analysis API — https://kotlin.github.io/analysis-api/
 - Kotlin Metadata JVM — https://kotlinlang.org/docs/metadata-jvm.html
 - Gradle TestKit / GradleRunner — https://docs.gradle.org/current/javadoc/org/gradle/testkit/runner/GradleRunner.html
+- Quilt Loader — https://github.com/QuiltMC/quilt-loader
+- Quilt Loom — https://github.com/QuiltMC/quilt-loom
+- Quilt Mappings — https://github.com/QuiltMC/quilt-mappings
+- NeoForged FancyModLoader — https://github.com/neoforged/FancyModLoader
+- McModLauncher SecureJarHandler — https://github.com/McModLauncher/securejarhandler
+- McModLauncher BootstrapLauncher — https://github.com/McModLauncher/bootstraplauncher
+- McModLauncher ModLauncher — https://github.com/McModLauncher/modlauncher
+- MixinSquared — https://github.com/Bawnorton/MixinSquared
+- MCPHackers RetroDebugInjector — https://github.com/MCPHackers/RetroDebugInjector
+- OpenJDK SigTest — https://github.com/openjdk/sigtest
+- PrismLauncher meta — https://github.com/PrismLauncher/meta
+- PrismLauncher meta-launcher — https://github.com/PrismLauncher/meta-launcher
+- Modrinth Daedalus — https://github.com/modrinth/daedalus
+- MCreator — https://github.com/MCreator/MCreator
+- MCreator Fabric Generator — https://github.com/Goldorion/Fabric-Generator-MCreator
+- InterMed — https://github.com/jarettr/intermed
+- itzg mc-image-helper — https://github.com/itzg/mc-image-helper
+- OSV-Scanner — https://github.com/google/osv-scanner
+- CycloneDX Gradle Plugin — https://github.com/CycloneDX/cyclonedx-gradle-plugin
+- GitHub artifact attestations — https://github.com/actions/attest
+- SLSA provenance specification — https://slsa.dev/spec/v1.0/provenance
+- in-toto attestation framework — https://github.com/in-toto/attestation
+- libsolv — https://github.com/openSUSE/libsolv
+- XMCL / @xmcl launcher core — https://github.com/Voxelum/x-minecraft-launcher
+- Octo Loader (experimental differential corpus only) — https://github.com/MilkdromedaStudios/Octo-Loader
 
 ---
 
 # Exact first action for the implementing agent
 
-**Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute every task in G041-G055, G075, G076 and G077 (including newly accepted oracle/repair/legacy/runtime tasks and T230-T232) so conversion/repair/authoring and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly and do not return to planning-only work.**
+**Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Do not begin another generic ecosystem survey: this document is the accepted execution contract, and research resumes only for a named implementation blocker/invalidator. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute every task in G041-G055, G075, G076 and G077 (including all later-numbered tasks physically embedded in those gates plus T230-T232) so conversion/repair/authoring, loader/version specialist lanes, package/runtime truth and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly, update inline task/proof state as you execute, and do not return to planning-only work.**
