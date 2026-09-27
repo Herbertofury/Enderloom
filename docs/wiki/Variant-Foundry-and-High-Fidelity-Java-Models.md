@@ -256,3 +256,22 @@ The sweep also found useful mature Java-side references beyond the headline AI/m
 - Figura's newer **figura-core / figura-client / figura-molang** split is a useful architecture reference for keeping model/avatar logic portable while loader/version integration stays thin.
 
 These are now tracked in the full challenger scan with rights boundaries; Cobblemon's MPL runtime source and separately non-commercial art repository are deliberately treated as different things.
+
+
+### Third sweep: motion, biome atmosphere, materials and QA
+
+The newest pass added several pieces that make this feel more like the “it just works” model workshop we want:
+
+- **Puppeteer** can be challenged for automatic rigging **and video-guided motion**.
+- **Make-It-Animatable v2** is another fast mesh -> joints/weights/pose route.
+- **Articulate Anything** is useful for mechanical/articulated props and creatures where Enderloom needs to infer links, joint axes and movement from text/image/video.
+- **AnyTop** is a motion-synthesis/retargeting candidate after the rig is already valid.
+- **Polymer** gives us an optional server-side/virtual-entity/resource-pack export lane, including current 26.3 work, without making that packet/display architecture the native client runtime.
+- **Polytone** means biome variants can also carry atmosphere: colormaps, biome effects, sounds, particles and other resource-pack phenotype.
+- **Fusion** adds a richer block/item texture-model compatibility lane.
+- **Iris + LabPBR** gives us a real PBR target for normal/height, smoothness/metalness and emissive data while Enderloom keeps a correct vanilla fallback.
+- **vanilla-reference-harness** gives us an excellent deterministic QA pattern: render the exact entity/item in the real client at locked views/states and diff the output automatically.
+
+That means a Bloom & Boom biome variant is no longer just “different model + texture.” Its family record can include **geometry phenotype + motion phenotype + atmosphere phenotype + material phenotype + deterministic native visual proof**.
+
+The full candidate/rights/benchmark details remain in [the challenger scan](../ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md).

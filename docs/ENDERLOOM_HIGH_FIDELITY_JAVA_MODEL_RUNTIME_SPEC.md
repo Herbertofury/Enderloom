@@ -479,3 +479,25 @@ The second sweep adds mandatory comparison/fixture coverage for:
 - **Figura's current split core/client/Molang architecture** as a portability reference.
 
 Use source only under the exact project's license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable just because the runtime source is open.
+
+
+### 17.4 Motion-generation, server-export, material and QA challengers
+
+The third sweep adds the following required comparison lanes:
+
+- **Puppeteer** and **Make-It-Animatable v2** for alternative skeleton/skin/pose generation;
+- **Articulate Anything** for articulated props/mechanical assemblies and joint-axis inference;
+- **AnyTop** for topology-agnostic motion generation/inpainting after a valid rig exists;
+- **Polymer** for optional server-side/virtual-entity/resource-pack export, especially current 26.3 targets;
+- **Polytone** for biome atmosphere/colormap/effect phenotype compatibility;
+- **Fusion** for richer block/item texture/model resource-pack outputs;
+- **Iris/LabPBR** for capability-negotiated PBR materials with mandatory vanilla fallback;
+- **vanilla-reference-harness-style deterministic native captures** for model/item/entity visual regression.
+
+New invariants:
+
+- Generated motion is never allowed to redefine gameplay authority. It maps onto named animation/state contracts and must preserve event/hitbox timing.
+- `BiomeDNA` may include atmosphere/material fields in addition to geometry motifs: colormap, fog/sky/water hints, particle/sound phenotype and optional PBR material intent.
+- `HighFidelityModel` preserves rich material channels even when the active backend cannot display all of them; exporters choose the richest compatible path and emit an explicit fallback.
+- Model backend acceptance requires deterministic locked-view/state reference captures suitable for automatic image diffs in addition to live runtime inspection.
+- Server-side virtual/display backends are export compatibility routes, not automatic replacements for the native client renderer.

@@ -158,7 +158,7 @@ def render(state,corpus):
 
 ### One studio. Four clear beginnings. Two immediate outcomes.
 
-**[Complete Advent of Ascension](Advent-of-Ascension.md) &nbsp; | &nbsp; [Ship the beautiful studio](Studio.md)**
+**[Complete Advent of Ascension](Advent-of-Ascension.md) &nbsp; | &nbsp; [Ship the beautiful studio](Studio.md)**\n\n**[Variant Foundry & High-Fidelity Java Models](Variant-Foundry-and-High-Fidelity-Java-Models.md)**
 
 </div>
 
@@ -498,6 +498,15 @@ All Markdown/text/JSON sources under `docs/`, excluding generated knowledge page
  'FiguraMC/figura-client':('Avatar architecture','Thin Minecraft/version integration reference for portable model/avatar logic.'),
  'FiguraMC/figura-molang':('Expressions','Current Figura Molang-like expression module is a differential parser/evaluator reference.'),
  'AlexModGuy/Citadel':('Legacy animation reference','Mature hierarchical/default-pose model utilities; reference/fixture rather than preferred modern backend.'),
+ 'Seed3D/Puppeteer':('Rig + motion','Automatic rigging plus video-guided animation challenger; map generated motion into canonical gameplay-safe animation contracts.'),
+ 'jasongzy/Make-It-Animatable':('Auto-rigging','MIT MIA v2 challenger for joints, weights and pose generation on mesh inputs.'),
+ 'vlongle/articulate-anything':('Articulation','Joint/link/axis inference challenger for props, machinery and nonstandard articulated assets.'),
+ 'Anytop2025/Anytop':('Motion generation','Arbitrary-topology motion generation/inpainting after a valid canonical rig exists.'),
+ 'Patbox/polymer':('Server-side export','Virtual-entity/resource-pack compatibility backend; optional export, not native-client runtime authority.'),
+ 'MehVahdJukaar/polytone':('Biome phenotype','Colormap/biome-effect/resource-pack compatibility reference for modded-biome atmosphere.'),
+ 'SuperMartijn642/Fusion':('Resource models','Additional texture/model-type compatibility lane for generated blocks/items/environments.'),
+ 'IrisShaders/Iris':('PBR/shaders','Shader compatibility and performance lane; preserve rich materials with vanilla fallback.'),
+ 'minecraft-library/vanilla-reference-harness':('Visual QA','Deterministic real-client reference-render pattern for byte/image-diff regression fixtures.'),
  'unnamed/mocha':('Molang','Parser/evaluator/compiler comparisons with state/timing/thread correctness.'),
  'HiveGamesOSS/Chunker':('Worlds','Staged exact-pair world translation, full field reconciliation and rollback.'),
  'kbinani/je2be-core':('Worlds','Alternative/differential world backend; never a mod-code translator.'),

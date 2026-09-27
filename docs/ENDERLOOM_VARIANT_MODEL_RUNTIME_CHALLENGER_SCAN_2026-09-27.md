@@ -167,3 +167,51 @@ The second pass also checked GitLab and older/current Java animation ecosystems,
 - Keep **model introspection/dump** capability: Enderloom should be able to inspect the live registered entity model hierarchy and compare it to generated/imported JSON/Blockbench truth.
 - Keep the high-fidelity runtime **Minecraft-independent at its core** where practical, with thin loader/version adapters, mirroring the useful separation seen in Figura's current modular architecture.
 - Add **camera/timeline/model-preview** challenge fixtures from the BBS lineage to Studio; these improve authoring/QA and should not be confused with the shipping entity runtime.
+
+
+## P0/P1 — third sweep: motion authoring, server-side export, biome/material systems, and visual QA
+
+### Rig + motion generation
+
+- **Seed3D/Puppeteer** — automatic skeleton + skinning followed by **video-guided animation**. This is a useful challenger beyond static auto-rigging because Enderloom can test whether an approved reference clip can become a reusable motion while keeping the Minecraft rig editable. The source repository is Apache-2.0; checkpoint/dataset licenses still require separate verification.
+  - https://github.com/Seed3D/Puppeteer
+- **jasongzy/Make-It-Animatable** — efficient animation-ready character authoring; the current project documents an upgraded **MIA v2** mesh pipeline with improved joint/weight/pose prediction and Blender integration. Source is MIT. Use as a fast auto-rig/pose challenger beside SkinTokens, RigAnything and Puppeteer rather than assuming one model wins every creature topology.
+  - https://github.com/jasongzy/Make-It-Animatable
+- **vlongle/articulate-anything** — automatic articulation from text, images or videos. This is especially relevant for articulated props, mechanical mobs, doors/furniture, wing assemblies and other assets where the main problem is deciding joints/links/axes rather than humanoid skinning.
+  - https://github.com/vlongle/articulate-anything
+- **Anytop2025/Anytop** — motion generation/retargeting for arbitrary character topology. Candidate for motion synthesis/inpainting once Enderloom already has a valid rig; do not use it to replace the canonical rig or gameplay state machine.
+  - https://github.com/Anytop2025/Anytop
+
+### Server-side / compatibility export
+
+- **Patbox/polymer** — current Fabric server-side content framework with resource-pack and **virtual-entity** modules, including an active 26.3 development branch. Keep it as an optional export/compatibility backend for experiences that need rich custom content without requiring the Enderloom client runtime. Source is LGPL-3.0.
+  - https://github.com/Patbox/polymer
+- The existing **blockbench-import-library** lane should be challenged against Polymer's virtual-entity/resource-pack primitives rather than duplicating two unrelated packet/display stacks.
+
+### Biome/material/resource-pack phenotype
+
+- **MehVahdJukaar/polytone** — custom colormaps, biome effects, sounds and other resource-pack-driven customization that works with modded biomes. Use it as a phenotype/resource-pack compatibility reference for `BiomeDNA`, especially when the desired change is atmosphere/color/effect rather than geometry.
+  - https://github.com/MehVahdJukaar/polytone
+- **SuperMartijn642/Fusion** — extensible extra texture/model types and connected-texture systems. Useful for block/item/environment variants and for keeping generated models compatible with richer resource-pack model systems.
+  - https://github.com/SuperMartijn642/Fusion
+- **IrisShaders/Iris + LabPBR 1.3** — shader/PBR compatibility lane. Enderloom should preserve base color, normal/height, smoothness/metalness and emissive intent where the selected shader/resource-pack path supports LabPBR, while always retaining a correct non-shader fallback.
+  - https://github.com/IrisShaders/Iris
+  - https://github.com/IrisShaders/docs
+
+### Deterministic visual regression
+
+- **minecraft-library/vanilla-reference-harness** — a particularly useful QA challenger: it drives the real Fabric client to render blocks, living entities and items into deterministic transparent-background reference PNGs. Enderloom should adopt the *fixture pattern* for generated mobs/items: locked camera/light/state, exact artifact identity, turntable/state captures and byte/image-diff evidence.
+  - https://github.com/minecraft-library/vanilla-reference-harness
+
+## Third-sweep architecture consequences
+
+1. **Motion authoring becomes a separate challenge lane.** A model may come from AniGen/SkinTokens/RigAnything/MIA, while motion can come from authored Blockbench clips, approved video guidance, AnyTop-style synthesis or gameplay procedural controllers.
+2. **Do not conflate server-side compatibility with native-client optimality.** Polymer/display-entity backends are excellent export targets, but the native Enderloom client renderer can still use a lower-overhead skeletal path.
+3. **Biome variation includes atmosphere/material phenotype.** `BiomeDNA` should carry optional colormap, fog/sky/water/particle/sound and PBR/material hints as well as model growths.
+4. **PBR is capability-negotiated.** Preserve rich material data in the IR; emit LabPBR/Iris-compatible assets when available and a visually coherent vanilla fallback when not.
+5. **Reference-image QA becomes generated and deterministic.** Every promoted model backend should be able to emit locked multi-view/state reference captures for regression diffs, not rely only on human screenshots.
+6. **Animation-generation models never become gameplay authority.** Generated motion must be mapped to named Enderloom animation/state contracts, clipped/retimed as needed and validated for hitbox/gameplay event timing.
+
+## Coverage note
+
+GitHub and GitLab surfaced materially useful additions in this sweep. Direct Codeberg crawling is blocked by robots in the current research harness; search-engine queries did not surface a stronger relevant Codeberg candidate. That surface therefore remains **unresolved-active**, not “none exist,” and should be rechecked from a capable route in a future freshness sweep.
