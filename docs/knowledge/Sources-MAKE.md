@@ -307,7 +307,7 @@
 [**MAKE-07**](Checklist.md#make-07)
 
 <details>
-<summary>Source clauses and aliases (162 distinct blocks)</summary>
+<summary>Source clauses and aliases (163 distinct blocks)</summary>
 
 - [11. Concept Fidelity Metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L380-L400) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 3 distinct blocks.
 - [12. Actual Minecraft Visual QA](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L412-L428) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -382,6 +382,7 @@
 - [3. Spellbrook-Class Server -&gt; Fully Native Mod Conversion / 3.2 Recover independent semantic layers / Model-runtime layer](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L151-L164) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 2 distinct blocks.
 - [3. Spellbrook-Class Server -&gt; Fully Native Mod Conversion / 3.2 Recover independent semantic layers / Visual layer](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L141-L149) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [Enderloom — Minecraft Workflow Parity Master Specification](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L12-L12) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [G209 — Installer, updater, delta delivery, release trust / T229 — Velopack dual-shell updater challenger / T230 — Optional TUF metadata hardening through `tough`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L435-L435) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum / Required consequences](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L23-L36) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 - [8. Mixin, access and reflection gates / 8.2 Access rules](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L421-L421) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [8. Mixin, access and reflection gates / 8.2 Access rules](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L497-L497) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
@@ -450,7 +451,7 @@
 [**MAKE-09**](Checklist.md#make-09)
 
 <details>
-<summary>Source clauses and aliases (115 distinct blocks)</summary>
+<summary>Source clauses and aliases (119 distinct blocks)</summary>
 
 - [1. Concept Source Intake](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L19-L56) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 6 distinct blocks.
 - [12. Actual Minecraft Visual QA](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L430-L430) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -500,6 +501,9 @@
 - [10. Model / Texture / Animation / Reference Reconstruction](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L503-L536) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L99-L99) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Built-in test catalogs](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L23-L24) - README.md; 1 distinct blocks.
+- [G211 — Minecraft-launcher reference mining without stack cargo-culting](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L492-L492) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L496-L500) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T236 — GDLauncher Carbon reference pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L502-L502) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L1-L10) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 4 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum / Definition of success](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L50-L52) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 2 distinct blocks.
 - [Enderloom — Concept Art Workflow Handoff Addendum / Exact implementation ordering](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L46-L48) - ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md; 2 distinct blocks.
@@ -519,7 +523,7 @@
 [**MAKE-10**](Checklist.md#make-10)
 
 <details>
-<summary>Source clauses and aliases (49 distinct blocks)</summary>
+<summary>Source clauses and aliases (50 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L39-L39) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L720-L720) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -560,6 +564,7 @@
 - [14. Test Matrix for “Full Functioning Mod” / Content](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L643-L650) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [17. AI Operator Parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L723-L729) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.2 Server-session capture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L73-L82) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Enderloom — Next-Generation Tech Stack Challenger &amp; Integration Spec](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L9-L9) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L255-L277) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 - [28. Exact next implementation action](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L1317-L1317) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
 - [28. Exact next implementation action](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L1317-L1317) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.

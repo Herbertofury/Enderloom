@@ -3697,7 +3697,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 124 source-derived details.
+[Outcome](Checklist.md#test-03) / 127 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -4048,6 +4048,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1608-1608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1608-L1608)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it (1)</summary>
+
+<a id="d-a82affe912eeefb66995"></a>
+- [ ] **D-a82affe912eeefb66995** - · Capture current repo head, package.json, all Cargo manifests/locks, shell/runtime versions, relevant build flags, Windows target, and already-landed active-spec work before imple...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Capture current repo head, package.json, all Cargo manifests/locks, shell/runtime versions, relevant build flags, Windows target, and already-landed active-spec work before implementing any challenger.
+  - **Binding context:** G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T201 : 82-82](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L82-L82)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger (1)</summary>
+
+<a id="d-ae8b23daff758e7c06ab"></a>
+- [ ] **D-ae8b23daff758e7c06ab** - · Keep Tokio as the default control/network/IPC runtime, but A/B Compio 0.19.x IOCP and Windows IoRing for high-volume file operations:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T208 : 181-181](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L181-L181)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G214 — Convergence and handoff into the canonical Enderloom plan / T242 — Promote only complete whole-product winners / T244 — Final convergence proof (1)</summary>
+
+<a id="d-7c9a799cbbe0fab2de6e"></a>
+- [ ] **D-7c9a799cbbe0fab2de6e** - · All T201-T243 are complete or explicitly DEFERRED/REJECTED with evidence; all G201-G214 converge; every PROMOTED candidate has runtime-shaped proof and a fallback; the active spe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · All T201-T243 are complete or explicitly DEFERRED/REJECTED with evidence; all G201-G214 converge; every PROMOTED candidate has runtime-shaped proof and a fallback; the active spec was not destabilized during Codex&#x27;s current run; and the resulting handoff describes the strongest measured Enderloom stack with no performance-by-doing-less, no privacy regression, no data-loss regression, and no unnecessary duplicate technology.
+  - **Binding context:** G214 — Convergence and handoff into the canonical Enderloom plan / T242 — Promote only complete whole-product winners / T244 — Final convergence proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T244 : 580-580](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L580-L580)
 
 </details>
 
@@ -4833,7 +4868,7 @@
 <a id="test-04-details"></a>
 ## TEST-04 - Full CLI, JSON and MCP parity
 
-[Outcome](Checklist.md#test-04) / 233 source-derived details.
+[Outcome](Checklist.md#test-04) / 235 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_PREMIUM_TESTING_CLI.md / Codex Handoff — Enderloom Premium Testing + Full CLI / Mission (1)</summary>
@@ -5528,6 +5563,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1617-1617](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1617-L1617)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it / T203 — Equivalent-work benchmark harness (1)</summary>
+
+<a id="d-a82e5ea8aaa8654922ac"></a>
+- [ ] **D-a82e5ea8aaa8654922ac** - · Reuse/extend Enderloom&#x27;s existing QA and add a common benchmark harness so candidate comparisons measure the same bytes, same rows, same provider responses, same UI data, sa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reuse/extend Enderloom&#x27;s existing QA and add a common benchmark harness so candidate comparisons measure the same bytes, same rows, same provider responses, same UI data, same correctness checks, same security checks and same output counts.
+  - **Binding context:** G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it / T203 — Equivalent-work benchmark harness
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T203 : 110-110](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L110-L110)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it (1)</summary>
+
+<a id="d-509251e49d4b8a0139ee"></a>
+- [ ] **D-509251e49d4b8a0139ee** - Promote per data class; do not rewrite every parser because one large JSON benchmark wins.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 329-329](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L329-L329)
 
 </details>
 
@@ -7220,7 +7278,7 @@
 <a id="test-06-details"></a>
 ## TEST-06 - Compatibility and hostile fixtures
 
-[Outcome](Checklist.md#test-06) / 20 source-derived details.
+[Outcome](Checklist.md#test-06) / 21 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.2 Ingest MC Mod Porter under the granted permission (1)</summary>
@@ -7346,6 +7404,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#[autoversion]` vs normal runtime dispatch (1)</summary>
+
+<a id="d-24ae596173c267572c0c"></a>
+- [ ] **D-24ae596173c267572c0c** - - Do not duplicate BLAKE3/zlib/image-library SIMD dispatch that those libraries already do well. - cargo-multivers must be tested for cold-start runner extraction/launch overhead, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Do not duplicate BLAKE3/zlib/image-library SIMD dispatch that those libraries already do well. - cargo-multivers must be tested for cold-start runner extraction/launch overhead, antivirus behavior, code signing, crash symbolication, delta-update efficiency, binary/install size and updater compatibility. - Test at least generic x86-64 plus representative AVX2/v3-class hardware; test v4 only on hardware that actually supports it. - A whole-binary multiversion solution loses if startup/update cost outweighs hot-path wins. - Archmage is a pre-1.0 challenger: isolate it to measured functions and keep scalar/generic fallback.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#[autoversion]` vs normal runtime dispatch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 148-152](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L148-L152)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 3. Performance / Testing tab — Premium Performance Lab / 3.2 Landing dashboard (2)</summary>
 
 <a id="d-bb1cf67c68929a6bd558"></a>
@@ -7411,7 +7481,7 @@
 <a id="test-07-details"></a>
 ## TEST-07 - Results and repeatability
 
-[Outcome](Checklist.md#test-07) / 9 source-derived details.
+[Outcome](Checklist.md#test-07) / 10 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.10 Conversion planner and user experience (1)</summary>
@@ -7455,6 +7525,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-5 — whole-pack intelligence
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1555-1555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1555-L1555)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T212 — Papaya vs current maps vs Codeberg-hosted `scc` (1)</summary>
+
+<a id="d-43d0056c5e7c0a040772"></a>
+- [ ] **D-43d0056c5e7c0a040772** - · Benchmark Papaya and current scc read-optimized containers against ArcSwap snapshots and conventional map+lock designs for:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T212 — Papaya vs current maps vs Codeberg-hosted `scc`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T212 : 229-229](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L229-L229)
 
 </details>
 

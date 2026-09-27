@@ -48,9 +48,9 @@ AoA is not just a regression fixture. Do not substitute a smaller branch, generi
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [AOA-01 - Source lineage and original identity](Acceptance-AOA.md#aoa-01-details): 281 source details.
+- [AOA-01 - Source lineage and original identity](Acceptance-AOA.md#aoa-01-details): 283 source details.
 - [AOA-02 - Complete semantic port](Acceptance-AOA.md#aoa-02-details): 25 source details.
-- [AOA-03 - Complete gameplay and assets](Acceptance-AOA.md#aoa-03-details): 25 source details.
+- [AOA-03 - Complete gameplay and assets](Acceptance-AOA.md#aoa-03-details): 26 source details.
 - [AOA-04 - Native gameplay and migration proof](Acceptance-AOA.md#aoa-04-details): 22 source details.
 - [AOA-05 - Clean conversion replay](Acceptance-AOA.md#aoa-05-details): 21 source details.
 - [AOA-06 - AoA delivered through the studio](Acceptance-AOA.md#aoa-06-details): 90 source details.

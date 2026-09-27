@@ -1285,7 +1285,7 @@
 <a id="play-04-details"></a>
 ## PLAY-04 - Java, loaders and real launch
 
-[Outcome](Checklist.md#play-04) / 83 source-derived details.
+[Outcome](Checklist.md#play-04) / 86 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 5. PHASE B — FIRST REAL CANONICAL VERTICAL (1)</summary>
@@ -1630,6 +1630,36 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1612-1612](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1612-L1612)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger / T209 — Windows Job Objects for event-driven process-tree supervision (2)</summary>
+
+<a id="d-5325a7fe11689389147e"></a>
+- [ ] **D-5325a7fe11689389147e** - · A/B a thin Windows Job Object supervisor for Enderloom-owned helper/core/Java process trees to reduce polling and improve deterministic cleanup/lifecycle evidence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger / T209 — Windows Job Objects for event-driven process-tree supervision
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T209 : 195-195](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L195-L195)
+
+<a id="d-01a39ea925e5c6383764"></a>
+- [ ] **D-01a39ea925e5c6383764** - - Use Job Objects first for supervision/notifications/lifetime, not arbitrary CPU throttling. - Do not silently alter Minecraft CPU/memory scheduling in Phase 1. - Handle processes...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Use Job Objects first for supervision/notifications/lifetime, not arbitrary CPU throttling. - Do not silently alter Minecraft CPU/memory scheduling in Phase 1. - Handle processes already associated with jobs/nested-job restrictions truthfully. - Never kill an externally-owned Minecraft process merely because an Enderloom UI host exits. - Prefer completion/event notifications over repeated process polling where reliable. - Job Object CPU-rate controls remain a Phase-2/research-only possibility and may not be used to manufacture a game-performance win.
+  - **Binding context:** G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger / T209 — Windows Job Objects for event-driven process-tree supervision
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 199-204](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L199-L204)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass (1)</summary>
+
+<a id="d-14e0e77756f1602dde39"></a>
+- [ ] **D-14e0e77756f1602dde39** - · Inspect current PrismLauncher for strong, current patterns in Java/runtime management, metadata caching, instance isolation, launch process construction, native library handling,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Inspect current PrismLauncher for strong, current patterns in Java/runtime management, metadata caching, instance isolation, launch process construction, native library handling, updater provenance and failure recovery.
+  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T235 : 498-498](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L498-L498)
 
 </details>
 
@@ -2172,7 +2202,7 @@
 <a id="play-06-details"></a>
 ## PLAY-06 - Native sharing and pack distribution
 
-[Outcome](Checklist.md#play-06) / 16 source-derived details.
+[Outcome](Checklist.md#play-06) / 18 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -2221,6 +2251,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Enderloom Probe — Minecraft test control plane
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 884-884](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L884-L884)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G203 — Async/file data plane, scheduling, process supervision (1)</summary>
+
+<a id="d-22a549a81048b77a9a20"></a>
+- [ ] **D-22a549a81048b77a9a20** - GATE — General orchestration stays simple/reliable while proven file and process hot paths use stronger Windows-native mechanisms where they materially win.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G203 — Async/file data plane, scheduling, process supervision
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G203 : 177-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L177-L177)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T218 — Explicit database replacement hold (1)</summary>
+
+<a id="d-82a2a8a22e9076afac67"></a>
+- [ ] **D-82a2a8a22e9076afac67** - · Re-evaluate Turso/redb/Fjall/other embedded stores only when a new production release removes the specific multi-process/recovery/relational blockers. Do not migrate canonical st...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Re-evaluate Turso/redb/Fjall/other embedded stores only when a new production release removes the specific multi-process/recovery/relational blockers. Do not migrate canonical state merely to satisfy this research document.
+  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T218 — Explicit database replacement hold
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T218 : 300-300](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L300-L300)
 
 </details>
 

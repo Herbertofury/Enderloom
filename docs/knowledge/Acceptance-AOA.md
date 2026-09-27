@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 281 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 283 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -857,6 +857,28 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 88-88](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L88-L88)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff (1)</summary>
+
+<a id="d-157a06240982d553910f"></a>
+- [ ] **D-157a06240982d553910f** - · On the current bundled SQLite/Rusqlite baseline, evaluate per-table/per-query use of:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T216 : 265-265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L265-L265)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes (1)</summary>
+
+<a id="d-983acb1274dbdfa2b7b9"></a>
+- [ ] **D-983acb1274dbdfa2b7b9** - · Keep compact typed control/delta messages on the stable IPC plane, then A/B large payloads using:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T222 : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L339-L339)
 
 </details>
 
@@ -2415,7 +2437,7 @@
 <a id="aoa-03-details"></a>
 ## AOA-03 - Complete gameplay and assets
 
-[Outcome](Checklist.md#aoa-03) / 25 source-derived details.
+[Outcome](Checklist.md#aoa-03) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2459,6 +2481,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 26. Noise/confidence engine
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1179-1179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1179-L1179)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression (1)</summary>
+
+<a id="d-c9bdcf480a5938b5ec12"></a>
+- [ ] **D-c9bdcf480a5938b5ec12** - · A/B no compression vs LZ4 (lz4_flex) vs low-level zstd for rebuildable snapshots/delta bundles above a measured size threshold.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T223 : 359-359](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L359-L359)
 
 </details>
 

@@ -9,7 +9,7 @@
 <a id="perf-01-details"></a>
 ## PERF-01 - Real mod and instance optimization
 
-[Outcome](Checklist.md#perf-01) / 89 source-derived details.
+[Outcome](Checklist.md#perf-01) / 92 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -224,6 +224,41 @@
   - **Full requirement:** - lucko/spark — Minecraft CPU/memory/health profiling. - tasgon/observable — deep world/entity/block-entity/scheduled-tick diagnostics. - Wueffi/TaskManager — per-mod CPU, estimated GPU, memory, startup, frame/network/disk timeline ideas. - WendellCraft/ModpackDebuggerKit — dependency-aware binary search/debugging ideas. - Krutoy242/mc-benchmark — startup-log benchmarking precedent. - SettingDust/MoreProfiling — JFR-oriented Minecraft profiling precedent. - imSirr/spark-analyzer — profile-quality, comparison, culprit-analysis, Copy-for-AI UX precedent. Do not copy noncommercial logic into Premium.
   - **Binding context:** 31. Current external research references / Performance/profiling
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1342-1348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1342-L1348)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger / T210 — Internal channel/event-bus challenger only after profiling (1)</summary>
+
+<a id="d-004d7544fe6aa20f125c"></a>
+- [ ] **D-004d7544fe6aa20f125c** - · If queue/channel overhead appears in traces, compare Tokio channels against Kanal (and any current stronger contender) using Enderloom&#x27;s real progress/delta event shape. Do ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · If queue/channel overhead appears in traces, compare Tokio channels against Kanal (and any current stronger contender) using Enderloom&#x27;s real progress/delta event shape. Do not change the event bus preemptively when IPC/serialization dominates instead.
+  - **Binding context:** G203 — Async/file data plane, scheduling, process supervision / T208 — Tokio control plane + Compio/Windows IoRing file data-plane challenger / T210 — Internal channel/event-bus challenger only after profiling
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T210 : 208-208](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L208-L208)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T224 — UI list data stays logical even if rendering strategy changes (1)</summary>
+
+<a id="d-a5e72b200bcfece50028"></a>
+- [ ] **D-a5e72b200bcfece50028** - · Any shared-buffer/bitmap/index optimization must preserve the active spec&#x27;s complete logical 10k-result selection/search/sort/filter semantics and zero-blank rendering gate....
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Any shared-buffer/bitmap/index optimization must preserve the active spec&#x27;s complete logical 10k-result selection/search/sort/filter semantics and zero-blank rendering gate. Bulk transport is not permission to reintroduce incomplete viewport-only datasets.
+  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T224 — UI list data stays logical even if rendering strategy changes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T224 : 365-365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L365-L365)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T234 — Faster optimization loop: sccache + nextest + linker bakeoff (1)</summary>
+
+<a id="d-7af5677bfe3df4916e1e"></a>
+- [ ] **D-7af5677bfe3df4916e1e** - Developer-loop improvements never replace runtime optimization proof, but faster measured feedback should accelerate convergence.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T234 — Faster optimization loop: sccache + nextest + linker bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 488-488](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L488-L488)
 
 </details>
 
@@ -2182,7 +2217,7 @@
 <a id="perf-06-details"></a>
 ## PERF-06 - Memory, tick and throughput gains
 
-[Outcome](Checklist.md#perf-06) / 30 source-derived details.
+[Outcome](Checklist.md#perf-06) / 32 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (2)</summary>
@@ -2305,6 +2340,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. Profiler/instrumentation stack / 18.3 Spark adapter
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 806-806](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L806-L806)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T215 — Tantivy/FST large-corpus threshold (1)</summary>
+
+<a id="d-5843cf2357b978560aab"></a>
+- [ ] **D-5843cf2357b978560aab** - · Keep SQLite FTS5 + Nucleo as the default local-search stack. Introduce Tantivy and/or memory-mapped FST only if a reproducible catalog scale causes FTS5/Nucleo to miss latency/RA...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Keep SQLite FTS5 + Nucleo as the default local-search stack. Introduce Tantivy and/or memory-mapped FST only if a reproducible catalog scale causes FTS5/Nucleo to miss latency/RAM goals and the new index remains rebuildable from canonical state.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T215 — Tantivy/FST large-corpus threshold
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T215 : 255-255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L255-L255)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G210 — Local crash evidence, ETW/Tracy observability, developer throughput (1)</summary>
+
+<a id="d-84e8c6f7d7d1dc343f7e"></a>
+- [ ] **D-84e8c6f7d7d1dc343f7e** - GATE — Enderloom becomes easier to optimize and recover without background telemetry or slower developer iteration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G210 : 445-445](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L445-L445)
 
 </details>
 

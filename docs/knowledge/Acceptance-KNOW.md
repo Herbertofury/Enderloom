@@ -1079,7 +1079,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 9 source-derived details.
+[Outcome](Checklist.md#know-05) / 10 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1168,6 +1168,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 15. First-Class Enderloom Objects Required
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 664-664](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L664-L664)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it (1)</summary>
+
+<a id="d-b681d8a5e7965ba7afaa"></a>
+- [ ] **D-b681d8a5e7965ba7afaa** - Do not re-scan this on every task. Refresh only after a relevant write/merge/upstream change.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L95-L95)
 
 </details>
 

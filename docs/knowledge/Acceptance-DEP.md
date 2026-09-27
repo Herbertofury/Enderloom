@@ -9,7 +9,7 @@
 <a id="dep-01-details"></a>
 ## DEP-01 - Full dependency closure
 
-[Outcome](Checklist.md#dep-01) / 74 source-derived details.
+[Outcome](Checklist.md#dep-01) / 75 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -345,6 +345,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-2 — direct A/B
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1525-1525](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1525-L1525)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T236 — GDLauncher Carbon reference pass (1)</summary>
+
+<a id="d-9c24c5c7b45267fb73cd"></a>
+- [ ] **D-9c24c5c7b45267fb73cd** - · Inspect current GDLauncher Carbon&#x27;s Rust scheduler/provider/retry/release-profile patterns. Its current workspace already demonstrates ThinLTO/codegen-unit tuning and custom...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Inspect current GDLauncher Carbon&#x27;s Rust scheduler/provider/retry/release-profile patterns. Its current workspace already demonstrates ThinLTO/codegen-unit tuning and custom scheduling ideas; compare those patterns against Enderloom rather than copying dependency versions blindly.
+  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T236 — GDLauncher Carbon reference pass
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T236 : 504-504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L504-L504)
 
 </details>
 
@@ -763,7 +775,7 @@
 <a id="dep-03-details"></a>
 ## DEP-03 - Conflict and change-impact graph
 
-[Outcome](Checklist.md#dep-03) / 78 source-derived details.
+[Outcome](Checklist.md#dep-03) / 81 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 21. Security and trust boundaries (1)</summary>
@@ -1043,6 +1055,35 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1610-1610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1610-L1610)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#[autoversion]` vs normal runtime dispatch (2)</summary>
+
+<a id="d-06a0aa2f36f9135094a3"></a>
+- [ ] **D-06a0aa2f36f9135094a3** - · A/B three CPU-specialization strategies on real hot paths:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#[autoversion]` vs normal runtime dispatch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T205 : 140-140](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L140-L140)
+
+<a id="d-c332f39dade6bdf0c53c"></a>
+- [ ] **D-c332f39dade6bdf0c53c** - Required cautions:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#[autoversion]` vs normal runtime dispatch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 146-146](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L146-L146)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T214 — Foyer hybrid disk cache: prove a real missing tier or reject it (1)</summary>
+
+<a id="d-646468c09ee62795b906"></a>
+- [ ] **D-646468c09ee62795b906** - · Test Foyer only if profiling proves a meaningful gap between RAM cache and Enderloom&#x27;s SQLite/CAS. Reject it if it duplicates CAS/SQLite persistence, increases write amplifi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Test Foyer only if profiling proves a meaningful gap between RAM cache and Enderloom&#x27;s SQLite/CAS. Reject it if it duplicates CAS/SQLite persistence, increases write amplification, complicates invalidation or is weaker on Windows than simpler cache layers.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T214 — Foyer hybrid disk cache: prove a real missing tier or reject it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T214 : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L249-L249)
 
 </details>
 
@@ -1649,7 +1690,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 95 source-derived details.
+[Outcome](Checklist.md#dep-05) / 100 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2258,6 +2299,63 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion (1)</summary>
+
+<a id="d-8e2226bebe75199f2246"></a>
+- [ ] **D-8e2226bebe75199f2246** - · Upgrade/verify the native workspace on current production-stable Rust + edition 2024 when the active spec has not already done so; pin the tested toolchain for releases and fix m...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Upgrade/verify the native workspace on current production-stable Rust + edition 2024 when the active spec has not already done so; pin the tested toolchain for releases and fix migration fallout forward.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T204 : 136-136](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L136-L136)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T206 — Allocator bakeoff: system vs mimalloc v3 vs snmalloc vs rpmalloc (1)</summary>
+
+<a id="d-ca1e3ab2c846ae52c67c"></a>
+- [ ] **D-ca1e3ab2c846ae52c67c** - · Replay provider normalization, archive parsing, dependency solves, 10k-card state updates, downloads/verification and startup through:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T206 — Allocator bakeoff: system vs mimalloc v3 vs snmalloc vs rpmalloc
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T206 : 158-158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L158-L158)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G213 — Explicit hold/reject registry (1)</summary>
+
+<a id="d-fdb2337bde54a75796e4"></a>
+- [ ] **D-fdb2337bde54a75796e4** - GATE — The stack stays lean because attractive but currently wrong-fit technologies are recorded and not repeatedly rediscovered.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G213 — Explicit hold/reject registry
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G213 : 536-536](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L536-L536)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G213 — Explicit hold/reject registry / T241 — Hold/reject current non-winners (1)</summary>
+
+<a id="d-e4cbe3a2bcec8e17a805"></a>
+- [ ] **D-e4cbe3a2bcec8e17a805** - · Unless new evidence invalidates these reasons, keep the following out of canonical durable/runtime ownership:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G213 — Explicit hold/reject registry / T241 — Hold/reject current non-winners
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T241 : 540-540](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L540-L540)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Current recommendation matrix from the 2026-09-26 scour (1)</summary>
+
+<a id="d-7a4b1b5d71f28fe635e2"></a>
+- [ ] **D-7a4b1b5d71f28fe635e2** - | Lane | Current first-shot recommendation | Status entering execution | |---|---|---| | Rust toolchain | Rust 2024 + current stable | STRONG / VERIFY ACTIVE WORK | | Whole-binary ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Lane | Current first-shot recommendation | Status entering execution | |---|---|---| | Rust toolchain | Rust 2024 + current stable | STRONG / VERIFY ACTIVE WORK | | Whole-binary CPU specialization | cargo-multivers | RISKY CHALLENGER | | Function-level SIMD | Archmage #[autoversion] | STRONG RISKY CHALLENGER | | Global allocator | mimalloc v3 vs snmalloc vs rpmalloc vs system | A/B REQUIRED | | File data plane | Tokio baseline + Compio/IoRing specialist | STRONG CHALLENGER | | Process supervision | Windows Job Objects | STRONG WINDOWS CHALLENGER | | Hot cache | Quick Cache for no-TTL L1; Moka where TTL needed | STRONG CHALLENGER | | Read-heavy concurrent map | Papaya vs scc vs ArcSwap design | STRONG CHALLENGER | | Facet/filter set algebra | Roaring bitmap derived index | STRONG CHALLENGER | | Hybrid disk cache | Foyer | CONDITIONAL / PROVE GAP FIRST | | Full-text huge corpus | Tantivy / FST | CONDITIONAL SCALE TRIGGER | | Canonical DB | current SQLite WAL/Rusqlite | KEEP / MODERNIZE | | SQLite extensions | STRICT, JSONB, PRAGMA optimize, mmap, table-specific WITHOUT ROWID | A/B PER USE | | DB topology | single DB vs durable state.db + rebuildable index.db | CONDITIONAL A/B | | ZIP/JAR | rawzip + zlib-rs/libdeflate roles | STRONG CHALLENGER | | Images | fast_image_resize + best decoder vs libvips | A/B REQUIRED | | JSON hot path | serde_json vs Sonic-rs/simd-json | CONDITIONAL HOT PATH | | IPC control | named pipe + typed Prost/deltas | KEEP | | WebView2 bulk UI data | CoreWebView2SharedBuffer | STRONG CHALLENGER | | Electron bulk UI data | MessagePorts/transferables | STRONG CHALLENGER | | Snapshot compression | none vs LZ4 vs low-level zstd threshold | CONDITIONAL A/B | | Browser filtering | Brave adblock-rust | STRONG CHALLENGER | | Native TLS ordinary API lane | rustls-platform-verifier | STRONG CHALLENGER | | Browser/provider transport | wreq/BoringSSL + impit | KEEP / MODERNIZE | | DNS | system resolver; Hickory only if proven causal | HOLD | | Installer/updater | Velopack | STRONG CHALLENGER | | Update metadata security | TUF via tough | CONDITIONAL STRONG SECURITY CHALLENGER | | Crash evidence | crash-handler + minidumper + rust-minidump, local only | STRONG CHALLENGER | | Production perf telemetry | ETW/TraceLogging | STRONG ADDITION | | Deep profiler | tracing-tracy local-only perf builds | STRONG DEV ADDITION | | Rust build cache | sccache | STRONG DEV ADDITION | | Rust tests | cargo-nextest | STRONG DEV ADDITION | | DirectStorage | future World Editor only | DEFER | | Turso/redb/Fjall canonical state | no | HOLD/REJECT CURRENTLY |
+  - **Binding context:** Current recommendation matrix from the 2026-09-26 scour
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 588-623](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L588-L623)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 3. PRESERVE THE MOD — DO NOT &quot;FIX&quot; BY DELETING IT (2)</summary>
 
 <a id="d-04797d173986bde2884e"></a>
@@ -2591,7 +2689,7 @@
 <a id="dep-06-details"></a>
 ## DEP-06 - Staged transactions and concurrent safety
 
-[Outcome](Checklist.md#dep-06) / 12 source-derived details.
+[Outcome](Checklist.md#dep-06) / 16 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.3 Preservation and safety (1)</summary>
@@ -2674,6 +2772,45 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes (1)</summary>
+
+<a id="d-d020ef858c0fa6fceeae"></a>
+- [ ] **D-d020ef858c0fa6fceeae** - GATE — In-memory acceleration is role-specific, bounded, revision-safe, and measurably faster than simpler structures without duplicating durable truth.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G204 : 214-214](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L214-L214)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role (2)</summary>
+
+<a id="d-065e84c796e25d98d7fa"></a>
+- [ ] **D-065e84c796e25d98d7fa** - · A/B Quick Cache/S3-FIFO against Moka for hot immutable/read-heavy metadata and parsed-object caches.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T211 : 218-218](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L218-L218)
+
+<a id="d-1fec4c20597d9430c47d"></a>
+- [ ] **D-1fec4c20597d9430c47d** - Do not force one cache across all workloads. Single-flight cache fill must prevent duplicate expensive parsing/fetch work.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 225-225](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L225-L225)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T214 — Foyer hybrid disk cache: prove a real missing tier or reject it (1)</summary>
+
+<a id="d-d0e35d47f4cb680d0d45"></a>
+- [ ] **D-d0e35d47f4cb680d0d45** - Foyer is never authoritative state.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T214 — Foyer hybrid disk cache: prove a real missing tier or reject it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 251-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L251-L251)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.2 Safe Test — disposable staging copies without making the user clone things manually (1)</summary>
 
 <a id="d-5eac71bf4defe3156698"></a>
@@ -2733,7 +2870,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 52 source-derived details.
+[Outcome](Checklist.md#dep-07) / 55 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -2958,6 +3095,36 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. Full CLI everywhere / 23.3 CLI parity CI gate
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1066-1066](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1066-L1066)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T207 — LTO / codegen units / PGO / panic strategy matrix (1)</summary>
+
+<a id="d-f19c4bceb905dc7fe888"></a>
+- [ ] **D-f19c4bceb905dc7fe888** - panic = &quot;abort&quot; is a candidate only if supervised-process recovery, crash dumps, durable transaction behavior and diagnostics remain equal or better. Do not trade debugga...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** panic = &quot;abort&quot; is a candidate only if supervised-process recovery, crash dumps, durable transaction behavior and diagnostics remain equal or better. Do not trade debuggability/data safety for a tiny binary-size win.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T207 — LTO / codegen units / PGO / panic strategy matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 171-171](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L171-L171)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T217 — Split durable `state.db` from rebuildable `index.db` only if contention proves it (2)</summary>
+
+<a id="d-fcd01d40a63cb3fde296"></a>
+- [ ] **D-fcd01d40a63cb3fde296** - · A/B the current single-database design against:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T217 — Split durable `state.db` from rebuildable `index.db` only if contention proves it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T217 : 284-284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L284-L284)
+
+<a id="d-5e659d4f99b275fe4f5a"></a>
+- [ ] **D-5e659d4f99b275fe4f5a** - - canonical durable revision/intent tells derived indexes what generation they represent; - derived DB may lag and rebuild; durable truth may not; - do not rely on cross-database W...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - canonical durable revision/intent tells derived indexes what generation they represent; - derived DB may lag and rebuild; durable truth may not; - do not rely on cross-database WAL transactions being atomically committed together; - a derived DB failure can be recreated without losing user state.
+  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T217 — Split durable `state.db` from rebuildable `index.db` only if contention proves it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 291-294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L291-L294)
 
 </details>
 

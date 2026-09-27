@@ -10,7 +10,7 @@
 [**LIB-01**](Checklist.md#lib-01)
 
 <details>
-<summary>Source clauses and aliases (95 distinct blocks)</summary>
+<summary>Source clauses and aliases (96 distinct blocks)</summary>
 
 - [2. CANONICAL ENGINEERING REFERENCES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L162-L162) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L179-L179) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -63,6 +63,7 @@
 - [Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L89-L94) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L69-L75) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Hot-drop catalogs + live source refresh](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L206-L212) - README.md; 1 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L312-L315) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Eliminate broad repeated discovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L526-L526) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T002`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T051`
@@ -75,7 +76,7 @@
 [**LIB-02**](Checklist.md#lib-02)
 
 <details>
-<summary>Source clauses and aliases (119 distinct blocks)</summary>
+<summary>Source clauses and aliases (126 distinct blocks)</summary>
 
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.3 Preservation and safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L97-L97) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L119-L119) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -152,9 +153,13 @@
 - [Enderloom 2.9.5 / Browser/catalog QoL](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L271-L280) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Security and privacy](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L324-L327) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L300-L312) - README.md; 1 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L304-L306) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L308-L317) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 3 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L319-L319) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L325-L325) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L343-L362) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G012`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T013`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T016`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T040`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T066`
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G012`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T013`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T016`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T040`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T066`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G206`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T219`
 
 </details>
 
@@ -164,7 +169,7 @@
 [**LIB-03**](Checklist.md#lib-03)
 
 <details>
-<summary>Source clauses and aliases (121 distinct blocks)</summary>
+<summary>Source clauses and aliases (129 distinct blocks)</summary>
 
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L178-L178) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [12. Split research + browser integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L498-L506) - ENDERLOOM_MASTER_REQUIREMENTS.md; 7 distinct blocks.
@@ -222,9 +227,15 @@
 - [Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L87-L87) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Browser/catalog QoL](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L269-L269) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L261-L265) - README.md; 2 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L369-L369) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L373-L377) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L394-L394) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L396-L400) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G212 — Future World Editor / heavy-tool-only challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L520-L520) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [Research source ledger / Browser/network/privacy](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L663-L663) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L220-L221) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G002`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T005`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T026`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T029`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T030`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T031`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T033`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T035`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T042`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T044`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T074`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T100`
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G002`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T005`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T026`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T029`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T030`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T031`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T033`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T035`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T042`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T044`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T074`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T100`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G212`
 
 </details>
 
@@ -366,7 +377,7 @@
 [**LIB-06**](Checklist.md#lib-06)
 
 <details>
-<summary>Source clauses and aliases (159 distinct blocks)</summary>
+<summary>Source clauses and aliases (160 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L678-L678) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / packwiz — `packwiz/packwiz`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L686-L689) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -474,6 +485,7 @@
 - [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Core / identity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L741-L746) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [11. World / Modpack / Content Operations](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L540-L540) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Content](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L641-L641) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [G209 — Installer, updater, delta delivery, release trust](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L412-L412) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L24-L275) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 3 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L40-L44) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 2 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L54-L54) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
@@ -505,7 +517,7 @@
 - [1. NORTHPOINT HARD INVARIANTS / 1.2 Zero-lag target](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L40-L44) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Zero-loss / lineage](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L915-L915) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md::T007`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md::T021`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md::T007`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md::T021`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G209`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md::T007`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md::T021`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md::T007`, `ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md::T021`
 
 </details>
 
@@ -515,7 +527,7 @@
 [**LIB-07**](Checklist.md#lib-07)
 
 <details>
-<summary>Source clauses and aliases (23 distinct blocks)</summary>
+<summary>Source clauses and aliases (24 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L669-L674) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [6. Content management / 6.1 Provider-backed discovery/install](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L338-L339) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
@@ -534,6 +546,7 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T053 — Bulk Mod Manager + Undo / Quarantine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2311-L2323) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L658-L658) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T074 — Capability bridge: standalone tools gain Electron/browser powers when hosted inside Enderloom](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L830-L834) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [Research source ledger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L629-L629) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T065`
 
@@ -545,7 +558,7 @@
 [**LIB-08**](Checklist.md#lib-08)
 
 <details>
-<summary>Source clauses and aliases (150 distinct blocks)</summary>
+<summary>Source clauses and aliases (164 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L755-L755) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [1. Research findings and integration decisions / 1.1 Integrate now — highest value / I. Vineflower + CFR — dual decompiler recovery lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L244-L244) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
@@ -634,10 +647,20 @@
 - [Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L153-L153) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L96-L96) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L263-L263) - README.md; 1 distinct blocks.
+- [G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T213 — Roaring bitmaps for high-cardinality filter/facet intersections](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L243-L243) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff / T217 — Split durable `state.db` from rebuildable `index.db` only if contention proves it](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L286-L287) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L321-L321) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L327-L327) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L371-L371) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L375-L388) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 3 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L390-L392) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L398-L402) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
+- [G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T228 — Hickory/custom DNS only after DNS is proven causal](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L406-L406) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T238 — No launcher-by-launcher duplicate engines](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L514-L514) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L924-L924) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.3 Optional dependencies must truly be optional](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L402-L403) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G009`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G013`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T008`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T027`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T046`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T061`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T075`
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G009`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G013`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T008`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T027`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T046`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T061`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T075`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G208`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T213`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T220`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T221`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T225`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T226`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T227`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T228`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T238`
 
 </details>
 
@@ -647,7 +670,7 @@
 [**LIB-09**](Checklist.md#lib-09)
 
 <details>
-<summary>Source clauses and aliases (132 distinct blocks)</summary>
+<summary>Source clauses and aliases (136 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-5 — profiler adapters + whole-pack intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L879-L879) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L932-L932) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -729,10 +752,13 @@
 - [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L267-L267) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Run Enderloom now](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L19-L19) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L314-L320) - README.md; 2 distinct blocks.
+- [Enderloom — Next-Generation Tech Stack Challenger &amp; Integration Spec / Context — repository baseline at research start](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L40-L45) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G207 — IPC and host-to-renderer bulk data path](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L335-L335) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
+- [G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T237 — Packwiz / Modrinth / Codeberg ecosystem pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L506-L508) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
 - [14. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L333-L333) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [2. Supported OpenAI Integration Lanes / 2.5 ChatGPT -&gt; Enderloom MCP/plugin lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L129-L129) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T083`
+**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T083`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G207`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T237`
 
 </details>
 

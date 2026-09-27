@@ -37,6 +37,22 @@
 
 </details>
 
+<a id="arthurprs-quick-cache"></a>
+<details>
+<summary>arthurprs/quick-cache (1 cited locations)</summary>
+
+- [https://github.com/arthurprs/quick-cache](https://github.com/arthurprs/quick-cache)
+
+</details>
+
+<a id="awslabs-tough"></a>
+<details>
+<summary>awslabs/tough (1 cited locations)</summary>
+
+- [https://github.com/awslabs/tough](https://github.com/awslabs/tough)
+
+</details>
+
 <a id="badasintended-ravel"></a>
 <details>
 <summary>badasintended/ravel (1 cited locations)</summary>
@@ -62,6 +78,14 @@
 
 </details>
 
+<a id="brave-adblock-rust"></a>
+<details>
+<summary>brave/adblock-rust (1 cited locations)</summary>
+
+- [https://github.com/brave/adblock-rust](https://github.com/brave/adblock-rust)
+
+</details>
+
 <a id="bridge-core-dash-compiler"></a>
 <details>
 <summary>bridge-core/dash-compiler (1 cited locations)</summary>
@@ -83,6 +107,14 @@
 <summary>BrilliantTeam/Minecraft-ResourcePack-Migrator (1 cited locations)</summary>
 
 - [https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator](https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator)
+
+</details>
+
+<a id="burntsushi-fst"></a>
+<details>
+<summary>BurntSushi/fst (1 cited locations)</summary>
+
+- [https://github.com/BurntSushi/fst](https://github.com/BurntSushi/fst)
 
 </details>
 
@@ -126,6 +158,14 @@
 
 </details>
 
+<a id="compio-rs-compio"></a>
+<details>
+<summary>compio-rs/compio (1 cited locations)</summary>
+
+- [https://github.com/compio-rs/compio](https://github.com/compio-rs/compio)
+
+</details>
+
 <a id="creators-of-create-ponder"></a>
 <details>
 <summary>Creators-of-Create/Ponder (1 cited locations)</summary>
@@ -155,6 +195,14 @@
 <summary>EmanuelNorsk/turnleaf (1 cited locations)</summary>
 
 - [https://github.com/EmanuelNorsk/turnleaf](https://github.com/EmanuelNorsk/turnleaf)
+
+</details>
+
+<a id="embarkstudios-rpmalloc-rs"></a>
+<details>
+<summary>EmbarkStudios/rpmalloc-rs (1 cited locations)</summary>
+
+- [https://github.com/EmbarkStudios/rpmalloc-rs](https://github.com/EmbarkStudios/rpmalloc-rs)
 
 </details>
 
@@ -230,6 +278,22 @@
 
 </details>
 
+<a id="fereidani-kanal"></a>
+<details>
+<summary>fereidani/kanal (1 cited locations)</summary>
+
+- [https://github.com/fereidani/kanal](https://github.com/fereidani/kanal)
+
+</details>
+
+<a id="foyer-rs-foyer"></a>
+<details>
+<summary>foyer-rs/foyer (1 cited locations)</summary>
+
+- [https://github.com/foyer-rs/foyer](https://github.com/foyer-rs/foyer)
+
+</details>
+
 <a id="geysermc-packconverter"></a>
 <details>
 <summary>GeyserMC/PackConverter (1 cited locations)</summary>
@@ -251,6 +315,14 @@
 <summary>gorilla-devs/ferium (1 cited locations)</summary>
 
 - [https://github.com/gorilla-devs/ferium](https://github.com/gorilla-devs/ferium)
+
+</details>
+
+<a id="gorilla-devs-gdlauncher-carbon"></a>
+<details>
+<summary>gorilla-devs/GDLauncher-Carbon (1 cited locations)</summary>
+
+- [https://github.com/gorilla-devs/GDLauncher-Carbon](https://github.com/gorilla-devs/GDLauncher-Carbon)
 
 </details>
 
@@ -286,6 +358,14 @@
 
 </details>
 
+<a id="helix-editor-nucleo"></a>
+<details>
+<summary>helix-editor/nucleo (1 cited locations)</summary>
+
+- [https://github.com/helix-editor/nucleo](https://github.com/helix-editor/nucleo)
+
+</details>
+
 <a id="herbertofury-enderloom"></a>
 <details>
 <summary>Herbertofury/Enderloom (17 cited locations)</summary>
@@ -318,11 +398,35 @@
 
 </details>
 
+<a id="hickory-dns-hickory-dns"></a>
+<details>
+<summary>hickory-dns/hickory-dns (1 cited locations)</summary>
+
+- [https://github.com/hickory-dns/hickory-dns](https://github.com/hickory-dns/hickory-dns)
+
+</details>
+
 <a id="hivegamesoss-chunker"></a>
 <details>
 <summary>HiveGamesOSS/Chunker (1 cited locations)</summary>
 
 - [https://github.com/HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker)
+
+</details>
+
+<a id="ibraheemdev-papaya"></a>
+<details>
+<summary>ibraheemdev/papaya (1 cited locations)</summary>
+
+- [https://github.com/ibraheemdev/papaya](https://github.com/ibraheemdev/papaya)
+
+</details>
+
+<a id="imazen-archmage"></a>
+<details>
+<summary>imazen/archmage (1 cited locations)</summary>
+
+- [https://github.com/imazen/archmage](https://github.com/imazen/archmage)
 
 </details>
 
@@ -454,6 +558,22 @@
 
 </details>
 
+<a id="microsoft-directstorage"></a>
+<details>
+<summary>microsoft/DirectStorage (1 cited locations)</summary>
+
+- [https://github.com/microsoft/DirectStorage](https://github.com/microsoft/DirectStorage)
+
+</details>
+
+<a id="microsoft-mimalloc"></a>
+<details>
+<summary>microsoft/mimalloc (1 cited locations)</summary>
+
+- [https://github.com/microsoft/mimalloc](https://github.com/microsoft/mimalloc)
+
+</details>
+
 <a id="microsoft-minecraft-gametests"></a>
 <details>
 <summary>microsoft/minecraft-gametests (1 cited locations)</summary>
@@ -467,6 +587,30 @@
 <summary>microsoft/minecraft-scripting-samples (1 cited locations)</summary>
 
 - [https://github.com/microsoft/minecraft-scripting-samples](https://github.com/microsoft/minecraft-scripting-samples)
+
+</details>
+
+<a id="microsoft-rust-win-etw"></a>
+<details>
+<summary>microsoft/rust_win_etw (1 cited locations)</summary>
+
+- [https://github.com/microsoft/rust_win_etw](https://github.com/microsoft/rust_win_etw)
+
+</details>
+
+<a id="microsoft-snmalloc"></a>
+<details>
+<summary>microsoft/snmalloc (1 cited locations)</summary>
+
+- [https://github.com/microsoft/snmalloc](https://github.com/microsoft/snmalloc)
+
+</details>
+
+<a id="microsoft-tracelogging"></a>
+<details>
+<summary>microsoft/tracelogging (1 cited locations)</summary>
+
+- [https://github.com/microsoft/tracelogging](https://github.com/microsoft/tracelogging)
 
 </details>
 
@@ -494,6 +638,14 @@
 
 </details>
 
+<a id="modrinth-code"></a>
+<details>
+<summary>modrinth/code (1 cited locations)</summary>
+
+- [https://github.com/modrinth/code](https://github.com/modrinth/code)
+
+</details>
+
 <a id="mojang-bedrock-protocol-docs"></a>
 <details>
 <summary>Mojang/bedrock-protocol-docs (1 cited locations)</summary>
@@ -507,6 +659,22 @@
 <summary>Mojang/bedrock-samples (1 cited locations)</summary>
 
 - [https://github.com/Mojang/bedrock-samples](https://github.com/Mojang/bedrock-samples)
+
+</details>
+
+<a id="moka-rs-moka"></a>
+<details>
+<summary>moka-rs/moka (1 cited locations)</summary>
+
+- [https://github.com/moka-rs/moka](https://github.com/moka-rs/moka)
+
+</details>
+
+<a id="mozilla-sccache"></a>
+<details>
+<summary>mozilla/sccache (1 cited locations)</summary>
+
+- [https://github.com/mozilla/sccache](https://github.com/mozilla/sccache)
 
 </details>
 
@@ -539,6 +707,14 @@
 <summary>neoforged/NeoFormRuntime (1 cited locations)</summary>
 
 - [https://github.com/neoforged/NeoFormRuntime](https://github.com/neoforged/NeoFormRuntime)
+
+</details>
+
+<a id="nextest-rs-nextest"></a>
+<details>
+<summary>nextest-rs/nextest (1 cited locations)</summary>
+
+- [https://github.com/nextest-rs/nextest](https://github.com/nextest-rs/nextest)
 
 </details>
 
@@ -638,6 +814,14 @@
 
 </details>
 
+<a id="pseitz-lz4-flex"></a>
+<details>
+<summary>PSeitz/lz4_flex (1 cited locations)</summary>
+
+- [https://github.com/PSeitz/lz4_flex](https://github.com/PSeitz/lz4_flex)
+
+</details>
+
 <a id="querz-mcaselector"></a>
 <details>
 <summary>Querz/mcaselector (1 cited locations)</summary>
@@ -646,11 +830,51 @@
 
 </details>
 
+<a id="quickwit-oss-tantivy"></a>
+<details>
+<summary>quickwit-oss/tantivy (1 cited locations)</summary>
+
+- [https://github.com/quickwit-oss/tantivy](https://github.com/quickwit-oss/tantivy)
+
+</details>
+
 <a id="reqsery-mc-mod-porter"></a>
 <details>
 <summary>reqsery/mc-mod-porter (1 cited locations)</summary>
 
 - [https://github.com/reqsery/mc-mod-porter](https://github.com/reqsery/mc-mod-porter)
+
+</details>
+
+<a id="roaringbitmap-roaring-rs"></a>
+<details>
+<summary>RoaringBitmap/roaring-rs (1 cited locations)</summary>
+
+- [https://github.com/RoaringBitmap/roaring-rs](https://github.com/RoaringBitmap/roaring-rs)
+
+</details>
+
+<a id="ronnychevalier-cargo-multivers"></a>
+<details>
+<summary>ronnychevalier/cargo-multivers (1 cited locations)</summary>
+
+- [https://github.com/ronnychevalier/cargo-multivers](https://github.com/ronnychevalier/cargo-multivers)
+
+</details>
+
+<a id="rust-minidump-rust-minidump"></a>
+<details>
+<summary>rust-minidump/rust-minidump (1 cited locations)</summary>
+
+- [https://github.com/rust-minidump/rust-minidump](https://github.com/rust-minidump/rust-minidump)
+
+</details>
+
+<a id="rustls-rustls-platform-verifier"></a>
+<details>
+<summary>rustls/rustls-platform-verifier (1 cited locations)</summary>
+
+- [https://github.com/rustls/rustls-platform-verifier](https://github.com/rustls/rustls-platform-verifier)
 
 </details>
 
@@ -782,6 +1006,14 @@
 
 </details>
 
+<a id="velopack-velopack"></a>
+<details>
+<summary>velopack/velopack (1 cited locations)</summary>
+
+- [https://github.com/velopack/velopack](https://github.com/velopack/velopack)
+
+</details>
+
 <a id="vineflower-vineflower"></a>
 <details>
 <summary>Vineflower/vineflower (1 cited locations)</summary>
@@ -810,6 +1042,12 @@
 
 - [https://api.curseforge.com/v1](https://api.curseforge.com/v1)
 - [https://docs.fabricmc.net/develop/porting/mappings/](https://docs.fabricmc.net/develop/porting/mappings/)
+- [https://docs.rs/crash-handler/latest/crash_handler/](https://docs.rs/crash-handler/latest/crash_handler/)
+- [https://docs.rs/minidumper/latest/minidumper/](https://docs.rs/minidumper/latest/minidumper/)
+- [https://docs.rs/scc/latest/scc/](https://docs.rs/scc/latest/scc/)
+- [https://docs.rs/tracing-tracy/latest/tracing_tracy/](https://docs.rs/tracing-tracy/latest/tracing_tracy/)
+- [https://docs.rs/windows-ioring-sys/latest/windows_ioring_sys/](https://docs.rs/windows-ioring-sys/latest/windows_ioring_sys/)
+- [https://docs.velopack.io/getting-started/javascript](https://docs.velopack.io/getting-started/javascript)
 - [https://drive.google.com/file/d/11UC6MJthtPZ7QVQ3sBkZB-q-JMzy6bnb/view](https://drive.google.com/file/d/11UC6MJthtPZ7QVQ3sBkZB-q-JMzy6bnb/view)
 - [https://drive.google.com/file/d/1QA6UcPshjW9PzWB7hU-R60y2oxkWlQum/view](https://drive.google.com/file/d/1QA6UcPshjW9PzWB7hU-R60y2oxkWlQum/view)
 - [https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view](https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view)
@@ -817,7 +1055,10 @@
 - [https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view](https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view)
 - [https://github.com/marketplace/actions/mc-runtime-test](https://github.com/marketplace/actions/mc-runtime-test)
 - [https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6](https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6)
+- [https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.postsharedbuffertoscript](https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.postsharedbuffertoscript)
+- [https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/performance](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/performance)
 - [https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable](https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable)
+- [https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects)
 - [https://learn.microsoft.com/minecraft/creator/](https://learn.microsoft.com/minecraft/creator/)
 - [https://learn.microsoft.com/minecraft/creator/reference/](https://learn.microsoft.com/minecraft/creator/reference/)
 - [https://legacyport.net](https://legacyport.net)
@@ -832,6 +1073,11 @@
 - [https://plugins.gradle.org/plugin/dev.kikugie.stonecutter](https://plugins.gradle.org/plugin/dev.kikugie.stonecutter)
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
+- [https://sqlite.org/json1.html](https://sqlite.org/json1.html)
+- [https://sqlite.org/jsonb.html](https://sqlite.org/jsonb.html)
+- [https://sqlite.org/pragma.html](https://sqlite.org/pragma.html)
+- [https://sqlite.org/stricttables.html](https://sqlite.org/stricttables.html)
+- [https://theupdateframework.io/](https://theupdateframework.io/)
 - [https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom](https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom)
 - [https://www.curseforge.com/minecraft/mc-mods/apothic-curios](https://www.curseforge.com/minecraft/mc-mods/apothic-curios)
 - [https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler](https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler)
@@ -839,5 +1085,6 @@
 - [https://www.curseforge.com/minecraft/mc-mods/farmers-delight](https://www.curseforge.com/minecraft/mc-mods/farmers-delight)
 - [https://www.curseforge.com/minecraft/mc-mods/observable](https://www.curseforge.com/minecraft/mc-mods/observable)
 - [https://www.curseforge.com/minecraft/mc-mods/portkit-autoport-mod/files/8927224](https://www.curseforge.com/minecraft/mc-mods/portkit-autoport-mod/files/8927224)
+- [https://www.electronjs.org/docs/latest/tutorial/message-ports](https://www.electronjs.org/docs/latest/tutorial/message-ports)
 - [https://www.minecraft.net/en-us/download/server/bedrock](https://www.minecraft.net/en-us/download/server/bedrock)
 - [https://www.turnleafmc.io/](https://www.turnleafmc.io/)

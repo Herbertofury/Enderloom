@@ -646,7 +646,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 97 source-derived details.
+[Outcome](Checklist.md#fix-03) / 103 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1195,6 +1195,70 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 9. Crash / Freeze / Deadlock / World Repair
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 497-497](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L497-L497)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G202 — CPU code generation, SIMD, allocator, and release profile (1)</summary>
+
+<a id="d-703972b9b226cbaeb465"></a>
+- [ ] **D-703972b9b226cbaeb465** - GATE — Enderloom&#x27;s shipped native binaries use the fastest portable CPU/compiler/allocator composition proven on representative hardware without breaking startup, signing, upd...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom&#x27;s shipped native binaries use the fastest portable CPU/compiler/allocator composition proven on representative hardware without breaking startup, signing, updates, crash diagnostics, or older supported CPUs.
+  - **Binding context:** G202 — CPU code generation, SIMD, allocator, and release profile
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G202 : 132-132](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L132-L132)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff (1)</summary>
+
+<a id="d-f2820f8a4055267596ad"></a>
+- [ ] **D-f2820f8a4055267596ad** - - JSONB is SQLite-internal opaque data; never parse its bytes in application code. - Normalize hot fields instead of stuffing every predicate into JSON. - Tuning runs with crash/in...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - JSONB is SQLite-internal opaque data; never parse its bytes in application code. - Normalize hot fields instead of stuffing every predicate into JSON. - Tuning runs with crash/integrity protections enabled.
+  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 278-280](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L278-L280)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G209 — Installer, updater, delta delivery, release trust / T229 — Velopack dual-shell updater challenger / T231 — CPU-multiversion/update interaction (1)</summary>
+
+<a id="d-7c443b3fc01b29e6b03a"></a>
+- [ ] **D-7c443b3fc01b29e6b03a** - · If cargo-multivers wins T205, explicitly measure its compressed multi-binary wrapper against Velopack delta efficiency, signatures, AV scanning and crash symbols. A CPU win that ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · If cargo-multivers wins T205, explicitly measure its compressed multi-binary wrapper against Velopack delta efficiency, signatures, AV scanning and crash symbols. A CPU win that makes every update huge or fragile is not a whole-product win.
+  - **Binding context:** G209 — Installer, updater, delta delivery, release trust / T229 — Velopack dual-shell updater challenger / T231 — CPU-multiversion/update interaction
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T231 : 439-439](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L439-L439)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor (2)</summary>
+
+<a id="d-c397c4bc0a9f3845886f"></a>
+- [ ] **D-c397c4bc0a9f3845886f** - · Build/prototype a local crash-evidence lane using current Rust crash/minidump components such as crash-handler, minidumper and rust-minidump where appropriate.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T232 : 449-449](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L449-L449)
+
+<a id="d-c99cc492035eee38c677"></a>
+- [ ] **D-c99cc492035eee38c677** - Required product behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 451-451](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L451-L451)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T233 — ETW first-class production performance events; Tracy only in perf builds (1)</summary>
+
+<a id="d-32a90fc42b2621a378c3"></a>
+- [ ] **D-32a90fc42b2621a378c3** - · Add a low-overhead Windows ETW/TraceLogging provider for stable Enderloom operation IDs and causal timing:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T233 — ETW first-class production performance events; Tracy only in perf builds
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T233 : 464-464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L464-L464)
 
 </details>
 
@@ -1812,7 +1876,7 @@
 <a id="fix-05-details"></a>
 ## FIX-05 - Heap and memory-leak diagnosis
 
-[Outcome](Checklist.md#fix-05) / 12 source-derived details.
+[Outcome](Checklist.md#fix-05) / 13 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 9. PHASE F — DIAGNOSTICS, BLACK BOX, REPAIR, BISECT / 9.3 Repair specialties (1)</summary>
@@ -1898,6 +1962,18 @@
   - **Binding context:** 11. Logs, diagnostics, storage, system visibility / Logs
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L472-L472)
   - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G214 — Convergence and handoff into the canonical Enderloom plan / T242 — Promote only complete whole-product winners (1)</summary>
+
+<a id="d-e8b2dcd5910b21c14c6e"></a>
+- [ ] **D-e8b2dcd5910b21c14c6e** - · For every candidate that wins a micro/hot-path benchmark, run the integration-level checks that can reverse the decision: startup, packaging, updater delta size, signing, crash r...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · For every candidate that wins a micro/hot-path benchmark, run the integration-level checks that can reverse the decision: startup, packaging, updater delta size, signing, crash recovery, memory, browser compatibility, complete result counts, privacy and cheap Minecraft smoke check.
+  - **Binding context:** G214 — Convergence and handoff into the canonical Enderloom plan / T242 — Promote only complete whole-product winners
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T242 : 563-563](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L563-L563)
 
 </details>
 

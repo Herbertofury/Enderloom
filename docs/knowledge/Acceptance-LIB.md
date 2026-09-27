@@ -732,7 +732,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 80 source-derived details.
+[Outcome](Checklist.md#lib-02) / 82 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1421,6 +1421,28 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media (1)</summary>
+
+<a id="d-74d7323a55fc6467f830"></a>
+- [ ] **D-74d7323a55fc6467f830** - GATE — Enderloom reads/decompresses/decodes only the minimum bytes necessary and uses the fastest proven complete parser for each workload.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G206 — Archives, metadata parsing, compression, media
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G206 : 306-306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L306-L306)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split (1)</summary>
+
+<a id="d-f33b7896c031c82e7342"></a>
+- [ ] **D-f33b7896c031c82e7342** - · Preserve the active-spec archive challenge and additionally classify decompression by workload:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T219 : 310-310](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L310-L310)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.9 Screenshots and media library (1)</summary>
 
 <a id="d-43356f95d8108aaf6a38"></a>
@@ -1562,7 +1584,7 @@
 <a id="lib-03-details"></a>
 ## LIB-03 - Real embedded browser
 
-[Outcome](Checklist.md#lib-03) / 89 source-derived details.
+[Outcome](Checklist.md#lib-03) / 93 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics (1)</summary>
@@ -2069,6 +2091,51 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1599-1599](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1599-L1599)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger (1)</summary>
+
+<a id="d-142a3d896f4fc0c64a04"></a>
+- [ ] **D-142a3d896f4fc0c64a04** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 377-377](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L377-L377)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust (1)</summary>
+
+<a id="d-33dbad63c709cde61359"></a>
+- [ ] **D-33dbad63c709cde61359** - Keep browser-impersonation transport TLS behavior exactly as required by wreq/impit; do not force platform verification into a fidelity-specific transport if it breaks the intended...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Keep browser-impersonation transport TLS behavior exactly as required by wreq/impit; do not force platform verification into a fidelity-specific transport if it breaks the intended fingerprint.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 394-394](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L394-L394)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals (1)</summary>
+
+<a id="d-526fd8f0e7345ef86112"></a>
+- [ ] **D-526fd8f0e7345ef86112** - Do not replace strong browser-impersonation/HTTP3 behavior with plain generic HTTP for familiarity.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 400-400](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L400-L400)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G212 — Future World Editor / heavy-tool-only challengers (1)</summary>
+
+<a id="d-ed6cfbdd270688829c13"></a>
+- [ ] **D-ed6cfbdd270688829c13** - GATE — Heavy graphical/file-streaming technology is evaluated in the tool that needs it instead of bloating the ordinary Mod Manager/browser shell.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G212 : 520-520](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L520-L520)
 
 </details>
 
@@ -3942,7 +4009,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 104 source-derived details.
+[Outcome](Checklist.md#lib-06) / 105 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -4500,6 +4567,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase CLI-1 — existing Enderloom domain parity
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1501-1501](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1501-L1501)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G209 — Installer, updater, delta delivery, release trust (1)</summary>
+
+<a id="d-a59ce01242c0701638ab"></a>
+- [ ] **D-a59ce01242c0701638ab** - GATE — Both Enderloom shell editions can install/update/rollback quickly with minimal bytes and strong signed provenance without duplicating updater logic.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G209 — Installer, updater, delta delivery, release trust
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G209 : 412-412](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L412-L412)
 
 </details>
 
@@ -5110,7 +5188,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 114 source-derived details.
+[Outcome](Checklist.md#lib-08) / 125 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -6046,6 +6124,125 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T213 — Roaring bitmaps for high-cardinality filter/facet intersections (1)</summary>
+
+<a id="d-2c0ad415353d5f0fde31"></a>
+- [ ] **D-2c0ad415353d5f0fde31** - · Build a rebuildable revisioned Roaring-bitmap index keyed to canonical numeric IDs for suitable Browse/Mods facets such as loader, Minecraft version, provider, category/tag, inst...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Build a rebuildable revisioned Roaring-bitmap index keyed to canonical numeric IDs for suitable Browse/Mods facets such as loader, Minecraft version, provider, category/tag, installed, compatible, favorite/pinned and update state.
+  - **Binding context:** G204 — Hot caches, concurrent maps, filtering, and search indexes / T211 — Quick Cache vs Moka by role / T213 — Roaring bitmaps for high-cardinality filter/facet intersections
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T213 : 243-243](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L243-L243)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff (1)</summary>
+
+<a id="d-02506069ea9f3c02d497"></a>
+- [ ] **D-02506069ea9f3c02d497** - · Benchmark fast_image_resize and current image/libvips candidates with provider artwork/card/icon fixtures. Include zune-image only as a decoder/processing challenger if Windows f...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Benchmark fast_image_resize and current image/libvips candidates with provider artwork/card/icon fixtures. Include zune-image only as a decoder/processing challenger if Windows format coverage, correctness and licensing are acceptable.
+  - **Binding context:** G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T220 : 321-321](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L321-L321)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it (1)</summary>
+
+<a id="d-07b71bd255eefa1141a3"></a>
+- [ ] **D-07b71bd255eefa1141a3** - · Replay real provider JSON and Minecraft metadata through serde_json vs Sonic-rs/simd-json, and read-only mod TOML metadata through the current parser vs a faster compatible parse...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Replay real provider JSON and Minecraft metadata through serde_json vs Sonic-rs/simd-json, and read-only mod TOML metadata through the current parser vs a faster compatible parser only if TOML parsing is visible in profiles.
+  - **Binding context:** G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T221 — JSON/TOML parser fast lane only where profiles prove it
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T221 : 327-327](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L327-L327)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS (1)</summary>
+
+<a id="d-ef5c4bb9d5738d387358"></a>
+- [ ] **D-ef5c4bb9d5738d387358** - GATE — Browser/provider networking is faster and more private without breaking auth, enterprise trust, downloads, site compatibility or the existing native transport advantage.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G208 : 371-371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L371-L371)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger (2)</summary>
+
+<a id="d-87811eff9b623ebc6558"></a>
+- [ ] **D-87811eff9b623ebc6558** - · A/B brave/adblock-rust as one shared native network/cosmetic filtering engine usable by both Electron and WebView2 host adapters.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T225 : 375-375](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L375-L375)
+
+<a id="d-676fe70825d79e0be57a"></a>
+- [ ] **D-676fe70825d79e0be57a** - A filter engine that breaks required provider login/download flows and requires broad allowlisting loses.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 388-388](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L388-L388)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust (1)</summary>
+
+<a id="d-2d5745a145918e763cca"></a>
+- [ ] **D-2d5745a145918e763cca** - · Test rustls-platform-verifier for ordinary Reqwest/Rustls provider/API lanes so Windows system trust, managed/private CAs and platform trust decisions behave like a normal deskto...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Test rustls-platform-verifier for ordinary Reqwest/Rustls provider/API lanes so Windows system trust, managed/private CAs and platform trust decisions behave like a normal desktop app.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T226 — `rustls-platform-verifier` for ordinary native provider/API trust
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T226 : 392-392](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L392-L392)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals (2)</summary>
+
+<a id="d-3e15ff730acc473a9104"></a>
+- [ ] **D-3e15ff730acc473a9104** - · Upgrade current impit/wreq components only after existing native race/hedge/provider QA proves equal-or-better output. Where wreq supports Compio, A/B runtime choice only on prov...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Upgrade current impit/wreq components only after existing native race/hedge/provider QA proves equal-or-better output. Where wreq supports Compio, A/B runtime choice only on provider workloads where the runtime can materially change local overhead.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T227 : 398-398](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L398-L398)
+
+<a id="d-8654b1cd155cfe6708bd"></a>
+- [ ] **D-8654b1cd155cfe6708bd** - Provider auth/session expiry remains a real connection state: reuse valid authorized state, request reconnect only when required, and automatically resume the original provider ope...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Provider auth/session expiry remains a real connection state: reuse valid authorized state, request reconnect only when required, and automatically resume the original provider operation after successful reconnect rather than looping anonymous failures.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T227 — Keep wreq/impit; challenge only measured internals
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 402-402](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L402-L402)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T228 — Hickory/custom DNS only after DNS is proven causal (1)</summary>
+
+<a id="d-e951db010301d0d84152"></a>
+- [ ] **D-e951db010301d0d84152** - · Use Windows/system resolver as baseline. Test Hickory caching/DoH/alternate resolution only if tracing shows DNS materially contributes to provider tail latency and the alternati...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Use Windows/system resolver as baseline. Test Hickory caching/DoH/alternate resolution only if tracing shows DNS materially contributes to provider tail latency and the alternative preserves proxy/PAC/VPN/enterprise behavior and privacy expectations.
+  - **Binding context:** G208 — Browser privacy, TLS trust, provider networking, DNS / T225 — Brave `adblock-rust` as the shared native filtering engine challenger / T228 — Hickory/custom DNS only after DNS is proven causal
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T228 : 406-406](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L406-L406)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T238 — No launcher-by-launcher duplicate engines (1)</summary>
+
+<a id="d-ad4cc73b8278db767900"></a>
+- [ ] **D-ad4cc73b8278db767900** - · Any useful Prism/GDLauncher/Packwiz/Modrinth technique must converge into the one canonical enderloom-core architecture and shared Tool Platform; no hidden &quot;Prism-compatible...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Any useful Prism/GDLauncher/Packwiz/Modrinth technique must converge into the one canonical enderloom-core architecture and shared Tool Platform; no hidden &quot;Prism-compatible engine&quot; or second provider/update solver may survive after integration.
+  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T238 — No launcher-by-launcher duplicate engines
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T238 : 514-514](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L514-L514)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 19. CLI/automation — only for Favorites + Performance scope / Favorites CLI (1)</summary>
 
 <a id="d-2576b6a0e0f2ebf5c0c6"></a>
@@ -6164,7 +6361,7 @@
 <a id="lib-09-details"></a>
 ## LIB-09 - Pack and research interchange
 
-[Outcome](Checklist.md#lib-09) / 83 source-derived details.
+[Outcome](Checklist.md#lib-09) / 85 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Objective (1)</summary>
@@ -6539,6 +6736,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. Full CLI everywhere / 23.2 CLI parity domains
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1043-1043](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1043-L1043)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path (1)</summary>
+
+<a id="d-9ab258e94216d474b1b9"></a>
+- [ ] **D-9ab258e94216d474b1b9** - GATE — Small control messages remain simple and typed; large catalog/snapshot payloads avoid repeated JSON copies/GC when a safer bulk lane wins.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G207 — IPC and host-to-renderer bulk data path
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G207 : 335-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L335-L335)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T237 — Packwiz / Modrinth / Codeberg ecosystem pass (1)</summary>
+
+<a id="d-5d4c5f4a74f80e389b9e"></a>
+- [ ] **D-5d4c5f4a74f80e389b9e** - · Inspect current Packwiz, Modrinth App/Theseus lineage and current Codeberg-hosted Minecraft libraries for provider resolution, pack metadata, version semantics and reproducible p...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Inspect current Packwiz, Modrinth App/Theseus lineage and current Codeberg-hosted Minecraft libraries for provider resolution, pack metadata, version semantics and reproducible pack/update logic.
+  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass / T237 — Packwiz / Modrinth / Codeberg ecosystem pass
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T237 : 508-508](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L508-L508)
 
 </details>
 

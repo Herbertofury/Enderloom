@@ -34,7 +34,7 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [WORLD-01 - World browser and safe editing](Acceptance-WORLD.md#world-01-details): 84 source details.
+- [WORLD-01 - World browser and safe editing](Acceptance-WORLD.md#world-01-details): 86 source details.
 - [WORLD-02 - Backups, recovery and Forever Worlds](Acceptance-WORLD.md#world-02-details): 32 source details.
 - [WORLD-03 - Whole-modpack migration](Acceptance-WORLD.md#world-03-details): 19 source details.
 - [WORLD-04 - Cross-edition world conversion](Acceptance-WORLD.md#world-04-details): 56 source details.

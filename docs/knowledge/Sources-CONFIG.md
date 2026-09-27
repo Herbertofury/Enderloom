@@ -110,7 +110,7 @@
 [**CONFIG-03**](Checklist.md#config-03)
 
 <details>
-<summary>Source clauses and aliases (34 distinct blocks)</summary>
+<summary>Source clauses and aliases (35 distinct blocks)</summary>
 
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L105-L105) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI / 10.2 Dedicated Hotkeys tab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L425-L428) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 3 distinct blocks.
@@ -127,6 +127,7 @@
 - [6. Minecraft Data / Function Debugger — expanded](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L417-L417) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Hotkeys](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L759-L761) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
 - [Enderloom — Unified Studio, Config/Hotkey Control, Full CLI, Premium Knowledge &amp; Evidence Brain / Locked decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L13-L27) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
+- [G202 — CPU code generation, SIMD, allocator, and release profile / T204 — Rust 2024/current stable toolchain promotion / T205 — `cargo-multivers` vs Archmage `#autoversion` vs normal runtime dispatch](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L154-L154) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L143-L154) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T019`

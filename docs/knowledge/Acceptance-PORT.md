@@ -9,7 +9,7 @@
 <a id="port-01-details"></a>
 ## PORT-01 - Input and source authority
 
-[Outcome](Checklist.md#port-01) / 110 source-derived details.
+[Outcome](Checklist.md#port-01) / 111 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
@@ -554,6 +554,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. Full CLI everywhere / 23.3 CLI parity CI gate
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1060-1060](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1060-L1060)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G201 — Research snapshot, benchmark discipline, and promotion ledger (1)</summary>
+
+<a id="d-60fb958e2d80433a4c3c"></a>
+- [ ] **D-60fb958e2d80433a4c3c** - GATE — Every technology decision is tied to a current source/version, a real Enderloom workload, and a complete-result A/B decision.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G201 — Research snapshot, benchmark discipline, and promotion ledger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G201 : 78-78](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L78-L78)
 
 </details>
 
@@ -3797,7 +3808,7 @@
 <a id="port-07-details"></a>
 ## PORT-07 - JAR recovery and binary repair
 
-[Outcome](Checklist.md#port-07) / 49 source-derived details.
+[Outcome](Checklist.md#port-07) / 50 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -4038,6 +4049,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 7. JAR Repair / Source Recovery / Binary-Only Work
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 425-425](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L425-L425)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression (1)</summary>
+
+<a id="d-3cde296f0d325f590d3d"></a>
+- [ ] **D-3cde296f0d325f590d3d** - Never compress already-compressed JAR/media or tiny messages. Include compression+decompression CPU and latency in the decision.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L361-L361)
 
 </details>
 

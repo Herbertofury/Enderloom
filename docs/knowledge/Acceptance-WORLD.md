@@ -9,7 +9,7 @@
 <a id="world-01-details"></a>
 ## WORLD-01 - World browser and safe editing
 
-[Outcome](Checklist.md#world-01) / 84 source-derived details.
+[Outcome](Checklist.md#world-01) / 86 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -335,6 +335,24 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase CLI-1 — existing Enderloom domain parity
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1507-1507](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1507-L1507)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes (2)</summary>
+
+<a id="d-e5ae1b2dc6a9422d2da5"></a>
+- [ ] **D-e5ae1b2dc6a9422d2da5** - · Keep Microsoft DirectStorage out of ordinary mod metadata/JAR/provider paths by default. Revisit it for future World Editor/large immutable asset streaming where multi-GB/s NVMe ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Keep Microsoft DirectStorage out of ordinary mod metadata/JAR/provider paths by default. Revisit it for future World Editor/large immutable asset streaming where multi-GB/s NVMe small-read throughput and reduced CPU overhead can actually be exploited.
+  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T239 : 524-524](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L524-L524)
+
+<a id="d-f2d067b15d379de462aa"></a>
+- [ ] **D-f2d067b15d379de462aa** - A DirectStorage experiment must beat Compio/IoRing/normal file I/O on the exact editor workload and preserve broad supported-storage behavior.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L526-L526)
 
 </details>
 

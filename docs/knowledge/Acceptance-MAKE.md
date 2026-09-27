@@ -1574,7 +1574,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 97 source-derived details.
+[Outcome](Checklist.md#make-07) / 98 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1863,6 +1863,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 33. Performance requirements for Enderloom itself
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1388-1388](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1388-L1388)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G209 — Installer, updater, delta delivery, release trust / T229 — Velopack dual-shell updater challenger / T230 — Optional TUF metadata hardening through `tough` (1)</summary>
+
+<a id="d-4c53032ef787d4ab82d5"></a>
+- [ ] **D-4c53032ef787d4ab82d5** - Do not half-implement TUF. Document tough&#x27;s current unsupported delegated/TAP features and use only the subset whose security model Enderloom can operate correctly. Reject if ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not half-implement TUF. Document tough&#x27;s current unsupported delegated/TAP features and use only the subset whose security model Enderloom can operate correctly. Reject if key-management complexity would create a weaker or routinely bypassed update process.
+  - **Binding context:** G209 — Installer, updater, delta delivery, release trust / T229 — Velopack dual-shell updater challenger / T230 — Optional TUF metadata hardening through `tough`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 435-435](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L435-L435)
 
 </details>
 
@@ -2594,7 +2606,7 @@
 <a id="make-09-details"></a>
 ## MAKE-09 - Reference and concept reconstruction
 
-[Outcome](Checklist.md#make-09) / 47 source-derived details.
+[Outcome](Checklist.md#make-09) / 48 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Built-in test catalogs (1)</summary>
@@ -2827,6 +2839,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass (1)</summary>
+
+<a id="d-ea850525b0a02eb7d879"></a>
+- [ ] **D-ea850525b0a02eb7d879** - Do not replace Enderloom&#x27;s Rust/web architecture with Qt/C++ merely because Prism is mature. Integrate only techniques that improve Enderloom&#x27;s measured path.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting / T235 — PrismLauncher reference pass
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 500-500](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L500-L500)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 10. Reference-Driven Premium Mod Creation (1)</summary>
 
 <a id="d-8d0ef2ecdd9e54e60555"></a>
@@ -3016,7 +3039,7 @@
 <a id="make-10-details"></a>
 ## MAKE-10 - Compound content and ecosystem integration
 
-[Outcome](Checklist.md#make-10) / 29 source-derived details.
+[Outcome](Checklist.md#make-10) / 30 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -3147,6 +3170,18 @@
   - **Full requirement:** - Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order. - Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes. - Dependency/runtime preparation stays off the renderer and shows truthful granular progress. - Cancel/retry/resume must not leave fake complete profiles.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2362-2365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2362-L2365)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Enderloom — Next-Generation Tech Stack Challenger &amp; Integration Spec (1)</summary>
+
+<a id="d-1d1188985a79a5cca2d5"></a>
+- [ ] **D-1d1188985a79a5cca2d5** - &gt; DO NOT interrupt, rewrite, renumber, or supersede the active ENDERLOOM_GET_DONE_NOW_QOL.md execution while Codex is already working it. This document is a separate technology-...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** &gt; DO NOT interrupt, rewrite, renumber, or supersede the active ENDERLOOM_GET_DONE_NOW_QOL.md execution while Codex is already working it. This document is a separate technology-challenger research/execution contract. Its job is to discover and prove additions/replacements that can be integrated at a safe convergence point after the active architecture slice is stable. If an item in this document becomes immediately relevant to an active task, integrate it only when doing so does not invalidate current work or create a moving-target loop.
+  - **Binding context:** Enderloom — Next-Generation Tech Stack Challenger &amp; Integration Spec
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 9-9](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L9-L9)
 
 </details>
 
