@@ -9,7 +9,7 @@
 <a id="know-01-details"></a>
 ## KNOW-01 - Premium in-app Wiki
 
-[Outcome](Checklist.md#know-01) / 17 source-derived details.
+[Outcome](Checklist.md#know-01) / 18 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT (1)</summary>
@@ -76,6 +76,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DEC-011 : 114-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L114-L114)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G073 — Combined implementation order (1)</summary>
+
+<a id="d-bd5e52f17189fed8123b"></a>
+- [ ] **D-bd5e52f17189fed8123b** - GATE — Execute the full contract depth-first without turning this new app-wide work into a second disconnected roadmap.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G073 — Combined implementation order
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G073 : 2124-2124](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2124-L2124)
 
 </details>
 
@@ -390,7 +401,7 @@
 <a id="know-03-details"></a>
 ## KNOW-03 - Adaptive ecosystem contracts
 
-[Outcome](Checklist.md#know-03) / 15 source-derived details.
+[Outcome](Checklist.md#know-03) / 16 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (4)</summary>
@@ -497,6 +508,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff (1)</summary>
+
+<a id="d-181463fadafc84b4c5b9"></a>
+- [ ] **D-181463fadafc84b4c5b9** - Use ASM where it is stronger or required by ecosystem libraries; do not force replacement for fashion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 713-713](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L713-L713)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 15. Compatibility Lab (1)</summary>
 
 <a id="d-caf0c88e1729943cb710"></a>
@@ -527,7 +549,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 66 source-derived details.
+[Outcome](Checklist.md#know-04) / 71 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -887,6 +909,57 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries (1)</summary>
+
+<a id="d-34ad468f50128a0bb838"></a>
+- [ ] **D-34ad468f50128a0bb838** - Do not repeatedly rediscover these until a write or external version refresh invalidates them.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 260-260](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L260-L260)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests (1)</summary>
+
+<a id="d-b8f1a209a9f1142ddf7a"></a>
+- [ ] **D-b8f1a209a9f1142ddf7a** - Unrepresentable concepts must become explicit compatibility notes/blockers, never silent deletion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 483-483](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L483-L483)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora (2)</summary>
+
+<a id="d-3b7b0fddbe0ba00e12e7"></a>
+- [ ] **D-3b7b0fddbe0ba00e12e7** - — Ingest generalized evidence from:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T175 : 785-785](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L785-L785)
+
+<a id="d-ee6f62c610942560d98f"></a>
+- [ ] **D-ee6f62c610942560d98f** - Do not make converted mods depend on a compatibility layer when a clean native target implementation is available and verifiable.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 797-797](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L797-L797)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T271 — Signed extension manifests, compatibility and rollback (1)</summary>
+
+<a id="d-d2af3847b9db659336a1"></a>
+- [ ] **D-d2af3847b9db659336a1** - — Every extension declares ID/version/ABI version/capabilities/providers/provenance/hash/signature. Host validates before load, supports safe disable/rollback and never auto-grants...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Every extension declares ID/version/ABI version/capabilities/providers/provenance/hash/signature. Host validates before load, supports safe disable/rollback and never auto-grants new permissions during update.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T271 — Signed extension manifests, compatibility and rollback
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T271 : 2003-2003](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2003-L2003)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 1. Shared tab principles (1)</summary>
 
 <a id="d-254706a523f28cee7a55"></a>
@@ -1123,7 +1196,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 11 source-derived details.
+[Outcome](Checklist.md#know-05) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1234,6 +1307,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T122 — Require primary-source freshness at promotion time
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T122 : 1422-1422](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1422-L1422)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters (1)</summary>
+
+<a id="d-22ebbd8ad908707b304a"></a>
+- [ ] **D-22ebbd8ad908707b304a** - — Refresh exact versions/licenses/current status of technologies actually selected for production before final lockfile/vendor decisions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T234 : 1667-1667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1667-L1667)
 
 </details>
 

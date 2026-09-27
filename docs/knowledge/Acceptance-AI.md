@@ -9,7 +9,7 @@
 <a id="ai-01-details"></a>
 ## AI-01 - Authorized provider lanes
 
-[Outcome](Checklist.md#ai-01) / 57 source-derived details.
+[Outcome](Checklist.md#ai-01) / 58 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -350,6 +350,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T272 — Turn provider breakages into adapter regression fixtures (1)</summary>
+
+<a id="d-98d85530971f331e8a9c"></a>
+- [ ] **D-98d85530971f331e8a9c** - — Capture sanitized provider responses/DOM/network contracts where lawful and convert every real breakage into an adapter-level deterministic fixture so fixes improve the platform ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Capture sanitized provider responses/DOM/network contracts where lawful and convert every real breakage into an adapter-level deterministic fixture so fixes improve the platform instead of becoming one-off patches.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T272 — Turn provider breakages into adapter regression fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T272 : 2007-2007](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2007-L2007)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (2)</summary>
 
 <a id="d-1d981acd9029f9f57c5f"></a>
@@ -545,7 +557,7 @@
 <a id="ai-02-details"></a>
 ## AI-02 - Natural-language job compiler
 
-[Outcome](Checklist.md#ai-02) / 27 source-derived details.
+[Outcome](Checklist.md#ai-02) / 28 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -720,6 +732,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 17. AI Operator Parity
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 721-721](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L721-L721)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T270 — Bake off Extism as a convenience host, not as a second architecture (1)</summary>
+
+<a id="d-142e63e451458a9c48a0"></a>
+- [ ] **D-142e63e451458a9c48a0** - — Evaluate Extism if it materially simplifies packaging/versioning/cross-language plugins while preserving the same WIT/capability/security model. Otherwise use Wasmtime directly.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T270 — Bake off Extism as a convenience host, not as a second architecture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T270 : 1999-1999](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1999-L1999)
 
 </details>
 
@@ -1065,7 +1088,7 @@
 <a id="ai-04-details"></a>
 ## AI-04 - Approval, privacy and quality controls
 
-[Outcome](Checklist.md#ai-04) / 8 source-derived details.
+[Outcome](Checklist.md#ai-04) / 9 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -1131,6 +1154,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 24. Analytics / Issue / Changelog Intelligence
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 958-958](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L958-L958)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck (1)</summary>
+
+<a id="d-a44628f4454f451f7d80"></a>
+- [ ] **D-a44628f4454f451f7d80** - — Keep the OS resolver by default. Evaluate Hickory DNS/DoH/DoQ only if measured provider latency/failure evidence points to resolver behavior and the privacy/enterprise-network im...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Keep the OS resolver by default. Evaluate Hickory DNS/DoH/DoQ only if measured provider latency/failure evidence points to resolver behavior and the privacy/enterprise-network implications are acceptable.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T267 : 1966-1966](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1966-L1966)
 
 </details>
 
@@ -1300,7 +1335,7 @@
 <a id="ai-06-details"></a>
 ## AI-06 - Evidence Brain promotion and rollback
 
-[Outcome](Checklist.md#ai-06) / 98 source-derived details.
+[Outcome](Checklist.md#ai-06) / 100 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1793,6 +1828,29 @@
   - **Full requirement:** GATE — The hidden-infrastructure challenge pass is reconciled into the candidate matrix, no newly found candidate silently replaces a stronger proven path without A/B evidence, and broad ecosystem searching stops until an actual invalidator or uncovered capability appears.
   - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G039 : 1879-1879](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1879-L1879)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Architecture decision — production end state (1)</summary>
+
+<a id="d-403a033581ba10ae8c29"></a>
+- [ ] **D-403a033581ba10ae8c29** - Language is not the acceptance criterion for this data path. The authoritative path must be singular, fast, resumable and evidence-backed. Retain JS/TS components only where they a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Language is not the acceptance criterion for this data path. The authoritative path must be singular, fast, resumable and evidence-backed. Retain JS/TS components only where they are the best fit and do not duplicate canonical state/business rules; move hot or integrity-critical stages to Rust/JVM when measured evidence supports it.
+  - **Binding context:** Architecture decision — production end state
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 237-237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L237-L237)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix (1)</summary>
+
+<a id="d-41e731b53578f0dee3ce"></a>
+- [ ] **D-41e731b53578f0dee3ce** - — Use this disposition unless new measured evidence changes it:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T279 : 2060-2060](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2060-L2060)
 
 </details>
 

@@ -584,7 +584,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 64 source-derived details.
+[Outcome](Checklist.md#play-02) / 65 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -874,6 +874,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase CLI-1 — existing Enderloom domain parity
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1500-1500](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1500-L1500)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G049 — Untrusted build sandbox and supply-chain boundary (1)</summary>
+
+<a id="d-6b439f9b700162896c60"></a>
+- [ ] **D-6b439f9b700162896c60** - GATE — Enderloom can inspect/build third-party mod projects without silently granting arbitrary host access and can account for imported/vendored code provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G049 : 875-875](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L875-L875)
 
 </details>
 
@@ -1302,7 +1313,7 @@
 <a id="play-04-details"></a>
 ## PLAY-04 - Java, loaders and real launch
 
-[Outcome](Checklist.md#play-04) / 83 source-derived details.
+[Outcome](Checklist.md#play-04) / 84 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 5. PHASE B — FIRST REAL CANONICAL VERTICAL (1)</summary>
@@ -1647,6 +1658,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1612-1612](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1612-L1612)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof (1)</summary>
+
+<a id="d-280744c785fb58eb4b8d"></a>
+- [ ] **D-280744c785fb58eb4b8d** - — Launch a real target client through the QA-safe native launch path and prove resource reload/mod initialization plus affected behavior markers where possible.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T202 : 1067-1067](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1067-L1067)
 
 </details>
 
@@ -2022,7 +2044,7 @@
 <a id="play-05-details"></a>
 ## PLAY-05 - Instance update and maintenance
 
-[Outcome](Checklist.md#play-05) / 15 source-derived details.
+[Outcome](Checklist.md#play-05) / 16 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 2. Security &amp; Supply-Chain Center — missing critical layer / 2.3 Update capability diff (1)</summary>
@@ -2077,6 +2099,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. Update/distribution safety
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1372-1372](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1372-L1372)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing (1)</summary>
+
+<a id="d-a2c6cc99999e42040e8c"></a>
+- [ ] **D-a2c6cc99999e42040e8c** - — Preserve the earlier MFT+USN Windows indexing plan for large local project/instance catalogs, with safe filesystem-walk fallback.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T211 : 1130-1130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1130-L1130)
 
 </details>
 

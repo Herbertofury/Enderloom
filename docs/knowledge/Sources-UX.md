@@ -10,10 +10,11 @@
 [**UX-01**](Checklist.md#ux-01)
 
 <details>
-<summary>Source clauses and aliases (89 distinct blocks)</summary>
+<summary>Source clauses and aliases (90 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L47-L47) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [2. CLI executable contract / Invocation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L57-L57) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1017-L1029) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L659-L686) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 2 distinct blocks.
 - [20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L642-L642) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [3. Execution work / 3.10 Conversion planner and user experience](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L533-L533) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
@@ -73,8 +74,9 @@
 [**UX-02**](Checklist.md#ux-02)
 
 <details>
-<summary>Source clauses and aliases (56 distinct blocks)</summary>
+<summary>Source clauses and aliases (57 distinct blocks)</summary>
 
+- [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T164 — JDT semantic/compiler oracle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L657-L664) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [16. Unified Studio UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L520-L524) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 3 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L661-L661) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L104-L104) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -153,8 +155,9 @@
 [**UX-04**](Checklist.md#ux-04)
 
 <details>
-<summary>Source clauses and aliases (12 distinct blocks)</summary>
+<summary>Source clauses and aliases (13 distinct blocks)</summary>
 
+- [G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T147 — Implement `AccessMutationIR`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L447-L453) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [34. UI/UX / “it just works” QOL bar](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1404-L1405) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.3 Selection/filter engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L880-L880) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.4 World pruning / forever-world QOL](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L905-L907) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
@@ -177,8 +180,15 @@
 [**UX-05**](Checklist.md#ux-05)
 
 <details>
-<summary>Source clauses and aliases (113 distinct blocks)</summary>
+<summary>Source clauses and aliases (124 distinct blocks)</summary>
 
+- [G064 — Frontend architecture and UI-performance convergence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1696-L1696) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1702-L1704) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T238 — Freeze a typed frontend/domain contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1724-L1731) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T243 — Apply least-privilege Tauri capabilities per window/WebView](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1766-L1770) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1774-L1776) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T245 — Add useful native notifications and global shortcuts only for real workflows](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1783-L1783) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1787-L1787) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [15. Progress UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L491-L511) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 3 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L54-L54) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L117-L117) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -240,7 +250,7 @@
 - [3. Render / GPU / Client Frame-Time Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L65-L65) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L132-L132) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T024`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T062`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T068`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T076`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T237`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T244`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T024`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T062`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T068`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T076`
 
 </details>
 
@@ -250,9 +260,11 @@
 [**UX-06**](Checklist.md#ux-06)
 
 <details>
-<summary>Source clauses and aliases (22 distinct blocks)</summary>
+<summary>Source clauses and aliases (24 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Catalog / research workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L286-L286) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1758-L1758) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1772-L1772) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.1 World browser](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L842-L842) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.3 Selection/filter engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L861-L892) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
 - [23. Accessibility &amp; Localization — both Enderloom and projects / 23.2 Project localization studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L939-L939) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
@@ -272,7 +284,7 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L390-L390) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1044-L1050) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::T149`, `ENDERLOOM_STUDIO_EXECUTION.md::T153`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G003`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T101`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G065`, `ENDERLOOM_STUDIO_EXECUTION.md::T149`, `ENDERLOOM_STUDIO_EXECUTION.md::T153`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G003`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T101`
 
 </details>
 
@@ -282,8 +294,14 @@
 [**UX-07**](Checklist.md#ux-07)
 
 <details>
-<summary>Source clauses and aliases (90 distinct blocks)</summary>
+<summary>Source clauses and aliases (96 distinct blocks)</summary>
 
+- [G064 — Frontend architecture and UI-performance convergence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1698-L1698) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1718-L1718) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1743-L1743) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1752-L1752) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T243 — Apply least-privilege Tauri capabilities per window/WebView](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1768-L1768) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1791-L1791) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L696-L696) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.1 Canonical truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L75-L75) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L644-L644) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -333,7 +351,7 @@
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L798-L798) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L798-L798) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T055`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T060`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T063`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T077`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T080`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T093`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T095`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T105`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G064`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T243`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T055`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T060`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T063`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T077`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T080`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T093`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T095`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T105`
 
 </details>
 
@@ -343,9 +361,14 @@
 [**UX-08**](Checklist.md#ux-08)
 
 <details>
-<summary>Source clauses and aliases (133 distinct blocks)</summary>
+<summary>Source clauses and aliases (140 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L49-L49) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1700-L1716) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G065 — Tauri security, updater and native desktop QoL hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1756-L1756) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T268 — Move thumbnail/media processing off the UI thread](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1968-L1972) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2062-L2096) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix / T280 — Negative integration challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2103-L2114) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [13. Northpoint matrix — target first, then every valid requested cell](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L621-L621) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [17. Enderloom service architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L762-L762) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [24. Dedicated regression corpus](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L1071-L1071) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
@@ -432,8 +455,9 @@
 [**UX-09**](Checklist.md#ux-09)
 
 <details>
-<summary>Source clauses and aliases (122 distinct blocks)</summary>
+<summary>Source clauses and aliases (123 distinct blocks)</summary>
 
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1760-L1760) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L792-L792) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [19. World Studio — beat standalone world tools through integration / 19.2 Interactive map](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L852-L859) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
 - [7. Bedrock Studio — first-class Bedrock support](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L374-L434) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 32 distinct blocks.
@@ -508,8 +532,9 @@
 [**UX-10**](Checklist.md#ux-10)
 
 <details>
-<summary>Source clauses and aliases (33 distinct blocks)</summary>
+<summary>Source clauses and aliases (34 distinct blocks)</summary>
 
+- [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T245 — Add useful native notifications and global shortcuts only for real workflows](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1785-L1785) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [15. Progress UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L516-L516) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
 - [2. Observed vs Inferred vs Authored Truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L72-L72) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
 - [18. Backend API / IPC contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L851-L851) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
@@ -546,7 +571,7 @@
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L231-L231) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [18. Backend API / IPC contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L953-L953) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T121`, `ENDERLOOM_STUDIO_EXECUTION.md::T121`, `ENDERLOOM_STUDIO_EXECUTION.md::T159`, `ENDERLOOM_STUDIO_EXECUTION.md::T160`, `ENDERLOOM_STUDIO_EXECUTION.md::T162`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T104`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T245`, `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T121`, `ENDERLOOM_STUDIO_EXECUTION.md::T121`, `ENDERLOOM_STUDIO_EXECUTION.md::T159`, `ENDERLOOM_STUDIO_EXECUTION.md::T160`, `ENDERLOOM_STUDIO_EXECUTION.md::T162`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T104`
 
 </details>
 

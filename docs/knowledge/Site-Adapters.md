@@ -94,6 +94,9 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-6691dc1ba2ac1807773b](Acceptance-LIB.md#d-6691dc1ba2ac1807773b) - Add capabilities/schema discovery.
 - [D-8fb01c2faf8f373e808d](Acceptance-LIB.md#d-8fb01c2faf8f373e808d) - GATE — Enderloom&#x27;s local mod/project discovery and invalidation can become effectively instant on Windows without correctness loss. [G018]
 - [D-4bdf2aed5dff4a3c4580](Acceptance-LIB.md#d-4bdf2aed5dff4a3c4580) - — JavaParser / ast-grep / similar tools may be used for fast indexing, candidate-rule discovery or cheap prefiltering if benchmarks justify them. [T113]
+- [D-6c2259a7a7f107f0cf24](Acceptance-LIB.md#d-6c2259a7a7f107f0cf24) - — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonical na... [T240]
+- [D-6ece015d2de79f8eb8bb](Acceptance-LIB.md#d-6ece015d2de79f8eb8bb) - GATE — Provider/site adapters and optional extensions can evolve independently without granting arbitrary native-code access or creating another private state architectur... [G070]
+- [D-18c2b96be4456c1e9819](Acceptance-LIB.md#d-18c2b96be4456c1e9819) - — Define a versioned WIT capability contract for provider/site adapter operations such as search, project metadata, versions/files, dependencies, media, links and health ... [T269]
 - [D-f76d1b71cc7c008537d7](Acceptance-LIB.md#d-f76d1b71cc7c008537d7) - - Provider metadata can seed it immediately. - Local static analysis upgrades it after download/install. - Trusted source analysis can refine it. - Runtime observations c...
 - [D-c5560901cf7526069d98](Acceptance-LIB.md#d-c5560901cf7526069d98) - Preserve canonical provider/source identity for every favorite.
 - [D-b72a02a317c748570a2d](Acceptance-LIB.md#d-b72a02a317c748570a2d) - icon/media when real source media exists;

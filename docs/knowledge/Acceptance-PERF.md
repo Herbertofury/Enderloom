@@ -9,7 +9,7 @@
 <a id="perf-01-details"></a>
 ## PERF-01 - Real mod and instance optimization
 
-[Outcome](Checklist.md#perf-01) / 89 source-derived details.
+[Outcome](Checklist.md#perf-01) / 92 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -224,6 +224,40 @@
   - **Full requirement:** - lucko/spark — Minecraft CPU/memory/health profiling. - tasgon/observable — deep world/entity/block-entity/scheduled-tick diagnostics. - Wueffi/TaskManager — per-mod CPU, estimated GPU, memory, startup, frame/network/disk timeline ideas. - WendellCraft/ModpackDebuggerKit — dependency-aware binary search/debugging ideas. - Krutoy242/mc-benchmark — startup-log benchmarking precedent. - SettingDust/MoreProfiling — JFR-oriented Minecraft profiling precedent. - imSirr/spark-analyzer — profile-quality, comparison, culprit-analysis, Copy-for-AI UX precedent. Do not copy noncommercial logic into Premium.
   - **Binding context:** 31. Current external research references / Performance/profiling
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1342-1348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1342-L1348)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T210 — Bounded parallel fanout (1)</summary>
+
+<a id="d-1e958ae04309ffc41596"></a>
+- [ ] **D-1e958ae04309ffc41596** - — Parallelize independent secondary cells only after the primary gate unlocks and resource limits are known.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T210 — Bounded parallel fanout
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T210 : 1124-1124](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1124-L1124)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety (1)</summary>
+
+<a id="d-fee489a64e1e82bf1aa7"></a>
+- [ ] **D-fee489a64e1e82bf1aa7** - GATE — Production failures are diagnosable without guesswork, crashes preserve safe evidence, performance optimization is profile-driven and the Rust/JVM/vendored dependency chain ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Production failures are diagnosable without guesswork, crashes preserve safe evidence, performance optimization is profile-driven and the Rust/JVM/vendored dependency chain has enforceable policy.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G071 : 2013-2013](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2013-L2013)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T275 — Make performance work profiler-driven (1)</summary>
+
+<a id="d-d50c77e7c3a8668af31e"></a>
+- [ ] **D-d50c77e7c3a8668af31e** - — Maintain repeatable macrobenchmarks and use samply, platform profilers and flamegraphs to identify actual bottlenecks before adopting specialized caches/parsers/runtime changes.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T275 — Make performance work profiler-driven
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T275 : 2029-2029](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2029-L2029)
 
 </details>
 
@@ -1090,7 +1124,7 @@
 <a id="perf-03-details"></a>
 ## PERF-03 - Controlled A/B and full-pack attribution
 
-[Outcome](Checklist.md#perf-03) / 37 source-derived details.
+[Outcome](Checklist.md#perf-03) / 40 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1321,6 +1355,42 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate (1)</summary>
+
+<a id="d-38f0fd410f2bfd2fcafb"></a>
+- [ ] **D-38f0fd410f2bfd2fcafb** - The existing toolkit is valuable evidence. Preserve its proven behavior and fixtures while replacing weak implementation techniques. Move performance-sensitive or reliability-criti...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The existing toolkit is valuable evidence. Preserve its proven behavior and fixtures while replacing weak implementation techniques. Move performance-sensitive or reliability-critical work out of JavaScript only when the replacement is demonstrably better; do not rewrite working JS/TS solely for language purity.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 62-62](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L62-L62)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze (1)</summary>
+
+<a id="d-ee03d6a14a815b717267"></a>
+- [ ] **D-ee03d6a14a815b717267** - GATE — The implementation has an authoritative baseline, existing paths are classified by ownership/performance, and the first optimized vertical slice can be developed without cre...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — The implementation has an authoritative baseline, existing paths are classified by ownership/performance, and the first optimized vertical slice can be developed without creating a third competing engine.
+  - **Binding context:** G040 — Repository preflight and authority freeze
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G040 : 243-243](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L243-L243)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence (1)</summary>
+
+<a id="d-891effda2d030cc42c7d"></a>
+- [ ] **D-891effda2d030cc42c7d** - — After T240, choose the smallest architecture change that achieves the performance/product targets: - retain and optimize React/TypeScript if it meets the gates; - migrate only de...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — After T240, choose the smallest architecture change that achieves the performance/product targets: - retain and optimize React/TypeScript if it meets the gates; - migrate only demonstrated bottleneck surfaces if a hybrid approach is best; or - perform a broader Rust-UI migration only if the bakeoff proves material equivalent-work gains that justify it.
+  - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T241 : 1747-1750](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1747-L1750)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (1)</summary>
 
 <a id="d-bc3fcfe7c906cf02b98f"></a>
@@ -1487,7 +1557,7 @@
 <a id="perf-04-details"></a>
 ## PERF-04 - Frame-time and GPU lab
 
-[Outcome](Checklist.md#perf-04) / 77 source-derived details.
+[Outcome](Checklist.md#perf-04) / 78 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1731,6 +1801,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-3 — Enderloom Probe
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1537-1537](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1537-L1537)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles (1)</summary>
+
+<a id="d-5bcc49a8f6a6cf6d534e"></a>
+- [ ] **D-5bcc49a8f6a6cf6d534e** - — Where profiling shows lock contention or read-heavy snapshot pressure:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T259 : 1903-1903](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1903-L1903)
 
 </details>
 
@@ -2100,7 +2181,7 @@
 <a id="perf-05-details"></a>
 ## PERF-05 - Boot and fast-launch engine
 
-[Outcome](Checklist.md#perf-05) / 7 source-derived details.
+[Outcome](Checklist.md#perf-05) / 10 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 9. Startup / Boot-Time Profiler (1)</summary>
@@ -2143,6 +2224,40 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 33. Performance requirements for Enderloom itself
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1380-1380](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1380-L1380)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance (1)</summary>
+
+<a id="d-75740b4eb2b43fa954ef"></a>
+- [ ] **D-75740b4eb2b43fa954ef** - GATE — The full engine is faster through incremental architecture while returning the same complete result.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G054 — Resumability, caching and performance
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G054 : 1108-1108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1108-L1108)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing (1)</summary>
+
+<a id="d-2ba2572a44c088346b7b"></a>
+- [ ] **D-2ba2572a44c088346b7b** - Everything IPC may be an optional accelerator, never canonical state.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1132-1132](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1132-L1132)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T276 — Bake off PGO only against representative real workloads (1)</summary>
+
+<a id="d-e076c41d8ea401676f6f"></a>
+- [ ] **D-e076c41d8ea401676f6f** - — Evaluate cargo-pgo/LLVM PGO for the release core after architecture/hot paths stabilize. Train on representative startup/search/browse/download/archive/launch/conversion workload...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate cargo-pgo/LLVM PGO for the release core after architecture/hot paths stabilize. Train on representative startup/search/browse/download/archive/launch/conversion workloads and promote only if equivalent-work wall-clock/CPU performance materially improves without pathological regressions on untrained paths.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T276 — Bake off PGO only against representative real workloads
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T276 : 2033-2033](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2033-L2033)
 
 </details>
 
@@ -3283,7 +3398,7 @@
 <a id="perf-09-details"></a>
 ## PERF-09 - Dual quality and speed acceptance
 
-[Outcome](Checklist.md#perf-09) / 11 source-derived details.
+[Outcome](Checklist.md#perf-09) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY (1)</summary>
@@ -3386,6 +3501,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 2. Product principles — non-negotiable / 2.3 No artificial caps or quality loss
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 72-72](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L72-L72)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable (1)</summary>
+
+<a id="d-27a07b3343a12a9e0ce0"></a>
+- [ ] **D-27a07b3343a12a9e0ce0** - 1. Technology choice is evidence-driven, not language-driven. - JavaScript/TypeScript/React are allowed wherever they remain the best combination of responsiveness, product quality...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Technology choice is evidence-driven, not language-driven. - JavaScript/TypeScript/React are allowed wherever they remain the best combination of responsiveness, product quality, iteration speed and maintainability. - Do not rewrite working JS/TS merely to claim a native stack. A migration must beat the current path on a production-shaped workload or materially improve correctness, resilience, security or maintainability without regressing user-visible behavior. - Push CPU-heavy, I/O-heavy, latency-sensitive, memory-sensitive, high-concurrency or integrity-critical work into Rust/native/JVM layers when profiling shows a meaningful advantage. - Keep the frontend thin: presentation and interaction may live in React/TypeScript or another proven UI layer, while canonical domain actions/state remain behind typed service contracts. Avoid duplicating the same business rule independently in UI and native code. - Third-party/web content JavaScript remains isolated from trusted application authority.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 68-73](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L68-L73)
 
 </details>
 

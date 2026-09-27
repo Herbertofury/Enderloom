@@ -9,7 +9,7 @@
 <a id="lib-01-details"></a>
 ## LIB-01 - Broad source-aware discovery
 
-[Outcome](Checklist.md#lib-01) / 92 source-derived details.
+[Outcome](Checklist.md#lib-01) / 95 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters (1)</summary>
@@ -373,6 +373,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T113 — Keep lightweight structural tools as prefilters, not authorities
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T113 : 1284-1284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1284-L1284)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration (1)</summary>
+
+<a id="d-6c2259a7a7f107f0cf24"></a>
+- [ ] **D-6c2259a7a7f107f0cf24** - — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonical native/domain path.
+  - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T240 : 1741-1741](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1741-L1741)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform (1)</summary>
+
+<a id="d-6ece015d2de79f8eb8bb"></a>
+- [ ] **D-6ece015d2de79f8eb8bb** - GATE — Provider/site adapters and optional extensions can evolve independently without granting arbitrary native-code access or creating another private state architecture.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G070 : 1978-1978](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1978-L1978)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary (1)</summary>
+
+<a id="d-18c2b96be4456c1e9819"></a>
+- [ ] **D-18c2b96be4456c1e9819** - — Define a versioned WIT capability contract for provider/site adapter operations such as search, project metadata, versions/files, dependencies, media, links and health diagnostic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Define a versioned WIT capability contract for provider/site adapter operations such as search, project metadata, versions/files, dependencies, media, links and health diagnostics.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T269 : 1982-1982](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1982-L1982)
 
 </details>
 
@@ -754,7 +789,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 80 source-derived details.
+[Outcome](Checklist.md#lib-02) / 85 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1439,6 +1474,63 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1615-1615](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1615-L1615)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T258 — Add role-specific in-memory caches instead of one generic cache (1)</summary>
+
+<a id="d-6eed7794a536761f8d0d"></a>
+- [ ] **D-6eed7794a536761f8d0d** - — Bake off QuickCache vs Moka for bounded result/metadata/media lookup caching. Use TTL/weight/admission policies appropriate to each data type, expose hit/miss/eviction telemetry ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Bake off QuickCache vs Moka for bounded result/metadata/media lookup caching. Use TTL/weight/admission policies appropriate to each data type, expose hit/miss/eviction telemetry and prevent stale provider results from becoming canonical state.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T258 — Add role-specific in-memory caches instead of one generic cache
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T258 : 1899-1899](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1899-L1899)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline (1)</summary>
+
+<a id="d-559314f0a8809084e68e"></a>
+- [ ] **D-559314f0a8809084e68e** - GATE — Provider/network/media work remains fast and resilient under slow, flaky, rate-limited and offline conditions without duplicated bandwidth or reduced content quality.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G069 — Network, download and media pipeline
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G069 : 1938-1938](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1938-L1938)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports (1)</summary>
+
+<a id="d-2b11e649b41f77432169"></a>
+- [ ] **D-2b11e649b41f77432169** - — Preserve the strongest existing transports and add one shared policy layer for:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T264 : 1942-1942](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1942-L1942)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T268 — Move thumbnail/media processing off the UI thread (1)</summary>
+
+<a id="d-a1c72d4326475eabd825"></a>
+- [ ] **D-a1c72d4326475eabd825** - — Build a native media pipeline that decodes once, generates canonical sized thumbnails, caches by content/source identity and uses a SIMD resize bakeoff such as fast_image_resize ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Build a native media pipeline that decodes once, generates canonical sized thumbnails, caches by content/source identity and uses a SIMD resize bakeoff such as fast_image_resize when it materially improves equivalent-quality throughput.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T268 — Move thumbnail/media processing off the UI thread
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T268 : 1970-1970](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1970-L1970)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge (1)</summary>
+
+<a id="d-45f71691cc980832103a"></a>
+- [ ] **D-45f71691cc980832103a** - — From a clean supported machine/environment, install/build/package the current Enderloom candidate and exercise, using production wiring:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T283 : 2150-2150](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2150-L2150)
 
 </details>
 
@@ -3964,7 +4056,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 104 source-derived details.
+[Outcome](Checklist.md#lib-06) / 106 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -4526,6 +4618,29 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T191 — Static resource preservation (1)</summary>
+
+<a id="d-317a02b3266c56821a68"></a>
+- [ ] **D-317a02b3266c56821a68** - — Include user-authored static resources/data in the same parity inventory as generated content.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T191 — Static resource preservation
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T191 : 960-960](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L960-L960)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T263 — Keep FastCDC conditional on measured chunk/delta value (1)</summary>
+
+<a id="d-1d2a82fb8c579428d1fa"></a>
+- [ ] **D-1d2a82fb8c579428d1fa** - — Evaluate FastCDC only for workloads that benefit from content-defined chunking (large pack snapshots, backup/delta transfer, dedupe). Do not add chunk-level complexity to ordinar...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate FastCDC only for workloads that benefit from content-defined chunking (large pack snapshots, backup/delta transfer, dedupe). Do not add chunk-level complexity to ordinary small mod JAR handling without evidence.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T263 — Keep FastCDC conditional on measured chunk/delta value
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T263 : 1932-1932](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1932-L1932)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.5 Mod behavior, side, vanilla-impact, and Forever World intelligence / 13.5.1 Built-in classification dimensions / Added-content / save footprint (1)</summary>
 
 <a id="d-ed8b881e39e9cf254122"></a>
@@ -4958,7 +5073,7 @@
 <a id="lib-07-details"></a>
 ## LIB-07 - Exact versions, freeze and upgrades
 
-[Outcome](Checklist.md#lib-07) / 17 source-derived details.
+[Outcome](Checklist.md#lib-07) / 18 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md / Enderloom — Adaptive Minecraft Ecosystem Compatibility Contract Catalog (1)</summary>
@@ -5078,6 +5193,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T248 — Layer Nucleo fuzzy matching over exact/full-text candidates (1)</summary>
+
+<a id="d-60baccd1cbf66215c70d"></a>
+- [ ] **D-60baccd1cbf66215c70d** - — Use nucleo-matcher for typo-tolerant/fuzzy ranking and command-palette/local-name matching where fuzzy semantics improve discovery.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T248 — Layer Nucleo fuzzy matching over exact/full-text candidates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T248 : 1824-1824](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1824-L1824)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.1 One-click Safe Update / Update All (1)</summary>
 
 <a id="d-4ef35b1e74ac6e91adce"></a>
@@ -5132,7 +5258,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 114 source-derived details.
+[Outcome](Checklist.md#lib-08) / 122 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -6064,6 +6190,88 @@
   - **Full requirement:** - files/folders/archives supplied by the user; - local launcher instances; - Modrinth project/version downloads; - CurseForge project/version downloads through supported provider access; - GitHub source/releases; - Maven/loader dependency repositories; - official Minecraft client/server/version assets required for the selected runtime; - Bedrock .mcpack, .mcaddon, behavior-pack and resource-pack sources; - Java resource packs/datapacks/shader packs; - mod JARs with or without source; - worlds/saves/server packs; - logs/crash reports/JFR/spark/Observable/diagnostic bundles; - authorized server-delivered client resource packs; - author-supplied server plugin/model/config/source bundles; - user-authorized screenshots/GIFs/videos/models/reference media.
   - **Binding context:** 2. Authorized Minecraft Asset Acquisition / 2.1 Sources
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 51-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L51-L65)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity (1)</summary>
+
+<a id="d-11716bd108468fdc7382"></a>
+- [ ] **D-11716bd108468fdc7382** - GATE — Browse/search/filter/sort are effectively instant on large catalogs while operating on the full logical result set and correctly reconciling the same project across provider...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Browse/search/filter/sort are effectively instant on large catalogs while operating on the full logical result set and correctly reconciling the same project across providers.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G066 : 1805-1805](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1805-L1805)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora (2)</summary>
+
+<a id="d-1ae56a385b99726ac09b"></a>
+- [ ] **D-1ae56a385b99726ac09b** - — Implement/bake off Tantivy as the primary large-catalog full-text index for project names, aliases, authors, descriptions, tags, loader/version support and normalized provider me...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Implement/bake off Tantivy as the primary large-catalog full-text index for project names, aliases, authors, descriptions, tags, loader/version support and normalized provider metadata.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T247 : 1809-1809](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1809-L1809)
+
+<a id="d-4f6280e7c03deb5645cf"></a>
+- [ ] **D-4f6280e7c03deb5645cf** - For smaller local/history tables, SQLite FTS5 remains acceptable; do not maintain two authorities for the same corpus.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1820-1820](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1820-L1820)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T248 — Layer Nucleo fuzzy matching over exact/full-text candidates (1)</summary>
+
+<a id="d-e6ee074bfb0d5cfa1961"></a>
+- [ ] **D-e6ee074bfb0d5cfa1961** - Do not let fuzzy score override exact provider IDs, exact slug matches or explicit filters.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T248 — Layer Nucleo fuzzy matching over exact/full-text candidates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1826-1826](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1826-L1826)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T249 — Use Roaring bitmaps for hot filter-set intersections when benchmarks justify them (1)</summary>
+
+<a id="d-1eac226c97d3d1a1ec57"></a>
+- [ ] **D-1eac226c97d3d1a1ec57** - — Encode high-cardinality filter membership (loader, MC version, category, provider, installed/update state, compatibility flags) as Roaring bitmaps when it materially improves mul...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Encode high-cardinality filter membership (loader, MC version, category, provider, installed/update state, compatibility flags) as Roaring bitmaps when it materially improves multi-filter intersections over SQL/Tantivy-only evaluation.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T249 — Use Roaring bitmaps for hot filter-set intersections when benchmarks justify them
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T249 : 1830-1830](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1830-L1830)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T250 — Make cross-provider identity a first-class graph (1)</summary>
+
+<a id="d-654bce48172e31fa676d"></a>
+- [ ] **D-654bce48172e31fa676d** - — Reconcile CurseForge, Modrinth, GitHub and other supported sources using stable IDs, canonical URLs, artifact hashes, repository identity, authorship and explicit aliases—not dis...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Reconcile CurseForge, Modrinth, GitHub and other supported sources using stable IDs, canonical URLs, artifact hashes, repository identity, authorship and explicit aliases—not display names alone.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T250 — Make cross-provider identity a first-class graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T250 : 1836-1836](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1836-L1836)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T251 — Define browse/search latency and completeness gates (2)</summary>
+
+<a id="d-a4a4b305a44baae3b2f2"></a>
+- [ ] **D-a4a4b305a44baae3b2f2** - — Benchmark cold and warm:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T251 — Define browse/search latency and completeness gates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T251 : 1842-1842](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1842-L1842)
+
+<a id="d-f09c36a1d18d7f73071b"></a>
+- [ ] **D-f09c36a1d18d7f73071b** - A faster result that searches fewer records or delays required providers fails this gate.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T251 — Define browse/search latency and completeness gates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1851-1851](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1851-L1851)
 
 </details>
 

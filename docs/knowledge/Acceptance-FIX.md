@@ -9,7 +9,7 @@
 <a id="fix-01-details"></a>
 ## FIX-01 - Root-cause repair workflow
 
-[Outcome](Checklist.md#fix-01) / 45 source-derived details.
+[Outcome](Checklist.md#fix-01) / 47 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -209,6 +209,28 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop (1)</summary>
+
+<a id="d-1e97daa60d2318011751"></a>
+- [ ] **D-1e97daa60d2318011751** - GATE — Compiler/build failures are classified by shared cause and repaired through reusable transformations rather than ad-hoc edits.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G051 : 968-968](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L968-L968)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T193 — Shared-cause repair planner (1)</summary>
+
+<a id="d-a7c68685881f1a942d49"></a>
+- [ ] **D-a7c68685881f1a942d49** - — Group repeated errors by migration cause before editing.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T193 — Shared-cause repair planner
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T193 : 976-976](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L976-L976)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 21. AI analysis handoff (1)</summary>
 
 <a id="d-2c3d6de1123fea120e8c"></a>
@@ -398,7 +420,7 @@
 <a id="fix-02-details"></a>
 ## FIX-02 - Reusable diagnostics adapters
 
-[Outcome](Checklist.md#fix-02) / 25 source-derived details.
+[Outcome](Checklist.md#fix-02) / 26 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families (1)</summary>
@@ -614,6 +636,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics (1)</summary>
+
+<a id="d-65e9448a8793f7f5f0f0"></a>
+- [ ] **D-65e9448a8793f7f5f0f0** - — Normalize javac/Kotlin/Gradle/loader diagnostics into stable failure classes with file/symbol/descriptor/rule context.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T192 : 972-972](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L972-L972)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 15. Implementation order for Codex / Phase CLI-1 — launcher domain parity (1)</summary>
 
 <a id="d-b050a750e60274f3070f"></a>
@@ -646,7 +679,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 97 source-derived details.
+[Outcome](Checklist.md#fix-03) / 100 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1199,6 +1232,40 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T194 — Ambiguity stops unsafe auto-apply (1)</summary>
+
+<a id="d-bdae40b813e721541eb7"></a>
+- [ ] **D-bdae40b813e721541eb7** - — When JDT/OpenRewrite/mapping/API-delta oracles disagree materially, lower confidence and enter deeper analysis instead of guessing.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T194 — Ambiguity stops unsafe auto-apply
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T194 : 986-986](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L986-L986)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows (1)</summary>
+
+<a id="d-255975e53d14171aa4ff"></a>
+- [ ] **D-255975e53d14171aa4ff** - Never log secrets/tokens. Add one-click diagnostic export with redaction.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2019-2019](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2019-L2019)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T274 — Add external crash/minidump capture with privacy controls (1)</summary>
+
+<a id="d-2b6760214957fbee0d33"></a>
+- [ ] **D-2b6760214957fbee0d33** - — Implement an out-of-process crash helper or equivalent robust mechanism that can capture Windows minidumps/native crash metadata for release builds without relying on the crashed...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Implement an out-of-process crash helper or equivalent robust mechanism that can capture Windows minidumps/native crash metadata for release builds without relying on the crashed process to finish cleanup.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T274 — Add external crash/minidump capture with privacy controls
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T274 : 2023-2023](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2023-L2023)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.1 Diagnose the first real cause (1)</summary>
 
 <a id="d-44d8a1587e584dfd86ef"></a>
@@ -1546,7 +1613,7 @@
 <a id="fix-04-details"></a>
 ## FIX-04 - Freeze, lock and concurrency forensics
 
-[Outcome](Checklist.md#fix-04) / 34 source-derived details.
+[Outcome](Checklist.md#fix-04) / 36 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -1795,6 +1862,23 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze / T133 — Freeze the research frontier after reconciling the final material additions
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T133 : 1883-1883](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1883-L1883)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results (2)</summary>
+
+<a id="d-29463b0b78d0503a44d8"></a>
+- [ ] **D-29463b0b78d0503a44d8** - Baseline must include:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 296-296](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L296-L296)
+
+<a id="d-3279734d21a3811891fe"></a>
+- [ ] **D-3279734d21a3811891fe** - Persist concise results and hashes; do not paste giant logs into this spec.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 305-305](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L305-L305)
 
 </details>
 
@@ -2195,7 +2279,7 @@
 <a id="fix-08-details"></a>
 ## FIX-08 - Generalized repair knowledge
 
-[Outcome](Checklist.md#fix-08) / 5 source-derived details.
+[Outcome](Checklist.md#fix-08) / 7 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2240,6 +2324,28 @@
   - **Full requirement:** 10. Compile -&gt; diagnose -&gt; generalized repair loop - classify errors by rule family; - repair shared cause; - never blind string-replace compiler messages; - every nontrivial reusable fix becomes a rule + regression fixture.
   - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1531-1535](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1531-L1535)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T195 — Human-assisted migration remains structured (1)</summary>
+
+<a id="d-60415fe3be53046761b4"></a>
+- [ ] **D-60415fe3be53046761b4** - Do not emit a generic “manual fix needed.”
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T195 — Human-assisted migration remains structured
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 994-994](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L994-L994)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T196 — Learned-fix promotion gate (1)</summary>
+
+<a id="d-3367fd23eef5fdbcc58f"></a>
+- [ ] **D-3367fd23eef5fdbcc58f** - — Promote a repair to global reuse only after:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T196 — Learned-fix promotion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T196 : 998-998](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L998-L998)
 
 </details>
 

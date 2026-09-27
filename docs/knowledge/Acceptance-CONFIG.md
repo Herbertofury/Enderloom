@@ -617,7 +617,7 @@
 <a id="config-04-details"></a>
 ## CONFIG-04 - Data, functions and command debugger
 
-[Outcome](Checklist.md#config-04) / 53 source-derived details.
+[Outcome](Checklist.md#config-04) / 54 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -835,6 +835,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-3 — Enderloom Probe
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1539-1539](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1539-L1539)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T287 — One developer/agent command surface (1)</summary>
+
+<a id="d-a62954665c93d6d5894c"></a>
+- [ ] **D-a62954665c93d6d5894c** - — Expose predictable typed actions for at least:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T287 — One developer/agent command surface
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T287 : 1215-1215](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1215-L1215)
 
 </details>
 

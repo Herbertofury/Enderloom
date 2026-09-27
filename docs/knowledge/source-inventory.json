@@ -201,6 +201,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-127e417c46",
+      "path": "docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
+      "sha256": "53510f9b3fb424daf0eb85e98b9587d50a33a15b4f5dc086ec3ed090ebc539bc",
+      "bytes": 117823,
+      "lines": 2315,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-6404755796",
       "path": "docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md",
       "sha256": "e836036f7de21873e980907c2e6fb7362a4866af04d4ade66fc13a6d6d9a53fe",
@@ -482,14 +492,14 @@
     }
   ],
   "stats": {
-    "source_files": 48,
-    "source_bytes": 1984537,
-    "source_lines": 40515,
-    "source_blocks": 14452,
-    "unique_blocks": 11536,
+    "source_files": 49,
+    "source_bytes": 2102360,
+    "source_lines": 42830,
+    "source_blocks": 15139,
+    "unique_blocks": 12223,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
-    "source_unchecked": 5193,
-    "alias_occurrences": 664
+    "source_unchecked": 5411,
+    "alias_occurrences": 882
   }
 }

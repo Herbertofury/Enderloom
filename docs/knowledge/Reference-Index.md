@@ -4,6 +4,22 @@
 
 > Deduplicated source URLs retain specific cited locations; a link is not endorsement or permission.
 
+<a id="0x676e67-effectum"></a>
+<details>
+<summary>0x676e67/effectum (1 cited locations)</summary>
+
+- [https://github.com/0x676e67/effectum](https://github.com/0x676e67/effectum)
+
+</details>
+
+<a id="aboutcode-org-scancode-toolkit"></a>
+<details>
+<summary>aboutcode-org/scancode-toolkit (1 cited locations)</summary>
+
+- [https://github.com/aboutcode-org/scancode-toolkit](https://github.com/aboutcode-org/scancode-toolkit)
+
+</details>
+
 <a id="amulet-team-pymctranslate"></a>
 <details>
 <summary>Amulet-Team/PyMCTranslate (2 cited locations)</summary>
@@ -21,6 +37,14 @@
 
 </details>
 
+<a id="apache-maven-resolver"></a>
+<details>
+<summary>apache/maven-resolver (1 cited locations)</summary>
+
+- [https://github.com/apache/maven-resolver](https://github.com/apache/maven-resolver)
+
+</details>
+
 <a id="architectury-architectury-api"></a>
 <details>
 <summary>architectury/architectury-api (1 cited locations)</summary>
@@ -34,6 +58,14 @@
 <summary>architectury/architectury-loom (1 cited locations)</summary>
 
 - [https://github.com/architectury/architectury-loom](https://github.com/architectury/architectury-loom)
+
+</details>
+
+<a id="arthurprs-quick-cache"></a>
+<details>
+<summary>arthurprs/quick-cache (1 cited locations)</summary>
+
+- [https://github.com/arthurprs/quick-cache](https://github.com/arthurprs/quick-cache)
 
 </details>
 
@@ -58,6 +90,14 @@
 <summary>Bedrock-OSS/regolith (1 cited locations)</summary>
 
 - [https://github.com/Bedrock-OSS/regolith](https://github.com/Bedrock-OSS/regolith)
+
+</details>
+
+<a id="blake3-team-blake3"></a>
+<details>
+<summary>BLAKE3-team/BLAKE3 (1 cited locations)</summary>
+
+- [https://github.com/BLAKE3-team/BLAKE3](https://github.com/BLAKE3-team/BLAKE3)
 
 </details>
 
@@ -91,6 +131,14 @@
 <summary>BrilliantTeam/Minecraft-ResourcePack-Migrator (1 cited locations)</summary>
 
 - [https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator](https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator)
+
+</details>
+
+<a id="bytecodealliance-wasmtime"></a>
+<details>
+<summary>bytecodealliance/wasmtime (1 cited locations)</summary>
+
+- [https://github.com/bytecodealliance/wasmtime](https://github.com/bytecodealliance/wasmtime)
 
 </details>
 
@@ -166,11 +214,27 @@
 
 </details>
 
+<a id="cykooz-fast-image-resize"></a>
+<details>
+<summary>Cykooz/fast_image_resize (1 cited locations)</summary>
+
+- [https://github.com/Cykooz/fast_image_resize](https://github.com/Cykooz/fast_image_resize)
+
+</details>
+
 <a id="deniz-blue-mcman"></a>
 <details>
 <summary>deniz-blue/mcman (1 cited locations)</summary>
 
 - [https://github.com/deniz-blue/mcman](https://github.com/deniz-blue/mcman)
+
+</details>
+
+<a id="dioxuslabs-dioxus"></a>
+<details>
+<summary>DioxusLabs/dioxus (1 cited locations)</summary>
+
+- [https://github.com/DioxusLabs/dioxus](https://github.com/DioxusLabs/dioxus)
 
 </details>
 
@@ -190,11 +254,27 @@
 
 </details>
 
+<a id="embarkstudios-cargo-deny"></a>
+<details>
+<summary>EmbarkStudios/cargo-deny (1 cited locations)</summary>
+
+- [https://github.com/EmbarkStudios/cargo-deny](https://github.com/EmbarkStudios/cargo-deny)
+
+</details>
+
 <a id="embeddedt-modernfix"></a>
 <details>
 <summary>embeddedt/ModernFix (1 cited locations)</summary>
 
 - [https://github.com/embeddedt/ModernFix](https://github.com/embeddedt/ModernFix)
+
+</details>
+
+<a id="extism-extism"></a>
+<details>
+<summary>extism/extism (1 cited locations)</summary>
+
+- [https://github.com/extism/extism](https://github.com/extism/extism)
 
 </details>
 
@@ -224,8 +304,9 @@
 
 <a id="fabricmc-fabric-docs"></a>
 <details>
-<summary>FabricMC/fabric-docs (1 cited locations)</summary>
+<summary>FabricMC/fabric-docs (2 cited locations)</summary>
 
+- [https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/automatic-testing.md](https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/automatic-testing.md)
 - [https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/porting/fabric-api.md](https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/porting/fabric-api.md)
 
 </details>
@@ -302,6 +383,14 @@
 
 </details>
 
+<a id="foyer-rs-foyer"></a>
+<details>
+<summary>foyer-rs/foyer (1 cited locations)</summary>
+
+- [https://github.com/foyer-rs/foyer](https://github.com/foyer-rs/foyer)
+
+</details>
+
 <a id="fuzss-forge-config-api-port"></a>
 <details>
 <summary>Fuzss/forge-config-api-port (1 cited locations)</summary>
@@ -366,6 +455,14 @@
 
 </details>
 
+<a id="helix-editor-nucleo"></a>
+<details>
+<summary>helix-editor/nucleo (1 cited locations)</summary>
+
+- [https://github.com/helix-editor/nucleo](https://github.com/helix-editor/nucleo)
+
+</details>
+
 <a id="herbertofury-enderloom"></a>
 <details>
 <summary>Herbertofury/Enderloom (17 cited locations)</summary>
@@ -398,11 +495,27 @@
 
 </details>
 
+<a id="hickory-dns-hickory-dns"></a>
+<details>
+<summary>hickory-dns/hickory-dns (1 cited locations)</summary>
+
+- [https://github.com/hickory-dns/hickory-dns](https://github.com/hickory-dns/hickory-dns)
+
+</details>
+
 <a id="hivegamesoss-chunker"></a>
 <details>
 <summary>HiveGamesOSS/Chunker (1 cited locations)</summary>
 
 - [https://github.com/HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker)
+
+</details>
+
+<a id="ibraheemdev-papaya"></a>
+<details>
+<summary>ibraheemdev/papaya (1 cited locations)</summary>
+
+- [https://github.com/ibraheemdev/papaya](https://github.com/ibraheemdev/papaya)
 
 </details>
 
@@ -478,11 +591,35 @@
 
 </details>
 
+<a id="kira-nt-mc-publish"></a>
+<details>
+<summary>Kira-NT/mc-publish (1 cited locations)</summary>
+
+- [https://github.com/Kira-NT/mc-publish](https://github.com/Kira-NT/mc-publish)
+
+</details>
+
+<a id="kobzol-cargo-pgo"></a>
+<details>
+<summary>Kobzol/cargo-pgo (1 cited locations)</summary>
+
+- [https://github.com/Kobzol/cargo-pgo](https://github.com/Kobzol/cargo-pgo)
+
+</details>
+
 <a id="leibnitz27-cfr"></a>
 <details>
 <summary>leibnitz27/cfr (1 cited locations)</summary>
 
 - [https://github.com/leibnitz27/cfr](https://github.com/leibnitz27/cfr)
+
+</details>
+
+<a id="leptos-rs-leptos"></a>
+<details>
+<summary>leptos-rs/leptos (1 cited locations)</summary>
+
+- [https://github.com/leptos-rs/leptos](https://github.com/leptos-rs/leptos)
 
 </details>
 
@@ -507,6 +644,14 @@
 <summary>lucko/spark-docs (1 cited locations)</summary>
 
 - [https://github.com/lucko/spark-docs/blob/master/docs/commands.mdx](https://github.com/lucko/spark-docs/blob/master/docs/commands.mdx)
+
+</details>
+
+<a id="manifold-systems-manifold"></a>
+<details>
+<summary>manifold-systems/manifold (1 cited locations)</summary>
+
+- [https://github.com/manifold-systems/manifold/tree/master/manifold-deps-parent/manifold-preprocessor](https://github.com/manifold-systems/manifold/tree/master/manifold-deps-parent/manifold-preprocessor)
 
 </details>
 
@@ -574,6 +719,22 @@
 
 </details>
 
+<a id="microsoft-rust-win-etw"></a>
+<details>
+<summary>microsoft/rust_win_etw (1 cited locations)</summary>
+
+- [https://github.com/microsoft/rust_win_etw](https://github.com/microsoft/rust_win_etw)
+
+</details>
+
+<a id="microsoft-tracing-etw"></a>
+<details>
+<summary>microsoft/tracing-etw (1 cited locations)</summary>
+
+- [https://github.com/microsoft/tracing-etw](https://github.com/microsoft/tracing-etw)
+
+</details>
+
 <a id="minecraft-dev-minecraftdev"></a>
 <details>
 <summary>minecraft-dev/MinecraftDev (1 cited locations)</summary>
@@ -638,6 +799,22 @@
 
 </details>
 
+<a id="modmuss50-mod-publish-plugin"></a>
+<details>
+<summary>modmuss50/mod-publish-plugin (1 cited locations)</summary>
+
+- [https://github.com/modmuss50/mod-publish-plugin](https://github.com/modmuss50/mod-publish-plugin)
+
+</details>
+
+<a id="modrinth-minotaur"></a>
+<details>
+<summary>modrinth/minotaur (1 cited locations)</summary>
+
+- [https://github.com/modrinth/minotaur](https://github.com/modrinth/minotaur)
+
+</details>
+
 <a id="mojang-bedrock-protocol-docs"></a>
 <details>
 <summary>Mojang/bedrock-protocol-docs (1 cited locations)</summary>
@@ -659,6 +836,30 @@
 <summary>Mojang/DataFixerUpper (1 cited locations)</summary>
 
 - [https://github.com/Mojang/DataFixerUpper](https://github.com/Mojang/DataFixerUpper)
+
+</details>
+
+<a id="moka-rs-moka"></a>
+<details>
+<summary>moka-rs/moka (1 cited locations)</summary>
+
+- [https://github.com/moka-rs/moka](https://github.com/moka-rs/moka)
+
+</details>
+
+<a id="mozilla-cargo-vet"></a>
+<details>
+<summary>mozilla/cargo-vet (1 cited locations)</summary>
+
+- [https://github.com/mozilla/cargo-vet](https://github.com/mozilla/cargo-vet)
+
+</details>
+
+<a id="mstange-samply"></a>
+<details>
+<summary>mstange/samply (1 cited locations)</summary>
+
+- [https://github.com/mstange/samply](https://github.com/mstange/samply)
 
 </details>
 
@@ -694,6 +895,14 @@
 
 </details>
 
+<a id="neoforged-neoforge"></a>
+<details>
+<summary>neoforged/NeoForge (1 cited locations)</summary>
+
+- [https://github.com/neoforged/NeoForge/blob/26.3.x/docs/TESTFRAMEWORK.md](https://github.com/neoforged/NeoForge/blob/26.3.x/docs/TESTFRAMEWORK.md)
+
+</details>
+
 <a id="neoforged-neoform"></a>
 <details>
 <summary>neoforged/NeoForm (1 cited locations)</summary>
@@ -710,11 +919,35 @@
 
 </details>
 
+<a id="nickbabcock-rawzip"></a>
+<details>
+<summary>nickbabcock/rawzip (1 cited locations)</summary>
+
+- [https://github.com/nickbabcock/rawzip](https://github.com/nickbabcock/rawzip)
+
+</details>
+
+<a id="nlfiedler-fastcdc-rs"></a>
+<details>
+<summary>nlfiedler/fastcdc-rs (1 cited locations)</summary>
+
+- [https://github.com/nlfiedler/fastcdc-rs](https://github.com/nlfiedler/fastcdc-rs)
+
+</details>
+
 <a id="nothub-mrpack-install"></a>
 <details>
 <summary>nothub/mrpack-install (1 cited locations)</summary>
 
 - [https://github.com/nothub/mrpack-install](https://github.com/nothub/mrpack-install)
+
+</details>
+
+<a id="notify-rs-notify"></a>
+<details>
+<summary>notify-rs/notify (1 cited locations)</summary>
+
+- [https://github.com/notify-rs/notify](https://github.com/notify-rs/notify)
 
 </details>
 
@@ -739,6 +972,14 @@
 <summary>OpenShock/Integrations.Minecraft (1 cited locations)</summary>
 
 - [https://github.com/OpenShock/Integrations.Minecraft](https://github.com/OpenShock/Integrations.Minecraft)
+
+</details>
+
+<a id="oss-review-toolkit-ort"></a>
+<details>
+<summary>oss-review-toolkit/ort (1 cited locations)</summary>
+
+- [https://github.com/oss-review-toolkit/ort](https://github.com/oss-review-toolkit/ort)
 
 </details>
 
@@ -854,6 +1095,14 @@
 
 </details>
 
+<a id="prefix-dev-resolvo"></a>
+<details>
+<summary>prefix-dev/resolvo (1 cited locations)</summary>
+
+- [https://github.com/prefix-dev/resolvo](https://github.com/prefix-dev/resolvo)
+
+</details>
+
 <a id="prismarinejs-bedrock-protocol"></a>
 <details>
 <summary>PrismarineJS/bedrock-protocol (1 cited locations)</summary>
@@ -894,6 +1143,14 @@
 
 </details>
 
+<a id="pubgrub-rs-pubgrub"></a>
+<details>
+<summary>pubgrub-rs/pubgrub (1 cited locations)</summary>
+
+- [https://github.com/pubgrub-rs/pubgrub](https://github.com/pubgrub-rs/pubgrub)
+
+</details>
+
 <a id="querz-mcaselector"></a>
 <details>
 <summary>Querz/mcaselector (1 cited locations)</summary>
@@ -902,11 +1159,27 @@
 
 </details>
 
+<a id="quickwit-oss-tantivy"></a>
+<details>
+<summary>quickwit-oss/tantivy (1 cited locations)</summary>
+
+- [https://github.com/quickwit-oss/tantivy](https://github.com/quickwit-oss/tantivy)
+
+</details>
+
 <a id="quiltmc-quilt-loader"></a>
 <details>
 <summary>QuiltMC/quilt-loader (1 cited locations)</summary>
 
 - [https://github.com/QuiltMC/quilt-loader](https://github.com/QuiltMC/quilt-loader)
+
+</details>
+
+<a id="railroad-team-railroad"></a>
+<details>
+<summary>Railroad-Team/Railroad (1 cited locations)</summary>
+
+- [https://github.com/Railroad-Team/Railroad](https://github.com/Railroad-Team/Railroad)
 
 </details>
 
@@ -926,6 +1199,14 @@
 
 </details>
 
+<a id="replaymod-preprocessor"></a>
+<details>
+<summary>ReplayMod/preprocessor (1 cited locations)</summary>
+
+- [https://github.com/ReplayMod/preprocessor](https://github.com/ReplayMod/preprocessor)
+
+</details>
+
 <a id="reqsery-mc-mod-porter"></a>
 <details>
 <summary>reqsery/mc-mod-porter (3 cited locations)</summary>
@@ -941,6 +1222,30 @@
 <summary>revapi/revapi (1 cited locations)</summary>
 
 - [https://github.com/revapi/revapi](https://github.com/revapi/revapi)
+
+</details>
+
+<a id="roaringbitmap-roaring-rs"></a>
+<details>
+<summary>RoaringBitmap/roaring-rs (1 cited locations)</summary>
+
+- [https://github.com/RoaringBitmap/roaring-rs](https://github.com/RoaringBitmap/roaring-rs)
+
+</details>
+
+<a id="rust-minidump-minidump-writer"></a>
+<details>
+<summary>rust-minidump/minidump-writer (1 cited locations)</summary>
+
+- [https://github.com/rust-minidump/minidump-writer](https://github.com/rust-minidump/minidump-writer)
+
+</details>
+
+<a id="rustsec-rustsec"></a>
+<details>
+<summary>rustsec/rustsec (1 cited locations)</summary>
+
+- [https://github.com/rustsec/rustsec/tree/main/cargo-audit](https://github.com/rustsec/rustsec/tree/main/cargo-audit)
 
 </details>
 
@@ -1032,6 +1337,22 @@
 
 </details>
 
+<a id="sparkuniverse-architectury-loom"></a>
+<details>
+<summary>SparkUniverse/architectury-loom (1 cited locations)</summary>
+
+- [https://github.com/SparkUniverse/architectury-loom](https://github.com/SparkUniverse/architectury-loom)
+
+</details>
+
+<a id="sparkuniverse-essential-gradle-toolkit"></a>
+<details>
+<summary>SparkUniverse/essential-gradle-toolkit (1 cited locations)</summary>
+
+- [https://github.com/SparkUniverse/essential-gradle-toolkit](https://github.com/SparkUniverse/essential-gradle-toolkit)
+
+</details>
+
 <a id="spongepowered-mercurymixin"></a>
 <details>
 <summary>SpongePowered/MercuryMixin (1 cited locations)</summary>
@@ -1061,6 +1382,14 @@
 <summary>SpyglassMC/Spyglass (1 cited locations)</summary>
 
 - [https://github.com/SpyglassMC/Spyglass](https://github.com/SpyglassMC/Spyglass)
+
+</details>
+
+<a id="spyglassmc-vanilla-mcdoc"></a>
+<details>
+<summary>SpyglassMC/vanilla-mcdoc (1 cited locations)</summary>
+
+- [https://github.com/SpyglassMC/vanilla-mcdoc](https://github.com/SpyglassMC/vanilla-mcdoc)
 
 </details>
 
@@ -1176,6 +1505,14 @@
 
 </details>
 
+<a id="vorner-arc-swap"></a>
+<details>
+<summary>vorner/arc-swap (1 cited locations)</summary>
+
+- [https://github.com/vorner/arc-swap](https://github.com/vorner/arc-swap)
+
+</details>
+
 <a id="voxelum-x-minecraft-launcher"></a>
 <details>
 <summary>Voxelum/x-minecraft-launcher (1 cited locations)</summary>
@@ -1189,6 +1526,14 @@
 <summary>wangfu91/usn-journal-rs (1 cited locations)</summary>
 
 - [https://github.com/wangfu91/usn-journal-rs](https://github.com/wangfu91/usn-journal-rs)
+
+</details>
+
+<a id="wvwwvwwv-scalable-concurrent-containers"></a>
+<details>
+<summary>wvwwvwwv/scalable-concurrent-containers (1 cited locations)</summary>
+
+- [https://github.com/wvwwvwwv/scalable-concurrent-containers](https://github.com/wvwwvwwv/scalable-concurrent-containers)
 
 </details>
 
@@ -1260,6 +1605,13 @@
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
 - [https://stonecutter.kikugie.dev/](https://stonecutter.kikugie.dev/)
+- [https://theupdateframework.io/](https://theupdateframework.io/)
+- [https://v2.tauri.app/develop/calling-frontend/](https://v2.tauri.app/develop/calling-frontend/)
+- [https://v2.tauri.app/plugin/](https://v2.tauri.app/plugin/)
+- [https://v2.tauri.app/plugin/updater/](https://v2.tauri.app/plugin/updater/)
+- [https://v2.tauri.app/security/capabilities/](https://v2.tauri.app/security/capabilities/)
+- [https://v2.tauri.app/security/csp/](https://v2.tauri.app/security/csp/)
+- [https://v2.tauri.app/start/create-project/](https://v2.tauri.app/start/create-project/)
 - [https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom](https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom)
 - [https://www.curseforge.com/minecraft/mc-mods/apothic-curios](https://www.curseforge.com/minecraft/mc-mods/apothic-curios)
 - [https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler](https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler)

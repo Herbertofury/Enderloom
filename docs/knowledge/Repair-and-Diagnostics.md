@@ -42,11 +42,11 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [FIX-01 - Root-cause repair workflow](Acceptance-FIX.md#fix-01-details): 45 source details.
-- [FIX-02 - Reusable diagnostics adapters](Acceptance-FIX.md#fix-02-details): 25 source details.
-- [FIX-03 - Crash, linkage, data and configuration repair](Acceptance-FIX.md#fix-03-details): 97 source details.
-- [FIX-04 - Freeze, lock and concurrency forensics](Acceptance-FIX.md#fix-04-details): 34 source details.
+- [FIX-01 - Root-cause repair workflow](Acceptance-FIX.md#fix-01-details): 47 source details.
+- [FIX-02 - Reusable diagnostics adapters](Acceptance-FIX.md#fix-02-details): 26 source details.
+- [FIX-03 - Crash, linkage, data and configuration repair](Acceptance-FIX.md#fix-03-details): 100 source details.
+- [FIX-04 - Freeze, lock and concurrency forensics](Acceptance-FIX.md#fix-04-details): 36 source details.
 - [FIX-05 - Heap and memory-leak diagnosis](Acceptance-FIX.md#fix-05-details): 12 source details.
 - [FIX-06 - Black Box incident timeline](Acceptance-FIX.md#fix-06-details): 5 source details.
 - [FIX-07 - Dependency-safe bisect and reproducer](Acceptance-FIX.md#fix-07-details): 27 source details.
-- [FIX-08 - Generalized repair knowledge](Acceptance-FIX.md#fix-08-details): 5 source details.
+- [FIX-08 - Generalized repair knowledge](Acceptance-FIX.md#fix-08-details): 7 source details.
