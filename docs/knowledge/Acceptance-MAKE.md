@@ -1390,7 +1390,7 @@
 <a id="make-06-details"></a>
 ## MAKE-06 - World, biome, structure and dimension authoring
 
-[Outcome](Checklist.md#make-06) / 41 source-derived details.
+[Outcome](Checklist.md#make-06) / 46 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence (1)</summary>
@@ -1752,10 +1752,67 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 1. Product goal (1)</summary>
+
+<a id="d-4ddc9d7048ab9217c3f2"></a>
+- [ ] **D-4ddc9d7048ab9217c3f2** - This is not only a Bloom &amp; Boom tool. It must work for:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 1. Product goal
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 15-15](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L15-L15)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 3. Dynamic biome/dimension discovery — hard requirement (1)</summary>
+
+<a id="d-9b16ec95a572bc3c4b36"></a>
+- [ ] **D-9b16ec95a572bc3c4b36** - Unknown/new custom biomes become unresolved profiles to characterize, never silently fall back to generic green/brown.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 3. Dynamic biome/dimension discovery — hard requirement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L91-L91)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 6. Minecraft-native authoring (1)</summary>
+
+<a id="d-a70152ee2c14df5f6458"></a>
+- [ ] **D-a70152ee2c14df5f6458** - A dense AI-generated mesh may be used as a scaffold/reference, but never becomes the final Minecraft deliverable by default. Enderloom must fit/adapt it into the chosen Minecraft a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A dense AI-generated mesh may be used as a scaffold/reference, but never becomes the final Minecraft deliverable by default. Enderloom must fit/adapt it into the chosen Minecraft art-direction and renderer constraints.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 6. Minecraft-native authoring
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 151-151](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L151-L151)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 7. Variant intelligence (1)</summary>
+
+<a id="d-e89354d463d6d9c4bac3"></a>
+- [ ] **D-e89354d463d6d9c4bac3** - The tool must support: - Generate one; - Generate N candidates; - Generate every biome; - Generate every biome in this dimension; - Generate every biome in this installed modpack; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The tool must support: - Generate one; - Generate N candidates; - Generate every biome; - Generate every biome in this dimension; - Generate every biome in this installed modpack; - Generate only missing variants; - Regenerate this region only; - Keep geometry, reroll texture; - Keep face/horns, reroll growths.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 7. Variant intelligence
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 171-180](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L171-L180)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates (1)</summary>
+
+<a id="d-d7089a105e48626f9a0e"></a>
+- [ ] **D-d7089a105e48626f9a0e** - Every approved variant must pass:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 220-220](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L220-L220)
+
+</details>
+
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 105 source-derived details.
+[Outcome](Checklist.md#make-07) / 108 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2616,6 +2673,41 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 45. Definition of done — ultimate Enderloom
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1742-1742](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1742-L1742)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA (1)</summary>
+
+<a id="d-cafd89518a6cc3258257"></a>
+- [ ] **D-cafd89518a6cc3258257** - - silhouette and proportions; - required face/recognition landmarks; - horn/ear/tail/limb/body anchors; - rig hierarchy and pivots; - texture/material identity; - palette anchors; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - silhouette and proportions; - required face/recognition landmarks; - horn/ear/tail/limb/body anchors; - rig hierarchy and pivots; - texture/material identity; - palette anchors; - required animation behaviors; - gameplay identity and hitbox constraints; - allowed and forbidden mutation zones; - provenance and source hashes.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 45-54](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L45-L54)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 5. Variant modes (1)</summary>
+
+<a id="d-e5106a4095cee89b80b7"></a>
+- [ ] **D-e5106a4095cee89b80b7** - Per-region locks must allow a user to freeze the face, horns, body, legs, item silhouette, logo, UV region, animation, or any other identity-critical zone.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 5. Variant modes
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 137-137](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L137-L137)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 15. Non-negotiable invariants (1)</summary>
+
+<a id="d-a605cb1bb532044f9109"></a>
+- [ ] **D-a605cb1bb532044f9109** - - Preserve the original concept/model/assets immutably. - Never trade identity, fidelity or content away for speed. - No hardcoded “supported biomes only” wall for modded content. ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Preserve the original concept/model/assets immutably. - Never trade identity, fidelity or content away for speed. - No hardcoded “supported biomes only” wall for modded content. - Unknown modded biome != unsupported; characterize it. - Curated profiles accelerate quality but dynamic discovery provides coverage. - No fake Minecraft model from a pretty dense mesh; output must be editable and target-runtime-valid. - Model providers are swappable challengers. - Every generation keeps exact provider/model/version/seed/input hashes and derivation lineage. - Generated variants are reproducible. - Native/runtime proof remains stronger than editor-only proof. - Existing concept-art-to-native-mod work is extended, not duplicated.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 15. Non-negotiable invariants
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 347-357](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L347-L357)
 
 </details>
 

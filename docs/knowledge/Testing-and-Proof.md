@@ -42,7 +42,7 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [TEST-01 - Deterministic test sandbox](Acceptance-TEST.md#test-01-details): 391 source details.
+- [TEST-01 - Deterministic test sandbox](Acceptance-TEST.md#test-01-details): 392 source details.
 - [TEST-02 - Scenario and GameTest compiler](Acceptance-TEST.md#test-02-details): 93 source details.
 - [TEST-03 - Runtime supervision and automation](Acceptance-TEST.md#test-03-details): 139 source details.
 - [TEST-04 - Full CLI, JSON and MCP parity](Acceptance-TEST.md#test-04-details): 241 source details.

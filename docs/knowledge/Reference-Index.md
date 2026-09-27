@@ -254,6 +254,14 @@
 
 </details>
 
+<a id="cheetahstimulate-creeper-overhaul-mc-mod"></a>
+<details>
+<summary>CheetahStimulate/creeper-overhaul-mc-mod (1 cited locations)</summary>
+
+- [https://github.com/CheetahStimulate/creeper-overhaul-mc-mod](https://github.com/CheetahStimulate/creeper-overhaul-mc-mod)
+
+</details>
+
 <a id="classgraph-classgraph"></a>
 <details>
 <summary>classgraph/classgraph (1 cited locations)</summary>
@@ -355,6 +363,14 @@
 <summary>deniz-blue/mcman (1 cited locations)</summary>
 
 - [https://github.com/deniz-blue/mcman](https://github.com/deniz-blue/mcman)
+
+</details>
+
+<a id="depthanything-depth-anything-v2"></a>
+<details>
+<summary>DepthAnything/Depth-Anything-V2 (1 cited locations)</summary>
+
+- [https://github.com/DepthAnything/Depth-Anything-V2](https://github.com/DepthAnything/Depth-Anything-V2)
 
 </details>
 
@@ -516,6 +532,14 @@
 <summary>FabricMC/unpick (1 cited locations)</summary>
 
 - [https://github.com/FabricMC/unpick](https://github.com/FabricMC/unpick)
+
+</details>
+
+<a id="facebookresearch-sam2"></a>
+<details>
+<summary>facebookresearch/sam2 (1 cited locations)</summary>
+
+- [https://github.com/facebookresearch/sam2](https://github.com/facebookresearch/sam2)
 
 </details>
 
@@ -1060,6 +1084,14 @@
 <summary>microsoft/tracing-etw (1 cited locations)</summary>
 
 - [https://github.com/microsoft/tracing-etw](https://github.com/microsoft/tracing-etw)
+
+</details>
+
+<a id="microsoft-trellis"></a>
+<details>
+<summary>microsoft/TRELLIS (1 cited locations)</summary>
+
+- [https://github.com/microsoft/TRELLIS](https://github.com/microsoft/TRELLIS)
 
 </details>
 
@@ -1915,6 +1947,22 @@
 
 </details>
 
+<a id="tencent-hunyuan-hunyuan3d-2-1"></a>
+<details>
+<summary>Tencent-Hunyuan/Hunyuan3D-2.1 (1 cited locations)</summary>
+
+- [https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1)
+
+</details>
+
+<a id="tencentarc-instantmesh"></a>
+<details>
+<summary>TencentARC/InstantMesh (1 cited locations)</summary>
+
+- [https://github.com/TencentARC/InstantMesh](https://github.com/TencentARC/InstantMesh)
+
+</details>
+
 <a id="theillusivec4-curios"></a>
 <details>
 <summary>TheIllusiveC4/Curios (1 cited locations)</summary>
@@ -1936,6 +1984,22 @@
 <summary>TimStewartJ/TheMightyArchitectury (1 cited locations)</summary>
 
 - [https://github.com/TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury)
+
+</details>
+
+<a id="traben-0-entity-model-features"></a>
+<details>
+<summary>Traben-0/Entity_Model_Features (1 cited locations)</summary>
+
+- [https://github.com/Traben-0/Entity_Model_Features](https://github.com/Traben-0/Entity_Model_Features)
+
+</details>
+
+<a id="traben-0-entity-texture-features"></a>
+<details>
+<summary>Traben-0/Entity_Texture_Features (1 cited locations)</summary>
+
+- [https://github.com/Traben-0/Entity_Texture_Features](https://github.com/Traben-0/Entity_Texture_Features)
 
 </details>
 
@@ -2000,6 +2064,22 @@
 <summary>unnamed/mocha (1 cited locations)</summary>
 
 - [https://github.com/unnamed/mocha](https://github.com/unnamed/mocha)
+
+</details>
+
+<a id="vast-ai-research-triposr"></a>
+<details>
+<summary>VAST-AI-Research/TripoSR (1 cited locations)</summary>
+
+- [https://github.com/VAST-AI-Research/TripoSR](https://github.com/VAST-AI-Research/TripoSR)
+
+</details>
+
+<a id="vast-ai-research-unirig"></a>
+<details>
+<summary>VAST-AI-Research/UniRig (1 cited locations)</summary>
+
+- [https://github.com/VAST-AI-Research/UniRig](https://github.com/VAST-AI-Research/UniRig)
 
 </details>
 

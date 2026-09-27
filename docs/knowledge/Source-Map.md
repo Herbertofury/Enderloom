@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 49 |
-| Source lines processed | 43,388 |
-| Non-empty source blocks accounted for | 15,327 |
-| Distinct contextual/exact source blocks | 12,411 |
+| Located source documents | 50 |
+| Source lines processed | 43,745 |
+| Non-empty source blocks accounted for | 15,406 |
+| Distinct contextual/exact source blocks | 12,490 |
 | Exact repeated occurrences sharing an identity | 2,916 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,474 |
@@ -372,6 +372,19 @@ SHA-256: `3affbfd34834cc7f246b63fa2a5937c45bb8a1c176c4ef844c30cc9446673020`
 Bytes: 43,282. Historical checked occurrences: 0.
 
 **Outcome owners:** [**AI-01**](Checklist.md#ai-01), [**AI-03**](Checklist.md#ai-03), [**AI-06**](Checklist.md#ai-06), [**AOA-01**](Checklist.md#aoa-01), [**AOA-03**](Checklist.md#aoa-03), [**AOA-06**](Checklist.md#aoa-06), [**CONFIG-01**](Checklist.md#config-01), [**CONFIG-02**](Checklist.md#config-02), [**CONFIG-03**](Checklist.md#config-03), [**CONFIG-04**](Checklist.md#config-04), [**CONFIG-05**](Checklist.md#config-05), [**CONFIG-06**](Checklist.md#config-06), [**DEP-03**](Checklist.md#dep-03), [**DEP-05**](Checklist.md#dep-05), [**FIX-03**](Checklist.md#fix-03), [**FIX-05**](Checklist.md#fix-05), [**FIX-06**](Checklist.md#fix-06), [**FIX-08**](Checklist.md#fix-08), [**KNOW-01**](Checklist.md#know-01), [**KNOW-02**](Checklist.md#know-02), [**LIB-02**](Checklist.md#lib-02), [**LIB-06**](Checklist.md#lib-06), [**LIB-09**](Checklist.md#lib-09), [**MAKE-02**](Checklist.md#make-02), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-09**](Checklist.md#make-09), [**PERF-03**](Checklist.md#perf-03), [**PERF-08**](Checklist.md#perf-08), [**PLAY-05**](Checklist.md#play-05), [**PORT-03**](Checklist.md#port-03), [**PORT-05**](Checklist.md#port-05), [**PORT-10**](Checklist.md#port-10), [**PORT-11**](Checklist.md#port-11), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**SHIP-05**](Checklist.md#ship-05), [**TEST-01**](Checklist.md#test-01), [**TEST-02**](Checklist.md#test-02), [**TEST-03**](Checklist.md#test-03), [**TEST-04**](Checklist.md#test-04), [**TEST-05**](Checklist.md#test-05), [**UX-02**](Checklist.md#ux-02), [**UX-05**](Checklist.md#ux-05), [**UX-07**](Checklist.md#ux-07), [**UX-09**](Checklist.md#ux-09), [**WORLD-01**](Checklist.md#world-01), [**WORLD-03**](Checklist.md#world-03), [**WORLD-05**](Checklist.md#world-05)
+
+</details>
+
+<a id="s-c4d365cd40"></a>
+<details>
+<summary><strong>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md</strong> - 357 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md) | specification
+
+SHA-256: `868e21f160a63f49ccce5d975fc608dc407eff2bba0ad5550b937b882dfb43e7`  
+Bytes: 15,501. Historical checked occurrences: 0.
+
+**Outcome owners:** [**AI-01**](Checklist.md#ai-01), [**AI-07**](Checklist.md#ai-07), [**DEP-05**](Checklist.md#dep-05), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-04**](Checklist.md#lib-04), [**LIB-06**](Checklist.md#lib-06), [**MAKE-01**](Checklist.md#make-01), [**MAKE-05**](Checklist.md#make-05), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-09**](Checklist.md#make-09), [**MAKE-11**](Checklist.md#make-11), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**SHIP-01**](Checklist.md#ship-01), [**TEST-01**](Checklist.md#test-01), [**TEST-03**](Checklist.md#test-03), [**TEST-05**](Checklist.md#test-05), [**UX-01**](Checklist.md#ux-01), [**UX-02**](Checklist.md#ux-02), [**WORLD-01**](Checklist.md#world-01), [**WORLD-03**](Checklist.md#world-03), [**WORLD-06**](Checklist.md#world-06)
 
 </details>
 

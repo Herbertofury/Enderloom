@@ -66,7 +66,7 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [PORT-01 - Input and source authority](Acceptance-PORT.md#port-01-details): 135 source details.
+- [PORT-01 - Input and source authority](Acceptance-PORT.md#port-01-details): 136 source details.
 - [PORT-02 - Universal semantic representation](Acceptance-PORT.md#port-02-details): 8 source details.
 - [PORT-03 - Live version and toolchain atlas](Acceptance-PORT.md#port-03-details): 128 source details.
 - [PORT-04 - Exact mappings and symbol truth](Acceptance-PORT.md#port-04-details): 60 source details.

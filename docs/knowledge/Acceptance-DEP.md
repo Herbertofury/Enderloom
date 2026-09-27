@@ -1909,7 +1909,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 105 source-derived details.
+[Outcome](Checklist.md#dep-05) / 106 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2771,6 +2771,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 43. Implementation program — Codex waves / Wave A — Integration Spine
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1586-1586](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1586-L1586)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 13. CLI / automation surface (1)</summary>
+
+<a id="d-8106ad27729aa238f326"></a>
+- [ ] **D-8106ad27729aa238f326** - GUI, CLI, MCP and AI operator must all call the same canonical operation registry.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 13. CLI / automation surface
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 319-319](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L319-L319)
 
 </details>
 

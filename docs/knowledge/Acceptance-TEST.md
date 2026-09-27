@@ -9,7 +9,7 @@
 <a id="test-01-details"></a>
 ## TEST-01 - Deterministic test sandbox
 
-[Outcome](Checklist.md#test-01) / 391 source-derived details.
+[Outcome](Checklist.md#test-01) / 392 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2258,6 +2258,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 41. Verification contract
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1546-1546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1546-L1546)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 14. Acceptance fixtures (1)</summary>
+
+<a id="d-7331c6b344c185f22ff4"></a>
+- [ ] **D-7331c6b344c185f22ff4** - 3. Unknown custom biome - synthetic test mod/datapack with a biome Enderloom has never seen; - prove discovery -&gt; BiomeDNA -&gt; candidate -&gt; export with no hardcoded adapter...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 3. Unknown custom biome - synthetic test mod/datapack with a biome Enderloom has never seen; - prove discovery -&gt; BiomeDNA -&gt; candidate -&gt; export with no hardcoded adapter.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 14. Acceptance fixtures
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 334-336](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L334-L336)
 
 </details>
 

@@ -76,6 +76,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [CadixDev/Mercury](https://github.com/CadixDev/Mercury) - [specific cited locations](Reference-Index.md#cadixdev-mercury).
 - [CadixDev/MercuryMixin](https://github.com/CadixDev/MercuryMixin) - [specific cited locations](Reference-Index.md#cadixdev-mercurymixin).
 - [cberner/redb](https://github.com/cberner/redb) - [specific cited locations](Reference-Index.md#cberner-redb).
+- [CheetahStimulate/creeper-overhaul-mc-mod](https://github.com/CheetahStimulate/creeper-overhaul-mc-mod) - [specific cited locations](Reference-Index.md#cheetahstimulate-creeper-overhaul-mc-mod).
 - [classgraph/classgraph](https://github.com/classgraph/classgraph) - [specific cited locations](Reference-Index.md#classgraph-classgraph).
 - [CleanroomMC/Cleanroom](https://github.com/CleanroomMC/Cleanroom) - [specific cited locations](Reference-Index.md#cleanroommc-cleanroom).
 - [CleanroomMC/MixinBooter](https://github.com/CleanroomMC/MixinBooter) - [specific cited locations](Reference-Index.md#cleanroommc-mixinbooter).
@@ -89,6 +90,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [CycloneDX/cyclonedx-gradle-plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin) - [specific cited locations](Reference-Index.md#cyclonedx-cyclonedx-gradle-plugin).
 - [Cykooz/fast_image_resize](https://github.com/Cykooz/fast_image_resize) - [specific cited locations](Reference-Index.md#cykooz-fast-image-resize).
 - [deniz-blue/mcman](https://github.com/deniz-blue/mcman) - [specific cited locations](Reference-Index.md#deniz-blue-mcman).
+- [DepthAnything/Depth-Anything-V2](https://github.com/DepthAnything/Depth-Anything-V2) - [specific cited locations](Reference-Index.md#depthanything-depth-anything-v2).
 - [DioxusLabs/dioxus](https://github.com/DioxusLabs/dioxus) - [specific cited locations](Reference-Index.md#dioxuslabs-dioxus).
 - [divvun/bidiff](https://github.com/divvun/bidiff) - [specific cited locations](Reference-Index.md#divvun-bidiff).
 - [ebiggers/libdeflate](https://github.com/ebiggers/libdeflate) - [specific cited locations](Reference-Index.md#ebiggers-libdeflate).
@@ -107,6 +109,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [FabricMC/MercuryMixin](https://github.com/FabricMC/MercuryMixin) - [specific cited locations](Reference-Index.md#fabricmc-mercurymixin).
 - [FabricMC/stitch](https://github.com/FabricMC/stitch) - [specific cited locations](Reference-Index.md#fabricmc-stitch).
 - [FabricMC/unpick](https://github.com/FabricMC/unpick) - [specific cited locations](Reference-Index.md#fabricmc-unpick).
+- [facebookresearch/sam2](https://github.com/facebookresearch/sam2) - [specific cited locations](Reference-Index.md#facebookresearch-sam2).
 - [Fenixin/Minecraft-Region-Fixer](https://github.com/Fenixin/Minecraft-Region-Fixer) - [specific cited locations](Reference-Index.md#fenixin-minecraft-region-fixer).
 - [fjall-rs/fjall](https://github.com/fjall-rs/fjall) - [specific cited locations](Reference-Index.md#fjall-rs-fjall).
 - [foyer-rs/foyer](https://github.com/foyer-rs/foyer) - [specific cited locations](Reference-Index.md#foyer-rs-foyer).
@@ -160,6 +163,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [microsoft/minecraft-scripting-samples](https://github.com/microsoft/minecraft-scripting-samples) - [specific cited locations](Reference-Index.md#microsoft-minecraft-scripting-samples).
 - [microsoft/rust_win_etw](https://github.com/microsoft/rust_win_etw) - [specific cited locations](Reference-Index.md#microsoft-rust-win-etw).
 - [microsoft/tracing-etw](https://github.com/microsoft/tracing-etw) - [specific cited locations](Reference-Index.md#microsoft-tracing-etw).
+- [microsoft/TRELLIS](https://github.com/microsoft/TRELLIS) - [specific cited locations](Reference-Index.md#microsoft-trellis).
 - [MilkdromedaStudios/Octo-Loader](https://github.com/MilkdromedaStudios/Octo-Loader) - [specific cited locations](Reference-Index.md#milkdromedastudios-octo-loader).
 - [minecraft-dev/MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) - [specific cited locations](Reference-Index.md#minecraft-dev-minecraftdev).
 - [MinecraftForge/BinaryPatcher](https://github.com/MinecraftForge/BinaryPatcher) - [specific cited locations](Reference-Index.md#minecraftforge-binarypatcher).
@@ -258,14 +262,20 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [SpoonLabs/gumtree-spoon-ast-diff](https://github.com/SpoonLabs/gumtree-spoon-ast-diff) - [specific cited locations](Reference-Index.md#spoonlabs-gumtree-spoon-ast-diff).
 - [SpyglassMC/vanilla-mcdoc](https://github.com/SpyglassMC/vanilla-mcdoc) - [specific cited locations](Reference-Index.md#spyglassmc-vanilla-mcdoc).
 - [taiki-e/cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) - [specific cited locations](Reference-Index.md#taiki-e-cargo-llvm-cov).
+- [Tencent-Hunyuan/Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1) - [specific cited locations](Reference-Index.md#tencent-hunyuan-hunyuan3d-2-1).
+- [TencentARC/InstantMesh](https://github.com/TencentARC/InstantMesh) - [specific cited locations](Reference-Index.md#tencentarc-instantmesh).
 - [TheIllusiveC4/Curios](https://github.com/TheIllusiveC4/Curios) - [specific cited locations](Reference-Index.md#theillusivec4-curios).
 - [theorzr/portablemc](https://github.com/theorzr/portablemc) - [specific cited locations](Reference-Index.md#theorzr-portablemc).
 - [TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury) - [specific cited locations](Reference-Index.md#timstewartj-themightyarchitectury).
+- [Traben-0/Entity_Model_Features](https://github.com/Traben-0/Entity_Model_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-model-features).
+- [Traben-0/Entity_Texture_Features](https://github.com/Traben-0/Entity_Texture_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-texture-features).
 - [trigram-mrp/fractureiser](https://github.com/trigram-mrp/fractureiser) - [specific cited locations](Reference-Index.md#trigram-mrp-fractureiser).
 - [tsantalis/RefactoringMiner](https://github.com/tsantalis/RefactoringMiner) - [specific cited locations](Reference-Index.md#tsantalis-refactoringminer).
 - [tyler-builds/fx](https://github.com/tyler-builds/fx) - [specific cited locations](Reference-Index.md#tyler-builds-fx).
 - [unimined/unimined](https://github.com/unimined/unimined) - [specific cited locations](Reference-Index.md#unimined-unimined).
 - [unnamed/hephaestus-engine](https://github.com/unnamed/hephaestus-engine) - [specific cited locations](Reference-Index.md#unnamed-hephaestus-engine).
+- [VAST-AI-Research/TripoSR](https://github.com/VAST-AI-Research/TripoSR) - [specific cited locations](Reference-Index.md#vast-ai-research-triposr).
+- [VAST-AI-Research/UniRig](https://github.com/VAST-AI-Research/UniRig) - [specific cited locations](Reference-Index.md#vast-ai-research-unirig).
 - [VazkiiMods/Patchouli](https://github.com/VazkiiMods/Patchouli) - [specific cited locations](Reference-Index.md#vazkiimods-patchouli).
 - [vberlier/pytest-minecraft](https://github.com/vberlier/pytest-minecraft) - [specific cited locations](Reference-Index.md#vberlier-pytest-minecraft).
 - [ViaVersion/Mappings](https://github.com/ViaVersion/Mappings) - [specific cited locations](Reference-Index.md#viaversion-mappings).

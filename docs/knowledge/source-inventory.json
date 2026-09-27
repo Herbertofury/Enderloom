@@ -271,6 +271,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-c4d365cd40",
+      "path": "docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "sha256": "868e21f160a63f49ccce5d975fc608dc407eff2bba0ad5550b937b882dfb43e7",
+      "bytes": 15501,
+      "lines": 357,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-2a4d588670",
       "path": "docs/LAUNCHER_PARITY_MATRIX.md",
       "sha256": "1ee4be3b0cdb48c77f868500b1a114910bb06dd5108ebc2a68e8b222be1df4ac",
@@ -492,11 +502,11 @@
     }
   ],
   "stats": {
-    "source_files": 49,
-    "source_bytes": 2162110,
-    "source_lines": 43388,
-    "source_blocks": 15327,
-    "unique_blocks": 12411,
+    "source_files": 50,
+    "source_bytes": 2177611,
+    "source_lines": 43745,
+    "source_blocks": 15406,
+    "unique_blocks": 12490,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
     "source_unchecked": 5474,
