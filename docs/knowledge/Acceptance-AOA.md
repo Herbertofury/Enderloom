@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 309 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 311 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -922,7 +922,7 @@
 - [ ] **D-2188c51a2b7e53525bbb** - — Any nontrivial fix discovered during implementation/AoA becomes a generalized rule or an explicitly project-specific exception with exact evidence.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T161 — Convert failures into permanent knowledge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T161 : 605-605](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L605-L605)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T161 : 629-629](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L629-L629)
 
 </details>
 
@@ -933,7 +933,7 @@
 - [ ] **D-5286d9c785cd12089b96** - GATE — Converted projects are maintainable developer projects, not disposable generated blobs.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G055 — Output workspace strategy and developer QoL
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G055 : 1155-1155](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1155-L1155)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G055 : 1268-1268](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1268-L1268)
 
 </details>
 
@@ -945,7 +945,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Enderloom can diagnose, repair and re-verify broken Minecraft mod projects/artifacts/instances without feature removal, random trial-and-error or unsafe in-place mutation; every reusable repair becomes shared knowledge.
   - **Binding context:** G076 — Repair capability is production-ready before AoA
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G076 : 1236-1236](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1236-L1236)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G076 : 1349-1349](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1349-L1349)
 
 </details>
 
@@ -956,7 +956,7 @@
 - [ ] **D-0ba8ae33060796de293b** - — Implement structured repair findings that preserve causal evidence and classify at least:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T289 : 1240-1240](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1240-L1240)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T289 : 1353-1353](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1353-L1353)
 
 </details>
 
@@ -968,13 +968,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Repair broken source projects using the same semantic/mapping/build infrastructure as conversion: Gradle model extraction, dependency closure, loader-native project fixes, semantic Java/Kotlin changes, Mixin/access resolution, metadata/data/resource/datagen repair and compiler-guided iteration.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T290 — Source/project repair engine
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T290 : 1256-1256](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1256-L1256)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T290 : 1369-1369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1369-L1369)
 
 <a id="d-2fb99e2762a4bf2e8258"></a>
 - [ ] **D-2fb99e2762a4bf2e8258** - Do not solve a broken build by deleting accepted content, tests or integrations.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T290 — Source/project repair engine
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1258-1258](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1258-L1258)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1371-1371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1371-L1371)
 
 </details>
 
@@ -986,7 +986,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Diagnose packaged JARs for owner/name/descriptor linkage, metadata/entrypoints, nested JARs, services, Multi-Release layout, signatures, access, Kotlin metadata and classfile problems. Prefer source-aware rebuild when source exists; bytecode surgery is a bounded fallback and must retain provenance plus independent runtime proof.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T291 — Packaged JAR/artifact repair lane
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T291 : 1262-1262](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1262-L1262)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T291 : 1375-1375](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1375-L1375)
 
 </details>
 
@@ -998,14 +998,14 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Detect and repair missing/recursive dependencies, incompatible versions/loaders, duplicates, provider aliases, stale superseded JARs, optional/recommended conflicts and client/server placement problems through Enderloom&#x27;s canonical solver/identity layer.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T292 — Modpack/instance dependency repair
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T292 : 1266-1266](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1266-L1266)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T292 : 1379-1379](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1379-L1379)
 
 <a id="d-21d62650e57dfcbe7991"></a>
 - [ ] **D-21d62650e57dfcbe7991** - Use packwiz and Ferium/libium as behavior/format/comparator corpora where useful, but do not inherit known shallow/heuristic dependency limitations as Enderloom&#x27;s authority. P...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Use packwiz and Ferium/libium as behavior/format/comparator corpora where useful, but do not inherit known shallow/heuristic dependency limitations as Enderloom&#x27;s authority. Preserve/import/export compatible metadata when it improves user workflows.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T292 — Modpack/instance dependency repair
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1268-1268](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1268-L1268)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1381-1381](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1381-L1381)
 
 </details>
 
@@ -1017,7 +1017,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Repairs are staged in a clone/workspace, diffed, hash-bound and promoted atomically. Preserve a restore point and previous runnable artifact/instance before risky mutation; interruption or failed validation must be resumable without leaving a half-repaired instance.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T294 — Transactional repair, rollback and resume
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T294 : 1276-1276](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1276-L1276)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T294 : 1389-1389](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1389-L1389)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T327 — World/NBT repair capability (1)</summary>
+
+<a id="d-16229255cc08b9ddb9c0"></a>
+- [ ] **D-16229255cc08b9ddb9c0** - — Make world/save repair an explicit optional repair module rather than an accidental side effect. Bake off simdnbt vs fastnbt for NBT parse/write hot paths and use a robust region...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Make world/save repair an explicit optional repair module rather than an accidental side effect. Bake off simdnbt vs fastnbt for NBT parse/write hot paths and use a robust region-file implementation such as mca for .mca access. Mine Minecraft Region Fixer and MCA Selector only as behavioral/reference corpora for corruption detection, safe chunk/region selection, backup/export/delete semantics and recovery fixtures.
+  - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T327 — World/NBT repair capability
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T327 : 1397-1397](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1397-L1397)
 
 </details>
 
@@ -1029,7 +1041,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Maintain broken fixtures covering project build, dependency, Mixin/access, package/linkage, data/resource and runtime failure classes plus at least one real-world production-shaped repair. Graduation requires diagnosis -&gt; repair -&gt; rebuild -&gt; exact packaged artifact -&gt; strongest applicable runtime gate, with no manual source surgery hidden outside the recorded repair action.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T296 — Repair graduation suite
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T296 : 1284-1284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1284-L1284)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T296 : 1409-1409](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1409-L1409)
 
 </details>
 
@@ -1041,7 +1053,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Implement authoring on the canonical ProjectIR/BuildIR instead of a separate template-only system. Create correct loader-native Fabric/NeoForge/Forge projects from current templates/tooling, with explicit mod identity, Java/toolchain, mappings, dependencies, source sets, resources, datagen, run configs and test source sets.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T297 : 1294-1294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1294-L1294)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T297 : 1419-1419](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1419-L1419)
 
 </details>
 
@@ -1052,7 +1064,7 @@
 - [ ] **D-e11095b623aef29e704a** - Unknown/custom modded schemas stay explicit and extensible; do not reject valid custom data solely because vanilla schemas do not know it.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T300 — Schema-aware JSON/NBT/CODEC/data authoring
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1316-1316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1316-L1316)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1441-1441](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1441-L1441)
 
 </details>
 
@@ -1064,7 +1076,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Study and selectively reproduce useful MinecraftDev and Railroad IDE capabilities inside Enderloom&#x27;s authoring experience: project scaffolding, metadata/resource helpers, Mixin awareness, loader-specific inspections, registry/config/network/datagen helpers and JSON generators. Reuse algorithms/patterns only where licensing permits; otherwise implement behavior from documented/observed requirements.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T301 — Minecraft-specific inspections and generators
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T301 : 1320-1320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1320-L1320)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T301 : 1445-1445](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1445-L1445)
 
 </details>
 
@@ -1075,7 +1087,7 @@
 - [ ] **D-92e5de4998b5e015971b** - Publishing is opt-in, uses user-authorized tokens from secure secret storage, supports dry-run/release preview, and never publishes merely because a build succeeded.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T304 — Packaging and authorized publishing adapters
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1345-1345](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1345-L1345)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1470-1470](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1470-L1470)
 
 </details>
 
@@ -1087,7 +1099,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Create a production-shaped Enderloom-authored fixture/mod from a clean workspace that exercises representative common/client/server behavior, registrations, config, networking/sync, data/resources/datagen, at least one Mixin/access case when appropriate, automated tests, package audit and native client/server runtime. Preserve the exact generated source so future changes can prove backward authoring compatibility.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T305 — Authoring graduation project
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T305 : 1349-1349](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1349-L1349)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T305 : 1474-1474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1474-L1474)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T330 — External Minecraft-analysis tool differential lane (1)</summary>
+
+<a id="d-7fbf94603bf025d00508"></a>
+- [ ] **D-7fbf94603bf025d00508** - — Evaluate minecraft-modding-mcp, CreeperHost modlens-mcp and similar maintained analysis toolchains only as independent oracles/fixture generators for mappings, source/JAR search,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate minecraft-modding-mcp, CreeperHost modlens-mcp and similar maintained analysis toolchains only as independent oracles/fixture generators for mappings, source/JAR search, Mixin/AW/AT validation and version diffs. Import a capability only after Enderloom/Dev Kit independently verifies its result on real fixtures.
+  - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T330 — External Minecraft-analysis tool differential lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T330 : 1486-1486](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1486-L1486)
 
 </details>
 
@@ -1099,7 +1123,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Emit a machine/human-readable graduation receipt containing project/toolchain versions, generated file manifest, dependency lock, tests, package hash, runtime evidence, supported target matrix and any intentionally unsupported capability.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T307 — Authoring capability receipt
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T307 : 1357-1357](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1357-L1357)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T307 : 1492-1492](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1492-L1492)
 
 </details>
 
@@ -1110,13 +1134,13 @@
 - [ ] **D-ae738c4fedf8ab227fa9** - — Use the current authoritative AoA project/checkpoint and preserve its original project identity/name as already accepted.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T217 : 1367-1367](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1367-L1367)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T217 : 1502-1502](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1502-L1502)
 
 <a id="d-a453833ed00923bd2344"></a>
 - [ ] **D-a453833ed00923bd2344** - Do not create a new “Savior” fork name in user-visible output if the accepted requirement is to retain the original mod name.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1369-1369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1369-L1369)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1504-1504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1504-L1504)
 
 </details>
 
@@ -1127,7 +1151,7 @@
 - [ ] **D-27b2fea2ef8bc58eda5c** - — Produce immutable source hash plus content/registration/resource/data inventories before mutation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T218 — Source/content baseline
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T218 : 1373-1373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1373-L1373)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T218 : 1508-1508](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1508-L1508)
 
 </details>
 
@@ -1139,7 +1163,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - source hash; - rule-set hash; - target versions/loaders; - dependency lock; - generated workspace manifest; - packaged artifact hashes; - content/data/resource parity report; - client/server runtime evidence; - unresolved items (must be zero for accepted target cells before completion).
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T222 — AoA parity/runtime receipt
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1404-1412](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1404-L1412)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1539-1547](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1539-L1547)
 
 </details>
 
@@ -1150,7 +1174,7 @@
 - [ ] **D-4fe7105d08153193605f** - GATE — Every researched candidate has an explicit production role, comparator role or rejection/defer state.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G059 — Final promotion matrix for researched technologies
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G059 : 1504-1504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1504-L1504)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G059 : 1649-1649](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1649-L1649)
 
 </details>
 
@@ -1161,7 +1185,7 @@
 - [ ] **D-2b532943ab5bf915d3a2** - — Before promoting app-wide changes, prove they do not introduce:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix / T280 — Negative integration challenge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T280 : 2101-2101](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2101-L2101)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T280 : 2339-2339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2339-L2339)
 
 </details>
 
@@ -2796,7 +2820,7 @@
 - [ ] **D-ccb6f539e225966b8d61** - — Preserve and strengthen existing gates for:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T197 : 1015-1015](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1015-L1015)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T197 : 1108-1108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1108-L1108)
 
 </details>
 
@@ -2808,7 +2832,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Integrate version-aware schema validation/completion for Minecraft JSON/NBT/CODEC-backed data using SpyglassMC/vanilla-mcdoc plus misode/mcmeta/official generated reports as complementary sources. Validate registry IDs, pack formats, item components, commands, tags, loot, recipes, worldgen, advancements, structures and other supported data before runtime.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T300 — Schema-aware JSON/NBT/CODEC/data authoring
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T300 : 1314-1314](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1314-L1314)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T300 : 1439-1439](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1439-L1439)
 
 </details>
 
@@ -2819,7 +2843,7 @@
 - [ ] **D-337df32a550a47764e74** - — Include fixtures for:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T223 : 1448-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1448-L1448)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T223 : 1583-1583](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1583-L1583)
 
 </details>
 
@@ -3022,7 +3046,7 @@
 <a id="aoa-04-details"></a>
 ## AOA-04 - Native gameplay and migration proof
 
-[Outcome](Checklist.md#aoa-04) / 28 source-derived details.
+[Outcome](Checklist.md#aoa-04) / 31 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -3160,6 +3184,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T325 — Minecraft/JVM performance proof lane (1)</summary>
+
+<a id="d-ab1e17e1e52bb14fda65"></a>
+- [ ] **D-ab1e17e1e52bb14fda65** - — For AoA and other performance-sensitive converted/repaired/created mods, capture repeatable spark profiles/health metrics and use async-profiler or JFR/JMC headless analysis when...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — For AoA and other performance-sensitive converted/repaired/created mods, capture repeatable spark profiles/health metrics and use async-profiler or JFR/JMC headless analysis when deeper CPU/allocation/lock/native evidence is needed. Performance changes pass only when equivalent gameplay/content/runtime coverage is preserved.
+  - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T325 — Minecraft/JVM performance proof lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T325 : 1209-1209](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1209-L1209)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T293 — Runtime diagnosis -&gt; targeted repair (1)</summary>
 
 <a id="d-c04535642107c9970801"></a>
@@ -3167,7 +3203,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Convert real launch/build logs and runtime events into structured signatures for common Minecraft failure families (NoClassDefFoundError/ClassNotFound, Mixin PREPARE/APPLY, registry freeze/duplicate, access violations, missing resources/data, config parse, dependency mismatch, network protocol, renderer/shader/model failures, native/JVM crashes). Map signatures to evidence-backed repair actions and verify the actual failing workflow afterward.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T293 — Runtime diagnosis -&gt; targeted repair
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T293 : 1272-1272](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1272-L1272)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T293 : 1385-1385](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1385-L1385)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T328 — Modpack/package-manager repair comparators (1)</summary>
+
+<a id="d-58cd0635cd3e6882c479"></a>
+- [ ] **D-58cd0635cd3e6882c479** - — Add Pakku and current AutoModpack behavior to the modpack/instance repair comparator set alongside packwiz/Ferium. Mine safe dependency-aware removal, bulk updates, lock/diff sem...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add Pakku and current AutoModpack behavior to the modpack/instance repair comparator set alongside packwiz/Ferium. Mine safe dependency-aware removal, bulk updates, lock/diff semantics, managed-file ownership, config migration with backups and update synchronization.
+  - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T328 — Modpack/package-manager repair comparators
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T328 : 1403-1403](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1403-L1403)
 
 </details>
 
@@ -3179,7 +3227,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Generate from or continuously validate against current Fabric Loom, NeoForge ModDevGradle/NeoGradle and ForgeGradle practices. Avoid frozen copied templates that silently age. Generated projects must build/run independently of Enderloom after export.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T298 — Current loader-native build generators
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T298 : 1298-1298](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1298-L1298)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T298 : 1423-1423](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1423-L1423)
 
 </details>
 
@@ -3191,7 +3239,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Make packaging/release metadata deterministic and optionally generate/wire modern publishing automation. Bake off modmuss50/mod-publish-plugin, Kira-NT/mc-publish, and provider-native tools such as Modrinth Minotaur as adapters/reference implementations.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T304 — Packaging and authorized publishing adapters
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T304 : 1343-1343](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1343-L1343)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T304 : 1468-1468](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1468-L1468)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T329 — Authoring/remap IDE-oracle differential suite (1)</summary>
+
+<a id="d-d1501712d21527699638"></a>
+- [ ] **D-d1501712d21527699638** - — Maintain a non-production differential suite against current IDE/dev tooling where it provides unique evidence: Ravel, MinecraftDev/Railroad inspections/generators, Fabric Loom m...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Maintain a non-production differential suite against current IDE/dev tooling where it provides unique evidence: Ravel, MinecraftDev/Railroad inspections/generators, Fabric Loom migration tasks and mcsrc-style exact target generation. The Enderloom authoring UI/CLI remains editor-agnostic; IDE tools are oracles/UX inspiration, not mandatory runtime dependencies.
+  - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T329 — Authoring/remap IDE-oracle differential suite
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T329 : 1482-1482](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1482-L1482)
 
 </details>
 
@@ -3202,7 +3262,7 @@
 - [ ] **D-1b6a939778390c53882f** - — Provide one command/session recipe to run the complete AoA convergence and clean-room replay without manual edits.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G061 — Required test and proof commands/surfaces / T230 — Add native conversion QA command group / T232 — Add AoA graduation command
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T232 : 1637-1637](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1637-L1637)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T232 : 1798-1798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1798-L1798)
 
 </details>
 
@@ -3214,7 +3274,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** FINAL COMPLETION GATE — Every accepted task and parent gate in this document is complete with observed proof; Enderloom uses the best-performing/most-reliable architecture for each workload rather than enforcing a language purge; retained JS/TS/React is demonstrably not a hot-path or integrity bottleneck and does not duplicate canonical domain truth; Rust/native/JVM layers own the workloads where they materially win; Tauri/WebView permissions are least-privilege; Browse/search and filters are fast over the complete logical dataset; cross-provider identity converges; installs/updates use one correct dependency solver; long jobs/downloads resume safely; caches/CAS/archive/filesystem/network/media accelerations preserve exact results; extensions/providers execute behind a capability-bounded sandbox where adopted; diagnostics/crash/supply-chain/update paths are production-safe; conversion, repair and mod-making/authoring capabilities are production-ready through shared primitives; AoA was completed before broad modernization and all generalized AoA lessons were promoted/reverified across those capabilities; the full semantic conversion stack and AoA clean-room graduation pass; exact final artifacts are hashed and packaged; no blocker is relabeled success; and no performance, security or migration improvement was achieved by silently dropping user-visible capability, content, fidelity, compatibility or validation.
   - **Binding context:** G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G074 : 2169-2169](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2169-L2169)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G074 : 2407-2407](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2407-L2407)
 
 </details>
 
@@ -3434,7 +3494,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — A rule/fact learned while converting or repairing must immediately become available to authoring validation/generation when applicable, and authoring failures must improve conversion/repair. Do not maintain separate version tables, loader capability tables, schema truth or semantic rename catalogs.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T306 — Conversion/repair/authoring share learned intelligence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T306 : 1353-1353](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1353-L1353)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T306 : 1478-1478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1478-L1478)
 
 </details>
 
@@ -3446,7 +3506,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Enderloom&#x27;s next-generation conversion stack is fully implemented through one canonical production architecture; Rust owns the native hot paths and durable/integrity-sensitive orchestration where it wins, the JVM semantic worker owns type-aware Java/Kotlin transformation, retained JS/TS is limited to best-fit presentation/adaptation rather than duplicate conversion authority, mapping eras are handled correctly, MC Mod Porter knowledge is integrated under recorded permission/provenance, manifests/dependencies/access/Mixins/data/resources are represented losslessly, builds are target-native/reproducible/sandboxed, packaged artifacts pass exact linkage/archive checks, the exact SHA-256 artifacts pass applicable real client/server/runtime/persistence gates, AoA completes through the normal production path and clean-room replay with no manual source surgery or silent content loss, reusable failures are captured as regression-protected rules, and equivalent-work performance improves without reduced results.
   - **Binding context:** G063 — CONVERSION STACK CONVERGENCE GATE
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G063 : 1692-1692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1692-L1692)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G063 : 1853-1853](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1853-L1853)
 
 </details>
 
@@ -3600,7 +3660,7 @@
 <a id="aoa-06-details"></a>
 ## AOA-06 - AoA delivered through the studio
 
-[Outcome](Checklist.md#aoa-06) / 119 source-derived details.
+[Outcome](Checklist.md#aoa-06) / 121 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (2)</summary>
@@ -3821,7 +3881,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Before AoA is used as the real graduation project, Enderloom/Minecraft Dev Kit can convert, repair, and make mods through production-grade shared primitives rather than three disconnected toolchains. Conversion foundation G040-G055, repair G076, authoring G077, and the required verification commands in T230-T232 must be ready before AoA graduation starts.
   - **Binding context:** G075 — Capability-first execution entrypoint
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G075 : 1197-1197](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1197-L1197)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G075 : 1310-1310](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1310-L1310)
 
 </details>
 
@@ -3832,7 +3892,7 @@
 - [ ] **D-1762a8a89bb7c51ef418** - A repair plan points to the earliest causal owner and the exact verification gate that must pass afterward.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1252-1252](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1252-L1252)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1365-1365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1365-L1365)
 
 </details>
 
@@ -3844,7 +3904,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — After a repair is proven, store signature, applicable version/loader bounds, cause, failed approaches, successful transformation/action, positive fixture, negative fixture, verification and invalidation conditions in the same learned-rule/incident system used by conversion.
   - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T295 — Every nontrivial repair becomes reusable knowledge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T295 : 1280-1280](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1280-L1280)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T295 : 1393-1393](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1393-L1393)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T327 — World/NBT repair capability (1)</summary>
+
+<a id="d-2265680a545e3c347665"></a>
+- [ ] **D-2265680a545e3c347665** - Never delete/regenerate corrupt world data as an implicit &quot;fix&quot;. Preserve backups, exact affected coordinates/regions and user-visible recovery choices; prove repaired wo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Never delete/regenerate corrupt world data as an implicit &quot;fix&quot;. Preserve backups, exact affected coordinates/regions and user-visible recovery choices; prove repaired worlds reopen in the applicable runtime.
+  - **Binding context:** G076 — Repair capability is production-ready before AoA / T289 — Canonical `RepairPlan` / failure taxonomy / T327 — World/NBT repair capability
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1399-1399](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1399-L1399)
 
 </details>
 
@@ -3856,7 +3928,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Enderloom can create and evolve real mods end-to-end with current loader-native build systems, schema-aware content tools, multi-version options, automated tests, native runtime verification and packaging; authoring reuses the same knowledge/runtime stack that conversion and repair use.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G077 : 1290-1290](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1290-L1290)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G077 : 1415-1415](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1415-L1415)
 
 </details>
 
@@ -3867,7 +3939,7 @@
 - [ ] **D-fa228facdabce1ac0d39** - — Choose output strategy by project/version envelope rather than forcing one preprocessor:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T299 — Multi-version authoring strategy bakeoff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T299 : 1302-1302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1302-L1302)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T299 : 1427-1427](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1427-L1427)
 
 </details>
 
@@ -3878,7 +3950,19 @@
 - [ ] **D-e30ede372b4737f4f5f3** - — Generate/use the strongest applicable automated tests:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T303 — Loader-native automated testing
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T303 : 1330-1330](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1330-L1330)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T303 : 1455-1455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1455-L1455)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T330 — External Minecraft-analysis tool differential lane (1)</summary>
+
+<a id="d-2341ef942e617ab55c52"></a>
+- [ ] **D-2341ef942e617ab55c52** - Do not add an MCP server as a second canonical implementation when the same capability belongs in Enderloom&#x27;s typed domain layer. Small/new/AI-generated tools require stronger...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not add an MCP server as a second canonical implementation when the same capability belongs in Enderloom&#x27;s typed domain layer. Small/new/AI-generated tools require stronger verification, not automatic exclusion or automatic trust.
+  - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T330 — External Minecraft-analysis tool differential lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1488-1488](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1488-L1488)
 
 </details>
 
@@ -3890,7 +3974,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Advent of Ascension runs end-to-end through the production engine with no silent content loss and no manual source surgery hidden outside learned rules. This is the mandatory first real production graduation after conversion/repair/authoring capability readiness; broad app-modernization gates G064+ remain locked until G056 and G078 are green except for infrastructure strictly required to complete/prove AoA.
   - **Binding context:** G056 — AoA is the primary real convergence fixture
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G056 : 1363-1363](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1363-L1363)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G056 : 1498-1498](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1498-L1498)
 
 </details>
 
@@ -3901,7 +3985,7 @@
 - [ ] **D-17b1f62c17f7303aeef6** - — Execute the native -&gt; JVM semantic -&gt; target build -&gt; package audit -&gt; native runtime pipeline without bypassing production code.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T219 — Run AoA through production pipeline
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T219 : 1377-1377](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1377-L1377)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T219 : 1512-1512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1512-L1512)
 
 </details>
 
@@ -3912,7 +3996,7 @@
 - [ ] **D-85784ea454ec1482138c** - — Classify every failure:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T220 — Every AoA failure improves shared tooling
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T220 : 1381-1381](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1381-L1381)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T220 : 1516-1516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1516-L1516)
 
 </details>
 
@@ -3923,7 +4007,7 @@
 - [ ] **D-bb465982fe95aaaa3104** - — Delete generated target state and repeat the complete conversion from immutable source using only normal Enderloom commands/rules/caches.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T221 — AoA clean-room replay
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T221 : 1396-1396](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1396-L1396)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T221 : 1531-1531](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1531-L1531)
 
 </details>
 
@@ -3934,7 +4018,7 @@
 - [ ] **D-bac7c883e328d1d597a0** - — Produce the final AoA conversion receipt with:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G056 — AoA is the primary real convergence fixture / T217 — Restore the exact active AoA source/checkpoint / T222 — AoA parity/runtime receipt
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T222 : 1402-1402](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1402-L1402)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T222 : 1537-1537](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1537-L1537)
 
 </details>
 
@@ -3946,7 +4030,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — AoA is not merely a finished port; every generalized lesson it exposes has been promoted back into conversion, repair and authoring capabilities, reverified, and made available to the rest of Enderloom before broad app modernization begins.
   - **Binding context:** G078 — Promote AoA learning before broader app work
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G078 : 1418-1418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1418-L1418)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G078 : 1553-1553](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1553-L1553)
 
 </details>
 
@@ -3958,7 +4042,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Review the AoA failure/fix ledger and promote every non-project-specific mapping, semantic, loader, dependency, build, Mixin/access, data/resource, runtime or performance fix into the canonical rule/capability store with version bounds, fixtures and proof.
   - **Binding context:** G078 — Promote AoA learning before broader app work / T308 — Generalize every AoA fix before moving on
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T308 : 1422-1422](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1422-L1422)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T308 : 1557-1557](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1557-L1557)
 
 </details>
 
@@ -3969,7 +4053,7 @@
 - [ ] **D-e594967417736f860607** - — Rerun the affected G076/G077 fixtures after AoA-derived rule changes. Prove new generalized behavior does not overfit AoA or regress existing repair/authoring output.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G078 — Promote AoA learning before broader app work / T308 — Generalize every AoA fix before moving on / T309 — Re-run repair and authoring graduation with AoA-derived knowledge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T309 : 1426-1426](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1426-L1426)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T309 : 1561-1561](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1561-L1561)
 
 </details>
 
@@ -3981,7 +4065,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Record conversion/build/runtime hot paths exposed by AoA&#x27;s real scale. Improve caches, invalidation, parallelism, artifact reuse, compiler/build orchestration or data indexing where measurement supports it, then preserve equivalent results and rerun the affected AoA stage.
   - **Binding context:** G078 — Promote AoA learning before broader app work / T308 — Generalize every AoA fix before moving on / T310 — Promote useful AoA performance discoveries
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T310 : 1430-1430](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1430-L1430)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T310 : 1565-1565](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1565-L1565)
 
 </details>
 
@@ -3993,7 +4077,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Bind the final AoA source hash, rule-store hash, toolchain/dependency locks, generated workspace, exact packaged artifacts, runtime receipts and generalized learned-rule IDs into a durable receipt/checkpoint that can reproduce the result clean-room.
   - **Binding context:** G078 — Promote AoA learning before broader app work / T308 — Generalize every AoA fix before moving on / T311 — Freeze the AoA knowledge/receipt lineage
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T311 : 1434-1434](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1434-L1434)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T311 : 1569-1569](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1569-L1569)
 
 </details>
 
@@ -4005,7 +4089,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Mark the broader app gates G064+ ready only when G075/G076/G077, G056 and T308-T311 are green. From this point onward, app-wide performance/search/download/UI/provider work must reuse the proven capability/task/evidence infrastructure and may use AoA workloads as realistic performance/regression fixtures.
   - **Binding context:** G078 — Promote AoA learning before broader app work / T308 — Generalize every AoA fix before moving on / T312 — Unlock broader app implementation only after capability/AoA convergence
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T312 : 1438-1438](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1438-L1438)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T312 : 1573-1573](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1573-L1573)
 
 </details>
 
@@ -4016,7 +4100,7 @@
 - [ ] **D-ae57f118d2116a072ae8** - GATE — AoA success is not overfit; isolated fixtures prove the shared engine across difficult categories.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G057 — Adversarial regression matrix
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G057 : 1444-1444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1444-L1444)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G057 : 1579-1579](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1579-L1579)
 
 </details>
 
@@ -4028,26 +4112,26 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** 1. T134-T137 / G040 — resolve the authoritative repository, Dev Kit, AoA source/checkpoint, toolchains and preservation baseline. 2. T138-T216 / G041-G055 — make the conversion engine production-ready first: canonical orchestration, IR, mapping eras, MC Mod Porter/learned rules, JVM semantic worker, compiled-artifact lane, loader translation, build/dependency generation, sandboxing, data/resources, repair loop, package/runtime proof, caching and deterministic replay. 3. T284-T288 / G075 — converge the shared convert/repair/create capability contract, automatic toolchain closure, immutable workspace/evidence model and common command surface. 4. T289-T296 / G076 — finish production repair capability and its graduation fixtures. 5. T297-T307 / G077 — finish production mod-making/authoring capability and its graduation project, including schema-aware content tools and loader-native tests. 6. T230-T232 / G061 prerequisites — ensure deterministic conversion QA, runtime graduation and AoA graduation commands exist before the real AoA run. 7. T217-T222 / G056 — finish Advent of Ascension completely through the normal production conversion path and clean-room replay. Do not move broad app modernization ahead of this milestone. 8. T308-T312 / G078 — promote AoA-derived knowledge/performance fixes back into conversion, repair and authoring; rerun affected capability graduation and unlock broader app work. 9. T223-T229 + T233-T236 / G057-G063 — adversarially prove the capability stack is generalized, retire redundant authority only after parity, run clean-room/provenance convergence and close the conversion-stack gate. 10. T237-T281 / G064-G072 — execute the rest of the app modernization using the now-proven AoA-scale task/evidence/rule infrastructure: frontend/IPC/security, search/identity, solver/tasks, cache/filesystem/network/media, extension platform, diagnostics, crash evidence and supply chain. 11. T283 + G074 — whole-app clean-room convergence and final completion.
   - **Binding context:** G073 — Combined implementation order / T282 — Required dependency-aware execution order
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2130-2140](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2130-L2140)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2368-2378](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2368-L2378)
 
 <a id="d-6cad8fd0f7feaa111324"></a>
 - [ ] **D-6cad8fd0f7feaa111324** - Execution lock: steps 10-11 do not become the main workstream before steps 1-9 have converged. Small app/core changes required to make conversion/repair/authoring/AoA work are allo...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Execution lock: steps 10-11 do not become the main workstream before steps 1-9 have converged. Small app/core changes required to make conversion/repair/authoring/AoA work are allowed and should be implemented immediately, but unrelated Browse/UI/performance modernization must not displace AoA-first completion.
   - **Binding context:** G073 — Combined implementation order / T282 — Required dependency-aware execution order
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2142-2142](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2142-L2142)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2380-2380](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2380-L2380)
 
 </details>
 
 <details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Exact first action for the implementing agent (1)</summary>
 
-<a id="d-c94441a69e93d78e9afe"></a>
-- [ ] **D-c94441a69e93d78e9afe** - Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute G041-G...
+<a id="d-a348de4d5ff037b34857"></a>
+- [ ] **D-a348de4d5ff037b34857** - Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute every ...
   - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute G041-G055, G075, G076 and G077, including T230-T232 so conversion/repair/authoring and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly and do not return to planning-only work.
+  - **Full requirement:** Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute every task in G041-G055, G075, G076 and G077 (including newly accepted oracle/repair/legacy/runtime tasks and T230-T232) so conversion/repair/authoring and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly and do not return to planning-only work.
   - **Binding context:** Exact first action for the implementing agent
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2315-2315](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2315-L2315)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2592-2592](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2592-L2592)
 
 </details>
 

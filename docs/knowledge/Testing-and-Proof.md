@@ -44,9 +44,9 @@ Every source task and binding clause has its own tracked entry, rather than disa
 
 - [TEST-01 - Deterministic test sandbox](Acceptance-TEST.md#test-01-details): 391 source details.
 - [TEST-02 - Scenario and GameTest compiler](Acceptance-TEST.md#test-02-details): 93 source details.
-- [TEST-03 - Runtime supervision and automation](Acceptance-TEST.md#test-03-details): 135 source details.
+- [TEST-03 - Runtime supervision and automation](Acceptance-TEST.md#test-03-details): 139 source details.
 - [TEST-04 - Full CLI, JSON and MCP parity](Acceptance-TEST.md#test-04-details): 241 source details.
-- [TEST-05 - Artifact-bound native proof](Acceptance-TEST.md#test-05-details): 58 source details.
+- [TEST-05 - Artifact-bound native proof](Acceptance-TEST.md#test-05-details): 60 source details.
 - [TEST-06 - Compatibility and hostile fixtures](Acceptance-TEST.md#test-06-details): 20 source details.
 - [TEST-07 - Results and repeatability](Acceptance-TEST.md#test-07-details): 10 source details.
 - [TEST-08 - Machine-verifiable release gates](Acceptance-TEST.md#test-08-details): 10 source details.

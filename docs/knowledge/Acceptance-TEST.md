@@ -1124,7 +1124,7 @@
 - [ ] **D-20a3dd618eb30e58e72e** - — Run untrusted Gradle/Maven/custom project code inside a constrained sandbox by default.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T183 : 879-879](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L879-L879)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T183 : 940-940](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L940-L940)
 
 </details>
 
@@ -1135,7 +1135,7 @@
 - [ ] **D-67d776a9aabe1ec19903** - — For code actually copied/vendored/embedded into Enderloom, use a reproducible license/provenance inventory.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox / T185 — SBOM/license/provenance scan for vendored integrations
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T185 : 904-904](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L904-L904)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T185 : 965-965](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L965-L965)
 
 </details>
 
@@ -1146,7 +1146,7 @@
 - [ ] **D-f281046b3975bc2505a1** - No production user session/account side effects should be required for deterministic CI fixtures when offline/test auth modes are available.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1069-1069](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1069-L1069)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1168-1168](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1168-L1168)
 
 </details>
 
@@ -3359,7 +3359,7 @@
 - [ ] **D-c254990b2d511c760b99** - — Measure:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T212 — Equivalent-work benchmark suite
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T212 : 1136-1136](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1136-L1136)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T212 : 1243-1243](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1243-L1243)
 
 </details>
 
@@ -3785,7 +3785,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 135 source-derived details.
+[Outcome](Checklist.md#test-03) / 139 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -4221,7 +4221,7 @@
 - [ ] **D-c756db0893dd3afbbc45** - GATE — Useful MC Mod Porter implementation/knowledge is integrated into one Enderloom rule store with provenance and differential proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G044 : 546-546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L546-L546)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G044 : 570-570](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L570-L570)
 
 </details>
 
@@ -4232,7 +4232,7 @@
 - [ ] **D-24d084048e98566a86ab** - If a project requires broader capabilities, surface the exact request and reason. Do not silently disable the sandbox.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 894-894](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L894-L894)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 955-955](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L955-L955)
 
 </details>
 
@@ -4243,7 +4243,7 @@
 - [ ] **D-7cb799be5aa9eee84681** - — Use maintained projects such as OpenShock Integrations.Minecraft and TheMightyArchitectury as structure/runtime-matrix comparators where licensing allows fixture use.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T224 — Real production multi-version comparators
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T224 : 1466-1466](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1466-L1466)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T224 : 1601-1601](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1601-L1601)
 
 </details>
 
@@ -4255,7 +4255,49 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Replace chatty high-volume JSON event patterns with typed/batched Tauri channels or equivalent streaming primitives for search result pages, download/install progress, log tails and conversion/runtime telemetry.
   - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T239 — Use Tauri channels for high-throughput streams
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T239 : 1735-1735](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1735-L1735)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T239 : 1896-1896](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1896-L1896)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T334 — Typed Tauri IPC binding bakeoff (1)</summary>
+
+<a id="d-03e017b3f8b91a0ed2a9"></a>
+- [ ] **D-03e017b3f8b91a0ed2a9** - — Bake off tauri-specta vs Tyzen (or a stronger maintained equivalent) for generated typed commands/events/channels shared between Rust and TS. Promote one only if it removes hand-...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Bake off tauri-specta vs Tyzen (or a stronger maintained equivalent) for generated typed commands/events/channels shared between Rust and TS. Promote one only if it removes hand-maintained schema drift without adding fragile build/runtime coupling. Tauri bindgen/WIT remains research inspiration until its production maturity is sufficient.
+  - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T334 — Typed Tauri IPC binding bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T334 : 1923-1923](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1923-L1923)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T341 — Rust test-speed, coverage and mutation gates (2)</summary>
+
+<a id="d-e37cdda7f5a69376a1a1"></a>
+- [ ] **D-e37cdda7f5a69376a1a1** - — Upgrade Rust verification throughput and quality with cargo-nextest for parallel/isolation-friendly test execution and cargo-llvm-cov for coverage reporting/thresholds. Use cargo...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Upgrade Rust verification throughput and quality with cargo-nextest for parallel/isolation-friendly test execution and cargo-llvm-cov for coverage reporting/thresholds. Use cargo-mutants selectively on critical solver/state/archive/security logic to detect weak tests rather than requiring mutation testing on every UI/helper crate.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T341 — Rust test-speed, coverage and mutation gates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T341 : 2251-2251](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2251-L2251)
+
+<a id="d-6e5cb48184a1d87a487d"></a>
+- [ ] **D-6e5cb48184a1d87a487d** - These gates supplement real workflow/runtime proof; never game coverage/mutation scores with meaningless tests.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T341 — Rust test-speed, coverage and mutation gates
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2253-2253](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2253-L2253)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T345 — Developer build acceleration without changing product semantics (1)</summary>
+
+<a id="d-cc2531c35db70edfdc01"></a>
+- [ ] **D-cc2531c35db70edfdc01** - — Bake off current sccache client-side/multilevel modes for Rust compilation and platform-appropriate fast linkers such as Wild where supported. Promote developer/CI acceleration o...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Bake off current sccache client-side/multilevel modes for Rust compilation and platform-appropriate fast linkers such as Wild where supported. Promote developer/CI acceleration only if builds remain reproducible/debuggable and platform fallbacks stay boring. This is iteration-speed work, not evidence of faster Enderloom runtime behavior.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T345 — Developer build acceleration without changing product semantics
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T345 : 2269-2269](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2269-L2269)
 
 </details>
 
@@ -5814,7 +5856,7 @@
 - [ ] **D-ea53684d8e97b7858cce** - ORT/ScanCode or equivalent may be used as tooling; they do not replace the user-granted MC Mod Porter permission record.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox / T185 — SBOM/license/provenance scan for vendored integrations
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 906-906](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L906-L906)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 967-967](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L967-L967)
 
 </details>
 
@@ -5825,7 +5867,7 @@
 - [ ] **D-8dac1247fa99b9ec7c83** - GATE — The repository has one predictable verification entrypoint for this conversion engine.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G061 — Required test and proof commands/surfaces
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G061 : 1604-1604](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1604-L1604)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G061 : 1765-1765](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1765-L1765)
 
 </details>
 
@@ -7029,7 +7071,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 58 source-derived details.
+[Outcome](Checklist.md#test-05) / 60 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -7272,7 +7314,7 @@
 - [ ] **D-257fd078214f678c5910** - Each edge records source representation -&gt; canonical intent -&gt; target representation -&gt; required shim/runtime behavior -&gt; proof.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph`
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 781-781](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L781-L781)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 824-824](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L824-L824)
 
 </details>
 
@@ -7283,7 +7325,7 @@
 - [ ] **D-619cb66498a143313ec6** - GATE — The exact SHA-256 candidate artifact is exercised in the strongest applicable native runtime path.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G053 : 1045-1045](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1045-L1045)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G053 : 1144-1144](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1144-L1144)
 
 </details>
 
@@ -7294,13 +7336,13 @@
 - [ ] **D-e43652b30b854675ff05** - — Move the current native runtime-proof capability into the Rust conversion service and make it authoritative for production verification.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T200 : 1049-1049](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1049-L1049)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T200 : 1148-1148](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1148-L1148)
 
 <a id="d-5bd71da952beec52c060"></a>
 - [ ] **D-5bd71da952beec52c060** - It must stage the exact candidate artifact and record:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1051-1051](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1051-L1051)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1150-1150](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1150-L1150)
 
 </details>
 
@@ -7311,7 +7353,7 @@
 - [ ] **D-afc74d5f61b77b270d1e** - — Run Fabric/Forge/NeoForge supported GameTest/JUnit/native test paths where the converted project supplies or Enderloom generates meaningful tests.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T203 — GameTest / loader-native tests
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T203 : 1073-1073](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1073-L1073)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T203 : 1172-1172](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1172-L1172)
 
 </details>
 
@@ -7322,7 +7364,7 @@
 - [ ] **D-5f06e708bc784357ab6b** - — At runtime collect the applicable source-vs-target capability census:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T204 — Runtime content census
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T204 : 1079-1079](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1079-L1079)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T204 : 1178-1178](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1178-L1178)
 
 </details>
 
@@ -7333,7 +7375,30 @@
 - [ ] **D-948824366a5cc7e81831** - — Use HeadlessMC/MC-Runtime-Test where it improves automated coverage or portability, but do not create a second contradictory runtime truth path.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T206 — HeadlessMC/MC-Runtime-Test remains comparator/CI aid
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T206 : 1100-1100](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1100-L1100)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T206 : 1199-1199](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1199-L1199)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T324 — Production-server CI matrix before final native promotion (1)</summary>
+
+<a id="d-74ce7d83025d9231fad4"></a>
+- [ ] **D-74ce7d83025d9231fad4** - — Add mc-server-test as a CI breadth layer for real production-style Fabric/Forge/NeoForge/vanilla server startup across supported versions, including scripted command/assertion in...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add mc-server-test as a CI breadth layer for real production-style Fabric/Forge/NeoForge/vanilla server startup across supported versions, including scripted command/assertion interactions. It complements loader-native GameTest and MC-Runtime-Test; Enderloom&#x27;s own native verifier remains final promotion authority for the exact artifact.
+  - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T324 — Production-server CI matrix before final native promotion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T324 : 1205-1205](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1205-L1205)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T331 — Fuzz/property/adversarial parser suite (1)</summary>
+
+<a id="d-938d57cc68fd4eba3c80"></a>
+- [ ] **D-938d57cc68fd4eba3c80** - Every discovered crash, hang, excessive allocation or parser differential becomes a minimized permanent regression fixture. Fuzz success never replaces semantic/runtime proof.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T331 — Fuzz/property/adversarial parser suite
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1613-1613](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1613-L1613)
 
 </details>
 
@@ -7344,7 +7409,7 @@
 - [ ] **D-342cc9ecacd51bbe40ef** - It must include or invoke:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G061 — Required test and proof commands/surfaces / T230 — Add native conversion QA command group
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1610-1610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1610-L1610)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1771-1771](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1771-L1771)
 
 </details>
 
@@ -7355,7 +7420,7 @@
 - [ ] **D-c7862ad54ef916c98ae0** - — Provide one slower explicit graduation command for real target builds/runtime proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G061 — Required test and proof commands/surfaces / T230 — Add native conversion QA command group / T231 — Add runtime graduation command
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T231 : 1625-1625](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1625-L1625)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T231 : 1786-1786](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1786-L1786)
 
 </details>
 
@@ -8029,7 +8094,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** GATE — Every app-wide candidate in this contract is either implemented with equivalent-work evidence or explicitly rejected after a production-shaped bakeoff; no research candidate enters production just because it is newer or benchmark-friendly.
   - **Binding context:** G072 — App-wide candidate convergence challenge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G072 : 2056-2056](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2056-L2056)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G072 : 2275-2275](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2275-L2275)
 
 </details>
 

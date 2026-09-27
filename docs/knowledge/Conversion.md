@@ -66,16 +66,16 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [PORT-01 - Input and source authority](Acceptance-PORT.md#port-01-details): 133 source details.
+- [PORT-01 - Input and source authority](Acceptance-PORT.md#port-01-details): 134 source details.
 - [PORT-02 - Universal semantic representation](Acceptance-PORT.md#port-02-details): 8 source details.
-- [PORT-03 - Live version and toolchain atlas](Acceptance-PORT.md#port-03-details): 122 source details.
-- [PORT-04 - Exact mappings and symbol truth](Acceptance-PORT.md#port-04-details): 56 source details.
-- [PORT-05 - Source migration and semantic repair](Acceptance-PORT.md#port-05-details): 125 source details.
-- [PORT-06 - Mixin, access and reflection correctness](Acceptance-PORT.md#port-06-details): 64 source details.
-- [PORT-07 - JAR recovery and binary repair](Acceptance-PORT.md#port-07-details): 55 source details.
+- [PORT-03 - Live version and toolchain atlas](Acceptance-PORT.md#port-03-details): 123 source details.
+- [PORT-04 - Exact mappings and symbol truth](Acceptance-PORT.md#port-04-details): 58 source details.
+- [PORT-05 - Source migration and semantic repair](Acceptance-PORT.md#port-05-details): 128 source details.
+- [PORT-06 - Mixin, access and reflection correctness](Acceptance-PORT.md#port-06-details): 66 source details.
+- [PORT-07 - JAR recovery and binary repair](Acceptance-PORT.md#port-07-details): 57 source details.
 - [PORT-08 - Modern and historical build matrix](Acceptance-PORT.md#port-08-details): 57 source details.
 - [PORT-09 - Native loader and compatibility modes](Acceptance-PORT.md#port-09-details): 95 source details.
-- [PORT-10 - Complete cross-edition conversion](Acceptance-PORT.md#port-10-details): 67 source details.
+- [PORT-10 - Complete cross-edition conversion](Acceptance-PORT.md#port-10-details): 68 source details.
 - [PORT-11 - Authorized server content to native mod](Acceptance-PORT.md#port-11-details): 51 source details.
 - [PORT-12 - Incremental matrix and packaging](Acceptance-PORT.md#port-12-details): 21 source details.
 - [PORT-13 - Conversion parity and clean replay](Acceptance-PORT.md#port-13-details): 73 source details.

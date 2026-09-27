@@ -65,6 +65,7 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-148dc0ece63a2e391d35](Acceptance-LIB.md#d-148dc0ece63a2e391d35) - Testing + Browser pairing for profiler docs, mod source, issue trackers, AI/provider pages.
 - [D-6f7d2471c7a4200231c9](Acceptance-LIB.md#d-6f7d2471c7a4200231c9) - Catalog, Mod Manager, Browser, Split, and Testing are one coherent app.
 - [D-e1d51110a4aaeaa029e4](Acceptance-LIB.md#d-e1d51110a4aaeaa029e4) - External CurseForge/Modrinth profiles can be used in place without forced copying.
+- [D-ebda4bcdce5d274c1650](Acceptance-LIB.md#d-ebda4bcdce5d274c1650) - — Add official/current WebdriverIO Tauri service / Tauri WebDriver end-to-end coverage for the packaged desktop shell on supported CI platforms. Exercise real Browse/inst... [T335]
 - [D-add29e223f21afb43360](Acceptance-LIB.md#d-add29e223f21afb43360) - If an official third-party service exposes a supported authenticated collaboration API, integrate it through that real contract. Do not fake CurseForge/Modrinth proprieta...
 - [D-4fd798d806e2721c2b47](Acceptance-LIB.md#d-4fd798d806e2721c2b47) - Favorite items can be acted on immediately without hunting through other tabs.
 - [D-d4bd5609d82b6ac6f4cc](Acceptance-LIB.md#d-d4bd5609d82b6ac6f4cc) - Open the real CurseForge/Modrinth/Planet Minecraft/AFDIAN/MCPEDL/ModBay/Minecraft Marketplace/GitHub/GitLab/etc. page inside Enderloom’s real persistent browser.

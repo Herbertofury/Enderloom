@@ -14,12 +14,12 @@
 
 [A finished original mod, not an endlessly running converter demonstration.](Advent-of-Ascension.md)
 
-**[Open 309 detailed checks](Acceptance-AOA.md#aoa-01-details)**
+**[Open 311 detailed checks](Acceptance-AOA.md#aoa-01-details)**
 
 <a id="aoa-01"></a>
 - [ ] **AOA-01 - Source lineage and original identity**
   - **Accept:** Use the accepted union of authoritative AoA source and content, retain fingerprints, mod name/public IDs and approved migrations, and continue the active project rather than choosing a smaller branch or renamed fork.
-  - **State:** unverified. **Details:** [722 source blocks](Sources-AOA.md#aoa-01); 34 source documents.
+  - **State:** unverified. **Details:** [727 source blocks](Sources-AOA.md#aoa-01); 34 source documents.
 
 **[Open 26 detailed checks](Acceptance-AOA.md#aoa-02-details)**
 
@@ -35,12 +35,12 @@
   - **Accept:** Account for all accepted items, blocks, equipment, skills, progression, dimensions, structures, mobs, bosses, AI, models, animation, audio, particles, recipes, loot and tags; no substitutes, hidden omissions or placeholders.
   - **State:** unverified. **Details:** [84 source blocks](Sources-AOA.md#aoa-03); 16 source documents.
 
-**[Open 28 detailed checks](Acceptance-AOA.md#aoa-04-details)**
+**[Open 31 detailed checks](Acceptance-AOA.md#aoa-04-details)**
 
 <a id="aoa-04"></a>
 - [ ] **AOA-04 - Native gameplay and migration proof**
   - **Accept:** Exercise the full applicable client, dedicated/integrated server, unique mechanics, dimension travel, provider-present/absent and save/restart/migration inventory on the actual packaged artifact.
-  - **State:** unverified. **Details:** [89 source blocks](Sources-AOA.md#aoa-04); 24 source documents.
+  - **State:** unverified. **Details:** [92 source blocks](Sources-AOA.md#aoa-04); 24 source documents.
 
 **[Open 23 detailed checks](Acceptance-AOA.md#aoa-05-details)**
 
@@ -49,12 +49,12 @@
   - **Accept:** Reproduce from original inputs in a fresh generated workspace, with exact dependencies, reusable fixes and equivalent-work performance; no hand-fixed target tree or developer-global tools.
   - **State:** unverified. **Details:** [59 source blocks](Sources-AOA.md#aoa-05); 23 source documents.
 
-**[Open 119 detailed checks](Acceptance-AOA.md#aoa-06-details)**
+**[Open 121 detailed checks](Acceptance-AOA.md#aoa-06-details)**
 
 <a id="aoa-06"></a>
 - [ ] **AOA-06 - AoA delivered through the studio**
   - **Accept:** Ship installable complete source/mod outputs and evidence; the real AoA project opens, converts, repairs, builds, play-tests and installs safely through normal studio controls.
-  - **State:** unverified. **Details:** [399 source blocks](Sources-AOA.md#aoa-06); 26 source documents.
+  - **State:** unverified. **Details:** [405 source blocks](Sources-AOA.md#aoa-06); 26 source documents.
 
 ## Beautiful unified studio
 
@@ -93,7 +93,7 @@
 <a id="ux-05"></a>
 - [ ] **UX-05 - Honest progress and live findings**
   - **Accept:** Real stages/events, task graph, current action, per-item results, repair iterations and useful findings remain visible; logs are secondary and percentages never fabricate knowledge.
-  - **State:** unverified. **Details:** [124 source blocks](Sources-UX.md#ux-05); 19 source documents.
+  - **State:** unverified. **Details:** [126 source blocks](Sources-UX.md#ux-05); 19 source documents.
 
 **[Open 14 detailed checks](Acceptance-UX.md#ux-06-details)**
 
@@ -162,12 +162,12 @@
   - **Accept:** Author entities, AI/events/procedures, interaction, combat, progression and custom systems with meaningful behavior and network/persistence validation, not empty registrations.
   - **State:** unverified. **Details:** [26 source blocks](Sources-MAKE.md#make-04); 13 source documents.
 
-**[Open 14 detailed checks](Acceptance-MAKE.md#make-05-details)**
+**[Open 15 detailed checks](Acceptance-MAKE.md#make-05-details)**
 
 <a id="make-05"></a>
 - [ ] **MAKE-05 - Recipes, loot, tags and data editing**
   - **Accept:** Use visual recipes and structured validated data editors, reference navigation, error repair, target schemas and deterministic datagen without dropping unknown fields.
-  - **State:** unverified. **Details:** [26 source blocks](Sources-MAKE.md#make-05); 16 source documents.
+  - **State:** unverified. **Details:** [27 source blocks](Sources-MAKE.md#make-05); 16 source documents.
 
 **[Open 41 detailed checks](Acceptance-MAKE.md#make-06-details)**
 
@@ -176,12 +176,12 @@
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
   - **State:** unverified. **Details:** [61 source blocks](Sources-MAKE.md#make-06); 16 source documents.
 
-**[Open 104 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 105 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [175 source blocks](Sources-MAKE.md#make-07); 27 source documents.
+  - **State:** unverified. **Details:** [177 source blocks](Sources-MAKE.md#make-07); 27 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
@@ -195,7 +195,7 @@
 <a id="make-09"></a>
 - [ ] **MAKE-09 - Reference and concept reconstruction**
   - **Accept:** Lawfully ingest images/GIFs/models/server resources, distinguish observed/inferred/authored facts, reconstruct from multiple views/times, preserve intended Minecraft style and verify native visuals.
-  - **State:** unverified. **Details:** [121 source blocks](Sources-MAKE.md#make-09); 17 source documents.
+  - **State:** unverified. **Details:** [122 source blocks](Sources-MAKE.md#make-09); 17 source documents.
 
 **[Open 29 detailed checks](Acceptance-MAKE.md#make-10-details)**
 
@@ -215,75 +215,75 @@
 
 [One semantic project; the strongest proven backend for each real target.](Conversion.md)
 
-**[Open 133 detailed checks](Acceptance-PORT.md#port-01-details)**
+**[Open 134 detailed checks](Acceptance-PORT.md#port-01-details)**
 
 <a id="port-01"></a>
 - [ ] **PORT-01 - Input and source authority**
   - **Accept:** Identify repositories/folders/source archives/JARs/Bedrock/plugin packs by real identity and lineage; inventory before execution, deduplicate identical imports and retain originals.
-  - **State:** unverified. **Details:** [254 source blocks](Sources-PORT.md#port-01); 29 source documents.
+  - **State:** unverified. **Details:** [257 source blocks](Sources-PORT.md#port-01); 29 source documents.
 
 **[Open 8 detailed checks](Acceptance-PORT.md#port-02-details)**
 
 <a id="port-02"></a>
 - [ ] **PORT-02 - Universal semantic representation**
   - **Accept:** Represent code, behavior, content, assets, dependencies and lineage once; preserve unknown constructs and generate version/loader/edition adapters without cloning disconnected mod projects.
-  - **State:** unverified. **Details:** [55 source blocks](Sources-PORT.md#port-02); 21 source documents.
+  - **State:** unverified. **Details:** [56 source blocks](Sources-PORT.md#port-02); 21 source documents.
 
-**[Open 122 detailed checks](Acceptance-PORT.md#port-03-details)**
+**[Open 123 detailed checks](Acceptance-PORT.md#port-03-details)**
 
 <a id="port-03"></a>
 - [ ] **PORT-03 - Live version and toolchain atlas**
   - **Accept:** Enumerate the full actual version/loader catalogue, including historical and preview distinctions, runtime/build JVM constraints and future published metadata; never invent support or impose one backend's limited matrix.
-  - **State:** unverified. **Details:** [229 source blocks](Sources-PORT.md#port-03); 30 source documents.
+  - **State:** unverified. **Details:** [232 source blocks](Sources-PORT.md#port-03); 30 source documents.
 
-**[Open 56 detailed checks](Acceptance-PORT.md#port-04-details)**
+**[Open 58 detailed checks](Acceptance-PORT.md#port-04-details)**
 
 <a id="port-04"></a>
 - [ ] **PORT-04 - Exact mappings and symbol truth**
   - **Accept:** Descriptor/owner/hierarchy/overload-aware mappings, classpath/JAR validation and API deltas distinguish exact symbols, candidates and unresolved semantics with source evidence.
-  - **State:** unverified. **Details:** [81 source blocks](Sources-PORT.md#port-04); 24 source documents.
+  - **State:** unverified. **Details:** [84 source blocks](Sources-PORT.md#port-04); 24 source documents.
 
-**[Open 125 detailed checks](Acceptance-PORT.md#port-05-details)**
+**[Open 128 detailed checks](Acceptance-PORT.md#port-05-details)**
 
 <a id="port-05"></a>
 - [ ] **PORT-05 - Source migration and semantic repair**
   - **Accept:** Apply structured Java/Kotlin/AST/source-range transformations, version-hop rules, metadata/resources/build/config changes and stronger equivalents; do not trust global text replacement.
-  - **State:** unverified. **Details:** [273 source blocks](Sources-PORT.md#port-05); 32 source documents.
+  - **State:** unverified. **Details:** [277 source blocks](Sources-PORT.md#port-05); 32 source documents.
 
-**[Open 64 detailed checks](Acceptance-PORT.md#port-06-details)**
+**[Open 66 detailed checks](Acceptance-PORT.md#port-06-details)**
 
 <a id="port-06"></a>
 - [ ] **PORT-06 - Mixin, access and reflection correctness**
   - **Accept:** Remap and prove selectors, injections, locals/slices/ordinals, refmaps, AW/AT/ClassTweaker, interface/enum changes and reflection/MethodHandles in the actual packaged loader.
-  - **State:** unverified. **Details:** [126 source blocks](Sources-PORT.md#port-06); 22 source documents.
+  - **State:** unverified. **Details:** [129 source blocks](Sources-PORT.md#port-06); 22 source documents.
 
-**[Open 55 detailed checks](Acceptance-PORT.md#port-07-details)**
+**[Open 57 detailed checks](Acceptance-PORT.md#port-07-details)**
 
 <a id="port-07"></a>
 - [ ] **PORT-07 - JAR recovery and binary repair**
   - **Accept:** Preserve original binaries, use differential decompilers/remappers/constant evidence, reconcile signatures/control flow/resources and verify signed/multi-release/nested JAR behavior.
-  - **State:** unverified. **Details:** [93 source blocks](Sources-PORT.md#port-07); 23 source documents.
+  - **State:** unverified. **Details:** [99 source blocks](Sources-PORT.md#port-07); 23 source documents.
 
 **[Open 57 detailed checks](Acceptance-PORT.md#port-08-details)**
 
 <a id="port-08"></a>
 - [ ] **PORT-08 - Modern and historical build matrix**
   - **Accept:** Integrate appropriate Stonecutter/Modstitch/official/Architectury/Unimined/RFG routes, immutable workspaces, target-first scheduling and correct legacy/JVM backport support.
-  - **State:** unverified. **Details:** [109 source blocks](Sources-PORT.md#port-08); 19 source documents.
+  - **State:** unverified. **Details:** [110 source blocks](Sources-PORT.md#port-08); 19 source documents.
 
 **[Open 95 detailed checks](Acceptance-PORT.md#port-09-details)**
 
 <a id="port-09"></a>
 - [ ] **PORT-09 - Native loader and compatibility modes**
   - **Accept:** Translate loader semantics with real Sinytra/Kilt/Porting-Lib/Architectury evidence; explicitly distinguish native source ports, modified JARs and compatibility runtimes.
-  - **State:** unverified. **Details:** [199 source blocks](Sources-PORT.md#port-09); 27 source documents.
+  - **State:** unverified. **Details:** [201 source blocks](Sources-PORT.md#port-09); 27 source documents.
 
-**[Open 67 detailed checks](Acceptance-PORT.md#port-10-details)**
+**[Open 68 detailed checks](Acceptance-PORT.md#port-10-details)**
 
 <a id="port-10"></a>
 - [ ] **PORT-10 - Complete cross-edition conversion**
   - **Accept:** Convert Java/Bedrock logic as well as resources, manifests, scripts, entities/events/components/Molang/world rules; a visual pack or stubbed method never satisfies gameplay conversion.
-  - **State:** unverified. **Details:** [167 source blocks](Sources-PORT.md#port-10); 25 source documents.
+  - **State:** unverified. **Details:** [168 source blocks](Sources-PORT.md#port-10); 25 source documents.
 
 **[Open 51 detailed checks](Acceptance-PORT.md#port-11-details)**
 
@@ -322,7 +322,7 @@
 <a id="dep-01"></a>
 - [ ] **DEP-01 - Full dependency closure**
   - **Accept:** Resolve source/target/transitive/nested/build/runtime/client/server and optional dependencies together, preserving ranges, provider identity, hashes and semantic target-side equivalents.
-  - **State:** unverified. **Details:** [128 source blocks](Sources-DEP.md#dep-01); 27 source documents.
+  - **State:** unverified. **Details:** [130 source blocks](Sources-DEP.md#dep-01); 27 source documents.
 
 **[Open 1 detailed checks](Acceptance-DEP.md#dep-02-details)**
 
@@ -331,12 +331,12 @@
   - **Accept:** Fetch ordinary compatible requirements through authorized routes, verify complete bytes, resume interrupted downloads and original jobs; explain provider challenges without bypassing them.
   - **State:** unverified. **Details:** [14 source blocks](Sources-DEP.md#dep-02); 5 source documents.
 
-**[Open 92 detailed checks](Acceptance-DEP.md#dep-03-details)**
+**[Open 95 detailed checks](Acceptance-DEP.md#dep-03-details)**
 
 <a id="dep-03"></a>
 - [ ] **DEP-03 - Conflict and change-impact graph**
   - **Accept:** Explain diamonds/cycles/conflicts, dependents, world/config/benchmark impact and why a component is installed; no arbitrary replacement, constraint relaxation or silent dependency deletion.
-  - **State:** unverified. **Details:** [145 source blocks](Sources-DEP.md#dep-03); 27 source documents.
+  - **State:** unverified. **Details:** [153 source blocks](Sources-DEP.md#dep-03); 27 source documents.
 
 **[Open 13 detailed checks](Acceptance-DEP.md#dep-04-details)**
 
@@ -352,19 +352,19 @@
   - **Accept:** GUI/CLI/MCP/agents share stable project/artifact/instance/provider identities and typed operations, with no private bypass or duplicate resolver/state owner.
   - **State:** unverified. **Details:** [149 source blocks](Sources-DEP.md#dep-05); 30 source documents.
 
-**[Open 14 detailed checks](Acceptance-DEP.md#dep-06-details)**
+**[Open 15 detailed checks](Acceptance-DEP.md#dep-06-details)**
 
 <a id="dep-06"></a>
 - [ ] **DEP-06 - Staged transactions and concurrent safety**
   - **Accept:** Use immutable inputs, owned staging, revision/hash guards, atomic promotion, scoped rollback and late-worker rejection; preserve external files and concurrent Codex/user edits.
-  - **State:** unverified. **Details:** [18 source blocks](Sources-DEP.md#dep-06); 13 source documents.
+  - **State:** unverified. **Details:** [19 source blocks](Sources-DEP.md#dep-06); 13 source documents.
 
-**[Open 57 detailed checks](Acceptance-DEP.md#dep-07-details)**
+**[Open 58 detailed checks](Acceptance-DEP.md#dep-07-details)**
 
 <a id="dep-07"></a>
 - [ ] **DEP-07 - Durable jobs and cancellation**
   - **Accept:** Persist operation/process identities, completed-stage fingerprints, logs, retries and exact next action across restart; cancel only owned work and never promote partial outputs.
-  - **State:** unverified. **Details:** [83 source blocks](Sources-DEP.md#dep-07); 21 source documents.
+  - **State:** unverified. **Details:** [85 source blocks](Sources-DEP.md#dep-07); 21 source documents.
 
 **[Open 12 detailed checks](Acceptance-DEP.md#dep-08-details)**
 
@@ -391,12 +391,12 @@
   - **Accept:** Version-aware adapter catalog, analyzer selection, shared evidence and auto-provisioning in owned test clones select appropriate tools for crashes, TPS, FPS, memory and loading.
   - **State:** unverified. **Details:** [51 source blocks](Sources-FIX.md#fix-02); 10 source documents.
 
-**[Open 100 detailed checks](Acceptance-FIX.md#fix-03-details)**
+**[Open 103 detailed checks](Acceptance-FIX.md#fix-03-details)**
 
 <a id="fix-03"></a>
 - [ ] **FIX-03 - Crash, linkage, data and configuration repair**
   - **Accept:** Repair real loader/dependency/Mixin/registration/data/resource/config faults without suppressing diagnostics, wholesale disabling or content deletion.
-  - **State:** unverified. **Details:** [182 source blocks](Sources-FIX.md#fix-03); 30 source documents.
+  - **State:** unverified. **Details:** [188 source blocks](Sources-FIX.md#fix-03); 30 source documents.
 
 **[Open 36 detailed checks](Acceptance-FIX.md#fix-04-details)**
 
@@ -442,7 +442,7 @@
 <a id="test-01"></a>
 - [ ] **TEST-01 - Deterministic test sandbox**
   - **Accept:** Clone/snapshot only into Enderloom-owned test space, never benchmark live saves; fingerprint full mods/config/world/scenario/Java/loader/hardware conditions.
-  - **State:** unverified. **Details:** [620 source blocks](Sources-TEST.md#test-01); 29 source documents.
+  - **State:** unverified. **Details:** [621 source blocks](Sources-TEST.md#test-01); 29 source documents.
 
 **[Open 93 detailed checks](Acceptance-TEST.md#test-02-details)**
 
@@ -451,12 +451,12 @@
   - **Accept:** Unify declarative startup/idle/traversal/stress/soak/gameplay scenarios, setup/teardown/assertions, GameTest adapters and deterministic replay across supported targets.
   - **State:** unverified. **Details:** [147 source blocks](Sources-TEST.md#test-02); 18 source documents.
 
-**[Open 135 detailed checks](Acceptance-TEST.md#test-03-details)**
+**[Open 139 detailed checks](Acceptance-TEST.md#test-03-details)**
 
 <a id="test-03"></a>
 - [ ] **TEST-03 - Runtime supervision and automation**
   - **Accept:** Control real client/dedicated/integrated/Bedrock processes, commands/RCON, readiness, isolated accounts where appropriate, cancellation and restart with exact process/build identity.
-  - **State:** unverified. **Details:** [243 source blocks](Sources-TEST.md#test-03); 27 source documents.
+  - **State:** unverified. **Details:** [249 source blocks](Sources-TEST.md#test-03); 27 source documents.
 
 **[Open 241 detailed checks](Acceptance-TEST.md#test-04-details)**
 
@@ -465,12 +465,12 @@
   - **Accept:** Expose every accepted domain command and job/evidence operation headlessly through the same service layer, structured events/errors/cancellation, recordable replay and CI integration.
   - **State:** unverified. **Details:** [488 source blocks](Sources-TEST.md#test-04); 29 source documents.
 
-**[Open 58 detailed checks](Acceptance-TEST.md#test-05-details)**
+**[Open 60 detailed checks](Acceptance-TEST.md#test-05-details)**
 
 <a id="test-05"></a>
 - [ ] **TEST-05 - Artifact-bound native proof**
   - **Accept:** Bind native runs/logs/captures to exact hashes/target/dependencies; verify gameplay and persistence, not only build/menu/server-ready or a script named runtime.
-  - **State:** unverified. **Details:** [141 source blocks](Sources-TEST.md#test-05); 31 source documents.
+  - **State:** unverified. **Details:** [144 source blocks](Sources-TEST.md#test-05); 31 source documents.
 
 **[Open 20 detailed checks](Acceptance-TEST.md#test-06-details)**
 
@@ -509,7 +509,7 @@
 <a id="perf-02"></a>
 - [ ] **PERF-02 - Minimal measurement and rich attribution**
   - **Accept:** Separate low-overhead measurements from diagnostic runs; integrate native telemetry/JFR/spark/Observable/probes and correlate causality without misreporting overhead as mod cost.
-  - **State:** unverified. **Details:** [51 source blocks](Sources-PERF.md#perf-02); 14 source documents.
+  - **State:** unverified. **Details:** [52 source blocks](Sources-PERF.md#perf-02); 14 source documents.
 
 **[Open 40 detailed checks](Acceptance-PERF.md#perf-03-details)**
 
@@ -518,12 +518,12 @@
   - **Accept:** Use equivalent fingerprints, dependency-safe with/without plans, repeated samples, variance/confidence and stale-baseline detection; static risk is not measured causality.
   - **State:** unverified. **Details:** [82 source blocks](Sources-PERF.md#perf-03); 21 source documents.
 
-**[Open 78 detailed checks](Acceptance-PERF.md#perf-04-details)**
+**[Open 79 detailed checks](Acceptance-PERF.md#perf-04-details)**
 
 <a id="perf-04"></a>
 - [ ] **PERF-04 - Frame-time and GPU lab**
   - **Accept:** Measure distributions/stutters/render-thread/GPU behavior in real native scenarios; fix hot paths without reducing visual fidelity, shaders, distance, geometry or animation cadence.
-  - **State:** unverified. **Details:** [119 source blocks](Sources-PERF.md#perf-04); 21 source documents.
+  - **State:** unverified. **Details:** [120 source blocks](Sources-PERF.md#perf-04); 21 source documents.
 
 **[Open 10 detailed checks](Acceptance-PERF.md#perf-05-details)**
 
@@ -578,12 +578,12 @@
   - **Accept:** Keep project icons/avatars/gallery/post/video roles distinct, exact-project ownership, full-resolution media/lightbox and source-grounded autoplay trailer preferences; no synthetic replacements or unrelated promotions.
   - **State:** unverified. **Details:** [127 source blocks](Sources-LIB.md#lib-02); 17 source documents.
 
-**[Open 89 detailed checks](Acceptance-LIB.md#lib-03-details)**
+**[Open 90 detailed checks](Acceptance-LIB.md#lib-03-details)**
 
 <a id="lib-03"></a>
 - [ ] **LIB-03 - Real embedded browser**
   - **Accept:** Preserve Chromium tabs, persistent authorized sessions, real login, split/full/source modes, filtered networking and safe translation/original toggles without fake static pages.
-  - **State:** unverified. **Details:** [121 source blocks](Sources-LIB.md#lib-03); 13 source documents.
+  - **State:** unverified. **Details:** [122 source blocks](Sources-LIB.md#lib-03); 14 source documents.
 
 **[Open 62 detailed checks](Acceptance-LIB.md#lib-04-details)**
 
@@ -613,12 +613,12 @@
   - **Accept:** Search full compatible/incompatible version choices, changelogs, pin/freeze/unfreeze and rollback; frozen content stays fixed unless explicitly changed.
   - **State:** unverified. **Details:** [26 source blocks](Sources-LIB.md#lib-07); 11 source documents.
 
-**[Open 122 detailed checks](Acceptance-LIB.md#lib-08-details)**
+**[Open 123 detailed checks](Acceptance-LIB.md#lib-08-details)**
 
 <a id="lib-08"></a>
 - [ ] **LIB-08 - Provider downloads and account recovery**
   - **Accept:** Respect author-disabled third-party downloads, safe browser handoff and verified adoption, reconnect legitimate sessions and resume exact jobs without guessed identities or bypass.
-  - **State:** unverified. **Details:** [168 source blocks](Sources-LIB.md#lib-08); 18 source documents.
+  - **State:** unverified. **Details:** [169 source blocks](Sources-LIB.md#lib-08); 18 source documents.
 
 **[Open 85 detailed checks](Acceptance-LIB.md#lib-09-details)**
 
@@ -723,12 +723,12 @@
 
 [Preserve Forever Worlds, external ownership and every meaningful migration field.](Worlds-and-Servers.md)
 
-**[Open 87 detailed checks](Acceptance-WORLD.md#world-01-details)**
+**[Open 89 detailed checks](Acceptance-WORLD.md#world-01-details)**
 
 <a id="world-01"></a>
 - [ ] **WORLD-01 - World browser and safe editing**
   - **Accept:** Inspect/import/rename/present worlds, NBT/data packs/maps/regions where supported, associate exact instance/runtime and use safe staged edits rather than live experimentation.
-  - **State:** unverified. **Details:** [158 source blocks](Sources-WORLD.md#world-01); 21 source documents.
+  - **State:** unverified. **Details:** [160 source blocks](Sources-WORLD.md#world-01); 21 source documents.
 
 **[Open 32 detailed checks](Acceptance-WORLD.md#world-02-details)**
 
@@ -756,25 +756,25 @@
 <a id="world-05"></a>
 - [ ] **WORLD-05 - Real server management**
   - **Accept:** Manage/import/install accepted server software, EULA consent, properties/console/RCON/commands/players/backups/processes and explicit maintenance automation through GUI/CLI parity.
-  - **State:** unverified. **Details:** [129 source blocks](Sources-WORLD.md#world-05); 24 source documents.
+  - **State:** unverified. **Details:** [130 source blocks](Sources-WORLD.md#world-05); 24 source documents.
 
 **[Open 82 detailed checks](Acceptance-WORLD.md#world-06-details)**
 
 <a id="world-06"></a>
 - [ ] **WORLD-06 - Network, proxy and plugin semantics**
   - **Accept:** Diagnose supported protocol/proxy/server issues and convert authorized plugin/threading behavior with real ownership/scheduler/teleport/network proof; no fabricated universal compatibility.
-  - **State:** unverified. **Details:** [117 source blocks](Sources-WORLD.md#world-06); 23 source documents.
+  - **State:** unverified. **Details:** [118 source blocks](Sources-WORLD.md#world-06); 23 source documents.
 
 ## AI operator and evidence brain
 
 [One job and one evidence model, regardless of who drives the interface.](AI-and-Evidence.md)
 
-**[Open 58 detailed checks](Acceptance-AI.md#ai-01-details)**
+**[Open 59 detailed checks](Acceptance-AI.md#ai-01-details)**
 
 <a id="ai-01"></a>
 - [ ] **AI-01 - Authorized provider lanes**
   - **Accept:** Integrate supported configured OpenAI API/Agents, embedded Codex, authenticated ChatGPT browser and MCP lanes without confusing subscription entitlement with API billing or requiring a new paid service for ordinary actions.
-  - **State:** unverified. **Details:** [152 source blocks](Sources-AI.md#ai-01); 26 source documents.
+  - **State:** unverified. **Details:** [153 source blocks](Sources-AI.md#ai-01); 26 source documents.
 
 **[Open 28 detailed checks](Acceptance-AI.md#ai-02-details)**
 
@@ -809,7 +809,7 @@
 <a id="ai-06"></a>
 - [ ] **AI-06 - Evidence Brain promotion and rollback**
   - **Accept:** Learn only source-bound verified fixes/contracts, challenge/generalize/shadow-test with applicability and invalidation, prevent poisoned guesses, audit and roll back learned rules.
-  - **State:** unverified. **Details:** [268 source blocks](Sources-AI.md#ai-06); 30 source documents.
+  - **State:** unverified. **Details:** [269 source blocks](Sources-AI.md#ai-06); 30 source documents.
 
 **[Open 72 detailed checks](Acceptance-AI.md#ai-07-details)**
 
@@ -843,12 +843,12 @@
   - **Accept:** Select behavior-driven integrations for storage/backpacks/accessories/recipes/Create/Apotheosis/food/guides/tooltips/scripts/animation/energy/quests/worldgen/rendering, not arbitrary mandatory dependencies.
   - **State:** unverified. **Details:** [62 source blocks](Sources-KNOW.md#know-03); 10 source documents.
 
-**[Open 71 detailed checks](Acceptance-KNOW.md#know-04-details)**
+**[Open 73 detailed checks](Acceptance-KNOW.md#know-04-details)**
 
 <a id="know-04"></a>
 - [ ] **KNOW-04 - Compatibility execution and matrix**
   - **Accept:** Generate version-specific contract fixtures, provider-present/absent tests and exact target evidence; compiled API calls or similar names do not prove equivalent behavior.
-  - **State:** unverified. **Details:** [168 source blocks](Sources-KNOW.md#know-04); 29 source documents.
+  - **State:** unverified. **Details:** [171 source blocks](Sources-KNOW.md#know-04); 29 source documents.
 
 **[Open 12 detailed checks](Acceptance-KNOW.md#know-05-details)**
 
@@ -861,12 +861,12 @@
 
 [A fast result is only a win when the entire intended result survives.](Quality-and-Release.md)
 
-**[Open 90 detailed checks](Acceptance-SHIP.md#ship-01-details)**
+**[Open 91 detailed checks](Acceptance-SHIP.md#ship-01-details)**
 
 <a id="ship-01"></a>
 - [ ] **SHIP-01 - Supply-chain and untrusted input safety**
   - **Accept:** Validate archives/paths/hashes/notices, isolate code/build/filter execution, protect credentials and preserve input on malformed/resource-exhausted runs; external content is data, not instructions.
-  - **State:** unverified. **Details:** [172 source blocks](Sources-SHIP.md#ship-01); 31 source documents.
+  - **State:** unverified. **Details:** [175 source blocks](Sources-SHIP.md#ship-01); 31 source documents.
 
 **[Open 49 detailed checks](Acceptance-SHIP.md#ship-02-details)**
 

@@ -86,7 +86,7 @@
 - [ ] **D-bd5e52f17189fed8123b** - GATE — Execute the full contract depth-first without turning this new app-wide work into a second disconnected roadmap.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G073 — Combined implementation order
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G073 : 2124-2124](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2124-L2124)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G073 : 2362-2362](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2362-L2362)
 
 </details>
 
@@ -514,7 +514,7 @@
 - [ ] **D-181463fadafc84b4c5b9** - Use ASM where it is stronger or required by ecosystem libraries; do not force replacement for fashion.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 713-713](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L713-L713)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 737-737](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L737-L737)
 
 </details>
 
@@ -549,7 +549,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 71 source-derived details.
+[Outcome](Checklist.md#know-04) / 73 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -937,13 +937,31 @@
 - [ ] **D-3b7b0fddbe0ba00e12e7** - — Ingest generalized evidence from:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T175 : 785-785](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L785-L785)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T175 : 828-828](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L828-L828)
 
 <a id="d-ee6f62c610942560d98f"></a>
 - [ ] **D-ee6f62c610942560d98f** - Do not make converted mods depend on a compatibility layer when a clean native target implementation is available and verifiable.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 797-797](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L797-L797)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 840-840](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L840-L840)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion (2)</summary>
+
+<a id="d-114aa709cecd8acf76c6"></a>
+- [ ] **D-114aa709cecd8acf76c6** - — Expand LoaderCapabilityGraph from concrete compatibility implementations, not documentation alone:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T317 : 850-850](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L850-L850)
+
+<a id="d-eda38d9728c5f60b9117"></a>
+- [ ] **D-eda38d9728c5f60b9117** - For every mined correspondence store direction, version bounds, fidelity caveats, required runtime shim, and a target-native replacement path. Compatibility-layer behavior is evide...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For every mined correspondence store direction, version bounds, fidelity caveats, required runtime shim, and a target-native replacement path. Compatibility-layer behavior is evidence, not permission to force converted mods to depend on that layer.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 858-858](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L858-L858)
 
 </details>
 
@@ -955,7 +973,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Every extension declares ID/version/ABI version/capabilities/providers/provenance/hash/signature. Host validates before load, supports safe disable/rollback and never auto-grants new permissions during update.
   - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T271 — Signed extension manifests, compatibility and rollback
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T271 : 2003-2003](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2003-L2003)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T271 : 2196-2196](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2196-L2196)
 
 </details>
 
@@ -1317,7 +1335,7 @@
 - [ ] **D-22ebbd8ad908707b304a** - — Refresh exact versions/licenses/current status of technologies actually selected for production before final lockfile/vendor decisions.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T234 : 1667-1667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1667-L1667)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T234 : 1828-1828](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1828-L1828)
 
 </details>
 

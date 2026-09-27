@@ -203,9 +203,9 @@
     {
       "id": "S-127e417c46",
       "path": "docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
-      "sha256": "53510f9b3fb424daf0eb85e98b9587d50a33a15b4f5dc086ec3ed090ebc539bc",
-      "bytes": 117823,
-      "lines": 2315,
+      "sha256": "74f7a12c8deaceb622957682340baea612b78cb500b8fabac96fe2b339682402",
+      "bytes": 142339,
+      "lines": 2592,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
       "source_checked": 0
@@ -493,13 +493,13 @@
   ],
   "stats": {
     "source_files": 49,
-    "source_bytes": 2102360,
-    "source_lines": 42830,
-    "source_blocks": 15139,
-    "unique_blocks": 12223,
+    "source_bytes": 2126876,
+    "source_lines": 43107,
+    "source_blocks": 15231,
+    "unique_blocks": 12315,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
-    "source_unchecked": 5411,
-    "alias_occurrences": 882
+    "source_unchecked": 5444,
+    "alias_occurrences": 915
   }
 }

@@ -45,6 +45,14 @@
 
 </details>
 
+<a id="apalis-dev-apalis-sqlite"></a>
+<details>
+<summary>apalis-dev/apalis-sqlite (1 cited locations)</summary>
+
+- [https://github.com/apalis-dev/apalis-sqlite](https://github.com/apalis-dev/apalis-sqlite)
+
+</details>
+
 <a id="architectury-architectury-api"></a>
 <details>
 <summary>architectury/architectury-api (1 cited locations)</summary>
@@ -69,11 +77,35 @@
 
 </details>
 
+<a id="ast-grep-ast-grep"></a>
+<details>
+<summary>ast-grep/ast-grep (1 cited locations)</summary>
+
+- [https://github.com/ast-grep/ast-grep](https://github.com/ast-grep/ast-grep)
+
+</details>
+
+<a id="async-profiler-async-profiler"></a>
+<details>
+<summary>async-profiler/async-profiler (1 cited locations)</summary>
+
+- [https://github.com/async-profiler/async-profiler](https://github.com/async-profiler/async-profiler)
+
+</details>
+
 <a id="atlauncher-atlauncher"></a>
 <details>
 <summary>ATLauncher/ATLauncher (1 cited locations)</summary>
 
 - [https://github.com/ATLauncher/ATLauncher](https://github.com/ATLauncher/ATLauncher)
+
+</details>
+
+<a id="azalea-rs-simdnbt"></a>
+<details>
+<summary>azalea-rs/simdnbt (1 cited locations)</summary>
+
+- [https://github.com/azalea-rs/simdnbt](https://github.com/azalea-rs/simdnbt)
 
 </details>
 
@@ -98,6 +130,14 @@
 <summary>BLAKE3-team/BLAKE3 (1 cited locations)</summary>
 
 - [https://github.com/BLAKE3-team/BLAKE3](https://github.com/BLAKE3-team/BLAKE3)
+
+</details>
+
+<a id="bnjbvr-cargo-machete"></a>
+<details>
+<summary>bnjbvr/cargo-machete (1 cited locations)</summary>
+
+- [https://github.com/bnjbvr/cargo-machete](https://github.com/bnjbvr/cargo-machete)
 
 </details>
 
@@ -198,6 +238,14 @@
 
 </details>
 
+<a id="comp500-mixintrace"></a>
+<details>
+<summary>comp500/mixintrace (1 cited locations)</summary>
+
+- [https://github.com/comp500/mixintrace](https://github.com/comp500/mixintrace)
+
+</details>
+
 <a id="creators-of-create-ponder"></a>
 <details>
 <summary>Creators-of-Create/Ponder (1 cited locations)</summary>
@@ -235,6 +283,14 @@
 <summary>DioxusLabs/dioxus (1 cited locations)</summary>
 
 - [https://github.com/DioxusLabs/dioxus](https://github.com/DioxusLabs/dioxus)
+
+</details>
+
+<a id="ebiggers-libdeflate"></a>
+<details>
+<summary>ebiggers/libdeflate (1 cited locations)</summary>
+
+- [https://github.com/ebiggers/libdeflate](https://github.com/ebiggers/libdeflate)
 
 </details>
 
@@ -375,6 +431,14 @@
 
 </details>
 
+<a id="fenixin-minecraft-region-fixer"></a>
+<details>
+<summary>Fenixin/Minecraft-Region-Fixer (1 cited locations)</summary>
+
+- [https://github.com/Fenixin/Minecraft-Region-Fixer](https://github.com/Fenixin/Minecraft-Region-Fixer)
+
+</details>
+
 <a id="fjall-rs-fjall"></a>
 <details>
 <summary>fjall-rs/fjall (1 cited locations)</summary>
@@ -423,6 +487,14 @@
 
 </details>
 
+<a id="gradle-gradle-profiler"></a>
+<details>
+<summary>gradle/gradle-profiler (1 cited locations)</summary>
+
+- [https://github.com/gradle/gradle-profiler](https://github.com/gradle/gradle-profiler)
+
+</details>
+
 <a id="gtnewhorizons-retrofuturagradle"></a>
 <details>
 <summary>GTNewHorizons/RetroFuturaGradle (1 cited locations)</summary>
@@ -452,6 +524,14 @@
 <summary>headlesshq/mc-runtime-test-mod (1 cited locations)</summary>
 
 - [https://github.com/headlesshq/mc-runtime-test-mod](https://github.com/headlesshq/mc-runtime-test-mod)
+
+</details>
+
+<a id="headlesshq-mc-server-test"></a>
+<details>
+<summary>headlesshq/mc-server-test (1 cited locations)</summary>
+
+- [https://github.com/headlesshq/mc-server-test](https://github.com/headlesshq/mc-server-test)
 
 </details>
 
@@ -567,6 +647,14 @@
 
 </details>
 
+<a id="juraj-hrivnak-pakku"></a>
+<details>
+<summary>juraj-hrivnak/Pakku (1 cited locations)</summary>
+
+- [https://github.com/juraj-hrivnak/Pakku](https://github.com/juraj-hrivnak/Pakku)
+
+</details>
+
 <a id="kbinani-je2be-core"></a>
 <details>
 <summary>kbinani/je2be-core (1 cited locations)</summary>
@@ -604,6 +692,14 @@
 <summary>Kobzol/cargo-pgo (1 cited locations)</summary>
 
 - [https://github.com/Kobzol/cargo-pgo](https://github.com/Kobzol/cargo-pgo)
+
+</details>
+
+<a id="kostromdan-crash-assistant"></a>
+<details>
+<summary>KostromDan/Crash-Assistant (1 cited locations)</summary>
+
+- [https://github.com/KostromDan/Crash-Assistant](https://github.com/KostromDan/Crash-Assistant)
 
 </details>
 
@@ -855,11 +951,27 @@
 
 </details>
 
+<a id="mozilla-sccache"></a>
+<details>
+<summary>mozilla/sccache (1 cited locations)</summary>
+
+- [https://github.com/mozilla/sccache](https://github.com/mozilla/sccache)
+
+</details>
+
 <a id="mstange-samply"></a>
 <details>
 <summary>mstange/samply (1 cited locations)</summary>
 
 - [https://github.com/mstange/samply](https://github.com/mstange/samply)
+
+</details>
+
+<a id="neoforged-accesstransformers"></a>
+<details>
+<summary>neoforged/AccessTransformers (1 cited locations)</summary>
+
+- [https://github.com/neoforged/AccessTransformers](https://github.com/neoforged/AccessTransformers)
 
 </details>
 
@@ -876,6 +988,22 @@
 <summary>neoforged/FancyModLoader (1 cited locations)</summary>
 
 - [https://github.com/neoforged/FancyModLoader](https://github.com/neoforged/FancyModLoader)
+
+</details>
+
+<a id="neoforged-installertools"></a>
+<details>
+<summary>neoforged/InstallerTools (1 cited locations)</summary>
+
+- [https://github.com/neoforged/InstallerTools](https://github.com/neoforged/InstallerTools)
+
+</details>
+
+<a id="neoforged-jarcompatibilitychecker"></a>
+<details>
+<summary>neoforged/JarCompatibilityChecker (1 cited locations)</summary>
+
+- [https://github.com/neoforged/JarCompatibilityChecker](https://github.com/neoforged/JarCompatibilityChecker)
 
 </details>
 
@@ -919,6 +1047,14 @@
 
 </details>
 
+<a id="nextest-rs-nextest"></a>
+<details>
+<summary>nextest-rs/nextest (1 cited locations)</summary>
+
+- [https://github.com/nextest-rs/nextest](https://github.com/nextest-rs/nextest)
+
+</details>
+
 <a id="nickbabcock-rawzip"></a>
 <details>
 <summary>nickbabcock/rawzip (1 cited locations)</summary>
@@ -951,6 +1087,14 @@
 
 </details>
 
+<a id="obi1kenobi-cargo-semver-checks"></a>
+<details>
+<summary>obi1kenobi/cargo-semver-checks (1 cited locations)</summary>
+
+- [https://github.com/obi1kenobi/cargo-semver-checks](https://github.com/obi1kenobi/cargo-semver-checks)
+
+</details>
+
 <a id="oliveryasuna-modkit"></a>
 <details>
 <summary>oliveryasuna/modkit (1 cited locations)</summary>
@@ -972,6 +1116,30 @@
 <summary>OpenShock/Integrations.Minecraft (1 cited locations)</summary>
 
 - [https://github.com/OpenShock/Integrations.Minecraft](https://github.com/OpenShock/Integrations.Minecraft)
+
+</details>
+
+<a id="ornithemc-calamus"></a>
+<details>
+<summary>OrnitheMC/calamus (1 cited locations)</summary>
+
+- [https://github.com/OrnitheMC/calamus](https://github.com/OrnitheMC/calamus)
+
+</details>
+
+<a id="ornithemc-feather"></a>
+<details>
+<summary>OrnitheMC/feather (1 cited locations)</summary>
+
+- [https://github.com/OrnitheMC/feather](https://github.com/OrnitheMC/feather)
+
+</details>
+
+<a id="ornithemc-ploceus"></a>
+<details>
+<summary>OrnitheMC/ploceus (1 cited locations)</summary>
+
+- [https://github.com/OrnitheMC/ploceus](https://github.com/OrnitheMC/ploceus)
 
 </details>
 
@@ -1153,8 +1321,9 @@
 
 <a id="querz-mcaselector"></a>
 <details>
-<summary>Querz/mcaselector (1 cited locations)</summary>
+<summary>Querz/mcaselector (2 cited locations)</summary>
 
+- [https://github.com/Querz/mcaselector](https://github.com/Querz/mcaselector)
 - [https://github.com/Querz/mcaselector/wiki/CLI-Mode](https://github.com/Querz/mcaselector/wiki/CLI-Mode)
 
 </details>
@@ -1238,6 +1407,14 @@
 <summary>rust-minidump/minidump-writer (1 cited locations)</summary>
 
 - [https://github.com/rust-minidump/minidump-writer](https://github.com/rust-minidump/minidump-writer)
+
+</details>
+
+<a id="rustls-rustls-platform-verifier"></a>
+<details>
+<summary>rustls/rustls-platform-verifier (1 cited locations)</summary>
+
+- [https://github.com/rustls/rustls-platform-verifier](https://github.com/rustls/rustls-platform-verifier)
 
 </details>
 
@@ -1337,6 +1514,14 @@
 
 </details>
 
+<a id="sourcefrog-cargo-mutants"></a>
+<details>
+<summary>sourcefrog/cargo-mutants (1 cited locations)</summary>
+
+- [https://github.com/sourcefrog/cargo-mutants](https://github.com/sourcefrog/cargo-mutants)
+
+</details>
+
 <a id="sparkuniverse-architectury-loom"></a>
 <details>
 <summary>SparkUniverse/architectury-loom (1 cited locations)</summary>
@@ -1398,6 +1583,14 @@
 <summary>stonecutter-versioning/stonecutter (1 cited locations)</summary>
 
 - [https://github.com/stonecutter-versioning/stonecutter](https://github.com/stonecutter-versioning/stonecutter)
+
+</details>
+
+<a id="taiki-e-cargo-llvm-cov"></a>
+<details>
+<summary>taiki-e/cargo-llvm-cov (1 cited locations)</summary>
+
+- [https://github.com/taiki-e/cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov)
 
 </details>
 
@@ -1526,6 +1719,14 @@
 <summary>wangfu91/usn-journal-rs (1 cited locations)</summary>
 
 - [https://github.com/wangfu91/usn-journal-rs](https://github.com/wangfu91/usn-journal-rs)
+
+</details>
+
+<a id="wild-linker-wild"></a>
+<details>
+<summary>wild-linker/wild (1 cited locations)</summary>
+
+- [https://github.com/wild-linker/wild](https://github.com/wild-linker/wild)
 
 </details>
 

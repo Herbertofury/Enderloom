@@ -9,7 +9,7 @@
 <a id="world-01-details"></a>
 ## WORLD-01 - World browser and safe editing
 
-[Outcome](Checklist.md#world-01) / 87 source-derived details.
+[Outcome](Checklist.md#world-01) / 89 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -356,7 +356,7 @@
 - [ ] **D-24f928afdf04e46fafca** - — Ingest/use misode/mcmeta as a versioned generated-data diff corpus and PrismarineJS/minecraft-data as a second oracle.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T187 : 932-932](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L932-L932)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T187 : 993-993](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L993-L993)
 
 </details>
 
@@ -367,7 +367,25 @@
 - [ ] **D-34873314d63dd167c105** - — Detect persistent-data migrations that may require:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T189 — DFU/Codec/DataComponent-aware planning
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T189 : 944-944](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L944-L944)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T189 : 1005-1005](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1005-L1005)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane (2)</summary>
+
+<a id="d-e877f2e9d1d2f0bf3370"></a>
+- [ ] **D-e877f2e9d1d2f0bf3370** - — When persistent Minecraft data crosses schema generations, inspect the actual target/source DataFixerUpper schemas/fixes and target codecs instead of treating DFU as a generic co...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — When persistent Minecraft data crosses schema generations, inspect the actual target/source DataFixerUpper schemas/fixes and target codecs instead of treating DFU as a generic concept. Build fixtures for saved data, entities/block entities, chunks/world data and other affected persistent formats when a mod owns or embeds versioned data.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T320 : 1033-1033](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1033-L1033)
+
+<a id="d-1650bb2b66164e5f8f3d"></a>
+- [ ] **D-1650bb2b66164e5f8f3d** - Do not blindly run vanilla DFU over arbitrary mod-owned NBT. Use its schema/fix graph as evidence and execute only transformations whose ownership/type contract is known.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1035-1035](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1035-L1035)
 
 </details>
 
@@ -1259,7 +1277,7 @@
 - [ ] **D-eeff5205f905349aac6a** - — Every migration rule stores:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T157 — Build canonical `SemanticRule` schema
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T157 : 563-563](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L563-L563)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T157 : 587-587](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L587-L587)
 
 </details>
 
@@ -1270,7 +1288,7 @@
 - [ ] **D-7e30635b47f54e7bb429** - Do not maintain a second independent migration truth database.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 585-585](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L585-L585)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 609-609](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L609-L609)
 
 </details>
 
@@ -1282,7 +1300,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — For genuinely project-specific logic that cannot be safely automated, emit an assisted migration item containing exact source context, target API evidence, expected behavior, unresolved choice and required proof.
   - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T195 — Human-assisted migration remains structured
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T195 : 992-992](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L992-L992)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T195 : 1065-1065](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1065-L1065)
 
 </details>
 
@@ -1648,7 +1666,7 @@
 - [ ] **D-f437843e9a4487d3029c** - — When the mod persists config/world/saved data, perform restart/reload tests using representative fixture state.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T205 — Restart/persistence proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T205 : 1094-1094](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1094-L1094)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T205 : 1193-1193](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1193-L1193)
 
 </details>
 
@@ -2342,7 +2360,7 @@
 - [ ] **D-7b21cf62fc245939fd0e** - — For server-capable mods, start a real target dedicated server, detect loader/mod initialization success and fatal errors, then stop/clean it deterministically.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T201 — Dedicated server proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T201 : 1063-1063](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1063-L1063)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T201 : 1162-1162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1162-L1162)
 
 </details>
 

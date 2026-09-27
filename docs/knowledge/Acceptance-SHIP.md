@@ -9,7 +9,7 @@
 <a id="ship-01-details"></a>
 ## SHIP-01 - Supply-chain and untrusted input safety
 
-[Outcome](Checklist.md#ship-01) / 90 source-derived details.
+[Outcome](Checklist.md#ship-01) / 91 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -369,7 +369,7 @@
 - [ ] **D-5b58f1a39cc0c2b01ee9** - — Record the exact upstream commit/release and the user&#x27;s direct permission context before code/data ingestion.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T156 : 550-550](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L550-L550)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T156 : 574-574](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L574-L574)
 
 </details>
 
@@ -380,7 +380,7 @@
 - [ ] **D-e25fea4adba18b4d7825** - — Reconcile every T134–T232 and every parent gate.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T233 : 1647-1647](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1647-L1647)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T233 : 1808-1808](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1808-L1808)
 
 </details>
 
@@ -392,7 +392,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Audit every app-controlled WebView origin/resource need and replace the current app.security.csp: null with the narrowest Content Security Policy that preserves required functionality.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T242 : 1762-1762](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1762-L1762)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T242 : 1933-1933](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1933-L1933)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T343 — Release/SBOM/license tooling convergence (1)</summary>
+
+<a id="d-5ca32ba66b3a38fedf7b"></a>
+- [ ] **D-5ca32ba66b3a38fedf7b** - — Bake off Syft as a cross-language/archive SBOM aggregator and cargo-about for Rust license notices. Evaluate cargo-dist + cargo-auditable/cargo-cyclonedx where they simplify repr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Bake off Syft as a cross-language/archive SBOM aggregator and cargo-about for Rust license notices. Evaluate cargo-dist + cargo-auditable/cargo-cyclonedx where they simplify reproducible native release provenance without fighting Tauri packaging. Existing ORT/ScanCode and cargo-deny/audit/vet remain complementary policy/provenance controls.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T343 — Release/SBOM/license tooling convergence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T343 : 2261-2261](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2261-L2261)
 
 </details>
 
@@ -1297,7 +1309,7 @@
 - [ ] **D-d8f6b815e085f8d73469** - A candidate does not enter production merely because it appears in this table. Its relevant bakeoff/acceptance task must pass.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G059 — Final promotion matrix for researched technologies
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1567-1567](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1567-L1567)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1728-1728](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1728-L1728)
 
 </details>
 
@@ -1309,7 +1321,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Audit the complete updater path, including the current createUpdaterArtifacts: false configuration, CI/release artifact generation, signature verification, platform packages, update manifests, failed-update recovery and key rotation/recovery procedure.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T246 : 1789-1789](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1789-L1789)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T246 : 1960-1960](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1960-L1960)
 
 </details>
 
@@ -2168,7 +2180,7 @@
 - [ ] **D-f09cd5c42e1d77a53633** - GATE — A material regression/gap challenge has been performed after the implementation is otherwise green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G062 : 1643-1643](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1643-L1643)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G062 : 1804-1804](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1804-L1804)
 
 </details>
 
@@ -2179,7 +2191,7 @@
 - [ ] **D-9608a4375337c56ccdba** - — Checkpoint the completed implementation with:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T236 — Artifact/provenance checkpoint
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T236 : 1677-1677](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1677-L1677)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T236 : 1838-1838](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1838-L1838)
 
 </details>
 

@@ -38,7 +38,7 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [AI-01 - Authorized provider lanes](Acceptance-AI.md#ai-01-details): 58 source details.
+- [AI-01 - Authorized provider lanes](Acceptance-AI.md#ai-01-details): 59 source details.
 - [AI-02 - Natural-language job compiler](Acceptance-AI.md#ai-02-details): 28 source details.
 - [AI-03 - Quarantined changes and repair loop](Acceptance-AI.md#ai-03-details): 25 source details.
 - [AI-04 - Approval, privacy and quality controls](Acceptance-AI.md#ai-04-details): 9 source details.
