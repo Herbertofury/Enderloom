@@ -215,3 +215,42 @@ The second pass also checked GitLab and older/current Java animation ecosystems,
 ## Coverage note
 
 GitHub and GitLab surfaced materially useful additions in this sweep. Direct Codeberg crawling is blocked by robots in the current research harness; search-engine queries did not surface a stronger relevant Codeberg candidate. That surface therefore remains **unresolved-active**, not “none exist,” and should be rechecked from a capable route in a future freshness sweep.
+
+
+## P0 — fourth sweep: Blockbench automation, IK and optional real physics
+
+### Blockbench as an automatable production backend
+
+Two 2026 projects are too useful to ignore for Enderloom's Model/Variant Foundry:
+
+- **jasonjgardner/blockbench-mcp-plugin** — live Blockbench MCP plus a separate headless server that can edit, validate, convert and render `.bbmodel` files without the editor open. It also exposes a plugin-extension surface so other Blockbench plugins can register tools. This is a strong architecture reference for Enderloom's live-editor + headless-batch dual path.
+  - https://github.com/jasonjgardner/blockbench-mcp-plugin
+  - License: GPL-3.0; direct source reuse must respect copyleft compatibility. The live/headless protocol can also be treated as an adapter boundary.
+- **sosadly/blockbench-mcp** — MIT-licensed Blockbench automation with broad modeling, texture, rig and animation tooling plus unusually useful quality gates: procedural detail generators, rig validation, silhouette/reference IoU comparison, measured animation analysis, orientation validation, multi-view screenshots, texture inspection, plugin setup and explicit human-review gates.
+  - https://github.com/sosadly/blockbench-mcp
+  - Strong direct integration/reuse candidate for Enderloom's internal Blockbench automation layer.
+
+Enderloom should combine the strongest ideas instead of picking one wholesale: Jason's live/headless split, direct model conversion/rendering and plugin extension surface; sosadly's procedural authoring helpers, deterministic quality gates, measured rig/animation validation and reference-match loop. The canonical Enderloom operation registry remains the owner.
+
+### IK / rigging freshness
+
+- Blockbench's current ecosystem is moving toward richer IK. An open September 2026 plugin proposal adds **two-bone IK, FABRIK chain IK, spline IK, aim IK, IK/FK blending, live preview/guides and frame-range baking**.
+  - https://github.com/JannisX11/blockbench-plugins/pull/996
+- Enderloom should track those semantics in its own IK IR now, without hard-depending on an unmerged plugin. Preserve null-object IK, pole targets and chain constraints directly where possible; bake only at export when the selected backend cannot represent live IK.
+
+### Optional heavy physics lane
+
+- **velthoric/Velthoric** — active Minecraft proof-of-concept integrating Jolt Physics for rigid bodies, soft bodies (cloth/ropes), joints and synchronized physics.
+  - https://github.com/velthoric/Velthoric
+- **stephengold/jolt-jni** — MIT JVM bindings for Jolt Physics and V-HACD, useful as a lower-level route when Enderloom needs native Jolt without adopting a whole mod framework.
+  - https://github.com/stephengold/jolt-jni
+
+These are **not** the default for Bloom & Boom vine/hair motion. Enderloom's lightweight deterministic Secondary Motion Graph remains the normal path. Jolt/Velthoric-style physics is optional only for assets that genuinely need soft-body, rope, rigid-body collision or gameplay-grade physical interaction, and must earn promotion through equivalent-work CPU/GPU/native-memory benchmarks.
+
+## Fourth-sweep architecture consequences
+
+1. Add a typed `BlockbenchAutomationBackend` with live-editor and headless transports, capability discovery, deterministic read/edit/save/render/convert operations, plugin capability registration, provenance hashes and optional human-review checkpoints.
+2. Add reusable quality gates: silhouette/reference overlap, landmark/proportion measurements, left/right orientation sanity, rig readiness, loop closure and limb-travel analysis, detail-density audit, multi-view comparison and native Minecraft proof.
+3. Headless batch generation is first-class. “Generate all biomes” should not require hundreds of Blockbench tabs; variants may be transformed/rendered/validated headlessly, with selected failures or review candidates opened live.
+4. Preserve IK targets, poles, chain length, constraints and IK/FK blend in canonical IR; bake only for an output backend that cannot represent them.
+5. Add a `PhysicsBackendProfile` selector with lightweight secondary motion as default and optional Jolt-native compatibility for real soft-body/collision-heavy needs, including fallback and benchmark proof.
