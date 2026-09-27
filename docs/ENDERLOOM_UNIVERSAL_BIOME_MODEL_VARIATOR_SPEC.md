@@ -355,3 +355,36 @@ Mandatory initial fixtures:
 - Generated variants are reproducible.
 - Native/runtime proof remains stronger than editor-only proof.
 - Existing concept-art-to-native-mod work is extended, not duplicated.
+
+
+## 16. High-fidelity Java runtime and motion phenotype integration
+
+Variant Foundry output must implement the canonical requirements in:
+
+- `docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md`
+
+Biome variation is not limited to palette/geometry. A `VariantPlan` may also define a **MotionPhenotype** for secondary parts such as vines, petals, leaves, hair-like fronds, tails, crystals, cloth, fungi and other biome growths.
+
+Examples:
+
+- swamp/mangrove -> soft hanging vines with damped sway;
+- frozen peaks -> heavy/stiff ice and crystal chains;
+- warm ocean -> fronds/coral with water drag;
+- warped forest -> elastic fungal tendrils;
+- Aether -> light petal/feather growths with buoyant response.
+
+The same approved source identity must survive both appearance and motion variation. Region locks apply to secondary-motion generation as well as geometry/texture generation.
+
+For detailed assets, Enderloom may target native Java, GeckoLib, AzureLib, CPM/player, Figura interoperability, EMF/ETF/CEM-compatible output or the Enderloom High-Fidelity Skeletal Renderer according to the least-lossy target-version evidence.
+
+Performance acceptance is dual: full approved near-field fidelity **and** no perceptible frame-time/TPS regression at the configured normal encounter density. Do not claim literal zero computation cost; meet the user-visible no-regression goal through culling, pose caches, sleeping chains, distance/observability-aware physics LOD, render interpolation, batching and other proven optimizations.
+
+## 17. Wiki integration
+
+The Variant Foundry is a first-class source for Enderloom's generated Wiki/knowledge system.
+
+The user-facing wiki page is:
+
+- `docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md`
+
+For Bloom & Boom, generate a **Biome Variant Atlas** with interactive model/turntable, biome palette and motifs, rig/animation state, motion phenotype, spawn/runtime selector, backend, compatibility, performance evidence, provenance and native runtime captures.
