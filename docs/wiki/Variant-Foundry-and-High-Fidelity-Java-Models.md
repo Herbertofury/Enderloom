@@ -206,3 +206,39 @@ Canonical implementation contracts:
 - [High-Fidelity Java Model Runtime & Secondary Motion](../ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md)
 - [Concept Art -> Native Minecraft Mod](../ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md)
 - [Unified Studio / Wiki / CLI / Evidence Brain](../ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md)
+
+
+## 2026 ecosystem sweep — what Enderloom will reuse or challenge
+
+A second fresh sweep found several projects that materially strengthen the Variant Foundry instead of forcing us to invent every layer ourselves.
+
+### Concept -> 3D -> rig
+
+- **AniGen** can produce a mesh, skeleton and skinning together from one image.
+- **SkinTokens / TokenRig** is the current successor to UniRig for unified skeleton + skin-weight generation; **RigAnything** stays as an independent rigging challenger.
+- **TRELLIS.2** and **TripoSG** are strong high-fidelity image-to-3D candidates.
+- **Hunyuan3D-Part** and **PartCrafter** provide part-aware decomposition/generation useful for separating horns, flowers, plates, limbs and props before Minecraftization.
+- **MeshAnythingV2** is a candidate for turning dense generated meshes into cleaner artist-like low-face meshes.
+
+### Minecraft authoring/runtime
+
+- **glTF to Minecraft** is now a major conversion candidate because it already converts GLB/glTF into Minecraft-friendly cubes, carries animations, atlases textures and can output GeckoLib/Bedrock/CPM targets.
+- **BetterModel** is a major runtime/semantics benchmark: Blockbench cubes + meshes + locators/nulls, Molang, IK, player models, custom armor and efficient synchronization.
+- **blockbench-import-library** is valuable for `.bbmodel`/`.ajmodel` loading, Molang/effect keyframes, variants, locators, virtual Item Displays, async transforms, vanilla hitboxes/riding/leashes and culling.
+- **Animated Java** remains a rich Java animation/export compatibility target for variants, locators, easing/tweening and Molang.
+
+### Physics and performance
+
+- **VRM SpringBone** gives Enderloom a documented baseline for hair/tail/clothing/vine spring chains and capsule/sphere collisions instead of inventing every rule from scratch.
+- **jiggle-physics** adds a useful weight-painted soft-region model for optional mesh deformation.
+- **Flywheel** is a GPU-instancing architecture challenger for crowds/repeated detail.
+- **meshoptimizer** and **xatlas** are candidates for offline mesh/LOD/UV optimization.
+- **ImmediatelyFast**, **EntityCulling** and **MoreCulling** become compatibility/performance fixtures.
+
+### Authoring QoL from the Blockbench ecosystem
+
+The official Blockbench plugin catalog also surfaced workflows Enderloom Studio should interoperate with or beat: GeckoLib Models & Animations, AzureLib Animator, Figura format, CEM + EMF animation tools, PBR Tools, mesh tools, Bone View, Root Motion Extractor, Bakery, Easing Peasy, reference models, concealed-face optimization, UV-bleed repair, VoxelShape generators and glTF-to-Minecraft.
+
+The full integration/rights/benchmark matrix lives in [the challenger scan](../ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md).
+
+The rule remains simple: **the best proven route wins each stage.** Newer projects are challengers, not automatic replacements; Enderloom compares fidelity, editability, Minecraft compatibility and measured performance on the same Bloom & Boom fixtures.

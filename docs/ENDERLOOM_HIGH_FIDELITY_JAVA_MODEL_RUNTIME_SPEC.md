@@ -430,3 +430,38 @@ Run the same high-detail model at representative crowd sizes and prove:
 - Preserve gameplay separately from visuals.
 - Runtime proof beats editor preview.
 - Existing concept/variant systems are extended, not duplicated.
+
+
+## 17. Fresh 2026 challenger sweep and promoted architecture candidates
+
+The detailed 2026-09-27 sweep is canonicalized in:
+
+- `docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md`
+
+The runtime/authoring plan must now explicitly challenge itself against:
+
+- **AniGen** for direct concept image -> animate-ready mesh/skeleton/skinning;
+- **SkinTokens / TokenRig** as the current successor challenger to UniRig for skeleton + skin weights, with **RigAnything** retained as an independent rig oracle;
+- **TRELLIS.2** and **TripoSG** for high-fidelity image-to-3D shape/material hypotheses;
+- **Hunyuan3D-Part** and **PartCrafter** for semantic part decomposition/generation;
+- **MeshAnythingV2** plus deterministic remeshers for artist-like low-face topology;
+- **glTF to Minecraft** as a first-class GLB/glTF -> Blockbench/Minecraft conversion challenger;
+- **BetterModel** and **blockbench-import-library** for Java/server model semantics, Molang, meshes, IK, locators and efficient packet/display behavior;
+- **Flywheel-style GPU instancing**, **meshoptimizer**, **xatlas** and current culling stacks for performance;
+- **VRM SpringBone** plus Enderloom material/environment extensions as the baseline secondary-motion semantics.
+
+### 17.1 New hard requirements from the sweep
+
+- **glTF/GLB becomes a first-class typed interchange format.** Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-specific reduction.
+- **IK becomes part of the animation IR.** Preserve IK targets/chains/constraints when a backend supports them; otherwise bake with explicit loss evidence.
+- **Part segmentation is an evidence source, not truth.** Generated semantic parts must reconcile against SubjectDNA, source landmarks and editable Blockbench hierarchy.
+- **Mesh-assisted output gets an approximation ledger.** If the target backend requires cuboids/planes, report exactly which mesh regions were approximated and how much silhouette/texture fidelity changed.
+- **Secondary motion uses portable spring-bone semantics.** Support rest pose, stiffness, drag/damping, gravity, inertia, angle limits and sphere/capsule collision, then extend with Bloom & Boom wind/water/material phenotypes.
+- **Offline preprocessing is preferred over per-frame waste.** UV packing, atlas generation, mesh optimization/LOD candidates, expression compilation and immutable pose/controller data are built/cached ahead of runtime when safe.
+- **License/model-weight checks are machine-readable gates.** A source-code license does not automatically cover bundled third-party code or model weights.
+
+### 17.2 Blockbench parity floor
+
+Enderloom Studio should interoperate with or equal the useful current Blockbench plugin workflows surfaced by the sweep: Animated Java, GeckoLib/AzureLib exporters, Figura format, CEM/EMF animation, PBR Tools, mesh tools, Bone View, Root Motion Extractor, Bakery, animation easing/platform helpers, concealed-face optimization, UV-bleed repair, reference-model loading, VoxelShape generation and glTF-to-Minecraft conversion.
+
+This is a **reuse-before-rebuild** requirement: prefer a lawful adapter/import/export or extracted proven algorithm over inventing a weaker duplicate.

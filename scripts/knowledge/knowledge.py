@@ -470,6 +470,25 @@ All Markdown/text/JSON sources under `docs/`, excluding generated knowledge page
  'mcbeet/beet':('Packs/commands','Current Beet/Mecha source pipeline and command validation.'),
  'SpyglassMC/Spyglass':('Diagnostics','Structured data-pack language diagnostics linked to real runtime tests.'),
  'JannisX11/blockbench':('Visual codecs','Model/UV/animation round-trip reference and real assets.'),
+ 'VAST-AI-Research/AniGen':('Concept -> rig','Single-image animate-ready mesh/skeleton/skinning challenger; exact third-party/model licenses remain gated.'),
+ 'VAST-AI-Research/SkinTokens':('Auto-rigging','Current TokenRig skeleton + skin-weight challenger and UniRig successor; benchmark on Minecraft creature fixtures.'),
+ 'Isabella98Liu/RigAnything':('Auto-rigging','Independent template-free skeleton/skinning oracle for unusual assets.'),
+ 'microsoft/TRELLIS.2':('3D generation','Current high-fidelity image-to-3D/PBR challenger; Minecraftization remains a separate measured stage.'),
+ 'VAST-AI-Research/TripoSG':('3D generation','High-fidelity image/scribble-to-3D challenger with face-budget control.'),
+ 'Tencent-Hunyuan/Hunyuan3D-Part':('Part decomposition','Semantic part segmentation/decomposition proposal stage before editable Minecraft hierarchy.'),
+ 'wgsxm/PartCrafter':('Part generation','Structured multi-part generation challenger for separable creature/prop components.'),
+ 'buaacyw/MeshAnythingV2':('Retopology','Artist-like low-face topology challenger; compare against deterministic remesh/simplification.'),
+ 'MopicMP/gltf-to-minecraft':('Minecraftization','glTF/GLB -> Minecraft cubes/GeckoLib/Bedrock/CPM bridge with animation and atlas handling.'),
+ 'toxicity188/BetterModel':('Model runtime','Bedrock-style Java model benchmark for meshes, Molang, IK, locators, player/armor and synchronization.'),
+ 'tomalbrc/blockbench-import-library':('Model runtime','bbmodel/ajmodel + Molang/effects/variants/locators and efficient virtual-display compatibility reference.'),
+ 'Animated-Java/animated-java':('Animation tooling','Rich Java Blockbench animation semantics; AGPL means adapter/oracle unless distribution deliberately complies.'),
+ 'Engine-Room/Flywheel':('Rendering performance','GPU instancing/shader architecture challenger for high-detail crowds.'),
+ 'FoundryMC/Veil':('Advanced rendering','Optional advanced rendering/tooling challenger; verify exact target compatibility.'),
+ 'zeux/meshoptimizer':('Mesh performance','Offline mesh cache/fetch/overdraw/simplification/LOD preprocessing candidate.'),
+ 'jpcy/xatlas':('UV tooling','Deterministic UV chart/unwrap/atlas candidate for mesh-assisted assets.'),
+ 'vrm-c/vrm-specification':('Secondary motion','SpringBone semantics baseline for hair/vines/tails/cloth plus Enderloom extensions.'),
+ 'xloveee/jiggle-physics':('Secondary motion','Weight-painted soft-region + damped spring reference for optional mesh deformation.'),
+ 'Low-Drag-MC/Photon':('VFX reference','Powerful VFX/editor benchmark; current non-commercial licensing makes source reuse rights-gated.'),
  'unnamed/mocha':('Molang','Parser/evaluator/compiler comparisons with state/timing/thread correctness.'),
  'HiveGamesOSS/Chunker':('Worlds','Staged exact-pair world translation, full field reconciliation and rollback.'),
  'kbinani/je2be-core':('Worlds','Alternative/differential world backend; never a mod-code translator.'),
@@ -509,9 +528,12 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
   pages['Reference-Index']+='\n</details>\n\n'
  pages['Reference-Index']+='## Other documentation and providers\n\n'
  for u in other:pages['Reference-Index']+=f'- [{html.escape(u)}]({u})\n'
+ variant_source=ROOT/'docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md'
+ if variant_source.is_file():
+  pages['Variant-Foundry-and-High-Fidelity-Java-Models']=variant_source.read_text(encoding='utf-8')
  pages['_Sidebar']='## Enderloom\n\n[Home](Home.md)\n\n[Execution checklist](Checklist.md)\n\n'
  for g in groups:pages['_Sidebar']+=f"- [{g['title']}]({g['page']}.md)\n"
- pages['_Sidebar']+='\n[Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)\n\n[Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)\n'
+ pages['_Sidebar']+='\n[Variant Foundry & High-Fidelity Java Models](Variant-Foundry-and-High-Fidelity-Java-Models.md)\n\n[Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)\n\n[Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)\n'
  pages['_Footer']='**Enderloom** - Fast at the loss of nothing. [Checklist](Checklist.md) / [Source map](Source-Map.md) / [Repository]('+REPO+')\n'
  fidelity.augment(ROOT,state,corpus,pages)
  for name,text in pages.items():safe_write(K/(name+'.md'),text)
