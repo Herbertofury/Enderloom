@@ -61,6 +61,14 @@
 
 </details>
 
+<a id="anytop2025-anytop"></a>
+<details>
+<summary>Anytop2025/Anytop (1 cited locations)</summary>
+
+- [https://github.com/Anytop2025/Anytop](https://github.com/Anytop2025/Anytop)
+
+</details>
+
 <a id="apache-maven-resolver"></a>
 <details>
 <summary>apache/maven-resolver (1 cited locations)</summary>
@@ -887,6 +895,22 @@
 
 </details>
 
+<a id="irisshaders-docs"></a>
+<details>
+<summary>IrisShaders/docs (1 cited locations)</summary>
+
+- [https://github.com/IrisShaders/docs](https://github.com/IrisShaders/docs)
+
+</details>
+
+<a id="irisshaders-iris"></a>
+<details>
+<summary>IrisShaders/Iris (1 cited locations)</summary>
+
+- [https://github.com/IrisShaders/Iris](https://github.com/IrisShaders/Iris)
+
+</details>
+
 <a id="isabella98liu-riganything"></a>
 <details>
 <summary>Isabella98Liu/RigAnything (1 cited locations)</summary>
@@ -964,6 +988,14 @@
 <summary>jarettr/intermed (1 cited locations)</summary>
 
 - [https://github.com/jarettr/intermed](https://github.com/jarettr/intermed)
+
+</details>
+
+<a id="jasongzy-make-it-animatable"></a>
+<details>
+<summary>jasongzy/Make-It-Animatable (1 cited locations)</summary>
+
+- [https://github.com/jasongzy/Make-It-Animatable](https://github.com/jasongzy/Make-It-Animatable)
 
 </details>
 
@@ -1207,6 +1239,14 @@
 
 </details>
 
+<a id="mehvahdjukaar-polytone"></a>
+<details>
+<summary>MehVahdJukaar/polytone (1 cited locations)</summary>
+
+- [https://github.com/MehVahdJukaar/polytone](https://github.com/MehVahdJukaar/polytone)
+
+</details>
+
 <a id="meza-stonecraft"></a>
 <details>
 <summary>meza/Stonecraft (1 cited locations)</summary>
@@ -1292,6 +1332,14 @@
 <summary>minecraft-dev/MinecraftDev (1 cited locations)</summary>
 
 - [https://github.com/minecraft-dev/MinecraftDev](https://github.com/minecraft-dev/MinecraftDev)
+
+</details>
+
+<a id="minecraft-library-vanilla-reference-harness"></a>
+<details>
+<summary>minecraft-library/vanilla-reference-harness (1 cited locations)</summary>
+
+- [https://github.com/minecraft-library/vanilla-reference-harness](https://github.com/minecraft-library/vanilla-reference-harness)
 
 </details>
 
@@ -1768,6 +1816,14 @@
 
 </details>
 
+<a id="patbox-polymer"></a>
+<details>
+<summary>Patbox/polymer (1 cited locations)</summary>
+
+- [https://github.com/Patbox/polymer](https://github.com/Patbox/polymer)
+
+</details>
+
 <a id="patchworkmc-patchwork-api"></a>
 <details>
 <summary>PatchworkMC/patchwork-api (1 cited locations)</summary>
@@ -1995,6 +2051,14 @@
 
 </details>
 
+<a id="seed3d-puppeteer"></a>
+<details>
+<summary>Seed3D/Puppeteer (1 cited locations)</summary>
+
+- [https://github.com/Seed3D/Puppeteer](https://github.com/Seed3D/Puppeteer)
+
+</details>
+
 <a id="sfplayer1-matcher"></a>
 <details>
 <summary>sfPlayer1/Matcher (1 cited locations)</summary>
@@ -2152,6 +2216,14 @@
 <summary>stonecutter-versioning/stonecutter (1 cited locations)</summary>
 
 - [https://github.com/stonecutter-versioning/stonecutter](https://github.com/stonecutter-versioning/stonecutter)
+
+</details>
+
+<a id="supermartijn642-fusion"></a>
+<details>
+<summary>SuperMartijn642/Fusion (1 cited locations)</summary>
+
+- [https://github.com/SuperMartijn642/Fusion](https://github.com/SuperMartijn642/Fusion)
 
 </details>
 
@@ -2424,6 +2496,14 @@
 <summary>Vineflower/vineflower (1 cited locations)</summary>
 
 - [https://github.com/Vineflower/vineflower](https://github.com/Vineflower/vineflower)
+
+</details>
+
+<a id="vlongle-articulate-anything"></a>
+<details>
+<summary>vlongle/articulate-anything (1 cited locations)</summary>
+
+- [https://github.com/vlongle/articulate-anything](https://github.com/vlongle/articulate-anything)
 
 </details>
 

@@ -1402,7 +1402,7 @@
 <a id="make-06-details"></a>
 ## MAKE-06 - World, biome, structure and dimension authoring
 
-[Outcome](Checklist.md#make-06) / 47 source-derived details.
+[Outcome](Checklist.md#make-06) / 49 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence (1)</summary>
@@ -1828,10 +1828,34 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0/P1 — third sweep: motion authoring, server-side export, biome/material systems, and visual QA / Rig + motion generation (1)</summary>
+
+<a id="d-dcff7bc319243279c209"></a>
+- [ ] **D-dcff7bc319243279c209** - - Seed3D/Puppeteer — automatic skeleton + skinning followed by video-guided animation. This is a useful challenger beyond static auto-rigging because Enderloom can test whether an ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Seed3D/Puppeteer — automatic skeleton + skinning followed by video-guided animation. This is a useful challenger beyond static auto-rigging because Enderloom can test whether an approved reference clip can become a reusable motion while keeping the Minecraft rig editable. The source repository is Apache-2.0; checkpoint/dataset licenses still require separate verification. - https://github.com/Seed3D/Puppeteer - jasongzy/Make-It-Animatable — efficient animation-ready character authoring; the current project documents an upgraded MIA v2 mesh pipeline with improved joint/weight/pose prediction and Blender integration. Source is MIT. Use as a fast auto-rig/pose challenger beside SkinTokens, RigAnything and Puppeteer rather than assuming one model wins every creature topology. - https://github.com/jasongzy/Make-It-Animatable - vlongle/articulate-anything — automatic articulation from text, images or videos. This is especially relevant for articulated props, mechanical mobs, doors/furniture, wing assemblies and other assets where the main problem is deciding joints/links/axes rather than humanoid skinning. - https://github.com/vlongle/articulate-anything - Anytop2025/Anytop — motion generation/retargeting for arbitrary character topology. Candidate for motion synthesis/inpainting once Enderloom already has a valid rig; do not use it to replace the canonical rig or gameplay state machine. - https://github.com/Anytop2025/Anytop
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0/P1 — third sweep: motion authoring, server-side export, biome/material systems, and visual QA / Rig + motion generation
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 176-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L176-L183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Third-sweep architecture consequences (1)</summary>
+
+<a id="d-947e0bc6050ae6e3db07"></a>
+- [ ] **D-947e0bc6050ae6e3db07** - 1. Motion authoring becomes a separate challenge lane. A model may come from AniGen/SkinTokens/RigAnything/MIA, while motion can come from authored Blockbench clips, approved video...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Motion authoring becomes a separate challenge lane. A model may come from AniGen/SkinTokens/RigAnything/MIA, while motion can come from authored Blockbench clips, approved video guidance, AnyTop-style synthesis or gameplay procedural controllers. 2. Do not conflate server-side compatibility with native-client optimality. Polymer/display-entity backends are excellent export targets, but the native Enderloom client renderer can still use a lower-overhead skeletal path. 3. Biome variation includes atmosphere/material phenotype. BiomeDNA should carry optional colormap, fog/sky/water/particle/sound and PBR/material hints as well as model growths. 4. PBR is capability-negotiated. Preserve rich material data in the IR; emit LabPBR/Iris-compatible assets when available and a visually coherent vanilla fallback when not. 5. Reference-image QA becomes generated and deterministic. Every promoted model backend should be able to emit locked multi-view/state reference captures for regression diffs, not rely only on human screenshots. 6. Animation-generation models never become gameplay authority. Generated motion must be mapped to named Enderloom animation/state contracts, clipped/retimed as needed and validated for hitbox/gameplay event timing.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Third-sweep architecture consequences
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 208-213](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L208-L213)
+
+</details>
+
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 126 source-derived details.
+[Outcome](Checklist.md#make-07) / 128 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2230,6 +2254,24 @@
   - **Full requirement:** Use source only under the exact project&#x27;s license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable just because the runtime source is open.
   - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures
   - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L481-L481)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers (2)</summary>
+
+<a id="d-b81e6f36271d952532f5"></a>
+- [ ] **D-b81e6f36271d952532f5** - The third sweep adds the following required comparison lanes:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L486-L486)
+
+<a id="d-66ecaeced54e7db791f3"></a>
+- [ ] **D-66ecaeced54e7db791f3** - - Generated motion is never allowed to redefine gameplay authority. It maps onto named animation/state contracts and must preserve event/hitbox timing. - BiomeDNA may include atmos...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Generated motion is never allowed to redefine gameplay authority. It maps onto named animation/state contracts and must preserve event/hitbox timing. - BiomeDNA may include atmosphere/material fields in addition to geometry motifs: colormap, fog/sky/water hints, particle/sound phenotype and optional PBR material intent. - HighFidelityModel preserves rich material channels even when the active backend cannot display all of them; exporters choose the richest compatible path and emit an explicit fallback. - Model backend acceptance requires deterministic locked-view/state reference captures suitable for automatic image diffs in addition to live runtime inspection. - Server-side virtual/display backends are export compatibility routes, not automatic replacements for the native client renderer.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 499-503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L499-L503)
 
 </details>
 

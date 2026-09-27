@@ -61,6 +61,15 @@
 | [FiguraMC/figura-client](https://github.com/FiguraMC/figura-client) | Avatar architecture | Thin Minecraft/version integration reference for portable model/avatar logic. |
 | [FiguraMC/figura-molang](https://github.com/FiguraMC/figura-molang) | Expressions | Current Figura Molang-like expression module is a differential parser/evaluator reference. |
 | [AlexModGuy/Citadel](https://github.com/AlexModGuy/Citadel) | Legacy animation reference | Mature hierarchical/default-pose model utilities; reference/fixture rather than preferred modern backend. |
+| [Seed3D/Puppeteer](https://github.com/Seed3D/Puppeteer) | Rig + motion | Automatic rigging plus video-guided animation challenger; map generated motion into canonical gameplay-safe animation contracts. |
+| [jasongzy/Make-It-Animatable](https://github.com/jasongzy/Make-It-Animatable) | Auto-rigging | MIT MIA v2 challenger for joints, weights and pose generation on mesh inputs. |
+| [vlongle/articulate-anything](https://github.com/vlongle/articulate-anything) | Articulation | Joint/link/axis inference challenger for props, machinery and nonstandard articulated assets. |
+| [Anytop2025/Anytop](https://github.com/Anytop2025/Anytop) | Motion generation | Arbitrary-topology motion generation/inpainting after a valid canonical rig exists. |
+| [Patbox/polymer](https://github.com/Patbox/polymer) | Server-side export | Virtual-entity/resource-pack compatibility backend; optional export, not native-client runtime authority. |
+| [MehVahdJukaar/polytone](https://github.com/MehVahdJukaar/polytone) | Biome phenotype | Colormap/biome-effect/resource-pack compatibility reference for modded-biome atmosphere. |
+| [SuperMartijn642/Fusion](https://github.com/SuperMartijn642/Fusion) | Resource models | Additional texture/model-type compatibility lane for generated blocks/items/environments. |
+| [IrisShaders/Iris](https://github.com/IrisShaders/Iris) | PBR/shaders | Shader compatibility and performance lane; preserve rich materials with vanilla fallback. |
+| [minecraft-library/vanilla-reference-harness](https://github.com/minecraft-library/vanilla-reference-harness) | Visual QA | Deterministic real-client reference-render pattern for byte/image-diff regression fixtures. |
 | [unnamed/mocha](https://github.com/unnamed/mocha) | Molang | Parser/evaluator/compiler comparisons with state/timing/thread correctness. |
 | [HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker) | Worlds | Staged exact-pair world translation, full field reconciliation and rollback. |
 | [kbinani/je2be-core](https://github.com/kbinani/je2be-core) | Worlds | Alternative/differential world backend; never a mod-code translator. |
@@ -163,6 +172,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [ibraheemdev/papaya](https://github.com/ibraheemdev/papaya) - [specific cited locations](Reference-Index.md#ibraheemdev-papaya).
 - [in-toto/attestation](https://github.com/in-toto/attestation) - [specific cited locations](Reference-Index.md#in-toto-attestation).
 - [INRIA/spoon](https://github.com/INRIA/spoon) - [specific cited locations](Reference-Index.md#inria-spoon).
+- [IrisShaders/docs](https://github.com/IrisShaders/docs) - [specific cited locations](Reference-Index.md#irisshaders-docs).
 - [itzg/mc-image-helper](https://github.com/itzg/mc-image-helper) - [specific cited locations](Reference-Index.md#itzg-mc-image-helper).
 - [itzg/rcon-cli](https://github.com/itzg/rcon-cli) - [specific cited locations](Reference-Index.md#itzg-rcon-cli).
 - [JakobDev/minecraft-launcher-lib](https://github.com/JakobDev/minecraft-launcher-lib) - [specific cited locations](Reference-Index.md#jakobdev-minecraft-launcher-lib).

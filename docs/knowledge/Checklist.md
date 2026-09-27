@@ -146,14 +146,14 @@
 <a id="make-02"></a>
 - [ ] **MAKE-02 - Safe visual and code round-tripping**
   - **Accept:** Visual properties, source editor, language tooling and semantic representation stay connected; user code/unknown syntax remains recoverable without silently losing build or conversion behavior.
-  - **State:** unverified. **Details:** [76 source blocks](Sources-MAKE.md#make-02); 22 source documents.
+  - **State:** unverified. **Details:** [77 source blocks](Sources-MAKE.md#make-02); 23 source documents.
 
 **[Open 5 detailed checks](Acceptance-MAKE.md#make-03-details)**
 
 <a id="make-03"></a>
 - [ ] **MAKE-03 - Items, blocks and equipment editors**
   - **Accept:** Author materials, states, tools, armor, equipment and inventories with target-aware properties, references and in-game proof.
-  - **State:** unverified. **Details:** [13 source blocks](Sources-MAKE.md#make-03); 7 source documents.
+  - **State:** unverified. **Details:** [14 source blocks](Sources-MAKE.md#make-03); 8 source documents.
 
 **[Open 12 detailed checks](Acceptance-MAKE.md#make-04-details)**
 
@@ -169,19 +169,19 @@
   - **Accept:** Use visual recipes and structured validated data editors, reference navigation, error repair, target schemas and deterministic datagen without dropping unknown fields.
   - **State:** unverified. **Details:** [28 source blocks](Sources-MAKE.md#make-05); 17 source documents.
 
-**[Open 47 detailed checks](Acceptance-MAKE.md#make-06-details)**
+**[Open 49 detailed checks](Acceptance-MAKE.md#make-06-details)**
 
 <a id="make-06"></a>
 - [ ] **MAKE-06 - World, biome, structure and dimension authoring**
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
-  - **State:** unverified. **Details:** [97 source blocks](Sources-MAKE.md#make-06); 19 source documents.
+  - **State:** unverified. **Details:** [104 source blocks](Sources-MAKE.md#make-06); 19 source documents.
 
-**[Open 126 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 128 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [293 source blocks](Sources-MAKE.md#make-07); 31 source documents.
+  - **State:** unverified. **Details:** [302 source blocks](Sources-MAKE.md#make-07); 31 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
@@ -220,7 +220,7 @@
 <a id="port-01"></a>
 - [ ] **PORT-01 - Input and source authority**
   - **Accept:** Identify repositories/folders/source archives/JARs/Bedrock/plugin packs by real identity and lineage; inventory before execution, deduplicate identical imports and retain originals.
-  - **State:** unverified. **Details:** [283 source blocks](Sources-PORT.md#port-01); 32 source documents.
+  - **State:** unverified. **Details:** [284 source blocks](Sources-PORT.md#port-01); 32 source documents.
 
 **[Open 8 detailed checks](Acceptance-PORT.md#port-02-details)**
 
@@ -463,7 +463,7 @@
 <a id="test-04"></a>
 - [ ] **TEST-04 - Full CLI, JSON and MCP parity**
   - **Accept:** Expose every accepted domain command and job/evidence operation headlessly through the same service layer, structured events/errors/cancellation, recordable replay and CI integration.
-  - **State:** unverified. **Details:** [491 source blocks](Sources-TEST.md#test-04); 31 source documents.
+  - **State:** unverified. **Details:** [492 source blocks](Sources-TEST.md#test-04); 31 source documents.
 
 **[Open 61 detailed checks](Acceptance-TEST.md#test-05-details)**
 
@@ -484,7 +484,7 @@
 <a id="test-07"></a>
 - [ ] **TEST-07 - Results and repeatability**
   - **Accept:** Keep baseline/candidate history, current/stale/confidence states, logs/profiles/screens and reproducible actions; targeted invalidation reuses only still-valid proof.
-  - **State:** unverified. **Details:** [24 source blocks](Sources-TEST.md#test-07); 14 source documents.
+  - **State:** unverified. **Details:** [25 source blocks](Sources-TEST.md#test-07); 15 source documents.
 
 **[Open 10 detailed checks](Acceptance-TEST.md#test-08-details)**
 
@@ -756,7 +756,7 @@
 <a id="world-05"></a>
 - [ ] **WORLD-05 - Real server management**
   - **Accept:** Manage/import/install accepted server software, EULA consent, properties/console/RCON/commands/players/backups/processes and explicit maintenance automation through GUI/CLI parity.
-  - **State:** unverified. **Details:** [130 source blocks](Sources-WORLD.md#world-05); 24 source documents.
+  - **State:** unverified. **Details:** [131 source blocks](Sources-WORLD.md#world-05); 25 source documents.
 
 **[Open 83 detailed checks](Acceptance-WORLD.md#world-06-details)**
 
@@ -894,7 +894,7 @@
 <a id="ship-05"></a>
 - [ ] **SHIP-05 - Continuity, convergence and honest status**
   - **Accept:** Preserve IDs/jobs/checkpoints, mutate-test-checkpoint, repair after two unchanged failures via a new route, reopen invalid proof and keep required blocked work incomplete; no status ceremony instead of implementation.
-  - **State:** unverified. **Details:** [63 source blocks](Sources-SHIP.md#ship-05); 25 source documents.
+  - **State:** unverified. **Details:** [64 source blocks](Sources-SHIP.md#ship-05); 26 source documents.
 
 ## Combined release acceptance
 
