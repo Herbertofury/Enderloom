@@ -609,6 +609,8 @@ Build pages from:
 - source/provider/author links;
 - verified runtime captures;
 - model/asset previews;
+- Variant Foundry families, `BiomeDNA` / `DimensionDNA`, palettes, motifs and spawn/runtime selector evidence;
+- high-fidelity model runtime evidence: renderer/backend, rig hierarchy, animation/controller graph, secondary-motion chains, material layers, hitboxes/seats/locators and performance results;
 - user notes.
 
 ## 8.2 Page quality
@@ -623,7 +625,11 @@ Pages can include:
 - “How to obtain”;
 - “Used by / Requires / Unlocks”;
 - “Which mod adds this?”;
-- 3D model viewer when source format permits safe rendering;
+- interactive 3D model viewer when source format permits safe rendering, including optional rig/bone, locator, hitbox and secondary-motion overlays;
+- biome/dimension Variant Atlas for assets with Variant Foundry families, with palette/motif/motion-phenotype/spawn-rule inspection;
+- renderer/backend and compatibility badges for native Java, GeckoLib, AzureLib, CPM/player, Figura, EMF/ETF/CEM and supported server-model import/export lanes;
+- animation/state-controller explorer plus secondary-motion preset/constraint summary;
+- performance benchmark summary that distinguishes near-field full fidelity from distance/culling/physics-LOD behavior;
 - actual runtime screenshots/video evidence where available;
 - tabs/sections within a page where helpful without turning Enderloom itself into tab clutter;
 - spoiler/progression gating;
@@ -664,7 +670,8 @@ Also provide **Can I remove it?** analysis using dependency/content/config/scrip
 - broken-link/unknown-content validation;
 - completeness report;
 - preserve user-authored prose/notes through regeneration;
-- provenance for generated facts.
+- provenance for generated facts;
+- invalidate/regenerate model pages when source model, variant family, animation/controller, secondary-motion graph, renderer backend, target Minecraft version or fresh runtime/performance evidence changes.
 
 ---
 
@@ -1146,6 +1153,7 @@ Add/ensure typed/extensible entities or equivalent domain contracts for:
 - `DataTrace` / `FunctionInvocation` / `WatchValue`;
 - `ProgressionNode` / `ProgressionEdge` / `SoftlockFinding`;
 - `KnowledgePage` / `KnowledgeEdge` / `KnowledgeBuild`;
+- Wiki projections must be able to reference canonical `VariantFamily`, `BiomeDNA`, `DimensionDNA`, `HighFidelityModel`, `SecondaryMotionGraph`, `RuntimeModelCapabilityReport` and model-performance evidence without duplicating those truth stores;
 - `PackMigrationPlan` / `MigrationComponent` / `MigrationFinding`;
 - `LearnedObservation` / `LearnedRule` / `RuleEvidence` / `RuleContradiction` / `RulePromotion`;
 - CLI operation schemas must be generated from or map directly to the same operation/capability registry used by GUI/service.
@@ -1166,6 +1174,7 @@ This product direction is respected only if:
 - Data/Function Debugger can explain state transitions and generate regression scenarios;
 - model/reference reconstruction reaches Minecraft-native runtime proof;
 - Premium Wiki looks and behaves like a real polished knowledge product, not generated README spam;
+- model/entity pages can act as a visual Variant Atlas with interactive high-fidelity Java model, rig/animation/secondary-motion and runtime-performance evidence;
 - whole-pack migration is measured by semantic/playability coverage, not file count;
 - every meaningful operation can be driven through a robust CLI when technically possible;
 - CLI/GUI share domain logic and task/evidence history;
