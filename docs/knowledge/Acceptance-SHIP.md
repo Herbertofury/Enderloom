@@ -103,7 +103,7 @@
 - [ ] **D-b8c811da5087ea3cfa7e** - source reuse, binary redistribution, Marketplace/premium asset, API/dependency and generated-release permission gates.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-002 : 610-610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L610-L610)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-002 : 614-614](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L614-L614)
 
 </details>
 
@@ -114,7 +114,7 @@
 - [ ] **D-253db0ed5ef92bc91ee8** - Maximum Quality / Balanced / Fast Iteration policies affect iteration strategy, never final acceptance quality.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-012 : 627-627](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L627-L627)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-012 : 631-631](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L631-L631)
 
 </details>
 
@@ -870,31 +870,31 @@
 - [ ] **D-dcad42a9b48ebb102898** - all applicable requirements in this file are accepted with evidence;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-001 : 695-695](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L695-L695)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-001 : 700-700](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L700-L700)
 
 <a id="d-0d7c1673b6d221f71432"></a>
 - [ ] **D-0d7c1673b6d221f71432** - all applicable Golden Challenges pass;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-002 : 696-696](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L696-L696)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-002 : 701-701](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L701-L701)
 
 <a id="d-bfc7feaf058c0efe729f"></a>
 - [ ] **D-bfc7feaf058c0efe729f** - REL-001..011 pass;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-003 : 697-697](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L697-L697)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-003 : 702-702](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L702-L702)
 
 <a id="d-8ae8413a9ec8951d09bd"></a>
 - [ ] **D-8ae8413a9ec8951d09bd** - rejected scope DEC-R01..R06 remains absent;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-004 : 698-698](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L698-L698)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-004 : 703-703](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L703-L703)
 
 <a id="d-f00c3491550d4072dba0"></a>
 - [ ] **D-f00c3491550d4072dba0** - no new duplicate requirement/feature island/shadow truth store was introduced during implementation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-005 : 699-699](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L699-L699)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-005 : 704-704](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L704-L704)
 
 </details>
 
@@ -1163,12 +1163,12 @@
 <details>
 <summary>ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md / 15. Definition of done for this spec (1)</summary>
 
-<a id="d-67cd0f506f9b7da82638"></a>
-- [ ] **D-67cd0f506f9b7da82638** - - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evo...
+<a id="d-d408a0bd80097764baa6"></a>
+- [ ] **D-d408a0bd80097764baa6** - - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evo...
   - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evolution; - Hotkeys is a real dedicated top-level workflow; - Black Box can turn “it froze” into a timestamped evidence timeline; - Data/Function Debugger can explain state transitions and generate regression scenarios; - model/reference reconstruction reaches Minecraft-native runtime proof; - Premium Wiki looks and behaves like a real polished knowledge product, not generated README spam; - whole-pack migration is measured by semantic/playability coverage, not file count; - every meaningful operation can be driven through a robust CLI when technically possible; - CLI/GUI share domain logic and task/evidence history; - Evidence Brain learns from verified outcomes while remaining inspectable, scoped, challenge-tested and reversible; - excluded Friend Hosting and Voice/Social proposals are not reintroduced through scope creep.
+  - **Full requirement:** - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evolution; - Hotkeys is a real dedicated top-level workflow; - Black Box can turn “it froze” into a timestamped evidence timeline; - Data/Function Debugger can explain state transitions and generate regression scenarios; - model/reference reconstruction reaches Minecraft-native runtime proof; - Premium Wiki looks and behaves like a real polished knowledge product, not generated README spam; - model/entity pages can act as a visual Variant Atlas with interactive high-fidelity Java model, rig/animation/secondary-motion and runtime-performance evidence; - whole-pack migration is measured by semantic/playability coverage, not file count; - every meaningful operation can be driven through a robust CLI when technically possible; - CLI/GUI share domain logic and task/evidence history; - Evidence Brain learns from verified outcomes while remaining inspectable, scoped, challenge-tested and reversible; - excluded Friend Hosting and Voice/Social proposals are not reintroduced through scope creep.
   - **Binding context:** 15. Definition of done for this spec
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1161-1173](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1161-L1173)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1169-1182](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1169-L1182)
 
 </details>
 
@@ -1240,7 +1240,7 @@
 - [ ] **D-40251c8e95c66760e32a** - one independent challenge pass looks for false success, stale evidence, hidden quality loss, unsafe cleanup, dead UI and scope regressions.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-008 : 684-684](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L684-L684)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-008 : 689-689](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L689-L689)
 
 </details>
 
@@ -1492,43 +1492,43 @@
 - [ ] **D-de458347b8117ca37874** - Do not restate phase-owned functionality here. Final release requires:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 675-675](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L675-L675)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 680-680](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L680-L680)
 
 <a id="d-d24d37f2f907a8d57939"></a>
 - [ ] **D-d24d37f2f907a8d57939** - every applicable phase exit gate green or explicitly blocked by a documented external constraint.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-001 : 677-677](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L677-L677)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-001 : 682-682](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L682-L682)
 
 <a id="d-fbe6fd37322db7b0966c"></a>
 - [ ] **D-fbe6fd37322db7b0966c** - every Golden Challenge applicable to the release green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-002 : 678-678](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L678-L678)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-002 : 683-683](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L683-L683)
 
 <a id="d-f2073299ba4956e981f2"></a>
 - [ ] **D-f2073299ba4956e981f2** - fresh final runnable build/package created after the last implementation mutation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-004 : 680-680](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L680-L680)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-004 : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L685-L685)
 
 <a id="d-94606a59b112e6735b5c"></a>
 - [ ] **D-94606a59b112e6735b5c** - exact known limitations/skipped gates are visible; nothing material is silently waived.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-009 : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L685-L685)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-009 : 690-690](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L690-L690)
 
 <a id="d-d15fed41082bdb226d38"></a>
 - [ ] **D-d15fed41082bdb226d38** - GitHub state and connected Google Drive checkpoint/artifacts are persisted and read-back verified.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-010 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L686-L686)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-010 : 691-691](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L691-L691)
 
 <a id="d-22e061b23291287ddadb"></a>
 - [ ] **D-22e061b23291287ddadb** - this master’s acceptance boxes/evidence references reflect the actual final state.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-011 : 687-687](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L687-L687)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-011 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L692-L692)
 
 </details>
 
@@ -1540,7 +1540,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** &gt; Continue Enderloom from the exact current repository state. Treat docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md as the canonical execution-order authority. Preserve all already-working behavior and accepted decisions. Start at the first incomplete hard dependency, implement rather than merely plan, verify each coherent slice with the strongest applicable evidence, mark only evidence-backed acceptance, checkpoint to GitHub and Drive, and continue automatically. Each requirement has one canonical home: reference IDs instead of duplicating requirements elsewhere. Do not stop because a phase is large, do not ask what comes next when the checklist answers it, do not silently reduce scope or quality, and do not call the project complete until the Golden Challenge Matrix and final release gate pass. If an external blocker is genuinely unavoidable, record the exact blocker/evidence and continue every independent reachable item before ending.
   - **Binding context:** 24. ASTRA FINAL INSTRUCTION
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 705-705](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L705-L705)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 710-710](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L710-L710)
 
 </details>
 

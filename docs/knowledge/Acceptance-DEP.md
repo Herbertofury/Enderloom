@@ -860,7 +860,7 @@
 - [ ] **D-6b32c421bfcb340ad1c3** - command palette, contextual actions, graph backlinks, Copy as CLI, undo/redo, saved layouts, progressive disclosure.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.1 Studio shell
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-002 : 453-453](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L453-L453)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-002 : 454-454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L454-L454)
 
 </details>
 
@@ -1657,7 +1657,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - versioned schema; - explicit dependencies; - retry policy only on transient classes; - resumable steps; - artifact/evidence IDs between steps; - secrets referenced securely, never embedded by default; - dry-run graph; - CI templates; - no arbitrary hidden success scripting.
   - **Binding context:** 9. Performance / Testing becomes the Minecraft Control Plane / 9.6 Declarative workflow runner
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 846-854](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L846-L854)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 853-861](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L853-L861)
 
 </details>
 

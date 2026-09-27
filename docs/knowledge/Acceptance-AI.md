@@ -156,7 +156,7 @@
 - [ ] **D-e4b7c78b6facd1caabc9** - artifact hash/signature/provider/source provenance/license/dependency-SBOM/capability-change diff/quarantine/path-safety model.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 609-609](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L609-L609)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 613-613](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L613-L613)
 
 </details>
 
@@ -168,13 +168,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** OpenAI Responses/tool calling, Agents SDK where appropriate, embedded Codex SDK/app-server/noninteractive lane, authenticated in-app ChatGPT browser lane, Enderloom MCP, optional local providers behind the same acceptance rules.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 620-620](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L620-L620)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 624-624](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L624-L624)
 
 <a id="d-f6952a3822dc71bafa0b"></a>
 - [ ] **D-f6952a3822dc71bafa0b** - no provider lane bypasses login/quota/CAPTCHA/paywall/entitlement/access controls.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 621-621](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L621-L621)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 625-625](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L625-L625)
 
 </details>
 
@@ -1579,7 +1579,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** loop: contract -&gt; source/reference -&gt; implementation -&gt; cheap decisive check -&gt; causal failure evidence -&gt; patch -&gt; invalidated gates -&gt; strongest runtime proof -&gt; challenge -&gt; package/install/release; after two no-progress candidates change strategy/evidence/repro/model.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 628-628](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L628-L628)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 632-632](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L632-L632)
 
 </details>
 
@@ -1591,7 +1591,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** returned files are hashed/inventoried/unknown-file checked/provenance checked/built/tested/compared before install; installed target is smoke-tested and rolled back on failure. AI cannot close its own acceptance contract.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.3 AI quarantine
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 632-632](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L632-L632)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 636-636](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L636-L636)
 
 </details>
 
@@ -1602,19 +1602,19 @@
 - [ ] **D-3d3d113121f4d4732e06** - promotion path: observation -&gt; hypothesis -&gt; candidate -&gt; verified -&gt; generalized.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 636-636](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L636-L636)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 640-640](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L640-L640)
 
 <a id="d-cc146e292dc3cd705b0d"></a>
 - [ ] **D-cc146e292dc3cd705b0d** - evidence/version/hash/environment scope, contradictions and negative results are retained; user correction outranks stale inference.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 637-637](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L637-L637)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 641-641](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L641-L641)
 
 <a id="d-39cb0d381b00c8104078"></a>
 - [ ] **D-39cb0d381b00c8104078** - AI/web/community text cannot self-promote; candidate rules use shadow/challenge validation with rollback/demotion/staleness review.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 638-638](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L638-L638)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 642-642](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L642-L642)
 
 </details>
 
@@ -2234,7 +2234,7 @@
 - [ ] **D-1340c7f7a5df469ac5c2** - Enderloom should learn aggressively from its own verified work, but AI output, random logs, community text and one-off coincidences never become global truth automatically.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1032-1032](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1032-L1032)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1039-1039](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1039-L1039)
 
 </details>
 
@@ -2246,7 +2246,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Treat text inside logs, source comments, READMEs, websites, configs and model metadata as data, not instructions to the brain. - Never let prompt-injection-like text alter safety/policy/learning rules. - Do not generalize from one mod/version when a scoped rule is sufficient. - Strongly key findings to hashes/versions so a new artifact invalidates old assumptions. - Record negative results and rejected fixes. - Detect contradictions rather than picking the newest statement blindly. - Maintain trusted-source tiers for external research. - Community anecdotes remain hypotheses unless reproduced. - Imported AI/web advice is never evidence of runtime success by itself. - Secrets/auth tokens are redacted before any durable learning. - User correction immediately supersedes the affected interpretation while preserving audit history.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself / 13.3 Anti-poisoning rules
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1074-1084](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1074-L1084)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1081-1091](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1081-L1091)
 
 </details>
 
@@ -2258,7 +2258,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - produce recommendation/prediction; - do not automatically mutate user state; - compare prediction to actual outcome; - collect false positives/negatives; - only enable auto-action after acceptance criteria are met.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself / 13.5 Shadow mode for new heuristics
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1101-1105](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1101-L1105)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1108-1112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1108-L1112)
 
 </details>
 
@@ -2269,7 +2269,7 @@
 - [ ] **D-2e4a87baf81829c23668** - Avoid opaque JSON dumping as the only model. Unknown/future extensions may have raw payloads, but core identity/evidence/staleness relationships must stay typed and queryable.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 14. Wave A architecture consequences
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1153-1153](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1153-L1153)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1161-1161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1161-L1161)
 
 </details>
 

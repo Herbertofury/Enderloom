@@ -135,7 +135,7 @@
 <a id="config-02-details"></a>
 ## CONFIG-02 - Config profiles, overlays and repair
 
-[Outcome](Checklist.md#config-02) / 34 source-derived details.
+[Outcome](Checklist.md#config-02) / 37 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -219,13 +219,32 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI / 10.5 Premium Wiki / knowledge (1)</summary>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI / 10.5 Premium Wiki / knowledge (2)</summary>
 
 <a id="d-a162b0e470949c59fee2"></a>
 - [ ] **D-a162b0e470949c59fee2** - history/changelog/provider/source links and optional Patchouli export; generated knowledge remains traceable to canonical evidence.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI / 10.5 Premium Wiki / knowledge
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PG-042 : 444-444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L444-L444)
+
+<a id="d-dc1fce0fc335e4a7387f"></a>
+- [ ] **D-dc1fce0fc335e4a7387f** - model/entity Wiki pages implement the Variant Atlas + high-fidelity model/rig/animation/secondary-motion/runtime-performance projections from docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODE...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** model/entity Wiki pages implement the Variant Atlas + high-fidelity model/rig/animation/secondary-motion/runtime-performance projections from docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md and docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md.
+  - **Binding context:** 10. PHASE G — CONFIG, HOTKEYS, DATA, PROGRESSION, WIKI / 10.5 Premium Wiki / knowledge
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PG-043 : 445-445](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L445-L445)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (1)</summary>
+
+<a id="d-fae80585a4fec9e07784"></a>
+- [ ] **D-fae80585a4fec9e07784** - Scripting/render: KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes, CPM/player and Figura/player-avatar interoperability, Player Animator, EMF/ETF/CEM where a...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Scripting/render: KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes, CPM/player and Figura/player-avatar interoperability, Player Animator, EMF/ETF/CEM where applicable, plus the Enderloom High-Fidelity Skeletal Renderer.
+  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-014 : 580-580](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L580-L580)
 
 </details>
 
@@ -236,7 +255,7 @@
 - [ ] **D-94e25b3756e89d281849** - Config + Hotkey migration: PG-001..011 across a real version/update change.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-11 : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L665-L665)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-11 : 669-669](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L669-L669)
 
 </details>
 
@@ -495,7 +514,19 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Also provide Can I remove it? analysis using dependency/content/config/script/quest/world evidence. A confident removal recommendation requires a dry-run impact analysis and, for important packs, isolated boot/runtime validation. Never infer safe removal from dependency metadata alone.
   - **Binding context:** 8. Premium Gorgeous Wiki / Documentation System / 8.3 “Why is this mod installed?” integration
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 648-648](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L648-L648)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 654-654](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L654-L654)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md / 14. Wave A architecture consequences (1)</summary>
+
+<a id="d-3ed4c78aabeb91d071b9"></a>
+- [ ] **D-3ed4c78aabeb91d071b9** - - StudioProject / StudioDocument / StudioSelection; - ConfigDocument / ConfigKey / ConfigMigration / ConfigProfile; - HotkeyBinding / HotkeyProfile / HotkeyConflict; - IncidentReco...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - StudioProject / StudioDocument / StudioSelection; - ConfigDocument / ConfigKey / ConfigMigration / ConfigProfile; - HotkeyBinding / HotkeyProfile / HotkeyConflict; - IncidentRecording / IncidentMarker / IncidentTimelineEvent; - DataTrace / FunctionInvocation / WatchValue; - ProgressionNode / ProgressionEdge / SoftlockFinding; - KnowledgePage / KnowledgeEdge / KnowledgeBuild; - Wiki projections must be able to reference canonical VariantFamily, BiomeDNA, DimensionDNA, HighFidelityModel, SecondaryMotionGraph, RuntimeModelCapabilityReport and model-performance evidence without duplicating those truth stores; - PackMigrationPlan / MigrationComponent / MigrationFinding; - LearnedObservation / LearnedRule / RuleEvidence / RuleContradiction / RulePromotion; - CLI operation schemas must be generated from or map directly to the same operation/capability registry used by GUI/service.
+  - **Binding context:** 14. Wave A architecture consequences
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1149-1159](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1149-L1159)
 
 </details>
 
@@ -563,7 +594,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** migrate mods/loaders/dependencies/configs/Hotkeys/scripts/quests/datapacks/resource packs/shaders/worlds/worldgen registries/compatibility/performance baselines/server relationships.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.1 Premium whole-pack migration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-001 : 592-592](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L592-L592)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-001 : 596-596](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L596-L596)
 
 </details>
 
@@ -610,7 +641,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - dead/overlapping buttons; - inaccessible controls; - missing textures/fonts; - UI only-crashes; - broken default Hotkeys; - first-run prompts blocking automation; - config generated only after first launch; - missing required resource packs; - old-world migration failures; - regressions in startup/performance.
   - **Binding context:** 10. First-Launch / Update UX Testing inside Performance / Testing
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 897-906](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L897-L906)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 904-913](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L904-L913)
 
 </details>
 
@@ -922,7 +953,7 @@
 - [ ] **D-226319946e99dea2496f** - - enderloom console attach|send|follow - enderloom command run|script|history|complete - enderloom rcon ... - never print stored secrets by default.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Console / commands / RCON
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 772-775](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L772-L775)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 779-782](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L779-L782)
 
 </details>
 
@@ -1109,18 +1140,7 @@
 <a id="config-05-details"></a>
 ## CONFIG-05 - Scripted modpack logic
 
-[Outcome](Checklist.md#config-05) / 5 source-derived details.
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (1)</summary>
-
-<a id="d-6a6f4d2c57130e21f3e3"></a>
-- [ ] **D-6a6f4d2c57130e21f3e3** - Scripting/render: KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-014 : 576-576](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L576-L576)
-
-</details>
+[Outcome](Checklist.md#config-05) / 3 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 8. Scripted Modpack Logic Studio (1)</summary>
@@ -1147,18 +1167,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 420-420](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L420-L420)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md / 14. Wave A architecture consequences (1)</summary>
-
-<a id="d-61891e71471c963c267a"></a>
-- [ ] **D-61891e71471c963c267a** - - StudioProject / StudioDocument / StudioSelection; - ConfigDocument / ConfigKey / ConfigMigration / ConfigProfile; - HotkeyBinding / HotkeyProfile / HotkeyConflict; - IncidentReco...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - StudioProject / StudioDocument / StudioSelection; - ConfigDocument / ConfigKey / ConfigMigration / ConfigProfile; - HotkeyBinding / HotkeyProfile / HotkeyConflict; - IncidentRecording / IncidentMarker / IncidentTimelineEvent; - DataTrace / FunctionInvocation / WatchValue; - ProgressionNode / ProgressionEdge / SoftlockFinding; - KnowledgePage / KnowledgeEdge / KnowledgeBuild; - PackMigrationPlan / MigrationComponent / MigrationFinding; - LearnedObservation / LearnedRule / RuleEvidence / RuleContradiction / RulePromotion; - CLI operation schemas must be generated from or map directly to the same operation/capability registry used by GUI/service.
-  - **Binding context:** 14. Wave A architecture consequences
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1142-1151](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1142-L1151)
 
 </details>
 
@@ -1226,7 +1234,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** feasibility/provider-version map, removed/renamed dependency analysis, semantic config/script migration, world/registry risk, progression/softlock, isolated target instance, runtime/old-world/performance comparison, explicit unresolved gaps and rollback.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.1 Premium whole-pack migration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-002 : 593-593](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L593-L593)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-002 : 597-597](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L597-L597)
 
 </details>
 
@@ -1275,7 +1283,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - explicitly selected by user/pack author; - direct dependency of X; - transitive library/API dependency; - referenced by quest/progression; - referenced by KubeJS/CraftTweaker/datapack/resource pack; - required by another integration/compat module; - server-only/client-only utility; - performance/diagnostic role; - world contains registered content from it; - manually added with no known dependency reason.
   - **Binding context:** 8. Premium Gorgeous Wiki / Documentation System / 8.3 “Why is this mod installed?” integration
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 637-646](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L637-L646)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 643-652](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L643-L652)
 
 </details>
 

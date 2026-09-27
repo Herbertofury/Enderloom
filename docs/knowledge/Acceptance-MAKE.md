@@ -40,13 +40,13 @@
 - [ ] **D-3eab3a322138af67ae22** - Visual layer: geometry/hierarchy/pivots/UV/textures/emissives/variants/transforms/animations/particles/sounds/fonts/HUD.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-010 : 505-505](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L505-L505)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-010 : 507-507](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L507-L507)
 
 <a id="d-d715e980b629620120e6"></a>
 - [ ] **D-d715e980b629620120e6** - Model-runtime layer: hitboxes/seats/held-item bones/locators/nameplate-leash anchors/controller states/per-player sync/root motion when proven.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-011 : 506-506](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L506-L506)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-011 : 508-508](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L508-L508)
 
 </details>
 
@@ -58,7 +58,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** author editable geometry/UV/textures/materials/emissives/variants/rig/animation/secondary motion/animated textures/VFX/SFX/hitboxes/seats/locators with the least-lossy appropriate renderer/runtime.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-011 : 548-548](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L548-L548)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-011 : 550-550](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L550-L550)
 
 </details>
 
@@ -1117,7 +1117,7 @@
 - [ ] **D-fb7c97ffea973457c8a6** - visual gameplay/procedure and AI behavior graphs; command/data/worldgen generation at Misode/MCStacker-grade schema awareness.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-030 : 468-468](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L468-L468)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-030 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L469-L469)
 
 </details>
 
@@ -1241,7 +1241,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** scaffold/build complete target projects with registries, data generation, networking, configs, content, recipes/loot/tags, worldgen, UI, sounds/particles, models/animation, compatibility and scenario tests.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-001 : 480-480](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L480-L480)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-001 : 482-482](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L482-L482)
 
 </details>
 
@@ -1253,7 +1253,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** account for manifest/modules/dependencies, behavior/resource packs, Script API JS/TS, Molang, entity components/groups/events/properties/goals/spawn rules, geometry, animations/controllers/render controllers/attachables, items, blocks/permutations, recipes, loot/trades, particles, sounds, textures/atlases/texture sets, UI/fonts/localization, structures, features/rules, biomes/worldgen/dimensions, commands/functions, experiments/min-engine-version, subpacks; unknown-file target = 0.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.1 Complete Bedrock inventory
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-001 : 522-522](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L522-L522)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-001 : 524-524](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L524-L524)
 
 </details>
 
@@ -1402,7 +1402,7 @@
 <a id="make-06-details"></a>
 ## MAKE-06 - World, biome, structure and dimension authoring
 
-[Outcome](Checklist.md#make-06) / 46 source-derived details.
+[Outcome](Checklist.md#make-06) / 47 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence (1)</summary>
@@ -1417,19 +1417,26 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring (2)</summary>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring (3)</summary>
 
 <a id="d-e35df2c2ef729a92c29d"></a>
 - [ ] **D-e35df2c2ef729a92c29d** - particle/audio/UI/HUD/font/material/PBR/Vibrant-Visuals-aware authoring.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-032 : 470-470](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L470-L470)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-032 : 471-471](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L471-L471)
 
 <a id="d-0e54a95c6ccf2d60da11"></a>
 - [ ] **D-0e54a95c6ccf2d60da11** - runtime registry/recipe/content explorer with owner/source backlinks and museum/QA generation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-033 : 471-471](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L471-L471)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-033 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L472-L472)
+
+<a id="d-df833f533b7aef77ab59"></a>
+- [ ] **D-df833f533b7aef77ab59** - Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a se...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a separate shadow tool.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-035 : 474-474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L474-L474)
 
 </details>
 
@@ -1441,7 +1448,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** classify applicable semantics: inventory/container, wearable/accessory, machine/automation/kinetic/energy/fluid, RPG equipment, food/farming/cooking, entity/pet/mount, worldgen/structure/dimension/portal, magic, quests/progression, guidebook, model/animation, server custom content, Bedrock addon, client rendering, performance patch.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.1 Semantic profile
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-001 : 566-566](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L566-L566)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-001 : 570-570](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L570-L570)
 
 </details>
 
@@ -1824,7 +1831,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 116 source-derived details.
+[Outcome](Checklist.md#make-07) / 120 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1868,12 +1875,24 @@
   - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 240-240](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L240-L240)
 
-<a id="d-5bab9ac566a2b8b04af5"></a>
-- [ ] **D-5bab9ac566a2b8b04af5** - Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/a...
+<a id="d-34c4ba9e63ec0600ecb2"></a>
+- [ ] **D-34c4ba9e63ec0600ecb2** - Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/a...
   - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects.
+  - **Full requirement:** Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects; Variant Foundry and high-fidelity runtime objects defined by docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md and docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md attach to the same canonical graph.
   - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-055 : 247-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L247-L247)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (1)</summary>
+
+<a id="d-461c9d401404019c011a"></a>
+- [ ] **D-461c9d401404019c011a** - high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using pe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using per-bone server-entity hacks.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-014 : 553-553](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L553-L553)
 
 </details>
 
@@ -1885,13 +1904,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** compare silhouette/proportions/landmarks/palette/material/value/texture placement/pose/joints/animation timing/scale/grounding/clipping/culling/hitbox alignment/non-obvious frames/bind-pose reset using deterministic renders plus actual Minecraft.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-020 : 553-553](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L553-L553)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-020 : 557-557](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L557-L557)
 
 <a id="d-0bb5d9050c3ea8acadb0"></a>
 - [ ] **D-0bb5d9050c3ea8acadb0** - no single opaque similarity score can mask a failed fidelity dimension.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-021 : 554-554](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L554-L554)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-021 : 558-558](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L558-L558)
 
 </details>
 
@@ -2809,6 +2828,23 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration (2)</summary>
+
+<a id="d-4d94dddcca6a6610239c"></a>
+- [ ] **D-4d94dddcca6a6610239c** - Variant Foundry output must implement the canonical requirements in:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 362-362](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L362-L362)
+
+<a id="d-f840627dacfe885fcf5e"></a>
+- [ ] **D-f840627dacfe885fcf5e** - The same approved source identity must survive both appearance and motion variation. Region locks apply to secondary-motion generation as well as geometry/texture generation.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 376-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L376-L376)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md / 8. Mixin, access and reflection gates / 8.2 Access rules (1)</summary>
 
 <a id="d-be3deb80de3f269a4cc2"></a>
@@ -2850,6 +2886,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-08 — Implement one data-driven Minecraft x loader support registry
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 197-197](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L197-L197)
+
+</details>
+
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / Variant controls (1)</summary>
+
+<a id="d-a95f73ec6ec8d760fbb1"></a>
+- [ ] **D-a95f73ec6ec8d760fbb1** - Identity-critical regions can be locked so rerolls never destroy the approved face, silhouette, horns, rig or UV regions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / Variant controls
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 178-178](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L178-L178)
 
 </details>
 
@@ -3100,7 +3147,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Java mods; Bukkit/Paper/Velocity plugins; Bedrock behavior/resource/script packs; modpacks; datapacks/resource packs/shaders; server/plugin packs; Blockbench/model projects; worldgen/data; quests/docs; ports/conversions; authorized server and reference reconstruction.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.2 Project contexts
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-010 : 457-457](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L457-L457)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-010 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L458-L458)
 
 </details>
 
@@ -3112,14 +3159,14 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** support authorized single/multi-view art, turnarounds, orthographic/model sheets, sketches/paintovers, item/weapon/armor, blocks/furniture/machines, environment/structure, UI/HUD, VFX, sprite/texture sheets, GIF/video, supplied models/Blockbench and server-delivered reference assets.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.1 Reference intake and authority
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-001 : 542-542](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L542-L542)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-001 : 544-544](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L544-L544)
 
 <a id="d-924bd7d86404928c9555"></a>
 - [ ] **D-924bd7d86404928c9555** - source remains immutable/hash-addressed; classify observed/constrained/inferred/authored/user-approved details; unseen geometry stays inferred; conflicting references remain explic...
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** source remains immutable/hash-addressed; classify observed/constrained/inferred/authored/user-approved details; unseen geometry stays inferred; conflicting references remain explicit; separate shape/texture/motion/gameplay/style authority.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.1 Reference intake and authority
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-002 : 543-543](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L543-L543)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-002 : 545-545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L545-L545)
 
 </details>
 
@@ -3131,13 +3178,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** durable design dossier captures content class, silhouette/proportions/landmarks, palette/materials/texture regions, scale/moving parts, rig/pivots, motion, must-preserve traits, gameplay interpretation, ambiguity and compatibility intent.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-010 : 547-547](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L547-L547)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-010 : 549-549](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L549-L549)
 
 <a id="d-6d774df70ce2cfb7060d"></a>
 - [ ] **D-6d774df70ce2cfb7060d** - concept-implied gameplay becomes canonical only after explicit approval/contract.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-012 : 549-549](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L549-L549)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-012 : 551-551](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L551-L551)
 
 </details>
 
@@ -3149,7 +3196,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** compile requests into AiMinecraftJob + AcceptanceContract for native mod creation, reference/concept work, server conversion, Bedrock conversion, Java ports, repairs, optimization, pack migration, world repair, assets, compatibility and testing.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-010 : 625-625](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L625-L625)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-010 : 629-629](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L629-L629)
 
 </details>
 
@@ -3160,7 +3207,7 @@
 - [ ] **D-e69079247e7b1ed29825** - Concept/reference -&gt; complete mod: Phase L exit.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-08 : 662-662](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L662-L662)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-08 : 666-666](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L666-L666)
 
 </details>
 
@@ -3805,7 +3852,7 @@
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 20 source-derived details.
+[Outcome](Checklist.md#make-11) / 21 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -3815,7 +3862,19 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** semantic coverage/unknowns/rights/dependency closure plus deterministic visual, dedicated-server, native-client, multiplayer/integrated, persistence, gameplay-scenario and performance proof.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-021 : 512-512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L512-L512)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-021 : 514-514](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L514-L514)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (1)</summary>
+
+<a id="d-4432bf4fc4be4a32f6dd"></a>
+- [ ] **D-4432bf4fc4be4a32f6dd** - implement docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation con...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** implement docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation controllers/events and efficient secondary motion.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-013 : 552-552](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L552-L552)
 
 </details>
 

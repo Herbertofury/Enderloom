@@ -43,9 +43,9 @@
     {
       "id": "S-24626601a0",
       "path": "docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
-      "sha256": "d2a5ac5329d28f409fe5a9d3c2482a2b303fd53ee40759ce5bf53b1f2e757601",
-      "bytes": 51391,
-      "lines": 707,
+      "sha256": "2ce02d5ddfd34c48b1f0de813deed9c2f06b86bd3e9b724806a508d3308e12b7",
+      "bytes": 52985,
+      "lines": 712,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
       "source_checked": 0
@@ -273,9 +273,9 @@
     {
       "id": "S-ace9d00dca",
       "path": "docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
-      "sha256": "3affbfd34834cc7f246b63fa2a5937c45bb8a1c176c4ef844c30cc9446673020",
-      "bytes": 43282,
-      "lines": 1173,
+      "sha256": "6f883c603d711c3426ea020fc20846adacc29f904451dfc2c867b039cc4bd5e8",
+      "bytes": 44791,
+      "lines": 1182,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
       "source_checked": 0
@@ -283,9 +283,9 @@
     {
       "id": "S-c4d365cd40",
       "path": "docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
-      "sha256": "868e21f160a63f49ccce5d975fc608dc407eff2bba0ad5550b937b882dfb43e7",
-      "bytes": 15501,
-      "lines": 357,
+      "sha256": "25a78dc005e48a41a4e138e4969847a7036787c8cd4c324610a203d7fd6a0e96",
+      "bytes": 17504,
+      "lines": 390,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
       "source_checked": 0
@@ -509,17 +509,27 @@
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/MC-26.3-APEX-HARDENING-2026-09-22.md",
       "source_checked": 0
+    },
+    {
+      "id": "S-3a3df7e216",
+      "path": "docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
+      "sha256": "cc13f7a5c0911df02c2a1f4690cd742768fd4382e8a9f572ba2ec70a26055b36",
+      "bytes": 7501,
+      "lines": 208,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
+      "source_checked": 0
     }
   ],
   "stats": {
-    "source_files": 51,
-    "source_bytes": 2194507,
-    "source_lines": 44177,
-    "source_blocks": 15499,
-    "unique_blocks": 12583,
+    "source_files": 52,
+    "source_bytes": 2207114,
+    "source_lines": 44432,
+    "source_blocks": 15578,
+    "unique_blocks": 12662,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
-    "source_unchecked": 5474,
+    "source_unchecked": 5479,
     "alias_occurrences": 945
   }
 }

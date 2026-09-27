@@ -29,7 +29,7 @@
 - [ ] **D-11dd0523e60ac836075e** - schematic/blueprint/world-edit workflows inspired by Axiom/WorldEdit/Litematica capabilities where appropriate.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-031 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L469-L469)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-031 : 470-470](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L470-L470)
 
 </details>
 
@@ -41,7 +41,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** snapshot/version deltas/selective restore/NBT safe-copy editing/seed recovery/dimension-registry repair/recreate-open doctor/broken entity-BE isolation/trim/pregen/retrogen/seed-worldgen ownership/performance.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.2 World tooling
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-010 : 597-597](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L597-L597)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-010 : 601-601](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L601-L601)
 
 </details>
 
@@ -816,7 +816,7 @@
 <a id="world-02-details"></a>
 ## WORLD-02 - Backups, recovery and Forever Worlds
 
-[Outcome](Checklist.md#world-02) / 32 source-derived details.
+[Outcome](Checklist.md#world-02) / 33 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 10. World Recovery / Recreation Doctor (1)</summary>
@@ -1145,6 +1145,18 @@
 
 </details>
 
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / What it does (1)</summary>
+
+<a id="d-715a3a0a13f0aba5dfb1"></a>
+- [ ] **D-715a3a0a13f0aba5dfb1** - - every vanilla biome supported by the target version; - all biomes in a selected dimension; - all biomes discovered in an installed modpack; - custom/private datapack or mod biome...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - every vanilla biome supported by the target version; - all biomes in a selected dimension; - all biomes discovered in an installed modpack; - custom/private datapack or mod biomes Enderloom has never seen before; - curated popular dimensions such as Aether, Twilight Forest, Bumblezone, Deeper and Darker/Otherside, Blue Skies, Undergarden, Eternal Starlight, Tropicraft, Dimensional Doors, Ad Astra worlds and Voidscape; - official upcoming/experimental content when trustworthy registry/assets exist.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / What it does
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 11-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L11-L16)
+
+</details>
+
 <a id="world-03-details"></a>
 ## WORLD-03 - Whole-modpack migration
 
@@ -1179,7 +1191,7 @@
 - [ ] **D-0d916fbcdc4c94b6a8bc** - Whole-pack migration: PN-001..002 plus applicable world/compatibility/runtime gates.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-09 : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L663-L663)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-09 : 667-667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L667-L667)
 
 </details>
 
@@ -1190,7 +1202,7 @@
 - [ ] **D-9015344c34132bbd3edb** - format/lint/type/unit/integration/migration/schema/parity tests green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-003 : 679-679](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L679-L679)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-003 : 684-684](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L684-L684)
 
 </details>
 
@@ -1379,7 +1391,7 @@
 - [ ] **D-3b345ebcb1a318bbfd9e** - A migration report must show:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 11. Premium Whole-Modpack Migration Engine / 11.5 Acceptance
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 984-984](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L984-L984)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 991-991](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L991-L991)
 
 </details>
 
@@ -2058,7 +2070,7 @@
 - [ ] **D-40ecd9d0d34d61706415** - Spellbrook-class authorized server -&gt; native mod: Phase J exit.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-06 : 660-660](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L660-L660)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-06 : 664-664](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L664-L664)
 
 </details>
 
@@ -2842,7 +2854,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Gameplay layer: AI/targeting/triggers/skills/projectiles/damage/effects/cooldowns/drops/recipes/items/armor/blocks/furniture/pets/inventories/GUIs/NPCs/dialogue/quests/content-critical economy/structures/spawns/worldgen/persistence/network sync.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-012 : 507-507](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L507-L507)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-012 : 509-509](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L509-L509)
 
 </details>
 
@@ -2853,19 +2865,19 @@
 - [ ] **D-2c8c5b16c1f8d88d4539** - Bukkit/Spigot/Paper/Purpur/Folia/Velocity/Bungee legacy contexts, plugin packs, RCON/console/players/whitelist/server performance; Folia validation must be region-thread truthful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-020 : 601-601](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L601-L601)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-020 : 605-605](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L605-L605)
 
 <a id="d-ee8b4998c6a0789a06b2"></a>
 - [ ] **D-ee8b4998c6a0789a06b2** - Geyser/Floodgate, ViaVersion-family, lawful packet inspection, compatibility/latency/disconnect/network-chaos scenarios and protocol-bot load testing.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-021 : 602-602](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L602-L602)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-021 : 606-606](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L606-L606)
 
 <a id="d-75d944d4c35062d60ae6"></a>
 - [ ] **D-75d944d4c35062d60ae6** - legitimate SSH/SFTP/provider API remote ops use explicit permissions and the same transaction/audit model; DEC-R01 remains enforced.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-022 : 603-603](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L603-L603)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-022 : 607-607](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L607-L607)
 
 </details>
 

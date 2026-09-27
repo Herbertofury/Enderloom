@@ -3524,7 +3524,7 @@
 - [ ] **D-461cd04d2fe3fb456b1c** - Secure update: PO-001..004 with canary/smoke/rollback.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-14 : 668-668](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L668-L668)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-14 : 672-672](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L672-L672)
 
 </details>
 
@@ -4926,7 +4926,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Wave A is still the exact next implementation action. It must not attempt to build all features in this document immediately, but it must avoid architecture choices that make them separate databases later.
   - **Binding context:** 14. Wave A architecture consequences
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1138-1138](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1138-L1138)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1145-1145](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1145-L1145)
 
 </details>
 

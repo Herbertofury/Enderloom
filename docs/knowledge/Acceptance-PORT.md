@@ -239,7 +239,7 @@
 - [ ] **D-b19495b17eff117b40c0** - generated source/assets remain editable with source lineage and no silent regeneration overwrite.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.2 Project contexts
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-011 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L458-L458)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-011 : 459-459](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L459-L459)
 
 </details>
 
@@ -250,7 +250,7 @@
 - [ ] **D-0f2cca936f6ec8f81f91** - language intelligence, diagnostics, tasks, terminal, Git, source/dependency navigation and runtime evidence links.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-020 : 462-462](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L462-L462)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-020 : 463-463](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L463-L463)
 
 </details>
 
@@ -1354,7 +1354,7 @@
 - [ ] **D-d94f47647056f57e1879** - target Forge/NeoForge/Fabric/Quilt where applicable, including optional multiloader workspaces.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-011 : 527-527](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L527-L527)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-011 : 529-529](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L529-L529)
 
 </details>
 
@@ -2654,7 +2654,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence normalization.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 532-532](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L532-L532)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 534-534](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L534-L534)
 
 </details>
 
@@ -2665,7 +2665,7 @@
 - [ ] **D-93e03b637781d7c1cade** - specialist roles cover architecture/API, Java, Bedrock, visual assets, mappings/Mixin, tests, performance, compatibility, world/save, security/release, Wiki/docs.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-011 : 626-626](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L626-L626)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-011 : 630-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L630-L630)
 
 </details>
 
@@ -3300,7 +3300,7 @@
 - [ ] **D-3340e1bd0d1dc6364147** - when source can run, paired source-target scenarios compare gameplay/state/visual/audio/persistence/multiplayer semantics.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-012 : 528-528](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L528-L528)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-012 : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L530-L530)
 
 </details>
 
@@ -3311,7 +3311,7 @@
 - [ ] **D-5703d5f2131daa990c64** - source and artifact hashes/sizes/build commands recorded.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-005 : 681-681](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L681-L681)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-005 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L686-L686)
 
 </details>
 
@@ -4301,7 +4301,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - direct compatible update; - loader-native replacement; - source port required; - semantic conversion required; - removed because genuinely obsolete and equivalent behavior now exists elsewhere only with explicit evidence/user plan; - blocker; - unknown.
   - **Binding context:** 11. Premium Whole-Modpack Migration Engine / 11.2 Migration plan
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 950-956](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L950-L956)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 957-963](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L957-L963)
 
 </details>
 
@@ -4553,7 +4553,7 @@
 - [ ] **D-5724e0ca435febb505e9** - Mojmap/Yarn/Intermediary/Parchment/SRG/MCP namespace work; Mixin/AT/AW/reflection/ASM/invokedynamic inspection; production remap/linkage proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-021 : 463-463](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L463-L463)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-021 : 464-464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L464-L464)
 
 </details>
 
@@ -5223,7 +5223,7 @@
 - [ ] **D-345bcbf1d828eef099dc** - optional future-vanilla parity layer is explicit/default-off until opted in and certified separately.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-012 : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L487-L487)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-012 : 489-489](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L489-L489)
 
 </details>
 
@@ -5234,13 +5234,13 @@
 - [ ] **D-19667f6d9f89737bf1c0** - preserve original; inspect metadata/dependencies and decompile/remap when lawful; attribute source/Mixin/ASM/reflection issues.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.3 Binary/JAR repair
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-020 : 491-491](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L491-L491)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-020 : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L493-L493)
 
 <a id="d-89abf65617cd6ccef953"></a>
 - [ ] **D-89abf65617cd6ccef953** - narrow patch, rebuild/repackage/remap, production JVM linkage, binary provenance/diff, runtime proof, rollback and license-aware redistribution.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.3 Binary/JAR repair
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-021 : 492-492](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L492-L492)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-021 : 494-494](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L494-L494)
 
 </details>
 
@@ -5776,7 +5776,7 @@
 - [ ] **D-1c1e0c79705a7d53768e** - Bedrock backpack-class addon -&gt; Forge 1.20.1: Phase K exit plus PM-010/011 and any other semantically applicable contracts.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-07 : 661-661](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L661-L661)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-07 : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L665-L665)
 
 </details>
 
@@ -6362,7 +6362,7 @@
 - [ ] **D-f5578251f38ed8554e7a** - legacy Minecraft/ForgeGradle/loader/mapping/resource/data/Bedrock-schema archaeology without deleting unsupported semantics just to compile.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-022 : 464-464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L464-L464)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-022 : 465-465](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L465-L465)
 
 </details>
 
@@ -6373,7 +6373,7 @@
 - [ ] **D-6267d4df81cc26efac66** - base native port first; registry/event/network/render/data/Mixin/AT/AW/config/save migration; no silent stubs/deletion.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-011 : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L486-L486)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-011 : 488-488](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L488-L488)
 
 </details>
 
@@ -6384,7 +6384,7 @@
 - [ ] **D-32ab507fd9eba1ff6984** - Java port/backport: PI-010..012 plus Phase M applicable compatibility contracts.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-05 : 659-659](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L659-L659)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-05 : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L663-L663)
 
 </details>
 
@@ -7376,7 +7376,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** map Bedrock components/state/events/Molang/animation/render/item/block/loot/recipe/trade/script/worldgen/UI semantics into versioned IR then target-native Java logic; every unmapped semantic is explicit.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-010 : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L526-L526)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-010 : 528-528](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L528-L528)
 
 </details>
 
@@ -8035,7 +8035,7 @@
 - [ ] **D-25caa2e6c36f7692a02f** - package/remap and prove strongest applicable dedicated-server/client/integrated-server/persistence behavior.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-002 : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L481-L481)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-002 : 483-483](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L483-L483)
 
 </details>
 
@@ -8046,7 +8046,7 @@
 - [ ] **D-4c837994e205dc429d39** - exact source lineage, target MC/loader/Java, API/mapping inventory, vanilla-feature dependency closure, complete mod-owned content inventory.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-010 : 485-485](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L485-L485)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-010 : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L487-L487)
 
 </details>
 
@@ -8057,7 +8057,7 @@
 - [ ] **D-2f4dbe57900268e67bb8** - requested mod output is a real target-loader Java mod; resource pack/datapack/script wrappers cannot substitute for requested native semantics.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-020 : 511-511](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L511-L511)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-020 : 513-513](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L513-L513)
 
 </details>
 
@@ -8818,7 +8818,7 @@
 - [ ] **D-35ee9b418f3b7d59086b** - Java&lt;-&gt;Bedrock resource-pack conversion and replay/capture/showcase based on actual runtime evidence.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-034 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L472-L472)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-034 : 473-473](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L473-L473)
 
 </details>
 

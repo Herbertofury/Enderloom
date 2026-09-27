@@ -3890,7 +3890,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** accept user-supplied archives, legitimately delivered resource packs, screenshots/video/runtime observations, author-supplied models and plugin/custom-content configs without bypassing protected access.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.1 Lawful intake and ecosystem inventory
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-001 : 500-500](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L500-L500)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-001 : 502-502](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L502-L502)
 
 </details>
 
@@ -3901,7 +3901,7 @@
 - [ ] **D-ef6e1b01227fd2ddedbf** - actual built product exercised; strongest applicable Minecraft runtime evidence retained.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-006 : 682-682](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L682-L682)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-006 : 687-687](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L687-L687)
 
 </details>
 
@@ -5293,7 +5293,7 @@
 - [ ] **D-2d6c7d6dd4fd5df09187** - Server/proxy/plugin scenario: PN-020..022 with CLI/service evidence and truthful runtime semantics.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-13 : 667-667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L667-L667)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-13 : 671-671](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L671-L671)
 
 </details>
 
@@ -7083,7 +7083,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 60 source-derived details.
+[Outcome](Checklist.md#test-05) / 61 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -7131,19 +7131,26 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 21. GOLDEN CHALLENGE MATRIX (2)</summary>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 21. GOLDEN CHALLENGE MATRIX (3)</summary>
 
 <a id="d-35f949d67694af276cf9"></a>
 - [ ] **D-35f949d67694af276cf9** - Broken JAR: PI-020..021 plus applicable runtime proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-04 : 658-658](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L658-L658)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-04 : 662-662](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L662-L662)
 
 <a id="d-4b358643c74f1ed9046e"></a>
 - [ ] **D-4b358643c74f1ed9046e** - World recovery: PN-010 on a broken copied world with reopen/restart proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-10 : 664-664](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L664-L664)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-10 : 668-668](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L668-L668)
+
+<a id="d-cecb572e8cbc054ea886"></a>
+- [ ] **D-cecb572e8cbc054ea886** - Bloom &amp; Boom Variant Foundry: generate and native-test a biome family with full-fidelity Java models, distinct motion phenotypes, reroll/lock behavior, Wiki Variant Atlas proje...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Bloom &amp; Boom Variant Foundry: generate and native-test a biome family with full-fidelity Java models, distinct motion phenotypes, reroll/lock behavior, Wiki Variant Atlas projection and crowd/performance proof under PL-013..014 + PG-043.
+  - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-16 : 674-674](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L674-L674)
 
 </details>
 
@@ -7561,7 +7568,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - PortableMC-like launch knows the exact mod/config/world evidence graph. - Ferium/packwiz-like updates automatically invalidate/re-run affected tests. - mcman-like server changes feed the same config/provenance system. - HeadlessMC-like testing can escalate to native rendered-client proof when necessary. - MCC/protocol-bot runs are marked as protocol-only evidence, never visual proof. - MCA-style world operations are transactional and tied to snapshots/rollback. - Chunky-like pregeneration records measured performance/storage evidence. - spark/JFR/heap/render/incident captures attach directly to culprit projects and Repair Jobs. - Creator Tools-like Bedrock validation/deployment feeds the same Studio/CLI/test history.
   - **Binding context:** 9. Performance / Testing becomes the Minecraft Control Plane / 9.7 Why Enderloom should be better than the current tools
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 860-868](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L860-L868)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 867-875](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L867-L875)
 
 </details>
 

@@ -221,7 +221,7 @@
 - [ ] **D-109260793cf93924189c** - Canonical installed mod: Phase B exit.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-01 : 655-655](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L655-L655)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-01 : 659-659](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L659-L659)
 
 </details>
 
@@ -400,13 +400,13 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - direct user/author choice; - required dependency chain; - optional integration actively used by another installed project; - script/quest/datapack/resource reference; - config reference; - world registry/content footprint; - server/client role; - performance/compatibility purpose; - tool/developer/test-only role; - unknown/manual artifact.
   - **Binding context:** 12. “Why is this installed?” as a first-class graph question
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1005-1014](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1005-L1014)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1012-1021](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1012-L1021)
 
 <a id="d-735b3b7d0cd9c59100dd"></a>
 - [ ] **D-735b3b7d0cd9c59100dd** - Can I remove it? must perform an impact plan:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 12. “Why is this installed?” as a first-class graph question
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1016-1016](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1016-L1016)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1023-1023](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1023-L1023)
 
 </details>
 
@@ -422,25 +422,25 @@
 - [ ] **D-3a7534b37fe35136ef39** - Storage/equipment: Sophisticated Backpacks/Core/Storage, Curios, Trinkets/Accessories-family.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-010 : 572-572](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L572-L572)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-010 : 576-576](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L576-L576)
 
 <a id="d-0a989930f82b488e6ae3"></a>
 - [ ] **D-0a989930f82b488e6ae3** - Recipe/info: JEI, EMI, REI, Jade/WTHIT-style overlays.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-011 : 573-573](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L573-L573)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-011 : 577-577](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L577-L577)
 
 <a id="d-352ee439411342c95fcc"></a>
 - [ ] **D-352ee439411342c95fcc** - Engineering: Create, Registrate/Ponder/Flywheel where appropriate; loader-standard item/fluid/energy APIs; AE2, Refined Storage, Mekanism/transport when meaningful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-012 : 574-574](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L574-L574)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-012 : 578-578](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L578-L578)
 
 <a id="d-daf9678a2dad14ce0201"></a>
 - [ ] **D-daf9678a2dad14ce0201** - RPG/content: Apotheosis/Apothic-Curios-style affix/category/socket paths, Farmer’s Delight, Patchouli, FTB Quests where meaningful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-013 : 575-575](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L575-L575)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-013 : 579-579](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L579-L579)
 
 </details>
 
@@ -452,25 +452,25 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Container/accessory: equip, quick-move, nested safety, handler insertion/extraction, automation, filters/sorting, death/drop, state preservation, save/reload, multiplayer, no dupes/loss.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-020 : 581-581](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L581-L581)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-020 : 585-585](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L585-L585)
 
 <a id="d-1dcb9075da52136a3b73"></a>
 - [ ] **D-1dcb9075da52136a3b73** - Machinery: processing, sided automation, speed/stress/rotation where relevant, contraptions, render, chunk persistence, multiplayer, Ponder when supplied.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-021 : 582-582](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L582-L582)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-021 : 586-586](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L586-L586)
 
 <a id="d-1ac1344ca3876cd493c3"></a>
 - [ ] **D-1ac1344ca3876cd493c3** - RPG: categories/attributes/affixes/sockets/accessory combination/persistence/provider-present-absent lanes.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-022 : 583-583](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L583-L583)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-022 : 587-587](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L587-L587)
 
 <a id="d-f19b6de9b3cb7ef5e346"></a>
 - [ ] **D-f19b6de9b3cb7ef5e346** - when a contract is missing, Enderloom/AI may draft one from current public API/docs/source/observed behavior, but runtime evidence decides pass/fail.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-023 : 584-584](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L584-L584)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-023 : 588-588](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L588-L588)
 
 </details>
 
@@ -603,7 +603,7 @@
 - [ ] **D-7d881e49951f103f8f1f** - Render stack: Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-015 : 577-577](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L577-L577)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-015 : 581-581](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L581-L581)
 
 </details>
 
@@ -1270,7 +1270,7 @@
 - [ ] **D-f4fc4f91cf3030098a13** - inventory plugin/extension descriptors without executing untrusted JARs; resolve families/aliases/dependencies/config/source/resource packs; triage unknown plugins explicitly.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.1 Lawful intake and ecosystem inventory
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-002 : 501-501](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L501-L501)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-002 : 503-503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L503-L503)
 
 </details>
 

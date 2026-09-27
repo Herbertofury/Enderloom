@@ -1557,7 +1557,7 @@
 <a id="perf-04-details"></a>
 ## PERF-04 - Frame-time and GPU lab
 
-[Outcome](Checklist.md#perf-04) / 80 source-derived details.
+[Outcome](Checklist.md#perf-04) / 81 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2120,6 +2120,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. Premium Performance Lab — evidence everywhere
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 745-745](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L745-L745)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration (1)</summary>
+
+<a id="d-98acf3a876c0a244656e"></a>
+- [ ] **D-98acf3a876c0a244656e** - Performance acceptance is dual: full approved near-field fidelity and no perceptible frame-time/TPS regression at the configured normal encounter density. Do not claim literal zero...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Performance acceptance is dual: full approved near-field fidelity and no perceptible frame-time/TPS regression at the configured normal encounter density. Do not claim literal zero computation cost; meet the user-visible no-regression goal through culling, pose caches, sleeping chains, distance/observability-aware physics LOD, render interpolation, batching and other proven optimizations.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 380-380](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L380-L380)
 
 </details>
 
@@ -3431,7 +3443,7 @@
 - [ ] **D-1b45742441514e0dabb0** - signed/verified update metadata, canary/staged update, pre-update snapshot, compatibility/performance smoke and automatic rollback on required-gate failure.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-004 : 612-612](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L612-L612)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-004 : 616-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L616-L616)
 
 </details>
 

@@ -4,22 +4,22 @@
 
 > The actual tasks and binding clauses from the specifications, not just an index of headings.
 
-**5,709 source-task occurrences**, **6,628 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
+**5,714 source-task occurrences**, **6,638 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
 
 | Workstream | Detailed requirements |
 | :--- | ---: |
 | [Complete Advent of Ascension](Acceptance-AOA.md) | 554 |
 | [Beautiful unified studio](Acceptance-UX.md) | 409 |
-| [Authoring and real assets](Acceptance-MAKE.md) | 423 |
+| [Authoring and real assets](Acceptance-MAKE.md) | 429 |
 | [Universal conversion engine](Acceptance-PORT.md) | 965 |
 | [Dependencies and shared operations](Acceptance-DEP.md) | 381 |
 | [Repair and forensics](Acceptance-FIX.md) | 264 |
-| [Native testing and control plane](Acceptance-TEST.md) | 966 |
-| [Performance without loss](Acceptance-PERF.md) | 380 |
+| [Native testing and control plane](Acceptance-TEST.md) | 967 |
+| [Performance without loss](Acceptance-PERF.md) | 381 |
 | [Discovery, favorites and content](Acceptance-LIB.md) | 812 |
 | [Launcher, accounts and instances](Acceptance-PLAY.md) | 260 |
-| [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 130 |
-| [Worlds, servers and migration](Acceptance-WORLD.md) | 379 |
+| [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 131 |
+| [Worlds, servers and migration](Acceptance-WORLD.md) | 380 |
 | [AI operator and evidence brain](Acceptance-AI.md) | 311 |
 | [Knowledge and compatibility](Acceptance-KNOW.md) | 144 |
 | [Security, preservation and release](Acceptance-SHIP.md) | 250 |
