@@ -156,7 +156,7 @@
 - [ ] **D-e4b7c78b6facd1caabc9** - artifact hash/signature/provider/source provenance/license/dependency-SBOM/capability-change diff/quarantine/path-safety model.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 613-613](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L613-L613)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 615-615](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L615-L615)
 
 </details>
 
@@ -168,13 +168,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** OpenAI Responses/tool calling, Agents SDK where appropriate, embedded Codex SDK/app-server/noninteractive lane, authenticated in-app ChatGPT browser lane, Enderloom MCP, optional local providers behind the same acceptance rules.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 624-624](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L624-L624)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 626-626](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L626-L626)
 
 <a id="d-f6952a3822dc71bafa0b"></a>
 - [ ] **D-f6952a3822dc71bafa0b** - no provider lane bypasses login/quota/CAPTCHA/paywall/entitlement/access controls.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 625-625](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L625-L625)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 627-627](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L627-L627)
 
 </details>
 
@@ -1579,7 +1579,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** loop: contract -&gt; source/reference -&gt; implementation -&gt; cheap decisive check -&gt; causal failure evidence -&gt; patch -&gt; invalidated gates -&gt; strongest runtime proof -&gt; challenge -&gt; package/install/release; after two no-progress candidates change strategy/evidence/repro/model.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 632-632](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L632-L632)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 634-634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L634-L634)
 
 </details>
 
@@ -1591,7 +1591,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** returned files are hashed/inventoried/unknown-file checked/provenance checked/built/tested/compared before install; installed target is smoke-tested and rolled back on failure. AI cannot close its own acceptance contract.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.3 AI quarantine
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 636-636](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L636-L636)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 638-638](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L638-L638)
 
 </details>
 
@@ -1602,19 +1602,19 @@
 - [ ] **D-3d3d113121f4d4732e06** - promotion path: observation -&gt; hypothesis -&gt; candidate -&gt; verified -&gt; generalized.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 640-640](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L640-L640)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 642-642](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L642-L642)
 
 <a id="d-cc146e292dc3cd705b0d"></a>
 - [ ] **D-cc146e292dc3cd705b0d** - evidence/version/hash/environment scope, contradictions and negative results are retained; user correction outranks stale inference.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 641-641](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L641-L641)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 643-643](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L643-L643)
 
 <a id="d-39cb0d381b00c8104078"></a>
 - [ ] **D-39cb0d381b00c8104078** - AI/web/community text cannot self-promote; candidate rules use shadow/challenge validation with rollback/demotion/staleness review.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 642-642](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L642-L642)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 644-644](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L644-L644)
 
 </details>
 

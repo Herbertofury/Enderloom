@@ -169,19 +169,19 @@
   - **Accept:** Use visual recipes and structured validated data editors, reference navigation, error repair, target schemas and deterministic datagen without dropping unknown fields.
   - **State:** unverified. **Details:** [28 source blocks](Sources-MAKE.md#make-05); 17 source documents.
 
-**[Open 49 detailed checks](Acceptance-MAKE.md#make-06-details)**
+**[Open 51 detailed checks](Acceptance-MAKE.md#make-06-details)**
 
 <a id="make-06"></a>
 - [ ] **MAKE-06 - World, biome, structure and dimension authoring**
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
-  - **State:** unverified. **Details:** [104 source blocks](Sources-MAKE.md#make-06); 19 source documents.
+  - **State:** unverified. **Details:** [106 source blocks](Sources-MAKE.md#make-06); 19 source documents.
 
-**[Open 129 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 132 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [309 source blocks](Sources-MAKE.md#make-07); 31 source documents.
+  - **State:** unverified. **Details:** [318 source blocks](Sources-MAKE.md#make-07); 31 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
@@ -190,12 +190,12 @@
   - **Accept:** Timeline/scrubbing, easing/interpolation, expressions/scopes, locators, sounds/particles/custom tracks and real audio playback preserve behavior, timing and thread isolation.
   - **State:** unverified. **Details:** [34 source blocks](Sources-MAKE.md#make-08); 14 source documents.
 
-**[Open 48 detailed checks](Acceptance-MAKE.md#make-09-details)**
+**[Open 49 detailed checks](Acceptance-MAKE.md#make-09-details)**
 
 <a id="make-09"></a>
 - [ ] **MAKE-09 - Reference and concept reconstruction**
   - **Accept:** Lawfully ingest images/GIFs/models/server resources, distinguish observed/inferred/authored facts, reconstruct from multiple views/times, preserve intended Minecraft style and verify native visuals.
-  - **State:** unverified. **Details:** [128 source blocks](Sources-MAKE.md#make-09); 20 source documents.
+  - **State:** unverified. **Details:** [129 source blocks](Sources-MAKE.md#make-09); 20 source documents.
 
 **[Open 29 detailed checks](Acceptance-MAKE.md#make-10-details)**
 
@@ -209,7 +209,7 @@
 <a id="make-11"></a>
 - [ ] **MAKE-11 - Real preview and native comparison**
   - **Accept:** Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
-  - **State:** unverified. **Details:** [43 source blocks](Sources-MAKE.md#make-11); 22 source documents.
+  - **State:** unverified. **Details:** [45 source blocks](Sources-MAKE.md#make-11); 22 source documents.
 
 ## Universal conversion engine
 
@@ -311,7 +311,7 @@
 <a id="port-14"></a>
 - [ ] **PORT-14 - Ecosystem backend integration**
   - **Accept:** Production-wire selected researched tools or stronger proven equivalents; retain attribution and project-specific permissions, execute comparison fixtures and record exact versions/capabilities/dispositions.
-  - **State:** unverified. **Details:** [19 source blocks](Sources-PORT.md#port-14); 6 source documents.
+  - **State:** unverified. **Details:** [22 source blocks](Sources-PORT.md#port-14); 6 source documents.
 
 ## Dependencies and shared operations
 
@@ -442,7 +442,7 @@
 <a id="test-01"></a>
 - [ ] **TEST-01 - Deterministic test sandbox**
   - **Accept:** Clone/snapshot only into Enderloom-owned test space, never benchmark live saves; fingerprint full mods/config/world/scenario/Java/loader/hardware conditions.
-  - **State:** unverified. **Details:** [624 source blocks](Sources-TEST.md#test-01); 31 source documents.
+  - **State:** unverified. **Details:** [625 source blocks](Sources-TEST.md#test-01); 32 source documents.
 
 **[Open 93 detailed checks](Acceptance-TEST.md#test-02-details)**
 
@@ -827,7 +827,7 @@
 <a id="know-01"></a>
 - [ ] **KNOW-01 - Premium in-app Wiki**
   - **Accept:** Build source-grounded project/mod documentation with real media, diagrams, config/hotkey/recipe/progression/evidence links, exports and useful maintenance; this is separate from the GitHub Wiki documenting development.
-  - **State:** unverified. **Details:** [63 source blocks](Sources-KNOW.md#know-01); 21 source documents.
+  - **State:** unverified. **Details:** [64 source blocks](Sources-KNOW.md#know-01); 21 source documents.
 
 **[Open 23 detailed checks](Acceptance-KNOW.md#know-02-details)**
 

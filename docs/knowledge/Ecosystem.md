@@ -70,6 +70,10 @@
 | [SuperMartijn642/Fusion](https://github.com/SuperMartijn642/Fusion) | Resource models | Additional texture/model-type compatibility lane for generated blocks/items/environments. |
 | [IrisShaders/Iris](https://github.com/IrisShaders/Iris) | PBR/shaders | Shader compatibility and performance lane; preserve rich materials with vanilla fallback. |
 | [minecraft-library/vanilla-reference-harness](https://github.com/minecraft-library/vanilla-reference-harness) | Visual QA | Deterministic real-client reference-render pattern for byte/image-diff regression fixtures. |
+| [jasonjgardner/blockbench-mcp-plugin](https://github.com/jasonjgardner/blockbench-mcp-plugin) | Blockbench automation | Live + headless bbmodel edit/validate/convert/render architecture; GPL source reuse must remain license-compatible. |
+| [sosadly/blockbench-mcp](https://github.com/sosadly/blockbench-mcp) | Blockbench automation | MIT modeling/texture/rig/animation toolset with procedural detail and measurable reference/rig/animation QA gates. |
+| [velthoric/Velthoric](https://github.com/velthoric/Velthoric) | Optional physics | Minecraft Jolt integration challenger for real soft-body/rope/joint workloads; not the default cosmetic motion path. |
+| [stephengold/jolt-jni](https://github.com/stephengold/jolt-jni) | Optional physics | MIT low-level JVM Jolt/V-HACD bindings for capability-selected native physics. |
 | [unnamed/mocha](https://github.com/unnamed/mocha) | Molang | Parser/evaluator/compiler comparisons with state/timing/thread correctness. |
 | [HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker) | Worlds | Staged exact-pair world translation, full field reconciliation and rollback. |
 | [kbinani/je2be-core](https://github.com/kbinani/je2be-core) | Worlds | Alternative/differential world backend; never a mod-code translator. |
@@ -179,7 +183,6 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [JannisX11/blockbench-plugins](https://github.com/JannisX11/blockbench-plugins) - [specific cited locations](Reference-Index.md#jannisx11-blockbench-plugins).
 - [jaredlll08/MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template) - [specific cited locations](Reference-Index.md#jaredlll08-multiloader-template).
 - [jarettr/intermed](https://github.com/jarettr/intermed) - [specific cited locations](Reference-Index.md#jarettr-intermed).
-- [jasonjgardner/blockbench-mcp-plugin](https://github.com/jasonjgardner/blockbench-mcp-plugin) - [specific cited locations](Reference-Index.md#jasonjgardner-blockbench-mcp-plugin).
 - [juraj-hrivnak/Pakku](https://github.com/juraj-hrivnak/Pakku) - [specific cited locations](Reference-Index.md#juraj-hrivnak-pakku).
 - [KiltMC/Kilt](https://github.com/KiltMC/Kilt) - [specific cited locations](Reference-Index.md#kiltmc-kilt).
 - [KiltMC/KnitLoader](https://github.com/KiltMC/KnitLoader) - [specific cited locations](Reference-Index.md#kiltmc-knitloader).
@@ -303,7 +306,6 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [Sinytra/MixinTransmogrifier](https://github.com/Sinytra/MixinTransmogrifier) - [specific cited locations](Reference-Index.md#sinytra-mixintransmogrifier).
 - [siom79/japicmp](https://github.com/siom79/japicmp) - [specific cited locations](Reference-Index.md#siom79-japicmp).
 - [soot-oss/SootUp](https://github.com/soot-oss/SootUp) - [specific cited locations](Reference-Index.md#soot-oss-sootup).
-- [sosadly/blockbench-mcp](https://github.com/sosadly/blockbench-mcp) - [specific cited locations](Reference-Index.md#sosadly-blockbench-mcp).
 - [sourcefrog/cargo-mutants](https://github.com/sourcefrog/cargo-mutants) - [specific cited locations](Reference-Index.md#sourcefrog-cargo-mutants).
 - [SparkUniverse/architectury-loom](https://github.com/SparkUniverse/architectury-loom) - [specific cited locations](Reference-Index.md#sparkuniverse-architectury-loom).
 - [SparkUniverse/essential-gradle-toolkit](https://github.com/SparkUniverse/essential-gradle-toolkit) - [specific cited locations](Reference-Index.md#sparkuniverse-essential-gradle-toolkit).
@@ -311,7 +313,6 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [SpongePowered/Mixin](https://github.com/SpongePowered/Mixin) - [specific cited locations](Reference-Index.md#spongepowered-mixin).
 - [SpoonLabs/gumtree-spoon-ast-diff](https://github.com/SpoonLabs/gumtree-spoon-ast-diff) - [specific cited locations](Reference-Index.md#spoonlabs-gumtree-spoon-ast-diff).
 - [SpyglassMC/vanilla-mcdoc](https://github.com/SpyglassMC/vanilla-mcdoc) - [specific cited locations](Reference-Index.md#spyglassmc-vanilla-mcdoc).
-- [stephengold/jolt-jni](https://github.com/stephengold/jolt-jni) - [specific cited locations](Reference-Index.md#stephengold-jolt-jni).
 - [taiki-e/cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) - [specific cited locations](Reference-Index.md#taiki-e-cargo-llvm-cov).
 - [Tencent-Hunyuan/Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1) - [specific cited locations](Reference-Index.md#tencent-hunyuan-hunyuan3d-2-1).
 - [TencentARC/InstantMesh](https://github.com/TencentARC/InstantMesh) - [specific cited locations](Reference-Index.md#tencentarc-instantmesh).
@@ -334,7 +335,6 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [VAST-AI-Research/UniRig](https://github.com/VAST-AI-Research/UniRig) - [specific cited locations](Reference-Index.md#vast-ai-research-unirig).
 - [VazkiiMods/Patchouli](https://github.com/VazkiiMods/Patchouli) - [specific cited locations](Reference-Index.md#vazkiimods-patchouli).
 - [vberlier/pytest-minecraft](https://github.com/vberlier/pytest-minecraft) - [specific cited locations](Reference-Index.md#vberlier-pytest-minecraft).
-- [velthoric/Velthoric](https://github.com/velthoric/Velthoric) - [specific cited locations](Reference-Index.md#velthoric-velthoric).
 - [ViaVersion/Mappings](https://github.com/ViaVersion/Mappings) - [specific cited locations](Reference-Index.md#viaversion-mappings).
 - [vorner/arc-swap](https://github.com/vorner/arc-swap) - [specific cited locations](Reference-Index.md#vorner-arc-swap).
 - [Voxelum/x-minecraft-launcher](https://github.com/Voxelum/x-minecraft-launcher) - [specific cited locations](Reference-Index.md#voxelum-x-minecraft-launcher).

@@ -244,7 +244,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Scripting/render: KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes, CPM/player and Figura/player-avatar interoperability, Player Animator, EMF/ETF/CEM where applicable, plus the Enderloom High-Fidelity Skeletal Renderer.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-014 : 580-580](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L580-L580)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-014 : 582-582](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L582-L582)
 
 </details>
 
@@ -255,7 +255,7 @@
 - [ ] **D-94e25b3756e89d281849** - Config + Hotkey migration: PG-001..011 across a real version/update change.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-11 : 669-669](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L669-L669)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-11 : 671-671](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L671-L671)
 
 </details>
 
@@ -594,7 +594,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** migrate mods/loaders/dependencies/configs/Hotkeys/scripts/quests/datapacks/resource packs/shaders/worlds/worldgen registries/compatibility/performance baselines/server relationships.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.1 Premium whole-pack migration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-001 : 596-596](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L596-L596)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-001 : 598-598](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L598-L598)
 
 </details>
 
@@ -1234,7 +1234,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** feasibility/provider-version map, removed/renamed dependency analysis, semantic config/script migration, world/registry risk, progression/softlock, isolated target instance, runtime/old-world/performance comparison, explicit unresolved gaps and rollback.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.1 Premium whole-pack migration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-002 : 597-597](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L597-L597)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-002 : 599-599](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L599-L599)
 
 </details>
 

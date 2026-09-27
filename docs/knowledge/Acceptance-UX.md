@@ -867,7 +867,7 @@
 - [ ] **D-ab21c81e9645aadb061e** - Localization: Enderloom localization framework plus project bundle inspection, missing/unused keys, migration/version diffs and Wiki awareness.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-003 : 650-650](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L650-L650)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-003 : 652-652](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L652-L652)
 
 </details>
 
@@ -1591,7 +1591,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** UX: coherent visual hierarchy, dense expert data without debug-dump feel, search/sort/filter/bulk/context/drag-drop/keyboard workflows, remembered preferences, one-click common paths, accurate tooltips, preservation-aware errors, no modal spam/mystery state.
   - **Binding context:** 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-001 : 648-648](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L648-L648)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-001 : 650-650](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L650-L650)
 
 </details>
 
@@ -2230,7 +2230,7 @@
 - [ ] **D-6d0e620b363cba8df314** - Accessibility: keyboard navigation, screen readers, reduced motion, no color-only semantics, contrast, scalable layout/text, accessible progress/findings/media controls.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-002 : 649-649](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L649-L649)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-002 : 651-651](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L651-L651)
 
 </details>
 
@@ -3425,7 +3425,7 @@
 - [ ] **D-172e93d7cf0c15bca6b9** - Analytics/changelog: user-respecting analytics if implemented, issue/changelog/source-change linkage, no fabricated popularity/quality scores.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-004 : 651-651](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L651-L651)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PQ-004 : 653-653](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L653-L653)
 
 </details>
 

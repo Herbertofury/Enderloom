@@ -43,9 +43,9 @@
     {
       "id": "S-24626601a0",
       "path": "docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
-      "sha256": "2ce02d5ddfd34c48b1f0de813deed9c2f06b86bd3e9b724806a508d3308e12b7",
-      "bytes": 52985,
-      "lines": 712,
+      "sha256": "044abf8391d516bc31ef444b2ecd85f29e99edbb36ddfc50a02c2b2ca3297d55",
+      "bytes": 53790,
+      "lines": 715,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
       "source_checked": 0
@@ -163,9 +163,9 @@
     {
       "id": "S-36d560497f",
       "path": "docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
-      "sha256": "f7dc637f4e7a7b2d3ea5520263f7ec4f3062cbe852d5a9f1d09395a6a9224c2d",
-      "bytes": 22720,
-      "lines": 503,
+      "sha256": "3755979b8d9d066a3d75e380cd190fb7ed438f821a55cb58c654b60a87dfc6c2",
+      "bytes": 24396,
+      "lines": 536,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
       "source_checked": 0
@@ -523,9 +523,9 @@
     {
       "id": "S-3a3df7e216",
       "path": "docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
-      "sha256": "ecc4588470f5695009851d318bba3c9273cecd146e535daced5133ebe5e23aeb",
-      "bytes": 13406,
-      "lines": 277,
+      "sha256": "30cd4321c1dbc8ec02c9e595d94755cd1e58b163ed643dcde0606a711e622626",
+      "bytes": 15085,
+      "lines": 299,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
       "source_checked": 0
@@ -533,13 +533,13 @@
   ],
   "stats": {
     "source_files": 53,
-    "source_bytes": 2243903,
-    "source_lines": 44828,
-    "source_blocks": 15672,
-    "unique_blocks": 12756,
+    "source_bytes": 2248063,
+    "source_lines": 44886,
+    "source_blocks": 15691,
+    "unique_blocks": 12775,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
-    "source_unchecked": 5479,
+    "source_unchecked": 5482,
     "alias_occurrences": 945
   }
 }

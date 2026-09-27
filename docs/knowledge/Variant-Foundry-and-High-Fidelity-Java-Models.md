@@ -275,3 +275,25 @@ The newest pass added several pieces that make this feel more like the “it jus
 That means a Bloom & Boom biome variant is no longer just “different model + texture.” Its family record can include **geometry phenotype + motion phenotype + atmosphere phenotype + material phenotype + deterministic native visual proof**.
 
 The full candidate/rights/benchmark details remain in [the challenger scan](../ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md).
+
+
+### Fourth sweep: turn Blockbench into a real Enderloom backend
+
+This pass found something especially useful for the actual “it just works” workflow: **Blockbench itself can become an automatable live + headless backend**.
+
+Two current projects are strong references:
+
+- **Blockbench MCP by Jason Gardner** — live Blockbench control plus a separate headless mode that can edit, validate, convert and render `.bbmodel` files without opening the editor.
+- **Blockbench MCP by sosadly** — broad model/texture/rig/animation operations plus quality gates such as silhouette/reference matching, rig checks, measured animation analysis, orientation checks and multi-view screenshots.
+
+Enderloom should take the best of both behind one internal **Blockbench Automation** adapter. That means:
+
+- “Generate every biome” can run hundreds of variants headlessly;
+- only interesting/failing variants need to open in the live editor;
+- the same model can be measured, rendered, compared against concept art, rig-checked, animation-checked and exported without manual repetition;
+- artist review remains available whenever the user wants it;
+- all edits still land in the same canonical Enderloom model/variant history.
+
+The IK layer is also upgraded in the contract: preserve two-bone/FABRIK/spline/aim-style constraints, pole guidance and IK/FK blending as editable rig data, baking only for backends that cannot represent live IK.
+
+For rare assets that need real rope/cloth/soft-body or physical collision, Enderloom can challenge an optional **Jolt/Velthoric** backend. Bloom & Boom vines, petals, hair and leaves still use the much cheaper Secondary Motion Graph by default.

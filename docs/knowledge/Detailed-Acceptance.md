@@ -4,13 +4,13 @@
 
 > The actual tasks and binding clauses from the specifications, not just an index of headings.
 
-**5,714 source-task occurrences**, **6,651 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
+**5,717 source-task occurrences**, **6,657 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
 
 | Workstream | Detailed requirements |
 | :--- | ---: |
 | [Complete Advent of Ascension](Acceptance-AOA.md) | 554 |
 | [Beautiful unified studio](Acceptance-UX.md) | 409 |
-| [Authoring and real assets](Acceptance-MAKE.md) | 442 |
+| [Authoring and real assets](Acceptance-MAKE.md) | 448 |
 | [Universal conversion engine](Acceptance-PORT.md) | 965 |
 | [Dependencies and shared operations](Acceptance-DEP.md) | 381 |
 | [Repair and forensics](Acceptance-FIX.md) | 264 |
