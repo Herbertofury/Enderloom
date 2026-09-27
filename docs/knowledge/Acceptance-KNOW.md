@@ -146,7 +146,7 @@
 <a id="know-02-details"></a>
 ## KNOW-02 - Why installed and contextual explanations
 
-[Outcome](Checklist.md#know-02) / 21 source-derived details.
+[Outcome](Checklist.md#know-02) / 22 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -267,6 +267,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Enderloom Probe — Minecraft test control plane
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 885-885](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L885-L885)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T086 — Merge its knowledge base into Enderloom&#x27;s provenance-bearing rule store (1)</summary>
+
+<a id="d-e9d61c3a9209e63a24f3"></a>
+- [ ] **D-e9d61c3a9209e63a24f3** - — Import verified facts into the canonical T071 learned-port knowledge base.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T086 — Merge its knowledge base into Enderloom&#x27;s provenance-bearing rule store
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T086 : 845-845](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L845-L845)
 
 </details>
 
@@ -516,7 +527,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 63 source-derived details.
+[Outcome](Checklist.md#know-04) / 66 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -843,6 +854,39 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture (1)</summary>
+
+<a id="d-886dd3c4f190be2f9899"></a>
+- [ ] **D-886dd3c4f190be2f9899** - — Treat Sinytra Connector as a first-class compatibility research corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T049 : 157-157](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L157-L157)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T053 — Add MixinTransmogrifier and MixinExtras compatibility knowledge (1)</summary>
+
+<a id="d-34fc0f1b97eea342c504"></a>
+- [ ] **D-34fc0f1b97eea342c504** - — Include Sinytra/MixinTransmogrifier and MixinExtras in the mixin compatibility corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T053 — Add MixinTransmogrifier and MixinExtras compatibility knowledge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T053 : 203-203](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L203-L203)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector (1)</summary>
+
+<a id="d-9530136b30eefb0bf979"></a>
+- [ ] **D-9530136b30eefb0bf979** - — Add Kilt and Twill to the active compatibility corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T091 : 928-928](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L928-L928)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 1. Shared tab principles (1)</summary>
 
 <a id="d-254706a523f28cee7a55"></a>
@@ -1079,7 +1123,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 10 source-derived details.
+[Outcome](Checklist.md#know-05) / 11 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1172,13 +1216,24 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it (1)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains (1)</summary>
 
-<a id="d-b681d8a5e7965ba7afaa"></a>
-- [ ] **D-b681d8a5e7965ba7afaa** - Do not re-scan this on every task. Refresh only after a relevant write/merge/upstream change.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G201 — Research snapshot, benchmark discipline, and promotion ledger / T201 — Refresh actual baseline once, then stop rediscovering it
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L95-L95)
+<a id="d-514d6e4224de6b69ed5e"></a>
+- [ ] **D-514d6e4224de6b69ed5e** - — After this pass, new ecosystem research is triggered by one of:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T121 : 1409-1409](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1409-L1409)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T122 — Require primary-source freshness at promotion time (1)</summary>
+
+<a id="d-426155ed9afe34dda0ad"></a>
+- [ ] **D-426155ed9afe34dda0ad** - — Before integrating a candidate from this file, refresh its exact release/commit, maintenance status, license and relevant upstream API state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T122 — Require primary-source freshness at promotion time
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T122 : 1422-1422](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1422-L1422)
 
 </details>
 

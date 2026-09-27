@@ -9,7 +9,7 @@
 <a id="ai-01-details"></a>
 ## AI-01 - Authorized provider lanes
 
-[Outcome](Checklist.md#ai-01) / 58 source-derived details.
+[Outcome](Checklist.md#ai-01) / 57 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -346,18 +346,6 @@
   - **Full requirement:** &gt; If we have been able to use ChatGPT + Minecraft Dev Kit to do a serious Minecraft job, Enderloom must ultimately be able to perform that job itself through its GUI/CLI/MCP/AI operation layer, with equal or stronger verification.
   - **Binding context:** Enderloom — Minecraft Workflow Parity Master Specification
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 10-10](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L10-L10)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Research source ledger / Execution rule for Codex / coding agents (1)</summary>
-
-<a id="d-542ee88383f08ea23d7f"></a>
-- [ ] **D-542ee88383f08ea23d7f** - Read this document once, preserve the active Enderloom spec&#x27;s current state, then execute this companion in bounded dependency-aware windows. Do not create a second implementa...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Read this document once, preserve the active Enderloom spec&#x27;s current state, then execute this companion in bounded dependency-aware windows. Do not create a second implementation of work already correctly landed by the active spec. For every candidate:
-  - **Binding context:** Research source ledger / Execution rule for Codex / coding agents
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 700-700](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L700-L700)
 
 </details>
 
@@ -940,13 +928,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T234 — Faster optimization loop: sccache + nextest + linker bakeoff (1)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T063 — SootUp is conditional deep static analysis (1)</summary>
 
-<a id="d-12c9ef1ce47c8eb4d017"></a>
-- [ ] **D-12c9ef1ce47c8eb4d017** - · Reduce Codex/human iteration time without changing shipped behavior:
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G210 — Local crash evidence, ETW/Tracy observability, developer throughput / T232 — Local-only minidump monitor / T234 — Faster optimization loop: sccache + nextest + linker bakeoff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T234 : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L481-L481)
+<a id="d-d5c932a1437ea96688d5"></a>
+- [ ] **D-d5c932a1437ea96688d5** - Trigger only for genuinely hard cases; do not add its cost to normal conversions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T063 — SootUp is conditional deep static analysis
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 325-325](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L325-L325)
 
 </details>
 
@@ -1077,7 +1065,7 @@
 <a id="ai-04-details"></a>
 ## AI-04 - Approval, privacy and quality controls
 
-[Outcome](Checklist.md#ai-04) / 9 source-derived details.
+[Outcome](Checklist.md#ai-04) / 8 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -1147,17 +1135,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G211 — Minecraft-launcher reference mining without stack cargo-culting (1)</summary>
-
-<a id="d-224f485a95313aea3f9c"></a>
-- [ ] **D-224f485a95313aea3f9c** - GATE — Current high-quality launchers/managers are used as implementation evidence for Minecraft-specific problems, not copied wholesale or used to justify stale technology.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G211 — Minecraft-launcher reference mining without stack cargo-culting
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G211 : 494-494](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L494-L494)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.1 Authentication (1)</summary>
 
 <a id="d-0ef799c7820db3e82311"></a>
@@ -1182,7 +1159,7 @@
 <a id="ai-05-details"></a>
 ## AI-05 - Parallel specialists and context reuse
 
-[Outcome](Checklist.md#ai-05) / 15 source-derived details.
+[Outcome](Checklist.md#ai-05) / 14 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.1 Canonical project state (1)</summary>
@@ -1244,17 +1221,6 @@
   - **Full requirement:** - MFT/USN data is an acceleration signal, not proof of artifact contents or provider identity. - Detect journal ID change/reset, journal wrap/truncation, missing range, volume replacement, root move, file-ID reuse ambiguity, helper failure, and unsupported filesystem. Any such condition invalidates only the affected scope and triggers a bounded authoritative rescan rather than trusting incomplete deltas. - Directory rename/move handling must keep file-reference -&gt; current-path mapping coherent. - Never interpret a watcher/provider failure as &quot;file deleted&quot; without authoritative filesystem confirmation. - Non-NTFS, removable, network, cloud-backed, or unsupported filesystems use a safe persistent snapshot + OS watcher/change notification + bounded parallel reconciliation fallback. - Full rescans happen only when evidence says the persisted index cannot be trusted, and should be scoped to the affected instance/root/volume rather than every Enderloom instance. - A forced &quot;Verify/Rescan&quot; remains available for troubleshooting but ordinary navigation must not depend on it.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 509-515](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L509-L515)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G214 — Convergence and handoff into the canonical Enderloom plan (1)</summary>
-
-<a id="d-2ece26e9f7798bb098b7"></a>
-- [ ] **D-2ece26e9f7798bb098b7** - GATE — Research becomes a minimal evidence-backed integration set, not a permanent parallel roadmap.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G214 — Convergence and handoff into the canonical Enderloom plan
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G214 : 559-559](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L559-L559)
 
 </details>
 
@@ -1334,7 +1300,7 @@
 <a id="ai-06-details"></a>
 ## AI-06 - Evidence Brain promotion and rollback
 
-[Outcome](Checklist.md#ai-06) / 95 source-derived details.
+[Outcome](Checklist.md#ai-06) / 98 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1793,6 +1759,40 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 15. First-Class Enderloom Objects Required
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 693-693](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L693-L693)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Evidence ledger — second deep scour (1)</summary>
+
+<a id="d-913461fa97a4c4679ccd"></a>
+- [ ] **D-913461fa97a4c4679ccd** - Version-sensitive facts must be rechecked at implementation time. Upstream self-benchmarks are discovery evidence, not promotion proof.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Evidence ledger — second deep scour
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 579-579](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L579-L579)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti (1)</summary>
+
+<a id="d-5a8fa8a8727869b1770c"></a>
+- [ ] **D-5a8fa8a8727869b1770c** - — Generalize Connector/Adapter, Kilt, FFAPI, Porting Lib and historical Patchwork evidence into a shared model:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T093 : 957-957](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L957-L957)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze (1)</summary>
+
+<a id="d-3c0b63843ae46312767b"></a>
+- [ ] **D-3c0b63843ae46312767b** - GATE — The hidden-infrastructure challenge pass is reconciled into the candidate matrix, no newly found candidate silently replaces a stronger proven path without A/B evidence, and...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — The hidden-infrastructure challenge pass is reconciled into the candidate matrix, no newly found candidate silently replaces a stronger proven path without A/B evidence, and broad ecosystem searching stops until an actual invalidator or uncovered capability appears.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G039 : 1879-1879](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1879-L1879)
 
 </details>
 

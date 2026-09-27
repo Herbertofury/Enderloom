@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 283 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 286 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -861,24 +861,57 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff (1)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype / T065 — Study `tyler-builds/fx` as an implementation pattern (1)</summary>
 
-<a id="d-157a06240982d553910f"></a>
-- [ ] **D-157a06240982d553910f** - · On the current bundled SQLite/Rusqlite baseline, evaluate per-table/per-query use of:
+<a id="d-3be21b592a670562d446"></a>
+- [ ] **D-3be21b592a670562d446** - — Inspect the Rust/Windows MFT + USN architecture in fx for useful techniques such as compact persistent path/name indexing and journal tailing.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G205 — SQLite and local-state architecture / T216 — Current SQLite/Rusqlite + modern feature/tuning bakeoff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T216 : 265-265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L265-L265)
+  - **Binding context:** G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype / T065 — Study `tyler-builds/fx` as an implementation pattern
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T065 : 348-348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L348-L348)
 
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes (1)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G019 — Storage challengers: narrow, measured roles only (1)</summary>
 
-<a id="d-983acb1274dbdfa2b7b9"></a>
-- [ ] **D-983acb1274dbdfa2b7b9** - · Keep compact typed control/delta messages on the stable IPC plane, then A/B large payloads using:
+<a id="d-66c27272d356151295db"></a>
+- [ ] **D-66c27272d356151295db** - GATE — New embedded stores may win specialized hot paths but cannot silently replace SQLite/CAS authority.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T222 : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L339-L339)
+  - **Binding context:** G019 — Storage challengers: narrow, measured roles only
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G019 : 362-362](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L362-L362)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G020 — Research coverage reconciliation: GitHub + Codeberg + GitLab + registries (1)</summary>
+
+<a id="d-005c8309e75b44b9b1c0"></a>
+- [ ] **D-005c8309e75b44b9b1c0** - GATE — Search limitations are recorded as unresolved coverage constraints, never converted into &quot;nothing exists.&quot;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G020 — Research coverage reconciliation: GitHub + Codeberg + GitLab + registries
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G020 : 385-385](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L385-L385)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix (1)</summary>
+
+<a id="d-b320c80fef9d1392c3bc"></a>
+- [ ] **D-b320c80fef9d1392c3bc** - GATE — The newly discovered stack is dispositioned by Enderloom value and verification cost.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G021 — Second-pass promotion matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G021 : 407-407](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L407-L407)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G033 — Third-pass promotion matrix (1)</summary>
+
+<a id="d-7ae9362a00474df89625"></a>
+- [ ] **D-7ae9362a00474df89625** - GATE — Newly found candidates have explicit dispositions and cannot drift into production merely because they sound useful.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G033 — Third-pass promotion matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G033 : 1430-1430](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1430-L1430)
 
 </details>
 
@@ -2179,7 +2212,7 @@
 <a id="aoa-02-details"></a>
 ## AOA-02 - Complete semantic port
 
-[Outcome](Checklist.md#aoa-02) / 25 source-derived details.
+[Outcome](Checklist.md#aoa-02) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2262,6 +2295,17 @@
   - **Binding context:** 32. Update/distribution safety
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1368-1368](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1368-L1368)
   - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix / T073 — Challenge gate: never confuse compilation with a successful port (1)</summary>
+
+<a id="d-f96a7de8d51616dbdcab"></a>
+- [ ] **D-f96a7de8d51616dbdcab** - — A converted mod is not complete because it compiles.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G021 — Second-pass promotion matrix / T073 — Challenge gate: never confuse compilation with a successful port
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T073 : 555-555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L555-L555)
 
 </details>
 
@@ -2485,13 +2529,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression (1)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder (1)</summary>
 
-<a id="d-c9bdcf480a5938b5ec12"></a>
-- [ ] **D-c9bdcf480a5938b5ec12** - · A/B no compression vs LZ4 (lz4_flex) vs low-level zstd for rebuildable snapshots/delta bundles above a measured size threshold.
+<a id="d-ce05728902a6fde422fc"></a>
+- [ ] **D-ce05728902a6fde422fc** - — Integrate or invoke NeoFormRuntime (NFRT) where appropriate for NeoForge target artifacts.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes / T223 — Adaptive bulk-payload compression
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T223 : 359-359](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L359-L359)
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T054 : 220-220](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L220-L220)
 
 </details>
 
@@ -2694,7 +2738,7 @@
 <a id="aoa-04-details"></a>
 ## AOA-04 - Native gameplay and migration proof
 
-[Outcome](Checklist.md#aoa-04) / 22 source-derived details.
+[Outcome](Checklist.md#aoa-04) / 23 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -2816,6 +2860,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. Update/distribution safety
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1369-1369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1369-L1369)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype / T066 — Keep `usn-journal-rs` conditional and reject unfinished wrappers (1)</summary>
+
+<a id="d-692c89fa62acd18bc855"></a>
+- [ ] **D-692c89fa62acd18bc855** - Reject unfinished projects such as wrappers that explicitly do not yet implement their advertised backends. Missing maturity is not permission to abandon MFT/USN; use native Win32/...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Reject unfinished projects such as wrappers that explicitly do not yet implement their advertised backends. Missing maturity is not permission to abandon MFT/USN; use native Win32/NTFS APIs directly if necessary.
+  - **Binding context:** G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype / T066 — Keep `usn-journal-rs` conditional and reject unfinished wrappers
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 356-356](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L356-L356)
 
 </details>
 
@@ -3177,7 +3233,7 @@
 <a id="aoa-06-details"></a>
 ## AOA-06 - AoA delivered through the studio
 
-[Outcome](Checklist.md#aoa-06) / 90 source-derived details.
+[Outcome](Checklist.md#aoa-06) / 98 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (2)</summary>
@@ -3307,6 +3363,86 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 26. Noise/confidence engine
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1166-1166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1166-L1166)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype (1)</summary>
+
+<a id="d-92297bfaf0626fe4e613"></a>
+- [ ] **D-92297bfaf0626fe4e613** - — Build the prior scout&#x27;s MFT/USN goal as a real prototype rather than leaving it conceptual.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G018 — Windows instant-indexing implementation challengers / T064 — Implement a production MFT + USN prototype
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T064 : 335-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L335-L335)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T090 — Record license/permission boundaries mechanically (1)</summary>
+
+<a id="d-3c9ba3c21342dbc3ae84"></a>
+- [ ] **D-3c9ba3c21342dbc3ae84** - — Attach provenance to imported files/rules and preserve the user&#x27;s stated direct permission separately from upstream&#x27;s public MIT + Commons Clause license metadata.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T090 — Record license/permission boundaries mechanically
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T090 : 916-916](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L916-L916)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T124 — Run AoA as the primary convergence fixture (2)</summary>
+
+<a id="d-952802808ff152116c95"></a>
+- [ ] **D-952802808ff152116c95** - — Apply pipeline v3 to the active Advent of Ascension (AoA) conversion fixture instead of validating only tiny demo mods.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T124 — Run AoA as the primary convergence fixture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T124 : 1565-1565](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1565-L1565)
+
+<a id="d-229142f3cc8e706d33a5"></a>
+- [ ] **D-229142f3cc8e706d33a5** - Preserve the existing AoA acceptance state and name; do not restart or rename the project merely because the pipeline changed.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T124 — Run AoA as the primary convergence fixture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1576-1576](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1576-L1576)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T125 — Add a deliberately adversarial fixture matrix beside AoA (2)</summary>
+
+<a id="d-dca0600c430c52620082"></a>
+- [ ] **D-dca0600c430c52620082** - — Keep smaller fixtures that isolate failure classes AoA may not expose cleanly:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T125 — Add a deliberately adversarial fixture matrix beside AoA
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T125 : 1580-1580](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1580-L1580)
+
+<a id="d-a8e4fcc369f4a8bc923a"></a>
+- [ ] **D-a8e4fcc369f4a8bc923a** - A broad real mod plus isolated adversarial fixtures are both required.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T125 — Add a deliberately adversarial fixture matrix beside AoA
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1594-1594](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1594-L1594)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T128 — Canonical handoff / exact next action (1)</summary>
+
+<a id="d-f3e415303d8256019e20"></a>
+- [ ] **D-f3e415303d8256019e20** - GATE — T079-T128 and G023-G033 are complete or truthfully dispositioned; the active AoA conversion passes the composed pipeline without content loss; runtime/data/resource proof ac...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — T079-T128 and G023-G033 are complete or truthfully dispositioned; the active AoA conversion passes the composed pipeline without content loss; runtime/data/resource proof accompanies compile success; user-granted upstream integration is provenance-safe; and further broad research is deferred until a concrete invalidator or uncovered capability appears.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T128 — Canonical handoff / exact next action
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G034 : 1634-1634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1634-L1634)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Whole-document completion gate (1)</summary>
+
+<a id="d-e1e343de6aae523d0e69"></a>
+- [ ] **D-e1e343de6aae523d0e69** - FINAL COMPLETION GATE — All accepted work in this companion (T041-T133, G013-G034, G036-G039) is complete or truthfully dispositioned with no blocker relabeled as success; every pr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** FINAL COMPLETION GATE — All accepted work in this companion (T041-T133, G013-G034, G036-G039) is complete or truthfully dispositioned with no blocker relabeled as success; every promoted candidate has equivalent-work evidence; the era-aware converter, MC Mod Porter integration, manifest/access/data IRs, runtime proof, compiled-JAR normalization bakeoff, multi-version output generation and AoA convergence are exercised through production paths; performance gains preserve complete results; all material artifacts/provenance are checkpointed; and no requirement from the prior scout or this continuation was silently removed.
+  - **Binding context:** Whole-document completion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G035 : 1918-1918](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1918-L1918)
 
 </details>
 

@@ -9,7 +9,7 @@
 <a id="world-01-details"></a>
 ## WORLD-01 - World browser and safe editing
 
-[Outcome](Checklist.md#world-01) / 86 source-derived details.
+[Outcome](Checklist.md#world-01) / 85 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -339,20 +339,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes (2)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge (1)</summary>
 
-<a id="d-e5ae1b2dc6a9422d2da5"></a>
-- [ ] **D-e5ae1b2dc6a9422d2da5** - · Keep Microsoft DirectStorage out of ordinary mod metadata/JAR/provider paths by default. Revisit it for future World Editor/large immutable asset streaming where multi-GB/s NVMe ...
+<a id="d-ff85a7a0bfa24bafdb7a"></a>
+- [ ] **D-ff85a7a0bfa24bafdb7a** - — Before closing this research wave, reconcile every coverage dimension at the top of this section and verify that remaining unknowns are one of:
   - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** · Keep Microsoft DirectStorage out of ordinary mod metadata/JAR/provider paths by default. Revisit it for future World Editor/large immutable asset streaming where multi-GB/s NVMe small-read throughput and reduced CPU overhead can actually be exploited.
-  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T239 : 524-524](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L524-L524)
-
-<a id="d-f2d067b15d379de462aa"></a>
-- [ ] **D-f2d067b15d379de462aa** - A DirectStorage experiment must beat Compio/IoRing/normal file I/O on the exact editor workload and preserve broad supported-storage behavior.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L526-L526)
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T127 : 1608-1608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1608-L1608)
 
 </details>
 
@@ -1103,7 +1096,7 @@
 <a id="world-03-details"></a>
 ## WORLD-03 - Whole-modpack migration
 
-[Outcome](Checklist.md#world-03) / 19 source-derived details.
+[Outcome](Checklist.md#world-03) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -1201,6 +1194,39 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-5 — whole-pack intelligence
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1556-1556](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1556-L1556)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence (1)</summary>
+
+<a id="d-bee71594ef97bcfb1e4b"></a>
+- [ ] **D-bee71594ef97bcfb1e4b** - GATE — Every version jump gets a structured API-delta report before guessing migration rules.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G017 : 283-283](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L283-L283)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence (1)</summary>
+
+<a id="d-f63e964a39d188132cce"></a>
+- [ ] **D-f63e964a39d188132cce** - — Turn the current Fabric and NeoForge migration material into machine-readable version-step edges with provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T081 : 756-756](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L756-L756)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T111 — Keep Ravel and Kotlin Analysis API as independent semantic oracles (1)</summary>
+
+<a id="d-f80ea2695900385fcb9f"></a>
+- [ ] **D-f80ea2695900385fcb9f** - — When OpenRewrite Kotlin cannot confidently resolve a migration, compare against:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T111 — Keep Ravel and Kotlin Analysis API as independent semantic oracles
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T111 : 1265-1265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1265-L1265)
 
 </details>
 
@@ -1307,7 +1333,7 @@
 <a id="world-04-details"></a>
 ## WORLD-04 - Cross-edition world conversion
 
-[Outcome](Checklist.md#world-04) / 56 source-derived details.
+[Outcome](Checklist.md#world-04) / 57 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1545,6 +1571,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Enderloom Probe — Minecraft test control plane
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 865-865](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L865-L865)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump (1)</summary>
+
+<a id="d-464a64f476d800b1fe0d"></a>
+- [ ] **D-464a64f476d800b1fe0d** - Fabric&#x27;s own documentation explicitly warns that mapping migration is not a substitute for Fabric API renames. Enderloom must represent those as separate edges.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 752-752](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L752-L752)
 
 </details>
 

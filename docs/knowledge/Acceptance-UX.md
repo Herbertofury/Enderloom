@@ -824,7 +824,7 @@
 <a id="ux-05-details"></a>
 ## UX-05 - Honest progress and live findings
 
-[Outcome](Checklist.md#ux-05) / 60 source-derived details.
+[Outcome](Checklist.md#ux-05) / 59 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -1253,17 +1253,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G205 — SQLite and local-state architecture (1)</summary>
-
-<a id="d-f40edf59f7ff78dc2530"></a>
-- [ ] **D-f40edf59f7ff78dc2530** - GATE — SQLite remains durable truth but uses current engine capabilities and a measured durable-vs-derived layout that minimizes contention without weakening crash safety.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G205 — SQLite and local-state architecture
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G205 : 261-261](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L261-L261)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 25. Resource Pack / Data Pack Studio (1)</summary>
 
 <a id="d-41442e052cc345f164b2"></a>
@@ -1351,7 +1340,7 @@
 <a id="ux-06-details"></a>
 ## UX-06 - Reliable editing and recovery
 
-[Outcome](Checklist.md#ux-06) / 12 source-derived details.
+[Outcome](Checklist.md#ux-06) / 13 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 8. 3D Build / Schematic / Blueprint Studio / 8.1 Live 3D editing (1)</summary>
@@ -1416,6 +1405,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G003 : 1943-1943](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1943-L1943)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection (1)</summary>
+
+<a id="d-b55d95fee5bede43ac9b"></a>
+- [ ] **D-b55d95fee5bede43ac9b** - - widen class/member accessibility; - remove/change final constraints where supported; - transitive access changes; - interface injection; - namespace used by the source file; - ta...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - widen class/member accessibility; - remove/change final constraints where supported; - transitive access changes; - interface injection; - namespace used by the source file; - target class/member descriptor; - whether the change exists only for development source visibility or must also occur at runtime.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1044-1050](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1044-L1050)
 
 </details>
 
@@ -1486,7 +1487,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 68 source-derived details.
+[Outcome](Checklist.md#ux-07) / 67 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -1965,18 +1966,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes (1)</summary>
-
-<a id="d-ff07abb7673d6461d61f"></a>
-- [ ] **D-ff07abb7673d6461d61f** - Rust/WebView2 edition - CoreWebView2SharedBuffer / PostSharedBufferToScript for trusted Enderloom UI frames; - default read-only buffer access; - explicit schema/version/revision/l...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Rust/WebView2 edition - CoreWebView2SharedBuffer / PostSharedBufferToScript for trusted Enderloom UI frames; - default read-only buffer access; - explicit schema/version/revision/length header; - mandatory JS releaseBuffer lifecycle; - never expose shared buffers containing secrets to remote/untrusted provider pages.
-  - **Binding context:** G207 — IPC and host-to-renderer bulk data path / T222 — Tiered IPC: Prost/named-pipe control + bulk shared/transferable buffer lanes
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 341-346](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L341-L346)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (2)</summary>
 
 <a id="d-1771d9360792b4b520c0"></a>
@@ -2082,7 +2071,7 @@
 <a id="ux-08-details"></a>
 ## UX-08 - Accessible responsive native UI
 
-[Outcome](Checklist.md#ux-08) / 84 source-derived details.
+[Outcome](Checklist.md#ux-08) / 82 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 22. QA fixtures (1)</summary>
@@ -2631,29 +2620,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L106-L106)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff (1)</summary>
-
-<a id="d-637466661126160498a7"></a>
-- [ ] **D-637466661126160498a7** - Measure decode+resize end-to-end, not resize alone. Preserve orientation/alpha/color behavior required by the UI.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G206 — Archives, metadata parsing, compression, media / T219 — rawzip + zlib-rs + libdeflate role split / T220 — `fast_image_resize` + decoder bakeoff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 323-323](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L323-L323)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes / T240 — Native GPU/canvas challenger only for truly graphical surfaces (1)</summary>
-
-<a id="d-9f8dd70954905d5262ac"></a>
-- [ ] **D-9f8dd70954905d5262ac** - · For a World Editor or other dense real-time viewport, A/B native D3D/Direct2D/WGPU/Windows canvas integration against browser canvas/WebGPU only when the real editor exists. Do n...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** · For a World Editor or other dense real-time viewport, A/B native D3D/Direct2D/WGPU/Windows canvas integration against browser canvas/WebGPU only when the real editor exists. Do not rewrite normal forms/lists/settings into a custom GPU UI to chase theoretical speed.
-  - **Binding context:** G212 — Future World Editor / heavy-tool-only challengers / T239 — DirectStorage is World-Editor-only unless evidence changes / T240 — Native GPU/canvas challenger only for truly graphical surfaces
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T240 : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L530-L530)
 
 </details>
 

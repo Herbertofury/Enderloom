@@ -135,7 +135,7 @@
 <a id="config-02-details"></a>
 ## CONFIG-02 - Config profiles, overlays and repair
 
-[Outcome](Checklist.md#config-02) / 33 source-derived details.
+[Outcome](Checklist.md#config-02) / 34 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -361,6 +361,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 27. Per-mod Performance page
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1212-1212](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1212-L1212)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G038 — Subsystem bridge corpora: learn semantic equivalence from proven cross-loader ports / T132 — Mine Forge Config API Port as a configuration-semantics bridge corpus (1)</summary>
+
+<a id="d-314e70619b77820ffaad"></a>
+- [ ] **D-314e70619b77820ffaad** - — Use Forge Config API Port as a high-value corpus for configuration-system equivalence across Fabric, Forge and NeoForge.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G038 — Subsystem bridge corpora: learn semantic equivalence from proven cross-loader ports / T132 — Mine Forge Config API Port as a configuration-semantics bridge corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T132 : 1852-1852](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1852-L1852)
 
 </details>
 

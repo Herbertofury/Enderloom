@@ -37,19 +37,11 @@
 
 </details>
 
-<a id="arthurprs-quick-cache"></a>
+<a id="atlauncher-atlauncher"></a>
 <details>
-<summary>arthurprs/quick-cache (1 cited locations)</summary>
+<summary>ATLauncher/ATLauncher (1 cited locations)</summary>
 
-- [https://github.com/arthurprs/quick-cache](https://github.com/arthurprs/quick-cache)
-
-</details>
-
-<a id="awslabs-tough"></a>
-<details>
-<summary>awslabs/tough (1 cited locations)</summary>
-
-- [https://github.com/awslabs/tough](https://github.com/awslabs/tough)
+- [https://github.com/ATLauncher/ATLauncher](https://github.com/ATLauncher/ATLauncher)
 
 </details>
 
@@ -78,14 +70,6 @@
 
 </details>
 
-<a id="brave-adblock-rust"></a>
-<details>
-<summary>brave/adblock-rust (1 cited locations)</summary>
-
-- [https://github.com/brave/adblock-rust](https://github.com/brave/adblock-rust)
-
-</details>
-
 <a id="bridge-core-dash-compiler"></a>
 <details>
 <summary>bridge-core/dash-compiler (1 cited locations)</summary>
@@ -107,14 +91,6 @@
 <summary>BrilliantTeam/Minecraft-ResourcePack-Migrator (1 cited locations)</summary>
 
 - [https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator](https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator)
-
-</details>
-
-<a id="burntsushi-fst"></a>
-<details>
-<summary>BurntSushi/fst (1 cited locations)</summary>
-
-- [https://github.com/BurntSushi/fst](https://github.com/BurntSushi/fst)
 
 </details>
 
@@ -142,6 +118,14 @@
 
 </details>
 
+<a id="cberner-redb"></a>
+<details>
+<summary>cberner/redb (1 cited locations)</summary>
+
+- [https://github.com/cberner/redb](https://github.com/cberner/redb)
+
+</details>
+
 <a id="champmk-modforge"></a>
 <details>
 <summary>champmk/modforge (1 cited locations)</summary>
@@ -158,11 +142,11 @@
 
 </details>
 
-<a id="compio-rs-compio"></a>
+<a id="col-e-recaf"></a>
 <details>
-<summary>compio-rs/compio (1 cited locations)</summary>
+<summary>Col-E/Recaf (1 cited locations)</summary>
 
-- [https://github.com/compio-rs/compio](https://github.com/compio-rs/compio)
+- [https://github.com/Col-E/Recaf](https://github.com/Col-E/Recaf)
 
 </details>
 
@@ -190,19 +174,19 @@
 
 </details>
 
+<a id="eclipse-jdtls-eclipse-jdt-ls"></a>
+<details>
+<summary>eclipse-jdtls/eclipse.jdt.ls (1 cited locations)</summary>
+
+- [https://github.com/eclipse-jdtls/eclipse.jdt.ls](https://github.com/eclipse-jdtls/eclipse.jdt.ls)
+
+</details>
+
 <a id="emanuelnorsk-turnleaf"></a>
 <details>
 <summary>EmanuelNorsk/turnleaf (1 cited locations)</summary>
 
 - [https://github.com/EmanuelNorsk/turnleaf](https://github.com/EmanuelNorsk/turnleaf)
-
-</details>
-
-<a id="embarkstudios-rpmalloc-rs"></a>
-<details>
-<summary>EmbarkStudios/rpmalloc-rs (1 cited locations)</summary>
-
-- [https://github.com/EmbarkStudios/rpmalloc-rs](https://github.com/EmbarkStudios/rpmalloc-rs)
 
 </details>
 
@@ -230,11 +214,35 @@
 
 </details>
 
+<a id="fabricmc-enigma"></a>
+<details>
+<summary>FabricMC/Enigma (1 cited locations)</summary>
+
+- [https://github.com/FabricMC/Enigma](https://github.com/FabricMC/Enigma)
+
+</details>
+
+<a id="fabricmc-fabric-docs"></a>
+<details>
+<summary>FabricMC/fabric-docs (1 cited locations)</summary>
+
+- [https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/porting/fabric-api.md](https://github.com/FabricMC/fabric-docs/blob/main/versions/26.1.2/develop/porting/fabric-api.md)
+
+</details>
+
 <a id="fabricmc-fabric-tooling"></a>
 <details>
 <summary>FabricMC/fabric-tooling (1 cited locations)</summary>
 
 - [https://github.com/FabricMC/fabric-tooling/tree/main/class-tweaker](https://github.com/FabricMC/fabric-tooling/tree/main/class-tweaker)
+
+</details>
+
+<a id="fabricmc-intermediary"></a>
+<details>
+<summary>FabricMC/intermediary (1 cited locations)</summary>
+
+- [https://github.com/FabricMC/intermediary](https://github.com/FabricMC/intermediary)
 
 </details>
 
@@ -262,6 +270,14 @@
 
 </details>
 
+<a id="fabricmc-stitch"></a>
+<details>
+<summary>FabricMC/stitch (1 cited locations)</summary>
+
+- [https://github.com/FabricMC/stitch](https://github.com/FabricMC/stitch)
+
+</details>
+
 <a id="fabricmc-tiny-remapper"></a>
 <details>
 <summary>FabricMC/tiny-remapper (1 cited locations)</summary>
@@ -278,19 +294,19 @@
 
 </details>
 
-<a id="fereidani-kanal"></a>
+<a id="fjall-rs-fjall"></a>
 <details>
-<summary>fereidani/kanal (1 cited locations)</summary>
+<summary>fjall-rs/fjall (1 cited locations)</summary>
 
-- [https://github.com/fereidani/kanal](https://github.com/fereidani/kanal)
+- [https://github.com/fjall-rs/fjall](https://github.com/fjall-rs/fjall)
 
 </details>
 
-<a id="foyer-rs-foyer"></a>
+<a id="fuzss-forge-config-api-port"></a>
 <details>
-<summary>foyer-rs/foyer (1 cited locations)</summary>
+<summary>Fuzss/forge-config-api-port (1 cited locations)</summary>
 
-- [https://github.com/foyer-rs/foyer](https://github.com/foyer-rs/foyer)
+- [https://github.com/Fuzss/forge-config-api-port](https://github.com/Fuzss/forge-config-api-port)
 
 </details>
 
@@ -315,14 +331,6 @@
 <summary>gorilla-devs/ferium (1 cited locations)</summary>
 
 - [https://github.com/gorilla-devs/ferium](https://github.com/gorilla-devs/ferium)
-
-</details>
-
-<a id="gorilla-devs-gdlauncher-carbon"></a>
-<details>
-<summary>gorilla-devs/GDLauncher-Carbon (1 cited locations)</summary>
-
-- [https://github.com/gorilla-devs/GDLauncher-Carbon](https://github.com/gorilla-devs/GDLauncher-Carbon)
 
 </details>
 
@@ -358,14 +366,6 @@
 
 </details>
 
-<a id="helix-editor-nucleo"></a>
-<details>
-<summary>helix-editor/nucleo (1 cited locations)</summary>
-
-- [https://github.com/helix-editor/nucleo](https://github.com/helix-editor/nucleo)
-
-</details>
-
 <a id="herbertofury-enderloom"></a>
 <details>
 <summary>Herbertofury/Enderloom (17 cited locations)</summary>
@@ -398,14 +398,6 @@
 
 </details>
 
-<a id="hickory-dns-hickory-dns"></a>
-<details>
-<summary>hickory-dns/hickory-dns (1 cited locations)</summary>
-
-- [https://github.com/hickory-dns/hickory-dns](https://github.com/hickory-dns/hickory-dns)
-
-</details>
-
 <a id="hivegamesoss-chunker"></a>
 <details>
 <summary>HiveGamesOSS/Chunker (1 cited locations)</summary>
@@ -414,19 +406,11 @@
 
 </details>
 
-<a id="ibraheemdev-papaya"></a>
+<a id="inria-spoon"></a>
 <details>
-<summary>ibraheemdev/papaya (1 cited locations)</summary>
+<summary>INRIA/spoon (1 cited locations)</summary>
 
-- [https://github.com/ibraheemdev/papaya](https://github.com/ibraheemdev/papaya)
-
-</details>
-
-<a id="imazen-archmage"></a>
-<details>
-<summary>imazen/archmage (1 cited locations)</summary>
-
-- [https://github.com/imazen/archmage](https://github.com/imazen/archmage)
+- [https://github.com/INRIA/spoon](https://github.com/INRIA/spoon)
 
 </details>
 
@@ -502,6 +486,14 @@
 
 </details>
 
+<a id="llamalad7-mixinextras"></a>
+<details>
+<summary>LlamaLad7/MixinExtras (1 cited locations)</summary>
+
+- [https://github.com/LlamaLad7/MixinExtras](https://github.com/LlamaLad7/MixinExtras)
+
+</details>
+
 <a id="lucko-spark"></a>
 <details>
 <summary>lucko/spark (1 cited locations)</summary>
@@ -558,19 +550,11 @@
 
 </details>
 
-<a id="microsoft-directstorage"></a>
+<a id="meza-stonecraft-template"></a>
 <details>
-<summary>microsoft/DirectStorage (1 cited locations)</summary>
+<summary>meza/Stonecraft-template (1 cited locations)</summary>
 
-- [https://github.com/microsoft/DirectStorage](https://github.com/microsoft/DirectStorage)
-
-</details>
-
-<a id="microsoft-mimalloc"></a>
-<details>
-<summary>microsoft/mimalloc (1 cited locations)</summary>
-
-- [https://github.com/microsoft/mimalloc](https://github.com/microsoft/mimalloc)
+- [https://github.com/meza/Stonecraft-template](https://github.com/meza/Stonecraft-template)
 
 </details>
 
@@ -590,27 +574,43 @@
 
 </details>
 
-<a id="microsoft-rust-win-etw"></a>
+<a id="minecraft-dev-minecraftdev"></a>
 <details>
-<summary>microsoft/rust_win_etw (1 cited locations)</summary>
+<summary>minecraft-dev/MinecraftDev (1 cited locations)</summary>
 
-- [https://github.com/microsoft/rust_win_etw](https://github.com/microsoft/rust_win_etw)
+- [https://github.com/minecraft-dev/MinecraftDev](https://github.com/minecraft-dev/MinecraftDev)
 
 </details>
 
-<a id="microsoft-snmalloc"></a>
+<a id="minecraftforge-binarypatcher"></a>
 <details>
-<summary>microsoft/snmalloc (1 cited locations)</summary>
+<summary>MinecraftForge/BinaryPatcher (1 cited locations)</summary>
 
-- [https://github.com/microsoft/snmalloc](https://github.com/microsoft/snmalloc)
+- [https://github.com/MinecraftForge/BinaryPatcher](https://github.com/MinecraftForge/BinaryPatcher)
 
 </details>
 
-<a id="microsoft-tracelogging"></a>
+<a id="minecraftforge-forgeflower"></a>
 <details>
-<summary>microsoft/tracelogging (1 cited locations)</summary>
+<summary>MinecraftForge/ForgeFlower (1 cited locations)</summary>
 
-- [https://github.com/microsoft/tracelogging](https://github.com/microsoft/tracelogging)
+- [https://github.com/MinecraftForge/ForgeFlower](https://github.com/MinecraftForge/ForgeFlower)
+
+</details>
+
+<a id="minecraftforge-mcpconfig"></a>
+<details>
+<summary>MinecraftForge/MCPConfig (1 cited locations)</summary>
+
+- [https://github.com/MinecraftForge/MCPConfig](https://github.com/MinecraftForge/MCPConfig)
+
+</details>
+
+<a id="minecraftforge-renamer"></a>
+<details>
+<summary>MinecraftForge/renamer (1 cited locations)</summary>
+
+- [https://github.com/MinecraftForge/renamer](https://github.com/MinecraftForge/renamer)
 
 </details>
 
@@ -638,14 +638,6 @@
 
 </details>
 
-<a id="modrinth-code"></a>
-<details>
-<summary>modrinth/code (1 cited locations)</summary>
-
-- [https://github.com/modrinth/code](https://github.com/modrinth/code)
-
-</details>
-
 <a id="mojang-bedrock-protocol-docs"></a>
 <details>
 <summary>Mojang/bedrock-protocol-docs (1 cited locations)</summary>
@@ -662,19 +654,11 @@
 
 </details>
 
-<a id="moka-rs-moka"></a>
+<a id="mojang-datafixerupper"></a>
 <details>
-<summary>moka-rs/moka (1 cited locations)</summary>
+<summary>Mojang/DataFixerUpper (1 cited locations)</summary>
 
-- [https://github.com/moka-rs/moka](https://github.com/moka-rs/moka)
-
-</details>
-
-<a id="mozilla-sccache"></a>
-<details>
-<summary>mozilla/sccache (1 cited locations)</summary>
-
-- [https://github.com/mozilla/sccache](https://github.com/mozilla/sccache)
+- [https://github.com/Mojang/DataFixerUpper](https://github.com/Mojang/DataFixerUpper)
 
 </details>
 
@@ -686,11 +670,27 @@
 
 </details>
 
+<a id="neoforged-fancymodloader"></a>
+<details>
+<summary>neoforged/FancyModLoader (1 cited locations)</summary>
+
+- [https://github.com/neoforged/FancyModLoader](https://github.com/neoforged/FancyModLoader)
+
+</details>
+
 <a id="neoforged-javasourcetransformer"></a>
 <details>
 <summary>neoforged/JavaSourceTransformer (1 cited locations)</summary>
 
 - [https://github.com/neoforged/JavaSourceTransformer](https://github.com/neoforged/JavaSourceTransformer)
+
+</details>
+
+<a id="neoforged-moddevgradle"></a>
+<details>
+<summary>neoforged/ModDevGradle (1 cited locations)</summary>
+
+- [https://github.com/neoforged/ModDevGradle](https://github.com/neoforged/ModDevGradle)
 
 </details>
 
@@ -710,14 +710,6 @@
 
 </details>
 
-<a id="nextest-rs-nextest"></a>
-<details>
-<summary>nextest-rs/nextest (1 cited locations)</summary>
-
-- [https://github.com/nextest-rs/nextest](https://github.com/nextest-rs/nextest)
-
-</details>
-
 <a id="nothub-mrpack-install"></a>
 <details>
 <summary>nothub/mrpack-install (1 cited locations)</summary>
@@ -731,6 +723,22 @@
 <summary>oliveryasuna/modkit (1 cited locations)</summary>
 
 - [https://github.com/oliveryasuna/modkit](https://github.com/oliveryasuna/modkit)
+
+</details>
+
+<a id="openrewrite-rewrite"></a>
+<details>
+<summary>openrewrite/rewrite (1 cited locations)</summary>
+
+- [https://github.com/openrewrite/rewrite](https://github.com/openrewrite/rewrite)
+
+</details>
+
+<a id="openshock-integrations-minecraft"></a>
+<details>
+<summary>OpenShock/Integrations.Minecraft (1 cited locations)</summary>
+
+- [https://github.com/OpenShock/Integrations.Minecraft](https://github.com/OpenShock/Integrations.Minecraft)
 
 </details>
 
@@ -766,6 +774,70 @@
 
 </details>
 
+<a id="papermc-codebook"></a>
+<details>
+<summary>PaperMC/codebook (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/codebook](https://github.com/PaperMC/codebook)
+
+</details>
+
+<a id="papermc-mache"></a>
+<details>
+<summary>PaperMC/mache (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/mache](https://github.com/PaperMC/mache)
+
+</details>
+
+<a id="papermc-paper"></a>
+<details>
+<summary>PaperMC/Paper (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/Paper](https://github.com/PaperMC/Paper)
+
+</details>
+
+<a id="papermc-paperweight"></a>
+<details>
+<summary>PaperMC/paperweight (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/paperweight](https://github.com/PaperMC/paperweight)
+
+</details>
+
+<a id="papermc-parchmentmappings"></a>
+<details>
+<summary>PaperMC/ParchmentMappings (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/ParchmentMappings](https://github.com/PaperMC/ParchmentMappings)
+
+</details>
+
+<a id="papermc-unpick-definitions"></a>
+<details>
+<summary>PaperMC/unpick-definitions (1 cited locations)</summary>
+
+- [https://github.com/PaperMC/unpick-definitions](https://github.com/PaperMC/unpick-definitions)
+
+</details>
+
+<a id="parchmentmc-parchment"></a>
+<details>
+<summary>ParchmentMC/Parchment (1 cited locations)</summary>
+
+- [https://github.com/ParchmentMC/Parchment](https://github.com/ParchmentMC/Parchment)
+
+</details>
+
+<a id="patchworkmc-patchwork-api"></a>
+<details>
+<summary>PatchworkMC/patchwork-api (1 cited locations)</summary>
+
+- [https://github.com/PatchworkMC/patchwork-api](https://github.com/PatchworkMC/patchwork-api)
+
+</details>
+
 <a id="patchworkmc-patchwork-patcher"></a>
 <details>
 <summary>PatchworkMC/patchwork-patcher (1 cited locations)</summary>
@@ -787,6 +859,14 @@
 <summary>PrismarineJS/bedrock-protocol (1 cited locations)</summary>
 
 - [https://github.com/PrismarineJS/bedrock-protocol](https://github.com/PrismarineJS/bedrock-protocol)
+
+</details>
+
+<a id="prismarinejs-minecraft-data"></a>
+<details>
+<summary>PrismarineJS/minecraft-data (1 cited locations)</summary>
+
+- [https://github.com/PrismarineJS/minecraft-data](https://github.com/PrismarineJS/minecraft-data)
 
 </details>
 
@@ -814,14 +894,6 @@
 
 </details>
 
-<a id="pseitz-lz4-flex"></a>
-<details>
-<summary>PSeitz/lz4_flex (1 cited locations)</summary>
-
-- [https://github.com/PSeitz/lz4_flex](https://github.com/PSeitz/lz4_flex)
-
-</details>
-
 <a id="querz-mcaselector"></a>
 <details>
 <summary>Querz/mcaselector (1 cited locations)</summary>
@@ -830,51 +902,53 @@
 
 </details>
 
-<a id="quickwit-oss-tantivy"></a>
+<a id="quiltmc-quilt-loader"></a>
 <details>
-<summary>quickwit-oss/tantivy (1 cited locations)</summary>
+<summary>QuiltMC/quilt-loader (1 cited locations)</summary>
 
-- [https://github.com/quickwit-oss/tantivy](https://github.com/quickwit-oss/tantivy)
+- [https://github.com/QuiltMC/quilt-loader](https://github.com/QuiltMC/quilt-loader)
+
+</details>
+
+<a id="raphw-byte-buddy"></a>
+<details>
+<summary>raphw/byte-buddy (1 cited locations)</summary>
+
+- [https://github.com/raphw/byte-buddy](https://github.com/raphw/byte-buddy)
+
+</details>
+
+<a id="relativitymc-neo-loom"></a>
+<details>
+<summary>RelativityMC/neo-loom (1 cited locations)</summary>
+
+- [https://github.com/RelativityMC/neo-loom](https://github.com/RelativityMC/neo-loom)
 
 </details>
 
 <a id="reqsery-mc-mod-porter"></a>
 <details>
-<summary>reqsery/mc-mod-porter (1 cited locations)</summary>
+<summary>reqsery/mc-mod-porter (3 cited locations)</summary>
 
 - [https://github.com/reqsery/mc-mod-porter](https://github.com/reqsery/mc-mod-porter)
+- [https://github.com/reqsery/mc-mod-porter/blob/main/AI_GUIDE.md](https://github.com/reqsery/mc-mod-porter/blob/main/AI_GUIDE.md)
+- [https://github.com/reqsery/mc-mod-porter/blob/main/docs/CONTRIBUTING.md](https://github.com/reqsery/mc-mod-porter/blob/main/docs/CONTRIBUTING.md)
 
 </details>
 
-<a id="roaringbitmap-roaring-rs"></a>
+<a id="revapi-revapi"></a>
 <details>
-<summary>RoaringBitmap/roaring-rs (1 cited locations)</summary>
+<summary>revapi/revapi (1 cited locations)</summary>
 
-- [https://github.com/RoaringBitmap/roaring-rs](https://github.com/RoaringBitmap/roaring-rs)
+- [https://github.com/revapi/revapi](https://github.com/revapi/revapi)
 
 </details>
 
-<a id="ronnychevalier-cargo-multivers"></a>
+<a id="sfplayer1-matcher"></a>
 <details>
-<summary>ronnychevalier/cargo-multivers (1 cited locations)</summary>
+<summary>sfPlayer1/Matcher (1 cited locations)</summary>
 
-- [https://github.com/ronnychevalier/cargo-multivers](https://github.com/ronnychevalier/cargo-multivers)
-
-</details>
-
-<a id="rust-minidump-rust-minidump"></a>
-<details>
-<summary>rust-minidump/rust-minidump (1 cited locations)</summary>
-
-- [https://github.com/rust-minidump/rust-minidump](https://github.com/rust-minidump/rust-minidump)
-
-</details>
-
-<a id="rustls-rustls-platform-verifier"></a>
-<details>
-<summary>rustls/rustls-platform-verifier (1 cited locations)</summary>
-
-- [https://github.com/rustls/rustls-platform-verifier](https://github.com/rustls/rustls-platform-verifier)
+- [https://github.com/sfPlayer1/Matcher](https://github.com/sfPlayer1/Matcher)
 
 </details>
 
@@ -894,11 +968,27 @@
 
 </details>
 
+<a id="sinytra-connectorextras"></a>
+<details>
+<summary>Sinytra/ConnectorExtras (1 cited locations)</summary>
+
+- [https://github.com/Sinytra/ConnectorExtras](https://github.com/Sinytra/ConnectorExtras)
+
+</details>
+
 <a id="sinytra-forgifiedfabricapi"></a>
 <details>
 <summary>Sinytra/ForgifiedFabricAPI (1 cited locations)</summary>
 
 - [https://github.com/Sinytra/ForgifiedFabricAPI](https://github.com/Sinytra/ForgifiedFabricAPI)
+
+</details>
+
+<a id="sinytra-forgifiedfabricloader"></a>
+<details>
+<summary>Sinytra/ForgifiedFabricLoader (1 cited locations)</summary>
+
+- [https://github.com/Sinytra/ForgifiedFabricLoader](https://github.com/Sinytra/ForgifiedFabricLoader)
 
 </details>
 
@@ -918,11 +1008,51 @@
 
 </details>
 
+<a id="sinytra-mixintransmogrifier"></a>
+<details>
+<summary>Sinytra/MixinTransmogrifier (1 cited locations)</summary>
+
+- [https://github.com/Sinytra/MixinTransmogrifier](https://github.com/Sinytra/MixinTransmogrifier)
+
+</details>
+
+<a id="siom79-japicmp"></a>
+<details>
+<summary>siom79/japicmp (1 cited locations)</summary>
+
+- [https://github.com/siom79/japicmp](https://github.com/siom79/japicmp)
+
+</details>
+
+<a id="soot-oss-sootup"></a>
+<details>
+<summary>soot-oss/SootUp (1 cited locations)</summary>
+
+- [https://github.com/soot-oss/SootUp](https://github.com/soot-oss/SootUp)
+
+</details>
+
 <a id="spongepowered-mercurymixin"></a>
 <details>
 <summary>SpongePowered/MercuryMixin (1 cited locations)</summary>
 
 - [https://github.com/SpongePowered/MercuryMixin](https://github.com/SpongePowered/MercuryMixin)
+
+</details>
+
+<a id="spongepowered-mixin"></a>
+<details>
+<summary>SpongePowered/Mixin (1 cited locations)</summary>
+
+- [https://github.com/SpongePowered/Mixin](https://github.com/SpongePowered/Mixin)
+
+</details>
+
+<a id="spoonlabs-gumtree-spoon-ast-diff"></a>
+<details>
+<summary>SpoonLabs/gumtree-spoon-ast-diff (1 cited locations)</summary>
+
+- [https://github.com/SpoonLabs/gumtree-spoon-ast-diff](https://github.com/SpoonLabs/gumtree-spoon-ast-diff)
 
 </details>
 
@@ -958,6 +1088,30 @@
 
 </details>
 
+<a id="timstewartj-themightyarchitectury"></a>
+<details>
+<summary>TimStewartJ/TheMightyArchitectury (1 cited locations)</summary>
+
+- [https://github.com/TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury)
+
+</details>
+
+<a id="tsantalis-refactoringminer"></a>
+<details>
+<summary>tsantalis/RefactoringMiner (1 cited locations)</summary>
+
+- [https://github.com/tsantalis/RefactoringMiner](https://github.com/tsantalis/RefactoringMiner)
+
+</details>
+
+<a id="tyler-builds-fx"></a>
+<details>
+<summary>tyler-builds/fx (1 cited locations)</summary>
+
+- [https://github.com/tyler-builds/fx](https://github.com/tyler-builds/fx)
+
+</details>
+
 <a id="unimined-jvmdowngrader"></a>
 <details>
 <summary>unimined/JvmDowngrader (1 cited locations)</summary>
@@ -971,6 +1125,14 @@
 <summary>unimined/Unimined (1 cited locations)</summary>
 
 - [https://github.com/unimined/Unimined](https://github.com/unimined/Unimined)
+
+</details>
+
+<a id="unimined-unimined"></a>
+<details>
+<summary>unimined/unimined (1 cited locations)</summary>
+
+- [https://github.com/unimined/unimined](https://github.com/unimined/unimined)
 
 </details>
 
@@ -1006,19 +1168,27 @@
 
 </details>
 
-<a id="velopack-velopack"></a>
-<details>
-<summary>velopack/velopack (1 cited locations)</summary>
-
-- [https://github.com/velopack/velopack](https://github.com/velopack/velopack)
-
-</details>
-
 <a id="vineflower-vineflower"></a>
 <details>
 <summary>Vineflower/vineflower (1 cited locations)</summary>
 
 - [https://github.com/Vineflower/vineflower](https://github.com/Vineflower/vineflower)
+
+</details>
+
+<a id="voxelum-x-minecraft-launcher"></a>
+<details>
+<summary>Voxelum/x-minecraft-launcher (1 cited locations)</summary>
+
+- [https://github.com/Voxelum/x-minecraft-launcher](https://github.com/Voxelum/x-minecraft-launcher)
+
+</details>
+
+<a id="wangfu91-usn-journal-rs"></a>
+<details>
+<summary>wangfu91/usn-journal-rs (1 cited locations)</summary>
+
+- [https://github.com/wangfu91/usn-journal-rs](https://github.com/wangfu91/usn-journal-rs)
 
 </details>
 
@@ -1041,26 +1211,42 @@
 ## Other documentation and providers
 
 - [https://api.curseforge.com/v1](https://api.curseforge.com/v1)
+- [https://codeberg.org/KikuGie/loom-back-compat](https://codeberg.org/KikuGie/loom-back-compat)
+- [https://crates.io/crates/everything-ipc](https://crates.io/crates/everything-ipc)
+- [https://docs.fabricmc.net/develop/automatic-testing](https://docs.fabricmc.net/develop/automatic-testing)
+- [https://docs.fabricmc.net/develop/class-tweakers/](https://docs.fabricmc.net/develop/class-tweakers/)
+- [https://docs.fabricmc.net/develop/class-tweakers/interface-injection](https://docs.fabricmc.net/develop/class-tweakers/interface-injection)
+- [https://docs.fabricmc.net/develop/data-generation/setup](https://docs.fabricmc.net/develop/data-generation/setup)
+- [https://docs.fabricmc.net/develop/items/custom-data-components](https://docs.fabricmc.net/develop/items/custom-data-components)
+- [https://docs.fabricmc.net/develop/loader/fabric-mod-json](https://docs.fabricmc.net/develop/loader/fabric-mod-json)
 - [https://docs.fabricmc.net/develop/porting/mappings/](https://docs.fabricmc.net/develop/porting/mappings/)
-- [https://docs.rs/crash-handler/latest/crash_handler/](https://docs.rs/crash-handler/latest/crash_handler/)
-- [https://docs.rs/minidumper/latest/minidumper/](https://docs.rs/minidumper/latest/minidumper/)
-- [https://docs.rs/scc/latest/scc/](https://docs.rs/scc/latest/scc/)
-- [https://docs.rs/tracing-tracy/latest/tracing_tracy/](https://docs.rs/tracing-tracy/latest/tracing_tracy/)
-- [https://docs.rs/windows-ioring-sys/latest/windows_ioring_sys/](https://docs.rs/windows-ioring-sys/latest/windows_ioring_sys/)
-- [https://docs.velopack.io/getting-started/javascript](https://docs.velopack.io/getting-started/javascript)
+- [https://docs.fabricmc.net/develop/serialization/codecs](https://docs.fabricmc.net/develop/serialization/codecs)
+- [https://docs.gradle.org/current/userguide/best_practices_performance.html](https://docs.gradle.org/current/userguide/best_practices_performance.html)
+- [https://docs.gradle.org/current/userguide/configuration_cache.html](https://docs.gradle.org/current/userguide/configuration_cache.html)
+- [https://docs.neoforged.net/docs/1.21.1/advanced/accesstransformers/](https://docs.neoforged.net/docs/1.21.1/advanced/accesstransformers/)
+- [https://docs.neoforged.net/docs/datastorage/codecs/](https://docs.neoforged.net/docs/datastorage/codecs/)
+- [https://docs.neoforged.net/docs/items/datacomponents/](https://docs.neoforged.net/docs/items/datacomponents/)
+- [https://docs.neoforged.net/primer/docs/](https://docs.neoforged.net/primer/docs/)
+- [https://docs.neoforged.net/primer/docs/26.1/](https://docs.neoforged.net/primer/docs/26.1/)
+- [https://docs.neoforged.net/primer/docs/26.3/](https://docs.neoforged.net/primer/docs/26.3/)
+- [https://docs.neoforged.net/toolchain/docs/dependencies/jarinjar/](https://docs.neoforged.net/toolchain/docs/dependencies/jarinjar/)
+- [https://docs.neoforged.net/toolchain/docs/plugins/mdg/](https://docs.neoforged.net/toolchain/docs/plugins/mdg/)
+- [https://docs.openrewrite.org/authoring-recipes/writing-kotlin-recipes](https://docs.openrewrite.org/authoring-recipes/writing-kotlin-recipes)
+- [https://docs.openrewrite.org/reference/all-recipes](https://docs.openrewrite.org/reference/all-recipes)
 - [https://drive.google.com/file/d/11UC6MJthtPZ7QVQ3sBkZB-q-JMzy6bnb/view](https://drive.google.com/file/d/11UC6MJthtPZ7QVQ3sBkZB-q-JMzy6bnb/view)
 - [https://drive.google.com/file/d/1QA6UcPshjW9PzWB7hU-R60y2oxkWlQum/view](https://drive.google.com/file/d/1QA6UcPshjW9PzWB7hU-R60y2oxkWlQum/view)
 - [https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view](https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view)
 - [https://drive.google.com/file/d/1Xjqi1NaB0IUoT0rEKp-7qdOcG82fqZ5G/view](https://drive.google.com/file/d/1Xjqi1NaB0IUoT0rEKp-7qdOcG82fqZ5G/view)
 - [https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view](https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view)
+- [https://github.com/KiltMC](https://github.com/KiltMC)
 - [https://github.com/marketplace/actions/mc-runtime-test](https://github.com/marketplace/actions/mc-runtime-test)
+- [https://gitlab.ow2.org/asm/asm](https://gitlab.ow2.org/asm/asm)
 - [https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6](https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6)
-- [https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.postsharedbuffertoscript](https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2.postsharedbuffertoscript)
-- [https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/performance](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/performance)
+- [https://kotlin.github.io/analysis-api/](https://kotlin.github.io/analysis-api/)
 - [https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable](https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable)
-- [https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects)
 - [https://learn.microsoft.com/minecraft/creator/](https://learn.microsoft.com/minecraft/creator/)
 - [https://learn.microsoft.com/minecraft/creator/reference/](https://learn.microsoft.com/minecraft/creator/reference/)
+- [https://learn.microsoft.com/windows/win32/fileio/change-journals](https://learn.microsoft.com/windows/win32/fileio/change-journals)
 - [https://legacyport.net](https://legacyport.net)
 - [https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/](https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/)
 - [https://modmuss50.github.io/mod-publish-plugin/](https://modmuss50.github.io/mod-publish-plugin/)
@@ -1073,11 +1259,7 @@
 - [https://plugins.gradle.org/plugin/dev.kikugie.stonecutter](https://plugins.gradle.org/plugin/dev.kikugie.stonecutter)
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
-- [https://sqlite.org/json1.html](https://sqlite.org/json1.html)
-- [https://sqlite.org/jsonb.html](https://sqlite.org/jsonb.html)
-- [https://sqlite.org/pragma.html](https://sqlite.org/pragma.html)
-- [https://sqlite.org/stricttables.html](https://sqlite.org/stricttables.html)
-- [https://theupdateframework.io/](https://theupdateframework.io/)
+- [https://stonecutter.kikugie.dev/](https://stonecutter.kikugie.dev/)
 - [https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom](https://www.curseforge.com/minecraft/customization/tacz-helldivers-escalation-of-freedom)
 - [https://www.curseforge.com/minecraft/mc-mods/apothic-curios](https://www.curseforge.com/minecraft/mc-mods/apothic-curios)
 - [https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler](https://www.curseforge.com/minecraft/mc-mods/chunk-loading-profiler)
@@ -1085,6 +1267,7 @@
 - [https://www.curseforge.com/minecraft/mc-mods/farmers-delight](https://www.curseforge.com/minecraft/mc-mods/farmers-delight)
 - [https://www.curseforge.com/minecraft/mc-mods/observable](https://www.curseforge.com/minecraft/mc-mods/observable)
 - [https://www.curseforge.com/minecraft/mc-mods/portkit-autoport-mod/files/8927224](https://www.curseforge.com/minecraft/mc-mods/portkit-autoport-mod/files/8927224)
-- [https://www.electronjs.org/docs/latest/tutorial/message-ports](https://www.electronjs.org/docs/latest/tutorial/message-ports)
+- [https://www.fabricmc.net/2026/03/14/261.html](https://www.fabricmc.net/2026/03/14/261.html)
 - [https://www.minecraft.net/en-us/download/server/bedrock](https://www.minecraft.net/en-us/download/server/bedrock)
 - [https://www.turnleafmc.io/](https://www.turnleafmc.io/)
+- [https://www.voidtools.com/support/everything/sdk/](https://www.voidtools.com/support/everything/sdk/)
