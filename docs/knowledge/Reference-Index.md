@@ -125,6 +125,14 @@
 
 </details>
 
+<a id="azuredoom-azurelib"></a>
+<details>
+<summary>AzureDoom/AzureLib (1 cited locations)</summary>
+
+- [https://github.com/AzureDoom/AzureLib](https://github.com/AzureDoom/AzureLib)
+
+</details>
+
 <a id="badasintended-ravel"></a>
 <details>
 <summary>badasintended/ravel (1 cited locations)</summary>
@@ -146,6 +154,14 @@
 <summary>Bedrock-OSS/regolith (1 cited locations)</summary>
 
 - [https://github.com/Bedrock-OSS/regolith](https://github.com/Bedrock-OSS/regolith)
+
+</details>
+
+<a id="bernie-g-geckolib"></a>
+<details>
+<summary>bernie-g/geckolib (1 cited locations)</summary>
+
+- [https://github.com/bernie-g/geckolib](https://github.com/bernie-g/geckolib)
 
 </details>
 
@@ -551,6 +567,14 @@
 
 </details>
 
+<a id="figuramc-figura"></a>
+<details>
+<summary>FiguraMC/Figura (1 cited locations)</summary>
+
+- [https://github.com/FiguraMC/Figura](https://github.com/FiguraMC/Figura)
+
+</details>
+
 <a id="fjall-rs-fjall"></a>
 <details>
 <summary>fjall-rs/fjall (1 cited locations)</summary>
@@ -884,6 +908,14 @@
 <summary>Kobzol/cargo-pgo (1 cited locations)</summary>
 
 - [https://github.com/Kobzol/cargo-pgo](https://github.com/Kobzol/cargo-pgo)
+
+</details>
+
+<a id="kosmx-minecraftplayeranimator"></a>
+<details>
+<summary>KosmX/minecraftPlayerAnimator (1 cited locations)</summary>
+
+- [https://github.com/KosmX/minecraftPlayerAnimator](https://github.com/KosmX/minecraftPlayerAnimator)
 
 </details>
 
@@ -1984,6 +2016,14 @@
 <summary>TimStewartJ/TheMightyArchitectury (1 cited locations)</summary>
 
 - [https://github.com/TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury)
+
+</details>
+
+<a id="tom5454-customplayermodels"></a>
+<details>
+<summary>tom5454/CustomPlayerModels (1 cited locations)</summary>
+
+- [https://github.com/tom5454/CustomPlayerModels](https://github.com/tom5454/CustomPlayerModels)
 
 </details>
 

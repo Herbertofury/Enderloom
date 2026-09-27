@@ -53,7 +53,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [LIB-03 - Real embedded browser](Acceptance-LIB.md#lib-03-details): 91 source details.
 - [LIB-04 - Catalog-to-instance bridge](Acceptance-LIB.md#lib-04-details): 62 source details.
 - [LIB-05 - Dedicated Favorites workspace](Acceptance-LIB.md#lib-05-details): 140 source details.
-- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 109 source details.
+- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 110 source details.
 - [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 19 source details.
 - [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 124 source details.
 - [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 86 source details.

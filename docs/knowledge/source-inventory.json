@@ -161,6 +161,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-36d560497f",
+      "path": "docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
+      "sha256": "3946b42fb53eef62cde02827a4a0c8b129d05a38d6bd3d444c5403e135ea6ada",
+      "bytes": 16896,
+      "lines": 432,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-2886991cd9",
       "path": "docs/ENDERLOOM_MASTER_REQUIREMENTS.md",
       "sha256": "0c393c5cfdc0b71135362e22bafa6a00d37b5ad5f0e972bf716409db70db6c6a",
@@ -502,11 +512,11 @@
     }
   ],
   "stats": {
-    "source_files": 50,
-    "source_bytes": 2177611,
-    "source_lines": 43745,
-    "source_blocks": 15406,
-    "unique_blocks": 12490,
+    "source_files": 51,
+    "source_bytes": 2194507,
+    "source_lines": 44177,
+    "source_blocks": 15499,
+    "unique_blocks": 12583,
     "exact_duplicate_occurrences": 2916,
     "source_checked": 235,
     "source_unchecked": 5474,

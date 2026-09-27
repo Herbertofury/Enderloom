@@ -7981,7 +7981,7 @@
 <a id="port-11-details"></a>
 ## PORT-11 - Authorized server content to native mod
 
-[Outcome](Checklist.md#port-11) / 51 source-derived details.
+[Outcome](Checklist.md#port-11) / 52 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -8195,6 +8195,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 5. Mapping / Remap / Mixin / Bytecode Lab / 5.3 Mixin visualizer
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 273-273](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L273-L273)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer (1)</summary>
+
+<a id="d-fe27c28c82a8363b448f"></a>
+- [ ] **D-fe27c28c82a8363b448f** - The Java runtime must choose the least-lossy backend per target:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 65-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L65-L65)
 
 </details>
 
@@ -8741,7 +8752,7 @@
 <a id="port-13-details"></a>
 ## PORT-13 - Conversion parity and clean replay
 
-[Outcome](Checklist.md#port-13) / 73 source-derived details.
+[Outcome](Checklist.md#port-13) / 74 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (3)</summary>
@@ -8954,6 +8965,17 @@
   - **Full requirement:** Do not serialize all these domains unnecessarily. Once the Integration Spine is stable, independent vertical slices can be developed in parallel as long as they share the same canonical contracts.
   - **Binding context:** 33. Updated implementation waves after the original backlog / Wave E+ — Existing Bedrock/Conversion/Port/World/Asset waves
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1190-1190](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1190-L1190)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 4. Bedrock parity translation (1)</summary>
+
+<a id="d-43b196c351d59a07e3a2"></a>
+- [ ] **D-43b196c351d59a07e3a2** - Do not translate by flattening every state into baked keyframes if a dynamic expression can be preserved accurately.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 4. Bedrock parity translation
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L95-L95)
 
 </details>
 

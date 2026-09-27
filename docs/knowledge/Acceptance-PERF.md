@@ -1557,7 +1557,7 @@
 <a id="perf-04-details"></a>
 ## PERF-04 - Frame-time and GPU lab
 
-[Outcome](Checklist.md#perf-04) / 79 source-derived details.
+[Outcome](Checklist.md#perf-04) / 80 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1757,6 +1757,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 31. Cross-integration requirements for these newly added domains
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1107-1107](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1107-L1107)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax (1)</summary>
+
+<a id="d-12bcce9f45ed2d907585"></a>
+- [ ] **D-12bcce9f45ed2d907585** - Enderloom must target no perceptible FPS/frame-time/TPS regression at the configured normal crowd density and view distance relative to an equivalent ordinary animated mob scene. I...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom must target no perceptible FPS/frame-time/TPS regression at the configured normal crowd density and view distance relative to an equivalent ordinary animated mob scene. If a candidate misses the budget, optimize the runtime architecture before reducing approved near-field detail.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 166-166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L166-L166)
 
 </details>
 

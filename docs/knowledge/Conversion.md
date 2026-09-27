@@ -76,7 +76,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [PORT-08 - Modern and historical build matrix](Acceptance-PORT.md#port-08-details): 60 source details.
 - [PORT-09 - Native loader and compatibility modes](Acceptance-PORT.md#port-09-details): 99 source details.
 - [PORT-10 - Complete cross-edition conversion](Acceptance-PORT.md#port-10-details): 68 source details.
-- [PORT-11 - Authorized server content to native mod](Acceptance-PORT.md#port-11-details): 51 source details.
+- [PORT-11 - Authorized server content to native mod](Acceptance-PORT.md#port-11-details): 52 source details.
 - [PORT-12 - Incremental matrix and packaging](Acceptance-PORT.md#port-12-details): 21 source details.
-- [PORT-13 - Conversion parity and clean replay](Acceptance-PORT.md#port-13-details): 73 source details.
+- [PORT-13 - Conversion parity and clean replay](Acceptance-PORT.md#port-13-details): 74 source details.
 - [PORT-14 - Ecosystem backend integration](Acceptance-PORT.md#port-14-details): 6 source details.

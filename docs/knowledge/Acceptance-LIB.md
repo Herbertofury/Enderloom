@@ -4080,7 +4080,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 109 source-derived details.
+[Outcome](Checklist.md#lib-06) / 110 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -4472,6 +4472,17 @@
   - **Full requirement:** - Offer a clear clone dialog for destination/name and inclusion choices where applicable. - Preserve the original instance untouched. - Mutable user data such as worlds/configs must never become unsafe shared hardlinks between original and clone. - Immutable verified artifacts may reuse content-addressed storage/copy-on-write/reflink/hardlink techniques only when the platform/filesystem semantics are safe and Enderloom prevents one instance mutation from corrupting another. - The clone must be independently usable and removable after completion.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2376-2380](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2376-L2380)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal (1)</summary>
+
+<a id="d-1634465f6fcd0998236d"></a>
+- [ ] **D-1634465f6fcd0998236d** - This system is general and must also work for bosses, animals, NPCs, player/avatar models, armor, held items, furniture, animated props and other compatible content.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 19-19](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L19-L19)
 
 </details>
 

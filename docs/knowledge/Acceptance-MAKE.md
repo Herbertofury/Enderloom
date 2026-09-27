@@ -1108,7 +1108,7 @@
 <a id="make-04-details"></a>
 ## MAKE-04 - Entities, bosses and gameplay graphs
 
-[Outcome](Checklist.md#make-04) / 11 source-derived details.
+[Outcome](Checklist.md#make-04) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring (1)</summary>
@@ -1202,6 +1202,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T081 : 1198-1198](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1198-L1198)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.1 Simulation model (1)</summary>
+
+<a id="d-c34d75e721d6e2fdc8b9"></a>
+- [ ] **D-c34d75e721d6e2fdc8b9** - Secondary motion is a render/visual system, not gameplay authority. The server sends normal entity state; clients derive most cosmetic motion locally from that state. Do not networ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Secondary motion is a render/visual system, not gameplay authority. The server sends normal entity state; clients derive most cosmetic motion locally from that state. Do not network every physics bone.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.1 Simulation model
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 135-135](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L135-L135)
 
 </details>
 
@@ -1812,7 +1824,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 108 source-derived details.
+[Outcome](Checklist.md#make-07) / 116 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2079,6 +2091,91 @@
   - **Full requirement:** This is a platform invariant, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host model is necessary.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 761-761](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L761-L761)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal (1)</summary>
+
+<a id="d-2396ef68fc2aefc7f554"></a>
+- [ ] **D-2396ef68fc2aefc7f554** - Enderloom must make highly detailed Bedrock/server-model/CPM/Figura-class visual fidelity a normal native Java mod capability, not something reserved for Bedrock Add-Ons or server-...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom must make highly detailed Bedrock/server-model/CPM/Figura-class visual fidelity a normal native Java mod capability, not something reserved for Bedrock Add-Ons or server-side model plugins.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 11-11](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L11-L11)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer (1)</summary>
+
+<a id="d-6c0b654684fdd94d790b"></a>
+- [ ] **D-6c0b654684fdd94d790b** - The canonical high-fidelity intermediate representation must preserve:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 46-46](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L46-L46)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax (1)</summary>
+
+<a id="d-d8c7b5657af86ecd8d21"></a>
+- [ ] **D-d8c7b5657af86ecd8d21** - Required techniques:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 168-168](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L168-L168)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule (2)</summary>
+
+<a id="d-f679557576fac219cf85"></a>
+- [ ] **D-f679557576fac219cf85** - LOD may remove work only when the removed detail is below the target visual observability threshold at that camera distance. It must not become “faster by visibly making the model ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** LOD may remove work only when the removed detail is below the target visual observability threshold at that camera distance. It must not become “faster by visibly making the model worse.”
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 192-192](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L192-L192)
+
+<a id="d-aab67283b3efb96e3b94"></a>
+- [ ] **D-aab67283b3efb96e3b94** - Near-field approved reference views always use the full-fidelity model and required secondary motion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 194-194](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L194-L194)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 7. High-detail variant generation (1)</summary>
+
+<a id="d-b292edd69d6d4c51782f"></a>
+- [ ] **D-b292edd69d6d4c51782f** - Variant plans must specify both: - appearance mutation, and - motion phenotype.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 7. High-detail variant generation
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 228-230](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L228-L230)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 8. Player/avatar lane (1)</summary>
+
+<a id="d-585b82ae757f30be5a1b"></a>
+- [ ] **D-585b82ae757f30be5a1b** - This lane must remain optional for mods that do not need custom player avatars.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 8. Player/avatar lane
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 250-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L250-L250)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 14. Challenger/integration policy (1)</summary>
+
+<a id="d-9ca5f2b982a66ba86781"></a>
+- [ ] **D-9ca5f2b982a66ba86781** - Current required comparison set:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 14. Challenger/integration policy
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L361-L361)
 
 </details>
 
@@ -3708,7 +3805,7 @@
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 18 source-derived details.
+[Outcome](Checklist.md#make-11) / 20 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -3764,6 +3861,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.4 Specialized utilities
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 424-424](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L424-L424)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.3 Determinism and replay (1)</summary>
+
+<a id="d-3558ff2f67d2ccef2ffe"></a>
+- [ ] **D-3558ff2f67d2ccef2ffe** - Record simulation parameters and variant seed. Native QA fixtures must be able to replay a deterministic motion path for screenshot/video comparison.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.3 Determinism and replay
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 160-160](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L160-L160)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 16. Non-negotiable invariants (1)</summary>
+
+<a id="d-a5d66b291053e69ffe8f"></a>
+- [ ] **D-a5d66b291053e69ffe8f** - - Highly detailed Java models are a first-class capability, not a special-case hack. - Approved model detail is never silently flattened to vanilla cuboids just to make conversion ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Highly detailed Java models are a first-class capability, not a special-case hack. - Approved model detail is never silently flattened to vanilla cuboids just to make conversion easy. - Physics/secondary motion must not become server-authoritative per-bone spam. - No one-armor-stand-per-bone architecture for native mod runtime. - Performance and detail are simultaneous acceptance requirements. - No “optimization” that visibly reduces the approved near-field model. - Preserve editable source and provenance. - Preserve animation/keyframe event semantics. - Preserve gameplay separately from visuals. - Runtime proof beats editor preview. - Existing concept/variant systems are extended, not duplicated.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 16. Non-negotiable invariants
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 422-432](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L422-L432)
 
 </details>
 

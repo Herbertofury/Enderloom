@@ -65,7 +65,9 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [async-profiler/async-profiler](https://github.com/async-profiler/async-profiler) - [specific cited locations](Reference-Index.md#async-profiler-async-profiler).
 - [ATLauncher/ATLauncher](https://github.com/ATLauncher/ATLauncher) - [specific cited locations](Reference-Index.md#atlauncher-atlauncher).
 - [azalea-rs/simdnbt](https://github.com/azalea-rs/simdnbt) - [specific cited locations](Reference-Index.md#azalea-rs-simdnbt).
+- [AzureDoom/AzureLib](https://github.com/AzureDoom/AzureLib) - [specific cited locations](Reference-Index.md#azuredoom-azurelib).
 - [Bawnorton/MixinSquared](https://github.com/Bawnorton/MixinSquared) - [specific cited locations](Reference-Index.md#bawnorton-mixinsquared).
+- [bernie-g/geckolib](https://github.com/bernie-g/geckolib) - [specific cited locations](Reference-Index.md#bernie-g-geckolib).
 - [BLAKE3-team/BLAKE3](https://github.com/BLAKE3-team/BLAKE3) - [specific cited locations](Reference-Index.md#blake3-team-blake3).
 - [bnjbvr/cargo-machete](https://github.com/bnjbvr/cargo-machete) - [specific cited locations](Reference-Index.md#bnjbvr-cargo-machete).
 - [booky10/StackDeobfuscator](https://github.com/booky10/StackDeobfuscator) - [specific cited locations](Reference-Index.md#booky10-stackdeobfuscator).
@@ -111,6 +113,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [FabricMC/unpick](https://github.com/FabricMC/unpick) - [specific cited locations](Reference-Index.md#fabricmc-unpick).
 - [facebookresearch/sam2](https://github.com/facebookresearch/sam2) - [specific cited locations](Reference-Index.md#facebookresearch-sam2).
 - [Fenixin/Minecraft-Region-Fixer](https://github.com/Fenixin/Minecraft-Region-Fixer) - [specific cited locations](Reference-Index.md#fenixin-minecraft-region-fixer).
+- [FiguraMC/Figura](https://github.com/FiguraMC/Figura) - [specific cited locations](Reference-Index.md#figuramc-figura).
 - [fjall-rs/fjall](https://github.com/fjall-rs/fjall) - [specific cited locations](Reference-Index.md#fjall-rs-fjall).
 - [foyer-rs/foyer](https://github.com/foyer-rs/foyer) - [specific cited locations](Reference-Index.md#foyer-rs-foyer).
 - [Fuzss/forge-config-api-port](https://github.com/Fuzss/forge-config-api-port) - [specific cited locations](Reference-Index.md#fuzss-forge-config-api-port).
@@ -142,6 +145,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [Kira-NT/mc-publish](https://github.com/Kira-NT/mc-publish) - [specific cited locations](Reference-Index.md#kira-nt-mc-publish).
 - [KnechtUnrecht/IHP](https://github.com/KnechtUnrecht/IHP) - [specific cited locations](Reference-Index.md#knechtunrecht-ihp).
 - [Kobzol/cargo-pgo](https://github.com/Kobzol/cargo-pgo) - [specific cited locations](Reference-Index.md#kobzol-cargo-pgo).
+- [KosmX/minecraftPlayerAnimator](https://github.com/KosmX/minecraftPlayerAnimator) - [specific cited locations](Reference-Index.md#kosmx-minecraftplayeranimator).
 - [KostromDan/Crash-Assistant](https://github.com/KostromDan/Crash-Assistant) - [specific cited locations](Reference-Index.md#kostromdan-crash-assistant).
 - [Kotori316/SLP](https://github.com/Kotori316/SLP) - [specific cited locations](Reference-Index.md#kotori316-slp).
 - [Legacy-Fabric/Legacy-Intermediaries](https://github.com/Legacy-Fabric/Legacy-Intermediaries) - [specific cited locations](Reference-Index.md#legacy-fabric-legacy-intermediaries).
@@ -267,6 +271,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [TheIllusiveC4/Curios](https://github.com/TheIllusiveC4/Curios) - [specific cited locations](Reference-Index.md#theillusivec4-curios).
 - [theorzr/portablemc](https://github.com/theorzr/portablemc) - [specific cited locations](Reference-Index.md#theorzr-portablemc).
 - [TimStewartJ/TheMightyArchitectury](https://github.com/TimStewartJ/TheMightyArchitectury) - [specific cited locations](Reference-Index.md#timstewartj-themightyarchitectury).
+- [tom5454/CustomPlayerModels](https://github.com/tom5454/CustomPlayerModels) - [specific cited locations](Reference-Index.md#tom5454-customplayermodels).
 - [Traben-0/Entity_Model_Features](https://github.com/Traben-0/Entity_Model_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-model-features).
 - [Traben-0/Entity_Texture_Features](https://github.com/Traben-0/Entity_Texture_Features) - [specific cited locations](Reference-Index.md#traben-0-entity-texture-features).
 - [trigram-mrp/fractureiser](https://github.com/trigram-mrp/fractureiser) - [specific cited locations](Reference-Index.md#trigram-mrp-fractureiser).
