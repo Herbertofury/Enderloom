@@ -472,6 +472,7 @@ Each adapter records exact upstream identity/version, supported MC/loaders/platf
 - [ ] **PH-033** runtime registry/recipe/content explorer with owner/source backlinks and museum/QA generation.
 - [ ] **PH-034** Java<->Bedrock resource-pack conversion and replay/capture/showcase based on actual runtime evidence.
 - [ ] **PH-035** Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a separate shadow tool.
+- [ ] **PH-036** Blockbench Automation backend supports live-editor + headless `.bbmodel` authoring/validation/render/convert, capability discovery, deterministic multi-view/reference QA and batch biome generation through the same canonical operation registry.
 
 ---
 
@@ -551,6 +552,7 @@ Each adapter records exact upstream identity/version, supported MC/loaders/platf
 - [ ] **PL-012** concept-implied gameplay becomes canonical only after explicit approval/contract.
 - [ ] **PL-013** implement `docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md`: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation controllers/events and efficient secondary motion.
 - [ ] **PL-014** high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using per-bone server-entity hacks.
+- [ ] **PL-015** preserve editable IK constraints/targets/poles/IK-FK blend until backend export; optional Jolt/Velthoric-class physics is capability-selected and benchmarked, while lightweight deterministic secondary motion remains the default.
 
 ## 15.3 Fidelity acceptance
 
@@ -671,7 +673,8 @@ These are **integration proofs**, not duplicate requirement lists. Each challeng
 - [ ] **GX-13 Server/proxy/plugin scenario:** PN-020..022 with CLI/service evidence and truthful runtime semantics.
 - [ ] **GX-14 Secure update:** PO-001..004 with canary/smoke/rollback.
 - [ ] **GX-15 Premium trailer browsing:** PD-010..021 across a catalog containing cards with valid trailers, missing trailers, login-sensitive media, reduced-motion mode and rapid navigation.
-- [ ] **GX-16 Bloom & Boom Variant Foundry:** generate and native-test a biome family with full-fidelity Java models, distinct motion phenotypes, reroll/lock behavior, Wiki Variant Atlas projection and crowd/performance proof under PL-013..014 + PG-043.
+- [ ] **GX-16 Bloom & Boom Variant Foundry:** generate and native-test a biome family with full-fidelity Java models, distinct motion phenotypes, reroll/lock behavior, Wiki Variant Atlas projection and crowd/performance proof under PL-013..015 + PG-043.
+- [ ] **GX-17 Blockbench Automation:** create one Bloom & Boom source, generate multiple biome variants headlessly, open a selected candidate live, run reference/rig/animation/multi-view QA, export to the promoted Java backend and prove the exact result in Minecraft with no manual source surgery.
 
 ---
 
