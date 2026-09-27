@@ -69,6 +69,14 @@
 
 </details>
 
+<a id="architectury-architectury-transformer"></a>
+<details>
+<summary>architectury/architectury-transformer (1 cited locations)</summary>
+
+- [https://github.com/architectury/architectury-transformer](https://github.com/architectury/architectury-transformer)
+
+</details>
+
 <a id="arthurprs-quick-cache"></a>
 <details>
 <summary>arthurprs/quick-cache (1 cited locations)</summary>
@@ -138,6 +146,14 @@
 <summary>bnjbvr/cargo-machete (1 cited locations)</summary>
 
 - [https://github.com/bnjbvr/cargo-machete](https://github.com/bnjbvr/cargo-machete)
+
+</details>
+
+<a id="booky10-stackdeobfuscator"></a>
+<details>
+<summary>booky10/StackDeobfuscator (1 cited locations)</summary>
+
+- [https://github.com/booky10/StackDeobfuscator](https://github.com/booky10/StackDeobfuscator)
 
 </details>
 
@@ -222,6 +238,38 @@
 
 </details>
 
+<a id="classgraph-classgraph"></a>
+<details>
+<summary>classgraph/classgraph (1 cited locations)</summary>
+
+- [https://github.com/classgraph/classgraph](https://github.com/classgraph/classgraph)
+
+</details>
+
+<a id="cleanroommc-cleanroom"></a>
+<details>
+<summary>CleanroomMC/Cleanroom (1 cited locations)</summary>
+
+- [https://github.com/CleanroomMC/Cleanroom](https://github.com/CleanroomMC/Cleanroom)
+
+</details>
+
+<a id="cleanroommc-mixinbooter"></a>
+<details>
+<summary>CleanroomMC/MixinBooter (1 cited locations)</summary>
+
+- [https://github.com/CleanroomMC/MixinBooter](https://github.com/CleanroomMC/MixinBooter)
+
+</details>
+
+<a id="cleanroommc-scalar"></a>
+<details>
+<summary>CleanroomMC/Scalar (1 cited locations)</summary>
+
+- [https://github.com/CleanroomMC/Scalar](https://github.com/CleanroomMC/Scalar)
+
+</details>
+
 <a id="cloudburstmc-nbt"></a>
 <details>
 <summary>CloudburstMC/NBT (1 cited locations)</summary>
@@ -243,6 +291,14 @@
 <summary>comp500/mixintrace (1 cited locations)</summary>
 
 - [https://github.com/comp500/mixintrace](https://github.com/comp500/mixintrace)
+
+</details>
+
+<a id="comunidadaylas-packsquash"></a>
+<details>
+<summary>ComunidadAylas/PackSquash (1 cited locations)</summary>
+
+- [https://github.com/ComunidadAylas/PackSquash](https://github.com/ComunidadAylas/PackSquash)
 
 </details>
 
@@ -283,6 +339,14 @@
 <summary>DioxusLabs/dioxus (1 cited locations)</summary>
 
 - [https://github.com/DioxusLabs/dioxus](https://github.com/DioxusLabs/dioxus)
+
+</details>
+
+<a id="divvun-bidiff"></a>
+<details>
+<summary>divvun/bidiff (1 cited locations)</summary>
+
+- [https://github.com/divvun/bidiff](https://github.com/divvun/bidiff)
 
 </details>
 
@@ -487,11 +551,27 @@
 
 </details>
 
+<a id="gorilla-devs-gdlauncher-carbon"></a>
+<details>
+<summary>gorilla-devs/GDLauncher-Carbon (1 cited locations)</summary>
+
+- [https://github.com/gorilla-devs/GDLauncher-Carbon](https://github.com/gorilla-devs/GDLauncher-Carbon)
+
+</details>
+
 <a id="gradle-gradle-profiler"></a>
 <details>
 <summary>gradle/gradle-profiler (1 cited locations)</summary>
 
 - [https://github.com/gradle/gradle-profiler](https://github.com/gradle/gradle-profiler)
+
+</details>
+
+<a id="gtnewhorizons-retrofuturabootstrap"></a>
+<details>
+<summary>GTNewHorizons/RetroFuturaBootstrap (1 cited locations)</summary>
+
+- [https://github.com/GTNewHorizons/RetroFuturaBootstrap](https://github.com/GTNewHorizons/RetroFuturaBootstrap)
 
 </details>
 
@@ -591,6 +671,14 @@
 
 </details>
 
+<a id="hmcl-dev-hmcl"></a>
+<details>
+<summary>HMCL-dev/HMCL (1 cited locations)</summary>
+
+- [https://github.com/HMCL-dev/HMCL](https://github.com/HMCL-dev/HMCL)
+
+</details>
+
 <a id="ibraheemdev-papaya"></a>
 <details>
 <summary>ibraheemdev/papaya (1 cited locations)</summary>
@@ -628,6 +716,14 @@
 <summary>itzg/rcon-cli (1 cited locations)</summary>
 
 - [https://github.com/itzg/rcon-cli](https://github.com/itzg/rcon-cli)
+
+</details>
+
+<a id="jakobdev-minecraft-launcher-lib"></a>
+<details>
+<summary>JakobDev/minecraft-launcher-lib (1 cited locations)</summary>
+
+- [https://github.com/JakobDev/minecraft-launcher-lib](https://github.com/JakobDev/minecraft-launcher-lib)
 
 </details>
 
@@ -687,6 +783,14 @@
 
 </details>
 
+<a id="knechtunrecht-ihp"></a>
+<details>
+<summary>KnechtUnrecht/IHP (1 cited locations)</summary>
+
+- [https://github.com/KnechtUnrecht/IHP](https://github.com/KnechtUnrecht/IHP)
+
+</details>
+
 <a id="kobzol-cargo-pgo"></a>
 <details>
 <summary>Kobzol/cargo-pgo (1 cited locations)</summary>
@@ -700,6 +804,22 @@
 <summary>KostromDan/Crash-Assistant (1 cited locations)</summary>
 
 - [https://github.com/KostromDan/Crash-Assistant](https://github.com/KostromDan/Crash-Assistant)
+
+</details>
+
+<a id="kotori316-slp"></a>
+<details>
+<summary>Kotori316/SLP (1 cited locations)</summary>
+
+- [https://github.com/Kotori316/SLP](https://github.com/Kotori316/SLP)
+
+</details>
+
+<a id="legacy-fabric-legacy-intermediaries"></a>
+<details>
+<summary>Legacy-Fabric/Legacy-Intermediaries (1 cited locations)</summary>
+
+- [https://github.com/Legacy-Fabric/Legacy-Intermediaries](https://github.com/Legacy-Fabric/Legacy-Intermediaries)
 
 </details>
 
@@ -799,6 +919,14 @@
 
 </details>
 
+<a id="microck-jarspect"></a>
+<details>
+<summary>Microck/jarspect (1 cited locations)</summary>
+
+- [https://github.com/Microck/jarspect](https://github.com/Microck/jarspect)
+
+</details>
+
 <a id="microsoft-minecraft-gametests"></a>
 <details>
 <summary>microsoft/minecraft-gametests (1 cited locations)</summary>
@@ -892,6 +1020,30 @@
 <summary>misode/mcmeta (1 cited locations)</summary>
 
 - [https://github.com/misode/mcmeta](https://github.com/misode/mcmeta)
+
+</details>
+
+<a id="misode-misode-github-io"></a>
+<details>
+<summary>misode/misode.github.io (1 cited locations)</summary>
+
+- [https://github.com/misode/misode.github.io](https://github.com/misode/misode.github.io)
+
+</details>
+
+<a id="misode-technical-changes"></a>
+<details>
+<summary>misode/technical-changes (1 cited locations)</summary>
+
+- [https://github.com/misode/technical-changes](https://github.com/misode/technical-changes)
+
+</details>
+
+<a id="modificationstation-stationapi"></a>
+<details>
+<summary>ModificationStation/StationAPI (1 cited locations)</summary>
+
+- [https://github.com/ModificationStation/StationAPI](https://github.com/ModificationStation/StationAPI)
 
 </details>
 
@@ -1017,9 +1169,10 @@
 
 <a id="neoforged-moddevgradle"></a>
 <details>
-<summary>neoforged/ModDevGradle (1 cited locations)</summary>
+<summary>neoforged/ModDevGradle (2 cited locations)</summary>
 
 - [https://github.com/neoforged/ModDevGradle](https://github.com/neoforged/ModDevGradle)
+- [https://github.com/neoforged/ModDevGradle/blob/main/LEGACY.md](https://github.com/neoforged/ModDevGradle/blob/main/LEGACY.md)
 
 </details>
 
@@ -1618,6 +1771,14 @@
 
 </details>
 
+<a id="trigram-mrp-fractureiser"></a>
+<details>
+<summary>trigram-mrp/fractureiser (1 cited locations)</summary>
+
+- [https://github.com/trigram-mrp/fractureiser](https://github.com/trigram-mrp/fractureiser)
+
+</details>
+
 <a id="tsantalis-refactoringminer"></a>
 <details>
 <summary>tsantalis/RefactoringMiner (1 cited locations)</summary>
@@ -1690,6 +1851,14 @@
 
 </details>
 
+<a id="viaversion-mappings"></a>
+<details>
+<summary>ViaVersion/Mappings (1 cited locations)</summary>
+
+- [https://github.com/ViaVersion/Mappings](https://github.com/ViaVersion/Mappings)
+
+</details>
+
 <a id="vineflower-vineflower"></a>
 <details>
 <summary>Vineflower/vineflower (1 cited locations)</summary>
@@ -1759,6 +1928,7 @@
 - [https://api.curseforge.com/v1](https://api.curseforge.com/v1)
 - [https://codeberg.org/KikuGie/loom-back-compat](https://codeberg.org/KikuGie/loom-back-compat)
 - [https://crates.io/crates/everything-ipc](https://crates.io/crates/everything-ipc)
+- [https://docs.curseforge.com/rest-api/](https://docs.curseforge.com/rest-api/)
 - [https://docs.fabricmc.net/develop/automatic-testing](https://docs.fabricmc.net/develop/automatic-testing)
 - [https://docs.fabricmc.net/develop/class-tweakers/](https://docs.fabricmc.net/develop/class-tweakers/)
 - [https://docs.fabricmc.net/develop/class-tweakers/interface-injection](https://docs.fabricmc.net/develop/class-tweakers/interface-injection)
@@ -1767,8 +1937,11 @@
 - [https://docs.fabricmc.net/develop/loader/fabric-mod-json](https://docs.fabricmc.net/develop/loader/fabric-mod-json)
 - [https://docs.fabricmc.net/develop/porting/mappings/](https://docs.fabricmc.net/develop/porting/mappings/)
 - [https://docs.fabricmc.net/develop/serialization/codecs](https://docs.fabricmc.net/develop/serialization/codecs)
+- [https://docs.gradle.org/current/javadoc/org/gradle/testkit/runner/GradleRunner.html](https://docs.gradle.org/current/javadoc/org/gradle/testkit/runner/GradleRunner.html)
 - [https://docs.gradle.org/current/userguide/best_practices_performance.html](https://docs.gradle.org/current/userguide/best_practices_performance.html)
 - [https://docs.gradle.org/current/userguide/configuration_cache.html](https://docs.gradle.org/current/userguide/configuration_cache.html)
+- [https://docs.modrinth.com/api/operations/versionsfromhashes/](https://docs.modrinth.com/api/operations/versionsfromhashes/)
+- [https://docs.modrinth.com/contributing/theseus/](https://docs.modrinth.com/contributing/theseus/)
 - [https://docs.neoforged.net/docs/1.21.1/advanced/accesstransformers/](https://docs.neoforged.net/docs/1.21.1/advanced/accesstransformers/)
 - [https://docs.neoforged.net/docs/datastorage/codecs/](https://docs.neoforged.net/docs/datastorage/codecs/)
 - [https://docs.neoforged.net/docs/items/datacomponents/](https://docs.neoforged.net/docs/items/datacomponents/)
@@ -1789,6 +1962,7 @@
 - [https://gitlab.ow2.org/asm/asm](https://gitlab.ow2.org/asm/asm)
 - [https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6](https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6)
 - [https://kotlin.github.io/analysis-api/](https://kotlin.github.io/analysis-api/)
+- [https://kotlinlang.org/docs/metadata-jvm.html](https://kotlinlang.org/docs/metadata-jvm.html)
 - [https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable](https://learn.microsoft.com/en-us/minecraft/creator/documents/mctoolsoverview?view=minecraft-bedrock-stable)
 - [https://learn.microsoft.com/minecraft/creator/](https://learn.microsoft.com/minecraft/creator/)
 - [https://learn.microsoft.com/minecraft/creator/reference/](https://learn.microsoft.com/minecraft/creator/reference/)
@@ -1797,6 +1971,7 @@
 - [https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/](https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/)
 - [https://modmuss50.github.io/mod-publish-plugin/](https://modmuss50.github.io/mod-publish-plugin/)
 - [https://modrinth.com/mod/crash-assistant](https://modrinth.com/mod/crash-assistant)
+- [https://modrinth.com/mod/fugue](https://modrinth.com/mod/fugue)
 - [https://modrinth.com/mod/mixintrace](https://modrinth.com/mod/mixintrace)
 - [https://modrinth.com/mod/modernfix](https://modrinth.com/mod/modernfix)
 - [https://modrinth.com/mod/neruina](https://modrinth.com/mod/neruina)

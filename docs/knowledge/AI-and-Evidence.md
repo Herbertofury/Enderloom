@@ -43,5 +43,5 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [AI-03 - Quarantined changes and repair loop](Acceptance-AI.md#ai-03-details): 25 source details.
 - [AI-04 - Approval, privacy and quality controls](Acceptance-AI.md#ai-04-details): 9 source details.
 - [AI-05 - Parallel specialists and context reuse](Acceptance-AI.md#ai-05-details): 14 source details.
-- [AI-06 - Evidence Brain promotion and rollback](Acceptance-AI.md#ai-06-details): 100 source details.
+- [AI-06 - Evidence Brain promotion and rollback](Acceptance-AI.md#ai-06-details): 103 source details.
 - [AI-07 - AI evaluation and observability](Acceptance-AI.md#ai-07-details): 72 source details.

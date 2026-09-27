@@ -64,11 +64,11 @@ sequenceDiagram
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [DEP-01 - Full dependency closure](Acceptance-DEP.md#dep-01-details): 79 source details.
+- [DEP-01 - Full dependency closure](Acceptance-DEP.md#dep-01-details): 78 source details.
 - [DEP-02 - Automatic safe acquisition](Acceptance-DEP.md#dep-02-details): 1 source details.
-- [DEP-03 - Conflict and change-impact graph](Acceptance-DEP.md#dep-03-details): 95 source details.
+- [DEP-03 - Conflict and change-impact graph](Acceptance-DEP.md#dep-03-details): 94 source details.
 - [DEP-04 - Managed immutable toolchains](Acceptance-DEP.md#dep-04-details): 13 source details.
-- [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 104 source details.
+- [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 105 source details.
 - [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 15 source details.
 - [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 58 source details.
-- [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 12 source details.
+- [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 13 source details.

@@ -884,7 +884,7 @@
 - [ ] **D-6b439f9b700162896c60** - GATE — Enderloom can inspect/build third-party mod projects without silently granting arbitrary host access and can account for imported/vendored code provenance.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G049 : 936-936](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L936-L936)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G049 : 980-980](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L980-L980)
 
 </details>
 
@@ -1313,7 +1313,7 @@
 <a id="play-04-details"></a>
 ## PLAY-04 - Java, loaders and real launch
 
-[Outcome](Checklist.md#play-04) / 84 source-derived details.
+[Outcome](Checklist.md#play-04) / 85 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 5. PHASE B — FIRST REAL CANONICAL VERTICAL (1)</summary>
@@ -1668,7 +1668,19 @@
 - [ ] **D-280744c785fb58eb4b8d** - — Launch a real target client through the QA-safe native launch path and prove resource reload/mod initialization plus affected behavior markers where possible.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T202 : 1166-1166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1166-L1166)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T202 : 1222-1222](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1222-L1222)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T358 — Launcher/install behavior corpus (1)</summary>
+
+<a id="d-9f838dc3e71a71ba8f3d"></a>
+- [ ] **D-9f838dc3e71a71ba8f3d** - — Maintain a differential behavior corpus from current HMCL, GDLauncher Carbon, Modrinth Theseus, PrismLauncher, ATLauncher and the Codeberg-origin minecraft-launcher-lib where eac...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Maintain a differential behavior corpus from current HMCL, GDLauncher Carbon, Modrinth Theseus, PrismLauncher, ATLauncher and the Codeberg-origin minecraft-launcher-lib where each provides unique evidence. Add current Rust-native comparators such as Rusty Minecraft Launcher, MiaoMinecraftLauncher (MMCL) and mc-launcher-core specifically for structured launch-command construction, metadata inheritance, cross-platform native extraction, loader installation, provider/modpack integration and progress/cancellation patterns. Mine loader installation, automatic Java selection/provisioning, Microsoft auth/session boundaries, native/library resolution, instance import/export, modpack formats, architecture/platform handling and recovery semantics.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T358 — Launcher/install behavior corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T358 : 2255-2255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2255-L2255)
 
 </details>
 
@@ -2109,7 +2121,7 @@
 - [ ] **D-a2c6cc99999e42040e8c** - — Preserve the earlier MFT+USN Windows indexing plan for large local project/instance catalogs, with safe filesystem-walk fallback.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T211 : 1237-1237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1237-L1237)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T211 : 1293-1293](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1293-L1293)
 
 </details>
 

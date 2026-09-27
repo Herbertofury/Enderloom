@@ -64,4 +64,4 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [MAKE-08 - Animation, Molang, effects and audio](Acceptance-MAKE.md#make-08-details): 19 source details.
 - [MAKE-09 - Reference and concept reconstruction](Acceptance-MAKE.md#make-09-details): 48 source details.
 - [MAKE-10 - Compound content and ecosystem integration](Acceptance-MAKE.md#make-10-details): 29 source details.
-- [MAKE-11 - Real preview and native comparison](Acceptance-MAKE.md#make-11-details): 17 source details.
+- [MAKE-11 - Real preview and native comparison](Acceptance-MAKE.md#make-11-details): 18 source details.

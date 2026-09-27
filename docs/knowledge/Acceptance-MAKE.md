@@ -394,7 +394,7 @@
 - [ ] **D-c0fdebe9fe38842e4575** - — Create one headless JVM tool/service invoked by Rust through versioned JSON/CBOR/protobuf-like structured messages.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T162 : 641-641](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L641-L641)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T162 : 648-648](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L648-L648)
 
 </details>
 
@@ -406,7 +406,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Evaluate Windows BITS as an optional backend for large, low-priority assets/update downloads that should survive app restart/reboot. Keep ordinary interactive metadata/small mod requests on the native HTTP stack.
   - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T266 — Bake off BITS for large Windows background transfers only
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T266 : 2151-2151](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2151-L2151)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T266 : 2241-2241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2241-L2241)
 
 </details>
 
@@ -867,7 +867,7 @@
 - [ ] **D-61a039d31f48fe249286** - No user-facing daemon is required; Rust owns lifecycle.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 656-656](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L656-L656)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L663-L663)
 
 </details>
 
@@ -878,7 +878,7 @@
 - [ ] **D-87632390bedb9fe21bbf** - — For immutable artifacts and instance creation, attempt in order only where safe/supported:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T261 — Implement clone/link/copy strategy with safe fallbacks
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T261 : 2099-2099](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2099-L2099)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T261 : 2189-2189](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2189-L2189)
 
 </details>
 
@@ -1065,7 +1065,7 @@
 - [ ] **D-5aefa6c0617fad0dcf7b** - — Audit current target-26.3 regex/string rewrites.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T167 — Remove regex authority from the target converter
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T167 : 704-704](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L704-L704)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T167 : 711-711](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L711-L711)
 
 </details>
 
@@ -1327,7 +1327,7 @@
 - [ ] **D-079cce0c00974fcd50cf** - — Use Eclipse JDT/compiler services for:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T164 — JDT semantic/compiler oracle
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T164 : 679-679](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L679-L679)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T164 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L686-L686)
 
 </details>
 
@@ -1338,7 +1338,7 @@
 - [ ] **D-82e5ac58234d59aa45c0** - — Add pack-format, registry, command-tree, model/render definition, worldgen/data-pack path and data-component capability changes to VersionGraph.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T188 — Data/resource version edges
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T188 : 999-999](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L999-L999)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T188 : 1043-1043](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1043-L1043)
 
 </details>
 
@@ -1350,7 +1350,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Elevate misode/mcmeta from a reference corpus to a structured cached input for DataResourceDeltaGraph: registries, generated data/assets, commands, item components, block states, sounds, atlases and published version diffs. Re-derive load-bearing facts from official game JAR/data generators before promoting them to conversion rules.
   - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T319 — First-class versioned data/resource delta graph
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T319 : 1027-1027](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1027-L1027)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T319 : 1071-1071](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1071-L1071)
 
 </details>
 
@@ -1680,7 +1680,7 @@
 - [ ] **D-164fb67ffacd27972f61** - They discover candidate rules; they do not blindly replay edit scripts.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 694-694](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L694-L694)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 701-701](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L701-L701)
 
 </details>
 
@@ -1691,7 +1691,7 @@
 - [ ] **D-216474eaa8869c7a3891** - Do not fork separate rules for conversion vs repair vs authoring when the underlying Minecraft fact is the same.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1316-1316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1316-L1316)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1372-1372](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1372-L1372)
 
 </details>
 
@@ -2077,7 +2077,7 @@
 - [ ] **D-d5f093ec9fd209e5498c** - It must support:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 643-643](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L643-L643)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 650-650](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L650-L650)
 
 </details>
 
@@ -2088,7 +2088,7 @@
 - [ ] **D-0a0bef760ee2477f46c1** - — Model at least:
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph`
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T174 : 807-807](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L807-L807)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T174 : 826-826](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L826-L826)
 
 </details>
 
@@ -2099,7 +2099,7 @@
 - [ ] **D-cc29e1e00fc656b4740e** - GATE — Enderloom emits target-native, reproducible, fast Gradle projects from a canonical model rather than copying fragile source build scripts wholesale.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G048 : 870-870](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L870-L870)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G048 : 889-889](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L889-L889)
 
 </details>
 
@@ -2110,13 +2110,13 @@
 - [ ] **D-91506cca003b15ec6711** - — Use the Gradle Tooling API or the strongest supported structured model path to inspect projects without regex-parsing build files as the primary authority.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T177 : 874-874](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L874-L874)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T177 : 893-893](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L893-L893)
 
 <a id="d-391123679fef001729ff"></a>
 - [ ] **D-391123679fef001729ff** - Fallback parsing is allowed only when the model cannot expose required information and must preserve unknown build logic for review.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 886-886](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L886-L886)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 905-905](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L905-L905)
 
 </details>
 
@@ -2128,7 +2128,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Evaluate TUF (tough) and Sigstore verification only if Enderloom&#x27;s update/distribution threat model benefits from rollback/freeze/delegation or keyless provenance beyond Tauri&#x27;s mandatory signature verification. Do not introduce a second fragile updater control plane merely because the tooling exists.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T344 — Updater trust defense-in-depth is threat-model gated
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T344 : 2265-2265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2265-L2265)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T344 : 2373-2373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2373-L2373)
 
 </details>
 
@@ -3100,7 +3100,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** — Wire the already-developed Minecraft Dev Kit capabilities (model/animation/reference reconstruction, Blockbench-compatible/source-aware asset flows, premium mob/entity workflows, server-asset conversion, textures/VFX/SFX where applicable) into the same authoring project/session model with provenance and native runtime proof.
   - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T302 — First-class asset/model/animation/content creation modules
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T302 : 1451-1451](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1451-L1451)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T302 : 1513-1513](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1513-L1513)
 
 </details>
 
@@ -3616,7 +3616,7 @@
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 17 source-derived details.
+[Outcome](Checklist.md#make-11) / 18 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -3693,7 +3693,19 @@
 - [ ] **D-123f7312e3948f4fc5f4** - — Use these tools to mine/generalize transformations from verified before/after ports.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T165 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L692-L692)
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T165 : 699-699](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L699-L699)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index (1)</summary>
+
+<a id="d-c07ad371476009daa511"></a>
+- [ ] **D-c07ad371476009daa511** - Prefer an explicit classpath from the Gradle/tooling model over reflective classloader discovery. Do not enable encapsulation-bypass/native reflection hacks merely to make a scanne...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Prefer an explicit classpath from the Gradle/tooling model over reflective classloader discovery. Do not enable encapsulation-bypass/native reflection hacks merely to make a scanner work when Enderloom already knows the authoritative classpath.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 816-816](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L816-L816)
 
 </details>
 
