@@ -176,12 +176,12 @@
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
   - **State:** unverified. **Details:** [104 source blocks](Sources-MAKE.md#make-06); 19 source documents.
 
-**[Open 128 detailed checks](Acceptance-MAKE.md#make-07-details)**
+**[Open 129 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
 <a id="make-07"></a>
 - [ ] **MAKE-07 - Model, UV and texture fidelity**
   - **Accept:** Support relevant model codecs, cubes/planes/meshes, hierarchy, pivots/locators, per-face rotated/flipped UVs, texture layers and pixel-correct editing without geometric simplification.
-  - **State:** unverified. **Details:** [302 source blocks](Sources-MAKE.md#make-07); 31 source documents.
+  - **State:** unverified. **Details:** [309 source blocks](Sources-MAKE.md#make-07); 31 source documents.
 
 **[Open 19 detailed checks](Acceptance-MAKE.md#make-08-details)**
 
@@ -204,12 +204,12 @@
   - **Accept:** Build interacting content families with version-specific integrations, edit/play/rebuild and convert them; a decorative block or asset pack alone is not a complete created mod.
   - **State:** unverified. **Details:** [52 source blocks](Sources-MAKE.md#make-10); 21 source documents.
 
-**[Open 22 detailed checks](Acceptance-MAKE.md#make-11-details)**
+**[Open 23 detailed checks](Acceptance-MAKE.md#make-11-details)**
 
 <a id="make-11"></a>
 - [ ] **MAKE-11 - Real preview and native comparison**
   - **Accept:** Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
-  - **State:** unverified. **Details:** [40 source blocks](Sources-MAKE.md#make-11); 22 source documents.
+  - **State:** unverified. **Details:** [43 source blocks](Sources-MAKE.md#make-11); 22 source documents.
 
 ## Universal conversion engine
 
@@ -470,7 +470,7 @@
 <a id="test-05"></a>
 - [ ] **TEST-05 - Artifact-bound native proof**
   - **Accept:** Bind native runs/logs/captures to exact hashes/target/dependencies; verify gameplay and persistence, not only build/menu/server-ready or a script named runtime.
-  - **State:** unverified. **Details:** [147 source blocks](Sources-TEST.md#test-05); 33 source documents.
+  - **State:** unverified. **Details:** [148 source blocks](Sources-TEST.md#test-05); 34 source documents.
 
 **[Open 21 detailed checks](Acceptance-TEST.md#test-06-details)**
 
@@ -523,7 +523,7 @@
 <a id="perf-04"></a>
 - [ ] **PERF-04 - Frame-time and GPU lab**
   - **Accept:** Measure distributions/stutters/render-thread/GPU behavior in real native scenarios; fix hot paths without reducing visual fidelity, shaders, distance, geometry or animation cadence.
-  - **State:** unverified. **Details:** [124 source blocks](Sources-PERF.md#perf-04); 23 source documents.
+  - **State:** unverified. **Details:** [125 source blocks](Sources-PERF.md#perf-04); 24 source documents.
 
 **[Open 10 detailed checks](Acceptance-PERF.md#perf-05-details)**
 

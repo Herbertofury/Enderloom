@@ -9,9 +9,9 @@
 | Measure | Count |
 | :--- | ---: |
 | Located source documents | 53 |
-| Source lines processed | 44,789 |
-| Non-empty source blocks accounted for | 15,660 |
-| Distinct contextual/exact source blocks | 12,744 |
+| Source lines processed | 44,828 |
+| Non-empty source blocks accounted for | 15,672 |
+| Distinct contextual/exact source blocks | 12,756 |
 | Exact repeated occurrences sharing an identity | 2,916 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,479 |
@@ -403,14 +403,14 @@ Bytes: 17,504. Historical checked occurrences: 0.
 
 <a id="s-36920e7906"></a>
 <details>
-<summary><strong>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md</strong> - 217 lines</summary>
+<summary><strong>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md</strong> - 256 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md) | specification
 
-SHA-256: `0bad09967f8a89766e20a8901847ea167497af80f4ca3b02e8d30f39c5c00fac`  
-Bytes: 20,794. Historical checked occurrences: 0.
+SHA-256: `d58fe89fe68230ef7298cf275da6156e2135f5bd887037533a6b9ec8c1888432`  
+Bytes: 25,060. Historical checked occurrences: 0.
 
-**Outcome owners:** [**MAKE-01**](Checklist.md#make-01), [**MAKE-02**](Checklist.md#make-02), [**MAKE-03**](Checklist.md#make-03), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-08**](Checklist.md#make-08), [**MAKE-09**](Checklist.md#make-09), [**MAKE-11**](Checklist.md#make-11), [**PERF-01**](Checklist.md#perf-01), [**PORT-05**](Checklist.md#port-05), [**PORT-11**](Checklist.md#port-11), [**TEST-01**](Checklist.md#test-01), [**TEST-07**](Checklist.md#test-07)
+**Outcome owners:** [**MAKE-01**](Checklist.md#make-01), [**MAKE-02**](Checklist.md#make-02), [**MAKE-03**](Checklist.md#make-03), [**MAKE-06**](Checklist.md#make-06), [**MAKE-07**](Checklist.md#make-07), [**MAKE-08**](Checklist.md#make-08), [**MAKE-09**](Checklist.md#make-09), [**MAKE-11**](Checklist.md#make-11), [**PERF-01**](Checklist.md#perf-01), [**PERF-04**](Checklist.md#perf-04), [**PORT-05**](Checklist.md#port-05), [**PORT-11**](Checklist.md#port-11), [**TEST-01**](Checklist.md#test-01), [**TEST-05**](Checklist.md#test-05), [**TEST-07**](Checklist.md#test-07)
 
 </details>
 

@@ -1855,7 +1855,7 @@
 <a id="make-07-details"></a>
 ## MAKE-07 - Model, UV and texture fidelity
 
-[Outcome](Checklist.md#make-07) / 128 source-derived details.
+[Outcome](Checklist.md#make-07) / 129 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2958,6 +2958,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Blockbench as an automatable production backend (1)</summary>
+
+<a id="d-10aeba4e1db71f0d1167"></a>
+- [ ] **D-10aeba4e1db71f0d1167** - - jasonjgardner/blockbench-mcp-plugin — live Blockbench MCP plus a separate headless server that can edit, validate, convert and render .bbmodel files without the editor open. It a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - jasonjgardner/blockbench-mcp-plugin — live Blockbench MCP plus a separate headless server that can edit, validate, convert and render .bbmodel files without the editor open. It also exposes a plugin-extension surface so other Blockbench plugins can register tools. This is a strong architecture reference for Enderloom&#x27;s live-editor + headless-batch dual path. - https://github.com/jasonjgardner/blockbench-mcp-plugin - License: GPL-3.0; direct source reuse must respect copyleft compatibility. The live/headless protocol can also be treated as an adapter boundary. - sosadly/blockbench-mcp — MIT-licensed Blockbench automation with broad modeling, texture, rig and animation tooling plus unusually useful quality gates: procedural detail generators, rig validation, silhouette/reference IoU comparison, measured animation analysis, orientation validation, multi-view screenshots, texture inspection, plugin setup and explicit human-review gates. - https://github.com/sosadly/blockbench-mcp - Strong direct integration/reuse candidate for Enderloom&#x27;s internal Blockbench automation layer.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Blockbench as an automatable production backend
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 226-231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L226-L231)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md / 8. Mixin, access and reflection gates / 8.2 Access rules (1)</summary>
 
 <a id="d-be3deb80de3f269a4cc2"></a>
@@ -3965,7 +3977,7 @@
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 22 source-derived details.
+[Outcome](Checklist.md#make-11) / 23 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -4159,6 +4171,18 @@
   - **Full requirement:** - Cobblemon runtime + model pipeline — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation, and its current source has a mature PosableModel/Bedrock animation repository architecture. Use its MPL-2.0 source code as a lawful differential design reference where applicable; do not reuse Cobblemon art assets as general Enderloom source because the separate asset repository is CC BY-NC. - https://gitlab.com/cable-mc/cobblemon - https://gitlab.com/cable-mc/cobblemon-assets - https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model - BBS / BBS Engine — McHorse&#x27;s animation-studio lineage is valuable for animation timelines, cameras, model/pose editing and Java voxel-model tooling. The old Minecraft bbs-mod repository is archived, so use it as a behavioral/reference corpus; compare reusable engine ideas with the active standalone BBS engine rather than adopting an archived runtime blindly. - https://github.com/mchorse/bbs-mod - https://github.com/BBS-Engine/bbs - Team Abnormals Blueprint / Endimator — a lightweight native Java animation API in a widely used mod library. Keep it as a simple-animation backend/oracle for projects where GeckoLib-class runtime weight is unnecessary. - https://github.com/team-abnormals/blueprint - FoundationGames/JsonEM — data-driven JSON entity model library that can dump registered vanilla/modded entity models and load JSON bones/cuboids. Useful for model introspection, resource-pack-friendly model editing and regression fixtures. - https://github.com/FoundationGames/JsonEM - Gamepiaynmo/CustomPlayerModel — MIT Java custom-model runtime with JSON models, scripting, particles and physics simulation, and it can target animals/monsters as well as players. This is an important secondary-motion/runtime reference independent of modern CPM. - https://github.com/Gamepiaynmo/CustomPlayerModel - Figura&#x27;s 2026 modular repositories — in addition to the monolithic Figura reference, compare the newer split figura-core, figura-client and figura-molang projects. The separation of Minecraft-independent avatar logic, thin client/version integration and Molang-like expression handling is directly relevant to Enderloom&#x27;s portability goals. - https://github.com/FiguraMC/figura-core - https://github.com/FiguraMC/figura-client - https://github.com/FiguraMC/figura-molang - Citadel — retain as a legacy/mature advanced-model animation reference, especially for default-pose management and hierarchical model utilities; do not prefer it over a stronger modern target merely because many old mods use it. - https://github.com/AlexModGuy/Citadel
   - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep
   - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 143-161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L143-L161)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Optional heavy physics lane (1)</summary>
+
+<a id="d-b35f7ecbc6bfd853e05e"></a>
+- [ ] **D-b35f7ecbc6bfd853e05e** - These are not the default for Bloom &amp; Boom vine/hair motion. Enderloom&#x27;s lightweight deterministic Secondary Motion Graph remains the normal path. Jolt/Velthoric-style phy...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** These are not the default for Bloom &amp; Boom vine/hair motion. Enderloom&#x27;s lightweight deterministic Secondary Motion Graph remains the normal path. Jolt/Velthoric-style physics is optional only for assets that genuinely need soft-body, rope, rigid-body collision or gameplay-grade physical interaction, and must earn promotion through equivalent-work CPU/GPU/native-memory benchmarks.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Optional heavy physics lane
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 248-248](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L248-L248)
 
 </details>
 

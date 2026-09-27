@@ -969,9 +969,10 @@
 
 <a id="jannisx11-blockbench-plugins"></a>
 <details>
-<summary>JannisX11/blockbench-plugins (1 cited locations)</summary>
+<summary>JannisX11/blockbench-plugins (2 cited locations)</summary>
 
 - [https://github.com/JannisX11/blockbench-plugins](https://github.com/JannisX11/blockbench-plugins)
+- [https://github.com/JannisX11/blockbench-plugins/pull/996](https://github.com/JannisX11/blockbench-plugins/pull/996)
 
 </details>
 
@@ -996,6 +997,14 @@
 <summary>jasongzy/Make-It-Animatable (1 cited locations)</summary>
 
 - [https://github.com/jasongzy/Make-It-Animatable](https://github.com/jasongzy/Make-It-Animatable)
+
+</details>
+
+<a id="jasonjgardner-blockbench-mcp-plugin"></a>
+<details>
+<summary>jasonjgardner/blockbench-mcp-plugin (1 cited locations)</summary>
+
+- [https://github.com/jasonjgardner/blockbench-mcp-plugin](https://github.com/jasonjgardner/blockbench-mcp-plugin)
 
 </details>
 
@@ -2147,6 +2156,14 @@
 
 </details>
 
+<a id="sosadly-blockbench-mcp"></a>
+<details>
+<summary>sosadly/blockbench-mcp (1 cited locations)</summary>
+
+- [https://github.com/sosadly/blockbench-mcp](https://github.com/sosadly/blockbench-mcp)
+
+</details>
+
 <a id="sourcefrog-cargo-mutants"></a>
 <details>
 <summary>sourcefrog/cargo-mutants (1 cited locations)</summary>
@@ -2208,6 +2225,14 @@
 <summary>SpyglassMC/vanilla-mcdoc (1 cited locations)</summary>
 
 - [https://github.com/SpyglassMC/vanilla-mcdoc](https://github.com/SpyglassMC/vanilla-mcdoc)
+
+</details>
+
+<a id="stephengold-jolt-jni"></a>
+<details>
+<summary>stephengold/jolt-jni (1 cited locations)</summary>
+
+- [https://github.com/stephengold/jolt-jni](https://github.com/stephengold/jolt-jni)
 
 </details>
 
@@ -2480,6 +2505,14 @@
 <summary>vberlier/pytest-minecraft (1 cited locations)</summary>
 
 - [https://github.com/vberlier/pytest-minecraft](https://github.com/vberlier/pytest-minecraft)
+
+</details>
+
+<a id="velthoric-velthoric"></a>
+<details>
+<summary>velthoric/Velthoric (1 cited locations)</summary>
+
+- [https://github.com/velthoric/Velthoric](https://github.com/velthoric/Velthoric)
 
 </details>
 
