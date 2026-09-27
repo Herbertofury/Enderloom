@@ -244,7 +244,7 @@ The data model must support these families without opaque catch-all JSON or futu
 - [ ] **PA-052 Studio/config/hotkeys/data/progression/wiki:** project/document/selection/editor context; config docs/keys/migrations/profiles; bindings/conflicts/profiles; incident timeline; traces/invocations/watches; progression graph; knowledge graph/build; pack migration objects.
 - [ ] **PA-053 AI:** job/acceptance/provider/model/thread/agent/tool invocation/approval/context/failure packet/gate/result/model policy/usage/eval objects.
 - [ ] **PA-054 Conversion:** acquisition/rights/server capture/server content/plugin identity/semantic artifact/conversion inputs/coverage/mappings/unknown semantics/Bedrock semantic nodes/Java targets/compatibility profiles/contracts/results/ecosystem adapters/version constraints/port/binary patch/parity/release objects.
-- [ ] **PA-055 Concept/reference:** reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects.
+- [ ] **PA-055 Concept/reference:** reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects; Variant Foundry and high-fidelity runtime objects defined by `docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md` and `docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md` attach to the same canonical graph.
 - [ ] **PA-056 Audit ecosystem:** security/SBOM/license/capabilities; mapping/Mixin symbols; plugin/proxy/protocol captures; Bedrock creator/editor/script profiles; visual-logic graphs; schematic/blueprint/assets/registry content; collaboration change sets; remote targets; world deltas; hardware/JVM/render; localization/accessibility; permissions/policy; Evidence-Brain observations/rules/contradictions/promotions.
 
 ## 4.7 Migration
@@ -442,6 +442,7 @@ Each adapter records exact upstream identity/version, supported MC/loaders/platf
 - [ ] **PG-040** searchable offline-capable versioned knowledge for mods/items/blocks/entities/recipes/controls/configs/progression/models/runtime captures/performance/crash/compatibility/worldgen/migrations/security/provenance.
 - [ ] **PG-041** “Why is this installed?” exposes dependency/progression/pack-author reasoning path.
 - [ ] **PG-042** history/changelog/provider/source links and optional Patchouli export; generated knowledge remains traceable to canonical evidence.
+- [ ] **PG-043** model/entity Wiki pages implement the Variant Atlas + high-fidelity model/rig/animation/secondary-motion/runtime-performance projections from `docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md` and `docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md`.
 
 ---
 
@@ -470,6 +471,7 @@ Each adapter records exact upstream identity/version, supported MC/loaders/platf
 - [ ] **PH-032** particle/audio/UI/HUD/font/material/PBR/Vibrant-Visuals-aware authoring.
 - [ ] **PH-033** runtime registry/recipe/content explorer with owner/source backlinks and museum/QA generation.
 - [ ] **PH-034** Java<->Bedrock resource-pack conversion and replay/capture/showcase based on actual runtime evidence.
+- [ ] **PH-035** Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a separate shadow tool.
 
 ---
 
@@ -547,6 +549,8 @@ Each adapter records exact upstream identity/version, supported MC/loaders/platf
 - [ ] **PL-010** durable design dossier captures content class, silhouette/proportions/landmarks, palette/materials/texture regions, scale/moving parts, rig/pivots, motion, must-preserve traits, gameplay interpretation, ambiguity and compatibility intent.
 - [ ] **PL-011** author editable geometry/UV/textures/materials/emissives/variants/rig/animation/secondary motion/animated textures/VFX/SFX/hitboxes/seats/locators with the least-lossy appropriate renderer/runtime.
 - [ ] **PL-012** concept-implied gameplay becomes canonical only after explicit approval/contract.
+- [ ] **PL-013** implement `docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md`: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation controllers/events and efficient secondary motion.
+- [ ] **PL-014** high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using per-bone server-entity hacks.
 
 ## 15.3 Fidelity acceptance
 
@@ -573,7 +577,7 @@ Resolve exact target-version APIs and exercise relevant contracts only:
 - [ ] **PM-011 Recipe/info:** JEI, EMI, REI, Jade/WTHIT-style overlays.
 - [ ] **PM-012 Engineering:** Create, Registrate/Ponder/Flywheel where appropriate; loader-standard item/fluid/energy APIs; AE2, Refined Storage, Mekanism/transport when meaningful.
 - [ ] **PM-013 RPG/content:** Apotheosis/Apothic-Curios-style affix/category/socket paths, Farmer’s Delight, Patchouli, FTB Quests where meaningful.
-- [ ] **PM-014 Scripting/render:** KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes.
+- [ ] **PM-014 Scripting/render:** KubeJS, CraftTweaker, GeckoLib, AzureLib, native/direct model runtimes, CPM/player and Figura/player-avatar interoperability, Player Animator, EMF/ETF/CEM where applicable, plus the Enderloom High-Fidelity Skeletal Renderer.
 - [ ] **PM-015 Render stack:** Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.
 
 ## 16.3 Behavioral tests
@@ -667,6 +671,7 @@ These are **integration proofs**, not duplicate requirement lists. Each challeng
 - [ ] **GX-13 Server/proxy/plugin scenario:** PN-020..022 with CLI/service evidence and truthful runtime semantics.
 - [ ] **GX-14 Secure update:** PO-001..004 with canary/smoke/rollback.
 - [ ] **GX-15 Premium trailer browsing:** PD-010..021 across a catalog containing cards with valid trailers, missing trailers, login-sensitive media, reduced-motion mode and rapid navigation.
+- [ ] **GX-16 Bloom & Boom Variant Foundry:** generate and native-test a biome family with full-fidelity Java models, distinct motion phenotypes, reroll/lock behavior, Wiki Variant Atlas projection and crowd/performance proof under PL-013..014 + PG-043.
 
 ---
 
