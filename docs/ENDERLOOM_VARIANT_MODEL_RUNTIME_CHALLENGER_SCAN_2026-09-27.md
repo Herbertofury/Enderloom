@@ -134,3 +134,36 @@ For each candidate route record:
 - whether it improves Bloom & Boom versus the current promoted route.
 
 Nothing is promoted because a README says it is better. Enderloom promotes a challenger only after the same fixtures prove it.
+
+
+## P1 — mature native-Java modeling/animation references found in the second sweep
+
+The second pass also checked GitLab and older/current Java animation ecosystems, not only AI 3D projects.
+
+- **Cobblemon runtime + model pipeline** — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation, and its current source has a mature `PosableModel`/Bedrock animation repository architecture. Use its **MPL-2.0 source code** as a lawful differential design reference where applicable; do **not** reuse Cobblemon art assets as general Enderloom source because the separate asset repository is CC BY-NC.
+  - https://gitlab.com/cable-mc/cobblemon
+  - https://gitlab.com/cable-mc/cobblemon-assets
+  - https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model
+- **BBS / BBS Engine** — McHorse's animation-studio lineage is valuable for animation timelines, cameras, model/pose editing and Java voxel-model tooling. The old Minecraft `bbs-mod` repository is archived, so use it as a behavioral/reference corpus; compare reusable engine ideas with the active standalone BBS engine rather than adopting an archived runtime blindly.
+  - https://github.com/mchorse/bbs-mod
+  - https://github.com/BBS-Engine/bbs
+- **Team Abnormals Blueprint / Endimator** — a lightweight native Java animation API in a widely used mod library. Keep it as a simple-animation backend/oracle for projects where GeckoLib-class runtime weight is unnecessary.
+  - https://github.com/team-abnormals/blueprint
+- **FoundationGames/JsonEM** — data-driven JSON entity model library that can dump registered vanilla/modded entity models and load JSON bones/cuboids. Useful for model introspection, resource-pack-friendly model editing and regression fixtures.
+  - https://github.com/FoundationGames/JsonEM
+- **Gamepiaynmo/CustomPlayerModel** — MIT Java custom-model runtime with JSON models, scripting, particles and physics simulation, and it can target animals/monsters as well as players. This is an important secondary-motion/runtime reference independent of modern CPM.
+  - https://github.com/Gamepiaynmo/CustomPlayerModel
+- **Figura's 2026 modular repositories** — in addition to the monolithic Figura reference, compare the newer split `figura-core`, `figura-client` and `figura-molang` projects. The separation of Minecraft-independent avatar logic, thin client/version integration and Molang-like expression handling is directly relevant to Enderloom's portability goals.
+  - https://github.com/FiguraMC/figura-core
+  - https://github.com/FiguraMC/figura-client
+  - https://github.com/FiguraMC/figura-molang
+- **Citadel** — retain as a legacy/mature advanced-model animation reference, especially for default-pose management and hierarchical model utilities; do not prefer it over a stronger modern target merely because many old mods use it.
+  - https://github.com/AlexModGuy/Citadel
+
+### Consequences
+
+- Add a **Bedrock-on-Java differential fixture** based on the same classes of features Cobblemon exercises: geometry, pose sets, animation JSON, variants, locators/overlays and animation-state selection.
+- Maintain a **lightweight native animation lane** in addition to GeckoLib/AzureLib so a simple creature does not require the heaviest renderer.
+- Keep **model introspection/dump** capability: Enderloom should be able to inspect the live registered entity model hierarchy and compare it to generated/imported JSON/Blockbench truth.
+- Keep the high-fidelity runtime **Minecraft-independent at its core** where practical, with thin loader/version adapters, mirroring the useful separation seen in Figura's current modular architecture.
+- Add **camera/timeline/model-preview** challenge fixtures from the BBS lineage to Studio; these improve authoring/QA and should not be confused with the shipping entity runtime.

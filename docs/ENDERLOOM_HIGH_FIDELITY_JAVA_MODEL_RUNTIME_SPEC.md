@@ -465,3 +465,17 @@ The runtime/authoring plan must now explicitly challenge itself against:
 Enderloom Studio should interoperate with or equal the useful current Blockbench plugin workflows surfaced by the sweep: Animated Java, GeckoLib/AzureLib exporters, Figura format, CEM/EMF animation, PBR Tools, mesh tools, Bone View, Root Motion Extractor, Bakery, animation easing/platform helpers, concealed-face optimization, UV-bleed repair, reference-model loading, VoxelShape generation and glTF-to-Minecraft conversion.
 
 This is a **reuse-before-rebuild** requirement: prefer a lawful adapter/import/export or extracted proven algorithm over inventing a weaker duplicate.
+
+
+### 17.3 Mature Java differential fixtures
+
+The second sweep adds mandatory comparison/fixture coverage for:
+
+- **Cobblemon's Bedrock-style model/animation runtime on Java** as a mature real-world geometry/pose/animation-state reference;
+- **Blueprint Endimator** as a lighter native animation lane;
+- **JsonEM** for data-driven model introspection/dump and resource-defined model fixtures;
+- **CustomPlayerModel** for an independent Java scripting/particle/physics model runtime reference;
+- **BBS/BBS Engine** for Studio timeline/camera/model-authoring ideas;
+- **Figura's current split core/client/Molang architecture** as a portability reference.
+
+Use source only under the exact project's license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable just because the runtime source is open.
