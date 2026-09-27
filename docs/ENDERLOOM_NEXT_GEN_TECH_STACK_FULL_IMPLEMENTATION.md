@@ -539,6 +539,30 @@ Do not flatten into one name too early.
 
 No requirement to force one library to own every mapping operation.
 
+### T313 — Differential source/JAR remap proof stack
+
+- [ ] **T313** — Make remapping a proven multi-oracle operation instead of trusting one implementation. On representative Java, Kotlin, Mixin, MixinExtras, Access Widener/Class Tweaker and compiled-JAR fixtures, compare Enderloom against:
+
+- Fabric Loom `migrateMappings` / related migration tasks as the Fabric-native oracle;
+- **Ravel** for PSI-aware Java/Kotlin/Mixin/Class Tweaker source remapping;
+- **NeoForged AutoRenamingTool (ART)** for Forge/NeoForge JAR remap/rename behavior;
+- **ModForge** for artifact-backed EXACT/CANDIDATE/UNRESOLVED symbol evidence;
+- Tiny Remapper / Mapping-IO / SrgUtils for the lower-level mapping operations they already own.
+
+Adopt useful algorithms or direct integrations only after AoA + isolated fixtures confirm owner/name/descriptor correctness and no silent ambiguity. Preserve an evidence chain for every auto-applied rename; an oracle disagreement lowers confidence instead of becoming a coin flip.
+
+### T314 — Legacy mapping/reconstruction subgraph
+
+- [ ] **T314** — If Enderloom claims broad historical Minecraft support, add an explicit legacy mapping lane rather than stretching modern Yarn/Mojmap assumptions backwards. Evaluate/integrate the useful parts of the **Ornithe** toolchain:
+
+- Feather for CC0 named mappings from very old Minecraft through 1.14.4;
+- Calamus as stable intermediate mapping lineage;
+- nests for historical inner-class reconstruction;
+- Sparrow/Raven signature + exception metadata for generics/throws fidelity;
+- Ploceus/Keratin-style legacy build/deobfuscation workflows as target-generation references.
+
+The version graph must identify exactly when this lane applies. Legacy enrichment can never override stronger exact mappings for newer versions.
+
 ---
 
 # G044 — Permissioned MC Mod Porter integration and learned-rule store
@@ -753,6 +777,25 @@ If rewriting invalidates an existing signature, report it explicitly; never sile
 
 Do not patch bytecode merely because source transformation is harder when maintainable source exists.
 
+### T315 — Binary/API compatibility differential gate
+
+- [ ] **T315** — Add **NeoForged JarCompatibilityChecker** beside Revapi/japicmp as an independent compiled-JAR API/binary delta oracle. Compare outputs across Minecraft/loader/API version pairs and normalize differences into Enderloom's API-delta graph.
+
+JCC is especially useful for private/all-member binary changes and current Java classfile support; Revapi/japicmp remain complementary for their richer source/API models. No single compatibility checker is complete enough to be the sole authority.
+
+### T316 — Deterministic patch/reconstruction architecture corpus
+
+- [ ] **T316** — Reintroduce and study **PaperMC Mâché + paperweight** and current **NeoForge InstallerTools** as architecture references for deterministic artifact reconstruction and patch application. Extract useful patterns for:
+
+- reproducible decompile/remap/patch/recompile stages;
+- cacheable intermediates and exact input hashes;
+- patch failure diagnostics rather than fuzzy continuation;
+- class/resource JAR splitting and deterministic ZIP injection;
+- binary patch provenance;
+- machine-readable problems/warnings.
+
+These are references/selective backends, not a requirement to convert Enderloom into a Paper or NeoForge installer clone.
+
 ---
 
 # G047 — Loader capability translation knowledge
@@ -801,6 +844,24 @@ Do not make converted mods depend on a compatibility layer when a clean native t
 - [ ] **T176** — Convert Mixins/AW/Class Tweaker/AT/interface injection with exact owner/member/descriptor semantics and target-runtime proof.
 
 No selector is considered safe based on a name-only match.
+
+### T317 — Bidirectional loader-semantic corpus expansion
+
+- [ ] **T317** — Expand `LoaderCapabilityGraph` from concrete compatibility implementations, not documentation alone:
+
+- **Sinytra Launchpad** for predictable Fabric-convention -> NeoForge metadata/entrypoint/registration/dependency/Class Tweaker semantics;
+- **ConnectorExtras** for real two-way third-party API bridges such as energy/platform integrations;
+- **Kilt/Twill** and **Porting-Lib** for Forge/NeoForge -> Fabric inverse correspondences;
+- historical Patchwork transformation families only as archived regression evidence;
+- Forge Config API Port and other focused bridges where they establish an exact semantic correspondence.
+
+For every mined correspondence store direction, version bounds, fidelity caveats, required runtime shim, and a target-native replacement path. Compatibility-layer behavior is evidence, not permission to force converted mods to depend on that layer.
+
+### T318 — Access/Class Tweaker/Mixin format authority
+
+- [ ] **T318** — Parse and validate loader access/mutation formats against the loader's current formal implementation/specification rather than ad-hoc text handling. Include current **NeoForged AccessTransformers** and Fabric **Class Tweaker** semantics (including transitive access, interface injection and enum extension where supported), and version-aware **MixinExtras** selectors/expressions.
+
+Ravel's lack of MixinExtras Expression remapping is an explicit coverage gap Enderloom must close itself or with another proven oracle. Exact owner/member/JVM descriptor plus target-runtime PREPARE/APPLY remains mandatory.
 
 ---
 
@@ -961,6 +1022,18 @@ Fail on unexplained loss of recipes/tags/loot/advancements/models/blockstates/la
 
 No “datagen passed” shortcut may hide static resource loss.
 
+### T319 — First-class versioned data/resource delta graph
+
+- [ ] **T319** — Elevate **misode/mcmeta** from a reference corpus to a structured cached input for `DataResourceDeltaGraph`: registries, generated data/assets, commands, item components, block states, sounds, atlases and published version diffs. Re-derive load-bearing facts from official game JAR/data generators before promoting them to conversion rules.
+
+Use **PrismarineJS/minecraft-data** as a secondary/legacy cross-check where it adds coverage; it never overrides newer official or independently regenerated truth.
+
+### T320 — Real DataFixerUpper/schema evidence lane
+
+- [ ] **T320** — When persistent Minecraft data crosses schema generations, inspect the actual target/source **DataFixerUpper** schemas/fixes and target codecs instead of treating DFU as a generic concept. Build fixtures for saved data, entities/block entities, chunks/world data and other affected persistent formats when a mod owns or embeds versioned data.
+
+Do not blindly run vanilla DFU over arbitrary mod-owned NBT. Use its schema/fix graph as evidence and execute only transformations whose ownership/type contract is known.
+
 ---
 
 # G051 — Compile, diagnose, generalized repair loop
@@ -1004,6 +1077,26 @@ Do not emit a generic “manual fix needed.”
 - provenance/version bounds;
 - no regression on previously protected fixtures.
 
+### T321 — Crash/failure intelligence corpus
+
+- [ ] **T321** — Mine **Crash Assistant** as a high-value repair-signature and diagnostic-method corpus, independently verifying every promoted rule. At minimum add reusable detection/fixtures for:
+
+- missing/duplicate classes and packages;
+- nested-JAR ownership/provider ambiguity;
+- duplicate modules/packages and JPMS failures;
+- Mixin/config/transform ownership;
+- missing/incompatible dependencies;
+- Java/runtime/GPU/native mismatch;
+- watchdog/deadlock and common startup failures.
+
+Use **MixinTrace**-style provenance to enrich stack frames with the contributing Mixin config/class/mod when deterministically recoverable from packaged metadata/bytecode. Small pattern-only crash analyzers may serve as independent differential fixtures but never become repair authority.
+
+### T322 — Source transformation prefilter without semantic downgrade
+
+- [ ] **T322** — Evaluate **ast-grep** as a fast parallel tree-sitter structural search/rewrite *prefilter* for large Java/Kotlin/code/config corpora. Use it to locate candidate transformation sites and mine recurring patterns before handing exact semantic decisions to JDT/OpenRewrite/compiler/mapping oracles.
+
+Never promote an ast-grep textual/structural match to an auto-fix when symbol/type/runtime semantics are required.
+
 ---
 
 # G052 — Packaged artifact audit
@@ -1037,6 +1130,12 @@ Do not emit a generic “manual fix needed.”
 - [ ] **T199** — Compare expected source/target archive inventory and explain every removed/added/relocated entry category.
 
 Expected version-driven changes are allowlisted with evidence; unexplained disappearance fails the gate.
+
+### T323 — Packaged provenance and ownership graph
+
+- [ ] **T323** — Build a class/resource/provider ownership graph across the outer JAR, Jar-in-Jar/nested dependencies, Multi-Release entries and dependency classpath. Use it during linkage and repair to answer exactly which artifact supplies a class/resource/service and to detect duplicate/split-package/shadowing conflicts before runtime.
+
+Where a JAR carries signatures, preserve signature state as evidence and invalidate/re-sign only through an explicit authorized release path.
 
 ---
 
@@ -1101,6 +1200,14 @@ A first-launch success does not prove persistence compatibility.
 
 The production Enderloom native verifier owns final artifact promotion.
 
+### T324 — Production-server CI matrix before final native promotion
+
+- [ ] **T324** — Add **mc-server-test** as a CI breadth layer for real production-style Fabric/Forge/NeoForge/vanilla server startup across supported versions, including scripted command/assertion interactions. It complements loader-native GameTest and MC-Runtime-Test; Enderloom's own native verifier remains final promotion authority for the exact artifact.
+
+### T325 — Minecraft/JVM performance proof lane
+
+- [ ] **T325** — For AoA and other performance-sensitive converted/repaired/created mods, capture repeatable **spark** profiles/health metrics and use **async-profiler** or JFR/JMC headless analysis when deeper CPU/allocation/lock/native evidence is needed. Performance changes pass only when equivalent gameplay/content/runtime coverage is preserved.
+
 ---
 
 # G054 — Resumability, caching and performance
@@ -1147,6 +1254,12 @@ Everything IPC may be an optional accelerator, never canonical state.
 - peak memory/CPU where material.
 
 Performance promotion requires identical accepted outputs/proof coverage.
+
+### T326 — Build/iteration performance harness
+
+- [ ] **T326** — Use **Gradle Profiler** to prove Gradle/configuration-cache/task-graph changes on representative generated workspaces, and bake off current **sccache** for Rust/JVM-adjacent compilation workloads it can actually cache. Record cold/warm build/configuration times and cache hit/miss reasons.
+
+Build-speed work is developer/agent QoL, not a substitute for app/runtime performance, and may not weaken reproducibility or validation.
 
 ---
 
@@ -1279,6 +1392,18 @@ Use **packwiz** and **Ferium/libium** as behavior/format/comparator corpora wher
 
 - [ ] **T295** — After a repair is proven, store signature, applicable version/loader bounds, cause, failed approaches, successful transformation/action, positive fixture, negative fixture, verification and invalidation conditions in the same learned-rule/incident system used by conversion.
 
+### T327 — World/NBT repair capability
+
+- [ ] **T327** — Make world/save repair an explicit optional repair module rather than an accidental side effect. Bake off **simdnbt** vs fastnbt for NBT parse/write hot paths and use a robust region-file implementation such as **mca** for `.mca` access. Mine **Minecraft Region Fixer** and **MCA Selector** only as behavioral/reference corpora for corruption detection, safe chunk/region selection, backup/export/delete semantics and recovery fixtures.
+
+Never delete/regenerate corrupt world data as an implicit "fix". Preserve backups, exact affected coordinates/regions and user-visible recovery choices; prove repaired worlds reopen in the applicable runtime.
+
+### T328 — Modpack/package-manager repair comparators
+
+- [ ] **T328** — Add **Pakku** and current **AutoModpack** behavior to the modpack/instance repair comparator set alongside packwiz/Ferium. Mine safe dependency-aware removal, bulk updates, lock/diff semantics, managed-file ownership, config migration with backups and update synchronization.
+
+Also turn known Prism/other-launcher dependency/provider mistakes (cross-provider identity mismatch, prerelease selection, dependency false negatives) into negative solver fixtures so Enderloom does not repeat them.
+
 ### T296 — Repair graduation suite
 
 - [ ] **T296** — Maintain broken fixtures covering project build, dependency, Mixin/access, package/linkage, data/resource and runtime failure classes plus at least one real-world production-shaped repair. Graduation requires diagnosis -> repair -> rebuild -> exact packaged artifact -> strongest applicable runtime gate, with no manual source surgery hidden outside the recorded repair action.
@@ -1351,6 +1476,16 @@ Publishing is opt-in, uses user-authorized tokens from secure secret storage, su
 ### T306 — Conversion/repair/authoring share learned intelligence
 
 - [ ] **T306** — A rule/fact learned while converting or repairing must immediately become available to authoring validation/generation when applicable, and authoring failures must improve conversion/repair. Do not maintain separate version tables, loader capability tables, schema truth or semantic rename catalogs.
+
+### T329 — Authoring/remap IDE-oracle differential suite
+
+- [ ] **T329** — Maintain a non-production differential suite against current IDE/dev tooling where it provides unique evidence: Ravel, MinecraftDev/Railroad inspections/generators, Fabric Loom migration tasks and mcsrc-style exact target generation. The Enderloom authoring UI/CLI remains editor-agnostic; IDE tools are oracles/UX inspiration, not mandatory runtime dependencies.
+
+### T330 — External Minecraft-analysis tool differential lane
+
+- [ ] **T330** — Evaluate **minecraft-modding-mcp**, **CreeperHost modlens-mcp** and similar maintained analysis toolchains only as independent oracles/fixture generators for mappings, source/JAR search, Mixin/AW/AT validation and version diffs. Import a capability only after Enderloom/Dev Kit independently verifies its result on real fixtures.
+
+Do not add an MCP server as a second canonical implementation when the same capability belongs in Enderloom's typed domain layer. Small/new/AI-generated tools require stronger verification, not automatic exclusion or automatic trust.
 
 ### T307 — Authoring capability receipt
 
@@ -1471,6 +1606,16 @@ No manual source surgery is allowed during this graduation replay.
 
 This is mandatory protection against over-broad auto-porting.
 
+### T331 — Fuzz/property/adversarial parser suite
+
+- [ ] **T331** — Fuzz and property-test untrusted/high-variance inputs: ZIP/JAR central directories, nested JARs, manifests, loader metadata, mappings, AT/AW/Class Tweaker, Mixin config/refmaps, NBT/region files, provider JSON/HTML normalization and persisted job/session state. Use cargo-fuzz/Bolero/proptest-style tooling or stronger current equivalents where they fit the implementation language.
+
+Every discovered crash, hang, excessive allocation or parser differential becomes a minimized permanent regression fixture. Fuzz success never replaces semantic/runtime proof.
+
+### T332 — Loader dependency-resolution parity fixtures
+
+- [ ] **T332** — Cross-check Enderloom solver decisions against the target loader's own dependency semantics on representative graphs, including Fabric Loader's SAT4J-backed resolution behavior and FML/NeoForge constraints. Differences must be intentional and documented; Enderloom may produce a better explanation/solution but must not install a graph the target loader will reject.
+
 ---
 
 # G058 — Duplicate authority retirement and execution convergence
@@ -1562,6 +1707,22 @@ Keep useful reference/selftest fixtures where they still provide independent reg
 | packwiz / Ferium | **modpack/repair/import-export comparators; never canonical solver authority** |
 | mod-publish-plugin / mc-publish / Minotaur | **optional secure release/publishing adapters** |
 | ORT / ScanCode | **vendored-code license/provenance support** |
+| ModForge | **high-priority mapping/migration differential oracle; integration candidate only after independent AoA/fixture proof** |
+| Fabric Loom migration tasks | **Fabric-native source/Mixin/AW migration oracle** |
+| NeoForged JarCompatibilityChecker | **compiled API/binary delta oracle beside Revapi/japicmp** |
+| Paper Mâché / paperweight | **deterministic reconstruction/patch/build architecture corpus; conditional backend** |
+| NeoForge InstallerTools | **JAR split/patch/inject/problems architecture corpus; selective reuse only** |
+| Ornithe Feather/Calamus/nests/signatures/Ploceus | **legacy mapping/reconstruction/build lane where target versions require it** |
+| Sinytra Launchpad / ConnectorExtras | **high-value Fabric->NeoForge metadata/lifecycle/API bridge corpus** |
+| Crash Assistant / MixinTrace | **repair-signature + ownership/provenance corpus; independently verified rules only** |
+| mc-server-test | **production-server CI breadth before final Enderloom runtime promotion** |
+| spark / async-profiler / JFR-JMC | **Minecraft/JVM performance evidence lane** |
+| ast-grep | **fast structural prefilter/rule-mining aid, never semantic authority** |
+| Pakku / AutoModpack | **modpack dependency/update/managed-file UX and repair comparators** |
+| minecraft-modding-mcp / modlens-mcp / similar analyzers | **secondary differential oracles/fixture generators only** |
+| simdnbt / fastnbt / mca | **world/NBT repair bakeoff; conditional production module** |
+| Minecraft Region Fixer / MCA Selector | **world-repair behavioral fixtures/reference only** |
+| Gradle Profiler | **build-performance proof harness** |
 | AppContainer / OS sandbox | **untrusted build execution boundary** |
 
 A candidate does not enter production merely because it appears in this table. Its relevant bakeoff/acceptance task must pass.
@@ -1751,6 +1912,16 @@ Do not begin a framework-wide rewrite until this slice proves that the rewrite i
 
 Preserve all accepted functionality, keyboard/focus behavior, drag/drop, context actions, browser navigation, downloads UI, settings and state persistence. Do not move logic between languages merely to satisfy an aesthetic stack preference.
 
+### T333 — Current frontend toolchain bakeoff before framework rewrite
+
+- [ ] **T333** — Before considering a broad UI framework migration, benchmark upgrading the existing frontend to current production baselines: **Vite 8.1/Rolldown**, current `@vitejs/plugin-react`/Oxc path, **React 19.3**, **TypeScript 6**, and the current high-performance **TanStack Virtual** release. Resolve deprecations/fallout forward and measure packaged startup, dev cold start, HMR, build time, Browse interaction latency, memory and frame stability.
+
+Evaluate **React Compiler 1.0** only through its supported integration and keep it only when real Enderloom render workloads improve without behavior regressions. If upgraded TanStack Virtual still fails dynamic-card/100k-dataset gates, then compare alternatives such as Virtua.
+
+### T334 — Typed Tauri IPC binding bakeoff
+
+- [ ] **T334** — Bake off **tauri-specta** vs **Tyzen** (or a stronger maintained equivalent) for generated typed commands/events/channels shared between Rust and TS. Promote one only if it removes hand-maintained schema drift without adding fragile build/runtime coupling. Tauri bindgen/WIT remains research inspiration until its production maturity is sufficient.
+
 ---
 
 # G065 — Tauri security, updater and native desktop QoL hardening
@@ -1797,6 +1968,10 @@ The updater must prove:
 - old known-good build retention or deterministic reinstall path.
 
 Baking a **TUF-style metadata layer** around public release/update metadata is allowed only if the operational complexity yields measurable/meaningful rollback/freeze/mix-and-match protection beyond the mandatory Tauri signature layer.
+
+### T335 — Packaged desktop end-to-end automation
+
+- [ ] **T335** — Add official/current **WebdriverIO Tauri service / Tauri WebDriver** end-to-end coverage for the packaged desktop shell on supported CI platforms. Exercise real Browse/install/download/settings/update-recovery surfaces through the production IPC boundary; retain fast browser-mode tests for frontend-only cases but never let mocked IPC stand in for final packaged-app proof.
 
 ---
 
@@ -1850,6 +2025,10 @@ Every UI surface should know when one project has multiple provider homes and of
 
 A faster result that searches fewer records or delays required providers fails this gate.
 
+### T336 — SQLite FTS5 trigram vs Tantivy scope boundary
+
+- [ ] **T336** — Benchmark **SQLite FTS5 trigram** for smaller/local substring search and identity lookup workloads before creating a second full-text authority. Keep Tantivy for large ranked/full-text corpora only where it materially outperforms SQLite while returning equivalent logical results. Persist one canonical project/provider identity model regardless of index backend.
+
 ---
 
 # G067 — Dependency solving and durable task execution
@@ -1875,6 +2054,10 @@ Reuse/upgrade the existing task layer if it meets or exceeds those semantics. In
 ### T255 — Prevent duplicate/racing mutations
 
 - [ ] **T255** — Add operation deduplication/single-flight and resource-scoped mutation locks so two UI/agent/background actions cannot concurrently install/update/delete the same instance/mod/artifact.
+
+### T337 — Durable queue bakeoff: existing task engine vs Effectum vs apalis-sqlite
+
+- [ ] **T337** — Extend T254's durable-job comparison to include **apalis-sqlite**. Compare crash recovery, heartbeats/orphan reclamation, retries/backoff, priorities, delayed jobs, pipeline/DAG composition, cancellation semantics, idempotency, observability and SQLite contention under real download/install/convert workloads. Choose one canonical job engine or strengthen the existing one; never ship parallel queue authorities.
 
 ---
 
@@ -1931,6 +2114,12 @@ Handle journal resets, rename pairs, missed events and unsupported filesystems b
 
 - [ ] **T263** — Evaluate **FastCDC** only for workloads that benefit from content-defined chunking (large pack snapshots, backup/delta transfer, dedupe). Do not add chunk-level complexity to ordinary small mod JAR handling without evidence.
 
+### T338 — Archive decompression and cross-platform scan bakeoffs
+
+- [ ] **T338** — Pair the `rawzip` structural parser bakeoff with **libdeflater** for full-buffer DEFLATE entry workloads where sizes are known, measuring real mod/JAR corpora against the current flate2 path. Promote only if end-to-end parse+decompress throughput/memory wins materially while preserving exact bytes/errors.
+
+On non-NTFS or cold full scans, compare a parallel walker such as **jwalk** against the standard walk. Windows MFT/USN remains the preferred incremental fast path when valid.
+
 ---
 
 # G069 — Network, download and media pipeline
@@ -1970,6 +2159,10 @@ No provider-specific retry loop may bypass the shared policy.
 - [ ] **T268** — Build a native media pipeline that decodes once, generates canonical sized thumbnails, caches by content/source identity and uses a SIMD resize bakeoff such as **fast_image_resize** when it materially improves equivalent-quality throughput.
 
 The UI should receive display-ready assets/placeholders progressively rather than repeatedly decoding/resizing full originals.
+
+### T339 — Platform TLS verification and enterprise-network correctness
+
+- [ ] **T339** — Evaluate **rustls-platform-verifier** or the strongest maintained equivalent so provider/download traffic can honor OS certificate constraints, enterprise roots and revocation behavior where appropriate without loading an entire CA set into every process. Prove Windows/macOS/Linux behavior, proxy/enterprise compatibility and security semantics before replacing the current verifier path.
 
 ---
 
@@ -2049,6 +2242,32 @@ Use **cargo-deny**, **cargo-audit** and **cargo-vet** (or demonstrably stronger 
 
 - [ ] **T278** — Generate an SBOM/provenance record covering Rust crates, JVM libraries, bundled runtimes, vendored tools, extensions and directly integrated permitted upstream code. Include versions/hashes/licenses/source locations and the final artifact identity.
 
+### T340 — Concrete crash monitor + async diagnostics
+
+- [ ] **T340** — Bake off **minidumper** as the out-of-process Rust crash monitor for T274, preserving a tiny stable IPC/evidence contract and keeping sensitive state redacted. Add **tokio-console** only to development/diagnostic builds for async task/queue/lock stall analysis; it must not become always-on production overhead.
+
+### T341 — Rust test-speed, coverage and mutation gates
+
+- [ ] **T341** — Upgrade Rust verification throughput and quality with **cargo-nextest** for parallel/isolation-friendly test execution and **cargo-llvm-cov** for coverage reporting/thresholds. Use **cargo-mutants** selectively on critical solver/state/archive/security logic to detect weak tests rather than requiring mutation testing on every UI/helper crate.
+
+These gates supplement real workflow/runtime proof; never game coverage/mutation scores with meaningless tests.
+
+### T342 — Rust public API/dependency hygiene
+
+- [ ] **T342** — Add **cargo-semver-checks** where Enderloom exposes stable Rust/plugin/SDK APIs, and use **cargo-machete** (plus `cargo metadata` verification) to remove genuinely unused dependencies. Use cargo-bloat or equivalent only to explain release-size/codegen hotspots, not as a mandate to remove useful capability.
+
+### T343 — Release/SBOM/license tooling convergence
+
+- [ ] **T343** — Bake off **Syft** as a cross-language/archive SBOM aggregator and **cargo-about** for Rust license notices. Evaluate **cargo-dist + cargo-auditable/cargo-cyclonedx** where they simplify reproducible native release provenance without fighting Tauri packaging. Existing ORT/ScanCode and cargo-deny/audit/vet remain complementary policy/provenance controls.
+
+### T344 — Updater trust defense-in-depth is threat-model gated
+
+- [ ] **T344** — Evaluate **TUF (`tough`)** and Sigstore verification only if Enderloom's update/distribution threat model benefits from rollback/freeze/delegation or keyless provenance beyond Tauri's mandatory signature verification. Do not introduce a second fragile updater control plane merely because the tooling exists.
+
+### T345 — Developer build acceleration without changing product semantics
+
+- [ ] **T345** — Bake off current **sccache** client-side/multilevel modes for Rust compilation and platform-appropriate fast linkers such as **Wild** where supported. Promote developer/CI acceleration only if builds remain reproducible/debuggable and platform fallbacks stay boring. This is iteration-speed work, not evidence of faster Enderloom runtime behavior.
+
 ---
 
 # G072 — App-wide candidate convergence challenge
@@ -2093,6 +2312,25 @@ Use **cargo-deny**, **cargo-audit** and **cargo-vet** (or demonstrably stronger 
 | Essential Gradle Toolkit / Essential Loom | legacy multi-version build lane | **BAKEOFF / CONDITIONAL** |
 | ReplayMod / Manifold preprocessors | one-source conditional compilation | **BAKEOFF / CONDITIONAL** |
 | packwiz / Ferium | modpack repair/import-export comparators | **REFERENCE / SELECTIVE ADOPTION** |
+| Vite 8.1 / current React plugin | frontend build/toolchain | **UPGRADE BAKEOFF FIRST** |
+| React 19.3 / React Compiler 1.0 | existing frontend optimization | **UPGRADE/MEASURE BEFORE REWRITE** |
+| TypeScript 6 | frontend/tooling baseline | **UPGRADE WITH DEPRECATION/CORRECTNESS GATE** |
+| current TanStack Virtual | large-list baseline | **UPGRADE/MEASURE FIRST; VIRTUA ONLY IF NEEDED** |
+| tauri-specta / Tyzen | typed Rust<->TS IPC generation | **BAKEOFF; CHOOSE AT MOST ONE** |
+| WebdriverIO Tauri service | packaged desktop E2E | **IMPLEMENT FOR CRITICAL FLOWS** |
+| apalis-sqlite | durable job queue challenger | **BAKEOFF VS EFFECTUM/EXISTING ENGINE** |
+| SQLite FTS5 trigram | small/local substring index | **BAKEOFF BEFORE ADDITIONAL INDEX AUTHORITY** |
+| libdeflater | JAR full-buffer DEFLATE hot path | **PROFILE-GATED BAKEOFF WITH RAWZIP** |
+| jwalk | cross-platform full filesystem scan | **CONDITIONAL FALLBACK BAKEOFF** |
+| rustls-platform-verifier | TLS/platform trust integration | **BAKEOFF / LIKELY PROMOTE IF ENTERPRISE-CORRECT** |
+| minidumper | external Rust crash monitor | **BAKEOFF / LIKELY PROMOTE** |
+| tokio-console | async runtime diagnostics | **DEV/DIAGNOSTIC ONLY** |
+| cargo-nextest / cargo-llvm-cov | Rust test speed + coverage | **IMPLEMENT WHERE COMPATIBLE** |
+| cargo-mutants | critical logic mutation testing | **SELECTIVE QUALITY GATE** |
+| cargo-semver-checks / cargo-machete | API/dependency hygiene | **IMPLEMENT WHERE APPLICABLE** |
+| Syft / cargo-about / cargo-dist | SBOM/license/release tooling | **BAKEOFF / SELECTIVE PROMOTION** |
+| TUF tough / Sigstore | updater/artifact trust defense | **THREAT-MODEL CONDITIONAL** |
+| sccache / fast linker | developer/CI build acceleration | **BAKEOFF; NOT RUNTIME PERFORMANCE CLAIM** |
 | mod-publish-plugin / mc-publish | release automation | **OPTIONAL AUTHORIZED ADAPTER** |
 
 
@@ -2310,6 +2548,45 @@ Refresh exact commits/releases when integrating; these links are implementation 
 
 ---
 
+## Additional implementation/reference authorities
+
+- ModForge — https://github.com/champmk/modforge
+- NeoForged JarCompatibilityChecker — https://github.com/neoforged/JarCompatibilityChecker
+- NeoForged InstallerTools — https://github.com/neoforged/InstallerTools
+- NeoForged AccessTransformers — https://github.com/neoforged/AccessTransformers
+- PaperMC Mâché — https://github.com/PaperMC/mache
+- PaperMC paperweight — https://github.com/PaperMC/paperweight
+- Ravel — https://github.com/badasintended/ravel
+- Sinytra Launchpad — https://github.com/Sinytra/Launchpad
+- Sinytra ConnectorExtras — https://github.com/Sinytra/ConnectorExtras
+- Porting Lib — https://github.com/Fabricators-of-Create/Porting-Lib
+- Ornithe Feather — https://github.com/OrnitheMC/feather
+- Ornithe Calamus — https://github.com/OrnitheMC/calamus
+- Ornithe Ploceus — https://github.com/OrnitheMC/ploceus
+- Crash Assistant — https://github.com/KostromDan/Crash-Assistant
+- MixinTrace — https://github.com/comp500/mixintrace
+- MC-Server-Test — https://github.com/headlesshq/mc-server-test
+- spark — https://github.com/lucko/spark
+- async-profiler — https://github.com/async-profiler/async-profiler
+- ast-grep — https://github.com/ast-grep/ast-grep
+- Pakku — https://github.com/juraj-hrivnak/Pakku
+- simdnbt — https://github.com/azalea-rs/simdnbt
+- Minecraft Region Fixer — https://github.com/Fenixin/Minecraft-Region-Fixer
+- MCA Selector — https://github.com/Querz/mcaselector
+- Gradle Profiler — https://github.com/gradle/gradle-profiler
+- apalis-sqlite — https://github.com/apalis-dev/apalis-sqlite
+- cargo-nextest — https://github.com/nextest-rs/nextest
+- cargo-llvm-cov — https://github.com/taiki-e/cargo-llvm-cov
+- cargo-mutants — https://github.com/sourcefrog/cargo-mutants
+- cargo-semver-checks — https://github.com/obi1kenobi/cargo-semver-checks
+- cargo-machete — https://github.com/bnjbvr/cargo-machete
+- rustls-platform-verifier — https://github.com/rustls/rustls-platform-verifier
+- libdeflater — https://github.com/ebiggers/libdeflate
+- sccache — https://github.com/mozilla/sccache
+- Wild linker — https://github.com/wild-linker/wild
+
+---
+
 # Exact first action for the implementing agent
 
-**Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute G041-G055, G075, G076 and G077, including T230-T232 so conversion/repair/authoring and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly and do not return to planning-only work.**
+**Start with T134-T137 and recover the exact current AoA/Dev Kit authority. Then make the Minecraft capability stack ready before touching unrelated app modernization: execute every task in G041-G055, G075, G076 and G077 (including newly accepted oracle/repair/legacy/runtime tasks and T230-T232) so conversion/repair/authoring and their graduation commands are real production paths. Immediately run G056 and finish AoA completely; every failure must improve the shared engine and become regression knowledge. Complete G078 so AoA-derived fixes are promoted back into conversion, repair and mod-making and reverified. Only then proceed through the broader app gates G064-G072 using those proven primitives and AoA-scale lessons. Keep React/TypeScript/JS wherever it remains the best measured fit; move work to Rust/JVM/native only where it materially improves speed, responsiveness, correctness, resilience, security or maintainability without feature loss. Follow T282 exactly and do not return to planning-only work.**
