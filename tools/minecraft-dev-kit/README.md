@@ -163,6 +163,44 @@ Package approved editable/runtime assets behind exact hashes:
 
 Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated.
 
+### 7. Run the durable end-to-end pipeline
+
+For repeatable production work, put the same inputs into one manifest and let Variant Foundry reuse only stages whose exact inputs **and implementation bytes** are unchanged:
+
+```json
+{
+  "schema_version": 1,
+  "sources": ["C:/Minecraft/Instances/BloomBoomDev"],
+  "runtime_registry_dump": "C:/DevKit-Runs/variant-foundry-registry.json",
+  "subject": "references/variant-foundry/bloom-boom-creeper-female-subject.json",
+  "biomes": ["minecraft:snowy_plains", "minecraft:swamp"],
+  "mode": "full-phenotype",
+  "seed": 77,
+  "textures": [
+    {
+      "name": "creeper-working",
+      "role": "texture",
+      "input": "C:/DevKit-Runs/working-texture.png",
+      "profile": "C:/DevKit-Runs/bloom-boom-style.json"
+    }
+  ],
+  "assets": [
+    {"role": "editable-model", "path": "C:/DevKit-Runs/creeper.bbmodel"}
+  ],
+  "target": {
+    "minecraft": "26.3",
+    "loader": "neoforge",
+    "backend": "enderloom-skeletal"
+  }
+}
+```
+
+```powershell
+.\devkit.cmd variant pipeline --manifest "C:\DevKit-Runs\variant-foundry.json" --workspace "C:\DevKit-Runs\variant-foundry-work"
+```
+
+The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> texture compile -> ModelBundle**. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
+
 ### Capability contract
 
 ```powershell
