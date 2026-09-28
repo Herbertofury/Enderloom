@@ -104,7 +104,7 @@ def provider_identity(row: dict[str, Any]) -> dict[str, Any]:
         "id", "capabilities", "execution", "command", "probe_command", "timeout_seconds",
         "probe_timeout_seconds", "min_vram_gb", "priority", "provider", "model",
         "model_version", "weights", "weights_sha256", "code_license", "weights_license",
-        "source_repository", "source_commit", "rights_state", "distribution_notes",
+        "source_repository", "source_commit", "rights_state", "rights_verified", "distribution_notes",
         "output_extension", "validation",
     )
     return {key: row.get(key) for key in keep if key in row}
@@ -257,6 +257,7 @@ def compatible_providers(
     *,
     preferred: list[str] | None = None,
     vram_budget_gb: float | None = None,
+    require_verified_rights: bool = False,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     preferred = preferred or []
     preference_index = {provider_id: index for index, provider_id in enumerate(preferred)}
@@ -266,6 +267,8 @@ def compatible_providers(
         reasons: list[str] = []
         if capability not in row["capabilities"]:
             reasons.append("capability")
+        if require_verified_rights and row.get("rights_verified") is not True:
+            reasons.append("rights-unverified")
         reasons.extend(static_reasons(row, vram_budget_gb=vram_budget_gb))
         probe: dict[str, Any] | None = None
         if not reasons:
@@ -419,6 +422,7 @@ def run_job(
     preferred: list[str] | None = None,
     vram_budget_gb: float | None = None,
     output_extension: str | None = None,
+    require_verified_rights: bool = False,
 ) -> dict[str, Any]:
     registry_path = registry_path.resolve()
     input_path = input_path.resolve()
@@ -437,6 +441,7 @@ def run_job(
         "preferred": preferred or [],
         "vram_budget_gb": vram_budget_gb,
         "output_extension": output_extension,
+        "require_verified_rights": require_verified_rights,
         "implementation": {
             "scheduler_sha256": sha256_file(Path(__file__).resolve()),
             "gltf_gate_sha256": sha256_file(Path(gltf_gate.__file__).resolve()),
@@ -470,6 +475,7 @@ def run_job(
         capability,
         preferred=preferred,
         vram_budget_gb=vram_budget_gb,
+        require_verified_rights=require_verified_rights,
     )
     job_root.mkdir(parents=True, exist_ok=True)
     attempts = []
@@ -561,6 +567,7 @@ def main(argv: list[str] | None = None) -> int:
     run_cmd.add_argument("--preferred", action="append", default=[])
     run_cmd.add_argument("--vram-budget-gb", type=float)
     run_cmd.add_argument("--output-extension")
+    run_cmd.add_argument("--require-verified-rights", action="store_true")
     args = ap.parse_args(argv)
     try:
         registry = load_registry(args.registry.resolve())
@@ -586,6 +593,7 @@ def main(argv: list[str] | None = None) -> int:
             preferred=args.preferred,
             vram_budget_gb=args.vram_budget_gb,
             output_extension=args.output_extension,
+            require_verified_rights=args.require_verified_rights,
         )
         print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False))
         return 0 if result["state"] == "succeeded" else 2
