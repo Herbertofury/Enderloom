@@ -323,6 +323,9 @@ def main(argv: list[str] | None = None) -> int:
     bb_call.add_argument('--tool', required=True)
     bb_call.add_argument('--args-json', type=Path)
     bb_call.add_argument('--receipt', type=Path)
+    variant_pipeline = variant_sub.add_parser('pipeline', help='Run durable content-addressed Variant Foundry stages end-to-end')
+    variant_pipeline.add_argument('--manifest', type=Path, required=True)
+    variant_pipeline.add_argument('--workspace', type=Path, required=True)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -443,6 +446,9 @@ def main(argv: list[str] | None = None) -> int:
                 if args.receipt:
                     bb_args += ['--receipt', str(args.receipt)]
             return blockbench_main(bb_args)
+        if args.variant_command == 'pipeline':
+            from variant_foundry_pipeline import main as pipeline_main
+            return pipeline_main(['--manifest', str(args.manifest), '--workspace', str(args.workspace)])
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
