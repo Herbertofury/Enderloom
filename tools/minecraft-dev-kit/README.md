@@ -70,6 +70,30 @@ The resolver reads nested Fabric JARs, evaluates required version predicates usi
 
 Use every dependency listed in the resulting lock when installing the candidate. Optional recommendations are reported, not silently installed. A missing provider identity, incompatible explicit top-level mod, unsupported constraint or unresolved dependency remains a visible failure. Supply `--projects mapping.json` with exact mod-ID-to-Modrinth-project-ID mappings when provider names differ. `--audit-only` reads metadata without downloading. This is a Fabric resolver, not an unverified Forge/NeoForge metadata translator.
 
+## Variant Foundry biome discovery
+
+The first production Variant Foundry primitive is now executable rather than specification-only. It can scan a mod source tree, datapack, JAR/ZIP, directory of mods, or an installed instance without executing mod code:
+
+```powershell
+python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes.py "C:\Minecraft\Instances\BloomBoomDev" --json-out "C:\DevKit-Runs\biomes.json"
+```
+
+When Enderloom has a runtime registry dump from a launched test instance, merge it so code-registered/private content that has no static biome JSON is still discovered:
+
+```powershell
+python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes.py "C:\Minecraft\Instances\BloomBoomDev" --runtime-registry-dump "C:\DevKit-Runs\registry.json" --json-out "C:\DevKit-Runs\biomes.json"
+```
+
+The output is deterministic and evidence-bound. Static biome/dimension JSON records climate/effect fields, tags and recursively resolved worldgen feature evidence; high-confidence source registrations are merged when source is available; runtime-only registry identities remain explicit `registry-only` profiles instead of being rejected or having invented fields. Malformed resources and unresolved profiles stay visible under `unresolved`.
+
+The corresponding contract gate is:
+
+```powershell
+python tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py
+```
+
+That gate proves the complete Variant Foundry capability contract is still represented; it deliberately does **not** claim all 38 capabilities are implemented or runtime-proven.
+
 ## Offline, integrity and recovery
 
 `setup --offline` reuses a previously verified installed/private JDK without network access. `dependencies --offline` uses verified lockfile bytes. Native `--offline` additionally requires a cached `--template` and already populated Gradle/game caches. `convert --offline` prevents JDK provisioning; source-owned build tools may still perform their normal dependency resolution.
