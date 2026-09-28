@@ -61,6 +61,18 @@ def main() -> int:
         bad.parent.mkdir(parents=True, exist_ok=True)
         bad.write_text("{broken", encoding="utf-8")
 
+        source = root / "src/main/java/example/ModBiomes.java"
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text("""
+public final class ModBiomes {
+    public static final String MOD_ID = "sourceonly";
+    public static final DeferredRegister<Biome> BIOMES =
+        DeferredRegister.create(Registries.BIOME, MOD_ID);
+    public static final RegistryObject<Biome> MYSTIC =
+        BIOMES.register("mystic_biome", () -> null);
+}
+""", encoding="utf-8")
+
         mods = root / "mods"
         mods.mkdir()
         jar = mods / "ash.jar"
@@ -89,6 +101,15 @@ def main() -> int:
         assert "example:crystal_grove" in biomes
         assert "zipmod:ash_fields" in biomes
         assert "runtime:secret_grove" in biomes
+        if mod.registration_identity_inventory is not None:
+            assert "sourceonly:mystic_biome" in biomes
+            source_only = biomes["sourceonly:mystic_biome"]
+            assert source_only["confidence"] == "registration-only"
+            assert "source-registration" in source_only["sources"]
+            assert any(
+                row.get("category") == "biome" and row.get("id") == "sourceonly:mystic_biome"
+                for row in result["source_registrations"]
+            )
         crystal = biomes["example:crystal_grove"]
         assert crystal["profile"]["temperature"] == 0.35
         assert crystal["profile"]["effects"]["grass_color"] == 4478310
@@ -108,7 +129,8 @@ def main() -> int:
 
         dimensions = {x["id"] for x in result["dimensions"]}
         assert {"example:crystal_realm", "runtime:sky_realm"} <= dimensions
-        assert result["counts"]["biomes"] == 3
+        expected_biomes = 4 if mod.registration_identity_inventory is not None else 3
+        assert result["counts"]["biomes"] == expected_biomes
         assert result["counts"]["dimensions"] == 2
         print(json.dumps({
             "status": "passed",
