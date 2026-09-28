@@ -28,6 +28,7 @@ def main() -> int:
         model = root / "creeper.bbmodel"
         texture = root / "creeper.png"
         duplicate = root / "copy.bin"
+        evidence = root / "provider-receipt.json"
         output = root / "bundle"
 
         dump(subject, {"schema_version": 1, "id": "bloom_and_boom:creeper_female"})
@@ -39,6 +40,7 @@ def main() -> int:
         model.write_bytes(b"bbmodel-fixture-v1")
         texture.write_bytes(b"texture-fixture-v1")
         duplicate.write_bytes(b"texture-fixture-v1")
+        evidence.write_text('{"provider":"fixture","state":"succeeded"}', encoding="utf-8")
 
         assets = [
             ("editable-model", model),
@@ -53,9 +55,12 @@ def main() -> int:
             minecraft="26.3",
             loader="neoforge",
             backend="enderloom-skeletal",
+            evidence=[("provider-job-receipt", evidence)],
         )
         assert manifest["asset_count"] == 3
-        assert manifest["unique_object_count"] == 2
+        assert manifest["evidence_count"] == 1
+        assert manifest["evidence"][0]["role"] == "provider-job-receipt"
+        assert manifest["unique_object_count"] == 3
         assert len(manifest["variant_ids"]) == 2
 
         first = mod.compile_bundle(output, manifest)
@@ -65,7 +70,7 @@ def main() -> int:
         assert second["bundle_id"] == first["bundle_id"]
 
         object_files = [p for p in (output / "objects").rglob("*") if p.is_file()]
-        assert len(object_files) == 2
+        assert len(object_files) == 3
         saved = json.loads((output / "model-bundle.json").read_text(encoding="utf-8"))
         assert saved["bundle_id"] == manifest["bundle_id"]
 
@@ -78,6 +83,7 @@ def main() -> int:
             minecraft="26.3",
             loader="neoforge",
             backend="enderloom-skeletal",
+            evidence=[("provider-job-receipt", evidence)],
         )
         assert changed["bundle_id"] != manifest["bundle_id"]
         try:
@@ -92,6 +98,7 @@ def main() -> int:
             "bundle_id": manifest["bundle_id"],
             "assets": manifest["asset_count"],
             "unique_objects": manifest["unique_object_count"],
+            "evidence": manifest["evidence_count"],
         }, indent=2))
     return 0
 
