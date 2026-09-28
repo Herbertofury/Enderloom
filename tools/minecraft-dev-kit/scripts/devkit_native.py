@@ -57,8 +57,30 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import net.fabricmc.fabric.api.client.gametest.v1.world.TestWorldSave;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Blocks;
 public final class RuntimeProbe implements FabricClientGameTest {
+  private static String registryIds(java.util.Collection<?> ids) {
+    return ids.stream().map(Object::toString).sorted()
+        .map(id -> "\"" + id + "\"")
+        .collect(java.util.stream.Collectors.joining(",", "[", "]"));
+  }
+  private static void writeVariantFoundryRegistryDump(net.minecraft.server.MinecraftServer server) {
+    try {
+      var access = server.registryAccess();
+      String biomes = registryIds(access.lookupOrThrow(Registries.BIOME).keySet());
+      String dimensions = registryIds(access.lookupOrThrow(Registries.DIMENSION).keySet());
+      String dimensionTypes = registryIds(access.lookupOrThrow(Registries.DIMENSION_TYPE).keySet());
+      String json = "{\"schema_version\":1,\"registries\":{" +
+          "\"minecraft:worldgen/biome\":" + biomes + "," +
+          "\"minecraft:dimension\":" + dimensions + "," +
+          "\"minecraft:dimension_type\":" + dimensionTypes + "}}";
+      Files.writeString(Path.of("variant-foundry-registry.json"), json);
+      System.out.println("DEVKIT_VARIANT_REGISTRY_DUMP:" + access.lookupOrThrow(Registries.BIOME).keySet().size());
+    } catch (Exception error) {
+      throw new RuntimeException("failed to write Variant Foundry registry dump", error);
+    }
+  }
   public void runTest(ClientGameTestContext context) {
     try {
       var mod = FabricLoader.getInstance().getModContainer("EXPECTED_MOD").orElseThrow();
@@ -78,6 +100,7 @@ public final class RuntimeProbe implements FabricClientGameTest {
           BlockPos pos = world.getConnection().getServerPlayer().blockPosition().offset(2, 0, 2);
           marker.set(pos);
           world.getConnection().getServerLevel().setBlock(pos, Blocks.GOLD_BLOCK.defaultBlockState(), 3);
+          writeVariantFoundryRegistryDump(server);
         });
         context.waitTick();
         world.getConnection().waitForClientboundPackets();
@@ -180,6 +203,10 @@ def reusable_proof(workspace: Path, artifact: Path, java_path: Path) -> dict | N
             if not dependency.is_relative_to((workspace/'dependencies/mods').resolve()) or sha256_file(dependency)!=row['sha256']:return None
         if not valid_restart(result.get('proof', {}), result['artifact_sha256']):return None
         if len(result.get('screenshots',[]))<3:return None
+        registry=result.get('runtime_registry_dump') or {}
+        registry_path=Path(registry.get('path','')).resolve()
+        if (not registry_path.is_file() or not registry_path.is_relative_to(workspace.resolve())
+            or sha256_file(registry_path)!=registry.get('sha256')):return None
         evidence=result.get('evidence_files',[])
         if not evidence or not any(Path(row['path']).name=='devkit-runtime-proof.json' for row in evidence):return None
         for row in evidence:
@@ -201,7 +228,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
         result={'schema_version':1,'state':'running','artifact_sha256':sha256_file(artifact),'artifact_path':str(artifact),
                 'minecraft':'26.3','loader':'fabric','run':str(run),
                 'verifier_sha256':verifier_fingerprint(),'platform':[platform.system(),platform.machine()],
-                'coverage':[], 'required_coverage':['exact-production-JAR','client-render','integrated-server','block-network-sync','world-save-reopen','independent-JVM-restart'],
+                'coverage':[], 'required_coverage':['exact-production-JAR','client-render','integrated-server','block-network-sync','world-save-reopen','independent-JVM-restart','runtime-registry-dump'],
                 'not_proven':['exhaustive-mod-gameplay','online-multiplayer','hardware-GPU-performance']}
         atomic_json(workspace/'native-result.json',result)
         try:
@@ -227,6 +254,7 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             if offline:cmd.append('--offline')
             cp=run_phases(cmd,run=run,probe=probe,env=env,timeout=timeout)
             proof_path=probe/'run/devkit-native/devkit-runtime-proof.json'
+            registry_dump=probe/'run/devkit-native/variant-foundry-registry.json'
             if cp.returncode:
                 from devkit_diagnostics import native_failure
                 diagnosis=native_failure(probe, cp.stdout, cp.stderr)
@@ -236,13 +264,22 @@ def verify(artifact: Path, workspace: Path, *, template: Path | None=None, timeo
             proof=json.loads(proof_path.read_text())
             if not valid_restart(proof, result['artifact_sha256']):
                 raise ValueError('runtime proof does not match the candidate or required world gates')
+            if not registry_dump.is_file():
+                raise ValueError('native process did not produce the Variant Foundry registry dump')
+            registry_payload=json.loads(registry_dump.read_text())
+            registries=registry_payload.get('registries',{})
+            required_registry_keys=['minecraft:worldgen/biome','minecraft:dimension','minecraft:dimension_type']
+            if registry_payload.get('schema_version')!=1 or any(not isinstance(registries.get(key),list) or not registries[key] for key in required_registry_keys):
+                raise ValueError('Variant Foundry registry dump is malformed or incomplete')
             if sha256_file(artifact)!=result['artifact_sha256']:raise ValueError('candidate changed during native verification')
             screenshots=list((probe/'run').rglob('*devkit-*.png'))
             if len(screenshots)<3:raise ValueError('expected initial, reopened and restarted native world screenshots')
-            evidence=[proof_path, probe/'run/devkit-native/devkit-restart.properties', run/'phase.json']
+            evidence=[proof_path, registry_dump, probe/'run/devkit-native/devkit-restart.properties', run/'phase.json']
             evidence.extend(p for directory in [run/'phase-evidence',run/'commands'] for p in directory.rglob('*') if p.is_file())
             result.update(state='runtime-smoke-verified',proof=proof,coverage=result['required_coverage'],
                           evidence_files=[{'path':str(p),'sha256':sha256_file(p)} for p in evidence],
+                          runtime_registry_dump={'path':str(registry_dump),'sha256':sha256_file(registry_dump),
+                            'counts':{key:len(registries[key]) for key in required_registry_keys}},
                           screenshots=[{'path':str(p),'sha256':sha256_file(p)} for p in screenshots],jdk=jdk,
                           dependency_lock_sha256=sha256_file(workspace/'dependencies/dependency-lock.json'))
         except Exception as error:
