@@ -18,6 +18,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
+try:
+    from registration_identity_inventory import inventory as registration_identity_inventory
+except ImportError:
+    registration_identity_inventory = None
+
 RESOURCE_ID = re.compile(r"^[a-z0-9_.-]+:[a-z0-9_./-]+$")
 ARCHIVE_EXTS = {".jar", ".zip"}
 JSON_EXTS = {".json", ".json5"}
@@ -343,6 +348,47 @@ def parse_runtime_dump(path: Path | None) -> dict[str, set[str]]:
     return out
 
 
+def source_registration_evidence(inputs: list[Path], unresolved: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Reuse the Dev Kit's high-confidence source registration inventory when available."""
+    if registration_identity_inventory is None:
+        return []
+    rows: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for path in inputs:
+        if not path.exists():
+            continue
+        try:
+            report = registration_identity_inventory(path)
+        except Exception as exc:
+            unresolved.append({
+                "kind": "source-registration-scan-error",
+                "path": str(path),
+                "message": str(exc),
+            })
+            continue
+        for entry in report.get("entries", []):
+            category = entry.get("category")
+            rid = entry.get("id")
+            if category not in {
+                "biome",
+                "dimension_type",
+                "worldgen/placed_feature",
+                "worldgen/configured_feature",
+                "worldgen/structure",
+                "worldgen/structure_set",
+            } or not isinstance(rid, str):
+                continue
+            row = {
+                "category": category,
+                "id": rid,
+                "source": entry.get("path"),
+                "evidence": entry.get("evidence"),
+                "confidence": entry.get("confidence", "high"),
+                "input": str(path.resolve()),
+            }
+            rows[(category, rid, str(entry.get("path", "")))] = row
+    return [rows[key] for key in sorted(rows)]
+
+
 def aggregate_input_digest(blobs: Iterable[ResourceBlob]) -> str:
     h = hashlib.sha256()
     for blob in sorted(blobs, key=lambda b: (b.logical_path, b.source, b.digest)):
@@ -368,6 +414,7 @@ def discover(inputs: list[Path], runtime_dump: Path | None = None, max_reference
     blobs = list(unique.values())
 
     index, parsed = registry_index(blobs, unresolved)
+    source_registrations = source_registration_evidence(inputs, unresolved)
     runtime = parse_runtime_dump(runtime_dump)
     runtime_sha256 = sha256(runtime_dump.read_bytes()) if runtime_dump else None
 
@@ -441,6 +488,40 @@ def discover(inputs: list[Path], runtime_dump: Path | None = None, max_reference
                 "evidence": {"source": blob.source, "path": blob.logical_path, "sha256": blob.digest},
             })
 
+    def merge_registration(target: dict[str, dict[str, Any]], rows: list[dict[str, Any]], kind: str) -> None:
+        for row in rows:
+            rid = row["id"]
+            if rid in target:
+                if "source-registration" not in target[rid]["sources"]:
+                    target[rid]["sources"].append("source-registration")
+                target[rid].setdefault("registration_evidence", []).append(row)
+                continue
+            target[rid] = {
+                "id": rid,
+                "existence": "present",
+                "confidence": "registration-only",
+                "sources": ["source-registration"],
+                "registration_evidence": [row],
+                "evidence": [{"source_registration": row}],
+            }
+            unresolved.append({
+                "kind": "registration-only-profile",
+                "registry": kind,
+                "id": rid,
+                "message": "Source registration proves identity, but static profile JSON was not found in scanned resources.",
+            })
+
+    merge_registration(
+        biome_profiles,
+        [row for row in source_registrations if row["category"] == "biome"],
+        "biome",
+    )
+    merge_registration(
+        dimension_type_profiles,
+        [row for row in source_registrations if row["category"] == "dimension_type"],
+        "dimension_type",
+    )
+
     def merge_runtime(target: dict[str, dict[str, Any]], ids: set[str], kind: str) -> None:
         for rid in sorted(ids):
             if rid in target:
@@ -493,12 +574,14 @@ def discover(inputs: list[Path], runtime_dump: Path | None = None, max_reference
             "dimensions": len(dimension_profiles),
             "dimension_types": len(dimension_type_profiles),
             "biome_tags": len(tags),
+            "source_registrations": len(source_registrations),
             "unresolved": len(unresolved),
         },
         "biomes": [biome_profiles[k] for k in sorted(biome_profiles)],
         "dimensions": [dimension_profiles[k] for k in sorted(dimension_profiles)],
         "dimension_types": [dimension_type_profiles[k] for k in sorted(dimension_type_profiles)],
         "biome_tags": sorted(tags, key=lambda x: (x["registry"], x["id"])),
+        "source_registrations": source_registrations,
         "unresolved": sorted(unresolved, key=lambda x: (x.get("kind", ""), x.get("id", ""), x.get("path", ""), x.get("source", ""))),
     }
     return result
