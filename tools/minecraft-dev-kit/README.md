@@ -112,7 +112,54 @@ Use a canonical SubjectDNA file such as the included Bloom & Boom presets:
 
 Face, horns, body silhouette, gameplay-state timing and other identity locks travel with every plan. Low-characterization biomes are marked for stronger review rather than silently receiving made-up properties.
 
-### 4. Compile Minecraft-oriented pixel textures
+### 4. Compile lock-aware authoring recipes
+
+VariantPlans deliberately describe **what** should change without inventing model coordinates. Bind those logical regions to the approved editable model, then compile a backend recipe:
+
+```json
+{
+  "schema_version": 1,
+  "subject_id": "bloom_and_boom:creeper_female",
+  "model_file": "creeper-female.bbmodel",
+  "region_targets": {
+    "back_growths": ["back_growth_anchor"],
+    "horn_decorations": ["horn_left_decor", "horn_right_decor"]
+  },
+  "motion_targets": {
+    "vines": ["vine_left", "vine_right"]
+  },
+  "texture_targets": {
+    "body_surface": ["creeper-female-base.png"]
+  },
+  "templates": {
+    "geometry": {
+      "icicle tips": {
+        "regions": ["back_growths", "horn_decorations"],
+        "operations": [
+          {
+            "op": "add_mesh_primitive",
+            "shape": "cone",
+            "diameter": 1.5,
+            "height": 3,
+            "sides": 4,
+            "name": "vf_{biome_slug}_icicle_{index}",
+            "parent": "{target}"
+          }
+        ]
+      }
+    },
+    "motif": {}
+  }
+}
+```
+
+```powershell
+.\devkit.cmd variant recipe --subject references\variant-foundry\bloom-boom-creeper-female-subject.json --plans "C:\DevKit-Runs\variant-plans.json" --bindings "C:\DevKit-Runs\authoring-bindings.json" --json-out "C:\DevKit-Runs\authoring-recipes.json"
+```
+
+Automatic geometry authoring is **additive-only**: the recipe compiler permits safe add operations, carries the SubjectDNA lock contract forward, and rejects destructive operations such as removing or rewriting protected nodes. Missing region targets or phenotype templates stay `unresolved-active`; Variant Foundry will not guess coordinates just to manufacture an output. Texture, secondary-motion/physics and runtime-effect actions are routed separately instead of being silently dropped when Blockbench is not their correct backend.
+
+### 5. Compile Minecraft-oriented pixel textures
 
 A generated high-resolution PNG is working material, not automatically finished Minecraft art. Compile it through a `TextureStyleProfile`:
 
@@ -136,7 +183,7 @@ Minimal style profile:
 }
 ```
 
-### 5. Drive Blockbench live/headless authoring
+### 6. Drive Blockbench live/headless authoring
 
 The default headless backend is pinned to Jason Gardner's Blockbench MCP commit `6295e20af26ec0f67bc81a5e95dac98db85a1801`. Enderloom discovers the tool surface over MCP before trusting it:
 
@@ -153,7 +200,17 @@ List exact tool schemas or call a safe `bbmodel_*` operation with JSON arguments
 
 The adapter does not expose arbitrary `execute_script`. Use `--server-command-json` with an exact argv array for a local/offline compatible headless server. The pinned default stays outside Enderloom as a process/MCP boundary, which preserves its license boundary while still giving Variant Foundry atomic `.bbmodel` edits, validation, rendering, pose sampling and contact sheets.
 
-### 6. Run generation/texturing/rig providers with failover
+Apply a ready recipe to a copy of the approved source model, validate geometry/animations, and capture six-view evidence:
+
+```powershell
+.\devkit.cmd variant execute-recipes --recipes "C:\DevKit-Runs\authoring-recipes.json" --source-model "C:\DevKit-Runs\creeper-female.bbmodel" --workspace "C:\DevKit-Runs\blockbench-authoring" --render require
+```
+
+Each variant gets its own durable model copy and hash-bound execution receipt. Writes use Blockbench's revision/expected-revision contract and one atomic `bbmodel_edit` batch, so another writer cannot be silently overwritten. `--render require` additionally requires the headless contact-sheet renderer; `auto` records render evidence when available without confusing render-environment failure with model validation. Exact successful outputs are reused before relaunching the backend, and the canonical `execution-evidence.json` stays byte-stable across cache reuse so an unchanged release does not acquire a new bundle ID merely because it was rerun.
+
+The executor intentionally leaves texture, runtime-physics and runtime-effect routes visible in the receipt until their dedicated backends execute them; Blockbench success is never presented as proof those other routes are finished.
+
+### 7. Run generation/texturing/rig providers with failover
 
 Variant Foundry's provider plane is registry-driven instead of hardcoding one AI model. Each provider entry declares its capabilities, exact argv, local/remote execution metadata, minimum VRAM, model/weight identity and licensing/provenance fields. The scheduler never uses a shell, serializes heavy provider work through a workspace lock, preserves failed-attempt logs, and tries the next compatible challenger automatically.
 
@@ -168,7 +225,7 @@ A pinned starter registry is included at `references/variant-foundry/provider-re
 
 Incompatible, unhealthy or over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. Successful adapter stdout JSON is retained as `provider_runtime` so the actual backend/model metadata can travel into provenance. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
 
-### 7. Gate generated GLB assets before promotion
+### 8. Gate generated GLB assets before promotion
 
 Every provider result ending in `.glb` now passes a dependency-free structural/spec-sanity gate before the scheduler can call the job successful. It verifies GLB v2 framing, chunk bounds, JSON/index references, embedded buffers/images by default, non-empty POSITION geometry, animation/skin references, and records mesh/vertex/triangle/material/texture/animation statistics. Malformed output becomes a failed provider attempt and the scheduler continues to the next challenger instead of poisoning the asset cache.
 
@@ -180,7 +237,7 @@ If the MIT-licensed glTF Transform CLI is installed, `--external auto` also runs
 
 Provider cache identity now includes the scheduler, GLB-gate implementation, and current external-validator fingerprint. A gate/tool upgrade therefore invalidates only provider results whose proof is no longer current, while an already hash-valid result still survives a temporary provider/backend outage.
 
-### 8. Compile an immutable ModelBundle
+### 9. Compile an immutable ModelBundle
 
 Package approved editable/runtime assets behind exact hashes:
 
@@ -190,7 +247,7 @@ Package approved editable/runtime assets behind exact hashes:
 
 Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated. `--evidence ROLE=PATH` stores provenance/proof in a separate immutable evidence lane, so provider receipts and logs travel with the release without being confused for runtime model assets.
 
-### 9. Run the durable end-to-end pipeline
+### 10. Run the durable end-to-end pipeline
 
 For repeatable production work, put the same inputs into one manifest and let Variant Foundry reuse only stages whose exact inputs **and implementation bytes** are unchanged:
 
@@ -200,6 +257,12 @@ For repeatable production work, put the same inputs into one manifest and let Va
   "sources": ["C:/Minecraft/Instances/BloomBoomDev"],
   "runtime_registry_dump": "C:/DevKit-Runs/variant-foundry-registry.json",
   "subject": "references/variant-foundry/bloom-boom-creeper-female-subject.json",
+  "authoring_bindings": "C:/DevKit-Runs/authoring-bindings.json",
+  "authoring_execution": {
+    "source_model": "C:/DevKit-Runs/creeper-female.bbmodel",
+    "render": "require",
+    "timeout": 90
+  },
   "biomes": ["minecraft:snowy_plains", "minecraft:swamp"],
   "mode": "full-phenotype",
   "seed": 77,
@@ -240,7 +303,7 @@ For repeatable production work, put the same inputs into one manifest and let Va
 .\devkit.cmd variant pipeline --manifest "C:\DevKit-Runs\variant-foundry.json" --workspace "C:\DevKit-Runs\variant-foundry-work"
 ```
 
-The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Provider job receipts, every attempted provider's stdout/stderr, and GLB-validation receipts are packaged into the ModelBundle evidence lane, preserving failover history and promotion proof alongside the immutable asset. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
+The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> authoring recipe -> Blockbench execution/visual proof -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Provider job receipts, every attempted provider's stdout/stderr, and GLB-validation receipts are packaged into the ModelBundle evidence lane, preserving failover history and promotion proof alongside the immutable asset. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
 
 ### Capability contract
 
