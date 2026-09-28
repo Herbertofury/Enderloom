@@ -15,6 +15,11 @@ sys.modules[SPEC.name] = mod
 assert SPEC.loader is not None
 SPEC.loader.exec_module(mod)
 
+try:
+    import devkit
+except ImportError:
+    devkit = None
+
 
 def write_json(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -132,6 +137,20 @@ public final class ModBiomes {
         expected_biomes = 4 if mod.registration_identity_inventory is not None else 3
         assert result["counts"]["biomes"] == expected_biomes
         assert result["counts"]["dimensions"] == 2
+
+        if devkit is not None:
+            cli_output = root / "cli-discovery.json"
+            code = devkit.main([
+                "variant", "discover-biomes", str(root),
+                "--runtime-registry-dump", str(runtime),
+                "--max-reference-depth", "4",
+                "--json-out", str(cli_output),
+            ])
+            assert code == 0
+            cli_result = json.loads(cli_output.read_text(encoding="utf-8"))
+            assert cli_result["counts"] == result["counts"]
+            assert cli_result["input_resource_sha256"] == result["input_resource_sha256"]
+
         print(json.dumps({
             "status": "passed",
             "biomes": result["counts"]["biomes"],
