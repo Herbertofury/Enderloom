@@ -23,6 +23,7 @@ import variant_foundry_plan as plan_mod
 import variant_foundry_texture_compiler as texture_mod
 import variant_foundry_bundle as bundle_mod
 import variant_foundry_provider as provider_mod
+import variant_foundry_blockbench_recipe as recipe_mod
 
 
 SCHEMA_VERSION = 1
@@ -239,6 +240,7 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
         "sources": [str(resolve_path(base, x)) for x in sources],
         "runtime_registry_dump": str(resolve_path(base, raw["runtime_registry_dump"])) if isinstance(raw.get("runtime_registry_dump"), str) else None,
         "subject": str(resolve_path(base, subject)),
+        "authoring_bindings": str(resolve_path(base, raw["authoring_bindings"])) if isinstance(raw.get("authoring_bindings"), str) else None,
         "biome_overrides": str(resolve_path(base, raw["biome_overrides"])) if isinstance(raw.get("biome_overrides"), str) else None,
         "biomes": biomes,
         "mode": mode,
@@ -331,8 +333,45 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
         )
         stage_results.append({"stage": current_stage, "state": state, "receipt": str(Path(plan_receipt["output"]).parent / "receipt.json")})
 
+        authoring_recipe_path: Path | None = None
+        if cfg["authoring_bindings"]:
+            current_stage = "authoring-recipes"
+            bindings_path = Path(cfg["authoring_bindings"])
+            bindings_input = file_input(bindings_path, "authoring bindings")
+            recipe_inputs = {
+                "subject": subject_input,
+                "plans_sha256": sha256_file(plans_path),
+                "bindings": bindings_input,
+            }
+            recipe_receipt, authoring_recipe_path, state = json_stage(
+                workspace,
+                name="authoring-recipes",
+                output_name="authoring-recipes.json",
+                inputs=recipe_inputs,
+                implementation=implementation_sha(recipe_mod),
+                produce=lambda: recipe_mod.compile_recipes(
+                    subject,
+                    json.loads(plans_path.read_text(encoding="utf-8")),
+                    json.loads(bindings_path.read_text(encoding="utf-8")),
+                ),
+            )
+            recipe_doc = json.loads(authoring_recipe_path.read_text(encoding="utf-8"))
+            stage_results.append({
+                "stage": current_stage,
+                "state": state,
+                "semantic_state": recipe_doc.get("state"),
+                "receipt": str(Path(recipe_receipt["output"]).parent / "receipt.json"),
+            })
+            if recipe_doc.get("state") != "ready":
+                raise ValueError(
+                    "authoring recipes contain required unresolved actions; "
+                    "add explicit model bindings/templates instead of inventing coordinates"
+                )
+
         compiled_assets: list[tuple[str, Path]] = []
         compiled_evidence: list[tuple[str, Path]] = []
+        if authoring_recipe_path is not None:
+            compiled_evidence.append(("authoring-recipes", authoring_recipe_path))
         for row in cfg["assets"]:
             path = Path(row["path"])
             file_input(path, f"asset {row['role']}")
@@ -475,6 +514,7 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
             "discovery": str(discovery_path),
             "biome_dna": str(dna_path),
             "variant_plans": str(plans_path),
+            "authoring_recipes": str(authoring_recipe_path) if authoring_recipe_path else None,
             "bundle": bundle_result,
             "stages": stage_results,
         }
