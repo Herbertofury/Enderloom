@@ -164,7 +164,7 @@ Variant Foundry's provider plane is registry-driven instead of hardcoding one AI
 
 Provider commands use exact argv tokens and may reference `{input}`, `{output}`, `{seed}`, `{params_json}`, `{workspace}`, `{python}` and `{scripts}`. Release/publish lanes can add `--require-verified-rights`; any provider whose exact runtime model/weight rights have not been explicitly verified is rejected before generation. Optional `probe_command` entries are cheap health gates and may use only `{python}` / `{scripts}`; a provider whose adapter exists but whose real backend/import/config is unavailable is rejected **before** expensive work. Hash-valid successful jobs are reused before probing so a temporary backend outage never invalidates already-proven bytes.
 
-A pinned starter registry is included at `references/variant-foundry/provider-registry.example.json`. It records the current tested OpenX Clay source commit `eb41696224cca3021b44b244fda1362e6d3a535e` and MyMeshy commit `1854487f1e6c918becc859850727bc83d9ad24cd`, with explicit health probes. Use `VARIANT_FOUNDRY_CLAY_CONFIG` for the Clay config and `MYMESHY_URL` for the MyMeshy backend. Code licensing does **not** automatically license runtime model weights: the exact selected model/weights remain a separate evidence/rights gate.
+A pinned starter registry is included at `references/variant-foundry/provider-registry.example.json`. It records the current tested OpenX Clay source commit `eb41696224cca3021b44b244fda1362e6d3a535e` and MyMeshy commit `1854487f1e6c918becc859850727bc83d9ad24cd`, with explicit health probes. Use `VARIANT_FOUNDRY_CLAY_CONFIG` for the Clay config and `MYMESHY_URL` for the MyMeshy backend. Code licensing does **not** automatically license runtime model weights: the exact selected model/weights remain a separate evidence/rights gate. The starter registry keeps `rights_verified: false` until the exact deployed model/weights have actually been reviewed; flip it only in the environment whose rights evidence you verified.
 
 Incompatible, unhealthy or over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. Successful adapter stdout JSON is retained as `provider_runtime` so the actual backend/model metadata can travel into provenance. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
 
@@ -188,7 +188,7 @@ Package approved editable/runtime assets behind exact hashes:
 .\devkit.cmd variant bundle --subject references\variant-foundry\bloom-boom-creeper-female-subject.json --plans "C:\DevKit-Runs\variant-plans.json" --biome-dna "C:\DevKit-Runs\biome-dna.json" --asset editable-model="C:\DevKit-Runs\creeper.bbmodel" --asset texture="C:\DevKit-Runs\creeper-female-snow.png" --minecraft 26.3 --loader neoforge --backend enderloom-skeletal --output "C:\DevKit-Runs\model-bundle"
 ```
 
-Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated.
+Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated. `--evidence ROLE=PATH` stores provenance/proof in a separate immutable evidence lane, so provider receipts and logs travel with the release without being confused for runtime model assets.
 
 ### 9. Run the durable end-to-end pipeline
 
@@ -212,6 +212,7 @@ For repeatable production work, put the same inputs into one manifest and let Va
       "role": "generated-model",
       "params": {"mode": "image"},
       "preferred": ["mymeshy-shape"],
+      "require_verified_rights": true,
       "vram_budget_gb": 24,
       "output_extension": ".glb"
     }
@@ -239,7 +240,7 @@ For repeatable production work, put the same inputs into one manifest and let Va
 .\devkit.cmd variant pipeline --manifest "C:\DevKit-Runs\variant-foundry.json" --workspace "C:\DevKit-Runs\variant-foundry-work"
 ```
 
-The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
+The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Provider job receipts, every attempted provider's stdout/stderr, and GLB-validation receipts are packaged into the ModelBundle evidence lane, preserving failover history and promotion proof alongside the immutable asset. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
 
 ### Capability contract
 
