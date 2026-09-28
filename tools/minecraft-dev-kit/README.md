@@ -89,7 +89,7 @@ The output is deterministic and evidence-bound. Static biome/dimension JSON reco
 The corresponding contract gate is:
 
 ```powershell
-python tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py
+.\\devkit.cmd variant capability-gate
 ```
 
 That gate proves the complete Variant Foundry capability contract is still represented; it deliberately does **not** claim all 38 capabilities are implemented or runtime-proven.
