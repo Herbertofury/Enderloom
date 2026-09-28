@@ -295,6 +295,12 @@ def main(argv: list[str] | None = None) -> int:
     variant_plan.add_argument('--mode', choices=['texture-only','surface','geometry','rig-aware','full-phenotype'], default='full-phenotype')
     variant_plan.add_argument('--seed', type=int, default=0)
     variant_plan.add_argument('--json-out', type=Path)
+    variant_recipe = variant_sub.add_parser('recipe', help='Compile lock-aware backend authoring recipes from VariantPlans')
+    variant_recipe.add_argument('--subject', type=Path, required=True)
+    variant_recipe.add_argument('--plans', type=Path, required=True)
+    variant_recipe.add_argument('--bindings', type=Path, required=True)
+    variant_recipe.add_argument('--variant', action='append', dest='variants')
+    variant_recipe.add_argument('--json-out', type=Path)
     variant_bundle = variant_sub.add_parser('bundle', help='Compile an immutable content-addressed ModelBundle')
     variant_bundle.add_argument('--subject', type=Path, required=True)
     variant_bundle.add_argument('--plans', type=Path, required=True)
@@ -427,6 +433,18 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 plan_args += ['--json-out', str(args.json_out)]
             return plan_main(plan_args)
+        if args.variant_command == 'recipe':
+            from variant_foundry_blockbench_recipe import main as recipe_main
+            recipe_args = [
+                '--subject', str(args.subject),
+                '--plans', str(args.plans),
+                '--bindings', str(args.bindings),
+            ]
+            for variant_id in args.variants or []:
+                recipe_args += ['--variant', variant_id]
+            if args.json_out:
+                recipe_args += ['--json-out', str(args.json_out)]
+            return recipe_main(recipe_args)
         if args.variant_command == 'bundle':
             from variant_foundry_bundle import main as bundle_main
             bundle_args = [
