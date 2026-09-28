@@ -56,14 +56,26 @@ class KnowledgeTests(unittest.TestCase):
    if p.name!='Checklist.md' and not p.name.startswith('Acceptance-'):self.assertIsNone(re.search(r'^- \[[ x]\]',p.read_text(),re.M),p.name)
  def test_variant_foundry_native_wiki_projection(self):
   pages=k.render(self.state,self.corpus)
-  name='Variant-Foundry-and-High-Fidelity-Java-Models'
-  self.assertIn(name,pages)
-  self.assertIn('Variant Foundry & High-Fidelity Java Models',(k.K/'_Sidebar.md').read_text())
-  wp=k.ROOT/'build'/'knowledge'/'wiki'/(name+'.md')
-  self.assertTrue(wp.is_file())
-  body=wp.read_text()
+  authored={p.stem for p in (k.ROOT/'docs'/'wiki').glob('*.md')}
+  self.assertTrue(authored<=set(pages))
+  sidebar=(k.K/'_Sidebar.md').read_text()
+  self.assertIn('Variant Foundry & High-Fidelity Java Models',sidebar)
+  self.assertIn('Variant Foundry Capability Closure',sidebar)
+  for name in authored:
+   wp=k.ROOT/'build'/'knowledge'/'wiki'/(name+'.md')
+   self.assertTrue(wp.is_file(),name)
+  body=(k.ROOT/'build'/'knowledge'/'wiki'/'Variant-Foundry-and-High-Fidelity-Java-Models.md').read_text()
   self.assertIn('High-Fidelity Java Model Runtime',body)
   self.assertIn('https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md',body)
+ def test_variant_foundry_capability_matrix_contract(self):
+  matrix=json.loads((k.ROOT/'docs'/'variant-foundry-capability-matrix.json').read_text())
+  caps=matrix['capabilities'];ids=[x['id'] for x in caps]
+  self.assertEqual(len(ids),len(set(ids)))
+  self.assertGreaterEqual(len(caps),38)
+  self.assertTrue(all(x.get('required') is True for x in caps))
+  self.assertTrue({'generation','texture','rig','animation','physics','biome','variant','compile','runtime','authoring','execution','qa','performance','compatibility','provenance','documentation','recovery'}<={x['area'] for x in caps})
+  closure=(k.ROOT/'docs'/'ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md').read_text()
+  for cid in ids:self.assertIn(cid,closure)
  def test_links_and_sources(self):k.check(self.state,self.corpus)
 
 if __name__=='__main__':unittest.main(verbosity=2)
