@@ -428,8 +428,9 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
                 overwrite=False,
             )
             summary_path = authoring_workspace / "execution-summary.json"
-            if summary_path.is_file():
-                compiled_evidence.append(("authoring-execution-summary", summary_path))
+            execution_evidence_path = authoring_workspace / "execution-evidence.json"
+            if execution_evidence_path.is_file():
+                compiled_evidence.append(("authoring-execution-evidence", execution_evidence_path))
             execution_states = []
             for result in authoring_execution_result.get("results") or []:
                 variant_id = str(result.get("variant_id") or "unknown")
