@@ -97,7 +97,7 @@ def doctor(registry: dict[str, Any], *, vram_budget_gb: float | None = None) -> 
     providers = []
     for row in registry["providers"]:
         reasons = []
-        command0 = row["command"][0]
+        command0 = probe_executable(row["command"][0])
         if not Path(command0).is_file() and not shutil_which(command0):
             reasons.append(f"command-not-found:{command0}")
         if vram_budget_gb is not None and float(row.get("min_vram_gb", 0)) > vram_budget_gb:
@@ -120,6 +120,12 @@ def shutil_which(command: str) -> str | None:
     return shutil.which(command)
 
 
+def probe_executable(token: str) -> str:
+    token = token.replace("{python}", sys.executable)
+    token = token.replace("{scripts}", str(Path(__file__).resolve().parent))
+    return token
+
+
 def compatible_providers(
     registry: dict[str, Any],
     capability: str,
@@ -138,7 +144,7 @@ def compatible_providers(
         min_vram = float(row.get("min_vram_gb", 0))
         if vram_budget_gb is not None and min_vram > vram_budget_gb:
             reasons.append("vram-budget")
-        command0 = row["command"][0]
+        command0 = probe_executable(row["command"][0])
         if not Path(command0).is_file() and not shutil_which(command0):
             reasons.append("command-not-found")
         if reasons:
