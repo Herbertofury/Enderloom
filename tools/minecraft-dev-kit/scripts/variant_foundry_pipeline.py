@@ -22,6 +22,7 @@ import variant_foundry_biome_dna as dna_mod
 import variant_foundry_plan as plan_mod
 import variant_foundry_texture_compiler as texture_mod
 import variant_foundry_bundle as bundle_mod
+import variant_foundry_provider as provider_mod
 
 
 SCHEMA_VERSION = 1
@@ -174,8 +175,12 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
         raise ValueError("biomes must be a string list")
     assets = raw.get("assets", [])
     textures = raw.get("textures", [])
-    if not isinstance(assets, list) or not isinstance(textures, list):
-        raise ValueError("assets and textures must be lists")
+    provider_jobs = raw.get("provider_jobs", [])
+    provider_registry = raw.get("provider_registry")
+    if not isinstance(assets, list) or not isinstance(textures, list) or not isinstance(provider_jobs, list):
+        raise ValueError("assets, textures and provider_jobs must be lists")
+    if provider_jobs and not isinstance(provider_registry, str):
+        raise ValueError("provider_registry path is required when provider_jobs are present")
     normalized_assets = []
     for row in assets:
         if not isinstance(row, dict) or not isinstance(row.get("role"), str) or not isinstance(row.get("path"), str):
@@ -191,6 +196,40 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
             "input": str(resolve_path(base, row["input"])),
             "profile": str(resolve_path(base, row["profile"])),
         })
+    normalized_provider_jobs = []
+    seen_provider_jobs: set[str] = set()
+    for row in provider_jobs:
+        if not isinstance(row, dict) or not all(isinstance(row.get(k), str) and row.get(k) for k in ("name", "capability", "input", "role")):
+            raise ValueError("every provider job requires name, capability, input and role")
+        if row["name"] in seen_provider_jobs:
+            raise ValueError(f"duplicate provider job name: {row['name']}")
+        seen_provider_jobs.add(row["name"])
+        params = row.get("params", {})
+        if not isinstance(params, dict):
+            raise ValueError(f"provider job {row['name']} params must be an object")
+        preferred = row.get("preferred", [])
+        if not isinstance(preferred, list) or not all(isinstance(x, str) and x for x in preferred):
+            raise ValueError(f"provider job {row['name']} preferred must be a string list")
+        job_seed = row.get("seed", seed)
+        if not isinstance(job_seed, int):
+            raise ValueError(f"provider job {row['name']} seed must be an integer")
+        vram = row.get("vram_budget_gb")
+        if vram is not None and (not isinstance(vram, (int, float)) or isinstance(vram, bool) or vram < 0):
+            raise ValueError(f"provider job {row['name']} vram_budget_gb must be non-negative")
+        extension = row.get("output_extension")
+        if extension is not None and (not isinstance(extension, str) or not extension):
+            raise ValueError(f"provider job {row['name']} output_extension must be a non-empty string")
+        normalized_provider_jobs.append({
+            "name": row["name"],
+            "capability": row["capability"],
+            "input": str(resolve_path(base, row["input"])),
+            "role": row["role"],
+            "seed": job_seed,
+            "params": params,
+            "preferred": preferred,
+            "vram_budget_gb": vram,
+            "output_extension": extension,
+        })
     return {
         "schema_version": 1,
         "sources": [str(resolve_path(base, x)) for x in sources],
@@ -202,6 +241,8 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
         "seed": seed,
         "assets": normalized_assets,
         "textures": normalized_textures,
+        "provider_registry": str(resolve_path(base, provider_registry)) if isinstance(provider_registry, str) else None,
+        "provider_jobs": normalized_provider_jobs,
         "target": {k: target[k] for k in ("minecraft", "loader", "backend")},
     }
 
@@ -291,6 +332,43 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
             path = Path(row["path"])
             file_input(path, f"asset {row['role']}")
             compiled_assets.append((row["role"], path))
+
+        if cfg["provider_jobs"]:
+            registry_path = Path(cfg["provider_registry"])
+            file_input(registry_path, "provider registry")
+            provider_workspace = workspace / "provider-jobs"
+            for row in cfg["provider_jobs"]:
+                current_stage = f"provider:{row['name']}"
+                provider_input = Path(row["input"])
+                file_input(provider_input, f"provider input {row['name']}")
+                provider_result = provider_mod.run_job(
+                    registry_path,
+                    capability=row["capability"],
+                    input_path=provider_input,
+                    workspace=provider_workspace,
+                    seed=row["seed"],
+                    params=row["params"],
+                    preferred=row["preferred"],
+                    vram_budget_gb=row["vram_budget_gb"],
+                    output_extension=row["output_extension"],
+                )
+                provider_receipt = provider_workspace / "jobs" / provider_result["job_id"] / "job-receipt.json"
+                stage_results.append({
+                    "stage": current_stage,
+                    "state": provider_result.get("reuse_state") if provider_result.get("state") == "succeeded" else "failed",
+                    "receipt": str(provider_receipt),
+                    "job_id": provider_result["job_id"],
+                    "selected_provider": (provider_result.get("selected_provider") or {}).get("id"),
+                    "asset_validation": provider_result.get("asset_validation"),
+                })
+                if provider_result.get("state") != "succeeded":
+                    raise ValueError(
+                        f"provider job {row['name']} unresolved: "
+                        f"{provider_result.get('reason') or provider_result.get('state')}"
+                    )
+                provider_output = Path(provider_result["output"]).resolve()
+                file_input(provider_output, f"provider output {row['name']}")
+                compiled_assets.append((row["role"], provider_output))
 
         current_stage = "textures"
         for row in cfg["textures"]:

@@ -203,6 +203,19 @@ For repeatable production work, put the same inputs into one manifest and let Va
   "biomes": ["minecraft:snowy_plains", "minecraft:swamp"],
   "mode": "full-phenotype",
   "seed": 77,
+  "provider_registry": "references/variant-foundry/provider-registry.example.json",
+  "provider_jobs": [
+    {
+      "name": "creeper-shape",
+      "capability": "shape",
+      "input": "C:/DevKit-Runs/concept.png",
+      "role": "generated-model",
+      "params": {"mode": "image"},
+      "preferred": ["mymeshy-shape"],
+      "vram_budget_gb": 24,
+      "output_extension": ".glb"
+    }
+  ],
   "textures": [
     {
       "name": "creeper-working",
@@ -226,7 +239,7 @@ For repeatable production work, put the same inputs into one manifest and let Va
 .\devkit.cmd variant pipeline --manifest "C:\DevKit-Runs\variant-foundry.json" --workspace "C:\DevKit-Runs\variant-foundry-work"
 ```
 
-The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> texture compile -> ModelBundle**. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
+The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
 
 ### Capability contract
 

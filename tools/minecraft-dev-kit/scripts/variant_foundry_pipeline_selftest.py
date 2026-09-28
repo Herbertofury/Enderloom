@@ -14,6 +14,21 @@ sys.modules[SPEC.name] = mod
 assert SPEC.loader is not None
 SPEC.loader.exec_module(mod)
 
+PROVIDER = r'''import argparse,hashlib,json,struct
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument("--input");p.add_argument("--output");p.add_argument("--seed");p.add_argument("--params")
+a=p.parse_args()
+source=Path(a.input).read_bytes()
+source_sha=hashlib.sha256(source).hexdigest()[:12]
+positions=struct.pack("<9f",0,0,0,1,0,0,0,1,0)
+root={"asset":{"version":"2.0","generator":"pipeline-provider-"+source_sha},"buffers":[{"byteLength":len(positions)}],"bufferViews":[{"buffer":0,"byteOffset":0,"byteLength":len(positions)}],"accessors":[{"bufferView":0,"componentType":5126,"count":3,"type":"VEC3"}],"meshes":[{"primitives":[{"attributes":{"POSITION":0},"mode":4}]}],"nodes":[{"mesh":0}],"scenes":[{"nodes":[0]}],"scene":0}
+j=json.dumps(root,separators=(",",":")).encode();j+=b" "*((4-len(j)%4)%4)
+b=positions+b"\x00"*((4-len(positions)%4)%4)
+chunks=struct.pack("<II",len(j),0x4E4F534A)+j+struct.pack("<II",len(b),0x004E4942)+b
+Path(a.output).write_bytes(struct.pack("<4sII",b"glTF",2,12+len(chunks))+chunks)
+print(json.dumps({"state":"succeeded","source_sha":source_sha,"seed":int(a.seed)}))
+'''
+
 
 def dump(path: Path, value) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -79,6 +94,32 @@ def main() -> int:
 
         model = root / "creeper.bbmodel"
         model.write_text('{"meta":{"model_format":"free"},"name":"fixture"}', encoding="utf-8")
+
+        provider_script = root / "provider.py"
+        provider_script.write_text(PROVIDER, encoding="utf-8")
+        concept = root / "concept.bin"
+        concept.write_bytes(b"concept-one")
+        registry = root / "providers.json"
+        dump(registry, {
+            "schema_version": 1,
+            "providers": [{
+                "id": "fixture-shape",
+                "capabilities": ["shape"],
+                "execution": "local",
+                "command": [
+                    "{python}", str(provider_script),
+                    "--input", "{input}", "--output", "{output}",
+                    "--seed", "{seed}", "--params", "{params_json}",
+                ],
+                "priority": 1,
+                "model": "fixture",
+                "code_license": "fixture",
+                "weights_license": "fixture",
+                "validation": {"self_contained": True, "external": "off"},
+                "output_extension": ".glb",
+            }],
+        })
+
         manifest = root / "pipeline.json"
         dump(manifest, {
             "schema_version": 1,
@@ -87,6 +128,15 @@ def main() -> int:
             "biomes": ["example:crystal_grove"],
             "mode": "full-phenotype",
             "seed": 77,
+            "provider_registry": "providers.json",
+            "provider_jobs": [{
+                "name": "creeper-shape",
+                "capability": "shape",
+                "input": "concept.bin",
+                "role": "generated-model",
+                "params": {"mode": "image"},
+                "output_extension": ".glb",
+            }],
             "textures": [{
                 "name": "creeper-crystal",
                 "role": "texture",
@@ -105,7 +155,10 @@ def main() -> int:
         assert first_states["discovery"] == "completed"
         assert first_states["biome-dna"] == "completed"
         assert first_states["variant-plan"] == "completed"
+        assert first_states["provider:creeper-shape"] == "completed"
         assert first_states["texture:creeper-crystal"] == "completed"
+        provider_stage = next(row for row in first["stages"] if row["stage"] == "provider:creeper-shape")
+        assert provider_stage["asset_validation"]["state"] == "passed"
 
         second = mod.run_pipeline(manifest, workspace)
         assert second["state"] == "complete"
@@ -114,6 +167,7 @@ def main() -> int:
         assert second_states["discovery"] == "reused"
         assert second_states["biome-dna"] == "reused"
         assert second_states["variant-plan"] == "reused"
+        assert second_states["provider:creeper-shape"] == "reused"
         assert second_states["texture:creeper-crystal"] == "reused"
         assert second["bundle"]["bundle_id"] == first["bundle"]["bundle_id"]
 
@@ -125,18 +179,31 @@ def main() -> int:
         assert third_states["discovery"] == "reused"
         assert third_states["biome-dna"] == "reused"
         assert third_states["variant-plan"] == "reused"
+        assert third_states["provider:creeper-shape"] == "reused"
         assert third_states["texture:creeper-crystal"] == "completed"
         assert third["bundle"]["bundle_id"] != first["bundle"]["bundle_id"]
 
+        concept.write_bytes(b"concept-two")
+        fourth = mod.run_pipeline(manifest, workspace)
+        fourth_states = {row["stage"]: row["state"] for row in fourth["stages"]}
+        assert fourth_states["discovery"] == "reused"
+        assert fourth_states["biome-dna"] == "reused"
+        assert fourth_states["variant-plan"] == "reused"
+        assert fourth_states["texture:creeper-crystal"] == "reused"
+        assert fourth_states["provider:creeper-shape"] == "completed"
+        assert fourth["bundle"]["bundle_id"] != third["bundle"]["bundle_id"]
+
         state = json.loads((workspace / "pipeline-state.json").read_text(encoding="utf-8"))
         assert state["state"] == "complete"
-        assert state["bundle"]["bundle_id"] == third["bundle"]["bundle_id"]
+        assert state["bundle"]["bundle_id"] == fourth["bundle"]["bundle_id"]
 
         print(json.dumps({
             "status": "passed",
             "first_bundle": first["bundle"]["bundle_id"],
             "third_bundle": third["bundle"]["bundle_id"],
-            "cache_behavior": third_states,
+            "fourth_bundle": fourth["bundle"]["bundle_id"],
+            "cache_behavior": fourth_states,
+            "provider_in_pipeline": True,
         }, indent=2))
     return 0
 
