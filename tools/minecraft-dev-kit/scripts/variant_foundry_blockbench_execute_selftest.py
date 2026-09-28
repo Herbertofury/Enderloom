@@ -130,6 +130,9 @@ def main() -> int:
         assert edited["applied_operations"][0]["name"] == "snow_growth"
         assert result["routes_remaining"]["texture"]
         assert result["routes_remaining"]["runtime_physics"]
+        evidence_path = workspace / "execution-evidence.json"
+        assert evidence_path.is_file()
+        first_evidence_sha = mod.sha256_file(evidence_path)
 
         server.unlink()
         second = mod.execute(
@@ -143,6 +146,8 @@ def main() -> int:
         assert second["state"] == "passed"
         assert second["results"][0]["reuse_state"] == "reused"
         assert second["results"][0]["output_sha256"] == result["output_sha256"]
+        assert second["evidence_sha256"] == first_evidence_sha
+        assert mod.sha256_file(evidence_path) == first_evidence_sha
 
         unresolved = root / "unresolved.json"
         bad = dict(recipe)
@@ -160,6 +165,7 @@ def main() -> int:
             "variant":result["variant_id"],
             "render_count":result["render"]["count"],
             "reused_without_backend":True,
+            "stable_evidence_across_reuse":True,
             "unresolved_blocked":True,
         }, indent=2))
     return 0
