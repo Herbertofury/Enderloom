@@ -70,29 +70,87 @@ The resolver reads nested Fabric JARs, evaluates required version predicates usi
 
 Use every dependency listed in the resulting lock when installing the candidate. Optional recommendations are reported, not silently installed. A missing provider identity, incompatible explicit top-level mod, unsupported constraint or unresolved dependency remains a visible failure. Supply `--projects mapping.json` with exact mod-ID-to-Modrinth-project-ID mappings when provider names differ. `--audit-only` reads metadata without downloading. This is a Fabric resolver, not an unverified Forge/NeoForge metadata translator.
 
-## Variant Foundry biome discovery
+## Variant Foundry workflow
 
-The first production Variant Foundry primitive is now executable rather than specification-only. It can scan a mod source tree, datapack, JAR/ZIP, directory of mods, or an installed instance without executing mod code:
+Variant Foundry is now an executable Dev Kit lane rather than specification-only.
 
-```powershell
-python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes.py "C:\Minecraft\Instances\BloomBoomDev" --json-out "C:\DevKit-Runs\biomes.json"
-```
+### 1. Discover biomes and dimensions
 
-When Enderloom has a runtime registry dump from a launched test instance, merge it so code-registered/private content that has no static biome JSON is still discovered:
+Scan a source tree, datapack, JAR/ZIP, mods directory, or installed instance without executing mod code:
 
 ```powershell
-python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes.py "C:\Minecraft\Instances\BloomBoomDev" --runtime-registry-dump "C:\DevKit-Runs\registry.json" --json-out "C:\DevKit-Runs\biomes.json"
+.\devkit.cmd variant discover-biomes "C:\Minecraft\Instances\BloomBoomDev" --json-out "C:\DevKit-Runs\biomes.json"
 ```
 
-The output is deterministic and evidence-bound. Static biome/dimension JSON records climate/effect fields, tags and recursively resolved worldgen feature evidence; high-confidence source registrations are merged when source is available; runtime-only registry identities remain explicit `registry-only` profiles instead of being rejected or having invented fields. Malformed resources and unresolved profiles stay visible under `unresolved`.
-
-The corresponding contract gate is:
+When a native test run provides a registry dump, merge it so code-registered/private content with no static biome JSON is still retained:
 
 ```powershell
-.\\devkit.cmd variant capability-gate
+.\devkit.cmd variant discover-biomes "C:\Minecraft\Instances\BloomBoomDev" --runtime-registry-dump "C:\DevKit-Runs\registry.json" --json-out "C:\DevKit-Runs\biomes.json"
 ```
 
-That gate proves the complete Variant Foundry capability contract is still represented; it deliberately does **not** claim all 38 capabilities are implemented or runtime-proven.
+The discovery result is deterministic and evidence-bound. Static biome/dimension JSON records climate/effect fields, tags and recursively resolved worldgen evidence; high-confidence source registrations are merged when source is available; runtime-only identities remain explicit `registry-only` profiles instead of being rejected or filled with invented facts.
+
+### 2. Build BiomeDNA
+
+Turn discovery evidence into explicit art-direction profiles:
+
+```powershell
+.\devkit.cmd variant profile --discovery "C:\DevKit-Runs\biomes.json" --json-out "C:\DevKit-Runs\biome-dna.json"
+```
+
+Use `--biome namespace:id` for one profile or `--overrides custom-biome-overrides.json` to apply curated/user-authored art direction as the highest-priority layer.
+
+### 3. Create deterministic lock-aware VariantPlans
+
+Use a canonical SubjectDNA file such as the included Bloom & Boom presets:
+
+```powershell
+.\devkit.cmd variant plan --subject references\variant-foundry\bloom-boom-creeper-female-subject.json --biome-dna "C:\DevKit-Runs\biome-dna.json" --mode full-phenotype --seed 77 --json-out "C:\DevKit-Runs\variant-plans.json"
+```
+
+Face, horns, body silhouette, gameplay-state timing and other identity locks travel with every plan. Low-characterization biomes are marked for stronger review rather than silently receiving made-up properties.
+
+### 4. Compile Minecraft-oriented pixel textures
+
+A generated high-resolution PNG is working material, not automatically finished Minecraft art. Compile it through a `TextureStyleProfile`:
+
+```powershell
+.\devkit.cmd variant texture --input "C:\DevKit-Runs\working-texture.png" --profile "C:\DevKit-Runs\bloom-boom-style.json" --output "C:\DevKit-Runs\creeper-female-snow.png"
+```
+
+The current deterministic compiler supports common 8-bit non-interlaced PNGs, nearest-neighbor resizing, explicit palette quantization, optional 4x4 ordered dithering, alpha thresholding, and transparent-edge RGB dilation to reduce dark filtering/mipmap fringes. It writes a hash-bound receipt beside the texture by default.
+
+Minimal style profile:
+
+```json
+{
+  "schema_version": 1,
+  "name": "bloom-boom-faithful-32",
+  "target_size": [32, 32],
+  "palette": ["#1E5A32", "#3D8C4B", "#75B85B", "#E8EDF4", "#A9C9E8"],
+  "dither": "ordered4",
+  "alpha_threshold": 128,
+  "transparent_edge_dilation": 2
+}
+```
+
+### 5. Compile an immutable ModelBundle
+
+Package approved editable/runtime assets behind exact hashes:
+
+```powershell
+.\devkit.cmd variant bundle --subject references\variant-foundry\bloom-boom-creeper-female-subject.json --plans "C:\DevKit-Runs\variant-plans.json" --biome-dna "C:\DevKit-Runs\biome-dna.json" --asset editable-model="C:\DevKit-Runs\creeper.bbmodel" --asset texture="C:\DevKit-Runs\creeper-female-snow.png" --minecraft 26.3 --loader neoforge --backend enderloom-skeletal --output "C:\DevKit-Runs\model-bundle"
+```
+
+Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated.
+
+### Capability contract
+
+```powershell
+.\devkit.cmd variant capability-gate
+```
+
+The gate currently validates **38 mandatory Variant Foundry capability contracts**. It proves that the complete design/acceptance surface is still represented; it deliberately does **not** claim all 38 capabilities are implemented or native-runtime proven.
 
 ## Offline, integrity and recovery
 
