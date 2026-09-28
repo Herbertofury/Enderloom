@@ -24,6 +24,7 @@ import variant_foundry_texture_compiler as texture_mod
 import variant_foundry_bundle as bundle_mod
 import variant_foundry_provider as provider_mod
 import variant_foundry_blockbench_recipe as recipe_mod
+import variant_foundry_blockbench_execute as execute_mod
 
 
 SCHEMA_VERSION = 1
@@ -178,6 +179,7 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
     textures = raw.get("textures", [])
     provider_jobs = raw.get("provider_jobs", [])
     provider_registry = raw.get("provider_registry")
+    authoring_execution = raw.get("authoring_execution")
     if not isinstance(assets, list) or not isinstance(textures, list) or not isinstance(provider_jobs, list):
         raise ValueError("assets, textures and provider_jobs must be lists")
     if provider_jobs and not isinstance(provider_registry, str):
@@ -235,12 +237,42 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
             "output_extension": extension,
             "require_verified_rights": require_rights,
         })
+    normalized_authoring_execution = None
+    if authoring_execution is not None:
+        if not isinstance(authoring_execution, dict):
+            raise ValueError("authoring_execution must be an object")
+        if not isinstance(raw.get("authoring_bindings"), str):
+            raise ValueError("authoring_execution requires authoring_bindings")
+        source_model = authoring_execution.get("source_model")
+        if not isinstance(source_model, str) or not source_model:
+            raise ValueError("authoring_execution requires source_model path")
+        render_mode = authoring_execution.get("render", "auto")
+        if render_mode not in {"off", "auto", "require"}:
+            raise ValueError("authoring_execution.render must be off, auto or require")
+        protocol = authoring_execution.get("protocol", "2025-06-18")
+        if not isinstance(protocol, str) or not protocol:
+            raise ValueError("authoring_execution.protocol must be a non-empty string")
+        timeout = authoring_execution.get("timeout", 45.0)
+        if not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or timeout <= 0:
+            raise ValueError("authoring_execution.timeout must be positive")
+        command_json = authoring_execution.get("server_command_json")
+        if command_json is not None and (not isinstance(command_json, str) or not command_json):
+            raise ValueError("authoring_execution.server_command_json must be a path string")
+        normalized_authoring_execution = {
+            "source_model": str(resolve_path(base, source_model)),
+            "server_command_json": str(resolve_path(base, command_json)) if isinstance(command_json, str) else None,
+            "render": render_mode,
+            "protocol": protocol,
+            "timeout": float(timeout),
+        }
+
     return {
         "schema_version": 1,
         "sources": [str(resolve_path(base, x)) for x in sources],
         "runtime_registry_dump": str(resolve_path(base, raw["runtime_registry_dump"])) if isinstance(raw.get("runtime_registry_dump"), str) else None,
         "subject": str(resolve_path(base, subject)),
         "authoring_bindings": str(resolve_path(base, raw["authoring_bindings"])) if isinstance(raw.get("authoring_bindings"), str) else None,
+        "authoring_execution": normalized_authoring_execution,
         "biome_overrides": str(resolve_path(base, raw["biome_overrides"])) if isinstance(raw.get("biome_overrides"), str) else None,
         "biomes": biomes,
         "mode": mode,
@@ -370,8 +402,67 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
 
         compiled_assets: list[tuple[str, Path]] = []
         compiled_evidence: list[tuple[str, Path]] = []
+        authoring_execution_result: dict[str, Any] | None = None
         if authoring_recipe_path is not None:
             compiled_evidence.append(("authoring-recipes", authoring_recipe_path))
+
+        if cfg["authoring_execution"]:
+            if authoring_recipe_path is None:
+                raise ValueError("authoring_execution requires ready authoring recipes")
+            current_stage = "authoring-execution"
+            execution_cfg = cfg["authoring_execution"]
+            source_model = Path(execution_cfg["source_model"])
+            file_input(source_model, "authoring source model")
+            command_json = Path(execution_cfg["server_command_json"]) if execution_cfg["server_command_json"] else None
+            if command_json is not None:
+                file_input(command_json, "Blockbench server command JSON")
+            authoring_workspace = workspace / "blockbench-authoring"
+            authoring_execution_result = execute_mod.execute(
+                authoring_recipe_path,
+                source_model,
+                authoring_workspace,
+                server_command_json=command_json,
+                protocol=execution_cfg["protocol"],
+                timeout=execution_cfg["timeout"],
+                render_mode=execution_cfg["render"],
+                overwrite=False,
+            )
+            summary_path = authoring_workspace / "execution-summary.json"
+            if summary_path.is_file():
+                compiled_evidence.append(("authoring-execution-summary", summary_path))
+            execution_states = []
+            for result in authoring_execution_result.get("results") or []:
+                variant_id = str(result.get("variant_id") or "unknown")
+                execution_states.append(str(result.get("reuse_state") or "completed"))
+                output_model = result.get("output_model")
+                if isinstance(output_model, str):
+                    output_path = Path(output_model)
+                    if output_path.is_file():
+                        compiled_assets.append((f"authoring-model:{variant_id}", output_path))
+                        receipt_path = output_path.parent / "execution-receipt.json"
+                        if receipt_path.is_file():
+                            compiled_evidence.append((f"authoring-execution-receipt:{variant_id}", receipt_path))
+                render = result.get("render") if isinstance(result.get("render"), dict) else {}
+                for image_index, image in enumerate(render.get("images") or []):
+                    if isinstance(image, dict) and isinstance(image.get("path"), str):
+                        image_path = Path(image["path"])
+                        if image_path.is_file():
+                            compiled_evidence.append((f"authoring-render:{variant_id}:{image_index}", image_path))
+            stage_results.append({
+                "stage": current_stage,
+                "state": "reused" if execution_states and all(state == "reused" for state in execution_states) else "completed",
+                "semantic_state": authoring_execution_result.get("state"),
+                "summary": str(summary_path),
+                "variant_count": authoring_execution_result.get("variant_count"),
+                "passed": authoring_execution_result.get("passed"),
+                "failed": authoring_execution_result.get("failed"),
+            })
+            if authoring_execution_result.get("state") != "passed":
+                raise ValueError(
+                    f"authoring execution failed for {authoring_execution_result.get('failed')} "
+                    f"of {authoring_execution_result.get('variant_count')} variants"
+                )
+
         for row in cfg["assets"]:
             path = Path(row["path"])
             file_input(path, f"asset {row['role']}")
@@ -515,6 +606,7 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
             "biome_dna": str(dna_path),
             "variant_plans": str(plans_path),
             "authoring_recipes": str(authoring_recipe_path) if authoring_recipe_path else None,
+            "authoring_execution": authoring_execution_result,
             "bundle": bundle_result,
             "stages": stage_results,
         }
