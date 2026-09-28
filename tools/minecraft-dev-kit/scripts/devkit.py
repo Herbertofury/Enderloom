@@ -283,6 +283,11 @@ def main(argv: list[str] | None = None) -> int:
     variant_discover.add_argument('--runtime-registry-dump', type=Path)
     variant_discover.add_argument('--max-reference-depth', type=int, default=3)
     variant_discover.add_argument('--json-out', type=Path)
+    variant_profile = variant_sub.add_parser('profile', help='Build evidence-bound BiomeDNA profiles from discovery JSON')
+    variant_profile.add_argument('--discovery', type=Path, required=True)
+    variant_profile.add_argument('--biome')
+    variant_profile.add_argument('--overrides', type=Path)
+    variant_profile.add_argument('--json-out', type=Path)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -343,6 +348,16 @@ def main(argv: list[str] | None = None) -> int:
         if args.variant_command == 'capability-gate':
             from variant_foundry_capability_gate import main as capability_main
             return capability_main()
+        if args.variant_command == 'profile':
+            from variant_foundry_biome_dna import main as profile_main
+            profile_args = ['--discovery', str(args.discovery)]
+            if args.biome:
+                profile_args += ['--biome', args.biome]
+            if args.overrides:
+                profile_args += ['--overrides', str(args.overrides)]
+            if args.json_out:
+                profile_args += ['--json-out', str(args.json_out)]
+            return profile_main(profile_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
