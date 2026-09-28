@@ -326,6 +326,21 @@ def main(argv: list[str] | None = None) -> int:
     variant_pipeline = variant_sub.add_parser('pipeline', help='Run durable content-addressed Variant Foundry stages end-to-end')
     variant_pipeline.add_argument('--manifest', type=Path, required=True)
     variant_pipeline.add_argument('--workspace', type=Path, required=True)
+    variant_provider = variant_sub.add_parser('provider', help='Run VRAM-aware generation/texturing/rig provider jobs with failover')
+    variant_provider.add_argument('--registry', type=Path, required=True)
+    provider_sub = variant_provider.add_subparsers(dest='provider_command', required=True)
+    provider_doctor = provider_sub.add_parser('doctor')
+    provider_doctor.add_argument('--vram-budget-gb', type=float)
+    provider_doctor.add_argument('--json-out', type=Path)
+    provider_run = provider_sub.add_parser('run')
+    provider_run.add_argument('--capability', required=True)
+    provider_run.add_argument('--input', type=Path, required=True)
+    provider_run.add_argument('--workspace', type=Path, required=True)
+    provider_run.add_argument('--seed', type=int, default=0)
+    provider_run.add_argument('--params', type=Path)
+    provider_run.add_argument('--preferred', action='append', default=[])
+    provider_run.add_argument('--vram-budget-gb', type=float)
+    provider_run.add_argument('--output-extension')
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -449,6 +464,30 @@ def main(argv: list[str] | None = None) -> int:
         if args.variant_command == 'pipeline':
             from variant_foundry_pipeline import main as pipeline_main
             return pipeline_main(['--manifest', str(args.manifest), '--workspace', str(args.workspace)])
+        if args.variant_command == 'provider':
+            from variant_foundry_provider import main as provider_main
+            provider_args = ['--registry', str(args.registry), args.provider_command]
+            if args.provider_command == 'doctor':
+                if args.vram_budget_gb is not None:
+                    provider_args += ['--vram-budget-gb', str(args.vram_budget_gb)]
+                if args.json_out:
+                    provider_args += ['--json-out', str(args.json_out)]
+            else:
+                provider_args += [
+                    '--capability', args.capability,
+                    '--input', str(args.input),
+                    '--workspace', str(args.workspace),
+                    '--seed', str(args.seed),
+                ]
+                if args.params:
+                    provider_args += ['--params', str(args.params)]
+                for provider_id in args.preferred:
+                    provider_args += ['--preferred', provider_id]
+                if args.vram_budget_gb is not None:
+                    provider_args += ['--vram-budget-gb', str(args.vram_budget_gb)]
+                if args.output_extension:
+                    provider_args += ['--output-extension', args.output_extension]
+            return provider_main(provider_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
