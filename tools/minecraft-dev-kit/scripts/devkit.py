@@ -301,6 +301,15 @@ def main(argv: list[str] | None = None) -> int:
     variant_recipe.add_argument('--bindings', type=Path, required=True)
     variant_recipe.add_argument('--variant', action='append', dest='variants')
     variant_recipe.add_argument('--json-out', type=Path)
+    variant_execute = variant_sub.add_parser('execute-recipes', help='Apply ready additive authoring recipes through Blockbench MCP')
+    variant_execute.add_argument('--recipes', type=Path, required=True)
+    variant_execute.add_argument('--source-model', type=Path, required=True)
+    variant_execute.add_argument('--workspace', type=Path, required=True)
+    variant_execute.add_argument('--server-command-json', type=Path)
+    variant_execute.add_argument('--protocol', default='2025-06-18')
+    variant_execute.add_argument('--timeout', type=float, default=45.0)
+    variant_execute.add_argument('--render', choices=['off','auto','require'], default='auto')
+    variant_execute.add_argument('--overwrite', action='store_true')
     variant_bundle = variant_sub.add_parser('bundle', help='Compile an immutable content-addressed ModelBundle')
     variant_bundle.add_argument('--subject', type=Path, required=True)
     variant_bundle.add_argument('--plans', type=Path, required=True)
@@ -445,6 +454,21 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 recipe_args += ['--json-out', str(args.json_out)]
             return recipe_main(recipe_args)
+        if args.variant_command == 'execute-recipes':
+            from variant_foundry_blockbench_execute import main as execute_main
+            execute_args = [
+                '--recipes', str(args.recipes),
+                '--source-model', str(args.source_model),
+                '--workspace', str(args.workspace),
+                '--protocol', args.protocol,
+                '--timeout', str(args.timeout),
+                '--render', args.render,
+            ]
+            if args.server_command_json:
+                execute_args += ['--server-command-json', str(args.server_command_json)]
+            if args.overwrite:
+                execute_args += ['--overwrite']
+            return execute_main(execute_args)
         if args.variant_command == 'bundle':
             from variant_foundry_bundle import main as bundle_main
             bundle_args = [
