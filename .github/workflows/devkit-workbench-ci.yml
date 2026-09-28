@@ -54,6 +54,8 @@ jobs:
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_selftest.py
       - name: Variant Foundry compiles additive lock-aware Blockbench authoring recipes
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_recipe_selftest.py
+      - name: Variant Foundry executes recipes durably through Blockbench MCP
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_execute_selftest.py
       - name: Variant Foundry resumes and invalidates durable pipeline stages correctly
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_pipeline_selftest.py
       - name: Variant Foundry provider scheduler fails over and reuses hash-valid jobs
