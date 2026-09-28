@@ -308,6 +308,10 @@ def main(argv: list[str] | None = None) -> int:
     variant_runtime.add_argument('--loader', required=True)
     variant_runtime.add_argument('--backend', required=True)
     variant_runtime.add_argument('--json-out', type=Path)
+    variant_codegen = variant_sub.add_parser('runtime-codegen', help='Generate allocation-free Java secondary-motion runtime sources')
+    variant_codegen.add_argument('--runtime-contract', type=Path, required=True)
+    variant_codegen.add_argument('--output', type=Path, required=True)
+    variant_codegen.add_argument('--package', default='dev.enderloom.variant.runtime')
     variant_execute = variant_sub.add_parser('execute-recipes', help='Apply ready additive authoring recipes through Blockbench MCP')
     variant_execute.add_argument('--recipes', type=Path, required=True)
     variant_execute.add_argument('--source-model', type=Path, required=True)
@@ -473,6 +477,13 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 runtime_args += ['--json-out', str(args.json_out)]
             return runtime_contract_main(runtime_args)
+        if args.variant_command == 'runtime-codegen':
+            from variant_foundry_runtime_codegen import main as runtime_codegen_main
+            return runtime_codegen_main([
+                '--runtime-contract', str(args.runtime_contract),
+                '--output', str(args.output),
+                '--package', args.package,
+            ])
         if args.variant_command == 'execute-recipes':
             from variant_foundry_blockbench_execute import main as execute_main
             execute_args = [
