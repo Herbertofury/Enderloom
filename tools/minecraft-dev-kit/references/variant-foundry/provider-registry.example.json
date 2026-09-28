@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "description": "Production-oriented Variant Foundry provider adapter examples. Health probes must pass before a new job. Exact model/weight rights remain runtime-selected and must be captured before release.",
+  "providers": [
+    {
+      "id": "openx-clay-shape",
+      "capabilities": [
+        "shape"
+      ],
+      "execution": "remote",
+      "command": [
+        "{python}",
+        "{scripts}/variant_foundry_clay_adapter.py",
+        "--input",
+        "{input}",
+        "--output",
+        "{output}",
+        "--seed",
+        "{seed}",
+        "--params",
+        "{params_json}"
+      ],
+      "probe_command": [
+        "{python}",
+        "{scripts}/variant_foundry_clay_adapter.py",
+        "--probe"
+      ],
+      "probe_timeout_seconds": 20,
+      "timeout_seconds": 1800,
+      "min_vram_gb": 0,
+      "priority": 10,
+      "provider": "OpenX Clay",
+      "model": "runtime-selected shape provider",
+      "source_repository": "OpenX-Inc/clay",
+      "source_commit": "eb41696224cca3021b44b244fda1362e6d3a535e",
+      "code_license": "MIT",
+      "rights_state": "runtime-model-and-weights-must-be-verified",
+      "distribution_notes": "Clay orchestrator code is MIT. The exact configured model/weights and their rights are a separate promotion gate.",
+      "output_extension": ".glb"
+    },
+    {
+      "id": "mymeshy-shape",
+      "capabilities": [
+        "shape"
+      ],
+      "execution": "local",
+      "command": [
+        "{python}",
+        "{scripts}/variant_foundry_mymeshy_adapter.py",
+        "--input",
+        "{input}",
+        "--output",
+        "{output}",
+        "--seed",
+        "{seed}",
+        "--params",
+        "{params_json}"
+      ],
+      "probe_command": [
+        "{python}",
+        "{scripts}/variant_foundry_mymeshy_adapter.py",
+        "--probe"
+      ],
+      "probe_timeout_seconds": 20,
+      "timeout_seconds": 1800,
+      "min_vram_gb": 0,
+      "priority": 20,
+      "provider": "MyMeshy",
+      "model": "runtime-selected image_to_3d adapter",
+      "source_repository": "felippeomgt/mymeshy",
+      "source_commit": "1854487f1e6c918becc859850727bc83d9ad24cd",
+      "code_license": "MIT",
+      "rights_state": "runtime-model-and-weights-must-be-verified",
+      "distribution_notes": "MyMeshy code is MIT. The active adapter and downloaded model weights retain their upstream licenses; mock mode is rejected by default.",
+      "output_extension": ".glb"
+    }
+  ]
+}

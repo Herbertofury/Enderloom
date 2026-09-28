@@ -162,7 +162,11 @@ Variant Foundry's provider plane is registry-driven instead of hardcoding one AI
 .\devkit.cmd variant provider --registry "C:\DevKit-Runs\providers.json" run --capability shape --input "C:\DevKit-Runs\concept.png" --workspace "C:\DevKit-Runs\provider-jobs" --seed 77 --vram-budget-gb 24 --preferred local-primary
 ```
 
-Provider commands use exact argv tokens and may reference `{input}`, `{output}`, `{seed}`, `{params_json}` and `{workspace}`. Hash-valid successful jobs are reused; incompatible/over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
+Provider commands use exact argv tokens and may reference `{input}`, `{output}`, `{seed}`, `{params_json}`, `{workspace}`, `{python}` and `{scripts}`. Optional `probe_command` entries are cheap health gates and may use only `{python}` / `{scripts}`; a provider whose adapter exists but whose real backend/import/config is unavailable is rejected **before** expensive work. Hash-valid successful jobs are reused before probing so a temporary backend outage never invalidates already-proven bytes.
+
+A pinned starter registry is included at `references/variant-foundry/provider-registry.example.json`. It records the current tested OpenX Clay source commit `eb41696224cca3021b44b244fda1362e6d3a535e` and MyMeshy commit `1854487f1e6c918becc859850727bc83d9ad24cd`, with explicit health probes. Use `VARIANT_FOUNDRY_CLAY_CONFIG` for the Clay config and `MYMESHY_URL` for the MyMeshy backend. Code licensing does **not** automatically license runtime model weights: the exact selected model/weights remain a separate evidence/rights gate.
+
+Incompatible, unhealthy or over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. Successful adapter stdout JSON is retained as `provider_runtime` so the actual backend/model metadata can travel into provenance. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
 
 ### 7. Compile an immutable ModelBundle
 

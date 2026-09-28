@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Variant Foundry adapter for a running MyMeshy backend.
 
-Uses the documented REST job API, forwards the deterministic seed through
-GenOptions, rejects MyMeshy mock mode by default, polls one real job, and writes
-the finished GLB to the exact output path expected by the provider scheduler.
+Uses MyMeshy's documented REST job API, forwards the deterministic seed through
+GenOptions, rejects mock/placeholder mode by default, polls one real job, and
+writes the finished GLB to the exact output path expected by the provider
+scheduler. --probe checks backend readiness without starting a generation job.
 """
 from __future__ import annotations
 
@@ -76,6 +77,30 @@ def multipart_image(path: Path, options: dict[str, Any]) -> tuple[bytes, str]:
     return bytes(body), f"multipart/form-data; boundary={boundary}"
 
 
+def system_probe(endpoint: str, *, allow_mock: bool = False, timeout: float = 15) -> dict[str, Any]:
+    endpoint = endpoint.rstrip("/")
+    if not endpoint.startswith(("http://", "https://")):
+        raise ValueError("MyMeshy endpoint must use http:// or https://")
+    system = request_json(endpoint + "/api/system", timeout=timeout)
+    if not isinstance(system, dict):
+        raise ValueError("MyMeshy /api/system returned an invalid object")
+    active = system.get("active") if isinstance(system.get("active"), dict) else {}
+    mock = system.get("mock_mode") is True or active.get("image_to_3d") == "mock"
+    if mock and not allow_mock:
+        raise ValueError("MyMeshy is in mock mode; placeholder geometry cannot satisfy Variant Foundry production acceptance")
+    adapter = active.get("image_to_3d")
+    if not isinstance(adapter, str) or not adapter:
+        raise ValueError("MyMeshy has no active image_to_3d adapter")
+    return {
+        "state": "ready",
+        "adapter": "mymeshy",
+        "backend_version": system.get("version"),
+        "endpoint": endpoint,
+        "active": active,
+        "mock_mode": mock,
+    }
+
+
 def cancel(endpoint: str, job_id: str) -> None:
     try:
         request_json(f"{endpoint}/api/jobs/{urllib.parse.quote(job_id)}/cancel", method="POST", data=b"", timeout=5)
@@ -85,23 +110,29 @@ def cancel(endpoint: str, job_id: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--input", type=Path, required=True)
-    ap.add_argument("--output", type=Path, required=True)
-    ap.add_argument("--seed", type=int, required=True)
-    ap.add_argument("--params", type=Path, required=True)
+    ap.add_argument("--probe", action="store_true")
+    ap.add_argument("--allow-mock", action="store_true")
+    ap.add_argument("--input", type=Path)
+    ap.add_argument("--output", type=Path)
+    ap.add_argument("--seed", type=int)
+    ap.add_argument("--params", type=Path)
     ap.add_argument("--endpoint", default=os.environ.get("MYMESHY_URL", "http://127.0.0.1:8000"))
     args = ap.parse_args(argv)
     job_id = None
     try:
+        if args.probe:
+            result = system_probe(args.endpoint, allow_mock=args.allow_mock)
+            print(json.dumps(result, sort_keys=True))
+            return 0
+        if args.input is None or args.output is None or args.seed is None or args.params is None:
+            raise ValueError("runtime mode requires --input --output --seed --params")
         params = load_params(args.params)
         endpoint = args.endpoint.rstrip("/")
-        if not endpoint.startswith(("http://", "https://")):
-            raise ValueError("MyMeshy endpoint must use http:// or https://")
-        system = request_json(endpoint + "/api/system")
-        if not isinstance(system, dict):
-            raise ValueError("MyMeshy /api/system returned an invalid object")
-        if system.get("mock_mode") is True and not bool(params.get("allow_mock", False)):
-            raise ValueError("MyMeshy is in mock mode; placeholder geometry cannot satisfy Variant Foundry production acceptance")
+        system = system_probe(
+            endpoint,
+            allow_mock=args.allow_mock or bool(params.get("allow_mock", False)),
+            timeout=float(params.get("probe_timeout_seconds", 15)),
+        )
 
         mode = str(params.get("mode", "image")).lower()
         options = {
@@ -167,7 +198,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps({
                     "state": "succeeded",
                     "adapter": "mymeshy",
-                    "backend_version": system.get("version"),
+                    "backend_version": system.get("backend_version"),
                     "active": system.get("active"),
                     "job_id": job_id,
                     "asset_id": asset_id,

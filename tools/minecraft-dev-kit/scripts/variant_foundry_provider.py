@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Variant Foundry provider scheduler with deterministic failover and receipts.
+"""Variant Foundry provider scheduler with deterministic health, failover and receipts.
 
 Providers are exact argv subprocess adapters described by a JSON registry. The
 scheduler never uses a shell, records provider/model/weights/license metadata,
-serializes heavy GPU work through a workspace lock, reuses hash-valid results,
-and fails over to the next compatible provider without discarding prior attempts.
+runs optional cheap provider health probes before new work, serializes heavy GPU
+work through a workspace lock, reuses hash-valid results even when a provider is
+temporarily offline, and fails over without discarding prior attempts.
 """
 from __future__ import annotations
 
@@ -20,6 +21,7 @@ from typing import Any
 
 SCHEMA_VERSION = 1
 PLACEHOLDERS = {"input", "output", "seed", "params_json", "workspace", "python", "scripts"}
+PROBE_PLACEHOLDERS = {"python", "scripts"}
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -61,6 +63,14 @@ def load_registry(path: Path) -> dict[str, Any]:
     return value
 
 
+def _argv_field(row: dict[str, Any], field: str, required: bool = False) -> None:
+    value = row.get(field)
+    if value is None and not required:
+        return
+    if not isinstance(value, list) or not value or not all(isinstance(x, str) and x for x in value):
+        raise ValueError(f"provider {row.get('id', '<unknown>')} {field} must be a non-empty argv string list")
+
+
 def validate_provider(row: Any) -> None:
     if not isinstance(row, dict):
         raise ValueError("provider entries must be objects")
@@ -71,11 +81,14 @@ def validate_provider(row: Any) -> None:
         raise ValueError("provider id must be non-empty")
     if not isinstance(row["capabilities"], list) or not row["capabilities"] or not all(isinstance(x, str) and x for x in row["capabilities"]):
         raise ValueError(f"provider {row['id']} capabilities must be non-empty strings")
-    if not isinstance(row["command"], list) or not row["command"] or not all(isinstance(x, str) and x for x in row["command"]):
-        raise ValueError(f"provider {row['id']} command must be a non-empty argv string list")
+    _argv_field(row, "command", required=True)
+    _argv_field(row, "probe_command")
     timeout = row.get("timeout_seconds", 900)
     if not isinstance(timeout, (int, float)) or timeout <= 0:
         raise ValueError(f"provider {row['id']} timeout_seconds must be positive")
+    probe_timeout = row.get("probe_timeout_seconds", 15)
+    if not isinstance(probe_timeout, (int, float)) or probe_timeout <= 0:
+        raise ValueError(f"provider {row['id']} probe_timeout_seconds must be positive")
     vram = row.get("min_vram_gb", 0)
     if not isinstance(vram, (int, float)) or vram < 0:
         raise ValueError(f"provider {row['id']} min_vram_gb must be non-negative")
@@ -86,33 +99,13 @@ def validate_provider(row: Any) -> None:
 
 def provider_identity(row: dict[str, Any]) -> dict[str, Any]:
     keep = (
-        "id", "capabilities", "execution", "command", "timeout_seconds", "min_vram_gb",
-        "priority", "provider", "model", "model_version", "weights", "weights_sha256",
-        "code_license", "weights_license", "distribution_notes", "output_extension",
+        "id", "capabilities", "execution", "command", "probe_command", "timeout_seconds",
+        "probe_timeout_seconds", "min_vram_gb", "priority", "provider", "model",
+        "model_version", "weights", "weights_sha256", "code_license", "weights_license",
+        "source_repository", "source_commit", "rights_state", "distribution_notes",
+        "output_extension",
     )
     return {key: row.get(key) for key in keep if key in row}
-
-
-def doctor(registry: dict[str, Any], *, vram_budget_gb: float | None = None) -> dict[str, Any]:
-    providers = []
-    for row in registry["providers"]:
-        reasons = []
-        command0 = probe_executable(row["command"][0])
-        if not Path(command0).is_file() and not shutil_which(command0):
-            reasons.append(f"command-not-found:{command0}")
-        if vram_budget_gb is not None and float(row.get("min_vram_gb", 0)) > vram_budget_gb:
-            reasons.append(f"vram-budget:{row.get('min_vram_gb', 0)}>{vram_budget_gb}")
-        providers.append({
-            **provider_identity(row),
-            "state": "ready" if not reasons else "unavailable",
-            "reasons": reasons,
-        })
-    return {
-        "schema_version": 1,
-        "state": "ready" if any(row["state"] == "ready" for row in providers) else "unavailable",
-        "vram_budget_gb": vram_budget_gb,
-        "providers": providers,
-    }
 
 
 def shutil_which(command: str) -> str | None:
@@ -120,44 +113,11 @@ def shutil_which(command: str) -> str | None:
     return shutil.which(command)
 
 
-def probe_executable(token: str) -> str:
-    token = token.replace("{python}", sys.executable)
-    token = token.replace("{scripts}", str(Path(__file__).resolve().parent))
-    return token
-
-
-def compatible_providers(
-    registry: dict[str, Any],
-    capability: str,
-    *,
-    preferred: list[str] | None = None,
-    vram_budget_gb: float | None = None,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    preferred = preferred or []
-    preference_index = {provider_id: index for index, provider_id in enumerate(preferred)}
-    accepted = []
-    rejected = []
-    for row in registry["providers"]:
-        reasons = []
-        if capability not in row["capabilities"]:
-            reasons.append("capability")
-        min_vram = float(row.get("min_vram_gb", 0))
-        if vram_budget_gb is not None and min_vram > vram_budget_gb:
-            reasons.append("vram-budget")
-        command0 = probe_executable(row["command"][0])
-        if not Path(command0).is_file() and not shutil_which(command0):
-            reasons.append("command-not-found")
-        if reasons:
-            rejected.append({"id": row["id"], "reasons": reasons})
-        else:
-            accepted.append(row)
-    accepted.sort(key=lambda row: (
-        0 if row["id"] in preference_index else 1,
-        preference_index.get(row["id"], 10**9),
-        int(row.get("priority", 100)),
-        row["id"],
-    ))
-    return accepted, rejected
+def static_values() -> dict[str, str]:
+    return {
+        "python": sys.executable,
+        "scripts": str(Path(__file__).resolve().parent),
+    }
 
 
 def expand_argv(template: list[str], values: dict[str, str]) -> list[str]:
@@ -170,6 +130,160 @@ def expand_argv(template: list[str], values: dict[str, str]) -> list[str]:
             raise ValueError(f"unrecognized provider command placeholder in token: {token}")
         result.append(out)
     return result
+
+
+def expand_probe_argv(template: list[str]) -> list[str]:
+    values = static_values()
+    result = []
+    for token in template:
+        out = token
+        for name in PROBE_PLACEHOLDERS:
+            out = out.replace("{" + name + "}", values[name])
+        if "{" in out or "}" in out:
+            raise ValueError(
+                f"provider probe commands may use only {{python}}/{{scripts}} placeholders: {token}"
+            )
+        result.append(out)
+    return result
+
+
+def executable_available(token: str) -> bool:
+    resolved = token.replace("{python}", sys.executable).replace(
+        "{scripts}", str(Path(__file__).resolve().parent)
+    )
+    return Path(resolved).is_file() or shutil_which(resolved) is not None
+
+
+def last_json_object(text: str) -> dict[str, Any] | None:
+    for line in reversed([row.strip() for row in text.splitlines() if row.strip()]):
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return None
+
+
+def run_health_probe(row: dict[str, Any]) -> dict[str, Any]:
+    template = row.get("probe_command")
+    if not template:
+        return {"state": "not-declared"}
+    argv = expand_probe_argv(template)
+    if not executable_available(argv[0]):
+        return {
+            "state": "unavailable",
+            "reason": f"probe-command-not-found:{argv[0]}",
+            "argv_sha256": hash_json(argv),
+        }
+    started = time.monotonic()
+    try:
+        cp = subprocess.run(
+            argv,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=float(row.get("probe_timeout_seconds", 15)),
+        )
+        state = "ready" if cp.returncode == 0 else "unavailable"
+        runtime = last_json_object(cp.stdout or "")
+        return {
+            "state": state,
+            "returncode": cp.returncode,
+            "elapsed_seconds": round(time.monotonic() - started, 6),
+            "argv_sha256": hash_json(argv),
+            "runtime": runtime,
+            "stdout_tail": (cp.stdout or "")[-2000:],
+            "stderr_tail": (cp.stderr or "")[-2000:],
+        }
+    except subprocess.TimeoutExpired as exc:
+        stdout = exc.stdout.decode("utf-8", "replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+        stderr = exc.stderr.decode("utf-8", "replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
+        return {
+            "state": "timed-out",
+            "elapsed_seconds": round(time.monotonic() - started, 6),
+            "argv_sha256": hash_json(argv),
+            "stdout_tail": stdout[-2000:],
+            "stderr_tail": stderr[-2000:],
+        }
+    except OSError as exc:
+        return {
+            "state": "unavailable",
+            "reason": str(exc),
+            "elapsed_seconds": round(time.monotonic() - started, 6),
+            "argv_sha256": hash_json(argv),
+        }
+
+
+def static_reasons(row: dict[str, Any], *, vram_budget_gb: float | None = None) -> list[str]:
+    reasons: list[str] = []
+    if not executable_available(row["command"][0]):
+        reasons.append(f"command-not-found:{row['command'][0]}")
+    if vram_budget_gb is not None and float(row.get("min_vram_gb", 0)) > vram_budget_gb:
+        reasons.append(f"vram-budget:{row.get('min_vram_gb', 0)}>{vram_budget_gb}")
+    return reasons
+
+
+def doctor(registry: dict[str, Any], *, vram_budget_gb: float | None = None) -> dict[str, Any]:
+    providers = []
+    for row in registry["providers"]:
+        reasons = static_reasons(row, vram_budget_gb=vram_budget_gb)
+        probe = {"state": "skipped", "reason": "static-rejection"}
+        if not reasons:
+            probe = run_health_probe(row)
+            if probe["state"] not in {"ready", "not-declared"}:
+                reasons.append(f"health-probe:{probe['state']}")
+        providers.append({
+            **provider_identity(row),
+            "state": "ready" if not reasons else "unavailable",
+            "reasons": reasons,
+            "health_probe": probe,
+        })
+    return {
+        "schema_version": 1,
+        "state": "ready" if any(row["state"] == "ready" for row in providers) else "unavailable",
+        "vram_budget_gb": vram_budget_gb,
+        "providers": providers,
+    }
+
+
+def compatible_providers(
+    registry: dict[str, Any],
+    capability: str,
+    *,
+    preferred: list[str] | None = None,
+    vram_budget_gb: float | None = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    preferred = preferred or []
+    preference_index = {provider_id: index for index, provider_id in enumerate(preferred)}
+    accepted: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
+    for row in registry["providers"]:
+        reasons: list[str] = []
+        if capability not in row["capabilities"]:
+            reasons.append("capability")
+        reasons.extend(static_reasons(row, vram_budget_gb=vram_budget_gb))
+        probe: dict[str, Any] | None = None
+        if not reasons:
+            probe = run_health_probe(row)
+            if probe["state"] not in {"ready", "not-declared"}:
+                reasons.append(f"health-probe:{probe['state']}")
+        if reasons:
+            rejected_row: dict[str, Any] = {"id": row["id"], "reasons": reasons}
+            if probe is not None:
+                rejected_row["health_probe"] = probe
+            rejected.append(rejected_row)
+        else:
+            accepted.append({"provider": row, "health_probe": probe or {"state": "not-declared"}})
+    accepted.sort(key=lambda item: (
+        0 if item["provider"]["id"] in preference_index else 1,
+        preference_index.get(item["provider"]["id"], 10**9),
+        int(item["provider"].get("priority", 100)),
+        item["provider"]["id"],
+    ))
+    return accepted, rejected
 
 
 class WorkspaceLock:
@@ -219,8 +333,7 @@ def run_provider(
         "seed": str(seed),
         "params_json": str(params_path),
         "workspace": str(workspace),
-        "python": sys.executable,
-        "scripts": str(Path(__file__).resolve().parent),
+        **static_values(),
     }
     argv = expand_argv(row["command"], values)
     started = time.monotonic()
@@ -271,6 +384,7 @@ def run_provider(
         "argv_sha256": hash_json(argv),
         "stdout": str(stdout_path),
         "stderr": str(stderr_path),
+        "provider_runtime": last_json_object(stdout or ""),
         "output": str(output_path),
         "output_sha256": sha256_file(output_path) if state == "succeeded" else None,
         "output_size": output_path.stat().st_size if state == "succeeded" else 0,
@@ -295,12 +409,6 @@ def run_job(
     if not input_path.is_file():
         raise ValueError(f"provider input is missing or not a file: {input_path}")
     registry = load_registry(registry_path)
-    candidates, rejected = compatible_providers(
-        registry,
-        capability,
-        preferred=preferred,
-        vram_budget_gb=vram_budget_gb,
-    )
     job_identity = {
         "schema_version": 1,
         "registry_sha256": sha256_file(registry_path),
@@ -316,6 +424,9 @@ def run_job(
     job_id = hash_json(job_identity)
     job_root = workspace / "jobs" / job_id
     receipt_path = job_root / "job-receipt.json"
+
+    # Reuse already-proven bytes before touching a provider. A temporary backend outage
+    # must not invalidate a content-addressed successful result.
     if receipt_path.is_file():
         try:
             existing = json.loads(receipt_path.read_text(encoding="utf-8"))
@@ -332,6 +443,12 @@ def run_job(
         except (OSError, json.JSONDecodeError, ValueError):
             pass
 
+    candidates, rejected = compatible_providers(
+        registry,
+        capability,
+        preferred=preferred,
+        vram_budget_gb=vram_budget_gb,
+    )
     job_root.mkdir(parents=True, exist_ok=True)
     attempts = []
     if not candidates:
@@ -339,7 +456,7 @@ def run_job(
             **job_identity,
             "job_id": job_id,
             "state": "unresolved-active",
-            "reason": "no compatible provider",
+            "reason": "no compatible healthy provider",
             "rejected": rejected,
             "attempts": [],
         }
@@ -348,7 +465,8 @@ def run_job(
 
     lock_path = workspace / ".provider-gpu.lock"
     with WorkspaceLock(lock_path):
-        for row in candidates:
+        for candidate in candidates:
+            row = candidate["provider"]
             provider = provider_identity(row)
             provider_key = hash_json({"provider": provider, "job": job_identity})
             attempt_root = job_root / "attempts" / provider_key
@@ -360,6 +478,7 @@ def run_job(
             attempt = {
                 "provider": provider,
                 "provider_key": provider_key,
+                "health_probe": candidate["health_probe"],
                 "state": "running",
             }
             atomic_json(attempt_root / "attempt.json", attempt)
@@ -381,6 +500,7 @@ def run_job(
                     "state": "succeeded",
                     "reuse_state": "completed",
                     "selected_provider": provider,
+                    "provider_runtime": run.get("provider_runtime"),
                     "output": run["output"],
                     "output_sha256": run["output_sha256"],
                     "output_size": run["output_size"],
@@ -394,7 +514,7 @@ def run_job(
         **job_identity,
         "job_id": job_id,
         "state": "unresolved-active",
-        "reason": "all compatible providers failed",
+        "reason": "all compatible healthy providers failed",
         "attempts": attempts,
         "rejected": rejected,
     }
