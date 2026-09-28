@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 SCHEMA_VERSION = 1
-PLACEHOLDERS = {"input", "output", "seed", "params_json", "workspace"}
+PLACEHOLDERS = {"input", "output", "seed", "params_json", "workspace", "python", "scripts"}
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -213,6 +213,8 @@ def run_provider(
         "seed": str(seed),
         "params_json": str(params_path),
         "workspace": str(workspace),
+        "python": sys.executable,
+        "scripts": str(Path(__file__).resolve().parent),
     }
     argv = expand_argv(row["command"], values)
     started = time.monotonic()
