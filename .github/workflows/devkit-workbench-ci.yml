@@ -52,6 +52,8 @@ jobs:
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_texture_compiler_selftest.py
       - name: Variant Foundry validates the headless Blockbench MCP adapter
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_selftest.py
+      - name: Northpoint CI keeps modern Gradle runtime for maintained Fabric branch
+        run: python tools/minecraft-dev-kit/scripts/northpoint_ci_java_floor_selftest.py
       - name: Retain workflow proof and candidate packages
         if: always()
         uses: actions/upload-artifact@v4
