@@ -40,7 +40,8 @@
       "validation": {
         "self_contained": true,
         "external": "auto"
-      }
+      },
+      "rights_verified": false
     },
     {
       "id": "mymeshy-shape",
@@ -80,7 +81,8 @@
       "validation": {
         "self_contained": true,
         "external": "auto"
-      }
+      },
+      "rights_verified": false
     }
   ],
   "validation_upstreams": {
