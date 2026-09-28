@@ -82,7 +82,18 @@ def main() -> int:
     assert all(op["op"] == "add_mesh_primitive" for op in ops)
     assert recipe["routes"]["runtime_physics"][0]["targets"]["vines"] == ["vine_left", "vine_right"]
     assert recipe["routes"]["texture"][0]["kind"] == "texture-palette"
+    assert recipe["routes"]["texture"][0]["logical_regions"] == ["body_surface"]
+    assert recipe["routes"]["texture"][0]["targets"]["body_surface"] == ["creeper_female_base.png"]
     assert recipe["lock_contract"][0]["region"] == "creeper_face"
+
+    missing_texture = json.loads(json.dumps(bindings))
+    missing_texture["texture_targets"] = {}
+    unresolved_texture = mod.compile_recipes(subject, plan, missing_texture)
+    assert unresolved_texture["state"] == "unresolved-active"
+    assert any(
+        item["kind"] == "texture-target-binding-missing"
+        for item in unresolved_texture["recipes"][0]["unresolved"]
+    )
 
     missing = json.loads(json.dumps(bindings))
     missing["templates"]["geometry"] = {}
@@ -106,6 +117,7 @@ def main() -> int:
         "operations": len(ops),
         "targets": sorted({op["parent"] for op in ops}),
         "unbound_is_unresolved": True,
+        "texture_unbound_is_unresolved": True,
         "destructive_op_rejected": True,
     }, indent=2))
     return 0
