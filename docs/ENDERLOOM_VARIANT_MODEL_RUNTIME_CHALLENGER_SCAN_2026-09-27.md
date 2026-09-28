@@ -254,3 +254,68 @@ These are **not** the default for Bloom & Boom vine/hair motion. Enderloom's lig
 3. Headless batch generation is first-class. “Generate all biomes” should not require hundreds of Blockbench tabs; variants may be transformed/rendered/validated headlessly, with selected failures or review candidates opened live.
 4. Preserve IK targets, poles, chain length, constraints and IK/FK blend in canonical IR; bake only for an output backend that cannot represent them.
 5. Add a `PhysicsBackendProfile` selector with lightweight secondary motion as default and optional Jolt-native compatibility for real soft-body/collision-heavy needs, including fallback and benchmark proof.
+
+
+## P0/P1 — fifth sweep: full game-asset pipeline, texture/material closure and worldgen enrichment
+
+This pass focused on the gaps between “we can generate a mesh” and “we can repeatedly ship a beautiful Minecraft asset family.”
+
+### Local-first / game-ready orchestration patterns
+
+- **felippeomgt/mymeshy** — local-first image/text -> 3D plus cleanup, decimation, xatlas UVs, PBR baking, multi-format export and MCP. Especially useful as a reference for VRAM-aware adapter selection, one-heavy-GPU-job-at-a-time execution and graceful provider fallback.
+  - https://github.com/felippeomgt/mymeshy
+- **OpenX-Inc/clay** — MIT orchestration with swappable GPU providers plus game-ready retopo, LOD, collision, baking, rigging, material/texture and export tools. Its “one tool registry -> CLI/agent/MCP” design maps cleanly to Enderloom's canonical operation registry.
+  - https://github.com/OpenX-Inc/clay
+- **InFaNsO/AssetForge** — MIT staged game-asset pipeline with a pure core separated from the Blender shell, backend resolver/provenance, retopo/UV/bake/texture/rig/animation/LOD/collision/export/validation stages and headless tests.
+  - https://github.com/InFaNsO/AssetForge
+
+These are architecture/integration challengers, not a new source of truth. Enderloom should reuse strong stage boundaries, job semantics and deterministic processing while keeping its own Project/Artifact/Evidence graph canonical.
+
+### Texture and material generation
+
+- **3DTopia/MVPaint** — synchronized multi-view texturing with spatial inpainting and UV refinement/seam smoothing; strong challenger for complete concept/prompt-driven creature texture coverage.
+  - https://github.com/3DTopia/MVPaint
+- **LIU-Yuxin/SyncMVD** — MIT multi-view synchronized diffusion; useful differential texture oracle and seam-consistency benchmark.
+  - https://github.com/LIU-Yuxin/SyncMVD
+- **OpenTexture/Paint3D** — Apache-2.0 lighting-less UV texture generation; useful because baked lighting is specifically undesirable when Enderloom needs relightable/native Minecraft materials.
+  - https://github.com/OpenTexture/Paint3D
+- **CVMI-Lab/TEXGen** — direct UV-domain texture diffusion challenger.
+  - https://github.com/CVMI-Lab/TEXGen
+- **Joey-Jang/StableMaterials** — tileable PBR material proposal model producing base color, roughness, metallic, height and normal channels. Exact repository/model-weight rights remain an implementation-time gate.
+  - https://github.com/Joey-Jang/StableMaterials
+- **bytedance/Hi3DGen** — MIT image-to-geometry challenger using normal bridging for fine geometric detail.
+  - https://github.com/bytedance/Hi3DGen
+
+Generated high-resolution texture/PBR output remains **working material**. The Minecraft Texture Compiler owns final texel density, palette, pixel-grid, alpha, emissive and style decisions.
+
+### Interchange and deterministic asset processing
+
+- **donmccurdy/glTF-Transform** — MIT TypeScript/JavaScript glTF SDK/CLI for reproducible edits, pruning, deduplication, animation resampling and mesh/texture optimization.
+  - https://github.com/donmccurdy/glTF-Transform
+- **KhronosGroup/glTF-Validator** — glTF 2.0 structural/binary/animation/material validation. Make this a hard pre-Minecraftization gate for GLB/glTF provider output.
+  - https://github.com/KhronosGroup/glTF-Validator
+- **assimp/assimp** — broad format import fallback for authorized legacy DCC assets; canonical state should still normalize into glTF/Enderloom IR rather than preserve dozens of independent code paths.
+  - https://github.com/assimp/assimp
+
+### Worldgen / biome discovery enrichment
+
+- **Glitchfiend/TerraBlender** — current 26.3 branch provides a major Forge/Fabric/NeoForge biome-placement ecosystem.
+  - https://github.com/Glitchfiend/TerraBlender
+- **TerraformersMC/Biolith** — multi-loader biome placement/sub-biome/surface-rule system, compatible with TerraBlender/Fabric biome APIs.
+  - https://github.com/TerraformersMC/Biolith
+- **Apollounknowndev/lithostitched** — data-driven worldgen compatibility/configurability library.
+  - https://github.com/Apollounknowndev/lithostitched
+- **PolyhedralDev/Terra** — configuration-driven platform-agnostic worldgen capable of nonstandard/3D biome systems; useful as an “unknown worldgen” discovery fixture.
+  - https://github.com/PolyhedralDev/Terra
+
+Runtime registry discovery remains authoritative. These adapters add richer placement/surface/config evidence when present.
+
+## Fifth-sweep architecture consequences
+
+1. Add a **Minecraft Texture Compiler** after high-resolution texturing/material generation; never treat a photorealistic DCC texture as automatically final Minecraft art.
+2. Add a content-addressed **ModelBundle compiler** so geometry, material pages, skeletons, animations, motion graphs and variant deltas are precompiled/shared rather than rebuilt per entity.
+3. Add a **provider job scheduler** with VRAM budgets, cancellation, local/remote workers, stage receipts and resume-from-stage semantics.
+4. Validate/normalize every GLB/glTF through a deterministic interchange gate before Minecraftization.
+5. Treat worldgen frameworks as enrichment adapters while preserving generic registry/JAR/datapack discovery for private/future content.
+6. Maintain a machine-readable capability matrix and gate so a new flashy provider cannot hide a missing boring-but-essential stage such as alpha bleed, persistence, hot reload or renderer compatibility.
+7. Provider/model rights are separate from source-code rights and are checked on the exact selected version/weights before promotion.

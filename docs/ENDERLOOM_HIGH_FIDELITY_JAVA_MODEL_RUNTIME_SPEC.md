@@ -534,3 +534,44 @@ Hard rules:
 - IK data stays editable and semantic until an output format forces baking;
 - heavy native physics is opt-in/capability-selected and never replaces the cheaper secondary-motion path without measured benefit;
 - third-party MCP/Blockbench integrations obey exact licenses and are wrapped/reimplemented when direct source reuse would make distribution incompatible.
+
+
+## 18. Capability closure, Texture Compiler and runtime asset compilation
+
+The canonical completeness contract is:
+
+- `docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md`
+- `docs/variant-foundry-capability-matrix.json`
+
+### 18.1 Minecraft Texture Compiler
+
+High-resolution generated textures/materials are intermediate evidence. A final Minecraft asset passes a typed `TextureStyleProfile` covering target resolution/texel density, nearest-neighbor pixel grid, palette/value ramps, region locks, alpha/translucency, transparent-edge dilation, UV padding, emissive/PBR policy and mod-specific style exemplars.
+
+The texture compiler must support reference-preserving and deliberate vanilla/32x/64x/custom-mod styles. Naive downsampling is not an acceptable finalization strategy.
+
+### 18.2 ModelBundle compiler
+
+Add a content-addressed `ModelBundle` compilation stage that precompiles and hashes:
+
+- geometry/shared immutable buffers;
+- texture/material pages;
+- skeleton/bind pose;
+- compiled animation/controller/expression data;
+- secondary motion;
+- culling/LOD data;
+- variant deltas;
+- biome/runtime selectors;
+- backend fallbacks;
+- provenance.
+
+Identical data is shared across variants. Development hot reload recompiles only invalidated dependency nodes; release bundles are immutable/reproducible. Disk/network/provider work is forbidden on render/game ticks.
+
+### 18.3 Provider execution plane
+
+Shape/texture/rig providers execute as durable jobs with capability discovery, exact provider/model/weight identity, seed, input/output hashes, configurable VRAM budget, cancellation and resume-from-stage behavior. Local and optional remote GPU workers use the same operation contract. Placeholder/mock output can test plumbing but can never satisfy asset acceptance.
+
+Study and integrate materially superior patterns from MyMeshy, OpenX Clay and AssetForge while retaining Enderloom's canonical project/evidence graph.
+
+### 18.4 Render-stack promotion
+
+A model backend is not promoted until the applicable render matrix proves it with vanilla plus relevant Sodium/Embeddium, Iris/Oculus, ImmediatelyFast, EntityCulling, MoreCulling, EMF/ETF/CEM and resource-reload lanes. Compatibility failure triggers repair/fallback, never silent removal of approved model detail.

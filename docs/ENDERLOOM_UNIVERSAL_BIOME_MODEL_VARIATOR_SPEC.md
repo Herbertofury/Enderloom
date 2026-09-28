@@ -388,3 +388,32 @@ The user-facing wiki page is:
 - `docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md`
 
 For Bloom & Boom, generate a **Biome Variant Atlas** with interactive model/turntable, biome palette and motifs, rig/animation state, motion phenotype, spawn/runtime selector, backend, compatibility, performance evidence, provenance and native runtime captures.
+
+
+## 18. Capability closure and worldgen enrichment
+
+Variant Foundry must satisfy the machine-readable closure contract in `docs/variant-foundry-capability-matrix.json` and the human-readable contract in `docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md`.
+
+### Worldgen enrichment adapters
+
+Dynamic registry/JAR/datapack discovery remains authoritative. When present, enrich `BiomeDNA` / `DimensionDNA` with evidence from:
+
+- TerraBlender, including current 26.3 lineage;
+- Biolith biome placement/sub-biome/surface rules;
+- Lithostitched worldgen extensions;
+- Terra config packs / nonstandard biome providers;
+- loader-native biome modification APIs/tags.
+
+This improves profile quality for known ecosystems without creating a supported-biomes wall.
+
+### Texture/material phenotype
+
+A biome plan may carry independent:
+
+- geometry phenotype;
+- texture phenotype;
+- material/PBR phenotype;
+- motion phenotype;
+- atmosphere phenotype.
+
+High-resolution provider output is compiled through the Minecraft Texture Compiler before acceptance so generated biome families remain visually coherent with the selected mod art direction at actual in-game texel sizes.
