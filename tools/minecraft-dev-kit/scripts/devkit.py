@@ -341,6 +341,7 @@ def main(argv: list[str] | None = None) -> int:
     provider_run.add_argument('--preferred', action='append', default=[])
     provider_run.add_argument('--vram-budget-gb', type=float)
     provider_run.add_argument('--output-extension')
+    provider_run.add_argument('--require-verified-rights', action='store_true')
     variant_validate_glb = variant_sub.add_parser('validate-glb', help='Validate a provider GLB before promotion')
     variant_validate_glb.add_argument('--input', type=Path, required=True)
     variant_validate_glb.add_argument('--receipt', type=Path)
@@ -492,6 +493,8 @@ def main(argv: list[str] | None = None) -> int:
                     provider_args += ['--vram-budget-gb', str(args.vram_budget_gb)]
                 if args.output_extension:
                     provider_args += ['--output-extension', args.output_extension]
+                if args.require_verified_rights:
+                    provider_args += ['--require-verified-rights']
             return provider_main(provider_args)
         if args.variant_command == 'validate-glb':
             from variant_foundry_gltf_gate import main as gltf_gate_main
