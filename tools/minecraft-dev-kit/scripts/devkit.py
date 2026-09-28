@@ -300,6 +300,7 @@ def main(argv: list[str] | None = None) -> int:
     variant_bundle.add_argument('--plans', type=Path, required=True)
     variant_bundle.add_argument('--biome-dna', type=Path)
     variant_bundle.add_argument('--asset', action='append', default=[], help='ROLE=PATH; repeatable')
+    variant_bundle.add_argument('--evidence', action='append', default=[], help='ROLE=PATH; repeatable proof/provenance object')
     variant_bundle.add_argument('--minecraft', required=True)
     variant_bundle.add_argument('--loader', required=True)
     variant_bundle.add_argument('--backend', required=True)
@@ -437,6 +438,8 @@ def main(argv: list[str] | None = None) -> int:
                 bundle_args += ['--biome-dna', str(args.biome_dna)]
             for asset in args.asset:
                 bundle_args += ['--asset', asset]
+            for evidence in args.evidence:
+                bundle_args += ['--evidence', evidence]
             return bundle_main(bundle_args)
         if args.variant_command == 'texture':
             from variant_foundry_texture_compiler import main as texture_main
