@@ -81,6 +81,7 @@ def build_manifest(
     loader: str,
     backend: str,
     biome_dna_path: Path | None = None,
+    evidence: list[tuple[str, Path]] | None = None,
 ) -> dict[str, Any]:
     subject = read_json(subject_path, "SubjectDNA")
     plans = read_json(plan_path, "VariantPlan")
@@ -93,6 +94,8 @@ def build_manifest(
 
     records = [file_record(role, path) for role, path in assets]
     records.sort(key=lambda row: (row["role"], row["sha256"], row["source_name"]))
+    evidence_records = [file_record(role, path) for role, path in (evidence or [])]
+    evidence_records.sort(key=lambda row: (row["role"], row["sha256"], row["source_name"]))
     plan_ids = sorted(
         row.get("variant_id") for row in plans["plans"]
         if isinstance(row, dict) and isinstance(row.get("variant_id"), str)
@@ -112,7 +115,7 @@ def build_manifest(
         "inputs": inputs,
         "variant_ids": plan_ids,
         "asset_count": len(records),
-        "unique_object_count": len({row["sha256"] for row in records}),
+        "unique_object_count": len({row["sha256"] for row in [*records, *evidence_records]}),
         "assets": records,
         "runtime_rules": {
             "immutable_release_bundle": True,
@@ -121,6 +124,9 @@ def build_manifest(
             "variant_delta_ready": True,
         },
     }
+    if evidence_records:
+        manifest["evidence_count"] = len(evidence_records)
+        manifest["evidence"] = evidence_records
     manifest["bundle_id"] = hash_json(manifest)
     return manifest
 
@@ -139,7 +145,7 @@ def compile_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any]:
         existing = json.loads(manifest_path.read_text(encoding="utf-8"))
         if existing != manifest:
             raise ValueError(f"immutable bundle already exists with different content: {output}")
-        for row in manifest["assets"]:
+        for row in [*manifest["assets"], *manifest.get("evidence", [])]:
             obj = output / row["object_path"]
             if not obj.is_file() or sha256_file(obj) != row["sha256"]:
                 raise ValueError(f"existing bundle object is missing or corrupt: {obj}")
@@ -149,7 +155,7 @@ def compile_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any]:
     output.mkdir(parents=True, exist_ok=True)
 
     copied: set[str] = set()
-    for row in manifest["assets"]:
+    for row in [*manifest["assets"], *manifest.get("evidence", [])]:
         digest = row["sha256"]
         if digest in copied:
             continue
@@ -180,6 +186,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--plans", type=Path, required=True)
     ap.add_argument("--biome-dna", type=Path)
     ap.add_argument("--asset", action="append", default=[], help="ROLE=PATH; repeatable")
+    ap.add_argument("--evidence", action="append", default=[], help="ROLE=PATH; repeatable proof/provenance object")
     ap.add_argument("--minecraft", required=True)
     ap.add_argument("--loader", required=True)
     ap.add_argument("--backend", required=True)
@@ -187,6 +194,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     try:
         assets = [parse_asset(value) for value in args.asset]
+        evidence = [parse_asset(value) for value in args.evidence]
         if not assets:
             raise ValueError("at least one --asset ROLE=PATH is required")
         manifest = build_manifest(
@@ -197,6 +205,7 @@ def main(argv: list[str] | None = None) -> int:
             minecraft=args.minecraft,
             loader=args.loader,
             backend=args.backend,
+            evidence=evidence,
         )
         result = compile_bundle(args.output, manifest)
         print(json.dumps(result, indent=2, sort_keys=True))
