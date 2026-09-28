@@ -209,6 +209,7 @@ def main() -> int:
         assert first_states["biome-dna"] == "completed"
         assert first_states["variant-plan"] == "completed"
         assert first_states["authoring-recipes"] == "completed"
+        assert first_states["runtime-contract"] == "completed"
         assert first_states["provider:creeper-shape"] == "completed"
         assert first_states["texture:creeper-crystal"] == "completed"
         provider_stage = next(row for row in first["stages"] if row["stage"] == "provider:creeper-shape")
@@ -216,6 +217,7 @@ def main() -> int:
         bundle_manifest = json.loads(Path(first["bundle"]["manifest"]).read_text(encoding="utf-8"))
         assert bundle_manifest["evidence_count"] >= 5
         assert any(row["role"] == "authoring-recipes" for row in bundle_manifest["evidence"])
+        assert any(row["role"] == "variant-runtime-contract" for row in bundle_manifest["assets"])
         evidence_roles = {row["role"] for row in bundle_manifest["evidence"]}
         assert "provider-job-receipt:creeper-shape" in evidence_roles
         assert any(role.startswith("provider-stdout:creeper-shape:fixture-shape") for role in evidence_roles)
@@ -229,6 +231,7 @@ def main() -> int:
         assert second_states["biome-dna"] == "reused"
         assert second_states["variant-plan"] == "reused"
         assert second_states["authoring-recipes"] == "reused"
+        assert second_states["runtime-contract"] == "reused"
         assert second_states["provider:creeper-shape"] == "reused"
         assert second_states["texture:creeper-crystal"] == "reused"
         assert second["bundle"]["bundle_id"] == first["bundle"]["bundle_id"]
@@ -242,6 +245,7 @@ def main() -> int:
         assert third_states["biome-dna"] == "reused"
         assert third_states["variant-plan"] == "reused"
         assert third_states["authoring-recipes"] == "reused"
+        assert third_states["runtime-contract"] == "reused"
         assert third_states["provider:creeper-shape"] == "reused"
         assert third_states["texture:creeper-crystal"] == "completed"
         assert third["bundle"]["bundle_id"] != first["bundle"]["bundle_id"]
@@ -253,6 +257,7 @@ def main() -> int:
         assert fourth_states["biome-dna"] == "reused"
         assert fourth_states["variant-plan"] == "reused"
         assert fourth_states["authoring-recipes"] == "reused"
+        assert fourth_states["runtime-contract"] == "reused"
         assert fourth_states["texture:creeper-crystal"] == "reused"
         assert fourth_states["provider:creeper-shape"] == "completed"
         assert fourth["bundle"]["bundle_id"] != third["bundle"]["bundle_id"]
@@ -270,6 +275,7 @@ def main() -> int:
             "provider_in_pipeline": True,
             "provider_evidence_bundled": True,
             "authoring_recipe_stage": True,
+            "runtime_contract_stage": True,
             "rights_gate": True,
         }, indent=2))
     return 0
