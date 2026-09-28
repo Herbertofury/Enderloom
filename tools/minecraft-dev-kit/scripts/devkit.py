@@ -301,6 +301,13 @@ def main(argv: list[str] | None = None) -> int:
     variant_recipe.add_argument('--bindings', type=Path, required=True)
     variant_recipe.add_argument('--variant', action='append', dest='variants')
     variant_recipe.add_argument('--json-out', type=Path)
+    variant_runtime = variant_sub.add_parser('runtime-contract', help='Compile runtime physics/effect/persistence contract from ready recipes')
+    variant_runtime.add_argument('--subject', type=Path, required=True)
+    variant_runtime.add_argument('--recipes', type=Path, required=True)
+    variant_runtime.add_argument('--minecraft', required=True)
+    variant_runtime.add_argument('--loader', required=True)
+    variant_runtime.add_argument('--backend', required=True)
+    variant_runtime.add_argument('--json-out', type=Path)
     variant_execute = variant_sub.add_parser('execute-recipes', help='Apply ready additive authoring recipes through Blockbench MCP')
     variant_execute.add_argument('--recipes', type=Path, required=True)
     variant_execute.add_argument('--source-model', type=Path, required=True)
@@ -454,6 +461,18 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 recipe_args += ['--json-out', str(args.json_out)]
             return recipe_main(recipe_args)
+        if args.variant_command == 'runtime-contract':
+            from variant_foundry_runtime_contract import main as runtime_contract_main
+            runtime_args = [
+                '--subject', str(args.subject),
+                '--recipes', str(args.recipes),
+                '--minecraft', args.minecraft,
+                '--loader', args.loader,
+                '--backend', args.backend,
+            ]
+            if args.json_out:
+                runtime_args += ['--json-out', str(args.json_out)]
+            return runtime_contract_main(runtime_args)
         if args.variant_command == 'execute-recipes':
             from variant_foundry_blockbench_execute import main as execute_main
             execute_args = [
