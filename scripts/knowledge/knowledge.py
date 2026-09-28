@@ -572,7 +572,17 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
    name=source.stem
    if name in pages:raise ValueError('Authored Wiki page collides with generated page: '+name)
    body=source.read_text(encoding='utf-8')
-   match=re.search(r'^#\\s+(.+) pages['_Footer']='**Enderloom** - Fast at the loss of nothing. [Checklist](Checklist.md) / [Source map](Source-Map.md) / [Repository]('+REPO+')\n'
+   match=re.search(r'^#\s+(.+)$',body,re.M)
+   title=match.group(1).strip() if match else name.replace('-',' ')
+   pages[name]=body
+   authored_wiki[name]=title
+ pages['_Sidebar']='## Enderloom\n\n[Home](Home.md)\n\n[Execution checklist](Checklist.md)\n\n'
+ for g in groups:pages['_Sidebar']+=f"- [{g['title']}]({g['page']}.md)\n"
+ if authored_wiki:
+  pages['_Sidebar']+='\n## Feature guides\n\n'
+  for name,title in authored_wiki.items():pages['_Sidebar']+=f'- [{title}]({name}.md)\n'
+ pages['_Sidebar']+='\n[Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)\n\n[Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)\n'
+ pages['_Footer']='**Enderloom** - Fast at the loss of nothing. [Checklist](Checklist.md) / [Source map](Source-Map.md) / [Repository]('+REPO+')\n'
  fidelity.augment(ROOT,state,corpus,pages)
  for name,text in pages.items():safe_write(K/(name+'.md'),text)
  safe_write(K/'source-inventory.json',json.dumps({'sources':corpus['sources'],'stats':stats},indent=2)+'\n')
