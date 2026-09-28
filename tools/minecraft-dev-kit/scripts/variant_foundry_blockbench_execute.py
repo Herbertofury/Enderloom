@@ -330,15 +330,33 @@ def execute(
 
     results.sort(key=lambda row: str(row.get("variant_id")))
     failed = [row for row in results if row.get("state") != "passed"]
-    summary = {
+    evidence_results = [
+        {key: value for key, value in row.items() if key != "reuse_state"}
+        for row in results
+    ]
+    evidence = {
         "schema_version": 1,
         "state": "passed" if not failed else "failed",
         "recipes": str(recipes_path),
         "source_model": str(source_model),
-        "workspace": str(workspace),
         "variant_count": len(results),
         "passed": len(results) - len(failed),
         "failed": len(failed),
+        "results": evidence_results,
+    }
+    evidence_path = workspace / "execution-evidence.json"
+    atomic_json(evidence_path, evidence)
+    summary = {
+        "schema_version": 1,
+        "state": evidence["state"],
+        "recipes": str(recipes_path),
+        "source_model": str(source_model),
+        "workspace": str(workspace),
+        "variant_count": evidence["variant_count"],
+        "passed": evidence["passed"],
+        "failed": evidence["failed"],
+        "evidence": str(evidence_path),
+        "evidence_sha256": sha256_file(evidence_path),
         "results": results,
     }
     atomic_json(workspace / "execution-summary.json", summary)
