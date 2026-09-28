@@ -219,6 +219,9 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
         extension = row.get("output_extension")
         if extension is not None and (not isinstance(extension, str) or not extension):
             raise ValueError(f"provider job {row['name']} output_extension must be a non-empty string")
+        require_rights = row.get("require_verified_rights", False)
+        if not isinstance(require_rights, bool):
+            raise ValueError(f"provider job {row['name']} require_verified_rights must be boolean")
         normalized_provider_jobs.append({
             "name": row["name"],
             "capability": row["capability"],
@@ -229,6 +232,7 @@ def normalize_pipeline_manifest(path: Path, raw: dict[str, Any]) -> dict[str, An
             "preferred": preferred,
             "vram_budget_gb": vram,
             "output_extension": extension,
+            "require_verified_rights": require_rights,
         })
     return {
         "schema_version": 1,
@@ -328,6 +332,7 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
         stage_results.append({"stage": current_stage, "state": state, "receipt": str(Path(plan_receipt["output"]).parent / "receipt.json")})
 
         compiled_assets: list[tuple[str, Path]] = []
+        compiled_evidence: list[tuple[str, Path]] = []
         for row in cfg["assets"]:
             path = Path(row["path"])
             file_input(path, f"asset {row['role']}")
@@ -351,6 +356,7 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
                     preferred=row["preferred"],
                     vram_budget_gb=row["vram_budget_gb"],
                     output_extension=row["output_extension"],
+                    require_verified_rights=row["require_verified_rights"],
                 )
                 provider_receipt = provider_workspace / "jobs" / provider_result["job_id"] / "job-receipt.json"
                 stage_results.append({
@@ -369,6 +375,27 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
                 provider_output = Path(provider_result["output"]).resolve()
                 file_input(provider_output, f"provider output {row['name']}")
                 compiled_assets.append((row["role"], provider_output))
+                if provider_receipt.is_file():
+                    compiled_evidence.append((f"provider-job-receipt:{row['name']}", provider_receipt))
+                for attempt_index, attempt in enumerate(provider_result.get("attempts") or []):
+                    provider_id = str((attempt.get("provider") or {}).get("id") or f"attempt-{attempt_index}")
+                    for stream in ("stdout", "stderr"):
+                        raw_path = attempt.get(stream)
+                        if isinstance(raw_path, str):
+                            log_path = Path(raw_path)
+                            if log_path.is_file():
+                                compiled_evidence.append((
+                                    f"provider-{stream}:{row['name']}:{provider_id}:{attempt_index}",
+                                    log_path,
+                                ))
+                    output_path = attempt.get("output")
+                    if isinstance(output_path, str):
+                        validation_path = Path(output_path).parent / "asset-validation.json"
+                        if validation_path.is_file():
+                            compiled_evidence.append((
+                                f"provider-asset-validation:{row['name']}:{provider_id}:{attempt_index}",
+                                validation_path,
+                            ))
 
         current_stage = "textures"
         for row in cfg["textures"]:
@@ -427,6 +454,7 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
             minecraft=cfg["target"]["minecraft"],
             loader=cfg["target"]["loader"],
             backend=cfg["target"]["backend"],
+            evidence=compiled_evidence,
         )
         bundle_output = workspace / "bundles" / manifest["bundle_id"]
         bundle_result = bundle_mod.compile_bundle(bundle_output, manifest)
