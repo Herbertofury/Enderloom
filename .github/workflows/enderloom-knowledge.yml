@@ -7,6 +7,7 @@ on:
       - '.github/enderloom-knowledge-seed.json'
       - 'scripts/knowledge/**'
       - 'docs/**'
+      - 'tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py'
       - 'README.md'
   workflow_dispatch:
 permissions:
@@ -42,6 +43,7 @@ jobs:
           set -euo pipefail
           mkdir -p build/knowledge
           python3 scripts/knowledge/fidelity.py install
+          python3 tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py | tee build/knowledge/variant-foundry-capability-gate.json
           python3 scripts/knowledge/knowledge.py build | tee build/knowledge/validation.json
           python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
           cat build/knowledge/regression-tests.txt
