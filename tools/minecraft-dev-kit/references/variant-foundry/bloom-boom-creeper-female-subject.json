@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "bloom_and_boom:creeper_female",
+  "family": "bloom_and_boom:creeper",
+  "display_name": "Bloom & Boom Creeper — Female Base",
+  "role": "flagship-variant-foundry-subject",
+  "identity_anchors": [
+    "creeper_face",
+    "creeper_body_proportions",
+    "four_leg_silhouette",
+    "horns",
+    "charged_state_identity",
+    "ignite_and_explosion_state_identity"
+  ],
+  "region_locks": [
+    {
+      "region": "creeper_face",
+      "lock": [
+        "geometry",
+        "uv",
+        "texture-layout",
+        "recognition-landmarks"
+      ]
+    },
+    {
+      "region": "horns",
+      "lock": [
+        "base-geometry",
+        "root-pivot",
+        "primary-silhouette"
+      ]
+    },
+    {
+      "region": "creeper_body_proportions",
+      "lock": [
+        "primary-silhouette",
+        "hitbox-alignment"
+      ]
+    },
+    {
+      "region": "four_leg_silhouette",
+      "lock": [
+        "primary-silhouette",
+        "grounding",
+        "animation-contact"
+      ]
+    },
+    {
+      "region": "charged_state_identity",
+      "lock": [
+        "gameplay-state-semantics"
+      ]
+    },
+    {
+      "region": "ignite_and_explosion_state_identity",
+      "lock": [
+        "gameplay-state-semantics",
+        "event-timing"
+      ]
+    }
+  ],
+  "variant_regions": {
+    "eligible-geometry-regions": [
+      "surface_growths",
+      "back_growths",
+      "side_growths",
+      "horn_decorations",
+      "crown_growths"
+    ],
+    "eligible-surface-regions": [
+      "body_surface",
+      "leg_surface",
+      "horn_surface",
+      "growth_surfaces"
+    ],
+    "eligible-motion-regions": [
+      "vines",
+      "petals",
+      "leaves",
+      "flower_stems",
+      "hair_like_fronds",
+      "hanging_charms"
+    ],
+    "protected-regions": [
+      "creeper_face",
+      "horn_roots",
+      "feet_contact",
+      "core_hitbox"
+    ]
+  },
+  "family_expression": {
+    "presentation": "feminine",
+    "rule": "Presentation may influence optional growth arrangement and secondary accents only; never replace the locked creeper identity, horns, gameplay silhouette, or animation contacts."
+  },
+  "runtime_states": [
+    "idle",
+    "walk",
+    "turn",
+    "hurt",
+    "ignite",
+    "swell",
+    "explode",
+    "charged",
+    "death"
+  ],
+  "gameplay_contract": {
+    "variant_semantics": "spawn-origin-default",
+    "variant_persistence": "required",
+    "server_authority": "variant id and gameplay state only",
+    "client_cosmetics": "secondary motion and purely visual biome phenotype"
+  },
+  "source_policy": {
+    "concept_art_authority": "user-approved Bloom & Boom concept lineage",
+    "editable_model_authority": "approved Blockbench/native source once present",
+    "preserve_originals": true
+  }
+}
