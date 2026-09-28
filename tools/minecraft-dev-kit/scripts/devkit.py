@@ -276,6 +276,14 @@ def main(argv: list[str] | None = None) -> int:
     deps.add_argument('--audit-only', action='store_true')
     deps.add_argument('--offline', action='store_true')
     deps.add_argument('--projects', type=Path, help='JSON map of mod IDs to exact Modrinth project IDs')
+    variant = sub.add_parser('variant', help='Variant Foundry discovery and capability tools')
+    variant_sub = variant.add_subparsers(dest='variant_command', required=True)
+    variant_discover = variant_sub.add_parser('discover-biomes', help='Discover static, source-registered and runtime-only biomes/dimensions')
+    variant_discover.add_argument('inputs', nargs='+', type=Path)
+    variant_discover.add_argument('--runtime-registry-dump', type=Path)
+    variant_discover.add_argument('--max-reference-depth', type=int, default=3)
+    variant_discover.add_argument('--json-out', type=Path)
+    variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
     verify_parser.add_argument('--workspace', type=Path, required=True)
@@ -331,6 +339,22 @@ def main(argv: list[str] | None = None) -> int:
                              projects=load(args.projects) if args.projects else None)
         print(json.dumps(result, indent=2))
         return 0 if result['state'] == 'complete' else 2
+    if args.command == 'variant':
+        if args.variant_command == 'capability-gate':
+            from variant_foundry_capability_gate import main as capability_main
+            return capability_main()
+        if args.max_reference_depth < 0 or args.max_reference_depth > 12:
+            parser.error('--max-reference-depth must be between 0 and 12')
+        from variant_foundry_discover_biomes import discover, json_dumps
+        result = discover(args.inputs, runtime_dump=args.runtime_registry_dump,
+                          max_reference_depth=args.max_reference_depth)
+        rendered = json_dumps(result)
+        if args.json_out:
+            args.json_out.parent.mkdir(parents=True, exist_ok=True)
+            args.json_out.write_text(rendered, encoding='utf-8')
+        else:
+            sys.stdout.write(rendered)
+        return 0
     if args.command == 'doctor':
         java = args.java_path or (Path(shutil.which('java')) if shutil.which('java') else None)
         pair = java_pair(java) if java else None
