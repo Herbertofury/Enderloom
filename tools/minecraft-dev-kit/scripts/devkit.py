@@ -148,7 +148,7 @@ def package(root: Path, output: Path) -> dict:
                 files.update(native.rglob(receipt_name))
             for path in native.rglob('*'):
                 if path.is_file() and ('commands' in path.parts or
-                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','devkit-restart.properties','phase.json','initial-proof.json','initial-client.log','template-origin.json'} or
+                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','devkit-restart.properties','variant-foundry-registry.json','phase.json','initial-proof.json','initial-client.log','template-origin.json'} or
                     ('devkit-' in path.name and path.suffix == '.png')):
                     files.add(path)
         for path in files:
