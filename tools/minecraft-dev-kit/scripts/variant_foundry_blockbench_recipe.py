@@ -269,15 +269,24 @@ def compile_plan(plan: dict[str, Any], subject: dict[str, Any], bindings: dict[s
             raise ValueError(f"variant {plan['variant_id']} contains malformed action")
         kind = action["kind"]
         if kind in {"texture-palette", "material-language"}:
+            surface_regions = list((subject.get("variant_regions") or {}).get("eligible-surface-regions") or [])
+            targets = {
+                region: bindings["texture_targets"].get(region, [])
+                for region in surface_regions
+            }
+            if action.get("required", True) and not any(targets.values()):
+                unresolved.append({
+                    "kind": "texture-target-binding-missing",
+                    "action": kind,
+                    "logical_regions": surface_regions,
+                    "required": True,
+                })
             texture.append({
                 "kind": kind,
                 "source": action.get("source"),
                 "payload": action.get("payload"),
-                "logical_regions": eligible_regions(subject, action),
-                "targets": {
-                    region: bindings["texture_targets"].get(region, [])
-                    for region in eligible_regions(subject, action)
-                },
+                "logical_regions": surface_regions,
+                "targets": targets,
                 "required": bool(action.get("required", True)),
             })
         elif kind == "motif-placement":
