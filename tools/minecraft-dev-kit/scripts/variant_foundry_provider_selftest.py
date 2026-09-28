@@ -131,8 +131,26 @@ def main() -> int:
                     "model_version": "1",
                     "code_license": "MIT",
                     "weights_license": "fixture",
+                    "rights_state": "fixture-unverified",
+                    "rights_verified": False,
                     "source_repository": "fixture/provider",
                     "source_commit": "1" * 40,
+                    "validation": validation,
+                    "output_extension": ".glb"
+                },
+                {
+                    "id": "rights-ok",
+                    "capabilities": ["shape"],
+                    "execution": "local",
+                    "command": ["{python}", str(success), "--input", "{input}", "--output", "{output}", "--seed", "{seed}", "--params", "{params_json}"],
+                    "probe_command": common_probe,
+                    "min_vram_gb": 8,
+                    "priority": 5,
+                    "model": "fixture-rights-verified",
+                    "code_license": "MIT",
+                    "weights_license": "fixture",
+                    "rights_state": "fixture-verified",
+                    "rights_verified": True,
                     "validation": validation,
                     "output_extension": ".glb"
                 }
@@ -193,6 +211,21 @@ def main() -> int:
         assert reused["reuse_state"] == "reused"
         assert reused["job_id"] == result["job_id"]
 
+        rights_result = mod.run_job(
+            registry,
+            capability="shape",
+            input_path=source,
+            workspace=root / "rights-workspace",
+            seed=77,
+            params=params,
+            vram_budget_gb=24,
+            require_verified_rights=True,
+        )
+        assert rights_result["state"] == "succeeded", rights_result
+        assert rights_result["selected_provider"]["id"] == "rights-ok"
+        assert rights_result["selected_provider"]["rights_verified"] is True
+        assert any(x["id"] == "fallback-works" and "rights-unverified" in x["reasons"] for x in rights_result["rejected"])
+
         none = mod.run_job(
             registry,
             capability="nonexistent",
@@ -220,6 +253,7 @@ def main() -> int:
             "asset_gate": result["asset_validation"]["stats"],
             "reuse_state": reused["reuse_state"],
             "health_rejection": True,
+            "rights_gate": rights_result["selected_provider"]["id"],
         }, indent=2))
     return 0
 
