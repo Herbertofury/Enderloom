@@ -25,6 +25,7 @@ import variant_foundry_bundle as bundle_mod
 import variant_foundry_provider as provider_mod
 import variant_foundry_blockbench_recipe as recipe_mod
 import variant_foundry_blockbench_execute as execute_mod
+import variant_foundry_runtime_contract as runtime_contract_mod
 
 
 SCHEMA_VERSION = 1
@@ -400,11 +401,49 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
                     "add explicit model bindings/templates instead of inventing coordinates"
                 )
 
+        runtime_contract_path: Path | None = None
+        if authoring_recipe_path is not None:
+            current_stage = "runtime-contract"
+            runtime_inputs = {
+                "subject": subject_input,
+                "recipes_sha256": sha256_file(authoring_recipe_path),
+                "target": cfg["target"],
+            }
+            runtime_receipt, runtime_contract_path, state = json_stage(
+                workspace,
+                name="runtime-contract",
+                output_name="variant-runtime.json",
+                inputs=runtime_inputs,
+                implementation=implementation_sha(runtime_contract_mod),
+                produce=lambda: runtime_contract_mod.compile_contract(
+                    subject,
+                    json.loads(authoring_recipe_path.read_text(encoding="utf-8")),
+                    minecraft=cfg["target"]["minecraft"],
+                    loader=cfg["target"]["loader"],
+                    backend=cfg["target"]["backend"],
+                ),
+            )
+            runtime_doc = json.loads(runtime_contract_path.read_text(encoding="utf-8"))
+            stage_results.append({
+                "stage": current_stage,
+                "state": state,
+                "semantic_state": runtime_doc.get("state"),
+                "proof_state": runtime_doc.get("proof_state"),
+                "receipt": str(Path(runtime_receipt["output"]).parent / "receipt.json"),
+            })
+            if runtime_doc.get("state") != "ready":
+                raise ValueError(
+                    "runtime contract contains required unresolved physics/effect routes; "
+                    "repair recipe targets/parameters before packaging"
+                )
+
         compiled_assets: list[tuple[str, Path]] = []
         compiled_evidence: list[tuple[str, Path]] = []
         authoring_execution_result: dict[str, Any] | None = None
         if authoring_recipe_path is not None:
             compiled_evidence.append(("authoring-recipes", authoring_recipe_path))
+        if runtime_contract_path is not None:
+            compiled_assets.append(("variant-runtime-contract", runtime_contract_path))
 
         if cfg["authoring_execution"]:
             if authoring_recipe_path is None:
@@ -607,7 +646,9 @@ def run_pipeline(manifest_path: Path, workspace: Path) -> dict[str, Any]:
             "biome_dna": str(dna_path),
             "variant_plans": str(plans_path),
             "authoring_recipes": str(authoring_recipe_path) if authoring_recipe_path else None,
+            "runtime_contract": str(runtime_contract_path) if runtime_contract_path else None,
             "authoring_execution": authoring_execution_result,
+            "proof_state": "artifacts-built-runtime-unverified",
             "bundle": bundle_result,
             "stages": stage_results,
         }
