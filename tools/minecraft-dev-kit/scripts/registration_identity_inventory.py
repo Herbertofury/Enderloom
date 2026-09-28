@@ -31,6 +31,12 @@ REGISTRY_NAMES = {
     "FLUID": "fluid", "FLUIDS": "fluid",
     "CREATIVE_MODE_TAB": "creative_mode_tab", "CREATIVE_MODE_TABS": "creative_mode_tab",
     "DATA_COMPONENT_TYPE": "data_component_type", "DATA_COMPONENT_TYPES": "data_component_type",
+    "BIOME": "biome", "BIOMES": "biome",
+    "DIMENSION_TYPE": "dimension_type", "DIMENSION_TYPES": "dimension_type",
+    "PLACED_FEATURE": "worldgen/placed_feature", "PLACED_FEATURES": "worldgen/placed_feature",
+    "CONFIGURED_FEATURE": "worldgen/configured_feature", "CONFIGURED_FEATURES": "worldgen/configured_feature",
+    "STRUCTURE": "worldgen/structure", "STRUCTURES": "worldgen/structure",
+    "STRUCTURE_SET": "worldgen/structure_set", "STRUCTURE_SETS": "worldgen/structure_set",
 }
 
 SPECIALIZED_FACTORIES = {
