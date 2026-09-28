@@ -56,6 +56,8 @@ For an already built Fabric 26.3 candidate:
 
 The native route fetches and records the exact official Fabric template revision, closes required mod dependencies, builds an independent test probe, and starts the **packaged candidate in production Minecraft**. It checks the loaded candidate's SHA-256 from inside Fabric, creates an integrated world, synchronizes a server-owned block to the client, captures the real rendered world, saves/closes it, reopens it, and checks persistence on both sides. Fresh logs, screenshots, dependency locks and proof are retained.
 
+The same real runtime probe now also writes `variant-foundry-registry.json` from the loaded server registry, covering biome, dimension and dimension-type IDs. That hash-bound file is retained in native evidence/packages and can be passed directly to `variant discover-biomes --runtime-registry-dump`, closing the gap for private or code-registered biomes that static JAR/datapack inspection cannot characterize by existence alone.
+
 This automated native probe currently targets **Fabric 26.3**. Other versions and loaders retain their existing build and runtime-adapter routes; selecting them is not a promise that this particular probe supports them. A native world smoke test is not exhaustive mod gameplay, multiplayer or hardware-GPU performance certification.
 
 The first native run needs network access for the official template, Gradle, game libraries/assets and required mods. On headless Linux it also needs Xvfb, Mesa/OpenGL, OpenAL and the narrator's native libraries. The repository's native CI workflow provisions these prerequisites. On a normal Windows desktop it uses the available graphics driver. This test fixture is not a substitute for a normal licensed gameplay account or launcher.
