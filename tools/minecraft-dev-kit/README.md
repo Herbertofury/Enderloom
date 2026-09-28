@@ -153,7 +153,18 @@ List exact tool schemas or call a safe `bbmodel_*` operation with JSON arguments
 
 The adapter does not expose arbitrary `execute_script`. Use `--server-command-json` with an exact argv array for a local/offline compatible headless server. The pinned default stays outside Enderloom as a process/MCP boundary, which preserves its license boundary while still giving Variant Foundry atomic `.bbmodel` edits, validation, rendering, pose sampling and contact sheets.
 
-### 6. Compile an immutable ModelBundle
+### 6. Run generation/texturing/rig providers with failover
+
+Variant Foundry's provider plane is registry-driven instead of hardcoding one AI model. Each provider entry declares its capabilities, exact argv, local/remote execution metadata, minimum VRAM, model/weight identity and licensing/provenance fields. The scheduler never uses a shell, serializes heavy provider work through a workspace lock, preserves failed-attempt logs, and tries the next compatible challenger automatically.
+
+```powershell
+.\devkit.cmd variant provider --registry "C:\DevKit-Runs\providers.json" doctor --vram-budget-gb 24
+.\devkit.cmd variant provider --registry "C:\DevKit-Runs\providers.json" run --capability shape --input "C:\DevKit-Runs\concept.png" --workspace "C:\DevKit-Runs\provider-jobs" --seed 77 --vram-budget-gb 24 --preferred local-primary
+```
+
+Provider commands use exact argv tokens and may reference `{input}`, `{output}`, `{seed}`, `{params_json}` and `{workspace}`. Hash-valid successful jobs are reused; incompatible/over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
+
+### 7. Compile an immutable ModelBundle
 
 Package approved editable/runtime assets behind exact hashes:
 
@@ -163,7 +174,7 @@ Package approved editable/runtime assets behind exact hashes:
 
 Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated.
 
-### 7. Run the durable end-to-end pipeline
+### 8. Run the durable end-to-end pipeline
 
 For repeatable production work, put the same inputs into one manifest and let Variant Foundry reuse only stages whose exact inputs **and implementation bytes** are unchanged:
 
