@@ -214,6 +214,8 @@ def main() -> int:
         assert first["state"] == "complete", first
         states = {row["stage"]: row for row in first["stages"]}
         assert states["authoring-recipes"]["semantic_state"] == "ready"
+        assert states["runtime-contract"]["semantic_state"] == "ready"
+        assert states["runtime-contract"]["proof_state"] == "contract-compiled-runtime-unverified"
         assert states["authoring-execution"]["semantic_state"] == "passed"
         assert states["authoring-execution"]["state"] == "completed"
         assert first["authoring_execution"]["passed"] == 1
@@ -230,6 +232,7 @@ def main() -> int:
         asset_roles = {row["role"] for row in bundle_manifest["assets"]}
         evidence_roles = {row["role"] for row in bundle_manifest["evidence"]}
         assert any(role.startswith("authoring-model:bloom_and_boom:creeper_female@") for role in asset_roles)
+        assert "variant-runtime-contract" in asset_roles
         assert "authoring-recipes" in evidence_roles
         assert "authoring-execution-evidence" in evidence_roles
         assert any(role.startswith("authoring-execution-receipt:") for role in evidence_roles)
@@ -241,6 +244,7 @@ def main() -> int:
         assert second["state"] == "complete"
         second_states = {row["stage"]: row for row in second["stages"]}
         assert second_states["authoring-recipes"]["state"] == "reused"
+        assert second_states["runtime-contract"]["state"] == "reused"
         assert second_states["authoring-execution"]["state"] == "reused"
         assert second["bundle"]["bundle_id"] == first_bundle
         assert second["bundle"]["state"] == "reused"
@@ -252,6 +256,7 @@ def main() -> int:
             "variant_count": first["authoring_execution"]["variant_count"],
             "render_evidence": result["render"]["count"],
             "pipeline_reused_without_backend": True,
+            "runtime_contract_packaged": True,
             "source_immutable": True,
         }, indent=2))
     return 0
