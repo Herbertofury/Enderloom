@@ -136,7 +136,24 @@ Minimal style profile:
 }
 ```
 
-### 5. Compile an immutable ModelBundle
+### 5. Drive Blockbench live/headless authoring
+
+The default headless backend is pinned to Jason Gardner's Blockbench MCP commit `6295e20af26ec0f67bc81a5e95dac98db85a1801`. Enderloom discovers the tool surface over MCP before trusting it:
+
+```powershell
+.\devkit.cmd variant blockbench --root "C:\DevKit-Runs\models" doctor --receipt "C:\DevKit-Runs\blockbench-capabilities.json"
+```
+
+List exact tool schemas or call a safe `bbmodel_*` operation with JSON arguments:
+
+```powershell
+.\devkit.cmd variant blockbench --root "C:\DevKit-Runs\models" tools --json-out "C:\DevKit-Runs\blockbench-tools.json"
+.\devkit.cmd variant blockbench --root "C:\DevKit-Runs\models" call --tool bbmodel_validate --args-json "C:\DevKit-Runs\validate-args.json" --receipt "C:\DevKit-Runs\validate-receipt.json"
+```
+
+The adapter does not expose arbitrary `execute_script`. Use `--server-command-json` with an exact argv array for a local/offline compatible headless server. The pinned default stays outside Enderloom as a process/MCP boundary, which preserves its license boundary while still giving Variant Foundry atomic `.bbmodel` edits, validation, rendering, pose sampling and contact sheets.
+
+### 6. Compile an immutable ModelBundle
 
 Package approved editable/runtime assets behind exact hashes:
 

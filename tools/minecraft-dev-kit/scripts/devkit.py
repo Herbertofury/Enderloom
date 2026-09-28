@@ -309,6 +309,20 @@ def main(argv: list[str] | None = None) -> int:
     variant_texture.add_argument('--profile', type=Path, required=True)
     variant_texture.add_argument('--output', type=Path, required=True)
     variant_texture.add_argument('--receipt', type=Path)
+    variant_blockbench = variant_sub.add_parser('blockbench', help='Drive the pinned headless Blockbench authoring backend over MCP')
+    variant_blockbench.add_argument('--root', type=Path, action='append', required=True)
+    variant_blockbench.add_argument('--server-command-json', type=Path)
+    variant_blockbench.add_argument('--protocol', default='2025-06-18')
+    variant_blockbench.add_argument('--timeout', type=float, default=45.0)
+    bb_sub = variant_blockbench.add_subparsers(dest='blockbench_command', required=True)
+    bb_doctor = bb_sub.add_parser('doctor')
+    bb_doctor.add_argument('--receipt', type=Path)
+    bb_tools = bb_sub.add_parser('tools')
+    bb_tools.add_argument('--json-out', type=Path)
+    bb_call = bb_sub.add_parser('call')
+    bb_call.add_argument('--tool', required=True)
+    bb_call.add_argument('--args-json', type=Path)
+    bb_call.add_argument('--receipt', type=Path)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -410,6 +424,25 @@ def main(argv: list[str] | None = None) -> int:
             if args.receipt:
                 texture_args += ['--receipt', str(args.receipt)]
             return texture_main(texture_args)
+        if args.variant_command == 'blockbench':
+            from variant_foundry_blockbench import main as blockbench_main
+            bb_args = []
+            for root in args.root:
+                bb_args += ['--root', str(root)]
+            if args.server_command_json:
+                bb_args += ['--server-command-json', str(args.server_command_json)]
+            bb_args += ['--protocol', args.protocol, '--timeout', str(args.timeout), args.blockbench_command]
+            if args.blockbench_command == 'doctor' and args.receipt:
+                bb_args += ['--receipt', str(args.receipt)]
+            elif args.blockbench_command == 'tools' and args.json_out:
+                bb_args += ['--json-out', str(args.json_out)]
+            elif args.blockbench_command == 'call':
+                bb_args += ['--tool', args.tool]
+                if args.args_json:
+                    bb_args += ['--args-json', str(args.args_json)]
+                if args.receipt:
+                    bb_args += ['--receipt', str(args.receipt)]
+            return blockbench_main(bb_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
