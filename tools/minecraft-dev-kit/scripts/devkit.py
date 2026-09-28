@@ -304,6 +304,11 @@ def main(argv: list[str] | None = None) -> int:
     variant_bundle.add_argument('--loader', required=True)
     variant_bundle.add_argument('--backend', required=True)
     variant_bundle.add_argument('--output', type=Path, required=True)
+    variant_texture = variant_sub.add_parser('texture', help='Compile a deterministic Minecraft-oriented PNG texture')
+    variant_texture.add_argument('--input', type=Path, required=True)
+    variant_texture.add_argument('--profile', type=Path, required=True)
+    variant_texture.add_argument('--output', type=Path, required=True)
+    variant_texture.add_argument('--receipt', type=Path)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -395,6 +400,16 @@ def main(argv: list[str] | None = None) -> int:
             for asset in args.asset:
                 bundle_args += ['--asset', asset]
             return bundle_main(bundle_args)
+        if args.variant_command == 'texture':
+            from variant_foundry_texture_compiler import main as texture_main
+            texture_args = [
+                '--input', str(args.input),
+                '--profile', str(args.profile),
+                '--output', str(args.output),
+            ]
+            if args.receipt:
+                texture_args += ['--receipt', str(args.receipt)]
+            return texture_main(texture_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
