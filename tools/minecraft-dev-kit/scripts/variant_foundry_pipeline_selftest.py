@@ -94,6 +94,54 @@ def main() -> int:
 
         model = root / "creeper.bbmodel"
         model.write_text('{"meta":{"model_format":"free"},"name":"fixture"}', encoding="utf-8")
+        bindings = root / "bindings.json"
+        dump(bindings, {
+            "schema_version": 1,
+            "subject_id": "bloom_and_boom:creeper_female",
+            "model_file": "creeper.bbmodel",
+            "region_targets": {"surface_growths": ["surface_growths_anchor"]},
+            "motion_targets": {"vines": ["vine_left", "vine_right"]},
+            "texture_targets": {},
+            "templates": {
+                "geometry": {
+                    "faceted shards": {
+                        "regions": ["surface_growths"],
+                        "operations": [{
+                            "op": "add_mesh_primitive",
+                            "shape": "icosphere",
+                            "diameter": 1.0,
+                            "detail": 1,
+                            "name": "vf_{biome_slug}_facet_{index}",
+                            "parent": "{target}"
+                        }]
+                    },
+                    "crystal clusters": {
+                        "regions": ["surface_growths"],
+                        "operations": [{
+                            "op": "add_mesh_primitive",
+                            "shape": "cone",
+                            "diameter": 1.25,
+                            "height": 2.5,
+                            "sides": 5,
+                            "name": "vf_{biome_slug}_crystal_{index}",
+                            "parent": "{target}"
+                        }]
+                    }
+                },
+                "motif": {
+                    "crystalline": {
+                        "regions": ["surface_growths"],
+                        "operations": [{
+                            "op": "add_group",
+                            "name": "vf_{biome_slug}_crystalline_{index}",
+                            "origin": [0, 0, 0],
+                            "rotation": [0, 0, 0],
+                            "parent": "{target}"
+                        }]
+                    }
+                }
+            }
+        })
 
         provider_script = root / "provider.py"
         provider_script.write_text(PROVIDER, encoding="utf-8")
@@ -127,6 +175,7 @@ def main() -> int:
             "schema_version": 1,
             "sources": ["source"],
             "subject": "subject.json",
+            "authoring_bindings": "bindings.json",
             "biomes": ["example:crystal_grove"],
             "mode": "full-phenotype",
             "seed": 77,
@@ -158,12 +207,14 @@ def main() -> int:
         assert first_states["discovery"] == "completed"
         assert first_states["biome-dna"] == "completed"
         assert first_states["variant-plan"] == "completed"
+        assert first_states["authoring-recipes"] == "completed"
         assert first_states["provider:creeper-shape"] == "completed"
         assert first_states["texture:creeper-crystal"] == "completed"
         provider_stage = next(row for row in first["stages"] if row["stage"] == "provider:creeper-shape")
         assert provider_stage["asset_validation"]["state"] == "passed"
         bundle_manifest = json.loads(Path(first["bundle"]["manifest"]).read_text(encoding="utf-8"))
-        assert bundle_manifest["evidence_count"] >= 4
+        assert bundle_manifest["evidence_count"] >= 5
+        assert any(row["role"] == "authoring-recipes" for row in bundle_manifest["evidence"])
         evidence_roles = {row["role"] for row in bundle_manifest["evidence"]}
         assert "provider-job-receipt:creeper-shape" in evidence_roles
         assert any(role.startswith("provider-stdout:creeper-shape:fixture-shape") for role in evidence_roles)
@@ -176,6 +227,7 @@ def main() -> int:
         assert second_states["discovery"] == "reused"
         assert second_states["biome-dna"] == "reused"
         assert second_states["variant-plan"] == "reused"
+        assert second_states["authoring-recipes"] == "reused"
         assert second_states["provider:creeper-shape"] == "reused"
         assert second_states["texture:creeper-crystal"] == "reused"
         assert second["bundle"]["bundle_id"] == first["bundle"]["bundle_id"]
@@ -188,6 +240,7 @@ def main() -> int:
         assert third_states["discovery"] == "reused"
         assert third_states["biome-dna"] == "reused"
         assert third_states["variant-plan"] == "reused"
+        assert third_states["authoring-recipes"] == "reused"
         assert third_states["provider:creeper-shape"] == "reused"
         assert third_states["texture:creeper-crystal"] == "completed"
         assert third["bundle"]["bundle_id"] != first["bundle"]["bundle_id"]
@@ -198,6 +251,7 @@ def main() -> int:
         assert fourth_states["discovery"] == "reused"
         assert fourth_states["biome-dna"] == "reused"
         assert fourth_states["variant-plan"] == "reused"
+        assert fourth_states["authoring-recipes"] == "reused"
         assert fourth_states["texture:creeper-crystal"] == "reused"
         assert fourth_states["provider:creeper-shape"] == "completed"
         assert fourth["bundle"]["bundle_id"] != third["bundle"]["bundle_id"]
@@ -214,6 +268,7 @@ def main() -> int:
             "cache_behavior": fourth_states,
             "provider_in_pipeline": True,
             "provider_evidence_bundled": True,
+            "authoring_recipe_stage": True,
             "rights_gate": True,
         }, indent=2))
     return 0
