@@ -159,7 +159,19 @@ VariantPlans deliberately describe **what** should change without inventing mode
 
 Automatic geometry authoring is **additive-only**: the recipe compiler permits safe add operations, carries the SubjectDNA lock contract forward, and rejects destructive operations such as removing or rewriting protected nodes. Missing region targets or phenotype templates stay `unresolved-active`; Variant Foundry will not guess coordinates just to manufacture an output. Texture, secondary-motion/physics and runtime-effect actions are routed separately instead of being silently dropped when Blockbench is not their correct backend.
 
-### 5. Compile Minecraft-oriented pixel textures
+### 5. Compile the runtime phenotype contract
+
+The same ready recipes compile into a deterministic target-runtime contract for persistent variant IDs, client-only secondary motion, visual effects, simulation LOD and sleeping:
+
+```powershell
+.\devkit.cmd variant runtime-contract --subject references\variant-foundry\bloom-boom-creeper-female-subject.json --recipes "C:\DevKit-Runs\authoring-recipes.json" --minecraft 26.3 --loader neoforge --backend enderloom-skeletal --json-out "C:\DevKit-Runs\variant-runtime.json"
+```
+
+The runtime contract expands every bound secondary-motion target into an explicit chain with validated stiffness/damping/gravity/drag/wind parameters, fixed-step limits, interpolation, teleport/model-swap reset, distance LOD and sleeping. It also carries the SubjectDNA persistence/server-authority contract: the server owns the variant ID and gameplay state while cosmetic motion remains client-side, so motion frames are not streamed over the network or simulated on the server tick.
+
+This is intentionally marked `contract-compiled-runtime-unverified`: it is the exact artifact a target runtime adapter must execute, not a claim that Minecraft has already run it. Invalid or unbound required physics stays `unresolved-active` rather than being clamped, ignored or replaced with a cheaper fake.
+
+### 6. Compile Minecraft-oriented pixel textures
 
 A generated high-resolution PNG is working material, not automatically finished Minecraft art. Compile it through a `TextureStyleProfile`:
 
@@ -183,7 +195,7 @@ Minimal style profile:
 }
 ```
 
-### 6. Drive Blockbench live/headless authoring
+### 7. Drive Blockbench live/headless authoring
 
 The default headless backend is pinned to Jason Gardner's Blockbench MCP commit `6295e20af26ec0f67bc81a5e95dac98db85a1801`. Enderloom discovers the tool surface over MCP before trusting it:
 
@@ -210,7 +222,7 @@ Each variant gets its own durable model copy and hash-bound execution receipt. W
 
 The executor intentionally leaves texture, runtime-physics and runtime-effect routes visible in the receipt until their dedicated backends execute them; Blockbench success is never presented as proof those other routes are finished.
 
-### 7. Run generation/texturing/rig providers with failover
+### 8. Run generation/texturing/rig providers with failover
 
 Variant Foundry's provider plane is registry-driven instead of hardcoding one AI model. Each provider entry declares its capabilities, exact argv, local/remote execution metadata, minimum VRAM, model/weight identity and licensing/provenance fields. The scheduler never uses a shell, serializes heavy provider work through a workspace lock, preserves failed-attempt logs, and tries the next compatible challenger automatically.
 
@@ -225,7 +237,7 @@ A pinned starter registry is included at `references/variant-foundry/provider-re
 
 Incompatible, unhealthy or over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. Successful adapter stdout JSON is retained as `provider_runtime` so the actual backend/model metadata can travel into provenance. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
 
-### 8. Gate generated GLB assets before promotion
+### 9. Gate generated GLB assets before promotion
 
 Every provider result ending in `.glb` now passes a dependency-free structural/spec-sanity gate before the scheduler can call the job successful. It verifies GLB v2 framing, chunk bounds, JSON/index references, embedded buffers/images by default, non-empty POSITION geometry, animation/skin references, and records mesh/vertex/triangle/material/texture/animation statistics. Malformed output becomes a failed provider attempt and the scheduler continues to the next challenger instead of poisoning the asset cache.
 
@@ -237,7 +249,7 @@ If the MIT-licensed glTF Transform CLI is installed, `--external auto` also runs
 
 Provider cache identity now includes the scheduler, GLB-gate implementation, and current external-validator fingerprint. A gate/tool upgrade therefore invalidates only provider results whose proof is no longer current, while an already hash-valid result still survives a temporary provider/backend outage.
 
-### 9. Compile an immutable ModelBundle
+### 10. Compile an immutable ModelBundle
 
 Package approved editable/runtime assets behind exact hashes:
 
@@ -247,7 +259,7 @@ Package approved editable/runtime assets behind exact hashes:
 
 Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated. `--evidence ROLE=PATH` stores provenance/proof in a separate immutable evidence lane, so provider receipts and logs travel with the release without being confused for runtime model assets.
 
-### 10. Run the durable end-to-end pipeline
+### 11. Run the durable end-to-end pipeline
 
 For repeatable production work, put the same inputs into one manifest and let Variant Foundry reuse only stages whose exact inputs **and implementation bytes** are unchanged:
 
@@ -303,7 +315,7 @@ For repeatable production work, put the same inputs into one manifest and let Va
 .\devkit.cmd variant pipeline --manifest "C:\DevKit-Runs\variant-foundry.json" --workspace "C:\DevKit-Runs\variant-foundry-work"
 ```
 
-The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> authoring recipe -> Blockbench execution/visual proof -> provider generation/failover -> texture compile -> ModelBundle**. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Provider job receipts, every attempted provider's stdout/stderr, and GLB-validation receipts are packaged into the ModelBundle evidence lane, preserving failover history and promotion proof alongside the immutable asset. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
+The pipeline content-addresses **discovery -> BiomeDNA -> VariantPlan -> authoring recipe -> runtime phenotype contract -> Blockbench execution/visual proof -> provider generation/failover -> texture compile -> ModelBundle**. The runtime contract is packaged as a real bundle asset; the pipeline result remains explicitly `artifacts-built-runtime-unverified` until a target Minecraft runtime adapter executes and proves it. Provider jobs are first-class manifest stages: their health/rights/provenance/GLB-gate receipts are preserved, successful exact jobs are reused, and changing only a concept/provider input invalidates that provider asset plus the final bundle without redoing unrelated biome or texture work. Provider job receipts, every attempted provider's stdout/stderr, and GLB-validation receipts are packaged into the ModelBundle evidence lane, preserving failover history and promotion proof alongside the immutable asset. Re-running unchanged input reuses verified stage receipts instead of recomputing them. Changing only a texture style invalidates that texture and the final bundle while preserving unchanged discovery/profile/plan work. A failure leaves `pipeline-state.json` with the exact failed stage plus completed-stage receipts, so recovery resumes from durable evidence instead of restarting the asset.
 
 ### Capability contract
 
