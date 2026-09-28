@@ -295,6 +295,15 @@ def main(argv: list[str] | None = None) -> int:
     variant_plan.add_argument('--mode', choices=['texture-only','surface','geometry','rig-aware','full-phenotype'], default='full-phenotype')
     variant_plan.add_argument('--seed', type=int, default=0)
     variant_plan.add_argument('--json-out', type=Path)
+    variant_bundle = variant_sub.add_parser('bundle', help='Compile an immutable content-addressed ModelBundle')
+    variant_bundle.add_argument('--subject', type=Path, required=True)
+    variant_bundle.add_argument('--plans', type=Path, required=True)
+    variant_bundle.add_argument('--biome-dna', type=Path)
+    variant_bundle.add_argument('--asset', action='append', default=[], help='ROLE=PATH; repeatable')
+    variant_bundle.add_argument('--minecraft', required=True)
+    variant_bundle.add_argument('--loader', required=True)
+    variant_bundle.add_argument('--backend', required=True)
+    variant_bundle.add_argument('--output', type=Path, required=True)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -374,6 +383,18 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 plan_args += ['--json-out', str(args.json_out)]
             return plan_main(plan_args)
+        if args.variant_command == 'bundle':
+            from variant_foundry_bundle import main as bundle_main
+            bundle_args = [
+                '--subject', str(args.subject), '--plans', str(args.plans),
+                '--minecraft', args.minecraft, '--loader', args.loader,
+                '--backend', args.backend, '--output', str(args.output),
+            ]
+            if args.biome_dna:
+                bundle_args += ['--biome-dna', str(args.biome_dna)]
+            for asset in args.asset:
+                bundle_args += ['--asset', asset]
+            return bundle_main(bundle_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
