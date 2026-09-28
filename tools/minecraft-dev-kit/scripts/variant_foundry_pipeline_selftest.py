@@ -71,6 +71,7 @@ def main() -> int:
             ],
             "variant_regions": {
                 "eligible-geometry-regions": ["surface_growths"],
+                "eligible-surface-regions": ["body_surface"],
                 "eligible-motion-regions": ["vines"],
             },
         })
@@ -101,7 +102,7 @@ def main() -> int:
             "model_file": "creeper.bbmodel",
             "region_targets": {"surface_growths": ["surface_growths_anchor"]},
             "motion_targets": {"vines": ["vine_left", "vine_right"]},
-            "texture_targets": {},
+            "texture_targets": {"body_surface": ["creeper-crystal"]},
             "templates": {
                 "geometry": {
                     "faceted shards": {
