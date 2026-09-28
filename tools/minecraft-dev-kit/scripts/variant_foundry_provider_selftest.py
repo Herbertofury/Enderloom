@@ -211,6 +211,8 @@ def main() -> int:
         assert reused["reuse_state"] == "reused"
         assert reused["job_id"] == result["job_id"]
 
+        # Restore the health fixture before exercising a new, non-cached rights-gated job.
+        probe_ok.write_text(PROBE_OK, encoding="utf-8")
         rights_result = mod.run_job(
             registry,
             capability="shape",
