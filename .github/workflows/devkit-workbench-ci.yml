@@ -40,6 +40,8 @@ jobs:
         run: python tools/minecraft-dev-kit/scripts/northpoint_job_runner_selftest.py
       - name: Runtime proof must match candidate hash
         run: python tools/minecraft-dev-kit/scripts/northpoint_runtime_proof_selftest.py
+      - name: Variant Foundry discovers static and runtime-only custom biomes
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes_selftest.py
       - name: Retain workflow proof and candidate packages
         if: always()
         uses: actions/upload-artifact@v4
