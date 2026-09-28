@@ -78,7 +78,7 @@ def multipart_image(path: Path, options: dict[str, Any]) -> tuple[bytes, str]:
 
 def cancel(endpoint: str, job_id: str) -> None:
     try:
-        request_json(f"{endpoint}/api/jobs/{urllib.parse.quote(job_id)}", method="POST", data=b"", timeout=5)
+        request_json(f"{endpoint}/api/jobs/{urllib.parse.quote(job_id)}/cancel", method="POST", data=b"", timeout=5)
     except Exception:
         pass
 
