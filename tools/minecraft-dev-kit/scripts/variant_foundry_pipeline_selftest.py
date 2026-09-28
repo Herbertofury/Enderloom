@@ -115,6 +115,8 @@ def main() -> int:
                 "model": "fixture",
                 "code_license": "fixture",
                 "weights_license": "fixture",
+                "rights_state": "fixture-verified",
+                "rights_verified": True,
                 "validation": {"self_contained": True, "external": "off"},
                 "output_extension": ".glb",
             }],
@@ -135,6 +137,7 @@ def main() -> int:
                 "input": "concept.bin",
                 "role": "generated-model",
                 "params": {"mode": "image"},
+                "require_verified_rights": True,
                 "output_extension": ".glb",
             }],
             "textures": [{
@@ -159,6 +162,12 @@ def main() -> int:
         assert first_states["texture:creeper-crystal"] == "completed"
         provider_stage = next(row for row in first["stages"] if row["stage"] == "provider:creeper-shape")
         assert provider_stage["asset_validation"]["state"] == "passed"
+        bundle_manifest = json.loads(Path(first["bundle"]["manifest"]).read_text(encoding="utf-8"))
+        assert bundle_manifest["evidence_count"] >= 4
+        evidence_roles = {row["role"] for row in bundle_manifest["evidence"]}
+        assert "provider-job-receipt:creeper-shape" in evidence_roles
+        assert any(role.startswith("provider-stdout:creeper-shape:fixture-shape") for role in evidence_roles)
+        assert any(role.startswith("provider-asset-validation:creeper-shape:fixture-shape") for role in evidence_roles)
 
         second = mod.run_pipeline(manifest, workspace)
         assert second["state"] == "complete"
@@ -204,6 +213,8 @@ def main() -> int:
             "fourth_bundle": fourth["bundle"]["bundle_id"],
             "cache_behavior": fourth_states,
             "provider_in_pipeline": True,
+            "provider_evidence_bundled": True,
+            "rights_gate": True,
         }, indent=2))
     return 0
 
