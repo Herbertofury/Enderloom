@@ -288,6 +288,13 @@ def main(argv: list[str] | None = None) -> int:
     variant_profile.add_argument('--biome')
     variant_profile.add_argument('--overrides', type=Path)
     variant_profile.add_argument('--json-out', type=Path)
+    variant_plan = variant_sub.add_parser('plan', help='Create deterministic lock-aware biome variant plans')
+    variant_plan.add_argument('--subject', type=Path, required=True)
+    variant_plan.add_argument('--biome-dna', type=Path, required=True)
+    variant_plan.add_argument('--biome', action='append', dest='biomes')
+    variant_plan.add_argument('--mode', choices=['texture-only','surface','geometry','rig-aware','full-phenotype'], default='full-phenotype')
+    variant_plan.add_argument('--seed', type=int, default=0)
+    variant_plan.add_argument('--json-out', type=Path)
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -358,6 +365,15 @@ def main(argv: list[str] | None = None) -> int:
             if args.json_out:
                 profile_args += ['--json-out', str(args.json_out)]
             return profile_main(profile_args)
+        if args.variant_command == 'plan':
+            from variant_foundry_plan import main as plan_main
+            plan_args = ['--subject', str(args.subject), '--biome-dna', str(args.biome_dna),
+                         '--mode', args.mode, '--seed', str(args.seed)]
+            for biome in args.biomes or []:
+                plan_args += ['--biome', biome]
+            if args.json_out:
+                plan_args += ['--json-out', str(args.json_out)]
+            return plan_main(plan_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps
