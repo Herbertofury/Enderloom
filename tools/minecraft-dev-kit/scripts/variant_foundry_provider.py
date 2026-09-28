@@ -19,6 +19,8 @@ import time
 from pathlib import Path
 from typing import Any
 
+import variant_foundry_gltf_gate as gltf_gate
+
 SCHEMA_VERSION = 1
 PLACEHOLDERS = {"input", "output", "seed", "params_json", "workspace", "python", "scripts"}
 PROBE_PLACEHOLDERS = {"python", "scripts"}
@@ -103,7 +105,7 @@ def provider_identity(row: dict[str, Any]) -> dict[str, Any]:
         "probe_timeout_seconds", "min_vram_gb", "priority", "provider", "model",
         "model_version", "weights", "weights_sha256", "code_license", "weights_license",
         "source_repository", "source_commit", "rights_state", "distribution_notes",
-        "output_extension",
+        "output_extension", "validation",
     )
     return {key: row.get(key) for key in keep if key in row}
 
@@ -376,6 +378,20 @@ def run_provider(
         state = "failed"
         stderr = (stderr or "") + "\nprovider returned success but output file is missing/empty"
         stderr_path.write_text(stderr, encoding="utf-8")
+
+    asset_validation = None
+    if state == "succeeded" and output_path.suffix.lower() == ".glb":
+        policy = row.get("validation") if isinstance(row.get("validation"), dict) else {}
+        asset_validation = gltf_gate.validate_glb(
+            output_path,
+            self_contained=bool(policy.get("self_contained", True)),
+            external=str(policy.get("external", "auto")),
+        )
+        gltf_gate.atomic_json(output_path.parent / "asset-validation.json", asset_validation)
+        if asset_validation.get("state") != "passed":
+            state = "failed"
+            stderr = (stderr or "") + "\nprovider GLB failed Variant Foundry asset gate: " + str(asset_validation.get("reason"))
+            stderr_path.write_text(stderr, encoding="utf-8")
     return {
         "state": state,
         "returncode": returncode,
@@ -385,6 +401,7 @@ def run_provider(
         "stdout": str(stdout_path),
         "stderr": str(stderr_path),
         "provider_runtime": last_json_object(stdout or ""),
+        "asset_validation": asset_validation,
         "output": str(output_path),
         "output_sha256": sha256_file(output_path) if state == "succeeded" else None,
         "output_size": output_path.stat().st_size if state == "succeeded" else 0,
@@ -420,6 +437,11 @@ def run_job(
         "preferred": preferred or [],
         "vram_budget_gb": vram_budget_gb,
         "output_extension": output_extension,
+        "implementation": {
+            "scheduler_sha256": sha256_file(Path(__file__).resolve()),
+            "gltf_gate_sha256": sha256_file(Path(gltf_gate.__file__).resolve()),
+            "external_validator": gltf_gate.external_validator_fingerprint("auto"),
+        },
     }
     job_id = hash_json(job_identity)
     job_root = workspace / "jobs" / job_id
@@ -501,6 +523,7 @@ def run_job(
                     "reuse_state": "completed",
                     "selected_provider": provider,
                     "provider_runtime": run.get("provider_runtime"),
+                    "asset_validation": run.get("asset_validation"),
                     "output": run["output"],
                     "output_sha256": run["output_sha256"],
                     "output_size": run["output_size"],

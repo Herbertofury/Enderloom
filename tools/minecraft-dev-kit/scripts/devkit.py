@@ -341,6 +341,11 @@ def main(argv: list[str] | None = None) -> int:
     provider_run.add_argument('--preferred', action='append', default=[])
     provider_run.add_argument('--vram-budget-gb', type=float)
     provider_run.add_argument('--output-extension')
+    variant_validate_glb = variant_sub.add_parser('validate-glb', help='Validate a provider GLB before promotion')
+    variant_validate_glb.add_argument('--input', type=Path, required=True)
+    variant_validate_glb.add_argument('--receipt', type=Path)
+    variant_validate_glb.add_argument('--external', choices=['off','auto','require'], default='auto')
+    variant_validate_glb.add_argument('--allow-external-resources', action='store_true')
     variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
@@ -488,6 +493,14 @@ def main(argv: list[str] | None = None) -> int:
                 if args.output_extension:
                     provider_args += ['--output-extension', args.output_extension]
             return provider_main(provider_args)
+        if args.variant_command == 'validate-glb':
+            from variant_foundry_gltf_gate import main as gltf_gate_main
+            gltf_args = ['--input', str(args.input), '--external', args.external]
+            if args.receipt:
+                gltf_args += ['--receipt', str(args.receipt)]
+            if args.allow_external_resources:
+                gltf_args += ['--allow-external-resources']
+            return gltf_gate_main(gltf_args)
         if args.max_reference_depth < 0 or args.max_reference_depth > 12:
             parser.error('--max-reference-depth must be between 0 and 12')
         from variant_foundry_discover_biomes import discover, json_dumps

@@ -36,7 +36,11 @@
       "code_license": "MIT",
       "rights_state": "runtime-model-and-weights-must-be-verified",
       "distribution_notes": "Clay orchestrator code is MIT. The exact configured model/weights and their rights are a separate promotion gate.",
-      "output_extension": ".glb"
+      "output_extension": ".glb",
+      "validation": {
+        "self_contained": true,
+        "external": "auto"
+      }
     },
     {
       "id": "mymeshy-shape",
@@ -72,7 +76,25 @@
       "code_license": "MIT",
       "rights_state": "runtime-model-and-weights-must-be-verified",
       "distribution_notes": "MyMeshy code is MIT. The active adapter and downloaded model weights retain their upstream licenses; mock mode is rejected by default.",
-      "output_extension": ".glb"
+      "output_extension": ".glb",
+      "validation": {
+        "self_contained": true,
+        "external": "auto"
+      }
     }
-  ]
+  ],
+  "validation_upstreams": {
+    "gltf_transform": {
+      "repository": "donmccurdy/glTF-Transform",
+      "commit": "a5d768b87efaae1fa65ddd17cd551a45b57abd70",
+      "license": "MIT",
+      "role": "optional deep glTF spec validator when installed"
+    },
+    "gltf_validator": {
+      "repository": "KhronosGroup/glTF-Validator",
+      "commit": "434283be08a668a8fb4e437145630ddbf93b0686",
+      "license": "Apache-2.0",
+      "role": "authoritative validator reference/challenger; not bundled"
+    }
+  }
 }

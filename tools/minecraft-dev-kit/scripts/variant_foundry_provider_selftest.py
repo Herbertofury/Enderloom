@@ -18,14 +18,24 @@ FAILER = r'''import sys
 print("intentional first-provider failure", file=sys.stderr)
 raise SystemExit(7)
 '''
-SUCCESS = r'''import argparse,json
+BAD_GLB = r'''from pathlib import Path
+import argparse,json
+p=argparse.ArgumentParser();p.add_argument("--input");p.add_argument("--output");p.add_argument("--seed");p.add_argument("--params")
+a=p.parse_args();Path(a.output).write_bytes(b"not-a-glb")
+print(json.dumps({"state":"succeeded","fixture_backend":"malformed"}))
+'''
+SUCCESS = r'''import argparse,json,struct
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument("--input");p.add_argument("--output");p.add_argument("--seed");p.add_argument("--params")
 a=p.parse_args()
-src=Path(a.input).read_bytes()
 params=json.loads(Path(a.params).read_text())
-Path(a.output).write_bytes(src+b"\\nseed="+a.seed.encode()+b"\\nmode="+str(params.get("mode")).encode())
-print(json.dumps({"state":"succeeded","fixture_backend":"ok","seed":int(a.seed)}))
+positions=struct.pack("<9f",0,0,0,1,0,0,0,1,0)
+root={"asset":{"version":"2.0","generator":"provider-selftest"},"buffers":[{"byteLength":len(positions)}],"bufferViews":[{"buffer":0,"byteOffset":0,"byteLength":len(positions)}],"accessors":[{"bufferView":0,"componentType":5126,"count":3,"type":"VEC3"}],"meshes":[{"primitives":[{"attributes":{"POSITION":0},"mode":4}]}],"nodes":[{"mesh":0}],"scenes":[{"nodes":[0]}],"scene":0}
+j=json.dumps(root,separators=(",",":")).encode();j+=b" "*((4-len(j)%4)%4)
+b=positions+b"\x00"*((4-len(positions)%4)%4)
+chunks=struct.pack("<II",len(j),0x4E4F534A)+j+struct.pack("<II",len(b),0x004E4942)+b
+Path(a.output).write_bytes(struct.pack("<4sII",b"glTF",2,12+len(chunks))+chunks)
+print(json.dumps({"state":"succeeded","fixture_backend":"ok","seed":int(a.seed),"mode":params.get("mode")}))
 '''
 PROBE_OK = r'''import json
 print(json.dumps({"state":"ready","backend":"fixture"}))
@@ -44,15 +54,18 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
         failer = root / "failer.py"
+        bad = root / "bad.py"
         success = root / "success.py"
         probe_ok = root / "probe_ok.py"
         probe_fail = root / "probe_fail.py"
         failer.write_text(FAILER, encoding="utf-8")
+        bad.write_text(BAD_GLB, encoding="utf-8")
         success.write_text(SUCCESS, encoding="utf-8")
         probe_ok.write_text(PROBE_OK, encoding="utf-8")
         probe_fail.write_text(PROBE_FAIL, encoding="utf-8")
         registry = root / "providers.json"
         common_probe = ["{python}", str(probe_ok)]
+        validation = {"self_contained": True, "external": "off"}
         dump(registry, {
             "schema_version": 1,
             "providers": [
@@ -67,6 +80,7 @@ def main() -> int:
                     "model": "fixture-large",
                     "weights_sha256": "a" * 64,
                     "weights_license": "fixture",
+                    "validation": validation,
                     "output_extension": ".glb"
                 },
                 {
@@ -78,6 +92,7 @@ def main() -> int:
                     "min_vram_gb": 2,
                     "priority": 1,
                     "model": "fixture-health-fail",
+                    "validation": validation,
                     "output_extension": ".glb"
                 },
                 {
@@ -88,7 +103,20 @@ def main() -> int:
                     "probe_command": common_probe,
                     "min_vram_gb": 4,
                     "priority": 2,
-                    "model": "fixture-fail",
+                    "model": "fixture-process-fail",
+                    "validation": validation,
+                    "output_extension": ".glb"
+                },
+                {
+                    "id": "bad-glb",
+                    "capabilities": ["shape"],
+                    "execution": "local",
+                    "command": ["{python}", str(bad), "--input", "{input}", "--output", "{output}", "--seed", "{seed}", "--params", "{params_json}"],
+                    "probe_command": common_probe,
+                    "min_vram_gb": 4,
+                    "priority": 3,
+                    "model": "fixture-malformed",
+                    "validation": validation,
                     "output_extension": ".glb"
                 },
                 {
@@ -98,13 +126,14 @@ def main() -> int:
                     "command": ["{python}", str(success), "--input", "{input}", "--output", "{output}", "--seed", "{seed}", "--params", "{params_json}"],
                     "probe_command": common_probe,
                     "min_vram_gb": 8,
-                    "priority": 3,
+                    "priority": 4,
                     "model": "fixture-success",
                     "model_version": "1",
                     "code_license": "MIT",
                     "weights_license": "fixture",
                     "source_repository": "fixture/provider",
                     "source_commit": "1" * 40,
+                    "validation": validation,
                     "output_extension": ".glb"
                 }
             ]
@@ -132,21 +161,24 @@ def main() -> int:
             params=params,
             vram_budget_gb=24,
         )
-        assert result["state"] == "succeeded"
+        assert result["state"] == "succeeded", result
         assert result["selected_provider"]["id"] == "fallback-works"
         assert result["reuse_state"] == "completed"
         assert result["provider_runtime"]["fixture_backend"] == "ok"
-        assert [a["provider"]["id"] for a in result["attempts"]] == ["first-fails", "fallback-works"]
+        assert result["asset_validation"]["state"] == "passed"
+        assert result["asset_validation"]["stats"]["triangle_estimate"] == 1
+        assert [a["provider"]["id"] for a in result["attempts"]] == ["first-fails", "bad-glb", "fallback-works"]
         assert result["attempts"][0]["state"] == "failed"
-        assert result["attempts"][1]["state"] == "succeeded"
+        assert result["attempts"][1]["state"] == "failed"
+        assert result["attempts"][1]["asset_validation"]["state"] == "failed"
+        assert result["attempts"][2]["state"] == "succeeded"
         assert any(x["id"] == "gpu-too-large" and any(r.startswith("vram-budget") for r in x["reasons"]) for x in result["rejected"])
         assert any(x["id"] == "probe-bad" and "health-probe:unavailable" in x["reasons"] for x in result["rejected"])
         output = Path(result["output"])
         assert output.is_file()
-        assert b"seed=77" in output.read_bytes()
 
-        # Cached successful bytes are authoritative until inputs/registry change. A later
-        # provider outage must not force the exact same successful job to regenerate.
+        # Cached successful bytes are authoritative until inputs/registry/tool implementation
+        # change. A later provider outage must not force the exact same successful job to regenerate.
         probe_ok.write_text(PROBE_FAIL, encoding="utf-8")
         reused = mod.run_job(
             registry,
@@ -184,6 +216,8 @@ def main() -> int:
             "status": "passed",
             "selected": result["selected_provider"]["id"],
             "attempts": [a["state"] for a in result["attempts"]],
+            "malformed_output_rejected": True,
+            "asset_gate": result["asset_validation"]["stats"],
             "reuse_state": reused["reuse_state"],
             "health_rejection": True,
         }, indent=2))

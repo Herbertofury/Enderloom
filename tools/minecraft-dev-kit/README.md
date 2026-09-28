@@ -168,7 +168,19 @@ A pinned starter registry is included at `references/variant-foundry/provider-re
 
 Incompatible, unhealthy or over-budget providers are recorded as rejected; timeouts/failures remain evidence and do not erase earlier attempts. Successful adapter stdout JSON is retained as `provider_runtime` so the actual backend/model metadata can travel into provenance. If every route fails, the receipt stays `unresolved-active` rather than pretending the provider capability does not exist.
 
-### 7. Compile an immutable ModelBundle
+### 7. Gate generated GLB assets before promotion
+
+Every provider result ending in `.glb` now passes a dependency-free structural/spec-sanity gate before the scheduler can call the job successful. It verifies GLB v2 framing, chunk bounds, JSON/index references, embedded buffers/images by default, non-empty POSITION geometry, animation/skin references, and records mesh/vertex/triangle/material/texture/animation statistics. Malformed output becomes a failed provider attempt and the scheduler continues to the next challenger instead of poisoning the asset cache.
+
+```powershell
+.\devkit.cmd variant validate-glb --input "C:\DevKit-Runs\provider-jobs\output.glb" --receipt "C:\DevKit-Runs\provider-jobs\gltf-validation.json"
+```
+
+If the MIT-licensed glTF Transform CLI is installed, `--external auto` also runs its `validate` command; release lanes can use `--external require`. The current audited upstream reference is glTF Transform commit `a5d768b87efaae1fa65ddd17cd551a45b57abd70`, with Khronos glTF-Validator commit `434283be08a668a8fb4e437145630ddbf93b0686` tracked as the authoritative validator challenger/reference. Neither tool is silently downloaded during offline work.
+
+Provider cache identity now includes the scheduler, GLB-gate implementation, and current external-validator fingerprint. A gate/tool upgrade therefore invalidates only provider results whose proof is no longer current, while an already hash-valid result still survives a temporary provider/backend outage.
+
+### 8. Compile an immutable ModelBundle
 
 Package approved editable/runtime assets behind exact hashes:
 
@@ -178,7 +190,7 @@ Package approved editable/runtime assets behind exact hashes:
 
 Identical bytes are deduplicated into content-addressed objects. Exact rebuilds reuse the bundle; changing an input changes the bundle ID, and an existing immutable release directory is never silently mutated.
 
-### 8. Run the durable end-to-end pipeline
+### 9. Run the durable end-to-end pipeline
 
 For repeatable production work, put the same inputs into one manifest and let Variant Foundry reuse only stages whose exact inputs **and implementation bytes** are unchanged:
 

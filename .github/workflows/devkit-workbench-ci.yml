@@ -58,6 +58,8 @@ jobs:
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_provider_selftest.py
       - name: Variant Foundry Clay and MyMeshy adapters preserve exact-output contracts
         run: python tools/minecraft-dev-kit/scripts/variant_foundry_provider_adapters_selftest.py
+      - name: Variant Foundry rejects malformed or externally-linked GLB provider assets
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_gltf_gate_selftest.py
       - name: Northpoint CI keeps modern Gradle runtime for maintained Fabric branch
         run: python tools/minecraft-dev-kit/scripts/northpoint_ci_java_floor_selftest.py
       - name: Retain workflow proof and candidate packages
