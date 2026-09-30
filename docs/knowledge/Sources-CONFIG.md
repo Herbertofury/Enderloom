@@ -42,7 +42,7 @@
 [**CONFIG-02**](Checklist.md#config-02)
 
 <details>
-<summary>Source clauses and aliases (76 distinct blocks)</summary>
+<summary>Source clauses and aliases (77 distinct blocks)</summary>
 
 - [G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T182 — Configuration Cache and equivalent-work performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L987-L987) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2247-L2248) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -83,6 +83,7 @@
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2281-L2282) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
 - [17. Adaptive Selection Examples / Bedrock “Backpacks 2.0.2”-class conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L581-L590) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-06 — Implement the zero-loss correctness and compatibility gate engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L164-L164) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry Capability Closure / 6. Worldgen and custom-biome completeness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L162-L168) - ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T032 — Find-in-page and complete browser hotkey parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1788-L1809) - ENDERLOOM_GET_DONE_NOW_QOL.md; 5 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T041 — Browser/download/import drag-and-drop polish](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1904-L1908) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G007 — Navigation and common desktop hotkeys feel native](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2187-L2189) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.

@@ -1160,7 +1160,7 @@
 <a id="world-03-details"></a>
 ## WORLD-03 - Whole-modpack migration
 
-[Outcome](Checklist.md#world-03) / 25 source-derived details.
+[Outcome](Checklist.md#world-03) / 26 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -1392,6 +1392,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 11. Premium Whole-Modpack Migration Engine / 11.5 Acceptance
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 991-991](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L991-L991)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-6aa4981e2748e9b0f59f"></a>
+- [ ] **D-6aa4981e2748e9b0f59f** - · Add a migration path for existing Enderloom Stonecutter workspaces into the canonical engine without requiring users to recreate projects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T157 : 502-502](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L502-L502)
 
 </details>
 
@@ -2821,7 +2832,7 @@
 <a id="world-06-details"></a>
 ## WORLD-06 - Network, proxy and plugin semantics
 
-[Outcome](Checklist.md#world-06) / 83 source-derived details.
+[Outcome](Checklist.md#world-06) / 84 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -3448,6 +3459,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 42. Golden acceptance fixtures
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1555-1555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1555-L1555)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
+
+<a id="d-88c8d84f2f22b9321e98"></a>
+- [ ] **D-88c8d84f2f22b9321e98** - · Differentially compare Tiny Remapper, Fabric Loom migration behavior, Ravel, AutoRenamingTool/SrgUtils, ModForge evidence, and Enderloom&#x27;s own resolver on representative fix...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Differentially compare Tiny Remapper, Fabric Loom migration behavior, Ravel, AutoRenamingTool/SrgUtils, ModForge evidence, and Enderloom&#x27;s own resolver on representative fixtures.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T046 : 326-326](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L326-L326)
 
 </details>
 

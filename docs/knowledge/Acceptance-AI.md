@@ -9,7 +9,7 @@
 <a id="ai-01-details"></a>
 ## AI-01 - Authorized provider lanes
 
-[Outcome](Checklist.md#ai-01) / 59 source-derived details.
+[Outcome](Checklist.md#ai-01) / 60 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -498,6 +498,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective (1)</summary>
+
+<a id="d-20efdf40aaf1c3c9d254"></a>
+- [ ] **D-20efdf40aaf1c3c9d254** - This contract must be executable directly by Codex or another coding agent. Do not reduce it to a planning document.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L20-L20)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 12. AI / Codex-ready diagnostic CLI (1)</summary>
 
 <a id="d-b22432f18d03b22ae692"></a>
@@ -828,7 +839,7 @@
 <a id="ai-03-details"></a>
 ## AI-03 - Quarantined changes and repair loop
 
-[Outcome](Checklist.md#ai-03) / 25 source-derived details.
+[Outcome](Checklist.md#ai-03) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (2)</summary>
@@ -1086,6 +1097,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - One SemanticProject for Create, Convert, Repair, and Port (1)</summary>
+
+<a id="d-44946fb6e49300f1b5ab"></a>
+- [ ] **D-44946fb6e49300f1b5ab** - · Ensure every target-visible difference can answer: what changed, which ownership layer caused it, why the difference exists, which rule/evidence justified it, and which cells inh...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Ensure every target-visible difference can answer: what changed, which ownership layer caused it, why the difference exists, which rule/evidence justified it, and which cells inherit it.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T018 : 283-283](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L283-L283)
+
+</details>
+
+<details>
 <summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
 
 <a id="d-785a97f7bddaaa537512"></a>
@@ -1206,7 +1229,7 @@
 <a id="ai-05-details"></a>
 ## AI-05 - Parallel specialists and context reuse
 
-[Outcome](Checklist.md#ai-05) / 14 source-derived details.
+[Outcome](Checklist.md#ai-05) / 15 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.1 Canonical project state (1)</summary>
@@ -1344,10 +1367,22 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (1)</summary>
+
+<a id="d-bb09763c197e417a3c44"></a>
+- [ ] **D-bb09763c197e417a3c44** - · Use Spoon/GumTree/RefactoringMiner where their structural or historical change models add evidence; normalize findings into Enderloom&#x27;s API-delta/rule model instead of addin...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Use Spoon/GumTree/RefactoringMiner where their structural or historical change models add evidence; normalize findings into Enderloom&#x27;s API-delta/rule model instead of adding parallel truth stores.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T054 : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L339-L339)
+
+</details>
+
 <a id="ai-06-details"></a>
 ## AI-06 - Evidence Brain promotion and rollback
 
-[Outcome](Checklist.md#ai-06) / 104 source-derived details.
+[Outcome](Checklist.md#ai-06) / 113 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2270,6 +2305,99 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 14. Wave A architecture consequences
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1161-1161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1161-L1161)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
+
+<a id="d-ba824b7be1206299f16d"></a>
+- [ ] **D-ba824b7be1206299f16d** - · Persist mapping disagreements as explicit evidence requiring resolution or a conservative unresolved state; do not choose whichever tool returns a value first.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T050 : 330-330](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L330-L330)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (3)</summary>
+
+<a id="d-f473068a82e2a770ebc0"></a>
+- [ ] **D-f473068a82e2a770ebc0** - · Add JDT compiler/type evidence for overloads, inheritance, generics, ambiguous owners, method resolution, and transformations that require compiler-level semantics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T053 : 338-338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L338-L338)
+
+<a id="d-f3415004a21bebb1e476"></a>
+- [ ] **D-f3415004a21bebb1e476** - · Integrate NeoForge JavaSourceTransformer as a specialist backend/oracle for the source-transform domains it owns well, while keeping output/provenance in Enderloom&#x27;s canonic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Integrate NeoForge JavaSourceTransformer as a specialist backend/oracle for the source-transform domains it owns well, while keeping output/provenance in Enderloom&#x27;s canonical rule/evidence model.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T056 : 341-341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L341-L341)
+
+<a id="d-3c102fa69e118846aa24"></a>
+- [ ] **D-3c102fa69e118846aa24** - · Keep project-specific rules separate from globally reusable rules until cross-project evidence supports promotion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T061 : 346-346](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L346-L346)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-b420dd9d15cb0a3b7161"></a>
+- [ ] **D-b420dd9d15cb0a3b7161** - · Use the JDK Class-File API and ASM as exact structural/linkage evidence for owners, members, descriptors, handles, invokedynamic, access, signatures, annotations, modules, servic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Use the JDK Class-File API and ASM as exact structural/linkage evidence for owners, members, descriptors, handles, invokedynamic, access, signatures, annotations, modules, services, Kotlin metadata relationships, and nested artifacts.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T073 : 368-368](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L368-L368)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-adce36bf14c789c51069"></a>
+- [ ] **D-adce36bf14c789c51069** - · When multiple existing versions of the same mod are supplied, use them as differential evidence to recover common semantics and version-specific deltas rather than selecting one ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · When multiple existing versions of the same mod are supplied, use them as differential evidence to recover common semantics and version-specific deltas rather than selecting one and discarding the rest.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T090 : 395-395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L395-L395)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-7e60a737ead2f32a19cd"></a>
+- [ ] **D-7e60a737ead2f32a19cd** - · Add-target fixture: add a new configured cell and prove existing intact cells keep artifact hashes/attempt counts/evidence when their inputs did not change.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T137 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L472-L472)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (1)</summary>
+
+<a id="d-4be81ab964f63283cdb9"></a>
+- [ ] **D-4be81ab964f63283cdb9** - · Compare new engine against the current multiversion baseline on equivalent projects and prove a material improvement or at minimum no regression in planning/materialization overh...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Compare new engine against the current multiversion baseline on equivalent projects and prove a material improvement or at minimum no regression in planning/materialization overhead while preserving full output/evidence.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T147 : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L487-L487)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 8. Benchmark/promotion matrix (1)</summary>
+
+<a id="d-ee5bbd04749f0f010c89"></a>
+- [ ] **D-ee5bbd04749f0f010c89** - Every swappable candidate is scored by separate evidence dimensions, never one opaque “best” score:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 8. Benchmark/promotion matrix
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 201-201](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L201-L201)
 
 </details>
 

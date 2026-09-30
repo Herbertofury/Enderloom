@@ -9,7 +9,7 @@
 <a id="know-01-details"></a>
 ## KNOW-01 - Premium in-app Wiki
 
-[Outcome](Checklist.md#know-01) / 18 source-derived details.
+[Outcome](Checklist.md#know-01) / 19 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT (1)</summary>
@@ -154,10 +154,22 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-51a3c98647d31f2bee9f"></a>
+- [ ] **D-51a3c98647d31f2bee9f** - GATE — Run the full convergence loop after implementation: rescan every unchecked, blocked, stale, or invalidated task; compare the production Create / Convert / Repair / Port work...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Run the full convergence loop after implementation: rescan every unchecked, blocked, stale, or invalidated task; compare the production Create / Convert / Repair / Port workflows against this contract; inspect real generated diffs and receipts; rerun only gates invalidated by later changes; repair every missing/partial/contradictory behavior in the shared engine; and repeat until no accepted requirement is missing, no production path bypasses the canonical SemanticProject + VersionGraph, no performance gain comes from reduced work, and no target is marked verified without its required evidence.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: G001 : 511-511](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L511-L511)
+
+</details>
+
 <a id="know-02-details"></a>
 ## KNOW-02 - Why installed and contextual explanations
 
-[Outcome](Checklist.md#know-02) / 23 source-derived details.
+[Outcome](Checklist.md#know-02) / 25 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -410,6 +422,29 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-af2e5cb2c45720280f89"></a>
+- [ ] **D-af2e5cb2c45720280f89** - · Hash and record the exact current files listed in the Context section; if any hash has changed, inspect the delta and update this contract&#x27;s baseline notes before implementa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Hash and record the exact current files listed in the Context section; if any hash has changed, inspect the delta and update this contract&#x27;s baseline notes before implementation.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T002 : 257-257](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L257-L257)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (1)</summary>
+
+<a id="d-3e666e9ccfe90fc19d2f"></a>
+- [ ] **D-3e666e9ccfe90fc19d2f** - · Expose a machine-readable explanation for every invalidation/rebuild: what changed -&gt; which node invalidated -&gt; which cells affected -&gt; why.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T041 : 316-316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L316-L316)
+
+</details>
+
 <a id="know-03-details"></a>
 ## KNOW-03 - Adaptive ecosystem contracts
 
@@ -561,7 +596,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 75 source-derived details.
+[Outcome](Checklist.md#know-04) / 79 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -593,17 +628,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 50-50](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L50-L50)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (1)</summary>
-
-<a id="d-7d881e49951f103f8f1f"></a>
-- [ ] **D-7d881e49951f103f8f1f** - Render stack: Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-015 : 583-583](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L583-L583)
 
 </details>
 
@@ -1204,6 +1228,64 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 18. Capability closure and worldgen enrichment (1)</summary>
+
+<a id="d-504ed656f28daf043e2c"></a>
+- [ ] **D-504ed656f28daf043e2c** - Variant Foundry must satisfy the machine-readable closure contract in docs/variant-foundry-capability-matrix.json and the human-readable contract in docs/ENDERLOOM_VARIANT_FOUNDRY_...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Variant Foundry must satisfy the machine-readable closure contract in docs/variant-foundry-capability-matrix.json and the human-readable contract in docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 18. Capability closure and worldgen enrichment
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 395-395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L395-L395)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-68fe44bc3c2e2ef33f2e"></a>
+- [ ] **D-68fe44bc3c2e2ef33f2e** - · Wrap the current devkit_multiversion.py behavior behind a compatibility adapter first; do not rewrite and delete simultaneously.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T124 : 454-454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L454-L454)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-6d0676203d86cd0cfd25"></a>
+- [ ] **D-6d0676203d86cd0cfd25** - · Update the main Enderloom implementation/knowledge hub to point at this contract as the dedicated multi-version Create/Convert/Repair/Port execution specification without duplica...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Update the main Enderloom implementation/knowledge hub to point at this contract as the dedicated multi-version Create/Convert/Repair/Port execution specification without duplicating the entire text.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T160 : 505-505](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L505-L505)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-23ab5a6ac84073efcf7f"></a>
+- [ ] **D-23ab5a6ac84073efcf7f** - · Reconcile tool/method coverage against the integration map: every accepted tool or technique must end as an active backend, differential oracle, imported knowledge source, compat...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reconcile tool/method coverage against the integration map: every accepted tool or technique must end as an active backend, differential oracle, imported knowledge source, compatibility/export adapter, or evidence-backed rejected/superseded entry. Unknown/disappeared tools stay unresolved until traced.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T162 : 513-513](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L513-L513)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 7. Render compatibility matrix (1)</summary>
+
+<a id="d-14d848e509f650d802e7"></a>
+- [ ] **D-14d848e509f650d802e7** - A compatibility issue triggers an adapter/fallback or causal fix, never automatic feature removal.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 7. Render compatibility matrix
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 197-197](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L197-L197)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 2. CLI executable contract / Stable exit-code families (1)</summary>
 
 <a id="d-9fbc80d1c2fa5d17f375"></a>
@@ -1250,7 +1332,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 12 source-derived details.
+[Outcome](Checklist.md#know-05) / 14 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1383,6 +1465,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 41. Verification contract
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1544-1544](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1544-L1544)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (1)</summary>
+
+<a id="d-85d2b4c5c86f1d6d4687"></a>
+- [ ] **D-85d2b4c5c86f1d6d4687** - 8. Every named tool receives an explicit disposition. - Integrate useful behavior as one of: native adapter, embedded/ported algorithm, differential oracle, imported knowledge/rule...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 8. Every named tool receives an explicit disposition. - Integrate useful behavior as one of: native adapter, embedded/ported algorithm, differential oracle, imported knowledge/rule source, or reference-only with written reason. - Do not silently omit a previously accepted useful tool just because another tool overlaps it. - Do not create redundant runtime dependencies when a small stable algorithm can be safely ported behind Enderloom&#x27;s own contract.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 103-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L103-L106)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (1)</summary>
+
+<a id="d-2525410b688810ca465c"></a>
+- [ ] **D-2525410b688810ca465c** - · Provide Add target, Remove target, Rebase/refresh target profile, Build affected, Verify affected, Explain differences, Promote fix, and Export actions with real backend wiring.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T119 : 444-444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L444-L444)
 
 </details>
 

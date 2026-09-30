@@ -120,7 +120,7 @@
 [**FIX-03**](Checklist.md#fix-03)
 
 <details>
-<summary>Source clauses and aliases (189 distinct blocks)</summary>
+<summary>Source clauses and aliases (196 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-1 — launcher domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L841-L841) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T194 — Ambiguity stops unsafe auto-apply](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1158-L1158) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -236,6 +236,7 @@
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L536-L578) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 2 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.5 Repair the causal owner](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L154-L154) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L612-L654) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 2 distinct blocks.
+- [GATE - Repair flow fixes the right layer and teaches the engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L402-L411) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 7 distinct blocks.
 - [10. World Recovery / Recreation Doctor](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L269-L269) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.5 Repair the causal owner](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L154-L154) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L612-L654) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 2 distinct blocks.
@@ -250,7 +251,7 @@
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.7 Production-linkage gate](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L442-L442) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [Enderloom — Diagnostics Handoff Addendum](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_HANDOFF_ADDENDUM.md#L12-L12) - ENDERLOOM_DIAGNOSTICS_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T194`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T274`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T321`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T340`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T069`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T086`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T194`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T274`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T321`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T340`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T069`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T086`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T095`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T097`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T098`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T099`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T100`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T101`
 
 </details>
 
@@ -361,7 +362,7 @@
 [**FIX-07**](Checklist.md#fix-07)
 
 <details>
-<summary>Source clauses and aliases (36 distinct blocks)</summary>
+<summary>Source clauses and aliases (37 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L748-L748) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [9. PHASE F — DIAGNOSTICS, BLACK BOX, REPAIR, BISECT / 9.1 Diagnostics adapter registry](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L397-L397) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -370,11 +371,14 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.1 Last Known Good + “What changed since it worked?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1967-L1967) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.24 Common-sense finishing layer — eliminate the remaining “why does the user have to do this manually?” gaps / 13.24.1 Last Known Good + “What changed since it worked?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1967-L1967) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [8. Performance Optimization Without Regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L437-L447) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [GATE - Repair flow fixes the right layer and teaches the engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L406-L406) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [5. Automated Mod Bisect / Minimal Reproducer](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L126-L128) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 - [5. Automated Mod Bisect / Minimal Reproducer / 5.1 Mod-set bisection](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L130-L140) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 10 distinct blocks.
 - [5. Automated Mod Bisect / Minimal Reproducer / 5.2 Delta-debugging/minimization](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L142-L149) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 6 distinct blocks.
 - [5. Automated Mod Bisect / Minimal Reproducer / 5.3 Reproducer package](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L151-L164) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 11 distinct blocks.
 - [9. AI Acceptance/Repair Loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L543-L548) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
+
+**Original aliases:** `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T096`
 
 </details>
 
@@ -384,7 +388,7 @@
 [**FIX-08**](Checklist.md#fix-08)
 
 <details>
-<summary>Source clauses and aliases (17 distinct blocks)</summary>
+<summary>Source clauses and aliases (18 distinct blocks)</summary>
 
 - [G051 — Compile, diagnose, generalized repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1138-L1138) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T194 — Ambiguity stops unsafe auto-apply](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1156-L1160) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -402,10 +406,11 @@
 - [G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1531-L1535) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L538-L538) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L614-L614) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Semantic migration rule engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L347-L347) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [11. Autonomous causal repair loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L614-L614) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 - [9. AI Acceptance/Repair Loop](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L541-L541) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T196`, `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T059`, `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T119`, `ENDERLOOM_STUDIO_EXECUTION.md::T059`, `ENDERLOOM_STUDIO_EXECUTION.md::T119`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T196`, `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T059`, `ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md::T119`, `ENDERLOOM_STUDIO_EXECUTION.md::T059`, `ENDERLOOM_STUDIO_EXECUTION.md::T119`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T062`
 
 </details>
 

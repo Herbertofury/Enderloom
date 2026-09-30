@@ -679,7 +679,7 @@
 <a id="fix-03-details"></a>
 ## FIX-03 - Crash, linkage, data and configuration repair
 
-[Outcome](Checklist.md#fix-03) / 103 source-derived details.
+[Outcome](Checklist.md#fix-03) / 109 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (2)</summary>
@@ -1556,6 +1556,47 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Repair flow fixes the right layer and teaches the engine (6)</summary>
+
+<a id="d-3afe350a194b57be2217"></a>
+- [ ] **D-3afe350a194b57be2217** - · Compare sibling cells and known-good historical cells to localize regressions without assuming the newest or oldest cell is automatically correct.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T095 : 405-405](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L405-L405)
+
+<a id="d-5866a9396064c9d2697c"></a>
+- [ ] **D-5866a9396064c9d2697c** - · If a cell-specific workaround duplicates a fix already present elsewhere, attempt generalization before accepting the override.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T097 : 407-407](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L407-L407)
+
+<a id="d-a8dbd4f3695175b042f3"></a>
+- [ ] **D-a8dbd4f3695175b042f3** - · Preserve last known-good cell artifacts and source checkpoints so a failed repair cannot destroy an intact family.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T098 : 408-408](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L408-L408)
+
+<a id="d-6954cbfd498d9c363192"></a>
+- [ ] **D-6954cbfd498d9c363192** - · Convert every generalized repair into SemanticRule/adapter logic plus positive, negative, and regression fixtures.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T099 : 409-409](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L409-L409)
+
+<a id="d-18ffba10b8fbeb059022"></a>
+- [ ] **D-18ffba10b8fbeb059022** - · If a repair is irreducibly project-specific, record why it cannot safely generalize and keep it scoped to that project/cell family.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T100 : 410-410](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L410-L410)
+
+<a id="d-0de4360148652ba55067"></a>
+- [ ] **D-0de4360148652ba55067** - · Repair completion requires the exact affected target artifact to pass the applicable runtime gate, not merely compile.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T101 : 411-411](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L411-L411)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 15. Implementation order for Codex / Phase CLI-1 — launcher domain parity (1)</summary>
 
 <a id="d-23b7390546a9adc0006e"></a>
@@ -2112,7 +2153,7 @@
 <a id="fix-07-details"></a>
 ## FIX-07 - Dependency-safe bisect and reproducer
 
-[Outcome](Checklist.md#fix-07) / 27 source-derived details.
+[Outcome](Checklist.md#fix-07) / 28 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 9. PHASE F — DIAGNOSTICS, BLACK BOX, REPAIR, BISECT / 9.1 Diagnostics adapter registry (1)</summary>
@@ -2308,6 +2349,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Repair flow fixes the right layer and teaches the engine (1)</summary>
+
+<a id="d-c32cd8e6d3fc9f648447"></a>
+- [ ] **D-c32cd8e6d3fc9f648447** - · Apply repairs to the highest safe ownership layer and automatically reproject/retest only affected cells.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T096 : 406-406](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L406-L406)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 13. Security and safety requirements (1)</summary>
 
 <a id="d-33b4a9e3413425712508"></a>
@@ -2321,7 +2373,7 @@
 <a id="fix-08-details"></a>
 ## FIX-08 - Generalized repair knowledge
 
-[Outcome](Checklist.md#fix-08) / 7 source-derived details.
+[Outcome](Checklist.md#fix-08) / 8 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2400,6 +2452,17 @@
   - **Full requirement:** - Finish AoA as the required full-scale deliverable, preserve it as a complete zero-loss regression project, and turn every newly solved failure into reusable Enderloom/Dev Kit code and a regression. Do not close this task merely because a test run starts or a subset compiles.
   - **Binding context:** 4. Regression corpus — every outside tool must make Enderloom measurably stronger
   - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T059 : 700-700](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L700-L700)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (1)</summary>
+
+<a id="d-0832bcbfda8ce093e75c"></a>
+- [ ] **D-0832bcbfda8ce093e75c** - · Store every generalized repair as a reusable rule plus regression fixture so the same failure class is not rediscovered from scratch.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T062 : 347-347](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L347-L347)
 
 </details>
 

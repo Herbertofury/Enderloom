@@ -10,7 +10,7 @@
 [**WORLD-01**](Checklist.md#world-01)
 
 <details>
-<summary>Source clauses and aliases (164 distinct blocks)</summary>
+<summary>Source clauses and aliases (166 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-1 — launcher domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L844-L844) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [3. Full launcher CLI parity checklist / Servers](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L247-L247) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -123,6 +123,7 @@
 - [Enderloom Premium Testing Lab / Deterministic scenarios / Server idle and stress](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L272-L276) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Instrumentation stack / A. Enderloom native process telemetry](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L145-L151) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
 - [9. RUNTIME / PARITY GATES PER MOD AND PER MATRIX CELL / Native client](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1067-L1071) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry Capability Closure / 8. Benchmark/promotion matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L222-L222) - ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G003 — User/profile state survives updates and restarts / T006 — Stop Enderloom upgrades from losing the user&#x27;s profile](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1949-L1949) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable / T077 — Future Tool SDK/manifest; prove with a World Editor integration fixture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L889-L918) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T082 — Automated Minecraft coexistence benchmark harness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1222-L1230) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
@@ -131,6 +132,7 @@
 - [G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1608-L1608) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 4. Curated built-in catalog / High-priority modded dimension packs](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L109-L122) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 4. Curated built-in catalog / Vanilla](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L99-L102) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
+- [GATE - Canonical repository baseline and migration boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L254-L254) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [10. World Recovery / Recreation Doctor](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L257-L266) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 7 distinct blocks.
 - [4. Concurrency Correctness Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L121-L121) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [5. Automated Mod Bisect / Minimal Reproducer / 5.2 Delta-debugging/minimization](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L147-L147) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
@@ -234,7 +236,7 @@
 [**WORLD-03**](Checklist.md#world-03)
 
 <details>
-<summary>Source clauses and aliases (63 distinct blocks)</summary>
+<summary>Source clauses and aliases (64 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-1 — launcher domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L843-L843) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [9. Protocol-bot / synthetic-player test lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L539-L539) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -282,11 +284,12 @@
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 13. CLI / automation surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L307-L317) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [6. Semantic migration engine — answer “what replaces this?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L300-L300) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [6. Semantic migration engine — answer “what replaces this?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L376-L376) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Documentation, migration UX, and durable receipts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L502-L502) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L229-L229) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [6. Semantic migration engine — answer “what replaces this?”](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L376-L376) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 - [4. AI Minecraft Job Types — Full App Capability / 4.6 Whole modpack migration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L228-L230) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 2 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T157`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T195`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G017`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T081`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T111`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T157`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T195`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::G017`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T081`, `ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md::T111`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T157`
 
 </details>
 
@@ -482,7 +485,7 @@
 [**WORLD-06**](Checklist.md#world-06)
 
 <details>
-<summary>Source clauses and aliases (122 distinct blocks)</summary>
+<summary>Source clauses and aliases (123 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-0 — shared command foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L826-L826) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-3 — Minecraft Probe/control plane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L861-L861) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -556,6 +559,7 @@
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 8. Runtime variant semantics / Spawn-origin variant](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L186-L187) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 2 — dedicated server](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L603-L603) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 2 — dedicated server](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L679-L679) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Mapping lineage and exact symbol graph](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L326-L326) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [7. Compatibility Contract Templates](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L210-L210) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [9. Startup / Boot-Time Profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L247-L247) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [12. Testing engine — headless first, native when it matters / Lane 2 — dedicated server](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L679-L679) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
@@ -564,7 +568,7 @@
 - [9. RUNTIME / PARITY GATES PER MOD AND PER MATRIX CELL / Dedicated server](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L651-L651) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [9. RUNTIME / PARITY GATES PER MOD AND PER MATRIX CELL / Restart/persistence](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L683-L683) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T151`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T096`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T151`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T096`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T046`
 
 </details>
 

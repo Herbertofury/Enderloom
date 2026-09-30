@@ -76,7 +76,7 @@
 [**UX-02**](Checklist.md#ux-02)
 
 <details>
-<summary>Source clauses and aliases (60 distinct blocks)</summary>
+<summary>Source clauses and aliases (61 distinct blocks)</summary>
 
 - [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T164 — JDT semantic/compiler oracle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L688-L695) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [16. Unified Studio UX](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L520-L524) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 3 distinct blocks.
@@ -120,6 +120,7 @@
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 9. UX: “it just works”](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L198-L198) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L687-L687) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L763-L763) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Product UI, CLI, and agent surfaces use one canonical service](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L440-L440) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [8. Scripted Modpack Logic Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L216-L216) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L763-L763) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 - [5. AI Tool Surface / Studio/assets](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L335-L335) - ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md; 1 distinct blocks.
@@ -186,7 +187,7 @@
 [**UX-05**](Checklist.md#ux-05)
 
 <details>
-<summary>Source clauses and aliases (126 distinct blocks)</summary>
+<summary>Source clauses and aliases (128 distinct blocks)</summary>
 
 - [G064 — Frontend architecture and UI-performance convergence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1998-L1998) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2004-L2006) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -255,10 +256,12 @@
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L192-L196) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L56-L56) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L132-L132) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Documentation, migration UX, and durable receipts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L498-L498) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [GATE - Product UI, CLI, and agent surfaces use one canonical service](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L447-L447) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L65-L65) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L132-L132) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T237`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T244`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T024`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T062`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T068`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T076`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T237`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T244`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G004`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G006`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T017`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T024`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T062`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T068`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T076`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T122`
 
 </details>
 
@@ -302,7 +305,7 @@
 [**UX-07**](Checklist.md#ux-07)
 
 <details>
-<summary>Source clauses and aliases (96 distinct blocks)</summary>
+<summary>Source clauses and aliases (97 distinct blocks)</summary>
 
 - [G064 — Frontend architecture and UI-performance convergence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2000-L2000) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2020-L2020) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -357,9 +360,10 @@
 - [Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L245-L248) - README.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L722-L722) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L798-L798) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 1 distinct blocks.
+- [GATE - Product UI, CLI, and agent surfaces use one canonical service](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L445-L445) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [14. Matrix project layout](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L798-L798) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G064`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T243`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T055`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T060`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T063`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T077`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T080`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T093`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T095`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T105`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G064`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T243`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T010`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T015`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T055`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T060`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T063`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T077`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T080`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T093`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T095`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T105`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T120`
 
 </details>
 

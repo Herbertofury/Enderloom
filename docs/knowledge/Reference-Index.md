@@ -12,6 +12,14 @@
 
 </details>
 
+<a id="3dtopia-mvpaint"></a>
+<details>
+<summary>3DTopia/MVPaint (1 cited locations)</summary>
+
+- [https://github.com/3DTopia/MVPaint](https://github.com/3DTopia/MVPaint)
+
+</details>
+
 <a id="aboutcode-org-scancode-toolkit"></a>
 <details>
 <summary>aboutcode-org/scancode-toolkit (1 cited locations)</summary>
@@ -85,6 +93,14 @@
 
 </details>
 
+<a id="apollounknowndev-lithostitched"></a>
+<details>
+<summary>Apollounknowndev/lithostitched (1 cited locations)</summary>
+
+- [https://github.com/Apollounknowndev/lithostitched](https://github.com/Apollounknowndev/lithostitched)
+
+</details>
+
 <a id="architectury-architectury-api"></a>
 <details>
 <summary>architectury/architectury-api (1 cited locations)</summary>
@@ -114,6 +130,14 @@
 <summary>arthurprs/quick-cache (1 cited locations)</summary>
 
 - [https://github.com/arthurprs/quick-cache](https://github.com/arthurprs/quick-cache)
+
+</details>
+
+<a id="assimp-assimp"></a>
+<details>
+<summary>assimp/assimp (1 cited locations)</summary>
+
+- [https://github.com/assimp/assimp](https://github.com/assimp/assimp)
 
 </details>
 
@@ -270,6 +294,14 @@
 
 </details>
 
+<a id="bytedance-hi3dgen"></a>
+<details>
+<summary>bytedance/Hi3DGen (1 cited locations)</summary>
+
+- [https://github.com/bytedance/Hi3DGen](https://github.com/bytedance/Hi3DGen)
+
+</details>
+
 <a id="cadixdev-lorenz"></a>
 <details>
 <summary>CadixDev/Lorenz (1 cited locations)</summary>
@@ -398,6 +430,14 @@
 
 </details>
 
+<a id="cvmi-lab-texgen"></a>
+<details>
+<summary>CVMI-Lab/TEXGen (1 cited locations)</summary>
+
+- [https://github.com/CVMI-Lab/TEXGen](https://github.com/CVMI-Lab/TEXGen)
+
+</details>
+
 <a id="cyclonedx-cyclonedx-gradle-plugin"></a>
 <details>
 <summary>CycloneDX/cyclonedx-gradle-plugin (1 cited locations)</summary>
@@ -443,6 +483,14 @@
 <summary>divvun/bidiff (1 cited locations)</summary>
 
 - [https://github.com/divvun/bidiff](https://github.com/divvun/bidiff)
+
+</details>
+
+<a id="donmccurdy-gltf-transform"></a>
+<details>
+<summary>donmccurdy/glTF-Transform (1 cited locations)</summary>
+
+- [https://github.com/donmccurdy/glTF-Transform](https://github.com/donmccurdy/glTF-Transform)
 
 </details>
 
@@ -607,6 +655,14 @@
 
 </details>
 
+<a id="felippeomgt-mymeshy"></a>
+<details>
+<summary>felippeomgt/mymeshy (1 cited locations)</summary>
+
+- [https://github.com/felippeomgt/mymeshy](https://github.com/felippeomgt/mymeshy)
+
+</details>
+
 <a id="fenixin-minecraft-region-fixer"></a>
 <details>
 <summary>Fenixin/Minecraft-Region-Fixer (1 cited locations)</summary>
@@ -716,6 +772,14 @@
 <summary>GeyserMC/Rainbow (1 cited locations)</summary>
 
 - [https://github.com/GeyserMC/Rainbow](https://github.com/GeyserMC/Rainbow)
+
+</details>
+
+<a id="glitchfiend-terrablender"></a>
+<details>
+<summary>Glitchfiend/TerraBlender (1 cited locations)</summary>
+
+- [https://github.com/Glitchfiend/TerraBlender](https://github.com/Glitchfiend/TerraBlender)
 
 </details>
 
@@ -887,6 +951,14 @@
 
 </details>
 
+<a id="infanso-assetforge"></a>
+<details>
+<summary>InFaNsO/AssetForge (1 cited locations)</summary>
+
+- [https://github.com/InFaNsO/AssetForge](https://github.com/InFaNsO/AssetForge)
+
+</details>
+
 <a id="inria-spoon"></a>
 <details>
 <summary>INRIA/spoon (1 cited locations)</summary>
@@ -1008,6 +1080,14 @@
 
 </details>
 
+<a id="joey-jang-stablematerials"></a>
+<details>
+<summary>Joey-Jang/StableMaterials (1 cited locations)</summary>
+
+- [https://github.com/Joey-Jang/StableMaterials](https://github.com/Joey-Jang/StableMaterials)
+
+</details>
+
 <a id="jpcy-xatlas"></a>
 <details>
 <summary>jpcy/xatlas (1 cited locations)</summary>
@@ -1029,6 +1109,14 @@
 <summary>kbinani/je2be-core (1 cited locations)</summary>
 
 - [https://github.com/kbinani/je2be-core](https://github.com/kbinani/je2be-core)
+
+</details>
+
+<a id="khronosgroup-gltf-validator"></a>
+<details>
+<summary>KhronosGroup/glTF-Validator (1 cited locations)</summary>
+
+- [https://github.com/KhronosGroup/glTF-Validator](https://github.com/KhronosGroup/glTF-Validator)
 
 </details>
 
@@ -1117,6 +1205,14 @@
 <summary>leptos-rs/leptos (1 cited locations)</summary>
 
 - [https://github.com/leptos-rs/leptos](https://github.com/leptos-rs/leptos)
+
+</details>
+
+<a id="liu-yuxin-syncmvd"></a>
+<details>
+<summary>LIU-Yuxin/SyncMVD (1 cited locations)</summary>
+
+- [https://github.com/LIU-Yuxin/SyncMVD](https://github.com/LIU-Yuxin/SyncMVD)
 
 </details>
 
@@ -1705,6 +1801,22 @@
 
 </details>
 
+<a id="opentexture-paint3d"></a>
+<details>
+<summary>OpenTexture/Paint3D (1 cited locations)</summary>
+
+- [https://github.com/OpenTexture/Paint3D](https://github.com/OpenTexture/Paint3D)
+
+</details>
+
+<a id="openx-inc-clay"></a>
+<details>
+<summary>OpenX-Inc/clay (1 cited locations)</summary>
+
+- [https://github.com/OpenX-Inc/clay](https://github.com/OpenX-Inc/clay)
+
+</details>
+
 <a id="ornithemc-calamus"></a>
 <details>
 <summary>OrnitheMC/calamus (1 cited locations)</summary>
@@ -1846,6 +1958,14 @@
 <summary>PatchworkMC/patchwork-patcher (1 cited locations)</summary>
 
 - [https://github.com/PatchworkMC/patchwork-patcher](https://github.com/PatchworkMC/patchwork-patcher)
+
+</details>
+
+<a id="polyhedraldev-terra"></a>
+<details>
+<summary>PolyhedralDev/Terra (1 cited locations)</summary>
+
+- [https://github.com/PolyhedralDev/Terra](https://github.com/PolyhedralDev/Terra)
 
 </details>
 
@@ -2289,6 +2409,14 @@
 <summary>TencentARC/InstantMesh (1 cited locations)</summary>
 
 - [https://github.com/TencentARC/InstantMesh](https://github.com/TencentARC/InstantMesh)
+
+</details>
+
+<a id="terraformersmc-biolith"></a>
+<details>
+<summary>TerraformersMC/Biolith (1 cited locations)</summary>
+
+- [https://github.com/TerraformersMC/Biolith](https://github.com/TerraformersMC/Biolith)
 
 </details>
 

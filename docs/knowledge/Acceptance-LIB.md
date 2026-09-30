@@ -9,7 +9,7 @@
 <a id="lib-01-details"></a>
 ## LIB-01 - Broad source-aware discovery
 
-[Outcome](Checklist.md#lib-01) / 95 source-derived details.
+[Outcome](Checklist.md#lib-01) / 96 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters (1)</summary>
@@ -644,6 +644,17 @@
 </details>
 
 <details>
+<summary>Variant-Foundry-Capability-Closure.md / Variant Foundry Capability Closure / Golden proof (1)</summary>
+
+<a id="d-8e8947fca9b3efe4d987"></a>
+- [ ] **D-8e8947fca9b3efe4d987** - The fixture must include at least one synthetic/unknown biome to prove Variant Foundry is a real discovery engine rather than a hardcoded list.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Variant Foundry Capability Closure / Golden proof
+  - **Original specification:** [Variant-Foundry-Capability-Closure.md : 96-96](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-Capability-Closure.md#L96-L96)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 4.2 Provider universe (23)</summary>
 
 <a id="site-curseforge"></a>
@@ -789,7 +800,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 85 source-derived details.
+[Outcome](Checklist.md#lib-02) / 87 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1647,6 +1658,28 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 8. Minecraft Marketplace integration
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 444-444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L444-L444)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-72431ed69ec3c416364d"></a>
+- [ ] **D-72431ed69ec3c416364d** - · Mapping disagreement fixture: make two mapping/oracle sources disagree and prove Enderloom reports unresolved evidence rather than choosing silently.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T140 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L475-L475)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-78358d3a46133c93d27d"></a>
+- [ ] **D-78358d3a46133c93d27d** - · Record final architecture/tool dispositions so future agents know which external tools are active backends, oracles, imported rule sources, or retired references.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T159 : 504-504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L504-L504)
 
 </details>
 
@@ -4080,7 +4113,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 110 source-derived details.
+[Outcome](Checklist.md#lib-06) / 111 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -4890,6 +4923,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 4. Asset compiler and cache (1)</summary>
+
+<a id="d-9616a7954cce476d52e6"></a>
+- [ ] **D-9616a7954cce476d52e6** - - identical geometry/material/controller data is shared across variants; - variants store deltas where that is cheaper than clones; - expensive preprocessing occurs before runtime;...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - identical geometry/material/controller data is shared across variants; - variants store deltas where that is cheaper than clones; - expensive preprocessing occurs before runtime; - content-addressed outputs are reused until an input dependency changes; - development hot reload recompiles only invalidated nodes; - release bundles are immutable and reproducible; - disk/network/provider access never occurs on render/game ticks.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 4. Asset compiler and cache
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 126-132](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L126-L132)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Content: mods / resource packs / shaders / data packs / other managed content (16)</summary>
 
 <a id="d-598eb7a433fcb8664204"></a>
@@ -5336,7 +5381,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 124 source-derived details.
+[Outcome](Checklist.md#lib-08) / 125 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -6472,6 +6517,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 5. Provider execution plane (1)</summary>
+
+<a id="d-59d3a2c26366ad0d907a"></a>
+- [ ] **D-59d3a2c26366ad0d907a** - Required behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 5. Provider execution plane
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 138-138](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L138-L138)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 13. Security and safety requirements (1)</summary>
 
 <a id="d-6dcd0702b0c9be190557"></a>
@@ -6496,7 +6552,7 @@
 <a id="lib-09-details"></a>
 ## LIB-09 - Pack and research interchange
 
-[Outcome](Checklist.md#lib-09) / 86 source-derived details.
+[Outcome](Checklist.md#lib-09) / 87 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Objective (1)</summary>
@@ -6541,6 +6597,18 @@
   - **Full requirement:** whole-pack analysis uses static risk + dependency clusters + hierarchical/binary cohort isolation + direct candidate confirmation + interaction tests; --exhaustive is genuinely exhaustive.
   - **Binding context:** 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PE-051 : 377-377](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L377-L377)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (1)</summary>
+
+<a id="d-487bf22150d12635d85d"></a>
+- [ ] **D-487bf22150d12635d85d** - Render stack: Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.\n- [ ] PM-016 Worldgen/b...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Render stack: Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.\n- [ ] PM-016 Worldgen/biome discovery: runtime registries + loader APIs plus TerraBlender/Biolith/Lithostitched/Terra enrichment when detected; unknown/private biomes still characterize through generic discovery.
+  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-015 : 583-583](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L583-L583)
 
 </details>
 

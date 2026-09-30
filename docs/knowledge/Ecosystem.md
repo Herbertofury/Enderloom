@@ -74,6 +74,21 @@
 | [sosadly/blockbench-mcp](https://github.com/sosadly/blockbench-mcp) | Blockbench automation | MIT modeling/texture/rig/animation toolset with procedural detail and measurable reference/rig/animation QA gates. |
 | [velthoric/Velthoric](https://github.com/velthoric/Velthoric) | Optional physics | Minecraft Jolt integration challenger for real soft-body/rope/joint workloads; not the default cosmetic motion path. |
 | [stephengold/jolt-jni](https://github.com/stephengold/jolt-jni) | Optional physics | MIT low-level JVM Jolt/V-HACD bindings for capability-selected native physics. |
+| [felippeomgt/mymeshy](https://github.com/felippeomgt/mymeshy) | Asset pipeline | Local-first generation/texturing/UV/PBR/export/MCP and VRAM-aware provider execution patterns. |
+| [OpenX-Inc/clay](https://github.com/OpenX-Inc/clay) | Asset pipeline | Swappable provider registry plus game-ready retopo/LOD/collision/bake/rig/material/texture/export stages. |
+| [InFaNsO/AssetForge](https://github.com/InFaNsO/AssetForge) | Asset pipeline | Stage-separated game-asset core with Blender shell, resolver/provenance and headless-testable contracts. |
+| [3DTopia/MVPaint](https://github.com/3DTopia/MVPaint) | Texturing | Multi-view synchronized generation, inpainting and UV seam refinement challenger. |
+| [LIU-Yuxin/SyncMVD](https://github.com/LIU-Yuxin/SyncMVD) | Texturing | MIT synchronized multi-view texture challenger and seam-consistency oracle. |
+| [OpenTexture/Paint3D](https://github.com/OpenTexture/Paint3D) | Texturing | Apache-2.0 lighting-less UV texturing reference for relightable materials. |
+| [CVMI-Lab/TEXGen](https://github.com/CVMI-Lab/TEXGen) | Texturing | UV-domain generative texture challenger; exact model rights gated before promotion. |
+| [Joey-Jang/StableMaterials](https://github.com/Joey-Jang/StableMaterials) | Materials | Tileable PBR material proposal challenger; exact model/code rights gated before promotion. |
+| [bytedance/Hi3DGen](https://github.com/bytedance/Hi3DGen) | 3D generation | MIT high-fidelity image-to-geometry challenger using normal bridging. |
+| [donmccurdy/glTF-Transform](https://github.com/donmccurdy/glTF-Transform) | Interchange | MIT reproducible glTF editing/optimization/resampling SDK and CLI. |
+| [KhronosGroup/glTF-Validator](https://github.com/KhronosGroup/glTF-Validator) | Interchange | Official structural/binary/animation/material glTF validation gate. |
+| [Glitchfiend/TerraBlender](https://github.com/Glitchfiend/TerraBlender) | Biome discovery | Major multi-loader biome-placement ecosystem with current 26.3 lineage. |
+| [TerraformersMC/Biolith](https://github.com/TerraformersMC/Biolith) | Biome discovery | Multi-loader biome/sub-biome/surface-rule enrichment adapter. |
+| [Apollounknowndev/lithostitched](https://github.com/Apollounknowndev/lithostitched) | Worldgen discovery | Data-driven worldgen compatibility/configuration enrichment adapter. |
+| [PolyhedralDev/Terra](https://github.com/PolyhedralDev/Terra) | Worldgen discovery | Config-driven/nonstandard biome-provider fixture and discovery enrichment source. |
 | [unnamed/mocha](https://github.com/unnamed/mocha) | Molang | Parser/evaluator/compiler comparisons with state/timing/thread correctness. |
 | [HiveGamesOSS/Chunker](https://github.com/HiveGamesOSS/Chunker) | Worlds | Staged exact-pair world translation, full field reconciliation and rollback. |
 | [kbinani/je2be-core](https://github.com/kbinani/je2be-core) | Worlds | Alternative/differential world backend; never a mod-code translator. |
@@ -102,6 +117,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [architectury/architectury-loom](https://github.com/architectury/architectury-loom) - [specific cited locations](Reference-Index.md#architectury-architectury-loom).
 - [architectury/architectury-transformer](https://github.com/architectury/architectury-transformer) - [specific cited locations](Reference-Index.md#architectury-architectury-transformer).
 - [arthurprs/quick-cache](https://github.com/arthurprs/quick-cache) - [specific cited locations](Reference-Index.md#arthurprs-quick-cache).
+- [assimp/assimp](https://github.com/assimp/assimp) - [specific cited locations](Reference-Index.md#assimp-assimp).
 - [ast-grep/ast-grep](https://github.com/ast-grep/ast-grep) - [specific cited locations](Reference-Index.md#ast-grep-ast-grep).
 - [async-profiler/async-profiler](https://github.com/async-profiler/async-profiler) - [specific cited locations](Reference-Index.md#async-profiler-async-profiler).
 - [ATLauncher/ATLauncher](https://github.com/ATLauncher/ATLauncher) - [specific cited locations](Reference-Index.md#atlauncher-atlauncher).

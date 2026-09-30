@@ -9,7 +9,7 @@
 <a id="perf-01-details"></a>
 ## PERF-01 - Real mod and instance optimization
 
-[Outcome](Checklist.md#perf-01) / 92 source-derived details.
+[Outcome](Checklist.md#perf-01) / 93 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -697,6 +697,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (1)</summary>
+
+<a id="d-e235cabee74c6f4393d5"></a>
+- [ ] **D-e235cabee74c6f4393d5** - · Implement rule composition with explicit ordering and conflict detection. Non-commutative transforms must not be reordered by optimization.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T059 : 344-344](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L344-L344)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 2. CLI executable contract / Stable exit-code families (1)</summary>
 
 <a id="d-818eadb57546085bca5c"></a>
@@ -1124,7 +1135,7 @@
 <a id="perf-03-details"></a>
 ## PERF-03 - Controlled A/B and full-pack attribution
 
-[Outcome](Checklist.md#perf-03) / 40 source-derived details.
+[Outcome](Checklist.md#perf-03) / 41 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1476,6 +1487,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. Premium Performance Lab — evidence everywhere
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 715-715](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L715-L715)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (1)</summary>
+
+<a id="d-4fb8c4b4fc02ab76458e"></a>
+- [ ] **D-4fb8c4b4fc02ab76458e** - · Prove adding a target does not rebuild existing unchanged cells.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T150 : 490-490](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L490-L490)
 
 </details>
 
@@ -2333,7 +2355,7 @@
 <a id="perf-06-details"></a>
 ## PERF-06 - Memory, tick and throughput gains
 
-[Outcome](Checklist.md#perf-06) / 30 source-derived details.
+[Outcome](Checklist.md#perf-06) / 31 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (2)</summary>
@@ -2603,6 +2625,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 25. Focused definition of done
   - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 892-892](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L892-L892)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (1)</summary>
+
+<a id="d-bafabb7bbc43041c432d"></a>
+- [ ] **D-bafabb7bbc43041c432d** - · Inspect memory/disk amplification for large version families. Shared immutable data should deduplicate safely, but one cell must never mutate another through unsafe links.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T152 : 492-492](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L492-L492)
 
 </details>
 

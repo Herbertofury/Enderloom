@@ -3003,7 +3003,7 @@
 <a id="test-02-details"></a>
 ## TEST-02 - Scenario and GameTest compiler
 
-[Outcome](Checklist.md#test-02) / 93 source-derived details.
+[Outcome](Checklist.md#test-02) / 94 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -3607,6 +3607,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-4029064cdb3c160eb4ae"></a>
+- [ ] **D-4029064cdb3c160eb4ae** - · Common edit fixture: change one shared behavior and prove all affected cells update while unrelated cached stages remain reused.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T133 : 468-468](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L468-L468)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 5. Minecraft runtime control plane (`enderloom mc`) / Runtime modes (1)</summary>
 
 <a id="d-af7dfffc8af7eb3e6bbf"></a>
@@ -3797,7 +3808,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 139 source-derived details.
+[Outcome](Checklist.md#test-03) / 148 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -4663,6 +4674,82 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (1)</summary>
+
+<a id="d-7713abc6cec5f61a6cd4"></a>
+- [ ] **D-7713abc6cec5f61a6cd4** - · For each imported MC Mod Porter rule, compare: original Enderloom behavior, MC Mod Porter behavior, and composed Enderloom behavior. Promote only after positive fixtures, negativ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · For each imported MC Mod Porter rule, compare: original Enderloom behavior, MC Mod Porter behavior, and composed Enderloom behavior. Promote only after positive fixtures, negative controls, and target build/runtime evidence appropriate to the rule.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T058 : 343-343](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L343-L343)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-c40be23deb10343c213a"></a>
+- [ ] **D-c40be23deb10343c213a** - · After reconstruction/remap, require exact packaged-linkage gates and target runtime proof before the cell can pass.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T080 : 375-375](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L375-L375)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (3)</summary>
+
+<a id="d-da5d22d2fcd8632b3450"></a>
+- [ ] **D-da5d22d2fcd8632b3450** - · Exact-cell edit fixture: change one cell override and prove no sibling rebuild/regression.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T136 : 471-471](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L471-L471)
+
+<a id="d-204012c9adf04c46b55a"></a>
+- [ ] **D-204012c9adf04c46b55a** - · Mixin/access fixture: migrate exact owner/member/descriptor access/transform behavior and prove target runtime application.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T142 : 477-477](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L477-L477)
+
+<a id="d-bd13e20bdb3b96373f4d"></a>
+- [ ] **D-bd13e20bdb3b96373f4d** - · Compiled-artifact fixture: intake an authorized JAR, reconstruct/port with provenance, package, and pass linkage/runtime gates without claiming decompiled text is original author...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Compiled-artifact fixture: intake an authorized JAR, reconstruct/port with provenance, package, and pass linkage/runtime gates without claiming decompiled text is original authority.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T143 : 478-478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L478-L478)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (2)</summary>
+
+<a id="d-426f793598945400f351"></a>
+- [ ] **D-426f793598945400f351** - · Prove target-only changes remain target-only through the entire pipeline, including downstream build/runtime scheduling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T149 : 489-489](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L489-L489)
+
+<a id="d-77b642a5f7b812e59de7"></a>
+- [ ] **D-77b642a5f7b812e59de7** - · Verify parallel execution is bounded by real independence and resource limits; do not run conflicting Gradle/runtime cells merely to maximize concurrency.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T151 : 491-491](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L491-L491)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 6. Worldgen and custom-biome completeness (1)</summary>
+
+<a id="d-04ed4f9c864621d70341"></a>
+- [ ] **D-04ed4f9c864621d70341** - The profile engine must also understand biome-heavy packs/datapacks even when they add no dimension. Curated profiles are quality accelerators for known ecosystems; they never repl...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The profile engine must also understand biome-heavy packs/datapacks even when they add no dimension. Curated profiles are quality accelerators for known ecosystems; they never replace runtime discovery.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 6. Worldgen and custom-biome completeness
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 170-170](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L170-L170)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / Enderloom Premium Testing — Full CLI + Minecraft Automation Checklist / North-star requirement (1)</summary>
 
 <a id="d-da72756fa7335ca11ccb"></a>
@@ -5092,10 +5179,22 @@
 
 </details>
 
+<details>
+<summary>Variant-Foundry-Capability-Closure.md / Variant Foundry Capability Closure / Runtime compatibility is part of quality (1)</summary>
+
+<a id="d-d727d53d70d0dbfac58f"></a>
+- [ ] **D-d727d53d70d0dbfac58f** - A high-detail model is not “done” because it looks good in Blockbench. Every promoted runtime backend must be challenged with the applicable vanilla/Sodium-or-Embeddium/Iris-or-Ocu...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A high-detail model is not “done” because it looks good in Blockbench. Every promoted runtime backend must be challenged with the applicable vanilla/Sodium-or-Embeddium/Iris-or-Oculus/ImmediatelyFast/EntityCulling/MoreCulling/resource-reload combinations.
+  - **Binding context:** Variant Foundry Capability Closure / Runtime compatibility is part of quality
+  - **Original specification:** [Variant-Foundry-Capability-Closure.md : 86-86](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-Capability-Closure.md#L86-L86)
+
+</details>
+
 <a id="test-04-details"></a>
 ## TEST-04 - Full CLI, JSON and MCP parity
 
-[Outcome](Checklist.md#test-04) / 241 source-derived details.
+[Outcome](Checklist.md#test-04) / 246 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_PREMIUM_TESTING_CLI.md / Codex Handoff — Enderloom Premium Testing + Full CLI / Mission (1)</summary>
@@ -6207,6 +6306,57 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (1)</summary>
+
+<a id="d-98e7df86c5d1909ae50b"></a>
+- [ ] **D-98e7df86c5d1909ae50b** - 7. Performance and completeness are simultaneous requirements. - Incremental work must be materially faster than rebuilding everything. - Speed cannot come from skipping validation...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 7. Performance and completeness are simultaneous requirements. - Incremental work must be materially faster than rebuilding everything. - Speed cannot come from skipping validation, reducing target coverage, weakening proof, or silently ignoring difficult content.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 99-101](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L99-L101)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Tool and method integration map (1)</summary>
+
+<a id="d-27dfae7a5582f48f0600"></a>
+- [ ] **D-27dfae7a5582f48f0600** - Every row above must end implementation with a recorded disposition and proof or an explicit evidence-backed reason it is not suitable for production use.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Tool and method integration map
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 235-235](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L235-L235)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (2)</summary>
+
+<a id="d-70d71d331083075f2649"></a>
+- [ ] **D-70d71d331083075f2649** - · Provide a family view that shows common project state, configured cells, proof state, stale state, failures, target-specific overrides, and what a new common edit will affect.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T118 : 443-443](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L443-L443)
+
+<a id="d-0256c3bd5c3ed10153de"></a>
+- [ ] **D-0256c3bd5c3ed10153de** - · Add machine-readable CLI/agent operations with stable operation IDs and JSON results for plan, add-target, project, build, verify, repair, explain, export, and status/resume.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T121 : 446-446](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L446-L446)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-42de31f5bb129c4560f9"></a>
+- [ ] **D-42de31f5bb129c4560f9** - · Restart fixture: interrupt after a coherent checkpoint and prove the same job resumes without rebuilding unchanged nodes.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T139 : 474-474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L474-L474)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / Enderloom Premium Testing — Full CLI + Minecraft Automation Checklist / North-star requirement (2)</summary>
 
 <a id="d-cac8ef62d0d33aab541e"></a>
@@ -7083,7 +7233,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 61 source-derived details.
+[Outcome](Checklist.md#test-05) / 64 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -7573,6 +7723,35 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (2)</summary>
+
+<a id="d-1d9454e2ff2fe3b9b913"></a>
+- [ ] **D-1d9454e2ff2fe3b9b913** - · A common edit must propagate to every cell whose rendered projection changes, but cells whose projection is byte-identical after the edit may reuse downstream proof where the pro...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · A common edit must propagate to every cell whose rendered projection changes, but cells whose projection is byte-identical after the edit may reuse downstream proof where the proof inputs are unchanged.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T038 : 313-313](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L313-L313)
+
+<a id="d-8138aaa2a5000f8d5eb8"></a>
+- [ ] **D-8138aaa2a5000f8d5eb8** - · Preserve the last known-good artifact/proof per cell while a new candidate is building or failing.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T040 : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L315-L315)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Port flow is adding graph cells, not cloning projects (1)</summary>
+
+<a id="d-293f5bef944107232eec"></a>
+- [ ] **D-293f5bef944107232eec** - · A newly added target is unverified until its real native build and required runtime gates pass. Merely generating the target is never compatibility proof.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Port flow is adding graph cells, not cloning projects
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T108 : 423-423](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L423-L423)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Existing CLI foundation (1)</summary>
 
 <a id="d-2b745eb2d1cec857b408"></a>
@@ -7742,7 +7921,7 @@
 <a id="test-06-details"></a>
 ## TEST-06 - Compatibility and hostile fixtures
 
-[Outcome](Checklist.md#test-06) / 21 source-derived details.
+[Outcome](Checklist.md#test-06) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.2 Ingest MC Mod Porter under the granted permission (1)</summary>
@@ -7932,6 +8111,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-9e3a9b408fd22cb0cee6"></a>
+- [ ] **D-9e3a9b408fd22cb0cee6** - · Remove duplicate authority only after repository search and runtime proof show production no longer depends on it. Preserve compatibility tools/fixtures that still catch regressi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Remove duplicate authority only after repository search and runtime proof show production no longer depends on it. Preserve compatibility tools/fixtures that still catch regressions.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T131 : 461-461](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L461-L461)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Instrumentation stack / D. Observable adapter (1)</summary>
 
 <a id="d-a3c0ad868bf11cab26ab"></a>
@@ -7945,7 +8136,7 @@
 <a id="test-07-details"></a>
 ## TEST-07 - Results and repeatability
 
-[Outcome](Checklist.md#test-07) / 10 source-derived details.
+[Outcome](Checklist.md#test-07) / 14 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.10 Conversion planner and user experience (1)</summary>
@@ -8034,6 +8225,45 @@
   - **Full requirement:** A details drawer contains logs, dependency/mapping provenance and test output for experts. The main UI answers: what is this, what can I do, what is happening, what needs me, and where is my result? Internal task IDs, checklist ledgers and agent administrative language do not belong in ordinary screens.
   - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.8 Universal capability, ease of use and product proof / It-just-works defaults
   - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 218-218](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L218-L218)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (1)</summary>
+
+<a id="d-138b0d8898a93ef343ff"></a>
+- [ ] **D-138b0d8898a93ef343ff** - · Adding a new target cell must build/analyze the new cell and only shared nodes whose output truly changes; intact existing target artifacts and proof remain reusable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T037 : 312-312](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L312-L312)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (2)</summary>
+
+<a id="d-5cd1028da1664f97b352"></a>
+- [ ] **D-5cd1028da1664f97b352** - · Version-family edit fixture: change a version-specific adapter and prove only that version family invalidates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T135 : 470-470](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L470-L470)
+
+<a id="d-e2f3e30cbff25a2919e6"></a>
+- [ ] **D-e2f3e30cbff25a2919e6** - · Failure isolation fixture: introduce invalid source into one cell, prove that cell fails, sibling proof remains intact, then repair and resume only the affected cell.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T138 : 473-473](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L473-L473)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (1)</summary>
+
+<a id="d-536d795c0963926a6a85"></a>
+- [ ] **D-536d795c0963926a6a85** - · Fix every significant finding, rerun only invalidated gates, and preserve concise proof.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T154 : 494-494](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L494-L494)
 
 </details>
 

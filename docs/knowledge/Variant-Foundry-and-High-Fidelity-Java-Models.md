@@ -297,3 +297,19 @@ Enderloom should take the best of both behind one internal **Blockbench Automati
 The IK layer is also upgraded in the contract: preserve two-bone/FABRIK/spline/aim-style constraints, pole guidance and IK/FK blending as editable rig data, baking only for backends that cannot represent live IK.
 
 For rare assets that need real rope/cloth/soft-body or physical collision, Enderloom can challenge an optional **Jolt/Velthoric** backend. Bloom & Boom vines, petals, hair and leaves still use the much cheaper Secondary Motion Graph by default.
+
+
+### Fifth sweep: close the boring-but-essential gaps
+
+The latest capability pass adds the pieces that usually get forgotten between a beautiful AI mesh and an actually shippable Minecraft mob:
+
+- a **Minecraft Texture Compiler** so 2K/4K generated materials become intentional pixel art instead of blurry downscales;
+- a content-addressed **ModelBundle compiler** so variants share geometry/material/animation data and only store meaningful deltas;
+- a **VRAM-aware provider job scheduler** with cancellation, local/remote workers and resume-from-stage behavior;
+- deterministic **glTF validation/normalization** before Minecraftization;
+- richer **TerraBlender/Biolith/Lithostitched/Terra** biome discovery evidence;
+- explicit modern render-stack compatibility gates.
+
+Useful new challengers include MyMeshy, OpenX Clay, AssetForge, MVPaint, SyncMVD, Paint3D, TEXGen, StableMaterials, glTF Transform and glTF Validator.
+
+The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical JSON matrix.

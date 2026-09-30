@@ -836,7 +836,7 @@
 <a id="ux-05-details"></a>
 ## UX-05 - Honest progress and live findings
 
-[Outcome](Checklist.md#ux-05) / 64 source-derived details.
+[Outcome](Checklist.md#ux-05) / 65 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -1345,6 +1345,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (1)</summary>
+
+<a id="d-e0a826a826ec93fd9f6b"></a>
+- [ ] **D-e0a826a826ec93fd9f6b** - · Progress must report real stage/cell state from the canonical job graph; no fake percentages or UI-only success.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T122 : 447-447](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L447-L447)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 1. Non-negotiable product invariants / 1.1 Zero content loss / 1.2 No fake functionality (1)</summary>
 
 <a id="d-28e13058dfb93f1efcb7"></a>
@@ -1558,7 +1569,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 72 source-derived details.
+[Outcome](Checklist.md#ux-07) / 73 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -2181,6 +2192,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.4 Project types are contexts, not separate apps
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L91-L91)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (1)</summary>
+
+<a id="d-740e47cac9c36a1c9d01"></a>
+- [ ] **D-740e47cac9c36a1c9d01** - · Removing a target must not delete common/project data still used elsewhere and must be reversible through checkpoint/history where practical.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T120 : 445-445](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L445-L445)
 
 </details>
 

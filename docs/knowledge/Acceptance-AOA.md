@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 315 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 320 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2350,6 +2350,61 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-572eb1e1d32ce2603abc"></a>
+- [ ] **D-572eb1e1d32ce2603abc** - · Resolve the authoritative Enderloom worktree/branch/revision, dirty-state boundaries, actual build/test/package commands, Java toolchains, Gradle/toolchain caches, and current Ao...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Resolve the authoritative Enderloom worktree/branch/revision, dirty-state boundaries, actual build/test/package commands, Java toolchains, Gradle/toolchain caches, and current AoA source/checkpoint identity.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T001 : 256-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L256-L256)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (2)</summary>
+
+<a id="d-c47e08c44dd1a2d9ed5a"></a>
+- [ ] **D-c47e08c44dd1a2d9ed5a** - · Reuse useful deterministic reconstruction ideas/formats from Mache, paperweight, InstallerTools, MCPConfig, MergeTool, BinaryPatcher, and DiffPatch without creating another incom...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reuse useful deterministic reconstruction ideas/formats from Mache, paperweight, InstallerTools, MCPConfig, MergeTool, BinaryPatcher, and DiffPatch without creating another incompatible proprietary patch format.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T077 : 372-372](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L372-L372)
+
+<a id="d-c5dc8b882a2c684891cc"></a>
+- [ ] **D-c5dc8b882a2c684891cc** - · Add ClassGraph/Jandex or the strongest measured alternative as a fast classpath/module/resource/annotation inventory lane using the actual Gradle-resolved classpath and without e...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Add ClassGraph/Jandex or the strongest measured alternative as a fast classpath/module/resource/annotation inventory lane using the actual Gradle-resolved classpath and without executing untrusted mod code.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T078 : 373-373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L373-L373)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-15e10f8c547ac406e4da"></a>
+- [ ] **D-15e10f8c547ac406e4da** - · Reconcile expected/discovered/preserved/converted/repaired/ported/unresolved content counts for representative fixtures and AoA; zero-loss claims require explicit count/evidence ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reconcile expected/discovered/preserved/converted/repaired/ported/unresolved content counts for representative fixtures and AoA; zero-loss claims require explicit count/evidence closure rather than a green build.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T163 : 514-514](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L514-L514)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / FINAL COMPLETION GATE (1)</summary>
+
+<a id="d-e16253def69370a56079"></a>
+- [ ] **D-e16253def69370a56079** - FINAL COMPLETION GATE - Do not call this complete until every accepted gate above is satisfied; the production app uses one canonical SemanticProject + VersionGraph across Create, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** FINAL COMPLETION GATE - Do not call this complete until every accepted gate above is satisfied; the production app uses one canonical SemanticProject + VersionGraph across Create, Convert, Repair, and Port; the old multiversion behavior is preserved or improved; Stonecutter is optional rather than canonical; useful previously accepted tools/methods have explicit integrated dispositions; incremental rebuild/resume behavior is proven; source/content parity and exact packaged linkage are proven; applicable native runtime/restart gates pass on exact artifacts; AoA uses the same normal engine; no unresolved accepted blocker is hidden; and a clean-room replay reproduces representative multi-version outputs without manual generated-target surgery.
+  - **Binding context:** FINAL COMPLETION GATE
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: G002 : 522-522](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L522-L522)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json /  (1)</summary>
 
 <a id="d-7941ad1e9608f283f3a4"></a>
@@ -3111,7 +3166,7 @@
 <a id="aoa-04-details"></a>
 ## AOA-04 - Native gameplay and migration proof
 
-[Outcome](Checklist.md#aoa-04) / 32 source-derived details.
+[Outcome](Checklist.md#aoa-04) / 33 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -3454,6 +3509,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Enderloom itself must be absurdly fast
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1381-1381](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1381-L1381)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-cd118b718d3b5e5e631f"></a>
+- [ ] **D-cd118b718d3b5e5e631f** - · AoA fixture: exercise the same Universal Version Family Service on the active AoA project; any discovered general capability gap must be fixed in the shared engine and then retri...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · AoA fixture: exercise the same Universal Version Family Service on the active AoA project; any discovered general capability gap must be fixed in the shared engine and then retried.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T145 : 480-480](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L480-L480)
 
 </details>
 

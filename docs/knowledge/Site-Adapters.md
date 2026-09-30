@@ -128,5 +128,6 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-ee4a19fe10ef63011675](Acceptance-LIB.md#d-ee4a19fe10ef63011675) - Discord/community link when truly project-owned
 - [D-851b1443cb7ea0314664](Acceptance-LIB.md#d-851b1443cb7ea0314664) - Shader-pack discovery/install/update.
 - [D-0383d0871fa4d1120f3f](Acceptance-LIB.md#d-0383d0871fa4d1120f3f) - schemas/version discovery;
+- [D-8e8947fca9b3efe4d987](Acceptance-LIB.md#d-8e8947fca9b3efe4d987) - The fixture must include at least one synthetic/unknown biome to prove Variant Foundry is a real discovery engine rather than a hardcoded list.
 
 [Complete source acceptance](Detailed-Acceptance.md) / [Browser sessions and translation](Browser-and-Translation.md)
