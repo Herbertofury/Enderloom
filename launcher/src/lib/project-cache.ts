@@ -7,8 +7,11 @@ import type {
   SearchProvider,
 } from "./types";
 
-const DETAIL_FRESH_MS = 60_000;
+// Match the native provider cache: re-entering a project inside this window should not
+// pay another renderer -> Electron -> Rust -> SQLite JSON round trip for identical data.
+const DETAIL_FRESH_MS = 60 * 60_000;
 const MAX_DETAILS = 256;
+const MAX_MIRRORS = 256;
 
 interface DetailEntry {
   value: ProjectDetails;
@@ -19,6 +22,17 @@ const details = new Map<string, DetailEntry>();
 const inFlight = new Map<string, Promise<ProjectDetails>>();
 const mirrors = new Map<string, ProjectMirror[]>();
 const mirrorInFlight = new Map<string, Promise<ProjectMirror[]>>();
+
+function rememberMirrors(cacheKey: string, value: ProjectMirror[]): ProjectMirror[] {
+  mirrors.delete(cacheKey);
+  mirrors.set(cacheKey, value);
+  while (mirrors.size > MAX_MIRRORS) {
+    const oldest = mirrors.keys().next().value as string | undefined;
+    if (!oldest) break;
+    mirrors.delete(oldest);
+  }
+  return value;
+}
 
 function key(provider: SearchProvider, projectId: string): string {
   return `${provider}:${projectId}`;
@@ -39,7 +53,12 @@ export function peekProjectDetails(
   provider: SearchProvider,
   projectId: string,
 ): ProjectDetails | null {
-  return details.get(key(provider, projectId))?.value ?? null;
+  const cacheKey = key(provider, projectId);
+  const cached = details.get(cacheKey);
+  if (!cached) return null;
+  details.delete(cacheKey);
+  details.set(cacheKey, cached);
+  return cached.value;
 }
 
 export function projectDetailsFromSummary(
@@ -84,6 +103,8 @@ export function loadProjectDetails(
   const cacheKey = key(provider, projectId);
   const cached = details.get(cacheKey);
   if (!force && cached && Date.now() - cached.fetchedAt < DETAIL_FRESH_MS) {
+    details.delete(cacheKey);
+    details.set(cacheKey, cached);
     return Promise.resolve(cached.value);
   }
 
@@ -113,7 +134,12 @@ export function peekProjectMirrors(
   projectId: string,
   kind: ContentKind,
 ): ProjectMirror[] | null {
-  return mirrors.get(`${key(provider, projectId)}:${kind}`) ?? null;
+  const cacheKey = `${key(provider, projectId)}:${kind}`;
+  const cached = mirrors.get(cacheKey);
+  if (!cached) return null;
+  mirrors.delete(cacheKey);
+  mirrors.set(cacheKey, cached);
+  return cached;
 }
 
 export function loadProjectMirrors(
@@ -123,17 +149,18 @@ export function loadProjectMirrors(
 ): Promise<ProjectMirror[]> {
   const cacheKey = `${key(provider, projectId)}:${kind}`;
   const cached = mirrors.get(cacheKey);
-  if (cached) return Promise.resolve(cached);
+  if (cached) {
+    mirrors.delete(cacheKey);
+    mirrors.set(cacheKey, cached);
+    return Promise.resolve(cached);
+  }
 
   const active = mirrorInFlight.get(cacheKey);
   if (active) return active;
 
   const request = api
     .findProjectMirrors(provider, projectId, kind)
-    .then((value) => {
-      mirrors.set(cacheKey, value);
-      return value;
-    })
+    .then((value) => rememberMirrors(cacheKey, value))
     .finally(() => mirrorInFlight.delete(cacheKey));
   mirrorInFlight.set(cacheKey, request);
   return request;
@@ -144,9 +171,11 @@ export function prefetchProject(
   projectId: string,
   kind: ContentKind,
 ): void {
-  void loadProjectDetails(provider, projectId)
-    .then(() => loadProjectMirrors(provider, projectId, kind))
-    .catch(() => {
-      // Prefetch is speculative. Real navigation reports detail failures itself.
-    });
+  void Promise.all([
+    loadProjectDetails(provider, projectId),
+    loadProjectMirrors(provider, projectId, kind),
+  ]).catch(() => {
+    // Prefetch is speculative. Native cold-miss single-flight coalesces any shared
+    // provider metadata fetch while letting independent mirror work start immediately.
+  });
 }

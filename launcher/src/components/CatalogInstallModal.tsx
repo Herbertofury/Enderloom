@@ -23,7 +23,7 @@ import type {
   ProjectVersion,
 } from "../lib/types";
 import { useStore } from "../store";
-import { useContentInstaller } from "./CurseForgeDownloadModal";
+import { useContentInstaller } from "../lib/contentInstaller";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "./Modal";
 
 const KIND_LABELS: Record<ContentKind, string> = {

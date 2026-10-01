@@ -62,6 +62,105 @@ pub(crate) async fn list_instance_content_core(
     Ok(items)
 }
 
+#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+pub struct InstalledProjectSource {
+    pub file_name: String,
+    pub version_id: Option<String>,
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state, instance_ids), err)]
+pub fn list_content_source_index(
+    state: State<'_, AppState>,
+    instance_ids: Vec<String>,
+    kind: String,
+) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
+    list_content_source_index_core(&state, &instance_ids, &kind)
+}
+
+pub(crate) fn list_content_source_index_core(
+    state: &AppState,
+    instance_ids: &[String],
+    kind: &str,
+) -> Result<std::collections::HashMap<String, std::collections::HashMap<String, InstalledProjectSource>>> {
+    let known_instances = state.db.instance_ids()?;
+    for instance_id in instance_ids {
+        if !known_instances.contains(instance_id) {
+            return Err(Error::NotFound(format!("instance {instance_id}")));
+        }
+    }
+
+    let requested = instance_ids
+        .iter()
+        .map(String::as_str)
+        .collect::<std::collections::HashSet<_>>();
+    let mut sources_by_instance = std::collections::HashMap::<
+        String,
+        Vec<(String, String, Option<String>, i64)>,
+    >::with_capacity(instance_ids.len());
+
+    if instance_ids.len() <= 1 {
+        for instance_id in instance_ids {
+            sources_by_instance.insert(
+                instance_id.clone(),
+                state.db.content_source_rows(instance_id, kind)?,
+            );
+        }
+    } else {
+        for (instance_id, file_name, project_id, version_id, installed_at) in
+            state.db.content_source_rows_for_kind(kind)?
+        {
+            if requested.contains(instance_id.as_str()) {
+                sources_by_instance
+                    .entry(instance_id)
+                    .or_default()
+                    .push((file_name, project_id, version_id, installed_at));
+            }
+        }
+    }
+
+    let mut index = std::collections::HashMap::with_capacity(instance_ids.len());
+    for instance_id in instance_ids {
+        let dir = content::dir_for(state.files.paths(), instance_id, kind)?;
+        let mut projects =
+            std::collections::HashMap::<String, (i64, InstalledProjectSource)>::new();
+
+        for (file_name, project_id, version_id, installed_at) in
+            sources_by_instance.remove(instance_id).unwrap_or_default()
+        {
+            if content::resolve_existing_path(&state.files, &dir, &file_name).is_none() {
+                continue;
+            }
+
+            let candidate = InstalledProjectSource {
+                file_name,
+                version_id,
+            };
+            match projects.entry(project_id) {
+                std::collections::hash_map::Entry::Vacant(entry) => {
+                    entry.insert((installed_at, candidate));
+                }
+                std::collections::hash_map::Entry::Occupied(mut entry)
+                    if installed_at >= entry.get().0 =>
+                {
+                    entry.insert((installed_at, candidate));
+                }
+                std::collections::hash_map::Entry::Occupied(_) => {}
+            }
+        }
+
+        index.insert(
+            instance_id.clone(),
+            projects
+                .into_iter()
+                .map(|(project_id, (_, source))| (project_id, source))
+                .collect(),
+        );
+    }
+
+    Ok(index)
+}
+
 #[tauri::command]
 #[tracing::instrument(skip(state), err)]
 pub async fn list_instance_content_bundle(
@@ -920,4 +1019,129 @@ pub async fn find_curseforge_download(
     started_at_ms: u64,
 ) -> Result<Option<String>> {
     crate::modpack::find_manual_download(&app, &download, started_at_ms).await
+}
+
+
+#[cfg(test)]
+mod browse_source_index_tests {
+    use super::list_content_source_index_core;
+    use crate::{
+        config::Instance,
+        content,
+        db::{ContentFile, Db},
+        files::FileManager,
+        paths::Paths,
+        state::AppState,
+    };
+
+    fn instance(id: &str) -> Instance {
+        Instance {
+            id: id.to_string(),
+            name: id.to_string(),
+            version_id: "1.20.1".to_string(),
+            created_at: chrono::Utc::now(),
+            min_memory_mb: None,
+            max_memory_mb: None,
+            java_path: None,
+            last_played_at: None,
+            playtime_secs: 0,
+            dir: String::new(),
+            logo: None,
+            loader: Some("fabric".to_string()),
+            loader_version: None,
+            launch_version_id: None,
+            pack_provider: None,
+            pack_project_id: None,
+            pack_version_id: None,
+            jvm_args: None,
+            jvm_args_mode: None,
+            env_vars: None,
+            env_vars_mode: None,
+            import_source: None,
+            import_source_id: None,
+            banner_id: None,
+            notes: None,
+            wrapper_command: None,
+            pre_launch_command: None,
+            post_exit_command: None,
+        }
+    }
+
+    fn source(file_name: &str, project_id: Option<&str>, version_id: &str, installed_at: i64) -> ContentFile {
+        ContentFile {
+            file_name: file_name.to_string(),
+            provider: project_id.map(|_| "modrinth".to_string()),
+            project_id: project_id.map(str::to_string),
+            version_id: Some(version_id.to_string()),
+            installed_at,
+            origin: "user".to_string(),
+            ..Default::default()
+        }
+    }
+
+    #[test]
+    fn content_source_index_preserves_installed_badges_without_stale_rows() {
+        let root = std::env::temp_dir().join(format!(
+            "enderloom-content-source-index-{}",
+            uuid::Uuid::new_v4()
+        ));
+        std::fs::create_dir_all(&root).unwrap();
+        let files = FileManager::new(Paths::plain(root.clone())).unwrap();
+        let db = Db::open_in_memory().unwrap();
+
+        for id in ["one", "two"] {
+            db.insert_instance(&instance(id)).unwrap();
+            let mods = content::dir_for(files.paths(), id, "mods").unwrap();
+            files.ensure_dir(&mods).unwrap();
+        }
+
+        let one_mods = content::dir_for(files.paths(), "one", "mods").unwrap();
+        files.write_atomic(one_mods.join("old.jar"), b"old").unwrap();
+        files.write_atomic(one_mods.join("new.jar"), b"new").unwrap();
+        files
+            .write_atomic(one_mods.join("disabled.jar.disabled"), b"disabled")
+            .unwrap();
+        files.write_atomic(one_mods.join("manual.jar"), b"manual").unwrap();
+
+        db.record_content_file("one", "mods", &source("old.jar", Some("same-project"), "v1", 10))
+            .unwrap();
+        db.record_content_file("one", "mods", &source("new.jar", Some("same-project"), "v2", 20))
+            .unwrap();
+        db.record_content_file("one", "mods", &source("disabled.jar", Some("disabled-project"), "v3", 30))
+            .unwrap();
+        db.record_content_file("one", "mods", &source("missing.jar", Some("stale-project"), "v4", 40))
+            .unwrap();
+        db.record_content_file("one", "mods", &source("manual.jar", None, "manual", 50))
+            .unwrap();
+
+        let two_mods = content::dir_for(files.paths(), "two", "mods").unwrap();
+        files.write_atomic(two_mods.join("second.jar"), b"second").unwrap();
+        db.record_content_file("two", "mods", &source("second.jar", Some("second-project"), "v5", 60))
+            .unwrap();
+
+        let state = AppState::new(files, db);
+        let ids = vec!["one".to_string(), "two".to_string()];
+        let index = list_content_source_index_core(&state, &ids, "mods").unwrap();
+
+        let one = index.get("one").unwrap();
+        assert_eq!(one.len(), 2);
+        assert_eq!(one["same-project"].file_name, "new.jar");
+        assert_eq!(one["same-project"].version_id.as_deref(), Some("v2"));
+        assert_eq!(one["disabled-project"].file_name, "disabled.jar");
+        assert!(!one.contains_key("stale-project"));
+
+        let two = index.get("two").unwrap();
+        assert_eq!(two.len(), 1);
+        assert_eq!(two["second-project"].file_name, "second.jar");
+
+        assert!(list_content_source_index_core(
+            &state,
+            &["missing-instance".to_string()],
+            "mods"
+        )
+        .is_err());
+
+        drop(state);
+        std::fs::remove_dir_all(root).unwrap();
+    }
 }

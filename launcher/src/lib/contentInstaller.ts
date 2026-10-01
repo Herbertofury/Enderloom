@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 import type {
   ContentKind,
@@ -55,3 +55,8 @@ export const ContentInstallerContext = createContext<ContentInstaller>({
   installServerPack: unavailable,
   installingVersionId: null,
 });
+
+
+export function useContentInstaller(): ContentInstaller {
+  return useContext(ContentInstallerContext);
+}

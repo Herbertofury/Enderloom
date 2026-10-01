@@ -226,6 +226,13 @@ export interface ContentItem {
   update: ContentUpdate | null;
 }
 
+export interface InstalledProjectSource {
+  file_name: string;
+  version_id: string | null;
+}
+
+export type ContentSourceIndex = Record<string, Record<string, InstalledProjectSource>>;
+
 export type SearchProvider = "modrinth" | "curseforge";
 
 export interface CatalogProjectPayload {
