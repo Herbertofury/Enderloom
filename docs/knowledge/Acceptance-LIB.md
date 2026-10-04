@@ -12,42 +12,6 @@
 [Outcome](Checklist.md#lib-01) / 96 source-derived details.
 
 <details>
-<summary>README.md / Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters (1)</summary>
-
-<a id="d-587120a79458adfbd02c"></a>
-- [ ] **D-587120a79458adfbd02c** - - Extends creator-avatar ownership beyond CurseForge. Planet Minecraft now binds the exact /member/&lt;creator&gt;/ link and its adjacent/member avatar on the project page when ava...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Extends creator-avatar ownership beyond CurseForge. Planet Minecraft now binds the exact /member/&lt;creator&gt;/ link and its adjacent/member avatar on the project page when available, then independently enriches the exact creator profile in parallel when the avatar is not already exposed. The same creator request single-flights across cards and is keyed by creator identity rather than project title. - Moves cross-site creator/profile knowledge into a 23-provider site-adapter registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bukkit, BuiltByBit, Nexus Mods, ModDB, Polymart, Planet Minecraft, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft Marketplace, BOOTH, Fourthwall, Ko-fi, itch.io, Gumroad and alltheysm. Provider pages only yield an author avatar when it is bound to a recognized creator/profile identity; project/gallery art cannot be re-used as the avatar. - Adds exact Planet Minecraft author/card handling for the live layout where the project embed links the project image and the separate creator link points to a member profile. Commenter avatars, update-log content and More ... by sibling submissions are cut out of the project gallery region instead of being treated as project media. - Adds first-class AFDIAN/post media extraction. vm-pic / img-pre post images are accepted as project-owned media, transformed/watermarked thumbnail URLs remain previews, and the original CDN URL is retained for full-resolution hover/lightbox. Direct &lt;video&gt; / &lt;source&gt; media and GIFs are preserved as typed gallery entries with poster art. - Adds common post-media adapters for linked full-resolution images, srcset/lazy images, role-safe styled background images, Schema.org/JSON-LD image, screenshot, VideoObject and associatedMedia, plus structured author/creator avatars. This benefits storefronts, creator posts and non-Minecraft catalogs without weakening role isolation. - The browser DOM fallback now recognizes creator-profile URL patterns across the wider provider universe, includes GIF/full-image anchors and semantic background media, and keeps creator discovery on a separate microtask/transport lane after the project/gallery candidate has already been delivered. Gallery/icon paint therefore never waits for a profile page. - Live-media cache schema advances to v10 so earlier role mappings are rediscovered with the provider-adapter model. No project, source, provider, gallery or result cap is introduced.
-  - **Binding context:** Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters
-  - **Original specification:** [README.md : 69-75](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L69-L75)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator (1)</summary>
-
-<a id="d-f26b82b63850a981687b"></a>
-- [ ] **D-f26b82b63850a981687b** - - Fixes the obvious wrong-image failure shown on CurseForge cards: streamed /gallery discovery no longer trusts the first ForgeCDN-looking URL on a page. The fast path now requires...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the obvious wrong-image failure shown on CurseForge cards: streamed /gallery discovery no longer trusts the first ForgeCDN-looking URL on a page. The fast path now requires the exact project H1, enters only the project-owned gallery region, rejects promotion/campaign/ad artwork, and preserves the actual project image/icon/gallery relationship. Live-media cache schema advances to v8, invalidating polluted 2.5 identities instead of repainting them. - Adds a prewarmed worker_threads provider-parser pool for large full-page enrichment. The first-image prefix remains on the main hot path, while expensive full HTML parsing fans out over multiple CPU cores. The release benchmark uses 32 ~405 KiB provider fixtures and requires a material multi-core throughput win rather than a scheduler reorder. - Adds parallel Chromium image predecode for visible/near-visible source images, raises same-session preview-byte warm depth, and expands the cold-start DOM hedge pool to six preconstructed WebContentsViews. This performs more useful decode/construction/network work concurrently; no records, providers, sources, projects, or gallery images are suppressed to create the speedup. - Fully integrates the current TWP - Translate Web Pages architecture into protected Electron browser tabs: whole-page translation, selected-text translation, Original/Translated toggling, dynamic-page MutationObserver translation, per-site auto-translate, target-language selection, translation caching and in-flight request coalescing. Bing, Google, Yandex and DeepL service protocols are supported. - Adds a uBlock-style TWP upstream updater. Every six hours it checks the official FilipePS/Traduzir-paginas-web GitHub release, downloads the tagged upstream source archive, verifies project identity/version/MPL-2.0 plus required translation-core files, stores a hash-addressed upstream snapshot in user data, and hot-reloads only strict allow-listed service endpoint recipes. Upstream extension JavaScript is never blindly executed inside the privileged Electron main process. - Keeps the existing persistent Chromium session, real browser tabs, uBlock network filtering, 23-provider media universe, native Rust transports, uncapped galleries, full-resolution lightbox/hover media, and source-grounded-only image policy.
-  - **Binding context:** Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator
-  - **Original specification:** [README.md : 89-94](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L89-L94)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh (1)</summary>
-
-<a id="d-cf160be110ef5f198989"></a>
-- [ ] **D-cf160be110ef5f198989** - - Drop supported files anywhere on the desktop app or use Catalogs, sources &amp; sync -&gt; Import local files. - Smart ingest treats structured data as the row authority and keep...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Drop supported files anywhere on the desktop app or use Catalogs, sources &amp; sync -&gt; Import local files. - Smart ingest treats structured data as the row authority and keeps companion Docs/PDFs as narrative/fixed-reference layers. A Sheet + Doc + PDF dropped together becomes one catalog. - Local tracked files are watched every ~1.6 seconds and semantic/hash compared; meaningful changes refresh the catalog automatically. - Private Google Sheets, Docs, and Drive PDFs can be tracked directly. The app uses its persistent Chromium browser session as the cookie authority: sign into Google in an in-app tab once, then private tracked sources refresh through pooled Node HTTP using the matching Chromium cookies, without publishing them or embedding credentials. - Google sources are checked shortly after launch and approximately every two minutes. Cache-Control: no-cache, conditional metadata, and semantic hashes make unchanged checks a no-op. - Use Refresh active sources or Refresh all catalogs at any time. Open catalog data folder exposes the local normalized snapshots/registry for backup or inspection. - Source Center reports current, pending, sign-in-required, or error rather than presenting an untouched snapshot as synchronized.
-  - **Binding context:** Enderloom 2.9.5 / Hot-drop catalogs + live source refresh
-  - **Original specification:** [README.md : 206-212](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L206-L212)
-
-</details>
-
-<details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 19. Micro-QOL requirements (1)</summary>
 
 <a id="d-1f462dfd1387baba7fd1"></a>
@@ -655,6 +619,42 @@
 </details>
 
 <details>
+<summary>README.md / Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters (1)</summary>
+
+<a id="d-587120a79458adfbd02c"></a>
+- [ ] **D-587120a79458adfbd02c** - - Extends creator-avatar ownership beyond CurseForge. Planet Minecraft now binds the exact /member/&lt;creator&gt;/ link and its adjacent/member avatar on the project page when ava...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Extends creator-avatar ownership beyond CurseForge. Planet Minecraft now binds the exact /member/&lt;creator&gt;/ link and its adjacent/member avatar on the project page when available, then independently enriches the exact creator profile in parallel when the avatar is not already exposed. The same creator request single-flights across cards and is keyed by creator identity rather than project title. - Moves cross-site creator/profile knowledge into a 23-provider site-adapter registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bukkit, BuiltByBit, Nexus Mods, ModDB, Polymart, Planet Minecraft, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft Marketplace, BOOTH, Fourthwall, Ko-fi, itch.io, Gumroad and alltheysm. Provider pages only yield an author avatar when it is bound to a recognized creator/profile identity; project/gallery art cannot be re-used as the avatar. - Adds exact Planet Minecraft author/card handling for the live layout where the project embed links the project image and the separate creator link points to a member profile. Commenter avatars, update-log content and More ... by sibling submissions are cut out of the project gallery region instead of being treated as project media. - Adds first-class AFDIAN/post media extraction. vm-pic / img-pre post images are accepted as project-owned media, transformed/watermarked thumbnail URLs remain previews, and the original CDN URL is retained for full-resolution hover/lightbox. Direct &lt;video&gt; / &lt;source&gt; media and GIFs are preserved as typed gallery entries with poster art. - Adds common post-media adapters for linked full-resolution images, srcset/lazy images, role-safe styled background images, Schema.org/JSON-LD image, screenshot, VideoObject and associatedMedia, plus structured author/creator avatars. This benefits storefronts, creator posts and non-Minecraft catalogs without weakening role isolation. - The browser DOM fallback now recognizes creator-profile URL patterns across the wider provider universe, includes GIF/full-image anchors and semantic background media, and keeps creator discovery on a separate microtask/transport lane after the project/gallery candidate has already been delivered. Gallery/icon paint therefore never waits for a profile page. - Live-media cache schema advances to v10 so earlier role mappings are rediscovered with the provider-adapter model. No project, source, provider, gallery or result cap is introduced.
+  - **Binding context:** Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters
+  - **Original specification:** [README.md : 69-75](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L69-L75)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator (1)</summary>
+
+<a id="d-f26b82b63850a981687b"></a>
+- [ ] **D-f26b82b63850a981687b** - - Fixes the obvious wrong-image failure shown on CurseForge cards: streamed /gallery discovery no longer trusts the first ForgeCDN-looking URL on a page. The fast path now requires...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the obvious wrong-image failure shown on CurseForge cards: streamed /gallery discovery no longer trusts the first ForgeCDN-looking URL on a page. The fast path now requires the exact project H1, enters only the project-owned gallery region, rejects promotion/campaign/ad artwork, and preserves the actual project image/icon/gallery relationship. Live-media cache schema advances to v8, invalidating polluted 2.5 identities instead of repainting them. - Adds a prewarmed worker_threads provider-parser pool for large full-page enrichment. The first-image prefix remains on the main hot path, while expensive full HTML parsing fans out over multiple CPU cores. The release benchmark uses 32 ~405 KiB provider fixtures and requires a material multi-core throughput win rather than a scheduler reorder. - Adds parallel Chromium image predecode for visible/near-visible source images, raises same-session preview-byte warm depth, and expands the cold-start DOM hedge pool to six preconstructed WebContentsViews. This performs more useful decode/construction/network work concurrently; no records, providers, sources, projects, or gallery images are suppressed to create the speedup. - Fully integrates the current TWP - Translate Web Pages architecture into protected Electron browser tabs: whole-page translation, selected-text translation, Original/Translated toggling, dynamic-page MutationObserver translation, per-site auto-translate, target-language selection, translation caching and in-flight request coalescing. Bing, Google, Yandex and DeepL service protocols are supported. - Adds a uBlock-style TWP upstream updater. Every six hours it checks the official FilipePS/Traduzir-paginas-web GitHub release, downloads the tagged upstream source archive, verifies project identity/version/MPL-2.0 plus required translation-core files, stores a hash-addressed upstream snapshot in user data, and hot-reloads only strict allow-listed service endpoint recipes. Upstream extension JavaScript is never blindly executed inside the privileged Electron main process. - Keeps the existing persistent Chromium session, real browser tabs, uBlock network filtering, 23-provider media universe, native Rust transports, uncapped galleries, full-resolution lightbox/hover media, and source-grounded-only image policy.
+  - **Binding context:** Enderloom 2.9.5 / 2.6.0 identity-safe media + real parallel parsing + integrated TWP translator
+  - **Original specification:** [README.md : 89-94](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L89-L94)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh (1)</summary>
+
+<a id="d-cf160be110ef5f198989"></a>
+- [ ] **D-cf160be110ef5f198989** - - Drop supported files anywhere on the desktop app or use Catalogs, sources &amp; sync -&gt; Import local files. - Smart ingest treats structured data as the row authority and keep...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Drop supported files anywhere on the desktop app or use Catalogs, sources &amp; sync -&gt; Import local files. - Smart ingest treats structured data as the row authority and keeps companion Docs/PDFs as narrative/fixed-reference layers. A Sheet + Doc + PDF dropped together becomes one catalog. - Local tracked files are watched every ~1.6 seconds and semantic/hash compared; meaningful changes refresh the catalog automatically. - Private Google Sheets, Docs, and Drive PDFs can be tracked directly. The app uses its persistent Chromium browser session as the cookie authority: sign into Google in an in-app tab once, then private tracked sources refresh through pooled Node HTTP using the matching Chromium cookies, without publishing them or embedding credentials. - Google sources are checked shortly after launch and approximately every two minutes. Cache-Control: no-cache, conditional metadata, and semantic hashes make unchanged checks a no-op. - Use Refresh active sources or Refresh all catalogs at any time. Open catalog data folder exposes the local normalized snapshots/registry for backup or inspection. - Source Center reports current, pending, sign-in-required, or error rather than presenting an untouched snapshot as synchronized.
+  - **Binding context:** Enderloom 2.9.5 / Hot-drop catalogs + live source refresh
+  - **Original specification:** [README.md : 206-212](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L206-L212)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 4.2 Provider universe (23)</summary>
 
 <a id="site-curseforge"></a>
@@ -801,246 +801,6 @@
 ## LIB-02 - Correct premium media and trailers
 
 [Outcome](Checklist.md#lib-02) / 87 source-derived details.
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
-
-<a id="d-9bb70e2ecbd4c7cf5dab"></a>
-- [ ] **D-9bb70e2ecbd4c7cf5dab** - - Fixes the persistent Bok&#x27;s Banging Butterflies failure exposed by the native Windows 2.9.4 test instead of treating the earlier fixture as proof. - Mirrors CurseForge&#x27;s...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the persistent Bok&#x27;s Banging Butterflies failure exposed by the native Windows 2.9.4 test instead of treating the earlier fixture as proof. - Mirrors CurseForge&#x27;s current live tab order: Description -&gt; Comments -&gt; Files -&gt; Gallery (N) -&gt; Relations -&gt; Issues. On an exact /gallery route those labels are navigation, not content boundaries, so they can no longer cut the owned gallery region before its attachment cards. - Adds a complete exact-gallery SSR lane through the same persistent Chromium session used by the catalog. The app no longer depends on hidden DOM hydration as the only way to recover all gallery items. - Adds an independent Node full-HTML exact-gallery fallback and keeps the existing Chromium DOM rescue, giving visible CurseForge cards three independent role-safe recovery paths. - Fixes the renderer cache short-circuit that treated a cached project icon + creator avatar as a complete media result. A missing gallery now still primes live discovery unless an explicit terminal galleryAbsent exists. - Bumps live-media cache to v14 so 2.9.4 icon/author-only results cannot pin upgraded cards in the blank state. - Native Electron self-test now reproduces the live Description/Files-before-Gallery and Relations-before-images topology and requires all eleven Bok-shaped attachments through both DOM and full-HTML Chromium paths with zero promo leakage. - No hard-coded Bok media is used by production code; the exact eleven URLs exist only in regression/self-test fixtures.
-  - **Binding context:** Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair
-  - **Original specification:** [README.md : 35-42](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L35-L42)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.9.4 exact CurseForge gallery DOM rescue (1)</summary>
-
-<a id="d-dbca50c3311f9022716a"></a>
-- [ ] **D-dbca50c3311f9022716a** - - Fixes the remaining real Windows failure where CurseForge&#x27;s project Gallery tab could be present and contain media while bounded HTTP/stream probes still returned no gallery...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the remaining real Windows failure where CurseForge&#x27;s project Gallery tab could be present and contain media while bounded HTTP/stream probes still returned no gallery. - Adds an exact same-project /gallery Chromium rescue for visible and near-visible CurseForge cards using the app&#x27;s persistent live browser session. The rescue waits only for authoritative ForgeCDN/CurseCDN attachment anchors to stabilize; it does not wait for remote image decoding. - Accepts direct attachment anchors on the exact gallery route even when the nested &lt;img&gt; is still a lazy placeholder and the anchor itself has no helpful CSS class. - Allows the exact same-project CurseForge Gallery navigation link through the DOM media-page resolver even when CurseForge places that tab inside &lt;nav&gt;. Generic navigation remains excluded. - Deep discovery synthesizes the exact same-project Gallery route as a fallback even if the canonical page&#x27;s DOM does not expose a usable gallery link. - Keeps promo/contest/ad/sponsor media outside the owned gallery boundary and preserves source-scoped empty-gallery fallback to canonical Description media. - Bumps live-media cache to v13 so prior blank CurseForge results are rediscovered. - Native Electron self-test now includes an 11-item lazy-placeholder CurseForge gallery fixture with a pre-H1 promotional attachment and requires all 11 project attachments with zero promo leakage.
-  - **Binding context:** Enderloom 2.9.5 / 2.9.4 exact CurseForge gallery DOM rescue
-  - **Original specification:** [README.md : 46-53](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L46-L53)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.9.3 CurseForge production gallery recovery + scoped fallback (1)</summary>
-
-<a id="d-bde9ee239133fffe5f74"></a>
-- [ ] **D-bde9ee239133fffe5f74** - - Recovers modern CurseForge gallery media when the authoritative full ForgeCDN/CurseCDN attachment is exposed by the wrapping link while the nested image is still a lazy placehold...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Recovers modern CurseForge gallery media when the authoritative full ForgeCDN/CurseCDN attachment is exposed by the wrapping link while the nested image is still a lazy placeholder. - Starts extraction at the first project-owned Gallery marker after the exact H1 instead of the last repeated /gallery link. - Treats an empty CurseForge /gallery as sourceGalleryAbsent, not a project-wide terminal negative, so canonical Description/post media still runs (the DivineRPG failure mode). - Recovers image-bearing GitHub/GitLab links inside the exact project Description and canonicalizes blob links to their raw media targets after identity/ownership checks. - Any real project-owned gallery result clears an older global or source-scoped negative instead of leaving the card stuck on stale &quot;no gallery&quot; state. - The renderer now reports Gallery tab empty — checking project post… while that canonical fallback is in flight. - Expands the progressive CurseForge first-media gate for direct attachment links without allowing global promotions, avatars, ads, or sponsor media to cross the project identity boundary. - Bumps the live discovery cache to v12 so stale empty/negative gallery results cannot mask newly recoverable media. - Includes a production-shaped 11-image Bok&#x27;s Banging Butterflies regression fixture using the live attachment topology.
-  - **Binding context:** Enderloom 2.9.5 / 2.9.3 CurseForge production gallery recovery + scoped fallback
-  - **Original specification:** [README.md : 57-65](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L57-L65)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.7.0 instant media ownership + role quarantine (1)</summary>
-
-<a id="d-29b4af91f88c01bc09a7"></a>
-- [ ] **D-29b4af91f88c01bc09a7** - - Fixes the remaining cross-role contamination path. Project icon, creator avatar and gallery media are now separate semantic lanes all the way through provider parsing, cache sani...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the remaining cross-role contamination path. Project icon, creator avatar and gallery media are now separate semantic lanes all the way through provider parsing, cache sanitization, main-process merging and renderer merging. The same URL cannot survive in multiple roles; ambiguous collisions are quarantined instead of being painted. - Hardens CurseForge against global promotions, tier frames and “More from” siblings. A project image must be bound to the exact project H1/project entry, a creator avatar must be bound to the exact member/profile identity, and gallery media must come from the exact project gallery/description region. A definitive “This mod has no gallery items available” is delivered as a real negative state instead of an endless spinner. - Adds the creator-project index fast lane: one exact CurseForge author Projects page can provide the exact creator avatar plus each exact project logo, and duplicate cards sharing that author single-flight the physical author-page request. ForgeCDN 256 px project-logo previews are used for first paint while the full original URL is retained for source/open behavior. - Removes two artificial renderer startup floors. Live prime now begins on the next microtask rather than a 90 ms timer, and live network discovery starts in parallel with the all-catalog persistent-cache IPC batch instead of waiting for that entire batch to finish. Cache work is preserved and can still win the paint race. - Raises the real media-prime execution frontier to up to 3x logical CPUs (bounded at 128 concurrent jobs) and prewarms eight Chromium media views. The native transport stress gate now runs 192 simultaneous real localhost HTTP streams and requires all 192 to be concurrently active at the server. - Adds instant-frontier-qa.js, a real localhost streaming benchmark with the same 90 ms cache-hydration workload on both sides. The release requires the overlapped path to eliminate the barrier without dropping the cache work. - Keeps all 23 provider families, full uncapped gallery enrichment, full-resolution originals, persistent Chromium session/cache, Rust wreq/Impit transports, uBlock Origin and the integrated auto-updating TWP translator. No project/source/gallery cap or generated replacement imagery is introduced.
-  - **Binding context:** Enderloom 2.9.5 / 2.7.0 instant media ownership + role quarantine
-  - **Original specification:** [README.md : 79-85](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L79-L85)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression (1)</summary>
-
-<a id="d-562c93c0d756e68a2411"></a>
-- [ ] **D-562c93c0d756e68a2411** - - Promotes the live-media pipeline from a CurseForge-heavy optimizer to a 23-family provider capability registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bu...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Promotes the live-media pipeline from a CurseForge-heavy optimizer to a 23-family provider capability registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bukkit, BuiltByBit, Nexus Mods, ModDB, Polymart, Planet Minecraft, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft Marketplace, BOOTH, Fourthwall, Ko-fi, itch.io, Gumroad, and alltheysm. Unknown exact project pages still retain the identity-checked generic OG/JSON-LD/Chromium fallback. - Adds exact child resolution for Patreon creator pages/posts, AFDIAN creator products, Minecraft Marketplace PDPs, Ko-fi shop items, itch.io creator pages, and Gumroad product pages. Collection/profile hero art is never silently borrowed as project media. - Adds tiny public metadata seed lanes where the provider ecosystem exposes them: Spigot exact resources can use Spiget&#x27;s public resource icon metadata, Hangar exact projects use the public Hangar project API/avatar, and GitLab exact projects can use the public project avatar field. These seeds only accelerate the first real icon; the canonical project page still performs full, uncapped live gallery enrichment. - Adds first-class identity/media rules for Hangar, SpigotMC, Bukkit, Nexus Mods, ModDB, GitLab, Polymart, and BuiltByBit. BuiltByBit is deliberately browser-navigation-only without an official authenticated API token: the app will use the real persistent Chromium page rather than inventing a scraper bypass. - Removes the old quick-source score window: every canonical provider source home is admitted to first-image prime. Provider scoring may order metadata, but it no longer excludes Patreon/AFDIAN/PMC/Bedrock/other homes from the live race. - Adds a provider-adaptive transport policy based on real socket measurements instead of assuming every abort saves bandwidth. The audit found that pooled wreq and impit can return a logical first-media abort while continuing to drain the network body for connection reuse. 2.5 therefore stops spraying those native transports across every provider page: wreq remains a real complementary CurseForge keeper, and impit HTTP/3 remains a visible-card specialty hedge. - Makes redundant Node streams physically terminate after the first complete trusted media URL and makes provider collection streams stop after the exact-child prefix. Chromium uses the same bounded body-reader cancellation path in the production Electron session. One complete response remains for uncapped enrichment, so this is bandwidth elimination rather than gallery truncation. - Expands startup connection hints to the real media origins used by ForgeCDN, Modrinth, GitHub/GitLab, Hangar, SpigotMC, Bukkit, Nexus Mods, ModDB, Polymart, BuiltByBit, PMC, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft/Microsoft Marketplace media, BOOTH, Fourthwall, Ko-fi and itch. Discovered image origins are still added dynamically. - Adds provider-universe and current-catalog coverage gates. The built-in catalogs currently contain 605 records and 759 source URLs across 10 provider families, all classified by the first-class registry; the registry itself has 23 first-class provider families. - Adds hedged-bandwidth-qa.js, a real TCP-stream benchmark. Its release fixture compares the former three-complete-response behavior with the new keeper + physical-probe policy over a deliberately slow 1 MiB tail and requires a large byte reduction without regressing first-media readiness. The same test explicitly audits wreq/impit cancellation behavior so a future change cannot accidentally reintroduce hidden native tail drains. - Patreon/AFDIAN/login-sensitive discovery stays credential-safe: the persistent Chromium partition is the complete-response authority. The app does not export cookies into catalog data, and public native/Node paths do not bypass paid/private access. - No gallery cap, project cap, source cap, synthetic image substitution, viewport record culling, or downgrade of full-original hover/lightbox media was introduced.
-  - **Binding context:** Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression
-  - **Original specification:** [README.md : 98-109](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L98-L109)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.4.0 same-session paint acceleration + fourth native transport (1)</summary>
-
-<a id="d-03c1b12e2bb61921f44c"></a>
-- [ ] **D-03c1b12e2bb61921f44c** - - Fixes a hidden cross-session performance bug: the catalog renderer now uses the same persistent Chromium session partition as live discovery. Provider preconnect, DNS/TLS/H2/H3 s...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes a hidden cross-session performance bug: the catalog renderer now uses the same persistent Chromium session partition as live discovery. Provider preconnect, DNS/TLS/H2/H3 state, cookies, and HTTP cache warming therefore benefit the actual card &lt;img&gt; requests instead of being stranded in a different Chromium session. - Starts the real preview-byte request before IPC paint for visible and near-visible cards. The provider-discovered preview is consumed through Electron session.fetch on the shared partition, allowing the renderer image request to coalesce with or hit the warmed Chromium HTTP cache. Full-original hover/lightbox URLs remain unchanged. - Adds a fourth independent network implementation using the official Apify impit 0.14.4 native Rust binding. The shipped client uses Chrome 151 impersonation; HTTP/3 is enabled, with a QUIC-only exact CurseForge /gallery hedge for immediately visible cards while all existing Node, Chromium, and wreq paths remain available. - Exact CurseForge gallery streams can now seed the first real ForgeCDN image directly from the completed streamed URL before the full HTML parser runs. wreq, Chromium, and impit gallery lanes all use this safe exact-project shortcut; background full HTML continues for the uncapped gallery. - Replaces growing-response rescans with rolling chunk scanners in Node, Chromium, and wreq. This removes repeated cumulative regex work and repeated Rust Buffer.concat allocations from the hot streaming path. Media readiness can now fire from 128 bytes once a complete trusted URL is present. - Adds real native impit streaming QA and a 144-socket multi-transport stress gate. The Linux QA binding and Windows release binding are the upstream GitHub Actions artifacts, verified against GitHub&#x27;s published artifact SHA-256 digests. - Starts provider/CDN connection establishment from the persisted live-media metadata cache before Catalog IPC and DOM upgrade work begins. Every cached record remains represented; only duplicate origins are coalesced into connection hints. - Caches each project&#x27;s primary media DOM slot and last computed screen priority so gallery/icon/author updates stop repeating selector scans and forced layout reads on the first-image path. - No gallery cap, project cap, synthetic media, viewport record culling, or downgrade of full-resolution hover/lightbox behavior was introduced.
-  - **Binding context:** Enderloom 2.9.5 / 2.4.0 same-session paint acceleration + fourth native transport
-  - **Original specification:** [README.md : 113-121](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L113-L121)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.3.0 streamed-media latency removal (1)</summary>
-
-<a id="d-a8e9e06a8d58e46f4bf0"></a>
-- [ ] **D-a8e9e06a8d58e46f4bf0** - - Replaces the last arbitrary byte-threshold wait in first-image discovery with a content-sensitive media gate. Node, Chromium, and native Rust now resolve a dedicated media phase ...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Replaces the last arbitrary byte-threshold wait in first-image discovery with a content-sensitive media gate. Node, Chromium, and native Rust now resolve a dedicated media phase the moment the streamed HTML contains a complete trusted provider image URL instead of waiting for a 448-768 KiB prefix or EOF. The same physical request still continues to full HTML for uncapped gallery enrichment. - Fixes the native Rust head bug found by real socket testing: the 2.2 Rust lane waited for its byte threshold on small streamed pages even after &lt;/head&gt; arrived. 2.3 detects &lt;/head&gt; while chunks are still arriving, matching the fast Node/Chromium head behavior. - Adds an exact CurseForge /gallery SSR race. Native Rust starts the project-owned gallery route in parallel with the canonical page; visible/near-visible cards also race Chromium against that gallery route. The canonical page is still retained and full enrichment is never capped. - Teaches the CurseForge parser to trust the bounded project-owned SSR gallery strip before Description and to preserve the provider&#x27;s small ForgeCDN thumbnail as the card preview while upgrading the hover/lightbox URL to the full original attachment. - Makes the offscreen Chromium DOM path a real hedge: visible cards start it at 0 ms, near-viewport cards at 45 ms, and farther cards at 120 ms. Four WebContentsView instances are prewarmed during boot so visible cards do not pay view construction on the first request. - Widens the native Rust transport to a 192-connection pool with 48 idle connections per host, increases Chromium preconnect sockets on WAF-sensitive providers, and immediately preconnects the discovered image CDN before the media IPC payload reaches the renderer. - Removes the renderer&#x27;s 12 ms prime timer; the initial global media batch is now admitted on the next microtask. No project record, source, image, or gallery result cap was added. - Adds executable progressive-media-qa.js and media-stress-qa.js. The release gate now measures real streamed localhost HTTP sockets through the actual Node and vendored Rust transports, verifies parseable CurseForge SSR media arrives before a deliberately slow response tail, and stress-races 128 simultaneous real HTTP streams without serializing the first-media frontier.
-  - **Binding context:** Enderloom 2.9.5 / 2.3.0 streamed-media latency removal
-  - **Original specification:** [README.md : 125-132](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L125-L132)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.2.0 true parallel native live-media transport (1)</summary>
-
-<a id="d-20bec01ef39065303791"></a>
-- [ ] **D-20bec01ef39065303791** - - Replaces the remaining WAF-sensitive single-transport bottleneck with three real simultaneous network engines per exact provider page: pooled Node core HTTP, Electron session.fet...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Replaces the remaining WAF-sensitive single-transport bottleneck with three real simultaneous network engines per exact provider page: pooled Node core HTTP, Electron session.fetch() on Chromium&#x27;s native network service, and a vendored wreq-js 3.2.0 Rust/BoringSSL N-API binding. All three start at t=0; none waits for another transport to time out. - The Rust lane is shipped, not theoretical. Official x86_64 Windows and Linux GNU native bindings from the upstream wreq-js v3.2.0 GitHub Actions build are vendored with their MIT license. The app selects the newest native Chrome profile available (currently Chrome 149), holds a persistent cookie session, and reuses a 96-connection transport pool with up to 24 idle connections per host. - Rust responses are streamed with readBodyChunk: provider &lt;head&gt; and early-body prefixes can paint a real off-site image before the tail of the document finishes. The same one physical response continues in the background for the full uncapped gallery, so first paint is no longer coupled to full-page completion. - Adds Chromium session.preconnect() origin warmup and direct session.fetch() SSR acquisition. If all compact transports are still silent after 180 ms, a pooled offscreen Chromium page launches concurrently and extracts on dom-ready without waiting for fonts, analytics, ads, or the full load event. - Removes alternate-source startup staggering: canonical sources and all available network engines enter the race in the same turn. Existing single-flight/cache identity guarantees remain, so duplicate consumers share provider responses instead of multiplying physical requests. - Adds executable rust-native-qa.js. Its delayed local streaming fixture verifies the real Rust native module loads, three concurrent consumers collapse to one physical request, an OG image is visible from the early stream before the delayed document tail, and the full body still completes without truncation. - No image/gallery cap, no synthetic media, no viewport record culling, and no replacement of full-original hover/lightbox URLs were introduced.
-  - **Binding context:** Enderloom 2.9.5 / 2.2.0 true parallel native live-media transport
-  - **Original specification:** [README.md : 136-142](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L136-L142)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler (1)</summary>
-
-<a id="d-3b306e7e0c82babf834b"></a>
-- [ ] **D-3b306e7e0c82babf834b** - - Fixes the remaining catalog-wide first-paint stall at the scheduler boundary. Prime requests are now sorted in the renderer, admitted to the main-process queue as one atomic batc...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the remaining catalog-wide first-paint stall at the scheduler boundary. Prime requests are now sorted in the renderer, admitted to the main-process queue as one atomic batch, and only then dispatched. A visible card registered late can no longer sit behind the first worker-count worth of registration-order cards. - Adds provider-aware source ordering without discarding anything: deterministic GitHub repository previews and Modrinth bulk/API hits lead, exact project homes follow, and collection/auxiliary routes enrich afterward. Every exact source remains available to the uncapped deep/gallery pass. - Keeps progressive single-request head/prefix/full parsing, context-aware cache v7, single-flight raw-document reuse, DNS reuse, Modrinth bulk hydration, protected Chromium deep fallback, and full-original hover/lightbox behavior. - Tightens image-byte scheduling after discovery: visible images retain fetchPriority=high; near-frontier discovered images start eagerly; farthest rows stay low/lazy so Chromium&#x27;s priority signal remains useful instead of turning every image into a high-priority request storm. - Adds frontier-priority-qa.js to release QA. It gates provider-aware source ordering, full-batch admission-before-pump, renderer priority sorting, near/far image loading policy, and the no-gallery-cap invariant. - The implementation follows current priority-queue, browser Priority Hints, and Node keep-alive pooling guidance while remaining dependency-free in the packaged runtime.
-  - **Binding context:** Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler
-  - **Original specification:** [README.md : 146-151](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L146-L151)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening (1)</summary>
-
-<a id="d-68e7a159c33a4e1482cb"></a>
-- [ ] **D-68e7a159c33a4e1482cb** - - Extends the 2.0.11 progressive first-image frontier with Modrinth&#x27;s official bulk GET /projects?ids=[…] endpoint. Every unique Modrinth project in the catalog is primed toge...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Extends the 2.0.11 progressive first-image frontier with Modrinth&#x27;s official bulk GET /projects?ids=[…] endpoint. Every unique Modrinth project in the catalog is primed together in encoded-URL-size transport chunks, preserving all projects, icons, and gallery entries while removing per-card project API round trips. - Keeps author/team enrichment off the first-image critical path; rich creator data and full gallery enrichment still continue afterward with no result or gallery truncation. - Adds release QA that feeds 400 synthetic Modrinth project slugs through the bulk chunker and proves every project is preserved in order across transport chunks.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening
-  - **Original specification:** [README.md : 155-157](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L155-L157)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.11 ultra-fast live-media frontier (1)</summary>
-
-<a id="d-b997a8b23ebc9c8d3366"></a>
-- [ ] **D-b997a8b23ebc9c8d3366** - - Fixes the largest warm-start media bug: persistent discovery cache is now keyed by source URL + exact project identity, so multiple catalog entries that share a Planet Minecraft ...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixes the largest warm-start media bug: persistent discovery cache is now keyed by source URL + exact project identity, so multiple catalog entries that share a Planet Minecraft collection, creator page, or other index URL no longer evict one another. In the two built-in catalogs, 148 rows participate in duplicated/index-style project URLs, including 42 Mob Girl rows on one PMC collection. - Replaces hundreds of per-card cache IPC calls with one batched catalog hydrate, then launches an all-project priority first-image frontier. Visible/near-visible cards are reprioritized immediately; no project, source, gallery, or result count is capped. - Adds Spider/Crawlee-style single-flight raw provider requests and a short-lived 64 MiB byte-budgeted document cache. Dozens of project identities that share one provider index reuse the same physical response while preserving independent identity parsing and persistent project-scoped results. - Adds a three-gate progressive HTTP path: trusted project &lt;head&gt; media can paint as soon as &lt;/head&gt; arrives, provider collection/index child links can resolve from an early body prefix, and the same physical response continues into full uncapped provider/gallery parsing. Slow alternate sources merge progressively instead of holding the first good image behind Promise.all. - Adds TTL DNS reuse with in-flight coalescing, Happy-Eyeballs address selection, wider keep-alive socket pools, early CDN DNS/preconnect hints, viewport-aware fetchPriority, and live provider thumbnail URLs where a provider exposes a smaller derivative. Hover/lightbox still opens the original full live image. - Deep Chromium discovery now uses a reusable protected media-view pool and yields to missing first-image HTTP/API work. Rich gallery/author enrichment remains uncapped and automatically continues after the fast image frontier or on hover/detail/lightbox. - GitHub projects can paint from the deterministic live repository OpenGraph endpoint and owner avatar without waiting for a full github.com document; Modrinth&#x27;s first-image path no longer waits on optional team/author enrichment. - Modrinth now primes through its official bulk GET /projects?ids=[…] API: all Modrinth projects in the current catalog are transport-chunked by URL size and hydrated together, while every project gallery/icon remains intact and rich author/team enrichment continues afterward. - Deterministic media-performance QA proves 32 concurrent identical consumers collapse to one GET; early head and collection-prefix readiness beat delayed full bodies while sharing the same request; cache v7, batched IPC, quick-before-deep scheduling, progressive painting, and no-gallery-cap invariants are release-gated.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.11 ultra-fast live-media frontier
-  - **Original specification:** [README.md : 161-169](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L161-L169)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom (1)</summary>
-
-<a id="d-15dcd57fac958b8d055a"></a>
-- [ ] **D-15dcd57fac958b8d055a** - - Replaces generic non-CurseForge image harvesting with provider-aware project identity. Planet Minecraft collection URLs are now treated as indexes: the catalog title is matched a...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Replaces generic non-CurseForge image harvesting with provider-aware project identity. Planet Minecraft collection URLs are now treated as indexes: the catalog title is matched against child project links, the exact child project is fetched, and only that project page can supply gallery/icon media. Collection neighbors, More like this, recommendations, comments, avatars, ads, and site chrome are rejected. - Adds scoped exact-project extraction for MCPEDL, ModBay, Fourthwall product pages, BOOTH, AFDIAN, and GitHub/other identity-checked sources. Known provider pages can become authoritative so the generic Chromium crawler does not contaminate a good provider result. - Fixes a latent media bug where a missing social-image meta value could resolve to the page URL itself and be treated as an image. Live-media discovery cache is bumped to v6 so older ambiguous Planet Minecraft/non-CurseForge results are ignored and rediscovered with the new identity policy. - Integrates the official uBlock Origin 1.74.0 Chromium MV2 bundle into the persistent live-browser session. A compatibility layer fills Electron APIs uBO expects without replacing Electron&#x27;s native webRequest/storage/runtime support. uBO keeps its normal filter-asset updater, while the app checks official gorhill/uBlock GitHub releases every six hours and stages newer Chromium packages for the next restart. The bottom status bar exposes the active uBO version and the More menu has an explicit update check. - Keeps hover magnification and the gallery lightbox exactly in place while fixing the click blocker: the transparent full-image zoom layer no longer receives pointer events, explicit Favorite/Compare/action controls stay above it, and background image clicks are delegated to zoom only when the click did not originate from an interactive control. - Preserves 2.0.8 native modal isolation, ByteString-safe Node transport, protected top/bottom chrome, browser input focus, native draggable 18px split rail, uncapped live galleries, and real off-site provider/CDN image URLs.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom
-  - **Original specification:** [README.md : 181-186](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L181-L186)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.8 ByteString elimination + native modal isolation (1)</summary>
-
-<a id="d-1d11b7eaec22c8684b45"></a>
-- [ ] **D-1d11b7eaec22c8684b45** - - Eliminates the remaining Electron session.fetch/Undici crash path. Authenticated Google Sheet/Doc/Drive refresh now reads the existing cookies from persist:minecraft-catalog-live...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Eliminates the remaining Electron session.fetch/Undici crash path. Authenticated Google Sheet/Doc/Drive refresh now reads the existing cookies from persist:minecraft-catalog-live and performs the HTTP transfer with pooled Node http/https, so third-party response headers never pass through Electron&#x27;s Fetch Headers ByteString conversion. Login/session continuity is preserved because the browser cookie jar remains authoritative. - Adds a malformed-response-header regression that reproduces the exact U+2014 / 8212 failure class and verifies both public media and authenticated Google-source transport survive it. - Applies the approved blur fix at the source: site permissions now use Electron native message boxes, Catalog Center runs in its own child BrowserWindow, and clear-live-data confirmation is native. The protected top chrome has a hard 430px utility cap and can no longer expand to full-window size. - Removes the top-shell HTML &lt;dialog&gt; surfaces and their blurred backdrop. A safety CSS rule keeps any future dialog backdrop blur-free. Permission choices remain Block / Allow once / Allow this session, and focus is restored to the requesting site after the native prompt closes. - Preserves the 2.0.7 native 18px split rail and accelerated cached-first/live-only media pipeline without adding gallery caps, fabricated media, static screenshots, or embedded image payloads.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.8 ByteString elimination + native modal isolation
-  - **Original specification:** [README.md : 190-194](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L190-L194)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.7 transport + native split + live-media acceleration (1)</summary>
-
-<a id="d-1c3ae7db7e3ae69fed7a"></a>
-- [ ] **D-1c3ae7db7e3ae69fed7a** - - Introduced pooled Node http/https for public project/media discovery and the protected native splitter. 2.0.8 extends that ByteString-safe transport to authenticated Google-sourc...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Introduced pooled Node http/https for public project/media discovery and the protected native splitter. 2.0.8 extends that ByteString-safe transport to authenticated Google-source refresh as well. - Replaced the obscured DOM splitter with a dedicated protected native splitter WebContentsView, preserving the 18px hit lane while making the full divider draggable above both native panes. Drag uses stable screen coordinates; double-click resets 50/50; right-click/Enter swaps; arrows/Home/End resize; ratio persists. - Live preview discovery remains real off-site HTTP(S) media only. Cached URLs paint first, visible/near-visible cards get priority, public HTTP uses keep-alive pooled sockets, alternate project sources resolve in parallel, and deep Chromium crawling is deferred to stale/rich refresh or user interaction. Gallery/source-image counts are not truncated by the old 24-image cap.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.7 transport + native split + live-media acceleration
-  - **Original specification:** [README.md : 198-200](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L198-L200)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.6 browser-input + bottom-edge + media-latency repair (1)</summary>
-
-<a id="d-4b4902e06e43fd49490e"></a>
-- [ ] **D-4b4902e06e43fd49490e** - - Fixed the real text-field regression from 2.0.4: the chrome guard was relaying out the active remote WebContentsView when it gained focus, and the old layout path hid/re-showed t...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixed the real text-field regression from 2.0.4: the chrome guard was relaying out the active remote WebContentsView when it gained focus, and the old layout path hid/re-showed that view. A page input could receive your click and then immediately lose DOM focus. Attached active views are now resized in place and never hidden/re-shown during focus/layout guards. - Remote focus and the root-shell blur event now use paint-only guards. They no longer invoke the full native-view layout routine. The dedicated topmost chrome view stays intact without stealing focus from Twitch/Google/CurseForge login/search fields. - Site permission prompts now remember the requesting webContents and explicitly restore focus to that page after Block / Allow once / Allow this session. Catalog Center and browser-data dialogs also hand focus back to the active content after closing. - Normal browser pages now extend to the actual bottom edge instead of reserving the old 28 px BrowserWindow status strip. The status strip is kept only for the full Catalog view, removing the dark/blurred-looking band seen under websites. - Live media is still actual off-site HTTP(S) media only, but startup is substantially lighter: per-project cache reads are deduplicated, visible/near-visible cards are prioritized with IntersectionObserver, quick provider/HTML metadata uses up to 10 lightweight jobs, and expensive offscreen Chromium gallery/profile discovery is limited to 2 deep jobs and prioritized for hover/detail/lightbox use. - Discovery metadata stays cached for 24 hours while the image URLs themselves remain live provider/CDN URLs. Cached cards paint immediately; deep refresh remains available from the gallery and broken URLs still trigger a live re-resolution.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.6 browser-input + bottom-edge + media-latency repair
-  - **Original specification:** [README.md : 220-225](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L220-L225)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.4 native control-plane isolation (1)</summary>
-
-<a id="d-4f0461d943164873eb20"></a>
-- [ ] **D-4f0461d943164873eb20** - - Replaced the vulnerable BrowserWindow-only toolbar with a second, dedicated WebContentsView that renders the same titlebar/tab strip/address bar as a topmost native sibling surfa...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Replaced the vulnerable BrowserWindow-only toolbar with a second, dedicated WebContentsView that renders the same titlebar/tab strip/address bar as a topmost native sibling surface. - Every live website/catalog content view is now explicitly stacked underneath that control surface. Creating a tab cannot overtake the toolbar even if Windows gives the remote Chromium child surface a stale full-window hit region. - The top control view starts at exactly 94 px and expands only when Find, Downloads, More, permission prompts, confirmation prompts, or Catalog Center need additional UI. - Remote site bounds, 1.2 → 2.x browser-session continuity, the 18 px split lane, and all 2.0.1+ live off-site gallery/author-media behavior are preserved. - The older repaint/background-throttling guards remain as defense in depth, but UI availability no longer depends on the BrowserWindow renderer winning composition against a website child view.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.4 native control-plane isolation
-  - **Original specification:** [README.md : 229-233](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L229-L233)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix (1)</summary>
-
-<a id="d-bacf34756004177acd3a"></a>
-- [ ] **D-bacf34756004177acd3a** - - Fixed the separate new-tab failure where a newly focused remote WebContentsView could leave the BrowserWindow shell renderer blank/unpainted on Windows even though the remote pag...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixed the separate new-tab failure where a newly focused remote WebContentsView could leave the BrowserWindow shell renderer blank/unpainted on Windows even though the remote page itself was correctly clipped below the 94 px chrome boundary. - The shell renderer now keeps background throttling disabled and explicitly invalidates/repaints after native-view focus/navigation handoffs, without stealing focus from the web page. - New remote views are born hidden inside the safe content region, sized to their final bounds before attachment, and only then revealed. This prevents a transient full-window native child/hit-test surface during tab creation. - Tab switching no longer removes and re-adds every native view. Views remain attached and are visibility-switched, avoiding native z-order/input-region churn while preserving the 18 px split lane and existing tab/session behavior. - The 2.0.1 live off-site media contract and the 2.0.2 non-blurring drag indicator are unchanged.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix
-  - **Original specification:** [README.md : 237-241](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L237-L241)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.1 live off-site media fix (1)</summary>
-
-<a id="d-6f47e5e3b9a1e6cc12da"></a>
-- [ ] **D-6f47e5e3b9a1e6cc12da** - - Catalog galleries, project icons, and author avatars are live off-site media only. The app caches discovery metadata and source URLs for speed, but displayed image URLs continue ...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Catalog galleries, project icons, and author avatars are live off-site media only. The app caches discovery metadata and source URLs for speed, but displayed image URLs continue to point to the real mod/provider/creator site or its CDN. - Embedded/base64/static gallery payloads and page-screenshot fallbacks are not used. Modrinth uses its live project/team API where possible; other providers are resolved through the persistent internal Chromium session, including gallery/media subpages and creator profiles. - Every media slot supports source refresh. Gallery images, project icons, and creator avatars support full hover zoom; project galleries also open in a thumbnail lightbox with previous/next navigation and direct source/image actions. - Exact alternate provider homes are tried when a primary page cannot expose enough media. Failed image URLs are discarded and refreshed instead of being permanently cached as blank cards.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.1 live off-site media fix
-  - **Original specification:** [README.md : 252-255](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L252-L255)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / Browser/catalog QoL (1)</summary>
-
-<a id="d-ea91201c424db30996c7"></a>
-- [ ] **D-ea91201c424db30996c7** - - Back / forward / reload-stop / address search - New, close, and reopen browser tabs - Persistent live-site cookies and sessions - Find in page and zoom - Visible download state -...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Back / forward / reload-stop / address search - New, close, and reopen browser tabs - Persistent live-site cookies and sessions - Find in page and zoom - Visible download state - Site permissions: Block, Allow once, and a real Allow this session remembered by origin + permission until app exit or live-site data is cleared - Session/tab/split restore - Live off-site gallery discovery, creator-avatar discovery, full hover zoom, thumbnails, and lightbox - Multiple exact project/provider homes rather than collapsing every project to one URL - Search, numeric queries when fields really exist, filters, sortable card/table/gallery views, favorites, notes, compare, recent items, and CSV export
-  - **Binding context:** Enderloom 2.9.5 / Browser/catalog QoL
-  - **Original specification:** [README.md : 271-280](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L271-L280)
-
-</details>
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / Security and privacy (1)</summary>
-
-<a id="d-02d519e46c9af37648f8"></a>
-- [ ] **D-02d519e46c9af37648f8** - - Remote tabs: nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true. - Google auth remains in the dedicated persistent Chromium session. Tokens/cookies ...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Remote tabs: nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true. - Google auth remains in the dedicated persistent Chromium session. Tokens/cookies are never copied into catalog JSON, Drive artifacts, or source packages. - Only http: / https: live navigation is accepted by the browser workspace. - No image generation is used. No catalog image bytes are embedded. Displayed project/gallery/creator images remain live http: / https: URLs from the real source site or its CDN; only discovery metadata is cached locally.
-  - **Binding context:** Enderloom 2.9.5 / Security and privacy
-  - **Original specification:** [README.md : 324-327](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L324-L327)
-
-</details>
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -1706,22 +1466,250 @@
 
 </details>
 
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
+
+<a id="d-9bb70e2ecbd4c7cf5dab"></a>
+- [ ] **D-9bb70e2ecbd4c7cf5dab** - - Fixes the persistent Bok&#x27;s Banging Butterflies failure exposed by the native Windows 2.9.4 test instead of treating the earlier fixture as proof. - Mirrors CurseForge&#x27;s...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the persistent Bok&#x27;s Banging Butterflies failure exposed by the native Windows 2.9.4 test instead of treating the earlier fixture as proof. - Mirrors CurseForge&#x27;s current live tab order: Description -&gt; Comments -&gt; Files -&gt; Gallery (N) -&gt; Relations -&gt; Issues. On an exact /gallery route those labels are navigation, not content boundaries, so they can no longer cut the owned gallery region before its attachment cards. - Adds a complete exact-gallery SSR lane through the same persistent Chromium session used by the catalog. The app no longer depends on hidden DOM hydration as the only way to recover all gallery items. - Adds an independent Node full-HTML exact-gallery fallback and keeps the existing Chromium DOM rescue, giving visible CurseForge cards three independent role-safe recovery paths. - Fixes the renderer cache short-circuit that treated a cached project icon + creator avatar as a complete media result. A missing gallery now still primes live discovery unless an explicit terminal galleryAbsent exists. - Bumps live-media cache to v14 so 2.9.4 icon/author-only results cannot pin upgraded cards in the blank state. - Native Electron self-test now reproduces the live Description/Files-before-Gallery and Relations-before-images topology and requires all eleven Bok-shaped attachments through both DOM and full-HTML Chromium paths with zero promo leakage. - No hard-coded Bok media is used by production code; the exact eleven URLs exist only in regression/self-test fixtures.
+  - **Binding context:** Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair
+  - **Original specification:** [README.md : 35-42](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L35-L42)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.9.4 exact CurseForge gallery DOM rescue (1)</summary>
+
+<a id="d-dbca50c3311f9022716a"></a>
+- [ ] **D-dbca50c3311f9022716a** - - Fixes the remaining real Windows failure where CurseForge&#x27;s project Gallery tab could be present and contain media while bounded HTTP/stream probes still returned no gallery...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the remaining real Windows failure where CurseForge&#x27;s project Gallery tab could be present and contain media while bounded HTTP/stream probes still returned no gallery. - Adds an exact same-project /gallery Chromium rescue for visible and near-visible CurseForge cards using the app&#x27;s persistent live browser session. The rescue waits only for authoritative ForgeCDN/CurseCDN attachment anchors to stabilize; it does not wait for remote image decoding. - Accepts direct attachment anchors on the exact gallery route even when the nested &lt;img&gt; is still a lazy placeholder and the anchor itself has no helpful CSS class. - Allows the exact same-project CurseForge Gallery navigation link through the DOM media-page resolver even when CurseForge places that tab inside &lt;nav&gt;. Generic navigation remains excluded. - Deep discovery synthesizes the exact same-project Gallery route as a fallback even if the canonical page&#x27;s DOM does not expose a usable gallery link. - Keeps promo/contest/ad/sponsor media outside the owned gallery boundary and preserves source-scoped empty-gallery fallback to canonical Description media. - Bumps live-media cache to v13 so prior blank CurseForge results are rediscovered. - Native Electron self-test now includes an 11-item lazy-placeholder CurseForge gallery fixture with a pre-H1 promotional attachment and requires all 11 project attachments with zero promo leakage.
+  - **Binding context:** Enderloom 2.9.5 / 2.9.4 exact CurseForge gallery DOM rescue
+  - **Original specification:** [README.md : 46-53](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L46-L53)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.9.3 CurseForge production gallery recovery + scoped fallback (1)</summary>
+
+<a id="d-bde9ee239133fffe5f74"></a>
+- [ ] **D-bde9ee239133fffe5f74** - - Recovers modern CurseForge gallery media when the authoritative full ForgeCDN/CurseCDN attachment is exposed by the wrapping link while the nested image is still a lazy placehold...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Recovers modern CurseForge gallery media when the authoritative full ForgeCDN/CurseCDN attachment is exposed by the wrapping link while the nested image is still a lazy placeholder. - Starts extraction at the first project-owned Gallery marker after the exact H1 instead of the last repeated /gallery link. - Treats an empty CurseForge /gallery as sourceGalleryAbsent, not a project-wide terminal negative, so canonical Description/post media still runs (the DivineRPG failure mode). - Recovers image-bearing GitHub/GitLab links inside the exact project Description and canonicalizes blob links to their raw media targets after identity/ownership checks. - Any real project-owned gallery result clears an older global or source-scoped negative instead of leaving the card stuck on stale &quot;no gallery&quot; state. - The renderer now reports Gallery tab empty — checking project post… while that canonical fallback is in flight. - Expands the progressive CurseForge first-media gate for direct attachment links without allowing global promotions, avatars, ads, or sponsor media to cross the project identity boundary. - Bumps the live discovery cache to v12 so stale empty/negative gallery results cannot mask newly recoverable media. - Includes a production-shaped 11-image Bok&#x27;s Banging Butterflies regression fixture using the live attachment topology.
+  - **Binding context:** Enderloom 2.9.5 / 2.9.3 CurseForge production gallery recovery + scoped fallback
+  - **Original specification:** [README.md : 57-65](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L57-L65)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.7.0 instant media ownership + role quarantine (1)</summary>
+
+<a id="d-29b4af91f88c01bc09a7"></a>
+- [ ] **D-29b4af91f88c01bc09a7** - - Fixes the remaining cross-role contamination path. Project icon, creator avatar and gallery media are now separate semantic lanes all the way through provider parsing, cache sani...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the remaining cross-role contamination path. Project icon, creator avatar and gallery media are now separate semantic lanes all the way through provider parsing, cache sanitization, main-process merging and renderer merging. The same URL cannot survive in multiple roles; ambiguous collisions are quarantined instead of being painted. - Hardens CurseForge against global promotions, tier frames and “More from” siblings. A project image must be bound to the exact project H1/project entry, a creator avatar must be bound to the exact member/profile identity, and gallery media must come from the exact project gallery/description region. A definitive “This mod has no gallery items available” is delivered as a real negative state instead of an endless spinner. - Adds the creator-project index fast lane: one exact CurseForge author Projects page can provide the exact creator avatar plus each exact project logo, and duplicate cards sharing that author single-flight the physical author-page request. ForgeCDN 256 px project-logo previews are used for first paint while the full original URL is retained for source/open behavior. - Removes two artificial renderer startup floors. Live prime now begins on the next microtask rather than a 90 ms timer, and live network discovery starts in parallel with the all-catalog persistent-cache IPC batch instead of waiting for that entire batch to finish. Cache work is preserved and can still win the paint race. - Raises the real media-prime execution frontier to up to 3x logical CPUs (bounded at 128 concurrent jobs) and prewarms eight Chromium media views. The native transport stress gate now runs 192 simultaneous real localhost HTTP streams and requires all 192 to be concurrently active at the server. - Adds instant-frontier-qa.js, a real localhost streaming benchmark with the same 90 ms cache-hydration workload on both sides. The release requires the overlapped path to eliminate the barrier without dropping the cache work. - Keeps all 23 provider families, full uncapped gallery enrichment, full-resolution originals, persistent Chromium session/cache, Rust wreq/Impit transports, uBlock Origin and the integrated auto-updating TWP translator. No project/source/gallery cap or generated replacement imagery is introduced.
+  - **Binding context:** Enderloom 2.9.5 / 2.7.0 instant media ownership + role quarantine
+  - **Original specification:** [README.md : 79-85](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L79-L85)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression (1)</summary>
+
+<a id="d-562c93c0d756e68a2411"></a>
+- [ ] **D-562c93c0d756e68a2411** - - Promotes the live-media pipeline from a CurseForge-heavy optimizer to a 23-family provider capability registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bu...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Promotes the live-media pipeline from a CurseForge-heavy optimizer to a 23-family provider capability registry covering CurseForge, Modrinth, GitHub, GitLab, Hangar, SpigotMC, Bukkit, BuiltByBit, Nexus Mods, ModDB, Polymart, Planet Minecraft, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft Marketplace, BOOTH, Fourthwall, Ko-fi, itch.io, Gumroad, and alltheysm. Unknown exact project pages still retain the identity-checked generic OG/JSON-LD/Chromium fallback. - Adds exact child resolution for Patreon creator pages/posts, AFDIAN creator products, Minecraft Marketplace PDPs, Ko-fi shop items, itch.io creator pages, and Gumroad product pages. Collection/profile hero art is never silently borrowed as project media. - Adds tiny public metadata seed lanes where the provider ecosystem exposes them: Spigot exact resources can use Spiget&#x27;s public resource icon metadata, Hangar exact projects use the public Hangar project API/avatar, and GitLab exact projects can use the public project avatar field. These seeds only accelerate the first real icon; the canonical project page still performs full, uncapped live gallery enrichment. - Adds first-class identity/media rules for Hangar, SpigotMC, Bukkit, Nexus Mods, ModDB, GitLab, Polymart, and BuiltByBit. BuiltByBit is deliberately browser-navigation-only without an official authenticated API token: the app will use the real persistent Chromium page rather than inventing a scraper bypass. - Removes the old quick-source score window: every canonical provider source home is admitted to first-image prime. Provider scoring may order metadata, but it no longer excludes Patreon/AFDIAN/PMC/Bedrock/other homes from the live race. - Adds a provider-adaptive transport policy based on real socket measurements instead of assuming every abort saves bandwidth. The audit found that pooled wreq and impit can return a logical first-media abort while continuing to drain the network body for connection reuse. 2.5 therefore stops spraying those native transports across every provider page: wreq remains a real complementary CurseForge keeper, and impit HTTP/3 remains a visible-card specialty hedge. - Makes redundant Node streams physically terminate after the first complete trusted media URL and makes provider collection streams stop after the exact-child prefix. Chromium uses the same bounded body-reader cancellation path in the production Electron session. One complete response remains for uncapped enrichment, so this is bandwidth elimination rather than gallery truncation. - Expands startup connection hints to the real media origins used by ForgeCDN, Modrinth, GitHub/GitLab, Hangar, SpigotMC, Bukkit, Nexus Mods, ModDB, Polymart, BuiltByBit, PMC, MCPEDL, ModBay, AFDIAN, Patreon, Minecraft/Microsoft Marketplace media, BOOTH, Fourthwall, Ko-fi and itch. Discovered image origins are still added dynamically. - Adds provider-universe and current-catalog coverage gates. The built-in catalogs currently contain 605 records and 759 source URLs across 10 provider families, all classified by the first-class registry; the registry itself has 23 first-class provider families. - Adds hedged-bandwidth-qa.js, a real TCP-stream benchmark. Its release fixture compares the former three-complete-response behavior with the new keeper + physical-probe policy over a deliberately slow 1 MiB tail and requires a large byte reduction without regressing first-media readiness. The same test explicitly audits wreq/impit cancellation behavior so a future change cannot accidentally reintroduce hidden native tail drains. - Patreon/AFDIAN/login-sensitive discovery stays credential-safe: the persistent Chromium partition is the complete-response authority. The app does not export cookies into catalog data, and public native/Node paths do not bypass paid/private access. - No gallery cap, project cap, source cap, synthetic image substitution, viewport record culling, or downgrade of full-original hover/lightbox media was introduced.
+  - **Binding context:** Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression
+  - **Original specification:** [README.md : 98-109](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L98-L109)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.4.0 same-session paint acceleration + fourth native transport (1)</summary>
+
+<a id="d-03c1b12e2bb61921f44c"></a>
+- [ ] **D-03c1b12e2bb61921f44c** - - Fixes a hidden cross-session performance bug: the catalog renderer now uses the same persistent Chromium session partition as live discovery. Provider preconnect, DNS/TLS/H2/H3 s...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes a hidden cross-session performance bug: the catalog renderer now uses the same persistent Chromium session partition as live discovery. Provider preconnect, DNS/TLS/H2/H3 state, cookies, and HTTP cache warming therefore benefit the actual card &lt;img&gt; requests instead of being stranded in a different Chromium session. - Starts the real preview-byte request before IPC paint for visible and near-visible cards. The provider-discovered preview is consumed through Electron session.fetch on the shared partition, allowing the renderer image request to coalesce with or hit the warmed Chromium HTTP cache. Full-original hover/lightbox URLs remain unchanged. - Adds a fourth independent network implementation using the official Apify impit 0.14.4 native Rust binding. The shipped client uses Chrome 151 impersonation; HTTP/3 is enabled, with a QUIC-only exact CurseForge /gallery hedge for immediately visible cards while all existing Node, Chromium, and wreq paths remain available. - Exact CurseForge gallery streams can now seed the first real ForgeCDN image directly from the completed streamed URL before the full HTML parser runs. wreq, Chromium, and impit gallery lanes all use this safe exact-project shortcut; background full HTML continues for the uncapped gallery. - Replaces growing-response rescans with rolling chunk scanners in Node, Chromium, and wreq. This removes repeated cumulative regex work and repeated Rust Buffer.concat allocations from the hot streaming path. Media readiness can now fire from 128 bytes once a complete trusted URL is present. - Adds real native impit streaming QA and a 144-socket multi-transport stress gate. The Linux QA binding and Windows release binding are the upstream GitHub Actions artifacts, verified against GitHub&#x27;s published artifact SHA-256 digests. - Starts provider/CDN connection establishment from the persisted live-media metadata cache before Catalog IPC and DOM upgrade work begins. Every cached record remains represented; only duplicate origins are coalesced into connection hints. - Caches each project&#x27;s primary media DOM slot and last computed screen priority so gallery/icon/author updates stop repeating selector scans and forced layout reads on the first-image path. - No gallery cap, project cap, synthetic media, viewport record culling, or downgrade of full-resolution hover/lightbox behavior was introduced.
+  - **Binding context:** Enderloom 2.9.5 / 2.4.0 same-session paint acceleration + fourth native transport
+  - **Original specification:** [README.md : 113-121](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L113-L121)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.3.0 streamed-media latency removal (1)</summary>
+
+<a id="d-a8e9e06a8d58e46f4bf0"></a>
+- [ ] **D-a8e9e06a8d58e46f4bf0** - - Replaces the last arbitrary byte-threshold wait in first-image discovery with a content-sensitive media gate. Node, Chromium, and native Rust now resolve a dedicated media phase ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Replaces the last arbitrary byte-threshold wait in first-image discovery with a content-sensitive media gate. Node, Chromium, and native Rust now resolve a dedicated media phase the moment the streamed HTML contains a complete trusted provider image URL instead of waiting for a 448-768 KiB prefix or EOF. The same physical request still continues to full HTML for uncapped gallery enrichment. - Fixes the native Rust head bug found by real socket testing: the 2.2 Rust lane waited for its byte threshold on small streamed pages even after &lt;/head&gt; arrived. 2.3 detects &lt;/head&gt; while chunks are still arriving, matching the fast Node/Chromium head behavior. - Adds an exact CurseForge /gallery SSR race. Native Rust starts the project-owned gallery route in parallel with the canonical page; visible/near-visible cards also race Chromium against that gallery route. The canonical page is still retained and full enrichment is never capped. - Teaches the CurseForge parser to trust the bounded project-owned SSR gallery strip before Description and to preserve the provider&#x27;s small ForgeCDN thumbnail as the card preview while upgrading the hover/lightbox URL to the full original attachment. - Makes the offscreen Chromium DOM path a real hedge: visible cards start it at 0 ms, near-viewport cards at 45 ms, and farther cards at 120 ms. Four WebContentsView instances are prewarmed during boot so visible cards do not pay view construction on the first request. - Widens the native Rust transport to a 192-connection pool with 48 idle connections per host, increases Chromium preconnect sockets on WAF-sensitive providers, and immediately preconnects the discovered image CDN before the media IPC payload reaches the renderer. - Removes the renderer&#x27;s 12 ms prime timer; the initial global media batch is now admitted on the next microtask. No project record, source, image, or gallery result cap was added. - Adds executable progressive-media-qa.js and media-stress-qa.js. The release gate now measures real streamed localhost HTTP sockets through the actual Node and vendored Rust transports, verifies parseable CurseForge SSR media arrives before a deliberately slow response tail, and stress-races 128 simultaneous real HTTP streams without serializing the first-media frontier.
+  - **Binding context:** Enderloom 2.9.5 / 2.3.0 streamed-media latency removal
+  - **Original specification:** [README.md : 125-132](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L125-L132)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.2.0 true parallel native live-media transport (1)</summary>
+
+<a id="d-20bec01ef39065303791"></a>
+- [ ] **D-20bec01ef39065303791** - - Replaces the remaining WAF-sensitive single-transport bottleneck with three real simultaneous network engines per exact provider page: pooled Node core HTTP, Electron session.fet...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Replaces the remaining WAF-sensitive single-transport bottleneck with three real simultaneous network engines per exact provider page: pooled Node core HTTP, Electron session.fetch() on Chromium&#x27;s native network service, and a vendored wreq-js 3.2.0 Rust/BoringSSL N-API binding. All three start at t=0; none waits for another transport to time out. - The Rust lane is shipped, not theoretical. Official x86_64 Windows and Linux GNU native bindings from the upstream wreq-js v3.2.0 GitHub Actions build are vendored with their MIT license. The app selects the newest native Chrome profile available (currently Chrome 149), holds a persistent cookie session, and reuses a 96-connection transport pool with up to 24 idle connections per host. - Rust responses are streamed with readBodyChunk: provider &lt;head&gt; and early-body prefixes can paint a real off-site image before the tail of the document finishes. The same one physical response continues in the background for the full uncapped gallery, so first paint is no longer coupled to full-page completion. - Adds Chromium session.preconnect() origin warmup and direct session.fetch() SSR acquisition. If all compact transports are still silent after 180 ms, a pooled offscreen Chromium page launches concurrently and extracts on dom-ready without waiting for fonts, analytics, ads, or the full load event. - Removes alternate-source startup staggering: canonical sources and all available network engines enter the race in the same turn. Existing single-flight/cache identity guarantees remain, so duplicate consumers share provider responses instead of multiplying physical requests. - Adds executable rust-native-qa.js. Its delayed local streaming fixture verifies the real Rust native module loads, three concurrent consumers collapse to one physical request, an OG image is visible from the early stream before the delayed document tail, and the full body still completes without truncation. - No image/gallery cap, no synthetic media, no viewport record culling, and no replacement of full-original hover/lightbox URLs were introduced.
+  - **Binding context:** Enderloom 2.9.5 / 2.2.0 true parallel native live-media transport
+  - **Original specification:** [README.md : 136-142](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L136-L142)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler (1)</summary>
+
+<a id="d-3b306e7e0c82babf834b"></a>
+- [ ] **D-3b306e7e0c82babf834b** - - Fixes the remaining catalog-wide first-paint stall at the scheduler boundary. Prime requests are now sorted in the renderer, admitted to the main-process queue as one atomic batc...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the remaining catalog-wide first-paint stall at the scheduler boundary. Prime requests are now sorted in the renderer, admitted to the main-process queue as one atomic batch, and only then dispatched. A visible card registered late can no longer sit behind the first worker-count worth of registration-order cards. - Adds provider-aware source ordering without discarding anything: deterministic GitHub repository previews and Modrinth bulk/API hits lead, exact project homes follow, and collection/auxiliary routes enrich afterward. Every exact source remains available to the uncapped deep/gallery pass. - Keeps progressive single-request head/prefix/full parsing, context-aware cache v7, single-flight raw-document reuse, DNS reuse, Modrinth bulk hydration, protected Chromium deep fallback, and full-original hover/lightbox behavior. - Tightens image-byte scheduling after discovery: visible images retain fetchPriority=high; near-frontier discovered images start eagerly; farthest rows stay low/lazy so Chromium&#x27;s priority signal remains useful instead of turning every image into a high-priority request storm. - Adds frontier-priority-qa.js to release QA. It gates provider-aware source ordering, full-batch admission-before-pump, renderer priority sorting, near/far image loading policy, and the no-gallery-cap invariant. - The implementation follows current priority-queue, browser Priority Hints, and Node keep-alive pooling guidance while remaining dependency-free in the packaged runtime.
+  - **Binding context:** Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler
+  - **Original specification:** [README.md : 146-151](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L146-L151)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening (1)</summary>
+
+<a id="d-68e7a159c33a4e1482cb"></a>
+- [ ] **D-68e7a159c33a4e1482cb** - - Extends the 2.0.11 progressive first-image frontier with Modrinth&#x27;s official bulk GET /projects?ids=[…] endpoint. Every unique Modrinth project in the catalog is primed toge...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Extends the 2.0.11 progressive first-image frontier with Modrinth&#x27;s official bulk GET /projects?ids=[…] endpoint. Every unique Modrinth project in the catalog is primed together in encoded-URL-size transport chunks, preserving all projects, icons, and gallery entries while removing per-card project API round trips. - Keeps author/team enrichment off the first-image critical path; rich creator data and full gallery enrichment still continue afterward with no result or gallery truncation. - Adds release QA that feeds 400 synthetic Modrinth project slugs through the bulk chunker and proves every project is preserved in order across transport chunks.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening
+  - **Original specification:** [README.md : 155-157](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L155-L157)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.11 ultra-fast live-media frontier (1)</summary>
+
+<a id="d-b997a8b23ebc9c8d3366"></a>
+- [ ] **D-b997a8b23ebc9c8d3366** - - Fixes the largest warm-start media bug: persistent discovery cache is now keyed by source URL + exact project identity, so multiple catalog entries that share a Planet Minecraft ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixes the largest warm-start media bug: persistent discovery cache is now keyed by source URL + exact project identity, so multiple catalog entries that share a Planet Minecraft collection, creator page, or other index URL no longer evict one another. In the two built-in catalogs, 148 rows participate in duplicated/index-style project URLs, including 42 Mob Girl rows on one PMC collection. - Replaces hundreds of per-card cache IPC calls with one batched catalog hydrate, then launches an all-project priority first-image frontier. Visible/near-visible cards are reprioritized immediately; no project, source, gallery, or result count is capped. - Adds Spider/Crawlee-style single-flight raw provider requests and a short-lived 64 MiB byte-budgeted document cache. Dozens of project identities that share one provider index reuse the same physical response while preserving independent identity parsing and persistent project-scoped results. - Adds a three-gate progressive HTTP path: trusted project &lt;head&gt; media can paint as soon as &lt;/head&gt; arrives, provider collection/index child links can resolve from an early body prefix, and the same physical response continues into full uncapped provider/gallery parsing. Slow alternate sources merge progressively instead of holding the first good image behind Promise.all. - Adds TTL DNS reuse with in-flight coalescing, Happy-Eyeballs address selection, wider keep-alive socket pools, early CDN DNS/preconnect hints, viewport-aware fetchPriority, and live provider thumbnail URLs where a provider exposes a smaller derivative. Hover/lightbox still opens the original full live image. - Deep Chromium discovery now uses a reusable protected media-view pool and yields to missing first-image HTTP/API work. Rich gallery/author enrichment remains uncapped and automatically continues after the fast image frontier or on hover/detail/lightbox. - GitHub projects can paint from the deterministic live repository OpenGraph endpoint and owner avatar without waiting for a full github.com document; Modrinth&#x27;s first-image path no longer waits on optional team/author enrichment. - Modrinth now primes through its official bulk GET /projects?ids=[…] API: all Modrinth projects in the current catalog are transport-chunked by URL size and hydrated together, while every project gallery/icon remains intact and rich author/team enrichment continues afterward. - Deterministic media-performance QA proves 32 concurrent identical consumers collapse to one GET; early head and collection-prefix readiness beat delayed full bodies while sharing the same request; cache v7, batched IPC, quick-before-deep scheduling, progressive painting, and no-gallery-cap invariants are release-gated.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.11 ultra-fast live-media frontier
+  - **Original specification:** [README.md : 161-169](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L161-L169)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom (1)</summary>
+
+<a id="d-15dcd57fac958b8d055a"></a>
+- [ ] **D-15dcd57fac958b8d055a** - - Replaces generic non-CurseForge image harvesting with provider-aware project identity. Planet Minecraft collection URLs are now treated as indexes: the catalog title is matched a...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Replaces generic non-CurseForge image harvesting with provider-aware project identity. Planet Minecraft collection URLs are now treated as indexes: the catalog title is matched against child project links, the exact child project is fetched, and only that project page can supply gallery/icon media. Collection neighbors, More like this, recommendations, comments, avatars, ads, and site chrome are rejected. - Adds scoped exact-project extraction for MCPEDL, ModBay, Fourthwall product pages, BOOTH, AFDIAN, and GitHub/other identity-checked sources. Known provider pages can become authoritative so the generic Chromium crawler does not contaminate a good provider result. - Fixes a latent media bug where a missing social-image meta value could resolve to the page URL itself and be treated as an image. Live-media discovery cache is bumped to v6 so older ambiguous Planet Minecraft/non-CurseForge results are ignored and rediscovered with the new identity policy. - Integrates the official uBlock Origin 1.74.0 Chromium MV2 bundle into the persistent live-browser session. A compatibility layer fills Electron APIs uBO expects without replacing Electron&#x27;s native webRequest/storage/runtime support. uBO keeps its normal filter-asset updater, while the app checks official gorhill/uBlock GitHub releases every six hours and stages newer Chromium packages for the next restart. The bottom status bar exposes the active uBO version and the More menu has an explicit update check. - Keeps hover magnification and the gallery lightbox exactly in place while fixing the click blocker: the transparent full-image zoom layer no longer receives pointer events, explicit Favorite/Compare/action controls stay above it, and background image clicks are delegated to zoom only when the click did not originate from an interactive control. - Preserves 2.0.8 native modal isolation, ByteString-safe Node transport, protected top/bottom chrome, browser input focus, native draggable 18px split rail, uncapped live galleries, and real off-site provider/CDN image URLs.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.9 provider-identity media + uBlock Origin + hit-safe zoom
+  - **Original specification:** [README.md : 181-186](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L181-L186)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.8 ByteString elimination + native modal isolation (1)</summary>
+
+<a id="d-1d11b7eaec22c8684b45"></a>
+- [ ] **D-1d11b7eaec22c8684b45** - - Eliminates the remaining Electron session.fetch/Undici crash path. Authenticated Google Sheet/Doc/Drive refresh now reads the existing cookies from persist:minecraft-catalog-live...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Eliminates the remaining Electron session.fetch/Undici crash path. Authenticated Google Sheet/Doc/Drive refresh now reads the existing cookies from persist:minecraft-catalog-live and performs the HTTP transfer with pooled Node http/https, so third-party response headers never pass through Electron&#x27;s Fetch Headers ByteString conversion. Login/session continuity is preserved because the browser cookie jar remains authoritative. - Adds a malformed-response-header regression that reproduces the exact U+2014 / 8212 failure class and verifies both public media and authenticated Google-source transport survive it. - Applies the approved blur fix at the source: site permissions now use Electron native message boxes, Catalog Center runs in its own child BrowserWindow, and clear-live-data confirmation is native. The protected top chrome has a hard 430px utility cap and can no longer expand to full-window size. - Removes the top-shell HTML &lt;dialog&gt; surfaces and their blurred backdrop. A safety CSS rule keeps any future dialog backdrop blur-free. Permission choices remain Block / Allow once / Allow this session, and focus is restored to the requesting site after the native prompt closes. - Preserves the 2.0.7 native 18px split rail and accelerated cached-first/live-only media pipeline without adding gallery caps, fabricated media, static screenshots, or embedded image payloads.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.8 ByteString elimination + native modal isolation
+  - **Original specification:** [README.md : 190-194](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L190-L194)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.7 transport + native split + live-media acceleration (1)</summary>
+
+<a id="d-1c3ae7db7e3ae69fed7a"></a>
+- [ ] **D-1c3ae7db7e3ae69fed7a** - - Introduced pooled Node http/https for public project/media discovery and the protected native splitter. 2.0.8 extends that ByteString-safe transport to authenticated Google-sourc...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Introduced pooled Node http/https for public project/media discovery and the protected native splitter. 2.0.8 extends that ByteString-safe transport to authenticated Google-source refresh as well. - Replaced the obscured DOM splitter with a dedicated protected native splitter WebContentsView, preserving the 18px hit lane while making the full divider draggable above both native panes. Drag uses stable screen coordinates; double-click resets 50/50; right-click/Enter swaps; arrows/Home/End resize; ratio persists. - Live preview discovery remains real off-site HTTP(S) media only. Cached URLs paint first, visible/near-visible cards get priority, public HTTP uses keep-alive pooled sockets, alternate project sources resolve in parallel, and deep Chromium crawling is deferred to stale/rich refresh or user interaction. Gallery/source-image counts are not truncated by the old 24-image cap.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.7 transport + native split + live-media acceleration
+  - **Original specification:** [README.md : 198-200](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L198-L200)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.6 browser-input + bottom-edge + media-latency repair (1)</summary>
+
+<a id="d-4b4902e06e43fd49490e"></a>
+- [ ] **D-4b4902e06e43fd49490e** - - Fixed the real text-field regression from 2.0.4: the chrome guard was relaying out the active remote WebContentsView when it gained focus, and the old layout path hid/re-showed t...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixed the real text-field regression from 2.0.4: the chrome guard was relaying out the active remote WebContentsView when it gained focus, and the old layout path hid/re-showed that view. A page input could receive your click and then immediately lose DOM focus. Attached active views are now resized in place and never hidden/re-shown during focus/layout guards. - Remote focus and the root-shell blur event now use paint-only guards. They no longer invoke the full native-view layout routine. The dedicated topmost chrome view stays intact without stealing focus from Twitch/Google/CurseForge login/search fields. - Site permission prompts now remember the requesting webContents and explicitly restore focus to that page after Block / Allow once / Allow this session. Catalog Center and browser-data dialogs also hand focus back to the active content after closing. - Normal browser pages now extend to the actual bottom edge instead of reserving the old 28 px BrowserWindow status strip. The status strip is kept only for the full Catalog view, removing the dark/blurred-looking band seen under websites. - Live media is still actual off-site HTTP(S) media only, but startup is substantially lighter: per-project cache reads are deduplicated, visible/near-visible cards are prioritized with IntersectionObserver, quick provider/HTML metadata uses up to 10 lightweight jobs, and expensive offscreen Chromium gallery/profile discovery is limited to 2 deep jobs and prioritized for hover/detail/lightbox use. - Discovery metadata stays cached for 24 hours while the image URLs themselves remain live provider/CDN URLs. Cached cards paint immediately; deep refresh remains available from the gallery and broken URLs still trigger a live re-resolution.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.6 browser-input + bottom-edge + media-latency repair
+  - **Original specification:** [README.md : 220-225](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L220-L225)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.4 native control-plane isolation (1)</summary>
+
+<a id="d-4f0461d943164873eb20"></a>
+- [ ] **D-4f0461d943164873eb20** - - Replaced the vulnerable BrowserWindow-only toolbar with a second, dedicated WebContentsView that renders the same titlebar/tab strip/address bar as a topmost native sibling surfa...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Replaced the vulnerable BrowserWindow-only toolbar with a second, dedicated WebContentsView that renders the same titlebar/tab strip/address bar as a topmost native sibling surface. - Every live website/catalog content view is now explicitly stacked underneath that control surface. Creating a tab cannot overtake the toolbar even if Windows gives the remote Chromium child surface a stale full-window hit region. - The top control view starts at exactly 94 px and expands only when Find, Downloads, More, permission prompts, confirmation prompts, or Catalog Center need additional UI. - Remote site bounds, 1.2 → 2.x browser-session continuity, the 18 px split lane, and all 2.0.1+ live off-site gallery/author-media behavior are preserved. - The older repaint/background-throttling guards remain as defense in depth, but UI availability no longer depends on the BrowserWindow renderer winning composition against a website child view.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.4 native control-plane isolation
+  - **Original specification:** [README.md : 229-233](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L229-L233)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix (1)</summary>
+
+<a id="d-bacf34756004177acd3a"></a>
+- [ ] **D-bacf34756004177acd3a** - - Fixed the separate new-tab failure where a newly focused remote WebContentsView could leave the BrowserWindow shell renderer blank/unpainted on Windows even though the remote pag...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixed the separate new-tab failure where a newly focused remote WebContentsView could leave the BrowserWindow shell renderer blank/unpainted on Windows even though the remote page itself was correctly clipped below the 94 px chrome boundary. - The shell renderer now keeps background throttling disabled and explicitly invalidates/repaints after native-view focus/navigation handoffs, without stealing focus from the web page. - New remote views are born hidden inside the safe content region, sized to their final bounds before attachment, and only then revealed. This prevents a transient full-window native child/hit-test surface during tab creation. - Tab switching no longer removes and re-adds every native view. Views remain attached and are visibility-switched, avoiding native z-order/input-region churn while preserving the 18 px split lane and existing tab/session behavior. - The 2.0.1 live off-site media contract and the 2.0.2 non-blurring drag indicator are unchanged.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.3 native browser chrome compositor fix
+  - **Original specification:** [README.md : 237-241](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L237-L241)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.1 live off-site media fix (1)</summary>
+
+<a id="d-6f47e5e3b9a1e6cc12da"></a>
+- [ ] **D-6f47e5e3b9a1e6cc12da** - - Catalog galleries, project icons, and author avatars are live off-site media only. The app caches discovery metadata and source URLs for speed, but displayed image URLs continue ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Catalog galleries, project icons, and author avatars are live off-site media only. The app caches discovery metadata and source URLs for speed, but displayed image URLs continue to point to the real mod/provider/creator site or its CDN. - Embedded/base64/static gallery payloads and page-screenshot fallbacks are not used. Modrinth uses its live project/team API where possible; other providers are resolved through the persistent internal Chromium session, including gallery/media subpages and creator profiles. - Every media slot supports source refresh. Gallery images, project icons, and creator avatars support full hover zoom; project galleries also open in a thumbnail lightbox with previous/next navigation and direct source/image actions. - Exact alternate provider homes are tried when a primary page cannot expose enough media. Failed image URLs are discarded and refreshed instead of being permanently cached as blank cards.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.1 live off-site media fix
+  - **Original specification:** [README.md : 252-255](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L252-L255)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / Browser/catalog QoL (1)</summary>
+
+<a id="d-ea91201c424db30996c7"></a>
+- [ ] **D-ea91201c424db30996c7** - - Back / forward / reload-stop / address search - New, close, and reopen browser tabs - Persistent live-site cookies and sessions - Find in page and zoom - Visible download state -...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Back / forward / reload-stop / address search - New, close, and reopen browser tabs - Persistent live-site cookies and sessions - Find in page and zoom - Visible download state - Site permissions: Block, Allow once, and a real Allow this session remembered by origin + permission until app exit or live-site data is cleared - Session/tab/split restore - Live off-site gallery discovery, creator-avatar discovery, full hover zoom, thumbnails, and lightbox - Multiple exact project/provider homes rather than collapsing every project to one URL - Search, numeric queries when fields really exist, filters, sortable card/table/gallery views, favorites, notes, compare, recent items, and CSV export
+  - **Binding context:** Enderloom 2.9.5 / Browser/catalog QoL
+  - **Original specification:** [README.md : 271-280](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L271-L280)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / Security and privacy (1)</summary>
+
+<a id="d-02d519e46c9af37648f8"></a>
+- [ ] **D-02d519e46c9af37648f8** - - Remote tabs: nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true. - Google auth remains in the dedicated persistent Chromium session. Tokens/cookies ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Remote tabs: nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true. - Google auth remains in the dedicated persistent Chromium session. Tokens/cookies are never copied into catalog JSON, Drive artifacts, or source packages. - Only http: / https: live navigation is accepted by the browser workspace. - No image generation is used. No catalog image bytes are embedded. Displayed project/gallery/creator images remain live http: / https: URLs from the real source site or its CDN; only discovery metadata is cached locally.
+  - **Binding context:** Enderloom 2.9.5 / Security and privacy
+  - **Original specification:** [README.md : 324-327](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L324-L327)
+
+</details>
+
 <a id="lib-03-details"></a>
 ## LIB-03 - Real embedded browser
 
 [Outcome](Checklist.md#lib-03) / 91 source-derived details.
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics (1)</summary>
-
-<a id="d-4cae1fb825d54c14f545"></a>
-- [ ] **D-4cae1fb825d54c14f545** - - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authoritative nati...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authoritative native session.webRequest blocker compiled from the bundled official uBlock Origin filter assets plus EasyList/EasyPrivacy. The current bundled set produces about 118k parsed network rules and blocks common Google/DoubleClick/AppNexus ad traffic before it reaches live browser tabs. - The official uBlock Origin 1.74.0 extension remains loaded for its normal extension/content-script state. Companion&#x27;s native network layer is the verified fallback/authority because Electron&#x27;s main-process webRequest layer has deterministic control of the persistent browser session. The status bar now says verified only when the network engine itself is running; extension load alone is shown as loaded / not filtering. - Filter lists refresh conditionally every six hours using ETag/Last-Modified and fall back to the bundled official lists offline. The existing official gorhill/uBlock package updater remains, so both the extension package and live network lists stay current. - Restored normal frameless-Windows movement behavior without sacrificing the custom chrome: empty titlebar/tab-strip space is a native drag region, while actual tabs, New Tab/Reopen, and window buttons are explicit no-drag controls. Windows WS_THICKFRAME move/resize/snap behavior is explicitly retained. - The protected bottom status surface gets the same QoL treatment: non-interactive status space can be used as a convenient grab region, collapse/reveal remains clickable, and native window edges/corners remain reserved for standard resize behavior.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics
-  - **Original specification:** [README.md : 173-177](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L173-L177)
-
-</details>
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -2514,22 +2502,22 @@
 
 </details>
 
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics (1)</summary>
+
+<a id="d-4cae1fb825d54c14f545"></a>
+- [ ] **D-4cae1fb825d54c14f545** - - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authoritative nati...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authoritative native session.webRequest blocker compiled from the bundled official uBlock Origin filter assets plus EasyList/EasyPrivacy. The current bundled set produces about 118k parsed network rules and blocks common Google/DoubleClick/AppNexus ad traffic before it reaches live browser tabs. - The official uBlock Origin 1.74.0 extension remains loaded for its normal extension/content-script state. Companion&#x27;s native network layer is the verified fallback/authority because Electron&#x27;s main-process webRequest layer has deterministic control of the persistent browser session. The status bar now says verified only when the network engine itself is running; extension load alone is shown as loaded / not filtering. - Filter lists refresh conditionally every six hours using ETag/Last-Modified and fall back to the bundled official lists offline. The existing official gorhill/uBlock package updater remains, so both the extension package and live network lists stay current. - Restored normal frameless-Windows movement behavior without sacrificing the custom chrome: empty titlebar/tab-strip space is a native drag region, while actual tabs, New Tab/Reopen, and window buttons are explicit no-drag controls. Windows WS_THICKFRAME move/resize/snap behavior is explicitly retained. - The protected bottom status surface gets the same QoL treatment: non-interactive status space can be used as a convenient grab region, collapse/reveal remains clickable, and native window edges/corners remain reserved for standard resize behavior.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics
+  - **Original specification:** [README.md : 173-177](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L173-L177)
+
+</details>
+
 <a id="lib-04-details"></a>
 ## LIB-04 - Catalog-to-instance bridge
 
 [Outcome](Checklist.md#lib-04) / 62 source-derived details.
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / Keyboard shortcuts (1)</summary>
-
-<a id="d-42510676ef155a1b1b3a"></a>
-- [ ] **D-42510676ef155a1b1b3a** - - Ctrl+L address/search - Ctrl+T new browser tab - Ctrl+W close live tab - Ctrl+Shift+T reopen closed tab - Ctrl+Shift+C return to Catalog - Ctrl+Shift+O Catalog Center - Ctrl+F fi...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Ctrl+L address/search - Ctrl+T new browser tab - Ctrl+W close live tab - Ctrl+Shift+T reopen closed tab - Ctrl+Shift+C return to Catalog - Ctrl+Shift+O Catalog Center - Ctrl+F find in page - Ctrl+\ Research Split - Alt+Left / Alt+Right browser history - Ctrl++ / Ctrl+- / Ctrl+0 zoom - / or Ctrl+K inside a catalog focuses catalog search
-  - **Binding context:** Enderloom 2.9.5 / Keyboard shortcuts
-  - **Original specification:** [README.md : 284-294](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L284-L294)
-
-</details>
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -3093,6 +3081,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Runtime/release
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 955-955](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L955-L955) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1359-1359](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1359-L1359)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / Keyboard shortcuts (1)</summary>
+
+<a id="d-42510676ef155a1b1b3a"></a>
+- [ ] **D-42510676ef155a1b1b3a** - - Ctrl+L address/search - Ctrl+T new browser tab - Ctrl+W close live tab - Ctrl+Shift+T reopen closed tab - Ctrl+Shift+C return to Catalog - Ctrl+Shift+O Catalog Center - Ctrl+F fi...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Ctrl+L address/search - Ctrl+T new browser tab - Ctrl+W close live tab - Ctrl+Shift+T reopen closed tab - Ctrl+Shift+C return to Catalog - Ctrl+Shift+O Catalog Center - Ctrl+F find in page - Ctrl+\ Research Split - Alt+Left / Alt+Right browser history - Ctrl++ / Ctrl+- / Ctrl+0 zoom - / or Ctrl+K inside a catalog focuses catalog search
+  - **Binding context:** Enderloom 2.9.5 / Keyboard shortcuts
+  - **Original specification:** [README.md : 284-294](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L284-L294)
 
 </details>
 
@@ -5069,6 +5069,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-64a75edabe291d4ef0a7"></a>
+- [ ] **D-64a75edabe291d4ef0a7** - NON-NEGOTIABLE INTEGRATION LAW No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performa...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** NON-NEGOTIABLE INTEGRATION LAW No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performance results must appear directly on mods, Favorites, update planning and repair. Crashes must open the exact culprit mod/source/config. World hotspots should link back to owning mods/entities/blocks. Config and version changes invalidate only evidence that actually depends on them. Conversion failures can enter the same repair/test loop. Returned AI candidates update source history, repair history, compatibility and performance provenance.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 24-25](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L24-L25)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 27. Definition of Done — Enderloom Apex Conversion Engine / Core conversion (1)</summary>
 
 <a id="d-ba67ffaf10a559fb0f63"></a>
@@ -5166,18 +5178,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-04 — Implement Complete-Lineage conversion: strongest legitimate union, not one branch
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 124-124](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L124-L124)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-64a75edabe291d4ef0a7"></a>
-- [ ] **D-64a75edabe291d4ef0a7** - NON-NEGOTIABLE INTEGRATION LAW No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performa...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** NON-NEGOTIABLE INTEGRATION LAW No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performance results must appear directly on mods, Favorites, update planning and repair. Crashes must open the exact culprit mod/source/config. World hotspots should link back to owning mods/entities/blocks. Config and version changes invalidate only evidence that actually depends on them. Conversion failures can enter the same repair/test loop. Returned AI candidates update source history, repair history, compatibility and performance provenance.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 24-25](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L24-L25)
 
 </details>
 
@@ -5381,7 +5381,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 125 source-derived details.
+[Outcome](Checklist.md#lib-08) / 126 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -6546,6 +6546,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 924-924](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L924-L924) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1328-1328](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1328-L1328)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-3c28034827f596f709b7"></a>
+- [ ] **D-3c28034827f596f709b7** - Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes P...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes PlayFab, entitlement, download and archive-processing surfaces; McTools includes local archive processing. Source availability alone is not a stable provider API or an entitlement check. Determine which supported provider/account flow proves the exact product authorization. The discovery view must not mark a product owned because a content identifier or download URL exists.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 98-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L98-L104)
 
 </details>
 

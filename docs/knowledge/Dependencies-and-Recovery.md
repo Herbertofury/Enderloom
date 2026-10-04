@@ -70,5 +70,5 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [DEP-04 - Managed immutable toolchains](Acceptance-DEP.md#dep-04-details): 13 source details.
 - [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 115 source details.
 - [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 16 source details.
-- [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 60 source details.
+- [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 61 source details.
 - [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 14 source details.

@@ -174,7 +174,7 @@
 [**KNOW-04**](Checklist.md#know-04)
 
 <details>
-<summary>Source clauses and aliases (186 distinct blocks)</summary>
+<summary>Source clauses and aliases (187 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L721-L721) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [14. CLI test matrix / Parser/contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L761-L761) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -278,6 +278,7 @@
 - [5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.1 Compatibility is behavioral](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L338-L338) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.2 Version-specific source truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L365-L365) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.3 License-aware integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L369-L377) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 2 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L20-L20) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L157-L157) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T053 — Add MixinTransmogrifier and MixinExtras compatibility knowledge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L201-L205) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 3 distinct blocks.
 - [G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L285-L285) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.

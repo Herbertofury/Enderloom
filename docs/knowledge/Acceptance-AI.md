@@ -2402,6 +2402,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-13313eb4e7f9e88c2e2d"></a>
+- [ ] **D-13313eb4e7f9e88c2e2d** - Wave A remains the exact next implementation action. Its typed graph/evidence/task model must be extensible for StallIncident, ThreadSnapshot, profile/JFR artifacts, memory/render ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Wave A remains the exact next implementation action. Its typed graph/evidence/task model must be extensible for StallIncident, ThreadSnapshot, profile/JFR artifacts, memory/render observations, concurrency findings, BisectRun/MinimalReproducer, ScenarioDefinition/Run, CompatibilityContract, ScriptProject, StartupProfile, WorldRecoveryFinding and PerformancePatchAcceptanceLedger without creating shadow stores.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 131-131](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L131-L131)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 2. ONE TOUCH PIPELINE FOR CREATE / CONVERT / REPAIR (1)</summary>
 
 <a id="d-b3948396387a5d6e2cc3"></a>
@@ -2487,18 +2499,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-22 : 1419-1419](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1419-L1419)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-13313eb4e7f9e88c2e2d"></a>
-- [ ] **D-13313eb4e7f9e88c2e2d** - Wave A remains the exact next implementation action. Its typed graph/evidence/task model must be extensible for StallIncident, ThreadSnapshot, profile/JFR artifacts, memory/render ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Wave A remains the exact next implementation action. Its typed graph/evidence/task model must be extensible for StallIncident, ThreadSnapshot, profile/JFR artifacts, memory/render observations, concurrency findings, BisectRun/MinimalReproducer, ScenarioDefinition/Run, CompatibilityContract, ScriptProject, StartupProfile, WorldRecoveryFinding and PerformancePatchAcceptanceLedger without creating shadow stores.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 131-131](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L131-L131)
 
 </details>
 

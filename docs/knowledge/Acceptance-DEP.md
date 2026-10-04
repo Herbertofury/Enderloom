@@ -676,6 +676,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Missing-vanilla and dependency policy (1)</summary>
+
+<a id="d-4213d24aa607540133c4"></a>
+- [ ] **D-4213d24aa607540133c4** - When a target lacks a vanilla feature used by the mod, do not stub the identifier. Certify the mod-owned base first, record the exact dependency closure, then provide an explicit c...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** When a target lacks a vanilla feature used by the mod, do not stub the identifier. Certify the mod-owned base first, record the exact dependency closure, then provide an explicit compatibility/backport layer when realistic. Optional future-vanilla parity remains separately testable.
+  - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Missing-vanilla and dependency policy
+  - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 113-113](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L113-L113)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Accounts / identity / appearance (1)</summary>
 
 <a id="d-0ef60c7ebbad75ee83eb"></a>
@@ -717,18 +729,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 871-871](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L871-L871)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Missing-vanilla and dependency policy (1)</summary>
-
-<a id="d-4213d24aa607540133c4"></a>
-- [ ] **D-4213d24aa607540133c4** - When a target lacks a vanilla feature used by the mod, do not stub the identifier. Certify the mod-owned base first, record the exact dependency closure, then provide an explicit c...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** When a target lacks a vanilla feature used by the mod, do not stub the identifier. Certify the mod-owned base first, record the exact dependency closure, then provide an explicit compatibility/backport layer when realistic. Optional future-vanilla parity remains separately testable.
-  - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Missing-vanilla and dependency policy
-  - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 113-113](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L113-L113)
 
 </details>
 
@@ -3091,6 +3091,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-7f53487fb9c5de1ca553"></a>
+- [ ] **D-7f53487fb9c5de1ca553** - Run law: - Start at the first incomplete hard dependency and continue automatically. - Implement instead of merely planning. - Preserve already-working launcher/catalog/browser/mod...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Run law: - Start at the first incomplete hard dependency and continue automatically. - Implement instead of merely planning. - Preserve already-working launcher/catalog/browser/mod-manager behavior. - Wave A Integration Spine remains first real implementation priority: canonical identity/evidence/task/transaction/operation-registry/progress architecture, then one real installed-mod vertical consumed by Mod Manager + Catalog + CLI/service + Testing with zero duplicate truth. - Checkpoints are recovery anchors, not stopping points. - After two no-progress waves, change strategy; retry only with new information or a different route. - Compile is intermediate evidence; use strongest applicable Minecraft runtime proof. - Keep exact operation/build/test/evidence identities and update the checklist as acceptance changes. - Material checkpoints continue to GitHub + Drive. - Do not silently reduce scope, content, quality, compatibility, verification or safety. - Do not call Enderloom complete until the golden end-to-end challenge suite and final release gates pass.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 325-336](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L325-L336)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 10. Zero-loss parity ledgers / Content identity parity / Behavior parity (1)</summary>
 
 <a id="d-084771b14b8cf4e15dd2"></a>
@@ -3207,18 +3219,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L249-L249)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-7f53487fb9c5de1ca553"></a>
-- [ ] **D-7f53487fb9c5de1ca553** - Run law: - Start at the first incomplete hard dependency and continue automatically. - Implement instead of merely planning. - Preserve already-working launcher/catalog/browser/mod...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Run law: - Start at the first incomplete hard dependency and continue automatically. - Implement instead of merely planning. - Preserve already-working launcher/catalog/browser/mod-manager behavior. - Wave A Integration Spine remains first real implementation priority: canonical identity/evidence/task/transaction/operation-registry/progress architecture, then one real installed-mod vertical consumed by Mod Manager + Catalog + CLI/service + Testing with zero duplicate truth. - Checkpoints are recovery anchors, not stopping points. - After two no-progress waves, change strategy; retry only with new information or a different route. - Compile is intermediate evidence; use strongest applicable Minecraft runtime proof. - Keep exact operation/build/test/evidence identities and update the checklist as acceptance changes. - Material checkpoints continue to GitHub + Drive. - Do not silently reduce scope, content, quality, compatibility, verification or safety. - Do not call Enderloom complete until the golden end-to-end challenge suite and final release gates pass.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 325-336](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L325-L336)
 
 </details>
 
@@ -3412,7 +3412,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 60 source-derived details.
+[Outcome](Checklist.md#dep-07) / 61 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -3974,6 +3974,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-11 : 1408-1408](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1408-L1408)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-b4915881aafe2cc7db7c"></a>
+- [ ] **D-b4915881aafe2cc7db7c** - Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentia...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentials in the existing secure account path and redact errors, receipts and logs. Do not adopt public key-sharing services or access-control, payment or entitlement bypass routes. After normal authorized import, compare every retained member and dependency against the source census. Prove duplicate install, stale entitlement, account switching, missing tools, malformed/nested archives, interrupted downloads, path collisions, disk exhaustion, restart and rollback. Cancellation and failure must preserve original input bytes.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 106-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L106-L114)
 
 </details>
 

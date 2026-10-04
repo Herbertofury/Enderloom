@@ -1218,17 +1218,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 13. Wave A Consequences (1)</summary>
-
-<a id="d-274ce8613aec2f6cfe1a"></a>
-- [ ] **D-274ce8613aec2f6cfe1a** - Do not delay Wave A by implementing every analyzer now, but do not choose a task/evidence schema that forces profiler-specific shadow databases later.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 13. Wave A Consequences
-  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 782-782](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L782-L782)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md / Tier B — high-value specialized adapters / Task Manager-style client profiler (1)</summary>
 
 <a id="d-986419b23c1f6c4f5295"></a>
@@ -1247,6 +1236,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Adapter discovery and future-proofing
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 338-338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L338-L338)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 13. Wave A Consequences (1)</summary>
+
+<a id="d-274ce8613aec2f6cfe1a"></a>
+- [ ] **D-274ce8613aec2f6cfe1a** - Do not delay Wave A by implementing every analyzer now, but do not choose a task/evidence schema that forces profiler-specific shadow databases later.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 13. Wave A Consequences
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 782-782](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L782-L782)
 
 </details>
 
