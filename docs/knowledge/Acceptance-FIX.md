@@ -1608,6 +1608,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-1459a62c7203deb7a0bb"></a>
+- [ ] **D-1459a62c7203deb7a0bb** - Locked AI product law: - AI is a core execution surface, not a side-panel assistant. - Anything a capable human can do through Enderloom&#x27;s canonical tools should eventually be...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Locked AI product law: - AI is a core execution surface, not a side-panel assistant. - Anything a capable human can do through Enderloom&#x27;s canonical tools should eventually be callable by AI through the same typed operation/task/evidence layer with equal or stronger verification. - Support synchronized OpenAI lanes: native OpenAI API (Responses/Agents + Enderloom tools/MCP), embedded Codex (supported SDK/app-server/noninteractive automation surfaces), and the existing in-app ChatGPT web lane. - Enderloom itself exposes an MCP server over the canonical operation registry so ChatGPT/Codex can invoke real Minecraft project/config/runtime/test/world/Studio operations without guessing shell commands. - Full AI parity includes complete mod creation, authorized reference-driven model/texture/animation reconstruction, Bedrock-&gt;Java conversion, Java version/loader ports, repair/optimization, whole-pack migration, models/assets, quests/data/worldgen/scripts, configs/hotkeys, safe world/NBT operations, Performance/Testing/GameTest/Black Box/bisect/profiling, Premium Wiki, security/provenance and release packaging. - AI never self-declares success. Enderloom acceptance gates remain authoritative. - Fast means warm toolchain/assets/mapping caches, prepared sandboxes/QA worlds, diff-aware invalidation, cheap decisive gates first, safe persistent runtime supervisors, authoritative headless/protocol lanes, isolated parallel specialists/worktrees, overlapping model and local build/test time, cached stable context and same-thread failure retries. - Fast never means replacing required native client/integrated-server/visual/persistence/performance/production-linkage proof with a weaker shortcut. - Natural-language requests compile into durable AiMinecraftJob + AcceptanceContract objects rather than one giant prompt. - Failed candidates produce exact causal FailurePackets and retry in the same AI thread; after two no-progress candidates the strategy must change. - Model routing is capability/policy based and should not hardcode one model forever. Maximum Quality, Balanced and Fast Iteration policies may change latency/cost but never reduce the final acceptance contract. - Evidence Brain receives AI findings only as scoped candidate learnings; verified runtime/build/test evidence is required for promotion.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 173-185](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L173-L185)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 4. COMPLETE-LINEAGE RULE — CONVERT THE MOD, NOT ONE RANDOM BRANCH / 4.2 Inclusion policy (1)</summary>
 
 <a id="d-571a4c43bde8b5a59bd0"></a>
@@ -1666,18 +1678,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-19 : 1416-1416](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1416-L1416)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-1459a62c7203deb7a0bb"></a>
-- [ ] **D-1459a62c7203deb7a0bb** - Locked AI product law: - AI is a core execution surface, not a side-panel assistant. - Anything a capable human can do through Enderloom&#x27;s canonical tools should eventually be...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Locked AI product law: - AI is a core execution surface, not a side-panel assistant. - Anything a capable human can do through Enderloom&#x27;s canonical tools should eventually be callable by AI through the same typed operation/task/evidence layer with equal or stronger verification. - Support synchronized OpenAI lanes: native OpenAI API (Responses/Agents + Enderloom tools/MCP), embedded Codex (supported SDK/app-server/noninteractive automation surfaces), and the existing in-app ChatGPT web lane. - Enderloom itself exposes an MCP server over the canonical operation registry so ChatGPT/Codex can invoke real Minecraft project/config/runtime/test/world/Studio operations without guessing shell commands. - Full AI parity includes complete mod creation, authorized reference-driven model/texture/animation reconstruction, Bedrock-&gt;Java conversion, Java version/loader ports, repair/optimization, whole-pack migration, models/assets, quests/data/worldgen/scripts, configs/hotkeys, safe world/NBT operations, Performance/Testing/GameTest/Black Box/bisect/profiling, Premium Wiki, security/provenance and release packaging. - AI never self-declares success. Enderloom acceptance gates remain authoritative. - Fast means warm toolchain/assets/mapping caches, prepared sandboxes/QA worlds, diff-aware invalidation, cheap decisive gates first, safe persistent runtime supervisors, authoritative headless/protocol lanes, isolated parallel specialists/worktrees, overlapping model and local build/test time, cached stable context and same-thread failure retries. - Fast never means replacing required native client/integrated-server/visual/persistence/performance/production-linkage proof with a weaker shortcut. - Natural-language requests compile into durable AiMinecraftJob + AcceptanceContract objects rather than one giant prompt. - Failed candidates produce exact causal FailurePackets and retry in the same AI thread; after two no-progress candidates the strategy must change. - Model routing is capability/policy based and should not hardcode one model forever. Maximum Quality, Balanced and Fast Iteration policies may change latency/cost but never reduce the final acceptance contract. - Evidence Brain receives AI findings only as scoped candidate learnings; verified runtime/build/test evidence is required for promotion.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 173-185](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L173-L185)
 
 </details>
 

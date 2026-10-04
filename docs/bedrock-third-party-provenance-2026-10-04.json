@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-10-04",
+  "scope": "Read-only input identity index; not implementation or runtime certification",
+  "publication": "Metadata only; originals, paid assets, keys and private grants excluded",
+  "components": [
+    {
+      "id": "packdl-source",
+      "original_filename": "PackDL-v1.6 Source.zip",
+      "bytes": 7857676,
+      "file_members": 141,
+      "sha256": "02e74e89d8d22ce10288cd9f64ca9e92848e4694d4333e41ee1bbcb9fe3e26ae",
+      "upstream_releases": "https://git.silica.codes/BedrockReverse/PackDL/releases",
+      "observed_tag": "v1.6",
+      "tag_commit": "0a0e14721fd54749d6a1edd6580659e962f3488c",
+      "release_published_at": "2026-08-27T04:46:38Z",
+      "local_source_matches_tag": "unverified",
+      "runtime": ".NET 8",
+      "license_observation": "No LICENSE/COPYING/NOTICE member found in supplied archive",
+      "distribution_review": "pending; user-reported all-party permission retained as planning context",
+      "publisher_authenticity": "unverified; no signature/checksum attachment observed in release asset list"
+    },
+    {
+      "id": "mctools-source",
+      "original_filename": "McTools-v12_Source.zip",
+      "bytes": 5094833,
+      "file_members": 108,
+      "sha256": "808036a1cc00293116415dbb4c9939fdd21f0d5d829568b882b93502597d0989",
+      "upstream_releases": "https://git.silica.codes/BedrockReverse/McTools/releases",
+      "observed_tag": "v12",
+      "tag_commit": "15412fd2a21cddcb94c08397a36bbec3a0f0a59c",
+      "release_published_at": "2026-08-27T04:41:00Z",
+      "local_source_matches_tag": "unverified",
+      "runtime": ".NET Framework 4.8",
+      "license_observation": "BSD-3-Clause-style text in mctools/LICENSE",
+      "bundled_notice_observations": [
+        "Newtonsoft.Json 13.0.1 MIT license",
+        "System.IO.Compression 4.3.0 dotnet_library_license.txt and ThirdPartyNotices.txt"
+      ],
+      "distribution_review": "Preserve upstream and all dependency notices before packaging",
+      "publisher_authenticity": "unverified; no signature/checksum attachment observed in release asset list"
+    },
+    {
+      "id": "actions-and-stuff-resources",
+      "original_filename": "Actions & Stuff 1.11.1 2cf066eb-1254-4b7d-affb-80fe3216b18c resources.mcpack",
+      "bytes": 29621325,
+      "file_members": 12137,
+      "sha256": "60734380e2bb4aaeed023ea119de0055e7883b6e878070d4d9dce3d85ae8ff10",
+      "requested_fixture_label": "Actions & Stuff 1.11.1",
+      "header_uuid": "2cf066eb-1254-4b7d-affb-80fe3216b18c",
+      "manifest_format": 3,
+      "manifest_version": "1.1.54",
+      "min_engine_version": "1.26.10",
+      "module_type": "resources",
+      "module_uuid": "22ed17a6-ea7c-5ccd-93b4-b90e86ce0046",
+      "manifest_author": "Oreville Studios Ltd",
+      "declared_dependencies": [],
+      "license_observation": "No metadata.license or named license/notice member observed",
+      "brarchive_members": 19,
+      "archive_inner_inventory": "unverified; no archive-processing tool executed",
+      "fixture_identity_reconciliation": "pending; preserve filename and manifest version independently",
+      "fixture_storage": "local/private, excluded from Git, packages and public evidence"
+    },
+    {
+      "id": "actions-and-stuff-skins",
+      "original_filename": "Actions & Stuff 1.11.1 218d7771-3b76-4bdf-a46e-5f76af23353a skin_pack.mcpack",
+      "bytes": 57553,
+      "file_members": 36,
+      "sha256": "e23a5a37f67817a093eb7210e1dde554ca3f0dc58fc1b0d97ed966b5e02653c9",
+      "requested_fixture_label": "Actions & Stuff 1.11.1",
+      "header_uuid": "218d7771-3b76-4bdf-a46e-5f76af23353a",
+      "manifest_format": 1,
+      "manifest_version": [1, 1, 54],
+      "module_type": "skin_pack",
+      "module_uuid": "56da2e57-c634-41df-8f50-d5cf337c4b18",
+      "declared_dependencies": [],
+      "license_observation": "No metadata license or named license/notice member observed",
+      "fixture_identity_reconciliation": "pending; preserve filename and manifest version independently",
+      "fixture_storage": "local/private, excluded from Git, packages and public evidence"
+    }
+  ]
+}

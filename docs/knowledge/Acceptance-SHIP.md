@@ -1173,6 +1173,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-8a80c1094f7031cbe5d0"></a>
+- [ ] **D-8a80c1094f7031cbe5d0** - Explicit rejections: - Do NOT add the proposed Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature. - Do NOT add the proposed Voice/Social compatibility center. ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Explicit rejections: - Do NOT add the proposed Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature. - Do NOT add the proposed Voice/Social compatibility center. - The third-pass Content Replacement Assistant was not approved by this decision set and is not promoted to a locked requirement here.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 156-159](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L156-L159)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md / 29. Final Codex completion gate (1)</summary>
 
 <a id="d-5ef757403d9a501484c2"></a>
@@ -1202,18 +1214,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 508-508](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L508-L508)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-8a80c1094f7031cbe5d0"></a>
-- [ ] **D-8a80c1094f7031cbe5d0** - Explicit rejections: - Do NOT add the proposed Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature. - Do NOT add the proposed Voice/Social compatibility center. ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Explicit rejections: - Do NOT add the proposed Enderloom-owned Friend Hosting/P2P/reverse-tunnel shared-world feature. - Do NOT add the proposed Voice/Social compatibility center. - The third-pass Content Replacement Assistant was not approved by this decision set and is not promoted to a locked requirement here.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 156-159](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L156-L159)
 
 </details>
 

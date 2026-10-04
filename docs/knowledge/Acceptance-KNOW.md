@@ -738,17 +738,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 12. Research Snapshot — 2026-09-07 (1)</summary>
-
-<a id="d-2d0c88e30f9a8cb442bb"></a>
-- [ ] **D-2d0c88e30f9a8cb442bb** - Adapters must revalidate compatibility/version before installation because these tools evolve independently.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 12. Research Snapshot — 2026-09-07
-  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 766-766](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L766-L766)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md / Tier A — first-class adapters / Observable Remake / maintained descendants (1)</summary>
 
 <a id="d-eee78e3c89ff8ee4ce90"></a>
@@ -756,6 +745,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Tier A — first-class adapters / Observable Remake / maintained descendants
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 73-73](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L73-L73)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 12. Research Snapshot — 2026-09-07 (1)</summary>
+
+<a id="d-2d0c88e30f9a8cb442bb"></a>
+- [ ] **D-2d0c88e30f9a8cb442bb** - Adapters must revalidate compatibility/version before installation because these tools evolve independently.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 12. Research Snapshot — 2026-09-07
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 766-766](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L766-L766)
 
 </details>
 

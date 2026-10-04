@@ -1569,19 +1569,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 73 source-derived details.
-
-<details>
-<summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
-
-<a id="d-dd8c438ef8f9487ca7d8"></a>
-- [ ] **D-dd8c438ef8f9487ca7d8** - - Fixed the actual top-control failure: the catalog file-drop overlay could remain visible when a drag crossed from the shell renderer into a native WebContentsView, because Chromi...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Fixed the actual top-control failure: the catalog file-drop overlay could remain visible when a drag crossed from the shell renderer into a native WebContentsView, because Chromium can consume the matching dragleave/drop. - The drop indicator is no longer a full-window blurred layer. It is a compact, non-blurring status-bar pill that cannot cover the titlebar, tabs, address bar, or browser controls. - Drag state now has a 450 ms watchdog and is force-cleared on direct address navigation, shell state/navigation updates, renderer blur, drag end, page show, visibility loss, pointer input, and Escape. Direct URL entry and catalog-opened project tabs therefore share a clean browser-chrome state. - Restored the original pre-2.0.1 translucent titlebar/toolbar appearance and removed the unrelated opaque/non-blurred chrome override and BrowserWindow material override.
-  - **Binding context:** Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix
-  - **Original specification:** [README.md : 245-248](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L245-L248)
-
-</details>
+[Outcome](Checklist.md#ux-07) / 74 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.1 Canonical truth (1)</summary>
@@ -2215,6 +2203,30 @@
   - **Full requirement:** This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, and leave Enderloom able to use it immediately.
   - **Binding context:** ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 8-8](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L8-L8)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-52fe853282281f5fcb10"></a>
+- [ ] **D-52fe853282281f5fcb10** - Exercise the actual provider&#x27;s pagination/load-more behavior across the complete saved result context: changing sort/filter/search while requests are pending, duplicate items,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Exercise the actual provider&#x27;s pagination/load-more behavior across the complete saved result context: changing sort/filter/search while requests are pending, duplicate items, stale page responses, terminal pages, transient errors, retry, rate limiting and interrupted navigation. Preserve every result; do not cap the catalogue or infer completion from the first page. If a permitted structured catalogue adapter is added, bind cursor/query/locale/sort/filter generations, deduplicate by verified product ID and retain page-boundary receipts. Website browsing remains a complete route while that API contract is validated.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 66-73](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L66-L73)
+
+</details>
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
+
+<a id="d-dd8c438ef8f9487ca7d8"></a>
+- [ ] **D-dd8c438ef8f9487ca7d8** - - Fixed the actual top-control failure: the catalog file-drop overlay could remain visible when a drag crossed from the shell renderer into a native WebContentsView, because Chromi...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Fixed the actual top-control failure: the catalog file-drop overlay could remain visible when a drag crossed from the shell renderer into a native WebContentsView, because Chromium can consume the matching dragleave/drop. - The drop indicator is no longer a full-window blurred layer. It is a compact, non-blurring status-bar pill that cannot cover the titlebar, tabs, address bar, or browser controls. - Drag state now has a 450 ms watchdog and is force-cleared on direct address navigation, shell state/navigation updates, renderer blur, drag end, page show, visibility loss, pointer input, and Escape. Direct URL entry and catalog-opened project tabs therefore share a clean browser-chrome state. - Restored the original pre-2.0.1 translucent titlebar/toolbar appearance and removed the unrelated opaque/non-blurred chrome override and BrowserWindow material override.
+  - **Binding context:** Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix
+  - **Original specification:** [README.md : 245-248](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L245-L248)
 
 </details>
 
@@ -3682,6 +3694,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-c53fb68abdae7d987ca7"></a>
+- [ ] **D-c53fb68abdae7d987ca7** - The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a separate API key, but it must respect the provider’s normal authentication, subscription quotas, rate limits, UI and terms. Never bypass CAPTCHA, paywalls, DRM, quota controls or access restrictions.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 34-34](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L34-L34)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 18. Backend API / IPC contract (1)</summary>
 
 <a id="d-4d24096d45740f627afc"></a>
@@ -3700,18 +3724,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 506-506](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L506-L506)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-c53fb68abdae7d987ca7"></a>
-- [ ] **D-c53fb68abdae7d987ca7** - The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a s...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a separate API key, but it must respect the provider’s normal authentication, subscription quotas, rate limits, UI and terms. Never bypass CAPTCHA, paywalls, DRM, quota controls or access restrictions.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 34-34](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L34-L34)
 
 </details>
 

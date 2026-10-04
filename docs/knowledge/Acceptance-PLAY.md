@@ -1142,7 +1142,7 @@
 <a id="play-03-details"></a>
 ## PLAY-03 - Secure Microsoft accounts and appearance
 
-[Outcome](Checklist.md#play-03) / 19 source-derived details.
+[Outcome](Checklist.md#play-03) / 20 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1307,6 +1307,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 3. Full launcher CLI parity checklist / Accounts / identity / appearance
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 152-152](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L152-L152)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-39055fddb1525e5ed900"></a>
+- [ ] **D-39055fddb1525e5ed900** - B03 acceptance. Show Open in Minecraft Bedrock on an exact product. Use its official product action or a validated, allowlisted product-ID handoff. Purchase, entitlement and downlo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** B03 acceptance. Show Open in Minecraft Bedrock on an exact product. Use its official product action or a validated, allowlisted product-ID handoff. Purchase, entitlement and download stay in the official Minecraft flow. Verify app present / missing, already running / closed, signed in / out, owned / not owned, free / paid, invalid ID, wrong account and user cancellation. A launched protocol handler is not proof of purchase or installation. Preserve the official web page as the recovery route and never guess a product from its title. No purchase is part of these tests. Microsoft&#x27;s [deep-link documentation](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable) warns that handlers can change and may fail silently; verify actual behavior on each claimed Bedrock release.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 80-89](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L80-L89)
 
 </details>
 

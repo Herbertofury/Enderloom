@@ -10,7 +10,6 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 
 **An ad blocker is not a gallery filter.** Preserve and test both the network/DOM filtering path and the exact-project media extraction path.
 
-- [D-4cae1fb825d54c14f545](Acceptance-LIB.md#d-4cae1fb825d54c14f545) - - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authorit...
 - [D-5a55e6e63b6447dcba2c](Acceptance-LIB.md#d-5a55e6e63b6447dcba2c) - The real integrated Chromium browser is a first-class execution surface.
 - [D-2e7f86235ced1f3664be](Acceptance-LIB.md#d-2e7f86235ced1f3664be) - Browser automation must not run privileged Node APIs in arbitrary page JavaScript.
 - [D-b5f70a0347fdda8634ed](Acceptance-LIB.md#d-b5f70a0347fdda8634ed) - No API key or separate paid API is required for the default in-browser chat lane.
@@ -101,3 +100,4 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-aa453453e1e8749ceda2](Acceptance-LIB.md#d-aa453453e1e8749ceda2) - browser adapter fixture;
 - [D-af21bd9d20bdf2e5e067](Acceptance-LIB.md#d-af21bd9d20bdf2e5e067) - Preserve existing accepted Catalog/Browser/Launcher behavior.
 - [D-c72add851e82f18eb446](Acceptance-LIB.md#d-c72add851e82f18eb446) - - Never mutate either real launcher library during QA; fingerprint before and after scans. - Never copy an external profile unless the user explicitly chooses Clone/Copy....
+- [D-4cae1fb825d54c14f545](Acceptance-LIB.md#d-4cae1fb825d54c14f545) - - Fixed the false-positive adblock state exposed by Planet Minecraft: uBO … on previously meant only that Electron accepted the extension package. 2.0.10 adds an authorit...

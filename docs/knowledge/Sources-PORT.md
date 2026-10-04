@@ -10,9 +10,12 @@
 [**PORT-01**](Checklist.md#port-01)
 
 <details>
-<summary>Source clauses and aliases (297 distinct blocks)</summary>
+<summary>Source clauses and aliases (310 distinct blocks)</summary>
 
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L930-L930) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L5-L5) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Actions &amp; Stuff 1.11.1 fixture identity](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L69-L74) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L123-L129) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L247-L247) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T135 — Classify Northpoint JS by authority and hot-path value](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L262-L266) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 3 distinct blocks.
 - [G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L294-L294) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -131,6 +134,10 @@
 - [Variant Foundry &amp; High-Fidelity Java Models / Variant controls](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L160-L160) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / What it does](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L7-L7) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Bedrock / Marketplace rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L125-L125) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
+- [Bedrock third-party source inventory](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L1-L5) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 2 distinct blocks.
+- [Bedrock third-party source inventory / Source/runtime/license observations](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L28-L39) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 2 distinct blocks.
+- [Bedrock third-party source inventory / Verified upstream locations](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L75-L89) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 3 distinct blocks.
+- [Bedrock third-party source inventory / Wiki source of truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L109-L109) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.6 Chunk Loading Profiler and equivalent stage profilers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L200-L204) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [7. Gorgeous Live Progress UX — every long job explains itself / 7.7 Findings rail](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L547-L551) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [8. Task Graph / Progress API](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L641-L653) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
@@ -206,6 +213,8 @@
 - [Enderloom 2.9.5 / Hot-drop catalogs + live source refresh](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L202-L202) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L214-L216) - README.md; 2 distinct blocks.
 - [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L296-L316) - README.md; 2 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L116-L120) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L151-L162) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [Evidence ledger — second deep scour / Bytecode / compiled-code lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L629-L631) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G014 — Minecraft-native source/remapping pipeline challengers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L108-L108) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L222-L222) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
@@ -352,10 +361,12 @@
 [**PORT-03**](Checklist.md#port-03)
 
 <details>
-<summary>Source clauses and aliases (254 distinct blocks)</summary>
+<summary>Source clauses and aliases (258 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Versions / loaders](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L175-L175) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / Observable](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L521-L521) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L55-L65) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Capability receipt](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L15-L22) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T140 — Implement native conversion commands](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L350-L358) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G042 — Canonical conversion IR family / T144 — Implement `ProjectIR`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L405-L417) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T145 — Implement `ModManifestIR`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L425-L435) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -493,6 +504,7 @@
 - [Enderloom — Minecraft Workflow Parity Handoff Addendum / Version-specific contract rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L74-L74) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 - [1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.5 Professional “it just works” quality](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L109-L117) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.3 Loader/version targets](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L282-L289) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 2 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L124-L140) - Marketplace-Studio-and-Bedrock-Roadmap.md; 2 distinct blocks.
 - [Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1809-L1811) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
 - [Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction / T131 — Bake off Stonecraft as an output-generator challenger; use real 26.x production matrices as fixtures](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1813-L1842) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 8 distinct blocks.
 - [Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze / Fourth-pass evidence additions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1914-L1914) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
@@ -571,8 +583,9 @@
 [**PORT-04**](Checklist.md#port-04)
 
 <details>
-<summary>Source clauses and aliases (94 distinct blocks)</summary>
+<summary>Source clauses and aliases (97 distinct blocks)</summary>
 
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Capability receipt](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L24-L29) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / Mappings / remap / compiled normalization](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2685-L2704) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L21-L21) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T148 — Implement `MixinIR`](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L459-L459) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -610,6 +623,7 @@
 - [7. Command / Data / Worldgen Generator Studio / 7.4 Specialized utilities](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L428-L428) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.20 Enderloom features that should beat both major launchers / Compare Profiles / Compare States](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1839-L1839) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.10 Make it very fast without cheating / Incremental invalidation](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4445-L4452) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Exact supplied files](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L14-L14) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.1 spark](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L87-L93) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [1. NORTHPOINT CONTRACT — NON-NEGOTIABLE BEHAVIOR](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L14-L14) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [1. Engine integration decisions / 1.1 Integrate now — highest value / B. ModForge — deterministic migration oracle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L314-L324) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
@@ -630,6 +644,7 @@
 - [16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1415-L1415) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L541-L568) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.2 Version-specific source truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L363-L363) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L171-L177) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [Evidence ledger — second deep scour / Minecraft remapping / mappings / reconstruction](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L592-L592) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T044 — Make JDT the semantic/compiler oracle around generated changes](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L94-L100) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T082 — Add Ravel as the mapping-migration oracle for complex Java/Kotlin projects](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L787-L790) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
@@ -667,9 +682,10 @@
 [**PORT-05**](Checklist.md#port-05)
 
 <details>
-<summary>Source clauses and aliases (312 distinct blocks)</summary>
+<summary>Source clauses and aliases (318 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Catalog / research workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L285-L285) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Unsupported-feature and completion gates](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L133-L139) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / Semantic/source/API intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2675-L2683) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L3-L7) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L90-L108) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -762,6 +778,9 @@
 - [Enderloom verified checkpoint — 2026-09-01 / Authenticated JetSetCraft acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L26-L26) - RELEASE_EVIDENCE_2026-09-01.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L1-L1) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Unified Studio UI law](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L40-L40) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Dependencies to resolve without narrowing scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L93-L98) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Exact supplied files](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L16-L21) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Source/runtime/license observations](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L50-L67) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 2 distinct blocks.
 - [1. NORTHPOINT CONTRACT — NON-NEGOTIABLE BEHAVIOR](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L37-L37) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [1. Engine integration decisions / 1.1 Integrate now — highest value / A. MC Mod Porter — full authorized source ingestion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L294-L302) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [1. Engine integration decisions / 1.1 Integrate now — highest value / B. ModForge — deterministic migration oracle](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L308-L326) - ENDERLOOM_STUDIO_EXECUTION.md; 2 distinct blocks.
@@ -818,6 +837,7 @@
 - [11. Premium Whole-Modpack Migration Engine / 11.2 Migration plan](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L955-L963) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
 - [5. Ecosystem-Aware Compatibility — “Best Fit” Integration / 5.2 Version-specific source truth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L361-L361) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Source and QA commands](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L298-L298) - README.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L164-L167) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA / Executive delta — genuinely important finds from the second scour](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L14-L14) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Evidence ledger — second deep scour / Semantic source migration / API intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L581-L581) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Evidence ledger — third deep scour / Kotlin / semantic tooling](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1704-L1704) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
@@ -1187,8 +1207,11 @@
 [**PORT-08**](Checklist.md#port-08)
 
 <details>
-<summary>Source clauses and aliases (117 distinct blocks)</summary>
+<summary>Source clauses and aliases (121 distinct blocks)</summary>
 
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L1-L3) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 2 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L31-L31) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Capability receipt](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L13-L13) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / Target/build/workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2724-L2735) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T141 — Port primary-target-first scheduling](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L362-L362) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T314 — Legacy mapping/reconstruction subgraph](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L557-L563) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -1308,7 +1331,7 @@
 [**PORT-09**](Checklist.md#port-09)
 
 <details>
-<summary>Source clauses and aliases (223 distinct blocks)</summary>
+<summary>Source clauses and aliases (224 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L715-L715) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-3 — Minecraft Probe/control plane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L860-L860) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -1433,6 +1456,7 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Replace polling with write/lifecycle events](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L980-L983) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [1. Canonical Workflow-Parity Law](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L24-L37) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [6. Java Mod Port / Backport / Loader Conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L385-L385) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Bidirectional conversion and Actions &amp; Stuff acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L223-L229) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA / Executive delta — genuinely important finds from the second scour / Highest-value additions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L18-L33) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [Evidence ledger — second deep scour / Loader/version compatibility and build tooling](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L609-L625) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
 - [Evidence ledger — third deep scour / Bidirectional loader compatibility](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1661-L1671) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
@@ -1513,7 +1537,7 @@
 [**PORT-10**](Checklist.md#port-10)
 
 <details>
-<summary>Source clauses and aliases (171 distinct blocks)</summary>
+<summary>Source clauses and aliases (175 distinct blocks)</summary>
 
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1-L1) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L66-L66) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -1573,6 +1597,9 @@
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.1 Reuse proven open-source foundations instead of rebuilding everything / Java Edition foundations](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L3904-L3904) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.13 Cross-edition paired tests](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4578-L4578) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / Bedrock-like behavior on Java](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L122-L122) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Bedrock third-party source inventory](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L3-L3) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Dependencies to resolve without narrowing scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L100-L107) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
+- [Bedrock third-party source inventory / Exact supplied files](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L23-L26) - BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md; 1 distinct blocks.
 - [13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L492-L492) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [4. CREATE / CONVERT FLOW — TARGET FIRST, THEN MATRIX / Existing mod conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L149-L149) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
 - [1.4 Reference-only / do not adopt as primary engine / V. Patchwork Patcher](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L541-L541) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
@@ -1604,6 +1631,7 @@
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.2 Semantic conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L263-L263) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.3 Loader/version targets](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L291-L291) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [6. Java Mod Port / Backport / Loader Conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L381-L381) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L179-L185) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T047 — Enigma becomes a mapping/deobfuscation comparator, not the whole conversion engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L137-L137) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T051 — Study Launchpad as the metadata/entrypoint conversion baseline](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L186-L186) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G021 — Second-pass promotion matrix / T070 — Enderloom conversion architecture after this scour](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L447-L449) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
@@ -1674,8 +1702,10 @@
 [**PORT-11**](Checklist.md#port-11)
 
 <details>
-<summary>Source clauses and aliases (138 distinct blocks)</summary>
+<summary>Source clauses and aliases (141 distinct blocks)</summary>
 
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L33-L36) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L87-L94) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [G041 — Native Rust conversion service replaces JS orchestration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L311-L311) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T139 — Implement durable native session state](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L335-L335) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L579-L579) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -1790,6 +1820,7 @@
 - [3. Spellbrook-Class Server -&gt; Fully Native Mod Conversion / 3.3 Native target rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L189-L193) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.3 Loader/version targets](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L284-L284) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [6. Java Mod Port / Backport / Loader Conversion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L383-L402) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L91-L96) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T046 — Fabric identity lane: Mapping-IO + Tiny Remapper + Intermediary/Matcher/Stitch](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L133-L133) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G021 — Second-pass promotion matrix / T073 — Challenge gate: never confuse compilation with a successful port](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L559-L571) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L740-L740) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
@@ -1832,8 +1863,9 @@
 [**PORT-12**](Checklist.md#port-12)
 
 <details>
-<summary>Source clauses and aliases (36 distinct blocks)</summary>
+<summary>Source clauses and aliases (37 distinct blocks)</summary>
 
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L107-L112) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Execution contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L164-L172) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T170 — Vineflower primary + independent decompiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L758-L758) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [13. Northpoint matrix — target first, then every valid requested cell](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L599-L641) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 4 distinct blocks.
@@ -1891,9 +1923,12 @@
 [**PORT-13**](Checklist.md#port-13)
 
 <details>
-<summary>Source clauses and aliases (131 distinct blocks)</summary>
+<summary>Source clauses and aliases (149 distinct blocks)</summary>
 
 - [4. CLI parity enforcement — make missing coverage impossible to ignore / Automated QA](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L314-L314) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L7-L11) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L114-L121) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Unsupported-feature and completion gates](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L141-L146) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L82-L117) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 4 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L23-L23) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L125-L158) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -1969,6 +2004,13 @@
 - [Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L108-L108) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md; 1 distinct blocks.
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.1 Full Bedrock inventory](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L225-L225) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [4. Bedrock Add-On -&gt; Full Java Mod Conversion / 4.4 Bedrock parity proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L293-L310) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 4 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L1-L12) - Marketplace-Studio-and-Bedrock-Roadmap.md; 4 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Bidirectional conversion and Actions &amp; Stuff acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L203-L237) - Marketplace-Studio-and-Bedrock-Roadmap.md; 5 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L30-L52) - Marketplace-Studio-and-Bedrock-Roadmap.md; 2 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L54-L54) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L239-L239) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L195-L201) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L122-L122) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [G021 — Second-pass promotion matrix / T070 — Enderloom conversion architecture after this scour](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L508-L508) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [G022 — Final second-pass completion gate](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L664-L667) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 2 distinct blocks.
 - [G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L714-L736) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 5 distinct blocks.

@@ -3497,6 +3497,18 @@
 </details>
 
 <details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-7c8a4c4ca2f409c0c98d"></a>
+- [ ] **D-7c8a4c4ca2f409c0c98d** - ARCHITECTURE CONSEQUENCE Wave A remains the exact next action, but its typed graph/evidence/task architecture must anticipate these domains now. Do not build opaque shadow JSON sto...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** ARCHITECTURE CONSEQUENCE Wave A remains the exact next action, but its typed graph/evidence/task architecture must anticipate these domains now. Do not build opaque shadow JSON stores that force another rewrite later. Security findings, code/mapping/Mixin symbols, plugin/proxy/protocol objects, Bedrock creator projects/script profiles/editor extensions, visual logic graphs, schematics/blueprints, particle/audio/UI/font/material assets, registry entries, collaboration changes, remote targets, protocol captures, world snapshot deltas, hardware profiles, localization bundles and permission findings all need typed/extensible places in the shared graph.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 115-116](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L115-L116)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 12. Testing engine — headless first, native when it matters / Lane 2 — dedicated server (1)</summary>
 
 <a id="d-492100f331de8dca8da4"></a>
@@ -3549,18 +3561,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Performance
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 941-941](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L941-L941) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1345-1345](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1345-L1345)
-
-</details>
-
-<details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-7c8a4c4ca2f409c0c98d"></a>
-- [ ] **D-7c8a4c4ca2f409c0c98d** - ARCHITECTURE CONSEQUENCE Wave A remains the exact next action, but its typed graph/evidence/task architecture must anticipate these domains now. Do not build opaque shadow JSON sto...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** ARCHITECTURE CONSEQUENCE Wave A remains the exact next action, but its typed graph/evidence/task architecture must anticipate these domains now. Do not build opaque shadow JSON stores that force another rewrite later. Security findings, code/mapping/Mixin symbols, plugin/proxy/protocol objects, Bedrock creator projects/script profiles/editor extensions, visual logic graphs, schematics/blueprints, particle/audio/UI/font/material assets, registry entries, collaboration changes, remote targets, protocol captures, world snapshot deltas, hardware profiles, localization bundles and permission findings all need typed/extensible places in the shared graph.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 115-116](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L115-L116)
 
 </details>
 
