@@ -126,6 +126,15 @@
           "acceptance": "Exercise all four journeys in the actual package with clean inputs, real domain services, native runtime, persisted state and rollback; capture real screens, not mockups or generated showcase imagery.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "UX-11",
+          "title": "Universal Minecraft A/B playable panes",
+          "acceptance": "Run two real playable native Java/Bedrock clients inside Studio across versions/loaders; prove focus/input, resizing/maximize/fullscreen/windowed/borderless, persistence and gameplay beside code/assets/behavior. Acceptance: AB-T001\u2013AB-T003. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -211,6 +220,15 @@
           "acceptance": "Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "MAKE-12",
+          "title": "Selective semantic and asset A/B comparison",
+          "acceptance": "Compare code, textures, models, animations, sounds, recipes, all assets and dependencies with exhaustive changes/unknowns; source-linked previews and selective reversible transfers preserve unrelated content. Acceptance: AB-T017\u2013AB-T019. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -317,6 +335,15 @@
           "acceptance": "Production-wire selected researched tools or stronger proven equivalents; retain attribution and project-specific permissions, execute comparison fixtures and record exact versions/capabilities/dispositions.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "PORT-15",
+          "title": "Inventory content transfer and preview certification",
+          "acceptance": "Drag weapons/items/blocks across clients with complete code/assets/dependencies/animations/behavior closure; adapt 1.20.1\u21921.21.1 and Java\u2194Bedrock, preview during background builds, and certify only the built destination after restart with preview disabled. Acceptance: AB-T004\u2013AB-T008. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -381,6 +408,15 @@
           "acceptance": "Probe actual CLI/library contracts and pair-specific fixtures; reject exit-zero/no-output/stale/malformed reports, distinguish unknown from absent and route failed backends to real recovery.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "DEP-09",
+          "title": "A/B transfer queues and restart recovery",
+          "acceptance": "Durable concurrent transfer queues preserve playable testing, truthful progress/errors, undo/retry/rollback, restart now/after-batch/later, safe test-state restoration and protection from stale jobs. Acceptance: AB-T009\u2013AB-T012. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -509,6 +545,15 @@
           "acceptance": "Fail on missing/skipped/stale/wrong-artifact evidence, no-op production paths, partial parity or unjustified demotion; a checklist tick alone cannot satisfy certification.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "TEST-09",
+          "title": "Actions & Stuff 1.11.1 full cross-edition gameplay parity",
+          "acceptance": "Use the complete authorized Actions & Stuff 1.11.1 census, native Bedrock/Java appearance/animation/behavior/gameplay proof, both conversion directions and round trips plus independent behavior fixtures; keep unsupported/unfinished cells explicit until implemented and verified. Acceptance: AB-T020\u2013AB-T023 and AB-G001. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -651,6 +696,15 @@
           "acceptance": "Support accepted MRPack/CurseForge ZIP/packwiz and CSV/JSON/XLSX/HTML/PDF research interchange with provenance, original fields and clickable links; no cloned proprietary share-code service.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "LIB-10",
+          "title": "Complete Bedrock Marketplace and authorized PackDL/McTools",
+          "acceptance": "Full in-app Marketplace browsing beside existing providers, exact normal Bedrock purchase/download handoff, authorized PackDL/McTools shared-job adapters, pinned licenses/versions, manual upstream refresh and tested explicit update adoption/rollback. Acceptance: AB-T013\u2013AB-T016. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     },
@@ -944,6 +998,15 @@
           "acceptance": "Preserve IDs/jobs/checkpoints, mutate-test-checkpoint, repair after two unchanged failures via a new route, reopen invalid proof and keep required blocked work incomplete; no status ceremony instead of implementation.",
           "status": "unverified",
           "evidence": []
+        },
+        {
+          "id": "SHIP-06",
+          "title": "A/B Studio third-party lineage and live progress",
+          "acceptance": "Organize sources/tools/private fixtures with versions/licenses, compact reports and necessary reproducers; synchronize GitHub and actual live wiki with planned/implemented/gameplay-tested labels; delete obsolete bulky copies only after replacement validation and safe-cleanup approval. Acceptance: AB-T024\u2013AB-T027. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.",
+          "status": "unverified",
+          "stage": "planned",
+          "evidence": [],
+          "next": "Implement the native two-client slice AB-T001\u2013AB-T003 through existing runtime services; preserve active AoA work."
         }
       ]
     }
