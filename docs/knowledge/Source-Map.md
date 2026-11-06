@@ -9,9 +9,9 @@
 | Measure | Count |
 | :--- | ---: |
 | Located source documents | 57 |
-| Source lines processed | 46,244 |
-| Non-empty source blocks accounted for | 16,065 |
-| Distinct contextual/exact source blocks | 13,148 |
+| Source lines processed | 46,254 |
+| Non-empty source blocks accounted for | 16,068 |
+| Distinct contextual/exact source blocks | 13,151 |
 | Exact repeated occurrences sharing an identity | 2,917 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,649 |
@@ -442,14 +442,14 @@ Bytes: 30,663. Historical checked occurrences: 0.
 
 <a id="s-2a4d588670"></a>
 <details>
-<summary><strong>LAUNCHER_PARITY_MATRIX.md</strong> - 54 lines</summary>
+<summary><strong>LAUNCHER_PARITY_MATRIX.md</strong> - 64 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md) | specification
 
-SHA-256: `1ee4be3b0cdb48c77f868500b1a114910bb06dd5108ebc2a68e8b222be1df4ac`  
-Bytes: 10,197. Historical checked occurrences: 0.
+SHA-256: `2cc341d18746e6145141fd323c83e2664c8e78015540b447963fce99844432dd`  
+Bytes: 11,869. Historical checked occurrences: 0.
 
-**Outcome owners:** [**KNOW-02**](Checklist.md#know-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-09**](Checklist.md#lib-09), [**PLAY-01**](Checklist.md#play-01), [**PLAY-04**](Checklist.md#play-04), [**SHIP-04**](Checklist.md#ship-04)
+**Outcome owners:** [**KNOW-02**](Checklist.md#know-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-09**](Checklist.md#lib-09), [**MAKE-11**](Checklist.md#make-11), [**PLAY-01**](Checklist.md#play-01), [**PLAY-04**](Checklist.md#play-04), [**SHIP-04**](Checklist.md#ship-04)
 
 </details>
 

@@ -935,6 +935,14 @@
 
 </details>
 
+<a id="horizon-rust-horizon"></a>
+<details>
+<summary>horizon-rust/horizon (1 cited locations)</summary>
+
+- [https://github.com/horizon-rust/horizon](https://github.com/horizon-rust/horizon)
+
+</details>
+
 <a id="ibraheemdev-papaya"></a>
 <details>
 <summary>ibraheemdev/papaya (1 cited locations)</summary>

@@ -204,12 +204,12 @@
   - **Accept:** Build interacting content families with version-specific integrations, edit/play/rebuild and convert them; a decorative block or asset pack alone is not a complete created mod.
   - **State:** unverified. **Details:** [56 source blocks](Sources-MAKE.md#make-10); 24 source documents.
 
-**[Open 25 detailed checks](Acceptance-MAKE.md#make-11-details)**
+**[Open 26 detailed checks](Acceptance-MAKE.md#make-11-details)**
 
 <a id="make-11"></a>
 - [ ] **MAKE-11 - Real preview and native comparison**
   - **Accept:** Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
-  - **State:** unverified. **Details:** [47 source blocks](Sources-MAKE.md#make-11); 24 source documents.
+  - **State:** unverified. **Details:** [48 source blocks](Sources-MAKE.md#make-11); 25 source documents.
 
 ## Universal conversion engine
 
@@ -631,12 +631,12 @@
 
 [Keep the existing launcher and catalogue working while the studio grows.](Launcher-and-Instances.md)
 
-**[Open 57 detailed checks](Acceptance-PLAY.md#play-01-details)**
+**[Open 58 detailed checks](Acceptance-PLAY.md#play-01-details)**
 
 <a id="play-01"></a>
 - [ ] **PLAY-01 - External-launcher connection in place**
   - **Accept:** Discover real CurseForge/Modrinth/accepted launcher instances, identify junctions physically, connect without forced copy, reconcile moves and disconnect without deleting external files.
-  - **State:** unverified. **Details:** [147 source blocks](Sources-PLAY.md#play-01); 19 source documents.
+  - **State:** unverified. **Details:** [149 source blocks](Sources-PLAY.md#play-01); 19 source documents.
 
 **[Open 65 detailed checks](Acceptance-PLAY.md#play-02-details)**
 
