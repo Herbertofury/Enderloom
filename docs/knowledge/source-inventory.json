@@ -551,6 +551,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-3e931ba161",
+      "path": "docs/wiki/Horizon-Rust-Compatibility.md",
+      "sha256": "36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a",
+      "bytes": 2195,
+      "lines": 15,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-e86ec4837d",
       "path": "docs/wiki/Variant-Foundry-Capability-Closure.md",
       "sha256": "70e42041e2b8433e90abfed8ff1905392bbdf12573e67648f19e78693e590bc8",
@@ -572,11 +582,11 @@
     }
   ],
   "stats": {
-    "source_files": 57,
-    "source_bytes": 2342622,
-    "source_lines": 46258,
-    "source_blocks": 16070,
-    "unique_blocks": 13153,
+    "source_files": 58,
+    "source_bytes": 2344817,
+    "source_lines": 46273,
+    "source_blocks": 16076,
+    "unique_blocks": 13159,
     "exact_duplicate_occurrences": 2917,
     "source_checked": 235,
     "source_unchecked": 5649,

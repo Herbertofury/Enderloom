@@ -881,7 +881,7 @@
 
 <a id="herbertofury-enderloom"></a>
 <details>
-<summary>Herbertofury/Enderloom (17 cited locations)</summary>
+<summary>Herbertofury/Enderloom (18 cited locations)</summary>
 
 - [https://github.com/Herbertofury/Enderloom](https://github.com/Herbertofury/Enderloom)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md)
@@ -898,6 +898,7 @@
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md)
+- [https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md)
 - [https://github.com/Herbertofury/Enderloom/issues/1](https://github.com/Herbertofury/Enderloom/issues/1)
 - [https://github.com/Herbertofury/Enderloom/issues/3](https://github.com/Herbertofury/Enderloom/issues/3)
 

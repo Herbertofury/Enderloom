@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 57 |
-| Source lines processed | 46,258 |
-| Non-empty source blocks accounted for | 16,070 |
-| Distinct contextual/exact source blocks | 13,153 |
+| Located source documents | 58 |
+| Source lines processed | 46,273 |
+| Non-empty source blocks accounted for | 16,076 |
+| Distinct contextual/exact source blocks | 13,159 |
 | Exact repeated occurrences sharing an identity | 2,917 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,649 |
@@ -736,6 +736,19 @@ SHA-256: `68b3d01f8e4ed5b84fee2f208511daca8b51eb4dd33293155e9902e0645beb0a`
 Bytes: 9,354. Historical checked occurrences: 0.
 
 **Outcome owners:** [**MAKE-06**](Checklist.md#make-06)
+
+</details>
+
+<a id="s-3e931ba161"></a>
+<details>
+<summary><strong>Horizon-Rust-Compatibility.md</strong> - 15 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md) | specification
+
+SHA-256: `36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a`  
+Bytes: 2,195. Historical checked occurrences: 0.
+
+**Outcome owners:** [**KNOW-04**](Checklist.md#know-04), [**PLAY-04**](Checklist.md#play-04), [**PORT-09**](Checklist.md#port-09)
 
 </details>
 

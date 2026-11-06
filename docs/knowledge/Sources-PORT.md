@@ -1308,7 +1308,7 @@
 [**PORT-09**](Checklist.md#port-09)
 
 <details>
-<summary>Source clauses and aliases (224 distinct blocks)</summary>
+<summary>Source clauses and aliases (225 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L715-L715) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-3 — Minecraft Probe/control plane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L860-L860) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -1386,6 +1386,7 @@
 - [5. PRIMARY TARGET FIRST, THEN THE VERSION/LOADER MATRIX / 5.2 Matrix behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L234-L242) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.4 Mixins must be proven in the real loader](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L293-L293) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Minecraft authoring/runtime](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L225-L228) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Horizon Rust Compatibility / Required Enderloom outcome](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md#L9-L13) - Horizon-Rust-Compatibility.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L128-L128) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [4. Measurement Pass vs Attribution Pass / 4.1 Measurement pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L346-L354) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot;](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L418-L418) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.
