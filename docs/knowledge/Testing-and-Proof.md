@@ -50,7 +50,3 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [TEST-06 - Compatibility and hostile fixtures](Acceptance-TEST.md#test-06-details): 22 source details.
 - [TEST-07 - Results and repeatability](Acceptance-TEST.md#test-07-details): 14 source details.
 - [TEST-08 - Machine-verifiable release gates](Acceptance-TEST.md#test-08-details): 10 source details.
-
-## Planned: Horizon as a testing backend
-
-Evaluate [Horizon](https://github.com/horizon-rust/horizon) and its documented horizon-ctl as one isolated game-testing backend for Enderloom. First verify actual installation, control, fixtures, cleanup, reporting and real supported mod behavior. Horizon targets Java 26.3 and does not run Java Fabric/Forge/NeoForge mod code; it cannot by itself test every Minecraft version or mod. Route each version and loader to an appropriate actual runtime, distinguish unsupported cases, preserve worlds and profiles, and retain reproducible evidence. This is a proposed capability, not an implemented or validated test system.
