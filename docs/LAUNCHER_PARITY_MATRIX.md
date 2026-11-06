@@ -52,3 +52,13 @@ Status meanings: **Accepted** is implemented and exercised by automated native o
 - Preserve Catalog, Source, Browser, Full and Split modes, persistent sessions/cookies, WebContentsView tabs, translator, verified ad blocking, media/galleries, identity safety, favorites and notes.
 - Expose only real IPC capabilities. Unsupported proprietary/cloud workflows must say they are unavailable rather than render fake controls.
 - Require the command coverage gate, native integration acceptance, combined Electron self-test and full Catalog release suite before a release checkpoint.
+
+## Planned target: Horizon (Rust Minecraft)
+
+**Planned, not implemented or verified in Enderloom.** [Horizon](https://github.com/horizon-rust/horizon) is an unofficial native Rust reimplementation targeting Minecraft Java 26.3, with its own launcher and client/server. Upstream says it uses files from a legitimately owned Java Edition, supports content mods (.hmod) and native Rust mods (.hnmod), and imports some data/assets from Java modpacks; Java Fabric/Forge/NeoForge mod code does not run. Treat upstream feature and parity claims as unverified until tested. Do not list Horizon as an operational install option until implemented and verified.
+
+- Discover official releases, platform architecture, hashes, license and asset/ownership prerequisites; stage and verify installation with rollback and isolated profiles.
+- Model Horizon versions and native mod formats separately from Java loaders; clearly classify transferable data/assets versus unsupported Java code. Preserve imported originals and warn of incomplete imports.
+- Test install, launch, update, mod enable/disable and removal on supported platforms, including offline/error recovery and clean rollback.
+- Investigate using Horizon's documented horizon-ctl for isolated internal automated game tests. This is a candidate backend, not universal Minecraft or Java mod execution. Build a version/loader/capability matrix and route other versions and Java mods to suitable real Minecraft runtimes; record unsupported cases explicitly.
+- Verify actual mod behavior and real gameplay per target, with logs and evidence, before claiming compatibility. Never mutate user worlds or instances for test fixtures.
