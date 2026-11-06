@@ -174,7 +174,7 @@
 [**KNOW-04**](Checklist.md#know-04)
 
 <details>
-<summary>Source clauses and aliases (186 distinct blocks)</summary>
+<summary>Source clauses and aliases (187 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L721-L721) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [14. CLI test matrix / Parser/contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L761-L761) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -217,6 +217,7 @@
 - [23. Full CLI everywhere](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L994-L994) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [23. Full CLI everywhere / 23.1 Global automation contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1007-L1007) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [35. Release/QA contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1421-L1421) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
+- [Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L66-L66) - LAUNCHER_PARITY_MATRIX.md; 1 distinct blocks.
 - [15. Compatibility Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L681-L706) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 16 distinct blocks.
 - [26. Shader / Render Pipeline Manager](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1119-L1119) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [29. Dependency / Update Solver](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1191-L1191) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.

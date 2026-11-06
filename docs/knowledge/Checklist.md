@@ -271,12 +271,12 @@
   - **Accept:** Integrate appropriate Stonecutter/Modstitch/official/Architectury/Unimined/RFG routes, immutable workspaces, target-first scheduling and correct legacy/JVM backport support.
   - **State:** unverified. **Details:** [117 source blocks](Sources-PORT.md#port-08); 21 source documents.
 
-**[Open 110 detailed checks](Acceptance-PORT.md#port-09-details)**
+**[Open 111 detailed checks](Acceptance-PORT.md#port-09-details)**
 
 <a id="port-09"></a>
 - [ ] **PORT-09 - Native loader and compatibility modes**
   - **Accept:** Translate loader semantics with real Sinytra/Kilt/Porting-Lib/Architectury evidence; explicitly distinguish native source ports, modified JARs and compatibility runtimes.
-  - **State:** unverified. **Details:** [223 source blocks](Sources-PORT.md#port-09); 32 source documents.
+  - **State:** unverified. **Details:** [224 source blocks](Sources-PORT.md#port-09); 33 source documents.
 
 **[Open 68 detailed checks](Acceptance-PORT.md#port-10-details)**
 
@@ -848,7 +848,7 @@
 <a id="know-04"></a>
 - [ ] **KNOW-04 - Compatibility execution and matrix**
   - **Accept:** Generate version-specific contract fixtures, provider-present/absent tests and exact target evidence; compiled API calls or similar names do not prove equivalent behavior.
-  - **State:** unverified. **Details:** [186 source blocks](Sources-KNOW.md#know-04); 35 source documents.
+  - **State:** unverified. **Details:** [187 source blocks](Sources-KNOW.md#know-04); 36 source documents.
 
 **[Open 14 detailed checks](Acceptance-KNOW.md#know-05-details)**
 

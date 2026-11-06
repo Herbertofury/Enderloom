@@ -1308,7 +1308,7 @@
 [**PORT-09**](Checklist.md#port-09)
 
 <details>
-<summary>Source clauses and aliases (223 distinct blocks)</summary>
+<summary>Source clauses and aliases (224 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L715-L715) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-3 — Minecraft Probe/control plane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L860-L860) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -1362,6 +1362,7 @@
 - [18. Profiler/instrumentation stack / 18.4 Observable adapter](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L814-L814) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [2. Product principles — non-negotiable / 2.5 Fast by architecture, not shortcuts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L91-L91) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [37. Implementation roadmap / Phase Testing-3 — Enderloom Probe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1534-L1534) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
+- [Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L68-L68) - LAUNCHER_PARITY_MATRIX.md; 1 distinct blocks.
 - [10. Bedrock -&gt; Java Conversion Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L550-L550) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [11. Java Version Porting Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L566-L566) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [12. Stonecutter-style Multi-Version Workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L609-L609) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.

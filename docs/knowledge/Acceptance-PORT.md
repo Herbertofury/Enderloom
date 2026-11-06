@@ -6966,7 +6966,7 @@
 <a id="port-09-details"></a>
 ## PORT-09 - Native loader and compatibility modes
 
-[Outcome](Checklist.md#port-09) / 110 source-derived details.
+[Outcome](Checklist.md#port-09) / 111 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -8001,6 +8001,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** GATE - Acceptance matrix and real workflow proof
   - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T134 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L469-L469)
+
+</details>
+
+<details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal (1)</summary>
+
+<a id="d-57bf6dfb31dae9f487da"></a>
+- [ ] **D-57bf6dfb31dae9f487da** - The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge an...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge and NeoForge mods. Pursue complete compatibility for Horizon as an explicit R&amp;D goal, not a current capability or a promise that all mods can already be translated. Investigate the feasibility of a Java execution/loader compatibility layer or a faithful, semantics-preserving port/bridge alongside real version-matched Minecraft runtimes; do not assume a native Rust engine can execute JVM bytecode or loader APIs unaided. Preserve native code, loader dependencies, mixins, game semantics, assets and world behavior; identify licensing and platform constraints. Record precise unsupported cases rather than silently dropping functionality. Certify each source/target version and loader combination with real representative mods, reproducible behavior tests, diagnostics, rollback and preserved source. Horizon is one potential backend in the broader test matrix, not proof of universal compatibility.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 68-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L68-L68)
 
 </details>
 

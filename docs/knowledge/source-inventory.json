@@ -323,9 +323,9 @@
     {
       "id": "S-2a4d588670",
       "path": "docs/LAUNCHER_PARITY_MATRIX.md",
-      "sha256": "2cc341d18746e6145141fd323c83e2664c8e78015540b447963fce99844432dd",
-      "bytes": 11869,
-      "lines": 64,
+      "sha256": "38737cf48d2fdefabc44cb20c48f60504d8d08e60ee74da758d742fc91ce4d10",
+      "bytes": 12994,
+      "lines": 68,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md",
       "source_checked": 0
@@ -573,10 +573,10 @@
   ],
   "stats": {
     "source_files": 57,
-    "source_bytes": 2341497,
-    "source_lines": 46254,
-    "source_blocks": 16068,
-    "unique_blocks": 13151,
+    "source_bytes": 2342622,
+    "source_lines": 46258,
+    "source_blocks": 16070,
+    "unique_blocks": 13153,
     "exact_duplicate_occurrences": 2917,
     "source_checked": 235,
     "source_unchecked": 5649,
