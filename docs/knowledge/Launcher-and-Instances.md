@@ -40,3 +40,7 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [PLAY-04 - Java, loaders and real launch](Acceptance-PLAY.md#play-04-details): 87 source details.
 - [PLAY-05 - Instance update and maintenance](Acceptance-PLAY.md#play-05-details): 16 source details.
 - [PLAY-06 - Native sharing and pack distribution](Acceptance-PLAY.md#play-06-details): 16 source details.
+
+## Planned: Horizon Rust target
+
+Track [Horizon](https://github.com/horizon-rust/horizon), an unofficial Rust reimplementation targeting Java 26.3, as a planned installable, moddable Enderloom target. This is not implemented yet. Upstream describes .hmod content mods and .hnmod native Rust mods; Java Fabric, Forge and NeoForge mod code does not run. Imported Java packs may carry data and assets, not full Java mod functionality. Require legitimate Minecraft ownership and validate current upstream release and platform prerequisites. See [launcher parity contract](../LAUNCHER_PARITY_MATRIX.md) for implementation and acceptance gates.
