@@ -6,6 +6,7 @@ import json
 import sys
 import tempfile
 from pathlib import Path
+from variant_foundry_pipeline_authoring_selftest import complete_mixed_biome_fixture_bindings
 
 HERE = Path(__file__).resolve().parent
 SPEC = importlib.util.spec_from_file_location("pipeline", HERE / "variant_foundry_pipeline.py")
@@ -143,6 +144,8 @@ def main() -> int:
                 }
             }
         })
+
+        dump(bindings, complete_mixed_biome_fixture_bindings(json.loads(bindings.read_text(encoding="utf-8"))))
 
         provider_script = root / "provider.py"
         provider_script.write_text(PROVIDER, encoding="utf-8")

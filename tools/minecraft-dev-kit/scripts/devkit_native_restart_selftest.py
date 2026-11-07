@@ -9,6 +9,9 @@ from devkit_native_restart import run_phases, valid_restart
 
 
 def main():
+    from devkit_native_codegen_selftest import main as codegen_tests
+    codegen_result = codegen_tests()
+    assert codegen_result == 0
     from devkit_native import JAVA
     assert JAVA.count('finishOnTitleScreen(context);') == 2
     assert 'screen instanceof net.minecraft.client.gui.screens.TitleScreen' in JAVA
