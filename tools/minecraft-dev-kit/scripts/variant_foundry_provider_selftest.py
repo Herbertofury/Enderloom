@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 import sys
@@ -190,6 +191,35 @@ def main() -> int:
         assert result["attempts"][1]["state"] == "failed"
         assert result["attempts"][1]["asset_validation"]["state"] == "failed"
         assert result["attempts"][2]["state"] == "succeeded"
+        # Feed real framed GLBs through the production scheduler and gate, not
+        # a mocked validator. Each malformed provider must fall back to success.
+        for defect, mutation, reason in [
+            ("view-overrun", 'root["bufferViews"][0]["byteOffset"]=36', "byte range"),
+            ("accessor-overrun", 'root["accessors"][0]["count"]=4', "byte span"),
+        ]:
+            broken_script = root / (defect + ".py")
+            broken_script.write_text(SUCCESS.replace("j=json.dumps(root", mutation + "\nj=json.dumps(root"), encoding="utf-8")
+            isolated = json.loads(registry.read_text())
+            good_provider = next(p for p in isolated["providers"] if p["id"] == "fallback-works")
+            bad_provider = copy.deepcopy(good_provider)
+            bad_provider["id"] = defect
+            bad_provider["priority"] = 0
+            bad_provider["command"] = [str(broken_script) if x == str(success) else x for x in bad_provider["command"]]
+            isolated["providers"] = [bad_provider, good_provider]
+            isolated_path = root / (defect + "-providers.json")
+            dump(isolated_path, isolated)
+            bounds_result = mod.run_job(
+                isolated_path, capability="shape", input_path=source,
+                workspace=root / defect, seed=77, params=params, vram_budget_gb=24,
+            )
+            assert bounds_result["state"] == "succeeded", bounds_result
+            assert bounds_result["selected_provider"]["id"] == "fallback-works"
+            assert [a["provider"]["id"] for a in bounds_result["attempts"]] == [defect, "fallback-works"]
+            rejected = bounds_result["attempts"][0]
+            assert rejected["state"] == "failed", rejected
+            assert rejected["asset_validation"]["state"] == "failed", rejected
+            assert reason in rejected["asset_validation"]["reason"], rejected
+
         assert any(x["id"] == "gpu-too-large" and any(r.startswith("vram-budget") for r in x["reasons"]) for x in result["rejected"])
         assert any(x["id"] == "probe-bad" and "health-probe:unavailable" in x["reasons"] for x in result["rejected"])
         output = Path(result["output"])
@@ -252,6 +282,7 @@ def main() -> int:
             "selected": result["selected_provider"]["id"],
             "attempts": [a["state"] for a in result["attempts"]],
             "malformed_output_rejected": True,
+            "binary_range_fallback_cases": 2,
             "asset_gate": result["asset_validation"]["stats"],
             "reuse_state": reused["reuse_state"],
             "health_rejection": True,
