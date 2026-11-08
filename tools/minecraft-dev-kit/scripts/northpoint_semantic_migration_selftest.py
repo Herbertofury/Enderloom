@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import os
+import zipfile
 import pathlib
 import shutil
 import subprocess
@@ -19,11 +21,13 @@ def write(path: pathlib.Path, text: str) -> None:
     path.write_text(text, encoding='utf-8')
 
 
-def javac(output: pathlib.Path, sources: list[pathlib.Path], classpath: list[pathlib.Path] | None = None) -> None:
+def javac(output: pathlib.Path, sources: list[pathlib.Path], classpath: list[pathlib.Path] | None = None, target_java: int | None = None) -> None:
     output.mkdir(parents=True, exist_ok=True)
     cmd = [shutil.which('javac') or 'javac']
+    if target_java is not None:
+        cmd += ['-source', str(target_java), '-target', str(target_java)]
     if classpath:
-        cmd += ['-cp', ':'.join(map(str, classpath))]
+        cmd += ['-cp', os.pathsep.join(map(str, classpath))]
     cmd += ['-d', str(output), *map(str, sources)]
     cp = subprocess.run(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if cp.returncode:
@@ -32,6 +36,115 @@ def javac(output: pathlib.Path, sources: list[pathlib.Path], classpath: list[pat
 
 def blocker_ids(report: dict) -> set[str]:
     return {str(row.get('id')) for row in report.get('blockers') or []}
+
+
+
+def service_loader_checks(root: pathlib.Path) -> dict:
+    """Exercise real classpath JARs, with Java ServiceLoader as the runtime oracle."""
+    src, classes = root / 'services-src', root / 'services-classes'
+    fixtures = {
+        'Service': 'public interface Service {}',
+        'SubService': 'public interface SubService extends Service {}',
+        'Base': 'public class Base implements SubService {}',
+        'Good': 'public class Good extends Base {}',
+        'Wrong': 'public class Wrong {}',
+        'Abstract': 'public abstract class Abstract implements Service {}',
+        'Hidden': 'class Hidden implements Service { public Hidden() {} }',
+        'PrivateCtor': 'public class PrivateCtor implements Service { private PrivateCtor() {} }',
+        'ArgCtor': 'public class ArgCtor extends Base { public ArgCtor(int x) {} }',
+        'Factory': 'public class Factory { private Factory() {} public static Service provider() { return new Good(); } }',
+        'Runner': 'public class Runner { public static void main(String[] args) { System.out.println(java.util.ServiceLoader.load(Service.class).iterator().next().getClass().getName()); } }',
+    }
+    for name, body in fixtures.items():
+        write(src / 'fixture' / (name + '.java'), 'package fixture; ' + body)
+    javac(classes, sorted(src.rglob('*.java')), target_java=17)
+
+    def jar(name: str, owners: list[str], provider: str | None = None) -> pathlib.Path:
+        path = root / (name + '.jar')
+        with zipfile.ZipFile(path, 'w') as out:
+            for owner in owners:
+                out.write(classes / 'fixture' / (owner + '.class'), 'fixture/' + owner + '.class')
+            if provider:
+                out.writestr('META-INF/services/fixture.Service', '# provider\nfixture.' + provider + '\n')
+        return path
+
+    api = jar('service-api', ['Service', 'Runner'])
+    dep = jar('service-dependency', ['Base', 'SubService'])
+    indexes = [build_index(api), build_index(dep)]
+    results = {}
+    for provider, expected in [
+        ('Good', None), ('Wrong', 'service-provider-not-subtype'),
+        ('Abstract', 'service-provider-not-concrete'), ('Hidden', 'service-provider-not-public'),
+        ('PrivateCtor', 'service-provider-no-public-noarg-constructor'),
+        ('ArgCtor', 'service-provider-no-public-noarg-constructor'),
+        ('Factory', 'service-provider-not-subtype'),
+    ]:
+        candidate = jar(provider, [provider], provider)
+        result = audit_linkage(candidate, indexes, runtime_java=17)
+        runtime = subprocess.run(
+            [shutil.which('java') or 'java', '-cp', os.pathsep.join(map(str, [api, dep, candidate])), 'fixture.Runner'],
+            text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+        if expected:
+            assert runtime.returncode != 0 and 'ServiceConfigurationError' in runtime.stderr, runtime.stderr
+            assert expected in blocker_ids(result), (provider, result)
+        else:
+            assert runtime.returncode == 0 and runtime.stdout.strip() == 'fixture.Good', runtime.stderr
+            assert result['status'] == 'PASS', result
+        results[provider] = {'audit': result['status'], 'java_exit': runtime.returncode}
+
+    # The provider may itself come from a supplied dependency JAR.
+    descriptor = jar('descriptor-only', [], 'Good')
+    good = jar('good-dependency', ['Good'])
+    assert audit_linkage(descriptor, [*indexes, build_index(good)], runtime_java=17)['status'] == 'PASS'
+    missing = audit_linkage(descriptor, indexes, runtime_java=17)
+    assert 'missing-service-provider-class' in blocker_ids(missing), missing
+
+    # Incomplete indexes must not manufacture a negative subtype proof or a clean pass.
+    unknown = audit_linkage(root / 'Good.jar', [build_index(api)], runtime_java=17)
+    assert unknown['status'] == 'PASS_WITH_WARNINGS', unknown
+    assert 'service-provider-hierarchy-incomplete' in {x['id'] for x in unknown['warnings']}, unknown
+    assert 'service-provider-not-subtype' not in blocker_ids(unknown), unknown
+    missing_service = audit_linkage(root / 'Good.jar', [build_index(dep)], runtime_java=17)
+    assert missing_service['status'] == 'PASS_WITH_WARNINGS', missing_service
+
+    # Named-module factory providers need not implement Service or have a public constructor.
+    # They are declared in module-info, not in classpath META-INF/services descriptors.
+    module_src, module_classes = root / 'module-src', root / 'module-classes'
+    write(module_src / 'module-info.java',
+          'module fixture.module { exports fixture; uses fixture.Service; provides fixture.Service with fixture.Factory; }')
+    for name in ['Service', 'SubService', 'Base', 'Good', 'Factory', 'Runner']:
+        write(module_src / 'fixture' / (name + '.java'), 'package fixture; ' + fixtures[name])
+    javac(module_classes, sorted(module_src.rglob('*.java')), target_java=17)
+    module_jar = root / 'module.jar'
+    with zipfile.ZipFile(module_jar, 'w') as out:
+        for file in sorted(module_classes.rglob('*.class')):
+            out.write(file, file.relative_to(module_classes).as_posix())
+    module_result = audit_linkage(module_jar, [], runtime_java=17)
+    assert module_result['status'] == 'PASS', module_result
+    runtime = subprocess.run(
+        [shutil.which('java') or 'java', '--module-path', str(module_jar), '-m', 'fixture.module/fixture.Runner'],
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    assert runtime.returncode == 0 and runtime.stdout.strip() == 'fixture.Good', runtime.stderr
+    with zipfile.ZipFile(module_jar, 'a') as out:
+        out.writestr('META-INF/services/fixture.Service', 'fixture.Factory\n')
+    dual = audit_linkage(module_jar, [], runtime_java=17)
+    assert dual['status'] == 'PASS_WITH_WARNINGS', dual
+    assert 'service-provider-launch-mode-unknown' in {x['id'] for x in dual['warnings']}, dual
+    named = subprocess.run(
+        [shutil.which('java') or 'java', '--module-path', str(module_jar), '-m', 'fixture.module/fixture.Runner'],
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    classpath = subprocess.run(
+        [shutil.which('java') or 'java', '-cp', str(module_jar), 'fixture.Runner'],
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    assert named.returncode == 0 and named.stdout.strip() == 'fixture.Good', named.stderr
+    assert classpath.returncode != 0 and 'not a subtype' in classpath.stderr, classpath.stderr
+    results['dual_mode_factory'] = {'audit': dual['status'], 'named_module_exit': named.returncode, 'classpath_exit': classpath.returncode}
+    results['named_module_factory'] = {'audit': module_result['status'], 'java_exit': runtime.returncode}
+    return results
 
 
 def main() -> int:
@@ -125,8 +238,11 @@ class ReflectionHook {
         assert not access.get('blockers'), access
         assert not reflection.get('blockers'), reflection
 
+        services = service_loader_checks(root)
+
         report = {
             'status': 'PASS',
+            'service_loader': services,
             'broken_detected': sorted(broken_ids),
             'access_drift_detected': sorted(blocker_ids(inaccessible)),
             'repaired_linkage': linked['status'],
