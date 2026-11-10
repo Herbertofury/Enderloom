@@ -117,7 +117,9 @@ def inventory(path: Path) -> dict:
                     elif low.endswith(".json"):
                         entries.append(_entry("data-json", ns, _strip_suffix(rel), logical, data))
                     continue
-            if len(parts) >= 4 and parts[0] == "assets":
+            # sounds.json sits directly under assets/<namespace>, unlike the
+            # nested model/texture/lang paths handled below.
+            if len(parts) >= 3 and parts[0] == "assets":
                 ns = parts[1]
                 rel = "/".join(parts[2:])
                 if rel == "sounds.json":
