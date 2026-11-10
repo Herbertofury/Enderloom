@@ -105,6 +105,15 @@ def decode_png(data: bytes) -> Image:
     channels = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}.get(color_type)
     if channels is None:
         raise ValueError(f"unsupported PNG color type: {color_type}")
+    transparent_sample = None
+    if transparency is not None and color_type in (0, 2):
+        # PNG stores tRNS samples as big-endian 16-bit values even for 8-bit
+        # images. Match the whole RGB key, not each channel independently.
+        if len(transparency) != channels * 2:
+            raise ValueError("invalid PNG tRNS color key length")
+        # PNG requires decoders to mask unused high bits for sample depths < 16.
+        transparent_sample = tuple(sample & 0xFF for sample in
+                                   struct.unpack(">" + "H" * channels, transparency))
     raw = zlib.decompress(bytes(idat))
     stride = width * channels
     expected = height * (stride + 1)
@@ -150,10 +159,10 @@ def decode_png(data: bytes) -> Image:
                 r, g, b, a = row[i:i + 4]
             elif color_type == 2:
                 r, g, b = row[i:i + 3]
-                a = 255
+                a = 0 if (r, g, b) == transparent_sample else 255
             elif color_type == 0:
                 r = g = b = row[i]
-                a = 255
+                a = 0 if (r,) == transparent_sample else 255
             elif color_type == 4:
                 r = g = b = row[i]
                 a = row[i + 1]
