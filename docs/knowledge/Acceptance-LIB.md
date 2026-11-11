@@ -5381,7 +5381,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 125 source-derived details.
+[Outcome](Checklist.md#lib-08) / 126 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -6546,6 +6546,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 924-924](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L924-L924) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1328-1328](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1328-L1328)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-3c28034827f596f709b7"></a>
+- [ ] **D-3c28034827f596f709b7** - Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes P...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes PlayFab, entitlement, download and archive-processing surfaces; McTools includes local archive processing. Source availability alone is not a stable provider API or an entitlement check. Determine which supported provider/account flow proves the exact product authorization. The discovery view must not mark a product owned because a content identifier or download URL exists.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 98-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L98-L104)
 
 </details>
 

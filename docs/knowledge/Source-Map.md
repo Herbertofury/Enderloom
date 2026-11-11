@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 58 |
-| Source lines processed | 46,273 |
-| Non-empty source blocks accounted for | 16,076 |
-| Distinct contextual/exact source blocks | 13,159 |
+| Located source documents | 62 |
+| Source lines processed | 46,867 |
+| Non-empty source blocks accounted for | 16,159 |
+| Distinct contextual/exact source blocks | 13,242 |
 | Exact repeated occurrences sharing an identity | 2,917 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,649 |
@@ -47,6 +47,32 @@ SHA-256: `f59d13e689a7c24f6d7ea1db7c12ea3bcea7c2ab90f3b0c363fb0fb666d8ac78`
 Bytes: 29,723. Historical checked occurrences: 0.
 
 **Outcome owners:** [**AI-01**](Checklist.md#ai-01), [**AI-02**](Checklist.md#ai-02), [**AI-03**](Checklist.md#ai-03), [**AI-04**](Checklist.md#ai-04), [**AI-06**](Checklist.md#ai-06), [**AI-07**](Checklist.md#ai-07), [**AOA-01**](Checklist.md#aoa-01), [**AOA-02**](Checklist.md#aoa-02), [**AOA-03**](Checklist.md#aoa-03), [**AOA-04**](Checklist.md#aoa-04), [**AOA-05**](Checklist.md#aoa-05), [**AOA-06**](Checklist.md#aoa-06), [**CONFIG-02**](Checklist.md#config-02), [**DEP-01**](Checklist.md#dep-01), [**DEP-03**](Checklist.md#dep-03), [**DEP-05**](Checklist.md#dep-05), [**DEP-07**](Checklist.md#dep-07), [**FIX-01**](Checklist.md#fix-01), [**FIX-03**](Checklist.md#fix-03), [**FIX-04**](Checklist.md#fix-04), [**FIX-08**](Checklist.md#fix-08), [**KNOW-02**](Checklist.md#know-02), [**KNOW-04**](Checklist.md#know-04), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-06**](Checklist.md#lib-06), [**LIB-08**](Checklist.md#lib-08), [**MAKE-01**](Checklist.md#make-01), [**MAKE-02**](Checklist.md#make-02), [**MAKE-07**](Checklist.md#make-07), [**MAKE-10**](Checklist.md#make-10), [**PERF-01**](Checklist.md#perf-01), [**PERF-02**](Checklist.md#perf-02), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PERF-06**](Checklist.md#perf-06), [**PERF-08**](Checklist.md#perf-08), [**PLAY-01**](Checklist.md#play-01), [**PLAY-02**](Checklist.md#play-02), [**PLAY-03**](Checklist.md#play-03), [**PORT-01**](Checklist.md#port-01), [**PORT-02**](Checklist.md#port-02), [**PORT-03**](Checklist.md#port-03), [**PORT-04**](Checklist.md#port-04), [**PORT-05**](Checklist.md#port-05), [**PORT-06**](Checklist.md#port-06), [**PORT-07**](Checklist.md#port-07), [**PORT-08**](Checklist.md#port-08), [**PORT-09**](Checklist.md#port-09), [**PORT-10**](Checklist.md#port-10), [**PORT-11**](Checklist.md#port-11), [**PORT-13**](Checklist.md#port-13), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**SHIP-04**](Checklist.md#ship-04), [**SHIP-05**](Checklist.md#ship-05), [**TEST-01**](Checklist.md#test-01), [**TEST-02**](Checklist.md#test-02), [**TEST-03**](Checklist.md#test-03), [**TEST-04**](Checklist.md#test-04), [**TEST-05**](Checklist.md#test-05), [**TEST-06**](Checklist.md#test-06), [**TEST-08**](Checklist.md#test-08), [**UX-01**](Checklist.md#ux-01), [**UX-04**](Checklist.md#ux-04), [**UX-05**](Checklist.md#ux-05), [**UX-08**](Checklist.md#ux-08), [**WORLD-01**](Checklist.md#world-01), [**WORLD-04**](Checklist.md#world-04), [**WORLD-05**](Checklist.md#world-05), [**WORLD-06**](Checklist.md#world-06)
+
+</details>
+
+<a id="s-0f37605433"></a>
+<details>
+<summary><strong>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md</strong> - 146 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md) | specification
+
+SHA-256: `4777ebe5b046b5be8062a7ac394bc24e955df6e7d96373ce9013452537c43fda`  
+Bytes: 15,276. Historical checked occurrences: 0.
+
+**Outcome owners:** [**DEP-01**](Checklist.md#dep-01), [**DEP-05**](Checklist.md#dep-05), [**MAKE-05**](Checklist.md#make-05), [**MAKE-10**](Checklist.md#make-10), [**PLAY-04**](Checklist.md#play-04), [**PORT-01**](Checklist.md#port-01), [**PORT-03**](Checklist.md#port-03), [**PORT-04**](Checklist.md#port-04), [**PORT-05**](Checklist.md#port-05), [**PORT-08**](Checklist.md#port-08), [**PORT-11**](Checklist.md#port-11), [**PORT-12**](Checklist.md#port-12), [**PORT-13**](Checklist.md#port-13), [**SHIP-01**](Checklist.md#ship-01)
+
+</details>
+
+<a id="s-5529d7fc6e"></a>
+<details>
+<summary><strong>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md</strong> - 119 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md) | specification
+
+SHA-256: `ef45131c6fc9b4f0e92c6f3ac01c69b286b79e4bd483caebf3062d00981a41da`  
+Bytes: 9,336. Historical checked occurrences: 0.
+
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**AOA-06**](Checklist.md#aoa-06), [**DEP-01**](Checklist.md#dep-01), [**PORT-01**](Checklist.md#port-01), [**PORT-04**](Checklist.md#port-04), [**PORT-05**](Checklist.md#port-05), [**PORT-10**](Checklist.md#port-10), [**TEST-05**](Checklist.md#test-05)
 
 </details>
 
@@ -518,6 +544,19 @@ Bytes: 4,876. Historical checked occurrences: 0.
 
 </details>
 
+<a id="s-8bf4d02b7d"></a>
+<details>
+<summary><strong>bedrock-third-party-provenance-2026-10-04.json</strong> - 82 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/bedrock-third-party-provenance-2026-10-04.json) | specification
+
+SHA-256: `d125c6977f37d582abf5dc748c640b7d114e683b6fd4a9614f7d34799ad5f50b`  
+Bytes: 4,125. Historical checked occurrences: 0.
+
+**Outcome owners:** [**DEP-05**](Checklist.md#dep-05)
+
+</details>
+
 <a id="s-dcda01dafe"></a>
 <details>
 <summary><strong>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md</strong> - 157 lines</summary>
@@ -749,6 +788,19 @@ SHA-256: `36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a`
 Bytes: 2,195. Historical checked occurrences: 0.
 
 **Outcome owners:** [**KNOW-04**](Checklist.md#know-04), [**PLAY-04**](Checklist.md#play-04), [**PORT-09**](Checklist.md#port-09)
+
+</details>
+
+<a id="s-bb0e97e89d"></a>
+<details>
+<summary><strong>Marketplace-Studio-and-Bedrock-Roadmap.md</strong> - 247 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md) | specification
+
+SHA-256: `90c47a3cefadf914f60b53ec870c72c833262679627bccc104304ff8cf7739ac`  
+Bytes: 16,767. Historical checked occurrences: 0.
+
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**AOA-06**](Checklist.md#aoa-06), [**DEP-07**](Checklist.md#dep-07), [**KNOW-04**](Checklist.md#know-04), [**LIB-08**](Checklist.md#lib-08), [**MAKE-07**](Checklist.md#make-07), [**PLAY-03**](Checklist.md#play-03), [**PORT-01**](Checklist.md#port-01), [**PORT-03**](Checklist.md#port-03), [**PORT-04**](Checklist.md#port-04), [**PORT-05**](Checklist.md#port-05), [**PORT-09**](Checklist.md#port-09), [**PORT-10**](Checklist.md#port-10), [**PORT-11**](Checklist.md#port-11), [**PORT-13**](Checklist.md#port-13), [**TEST-03**](Checklist.md#test-03), [**UX-07**](Checklist.md#ux-07), [**UX-09**](Checklist.md#ux-09)
 
 </details>
 

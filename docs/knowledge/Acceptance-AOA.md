@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 320 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 321 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2588,6 +2588,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Zero-loss / lineage
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 916-916](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L916-L916) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1320-1320](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1320-L1320)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence (1)</summary>
+
+<a id="d-d98eb7ce508701b6b328"></a>
+- [ ] **D-d98eb7ce508701b6b328** - Continue AoA in its current working tree. This roadmap and source review can be reviewed now. At its safe checkpoint, reconcile the latest source/earned proof, start B01-B04, then ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Continue AoA in its current working tree. This roadmap and source review can be reviewed now. At its safe checkpoint, reconcile the latest source/earned proof, start B01-B04, then implement the version-pinned adapters/update transaction and Studio census/diff. Establish the full Actions &amp; Stuff baseline before target generation; repair each discrepancy in the shared pipeline and replay from the original input. Finish with bidirectional native-runtime and packaged acceptance. No separate mass issue list or duplicate implementation ledger is required.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 241-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L241-L247)
 
 </details>
 

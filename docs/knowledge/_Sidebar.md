@@ -23,6 +23,7 @@
 ## Feature guides
 
 - [Horizon Rust Compatibility](Horizon-Rust-Compatibility.md)
+- [Marketplace, Studio comparison and Bedrock conversion roadmap](Marketplace-Studio-and-Bedrock-Roadmap.md)
 - [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md)
 - [Variant Foundry & High-Fidelity Java Models](Variant-Foundry-and-High-Fidelity-Java-Models.md)
 

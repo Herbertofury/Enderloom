@@ -3412,7 +3412,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 60 source-derived details.
+[Outcome](Checklist.md#dep-07) / 61 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -3974,6 +3974,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-11 : 1408-1408](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1408-L1408)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-b4915881aafe2cc7db7c"></a>
+- [ ] **D-b4915881aafe2cc7db7c** - Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentia...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentials in the existing secure account path and redact errors, receipts and logs. Do not adopt public key-sharing services or access-control, payment or entitlement bypass routes. After normal authorized import, compare every retained member and dependency against the source census. Prove duplicate install, stale entitlement, account switching, missing tools, malformed/nested archives, interrupted downloads, path collisions, disk exhaustion, restart and rollback. Cancellation and failure must preserve original input bytes.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 106-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L106-L114)
 
 </details>
 

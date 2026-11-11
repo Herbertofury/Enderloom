@@ -9,7 +9,7 @@
 <a id="port-01-details"></a>
 ## PORT-01 - Input and source authority
 
-[Outcome](Checklist.md#port-01) / 146 source-derived details.
+[Outcome](Checklist.md#port-01) / 148 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
@@ -189,6 +189,30 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. QA fixtures
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 637-637](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L637-L637)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Actions &amp; Stuff 1.11.1 fixture identity (1)</summary>
+
+<a id="d-361d3926f78178ea71ca"></a>
+- [ ] **D-361d3926f78178ea71ca** - Use both local files listed in the [hash inventory](https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_THIRD_PARTY_INVEN...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use both local files listed in the [hash inventory](https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md). Their filenames label the request 1.11.1; both manifests identify version 1.1.54. The resource pack requires engine 1.26.10. Do not silently relabel, substitute a current Marketplace revision, or infer a retail version from the numeric manifest alone. Reconcile the source receipt/creator release naming and freeze the exact two input hashes as this requested fixture.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Actions &amp; Stuff 1.11.1 fixture identity
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 69-74](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L69-L74)
+
+</details>
+
+<details>
+<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Source/runtime/license observations (1)</summary>
+
+<a id="d-103bd02efa816bb68265"></a>
+- [ ] **D-103bd02efa816bb68265** - PackDL. Projects PackDl, PackLib and PackServer target .NET 8. The library declares fNbt-netcore 0.6.5 and Newtonsoft.Json 13.0.4. Source contains distinct entitlement, PlayFab aut...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** PackDL. Projects PackDl, PackLib and PackServer target .NET 8. The library declares fNbt-netcore 0.6.5 and Newtonsoft.Json 13.0.4. Source contains distinct entitlement, PlayFab authentication/inventory, download and .brarchive processing areas, plus server/provider and network-related code. Adapter review must select the entitled/user-authorized supported flow rather than indiscriminately running the entire upstream program. No LICENSE/COPYING/NOTICE file was found in the supplied archive; public redistribution terms are not established by this inventory. Reconcile source/tag and distribution terms with the intended integration scope. The user reports all-party permission; ordinary planning continues on that basis.
+  - **Binding context:** Bedrock third-party source inventory / Source/runtime/license observations
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 30-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L30-L39)
 
 </details>
 
@@ -1540,7 +1564,7 @@
 <a id="port-03-details"></a>
 ## PORT-03 - Live version and toolchain atlas
 
-[Outcome](Checklist.md#port-03) / 139 source-derived details.
+[Outcome](Checklist.md#port-03) / 141 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -1611,6 +1635,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Conversion engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 485-485](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L485-L485)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Capability receipt (1)</summary>
+
+<a id="d-1093686ed1b8ff238b6e"></a>
+- [ ] **D-1093686ed1b8ff238b6e** - Resolve each concrete source feature per exact target cell, including game version, edition, loader/runtime profile and required dependency versions. Record the source path/ID/hash...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Resolve each concrete source feature per exact target cell, including game version, edition, loader/runtime profile and required dependency versions. Record the source path/ID/hash, parsed semantic feature, chosen target representation, transform rule/revision, generated output, dependencies and acceptance evidence. Disposition is direct, runtime-adapter, native-reimplementation or unresolved. Also record not-present-in-fixture when applicable; that does not certify the converter&#x27;s support. An unsupported-feature report means unresolved in the selected converter/target revision, not universally impossible.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Capability receipt
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 15-22](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L15-L22)
 
 </details>
 
@@ -2855,10 +2891,22 @@
 
 </details>
 
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs (1)</summary>
+
+<a id="d-1befcb8faf867d7786fd"></a>
+- [ ] **D-1befcb8faf867d7786fd** - B01/B06 acceptance. Track the exact [PackDL releases](https://git.silica.codes/BedrockReverse/PackDL/releases) and [McTools releases](https://git.silica.codes/BedrockReverse/McTool...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** B01/B06 acceptance. Track the exact [PackDL releases](https://git.silica.codes/BedrockReverse/PackDL/releases) and [McTools releases](https://git.silica.codes/BedrockReverse/McTools/releases) independently. On October 4 the same host&#x27;s release API returned v1.6 and v12. Implement configurable update checks and a manual refresh; a discovered version is an update candidate. Show release notes, source commit, artifact hash, dependency / license / permissions changes and affected fixture results for explicit review. Pin the accepted toolset per job; never silently replace a running job&#x27;s tools.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 124-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L124-L130)
+
+</details>
+
 <a id="port-04-details"></a>
 ## PORT-04 - Exact mappings and symbol truth
 
-[Outcome](Checklist.md#port-04) / 67 source-derived details.
+[Outcome](Checklist.md#port-04) / 68 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -3506,10 +3554,22 @@
 
 </details>
 
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side (1)</summary>
+
+<a id="d-52b314d0c5382b37cbef"></a>
+- [ ] **D-52b314d0c5382b37cbef** - S01 acceptance. Drop/select two whole projects or revisions, identify exact edition/version/loader/pack/dependencies and retain them as independently owned, immutable inputs. Show ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** S01 acceptance. Drop/select two whole projects or revisions, identify exact edition/version/loader/pack/dependencies and retain them as independently owned, immutable inputs. Show added/removed/renamed/changed/equal/unknown content, a searchable tree, counts, filters, breadcrumbs and linked references. Match stable IDs and hashes with user-reviewed rename candidates; similar filenames alone must not merge identities. Distinguish byte differences from normalized semantic differences, preserve order where order changes behavior, and keep unknown fields.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 171-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L171-L177)
+
+</details>
+
 <a id="port-05-details"></a>
 ## PORT-05 - Source migration and semantic repair
 
-[Outcome](Checklist.md#port-05) / 158 source-derived details.
+[Outcome](Checklist.md#port-05) / 163 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -3575,6 +3635,49 @@
   - **Full requirement:** A repair candidate&#x27;s identity, source, performance data, compatibility evidence, configs, world impact, provider links, test history, conversion lineage and install state are one shared project/mod graph. The Repair Loop must consume and update that graph; it must not create a parallel shadow database that the rest of Enderloom cannot see.
   - **Binding context:** 25. Integration law
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 707-707](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L707-L707)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Unsupported-feature and completion gates (1)</summary>
+
+<a id="d-035fc7f9e503ea276f62"></a>
+- [ ] **D-035fc7f9e503ea276f62** - Inject known failures in narrowly labeled fault fixtures: unavailable query, unknown field, corrupt model, missing dependency, altered input hash, nested archive failure, stale wor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Inject known failures in narrowly labeled fault fixtures: unavailable query, unknown field, corrupt model, missing dependency, altered input hash, nested archive failure, stale worker result, missing runtime proof and wrong output hash. Each must produce a specific visible diagnostic, preserved source, repair route and non-Complete state. A no-data/script module finding in Actions &amp; Stuff must not close behavior/mod-code support; the independent behavior fixtures remain mandatory.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Unsupported-feature and completion gates
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 133-139](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L133-L139)
+
+</details>
+
+<details>
+<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Source/runtime/license observations (2)</summary>
+
+<a id="d-7cce112ffed695a44471"></a>
+- [ ] **D-7cce112ffed695a44471** - Actions &amp; Stuff resources. Header UUID 2cf066eb-1254-4b7d-affb-80fe3216b18c, manifest format_version: 3, header/module version 1.1.54, min_engine_version: 1.26.10, resource mod...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Actions &amp; Stuff resources. Header UUID 2cf066eb-1254-4b7d-affb-80fe3216b18c, manifest format_version: 3, header/module version 1.1.54, min_engine_version: 1.26.10, resource module UUID 22ed17a6-ea7c-5ccd-93b4-b90e86ce0046, author Oreville Studios Ltd. No declared dependencies, data/script module or metadata.license was observed. There are 19 .brarchive files under __brarchive, covering animations, animation controllers, attachables, entity definitions/models, particles, render controllers, materials, audio, textures, text and UI. Inner semantic completeness and encryption state were not established by this read-only scan. 2,577 JSON-named members within the reader&#x27;s 2 MiB/member bound parsed; those checks do not inspect archive inner members or validate game schemas.
+  - **Binding context:** Bedrock third-party source inventory / Source/runtime/license observations
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 50-60](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L50-L60)
+
+<a id="d-cfee823cb6abd20db9f6"></a>
+- [ ] **D-cfee823cb6abd20db9f6** - Actions &amp; Stuff skins. Header UUID 218d7771-3b76-4bdf-a46e-5f76af23353a, format 1, header/module version [1,1,54], skin module UUID 56da2e57-c634-41df-8f50-d5cf337c4b18. No met...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Actions &amp; Stuff skins. Header UUID 218d7771-3b76-4bdf-a46e-5f76af23353a, format 1, header/module version [1,1,54], skin module UUID 56da2e57-c634-41df-8f50-d5cf337c4b18. No metadata license or declared dependencies was observed. Both filenames use 1.11.1, which differs from the manifests. Preserve exact hashes and naming until the creator/source receipt reconciles that identity; do not assume a missing file or wrong edition.
+  - **Binding context:** Bedrock third-party source inventory / Source/runtime/license observations
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 62-67](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L62-L67)
+
+</details>
+
+<details>
+<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Dependencies to resolve without narrowing scope (1)</summary>
+
+<a id="d-2cb9a6608a535689c052"></a>
+- [ ] **D-2cb9a6608a535689c052** - The concrete next work is release-source correspondence, PackDL distribution metadata, managed .NET runtime adapters, a supported provider/authentication and entitlement contract, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The concrete next work is release-source correspondence, PackDL distribution metadata, managed .NET runtime adapters, a supported provider/authentication and entitlement contract, filename/manifest identity reconciliation, and the full archive-inner census. These keep affected implementation acceptance open; they do not establish impossibility. The requested browsing, two download routes, comparison and full conversion targets remain in the roadmap.
+  - **Binding context:** Bedrock third-party source inventory / Dependencies to resolve without narrowing scope
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 93-98](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L93-L98)
 
 </details>
 
@@ -5102,6 +5205,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-02 : 1399-1399](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1399-L1399)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs (1)</summary>
+
+<a id="d-c417f4d0cd6d6089776d"></a>
+- [ ] **D-c417f4d0cd6d6089776d** - Configure exclusions before importing fixtures; inspect packaging rules as well as Git ignores. Keep a source-to-derived hash map and test that neither fixtures nor content keys en...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Configure exclusions before importing fixtures; inspect packaging rules as well as Git ignores. Keep a source-to-derived hash map and test that neither fixtures nor content keys enter commits, application packages, CI artifacts or public screenshots. Do not move, rename or delete the current originals for this task.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 164-167](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L164-L167)
 
 </details>
 
@@ -8119,7 +8234,7 @@
 <a id="port-10-details"></a>
 ## PORT-10 - Complete cross-edition conversion
 
-[Outcome](Checklist.md#port-10) / 68 source-derived details.
+[Outcome](Checklist.md#port-10) / 70 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -8140,6 +8255,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Conversion engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L481-L481)
+
+</details>
+
+<details>
+<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Dependencies to resolve without narrowing scope (1)</summary>
+
+<a id="d-f2df2372c1b8fbeeada9"></a>
+- [ ] **D-f2df2372c1b8fbeeada9** - The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/addonsreference/packmanifest?view=minecraft-bedrock-stable), [animation controllers](https://learn.microsoft.com/en-us/minecraft/creator/documents/animations/animationcontroller?view=minecraft-bedrock-stable), [Molang](https://learn.microsoft.com/en-us/minecraft/creator/documents/molang/introduction?view=minecraft-bedrock-stable) and [Java rendering](https://docs.fabricmc.net/develop/rendering/basic-concepts). They support format/runtime-specific implementation and testing; they do not certify this fixture&#x27;s conversion or a private API grant. No legal partnership or unrestricted asset redistribution claim is made in public documentation.
+  - **Binding context:** Bedrock third-party source inventory / Dependencies to resolve without narrowing scope
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 100-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L100-L107)
 
 </details>
 
@@ -8753,10 +8880,22 @@
 
 </details>
 
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side (1)</summary>
+
+<a id="d-22757293dbe7ef495540"></a>
+- [ ] **D-22757293dbe7ef495540** - Compare manifests, required/optional/nested dependencies, resources, source, behavior components, events, recipes/loot/tags, models/bones/UVs, textures/materials, animations/contro...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Compare manifests, required/optional/nested dependencies, resources, source, behavior components, events, recipes/loot/tags, models/bones/UVs, textures/materials, animations/controllers/Molang, render controllers, particles, audio events and actual audio. Show dependency impact and dangling references. An unread or unsupported member remains visible with its exact reason; it never becomes &quot;equal&quot; or disappears. Prove complete counts on both actual Actions &amp; Stuff archives plus an independently authorized Java behavior fixture.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Studio: compare complete projects side by side
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 179-185](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L179-L185)
+
+</details>
+
 <a id="port-11-details"></a>
 ## PORT-11 - Authorized server content to native mod
 
-[Outcome](Checklist.md#port-11) / 52 source-derived details.
+[Outcome](Checklist.md#port-11) / 54 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -8788,6 +8927,30 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Conversion engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L487-L487)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix (1)</summary>
+
+<a id="d-00518c0ed75a6269a57c"></a>
+- [ ] **D-00518c0ed75a6269a57c** - These are implementation routes to prove, not declarations of current support. The [Bedrock manifest reference](https://learn.microsoft.com/en-us/minecraft/creator/reference/conten...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** These are implementation routes to prove, not declarations of current support. The [Bedrock manifest reference](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/addonsreference/packmanifest?view=minecraft-bedrock-stable) defines pack identity/modules/dependencies; the target schema must be pinned per actual game release. The supplied resource pack uses manifest format 3.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 33-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L33-L36)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs (1)</summary>
+
+<a id="d-e2120b160226fb26f9d4"></a>
+- [ ] **D-e2120b160226fb26f9d4** - | Phase | Work and acceptance | Evidence retained | | --- | --- | --- | | F01: freeze and inventory | Resolve filename/manifest identity; validate file hashes, safe member paths, f...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Phase | Work and acceptance | Evidence retained | | --- | --- | --- | | F01: freeze and inventory | Resolve filename/manifest identity; validate file hashes, safe member paths, full module/subpack/settings census and permitted fixture use. Import in a derived isolated workspace. Every original/inner member has a parsed, retained or unresolved disposition. | Two original SHA-256 receipts; inner path/hash manifest; provenance and license summary; no content keys in public evidence | | F02: original Bedrock baseline | Use the actual compatible installed Bedrock version, recording its build, platform, graphics mode, world seed, resource stack/order, selected subpack/options, screen/camera settings and hardware. Run every source-derived feature family, first/third person, skins, equip/armor/items, entities, particles, materials, sounds, reload and multiplayer where applicable. | Native runtime logs, private screenshots/videos, animation/event/audio traces and performance samples bound to source hashes | | F03: generate Java | Choose the exact Java game/loader/rendering profile using the canonical version graph and compatible APIs, not a guessed hardcoded version. Produce all required resource packs and runtime mods as one reviewed output family. Provision all dependencies. | Target-cell manifest, rule/tool locks, complete source-to-target coverage report, output hashes, reproducible build/package commands | | F04: native parity | Repeat F02&#x27;s source-derived scenarios on Java, including every source asset/subpack and all controller/state/option paths. Fix discrepancies in shared transform/runtime code and replay from original inputs without manual output surgery. | Paired scenes/screenshots, pose traces, state/event/behavior/audio assertions; each mandatory requirement passing | | F05: reverse and round-trip | Convert the generated Java family back to Bedrock and test it natively. Independently test Java -&gt; Bedrock -&gt; Java with an authorized Java behavior mod, plus Bedrock -&gt; Java -&gt; Bedrock with an authorized behavior/script pack. | Per-direction dependency/output receipts; identity/semantic comparisons; native runtime evidence and cumulative drift report | | F06: ordinary product/recovery | Complete packaged Studio select/import/compare/convert/build/test/export journeys and CLI equivalents. Test save/reopen, concurrent input edits, cancellation, interruption, dependency repair, offline replay and rollback. | Exact Enderloom package/converter revision; commands; original-byte preservation and failure-state checks |
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 87-94](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L87-L94)
 
 </details>
 
@@ -9539,7 +9702,7 @@
 <a id="port-13-details"></a>
 ## PORT-13 - Conversion parity and clean replay
 
-[Outcome](Checklist.md#port-13) / 76 source-derived details.
+[Outcome](Checklist.md#port-13) / 80 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (3)</summary>
@@ -9572,6 +9735,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. Source/repository workflow
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 515-515](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L515-L515)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs (1)</summary>
+
+<a id="d-5924c97046ed3a5cb3a2"></a>
+- [ ] **D-5924c97046ed3a5cb3a2** - For performance, run original/candidate and required vanilla/control profiles on the same machine/settings/world. Record cold/warm import, indexing, conversion, load/reload, peak m...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For performance, run original/candidate and required vanilla/control profiles on the same machine/settings/world. Record cold/warm import, indexing, conversion, load/reload, peak memory, frame-time p50/p95/p99, stutter counts and server tick cost when behavior is present. Proposed initial gate: no unexplained regression over 10% beyond measured run variance, using at least five equal-duration runs per profile and a full source workload. Publish the measured distributions, hardware and exceptions; do not compare different editions&#x27; raw FPS as an equivalent baseline or hide regressions in a single average.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 114-121](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L114-L121)
 
 </details>
 
@@ -10301,6 +10476,37 @@
   - **Full requirement:** - Do not replace preserved runtime-unverified candidates with compile-only &quot;passed&quot; claims. - Do not return to ambient Java/PATH selection for production conversion cells. - Do not make normal Minecraft launch depend on synthetic QA identity. - Do not accept early LWJGL/JVM startup as runtime proof. - Do not poll CI repeatedly; use one observation per real state change and continue independent work otherwise.
   - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / No-repeat notes
   - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 58-62](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L58-L62)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress (2)</summary>
+
+<a id="d-6def721bf86c1565a0e0"></a>
+- [ ] **D-6def721bf86c1565a0e0** - docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Thei...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Their existing outcome owners appear in the tables; existing statuses stay unchanged. Evidence must explicitly name the slice and target cell before its parent outcome can pass. Prior successful Bedrock conversions are valuable reference fixtures when available; their absence does not block planning or reduce the requested scope.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 30-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L30-L36)
+
+<a id="d-ec9ff40ac804b65b99fc"></a>
+- [ ] **D-ec9ff40ac804b65b99fc** - | Priority | Slice | Deliverable | Dependency | Existing outcome owner | | --- | --- | --- | --- | --- | | P0 | B01 | Immutable input/provenance index and safe third-party layout |...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Priority | Slice | Deliverable | Dependency | Existing outcome owner | | --- | --- | --- | --- | --- | | P0 | B01 | Immutable input/provenance index and safe third-party layout | None | PORT-01, SHIP-01 | | P0 | B02 | Marketplace inside Browse, retaining the complete official site | B01; existing browser surface | LIB-01, UX-06 | | P0 | B03 | Official Open in Minecraft Bedrock purchase/download handoff | B02 | LIB-01, PLAY-05 | | P0 | B04 | Review PackDL/McTools adapters and authorized operation contract | B01; source/API/license review | DEP-04, SHIP-01 | | P1 | B05 | Complete integrated Download with Enderloom route | B03, B04, B06 | LIB-01, DEP-06 | | P1 | B06 | Upstream tracking, explicit update review and rollback | B01, B04 | DEP-04, SHIP-01 | | P1 | S01 | Two complete inputs, semantic inventory and dependency diff | B01; canonical Studio graph | PORT-02, MAKE-05 | | P1 | S02 | Synchronized visual/model/texture/animation/audio comparison | S01 | MAKE-07, MAKE-08 | | P1 | C01 | Version-specific, bidirectional conversion capability matrix | B01, S01; version graph | PORT-03, PORT-13 | | P1 | C02 | Full Actions &amp; Stuff fixture census and source runtime baseline | B01, B04, C01 | PORT-01, TEST-03 | | P2 | C03 | Bedrock -&gt; Java full Actions &amp; Stuff parity through ordinary Studio | C02, S02; required target adapters | PORT-13, MAKE-08 | | P2 | C04 | Java -&gt; Bedrock, round-trip and independent behavior fixtures | C01, C03 | PORT-13, TEST-06 | | P2 | Q01 | Packaged UX, accessibility, performance and failure acceptance | B05, S02, C03, C04 | TEST-03, SHIP-04 |
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 38-52](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L38-L52)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Bidirectional conversion and Actions &amp; Stuff acceptance (1)</summary>
+
+<a id="d-30b35cd8a9b7af7e40f5"></a>
+- [ ] **D-30b35cd8a9b7af7e40f5** - C01-C04 acceptance. Preserve every source feature as a tracked requirement. For each edition/version/loader cell, report direct translation, generated runtime adapter, native reimp...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** C01-C04 acceptance. Preserve every source feature as a tracked requirement. For each edition/version/loader cell, report direct translation, generated runtime adapter, native reimplementation, or unresolved work with source evidence and a concrete next action. Carry unresolved content in the project instead of silently dropping it. An unresolved feature keeps full parity open; it does not set a permanent limit on the product. Do not promise universal lossless conversion.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Bidirectional conversion and Actions &amp; Stuff acceptance
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 208-213](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L208-L213)
 
 </details>
 

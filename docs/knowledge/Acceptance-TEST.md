@@ -3808,7 +3808,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 148 source-derived details.
+[Outcome](Checklist.md#test-03) / 149 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -5176,6 +5176,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.3 RUNTIME + PERFORMANCE PROOF — THESE ARE NOT OPTIONAL CEREMONY / [ ] NP-19 — Run one adversarial regression/challenge pass
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 373-373](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L373-L373)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs (1)</summary>
+
+<a id="d-c27605f32fc1606a5ada"></a>
+- [ ] **D-c27605f32fc1606a5ada** - Stage reviewed updates beside the current immutable version; test on owned fixtures, atomically switch a version pointer, keep the last known good toolset, and test rollback includ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Stage reviewed updates beside the current immutable version; test on owned fixtures, atomically switch a version pointer, keep the last known good toolset, and test rollback including metadata/dependency state. Cover changed/replaced tags, older releases, prereleases, offline reads, broken pagination, unavailable upstream, mismatched checksum, invalid signature, incompatible runtime and a crash at each switch boundary. Metadata checking must not execute a new binary.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Updates and organized inputs
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 142-147](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L142-L147)
 
 </details>
 

@@ -1276,7 +1276,19 @@
 <a id="make-05-details"></a>
 ## MAKE-05 - Recipes, loot, tags and data editing
 
-[Outcome](Checklist.md#make-05) / 16 source-derived details.
+[Outcome](Checklist.md#make-05) / 17 source-derived details.
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix (1)</summary>
+
+<a id="d-721d92984c40aba6dd08"></a>
+- [ ] **D-721d92984c40aba6dd08** - | Content | Bedrock -&gt; Java route | Java -&gt; Bedrock route | Decisive proof | | --- | --- | --- | --- | | Identity, metadata, dependencies, settings | Translate pack modules/U...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Content | Bedrock -&gt; Java route | Java -&gt; Bedrock route | Decisive proof | | --- | --- | --- | --- | | Identity, metadata, dependencies, settings | Translate pack modules/UUIDs to target pack/mod identity and graph; retain original lineage/settings | Translate target pack/mod graph to compatible resource/data/script modules and stable derived UUIDs | Schema load; identity uniqueness; settings persistence; complete dependency closure; no original-ID collision | | Texture paths, pixels, alpha, mipmaps, animated textures | Map asset names/layout; preserve pixels; convert flipbook timing to target metadata/runtime as needed | Map target layout/animation metadata to Bedrock definitions and image format | Decoded pixel/alpha equality for equivalent assets; frame order/time; native reload; no missing references | | Geometry, bones, pivots, UVs, item models, attachments and armor | Compile geometry and attachments into target models or a target-native rendering runtime | Recover target-native model semantics into Bedrock geometry/attachables; retain custom fields in project | Bounds/bone/UV checks; equip and first/third-person views; silhouette/occlusion and transforms at controlled angles | | Animation tracks, interpolation and state controllers | Preserve time/rotation/scale/blending; generate controller runtime where needed | Lower Java animation/state logic to Bedrock controllers or an equivalent script/runtime route | Frame-sampled poses; transition order; blend duration; event traces; loops, interruptions, attack/equip/death cases | | Molang expressions and game queries | Parse expressions, preserve evaluation units/order and implement query providers against target entity state | Recover equivalent expressions/queries or generate Bedrock-native event/script logic | Truth-table and recorded-input replay; random-seed controls; delta-time tests; all queries bound or explicitly unresolved | | Render controllers, materials, PBR and subpack options | Implement target material/render selection and equivalent options in renderer/shader/runtime profile | Map supported target materials/render states to Bedrock profiles/settings | Lighting/alpha/emission/depth/normal comparisons; every subpack/profile; graphics mode and low/high settings | | Particles and visual events | Translate event/emitter semantics; implement target runtime behavior as needed | Generate Bedrock particle components/event bindings from equivalent semantics | Spawn counts/timing, lifetime, motion, attachment, culling and seeded scenes; missing bindings rejected | | Audio files, events, music, attenuation and pitch | Preserve permitted codecs or convert with measured quality; map triggers and spatial behavior | Translate event mapping/codec/settings to Bedrock definitions | Decode duration/channels; event sequence; pitch/volume/attenuation; audio/video synchronization | | Skins and dressing-room presentation | Preserve source images/metadata; implement target-native selectable presentation | Map compatible target skin assets to Bedrock skin pack representation | Exact image census; selection and persistence; geometry/attachments where present; no invented account ownership | | Behavior components, AI goals, events and scripting | Generate Java target-native code/runtime for equivalent logic | Reimplement target Java behavior through Bedrock components/events/script APIs | Client/server gameplay assertions, persistence, multiplayer, interactions and state transitions | | Recipes, loot, tags, inventory and commands | Translate semantic rules to target schema/runtime | Translate target rules to Bedrock data/events/runtime | Ingredient/result/count/probability and command behavior; native server reload and negative cases | | Java-only loader hooks, Mixins, reflection, native calls and bytecode | N/A for a resource-only Bedrock source; retain behavior-derived implementations | Analyze source/bytecode and reimplement observable behavior through target-native components/scripts; carry unresolved code | Feature-specific native tests; no claim that Bedrock executes JVM bytecode or arbitrary Java/native APIs | | Worlds, structures and persisted data when present | Use version-aware state/NBT/world adapters | Use Bedrock format/state adapters | Save-load-world behavior, structures and migration recovery; never count absent world data as a passed feature | | Unknown, nested or opaque archive members | Retain original bytes; parse supported format through a reviewed authorized adapter | Preserve provenance and opaque members through the project; only export valid permitted target content | Full input count/hash accounting; unread member makes parity incomplete; no silent exclusion |
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 38-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L38-L53)
+
+</details>
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation (1)</summary>
@@ -3845,7 +3857,7 @@
 <a id="make-10-details"></a>
 ## MAKE-10 - Compound content and ecosystem integration
 
-[Outcome](Checklist.md#make-10) / 31 source-derived details.
+[Outcome](Checklist.md#make-10) / 32 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -3866,6 +3878,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 9. Build engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 328-328](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L328-L328)
+
+</details>
+
+<details>
+<summary>BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md / Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs (1)</summary>
+
+<a id="d-31e5b74a85123859f23d"></a>
+- [ ] **D-31e5b74a85123859f23d** - For screenshots, capture fixed camera/time/weather/lighting/pose and the same visible content; compare split/wipe and quantitative image differences with renderer tolerances fixed ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For screenshots, capture fixed camera/time/weather/lighting/pose and the same visible content; compare split/wipe and quantitative image differences with renderer tolerances fixed before inspecting the candidate. Proposed initial numeric checks for non-renderer geometry are 1e-4 model-unit pose tolerance, one frame maximum deterministic event drift at the recorded sample rate, and exact decoded pixels for assets with no required image transform. Validate these tolerances against baseline repeatability before adopting them. Material/lighting differences need feature-specific review, not a global similarity score hiding missing items. Review all asset bindings; representative camera scenes supplement the complete census, they do not replace it.
+  - **Binding context:** Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs
+  - **Original specification:** [BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md : 96-105](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L96-L105)
 
 </details>
 

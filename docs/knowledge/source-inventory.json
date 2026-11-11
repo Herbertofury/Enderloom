@@ -21,6 +21,26 @@
       "source_checked": 0
     },
     {
+      "id": "S-0f37605433",
+      "path": "docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md",
+      "sha256": "4777ebe5b046b5be8062a7ac394bc24e955df6e7d96373ce9013452537c43fda",
+      "bytes": 15276,
+      "lines": 146,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-5529d7fc6e",
+      "path": "docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md",
+      "sha256": "ef45131c6fc9b4f0e92c6f3ac01c69b286b79e4bd483caebf3062d00981a41da",
+      "bytes": 9336,
+      "lines": 119,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-7651c91168",
       "path": "docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md",
       "sha256": "76c72062805bdadee0b48b140359df41ce4a3a73ab448892944251278e4d7fc7",
@@ -381,6 +401,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-8bf4d02b7d",
+      "path": "docs/bedrock-third-party-provenance-2026-10-04.json",
+      "sha256": "d125c6977f37d582abf5dc748c640b7d114e683b6fd4a9614f7d34799ad5f50b",
+      "bytes": 4125,
+      "lines": 82,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/bedrock-third-party-provenance-2026-10-04.json",
+      "source_checked": 0
+    },
+    {
       "id": "S-dcda01dafe",
       "path": "docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md",
       "sha256": "f992e1c1694dbd3257eb5dfe13ef3ca607b4b5f6d4e5422fe7b1318a4bd1fffa",
@@ -561,6 +591,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-bb0e97e89d",
+      "path": "docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
+      "sha256": "90c47a3cefadf914f60b53ec870c72c833262679627bccc104304ff8cf7739ac",
+      "bytes": 16767,
+      "lines": 247,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-e86ec4837d",
       "path": "docs/wiki/Variant-Foundry-Capability-Closure.md",
       "sha256": "70e42041e2b8433e90abfed8ff1905392bbdf12573e67648f19e78693e590bc8",
@@ -582,11 +622,11 @@
     }
   ],
   "stats": {
-    "source_files": 58,
-    "source_bytes": 2344817,
-    "source_lines": 46273,
-    "source_blocks": 16076,
-    "unique_blocks": 13159,
+    "source_files": 62,
+    "source_bytes": 2390321,
+    "source_lines": 46867,
+    "source_blocks": 16159,
+    "unique_blocks": 13242,
     "exact_duplicate_occurrences": 2917,
     "source_checked": 235,
     "source_unchecked": 5649,

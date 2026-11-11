@@ -1569,7 +1569,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 73 source-derived details.
+[Outcome](Checklist.md#ux-07) / 74 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -2215,6 +2215,18 @@
   - **Full requirement:** This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, and leave Enderloom able to use it immediately.
   - **Binding context:** ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 8-8](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L8-L8)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-52fe853282281f5fcb10"></a>
+- [ ] **D-52fe853282281f5fcb10** - Exercise the actual provider&#x27;s pagination/load-more behavior across the complete saved result context: changing sort/filter/search while requests are pending, duplicate items,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Exercise the actual provider&#x27;s pagination/load-more behavior across the complete saved result context: changing sort/filter/search while requests are pending, duplicate items, stale page responses, terminal pages, transient errors, retry, rate limiting and interrupted navigation. Preserve every result; do not cap the catalogue or infer completion from the first page. If a permitted structured catalogue adapter is added, bind cursor/query/locale/sort/filter generations, deduplicate by verified product ID and retain page-boundary receipts. Website browsing remains a complete route while that API contract is validated.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 66-73](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L66-L73)
 
 </details>
 
