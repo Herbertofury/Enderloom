@@ -212,6 +212,7 @@ def main() -> int:
         assert unsupported['run']['blocked'] == ['mc-26.3-fabric'] and not unsupported['run']['failed'], unsupported
         rec = json.loads((state / 'session.json').read_text())['cells']['mc-26.3-fabric']
         assert rec['state'] == 'blocked' and 'toolchain-block' in rec['evidence'], rec
+        assert rec.get('artifact') is None and rec.get('conversion') is None, rec
         assert f'Java {unavailable} required' in rec['reason'], rec
         receipt = json.loads((state / 'work/mc-26.3-fabric/receipt.json').read_text())
         assert receipt['state'] == 'blocked' and not receipt.get('artifact'), receipt

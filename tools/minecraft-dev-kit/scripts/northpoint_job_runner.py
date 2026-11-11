@@ -6,6 +6,8 @@ from northpoint_compose import inventory
 from northpoint_execution import new_run_id, run_logged, workspace_lock
 
 STATE_SCHEMA = 1
+# Invalidate pre-fix cached receipts without discarding their session history.
+ATTEMPT_SCHEMA = 1
 FINAL_STATES = {'passed', 'blocked', 'runtime-unverified', 'failed', 'cancelled'}
 REUSABLE_STATES = {'passed', 'blocked', 'runtime-unverified'}
 
@@ -83,6 +85,7 @@ def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, c
     driver_sha = sha256_file(driver)
     artifact_fingerprint = str((probe or {}).get('artifact_fingerprint') or '')
     payload = {
+        'attempt_schema': ATTEMPT_SCHEMA,
         'compose': inv['sha256'],
         'driver_sha256': driver_sha,
         'artifact_fingerprint': artifact_fingerprint,
@@ -298,11 +301,7 @@ def run_manifest(args: argparse.Namespace, manifest: dict) -> int:
     state = load_state(state_path, manifest)
     config = manifest.get('config') or {}
     runtime_proofs = load_runtime_proofs(args.runtime_proofs.resolve() if args.runtime_proofs else None)
-    promoted = apply_runtime_proofs(state, release_dir, runtime_proofs)
-    if promoted:
-        state['updated_at'] = now()
-        atomic_json(state_path, state)
-    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': sorted(promoted)}
+    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': []}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
     fps = {cid: input_fingerprint(project, cell, driver, config, probes[cid]) for cid, cell in cells.items()}
@@ -329,6 +328,8 @@ def run_manifest(args: argparse.Namespace, manifest: dict) -> int:
             })
         elif rec.get('state') == 'passed' and not artifact_ok(rec, release_dir):
             rec.update({'state': 'stale', 'reason': 'promoted artifact missing or hash mismatch'})
+    # A proof is usable only after the current inputs/environment are validated.
+    run['runtime_promoted'] = sorted(apply_runtime_proofs(state, release_dir, runtime_proofs))
     state['updated_at'] = now()
     atomic_json(state_path, state)
 
@@ -342,6 +343,10 @@ def run_manifest(args: argparse.Namespace, manifest: dict) -> int:
                 return cid, rec, False
         with state_lock:
             rec['state'] = 'building'; rec['attempts'] = int(rec.get('attempts') or 0) + 1; rec['reason'] = None
+            # Missing fields in a new receipt must not inherit old build output.
+            # Prior work/receipts and release bytes remain available for recovery.
+            rec.update({'artifact': None, 'conversion': None, 'evidence': []})
+            rec.pop('driver_stdout_tail', None)
             state['updated_at'] = now()
             atomic_json(state_path, state)
         result = run_driver(driver, cells[cid], project, work_root, release_dir, args.timeout)

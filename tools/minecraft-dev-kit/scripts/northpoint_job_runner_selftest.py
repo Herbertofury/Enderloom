@@ -53,6 +53,8 @@ def jar_runtime_marker(jar: pathlib.Path) -> str:
 
 
 def main() -> int:
+    from northpoint_attempt_state_selftest import main as attempt_state_tests
+    assert attempt_state_tests() == 0
     with tempfile.TemporaryDirectory(prefix='northpoint-job-selftest-') as td:
         base = pathlib.Path(td); project = base / 'project'; state = base / 'state'
         fixture(project)
