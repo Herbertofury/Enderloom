@@ -210,6 +210,8 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
     except Exception as exc:
         return {'state': 'failed', 'reason': f'driver receipt invalid JSON: {exc}: {lines[-1][:500]}', 'evidence': []}
     atomic_json(work / 'receipt.json', result)
+    if not isinstance(result, dict):
+        return {'state': 'failed', 'reason': 'driver receipt must be a JSON object', 'evidence': []}
     state = str(result.get('state') or 'failed')
     if state not in FINAL_STATES:
         return {'state': 'failed', 'reason': f'unknown driver state: {state}', 'evidence': []}
