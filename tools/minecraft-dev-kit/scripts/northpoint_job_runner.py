@@ -131,7 +131,10 @@ def load_runtime_proofs(path: pathlib.Path | None) -> dict[str, dict]:
 
 def apply_runtime_proofs(state: dict, release_dir: pathlib.Path, proofs: dict[str, dict]) -> list[str]:
     promoted: list[str] = []
+    active_cells = set(state.get('active_cells', state.get('cells', {})))
     for cid, proof in proofs.items():
+        if cid not in active_cells:
+            continue
         rec = state.get('cells', {}).get(cid)
         if not rec or rec.get('state') != 'runtime-unverified' or proof.get('passed') is not True:
             continue
@@ -244,7 +247,10 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
 def write_release_outputs(state: dict, release_dir: pathlib.Path) -> None:
     rows = []
     sums = []
+    active_cells = set(state.get('active_cells', state['cells']))
     for cid, rec in sorted(state['cells'].items()):
+        if cid not in active_cells:
+            continue
         artifact = rec.get('artifact') or {}
         row = {
             'cell_id': cid,
@@ -299,6 +305,10 @@ def run_manifest(args: argparse.Namespace, manifest: dict) -> int:
         raise SystemExit('primary_cell is not in cells')
     cells[primary_id]['primary'] = True
     state = load_state(state_path, manifest)
+    # Retain prior cells and release bytes for recovery, but only the current
+    # manifest is eligible for proof promotion and release publication.
+    state['active_cells'] = sorted(cells)
+    state['primary_cell'] = primary_id
     config = manifest.get('config') or {}
     runtime_proofs = load_runtime_proofs(args.runtime_proofs.resolve() if args.runtime_proofs else None)
     run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': []}
