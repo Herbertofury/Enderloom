@@ -26,6 +26,9 @@ Minecraft mod failing in gameplay.
   runner. Old release files are not deleted. Their presence alone is not release
   acceptance: a failed/artifact-less attempt has no current artifact metadata
   and contributes no release checksum entry.
+- Explicit `javac` projects no longer probe unrelated global Gradle/Maven tools.
+  Their first-run banners cannot make an unchanged Java candidate appear to have
+  a changed build environment. Other build modes keep their existing probes.
 
 ## Verification
 
@@ -56,6 +59,15 @@ sessions using the unchanged predecessor, then resumed them with this candidate.
 Both rebuilt (attempts 2 to 3), dropped the stale association, and retained all
 prior runs and archived receipts. An environment-only probe change likewise
 rebuilt before proof promotion while its input fingerprint stayed unchanged.
+
+The initial hosted native lanes exposed an unrelated-tool fingerprint drift that
+the initial local image, without global Gradle/Maven, did not expose. Both stopped
+in the synthetic resume selftest before game launch. A controlled first-run
+Gradle banner reproduces that exact assertion. Ignoring irrelevant tools for
+explicit javac restores the real compiler/proof-resume test, while current-input
+and environment validation remain enforced. Production-probe controls assert
+that javac calls neither tool and preserve both existing probes for all other
+current modes. Actual Gradle/Maven version-output normalization is not changed.
 
 Synthetic driver receipts are labeled as such. These checks do not establish
 native Minecraft, visual, audio, multiplayer or Advent of Ascension acceptance.
