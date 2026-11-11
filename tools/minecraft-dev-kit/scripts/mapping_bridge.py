@@ -37,7 +37,6 @@ def class_aliases(indexes: list[dict], namespace: str, class_name: str) -> dict[
 def remap_descriptor(indexes: list[dict], descriptor: str, source_namespace: str, target_namespace: str) -> dict[str, Any]:
     """Remap every object type inside a JVM descriptor without guessing missing aliases."""
     unresolved = []
-    mapped = descriptor
     # Work from the original string so repeated class names are replaced consistently.
     replacements = {}
     for cls in DESC_CLASS_RX.findall(descriptor):
@@ -47,8 +46,9 @@ def remap_descriptor(indexes: list[dict], descriptor: str, source_namespace: str
             replacements[cls] = target
         else:
             unresolved.append({"class": cls, "known_aliases": aliases})
-    for src, dst in replacements.items():
-        mapped = mapped.replace(f"L{src};", f"L{dst};")
+    # Replace only original tokens: a target alias may also be a source name,
+    # and must not be remapped again by a later replacement.
+    mapped = DESC_CLASS_RX.sub(lambda match: f"L{replacements.get(match[1], match[1])};", descriptor)
     return {
         "status": "RESOLVED" if not unresolved else "PARTIAL",
         "source_namespace": source_namespace,

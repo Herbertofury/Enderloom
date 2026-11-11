@@ -67,6 +67,100 @@ def _index(value: Any, size: int, label: str) -> int:
     return value
 
 
+
+def _uint(value: Any, label: str, minimum: int = 0) -> int:
+    if type(value) is not int or value < minimum:
+        _fail(f"{label} must be an integer >= {minimum}")
+    return value
+
+
+def _accessor_layout(accessor: dict[str, Any], label: str) -> tuple[int, int, int, bool]:
+    # glTF 2.0 section 3.6.2.4: matrix columns start on 4-byte boundaries.
+    sizes = {5120: 1, 5121: 1, 5122: 2, 5123: 2, 5125: 4, 5126: 4}
+    component = accessor.get("componentType")
+    if type(component) is not int or component not in sizes:
+        _fail(f"{label}.componentType is invalid")
+    kind = accessor.get("type")
+    shapes = {"SCALAR": (1, 1), "VEC2": (1, 2), "VEC3": (1, 3),
+              "VEC4": (1, 4), "MAT2": (2, 2), "MAT3": (3, 3), "MAT4": (4, 4)}
+    if not isinstance(kind, str) or kind not in shapes:
+        _fail(f"{label}.type is invalid")
+    columns, rows = shapes[kind]
+    size = sizes[component]
+    column_bytes = rows * size
+    matrix = columns > 1
+    column_stride = (column_bytes + 3) // 4 * 4 if matrix else column_bytes
+    # The final column's trailing padding may be absent, unlike internal padding.
+    return size, columns * column_stride, (columns - 1) * column_stride + column_bytes, matrix
+
+
+def _accessor_span(obj: dict[str, Any], views: list[Any], count: int,
+                   size: int, packed_stride: int, last_size: int, matrix: bool,
+                   label: str, *, sparse: bool = False) -> None:
+    view = views[_index(obj.get("bufferView"), len(views), f"{label}.bufferView")]
+    offset = _uint(obj.get("byteOffset", 0), f"{label}.byteOffset")
+    absolute = view.get("byteOffset", 0) + offset
+    if offset % size or absolute % size:
+        _fail(f"{label}.byteOffset is not component-aligned")
+    if matrix and absolute % 4:
+        _fail(f"{label} matrix columns are not 4-byte-aligned")
+    if sparse and ("byteStride" in view or "target" in view):
+        _fail(f"{label} sparse bufferView must not define byteStride or target")
+    stride = view.get("byteStride", packed_stride)
+    if stride < packed_stride or stride % size:
+        _fail(f"{label} byteStride is smaller than its element or not component-aligned")
+    end = offset + (count - 1) * stride + last_size
+    if end > view["byteLength"]:
+        _fail(f"{label} byte span ends at {end}, beyond bufferView.byteLength {view['byteLength']}")
+
+
+def _validate_binary_ranges(accessors: list[Any], views: list[Any], buffers: list[Any]) -> None:
+    # Metadata containment only. External/data URI payloads and extension decoding
+    # remain the external validator's responsibility; never fetch resources here.
+    for i, view in enumerate(views):
+        label = f"bufferViews[{i}]"
+        if not isinstance(view, dict):
+            _fail(f"{label} must be an object")
+        buffer = buffers[_index(view.get("buffer"), len(buffers), f"{label}.buffer")]
+        offset = _uint(view.get("byteOffset", 0), f"{label}.byteOffset")
+        length = _uint(view.get("byteLength"), f"{label}.byteLength", 1)
+        if offset + length > buffer["byteLength"]:
+            _fail(f"{label} byte range exceeds buffers[{view['buffer']}].byteLength")
+        if "byteStride" in view:
+            stride = _uint(view["byteStride"], f"{label}.byteStride", 4)
+            if stride > 252 or stride % 4:
+                _fail(f"{label}.byteStride must be a multiple of 4 in 4..252")
+    for i, accessor in enumerate(accessors):
+        label = f"accessors[{i}]"
+        if not isinstance(accessor, dict):
+            _fail(f"{label} must be an object")
+        count = _uint(accessor.get("count"), f"{label}.count", 1)
+        size, stride, last, matrix = _accessor_layout(accessor, label)
+        if "bufferView" in accessor:
+            _accessor_span(accessor, views, count, size, stride, last, matrix, label)
+        elif "byteOffset" in accessor:
+            _fail(f"{label}.byteOffset requires bufferView")
+        # An absent base bufferView is valid (implicit zeros), with or without sparse.
+        if "sparse" not in accessor:
+            continue
+        sparse = accessor["sparse"]
+        if not isinstance(sparse, dict):
+            _fail(f"{label}.sparse must be an object")
+        sparse_count = _uint(sparse.get("count"), f"{label}.sparse.count", 1)
+        if sparse_count > count:
+            _fail(f"{label}.sparse.count exceeds accessor.count")
+        indices, values = sparse.get("indices"), sparse.get("values")
+        if not isinstance(indices, dict) or not isinstance(values, dict):
+            _fail(f"{label}.sparse requires indices and values objects")
+        index_type = indices.get("componentType")
+        if type(index_type) is not int or index_type not in (5121, 5123, 5125):
+            _fail(f"{label}.sparse.indices.componentType is invalid")
+        index_size = {5121: 1, 5123: 2, 5125: 4}[index_type]
+        _accessor_span(indices, views, sparse_count, index_size, index_size, index_size,
+                       False, f"{label}.sparse.indices", sparse=True)
+        _accessor_span(values, views, sparse_count, size, stride, last, matrix,
+                       f"{label}.sparse.values", sparse=True)
+
 def _optional_index(obj: dict[str, Any], key: str, size: int, label: str) -> None:
     if key in obj:
         _index(obj[key], size, f"{label}.{key}")
@@ -227,29 +321,10 @@ def validate_structure(gltf: dict[str, Any], bin_chunk: bytes | None, *, self_co
     if position_primitives == 0:
         _fail("asset contains no primitive with a POSITION attribute")
 
-    for i, accessor in enumerate(accessors):
-        if not isinstance(accessor, dict):
-            _fail(f"accessors[{i}] must be an object")
-        if "bufferView" in accessor:
-            _index(accessor["bufferView"], len(buffer_views), f"accessors[{i}].bufferView")
-        count = accessor.get("count")
-        if not isinstance(count, int) or count < 0:
-            _fail(f"accessors[{i}].count must be a non-negative integer")
-
-    for i, view in enumerate(buffer_views):
-        if not isinstance(view, dict):
-            _fail(f"bufferViews[{i}] must be an object")
-        _index(view.get("buffer"), len(buffers), f"bufferViews[{i}].buffer")
-        byte_length = view.get("byteLength")
-        if not isinstance(byte_length, int) or byte_length < 0:
-            _fail(f"bufferViews[{i}].byteLength must be non-negative")
-
     for i, buffer in enumerate(buffers):
         if not isinstance(buffer, dict):
             _fail(f"buffers[{i}] must be an object")
-        byte_length = buffer.get("byteLength")
-        if not isinstance(byte_length, int) or byte_length < 0:
-            _fail(f"buffers[{i}].byteLength must be non-negative")
+        byte_length = _uint(buffer.get("byteLength"), f"buffers[{i}].byteLength", 1)
         uri = buffer.get("uri")
         if uri is None:
             if i != 0:
@@ -262,6 +337,8 @@ def validate_structure(gltf: dict[str, Any], bin_chunk: bytes | None, *, self_co
                 _fail("BIN chunk contains more than 3 bytes beyond declared buffer length")
         elif self_contained and not str(uri).startswith("data:"):
             _fail(f"external buffer URI is forbidden by self-contained gate: buffers[{i}].uri={uri!r}")
+
+    _validate_binary_ranges(accessors, buffer_views, buffers)
 
     for i, image in enumerate(images):
         if not isinstance(image, dict):

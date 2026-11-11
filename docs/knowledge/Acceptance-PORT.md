@@ -12,6 +12,18 @@
 [Outcome](Checklist.md#port-01) / 148 source-derived details.
 
 <details>
+<summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
+
+<a id="d-b0e2ed044590bef94370"></a>
+- [ ] **D-b0e2ed044590bef94370** - Structured sources (Sheet/XLSX/CSV/TSV/JSON/catalog bundle) own sortable rows. Docs and PDFs add narrative/reference context and provenance. A PDF never silently replaces a newer s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Structured sources (Sheet/XLSX/CSV/TSV/JSON/catalog bundle) own sortable rows. Docs and PDFs add narrative/reference context and provenance. A PDF never silently replaces a newer structured master.
+  - **Binding context:** Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority
+  - **Original specification:** [README.md : 216-216](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L216-L216)
+
+</details>
+
+<details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
 
 <a id="d-729fe90c6fff4568a6f9"></a>
@@ -1433,18 +1445,6 @@
 
 </details>
 
-<details>
-<summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
-
-<a id="d-b0e2ed044590bef94370"></a>
-- [ ] **D-b0e2ed044590bef94370** - Structured sources (Sheet/XLSX/CSV/TSV/JSON/catalog bundle) own sortable rows. Docs and PDFs add narrative/reference context and provenance. A PDF never silently replaces a newer s...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Structured sources (Sheet/XLSX/CSV/TSV/JSON/catalog bundle) own sortable rows. Docs and PDFs add narrative/reference context and provenance. A PDF never silently replaces a newer structured master.
-  - **Binding context:** Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority
-  - **Original specification:** [README.md : 216-216](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L216-L216)
-
-</details>
-
 <a id="port-02-details"></a>
 ## PORT-02 - Universal semantic representation
 
@@ -2532,18 +2532,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Resume rule (1)</summary>
-
-<a id="d-d8884960e253f58ed1f5"></a>
-- [ ] **D-d8884960e253f58ed1f5** - Continue the existing Enderloom/Northpoint work. Do not restart architecture discovery, create a throwaway converter, fork one full project per Minecraft version, weaken runtime pr...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Continue the existing Enderloom/Northpoint work. Do not restart architecture discovery, create a throwaway converter, fork one full project per Minecraft version, weaken runtime proof, or make a conversion appear successful by removing content.
-  - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Resume rule
-  - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 12-12](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L12-L12)
-
-</details>
-
-<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Versions / loaders (1)</summary>
 
 <a id="d-fe884c8b0c23be7a6923"></a>
@@ -2566,14 +2554,14 @@
 </details>
 
 <details>
-<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / Completed / do not redo (1)</summary>
+<summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Resume rule (1)</summary>
 
-<a id="d-82068386fd52d1deae44"></a>
-- [ ] **D-82068386fd52d1deae44** - - Source intake worker detects conventional Minecraft mod projects read-only and infers build system, loader, source Minecraft, Java, mod id, metadata and mixin counts. - Convert M...
+<a id="d-d8884960e253f58ed1f5"></a>
+- [ ] **D-d8884960e253f58ed1f5** - Continue the existing Enderloom/Northpoint work. Do not restart architecture discovery, create a throwaway converter, fork one full project per Minecraft version, weaken runtime pr...
   - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Source intake worker detects conventional Minecraft mod projects read-only and infers build system, loader, source Minecraft, Java, mod id, metadata and mixin counts. - Convert Mod source selection immediately performs source intake and surfaces detected project details. - Production driver can infer configuration when northpoint.project.json is absent. - Runtime-unverified candidate JARs are preserved with exact SHA-256 instead of discarded. - Runner separates immutable artifact-input fingerprinting from environment/toolchain fingerprinting so verified artifacts are not rebuilt for harmless environment probe changes while blocked/runtime-unverified cells retry when the environment changes. - Enderloom managed Java now has a dedicated JDK path (javac required) in addition to the existing runtime/JRE behavior. - Native IPC exposes install_java_jdk and Northpoint automatically provisions exact per-cell JDK majors, including Java 25 for Minecraft 26.3/latest profiles. - Per-cell managed Java path is carried into the job manifest and production builds/runtime commands use the pinned JDK rather than ambient PATH. - Job runner accepts external runtime proofs only for exact artifact SHA-256 and promotes runtime-unverified -&gt; passed without rebuilding. - Node job bridge persists runtime proofs and re-hashes candidate bytes before accepting a proof. - Runtime-proof bridge QA verifies wrong SHA rejection and zero-rebuild promotion. - Native Minecraft runtime verifier is implemented in NorthpointService: - temporary QA instance - exact Minecraft + loader version - exact candidate JAR - event-driven process log/state observation - fatal linkage/mixin/mod-loading error detection - late client readiness milestone (resource reload/audio/atlas), not mere JVM/LWJGL bootstrap - stabilization window after readiness - exact runtime evidence receipt - SHA-bound proof recording - exact running-id kill/close and QA instance cleanup - bounded promotion loop: build -&gt; native verify -&gt; proof -&gt; rerun without rebuild - Normal Microsoft authentication is NOT reused for QA. A new native launch_instance_qa path uses an in-memory synthetic local QA identity and refuses non-&quot;Enderloom QA &quot; instances. Normal gameplay launch/auth behavior is unchanged. - Convert Mod UI surfaces managed JDK provisioning and native runtime verification progress/failure/pass states. - Targeted CI QA added for source intake, runtime proof promotion, bridge proof promotion, native runtime verifier, Rust native service compile, and official Fabric example-mod production smoke.
-  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / Completed / do not redo
-  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 12-37](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L12-L37)
+  - **Full requirement:** Continue the existing Enderloom/Northpoint work. Do not restart architecture discovery, create a throwaway converter, fork one full project per Minecraft version, weaken runtime proof, or make a conversion appear successful by removing content.
+  - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Resume rule
+  - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 12-12](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L12-L12)
 
 </details>
 
@@ -2888,6 +2876,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-09 : 1406-1406](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1406-L1406)
+
+</details>
+
+<details>
+<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / Completed / do not redo (1)</summary>
+
+<a id="d-82068386fd52d1deae44"></a>
+- [ ] **D-82068386fd52d1deae44** - - Source intake worker detects conventional Minecraft mod projects read-only and infers build system, loader, source Minecraft, Java, mod id, metadata and mixin counts. - Convert M...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Source intake worker detects conventional Minecraft mod projects read-only and infers build system, loader, source Minecraft, Java, mod id, metadata and mixin counts. - Convert Mod source selection immediately performs source intake and surfaces detected project details. - Production driver can infer configuration when northpoint.project.json is absent. - Runtime-unverified candidate JARs are preserved with exact SHA-256 instead of discarded. - Runner separates immutable artifact-input fingerprinting from environment/toolchain fingerprinting so verified artifacts are not rebuilt for harmless environment probe changes while blocked/runtime-unverified cells retry when the environment changes. - Enderloom managed Java now has a dedicated JDK path (javac required) in addition to the existing runtime/JRE behavior. - Native IPC exposes install_java_jdk and Northpoint automatically provisions exact per-cell JDK majors, including Java 25 for Minecraft 26.3/latest profiles. - Per-cell managed Java path is carried into the job manifest and production builds/runtime commands use the pinned JDK rather than ambient PATH. - Job runner accepts external runtime proofs only for exact artifact SHA-256 and promotes runtime-unverified -&gt; passed without rebuilding. - Node job bridge persists runtime proofs and re-hashes candidate bytes before accepting a proof. - Runtime-proof bridge QA verifies wrong SHA rejection and zero-rebuild promotion. - Native Minecraft runtime verifier is implemented in NorthpointService: - temporary QA instance - exact Minecraft + loader version - exact candidate JAR - event-driven process log/state observation - fatal linkage/mixin/mod-loading error detection - late client readiness milestone (resource reload/audio/atlas), not mere JVM/LWJGL bootstrap - stabilization window after readiness - exact runtime evidence receipt - SHA-bound proof recording - exact running-id kill/close and QA instance cleanup - bounded promotion loop: build -&gt; native verify -&gt; proof -&gt; rerun without rebuild - Normal Microsoft authentication is NOT reused for QA. A new native launch_instance_qa path uses an in-memory synthetic local QA identity and refuses non-&quot;Enderloom QA &quot; instances. Normal gameplay launch/auth behavior is unchanged. - Convert Mod UI surfaces managed JDK provisioning and native runtime verification progress/failure/pass states. - Targeted CI QA added for source intake, runtime proof promotion, bridge proof promotion, native runtime verifier, Rust native service compile, and official Fabric example-mod production smoke.
+  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / Completed / do not redo
+  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 12-37](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L12-L37)
 
 </details>
 
@@ -3364,18 +3364,6 @@
 </details>
 
 <details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-05a03cbb2b2dd20d763d"></a>
-- [ ] **D-05a03cbb2b2dd20d763d** - Wave A remains the exact next implementation action and must preserve typed extension paths for acquisition receipts/rights, server capture/content inventory, conversion coverage/m...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Wave A remains the exact next implementation action and must preserve typed extension paths for acquisition receipts/rights, server capture/content inventory, conversion coverage/mappings, Bedrock semantic nodes, compatibility profiles/contracts/scenarios/results, ecosystem adapters, provider version constraints, port/binary patch projects and parity/release ledgers. No conversion-specific or compatibility-specific shadow database.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 279-279](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L279-L279)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 7. Exact target oracle — prove the runtime that will actually load (1)</summary>
 
 <a id="d-b084deb98cb911e5cd2a"></a>
@@ -3551,6 +3539,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-18 : 1415-1415](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1415-L1415)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-05a03cbb2b2dd20d763d"></a>
+- [ ] **D-05a03cbb2b2dd20d763d** - Wave A remains the exact next implementation action and must preserve typed extension paths for acquisition receipts/rights, server capture/content inventory, conversion coverage/m...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Wave A remains the exact next implementation action and must preserve typed extension paths for acquisition receipts/rights, server capture/content inventory, conversion coverage/mappings, Bedrock semantic nodes, compatibility profiles/contracts/scenarios/results, ecosystem adapters, provider version constraints, port/binary patch projects and parity/release ledgers. No conversion-specific or compatibility-specific shadow database.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 279-279](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L279-L279)
 
 </details>
 
@@ -4995,6 +4995,17 @@
 </details>
 
 <details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Catalog / research workspace (1)</summary>
+
+<a id="d-f5c6e6d1935b4f8aa53d"></a>
+- [ ] **D-f5c6e6d1935b4f8aa53d** - Source URL enumeration available as structured data.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Full launcher CLI parity checklist / Catalog / research workspace
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 285-285](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L285-L285)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Enderloom invariants (1)</summary>
 
 <a id="d-e1f262fdcbd4c5d45e2a"></a>
@@ -5003,17 +5014,6 @@
   - **Full requirement:** 1. Primary target first. Finish and verify the requested target before secondary Northpoint fan-out. 2. Zero silent content loss. Adapt/backport/replace semantically or mark a cell Blocked; never delete a feature just to compile. 3. One semantic project. Common source -&gt; loader overlay -&gt; Minecraft-version overlay -&gt; rare exact-cell overlay -&gt; generated workspace. 4. One reusable Conversion IR/UMIR. Inspect source once and reuse provenance, content, behavior, injection, dependency and parity evidence across cells. 5. Exact historical mapping lineage. Carry owner/name/descriptor through MCP/SRG/TSRG/Yarn/Intermediary/Mojang lineage into the real target runtime. 6. Semantic migration intelligence. Answer what replaced an API/hook, not only that the old symbol disappeared. 7. Exact packaged linkage. Dev compile/remap is intermediate evidence only. 8. Runtime truth. A cell is Passed only when its strongest required server/client/integrated/restart gate has passed. 9. Resumable matrix. Fingerprint cells, persist state, reuse green work, retry only failed/invalidated cells. 10. No fake UI. Every visible action must call real backend behavior and report truthful state. 11. Repair causal owners. Fix the earliest causal defect rather than downstream cascades. 12. Promote reusable fixes. General conversion solutions become adapter/migration catalog entries plus regression fixtures.
   - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Enderloom invariants
   - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 98-109](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L98-L109)
-
-</details>
-
-<details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Catalog / research workspace (1)</summary>
-
-<a id="d-f5c6e6d1935b4f8aa53d"></a>
-- [ ] **D-f5c6e6d1935b4f8aa53d** - Source URL enumeration available as structured data.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. Full launcher CLI parity checklist / Catalog / research workspace
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 285-285](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L285-L285)
 
 </details>
 
@@ -7081,7 +7081,7 @@
 <a id="port-09-details"></a>
 ## PORT-09 - Native loader and compatibility modes
 
-[Outcome](Checklist.md#port-09) / 110 source-derived details.
+[Outcome](Checklist.md#port-09) / 111 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -7306,6 +7306,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants (1)</summary>
+
+<a id="d-55ba89208c51069601a5"></a>
+- [ ] **D-55ba89208c51069601a5** - Do not assume a remake’s compatibility matches the classic project; select strictly by loader/version.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 128-128](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L128-L128)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md / Enderloom — Living Minecraft Diagnostics Adapter Catalog / Product law (1)</summary>
 
 <a id="d-04d211006a670f39bc80"></a>
@@ -7314,17 +7325,6 @@
   - **Full requirement:** - Prefer the best available supported tool for the exact symptom/version/loader. - Never require one profiler to do work it was not designed for. - Preserve raw tool output + normalized Enderloom evidence. - Revalidate compatibility before test-injecting anything. - Test-only mods go into isolated clones/sandboxes by default. - Measurement passes stay minimally instrumented; heavy tooling is primarily attribution evidence. - Keep exact evidence confidence: measured / sampled / estimated / inferred / externally reported / reproduced.
   - **Binding context:** Enderloom — Living Minecraft Diagnostics Adapter Catalog / Product law
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 12-18](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L12-L18)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants (1)</summary>
-
-<a id="d-55ba89208c51069601a5"></a>
-- [ ] **D-55ba89208c51069601a5** - Do not assume a remake’s compatibility matches the classic project; select strictly by loader/version.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants
-  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 128-128](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L128-L128)
 
 </details>
 
@@ -8116,6 +8116,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** GATE - Acceptance matrix and real workflow proof
   - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T134 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L469-L469)
+
+</details>
+
+<details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal (1)</summary>
+
+<a id="d-57bf6dfb31dae9f487da"></a>
+- [ ] **D-57bf6dfb31dae9f487da** - The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge an...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge and NeoForge mods. Pursue complete compatibility for Horizon as an explicit R&amp;D goal, not a current capability or a promise that all mods can already be translated. Investigate the feasibility of a Java execution/loader compatibility layer or a faithful, semantics-preserving port/bridge alongside real version-matched Minecraft runtimes; do not assume a native Rust engine can execute JVM bytecode or loader APIs unaided. Preserve native code, loader dependencies, mixins, game semantics, assets and world behavior; identify licensing and platform constraints. Record precise unsupported cases rather than silently dropping functionality. Certify each source/target version and loader combination with real representative mods, reproducible behavior tests, diagnostics, rollback and preserved source. Horizon is one potential backend in the broader test matrix, not proof of universal compatibility.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 68-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L68-L68)
 
 </details>
 
@@ -9367,37 +9379,6 @@
 </details>
 
 <details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (2)</summary>
-
-<a id="d-87dc6c48fd2de719e812"></a>
-- [ ] **D-87dc6c48fd2de719e812** - New mandatory capability families include: - Security &amp; Supply-Chain Center with static capability analysis, update capability diffs, SBOM/license/provenance, threat intelligen...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** New mandatory capability families include: - Security &amp; Supply-Chain Center with static capability analysis, update capability diffs, SBOM/license/provenance, threat intelligence and quarantine. - Full Bedrock creator/developer loop: TypeScript/JavaScript project tooling, Script Debugger, Script Profiler, Content Log, Diagnostics/Debug Utilities, Creator Tools-style deploy workflows, Bedrock Editor and Editor Extensions. - Enderloom Developer IDE with language intelligence, build/task/terminal/Git integration. - Mapping/Remap/Mixin/Bytecode Lab spanning Mojmap, Yarn, Intermediary, Parchment, SRG/MCP and production remap/linkage proof. - Visual Gameplay Authoring / native procedure, AI-behavior, boss, machine, UI and worldgen authoring with generated source visible and editable. - Misode/MCStacker-grade command/data/resource/worldgen generator studio. - Axiom/WorldEdit/Litematica-grade 3D building, schematic, hologram/material-list and blueprint workflows. - Particle, audio, UI/HUD, font and material/PBR/Vibrant-Visuals-aware studios. - Runtime Registry/Recipe/Content Explorer with owning-mod/source/config/world backlinks. - Full Bukkit/Spigot/Paper/Purpur/Folia/Velocity plugin/proxy development and management; Folia compatibility must be proven separately. - Geyser/Floodgate, ViaVersion-family, packet inspection and controlled network-chaos testing. - Shared instances/team pack collaboration, portable/offline workflows and diff/review/rollback. - Enderloom MCP server plus optional local-AI provider adapters, all behind normal Enderloom build/test/install safety gates. - Legacy archaeology for genuinely broad version porting across old Java runtimes, Forge/FML/LaunchWrapper/Coremods/MCP/SRG and historical Bedrock schemas. - Hot-reload/fast-dev support with truthful full-restart boundaries. - Multiplayer chaos/soak tests, extreme teleport/chunk travel, restart/rejoin and long-running memory/thread validation. - Seed/worldgen diff, pregeneration and retrogen intelligence. - Incremental world snapshot version control and selective chunk/region restore. - Dedicated Java&lt;-&gt;Bedrock resource-pack conversion with visual QA and explicit unsupported-feature reports. - Runtime replay/capture/showcase studio using actual Minecraft evidence rather than synthetic replacement imagery. - Hardware/JVM/render advisor based on measured machine-specific evidence. - Accessibility/localization for Enderloom and Minecraft projects. - Provider/changelog/known-issue intelligence without fabricated quality/popularity scores. - Pack redistribution/license/policy gate. - No Unknown Files invariant: every source file in a JAR/pack/world/archive/conversion/AI candidate must be classified, preserved, deliberately ignored with reason, or surfaced as unsupported. - Canary/staged update engine for mods, dependency clusters, whole packs and server stacks before live apply. - Remote server adapters only through legitimate supported protocols/APIs such as SSH/SFTP or configured management-panel APIs.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 86-113](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L86-L113)
-
-<a id="d-6d455598524e4368a587"></a>
-- [ ] **D-6d455598524e4368a587** - Bedrock conversion rule: Inventory the entire behavior/resource/source tree including Script API, Molang, entities/components/groups/events, AI, blocks/permutations, items, recipes...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Bedrock conversion rule: Inventory the entire behavior/resource/source tree including Script API, Molang, entities/components/groups/events, AI, blocks/permutations, items, recipes, loot/trades, geometry, animations/controllers/render controllers, particles/sounds/UI/fonts/localization, structures/worldgen/functions/subpacks/unknown files; translate through a versioned semantic model into a real Forge/NeoForge/Fabric/Quilt mod as requested. Do not stop at datapack/KubeJS wrappers when the requested product is a native mod.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 258-259](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L258-L259)
-
-</details>
-
-<details>
-<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / Current gate / exact next action (1)</summary>
-
-<a id="d-c8f6f0c93919982a7770"></a>
-- [ ] **D-c8f6f0c93919982a7770** - Do NOT rescan/rebuild settled architecture. Observe GitHub Actions run 35776273612 only after its state changes. If failed, inspect the single failing job/log and patch only the ca...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Do NOT rescan/rebuild settled architecture. Observe GitHub Actions run 35776273612 only after its state changes. If failed, inspect the single failing job/log and patch only the causal defect, then rerun via the next commit. If green, checkpoint that CI result and proceed to the next conversion capability gap (stronger server/integrated runtime lane selection and real-world multi-loader graduation) without weakening the native-client proof just completed.
-  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / Current gate / exact next action
-  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 54-54](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L54-L54)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 1. Non-negotiable product invariants / 1.1 Zero content loss (1)</summary>
 
 <a id="d-845529bb500660bba3ad"></a>
@@ -9471,6 +9452,37 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-07 — Implement the Northpoint zero-lag profiler + performance challenge gate
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 177-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L177-L177)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (2)</summary>
+
+<a id="d-87dc6c48fd2de719e812"></a>
+- [ ] **D-87dc6c48fd2de719e812** - New mandatory capability families include: - Security &amp; Supply-Chain Center with static capability analysis, update capability diffs, SBOM/license/provenance, threat intelligen...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** New mandatory capability families include: - Security &amp; Supply-Chain Center with static capability analysis, update capability diffs, SBOM/license/provenance, threat intelligence and quarantine. - Full Bedrock creator/developer loop: TypeScript/JavaScript project tooling, Script Debugger, Script Profiler, Content Log, Diagnostics/Debug Utilities, Creator Tools-style deploy workflows, Bedrock Editor and Editor Extensions. - Enderloom Developer IDE with language intelligence, build/task/terminal/Git integration. - Mapping/Remap/Mixin/Bytecode Lab spanning Mojmap, Yarn, Intermediary, Parchment, SRG/MCP and production remap/linkage proof. - Visual Gameplay Authoring / native procedure, AI-behavior, boss, machine, UI and worldgen authoring with generated source visible and editable. - Misode/MCStacker-grade command/data/resource/worldgen generator studio. - Axiom/WorldEdit/Litematica-grade 3D building, schematic, hologram/material-list and blueprint workflows. - Particle, audio, UI/HUD, font and material/PBR/Vibrant-Visuals-aware studios. - Runtime Registry/Recipe/Content Explorer with owning-mod/source/config/world backlinks. - Full Bukkit/Spigot/Paper/Purpur/Folia/Velocity plugin/proxy development and management; Folia compatibility must be proven separately. - Geyser/Floodgate, ViaVersion-family, packet inspection and controlled network-chaos testing. - Shared instances/team pack collaboration, portable/offline workflows and diff/review/rollback. - Enderloom MCP server plus optional local-AI provider adapters, all behind normal Enderloom build/test/install safety gates. - Legacy archaeology for genuinely broad version porting across old Java runtimes, Forge/FML/LaunchWrapper/Coremods/MCP/SRG and historical Bedrock schemas. - Hot-reload/fast-dev support with truthful full-restart boundaries. - Multiplayer chaos/soak tests, extreme teleport/chunk travel, restart/rejoin and long-running memory/thread validation. - Seed/worldgen diff, pregeneration and retrogen intelligence. - Incremental world snapshot version control and selective chunk/region restore. - Dedicated Java&lt;-&gt;Bedrock resource-pack conversion with visual QA and explicit unsupported-feature reports. - Runtime replay/capture/showcase studio using actual Minecraft evidence rather than synthetic replacement imagery. - Hardware/JVM/render advisor based on measured machine-specific evidence. - Accessibility/localization for Enderloom and Minecraft projects. - Provider/changelog/known-issue intelligence without fabricated quality/popularity scores. - Pack redistribution/license/policy gate. - No Unknown Files invariant: every source file in a JAR/pack/world/archive/conversion/AI candidate must be classified, preserved, deliberately ignored with reason, or surfaced as unsupported. - Canary/staged update engine for mods, dependency clusters, whole packs and server stacks before live apply. - Remote server adapters only through legitimate supported protocols/APIs such as SSH/SFTP or configured management-panel APIs.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 86-113](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L86-L113)
+
+<a id="d-6d455598524e4368a587"></a>
+- [ ] **D-6d455598524e4368a587** - Bedrock conversion rule: Inventory the entire behavior/resource/source tree including Script API, Molang, entities/components/groups/events, AI, blocks/permutations, items, recipes...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Bedrock conversion rule: Inventory the entire behavior/resource/source tree including Script API, Molang, entities/components/groups/events, AI, blocks/permutations, items, recipes, loot/trades, geometry, animations/controllers/render controllers, particles/sounds/UI/fonts/localization, structures/worldgen/functions/subpacks/unknown files; translate through a versioned semantic model into a real Forge/NeoForge/Fabric/Quilt mod as requested. Do not stop at datapack/KubeJS wrappers when the requested product is a native mod.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 258-259](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L258-L259)
+
+</details>
+
+<details>
+<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / Current gate / exact next action (1)</summary>
+
+<a id="d-c8f6f0c93919982a7770"></a>
+- [ ] **D-c8f6f0c93919982a7770** - Do NOT rescan/rebuild settled architecture. Observe GitHub Actions run 35776273612 only after its state changes. If failed, inspect the single failing job/log and patch only the ca...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do NOT rescan/rebuild settled architecture. Observe GitHub Actions run 35776273612 only after its state changes. If failed, inspect the single failing job/log and patch only the causal defect, then rerun via the next commit. If green, checkpoint that CI result and proceed to the next conversion capability gap (stronger server/integrated runtime lane selection and real-world multi-loader graduation) without weakening the native-client proof just completed.
+  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / Current gate / exact next action
+  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 54-54](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L54-L54)
 
 </details>
 
@@ -10275,18 +10287,6 @@
 </details>
 
 <details>
-<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / No-repeat notes (1)</summary>
-
-<a id="d-65c125e7db691ce75fc4"></a>
-- [ ] **D-65c125e7db691ce75fc4** - - Do not replace preserved runtime-unverified candidates with compile-only &quot;passed&quot; claims. - Do not return to ambient Java/PATH selection for production conversion cells...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Do not replace preserved runtime-unverified candidates with compile-only &quot;passed&quot; claims. - Do not return to ambient Java/PATH selection for production conversion cells. - Do not make normal Minecraft launch depend on synthetic QA identity. - Do not accept early LWJGL/JVM startup as runtime proof. - Do not poll CI repeatedly; use one observation per real state change and continue independent work otherwise.
-  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / No-repeat notes
-  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 58-62](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L58-L62)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / Enderloom Northpoint — Apex Universal Mod Conversion Engine Handoff / 0. Resume contract — do not restart this project (1)</summary>
 
 <a id="d-1480a55273a98e638aa4"></a>
@@ -10464,6 +10464,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-04 : 1401-1401](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1401-L1401)
+
+</details>
+
+<details>
+<summary>Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md / Enderloom Northpoint v6.3 — Recovery Checkpoint / No-repeat notes (1)</summary>
+
+<a id="d-65c125e7db691ce75fc4"></a>
+- [ ] **D-65c125e7db691ce75fc4** - - Do not replace preserved runtime-unverified candidates with compile-only &quot;passed&quot; claims. - Do not return to ambient Java/PATH selection for production conversion cells...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Do not replace preserved runtime-unverified candidates with compile-only &quot;passed&quot; claims. - Do not return to ambient Java/PATH selection for production conversion cells. - Do not make normal Minecraft launch depend on synthetic QA identity. - Do not accept early LWJGL/JVM startup as runtime proof. - Do not poll CI repeatedly; use one observation per real state change and continue independent work otherwise.
+  - **Binding context:** Enderloom Northpoint v6.3 — Recovery Checkpoint / No-repeat notes
+  - **Original specification:** [Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md : 58-62](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom-Northpoint-v6.3-checkpoint-2026-09-22.md#L58-L62)
 
 </details>
 

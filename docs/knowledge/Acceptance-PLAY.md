@@ -9,7 +9,7 @@
 <a id="play-01-details"></a>
 ## PLAY-01 - External-launcher connection in place
 
-[Outcome](Checklist.md#play-01) / 57 source-derived details.
+[Outcome](Checklist.md#play-01) / 58 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -436,6 +436,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 35. CLI / API / CI parity
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1341-1341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1341-L1341)
+
+</details>
+
+<details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) (1)</summary>
+
+<a id="d-8423189a3aaed4967ad8"></a>
+- [ ] **D-8423189a3aaed4967ad8** - Planned, not implemented or verified in Enderloom. [Horizon](https://github.com/horizon-rust/horizon) is an unofficial native Rust reimplementation targeting Minecraft Java 26.3, w...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Planned, not implemented or verified in Enderloom. [Horizon](https://github.com/horizon-rust/horizon) is an unofficial native Rust reimplementation targeting Minecraft Java 26.3, with its own launcher and client/server. Upstream says it uses files from a legitimately owned Java Edition, supports content mods (.hmod) and native Rust mods (.hnmod), and imports some data/assets from Java modpacks; Java Fabric/Forge/NeoForge mod code does not run. Treat upstream feature and parity claims as unverified until tested. Do not list Horizon as an operational install option until implemented and verified.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 58-58](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L58-L58)
 
 </details>
 

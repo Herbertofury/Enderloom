@@ -189,6 +189,7 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [Hexeption/MCP-Reborn](https://github.com/Hexeption/MCP-Reborn) - [specific cited locations](Reference-Index.md#hexeption-mcp-reborn).
 - [hickory-dns/hickory-dns](https://github.com/hickory-dns/hickory-dns) - [specific cited locations](Reference-Index.md#hickory-dns-hickory-dns).
 - [HMCL-dev/HMCL](https://github.com/HMCL-dev/HMCL) - [specific cited locations](Reference-Index.md#hmcl-dev-hmcl).
+- [horizon-rust/horizon](https://github.com/horizon-rust/horizon) - [specific cited locations](Reference-Index.md#horizon-rust-horizon).
 - [ibraheemdev/papaya](https://github.com/ibraheemdev/papaya) - [specific cited locations](Reference-Index.md#ibraheemdev-papaya).
 - [in-toto/attestation](https://github.com/in-toto/attestation) - [specific cited locations](Reference-Index.md#in-toto-attestation).
 - [INRIA/spoon](https://github.com/INRIA/spoon) - [specific cited locations](Reference-Index.md#inria-spoon).

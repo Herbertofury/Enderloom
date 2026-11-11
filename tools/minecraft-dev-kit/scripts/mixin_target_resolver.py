@@ -26,8 +26,12 @@ INJECTORS = [
 
 
 def _annotation_bodies(text: str, annotation: str) -> Iterable[tuple[int, str]]:
-    rx = re.compile(r"@" + re.escape(annotation) + r"\b")
+    text = _without_comments(text)
+    rx = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|@'
+                    + re.escape(annotation) + r"\b")
     for m in rx.finditer(text):
+        if not m[0].startswith("@"):
+            continue
         pos = m.end()
         while pos < len(text) and text[pos].isspace():
             pos += 1
@@ -97,16 +101,78 @@ def _quoted_values(expr: str) -> list[str]:
     return re.findall(r"[\"']([^\"']+)[\"']", expr)
 
 
+def _without_comments(text: str) -> str:
+    # Preserve offsets and line numbers, and never strip comment-like text in literals.
+    tokens = r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|//[^\n]*|/\*.*?\*/'
+    return re.sub(tokens, lambda m: re.sub(r"[^\n]", " ", m[0])
+                  if m[0].startswith(("//", "/*")) else m[0], text, flags=re.DOTALL)
+
+
+def _attribute_expressions(body: str, name: str) -> Iterable[str]:
+    # Read the complete value, not just the first string in a Java concatenation.
+    token = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|\b'
+                       + re.escape(name) + r'\s*=\s*')
+    for match in token.finditer(body):
+        if match[0].startswith(('"', "'")):
+            continue
+        start = pos = match.end()
+        depth = 0
+        quote = None
+        escaped = False
+        while pos < len(body):
+            ch = body[pos]
+            if quote:
+                if escaped:
+                    escaped = False
+                elif ch == "\\":
+                    escaped = True
+                elif ch == quote:
+                    quote = None
+            elif ch in ('"', "'"):
+                quote = ch
+            elif ch in "{([":
+                depth += 1
+            elif ch in "})]":
+                if not depth:
+                    break
+                depth -= 1
+            elif ch == "," and not depth:
+                break
+            pos += 1
+        yield body[start:pos].strip()
+
+
+def _literal_selectors(expr: str) -> list[str]:
+    """Accept literal strings/arrays and literal concatenation, never evaluate source."""
+    expr = expr.strip()
+    array = expr.startswith("{") and expr.endswith("}")
+    if array:
+        expr = expr[1:-1].strip()
+    literal = r'"(?:\\.|[^"\\])*"'
+    combined = literal + r'(?:\s*\+\s*' + literal + r')*'
+    grammar = combined + (r'(?:\s*,\s*' + combined + r')*\s*,?' if array else '')
+    if not re.fullmatch(grammar, expr):
+        raise ValueError("Selector expression is not a supported literal string or array")
+    return ["".join(json.loads(part) for part in re.findall(literal, value))
+            for value in re.findall(combined, expr)]
+
+
 def _selectors(text: str) -> list[dict]:
+    text = _without_comments(text)
     out = []
     for ann in INJECTORS:
         for pos, body in _annotation_bodies(text, ann):
-            for m in re.finditer(r"\bmethod\s*=\s*(\{.*?\}|[\"'][^\"']+[\"'])", body, re.DOTALL):
-                for value in _quoted_values(m.group(1)):
-                    out.append({"kind": "method", "selector": value, "line": _line(text, pos), "annotation": ann})
-            # @At(target = "Lowner;name(desc)ret") member references live inside injector body.
-            for value in re.findall(r"\btarget\s*=\s*[\"']([^\"']+)[\"']", body):
-                out.append({"kind": "at-target", "selector": value, "line": _line(text, pos), "annotation": ann})
+            for attribute, kind in [("method", "method"), ("target", "at-target")]:
+                for expr in _attribute_expressions(body, attribute):
+                    try:
+                        values = _literal_selectors(expr)
+                    except ValueError:
+                        out.append({"kind": "unparsed", "selector": expr,
+                                    "line": _line(text, pos), "annotation": ann})
+                        continue
+                    for value in values:
+                        out.append({"kind": kind, "selector": value,
+                                    "line": _line(text, pos), "annotation": ann})
     # Accessor/Invoker explicit target strings.
     for ann, kind in [("Accessor", "field"), ("Invoker", "method")]:
         for pos, body in _annotation_bodies(text, ann):
@@ -116,36 +182,48 @@ def _selectors(text: str) -> list[dict]:
     return out
 
 
-def _shadow_names(text: str) -> list[dict]:
+def _declaration_names(text: str, annotation: str) -> list[dict]:
+    text = _without_comments(text)
     out = []
-    # Conservative Java/Kotlin-ish next-declaration extraction. Descriptor is intentionally not guessed.
-    for pos, _body in _annotation_bodies(text, "Shadow"):
-        tail = text[pos:pos + 1200]
-        end_ann = tail.find("\n")
-        decl = tail[end_ann + 1:] if end_ann >= 0 else tail
-        # Method declaration first.
-        mm = re.search(r"(?:public|protected|private|static|final|abstract|native|synchronized|\s|@[\w.()=,\"']+)+[\w.$<>?,\[\] ]+\s+([A-Za-z_$][\w$]*)\s*\(", decl)
-        if mm:
-            out.append({"kind": "method", "selector": mm.group(1), "line": _line(text, pos), "annotation": "Shadow"})
+    for pos, body in _annotation_bodies(text, annotation):
+        end = pos + len(annotation) + 1
+        while end < len(text) and text[end].isspace():
+            end += 1
+        if end < len(text) and text[end] == "(":
+            end += len(body) + 2
+        tail = text[end:].lstrip()
+        # Consume immediately adjacent annotations without crossing a declaration.
+        while tail.startswith("@"):
+            match = re.match(r"@([\w.]+)", tail)
+            if not match:
+                break
+            rest = tail[match.end():].lstrip()
+            if rest.startswith("("):
+                nested = next(_annotation_bodies(tail, match[1]), None)
+                if nested is None:
+                    break
+                rest = rest[len(nested[1]) + 2:]
+            tail = rest.lstrip()
+        # The first delimiter belongs to THIS declaration. A later method must
+        # never win over a field just because it appears in a look-ahead window.
+        boundary = re.search(r"[;=({}]", tail)
+        if not boundary or boundary[0] in "{}":
             continue
-        fm = re.search(r"(?:public|protected|private|static|final|volatile|transient|\s|@[\w.()=,\"']+)+[\w.$<>?,\[\] ]+\s+([A-Za-z_$][\w$]*)\s*(?:[;=])", decl)
-        if fm:
-            out.append({"kind": "field", "selector": fm.group(1), "line": _line(text, pos), "annotation": "Shadow"})
+        header = tail[:boundary.start()].strip()
+        name = re.search(r"([A-Za-z_$][\w$]*)\s*(?:\[\s*\]\s*)*$", header)
+        if name:
+            kind = "method" if boundary[0] == "(" else "field"
+            out.append({"kind": kind, "selector": name[1],
+                        "line": _line(text, pos), "annotation": annotation})
     return out
+
+
+def _shadow_names(text: str) -> list[dict]:
+    return _declaration_names(text, "Shadow")
 
 
 def _overwrite_names(text: str) -> list[dict]:
-    out = []
-    # @Overwrite carries no selector string: the following method declaration is the selector.
-    # Do not guess a descriptor from Java source here; exact overload ambiguity must stay visible.
-    for pos, _body in _annotation_bodies(text, "Overwrite"):
-        tail = text[pos:pos + 1800]
-        end_ann = tail.find("\n")
-        decl = tail[end_ann + 1:] if end_ann >= 0 else tail
-        mm = re.search(r"(?:public|protected|private|static|final|abstract|native|synchronized|strictfp|\s|@[\w.()=,\"']+)+[\w.$<>?,\[\] ]+\s+([A-Za-z_$][\w$]*)\s*\(", decl)
-        if mm:
-            out.append({"kind": "method", "selector": mm.group(1), "line": _line(text, pos), "annotation": "Overwrite"})
-    return out
+    return [row for row in _declaration_names(text, "Overwrite") if row["kind"] == "method"]
 
 
 def parse_member_selector(selector: str, default_owner: str, declared_kind: str) -> dict:
@@ -194,6 +272,7 @@ def resolve_project(project: Path, target_index: dict) -> dict:
     for path, text in texts.items():
         if not path.lower().endswith((".java", ".kt", ".kts", ".groovy")) or "@Mixin" not in text:
             continue
+        text = _without_comments(text)
         targets = _mixin_targets(text)
         if not targets:
             warnings.append({"id": "mixin-target-unparsed", "path": path, "line": None, "message": "Mixin source found but target owner could not be inferred statically; require compiled annotation/bytecode resolution."})
@@ -208,6 +287,10 @@ def resolve_project(project: Path, target_index: dict) -> dict:
                 blockers.append({"id": "mixin-target-owner-missing", "path": path, "line": target["line"], "message": f"Target class {owner} is absent from the exact target symbol index."})
                 continue
             for sel in selectors:
+                if sel["kind"] == "unparsed":
+                    blockers.append({"id": "mixin-selector-expression-unresolved", "path": path,
+                                     "line": sel["line"], "message": f"Cannot statically evaluate {sel['annotation']} selector expression {sel['selector']!r}; require compiled annotation resolution."})
+                    continue
                 declared_kind = "method" if sel["kind"] in {"method", "at-target"} else sel["kind"]
                 parsed = parse_member_selector(sel["selector"], owner, declared_kind)
                 if parsed["kind"] not in {"method", "field"}:

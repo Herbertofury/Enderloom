@@ -1331,7 +1331,7 @@
 [**PORT-09**](Checklist.md#port-09)
 
 <details>
-<summary>Source clauses and aliases (224 distinct blocks)</summary>
+<summary>Source clauses and aliases (226 distinct blocks)</summary>
 
 - [11. Fast Launch Engine CLI integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L715-L715) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-3 — Minecraft Probe/control plane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L860-L860) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -1385,6 +1385,7 @@
 - [18. Profiler/instrumentation stack / 18.4 Observable adapter](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L814-L814) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [2. Product principles — non-negotiable / 2.5 Fast by architecture, not shortcuts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L91-L91) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [37. Implementation roadmap / Phase Testing-3 — Enderloom Probe](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1534-L1534) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
+- [Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L68-L68) - LAUNCHER_PARITY_MATRIX.md; 1 distinct blocks.
 - [10. Bedrock -&gt; Java Conversion Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L550-L550) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [11. Java Version Porting Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L566-L566) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [12. Stonecutter-style Multi-Version Workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L609-L609) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -1408,6 +1409,7 @@
 - [5. PRIMARY TARGET FIRST, THEN THE VERSION/LOADER MATRIX / 5.2 Matrix behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L234-L242) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.4 Mixins must be proven in the real loader](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L293-L293) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Minecraft authoring/runtime](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L225-L228) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Horizon Rust Compatibility / Required Enderloom outcome](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md#L9-L13) - Horizon-Rust-Compatibility.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.3 Observable Remake / descendants](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L128-L128) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [4. Measurement Pass vs Attribution Pass / 4.1 Measurement pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L346-L354) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot;](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L418-L418) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 1 distinct blocks.

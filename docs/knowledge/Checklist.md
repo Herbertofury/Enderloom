@@ -204,12 +204,12 @@
   - **Accept:** Build interacting content families with version-specific integrations, edit/play/rebuild and convert them; a decorative block or asset pack alone is not a complete created mod.
   - **State:** unverified. **Details:** [57 source blocks](Sources-MAKE.md#make-10); 25 source documents.
 
-**[Open 25 detailed checks](Acceptance-MAKE.md#make-11-details)**
+**[Open 26 detailed checks](Acceptance-MAKE.md#make-11-details)**
 
 <a id="make-11"></a>
 - [ ] **MAKE-11 - Real preview and native comparison**
   - **Accept:** Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
-  - **State:** unverified. **Details:** [47 source blocks](Sources-MAKE.md#make-11); 24 source documents.
+  - **State:** unverified. **Details:** [48 source blocks](Sources-MAKE.md#make-11); 25 source documents.
 
 ## Universal conversion engine
 
@@ -271,12 +271,12 @@
   - **Accept:** Integrate appropriate Stonecutter/Modstitch/official/Architectury/Unimined/RFG routes, immutable workspaces, target-first scheduling and correct legacy/JVM backport support.
   - **State:** unverified. **Details:** [121 source blocks](Sources-PORT.md#port-08); 22 source documents.
 
-**[Open 110 detailed checks](Acceptance-PORT.md#port-09-details)**
+**[Open 111 detailed checks](Acceptance-PORT.md#port-09-details)**
 
 <a id="port-09"></a>
 - [ ] **PORT-09 - Native loader and compatibility modes**
   - **Accept:** Translate loader semantics with real Sinytra/Kilt/Porting-Lib/Architectury evidence; explicitly distinguish native source ports, modified JARs and compatibility runtimes.
-  - **State:** unverified. **Details:** [224 source blocks](Sources-PORT.md#port-09); 33 source documents.
+  - **State:** unverified. **Details:** [226 source blocks](Sources-PORT.md#port-09); 35 source documents.
 
 **[Open 70 detailed checks](Acceptance-PORT.md#port-10-details)**
 
@@ -631,12 +631,12 @@
 
 [Keep the existing launcher and catalogue working while the studio grows.](Launcher-and-Instances.md)
 
-**[Open 57 detailed checks](Acceptance-PLAY.md#play-01-details)**
+**[Open 58 detailed checks](Acceptance-PLAY.md#play-01-details)**
 
 <a id="play-01"></a>
 - [ ] **PLAY-01 - External-launcher connection in place**
   - **Accept:** Discover real CurseForge/Modrinth/accepted launcher instances, identify junctions physically, connect without forced copy, reconcile moves and disconnect without deleting external files.
-  - **State:** unverified. **Details:** [147 source blocks](Sources-PLAY.md#play-01); 19 source documents.
+  - **State:** unverified. **Details:** [149 source blocks](Sources-PLAY.md#play-01); 19 source documents.
 
 **[Open 65 detailed checks](Acceptance-PLAY.md#play-02-details)**
 
@@ -657,7 +657,7 @@
 <a id="play-04"></a>
 - [ ] **PLAY-04 - Java, loaders and real launch**
   - **Accept:** Discover/install correct Java/loaders, configure memory/arguments/environment, launch the actual game and supervise logs/processes with identity-checked termination and restart adoption.
-  - **State:** unverified. **Details:** [150 source blocks](Sources-PLAY.md#play-04); 29 source documents.
+  - **State:** unverified. **Details:** [151 source blocks](Sources-PLAY.md#play-04); 30 source documents.
 
 **[Open 16 detailed checks](Acceptance-PLAY.md#play-05-details)**
 
@@ -848,7 +848,7 @@
 <a id="know-04"></a>
 - [ ] **KNOW-04 - Compatibility execution and matrix**
   - **Accept:** Generate version-specific contract fixtures, provider-present/absent tests and exact target evidence; compiled API calls or similar names do not prove equivalent behavior.
-  - **State:** unverified. **Details:** [187 source blocks](Sources-KNOW.md#know-04); 36 source documents.
+  - **State:** unverified. **Details:** [192 source blocks](Sources-KNOW.md#know-04); 38 source documents.
 
 **[Open 14 detailed checks](Acceptance-KNOW.md#know-05-details)**
 

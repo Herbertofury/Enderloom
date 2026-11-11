@@ -62,7 +62,7 @@ import net.minecraft.world.level.block.Blocks;
 public final class RuntimeProbe implements FabricClientGameTest {
   private static String registryIds(java.util.Collection<?> ids) {
     return ids.stream().map(Object::toString).sorted()
-        .map(id -> "\"" + id + "\"")
+        .map(id -> "\\"" + id + "\\"")
         .collect(java.util.stream.Collectors.joining(",", "[", "]"));
   }
   private static void writeVariantFoundryRegistryDump(net.minecraft.server.MinecraftServer server) {
@@ -71,10 +71,10 @@ public final class RuntimeProbe implements FabricClientGameTest {
       String biomes = registryIds(access.lookupOrThrow(Registries.BIOME).keySet());
       String dimensions = registryIds(access.lookupOrThrow(Registries.DIMENSION).keySet());
       String dimensionTypes = registryIds(access.lookupOrThrow(Registries.DIMENSION_TYPE).keySet());
-      String json = "{\"schema_version\":1,\"registries\":{" +
-          "\"minecraft:worldgen/biome\":" + biomes + "," +
-          "\"minecraft:dimension\":" + dimensions + "," +
-          "\"minecraft:dimension_type\":" + dimensionTypes + "}}";
+      String json = "{\\"schema_version\\":1,\\"registries\\":{" +
+          "\\"minecraft:worldgen/biome\\":" + biomes + "," +
+          "\\"minecraft:dimension\\":" + dimensions + "," +
+          "\\"minecraft:dimension_type\\":" + dimensionTypes + "}}";
       Files.writeString(Path.of("variant-foundry-registry.json"), json);
       System.out.println("DEVKIT_VARIANT_REGISTRY_DUMP:" + access.lookupOrThrow(Registries.BIOME).keySet().size());
     } catch (Exception error) {

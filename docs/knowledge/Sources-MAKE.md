@@ -777,7 +777,7 @@
 [**MAKE-11**](Checklist.md#make-11)
 
 <details>
-<summary>Source clauses and aliases (47 distinct blocks)</summary>
+<summary>Source clauses and aliases (48 distinct blocks)</summary>
 
 - [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L699-L699) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L816-L816) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -790,6 +790,7 @@
 - [15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L562-L562) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L691-L691) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [19. Fast Launch Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L832-L832) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
+- [Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L60-L64) - LAUNCHER_PARITY_MATRIX.md; 1 distinct blocks.
 - [Enderloom release evidence — 2026-08-30 / Built artifact SHA-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-30.md#L21-L29) - RELEASE_EVIDENCE_2026-08-30.md; 1 distinct blocks.
 - [24. Visual QA Showcase](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1084-L1084) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [31. Launch Doctor / Fast Launch Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1243-L1243) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.

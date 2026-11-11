@@ -3419,6 +3419,18 @@
 [Outcome](Checklist.md#make-09) / 49 source-derived details.
 
 <details>
+<summary>README.md / Enderloom 2.9.5 / Built-in test catalogs (1)</summary>
+
+<a id="d-17cf1b9e6010b0503205"></a>
+- [ ] **D-17cf1b9e6010b0503205** - - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob Vault - 312 ranked entries plus the current master Sheet and its Doc/PDF reference layers. All 312 entries are live-media capable through exact off-site project/creator homes; it intentionally has no fabricated score field.
+  - **Binding context:** Enderloom 2.9.5 / Built-in test catalogs
+  - **Original specification:** [README.md : 23-24](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L23-L24)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law (2)</summary>
 
 <a id="d-5f9a8781db13020e9eb3"></a>
@@ -3842,18 +3854,6 @@
 
 </details>
 
-<details>
-<summary>README.md / Enderloom 2.9.5 / Built-in test catalogs (1)</summary>
-
-<a id="d-17cf1b9e6010b0503205"></a>
-- [ ] **D-17cf1b9e6010b0503205** - - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob ...
-  - **State:** unverified. **Kind:** documented behavior to preserve.
-  - **Full requirement:** - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob Vault - 312 ranked entries plus the current master Sheet and its Doc/PDF reference layers. All 312 entries are live-media capable through exact off-site project/creator homes; it intentionally has no fabricated score field.
-  - **Binding context:** Enderloom 2.9.5 / Built-in test catalogs
-  - **Original specification:** [README.md : 23-24](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L23-L24)
-
-</details>
-
 <a id="make-10-details"></a>
 ## MAKE-10 - Compound content and ecosystem integration
 
@@ -4135,25 +4135,6 @@
 </details>
 
 <details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (2)</summary>
-
-<a id="d-795ac18a203a900f764d"></a>
-- [ ] **D-795ac18a203a900f764d** - Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legi...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legitimately delivered assets and author-supplied source/configs, inventory every relevant plugin/content family, recover visual/model-runtime/gameplay layers independently, and reconstruct unknown hidden behavior only from authorized observable evidence while labeling inference/unknowns. Never bypass DRM, protected delivery, server authorization, paywalls or proprietary licensing.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 255-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L255-L256)
-
-<a id="d-cbadb38eb448305d7167"></a>
-- [ ] **D-cbadb38eb448305d7167** - Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x27;s own 1.20.1 developer page pins exact Create/Ponder/Flywheel/Registrate versions and explicitly warns that 1.20.1 no longer receives feature updates or bug fixes. Enderloom must always resolve exact compatible artifacts rather than use newest library versions blindly.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 277-277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L277-L277)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md / CODEX EXECUTION LOCK — sole mission / 0. Resume contract — do not restart this project (1)</summary>
 
 <a id="d-9670ae63fc26217e03d7"></a>
@@ -4210,10 +4191,29 @@
 
 </details>
 
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (2)</summary>
+
+<a id="d-795ac18a203a900f764d"></a>
+- [ ] **D-795ac18a203a900f764d** - Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legitimately delivered assets and author-supplied source/configs, inventory every relevant plugin/content family, recover visual/model-runtime/gameplay layers independently, and reconstruct unknown hidden behavior only from authorized observable evidence while labeling inference/unknowns. Never bypass DRM, protected delivery, server authorization, paywalls or proprietary licensing.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 255-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L255-L256)
+
+<a id="d-cbadb38eb448305d7167"></a>
+- [ ] **D-cbadb38eb448305d7167** - Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x27;s own 1.20.1 developer page pins exact Create/Ponder/Flywheel/Registrate versions and explicitly warns that 1.20.1 no longer receives feature updates or bug fixes. Enderloom must always resolve exact compatible artifacts rather than use newest library versions blindly.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 277-277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L277-L277)
+
+</details>
+
 <a id="make-11-details"></a>
 ## MAKE-11 - Real preview and native comparison
 
-[Outcome](Checklist.md#make-11) / 25 source-derived details.
+[Outcome](Checklist.md#make-11) / 26 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
@@ -4446,14 +4446,14 @@
 </details>
 
 <details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) (1)</summary>
 
-<a id="d-a3a1831cb131b253c458"></a>
-- [ ] **D-a3a1831cb131b253c458** - Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferr...
+<a id="d-b393adf600aab19b3363"></a>
+- [ ] **D-b393adf600aab19b3363** - - Discover official releases, platform architecture, hashes, license and asset/ownership prerequisites; stage and verify installation with rollback and isolated profiles. - Model H...
   - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferred/authored design dossier -&gt; native editable geometry/textures/UV/rig/animation -&gt; gameplay implementation -&gt; semantic ecosystem compatibility -&gt; deterministic fidelity compare -&gt; actual Minecraft native-client/server QA -&gt; iterative repair -&gt; packaged release. - Lives inside the one unified Studio; no separate top-level Concept Studio. - Original references remain hash-addressed and derived assets retain lineage. - Unseen/ambiguous details remain explicitly inferred, never falsely claimed exact. - Multi-reference projects can assign separate shape, texture, motion, gameplay and style authority. - Concept visuals may suggest gameplay, but implied mechanics never silently become canonical gameplay. - CompatibilityProfile selects Sophisticated Backpacks/Curios/Create/Apotheosis/Farmer&#x27;s Delight/Patchouli/rendering-stack contracts only where semantically applicable. - Deterministic renders/metrics complement but never replace actual Minecraft runtime proof. - Visual acceptance includes scale, grounding, texture/atlas integrity, animation state, culling, clipping, hitbox alignment, non-obvious frames and no transform accumulation. - Gameplay acceptance still requires applicable dedicated-server/native-client/integrated-server/persistence/multiplayer/performance proof. - Shared progress UI exposes real stages and content-aware completion for reference intake, dossier, geometry, texture, rig, animation, gameplay, compatibility, native QA and release. - Synthetic image generation is not required. If Enderloom ever integrates such providers, use is explicit opt-in per job and generated pictures remain authored references, never proof or substitutes for native assets/runtime evidence. - AI/headless lanes use the same operation/task/evidence graph and cannot self-declare acceptance. - Wave A must preserve typed concept/reference/fidelity/native-visual/acceptance extension paths with no shadow database.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 294-309](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L294-L309)
+  - **Full requirement:** - Discover official releases, platform architecture, hashes, license and asset/ownership prerequisites; stage and verify installation with rollback and isolated profiles. - Model Horizon versions and native mod formats separately from Java loaders; clearly classify transferable data/assets versus unsupported Java code. Preserve imported originals and warn of incomplete imports. - Test install, launch, update, mod enable/disable and removal on supported platforms, including offline/error recovery and clean rollback. - Investigate using Horizon&#x27;s documented horizon-ctl for isolated internal automated game tests. This is a candidate backend, not universal Minecraft or Java mod execution. Build a version/loader/capability matrix and route other versions and Java mods to suitable real Minecraft runtimes; record unsupported cases explicitly. - Verify actual mod behavior and real gameplay per target, with logs and evidence, before claiming compatibility. Never mutate user worlds or instances for test fixtures.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 60-64](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L60-L64)
 
 </details>
 
@@ -4498,6 +4498,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-15 — Wire the complete engine through real Create + Convert + Repair workflows
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 317-317](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L317-L317)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-a3a1831cb131b253c458"></a>
+- [ ] **D-a3a1831cb131b253c458** - Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferred/authored design dossier -&gt; native editable geometry/textures/UV/rig/animation -&gt; gameplay implementation -&gt; semantic ecosystem compatibility -&gt; deterministic fidelity compare -&gt; actual Minecraft native-client/server QA -&gt; iterative repair -&gt; packaged release. - Lives inside the one unified Studio; no separate top-level Concept Studio. - Original references remain hash-addressed and derived assets retain lineage. - Unseen/ambiguous details remain explicitly inferred, never falsely claimed exact. - Multi-reference projects can assign separate shape, texture, motion, gameplay and style authority. - Concept visuals may suggest gameplay, but implied mechanics never silently become canonical gameplay. - CompatibilityProfile selects Sophisticated Backpacks/Curios/Create/Apotheosis/Farmer&#x27;s Delight/Patchouli/rendering-stack contracts only where semantically applicable. - Deterministic renders/metrics complement but never replace actual Minecraft runtime proof. - Visual acceptance includes scale, grounding, texture/atlas integrity, animation state, culling, clipping, hitbox alignment, non-obvious frames and no transform accumulation. - Gameplay acceptance still requires applicable dedicated-server/native-client/integrated-server/persistence/multiplayer/performance proof. - Shared progress UI exposes real stages and content-aware completion for reference intake, dossier, geometry, texture, rig, animation, gameplay, compatibility, native QA and release. - Synthetic image generation is not required. If Enderloom ever integrates such providers, use is explicit opt-in per job and generated pictures remain authored references, never proof or substitutes for native assets/runtime evidence. - AI/headless lanes use the same operation/task/evidence graph and cannot self-declare acceptance. - Wave A must preserve typed concept/reference/fidelity/native-visual/acceptance extension paths with no shadow database.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 294-309](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L294-L309)
 
 </details>
 

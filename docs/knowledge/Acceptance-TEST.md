@@ -7838,18 +7838,6 @@
 </details>
 
 <details>
-<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
-
-<a id="d-080f4d83b2f35c486296"></a>
-- [ ] **D-080f4d83b2f35c486296** - QUALITY BAR No dead buttons. No fake progress. No fake provider success. No fake measured metrics. No silent content loss in ports/conversions. No live instance/world as automated ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** QUALITY BAR No dead buttons. No fake progress. No fake provider success. No fake measured metrics. No silent content loss in ports/conversions. No live instance/world as automated test scratch space. No AI-returned artifact installed before verification. Preserve exact hashes, source provenance, rollback, licenses and user edits. Use dedicated-server/native-client/integrated-server proof where applicable. Every recommendation needs a Why/evidence path. GUI and CLI share the same native domain logic. Enderloom itself must stay fast on enormous packs, catalogs and worlds.
-  - **Binding context:** 
-  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 52-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L52-L53)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 12. Testing engine — headless first, native when it matters / Lane 5 — restart/persistence (1)</summary>
 
 <a id="d-bbb1aec512026369b483"></a>
@@ -7915,6 +7903,18 @@
   - **Full requirement:** - [ ] = not complete. It may be pending, active, or blocked. - [x] = complete only when the stated Done condition is satisfied and evidence is written into the task. - For the one task currently being worked, add State: IN PROGRESS under it. - For a blocked task, leave it unchecked and add State: BLOCKED — &lt;exact reason&gt; plus the exact next action that would unblock it. - Replace every Evidence: TODO with concrete file paths, test names/results, run IDs, hashes, screenshots/log paths, or artifact names before checking the task. - A scaffold, mock, placeholder, dead button, compile-only success, TODO comment, or untested code path does not satisfy a checkbox. - Do not check a parent task while any required child behavior is still missing. - Do not mark work complete because a different version/loader happens to pass. The requested primary target must pass first, and every claimed matrix cell must carry its own evidence. - Keep the detailed rules in Sections 1–15 intact. This board is the execution index; those sections are the acceptance contract. - Do not ask the user to re-decide engineering details already resolved by this file or discoverable from the repository/runtime. Choose the safest complete implementation and keep moving unless a genuinely user-only choice blocks correctness. - Once an NP task has enough evidence to identify the safe edit set, implement it immediately; do not substitute another plan, issue list, architecture memo, or research loop for the work.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 26-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L26-L36)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-080f4d83b2f35c486296"></a>
+- [ ] **D-080f4d83b2f35c486296** - QUALITY BAR No dead buttons. No fake progress. No fake provider success. No fake measured metrics. No silent content loss in ports/conversions. No live instance/world as automated ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** QUALITY BAR No dead buttons. No fake progress. No fake provider success. No fake measured metrics. No silent content loss in ports/conversions. No live instance/world as automated test scratch space. No AI-returned artifact installed before verification. Preserve exact hashes, source provenance, rollback, licenses and user edits. Use dedicated-server/native-client/integrated-server proof where applicable. Every recommendation needs a Why/evidence path. GUI and CLI share the same native domain logic. Enderloom itself must stay fast on enormous packs, catalogs and worlds.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 52-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L52-L53)
 
 </details>
 

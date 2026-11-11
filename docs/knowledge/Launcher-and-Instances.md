@@ -34,7 +34,7 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [PLAY-01 - External-launcher connection in place](Acceptance-PLAY.md#play-01-details): 57 source details.
+- [PLAY-01 - External-launcher connection in place](Acceptance-PLAY.md#play-01-details): 58 source details.
 - [PLAY-02 - Instance creation and organization](Acceptance-PLAY.md#play-02-details): 65 source details.
 - [PLAY-03 - Secure Microsoft accounts and appearance](Acceptance-PLAY.md#play-03-details): 20 source details.
 - [PLAY-04 - Java, loaders and real launch](Acceptance-PLAY.md#play-04-details): 87 source details.

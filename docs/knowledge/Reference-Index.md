@@ -881,7 +881,7 @@
 
 <a id="herbertofury-enderloom"></a>
 <details>
-<summary>Herbertofury/Enderloom (24 cited locations)</summary>
+<summary>Herbertofury/Enderloom (25 cited locations)</summary>
 
 - [https://github.com/Herbertofury/Enderloom](https://github.com/Herbertofury/Enderloom)
 - [https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md](https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md)
@@ -904,6 +904,7 @@
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md)
+- [https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md)
 - [https://github.com/Herbertofury/Enderloom/issues/1](https://github.com/Herbertofury/Enderloom/issues/1)
 - [https://github.com/Herbertofury/Enderloom/issues/3](https://github.com/Herbertofury/Enderloom/issues/3)
 - [https://github.com/Herbertofury/Enderloom/wiki/Marketplace-Studio-and-Bedrock-Roadmap](https://github.com/Herbertofury/Enderloom/wiki/Marketplace-Studio-and-Bedrock-Roadmap)
@@ -939,6 +940,14 @@
 <summary>HMCL-dev/HMCL (1 cited locations)</summary>
 
 - [https://github.com/HMCL-dev/HMCL](https://github.com/HMCL-dev/HMCL)
+
+</details>
+
+<a id="horizon-rust-horizon"></a>
+<details>
+<summary>horizon-rust/horizon (1 cited locations)</summary>
+
+- [https://github.com/horizon-rust/horizon](https://github.com/horizon-rust/horizon)
 
 </details>
 

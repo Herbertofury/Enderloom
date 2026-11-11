@@ -242,23 +242,25 @@ public final class SecondaryMotionSolver {{
         float dampingRatio = 0.15f + damping01 * 1.60f;
         float damping = 2.0f * dampingRatio * omega;
 
-        float dx = targetX - positionX[index];
-        float dy = targetY - positionY[index];
-        float dz = targetZ - positionZ[index];
-        float ax = dx * spring - velocityX[index] * damping + windX * wind01 * 4.0f;
-        float ay = dy * spring - velocityY[index] * damping + windY * wind01 * 4.0f - 9.81f * gravity01 * 0.35f;
-        float az = dz * spring - velocityZ[index] * damping + windZ * wind01 * 4.0f;
-
-        velocityX[index] += ax * dt;
-        velocityY[index] += ay * dt;
-        velocityZ[index] += az * dt;
-        float dragFactor = Math.max(0.0f, 1.0f - drag01 * dt * 4.0f);
-        velocityX[index] *= dragFactor;
-        velocityY[index] *= dragFactor;
-        velocityZ[index] *= dragFactor;
-        positionX[index] += velocityX[index] * dt;
-        positionY[index] += velocityY[index] * dt;
-        positionZ[index] += velocityZ[index] * dt;
+        // Backward Euler solves spring, damping and drag together. Explicit
+        // spring/damping updates diverge for valid stiff presets even at 30 Hz.
+        // This denominator stays positive for every supported parameter and dt.
+        // Double intermediates avoid overflow when a finite dt is very large;
+        // persistent storage and the renderer-facing API remain float arrays.
+        double h = dt;
+        double denominator = 1.0 + (damping + 4.0 * drag01) * h + spring * h * h;
+        double ax = ((double) targetX - positionX[index]) * spring + windX * wind01 * 4.0;
+        double ay = ((double) targetY - positionY[index]) * spring + windY * wind01 * 4.0 - 9.81 * gravity01 * 0.35;
+        double az = ((double) targetZ - positionZ[index]) * spring + windZ * wind01 * 4.0;
+        double vx = (velocityX[index] + ax * h) / denominator;
+        double vy = (velocityY[index] + ay * h) / denominator;
+        double vz = (velocityZ[index] + az * h) / denominator;
+        positionX[index] = (float) (positionX[index] + vx * h);
+        positionY[index] = (float) (positionY[index] + vy * h);
+        positionZ[index] = (float) (positionZ[index] + vz * h);
+        velocityX[index] = (float) vx;
+        velocityY[index] = (float) vy;
+        velocityZ[index] = (float) vz;
 
         float speed2 = velocityX[index] * velocityX[index]
             + velocityY[index] * velocityY[index]
