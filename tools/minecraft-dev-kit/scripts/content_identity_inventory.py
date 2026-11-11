@@ -86,12 +86,14 @@ def inventory(path: Path) -> dict:
                     ident = _strip_suffix(rel[len("tags/"):])
                     entries.append(_entry("tag", ns, ident, logical, data))
                     continue
-                if rel.startswith("structures/") and Path(low).suffix in {".nbt", ".snbt"}:
-                    ident = _strip_suffix(rel[len("structures/"):])
+                # Minecraft 1.21 renamed these directories to singular names.
+                # Preserve one identity across legacy sources and current packs.
+                if rel.startswith(("structure/", "structures/")) and Path(low).suffix in {".nbt", ".snbt"}:
+                    ident = _strip_suffix(rel.split("/", 1)[1])
                     entries.append(_entry("structure-template", ns, ident, logical, data))
                     continue
-                if rel.startswith("functions/") and low.endswith(".mcfunction"):
-                    ident = _strip_suffix(rel[len("functions/"):])
+                if rel.startswith(("function/", "functions/")) and low.endswith(".mcfunction"):
+                    ident = _strip_suffix(rel.split("/", 1)[1])
                     entries.append(_entry("function", ns, ident, logical, data))
                     continue
                 if Path(low).suffix in DATA_EXTS:

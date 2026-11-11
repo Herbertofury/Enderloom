@@ -8,8 +8,9 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from unittest.mock import patch
 
-from northpoint_production_driver import java_major, javac_major, materialize_legacy_target
+from northpoint_production_driver import build_probe, java_major, javac_major, materialize_legacy_target
 from northpoint_target_26_3 import ConversionBlock
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -132,6 +133,19 @@ def main() -> int:
         project, state = root / 'project', root / 'state'
         fixture(project)
 
+        # An unrelated build tool's first-run output must not affect direct javac.
+        with patch('northpoint_production_driver.tool_version', side_effect=AssertionError('unused build tool probe')):
+            probe = build_probe(project, manifest(project)['cells'][0])
+        assert probe['gradle'] is None and probe['maven'] is None, probe
+        # Preserve existing discovery for modes that may use those tools.
+        for mode in ('auto', 'gradle', 'maven', 'command'):
+            probe_project = root / 'probe-controls' / mode
+            write(probe_project / 'northpoint.project.json', json.dumps({'build': {'mode': mode}}))
+            with patch('northpoint_production_driver.tool_version', side_effect=lambda exe, args: exe + '-fixture') as version:
+                probe = build_probe(probe_project, manifest(project)['cells'][0])
+            assert probe['gradle'] == 'gradle-fixture' and probe['maven'] == 'mvn-fixture', probe
+            assert version.call_count == 2, version.call_args_list
+
         # An inferred 26.3 request must never build an ambiguous legacy source unchanged.
         ambiguous = root / 'ambiguous-source'
         write(ambiguous / 'build.gradle', "plugins { id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT' }\n")
@@ -212,6 +226,7 @@ def main() -> int:
         assert unsupported['run']['blocked'] == ['mc-26.3-fabric'] and not unsupported['run']['failed'], unsupported
         rec = json.loads((state / 'session.json').read_text())['cells']['mc-26.3-fabric']
         assert rec['state'] == 'blocked' and 'toolchain-block' in rec['evidence'], rec
+        assert rec.get('artifact') is None and rec.get('conversion') is None, rec
         assert f'Java {unavailable} required' in rec['reason'], rec
         receipt = json.loads((state / 'work/mc-26.3-fabric/receipt.json').read_text())
         assert receipt['state'] == 'blocked' and not receipt.get('artifact'), receipt
