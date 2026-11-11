@@ -25,12 +25,37 @@ PATH_ALIASES = {
     "advancements": "advancement",
 }
 
+# Minecraft Java 1.21 changed these six tag registry directories. Match only
+# the registry segment, never nested resource names or arbitrary plural words.
+# https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21
+TAG_REGISTRY_ALIASES = {
+    "functions": "function",
+    "items": "item",
+    "blocks": "block",
+    "entity_types": "entity_type",
+    "fluids": "fluid",
+    "game_events": "game_event",
+}
+
 DATA_EXTS = {".json", ".nbt", ".mcfunction", ".snbt"}
 ASSET_EXTS = {".json", ".png", ".mcmeta", ".ogg", ".fsh", ".vsh", ".glsl", ".json5"}
 
 
 def _sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def canonical_tag_id(ident: str) -> str:
+    """Keep namespaced tag identities stable across the 1.21 directory rename.
+
+    Also used by parity for saved inventories and exclusion ledgers. It does
+    not rewrite the original path, receipt, namespace or nested resource ID.
+    """
+    namespace, colon, path = ident.partition(":")
+    registry, slash, tail = path.partition("/")
+    if not colon or not slash:
+        return ident
+    return namespace + colon + TAG_REGISTRY_ALIASES.get(registry, registry) + slash + tail
 
 
 def _strip_suffix(path: str) -> str:
@@ -84,7 +109,9 @@ def inventory(path: Path) -> dict:
                 # Tags are a distinct identity family whose registry is encoded in the path.
                 if rel.startswith("tags/") and low.endswith(".json"):
                     ident = _strip_suffix(rel[len("tags/"):])
-                    entries.append(_entry("tag", ns, ident, logical, data))
+                    row = _entry("tag", ns, ident, logical, data)
+                    row["id"] = canonical_tag_id(row["id"])
+                    entries.append(row)
                     continue
                 # Minecraft 1.21 renamed these directories to singular names.
                 # Preserve one identity across legacy sources and current packs.

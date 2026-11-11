@@ -325,5 +325,135 @@ class DataPathInventoryTest(unittest.TestCase):
             self.assertEqual(target.read_bytes(), before)
 
 
+
+# Only the six registry directory aliases documented by Minecraft Java 1.21.
+# https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21
+class TagPathInventoryTest(unittest.TestCase):
+    ALIASES = {"functions": "function", "items": "item", "blocks": "block",
+               "entity_types": "entity_type", "fluids": "fluid", "game_events": "game_event"}
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+
+    def files(self, legacy=False, prefix=""):
+        return {prefix + f"data/{ns}/tags/{old if legacy else modern}/nested/items/{name}.json":
+                json_bytes({"values": [f"{ns}:{name}"]})
+                for old, modern in self.ALIASES.items()
+                for ns in ("fixture", "other") for name in ("first", "second")}
+
+    def test_six_tag_renames_across_source_and_archive_layouts(self):
+        expected = {f"{ns}:{modern}/nested/items/{name}" for modern in self.ALIASES.values()
+                    for ns in ("fixture", "other") for name in ("first", "second")}
+        for legacy in (False, True):
+            for prefix in ("", "src/main/resources/", "src/client/resources/", "src/generated/resources/"):
+                for archive in (False, True):
+                    with self.subTest(legacy=legacy, prefix=prefix, archive=archive):
+                        files = self.files(legacy, prefix)
+                        path = self.root / f"layout-{legacy}-{prefix.replace('/', '_') or 'pack'}-{archive}"
+                        path = write_jar(path.with_suffix('.jar'), files) if archive else write_tree(path, files)
+                        before = path.read_bytes() if archive else {n: (path / n).read_bytes() for n in files}
+                        result = inventory(path)
+                        self.assertEqual({row["id"] for row in result["entries"]}, expected)
+                        self.assertEqual(result["entry_count"], 24)
+                        self.assertEqual(result["counts"]["category"], {"tag": 24})
+                        self.assertEqual(result["notes"], [])
+                        for row in result["entries"]:
+                            payload = files[prefix + row["path"]]
+                            self.assertEqual(row["sha256"], hashlib.sha256(payload).hexdigest())
+                            self.assertEqual(row["size"], len(payload))
+                        self.assertEqual(result, inventory(path))
+                        self.assertEqual(before, path.read_bytes() if archive else {n: (path / n).read_bytes() for n in files})
+
+    def test_tag_cross_version_parity_and_immutable_saved_inventories(self):
+        for legacy_source in (False, True):
+            source = inventory(write_tree(self.root / f"source-{legacy_source}", self.files(legacy_source)))
+            # Simulate the exact tag identity form in a pre-fix schema_version 1 receipt.
+            for row in source["entries"]:
+                row["id"] = row["path"].split('/')[1] + ':' + row["path"].split('/tags/', 1)[1][:-5]
+            before = json_bytes(source)
+            for legacy_target in (False, True):
+                with self.subTest(source=legacy_source, target=legacy_target):
+                    target = write_jar(self.root / f"target-{legacy_target}.jar", self.files(legacy_target))
+                    result = audit(source, target)
+                    self.assertEqual(result["status"], "PASS")
+                    self.assertEqual((result["source_count"], result["target_count"]), (24, 24))
+                    self.assertEqual(result["missing"], [])
+                    self.assertEqual(result["extras"], [])
+                    self.assertEqual(before, json_bytes(source))
+
+    def test_alias_duplicates_keep_actual_paths_and_conflict_diagnostics(self):
+        for conflict in (False, True):
+            files = self.files(True) | self.files(False)
+            if conflict:
+                files["data/fixture/tags/items/nested/items/first.json"] = b'{"values": []}'
+            result = inventory(write_tree(self.root / f"dupes-{conflict}", files))
+            self.assertEqual(result["entry_count"], 24)
+            notes = result["notes"]
+            self.assertEqual(len(notes), int(conflict))
+            if conflict:
+                self.assertEqual(notes[0]["id"], "duplicate-identity-different-bytes")
+                self.assertEqual(notes[0]["identity"], ["tag", None, "fixture:item/nested/items/first"])
+                self.assertEqual(set(notes[0]["paths"]), {
+                    "data/fixture/tags/item/nested/items/first.json",
+                    "data/fixture/tags/items/nested/items/first.json"})
+            row = next(x for x in result["entries"] if x["id"] == "fixture:item/nested/items/first")
+            self.assertEqual(row["sha256"], hashlib.sha256(files[row["path"]]).hexdigest())
+
+    def test_unlisted_registry_and_nested_names_are_not_singularized(self):
+        paths = ["worldgen/biome/items/first", "custom/items/first", "items_extra/first",
+                 "item_types/first", "Items/first", "items", "structures/first", "recipes/first"]
+        files = {f"data/fixture/tags/{p}.json": b'{}' for p in paths}
+        files["data/fixture/tags/items/nested/items/second.json"] = b'{}'
+        result = inventory(write_tree(self.root / "unlisted", files))
+        self.assertEqual({x['id'] for x in result['entries']},
+                         {f"fixture:{p}" for p in paths} | {"fixture:item/nested/items/second"})
+        # Other content categories with the same spelling must remain distinct.
+        source = {"entries": [{"category": "data-json", "id": "fixture:items/first"}]}
+        target = write_jar(self.root / 'different-category.jar', {"data/fixture/tags/item/first.json": b'{}'})
+        self.assertEqual(audit(source, target)["status"], "FAIL")
+
+    def test_missing_tag_and_exact_alias_exclusions_remain_enforced(self):
+        source = {"input": "historical-source", "entries": [
+            {"category": "tag", "id": "fixture:items/nested/first", "path": "data/fixture/tags/items/nested/first.json"}]}
+        target = write_jar(self.root / 'empty.jar', {})
+        missing = audit(source, target)
+        self.assertEqual(missing["status"], "FAIL")
+        self.assertEqual(missing["missing"], source["entries"])
+        for ident in ("fixture:items/nested/first", "fixture:item/nested/first"):
+            exclusion = {"category": "tag", "id": ident, "status": "intentionally_excluded", "reason": "fixture-only removal"}
+            before = json_bytes(exclusion)
+            result = audit(source, target, [exclusion])
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["accepted_exclusions"], [{"source": source['entries'][0], "exclusion": exclusion}])
+            self.assertEqual(before, json_bytes(exclusion))
+        for field, value in (("id", "other:item/nested/first"), ("id", "fixture:block/nested/first"),
+                             ("id", "fixture:item/first"), ("category", "data-json"),
+                             ("reason", ""), ("status", "approved")):
+            exclusion = {"category": "tag", "id": "fixture:item/nested/first", "status": "superseded", "reason": "fixture"}
+            exclusion[field] = value
+            with self.subTest(field=field, value=value):
+                self.assertEqual(audit(source, target, [exclusion])["status"], "FAIL")
+
+    def test_real_cli_compares_saved_legacy_tags_and_rejects_loss(self):
+        source = {"input": "saved-legacy", "schema_version": 1, "entries": [
+            {"category": "tag", "id": f"fixture:{old}/nested/value"} for old in self.ALIASES]}
+        saved = self.root / 'source.json'; saved.write_bytes(json_bytes(source))
+        for missing in (False, True):
+            files = {f"data/fixture/tags/{modern}/nested/value.json": b'{"values":[]}' for modern in self.ALIASES.values()}
+            if missing:
+                files.pop("data/fixture/tags/item/nested/value.json")
+            target = write_jar(self.root / f'cli-{missing}.jar', files)
+            report = self.root / f'report-{missing}.json'
+            result = subprocess.run([sys.executable, str(HERE / 'content_parity_audit.py'), str(saved), str(target),
+                                     '--fail-on-missing', '--json-out', str(report)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 3 if missing else 0, result.stderr)
+            parsed = json.loads(report.read_text())
+            self.assertEqual(parsed['counts']['missing'], int(missing))
+            self.assertEqual(parsed['counts']['extras'], 0)
+        self.assertEqual(saved.read_bytes(), json_bytes(source))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
