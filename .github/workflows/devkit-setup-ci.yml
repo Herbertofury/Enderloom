@@ -28,6 +28,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+      - name: Sound identity and release-parity regressions
+        run: python tools/minecraft-dev-kit/scripts/content_identity_inventory_selftest.py
       - name: Dependency, archive, checksum and guided workflow regressions
         run: python tools/minecraft-dev-kit/scripts/devkit_qol_selftest.py
       - name: Real private JDK install, offline reuse, and Windows Python bootstrap

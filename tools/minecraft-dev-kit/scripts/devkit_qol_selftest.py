@@ -84,6 +84,59 @@ class QoL(unittest.TestCase):
         cases += [('26.3','~26.3-',True),('26.3-rc.1','~26.3-',True),
                   ('26.4-alpha','~26.3-',False),('1.9','~1',False)]
         for version,rule,result in cases:self.assertIs(dep.satisfies(version,rule),result,(version,rule))
+    def test_wildcard_version_literals(self):
+        # Checked against Fabric Loader 0.19.5's actual VersionPredicate API.
+        cases=[('1','1.0.x',True),('1','1.0.0.x',True),('1.0','1.0.0.*',True),
+               ('1.0.0.1','1.0.0.x',True),('1.0.1','1.0.0.x',False),
+               ('1.2.3','1.x.x',True),('1.2.3','1.*.*',True),('1.2.3','1.X.x',True),
+               ('1.2.0-alpha','1.2.x',True),('1.2.0+build','1.2.*',True),
+               ('1','1.x+build',True),('1.2.3','1.X+build.4',True),
+               ('1','1.x+',True),('1.2.3','1.*+',True),('1.2.3','1.x+*',True),
+               ('1.2.3','1.x+foo.*',True),('1.2.3','1.x+a+b',True),
+               ('1.2.3','1.x+foo_bar',True),('1.2.3','1.x+1.*.2',True),
+               ('1.2.3','1.2.*+build',True),('2.0','1.x+build',False),
+               ('1.2.0-','1.x+build',True),('1.2147483647','1.x+build',True),
+               ('2147483647','2147483647.x',True),
+               ('1.1','1.2.x',False),('not-semver','1.x',None)]
+        for version,rule,result in cases:
+            with self.subTest(version=version,rule=rule):
+                self.assertIs(dep.satisfies(version,rule),result)
+        # Unsupported/malformed wildcard shapes must stay unresolved, never be
+        # accepted merely because the part before the first wildcard matches.
+        for rule in ('1.*.2','1.x.1','1.*foo','1.*-alpha','1.2.*-',
+                     '1.*.2+build','1..*','>=1.x'):
+            with self.subTest(rule=rule):
+                self.assertIsNone(dep.satisfies('1.2.3',rule))
+        for version in ('1.2.0-a..b','1.2.0-.alpha','1.2.0-alpha.',
+                        '1.2147483648','2147483648','1.0.999999999999999999999'):
+            with self.subTest(version=version):
+                self.assertIsNone(dep.satisfies(version,'1.x+build'))
+        self.assertIsNone(dep.satisfies('1.0','1.2147483648.x'))
+        self.assertTrue(dep.satisfies('1',['2.x','1.0.x']))
+        self.assertIsNone(dep.satisfies('1.2.3',['1.*.2','2.x']))
+        self.assertIsNone(dep.satisfies('1.2.3','>=1 1.*.2'))
+        self.assertFalse(dep.satisfies('1.2.3','>=2 1.*.2'))
+    def test_wildcard_audit_and_offline_resolution(self):
+        cases=[('1.2.3','1.*.2','unresolved'),('1.2.3','1.x.1','unresolved'),
+               ('1.2.3','1.*foo','unresolved'),('1.2.3','1.*-alpha','unresolved'),
+               ('1','1.0.x','complete'),('1.0','1.0.0.*','complete'),
+               ('1.2.0-alpha','1.x+build','complete')]
+        for index,(version,rule,state) in enumerate(cases):
+            with self.subTest(version=version,rule=rule):
+                parent=self.jar(f'parent-{index}.jar',jar_bytes('parent',depends={'depmod':rule}))
+                dependency=self.jar(f'dependency-{index}.jar',jar_bytes('depmod',version))
+                jars=[parent,dependency]
+                before=[p.read_bytes() for p in jars]
+                report=dep.audit(jars,minecraft='26.3',java=25,loader_version='0.19.5')
+                self.assertEqual(report['state'],state)
+                if state=='unresolved':
+                    self.assertEqual([issue['kind'] for issue in report['issues']],['unresolved-constraint'])
+                with patch.object(dep,'get_json',side_effect=AssertionError('offline network')):
+                    resolved=dep.resolve(jars,self.root/f'resolve-{index}',minecraft='26.3',java=25,
+                                         loader_version='0.19.5',offline=True)
+                self.assertEqual(resolved['state'],state)
+                self.assertEqual(resolved['downloads'],[])
+                self.assertEqual([p.read_bytes() for p in jars],before)
     def test_native_fixture_and_wizard(self):
         import devkit
         import devkit_native

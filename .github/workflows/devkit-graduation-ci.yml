@@ -1,0 +1,41 @@
+name: Dev Kit Full Graduation
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/minecraft-dev-kit/**'
+      - '.github/workflows/devkit-graduation-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: devkit-graduation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  full-graduation:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        java: ['21', '25']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Full conversion graduation with real compiler and JVM
+        run: python tools/minecraft-dev-kit/scripts/northpoint_graduation.py --level full --per-test-timeout 240 --json-out "${{ runner.temp }}/devkit-graduation.json"
+      - name: Preserve graduation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-graduation-${{ matrix.os }}-jdk${{ matrix.java }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/devkit-graduation.json
+          if-no-files-found: error
+          retention-days: 30
