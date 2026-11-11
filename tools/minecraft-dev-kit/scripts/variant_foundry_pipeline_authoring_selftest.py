@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 import sys
@@ -72,6 +73,38 @@ for line in sys.stdin:
 def dump(path: Path, value) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=2), encoding="utf-8")
+
+
+def complete_mixed_biome_fixture_bindings(bindings):
+    # The real planner derives crystalline, forest and frozen actions from
+    # this mixed biome. Supply explicit fixture templates for every action,
+    # without weakening the production unresolved-action or region gates.
+    binding_doc = copy.deepcopy(bindings)
+    binding_doc["region_targets"]["body_surface"] = ["body_surface_anchor"]
+    for motif in ("crystalline", "forest", "frozen"):
+        binding_doc["templates"]["motif"][motif] = {
+            "regions": ["body_surface"],
+            "operations": [{
+                "op": "add_group",
+                "name": "vf_{biome_slug}_" + motif + "_{index}",
+                "origin": [0, 0, 0],
+                "rotation": [0, 0, 0],
+                "parent": "{target}",
+            }],
+        }
+    for geometry in ("leaf sprigs", "bark-like plates", "icicle tips", "snow caps"):
+        binding_doc["templates"]["geometry"][geometry] = {
+            "regions": ["surface_growths"],
+            "operations": [{
+                "op": "add_mesh_primitive",
+                "shape": "icosphere",
+                "diameter": 1.0,
+                "detail": 1,
+                "name": "vf_{biome_slug}_" + geometry.replace(" ", "_") + "_{index}",
+                "parent": "{target}",
+            }],
+        }
+    return binding_doc
 
 
 def main() -> int:
@@ -176,6 +209,9 @@ def main() -> int:
             },
         })
 
+        binding_doc = complete_mixed_biome_fixture_bindings(json.loads(bindings.read_text(encoding="utf-8")))
+        dump(bindings, binding_doc)
+
         workspace = root / "workspace"
         authoring_workspace = workspace / "blockbench-authoring"
         fake_server = root / "fake_server.py"
@@ -212,6 +248,23 @@ def main() -> int:
 
         first = mod.run_pipeline(manifest, workspace)
         assert first["state"] == "complete", first
+        # Retain fail-closed controls for the exact mistakes in the old fixture.
+        for fault in ("missing-template", "outside-eligible-region", "missing-region-target"):
+            bad_bindings = copy.deepcopy(binding_doc)
+            if fault == "missing-template":
+                del bad_bindings["templates"]["motif"]["forest"]
+            elif fault == "outside-eligible-region":
+                bad_bindings["templates"]["motif"]["crystalline"]["regions"] = ["surface_growths"]
+            else:
+                del bad_bindings["region_targets"]["body_surface"]
+            dump(bindings, bad_bindings)
+            try:
+                mod.run_pipeline(manifest, root / ("rejected-" + fault))
+            except ValueError as error:
+                assert "authoring recipes contain required unresolved actions" in str(error), error
+            else:
+                raise AssertionError("Incomplete authoring fixture accepted: " + fault)
+        dump(bindings, binding_doc)
         states = {row["stage"]: row for row in first["stages"]}
         assert states["authoring-recipes"]["semantic_state"] == "ready"
         assert states["runtime-contract"]["semantic_state"] == "ready"
@@ -258,6 +311,8 @@ def main() -> int:
             "pipeline_reused_without_backend": True,
             "runtime_contract_packaged": True,
             "source_immutable": True,
+            "unresolved_action_faults_rejected": 3,
+            "backend_scope": "SIMULATED-BLOCKBENCH-AND-RENDER-RECEIPTS-ONLY",
         }, indent=2))
     return 0
 
