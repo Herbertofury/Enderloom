@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-27",
+  "purpose": "Machine-readable required capability inventory for Enderloom Variant Foundry.",
+  "rules": {
+    "completion": "Every required capability needs an implemented owner plus the listed proof class before Variant Foundry can be called capability-complete.",
+    "provider_policy": "Candidates are challengers until exact version, rights, target compatibility, quality and runtime gates pass.",
+    "unknown_policy": "Unknown biome/provider/backend state remains unresolved-active; it is never silently treated as unsupported or complete."
+  },
+  "capabilities": [
+    {
+      "id": "VF-INTAKE-01",
+      "area": "intake",
+      "name": "Reference and existing-asset intake",
+      "required": true,
+      "owner": "reference_intake",
+      "proof": "reference hash + parse receipt"
+    },
+    {
+      "id": "VF-DNA-01",
+      "area": "identity",
+      "name": "SubjectDNA and immutable identity locks",
+      "required": true,
+      "owner": "subject_dna",
+      "proof": "identity-lock regression"
+    },
+    {
+      "id": "VF-SHAPE-01",
+      "area": "generation",
+      "name": "Concept/image to geometry provider registry",
+      "required": true,
+      "owner": "shape_provider_registry",
+      "proof": "same-reference candidate benchmark"
+    },
+    {
+      "id": "VF-PARTS-01",
+      "area": "generation",
+      "name": "Semantic part decomposition",
+      "required": true,
+      "owner": "part_decomposition",
+      "proof": "landmark/part reconciliation"
+    },
+    {
+      "id": "VF-RETOPO-01",
+      "area": "geometry",
+      "name": "Cleanup/retopo/simplification",
+      "required": true,
+      "owner": "geometry_preprocess",
+      "proof": "topology + silhouette report"
+    },
+    {
+      "id": "VF-GLTF-01",
+      "area": "interchange",
+      "name": "Validated glTF/GLB canonical interchange",
+      "required": true,
+      "owner": "gltf_interchange",
+      "proof": "Khronos validation + round trip"
+    },
+    {
+      "id": "VF-MCIZE-01",
+      "area": "minecraftization",
+      "name": "Editable Minecraft geometry compiler",
+      "required": true,
+      "owner": "minecraft_model_compiler",
+      "proof": "approximation ledger + Blockbench round trip"
+    },
+    {
+      "id": "VF-UV-01",
+      "area": "texture",
+      "name": "UV unwrap/atlas/retention",
+      "required": true,
+      "owner": "uv_pipeline",
+      "proof": "UV overlap/seam audit"
+    },
+    {
+      "id": "VF-TEX-01",
+      "area": "texture",
+      "name": "Multi-view seam-safe texturing providers",
+      "required": true,
+      "owner": "texture_provider_registry",
+      "proof": "multi-view seam/reference benchmark"
+    },
+    {
+      "id": "VF-MAT-01",
+      "area": "material",
+      "name": "PBR/material synthesis and preservation",
+      "required": true,
+      "owner": "material_pipeline",
+      "proof": "channel/round-trip audit"
+    },
+    {
+      "id": "VF-PIXEL-01",
+      "area": "texture",
+      "name": "Minecraft TextureStyleProfile compiler",
+      "required": true,
+      "owner": "minecraft_texture_compiler",
+      "proof": "pixel-grid/palette/alpha/UV visual QA"
+    },
+    {
+      "id": "VF-RIG-01",
+      "area": "rig",
+      "name": "Rig + skin proposal providers",
+      "required": true,
+      "owner": "rig_provider_registry",
+      "proof": "skeleton/weight differential benchmark"
+    },
+    {
+      "id": "VF-IK-01",
+      "area": "rig",
+      "name": "Editable IK constraints and export baking",
+      "required": true,
+      "owner": "ik_ir",
+      "proof": "live-vs-baked pose parity"
+    },
+    {
+      "id": "VF-ANIM-01",
+      "area": "animation",
+      "name": "Authored/retargeted/generated motion",
+      "required": true,
+      "owner": "animation_pipeline",
+      "proof": "state/loop/pose parity"
+    },
+    {
+      "id": "VF-EVENT-01",
+      "area": "animation",
+      "name": "Sound/particle/custom event preservation",
+      "required": true,
+      "owner": "animation_event_ir",
+      "proof": "timing/event regression"
+    },
+    {
+      "id": "VF-MOTION-01",
+      "area": "physics",
+      "name": "Deterministic lightweight secondary motion",
+      "required": true,
+      "owner": "secondary_motion_graph",
+      "proof": "replay + native crowd benchmark"
+    },
+    {
+      "id": "VF-PHYSICS-01",
+      "area": "physics",
+      "name": "Optional heavy physics backend",
+      "required": true,
+      "owner": "physics_backend_registry",
+      "proof": "capability + performance promotion gate"
+    },
+    {
+      "id": "VF-BIOME-01",
+      "area": "biome",
+      "name": "Dynamic biome/dimension discovery",
+      "required": true,
+      "owner": "biome_discovery",
+      "proof": "unknown synthetic biome fixture"
+    },
+    {
+      "id": "VF-WORLDGEN-01",
+      "area": "biome",
+      "name": "Worldgen enrichment adapters",
+      "required": true,
+      "owner": "worldgen_adapter_registry",
+      "proof": "TerraBlender/Biolith/Lithostitched/Terra fixtures"
+    },
+    {
+      "id": "VF-BIOMEDNA-01",
+      "area": "biome",
+      "name": "BiomeDNA/DimensionDNA synthesis",
+      "required": true,
+      "owner": "biome_profile_engine",
+      "proof": "profile confidence/evidence report"
+    },
+    {
+      "id": "VF-CATALOG-01",
+      "area": "biome",
+      "name": "Versioned curated accelerator catalog",
+      "required": true,
+      "owner": "biome_catalog",
+      "proof": "registry-id/version reconciliation"
+    },
+    {
+      "id": "VF-VARIANT-01",
+      "area": "variant",
+      "name": "Seeded region-lock-aware variant planning",
+      "required": true,
+      "owner": "variant_planner",
+      "proof": "reroll/lock determinism"
+    },
+    {
+      "id": "VF-ATMOS-01",
+      "area": "variant",
+      "name": "Atmosphere/material phenotype",
+      "required": true,
+      "owner": "atmosphere_profile",
+      "proof": "resource-pack/native visual fixture"
+    },
+    {
+      "id": "VF-BUNDLE-01",
+      "area": "compile",
+      "name": "Immutable ModelBundle runtime compiler",
+      "required": true,
+      "owner": "model_bundle_compiler",
+      "proof": "hash/reproducibility/round-trip"
+    },
+    {
+      "id": "VF-HOT-01",
+      "area": "compile",
+      "name": "Dependency-aware content cache/hot reload",
+      "required": true,
+      "owner": "asset_cache",
+      "proof": "changed-node-only rebuild test"
+    },
+    {
+      "id": "VF-RENDER-01",
+      "area": "runtime",
+      "name": "Capability-selected runtime backend",
+      "required": true,
+      "owner": "render_backend_registry",
+      "proof": "native render parity"
+    },
+    {
+      "id": "VF-SERVER-01",
+      "area": "runtime",
+      "name": "Optional server/resource-pack export",
+      "required": true,
+      "owner": "server_model_export",
+      "proof": "server-client compatibility fixture"
+    },
+    {
+      "id": "VF-NET-01",
+      "area": "runtime",
+      "name": "Variant/state persistence and sync",
+      "required": true,
+      "owner": "variant_runtime_binding",
+      "proof": "client/server/restart proof"
+    },
+    {
+      "id": "VF-BLOCKBENCH-01",
+      "area": "authoring",
+      "name": "Live + headless Blockbench automation",
+      "required": true,
+      "owner": "blockbench_backend",
+      "proof": "headless batch + live handoff fixture"
+    },
+    {
+      "id": "VF-GPU-01",
+      "area": "execution",
+      "name": "VRAM-aware local/remote provider jobs",
+      "required": true,
+      "owner": "provider_job_scheduler",
+      "proof": "cancel/retry/resume/resource test"
+    },
+    {
+      "id": "VF-QA-EDITOR-01",
+      "area": "qa",
+      "name": "Deterministic editor/reference QA",
+      "required": true,
+      "owner": "model_visual_qa",
+      "proof": "multi-view/landmark/rig/animation report"
+    },
+    {
+      "id": "VF-QA-NATIVE-01",
+      "area": "qa",
+      "name": "Exact native Minecraft visual/runtime QA",
+      "required": true,
+      "owner": "native_model_qa",
+      "proof": "fixed-world capture + log proof"
+    },
+    {
+      "id": "VF-VISREG-01",
+      "area": "qa",
+      "name": "Deterministic visual regression",
+      "required": true,
+      "owner": "visual_regression",
+      "proof": "reference-image diff fixture"
+    },
+    {
+      "id": "VF-PERF-01",
+      "area": "performance",
+      "name": "Equivalent-work performance gate",
+      "required": true,
+      "owner": "model_performance_gate",
+      "proof": "CPU/GPU/frame/allocation benchmark"
+    },
+    {
+      "id": "VF-RENDERCOMPAT-01",
+      "area": "compatibility",
+      "name": "Modern render/culling/shader compatibility",
+      "required": true,
+      "owner": "render_compat_matrix",
+      "proof": "co-install matrix"
+    },
+    {
+      "id": "VF-PROV-01",
+      "area": "provenance",
+      "name": "Source/provider/model/license/seed derivation",
+      "required": true,
+      "owner": "artifact_provenance",
+      "proof": "manifest + hash audit"
+    },
+    {
+      "id": "VF-WIKI-01",
+      "area": "documentation",
+      "name": "Native Wiki Variant Atlas projection",
+      "required": true,
+      "owner": "variant_wiki_projection",
+      "proof": "native wiki readback"
+    },
+    {
+      "id": "VF-RECOVERY-01",
+      "area": "recovery",
+      "name": "Stage-preserving failure recovery",
+      "required": true,
+      "owner": "variant_recovery",
+      "proof": "failure injection + resume test"
+    }
+  ]
+}

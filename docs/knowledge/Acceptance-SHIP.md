@@ -9,7 +9,7 @@
 <a id="ship-01-details"></a>
 ## SHIP-01 - Supply-chain and untrusted input safety
 
-[Outcome](Checklist.md#ship-01) / 86 source-derived details.
+[Outcome](Checklist.md#ship-01) / 92 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -103,7 +103,7 @@
 - [ ] **D-b8c811da5087ea3cfa7e** - source reuse, binary redistribution, Marketplace/premium asset, API/dependency and generated-release permission gates.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-002 : 610-610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L610-L610)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-002 : 616-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L616-L616)
 
 </details>
 
@@ -114,7 +114,7 @@
 - [ ] **D-253db0ed5ef92bc91ee8** - Maximum Quality / Balanced / Fast Iteration policies affect iteration strategy, never final acceptance quality.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-012 : 627-627](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L627-L627)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-012 : 633-633](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L633-L633)
 
 </details>
 
@@ -351,6 +351,64 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T089 — Turn MC Mod Porter&#x27;s documented manual gaps into Enderloom acceptance work (1)</summary>
+
+<a id="d-f049a4d762d5cdd4d207"></a>
+- [ ] **D-f049a4d762d5cdd4d207** - — Treat upstream statements such as &quot;logic changes remain manual&quot; or currently manual 26.2 rendering/registration/datagen/networking/mixin/worldgen changes as an uncovere...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Treat upstream statements such as &quot;logic changes remain manual&quot; or currently manual 26.2 rendering/registration/datagen/networking/mixin/worldgen changes as an uncovered capability list, not an Enderloom completion boundary.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T089 — Turn MC Mod Porter&#x27;s documented manual gaps into Enderloom acceptance work
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T089 : 902-902](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L902-L902)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source (1)</summary>
+
+<a id="d-5b58f1a39cc0c2b01ee9"></a>
+- [ ] **D-5b58f1a39cc0c2b01ee9** - — Record the exact upstream commit/release and the user&#x27;s direct permission context before code/data ingestion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T156 : 581-581](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L581-L581)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan (1)</summary>
+
+<a id="d-e25fea4adba18b4d7825"></a>
+- [ ] **D-e25fea4adba18b4d7825** - — Reconcile every T134–T232 and every parent gate.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T233 : 1949-1949](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1949-L1949)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP (1)</summary>
+
+<a id="d-768e23fdec3e43ae76af"></a>
+- [ ] **D-768e23fdec3e43ae76af** - — Audit every app-controlled WebView origin/resource need and replace the current app.security.csp: null with the narrowest Content Security Policy that preserves required function...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Audit every app-controlled WebView origin/resource need and replace the current app.security.csp: null with the narrowest Content Security Policy that preserves required functionality.
+  - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T242 : 2074-2074](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2074-L2074)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T343 — Release/SBOM/license tooling convergence (1)</summary>
+
+<a id="d-5ca32ba66b3a38fedf7b"></a>
+- [ ] **D-5ca32ba66b3a38fedf7b** - — Bake off Syft as a cross-language/archive SBOM aggregator and cargo-about for Rust license notices. Evaluate cargo-dist + cargo-auditable/cargo-cyclonedx where they simplify repr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Bake off Syft as a cross-language/archive SBOM aggregator and cargo-about for Rust license notices. Evaluate cargo-dist + cargo-auditable/cargo-cyclonedx where they simplify reproducible native release provenance without fighting Tauri packaging. Existing ORT/ScanCode and cargo-deny/audit/vet remain complementary policy/provenance controls.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T343 — Release/SBOM/license tooling convergence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T343 : 2458-2458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2458-L2458)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (3)</summary>
 
 <a id="d-59b1d01d0263930e7aa9"></a>
@@ -480,6 +538,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 42. Golden acceptance fixtures
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1557-1557](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1557-L1557)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates (1)</summary>
+
+<a id="d-cc05847b054a45bbc8a8"></a>
+- [ ] **D-cc05847b054a45bbc8a8** - Never collapse these into one opaque “quality score.”
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 243-243](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L243-L243)
 
 </details>
 
@@ -801,31 +870,31 @@
 - [ ] **D-dcad42a9b48ebb102898** - all applicable requirements in this file are accepted with evidence;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-001 : 695-695](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L695-L695)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-001 : 703-703](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L703-L703)
 
 <a id="d-0d7c1673b6d221f71432"></a>
 - [ ] **D-0d7c1673b6d221f71432** - all applicable Golden Challenges pass;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-002 : 696-696](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L696-L696)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-002 : 704-704](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L704-L704)
 
 <a id="d-bfc7feaf058c0efe729f"></a>
 - [ ] **D-bfc7feaf058c0efe729f** - REL-001..011 pass;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-003 : 697-697](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L697-L697)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-003 : 705-705](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L705-L705)
 
 <a id="d-8ae8413a9ec8951d09bd"></a>
 - [ ] **D-8ae8413a9ec8951d09bd** - rejected scope DEC-R01..R06 remains absent;
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-004 : 698-698](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L698-L698)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-004 : 706-706](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L706-L706)
 
 <a id="d-f00c3491550d4072dba0"></a>
 - [ ] **D-f00c3491550d4072dba0** - no new duplicate requirement/feature island/shadow truth store was introduced during implementation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. WHOLE-PRODUCT DEFINITION OF DONE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-005 : 699-699](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L699-L699)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DONE-005 : 707-707](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L707-L707)
 
 </details>
 
@@ -1094,12 +1163,12 @@
 <details>
 <summary>ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md / 15. Definition of done for this spec (1)</summary>
 
-<a id="d-67cd0f506f9b7da82638"></a>
-- [ ] **D-67cd0f506f9b7da82638** - - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evo...
+<a id="d-d408a0bd80097764baa6"></a>
+- [ ] **D-d408a0bd80097764baa6** - - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evo...
   - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evolution; - Hotkeys is a real dedicated top-level workflow; - Black Box can turn “it froze” into a timestamped evidence timeline; - Data/Function Debugger can explain state transitions and generate regression scenarios; - model/reference reconstruction reaches Minecraft-native runtime proof; - Premium Wiki looks and behaves like a real polished knowledge product, not generated README spam; - whole-pack migration is measured by semantic/playability coverage, not file count; - every meaningful operation can be driven through a robust CLI when technically possible; - CLI/GUI share domain logic and task/evidence history; - Evidence Brain learns from verified outcomes while remaining inspectable, scoped, challenge-tested and reversible; - excluded Friend Hosting and Voice/Social proposals are not reintroduced through scope creep.
+  - **Full requirement:** - users do not need to learn ten separate “Studio” products; - opening related content keeps context and cross-links intact; - config upgrades preserve user intent and upstream evolution; - Hotkeys is a real dedicated top-level workflow; - Black Box can turn “it froze” into a timestamped evidence timeline; - Data/Function Debugger can explain state transitions and generate regression scenarios; - model/reference reconstruction reaches Minecraft-native runtime proof; - Premium Wiki looks and behaves like a real polished knowledge product, not generated README spam; - model/entity pages can act as a visual Variant Atlas with interactive high-fidelity Java model, rig/animation/secondary-motion and runtime-performance evidence; - whole-pack migration is measured by semantic/playability coverage, not file count; - every meaningful operation can be driven through a robust CLI when technically possible; - CLI/GUI share domain logic and task/evidence history; - Evidence Brain learns from verified outcomes while remaining inspectable, scoped, challenge-tested and reversible; - excluded Friend Hosting and Voice/Social proposals are not reintroduced through scope creep.
   - **Binding context:** 15. Definition of done for this spec
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1161-1173](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1161-L1173)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1169-1182](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1169-L1182)
 
 </details>
 
@@ -1151,7 +1220,7 @@
 <a id="ship-03-details"></a>
 ## SHIP-03 - Platform, locale and accessibility finish
 
-[Outcome](Checklist.md#ship-03) / 22 source-derived details.
+[Outcome](Checklist.md#ship-03) / 24 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1171,7 +1240,7 @@
 - [ ] **D-40251c8e95c66760e32a** - one independent challenge pass looks for false success, stale evidence, hidden quality loss, unsafe cleanup, dead UI and scope regressions.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-008 : 684-684](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L684-L684)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-008 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L692-L692)
 
 </details>
 
@@ -1241,6 +1310,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T023 — Provider-backed addon discovery, identity, download, update, and dependency lifecycle
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T023 : 2139-2139](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2139-L2139)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G059 — Final promotion matrix for researched technologies (1)</summary>
+
+<a id="d-d8f6b815e085f8d73469"></a>
+- [ ] **D-d8f6b815e085f8d73469** - A candidate does not enter production merely because it appears in this table. Its relevant bakeoff/acceptance task must pass.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G059 — Final promotion matrix for researched technologies
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1869-1869](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1869-L1869)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling (1)</summary>
+
+<a id="d-a3c4ac628b7ade190f31"></a>
+- [ ] **D-a3c4ac628b7ade190f31** - — Audit the complete updater path, including the current createUpdaterArtifacts: false configuration, CI/release artifact generation, signature verification, platform packages, upd...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Audit the complete updater path, including the current createUpdaterArtifacts: false configuration, CI/release artifact generation, signature verification, platform packages, update manifests, failed-update recovery and key rotation/recovery procedure.
+  - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T246 — Harden updater artifact generation, rollback and key handling
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T246 : 2101-2101](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2101-L2101)
 
 </details>
 
@@ -1380,7 +1472,7 @@
 <a id="ship-04-details"></a>
 ## SHIP-04 - Complete reproducible release
 
-[Outcome](Checklist.md#ship-04) / 50 source-derived details.
+[Outcome](Checklist.md#ship-04) / 52 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law (1)</summary>
@@ -1400,43 +1492,43 @@
 - [ ] **D-de458347b8117ca37874** - Do not restate phase-owned functionality here. Final release requires:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 675-675](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L675-L675)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 683-683](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L683-L683)
 
 <a id="d-d24d37f2f907a8d57939"></a>
 - [ ] **D-d24d37f2f907a8d57939** - every applicable phase exit gate green or explicitly blocked by a documented external constraint.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-001 : 677-677](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L677-L677)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-001 : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L685-L685)
 
 <a id="d-fbe6fd37322db7b0966c"></a>
 - [ ] **D-fbe6fd37322db7b0966c** - every Golden Challenge applicable to the release green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-002 : 678-678](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L678-L678)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-002 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L686-L686)
 
 <a id="d-f2073299ba4956e981f2"></a>
 - [ ] **D-f2073299ba4956e981f2** - fresh final runnable build/package created after the last implementation mutation.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-004 : 680-680](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L680-L680)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-004 : 688-688](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L688-L688)
 
 <a id="d-94606a59b112e6735b5c"></a>
 - [ ] **D-94606a59b112e6735b5c** - exact known limitations/skipped gates are visible; nothing material is silently waived.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-009 : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L685-L685)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-009 : 693-693](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L693-L693)
 
 <a id="d-d15fed41082bdb226d38"></a>
 - [ ] **D-d15fed41082bdb226d38** - GitHub state and connected Google Drive checkpoint/artifacts are persisted and read-back verified.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-010 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L686-L686)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-010 : 694-694](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L694-L694)
 
 <a id="d-22e061b23291287ddadb"></a>
 - [ ] **D-22e061b23291287ddadb** - this master’s acceptance boxes/evidence references reflect the actual final state.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-011 : 687-687](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L687-L687)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-011 : 695-695](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L695-L695)
 
 </details>
 
@@ -1448,7 +1540,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** &gt; Continue Enderloom from the exact current repository state. Treat docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md as the canonical execution-order authority. Preserve all already-working behavior and accepted decisions. Start at the first incomplete hard dependency, implement rather than merely plan, verify each coherent slice with the strongest applicable evidence, mark only evidence-backed acceptance, checkpoint to GitHub and Drive, and continue automatically. Each requirement has one canonical home: reference IDs instead of duplicating requirements elsewhere. Do not stop because a phase is large, do not ask what comes next when the checklist answers it, do not silently reduce scope or quality, and do not call the project complete until the Golden Challenge Matrix and final release gate pass. If an external blocker is genuinely unavoidable, record the exact blocker/evidence and continue every independent reachable item before ending.
   - **Binding context:** 24. ASTRA FINAL INSTRUCTION
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 705-705](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L705-L705)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 713-713](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L713-L713)
 
 </details>
 
@@ -1621,6 +1713,28 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-6 — AI handoff + polish
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1565-1565](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1565-L1565)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list (1)</summary>
+
+<a id="d-891e6c3f8e8d20da5c71"></a>
+- [ ] **D-891e6c3f8e8d20da5c71** - — Snapshot the exact upstream commit/release of reqsery/mc-mod-porter and perform a complete component inventory before integration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T085 : 826-826](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L826-L826)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G030 — Generated build systems must be fast, cache-safe and target-native / T114 — Make Gradle Configuration Cache compatibility an acceptance gate / T116 — Emit reproducible conversion/build receipts (1)</summary>
+
+<a id="d-2c8ff507b202d2143f6e"></a>
+- [ ] **D-2c8ff507b202d2143f6e** - — Every converted project/release fixture records:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G030 — Generated build systems must be fast, cache-safe and target-native / T114 — Make Gradle Configuration Cache compatibility an acceptance gate / T116 — Emit reproducible conversion/build receipts
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T116 : 1332-1332](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1332-L1332)
 
 </details>
 
@@ -1844,7 +1958,7 @@
 <a id="ship-05-details"></a>
 ## SHIP-05 - Continuity, convergence and honest status
 
-[Outcome](Checklist.md#ship-05) / 30 source-derived details.
+[Outcome](Checklist.md#ship-05) / 33 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 23. Definition of done (2)</summary>
@@ -2055,6 +2169,40 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1618-1618](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1618-L1618)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA (1)</summary>
+
+<a id="d-2aacd5a54ac3bb021ffa"></a>
+- [ ] **D-2aacd5a54ac3bb021ffa** - Updated: 2026-09-26 — fourth gap-directed deep scour + final hidden-infrastructure challenge pass Purpose: additive continuation of ENDERLOOM_NEXTGEN_TECH_STACK_SCOUT.md Canonical ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Updated: 2026-09-26 — fourth gap-directed deep scour + final hidden-infrastructure challenge pass Purpose: additive continuation of ENDERLOOM_NEXTGEN_TECH_STACK_SCOUT.md Canonical prior scout: Google Drive file ID 1AnnEPnW3GpgPvmAy8F0F8buH8AUkV9V0 Scope rule: do not delete, weaken, or reopen already-proven Enderloom work. This file adds only newly surfaced challengers, stronger implementation references, and gap-directed bakeoffs.
+  - **Binding context:** ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 3-6](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L3-L6)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion (1)</summary>
+
+<a id="d-f09cd5c42e1d77a53633"></a>
+- [ ] **D-f09cd5c42e1d77a53633** - GATE — A material regression/gap challenge has been performed after the implementation is otherwise green.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G062 : 1945-1945](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1945-L1945)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T236 — Artifact/provenance checkpoint (1)</summary>
+
+<a id="d-9608a4375337c56ccdba"></a>
+- [ ] **D-9608a4375337c56ccdba** - — Checkpoint the completed implementation with:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T236 — Artifact/provenance checkpoint
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T236 : 1979-1979](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1979-L1979)
 
 </details>
 

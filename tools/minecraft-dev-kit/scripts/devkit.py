@@ -148,7 +148,7 @@ def package(root: Path, output: Path) -> dict:
                 files.update(native.rglob(receipt_name))
             for path in native.rglob('*'):
                 if path.is_file() and ('commands' in path.parts or
-                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','devkit-restart.properties','phase.json','initial-proof.json','initial-client.log','template-origin.json'} or
+                    path.name in {'latest.log','debug.log','devkit-runtime-proof.json','devkit-restart.properties','variant-foundry-registry.json','phase.json','initial-proof.json','initial-client.log','template-origin.json'} or
                     ('devkit-' in path.name and path.suffix == '.png')):
                     files.add(path)
         for path in files:
@@ -276,6 +276,105 @@ def main(argv: list[str] | None = None) -> int:
     deps.add_argument('--audit-only', action='store_true')
     deps.add_argument('--offline', action='store_true')
     deps.add_argument('--projects', type=Path, help='JSON map of mod IDs to exact Modrinth project IDs')
+    variant = sub.add_parser('variant', help='Variant Foundry discovery and capability tools')
+    variant_sub = variant.add_subparsers(dest='variant_command', required=True)
+    variant_discover = variant_sub.add_parser('discover-biomes', help='Discover static, source-registered and runtime-only biomes/dimensions')
+    variant_discover.add_argument('inputs', nargs='+', type=Path)
+    variant_discover.add_argument('--runtime-registry-dump', type=Path)
+    variant_discover.add_argument('--max-reference-depth', type=int, default=3)
+    variant_discover.add_argument('--json-out', type=Path)
+    variant_profile = variant_sub.add_parser('profile', help='Build evidence-bound BiomeDNA profiles from discovery JSON')
+    variant_profile.add_argument('--discovery', type=Path, required=True)
+    variant_profile.add_argument('--biome')
+    variant_profile.add_argument('--overrides', type=Path)
+    variant_profile.add_argument('--json-out', type=Path)
+    variant_plan = variant_sub.add_parser('plan', help='Create deterministic lock-aware biome variant plans')
+    variant_plan.add_argument('--subject', type=Path, required=True)
+    variant_plan.add_argument('--biome-dna', type=Path, required=True)
+    variant_plan.add_argument('--biome', action='append', dest='biomes')
+    variant_plan.add_argument('--mode', choices=['texture-only','surface','geometry','rig-aware','full-phenotype'], default='full-phenotype')
+    variant_plan.add_argument('--seed', type=int, default=0)
+    variant_plan.add_argument('--json-out', type=Path)
+    variant_recipe = variant_sub.add_parser('recipe', help='Compile lock-aware backend authoring recipes from VariantPlans')
+    variant_recipe.add_argument('--subject', type=Path, required=True)
+    variant_recipe.add_argument('--plans', type=Path, required=True)
+    variant_recipe.add_argument('--bindings', type=Path, required=True)
+    variant_recipe.add_argument('--variant', action='append', dest='variants')
+    variant_recipe.add_argument('--json-out', type=Path)
+    variant_runtime = variant_sub.add_parser('runtime-contract', help='Compile runtime physics/effect/persistence contract from ready recipes')
+    variant_runtime.add_argument('--subject', type=Path, required=True)
+    variant_runtime.add_argument('--recipes', type=Path, required=True)
+    variant_runtime.add_argument('--minecraft', required=True)
+    variant_runtime.add_argument('--loader', required=True)
+    variant_runtime.add_argument('--backend', required=True)
+    variant_runtime.add_argument('--json-out', type=Path)
+    variant_codegen = variant_sub.add_parser('runtime-codegen', help='Generate allocation-free Java secondary-motion runtime sources')
+    variant_codegen.add_argument('--runtime-contract', type=Path, required=True)
+    variant_codegen.add_argument('--output', type=Path, required=True)
+    variant_codegen.add_argument('--package', default='dev.enderloom.variant.runtime')
+    variant_execute = variant_sub.add_parser('execute-recipes', help='Apply ready additive authoring recipes through Blockbench MCP')
+    variant_execute.add_argument('--recipes', type=Path, required=True)
+    variant_execute.add_argument('--source-model', type=Path, required=True)
+    variant_execute.add_argument('--workspace', type=Path, required=True)
+    variant_execute.add_argument('--server-command-json', type=Path)
+    variant_execute.add_argument('--protocol', default='2025-06-18')
+    variant_execute.add_argument('--timeout', type=float, default=45.0)
+    variant_execute.add_argument('--render', choices=['off','auto','require'], default='auto')
+    variant_execute.add_argument('--overwrite', action='store_true')
+    variant_bundle = variant_sub.add_parser('bundle', help='Compile an immutable content-addressed ModelBundle')
+    variant_bundle.add_argument('--subject', type=Path, required=True)
+    variant_bundle.add_argument('--plans', type=Path, required=True)
+    variant_bundle.add_argument('--biome-dna', type=Path)
+    variant_bundle.add_argument('--asset', action='append', default=[], help='ROLE=PATH; repeatable')
+    variant_bundle.add_argument('--evidence', action='append', default=[], help='ROLE=PATH; repeatable proof/provenance object')
+    variant_bundle.add_argument('--minecraft', required=True)
+    variant_bundle.add_argument('--loader', required=True)
+    variant_bundle.add_argument('--backend', required=True)
+    variant_bundle.add_argument('--output', type=Path, required=True)
+    variant_texture = variant_sub.add_parser('texture', help='Compile a deterministic Minecraft-oriented PNG texture')
+    variant_texture.add_argument('--input', type=Path, required=True)
+    variant_texture.add_argument('--profile', type=Path, required=True)
+    variant_texture.add_argument('--output', type=Path, required=True)
+    variant_texture.add_argument('--receipt', type=Path)
+    variant_blockbench = variant_sub.add_parser('blockbench', help='Drive the pinned headless Blockbench authoring backend over MCP')
+    variant_blockbench.add_argument('--root', type=Path, action='append', required=True)
+    variant_blockbench.add_argument('--server-command-json', type=Path)
+    variant_blockbench.add_argument('--protocol', default='2025-06-18')
+    variant_blockbench.add_argument('--timeout', type=float, default=45.0)
+    bb_sub = variant_blockbench.add_subparsers(dest='blockbench_command', required=True)
+    bb_doctor = bb_sub.add_parser('doctor')
+    bb_doctor.add_argument('--receipt', type=Path)
+    bb_tools = bb_sub.add_parser('tools')
+    bb_tools.add_argument('--json-out', type=Path)
+    bb_call = bb_sub.add_parser('call')
+    bb_call.add_argument('--tool', required=True)
+    bb_call.add_argument('--args-json', type=Path)
+    bb_call.add_argument('--receipt', type=Path)
+    variant_pipeline = variant_sub.add_parser('pipeline', help='Run durable content-addressed Variant Foundry stages end-to-end')
+    variant_pipeline.add_argument('--manifest', type=Path, required=True)
+    variant_pipeline.add_argument('--workspace', type=Path, required=True)
+    variant_provider = variant_sub.add_parser('provider', help='Run VRAM-aware generation/texturing/rig provider jobs with failover')
+    variant_provider.add_argument('--registry', type=Path, required=True)
+    provider_sub = variant_provider.add_subparsers(dest='provider_command', required=True)
+    provider_doctor = provider_sub.add_parser('doctor')
+    provider_doctor.add_argument('--vram-budget-gb', type=float)
+    provider_doctor.add_argument('--json-out', type=Path)
+    provider_run = provider_sub.add_parser('run')
+    provider_run.add_argument('--capability', required=True)
+    provider_run.add_argument('--input', type=Path, required=True)
+    provider_run.add_argument('--workspace', type=Path, required=True)
+    provider_run.add_argument('--seed', type=int, default=0)
+    provider_run.add_argument('--params', type=Path)
+    provider_run.add_argument('--preferred', action='append', default=[])
+    provider_run.add_argument('--vram-budget-gb', type=float)
+    provider_run.add_argument('--output-extension')
+    provider_run.add_argument('--require-verified-rights', action='store_true')
+    variant_validate_glb = variant_sub.add_parser('validate-glb', help='Validate a provider GLB before promotion')
+    variant_validate_glb.add_argument('--input', type=Path, required=True)
+    variant_validate_glb.add_argument('--receipt', type=Path)
+    variant_validate_glb.add_argument('--external', choices=['off','auto','require'], default='auto')
+    variant_validate_glb.add_argument('--allow-external-resources', action='store_true')
+    variant_sub.add_parser('capability-gate', help='Validate the complete Variant Foundry capability contract')
     verify_parser = sub.add_parser('verify', help='Launch the exact Fabric 26.3 JAR; verify world, network and save/reopen')
     verify_parser.add_argument('--jar', type=Path, required=True)
     verify_parser.add_argument('--workspace', type=Path, required=True)
@@ -331,6 +430,167 @@ def main(argv: list[str] | None = None) -> int:
                              projects=load(args.projects) if args.projects else None)
         print(json.dumps(result, indent=2))
         return 0 if result['state'] == 'complete' else 2
+    if args.command == 'variant':
+        if args.variant_command == 'capability-gate':
+            from variant_foundry_capability_gate import main as capability_main
+            return capability_main()
+        if args.variant_command == 'profile':
+            from variant_foundry_biome_dna import main as profile_main
+            profile_args = ['--discovery', str(args.discovery)]
+            if args.biome:
+                profile_args += ['--biome', args.biome]
+            if args.overrides:
+                profile_args += ['--overrides', str(args.overrides)]
+            if args.json_out:
+                profile_args += ['--json-out', str(args.json_out)]
+            return profile_main(profile_args)
+        if args.variant_command == 'plan':
+            from variant_foundry_plan import main as plan_main
+            plan_args = ['--subject', str(args.subject), '--biome-dna', str(args.biome_dna),
+                         '--mode', args.mode, '--seed', str(args.seed)]
+            for biome in args.biomes or []:
+                plan_args += ['--biome', biome]
+            if args.json_out:
+                plan_args += ['--json-out', str(args.json_out)]
+            return plan_main(plan_args)
+        if args.variant_command == 'recipe':
+            from variant_foundry_blockbench_recipe import main as recipe_main
+            recipe_args = [
+                '--subject', str(args.subject),
+                '--plans', str(args.plans),
+                '--bindings', str(args.bindings),
+            ]
+            for variant_id in args.variants or []:
+                recipe_args += ['--variant', variant_id]
+            if args.json_out:
+                recipe_args += ['--json-out', str(args.json_out)]
+            return recipe_main(recipe_args)
+        if args.variant_command == 'runtime-contract':
+            from variant_foundry_runtime_contract import main as runtime_contract_main
+            runtime_args = [
+                '--subject', str(args.subject),
+                '--recipes', str(args.recipes),
+                '--minecraft', args.minecraft,
+                '--loader', args.loader,
+                '--backend', args.backend,
+            ]
+            if args.json_out:
+                runtime_args += ['--json-out', str(args.json_out)]
+            return runtime_contract_main(runtime_args)
+        if args.variant_command == 'runtime-codegen':
+            from variant_foundry_runtime_codegen import main as runtime_codegen_main
+            return runtime_codegen_main([
+                '--runtime-contract', str(args.runtime_contract),
+                '--output', str(args.output),
+                '--package', args.package,
+            ])
+        if args.variant_command == 'execute-recipes':
+            from variant_foundry_blockbench_execute import main as execute_main
+            execute_args = [
+                '--recipes', str(args.recipes),
+                '--source-model', str(args.source_model),
+                '--workspace', str(args.workspace),
+                '--protocol', args.protocol,
+                '--timeout', str(args.timeout),
+                '--render', args.render,
+            ]
+            if args.server_command_json:
+                execute_args += ['--server-command-json', str(args.server_command_json)]
+            if args.overwrite:
+                execute_args += ['--overwrite']
+            return execute_main(execute_args)
+        if args.variant_command == 'bundle':
+            from variant_foundry_bundle import main as bundle_main
+            bundle_args = [
+                '--subject', str(args.subject), '--plans', str(args.plans),
+                '--minecraft', args.minecraft, '--loader', args.loader,
+                '--backend', args.backend, '--output', str(args.output),
+            ]
+            if args.biome_dna:
+                bundle_args += ['--biome-dna', str(args.biome_dna)]
+            for asset in args.asset:
+                bundle_args += ['--asset', asset]
+            for evidence in args.evidence:
+                bundle_args += ['--evidence', evidence]
+            return bundle_main(bundle_args)
+        if args.variant_command == 'texture':
+            from variant_foundry_texture_compiler import main as texture_main
+            texture_args = [
+                '--input', str(args.input),
+                '--profile', str(args.profile),
+                '--output', str(args.output),
+            ]
+            if args.receipt:
+                texture_args += ['--receipt', str(args.receipt)]
+            return texture_main(texture_args)
+        if args.variant_command == 'blockbench':
+            from variant_foundry_blockbench import main as blockbench_main
+            bb_args = []
+            for root in args.root:
+                bb_args += ['--root', str(root)]
+            if args.server_command_json:
+                bb_args += ['--server-command-json', str(args.server_command_json)]
+            bb_args += ['--protocol', args.protocol, '--timeout', str(args.timeout), args.blockbench_command]
+            if args.blockbench_command == 'doctor' and args.receipt:
+                bb_args += ['--receipt', str(args.receipt)]
+            elif args.blockbench_command == 'tools' and args.json_out:
+                bb_args += ['--json-out', str(args.json_out)]
+            elif args.blockbench_command == 'call':
+                bb_args += ['--tool', args.tool]
+                if args.args_json:
+                    bb_args += ['--args-json', str(args.args_json)]
+                if args.receipt:
+                    bb_args += ['--receipt', str(args.receipt)]
+            return blockbench_main(bb_args)
+        if args.variant_command == 'pipeline':
+            from variant_foundry_pipeline import main as pipeline_main
+            return pipeline_main(['--manifest', str(args.manifest), '--workspace', str(args.workspace)])
+        if args.variant_command == 'provider':
+            from variant_foundry_provider import main as provider_main
+            provider_args = ['--registry', str(args.registry), args.provider_command]
+            if args.provider_command == 'doctor':
+                if args.vram_budget_gb is not None:
+                    provider_args += ['--vram-budget-gb', str(args.vram_budget_gb)]
+                if args.json_out:
+                    provider_args += ['--json-out', str(args.json_out)]
+            else:
+                provider_args += [
+                    '--capability', args.capability,
+                    '--input', str(args.input),
+                    '--workspace', str(args.workspace),
+                    '--seed', str(args.seed),
+                ]
+                if args.params:
+                    provider_args += ['--params', str(args.params)]
+                for provider_id in args.preferred:
+                    provider_args += ['--preferred', provider_id]
+                if args.vram_budget_gb is not None:
+                    provider_args += ['--vram-budget-gb', str(args.vram_budget_gb)]
+                if args.output_extension:
+                    provider_args += ['--output-extension', args.output_extension]
+                if args.require_verified_rights:
+                    provider_args += ['--require-verified-rights']
+            return provider_main(provider_args)
+        if args.variant_command == 'validate-glb':
+            from variant_foundry_gltf_gate import main as gltf_gate_main
+            gltf_args = ['--input', str(args.input), '--external', args.external]
+            if args.receipt:
+                gltf_args += ['--receipt', str(args.receipt)]
+            if args.allow_external_resources:
+                gltf_args += ['--allow-external-resources']
+            return gltf_gate_main(gltf_args)
+        if args.max_reference_depth < 0 or args.max_reference_depth > 12:
+            parser.error('--max-reference-depth must be between 0 and 12')
+        from variant_foundry_discover_biomes import discover, json_dumps
+        result = discover(args.inputs, runtime_dump=args.runtime_registry_dump,
+                          max_reference_depth=args.max_reference_depth)
+        rendered = json_dumps(result)
+        if args.json_out:
+            args.json_out.parent.mkdir(parents=True, exist_ok=True)
+            args.json_out.write_text(rendered, encoding='utf-8')
+        else:
+            sys.stdout.write(rendered)
+        return 0
     if args.command == 'doctor':
         java = args.java_path or (Path(shutil.which('java')) if shutil.which('java') else None)
         pair = java_pair(java) if java else None

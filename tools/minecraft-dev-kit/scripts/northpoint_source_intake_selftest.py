@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import json, pathlib, subprocess, sys, tempfile
 
+from northpoint_source_intake import normalize_java_major, parse_java_hint
+
 SCRIPT = pathlib.Path(__file__).with_name('northpoint_source_intake.py')
 
 def write(root, rel, text):
@@ -10,6 +12,73 @@ def run(project):
     cp=subprocess.run([sys.executable,str(SCRIPT),'--project',str(project)],text=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     assert cp.returncode == 0, (cp.stdout,cp.stderr)
     return json.loads([x for x in cp.stdout.splitlines() if x.strip()][-1])
+
+
+def java_literal_checks(parent):
+    literals = {'1.6': 6, '1.7': 7, '1.8': 8, '1_8': 8, '8': 8,
+                '17': 17, '21': 21, '25': 25, ' 1.8 ': 8}
+    for literal, expected in literals.items():
+        assert normalize_java_major(literal) == expected, literal
+    for literal in ('', '0', '1.0', '1.8.0', '17-ea', '${javaVersion}', '21x', '8_0'):
+        assert normalize_java_major(literal) is None, literal
+
+    hints = {
+        'JavaVersion.VERSION_1_6': 6,
+        'JavaVersion.VERSION_1_7': 7,
+        'sourceCompatibility = JavaVersion.VERSION_1_8': 8,
+        'JavaVersion.VERSION_1_9': 9,
+        'JavaVersion.VERSION_1_10': 10,
+        'JavaVersion.VERSION_17': 17,
+        'JavaVersion.VERSION_21': 21,
+        'JavaVersion.VERSION_25': 25,
+        'options.release = 8': 8,
+        'options.release.set(21)': 21,
+        'JavaLanguageVersion.of(17)': 17,
+        '<maven.compiler.source>1.8</maven.compiler.source>': 8,
+        '<maven.compiler.release> 1.8 </maven.compiler.release>': 8,
+        '<release>1.8</release>': 8,
+        '<maven.compiler.release>21</maven.compiler.release>': 21,
+        '<release>25</release>': 25,
+        'JavaVersion.VERSION_1_8_PREVIEW': None,
+        'JavaVersion.VERSION_21x': None,
+        'options.release = 21x': None,
+        'options.release = 21.0': None,
+        '<release>1.8.0</release>': None,
+        '<maven.compiler.source>${java.version}</maven.compiler.source>': None,
+    }
+    for hint, expected in hints.items():
+        assert parse_java_hint(hint) == expected, hint
+
+    # Exercise the public subprocess/JSON contract, not only the parser helper.
+    projects = [
+        ('gradle-enum', 'build.gradle', 'sourceCompatibility = JavaVersion.VERSION_1_8', 8),
+        ('gradle-kotlin-enum', 'build.gradle.kts', 'java { sourceCompatibility = JavaVersion.VERSION_1_8 }', 8),
+        ('maven-source', 'pom.xml', '<project><properties><maven.compiler.source>1.8</maven.compiler.source></properties></project>', 8),
+        ('maven-release', 'pom.xml', '<project><configuration><release>1.8</release></configuration></project>', 8),
+    ]
+    for key in ('java_version', 'javaVersion', 'java_version_major', 'java.version'):
+        for literal, expected in (('1.8', 8), ('8', 8), ('21', 21)):
+            projects.append((key + '-' + literal, 'gradle.properties', key + '=' + literal, expected))
+    projects.append(('invalid-property-fallback', 'gradle.properties', 'java_version=21x', 17))
+    for name, filename, content, expected in projects:
+        project = parent / name
+        write(project, 'src/main/java/x/Main.java', 'package x; public class Main {}\n')
+        if name == 'invalid-property-fallback':
+            write(project, 'build.gradle', 'java.toolchain.languageVersion = JavaLanguageVersion.of(17)')
+        write(project, filename, content)
+        before = {p.relative_to(project).as_posix(): p.read_bytes()
+                  for p in project.rglob('*') if p.is_file()}
+        got = run(project)
+        assert got['java'] == expected, (name, got)
+        assert got['proposed_config']['source']['java'] == expected, (name, got)
+        if got['build']['mode'] == 'javac':
+            assert got['proposed_config']['build']['java'] == expected, (name, got)
+        after = {p.relative_to(project).as_posix(): p.read_bytes()
+                 for p in project.rglob('*') if p.is_file()}
+        assert after == before, ('intake mutated source', name)
+        assert run(project)['source_sha256'] == got['source_sha256'], name
+    return {'normalization': len(literals) + 8, 'hints': len(hints), 'cli_projects': len(projects)}
+
 
 with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     root=pathlib.Path(td)/'fabricmod'; root.mkdir()
@@ -66,4 +135,7 @@ with tempfile.TemporaryDirectory(prefix='northpoint-intake-') as td:
     assert got['runtime_scope']=='client', got
     assert got['proposed_config']['runtime']['scope']=='client', got
 
+    java_checks = java_literal_checks(pathlib.Path(td) / 'java-literals')
+
+print(json.dumps({'java_literal_checks': java_checks}, sort_keys=True))
 print('Northpoint source intake self-test: PASS')

@@ -56,11 +56,21 @@ def satisfies(version: str, requirement) -> bool | None:
     match = re.fullmatch(r'(>=|<=|!=|>|<|=|~|\^)?([0-9A-Za-z.*+_-]+)', requirement)
     if not match: return None
     op, wanted = match[1] or '=', match[2]
-    if '*' in wanted or re.search(r'(?:^|\.)[xX](?:\.|$)', wanted):
-        prefix = re.split(r'(?:\*|[xX])', wanted)[0].rstrip('.')
-        if op != '=' or not re.fullmatch(r'\d+(?:\.\d+)*', prefix): return None
+    wildcard = re.fullmatch(r'(\d+(?:\.\d+)*)\.[*xX](?:\.[*xX])*(?:\+.*)?', wanted)
+    if wildcard or '*' in wanted or re.search(r'(?:^|\.)[xX](?:\.|$)', wanted):
+        # A wildcard must occupy complete trailing version components. Truncating
+        # at the first wildcard would falsely accept rules such as 1.*.2 or 1.*foo.
+        if op != '=' or wildcard is None: return None
+        prefix = tuple(map(int, wildcard[1].split('.')))
         current = _version(version)
-        return current[0][:len(prefix.split('.'))] == tuple(map(int,prefix.split('.'))) if current else None
+        if current is None: return None
+        # Fabric falls back to a non-semantic version for overflowing components
+        # or empty prerelease identifiers; neither can prove a wildcard match.
+        if any(component > 2147483647 for component in (*prefix, *current[0])): return None
+        if current[1] and any(not part for part in current[1].split('.')): return None
+        # Fabric treats omitted numeric components as zero, as _compare does.
+        components = current[0] + (0,) * max(0, len(prefix)-len(current[0]))
+        return components[:len(prefix)] == prefix
     if op == '=' and version == wanted: return True
     comparison = _compare(version, wanted)
     if comparison is None: return False if op == '=' else None

@@ -9,7 +9,7 @@
 <a id="port-01-details"></a>
 ## PORT-01 - Input and source authority
 
-[Outcome](Checklist.md#port-01) / 110 source-derived details.
+[Outcome](Checklist.md#port-01) / 146 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
@@ -239,7 +239,7 @@
 - [ ] **D-b19495b17eff117b40c0** - generated source/assets remain editable with source lineage and no silent regeneration overwrite.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.2 Project contexts
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-011 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L458-L458)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-011 : 459-459](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L459-L459)
 
 </details>
 
@@ -250,7 +250,7 @@
 - [ ] **D-0f2cca936f6ec8f81f91** - language intelligence, diagnostics, tasks, terminal, Git, source/dependency navigation and runtime evidence links.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-020 : 462-462](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L462-L462)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-020 : 463-463](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L463-L463)
 
 </details>
 
@@ -554,6 +554,266 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. Full CLI everywhere / 23.3 CLI parity CI gate
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1060-1060](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1060-L1060)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G014 — Minecraft-native source/remapping pipeline challengers (1)</summary>
+
+<a id="d-625a7dad3d6a53ba3d81"></a>
+- [ ] **D-625a7dad3d6a53ba3d81** - GATE — Enderloom understands the strongest existing Minecraft source/mapping tools and composes their proven ideas instead of rebuilding inferior remappers.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G014 : 108-108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L108-L108)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T061 — Vineflower becomes the leading decompiler oracle (2)</summary>
+
+<a id="d-89727d5ba9b58e7e63de"></a>
+- [ ] **D-89727d5ba9b58e7e63de** - — Standardize on Vineflower as the first decompiler for source reconstruction and Minecraft API inspection.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T061 — Vineflower becomes the leading decompiler oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T061 : 307-307](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L307-L307)
+
+<a id="d-15cd25656f8278eacc7b"></a>
+- [ ] **D-15cd25656f8278eacc7b** - Keep at least one independent fallback (for example CFR) so decompiler disagreement is detectable. Never silently treat decompiled source as original source fidelity.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T061 — Vineflower becomes the leading decompiler oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 309-309](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L309-L309)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix / T073 — Challenge gate: never confuse compilation with a successful port (1)</summary>
+
+<a id="d-291abf8bbcef44de0367"></a>
+- [ ] **D-291abf8bbcef44de0367** - Any manual source surgery required to finish a fixture is a converter defect or missing recipe until generalized or explicitly proven irreducibly project-specific.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G021 — Second-pass promotion matrix / T073 — Challenge gate: never confuse compilation with a successful port
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 573-573](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L573-L573)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines (1)</summary>
+
+<a id="d-267d28305140915a0c39"></a>
+- [ ] **D-267d28305140915a0c39** - GATE — Enderloom classifies every source/target pair by Minecraft naming era and chooses the correct transformation pipeline instead of assuming every version requires deobfuscatio...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom classifies every source/target pair by Minecraft naming era and chooses the correct transformation pipeline instead of assuming every version requires deobfuscation/remapping.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G023 : 712-712](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L712-L712)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom (1)</summary>
+
+<a id="d-0768816af7ac8fa4643d"></a>
+- [ ] **D-0768816af7ac8fa4643d** - — Run the same representative source projects through:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T087 : 866-866](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L866-L866)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems (1)</summary>
+
+<a id="d-bc5bbaa480a60c6350ba"></a>
+- [ ] **D-bc5bbaa480a60c6350ba** - Do not use a third-party mirror&#x27;s content as authority when the canonical source can be reached another legitimate way.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1405-1405](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1405-L1405)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries (1)</summary>
+
+<a id="d-6d9d87961b882f9f0980"></a>
+- [ ] **D-6d9d87961b882f9f0980** - — Confirm the active Enderloom worktree/branch, current revision, uncommitted changes and the exact Minecraft Dev Kit source used by production.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T134 : 247-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L247-L247)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T135 — Classify Northpoint JS by authority and hot-path value (2)</summary>
+
+<a id="d-6156fffadfe51301839f"></a>
+- [ ] **D-6156fffadfe51301839f** - — Inventory the existing Northpoint JS execution path and classify each responsibility as retain, thin adapter, move to Rust/JVM, or retire after parity based on measured performan...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Inventory the existing Northpoint JS execution path and classify each responsibility as retain, thin adapter, move to Rust/JVM, or retire after parity based on measured performance, correctness, resilience and maintenance value.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T135 — Classify Northpoint JS by authority and hot-path value
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T135 : 264-264](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L264-L264)
+
+<a id="d-a3bbe2f08b2b7ee73af7"></a>
+- [ ] **D-a3bbe2f08b2b7ee73af7** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T135 — Classify Northpoint JS by authority and hot-path value
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 266-266](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L266-L266)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results (1)</summary>
+
+<a id="d-dceabf8a8daeb721d38d"></a>
+- [ ] **D-dceabf8a8daeb721d38d** - — Run only the decisive existing Northpoint/Dev Kit QA needed to establish baseline behavior before migration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T137 — Establish baseline fixture results
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T137 : 294-294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L294-L294)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests (1)</summary>
+
+<a id="d-38227a1f939959b205d4"></a>
+- [ ] **D-38227a1f939959b205d4** - — Prove source-format parse -&gt; IR -&gt; same-format emission retains semantics and preserves unknown fields where representable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T150 : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L481-L481)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T159 — Differential harness (1)</summary>
+
+<a id="d-03caee1905fb005d52c2"></a>
+- [ ] **D-03caee1905fb005d52c2** - — For representative projects run:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T159 — Differential harness
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T159 : 620-620](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L620-L620)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction (1)</summary>
+
+<a id="d-bcb2c673ad938c7b3de9"></a>
+- [ ] **D-bcb2c673ad938c7b3de9** - GATE — Source-unavailable/compiled inputs are reconstructed with explicit fidelity/provenance and independent disagreement detection.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G046 : 733-733](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L733-L733)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T170 — Vineflower primary + independent decompiler (2)</summary>
+
+<a id="d-2b1893b7dd900b046a51"></a>
+- [ ] **D-2b1893b7dd900b046a51** - — Use Vineflower as the leading source reconstruction lane and retain CFR or another independent oracle for disagreement detection.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T170 — Vineflower primary + independent decompiler
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T170 : 760-760](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L760-L760)
+
+<a id="d-948844804497c34877e2"></a>
+- [ ] **D-948844804497c34877e2** - Never label decompiled source as original-source fidelity.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T170 — Vineflower primary + independent decompiler
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 762-762](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L762-L762)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T173 — Compiled-only lane stays separate from source-first lane (1)</summary>
+
+<a id="d-d0ae95c327311b249a87"></a>
+- [ ] **D-d0ae95c327311b249a87** - — Byte Buddy/ASM/Recaf/SootUp remain conditional tools for compiled-only, instrumentation or hard analysis cases.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T173 — Compiled-only lane stays separate from source-first lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T173 : 789-789](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L789-L789)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T366 — Legacy bytecode reconstruction/remap oracle (1)</summary>
+
+<a id="d-98f18e64463ad772883e"></a>
+- [ ] **D-98f18e64463ad772883e** - Do not make an old tool a universal dependency. If the useful behavior is small/stable, port the algorithm behind Enderloom&#x27;s canonical IR/evidence layer; otherwise invoke a p...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not make an old tool a universal dependency. If the useful behavior is small/stable, port the algorithm behind Enderloom&#x27;s canonical IR/evidence layer; otherwise invoke a pinned/hash-verified specialist backend and retain the input/output proof.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T366 — Legacy bytecode reconstruction/remap oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 822-822](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L822-L822)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T181 — Multi-loader/multi-version output strategy (1)</summary>
+
+<a id="d-81c0f9bab13ed33c979e"></a>
+- [ ] **D-81c0f9bab13ed33c979e** - — Support canonical shared-source workspace generation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T181 — Multi-loader/multi-version output strategy
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T181 : 971-971](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L971-L971)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff (1)</summary>
+
+<a id="d-1c97aa3c489f3ab2a030"></a>
+- [ ] **D-1c97aa3c489f3ab2a030** - — Compare expected source/target archive inventory and explain every removed/added/relocated entry category.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T199 : 1231-1231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1231-L1231)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization (2)</summary>
+
+<a id="d-bd3135718cf30d628438"></a>
+- [ ] **D-bd3135718cf30d628438** - — Separate:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T213 : 1373-1373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1373-L1373)
+
+<a id="d-07ed1a017a6af07dedae"></a>
+- [ ] **D-07ed1a017a6af07dedae** - Do not mix temporary intermediate files into source authority.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1383-1383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1383-L1383)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T214 — One-source multi-version when appropriate (1)</summary>
+
+<a id="d-7f93801feac34cd21937"></a>
+- [ ] **D-7f93801feac34cd21937** - — Prefer shared-source Stonecutter/Architectury-style output when it materially reduces duplication without making the project harder to understand or debug.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T214 — One-source multi-version when appropriate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T214 : 1387-1387](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1387-L1387)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T278 — Produce a release SBOM/provenance manifest (1)</summary>
+
+<a id="d-1c1fef852efdce980c2f"></a>
+- [ ] **D-1c1fef852efdce980c2f** - — Generate an SBOM/provenance record covering Rust crates, JVM libraries, bundled runtimes, vendored tools, extensions and directly integrated permitted upstream code. Include vers...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Generate an SBOM/provenance record covering Rust crates, JVM libraries, bundled runtimes, vendored tools, extensions and directly integrated permitted upstream code. Include versions/hashes/licenses/source locations and the final artifact identity.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T278 — Produce a release SBOM/provenance manifest
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T278 : 2422-2422](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2422-L2422)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T374 — Cross-ecosystem vulnerability scanning with offline-safe evidence (1)</summary>
+
+<a id="d-ad7827bb860b51f1bd1b"></a>
+- [ ] **D-ad7827bb860b51f1bd1b** - — Add OSV-Scanner v2/OSV as an independent vulnerability evidence source for Rust, Java/Maven/Gradle, JavaScript/npm and other shipped dependency manifests/SBOMs, with an offline/l...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add OSV-Scanner v2/OSV as an independent vulnerability evidence source for Rust, Java/Maven/Gradle, JavaScript/npm and other shipped dependency manifests/SBOMs, with an offline/local-database mode for privacy/reproducibility where practical. Feed findings into Enderloom&#x27;s existing supply-chain receipt; do not let a network scanner silently transmit source code or become the only advisory authority.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T374 — Cross-ecosystem vulnerability scanning with offline-safe evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T374 : 2426-2426](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2426-L2426)
 
 </details>
 
@@ -883,6 +1143,107 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA (1)</summary>
+
+<a id="d-0e68c914e90287ae0f3c"></a>
+- [ ] **D-0e68c914e90287ae0f3c** - Capture the source asset&#x27;s non-negotiable identity:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L43-L43)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Generalized shared-source factoring and projection engine (6)</summary>
+
+<a id="d-83c056a2738580f88d7f"></a>
+- [ ] **D-83c056a2738580f88d7f** - · Refactor the proven behavior in devkit_multiversion.py into backend-neutral factoring/projection contracts before replacing its production authority.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T022 : 292-292](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L292-L292)
+
+<a id="d-4f8556f5468bfb4695fa"></a>
+- [ ] **D-4f8556f5468bfb4695fa** - · Preserve exact accounting: every imported source-owned file must map to common/shared representation, a scoped override, target-native build input, or an explicit unresolved item...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Preserve exact accounting: every imported source-owned file must map to common/shared representation, a scoped override, target-native build input, or an explicit unresolved item. No input member may silently disappear.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T023 : 293-293](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L293-L293)
+
+<a id="d-69692dd255f803a4091a"></a>
+- [ ] **D-69692dd255f803a4091a** - · Generalize current source factoring so identical spans/files become shared and divergent behavior is represented at the narrowest safe ownership layer.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T024 : 294-294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L294-L294)
+
+<a id="d-a758c6013b1a5f5fce91"></a>
+- [ ] **D-a758c6013b1a5f5fce91** - · Keep a Stonecutter export/backend that can render compatible version families when useful, but make export round-trip from canonical Enderloom state rather than importing Stonecu...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Keep a Stonecutter export/backend that can render compatible version families when useful, but make export round-trip from canonical Enderloom state rather than importing Stonecutter directives as authority.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T029 : 299-299](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L299-L299)
+
+<a id="d-c90dc2899834136f6a17"></a>
+- [ ] **D-c90dc2899834136f6a17** - · Add import support for existing Stonecutter/multiversion layouts so Enderloom can recover common source, target differences, native target configs, and provenance without destruc...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Add import support for existing Stonecutter/multiversion layouts so Enderloom can recover common source, target differences, native target configs, and provenance without destructive flattening.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T030 : 300-300](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L300-L300)
+
+<a id="d-4b437b20947230a018eb"></a>
+- [ ] **D-4b437b20947230a018eb** - · Treat other accepted multiversion tools/templates as import/export/challenger adapters where they add real value; normalize their structure into the same canonical layers.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T031 : 301-301](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L301-L301)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-041c7613d6532366d6d3"></a>
+- [ ] **D-041c7613d6532366d6d3** - · Support authorized JAR-only or partial-source intake without pretending decompiled source is original source authority.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T072 : 367-367](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L367-L367)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-c3b11efba61a7b619915"></a>
+- [ ] **D-c3b11efba61a7b619915** - · Single-version source conversion must intake immutable source authority, build SemanticProject/IR, create the original target cell, then add requested target cells through graph ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Single-version source conversion must intake immutable source authority, build SemanticProject/IR, create the original target cell, then add requested target cells through graph transforms.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T088 : 393-393](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L393-L393)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (1)</summary>
+
+<a id="d-b4fd563efcfb538f9263"></a>
+- [ ] **D-b4fd563efcfb538f9263** - · Produce one target receipt containing frozen profile, source authority, rule set, tool versions, dependency lock, projection hash, artifact hash, static gates, runtime evidence, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Produce one target receipt containing frozen profile, source authority, rule set, tool versions, dependency lock, projection hash, artifact hash, static gates, runtime evidence, and unresolved warnings.
+  - **Binding context:** GATE - Native build, dependency, and toolchain ownership per cell
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T116 : 436-436](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L436-L436)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-0d10b6456f5cca7ac6b9"></a>
+- [ ] **D-0d10b6456f5cca7ac6b9** - · Require byte/file inventory parity for every source-owned input projection before promoting the new backend.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T126 : 456-456](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L456-L456)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 17. Definition of done (1)</summary>
 
 <a id="d-1d170c32edfe6fa28b20"></a>
@@ -1063,7 +1424,7 @@
 <a id="port-02-details"></a>
 ## PORT-02 - Universal semantic representation
 
-[Outcome](Checklist.md#port-02) / 7 source-derived details.
+[Outcome](Checklist.md#port-02) / 10 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (1)</summary>
@@ -1083,7 +1444,7 @@
 - [ ] **D-d94f47647056f57e1879** - target Forge/NeoForge/Fabric/Quilt where applicable, including optional multiloader workspaces.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-011 : 527-527](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L527-L527)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-011 : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L530-L530)
 
 </details>
 
@@ -1106,6 +1467,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. Profiler/instrumentation stack / 18.2 Java Flight Recorder
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 799-799](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L799-L799)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T107 — Add DFU/Codec/DataComponent-aware migration classification (1)</summary>
+
+<a id="d-867d40507c6431b73ec8"></a>
+- [ ] **D-867d40507c6431b73ec8** - — Detect version transitions that alter persistent data representation rather than only Java API names.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T107 — Add DFU/Codec/DataComponent-aware migration classification
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T107 : 1200-1200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1200-L1200)
 
 </details>
 
@@ -1142,10 +1514,33 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Architecture target (1)</summary>
+
+<a id="d-5dbbe9793ea910bc0b60"></a>
+- [ ] **D-5dbbe9793ea910bc0b60** - The canonical representation must survive switching projection backends. Exporting a Stonecutter workspace, a plain native Gradle workspace, or another multiversion format must not...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The canonical representation must survive switching projection backends. Exporting a Stonecutter workspace, a plain native Gradle workspace, or another multiversion format must not change the underlying Enderloom semantic project.
+  - **Binding context:** Architecture target
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 192-192](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L192-L192)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Create flow uses the same version-family engine (1)</summary>
+
+<a id="d-7d5ef5a2633a42703bab"></a>
+- [ ] **D-7d5ef5a2633a42703bab** - · Generate content/code/data at the common semantic layer whenever the requested behavior is portable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T083 : 383-383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L383-L383)
+
+</details>
+
 <a id="port-03-details"></a>
 ## PORT-03 - Live version and toolchain atlas
 
-[Outcome](Checklist.md#port-03) / 110 source-derived details.
+[Outcome](Checklist.md#port-03) / 139 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -1437,6 +1832,204 @@
   - **Full requirement:** Resolve exact target-version APIs/dependencies from current source/provider metadata before implementation. Never use the newest library artifacts blindly for an older target such as Forge 1.20.1.
   - **Binding context:** Enderloom — Minecraft Workflow Parity Handoff Addendum / Version-specific contract rule
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md : 74-74](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L74-L74)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T057 — Stonecutter source-layout generation is a first-class output strategy (1)</summary>
+
+<a id="d-d94c044a9229c396d6e1"></a>
+- [ ] **D-d94c044a9229c396d6e1** - — Add a generator for Stonecutter-style one-tree multi-version/multi-loader projects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T057 — Stonecutter source-layout generation is a first-class output strategy
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T057 : 245-245](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L245-L245)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T096 — Give nested dependencies their own `EmbeddedDependencyIR` (1)</summary>
+
+<a id="d-25b6870a79865dfde12c"></a>
+- [ ] **D-25b6870a79865dfde12c** - Do not assume Fabric&#x27;s nested-mod resolution and NeoForge&#x27;s JarJar version negotiation are identical. Emit target semantics explicitly and add conflict/version-selection ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not assume Fabric&#x27;s nested-mod resolution and NeoForge&#x27;s JarJar version negotiation are identical. Emit target semantics explicitly and add conflict/version-selection fixtures.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T096 — Give nested dependencies their own `EmbeddedDependencyIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1036-1036](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1036-L1036)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction (1)</summary>
+
+<a id="d-d35f34ba7375c3287a46"></a>
+- [ ] **D-d35f34ba7375c3287a46** - GATE — Enderloom can generate a maintainable one-source multi-loader/multi-version workspace without unnecessary copied build logic, while retaining an escape hatch to raw Stonecut...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom can generate a maintainable one-source multi-loader/multi-version workspace without unnecessary copied build logic, while retaining an escape hatch to raw Stonecutter/loader-native configuration when an abstraction cannot express a target.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G037 : 1811-1811](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1811-L1811)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction / T131 — Bake off Stonecraft as an output-generator challenger; use real 26.x production matrices as fixtures (1)</summary>
+
+<a id="d-3b2b91cca07547cf8584"></a>
+- [ ] **D-3b2b91cca07547cf8584** - — Compare Enderloom&#x27;s generated raw Stonecutter + loader build scripts against Stonecraft as a maintained configuration abstraction.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G037 — Generated multi-version workspace: compare hand-built Stonecutter wiring with a maintained abstraction / T131 — Bake off Stonecraft as an output-generator challenger; use real 26.x production matrices as fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T131 : 1815-1815](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1815-L1815)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T145 — Implement `ModManifestIR` (1)</summary>
+
+<a id="d-648c8d0d309c40d137a0"></a>
+- [ ] **D-648c8d0d309c40d137a0** - - IDs/aliases/provides; - version/name/license/authors; - entrypoints/main classes; - required/optional/incompatible dependencies and ranges; - environment/sidedness; - Mixins; - A...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - IDs/aliases/provides; - version/name/license/authors; - entrypoints/main classes; - required/optional/incompatible dependencies and ranges; - environment/sidedness; - Mixins; - AW/Class Tweaker/AT declarations; - language adapters; - nested/Jar-in-Jar metadata; - ordering/transformer/services concepts; - unknown custom metadata.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T145 — Implement `ModManifestIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 425-435](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L425-L435)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph (1)</summary>
+
+<a id="d-a7182a62d67f1651ae3b"></a>
+- [ ] **D-a7182a62d67f1651ae3b** - GATE — Every conversion uses a version/loader/era graph that chooses the correct mapping and migration pipeline.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G043 : 489-489](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L489-L489)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T154 — Mapping namespace graph (2)</summary>
+
+<a id="d-db037b8e931e4131308c"></a>
+- [ ] **D-db037b8e931e4131308c** - — Support simultaneous identities such as:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T154 — Mapping namespace graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T154 : 522-522](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L522-L522)
+
+<a id="d-1da9004acb624bdb6b32"></a>
+- [ ] **D-1da9004acb624bdb6b32** - Do not flatten into one name too early.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T154 — Mapping namespace graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L526-L526)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T155 — Mapping engine bakeoff and composition (1)</summary>
+
+<a id="d-6d8e9f79cab3685b888a"></a>
+- [ ] **D-6d8e9f79cab3685b888a** - — Use the strongest components by task:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T155 — Mapping engine bakeoff and composition
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T155 : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L530-L530)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T314 — Legacy mapping/reconstruction subgraph (1)</summary>
+
+<a id="d-7d38d0dc07f9ee8b786b"></a>
+- [ ] **D-7d38d0dc07f9ee8b786b** - The version graph must identify exactly when this lane applies. Legacy enrichment can never override stronger exact mappings for newer versions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T314 — Legacy mapping/reconstruction subgraph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 565-565](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L565-L565)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T351 — Registry/protocol delta evidence side-channel (1)</summary>
+
+<a id="d-35fde9592e69a2daa29e"></a>
+- [ ] **D-35fde9592e69a2daa29e** - — Feed the VersionGraph an independent, versioned registry/protocol delta side-channel from ViaVersion/Mappings, Prismarine minecraft-data, mcmeta and direct target JAR/runtime inv...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Feed the VersionGraph an independent, versioned registry/protocol delta side-channel from ViaVersion/Mappings, Prismarine minecraft-data, mcmeta and direct target JAR/runtime inventories. Use it to detect renamed/added/removed registry identifiers, numeric-ID/protocol-era shifts, command/metadata changes and suspicious gaps before compile/runtime.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T351 — Registry/protocol delta evidence side-channel
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T351 : 569-569](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L569-L569)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T160 — Adjacent-hop composition engine (1)</summary>
+
+<a id="d-a81e843f8f89301068cd"></a>
+- [ ] **D-a81e843f8f89301068cd** - — Compose verified version edges without forcing unnecessary intermediate disk/build cycles.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T160 — Adjacent-hop composition engine
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T160 : 630-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L630-L630)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T169 — Kotlin metadata preservation (1)</summary>
+
+<a id="d-cddf312fd2b477aeb7dd"></a>
+- [ ] **D-cddf312fd2b477aeb7dd** - — Detect Kotlin classes and preserve/rewrite Kotlin metadata consistently with class/member changes using the stable kotlin-metadata-jvm API matched to the project&#x27;s Kotlin li...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Detect Kotlin classes and preserve/rewrite Kotlin metadata consistently with class/member changes using the stable kotlin-metadata-jvm API matched to the project&#x27;s Kotlin line. Validate both @Metadata and .kotlin_module/multifile relationships where applicable.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T169 — Kotlin metadata preservation
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T169 : 754-754](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L754-L754)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T316 — Deterministic patch/reconstruction architecture corpus (2)</summary>
+
+<a id="d-d1f8d15e96a5ba59f019"></a>
+- [ ] **D-d1f8d15e96a5ba59f019** - — Reintroduce and study PaperMC Mâché + paperweight, current NeoForge InstallerTools, Forge/NeoForge MCPConfig/MergeTool, BinaryPatcher, and CodeChicken DiffPatch as architecture r...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Reintroduce and study PaperMC Mâché + paperweight, current NeoForge InstallerTools, Forge/NeoForge MCPConfig/MergeTool, BinaryPatcher, and CodeChicken DiffPatch as architecture references or selective backends for deterministic artifact reconstruction and patch application. Extract useful patterns for:
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T316 — Deterministic patch/reconstruction architecture corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T316 : 801-801](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L801-L801)
+
+<a id="d-11fe8d155bae47e2de79"></a>
+- [ ] **D-11fe8d155bae47e2de79** - These are references/selective backends, not a requirement to convert Enderloom into a Paper, Forge or NeoForge installer clone. Do not invent another proprietary patch format when...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** These are references/selective backends, not a requirement to convert Enderloom into a Paper, Forge or NeoForge installer clone. Do not invent another proprietary patch format when an upstream format/tool already provides the needed deterministic semantics.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T316 — Deterministic patch/reconstruction architecture corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 810-810](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L810-L810)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T285 — Automatic toolchain and environment closure (1)</summary>
+
+<a id="d-dfaf0e76c0cccd29c27d"></a>
+- [ ] **D-dfaf0e76c0cccd29c27d** - — Make the capability layer provision or resolve the correct JDK, Gradle/loader toolchain, mappings, runtime assets and required helper tools for the selected Minecraft/loader/vers...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Make the capability layer provision or resolve the correct JDK, Gradle/loader toolchain, mappings, runtime assets and required helper tools for the selected Minecraft/loader/version pair. Prefer verified cached assets; fetch/checksum missing tools automatically when allowed; surface a precise blocker only when the environment truly cannot be provisioned.
+  - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T285 — Automatic toolchain and environment closure
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T285 : 1421-1421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1421-L1421)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T332 — Loader dependency-resolution parity fixtures (1)</summary>
+
+<a id="d-5f2d525baa8d21063230"></a>
+- [ ] **D-5f2d525baa8d21063230** - — Cross-check Enderloom solver decisions against the target loader&#x27;s own dependency semantics on representative graphs, including Fabric Loader SAT4J + version/dependency over...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Cross-check Enderloom solver decisions against the target loader&#x27;s own dependency semantics on representative graphs, including Fabric Loader SAT4J + version/dependency overrides, Quilt Loader SAT4J/FlexVer/provides/substitution behavior, Forge/FML requirements and NeoForge/Forge Jar-in-Jar/JarJar version-range + preferred-version intersection semantics. Include nested dependencies, aliases/provides, optional/incompatible edges, environment/sidedness and prerelease/version-ordering cases.
+  - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T332 — Loader dependency-resolution parity fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T332 : 1756-1756](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1756-L1756)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G060 — Exact execution order (1)</summary>
+
+<a id="d-41efee15e1147baa11f4"></a>
+- [ ] **D-41efee15e1147baa11f4** - First vertical slice: do not wait for all infrastructure before proving value. As soon as G041 + the minimum IR/version/rule/JVM worker pieces exist, convert one existing Northpoin...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** First vertical slice: do not wait for all infrastructure before proving value. As soon as G041 + the minimum IR/version/rule/JVM worker pieces exist, convert one existing Northpoint fixture through the native Rust -&gt; JVM semantic worker -&gt; generated target -&gt; package audit -&gt; native runtime path. Harden that slice, then expand.
+  - **Binding context:** G060 — Exact execution order
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1900-1900](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1900-L1900)
 
 </details>
 
@@ -1787,6 +2380,118 @@
   - **Full requirement:** - Progressive disclosure: simple properties first, expert controls available without hiding capability. - No generated-code prison: visual authoring emits normal target-native source/data that is inspectable and editable. - Round-trip protection for manual code regions. - Version/loader target shown persistently. - Missing dependency/API/version incompatibility shown immediately. - Build/test status always visible. - Hot reload/reload where safe; fast restart where structural changes require it. - Automatic safe snapshots before destructive generation/refactor/conversion. - Never mutate the user’s live world as Studio scratch space.
   - **Binding context:** 1. One Unified Minecraft Studio — Unreal/Unity-style product law / 1.5 Professional “it just works” quality
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 109-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L109-L117)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective (1)</summary>
+
+<a id="d-bab4c85214960cddefec"></a>
+- [ ] **D-bab4c85214960cddefec** - The engine must preserve the strongest proven behavior of Enderloom&#x27;s current multiversion worker while generalizing it beyond a Stonecutter-specific workspace. A common chang...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The engine must preserve the strongest proven behavior of Enderloom&#x27;s current multiversion worker while generalizing it beyond a Stonecutter-specific workspace. A common change should flow to every compatible target. A loader-specific change should flow to that loader family. A version-specific exception should remain isolated to the exact affected version family. A target-only failure must not invalidate intact sibling cells. Adding a target must not rebuild or rewrite unchanged targets. Restarting the app or agent must resume from verified content-addressed state.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 16-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L16-L16)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (3)</summary>
+
+<a id="d-698fd125f89f60ab531e"></a>
+- [ ] **D-698fd125f89f60ab531e** - 1. Enderloom owns the model. - Stonecutter is not the source of truth. - A Gradle plugin, mapping format, decompiler, source transformer, or compatibility bridge must never become ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Enderloom owns the model. - Stonecutter is not the source of truth. - A Gradle plugin, mapping format, decompiler, source transformer, or compatibility bridge must never become canonical project state. - Every external tool feeds or consumes Enderloom&#x27;s typed models and evidence.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 68-71](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L68-L71)
+
+<a id="d-f94fa3569e1d10b948d3"></a>
+- [ ] **D-f94fa3569e1d10b948d3** - 3. Fix at the highest safe ownership layer. - Shared bug -&gt; fix shared semantic/common layer. - Loader-family bug -&gt; fix loader adapter. - Version-family bug -&gt; fix versio...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 3. Fix at the highest safe ownership layer. - Shared bug -&gt; fix shared semantic/common layer. - Loader-family bug -&gt; fix loader adapter. - Version-family bug -&gt; fix version adapter. - Exact cell bug -&gt; cell override only when truly irreducible. - Project-specific semantic bug -&gt; project rule/override with provenance. - Never copy the same fix into many cells when a higher owner can express it once.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 78-84](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L78-L84)
+
+<a id="d-c02006551ef5f8b5e796"></a>
+- [ ] **D-c02006551ef5f8b5e796** - 9. Repair must improve future ports. - A generalized repair becomes a version/loader/semantic rule plus fixtures and proof. - Manual one-off surgery remains a defect until proven i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 9. Repair must improve future ports. - A generalized repair becomes a version/loader/semantic rule plus fixtures and proof. - Manual one-off surgery remains a defect until proven irreducibly project-specific.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 108-110](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L108-L110)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (2)</summary>
+
+<a id="d-a13dfa7946f143bee4e5"></a>
+- [ ] **D-a13dfa7946f143bee4e5** - · Normalize JarCompatibilityChecker, Revapi, japicmp, and SigTest results into one API/binary-delta graph with explicit source/version/tool provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T076 : 371-371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L371-L371)
+
+<a id="d-269370eb86a5eaa6d175"></a>
+- [ ] **D-269370eb86a5eaa6d175** - · Use RetroDebugInjector or ported proven algorithms only for relevant legacy cells; never impose a legacy tool as a universal dependency.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T079 : 374-374](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L374-L374)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Create flow uses the same version-family engine (1)</summary>
+
+<a id="d-05b0b5dce485c92b48d0"></a>
+- [ ] **D-05b0b5dce485c92b48d0** - · Place loader/version-specific code only in the narrowest adapter/override layer and show that scope clearly to the user.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T084 : 384-384](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L384-L384)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Repair flow fixes the right layer and teaches the engine (1)</summary>
+
+<a id="d-23c708b82fc04009cac0"></a>
+- [ ] **D-23c708b82fc04009cac0** - · Repair intake must identify whether the defect belongs to common project semantics, one loader family, one version family, one exact cell, dependency/toolchain resolution, mappin...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Repair intake must identify whether the defect belongs to common project semantics, one loader family, one version family, one exact cell, dependency/toolchain resolution, mappings, generated output, packaging, or runtime behavior.
+  - **Binding context:** GATE - Repair flow fixes the right layer and teaches the engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T094 : 404-404](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L404-L404)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Port flow is adding graph cells, not cloning projects (1)</summary>
+
+<a id="d-a9ab98bed3def16b5fda"></a>
+- [ ] **D-a9ab98bed3def16b5fda** - · Port to version/loader must be modeled as add target cell(s) to the existing SemanticProject.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Port flow is adding graph cells, not cloning projects
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T102 : 417-417](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L417-L417)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (1)</summary>
+
+<a id="d-a8b39ffe2f09161534b7"></a>
+- [ ] **D-a8b39ffe2f09161534b7** - · Wire Create, Convert, Repair, and Port UI actions to the same Universal Version Family Service; no surface may maintain a private copy of version/loader logic.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T117 : 442-442](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L442-L442)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-b22efd160ebdede00a44"></a>
+- [ ] **D-b22efd160ebdede00a44** - · Search production code and generated artifacts for duplicate or bypass version/loader state owners, hidden cumulative port chains, direct target-workspace hand edits, stale Stone...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Search production code and generated artifacts for duplicate or bypass version/loader state owners, hidden cumulative port chains, direct target-workspace hand edits, stale Stonecutter-specific authority, and UI/CLI paths that skip the canonical service; eliminate or explicitly quarantine each finding.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T161 : 512-512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L512-L512)
 
 </details>
 
@@ -2153,7 +2858,7 @@
 <a id="port-04-details"></a>
 ## PORT-04 - Exact mappings and symbol truth
 
-[Outcome](Checklist.md#port-04) / 46 source-derived details.
+[Outcome](Checklist.md#port-04) / 67 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -2174,7 +2879,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence normalization.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 532-532](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L532-L532)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 535-535](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L535-L535)
 
 </details>
 
@@ -2185,7 +2890,7 @@
 - [ ] **D-93e03b637781d7c1cade** - specialist roles cover architecture/API, Java, Bedrock, visual assets, mappings/Mixin, tests, performance, compatibility, world/save, security/release, Wiki/docs.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-011 : 626-626](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L626-L626)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-011 : 632-632](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L632-L632)
 
 </details>
 
@@ -2339,6 +3044,162 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T083 — Keep Parchment as a legacy semantic-enrichment lane only (2)</summary>
+
+<a id="d-31cf9b43a9e60ef50cc7"></a>
+- [ ] **D-31cf9b43a9e60ef50cc7** - — For pre-26.1 official/Mojang mappings, use Parchment data when it materially resolves parameter-name/Javadoc ambiguity.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T083 — Keep Parchment as a legacy semantic-enrichment lane only
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T083 : 794-794](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L794-L794)
+
+<a id="d-2cdcde98cd0725534d4a"></a>
+- [ ] **D-2cdcde98cd0725534d4a** - - Parchment supplements Mojang mappings; it is not the canonical symbol identity layer; - preserve exact Parchment version/provenance used by a rule; - do not require Parchment for...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Parchment supplements Mojang mappings; it is not the canonical symbol identity layer; - preserve exact Parchment version/provenance used by a rule; - do not require Parchment for 26.1+ where unobfuscated Minecraft already exposes readable parameter/local names; - historical conversions must remain reproducible even if current Parchment development winds down.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T083 — Keep Parchment as a legacy semantic-enrichment lane only
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 798-801](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L798-L801)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order (1)</summary>
+
+<a id="d-2cd0602e75342d9f1f02"></a>
+- [ ] **D-2cd0602e75342d9f1f02** - 5. Normalize source symbols and mappings - Mapping-IO/Tiny Remapper/SrgUtils/ART/Ravel-derived logic as applicable; - cross the 1.21.11 -&gt; 26.1 boundary explicitly; - do not rem...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 5. Normalize source symbols and mappings - Mapping-IO/Tiny Remapper/SrgUtils/ART/Ravel-derived logic as applicable; - cross the 1.21.11 -&gt; 26.1 boundary explicitly; - do not remap already-unobfuscated targets.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1500-1503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1500-L1503)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T128 — Canonical handoff / exact next action (1)</summary>
+
+<a id="d-09af544172dea4f23ff6"></a>
+- [ ] **D-09af544172dea4f23ff6** - — Merge this third-pass delta into Enderloom execution without another planning-only cycle.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T128 — Canonical handoff / exact next action
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T128 : 1619-1619](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1619-L1619)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T148 — Implement `MixinIR` (1)</summary>
+
+<a id="d-395ed6004a9a6d934716"></a>
+- [ ] **D-395ed6004a9a6d934716** - — Parse and preserve exact Mixin semantics:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T148 — Implement `MixinIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T148 : 459-459](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L459-L459)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T172 — Packaged archive semantics (1)</summary>
+
+<a id="d-9e724df7c204f8d7c8a9"></a>
+- [ ] **D-9e724df7c204f8d7c8a9** - — Make archive handling aware of:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T172 — Packaged archive semantics
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T172 : 772-772](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L772-L772)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index (1)</summary>
+
+<a id="d-5fca006c759db7a0adf6"></a>
+- [ ] **D-5fca006c759db7a0adf6** - — Add a fast classpath/module-path inventory lane for generated and imported projects. Bake off ClassGraph and Jandex against the JDK Class-File API/rawzip/custom index on exact Gr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add a fast classpath/module-path inventory lane for generated and imported projects. Bake off ClassGraph and Jandex against the JDK Class-File API/rawzip/custom index on exact Gradle-resolved classpaths. The index must expose class/resource ownership, annotations, inheritance/interfaces, services/modules, nested-JAR provenance and duplicate/shadowed classes without initializing third-party code.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T352 : 814-814](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L814-L814)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T366 — Legacy bytecode reconstruction/remap oracle (1)</summary>
+
+<a id="d-ff83440100f6e51d4efb"></a>
+- [ ] **D-ff83440100f6e51d4efb** - — Add MCPHackers RetroDebugInjector (and its proven descendants/algorithms where applicable) as a legacy compiled-artifact differential oracle for bytecode debug-info injection, de...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add MCPHackers RetroDebugInjector (and its proven descendants/algorithms where applicable) as a legacy compiled-artifact differential oracle for bytecode debug-info injection, decomposition/remap/reconstruction cases that modern mapping pipelines do not model well. Exercise it only on version cells where its semantics are relevant and compare exact owner/name/descriptor/signature/output class validity against Enderloom&#x27;s JDK Class-File API/ASM/mapping lane.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T366 — Legacy bytecode reconstruction/remap oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T366 : 820-820](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L820-L820)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T176 — Mixin/access semantic conversion (1)</summary>
+
+<a id="d-7a1a6ac3e2bb090dcf09"></a>
+- [ ] **D-7a1a6ac3e2bb090dcf09** - — Convert Mixins/AW/Class Tweaker/AT/interface injection with exact owner/member/descriptor semantics and target-runtime proof.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T176 — Mixin/access semantic conversion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T176 : 875-875](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L875-L875)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T318 — Access/Class Tweaker/Mixin format authority (1)</summary>
+
+<a id="d-26f7b254140ff6f2e24b"></a>
+- [ ] **D-26f7b254140ff6f2e24b** - Ravel&#x27;s lack of MixinExtras Expression remapping is an explicit coverage gap Enderloom must close itself or with another proven oracle. Exact owner/member/JVM descriptor plus ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Ravel&#x27;s lack of MixinExtras Expression remapping is an explicit coverage gap Enderloom must close itself or with another proven oracle. Exact owner/member/JVM descriptor plus target-runtime PREPARE/APPLY remains mandatory.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T318 — Access/Class Tweaker/Mixin format authority
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 895-895](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L895-L895)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G052 — Packaged artifact audit (1)</summary>
+
+<a id="d-69d922bca8e5a23c07d8"></a>
+- [ ] **D-69d922bca8e5a23c07d8** - GATE — The exact output JAR is structurally and link-time valid before runtime promotion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G052 — Packaged artifact audit
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G052 : 1203-1203](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1203-L1203)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints (1)</summary>
+
+<a id="d-ff4f58a74e656891ddbb"></a>
+- [ ] **D-ff4f58a74e656891ddbb** - — Fingerprint source, mappings, rules, target toolchain, dependencies, IR, generated workspace, artifact and runtime proof separately so a small change invalidates only dependent s...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Fingerprint source, mappings, rules, target toolchain, dependencies, IR, generated workspace, artifact and runtime proof separately so a small change invalidates only dependent stages.
+  - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T207 : 1320-1320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1320-L1320)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T209 — Single-flight external/tool work (1)</summary>
+
+<a id="d-11588602b7c3d259fc07"></a>
+- [ ] **D-11588602b7c3d259fc07** - — Deduplicate concurrent requests for the same mappings, Minecraft artifacts, loader metadata, dependency artifacts and generated target universe.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T209 — Single-flight external/tool work
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T209 : 1328-1328](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1328-L1328)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T338 — Archive decompression and cross-platform scan bakeoffs (1)</summary>
+
+<a id="d-c66da3b95f6f65721398"></a>
+- [ ] **D-c66da3b95f6f65721398** - — Pair the rawzip structural parser bakeoff with libdeflater for full-buffer DEFLATE entry workloads where sizes are known, measuring real mod/JAR corpora against the current flate...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Pair the rawzip structural parser bakeoff with libdeflater for full-buffer DEFLATE entry workloads where sizes are known, measuring real mod/JAR corpora against the current flate2 path. Promote only if end-to-end parse+decompress throughput/memory wins materially while preserving exact bytes/errors.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T338 — Archive decompression and cross-platform scan bakeoffs
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T338 : 2278-2278](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2278-L2278)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_STUDIO_EXECUTION.md / 5A. Specialized engines and integration tasks / 5A.2 Java source, bytecode, mappings, and Mixins (1)</summary>
 
 <a id="d-f822a4a16f412472cb46"></a>
@@ -2380,6 +3241,77 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. Source Workbench / JAR Lab
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 656-656](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L656-L656)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (1)</summary>
+
+<a id="d-709b0b82f74c13cab709"></a>
+- [ ] **D-709b0b82f74c13cab709** - 10. Real runtime proof beats build proof. - Compilation, remap success, generated source, and archive validity are intermediate evidence. - Applicable client/server/integrated-serv...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 10. Real runtime proof beats build proof. - Compilation, remap success, generated source, and archive validity are intermediate evidence. - Applicable client/server/integrated-server/restart behavior must use the exact packaged artifact.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 112-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L112-L114)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical VersionGraph and target-cell identity (1)</summary>
+
+<a id="d-d95bfbed974a991d2209"></a>
+- [ ] **D-d95bfbed974a991d2209** - · Distinguish direct semantic edges from evidence-only correspondences. Protocol mappings, bridge mods, or decompiler similarities may provide evidence without proving equivalent m...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Distinguish direct semantic edges from evidence-only correspondences. Protocol mappings, bridge mods, or decompiler similarities may provide evidence without proving equivalent mod API semantics.
+  - **Binding context:** GATE - Canonical VersionGraph and target-cell identity
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T011 : 271-271](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L271-L271)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (3)</summary>
+
+<a id="d-5d33c59680b0a29c7418"></a>
+- [ ] **D-5d33c59680b0a29c7418** - · Normalize official/Mojmap, intermediary, Yarn, Parchment, SRG/TSRG/MCP-era, loader-specific, and mod-source names with owner + descriptor + signature + provenance; never reduce i...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Normalize official/Mojmap, intermediary, Yarn, Parchment, SRG/TSRG/MCP-era, loader-specific, and mod-source names with owner + descriptor + signature + provenance; never reduce identity to a bare name.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T044 : 324-324](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L324-L324)
+
+<a id="d-825c8a9e1b27a2d1fd5c"></a>
+- [ ] **D-825c8a9e1b27a2d1fd5c** - · Use Mapping-IO as a format normalization layer where suitable, not as the only truth source.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T045 : 325-325](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L325-L325)
+
+<a id="d-34bca5f36f0df4a1829e"></a>
+- [ ] **D-34bca5f36f0df4a1829e** - · Require packaged owner/name/descriptor linkage proof after remapping because source-level symbol success is not enough.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T051 : 331-331](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L331-L331)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-16bb2b5506d2cc9ba0d0"></a>
+- [ ] **D-16bb2b5506d2cc9ba0d0** - · Re-run the existing Aoba multiversion workflow through the new service and verify the exact target JAR in native Minecraft/restart where the current CI already proves that lane.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T128 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L458-L458)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-22a985b832b349f6da01"></a>
+- [ ] **D-22a985b832b349f6da01** - · Run the final performance-equivalence challenge on identical workloads and preserve output hashes/semantic inventories/evidence. Any speedup caused by skipping content, validatio...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Run the final performance-equivalence challenge on identical workloads and preserve output hashes/semantic inventories/evidence. Any speedup caused by skipping content, validation, providers, mappings, runtime proof, or supported targets fails convergence.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T164 : 515-515](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L515-L515)
 
 </details>
 
@@ -2577,7 +3509,7 @@
 <a id="port-05-details"></a>
 ## PORT-05 - Source migration and semantic repair
 
-[Outcome](Checklist.md#port-05) / 73 source-derived details.
+[Outcome](Checklist.md#port-05) / 158 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -2664,7 +3596,7 @@
 - [ ] **D-3340e1bd0d1dc6364147** - when source can run, paired source-target scenarios compare gameplay/state/visual/audio/persistence/multiplayer semantics.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-012 : 528-528](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L528-L528)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-012 : 531-531](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L531-L531)
 
 </details>
 
@@ -2675,7 +3607,7 @@
 - [ ] **D-5703d5f2131daa990c64** - source and artifact hashes/sizes/build commands recorded.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-005 : 681-681](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L681-L681)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-005 : 689-689](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L689-L689)
 
 </details>
 
@@ -2943,6 +3875,567 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes (1)</summary>
+
+<a id="d-1374fe45435c7c055543"></a>
+- [ ] **D-1374fe45435c7c055543** - GATE — Enderloom owns a semantic source-migration pipeline that can learn transformations from known ports, apply them repeatably, validate them against the real target classpath, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom owns a semantic source-migration pipeline that can learn transformations from known ports, apply them repeatably, validate them against the real target classpath, and fall back without losing source fidelity.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G013 : 39-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L39-L39)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer (1)</summary>
+
+<a id="d-beead1c2eadee3f2a6e9"></a>
+- [ ] **D-beead1c2eadee3f2a6e9** - — Prototype Enderloom Minecraft recipes on OpenRewrite.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T041 : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L43-L43)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T042 — Use Spoon + GumTree-Spoon as a Java transformation-mining lane (2)</summary>
+
+<a id="d-7bc05c48212037ae54a2"></a>
+- [ ] **D-7bc05c48212037ae54a2** - — A/B Spoon and GumTree-Spoon AST Diff for mining structured edit scripts from verified before/after ports.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T042 — Use Spoon + GumTree-Spoon as a Java transformation-mining lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T042 : 71-71](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L71-L71)
+
+<a id="d-372e8dcc95f62bbacd6a"></a>
+- [ ] **D-372e8dcc95f62bbacd6a** - Do not blindly replay AST edits. Normalize repeated edits into parameterized Enderloom migration rules and validate them against compiler/symbol evidence.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T042 — Use Spoon + GumTree-Spoon as a Java transformation-mining lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 80-80](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L80-L80)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T043 — Add RefactoringMiner as a higher-level refactoring recognizer (1)</summary>
+
+<a id="d-07aa4b2c39472a4c9d85"></a>
+- [ ] **D-07aa4b2c39472a4c9d85** - — Detect moved/renamed/extracted/merged APIs and cross-file refactorings so Enderloom distinguishes structural refactoring from arbitrary changed code.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T043 — Add RefactoringMiner as a higher-level refactoring recognizer
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T043 : 84-84](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L84-L84)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T044 — Make JDT the semantic/compiler oracle around generated changes (2)</summary>
+
+<a id="d-d7c14359ab6502a8eb1b"></a>
+- [ ] **D-d7c14359ab6502a8eb1b** - — Integrate Eclipse JDT/JDT LS or its underlying compiler/model services as an oracle for:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T044 — Make JDT the semantic/compiler oracle around generated changes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T044 : 92-92](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L92-L92)
+
+<a id="d-cc4e5dd6a3fb494a6e82"></a>
+- [ ] **D-cc4e5dd6a3fb494a6e82** - Enderloom may use another AST for transformations, but generated edits must survive compiler-grade semantic validation.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G013 — Semantic migration engine: replace brittle textual porting with learned, typed recipes / T041 — Bake off OpenRewrite as the primary recipe execution layer / T044 — Make JDT the semantic/compiler oracle around generated changes
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 102-102](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L102-L102)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils (2)</summary>
+
+<a id="d-07f7af8c012f45380218"></a>
+- [ ] **D-07f7af8c012f45380218** - — Build a fixture around MinecraftForge/Srg2Source, MinecraftForge/renamer, and MinecraftForge/SrgUtils.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T045 : 112-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L112-L112)
+
+<a id="d-937d8eb8d3b2578215eb"></a>
+- [ ] **D-937d8eb8d3b2578215eb** - Enderloom goal: use these as correctness/reference or directly reuse compatible components where license and architecture make sense. Do not replace richer semantic migration with ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom goal: use these as correctness/reference or directly reuse compatible components where license and architecture make sense. Do not replace richer semantic migration with simple symbol substitution.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 121-121](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L121-L121)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T046 — Fabric identity lane: Mapping-IO + Tiny Remapper + Intermediary/Matcher/Stitch (1)</summary>
+
+<a id="d-b021438f25e272b942ad"></a>
+- [ ] **D-b021438f25e272b942ad** - — Make Mapping-IO the leading candidate for mapping-format normalization and bake off Tiny Remapper as the compiled-JAR remapping oracle.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T046 — Fabric identity lane: Mapping-IO + Tiny Remapper + Intermediary/Matcher/Stitch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T046 : 125-125](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L125-L125)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T047 — Enigma becomes a mapping/deobfuscation comparator, not the whole conversion engine (2)</summary>
+
+<a id="d-0b304e6f6ebefc16327e"></a>
+- [ ] **D-0b304e6f6ebefc16327e** - — Retain FabricMC/Enigma for interactive/CLI deobfuscation, mapping inspection and source reconstruction evidence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T047 — Enigma becomes a mapping/deobfuscation comparator, not the whole conversion engine
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T047 : 139-139](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L139-L139)
+
+<a id="d-e2631d1b056a4affc8e7"></a>
+- [ ] **D-e2631d1b056a4affc8e7** - Do not ask Enigma to solve loader/API migrations it was not built to solve.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T047 — Enigma becomes a mapping/deobfuscation comparator, not the whole conversion engine
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 141-141](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L141-L141)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T048 — Mercury + Lorenz comparative source-remapping lane (1)</summary>
+
+<a id="d-6596a39894357fb0f94e"></a>
+- [ ] **D-6596a39894357fb0f94e** - — Evaluate CadixDev/Mercury + Lorenz against Enderloom&#x27;s recipe pipeline for mapping-aware source rewrites and access-transformer updates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G014 — Minecraft-native source/remapping pipeline challengers / T045 — Forge source migration lane: Srg2Source + renamer + SrgUtils / T048 — Mercury + Lorenz comparative source-remapping lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T048 : 145-145](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L145-L145)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix (1)</summary>
+
+<a id="d-523923b1bfd7e7a055ba"></a>
+- [ ] **D-523923b1bfd7e7a055ba** - GATE — Enderloom can deterministically reconstruct the exact target Minecraft/loader toolchain before attempting semantic repair.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G016 : 216-216](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L216-L216)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T057 — Stonecutter source-layout generation is a first-class output strategy (1)</summary>
+
+<a id="d-e8db4c44432a675de876"></a>
+- [ ] **D-e8db4c44432a675de876** - - use token replacement only for uniform, semantics-preserving substitutions; - use semantic recipes for actual API behavior changes; - keep conditional blocks small and localized;...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - use token replacement only for uniform, semantics-preserving substitutions; - use semantic recipes for actual API behavior changes; - keep conditional blocks small and localized; - never duplicate full source trees solely because versions differ.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T057 — Stonecutter source-layout generation is a first-class output strategy
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 258-261](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L258-L261)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T062 — Byte Buddy / ASM / Recaf for compiled-only repair paths (1)</summary>
+
+<a id="d-f9a2bd07bb7005b5130b"></a>
+- [ ] **D-f9a2bd07bb7005b5130b** - Do not let bytecode patches replace maintainable source fixes when source exists.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T062 — Byte Buddy / ASM / Recaf for compiled-only repair paths
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 319-319](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L319-L319)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G020 — Research coverage reconciliation: GitHub + Codeberg + GitLab + registries / T068 — Codeberg/sourcehut handling / T069 — GitLab/source-host diversity (1)</summary>
+
+<a id="d-456721588dad0fdc5679"></a>
+- [ ] **D-456721588dad0fdc5679** - — Keep GitLab/other forge searches as a recurring gap-directed lane, but do not pad the matrix with abandoned forks merely to increase host diversity. A candidate enters the main m...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Keep GitLab/other forge searches as a recurring gap-directed lane, but do not pad the matrix with abandoned forks merely to increase host diversity. A candidate enters the main matrix only when it contributes a materially distinct, maintained technique or corpus.
+  - **Binding context:** G020 — Research coverage reconciliation: GitHub + Codeberg + GitLab + registries / T068 — Codeberg/sourcehut handling / T069 — GitLab/source-host diversity
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T069 : 401-401](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L401-L401)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph (1)</summary>
+
+<a id="d-33c201418964edb361fd"></a>
+- [ ] **D-33c201418964edb361fd** - - Minecraft ships unobfuscated Java names; - Java 25 is the baseline at the 26.1 transition; - Fabric&#x27;s 26.1+ Loom path no longer remaps Minecraft/mods; - Fabric remapJar/modI...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Minecraft ships unobfuscated Java names; - Java 25 is the baseline at the 26.1 transition; - Fabric&#x27;s 26.1+ Loom path no longer remaps Minecraft/mods; - Fabric remapJar/modImplementation-style assumptions must not be carried forward blindly; - loader/API migration remains necessary even though obfuscation remapping disappears.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 726-730](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L726-L730)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence (1)</summary>
+
+<a id="d-171a4d931fea0ad9d78d"></a>
+- [ ] **D-171a4d931fea0ad9d78d** - Do not flatten prose into untraceable regex replacements.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 770-770](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L770-L770)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T082 — Add Ravel as the mapping-migration oracle for complex Java/Kotlin projects (1)</summary>
+
+<a id="d-b1fba86e2891a819c77b"></a>
+- [ ] **D-b1fba86e2891a819c77b** - — Use Ravel as an implementation/reference oracle for source remapping that Loom alone does not cover well.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T082 — Add Ravel as the mapping-migration oracle for complex Java/Kotlin projects
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T082 : 774-774](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L774-L774)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T098 — Require lossless metadata round-trip fixtures (1)</summary>
+
+<a id="d-68d953c33191a8cdf4c4"></a>
+- [ ] **D-68d953c33191a8cdf4c4** - — For every supported source metadata format:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T098 — Require lossless metadata round-trip fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T098 : 1058-1058](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1058-L1058)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T099 — Make metadata and source transformations share one dependency/sidedness model (1)</summary>
+
+<a id="d-0f083589bff5406599d0"></a>
+- [ ] **D-0f083589bff5406599d0** - — Source rewrites, generated Gradle dependencies and emitted mod metadata must resolve from the same canonical dependency and environment model.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T099 — Make metadata and source transformations share one dependency/sidedness model
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T099 : 1071-1071](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1071-L1071)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T106 — Use `minecraft-data` as a second cross-version oracle (2)</summary>
+
+<a id="d-08208a0dcf52f010c979"></a>
+- [ ] **D-08208a0dcf52f010c979** - — Add PrismarineJS/minecraft-data as a complementary evidence source for structured cross-version facts such as:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T106 — Use `minecraft-data` as a second cross-version oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T106 : 1186-1186](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1186-L1186)
+
+<a id="d-80980c1c43a23750dd3b"></a>
+- [ ] **D-80980c1c43a23750dd3b** - Do not make a Java mod conversion depend on its Node ecosystem at runtime. Consume snapshots/generated data during tooling/fixture preparation and reconcile against official/genera...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not make a Java mod conversion depend on its Node ecosystem at runtime. Consume snapshots/generated data during tooling/fixture preparation and reconcile against official/generated Minecraft data where relevant.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T106 — Use `minecraft-data` as a second cross-version oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1196-1196](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1196-L1196)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T108 — Run source and target datagen and compare normalized outputs (2)</summary>
+
+<a id="d-d77d7f7499b3eafa9e9a"></a>
+- [ ] **D-d77d7f7499b3eafa9e9a** - — Where the mod has datagen:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T108 — Run source and target datagen and compare normalized outputs
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T108 : 1215-1215](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1215-L1215)
+
+<a id="d-fbf469b2999d90df34de"></a>
+- [ ] **D-fbf469b2999d90df34de** - User-authored static data/resources must be included in the same coverage manifest, not ignored because they were not generated.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus / T108 — Run source and target datagen and compare normalized outputs
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1224-1224](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1224-L1224)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening (1)</summary>
+
+<a id="d-87f068f4f7c08875fa9e"></a>
+- [ ] **D-87f068f4f7c08875fa9e** - GATE — Kotlin mods receive a first-class semantic migration path and Enderloom does not accidentally depend on stale/archived language tooling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G029 : 1245-1245](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1245-L1245)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo (1)</summary>
+
+<a id="d-8f47e9aaa65342f681a6"></a>
+- [ ] **D-8f47e9aaa65342f681a6** - — Update T041&#x27;s implementation note: the old standalone openrewrite/rewrite-kotlin repository was archived in 2026 because current Kotlin support lives in the main OpenRewrite...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Update T041&#x27;s implementation note: the old standalone openrewrite/rewrite-kotlin repository was archived in 2026 because current Kotlin support lives in the main OpenRewrite rewrite repository/module.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T110 : 1249-1249](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1249-L1249)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T112 — Add a hard OpenRewrite license/distribution fence (1)</summary>
+
+<a id="d-5b9e907ac025cc417c07"></a>
+- [ ] **D-5b9e907ac025cc417c07** - — Separate:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T112 — Add a hard OpenRewrite license/distribution fence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T112 : 1274-1274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1274-L1274)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains (1)</summary>
+
+<a id="d-2f15fb8067753d69258c"></a>
+- [ ] **D-2f15fb8067753d69258c** - Do not repeat broad &quot;best GitHub projects&quot; searches when the coverage matrix is unchanged.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1418-1418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1418-L1418)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G033 — Third-pass promotion matrix (1)</summary>
+
+<a id="d-6033f50bd7426de9e848"></a>
+- [ ] **D-6033f50bd7426de9e848** - | Candidate / pattern | Disposition after third pass | Why | |---|---|---| | Era-aware mapped vs unobfuscated pipeline | INTEGRATE NOW | Required for correct 1.21.11 &lt;-&gt; 26.x...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Candidate / pattern | Disposition after third pass | Why | |---|---|---| | Era-aware mapped vs unobfuscated pipeline | INTEGRATE NOW | Required for correct 1.21.11 &lt;-&gt; 26.x behavior | | Fabric 26.1 API migration map + NeoForge primers | INGEST NOW | High-quality version-step migration evidence | | Ravel | BAKEOFF / ORACLE NOW | Kotlin + Mixin + AW/Class Tweaker mapping migration coverage | | Parchment | LEGACY CONDITIONAL | Valuable pre-26.1 semantic enrichment; unnecessary as primary 26.1+ mapping layer | | NeoForged AutoRenamingTool | BAKEOFF NOW | Current Forge/NeoForge JAR renamer/remap successor | | reqsery MC Mod Porter | FULL-INTEGRATION BAKEOFF NOW | Direct overlap, structured KB/patterns/porter, user-stated permission | | Kilt/Twill | MINE NOW / RUNTIME DEFERRED | Best active inverse bridge corpus; experimental as user runtime dependency | | Patchwork Patcher/API | HISTORICAL CORPUS ONLY | Excellent explicit transforms; archived/version-limited | | ModManifestIR + EmbeddedDependencyIR | IMPLEMENT NOW | Prevents metadata/dependency semantic loss | | AccessMutationIR | IMPLEMENT NOW | Unifies AW/Class Tweaker/AT while preserving interface-injection differences | | HeadlessMC + MC-Runtime-Test pattern | BAKEOFF NOW | Real cross-loader client CI proof beyond compilation | | Fabric Loader JUnit/GameTest + FML/NeoForge tests | INTEGRATE TARGET-NATIVE | Highest-confidence target-runtime testing | | MinecraftDev static inspections | MINE/ORACLE | Rich Minecraft-specific Mixin/AW/AT validation logic | | misode/mcmeta | INGEST + REPRODUCE | Excellent versioned data/resource diff corpus; verify load-bearing facts from official JARs | | PrismarineJS minecraft-data | SECOND ORACLE | Broad structured version data, especially legacy/protocol | | DataFixerUpper concepts | INTEGRATE WHERE DATA PERSISTS | Correct model for schema/data migration, not source rewrite | | Current OpenRewrite Kotlin | BAKEOFF NOW | Headless semantic Kotlin path in current main project | | Kotlin Analysis API | CONDITIONAL ORACLE | Strong semantic fallback; integration weight must be justified | | Gradle Configuration Cache | GENERATED-PROJECT GATE | Measurable iteration win with current loader support | | Everything IPC | OPTIONAL CONDITIONAL | Potential instant Windows discovery without owning state | | packwiz | COMPARATOR / IMPORT-EXPORT REFERENCE | Strong pack metadata model, not a replacement engine | | XMCL / ATLauncher | FOCUSED COMPARATORS | Useful isolated patterns; no shell-architecture reset | | JavaParser / ast-grep | PREFILTER ONLY | Fast/light but not stronger than semantic compiler-aware lane for authoritative rewrites | | Mill/Coursier as generated Minecraft build | DEFER / REJECT PRIMARY | Would bypass loader-owned Gradle behavior without proven full parity |
+  - **Binding context:** G033 — Third-pass promotion matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1432-1457](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1432-L1457)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration (1)</summary>
+
+<a id="d-31220cab9e178163f9d9"></a>
+- [ ] **D-31220cab9e178163f9d9** - GATE — When source must be reconstructed from compiled Minecraft/mod artifacts, Enderloom can recover mapping names, parameters and recognizable constants with better semantic fide...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — When source must be reconstructed from compiled Minecraft/mod artifacts, Enderloom can recover mapping names, parameters and recognizable constants with better semantic fidelity than a plain decompile/remap pass, while preserving an independent oracle and exact provenance.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G036 : 1745-1745](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1745-L1745)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T129 — Bake off PaperMC Codebook + Unpick against the current normalization lane (2)</summary>
+
+<a id="d-0fd7e2012aff6584ea51"></a>
+- [ ] **D-0fd7e2012aff6584ea51** - — Add PaperMC Codebook + PaperMC Unpick definitions as a serious compiled-artifact normalization challenger.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T129 — Bake off PaperMC Codebook + Unpick against the current normalization lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T129 : 1749-1749](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1749-L1749)
+
+<a id="d-a4365deeb576344e0b87"></a>
+- [ ] **D-a4365deeb576344e0b87** - - Codebook centralizes PaperMC&#x27;s JAR remapping pipeline around Mojang mappings and AutoRenamingTool-style remapping; - it supports an explicit input JAR/classpath or resolving...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Codebook centralizes PaperMC&#x27;s JAR remapping pipeline around Mojang mappings and AutoRenamingTool-style remapping; - it supports an explicit input JAR/classpath or resolving the requested Minecraft version; - it can consume parameter mappings; - it can run Unpick when supplied definitions + constants, recovering named constants instead of leaving opaque magic literals in reconstructed code; - PaperMC continues maintaining unpick-definitions for current Minecraft even though its Parchment mappings fork is no longer required for 26.1+ unobfuscated Minecraft.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T129 — Bake off PaperMC Codebook + Unpick against the current normalization lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1753-1757](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1753-L1757)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T130 — Mine paperweight + mache for reconstruction/patch architecture, not as a mod-conversion replacement (2)</summary>
+
+<a id="d-5e04cce10514f8d32433"></a>
+- [ ] **D-5e04cce10514f8d32433** - — Study PaperMC paperweight and mache as production comparators for repeatable Minecraft source reconstruction, patch application, cacheability and recompilable source state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T130 — Mine paperweight + mache for reconstruction/patch architecture, not as a mod-conversion replacement
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T130 : 1789-1789](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1789-L1789)
+
+<a id="d-4ca8c0af14870b5b4031"></a>
+- [ ] **D-4ca8c0af14870b5b4031** - Do not force Paper&#x27;s server-fork workflow onto normal mods. Mine reusable pipeline mechanics only.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G036 — Compiled-JAR normalization: recover more semantic source before migration / T130 — Mine paperweight + mache for reconstruction/patch architecture, not as a mod-conversion replacement
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1799-1799](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1799-L1799)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable (2)</summary>
+
+<a id="d-2f9aa60391faa8115222"></a>
+- [ ] **D-2f9aa60391faa8115222** - 5. No brittle source rewriting as authority. - Regex/text replacement is allowed only for syntax-independent, provably uniform substitutions guarded by positive and negative fixtur...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 5. No brittle source rewriting as authority. - Regex/text replacement is allowed only for syntax-independent, provably uniform substitutions guarded by positive and negative fixtures. - Type/member/overload/inheritance/descriptor-sensitive changes must use semantic/symbol evidence.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 90-92](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L90-L92)
+
+<a id="d-2fc807da62ef3041e8f7"></a>
+- [ ] **D-2fc807da62ef3041e8f7** - 8. Failures improve the engine. - Every nontrivial generalized fix must become a reusable rule plus positive fixture, negative control and runtime/build regression evidence. - Manu...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 8. Failures improve the engine. - Every nontrivial generalized fix must become a reusable rule plus positive fixture, negative control and runtime/build regression evidence. - Manual source surgery on a target fixture remains an engine defect until generalized or explicitly proven project-specific.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 106-108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L106-L108)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T136 — Snapshot existing Dev Kit evidence (1)</summary>
+
+<a id="d-671a57ff65bc45aa3341"></a>
+- [ ] **D-671a57ff65bc45aa3341** - — Record exact hashes/revisions of the current mapping, semantic, linkage, runtime and target-26.3 scripts that are used as migration oracles.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries / T136 — Snapshot existing Dev Kit evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T136 : 276-276](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L276-L276)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T153 — Ingest official migration corpora (1)</summary>
+
+<a id="d-153fa196d33fe36a7505"></a>
+- [ ] **D-153fa196d33fe36a7505** - — Convert current Fabric/NeoForge/Minecraft migration material into provenance-bearing machine-readable edges rather than regex snippets.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T153 — Ingest official migration corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T153 : 516-516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L516-L516)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T157 — Build canonical `SemanticRule` schema (1)</summary>
+
+<a id="d-2da43d93935ef3f0a15d"></a>
+- [ ] **D-2da43d93935ef3f0a15d** - - source/target MC ranges; - source/target loader ranges; - language scope; - structural trigger; - semantic intent; - required symbol evidence; - transformation implementation; - ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - source/target MC ranges; - source/target loader ranges; - language scope; - structural trigger; - semantic intent; - required symbol evidence; - transformation implementation; - negative guards; - version ordering/dependencies; - provenance/license/permission; - confidence; - compile proof; - runtime proof; - validated fixtures; - invalidation conditions.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T157 — Build canonical `SemanticRule` schema
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 596-610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L596-L610)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker (1)</summary>
+
+<a id="d-db27b6cf76d7309f6091"></a>
+- [ ] **D-db27b6cf76d7309f6091** - GATE — Java/Kotlin source migration uses a compiler/type-aware worker with deterministic structured IPC and no dependency on an IDE UI.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G045 : 644-644](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L644-L644)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T163 — OpenRewrite primary recipe engine (1)</summary>
+
+<a id="d-4839036b0594fd031dc7"></a>
+- [ ] **D-4839036b0594fd031dc7** - — Implement Minecraft-specific OpenRewrite recipes for structurally safe source migrations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T163 — OpenRewrite primary recipe engine
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T163 : 667-667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L667-L667)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T166 — Kotlin-first semantic support (1)</summary>
+
+<a id="d-b979bf1e09258c59fe82"></a>
+- [ ] **D-b979bf1e09258c59fe82** - Fixtures must include extension functions, object/companion code, Fabric Language Kotlin, Gradle Kotlin DSL and supported Mixin patterns.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T166 — Kotlin-first semantic support
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 707-707](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L707-L707)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T346 — NeoForge JavaSourceTransformer specialist backend (1)</summary>
+
+<a id="d-5e8bdc00a303c6313576"></a>
+- [ ] **D-5e8bdc00a303c6313576** - — Integrate or differentially invoke current NeoForged JavaSourceTransformer (JST) for the exact source-transform domains it already owns well: Parchment Javadocs/parameter names, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Integrate or differentially invoke current NeoForged JavaSourceTransformer (JST) for the exact source-transform domains it already owns well: Parchment Javadocs/parameter names, Access Transformer application/validation, interface injection, Unpick and supported custom transformer plugins.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T346 — NeoForge JavaSourceTransformer specialist backend
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T346 : 725-725](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L725-L725)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T173 — Compiled-only lane stays separate from source-first lane (1)</summary>
+
+<a id="d-06ac509dc0bfd2fd0ea6"></a>
+- [ ] **D-06ac509dc0bfd2fd0ea6** - Do not patch bytecode merely because source transformation is harder when maintainable source exists.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T173 — Compiled-only lane stays separate from source-first lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 791-791](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L791-L791)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox / T184 — Separate analysis from code execution (1)</summary>
+
+<a id="d-a7d79b6bf53d0a1c2de3"></a>
+- [ ] **D-a7d79b6bf53d0a1c2de3** - — Source/archive/metadata analysis should not execute project build scripts.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G049 — Untrusted build sandbox and supply-chain boundary / T183 — Default-deny build sandbox / T184 — Separate analysis from code execution
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T184 : 1048-1048](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1048-L1048)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration (1)</summary>
+
+<a id="d-c7dc9996e14a5a152802"></a>
+- [ ] **D-c7dc9996e14a5a152802** - GATE — Java-clean conversions cannot silently lose Minecraft data/resource behavior.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G050 : 1078-1078](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1078-L1078)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T190 — Datagen equivalence (1)</summary>
+
+<a id="d-841e5887a1ea30677cf8"></a>
+- [ ] **D-841e5887a1ea30677cf8** - — When source datagen exists, run source and target datagen where practical and compare normalized outputs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T190 — Datagen equivalence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T190 : 1104-1104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1104-L1104)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T322 — Source transformation prefilter without semantic downgrade (2)</summary>
+
+<a id="d-99de591928d56e035887"></a>
+- [ ] **D-99de591928d56e035887** - — Evaluate ast-grep as a fast parallel tree-sitter structural search/rewrite *prefilter* for large Java/Kotlin/code/config corpora. Use it to locate candidate transformation sites ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate ast-grep as a fast parallel tree-sitter structural search/rewrite *prefilter* for large Java/Kotlin/code/config corpora. Use it to locate candidate transformation sites and mine recurring patterns before handing exact semantic decisions to JDT/OpenRewrite/compiler/mapping oracles.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T322 — Source transformation prefilter without semantic downgrade
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T322 : 1195-1195](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1195-L1195)
+
+<a id="d-a3f78770b7c37696d9ff"></a>
+- [ ] **D-a3f78770b7c37696d9ff** - Never promote an ast-grep textual/structural match to an auto-fix when symbol/type/runtime semantics are required.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T322 — Source transformation prefilter without semantic downgrade
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1197-1197](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1197-L1197)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T288 — Capability readiness matrix (1)</summary>
+
+<a id="d-90969e9919ce6a4c2411"></a>
+- [ ] **D-90969e9919ce6a4c2411** - — Add one machine-readable capability matrix showing supported Minecraft versions, loaders, Java versions, source/compiled support, conversion/repair/authoring/test/runtime capabil...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add one machine-readable capability matrix showing supported Minecraft versions, loaders, Java versions, source/compiled support, conversion/repair/authoring/test/runtime capabilities and exact degraded/unsupported reasons. The matrix is generated from real adapters/toolchains/tests, not hand-written marketing flags.
+  - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T288 — Capability readiness matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T288 : 1444-1444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1444-L1444)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T225 — Negative controls (1)</summary>
+
+<a id="d-3add2193665d38317c61"></a>
+- [ ] **D-3add2193665d38317c61** - — Every generalized semantic rule family must have fixtures that look similar but must not be transformed.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T225 — Negative controls
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T225 : 1744-1744](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1744-L1744)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G059 — Final promotion matrix for researched technologies (1)</summary>
+
+<a id="d-529ad3b9e93110ec4901"></a>
+- [ ] **D-529ad3b9e93110ec4901** - | Candidate / family | Final implementation role | |---|---| | Rust native core | PRODUCTION OWNER for orchestration/state/runtime/process/files/cache/progress/receipts | | OpenRew...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Candidate / family | Final implementation role | |---|---| | Rust native core | PRODUCTION OWNER for orchestration/state/runtime/process/files/cache/progress/receipts | | OpenRewrite | PRIMARY semantic recipe engine | | Eclipse JDT | PRIMARY compiler/symbol oracle | | Spoon + GumTree-Spoon | rule mining / structural transformation comparator | | RefactoringMiner | API/refactoring evolution evidence | | Mapping-IO | mapping format normalization | | Tiny Remapper | compiled remap lane/oracle | | SrgUtils + NeoForged AutoRenamingTool | Forge/NeoForge mapping lane | | Srg2Source / Mercury / Lorenz | source-remap comparators / selective reuse | | Ravel | Kotlin/Mixin/AW mapping oracle / algorithm source | | Parchment | pre-26.1 optional semantic enrichment | | MC Mod Porter | permissioned code + migration-KB integration candidate | | Sinytra Connector/Adapter | top-priority compatibility pattern corpus | | Launchpad / FFAPI / Forgified Loader | Fabric-&gt;NeoForge semantic correspondence evidence | | Kilt/Twill | Forge-&gt;Fabric inverse correspondence evidence | | Patchwork | historical transformation corpus only | | Porting Lib | semantic bridge corpus | | Forge Config API Port | configuration semantic corpus | | MixinTransmogrifier / MixinExtras | Mixin compatibility corpus | | NeoFormRuntime | authoritative NeoForge target-universe component/reference | | Fabric Loom | Fabric target build/test path | | ModDevGradle / NeoGradle | NeoForge target build/test path | | ForgeGradle | Forge target build path | | Unimined | legacy/broad matrix fixture generator / alternate supported route | | Essential Gradle Toolkit / Essential Loom | legacy + multi-version build challenger/reference | | ReplayMod preprocessor / Manifold preprocessor | conditional one-source multi-version techniques | | Stonecutter | primary one-tree multi-version output technique | | Stonecraft | conditional output abstraction bakeoff | | Architectury / MultiLoader-Template | common-source output comparators/patterns | | Forgix | conditional merged-artifact output only with strict archive/runtime gates | | Revapi + japicmp | API delta independent oracles | | JDK 25 Class-File API | modern classfile primary-candidate for Java-25 lane | | ASM | classfile authority/comparator and ecosystem fallback | | Vineflower | primary decompiler | | CFR | independent decompiler oracle | | Codebook + Unpick | compiled normalization/constant-recovery bakeoff | | Byte Buddy | conditional bytecode transformation | | Recaf | investigation/QA comparator | | SootUp | conditional hard-case call/data-flow analysis | | Gradle Tooling API | structured build-model extraction | | Maven Resolver | explicit artifact/dependency resolution helper | | Gradle locking + dependency verification | generated-project reproducibility/security gate | | misode/mcmeta | versioned data/resource diff corpus, independently verified where load-bearing | | Spyglass / vanilla-mcdoc | version-aware JSON/NBT/CODEC schema validation and authoring intelligence | | MinecraftDev / Railroad IDE | authoring/inspection/generator behavior corpora; selective reuse only | | minecraft-data | secondary cross-version data oracle | | DataFixerUpper concepts | persistent-data migration architecture | | Fabric Loader JUnit / Fabric GameTest / NeoForge Test Framework | loader-native automated test layers | | HeadlessMC / MC-Runtime-Test | CI/runtime comparator; not final promotion authority | | Enderloom native launcher/server | final runtime promotion authority | | MFT + USN | Windows high-performance local invalidation/indexing | | Everything IPC | optional accelerator only | | SQLite/CAS | canonical control/immutable storage baseline unless a measured specialized store wins | | redb/Fjall | specialized conditional KV only | | packwiz / Ferium | modpack/repair/import-export comparators; never canonical solver authority | | mod-publish-plugin / mc-publish / Minotaur | optional secure release/publishing adapters | | ORT / ScanCode | vendored-code license/provenance support | | ModForge | high-priority mapping/migration differential oracle; integration candidate only after independent AoA/fixture proof | | Fabric Loom migration tasks | Fabric-native source/Mixin/AW migration oracle | | NeoForged JarCompatibilityChecker | compiled API/binary delta oracle beside Revapi/japicmp | | Paper Mâché / paperweight | deterministic reconstruction/patch/build architecture corpus; conditional backend | | NeoForge InstallerTools | JAR split/patch/inject/problems architecture corpus; selective reuse only | | Ornithe Feather/Calamus/nests/signatures/Ploceus | legacy mapping/reconstruction/build lane where target versions require it | | Sinytra Launchpad / ConnectorExtras | high-value Fabric-&gt;NeoForge metadata/lifecycle/API bridge corpus | | Crash Assistant / MixinTrace | repair-signature + ownership/provenance corpus; independently verified rules only | | mc-server-test | production-server CI breadth before final Enderloom runtime promotion | | spark / async-profiler / JFR-JMC | Minecraft/JVM performance evidence lane | | ast-grep | fast structural prefilter/rule-mining aid, never semantic authority | | Pakku / AutoModpack | modpack dependency/update/managed-file UX and repair comparators | | minecraft-modding-mcp / modlens-mcp / similar analyzers | secondary differential oracles/fixture generators only | | simdnbt / fastnbt / mca | world/NBT repair bakeoff; conditional production module | | Minecraft Region Fixer / MCA Selector | world-repair behavioral fixtures/reference only | | Gradle Profiler | build-performance proof harness | | AppContainer / OS sandbox | untrusted build execution boundary |
+  - **Binding context:** G059 — Final promotion matrix for researched technologies
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1792-1867](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1792-L1867)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.4 Mixins must be proven in the real loader (1)</summary>
 
 <a id="d-f7504f4a223e63830d85"></a>
@@ -3104,7 +4597,297 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - direct compatible update; - loader-native replacement; - source port required; - semantic conversion required; - removed because genuinely obsolete and equivalent behavior now exists elsewhere only with explicit evidence/user plan; - blocker; - unknown.
   - **Binding context:** 11. Premium Whole-Modpack Migration Engine / 11.2 Migration plan
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 950-956](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L950-L956)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 957-963](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L957-L963)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (2)</summary>
+
+<a id="d-24cad714e2189bbc09eb"></a>
+- [ ] **D-24cad714e2189bbc09eb** - 2. One semantic project, many target cells. - Do not create unrelated per-version repositories as the normal workflow. - A target cell is a projection of one semantic project plus ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 2. One semantic project, many target cells. - Do not create unrelated per-version repositories as the normal workflow. - A target cell is a projection of one semantic project plus explicit scoped adapters/overrides. - Generated target source is output, not the master source of truth.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 73-76](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L73-L76)
+
+<a id="d-1a62c08154a6f74fab35"></a>
+- [ ] **D-1a62c08154a6f74fab35** - 6. No cumulative port drift. - Do not port 1.20.1 -&gt; 1.21.1 -&gt; 26.3 by repeatedly mutating generated source until semantics drift. - Use the canonical semantic project and ve...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 6. No cumulative port drift. - Do not port 1.20.1 -&gt; 1.21.1 -&gt; 26.3 by repeatedly mutating generated source until semantics drift. - Use the canonical semantic project and version graph as the stable base. - Neighboring proven cells may provide evidence, diffs, donor behavior, or a migration path, but every target projection remains traceable to canonical semantic intent.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 94-97](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L94-L97)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Tool and method integration map (1)</summary>
+
+<a id="d-f13f96fc36113159e67d"></a>
+- [ ] **D-f13f96fc36113159e67d** - | Tool / method | Enderloom role | Required disposition | | --- | --- | --- | | Current devkit_multiversion.py + real Stonecutter 0.9.8 workflow | Proven baseline for common-source...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Tool / method | Enderloom role | Required disposition | | --- | --- | --- | | Current devkit_multiversion.py + real Stonecutter 0.9.8 workflow | Proven baseline for common-source factoring, conditional generation, native build isolation, resume, add-target, packaging | Preserve behavior; migrate authority into Universal Version Family Service; retain compatibility/export adapter | | Stonecutter | Multiversion source rendering/export and proven design reference | Optional backend/reference, never canonical state owner | | Stonecraft and other current multiversion challengers already accepted by Enderloom research | Alternative rendering/build ideas where measurably stronger | Differential challenger or optional backend after parity proof | | MC Mod Porter (authorized source) | Historical migration knowledge and useful implementation patterns | Import useful facts/rules/algorithms into canonical SemanticRule store with provenance and regression proof | | ModForge | Exact/candidate/unresolved symbol evidence | Differential symbol oracle feeding mapping/API graph | | Fabric Loom migration tasks | Fabric-native mapping/migration truth | Native Fabric oracle; compare with Enderloom results | | Ravel | PSI-aware Java/Kotlin/Mixin/Class Tweaker remapping | Specialist differential oracle/adapter where more exact | | NeoForged AutoRenamingTool / SrgUtils | Forge/NeoForge JAR/name remapping | Specialist remap backend/oracle | | Mapping-IO | Mapping format normalization | Low-level canonical mapping adapter | | Tiny Remapper | Compiled JAR remapping | Low-level remap backend/oracle | | Ornithe mapping/tooling family | Historical/legacy mapping eras | Explicit legacy graph lane, never universal dependency | | Parchment | Parameter/Javadoc semantic enrichment | Enrichment evidence only where version-appropriate | | OpenRewrite | Structured Java/Kotlin semantic migration recipes | Primary source transform engine for supported transformations | | Eclipse JDT | Java type/compiler semantic evidence | Compiler/type oracle and difficult transform support | | Spoon / GumTree / RefactoringMiner | Structural AST/diff/change evidence | Differential/reference engines feeding semantic migration and API-change learning | | Kotlin K2 Analysis API | Kotlin symbol/type semantics | Narrow pinned adapter; fallback to explicit compiler diagnostics, never silent weakening | | NeoForge JavaSourceTransformer | Parchment/AT/interface injection/Unpick and related NeoForge source transforms | Specialist backend/oracle behind canonical IR | | JDK Class-File API + ASM | Bytecode/class structure and exact owner/name/descriptor evidence | Canonical compiled-artifact analysis lane with differential checks | | Vineflower / CFR | Decompilation and reconstruction evidence | Multiple decompiler oracles; disagreement remains explicit | | PaperMC Codebook / Unpick | Legacy/constant-heavy reconstruction | Specialist oracle/backend where it improves exactness | | NeoForge JarCompatibilityChecker / Revapi / japicmp / OpenJDK SigTest | API/binary delta evidence | Normalize into one API delta graph; preserve disagreement | | Mache / paperweight / InstallerTools / MCPConfig / MergeTool / BinaryPatcher / DiffPatch | Deterministic artifact reconstruction and exact patch lineage patterns | Reuse/port useful algorithms/formats; do not clone entire ecosystems unnecessarily | | ClassGraph / Jandex | Fast classpath/module/resource/annotation inventory | Bake off against native/JDK index; choose or combine by measured result | | RetroDebugInjector | Legacy compiled-artifact debug/reconstruction cases | Legacy-only differential oracle or ported algorithm | | Sinytra Launchpad | Fabric-convention -&gt; NeoForge semantic correspondences | Loader migration corpus/oracle | | ConnectorExtras | Real two-way platform/API bridge correspondences | Loader migration evidence and optional compatibility adapters | | Kilt/Twill / Porting Lib | Forge/NeoForge -&gt; Fabric inverse correspondences | Loader migration corpus/oracle | | Forge Config API Port and focused bridges | Exact subsystem correspondence | Narrow loader adapter/reference where semantics match | | AccessTransformers / Class Tweaker / Access Widener / interface injection / MixinExtras | Loader mutation semantics | Parse to canonical typed IR, emit target-native form, prove runtime target application | | Gradle Tooling API / Maven Resolver | Build model and dependency graph | Canonical project/dependency evidence; do not scrape Gradle console text when structured models exist | | Fabric Loom / NeoForge ModDevGradle / ForgeGradle / Quilt tooling | Target-native builds | Each target cell retains its real native build owner | | Rust native core / task graph / CAS | Fast durable orchestration | Own resume, incremental invalidation, cache, process control, receipts, target execution |
+  - **Binding context:** Tool and method integration map
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 200-233](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L200-L233)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Execution contract (1)</summary>
+
+<a id="d-8f43084b9baf82f353a4"></a>
+- [ ] **D-8f43084b9baf82f353a4** - - Read this document once, then resume from the earliest unchecked task whose prerequisites are satisfied. - Do not restart ecosystem research unless a named implementation gap or ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Read this document once, then resume from the earliest unchecked task whose prerequisites are satisfied. - Do not restart ecosystem research unless a named implementation gap or stale upstream fact requires it. - Work in bounded windows of roughly 6-12 ready leaf tasks or one coherent section. - Check tasks only after observed proof. - A blocked task remains unchecked with BLOCKED: and NEXT: notes. - After two materially unchanged failed attempts, change strategy or repair the missing capability. - Preserve current verified multiversion behavior until the replacement path proves equal or stronger. - Do not retire devkit_multiversion.py, Stonecutter CI, or existing Northpoint evidence before parity and migration gates pass. - A successful target build never permits silently weakening another target. - The first implementation slice must be a real end-to-end target family, not architecture-only scaffolding.
+  - **Binding context:** Execution contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 241-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L241-L250)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-b1afe2485bef201753de"></a>
+- [ ] **D-b1afe2485bef201753de** - · Record baseline behavior for: common edit propagation, no-rebuild resume, target-only failure isolation, recovery, add-target preservation, source immutability, path safety, secr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Record baseline behavior for: common edit propagation, no-rebuild resume, target-only failure isolation, recovery, add-target preservation, source immutability, path safety, secret rejection, package checksums, and native runtime verification where already supported.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T004 : 259-259](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L259-L259)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical VersionGraph and target-cell identity (1)</summary>
+
+<a id="d-e076850ba70cd330b56b"></a>
+- [ ] **D-e076850ba70cd330b56b** - · Model migration edges as provenance-bearing graph edges with source range, target range, loader direction, mapping/API delta, confidence, prerequisites, rule set, evidence, and i...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Model migration edges as provenance-bearing graph edges with source range, target range, loader direction, mapping/API delta, confidence, prerequisites, rule set, evidence, and invalidation conditions.
+  - **Binding context:** GATE - Canonical VersionGraph and target-cell identity
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T010 : 270-270](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L270-L270)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - One SemanticProject for Create, Convert, Repair, and Port (5)</summary>
+
+<a id="d-33adc45668145c4dd3d1"></a>
+- [ ] **D-33adc45668145c4dd3d1** - · Include source authority hashes, language/source sets, registrations/content identities, metadata, dependencies, embedded JARs, Mixins, access mutations, resources/data/datagen, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Include source authority hashes, language/source sets, registrations/content identities, metadata, dependencies, embedded JARs, Mixins, access mutations, resources/data/datagen, configs, networking, save schemas, build intent, runtime intent, and provenance.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T016 : 281-281](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L281-L281)
+
+<a id="d-cc4d30ac9e4a1c13edd6"></a>
+- [ ] **D-cc4d30ac9e4a1c13edd6** - · Define layered ownership: common semantic/source, loader-family adapter, version-family adapter, project-specific semantic rule, exact target-cell override, and generated project...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Define layered ownership: common semantic/source, loader-family adapter, version-family adapter, project-specific semantic rule, exact target-cell override, and generated projection.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T017 : 282-282](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L282-L282)
+
+<a id="d-cd8c7673a6d423892e76"></a>
+- [ ] **D-cd8c7673a6d423892e76** - · Preserve unknown/unmodeled fields and source files whenever representable. Ambiguity must not become deletion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T019 : 284-284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L284-L284)
+
+<a id="d-f3688cf68443068f65ad"></a>
+- [ ] **D-f3688cf68443068f65ad** - · Store SemanticRule separately from generated source. A rule must include applicability, intent, matcher/evidence, transformation, negative guards, provenance, confidence, tests, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Store SemanticRule separately from generated source. A rule must include applicability, intent, matcher/evidence, transformation, negative guards, provenance, confidence, tests, and invalidation conditions.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T020 : 285-285](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L285-L285)
+
+<a id="d-6f05b276bff00332f9c1"></a>
+- [ ] **D-6f05b276bff00332f9c1** - · Permit a source-first representation for maintainable user-authored code, but keep semantic identities/provenance strong enough that generated source cannot become untraceable ha...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Permit a source-first representation for maintainable user-authored code, but keep semantic identities/provenance strong enough that generated source cannot become untraceable hand-edited truth.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T021 : 286-286](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L286-L286)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Generalized shared-source factoring and projection engine (2)</summary>
+
+<a id="d-4a6358cb769cb5be8396"></a>
+- [ ] **D-4a6358cb769cb5be8396** - · Never auto-merge program semantics with regex/text heuristics when comments, text blocks, parser ambiguity, Kotlin constructs, nested preprocessors, generated code, or semantic s...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Never auto-merge program semantics with regex/text heuristics when comments, text blocks, parser ambiguity, Kotlin constructs, nested preprocessors, generated code, or semantic structure make the merge unsafe. Fall back to exact overlays or AST/semantic transforms.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T025 : 295-295](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L295-L295)
+
+<a id="d-79faeaec203ef4731bf2"></a>
+- [ ] **D-79faeaec203ef4731bf2** - · Add typed projection planning for Java, Kotlin, resources, metadata, data packs, datagen inputs, access rules, Mixins, nested JARs, services/modules, and loader-specific build fi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Add typed projection planning for Java, Kotlin, resources, metadata, data packs, datagen inputs, access rules, Mixins, nested JARs, services/modules, and loader-specific build files.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T026 : 296-296](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L296-L296)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (1)</summary>
+
+<a id="d-e2ed0c54d02f142dc574"></a>
+- [ ] **D-e2ed0c54d02f142dc574** - · A target-only source/override edit must not rebuild unchanged sibling cells.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T036 : 311-311](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L311-L311)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (4)</summary>
+
+<a id="d-1bdb8807bdbe4b1aafbb"></a>
+- [ ] **D-1bdb8807bdbe4b1aafbb** - · Make OpenRewrite the primary structured recipe engine for transformations it models safely, with typed findings/result exports rather than log scraping.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T052 : 337-337](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L337-L337)
+
+<a id="d-d87542e7096ccdfdf378"></a>
+- [ ] **D-d87542e7096ccdfdf378** - · Add Kotlin-first semantic support through OpenRewrite Kotlin, Ravel, K2 Analysis API, and compiler diagnostics as appropriate. Pin exact supported compiler/tool versions and fail...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Add Kotlin-first semantic support through OpenRewrite Kotlin, Ravel, K2 Analysis API, and compiler diagnostics as appropriate. Pin exact supported compiler/tool versions and fail explicitly when semantic analysis is unavailable.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T055 : 340-340](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L340-L340)
+
+<a id="d-db24cf55095002ffe73a"></a>
+- [ ] **D-db24cf55095002ffe73a** - · Snapshot the authorized MC Mod Porter source and import its useful migration facts, transforms, version knowledge, and algorithms into SemanticRule entries with provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T057 : 342-342](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L342-L342)
+
+<a id="d-e9947e2acf3fac320c07"></a>
+- [ ] **D-e9947e2acf3fac320c07** - · Add rule minimization/generalization: when the same fix appears in multiple cells, attempt to raise it to the narrowest common family layer and prove that unrelated cells are una...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Add rule minimization/generalization: when the same fix appears in multiple cells, attempt to raise it to the narrowest common family layer and prove that unrelated cells are unaffected.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T060 : 345-345](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L345-L345)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Loader semantic adapters instead of API spelling replacement (2)</summary>
+
+<a id="d-b7585d12156c2c830b37"></a>
+- [ ] **D-b7585d12156c2c830b37** - · Model loader concepts as semantic capabilities: entrypoints, events, registries, lifecycle, networking, data generation, config, capabilities/components, attachments, rendering h...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Model loader concepts as semantic capabilities: entrypoints, events, registries, lifecycle, networking, data generation, config, capabilities/components, attachments, rendering hooks, commands, packets, services, access mutation, loader metadata, dependency semantics, nested JAR behavior, and environment/side declarations.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T063 : 353-353](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L353-L353)
+
+<a id="d-f5f8f1c8ba40b1eaf549"></a>
+- [ ] **D-f5f8f1c8ba40b1eaf549** - · Build Fabric, Forge, NeoForge, and supported Quilt adapters that map semantic intent to target-native APIs rather than performing string substitution.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T064 : 354-354](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L354-L354)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Create flow uses the same version-family engine (1)</summary>
+
+<a id="d-2770edab429688529457"></a>
+- [ ] **D-2770edab429688529457** - · Provide a per-feature compatibility explanation when one semantic feature cannot be represented on a target; do not silently omit it.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T086 : 386-386](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L386-L386)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-8edcb3dbab710f0bb043"></a>
+- [ ] **D-8edcb3dbab710f0bb043** - · Do not chain-mutate generated target source across ports. Each target must project from canonical semantic state plus scoped adapters/rules.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T091 : 396-396](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L396-L396)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Port flow is adding graph cells, not cloning projects (2)</summary>
+
+<a id="d-99d12dc93102805fd4c4"></a>
+- [ ] **D-99d12dc93102805fd4c4** - · Compute candidate migration routes using mapping era, API delta, loader semantics, proven neighboring cells, and rule confidence. Prefer the route with the strongest evidence and...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Compute candidate migration routes using mapping era, API delta, loader semantics, proven neighboring cells, and rule confidence. Prefer the route with the strongest evidence and least semantic uncertainty, not merely the numerically closest version.
+  - **Binding context:** GATE - Port flow is adding graph cells, not cloning projects
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T103 : 418-418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L418-L418)
+
+<a id="d-1c66a2b52eca8c043df7"></a>
+- [ ] **D-1c66a2b52eca8c043df7** - · Use multi-hop graph edges to plan understanding, but materialize the final target from canonical semantic state so intermediate generated-source drift does not accumulate.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Port flow is adding graph cells, not cloning projects
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T104 : 419-419](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L419-L419)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (2)</summary>
+
+<a id="d-1b12ac9abd612fd43055"></a>
+- [ ] **D-1b12ac9abd612fd43055** - · Reproduce current common-edit propagation, target-failure isolation, recovery, no-rebuild resume, add-target preservation, source immutability, credential rejection, path safety,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reproduce current common-edit propagation, target-failure isolation, recovery, no-rebuild resume, add-target preservation, source immutability, credential rejection, path safety, and packaging checksums through the new engine.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T127 : 457-457](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L457-L457)
+
+<a id="d-48eac1ff5302982098af"></a>
+- [ ] **D-48eac1ff5302982098af** - · After parity, move canonical orchestration/state into the production Rust/native service and semantic operations into the canonical JVM worker as specified by the main implementa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · After parity, move canonical orchestration/state into the production Rust/native service and semantic operations into the canonical JVM worker as specified by the main implementation contract. Python remains a migration oracle/fixture path only where still useful.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T130 : 460-460](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L460-L460)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-84f3cc2448bb03723479"></a>
+- [ ] **D-84f3cc2448bb03723479** - · Semantic rule fixture: import or author one reusable migration rule and prove positive matches, negative controls, version bounds, and exact target result.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T141 : 476-476](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L476-L476)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (2)</summary>
+
+<a id="d-3e687c66b5b8d9ec05af"></a>
+- [ ] **D-3e687c66b5b8d9ec05af** - · Prove unchanged reruns do not rebuild unchanged cells and do not re-run semantic/mapping work whose exact inputs are still valid.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T148 : 488-488](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L488-L488)
+
+<a id="d-09d0cd10b238e22da2f0"></a>
+- [ ] **D-09d0cd10b238e22da2f0** - · Run one adversarial challenge pass for content loss, stale async overwrite, graph-cycle/path bugs, conflicting rules, invalid cache reuse, mapping-era mistakes, loader-semantic f...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Run one adversarial challenge pass for content loss, stale async overwrite, graph-cycle/path bugs, conflicting rules, invalid cache reuse, mapping-era mistakes, loader-semantic false equivalence, secret leakage, target-path collision, and generated-source hand edits.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T153 : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L493-L493)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (2)</summary>
+
+<a id="d-125703c96b131bf2f90b"></a>
+- [ ] **D-125703c96b131bf2f90b** - · Add an Explain this difference view/CLI output that traces any generated target hunk/file back to common source + adapter/rule/override + evidence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T156 : 501-501](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L501-L501)
+
+<a id="d-44b7dd88328f70406da9"></a>
+- [ ] **D-44b7dd88328f70406da9** - · Add export paths for source bundle, target-native workspace, optional Stonecutter-compatible workspace, artifacts, checksums, and evidence receipts.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T158 : 503-503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L503-L503)
 
 </details>
 
@@ -3325,7 +5108,7 @@
 <a id="port-06-details"></a>
 ## PORT-06 - Mixin, access and reflection correctness
 
-[Outcome](Checklist.md#port-06) / 52 source-derived details.
+[Outcome](Checklist.md#port-06) / 70 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -3356,7 +5139,7 @@
 - [ ] **D-5724e0ca435febb505e9** - Mojmap/Yarn/Intermediary/Parchment/SRG/MCP namespace work; Mixin/AT/AW/reflection/ASM/invokedynamic inspection; production remap/linkage proof.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-021 : 463-463](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L463-L463)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-021 : 464-464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L464-L464)
 
 </details>
 
@@ -3585,6 +5368,176 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom (1)</summary>
+
+<a id="d-6de888f5001bdecf50d3"></a>
+- [ ] **D-6de888f5001bdecf50d3** - - successfully transformed files; - compile errors remaining; - false-positive edits; - missed API changes; - metadata accuracy; - target loader correctness; - runtime success; - m...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - successfully transformed files; - compile errors remaining; - false-positive edits; - missed API changes; - metadata accuracy; - target loader correctness; - runtime success; - manual interventions required; - wall-clock conversion/build time.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 874-882](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L874-L882)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR (1)</summary>
+
+<a id="d-3c4262715a44de280cdf"></a>
+- [ ] **D-3c4262715a44de280cdf** - GATE — Loader metadata, access changes, nested dependencies and entrypoint semantics round-trip through typed intermediate representations instead of fragile template replacement.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G026 : 989-989](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L989-L989)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` (1)</summary>
+
+<a id="d-f634fce89ff3df75884e"></a>
+- [ ] **D-f634fce89ff3df75884e** - - mod ID / aliases / provides; - version; - human metadata and license; - entrypoints / main classes; - loader and Minecraft constraints; - required/optional/incompatible dependenc...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - mod ID / aliases / provides; - version; - human metadata and license; - entrypoints / main classes; - loader and Minecraft constraints; - required/optional/incompatible dependencies; - version ranges; - client/server/both environment constraints; - mixin configuration files; - access/Class-Tweaker declarations; - language adapters; - nested/embedded libraries; - ordering constraints when the loader supports them; - services/transformers where applicable; - arbitrary unknown/custom metadata retained with provenance.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 997-1011](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L997-L1011)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection (2)</summary>
+
+<a id="d-1a24a9a4d8a8e88084be"></a>
+- [ ] **D-1a24a9a4d8a8e88084be** - — Normalize access and development-time type changes separately from runtime behavior.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T097 : 1040-1040](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1040-L1040)
+
+<a id="d-0ada49e8b2d2f73cf25b"></a>
+- [ ] **D-0ada49e8b2d2f73cf25b** - Critical rule: interface injection is not always a simple AW-&gt;AT translation. Fabric Class Tweakers can declare injected interfaces; NeoForge ModDevGradle&#x27;s interface-injec...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Critical rule: interface injection is not always a simple AW-&gt;AT translation. Fabric Class Tweakers can declare injected interfaces; NeoForge ModDevGradle&#x27;s interface-injection data is development-time and still requires runtime Mixin/Coremod behavior. Enderloom must emit both sides when needed and test actual runtime type behavior.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T097 — Build `AccessMutationIR` for AW/Class Tweaker/AT/interface injection
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1054-1054](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1054-L1054)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G027 — Runtime proof lane: converted mods must actually boot and exercise behavior / T100 — Add HeadlessMC / MC-Runtime-Test as a CI/runtime challenger / T102 — Add explicit Mixin/refmap/transformation proof (2)</summary>
+
+<a id="d-e2fd087eb5404bfb24d4"></a>
+- [ ] **D-e2fd087eb5404bfb24d4** - — A Mixin-heavy mod does not pass because the Java compiler accepted annotations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G027 — Runtime proof lane: converted mods must actually boot and exercise behavior / T100 — Add HeadlessMC / MC-Runtime-Test as a CI/runtime challenger / T102 — Add explicit Mixin/refmap/transformation proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T102 : 1116-1116](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1116-L1116)
+
+<a id="d-e00e84eed024e2aeff41"></a>
+- [ ] **D-e00e84eed024e2aeff41** - - mixin config discovery; - refmap generation/remapping where relevant; - target class/method/descriptor existence; - expected injector application count; - required/optional injec...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - mixin config discovery; - refmap generation/remapping where relevant; - target class/method/descriptor existence; - expected injector application count; - required/optional injection semantics; - MixinExtras compatibility/version requirements; - post-transform bytecode validity on risky fixtures; - no unintended extra targets.
+  - **Binding context:** G027 — Runtime proof lane: converted mods must actually boot and exercise behavior / T100 — Add HeadlessMC / MC-Runtime-Test as a CI/runtime challenger / T102 — Add explicit Mixin/refmap/transformation proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1120-1127](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1120-L1127)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T147 — Implement `AccessMutationIR` (1)</summary>
+
+<a id="d-2acee85f932b4cb40f03"></a>
+- [ ] **D-2acee85f932b4cb40f03** - Do not flatten interface injection into an AT when runtime behavior still needs Mixin/coremod logic.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T147 — Implement `AccessMutationIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L455-L455)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff (1)</summary>
+
+<a id="d-359f7b5eb59bfadb6025"></a>
+- [ ] **D-359f7b5eb59bfadb6025** - — Evaluate the JDK 25 Class-File API as the primary standard-classfile parsing/rewriting interface for the Java-25 lane.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T168 : 737-737](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L737-L737)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T169 — Kotlin metadata preservation (1)</summary>
+
+<a id="d-39ac46452c621c8d4e6c"></a>
+- [ ] **D-39ac46452c621c8d4e6c** - Do not ship bytecode that links at JVM level but has stale Kotlin reflection/compiler metadata; rewritten metadata and bytecode must agree on owners, signatures, visibility, defaul...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not ship bytecode that links at JVM level but has stale Kotlin reflection/compiler metadata; rewritten metadata and bytecode must agree on owners, signatures, visibility, default methods and callable identities.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T169 — Kotlin metadata preservation
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 756-756](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L756-L756)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T171 — Codebook + Unpick normalization bakeoff (1)</summary>
+
+<a id="d-273331dbec47556058de"></a>
+- [ ] **D-273331dbec47556058de** - — Compare PaperMC Codebook/Unpick with the current remap/decompile lane for legacy/constant-heavy artifacts.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T171 — Codebook + Unpick normalization bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T171 : 766-766](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L766-L766)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T318 — Access/Class Tweaker/Mixin format authority (1)</summary>
+
+<a id="d-2eb5411c219ffad716af"></a>
+- [ ] **D-2eb5411c219ffad716af** - — Parse and validate loader access/mutation formats against the loader&#x27;s current formal implementation/specification rather than ad-hoc text handling. Include current NeoForge...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Parse and validate loader access/mutation formats against the loader&#x27;s current formal implementation/specification rather than ad-hoc text handling. Include current NeoForged AccessTransformers and Fabric Class Tweaker semantics (including transitive access, interface injection and enum extension where supported), and version-aware MixinExtras selectors/expressions.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T318 — Access/Class Tweaker/Mixin format authority
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T318 : 893-893](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L893-L893)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T365 — Advanced Mixin transformation graph fixtures (2)</summary>
+
+<a id="d-b70e3ae310a43171e943"></a>
+- [ ] **D-b70e3ae310a43171e943** - — Extend MixinIR/repair/runtime fixtures for advanced transformation relationships rather than assuming every Mixin independently targets vanilla code. Include MixinSquared/mixin-i...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Extend MixinIR/repair/runtime fixtures for advanced transformation relationships rather than assuming every Mixin independently targets vanilla code. Include MixinSquared/mixin-into-mixin style behavior, MixinExtras expressions/selectors, connectors/config ordering and loader-provided Mixin versions where encountered.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T365 — Advanced Mixin transformation graph fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T365 : 918-918](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L918-L918)
+
+<a id="d-af99cb1fff89dc85ae78"></a>
+- [ ] **D-af99cb1fff89dc85ae78** - Automate safe use of Mixin&#x27;s supported debug evidence (mixin.debug.export, target dump-on-failure, audit/check/profiler facilities where applicable) so repair can compare pre-...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Automate safe use of Mixin&#x27;s supported debug evidence (mixin.debug.export, target dump-on-failure, audit/check/profiler facilities where applicable) so repair can compare pre-transform, post-transform and failing target bytes. Unsupported nested/third-party transformation semantics must become explicit assisted/blocked evidence, never flattened into a normal target Mixin.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T365 — Advanced Mixin transformation graph fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 920-920](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L920-L920)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T198 — Mixin/refmap package audit (1)</summary>
+
+<a id="d-7c9c4ce3a1a5a78b7352"></a>
+- [ ] **D-7c9c4ce3a1a5a78b7352** - — Verify Mixin configs/refmaps and exact target descriptors in the packaged artifact, not only source annotations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T198 — Mixin/refmap package audit
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T198 : 1227-1227](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1227-L1227)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T331 — Fuzz/property/adversarial parser suite (1)</summary>
+
+<a id="d-7f237dacbba9a007f913"></a>
+- [ ] **D-7f237dacbba9a007f913** - — Fuzz and property-test untrusted/high-variance inputs: ZIP/JAR central directories, nested JARs, manifests, loader metadata, mappings, AT/AW/Class Tweaker, Mixin config/refmaps, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Fuzz and property-test untrusted/high-variance inputs: ZIP/JAR central directories, nested JARs, manifests, loader metadata, mappings, AT/AW/Class Tweaker, Mixin config/refmaps, NBT/region files, provider JSON/HTML normalization and persisted job/session state. Use cargo-fuzz/Bolero/proptest-style tooling or stronger current equivalents where they fit the implementation language.
+  - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T331 — Fuzz/property/adversarial parser suite
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T331 : 1750-1750](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1750-L1750)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (1)</summary>
 
 <a id="d-2c49f134f89f1df95a7b"></a>
@@ -3659,6 +5612,28 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 42. Golden acceptance fixtures
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1561-1561](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1561-L1561)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Loader semantic adapters instead of API spelling replacement (1)</summary>
+
+<a id="d-01a6a79ba448b259d1cb"></a>
+- [ ] **D-01a6a79ba448b259d1cb** - · Require runtime PREPARE/APPLY or equivalent evidence for Mixins/access changes; build success does not prove transformer correctness.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T071 : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L361-L361)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-70ec7accb732321a7ba2"></a>
+- [ ] **D-70ec7accb732321a7ba2** - · Evaluate PaperMC Codebook/Unpick for legacy/constant-heavy cases and promote only behavior that measurably improves reconstruction correctness.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T075 : 370-370](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L370-L370)
 
 </details>
 
@@ -3797,7 +5772,7 @@
 <a id="port-07-details"></a>
 ## PORT-07 - JAR recovery and binary repair
 
-[Outcome](Checklist.md#port-07) / 49 source-derived details.
+[Outcome](Checklist.md#port-07) / 59 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -3856,7 +5831,7 @@
 - [ ] **D-345bcbf1d828eef099dc** - optional future-vanilla parity layer is explicit/default-off until opted in and certified separately.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-012 : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L487-L487)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-012 : 490-490](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L490-L490)
 
 </details>
 
@@ -3867,13 +5842,13 @@
 - [ ] **D-19667f6d9f89737bf1c0** - preserve original; inspect metadata/dependencies and decompile/remap when lawful; attribute source/Mixin/ASM/reflection issues.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.3 Binary/JAR repair
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-020 : 491-491](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L491-L491)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-020 : 494-494](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L494-L494)
 
 <a id="d-89abf65617cd6ccef953"></a>
 - [ ] **D-89abf65617cd6ccef953** - narrow patch, rebuild/repackage/remap, production JVM linkage, binary provenance/diff, runtime proof, rollback and license-aware redistribution.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.3 Binary/JAR repair
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-021 : 492-492](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L492-L492)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-021 : 495-495](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L495-L495)
 
 </details>
 
@@ -4042,6 +6017,109 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T060 — japicmp as the fast JAR-diff lane (1)</summary>
+
+<a id="d-0ff691e97b4f4ee6965c"></a>
+- [ ] **D-0ff691e97b4f4ee6965c** - — Add japicmp for very fast two-JAR API comparison and use it as an independent oracle against Revapi.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T060 — japicmp as the fast JAR-diff lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T060 : 301-301](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L301-L301)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T084 — Add NeoForged AutoRenamingTool as the modern compiled-JAR remap comparator (1)</summary>
+
+<a id="d-9693130b3368c4386915"></a>
+- [ ] **D-9693130b3368c4386915** - — Evaluate NeoForged AutoRenamingTool (ART) as the current successor to ForgeAutoRenamingTool/FART for compiled-JAR renaming and auxiliary transforms.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T084 — Add NeoForged AutoRenamingTool as the modern compiled-JAR remap comparator
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T084 : 805-805](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L805-L805)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T096 — Give nested dependencies their own `EmbeddedDependencyIR` (1)</summary>
+
+<a id="d-95e3f91813b237b874ee"></a>
+- [ ] **D-95e3f91813b237b874ee** - — Translate Fabric nested JARs and NeoForge Jar-in-Jar deliberately.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` / T096 — Give nested dependencies their own `EmbeddedDependencyIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T096 : 1022-1022](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1022-L1022)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze / T133 — Freeze the research frontier after reconciling the final material additions (1)</summary>
+
+<a id="d-1a43f63d506857d03ddf"></a>
+- [ ] **D-1a43f63d506857d03ddf** - | Candidate / corpus | Enderloom role | Disposition | |---|---|---| | PaperMC Codebook + Unpick | semantic JAR normalization / constant recovery | BAKEOFF NOW for source-reconstruc...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Candidate / corpus | Enderloom role | Disposition | |---|---|---| | PaperMC Codebook + Unpick | semantic JAR normalization / constant recovery | BAKEOFF NOW for source-reconstruction inputs | | paperweight + mache | deterministic reconstruction/patch architecture | MINE PATTERNS / COMPARATOR | | Stonecraft | generated Stonecutter + Architectury workspace abstraction | BAKEOFF WHEN GENERATING MULTI-VERSION OUTPUT | | OpenShock Integrations.Minecraft | 1.20.x -&gt; 26.x Fabric/NeoForge matrix reference | REGRESSION/STRUCTURE FIXTURE | | TheMightyArchitectury | 14-version / 27-artifact packaged-runtime matrix | HIGH-VALUE RUNTIME/MATRIX FIXTURE | | Forge Config API Port | cross-loader configuration semantic corpus | INGEST CAPABILITY KNOWLEDGE | | direct Codeberg/SourceHut crawling | additional forge discovery route | UNRESOLVED BY CURRENT CRAWLER ROBOTS; use registries/mirrors/canonical links, never call empty |
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze / T133 — Freeze the research frontier after reconciling the final material additions
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1885-1893](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1885-L1893)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T146 — Implement `EmbeddedDependencyIR` (1)</summary>
+
+<a id="d-687e1c5ba6beeb22c03a"></a>
+- [ ] **D-687e1c5ba6beeb22c03a** - — Normalize nested JAR/JarJar semantics without pretending loaders resolve them identically.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T146 — Implement `EmbeddedDependencyIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T146 : 439-439](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L439-L439)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T313 — Differential source/JAR remap proof stack (1)</summary>
+
+<a id="d-5def00b77c7fbc6309a0"></a>
+- [ ] **D-5def00b77c7fbc6309a0** - — Make remapping a proven multi-oracle operation instead of trusting one implementation. On representative Java, Kotlin, Mixin, MixinExtras, Access Widener/Class Tweaker and compil...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Make remapping a proven multi-oracle operation instead of trusting one implementation. On representative Java, Kotlin, Mixin, MixinExtras, Access Widener/Class Tweaker and compiled-JAR fixtures, compare Enderloom against:
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T313 — Differential source/JAR remap proof stack
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T313 : 545-545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L545-L545)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T315 — Binary/API compatibility differential gate (1)</summary>
+
+<a id="d-dfcea6a339ffd0438ec9"></a>
+- [ ] **D-dfcea6a339ffd0438ec9** - — Add NeoForged JarCompatibilityChecker beside Revapi/japicmp as an independent compiled-JAR API/binary delta oracle. Compare outputs across Minecraft/loader/API version pairs and ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add NeoForged JarCompatibilityChecker beside Revapi/japicmp as an independent compiled-JAR API/binary delta oracle. Compare outputs across Minecraft/loader/API version pairs and normalize differences into Enderloom&#x27;s API-delta graph.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T315 — Binary/API compatibility differential gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T315 : 795-795](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L795-L795)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T257 — Bake off rawzip for JAR/ZIP inventory hot paths (1)</summary>
+
+<a id="d-a72ea74eafc099d85d44"></a>
+- [ ] **D-a72ea74eafc099d85d44** - — Compare rawzip against the current zip crate for central-directory scans, metadata extraction, nested-JAR discovery and large mod-folder inventory.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T257 — Bake off rawzip for JAR/ZIP inventory hot paths
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T257 : 2235-2235](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2235-L2235)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T355 — Static mod-JAR threat screening before install/launch (1)</summary>
+
+<a id="d-d8fab6e78849a253b9c7"></a>
+- [ ] **D-d8fab6e78849a253b9c7** - — Add a non-executing static security screen for newly downloaded/imported mods/plugins using known malicious hashes/IOCs plus bytecode capability/YARA-style evidence. Mine IHP, th...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add a non-executing static security screen for newly downloaded/imported mods/plugins using known malicious hashes/IOCs plus bytecode capability/YARA-style evidence. Mine IHP, the fractureiser investigation corpus, Jarspect bytecode/string-reconstruction ideas and similar maintained rule sets as evidence sources, but keep Enderloom&#x27;s verdict policy deterministic and explainable.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T355 — Static mod-JAR threat screening before install/launch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T355 : 2416-2416](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2416-L2416)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.3 Crash-aware Fix All (1)</summary>
 
 <a id="d-2967630b387115e22b88"></a>
@@ -4158,6 +6236,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 38. Micro-QOL saturation pass
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1439-1439](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1439-L1439)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-a906144c4cc49b9350b8"></a>
+- [ ] **D-a906144c4cc49b9350b8** - · Compare Vineflower and CFR decompilation for difficult artifacts; preserve disagreement and original bytecode evidence rather than trusting one decompiler.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T074 : 369-369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L369-L369)
 
 </details>
 
@@ -4286,7 +6375,7 @@
 <a id="port-08-details"></a>
 ## PORT-08 - Modern and historical build matrix
 
-[Outcome](Checklist.md#port-08) / 52 source-derived details.
+[Outcome](Checklist.md#port-08) / 64 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -4306,7 +6395,7 @@
 - [ ] **D-1c1e0c79705a7d53768e** - Bedrock backpack-class addon -&gt; Forge 1.20.1: Phase K exit plus PM-010/011 and any other semantically applicable contracts.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-07 : 661-661](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L661-L661)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-07 : 667-667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L667-L667)
 
 </details>
 
@@ -4537,6 +6626,93 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T055 — ModDevGradle becomes a target-generation/reference lane (1)</summary>
+
+<a id="d-ee2d5a3d9a40e9942fc6"></a>
+- [ ] **D-ee2d5a3d9a40e9942fc6** - — Use ModDevGradle project fixtures for current NeoForge and legacy Forge dev environments, including configuration-cache behavior and access-transformer handling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T055 — ModDevGradle becomes a target-generation/reference lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T055 : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L226-L226)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T056 — Unimined is the broad loader/version coverage challenger (2)</summary>
+
+<a id="d-e495abc4b18da96ed079"></a>
+- [ ] **D-e495abc4b18da96ed079** - — Build a compatibility fixture matrix with Unimined covering modern and legacy loader families.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T056 — Unimined is the broad loader/version coverage challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T056 : 232-232](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L232-L232)
+
+<a id="d-18afc12892dae3760ebf"></a>
+- [ ] **D-18afc12892dae3760ebf** - Do not make Enderloom dependent on one external build plugin for its internal semantic model.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T056 — Unimined is the broad loader/version coverage challenger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 241-241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L241-L241)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G030 — Generated build systems must be fast, cache-safe and target-native (1)</summary>
+
+<a id="d-aea965bf6e8f521571e5"></a>
+- [ ] **D-aea965bf6e8f521571e5** - GATE — Enderloom emits target-loader builds that use modern Gradle performance features without sacrificing loader correctness or reproducibility.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G030 — Generated build systems must be fast, cache-safe and target-native
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G030 : 1292-1292](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1292-L1292)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T314 — Legacy mapping/reconstruction subgraph (1)</summary>
+
+<a id="d-292d70f0bc9639ce8906"></a>
+- [ ] **D-292d70f0bc9639ce8906** - — If Enderloom claims broad historical Minecraft support, add an explicit legacy mapping lane rather than stretching modern Yarn/Mojmap assumptions backwards. Evaluate/integrate th...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — If Enderloom claims broad historical Minecraft support, add an explicit legacy mapping lane rather than stretching modern Yarn/Mojmap assumptions backwards. Evaluate/integrate the useful parts of the Ornithe toolchain:
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T314 — Legacy mapping/reconstruction subgraph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T314 : 557-557](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L557-L557)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T363 — First-class Quilt target and historical compatibility lane (1)</summary>
+
+<a id="d-3d0af0e52c989ac69ef9"></a>
+- [ ] **D-3d0af0e52c989ac69ef9** - Use current Quilt Loader, Quilt Loom and Quilt Mappings as authority for supported historical/current cells. Record the lifecycle/status of QSL/QFAPI and other archived/superseded ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use current Quilt Loader, Quilt Loom and Quilt Mappings as authority for supported historical/current cells. Record the lifecycle/status of QSL/QFAPI and other archived/superseded bridges per Minecraft generation; never force a modern project onto a dead API merely because older Quilt projects used it. Generated/converted Quilt cells must configure, build and run through the actual Quilt toolchain when that cell is claimed supported.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T363 — First-class Quilt target and historical compatibility lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 901-901](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L901-L901)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T347 — Modern 1.7.10 Forge development/runtime lane (1)</summary>
+
+<a id="d-9f1821edf8654f8be0f0"></a>
+- [ ] **D-9f1821edf8654f8be0f0** - — Treat Minecraft 1.7.10 as a specialist target instead of resurrecting a fragile ancient ForgeGradle/JDK environment by default. Bake off GTNewHorizons RetroFuturaGradle (plus GTN...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Treat Minecraft 1.7.10 as a specialist target instead of resurrecting a fragile ancient ForgeGradle/JDK environment by default. Bake off GTNewHorizons RetroFuturaGradle (plus GTNHGradle where it adds useful conventions) for build/deobfuscation and RetroFuturaBootstrap for modern-Java-compatible LaunchWrapper behavior and post-transform class dumps.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T347 — Modern 1.7.10 Forge development/runtime lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T347 : 991-991](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L991-L991)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T349 — Ancient/legacy toolchain route matrix (1)</summary>
+
+<a id="d-46afe0aa321a8f32308f"></a>
+- [ ] **D-46afe0aa321a8f32308f** - — Extend the legacy graph below modern Forge/Fabric with verified specialist routes instead of one generic fallback: Ornithe/Legacy Fabric intermediaries where covered, RetroMCP-Ja...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Extend the legacy graph below modern Forge/Fabric with verified specialist routes instead of one generic fallback: Ornithe/Legacy Fabric intermediaries where covered, RetroMCP-Java for historical decompile/reconstruction evidence, StationAPI/Babric fixtures for Beta-era Fabric-style mods, and current legacy convention/build tools such as MagicBookGradle only where their supported envelope fills a real gap.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T349 — Ancient/legacy toolchain route matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T349 : 1003-1003](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1003-L1003)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 5. PRIMARY TARGET FIRST, THEN THE VERSION/LOADER MATRIX (1)</summary>
 
 <a id="d-4e9f76e02046e0fc207e"></a>
@@ -4578,6 +6754,39 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 42. Golden acceptance fixtures
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1558-1558](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1558-L1558)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical VersionGraph and target-cell identity (1)</summary>
+
+<a id="d-e475059a96486562a528"></a>
+- [ ] **D-e475059a96486562a528** - · Add explicit legacy mapping-era lanes rather than stretching current Mojmap/Yarn assumptions into historical MCP/SRG-era versions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Canonical VersionGraph and target-cell identity
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T014 : 274-274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L274-L274)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-e463bc1a9197361fa745"></a>
+- [ ] **D-e463bc1a9197361fa745** - · Build parity fixtures that compare old-worker and new-engine projections for current structural and real Stonecutter selftest cases.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T125 : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L455-L455)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-0a7e71c9bb573317e99e"></a>
+- [ ] **D-0a7e71c9bb573317e99e** - · Existing multiversion import fixture: import the current Stonecutter-style project and export/reproject without losing user changes or target-native build configuration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T144 : 479-479](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L479-L479)
 
 </details>
 
@@ -4742,10 +6951,22 @@
 
 </details>
 
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps (1)</summary>
+
+<a id="d-48da814476a9a1470f17"></a>
+- [ ] **D-48da814476a9a1470f17** - The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical J...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical JSON matrix.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L315-L315)
+
+</details>
+
 <a id="port-09-details"></a>
 ## PORT-09 - Native loader and compatibility modes
 
-[Outcome](Checklist.md#port-09) / 64 source-derived details.
+[Outcome](Checklist.md#port-09) / 111 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -4805,7 +7026,7 @@
 - [ ] **D-f5578251f38ed8554e7a** - legacy Minecraft/ForgeGradle/loader/mapping/resource/data/Bedrock-schema archaeology without deleting unsupported semantics just to compile.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.3 IDE / mapping / bytecode / legacy
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-022 : 464-464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L464-L464)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-022 : 465-465](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L465-L465)
 
 </details>
 
@@ -4816,7 +7037,7 @@
 - [ ] **D-6267d4df81cc26efac66** - base native port first; registry/event/network/render/data/Mixin/AT/AW/config/save migration; no silent stubs/deletion.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-011 : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L486-L486)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-011 : 489-489](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L489-L489)
 
 </details>
 
@@ -4827,7 +7048,7 @@
 - [ ] **D-32ab507fd9eba1ff6984** - Java port/backport: PI-010..012 plus Phase M applicable compatibility contracts.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-05 : 659-659](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L659-L659)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-05 : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L665-L665)
 
 </details>
 
@@ -5114,6 +7335,375 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA / Executive delta — genuinely important finds from the second scour / Highest-value additions (1)</summary>
+
+<a id="d-fa6103980bdb7addc782"></a>
+- [ ] **D-fa6103980bdb7addc782** - 1. OpenRewrite — production-grade recipe engine for repeatable Java/Kotlin/Groovy source migrations. Enderloom should prototype a Minecraft-specific recipe layer instead of keeping...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. OpenRewrite — production-grade recipe engine for repeatable Java/Kotlin/Groovy source migrations. Enderloom should prototype a Minecraft-specific recipe layer instead of keeping migrations as ad-hoc string edits. 2. Spoon + GumTree-Spoon + RefactoringMiner — source/AST-delta mining lane for discovering recurring Minecraft/loader API transformations from known before/after ports. 3. Eclipse JDT Language Server/JDT — compiler-grade semantic validation, diagnostics, symbol resolution, references, quick fixes and refactorings as an oracle around generated transformations. 4. MinecraftForge Srg2Source + renamer + SrgUtils — mature Forge-native source remapping/refactoring machinery; directly relevant to source-level symbol migration and mapping-format interoperability. 5. Fabric Mapping-IO + Tiny Remapper + Intermediary/Matcher/Stitch + Enigma — canonical cross-version identity/remapping reference lane, especially for mapping graph normalization and class/member continuity across versions. 6. NeoFormRuntime — current NeoForge artifact graph that deobfuscates, merges, patches and recompiles Minecraft; an authoritative reference for reconstructing a target-version development universe. 7. Sinytra Connector + Adapter + Launchpad + MixinTransmogrifier + Forgified Fabric API — probably the richest live compatibility corpus for Fabric -&gt; NeoForge. Connector&#x27;s Adapter is especially important: common incompatibility patterns are recognized and dynamically transformed rather than hard-coded per mod, with regression tests. 8. Porting Lib — explicit Forge-to-Fabric porting utilities and a useful API-semantic bridge corpus. 9. Unimined — broad loader/version build support, including legacy loaders. Use as a fixture generator and coverage reference for Enderloom&#x27;s universal version/loader matrix. 10. Stonecutter + loom-back-compat patterns — real projects are already maintaining one tree across 1.20.x, 1.21.x and 26.x, multiple Java versions and Fabric/NeoForge using conditional source sections and token replacement. Enderloom should generate this structure when it is the cleanest preserved-source result rather than cloning whole source trees. 11. Forgix — useful one-JAR multi-loader/multi-version packaging reference, but bake off carefully: 2026 reports include class-name/package handling issues on 26.x snapshots. 12. Revapi + japicmp — fast API-delta classification. Revapi gives richer source/binary/semantic API-surface analysis; japicmp is a fast JAR-vs-JAR binary/source compatibility lane. 13. Vineflower — modern multithreaded decompiler and the direct continuation of Quiltflower; use as the leading decompilation oracle, with CFR/other decompilers retained for disagreement detection. 14. Mercury + Lorenz — source remapping/transformation with mapping-aware source rewriting and access-transformer support. Useful comparative lane even if Enderloom&#x27;s main engine is OpenRewrite/JDT/Spoon. 15. Byte Buddy / ASM / Recaf — compiled-bytecode recovery and instrumentation toolbox for cases where source is unavailable or must be repaired after compilation; keep separate from source-first migration. 16. Direct NTFS MFT + USN Journal indexing — the prior scout already wanted MFT/USN; this pass found real Rust implementation patterns such as tyler-builds/fx. Treat these as reference implementations for instant local mod discovery/invalidation, not as blindly vendored dependencies.
+  - **Binding context:** ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA / Executive delta — genuinely important finds from the second scour / Highest-value additions
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 18-33](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L18-L33)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems (1)</summary>
+
+<a id="d-1d7487b0ad2c38d0cc31"></a>
+- [ ] **D-1d7487b0ad2c38d0cc31** - GATE — Enderloom converts source using a reusable loader-compatibility knowledge graph, not a pile of mod-specific patches.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G015 : 153-153](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L153-L153)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T050 — Ingest Connector transformer-plugin concepts and Mixin patch families (1)</summary>
+
+<a id="d-da2a24721c2db4baa4e7"></a>
+- [ ] **D-da2a24721c2db4baa4e7** - — Catalog Connector&#x27;s transformer API and patch categories as candidate source conversion rules:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T050 — Ingest Connector transformer-plugin concepts and Mixin patch families
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T050 : 175-175](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L175-L175)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T051 — Study Launchpad as the metadata/entrypoint conversion baseline (2)</summary>
+
+<a id="d-36f0363f03b8b7bf6617"></a>
+- [ ] **D-36f0363f03b8b7bf6617** - — Compare Enderloom&#x27;s loader conversion with Sinytra Launchpad.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T051 — Study Launchpad as the metadata/entrypoint conversion baseline
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T051 : 188-188](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L188-L188)
+
+<a id="d-59361351b20ae8296984"></a>
+- [ ] **D-59361351b20ae8296984** - Launchpad already handles developer-facing translation around Fabric-style conventions on NeoForge, including project metadata/entrypoint/access-widener/nested-jar concerns. Enderl...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Launchpad already handles developer-facing translation around Fabric-style conventions on NeoForge, including project metadata/entrypoint/access-widener/nested-jar concerns. Enderloom must at least match this friction reduction when producing a real native port.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T051 — Study Launchpad as the metadata/entrypoint conversion baseline
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 190-190](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L190-L190)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T052 — Use Forgified Fabric API and Porting Lib as semantic bridge corpora (2)</summary>
+
+<a id="d-45e71a8b7e7ebe6d8318"></a>
+- [ ] **D-45e71a8b7e7ebe6d8318** - — Index API correspondences from:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T052 — Use Forgified Fabric API and Porting Lib as semantic bridge corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T052 : 194-194](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L194-L194)
+
+<a id="d-5755fc79f9c477f00ac7"></a>
+- [ ] **D-5755fc79f9c477f00ac7** - These are evidence sources for &quot;what concept corresponds to what&quot;; do not automatically make converted mods depend on compatibility layers when a clean native target impl...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** These are evidence sources for &quot;what concept corresponds to what&quot;; do not automatically make converted mods depend on compatibility layers when a clean native target implementation is possible.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T052 — Use Forgified Fabric API and Porting Lib as semantic bridge corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 199-199](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L199-L199)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier (1)</summary>
+
+<a id="d-df4208474280b4e85d6b"></a>
+- [ ] **D-df4208474280b4e85d6b** - — Run Revapi across target API snapshots and important loader/library versions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T059 : 287-287](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L287-L287)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T062 — Byte Buddy / ASM / Recaf for compiled-only repair paths (1)</summary>
+
+<a id="d-14d7a78c0d863932540d"></a>
+- [ ] **D-14d7a78c0d863932540d** - — Keep a separate bytecode lane for source-unavailable or post-compile compatibility work.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T062 — Byte Buddy / ASM / Recaf for compiled-only repair paths
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T062 : 313-313](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L313-L313)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix / T072 — Cross-project mining corpus (1)</summary>
+
+<a id="d-8b3ea7975eadf7fb27d1"></a>
+- [ ] **D-8b3ea7975eadf7fb27d1** - — Build a lawful/reference corpus of real open-source ports and multi-loader siblings to mine generalized transformations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G021 — Second-pass promotion matrix / T072 — Cross-project mining corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T072 : 537-537](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L537-L537)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G022 — Final second-pass completion gate (1)</summary>
+
+<a id="d-180b80360926d52071a8"></a>
+- [ ] **D-180b80360926d52071a8** - — Convert every nontrivial failure discovered by T076 into a reusable recipe/compatibility rule plus negative and runtime regression fixtures.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G022 — Final second-pass completion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T077 : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L665-L665)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / THIRD DEEP-SCOUR DELTA — 2026-09-26 / Coverage ledger for this pass (1)</summary>
+
+<a id="d-dfaaa41637b607a19b96"></a>
+- [ ] **D-dfaaa41637b607a19b96** - | Coverage dimension | Third-pass status | Material result | |---|---|---| | Mapping/remap era transition | CLOSED WITH NEW WORK | 26.1+ must use a separate unobfuscated-era pipeli...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Coverage dimension | Third-pass status | Material result | |---|---|---| | Mapping/remap era transition | CLOSED WITH NEW WORK | 26.1+ must use a separate unobfuscated-era pipeline; Ravel and current Loom migration paths added | | Existing Minecraft porter ingestion | CLOSED WITH NEW WORK | reqsery mc-mod-porter is now a full-integration candidate under the user&#x27;s stated permission, not merely a reference | | Fabric -&gt; NeoForge compatibility | RECONCILED | Existing Sinytra/Adapter work retained and strengthened | | Forge/NeoForge -&gt; Fabric compatibility | CLOSED WITH NEW WORK | Kilt/Twill + historical Patchwork add the inverse transformation corpus | | Loader metadata / nested deps | CLOSED WITH NEW WORK | typed loader-metadata IR + nested dependency IR required | | Access widening / class tweaking / interface injection | CLOSED WITH NEW WORK | Class Tweakers, AT/AW conversion and non-equivalent interface-injection semantics added | | Kotlin migration | CLOSED WITH NEW WORK | Ravel + current OpenRewrite Kotlin + Kotlin Analysis API fallback lane | | Runtime validation | CLOSED WITH NEW WORK | HeadlessMC / MC-Runtime-Test + loader-native test layers | | Minecraft data/resource migration | CLOSED WITH NEW WORK | misode/mcmeta, minecraft-data, DFU/Codec/DataComponent and datagen-diff lanes | | Gradle/build iteration | CLOSED WITH STRONGER REQUIREMENT | configuration-cache compatibility becomes a generated-project acceptance gate | | Windows file discovery | CLOSED WITH OPTIONAL CHALLENGER | Everything IPC may accelerate discovery, but never becomes canonical state | | Modpack manifest/reference implementations | CLOSED WITH COMPARATOR WORK | packwiz/XMCL/ATLauncher patterns retained as focused comparators only | | GitHub | COVERED | primary source repos/docs inspected | | GitLab | COVERED WHERE MATERIAL | ASM and other canonical non-GitHub sources remain in the evidence ledger | | Codeberg | PARTIAL BY HARNESS | direct crawler blocked; package/docs/mirror evidence remains the accepted alternate discovery route | | SourceHut | PARTIAL BY HARNESS | direct crawler blocked; no material third-pass candidate surfaced through alternate search |
+  - **Binding context:** THIRD DEEP-SCOUR DELTA — 2026-09-26 / Coverage ledger for this pass
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 678-695](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L678-L695)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph (1)</summary>
+
+<a id="d-b14fd59813b05f84ac62"></a>
+- [ ] **D-b14fd59813b05f84ac62** - - runtime/dev namespaces may include obfuscated, official/Mojang, Intermediary, Yarn, Parchment, SRG/TSRG and loader-specific derivatives; - remapping is a first-class transformati...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - runtime/dev namespaces may include obfuscated, official/Mojang, Intermediary, Yarn, Parchment, SRG/TSRG and loader-specific derivatives; - remapping is a first-class transformation; - source and compiled-JAR namespaces must be detected, never guessed.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 720-722](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L720-L722)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture (1)</summary>
+
+<a id="d-f2e509eb6c8b63539ca0"></a>
+- [ ] **D-f2e509eb6c8b63539ca0** - GATE — Enderloom learns loader differences from both Fabric-&gt;NeoForge and Forge/NeoForge-&gt;Fabric compatibility implementations, then expresses those differences as loader-neu...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom learns loader differences from both Fabric-&gt;NeoForge and Forge/NeoForge-&gt;Fabric compatibility implementations, then expresses those differences as loader-neutral transformation families.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G025 : 924-924](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L924-L924)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency (1)</summary>
+
+<a id="d-bf3a34a127865182ef6b"></a>
+- [ ] **D-bf3a34a127865182ef6b** - — Mine historical Patchwork Patcher/API transformations that still generalize:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T092 : 943-943](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L943-L943)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti (1)</summary>
+
+<a id="d-e72617c484879aa6ff56"></a>
+- [ ] **D-e72617c484879aa6ff56** - capability -&gt; source loader representation -&gt; canonical semantic intent -&gt; target loader representation -&gt; required runtime shim? -&gt; verification
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 959-959](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L959-L959)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T094 — Use FFAPI/Forgified Loader/API compatibility checks as correspondence evidence (2)</summary>
+
+<a id="d-6f0b4c157f44f73b5a86"></a>
+- [ ] **D-6f0b4c157f44f73b5a86** - — Where Sinytra&#x27;s Forgified Fabric API / Forgified Fabric Loader and related compatibility tests compare or expose Fabric public APIs in NeoForge environments, ingest those ma...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Where Sinytra&#x27;s Forgified Fabric API / Forgified Fabric Loader and related compatibility tests compare or expose Fabric public APIs in NeoForge environments, ingest those mappings as additional evidence for loader-neutral capability correspondence.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T094 — Use FFAPI/Forgified Loader/API compatibility checks as correspondence evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T094 : 981-981](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L981-L981)
+
+<a id="d-84ffb7acd335bac88b0a"></a>
+- [ ] **D-84ffb7acd335bac88b0a** - Cross-check against Porting Lib and real sibling-mod implementations. Do not treat API-name equality as behavioral equivalence without runtime fixtures.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T094 — Use FFAPI/Forgified Loader/API compatibility checks as correspondence evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 983-983](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L983-L983)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR` (1)</summary>
+
+<a id="d-77400b42deb35f6cfe16"></a>
+- [ ] **D-77400b42deb35f6cfe16** - — Parse source metadata into a canonical IR and emit the target loader&#x27;s metadata from that IR.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G026 — Typed loader metadata IR and bytecode-access IR / T095 — Build one lossless `ModManifestIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T095 : 993-993](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L993-L993)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G030 — Generated build systems must be fast, cache-safe and target-native / T114 — Make Gradle Configuration Cache compatibility an acceptance gate / T115 — Keep Gradle as the canonical generated build for loader ecosystems (1)</summary>
+
+<a id="d-51514b5ac5fdc9b82337"></a>
+- [ ] **D-51514b5ac5fdc9b82337** - — Do not replace target Fabric/NeoForge/Forge Gradle tooling with Mill/Coursier/custom dependency assembly merely because a generic Java build can be faster.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G030 — Generated build systems must be fast, cache-safe and target-native / T114 — Make Gradle Configuration Cache compatibility an acceptance gate / T115 — Keep Gradle as the canonical generated build for loader ecosystems
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T115 : 1316-1316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1316-L1316)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G038 — Subsystem bridge corpora: learn semantic equivalence from proven cross-loader ports (1)</summary>
+
+<a id="d-986494d6729cdc74d51d"></a>
+- [ ] **D-986494d6729cdc74d51d** - GATE — Enderloom augments general loader mappings with subsystem-specific proven compatibility corpora when they reveal semantics that cannot be inferred safely from symbol names a...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom augments general loader mappings with subsystem-specific proven compatibility corpora when they reveal semantics that cannot be inferred safely from symbol names alone.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G038 — Subsystem bridge corpora: learn semantic equivalence from proven cross-loader ports
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G038 : 1848-1848](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1848-L1848)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types (1)</summary>
+
+<a id="d-b5c979482f6fdca406c5"></a>
+- [ ] **D-b5c979482f6fdca406c5** - — Implement Rust types/schemas for:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T138 : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L315-L315)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T141 — Port primary-target-first scheduling (1)</summary>
+
+<a id="d-2f4421296ff6b220d82b"></a>
+- [ ] **D-2f4421296ff6b220d82b** - — Preserve primary-target-first semantics in Rust:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T141 — Port primary-target-first scheduling
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T141 : 364-364](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L364-L364)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T143 — Native parity challenge against legacy JS (2)</summary>
+
+<a id="d-24a7dc178e93ebd29da5"></a>
+- [ ] **D-24a7dc178e93ebd29da5** - — Run the same session fixtures through legacy JS and native Rust and reconcile all meaningful behavior.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T143 — Native parity challenge against legacy JS
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T143 : 380-380](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L380-L380)
+
+<a id="d-1e2660b608e3178b2da5"></a>
+- [ ] **D-1e2660b608e3178b2da5** - Native must be equal or stronger for:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T143 — Native parity challenge against legacy JS
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 382-382](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L382-L382)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T152 — Encode pre-26.1 vs 26.1+ pipeline split (1)</summary>
+
+<a id="d-2868dc35bd5fe55dd1e4"></a>
+- [ ] **D-2868dc35bd5fe55dd1e4** - — Enforce explicit modes:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T152 — Encode pre-26.1 vs 26.1+ pipeline split
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T152 : 508-508](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L508-L508)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T172 — Packaged archive semantics (1)</summary>
+
+<a id="d-b94a3c9cc57939f08c95"></a>
+- [ ] **D-b94a3c9cc57939f08c95** - If rewriting invalidates an existing signature, report it explicitly; never silently ship a broken signature. Re-sign only with user-authorized signing material/workflow.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T172 — Packaged archive semantics
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 785-785](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L785-L785)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge (1)</summary>
+
+<a id="d-45e2a057c43344f57511"></a>
+- [ ] **D-45e2a057c43344f57511** - GATE — Loader conversion translates semantic intent instead of API spelling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G047 : 834-834](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L834-L834)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T364 — NeoForge/FML discovery, module-layer and package-ownership proof (2)</summary>
+
+<a id="d-c3b6694423083db87918"></a>
+- [ ] **D-c3b6694423083db87918** - — Make packaged NeoForge/modern Forge verification understand the loader&#x27;s real discovery/module model. Differentially test against current FancyModLoader, SecureJarHandler, B...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Make packaged NeoForge/modern Forge verification understand the loader&#x27;s real discovery/module model. Differentially test against current FancyModLoader, SecureJarHandler, BootstrapLauncher and relevant ModLauncher behavior for:
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T364 — NeoForge/FML discovery, module-layer and package-ownership proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T364 : 905-905](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L905-L905)
+
+<a id="d-8fecbb0a21679930038d"></a>
+- [ ] **D-8fecbb0a21679930038d** - Use FML&#x27;s own runProductionClient/runProductionServer-style tests where useful, but still graduate the exact Enderloom artifact through Enderloom&#x27;s native runtime path. P...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use FML&#x27;s own runProductionClient/runProductionServer-style tests where useful, but still graduate the exact Enderloom artifact through Enderloom&#x27;s native runtime path. Package/module conflicts that only appear after SecureJar/module-layer construction must be detected before declaring a JAR healthy.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T364 — NeoForge/FML discovery, module-layer and package-ownership proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 914-914](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L914-L914)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T180 — Generate loader-native project variants (2)</summary>
+
+<a id="d-6dd87ce9f7e09939e8bc"></a>
+- [ ] **D-6dd87ce9f7e09939e8bc** - — Generate correct target projects for supported Fabric/NeoForge/Forge targets using current loader-native Gradle tooling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T180 — Generate loader-native project variants
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T180 : 958-958](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L958-L958)
+
+<a id="d-821b050c76cfa7c01208"></a>
+- [ ] **D-821b050c76cfa7c01208** - - Fabric Loom for Fabric; - ModDevGradle/current NeoForge tooling for NeoForge where appropriate; - current ModDevGradle legacyforge as a first-class challenger for Forge/vanilla 1...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Fabric Loom for Fabric; - ModDevGradle/current NeoForge tooling for NeoForge where appropriate; - current ModDevGradle legacyforge as a first-class challenger for Forge/vanilla 1.17-1.20.1 before falling back to older ForgeGradle flows; - ForgeGradle/current compatible route for Forge targets where it remains the strongest target-native fit; - Unimined may be used as a broad/legacy fixture generator or alternate supported target route; - do not replace loader-owned Gradle behavior with a generic Java build tool unless full parity is proven.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T180 — Generate loader-native project variants
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 962-967](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L962-L967)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter (1)</summary>
+
+<a id="d-44193c7b8355f5b62902"></a>
+- [ ] **D-44193c7b8355f5b62902** - — Use Gradle TestKit/GradleRunner (or the loader&#x27;s stronger native equivalent) to execute real disposable builds for Enderloom&#x27;s generated Gradle logic and adapters. Matr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Use Gradle TestKit/GradleRunner (or the loader&#x27;s stronger native equivalent) to execute real disposable builds for Enderloom&#x27;s generated Gradle logic and adapters. Matrix the critical Fabric/NeoForge/Forge/legacy target cells, assert task outcomes/generated artifacts and include expected-failure fixtures.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T361 : 1009-1009](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1009-L1009)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T332 — Loader dependency-resolution parity fixtures (1)</summary>
+
+<a id="d-8b12fa0bbfe1358529bd"></a>
+- [ ] **D-8b12fa0bbfe1358529bd** - Differences must be intentional and documented; Enderloom may produce a better explanation/solution but must not install a graph the target loader will reject. The loader runtime/r...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Differences must be intentional and documented; Enderloom may produce a better explanation/solution but must not install a graph the target loader will reject. The loader runtime/resolver is the final acceptance oracle for its graph.
+  - **Binding context:** G057 — Adversarial regression matrix / T223 — Maintain adversarial fixtures / T332 — Loader dependency-resolution parity fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1758-1758](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1758-L1758)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix / T281 — Final research frontier freeze (1)</summary>
+
+<a id="d-28fbef36bb953ed58f4d"></a>
+- [ ] **D-28fbef36bb953ed58f4d** - — Stop broad technology searching once this handoff is accepted and implementation begins. Resume ecosystem research only when implementation exposes a named missing capability, a ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Stop broad technology searching once this handoff is accepted and implementation begins. Resume ecosystem research only when implementation exposes a named missing capability, a selected project becomes unsuitable/deprecated, a new Minecraft/loader/platform generation invalidates an assumption or a measured comparator beats the current baseline materially.
+  - **Binding context:** G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix / T281 — Final research frontier freeze
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T281 : 2576-2576](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2576-L2576)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 5. Metrics to capture / 5.1 Startup (2)</summary>
 
 <a id="d-1df36203e655ffa2c758"></a>
@@ -5316,6 +7906,117 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-dd0cfe09dbd563d229cc"></a>
+- [ ] **D-dd0cfe09dbd563d229cc** - · Run the cheapest decisive existing multiversion structural selftest and the real Stonecutter/native build path available in the environment; preserve concise proof rather than gi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Run the cheapest decisive existing multiversion structural selftest and the real Stonecutter/native build path available in the environment; preserve concise proof rather than giant logs.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T003 : 258-258](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L258-L258)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Generalized shared-source factoring and projection engine (1)</summary>
+
+<a id="d-094b40c6595c93af38ee"></a>
+- [ ] **D-094b40c6595c93af38ee** - · Implement an Enderloom-native projection backend that can materialize a target without Stonecutter.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T028 : 298-298](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L298-L298)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Loader semantic adapters instead of API spelling replacement (6)</summary>
+
+<a id="d-d2ff877cae57860c0165"></a>
+- [ ] **D-d2ff877cae57860c0165** - · Use Sinytra Launchpad as a correspondence/oracle for Fabric-convention -&gt; NeoForge cases where it has proven semantics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T065 : 355-355](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L355-L355)
+
+<a id="d-ee2d64e2acf8c7f806fd"></a>
+- [ ] **D-ee2d64e2acf8c7f806fd** - · Use Kilt/Twill/Porting Lib and focused bridges as inverse/alternate correspondence evidence for Forge/NeoForge -&gt; Fabric cases.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T066 : 356-356](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L356-L356)
+
+<a id="d-3a4a8936e57df567e7fe"></a>
+- [ ] **D-3a4a8936e57df567e7fe** - · Use ConnectorExtras and other real two-way bridges to learn exact subsystem correspondences, not to claim full-loader equivalence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T067 : 357-357](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L357-L357)
+
+<a id="d-62b3ecff62e5636c1230"></a>
+- [ ] **D-62b3ecff62e5636c1230** - · Use focused ports such as Forge Config API Port only for the subsystem semantics they actually prove.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T068 : 358-358](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L358-L358)
+
+<a id="d-70cbc8d6def45177c0d5"></a>
+- [ ] **D-70cbc8d6def45177c0d5** - · Parse Access Transformers, Access Wideners, Class Tweaker, interface injection, enum extension where supported, and MixinExtras selectors/expressions into typed IR and emit targe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Parse Access Transformers, Access Wideners, Class Tweaker, interface injection, enum extension where supported, and MixinExtras selectors/expressions into typed IR and emit target-native equivalents only when semantics are preserved.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T069 : 359-359](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L359-L359)
+
+<a id="d-f44f4d6a5a47e79b59c3"></a>
+- [ ] **D-f44f4d6a5a47e79b59c3** - · Make Quilt an explicit loader target with its own metadata/dependency/entrypoint/compatibility semantics rather than treating it as a Fabric alias.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Loader semantic adapters instead of API spelling replacement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T070 : 360-360](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L360-L360)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Create flow uses the same version-family engine (1)</summary>
+
+<a id="d-a51a904d5e53d0fc8310"></a>
+- [ ] **D-a51a904d5e53d0fc8310** - · Package source in a form that can be reopened by Enderloom with the canonical graph/provenance intact, plus optional exports for Stonecutter or plain target-native workspaces.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T087 : 387-387](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L387-L387)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-4cd00609f36ae10b809c"></a>
+- [ ] **D-4cd00609f36ae10b809c** - · Existing multi-version source conversion must identify common source, loader/version branches, build configuration, preprocessors, overlays, and target-native differences before ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Existing multi-version source conversion must identify common source, loader/version branches, build configuration, preprocessors, overlays, and target-native differences before mutation.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T089 : 394-394](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L394-L394)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-0fef5ddd6caffa40cae0"></a>
+- [ ] **D-0fef5ddd6caffa40cae0** - · Loader-family edit fixture: change a loader-specific semantic adapter and prove only that loader family invalidates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T134 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L469-L469)
+
+</details>
+
+<details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal (1)</summary>
+
+<a id="d-57bf6dfb31dae9f487da"></a>
+- [ ] **D-57bf6dfb31dae9f487da** - The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge an...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The desired outcome is for Enderloom to load and fully test mods for any Minecraft version, diagnose and repair them, and port them to any other version, including Fabric, Forge and NeoForge mods. Pursue complete compatibility for Horizon as an explicit R&amp;D goal, not a current capability or a promise that all mods can already be translated. Investigate the feasibility of a Java execution/loader compatibility layer or a faithful, semantics-preserving port/bridge alongside real version-matched Minecraft runtimes; do not assume a native Rust engine can execute JVM bytecode or loader APIs unaided. Preserve native code, loader dependencies, mixins, game semantics, assets and world behavior; identify licensing and platform constraints. Record precise unsupported cases rather than silently dropping functionality. Certify each source/target version and loader combination with real representative mods, reproducible behavior tests, diagnostics, rollback and preserved source. Horizon is one potential backend in the broader test matrix, not proof of universal compatibility.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) / Long-term compatibility and repair goal
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 68-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L68-L68)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Versions / loaders (1)</summary>
 
 <a id="d-63b543bf5e6e2c204f52"></a>
@@ -5418,7 +8119,7 @@
 <a id="port-10-details"></a>
 ## PORT-10 - Complete cross-edition conversion
 
-[Outcome](Checklist.md#port-10) / 59 source-derived details.
+[Outcome](Checklist.md#port-10) / 68 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -5450,7 +8151,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** map Bedrock components/state/events/Molang/animation/render/item/block/loot/recipe/trade/script/worldgen/UI semantics into versioned IR then target-native Java logic; every unmapped semantic is explicit.
   - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-010 : 526-526](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L526-L526)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-010 : 529-529](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L529-L529)
 
 </details>
 
@@ -5632,6 +8333,107 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 4. Bedrock Add-On -&gt; Full Java Mod Conversion
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 221-221](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L221-L221)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix / T070 — Enderloom conversion architecture after this scour (1)</summary>
+
+<a id="d-c6f537ba36e414d9706b"></a>
+- [ ] **D-c6f537ba36e414d9706b** - — Implement the conversion stack as cooperating stages rather than one giant heuristic transformer:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G021 — Second-pass promotion matrix / T070 — Enderloom conversion architecture after this scour
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T070 : 449-449](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L449-L449)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G021 — Second-pass promotion matrix / T071 — Mandatory learned-port knowledge base (1)</summary>
+
+<a id="d-e59f0a7005b446a5541a"></a>
+- [ ] **D-e59f0a7005b446a5541a** - — Every nontrivial verified conversion fix must be reusable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G021 — Second-pass promotion matrix / T071 — Mandatory learned-port knowledge base
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T071 : 514-514](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L514-L514)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order (1)</summary>
+
+<a id="d-106aa592d221a1f0e147"></a>
+- [ ] **D-106aa592d221a1f0e147** - — The target Enderloom conversion flow is:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T123 : 1467-1467](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1467-L1467)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T126 — Enforce no-regression promotion across all three scout waves (1)</summary>
+
+<a id="d-4d2f02def86d5abd81f7"></a>
+- [ ] **D-4d2f02def86d5abd81f7** - — A new tool or rule is promoted only when it either:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T126 — Enforce no-regression promotion across all three scout waves
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T126 : 1598-1598](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1598-L1598)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Objective (1)</summary>
+
+<a id="d-e40b4b25924b1c7a3f11"></a>
+- [ ] **D-e40b4b25924b1c7a3f11** - Implement the complete next-generation Enderloom application and Minecraft conversion stack now. The finished product must convert real mods across Minecraft versions and loaders u...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Implement the complete next-generation Enderloom application and Minecraft conversion stack now. The finished product must convert real mods across Minecraft versions and loaders using a deterministic, resumable, evidence-backed pipeline that understands mapping eras, loader semantics, source and bytecode structure, metadata, dependencies, Mixins/access rules, data/resources/datagen, build systems, and real client/server runtime behavior.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Objective
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 13-13](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L13-L13)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family (1)</summary>
+
+<a id="d-2cb1e23b500f7677c39b"></a>
+- [ ] **D-2cb1e23b500f7677c39b** - GATE — Enderloom owns typed, loss-aware intermediate representations so no tool-specific format becomes canonical product state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G042 : 399-399](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L399-L399)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T147 — Implement `AccessMutationIR` (1)</summary>
+
+<a id="d-2074fefc1aa0bda1bb78"></a>
+- [ ] **D-2074fefc1aa0bda1bb78** - — Represent:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T147 — Implement `AccessMutationIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T147 : 445-445](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L445-L445)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T148 — Implement `MixinIR` (1)</summary>
+
+<a id="d-35a41811696f03110943"></a>
+- [ ] **D-35a41811696f03110943** - - target owner; - injector type; - method/member selector; - JVM descriptor; - ordinal; - slice; - locals/capture; - remap flag; - required/expect/allow; - MixinExtras constructs; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - target owner; - injector type; - method/member selector; - JVM descriptor; - ordinal; - slice; - locals/capture; - remap flag; - required/expect/allow; - MixinExtras constructs; - refmap/config metadata.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T148 — Implement `MixinIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 461-471](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L461-L471)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T319 — First-class versioned data/resource delta graph (1)</summary>
+
+<a id="d-ed8aec9f62cad04587d7"></a>
+- [ ] **D-ed8aec9f62cad04587d7** - Use PrismarineJS/minecraft-data as a secondary/legacy cross-check where it adds coverage; it never overrides newer official or independently regenerated truth.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T319 — First-class versioned data/resource delta graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1118-1118](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1118-L1118)
 
 </details>
 
@@ -5954,7 +8756,7 @@
 <a id="port-11-details"></a>
 ## PORT-11 - Authorized server content to native mod
 
-[Outcome](Checklist.md#port-11) / 47 source-derived details.
+[Outcome](Checklist.md#port-11) / 52 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -6008,7 +8810,7 @@
 - [ ] **D-25caa2e6c36f7692a02f** - package/remap and prove strongest applicable dedicated-server/client/integrated-server/persistence behavior.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-002 : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L481-L481)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-002 : 484-484](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L484-L484)
 
 </details>
 
@@ -6019,7 +8821,7 @@
 - [ ] **D-4c837994e205dc429d39** - exact source lineage, target MC/loader/Java, API/mapping inventory, vanilla-feature dependency closure, complete mod-owned content inventory.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.2 Version/loader porting
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-010 : 485-485](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L485-L485)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-010 : 488-488](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L488-L488)
 
 </details>
 
@@ -6030,7 +8832,7 @@
 - [ ] **D-2f4dbe57900268e67bb8** - requested mod output is a real target-loader Java mod; resource pack/datapack/script wrappers cannot substitute for requested native semantics.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-020 : 511-511](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L511-L511)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-020 : 514-514](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L514-L514)
 
 </details>
 
@@ -6172,6 +8974,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer (1)</summary>
+
+<a id="d-fe27c28c82a8363b448f"></a>
+- [ ] **D-fe27c28c82a8363b448f** - The Java runtime must choose the least-lossy backend per target:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 65-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L65-L65)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md / Enderloom — Minecraft Workflow Parity Handoff Addendum / Bedrock conversion acceptance (1)</summary>
 
 <a id="d-7b5bc435eeb9d4a4aaea"></a>
@@ -6219,6 +9032,50 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 14. Test Matrix for “Full Functioning Mod” / Base
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 625-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L625-L630)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump (1)</summary>
+
+<a id="d-40fc9ea0ddbfc8826a1c"></a>
+- [ ] **D-40fc9ea0ddbfc8826a1c** - — Implement a dedicated transition pipeline for the obfuscated-to-unobfuscated boundary.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T080 : 740-740](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L740-L740)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration (1)</summary>
+
+<a id="d-5050b53aaa493e74f46f"></a>
+- [ ] **D-5050b53aaa493e74f46f** - GATE — Product conversion orchestration is owned by the native Rust service/CLI/command layer with equal or stronger behavior than the legacy JS path.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G041 : 311-311](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L311-L311)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T139 — Implement durable native session state (1)</summary>
+
+<a id="d-f2d16bf573a9cec8fba3"></a>
+- [ ] **D-f2d16bf573a9cec8fba3** - — Persist sessions atomically in the native state/storage layer.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T139 — Implement durable native session state
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T139 : 335-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L335-L335)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge (1)</summary>
+
+<a id="d-e0ab194284c043df7051"></a>
+- [ ] **D-e0ab194284c043df7051** - — Convert useful MC Mod Porter facts/rules into the canonical store.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T158 : 614-614](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L614-L614)
 
 </details>
 
@@ -6469,7 +9326,7 @@
 <a id="port-12-details"></a>
 ## PORT-12 - Incremental matrix and packaging
 
-[Outcome](Checklist.md#port-12) / 19 source-derived details.
+[Outcome](Checklist.md#port-12) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 1.3 Packaging / optional support / U. Forgix (1)</summary>
@@ -6519,6 +9376,29 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T058 — Forgix packaging is a bakeoff, not an automatic default (1)</summary>
+
+<a id="d-4da1b51eb0525529ecdf"></a>
+- [ ] **D-4da1b51eb0525529ecdf** - — Test Forgix for optional single-JAR loader/version packaging.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G016 — Target-environment reconstruction and build matrix / T054 — NeoFormRuntime is an authoritative NeoForge target-universe builder / T058 — Forgix packaging is a bakeoff, not an automatic default
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T058 : 265-265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L265-L265)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Execution contract (1)</summary>
+
+<a id="d-5e078c890aaae7146c70"></a>
+- [ ] **D-5e078c890aaae7146c70** - - Read this document once, then execute from the earliest unchecked task whose dependencies are satisfied. - Do not repeat broad ecosystem research unless a named implementation ga...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Read this document once, then execute from the earliest unchecked task whose dependencies are satisfied. - Do not repeat broad ecosystem research unless a named implementation gap, upstream invalidation, or measured regression makes it necessary. New useful findings are folded directly into the relevant implementation requirement rather than tracked as separate research passes. - Work in bounded internal execution windows of one coherent subsection or roughly 6–12 ready leaf tasks; checkpoint code and inline proof, then continue automatically. - Reuse existing proven Northpoint/Dev Kit fixtures instead of rediscovering behavior. - After two materially unchanged failures, change strategy or fix the missing capability. Do not loop the same failure. - A blocked task stays unchecked with BLOCKED: and NEXT: notes. Continue independent work. - A later change that invalidates previous proof reopens the affected task/gate. - Prefer depth-first vertical proof: shared model -&gt; one real conversion cell -&gt; packaged JAR -&gt; native runtime -&gt; then broaden the matrix. - Do not stop after writing new architecture or scaffolding. Cross the implementation boundary and exercise production paths.
+  - **Binding context:** Execution contract
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 164-172](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L164-L172)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 5. PRIMARY TARGET FIRST, THEN THE VERSION/LOADER MATRIX / 5.2 Matrix behavior (1)</summary>
 
 <a id="d-ec71ce5ca8c2a0b216ff"></a>
@@ -6538,6 +9418,18 @@
   - **Full requirement:** - Finish the visual Convert journey, including multi-target planning, full dependency/tool provisioning, staged conversion/build/test/repair, selective retry and exact final output actions. Prove a novice can finish without commands or manual source edits.
   - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
   - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T141 : 255-255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L255-L255)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (1)</summary>
+
+<a id="d-da50eaa10aab36114029"></a>
+- [ ] **D-da50eaa10aab36114029** - · Preserve per-cell Java runtime, Gradle, loader plugin, mappings, repositories, dependency coordinates/ranges, datagen requirements, access/mixin tooling, and packaging rules as e...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Preserve per-cell Java runtime, Gradle, loader plugin, mappings, repositories, dependency coordinates/ranges, datagen requirements, access/mixin tooling, and packaging rules as explicit frozen inputs.
+  - **Binding context:** GATE - Native build, dependency, and toolchain ownership per cell
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T109 : 429-429](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L429-L429)
 
 </details>
 
@@ -6647,7 +9539,7 @@
 <a id="port-13-details"></a>
 ## PORT-13 - Conversion parity and clean replay
 
-[Outcome](Checklist.md#port-13) / 49 source-derived details.
+[Outcome](Checklist.md#port-13) / 76 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (3)</summary>
@@ -6713,7 +9605,7 @@
 - [ ] **D-35ee9b418f3b7d59086b** - Java&lt;-&gt;Bedrock resource-pack conversion and replay/capture/showcase based on actual runtime evidence.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-034 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L472-L472)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-034 : 473-473](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L473-L473)
 
 </details>
 
@@ -6864,6 +9756,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 4. Bedrock parity translation (1)</summary>
+
+<a id="d-43b196c351d59a07e3a2"></a>
+- [ ] **D-43b196c351d59a07e3a2** - Do not translate by flattening every state into baked keyframes if a dynamic expression can be preserved accurately.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 4. Bedrock parity translation
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L95-L95)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 23. Full CLI everywhere / 23.2 CLI parity domains (1)</summary>
 
 <a id="d-d4660f28f9759928db15"></a>
@@ -6898,6 +9801,262 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G022 — Final second-pass completion gate (2)</summary>
+
+<a id="d-f2f8ea1dfb43db199257"></a>
+- [ ] **D-f2f8ea1dfb43db199257** - — Run a real representative mod conversion through the composed T070 pipeline and record where each stage removes manual work or still fails.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G022 — Final second-pass completion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T076 : 664-664](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L664-L664)
+
+<a id="d-4adcf126a85ad4695322"></a>
+- [ ] **D-4adcf126a85ad4695322** - FINAL GATE — This challenger delta is merged without deleting prior guarantees; new candidates are promoted only with equivalent-work correctness/runtime evidence; Codeberg/SourceH...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** FINAL GATE — This challenger delta is merged without deleting prior guarantees; new candidates are promoted only with equivalent-work correctness/runtime evidence; Codeberg/SourceHut crawler limitations remain disclosed; and the next Enderloom conversion can execute from these tasks without another planning-only pass.
+  - **Binding context:** G022 — Final second-pass completion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G022 : 667-667](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L667-L667)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph (2)</summary>
+
+<a id="d-fab933376af8b9df5a76"></a>
+- [ ] **D-fab933376af8b9df5a76** - Every conversion plan must record:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 732-732](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L732-L732)
+
+<a id="d-7ad065a5521a4cf87d5d"></a>
+- [ ] **D-7ad065a5521a4cf87d5d** - Do not send an unobfuscated 26.x project through the old remap stack merely because that stack exists.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 736-736](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L736-L736)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G028 — Data/resource migration intelligence, not just Java migration (1)</summary>
+
+<a id="d-d217da7c8a4d6d7e248a"></a>
+- [ ] **D-d217da7c8a4d6d7e248a** - GATE — Enderloom can detect and validate version-sensitive Minecraft data/resource changes so a Java-clean conversion does not silently lose gameplay content.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G028 : 1158-1158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1158-L1158)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T112 — Add a hard OpenRewrite license/distribution fence (1)</summary>
+
+<a id="d-19f3297783383f200c1f"></a>
+- [ ] **D-19f3297783383f200c1f** - Also verify artifact availability for offline/end-user builds. Enderloom must not suddenly require a Moderne/Code Genome account at runtime to perform a user&#x27;s local conversio...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Also verify artifact availability for offline/end-user builds. Enderloom must not suddenly require a Moderne/Code Genome account at runtime to perform a user&#x27;s local conversion. Pin approved artifacts, cache/mirror them when permitted, and include an SBOM/provenance entry.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T112 — Add a hard OpenRewrite license/distribution fence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1280-1280](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1280-L1280)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge (1)</summary>
+
+<a id="d-c94648abc39833b8617d"></a>
+- [ ] **D-c94648abc39833b8617d** - Do not claim &quot;the internet has nothing else.&quot; Claim only that the planned relevant coverage dimensions are addressed and this gap-directed pass stopped surfacing material...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not claim &quot;the internet has nothing else.&quot; Claim only that the planned relevant coverage dimensions are addressed and this gap-directed pass stopped surfacing material superior candidates.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1615-1615](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1615-L1615)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate (1)</summary>
+
+<a id="d-bd30ac779f9d654dea03"></a>
+- [ ] **D-bd30ac779f9d654dea03** - The repository already contains meaningful conversion work. Do not restart it or replace it with a greenfield demo.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 23-23](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L23-L23)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable (3)</summary>
+
+<a id="d-f8f9a270cf490fbe109b"></a>
+- [ ] **D-f8f9a270cf490fbe109b** - 6. Era-aware conversion is mandatory. - Pre-26.1 mapped/obfuscated workflows and 26.1+ unobfuscated workflows are separate pipeline modes. - Do not remap an already-unobfuscated 26...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 6. Era-aware conversion is mandatory. - Pre-26.1 mapped/obfuscated workflows and 26.1+ unobfuscated workflows are separate pipeline modes. - Do not remap an already-unobfuscated 26.x target just because an old remapper exists.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 94-96](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L94-L96)
+
+<a id="d-6371de01f6f418d72035"></a>
+- [ ] **D-6371de01f6f418d72035** - 9. Performance and completeness improve together. - Incremental/resumable execution, cache hits, bounded parallelism and fast indexing are required. - Never claim speed by skipping...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 9. Performance and completeness improve together. - Incremental/resumable execution, cache hits, bounded parallelism and fast indexing are required. - Never claim speed by skipping validation or reducing conversion scope.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 110-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L110-L112)
+
+<a id="d-615e84d8d0b9b5c51712"></a>
+- [ ] **D-615e84d8d0b9b5c51712** - 10. Untrusted projects are hostile until proven otherwise. - Imported Gradle/Maven/build logic can execute arbitrary code. - Do not run unknown project build scripts unrestricted o...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 10. Untrusted projects are hostile until proven otherwise. - Imported Gradle/Maven/build logic can execute arbitrary code. - Do not run unknown project build scripts unrestricted on the host by default. - Sandboxing and dependency/provenance controls are part of the production conversion engine, not optional future hardening.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 114-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L114-L117)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Done when (1)</summary>
+
+<a id="d-aed2c3b8488e604878b4"></a>
+- [ ] **D-aed2c3b8488e604878b4** - 1. intake a real source mod or authorized compiled artifact; 2. fingerprint and preserve immutable source authority; 3. detect loader, Minecraft version, language mix, mapping era ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. intake a real source mod or authorized compiled artifact; 2. fingerprint and preserve immutable source authority; 3. detect loader, Minecraft version, language mix, mapping era and runtime requirements; 4. normalize mappings/symbols without destroying provenance; 5. build a typed project IR; 6. plan semantic migrations from verified knowledge; 7. apply Java/Kotlin/metadata/access/data/resource changes through the correct engines; 8. generate a target-native Gradle workspace; 9. resolve dependencies reproducibly; 10. compile and classify remaining failures; 11. validate exact packaged linkage and archive semantics; 12. launch the exact built artifact on applicable target runtimes; 13. compare content/data/resource behavior against source expectations; 14. produce a signed/hashable conversion receipt and resumable checkpoint; 15. replay the same conversion clean-room without hand edits; 16. run the active AoA conversion through the normal production path; 17. converge conversion execution onto the single best production path after parity/performance proof, retiring redundant JS/native/Python authority rather than removing a language by policy; 18. retain every reusable fix as permanent regression-protected knowledge; 19. run the Enderloom UI on the frontend architecture that wins the production-shaped bakeoff; React/TypeScript may remain when it meets or beats alternatives, with canonical domain truth kept behind typed service boundaries; 20. provide instant, complete Browse/search/filter behavior over large catalogs without reducing provider/result coverage; 21. reconcile the same project across providers using stable identity evidence rather than names alone; 22. resolve/install/update mod dependencies through one canonical solver with useful conflict explanations; 23. resume long downloads/install/conversion/index jobs safely after process/app restart; 24. enforce least-privilege Tauri CSP/capabilities and isolated browser/WebView trust boundaries; 25. verify signed updater artifacts, interruption recovery and downgrade/rollback policy; 26. prove caches/CAS/archive/filesystem/network/media accelerations preserve exact results; 27. sandbox adopted extension/provider adapters behind explicit capabilities and versioned contracts; 28. produce redacted diagnostics/crash evidence with stable operation IDs; 29. pass Rust/JVM/vendored supply-chain and SBOM/provenance gates; 30. install/package/launch the whole app from a clean environment and exercise the T283 production workflow. 31. diagnose and repair representative broken mod source/projects, packaged JARs and modpack/instance failures through one production repair path with rollback and runtime proof; 32. create a representative mod through the normal Enderloom authoring path from scaffold -&gt; content/code/data -&gt; build -&gt; automated tests -&gt; native runtime -&gt; package; 33. finish AoA through the production conversion path before broad app modernization work begins, except for infrastructure strictly required to make conversion/repair/authoring/AoA work; 34. promote every generalized AoA fix into shared conversion/repair/authoring knowledge and regression fixtures before continuing into the rest of the app roadmap.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Done when
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 125-158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L125-L158)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T140 — Implement native conversion commands (1)</summary>
+
+<a id="d-378d732f7ecec0081e4a"></a>
+- [ ] **D-378d732f7ecec0081e4a** - — Expose the conversion lifecycle through native CLI/command APIs, not JS:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G041 — Native Rust conversion service replaces JS orchestration / T138 — Define native conversion domain types / T140 — Implement native conversion commands
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T140 : 348-348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L348-L348)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T145 — Implement `ModManifestIR` (1)</summary>
+
+<a id="d-c33479e974081ef08b16"></a>
+- [ ] **D-c33479e974081ef08b16** - — Losslessly normalize Fabric, Forge, NeoForge and supported Quilt metadata.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T145 — Implement `ModManifestIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T145 : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L421-L421)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T149 — Implement `ContentIR` / parity manifest (1)</summary>
+
+<a id="d-3dfeb6a51261ac2f49b3"></a>
+- [ ] **D-3dfeb6a51261ac2f49b3** - — Produce a source-side capability/content manifest covering the registrations/resources/data categories required by T073/T103/T108 in the research companion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T149 — Implement `ContentIR` / parity manifest
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T149 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L475-L475)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T215 — Conversion explanation/report (1)</summary>
+
+<a id="d-15b3d9de73f1bd378c35"></a>
+- [ ] **D-15b3d9de73f1bd378c35** - — Emit a concise machine + human-readable report containing:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T215 — Conversion explanation/report
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T215 : 1391-1391](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1391-L1391)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T216 — Deterministic clean-room replay command (1)</summary>
+
+<a id="d-4949feba5c41c655f7a3"></a>
+- [ ] **D-4949feba5c41c655f7a3** - — The final workspace/receipt provides one reproducible Enderloom command/session identity that replays conversion from immutable source without hand edits.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization / T216 — Deterministic clean-room replay command
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T216 : 1405-1405](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1405-L1405)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G058 — Duplicate authority retirement and execution convergence (1)</summary>
+
+<a id="d-1ad7388b00b0a1f0d874"></a>
+- [ ] **D-1ad7388b00b0a1f0d874** - GATE — The conversion product has one canonical execution/state authority per operation, with redundant legacy/native/JVM paths retired after measured parity; no language is remove...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — The conversion product has one canonical execution/state authority per operation, with redundant legacy/native/JVM paths retired after measured parity; no language is removed solely for purity.
+  - **Binding context:** G058 — Duplicate authority retirement and execution convergence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G058 : 1764-1764](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1764-L1764)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary (1)</summary>
+
+<a id="d-709c3f0a06a9c1382856"></a>
+- [ ] **D-709c3f0a06a9c1382856** - — Route user-facing conversion commands/progress/state through the canonical typed service path after G041 parity. Prefer the native Rust service for durable/high-throughput/hot-pa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Route user-facing conversion commands/progress/state through the canonical typed service path after G041 parity. Prefer the native Rust service for durable/high-throughput/hot-path work, but preserve a JS/TS adapter where it remains the best UI integration layer and does not own duplicate domain truth.
+  - **Binding context:** G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T226 : 1768-1768](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1768-L1768)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary / T227 — Retire redundant JS conversion authority where superseded (1)</summary>
+
+<a id="d-08fc063d854daeda6441"></a>
+- [ ] **D-08fc063d854daeda6441** - — Delete or reduce legacy JS conversion ownership only after the replacement path proves equal or better behavior, performance and recovery. Keep useful JS/TS presentation/adaptati...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Delete or reduce legacy JS conversion ownership only after the replacement path proves equal or better behavior, performance and recovery. Keep useful JS/TS presentation/adaptation code when it is not the canonical conversion state/business-rule owner.
+  - **Binding context:** G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary / T227 — Retire redundant JS conversion authority where superseded
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T227 : 1772-1772](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1772-L1772)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary / T229 — One engine assertion (1)</summary>
+
+<a id="d-a53658beae2d0f7855f1"></a>
+- [ ] **D-a53658beae2d0f7855f1** - — Add a QA check that fails if product conversion can route through two independent production engines for the same operation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G058 — Duplicate authority retirement and execution convergence / T226 — Route conversion hot paths through the strongest service boundary / T229 — One engine assertion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T229 : 1784-1784](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1784-L1784)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G061 — Required test and proof commands/surfaces / T230 — Add native conversion QA command group (1)</summary>
+
+<a id="d-0f57456887138d45cdf1"></a>
+- [ ] **D-0f57456887138d45cdf1** - — Provide a single developer/CI command that runs the conversion engine&#x27;s deterministic unit/integration suite and reports machine-readable stage results.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G061 — Required test and proof commands/surfaces / T230 — Add native conversion QA command group
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T230 : 1910-1910](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1910-L1910)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts (1)</summary>
+
+<a id="d-55c7b2cf582cbf093d8f"></a>
+- [ ] **D-55c7b2cf582cbf093d8f** - Published/download integrity and release/conversion receipts continue to use required upstream hashes and SHA-256. Never silently substitute BLAKE3 where a provider/protocol specif...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Published/download integrity and release/conversion receipts continue to use required upstream hashes and SHA-256. Never silently substitute BLAKE3 where a provider/protocol specifies another digest.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2231-2231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2231-L2231)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows (1)</summary>
+
+<a id="d-1ef952b48448e64b043f"></a>
+- [ ] **D-1ef952b48448e64b043f** - — Standardize stable operation/stage IDs across search, download, install, launch, update and conversion. Feed Rust tracing into rotating local logs and ETW on Windows (via a prove...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Standardize stable operation/stage IDs across search, download, install, launch, update and conversion. Feed Rust tracing into rotating local logs and ETW on Windows (via a proven tracing/ETW bridge) with equivalent platform logging elsewhere.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T273 : 2383-2383](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2383-L2383)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 8. Minecraft Marketplace integration (1)</summary>
 
 <a id="d-14b3c2565404d0d37a7e"></a>
@@ -6916,6 +10075,28 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 552-552](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L552-L552)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
+
+<a id="d-1321284331a22bfdc7de"></a>
+- [ ] **D-1321284331a22bfdc7de** - · For Kotlin/Mixins/Class Tweaker/Access Widener/AT cases, require tools that understand the relevant syntax/semantics; do not declare parity from Java-only remapping.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T047 : 327-327](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L327-L327)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-345c9bdf7a94935a8715"></a>
+- [ ] **D-345c9bdf7a94935a8715** - · Conversion output must include the maintainable canonical project, every target artifact, target receipts, unresolved items, and enough provenance for a clean-room replay.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T093 : 398-398](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L398-L398)
 
 </details>
 
@@ -7126,7 +10307,7 @@
 <a id="port-14-details"></a>
 ## PORT-14 - Ecosystem backend integration
 
-[Outcome](Checklist.md#port-14) / 6 source-derived details.
+[Outcome](Checklist.md#port-14) / 7 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.1 Preserve current execution state and create the integration ledger (1)</summary>
@@ -7195,6 +10376,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 29. Ecosystem Challenge Matrix — expanded benchmark set
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1047-1047](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1047-L1047)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-5b6c701dac12634fc36f"></a>
+- [ ] **D-5b6c701dac12634fc36f** - · Keep existing CI green while adding new backend-neutral CI. Only retire Stonecutter-specific CI coverage after equivalent or stronger tests exist elsewhere; Stonecutter export co...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Keep existing CI green while adding new backend-neutral CI. Only retire Stonecutter-specific CI coverage after equivalent or stronger tests exist elsewhere; Stonecutter export compatibility may keep its own focused test.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T129 : 459-459](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L459-L459)
 
 </details>
 

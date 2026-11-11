@@ -40,6 +40,38 @@ jobs:
         run: python tools/minecraft-dev-kit/scripts/northpoint_job_runner_selftest.py
       - name: Runtime proof must match candidate hash
         run: python tools/minecraft-dev-kit/scripts/northpoint_runtime_proof_selftest.py
+      - name: Variant Foundry discovers static and runtime-only custom biomes
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_discover_biomes_selftest.py
+      - name: Variant Foundry synthesizes evidence-bound BiomeDNA
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_biome_dna_selftest.py
+      - name: Variant Foundry creates deterministic lock-aware plans
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_plan_selftest.py
+      - name: Variant Foundry compiles immutable ModelBundles
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_bundle_selftest.py
+      - name: Variant Foundry compiles Minecraft pixel textures
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_texture_compiler_selftest.py
+      - name: Variant Foundry validates the headless Blockbench MCP adapter
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_selftest.py
+      - name: Variant Foundry compiles additive lock-aware Blockbench authoring recipes
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_recipe_selftest.py
+      - name: Variant Foundry compiles runtime physics persistence and performance contracts
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_runtime_contract_selftest.py
+      - name: Variant Foundry generated Java motion remains bounded
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_runtime_codegen_selftest.py
+      - name: Variant Foundry executes recipes durably through Blockbench MCP
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_blockbench_execute_selftest.py
+      - name: Variant Foundry durable pipeline packages authored models and visual evidence
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_pipeline_authoring_selftest.py
+      - name: Variant Foundry resumes and invalidates durable pipeline stages correctly
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_pipeline_selftest.py
+      - name: Variant Foundry provider scheduler fails over and reuses hash-valid jobs
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_provider_selftest.py
+      - name: Variant Foundry Clay and MyMeshy adapters preserve exact-output contracts
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_provider_adapters_selftest.py
+      - name: Variant Foundry rejects malformed or externally-linked GLB provider assets
+        run: python tools/minecraft-dev-kit/scripts/variant_foundry_gltf_gate_selftest.py
+      - name: Northpoint CI keeps modern Gradle runtime for maintained Fabric branch
+        run: python tools/minecraft-dev-kit/scripts/northpoint_ci_java_floor_selftest.py
       - name: Retain workflow proof and candidate packages
         if: always()
         uses: actions/upload-artifact@v4

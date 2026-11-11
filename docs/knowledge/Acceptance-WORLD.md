@@ -9,7 +9,7 @@
 <a id="world-01-details"></a>
 ## WORLD-01 - World browser and safe editing
 
-[Outcome](Checklist.md#world-01) / 84 source-derived details.
+[Outcome](Checklist.md#world-01) / 90 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -29,7 +29,7 @@
 - [ ] **D-11dd0523e60ac836075e** - schematic/blueprint/world-edit workflows inspired by Axiom/WorldEdit/Litematica capabilities where appropriate.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-031 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L469-L469)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-031 : 470-470](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L470-L470)
 
 </details>
 
@@ -41,7 +41,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** snapshot/version deltas/selective restore/NBT safe-copy editing/seed recovery/dimension-registry repair/recreate-open doctor/broken entity-BE isolation/trim/pregen/retrogen/seed-worldgen ownership/performance.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.2 World tooling
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-010 : 597-597](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L597-L597)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-010 : 603-603](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L603-L603)
 
 </details>
 
@@ -335,6 +335,69 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase CLI-1 — existing Enderloom domain parity
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1507-1507](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1507-L1507)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge (1)</summary>
+
+<a id="d-ff85a7a0bfa24bafdb7a"></a>
+- [ ] **D-ff85a7a0bfa24bafdb7a** - — Before closing this research wave, reconcile every coverage dimension at the top of this section and verify that remaining unknowns are one of:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T127 : 1608-1608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1608-L1608)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus (1)</summary>
+
+<a id="d-24f928afdf04e46fafca"></a>
+- [ ] **D-24f928afdf04e46fafca** - — Ingest/use misode/mcmeta as a versioned generated-data diff corpus and PrismarineJS/minecraft-data as a second oracle.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T187 : 1082-1082](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1082-L1082)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T189 — DFU/Codec/DataComponent-aware planning (1)</summary>
+
+<a id="d-34873314d63dd167c105"></a>
+- [ ] **D-34873314d63dd167c105** - — Detect persistent-data migrations that may require:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T189 — DFU/Codec/DataComponent-aware planning
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T189 : 1094-1094](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1094-L1094)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane (2)</summary>
+
+<a id="d-e877f2e9d1d2f0bf3370"></a>
+- [ ] **D-e877f2e9d1d2f0bf3370** - — When persistent Minecraft data crosses schema generations, inspect the actual target/source DataFixerUpper schemas/fixes and target codecs instead of treating DFU as a generic co...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — When persistent Minecraft data crosses schema generations, inspect the actual target/source DataFixerUpper schemas/fixes and target codecs instead of treating DFU as a generic concept. Build fixtures for saved data, entities/block entities, chunks/world data and other affected persistent formats when a mod owns or embeds versioned data.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T320 : 1122-1122](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1122-L1122)
+
+<a id="d-1650bb2b66164e5f8f3d"></a>
+- [ ] **D-1650bb2b66164e5f8f3d** - Do not blindly run vanilla DFU over arbitrary mod-owned NBT. Use its schema/fix graph as evidence and execute only transformations whose ownership/type contract is known.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T320 — Real DataFixerUpper/schema evidence lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1124-1124](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1124-L1124)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T350 — Versioned world/save translation oracle (1)</summary>
+
+<a id="d-b97aedfae6e0f75144fe"></a>
+- [ ] **D-b97aedfae6e0f75144fe** - Never use a converter&#x27;s broad version coverage as proof that every world feature is lossless. Inventory chunks, blocks/block entities, entities, dimensions, structures, player...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Never use a converter&#x27;s broad version coverage as proof that every world feature is lossless. Inventory chunks, blocks/block entities, entities, dimensions, structures, players/inventories and custom/modded data before/after; preserve unsupported fields where possible; record explicit unsupported categories; always mutate a copy/backup first. For downgrade or Java&lt;-&gt;Bedrock work, require a feature-by-feature loss report and user-visible choice rather than silent deletion.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T350 — Versioned world/save translation oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1130-1130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1130-L1130)
 
 </details>
 
@@ -753,7 +816,7 @@
 <a id="world-02-details"></a>
 ## WORLD-02 - Backups, recovery and Forever Worlds
 
-[Outcome](Checklist.md#world-02) / 32 source-derived details.
+[Outcome](Checklist.md#world-02) / 33 source-derived details.
 
 <details>
 <summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 10. World Recovery / Recreation Doctor (1)</summary>
@@ -1082,10 +1145,22 @@
 
 </details>
 
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / What it does (1)</summary>
+
+<a id="d-715a3a0a13f0aba5dfb1"></a>
+- [ ] **D-715a3a0a13f0aba5dfb1** - - every vanilla biome supported by the target version; - all biomes in a selected dimension; - all biomes discovered in an installed modpack; - custom/private datapack or mod biome...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - every vanilla biome supported by the target version; - all biomes in a selected dimension; - all biomes discovered in an installed modpack; - custom/private datapack or mod biomes Enderloom has never seen before; - curated popular dimensions such as Aether, Twilight Forest, Bumblezone, Deeper and Darker/Otherside, Blue Skies, Undergarden, Eternal Starlight, Tropicraft, Dimensional Doors, Ad Astra worlds and Voidscape; - official upcoming/experimental content when trustworthy registry/assets exist.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / What it does
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 11-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L11-L16)
+
+</details>
+
 <a id="world-03-details"></a>
 ## WORLD-03 - Whole-modpack migration
 
-[Outcome](Checklist.md#world-03) / 19 source-derived details.
+[Outcome](Checklist.md#world-03) / 26 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
@@ -1116,7 +1191,7 @@
 - [ ] **D-0d916fbcdc4c94b6a8bc** - Whole-pack migration: PN-001..002 plus applicable world/compatibility/runtime gates.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-09 : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L663-L663)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-09 : 669-669](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L669-L669)
 
 </details>
 
@@ -1127,7 +1202,7 @@
 - [ ] **D-9015344c34132bbd3edb** - format/lint/type/unit/integration/migration/schema/parity tests green.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 22. FINAL CROSS-CUTTING RELEASE GATE
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-003 : 679-679](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L679-L679)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REL-003 : 687-687](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L687-L687)
 
 </details>
 
@@ -1183,6 +1258,73 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-5 — whole-pack intelligence
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1556-1556](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1556-L1556)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence (1)</summary>
+
+<a id="d-bee71594ef97bcfb1e4b"></a>
+- [ ] **D-bee71594ef97bcfb1e4b** - GATE — Every version jump gets a structured API-delta report before guessing migration rules.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G017 : 283-283](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L283-L283)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence (1)</summary>
+
+<a id="d-f63e964a39d188132cce"></a>
+- [ ] **D-f63e964a39d188132cce** - — Turn the current Fabric and NeoForge migration material into machine-readable version-step edges with provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T081 — Ingest official/current migration corpora as version-step evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T081 : 756-756](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L756-L756)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T111 — Keep Ravel and Kotlin Analysis API as independent semantic oracles (1)</summary>
+
+<a id="d-f80ea2695900385fcb9f"></a>
+- [ ] **D-f80ea2695900385fcb9f** - — When OpenRewrite Kotlin cannot confidently resolve a migration, compare against:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T111 — Keep Ravel and Kotlin Analysis API as independent semantic oracles
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T111 : 1265-1265](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1265-L1265)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T157 — Build canonical `SemanticRule` schema (1)</summary>
+
+<a id="d-eeff5205f905349aac6a"></a>
+- [ ] **D-eeff5205f905349aac6a** - — Every migration rule stores:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T157 — Build canonical `SemanticRule` schema
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T157 : 594-594](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L594-L594)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge (1)</summary>
+
+<a id="d-7e30635b47f54e7bb429"></a>
+- [ ] **D-7e30635b47f54e7bb429** - Do not maintain a second independent migration truth database.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 616-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L616-L616)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T195 — Human-assisted migration remains structured (1)</summary>
+
+<a id="d-ebbee1cddaa062c15eda"></a>
+- [ ] **D-ebbee1cddaa062c15eda** - — For genuinely project-specific logic that cannot be safely automated, emit an assisted migration item containing exact source context, target API evidence, expected behavior, unr...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — For genuinely project-specific logic that cannot be safely automated, emit an assisted migration item containing exact source context, target API evidence, expected behavior, unresolved choice and required proof.
+  - **Binding context:** G051 — Compile, diagnose, generalized repair loop / T192 — Structured compiler diagnostics / T195 — Human-assisted migration remains structured
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T195 : 1164-1164](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1164-L1164)
 
 </details>
 
@@ -1249,7 +1391,18 @@
 - [ ] **D-3b345ebcb1a318bbfd9e** - A migration report must show:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 11. Premium Whole-Modpack Migration Engine / 11.5 Acceptance
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 984-984](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L984-L984)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 991-991](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L991-L991)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-6aa4981e2748e9b0f59f"></a>
+- [ ] **D-6aa4981e2748e9b0f59f** - · Add a migration path for existing Enderloom Stonecutter workspaces into the canonical engine without requiring users to recreate projects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T157 : 502-502](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L502-L502)
 
 </details>
 
@@ -1289,7 +1442,7 @@
 <a id="world-04-details"></a>
 ## WORLD-04 - Cross-edition world conversion
 
-[Outcome](Checklist.md#world-04) / 56 source-derived details.
+[Outcome](Checklist.md#world-04) / 59 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1527,6 +1680,40 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Enderloom Probe — Minecraft test control plane
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 865-865](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L865-L865)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump (1)</summary>
+
+<a id="d-464a64f476d800b1fe0d"></a>
+- [ ] **D-464a64f476d800b1fe0d** - Fabric&#x27;s own documentation explicitly warns that mapping migration is not a substitute for Fabric API renames. Enderloom must represent those as separate edges.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G023 — Mapping-era architecture: pre-26.1 and 26.1+ are different pipelines / T079 — Add explicit mapping-era state to the conversion graph / T080 — Make 1.21.11 -&gt; 26.1 a named crossing, not a normal adjacent bump
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 752-752](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L752-L752)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T350 — Versioned world/save translation oracle (1)</summary>
+
+<a id="d-6819c892464cea137deb"></a>
+- [ ] **D-6819c892464cea137deb** - — Add a separate world/save data-translation layer that composes official DataFixerUpper for supported forward Java upgrades with independent Amulet/PyMCTranslate Universal-format ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add a separate world/save data-translation layer that composes official DataFixerUpper for supported forward Java upgrades with independent Amulet/PyMCTranslate Universal-format mappings and HiveGamesOSS Chunker as cross-version/cross-edition differential oracles.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T350 — Versioned world/save translation oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T350 : 1128-1128](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1128-L1128)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T205 — Restart/persistence proof (1)</summary>
+
+<a id="d-f437843e9a4487d3029c"></a>
+- [ ] **D-f437843e9a4487d3029c** - — When the mod persists config/world/saved data, perform restart/reload tests using representative fixture state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T205 — Restart/persistence proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T205 : 1294-1294](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1294-L1294)
 
 </details>
 
@@ -1846,7 +2033,7 @@
 <a id="world-05-details"></a>
 ## WORLD-05 - Real server management
 
-[Outcome](Checklist.md#world-05) / 89 source-derived details.
+[Outcome](Checklist.md#world-05) / 90 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -1894,7 +2081,7 @@
 - [ ] **D-40ecd9d0d34d61706415** - Spellbrook-class authorized server -&gt; native mod: Phase J exit.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-06 : 660-660](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L660-L660)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-06 : 666-666](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L666-L666)
 
 </details>
 
@@ -2210,6 +2397,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 39. Definition of done — whole Enderloom vision
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1607-1607](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1607-L1607)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T201 — Dedicated server proof (1)</summary>
+
+<a id="d-7b21cf62fc245939fd0e"></a>
+- [ ] **D-7b21cf62fc245939fd0e** - — For server-capable mods, start a real target dedicated server, detect loader/mod initialization success and fatal errors, then stop/clean it deterministically.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T201 — Dedicated server proof
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T201 : 1263-1263](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1263-L1263)
 
 </details>
 
@@ -2634,7 +2832,7 @@
 <a id="world-06-details"></a>
 ## WORLD-06 - Network, proxy and plugin semantics
 
-[Outcome](Checklist.md#world-06) / 81 source-derived details.
+[Outcome](Checklist.md#world-06) / 84 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -2667,7 +2865,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Gameplay layer: AI/targeting/triggers/skills/projectiles/damage/effects/cooldowns/drops/recipes/items/armor/blocks/furniture/pets/inventories/GUIs/NPCs/dialogue/quests/content-critical economy/structures/spawns/worldgen/persistence/network sync.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-012 : 507-507](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L507-L507)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-012 : 510-510](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L510-L510)
 
 </details>
 
@@ -2678,19 +2876,19 @@
 - [ ] **D-2c8c5b16c1f8d88d4539** - Bukkit/Spigot/Paper/Purpur/Folia/Velocity/Bungee legacy contexts, plugin packs, RCON/console/players/whitelist/server performance; Folia validation must be region-thread truthful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-020 : 601-601](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L601-L601)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-020 : 607-607](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L607-L607)
 
 <a id="d-ee8b4998c6a0789a06b2"></a>
 - [ ] **D-ee8b4998c6a0789a06b2** - Geyser/Floodgate, ViaVersion-family, lawful packet inspection, compatibility/latency/disconnect/network-chaos scenarios and protocol-bot load testing.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-021 : 602-602](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L602-L602)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-021 : 608-608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L608-L608)
 
 <a id="d-75d944d4c35062d60ae6"></a>
 - [ ] **D-75d944d4c35062d60ae6** - legitimate SSH/SFTP/provider API remote ops use explicit permissions and the same transaction/audit model; DEC-R01 remains enforced.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. PHASE N — WHOLE-PACK MIGRATION, WORLD, SERVER, NETWORK / 17.3 Server/proxy/protocol
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-022 : 603-603](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L603-L603)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PN-022 : 609-609](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L609-L609)
 
 </details>
 
@@ -3154,6 +3352,29 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` (1)</summary>
+
+<a id="d-377f2534559989b3efc9"></a>
+- [ ] **D-377f2534559989b3efc9** - — Represent version nodes and migration edges with:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T151 : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L493-L493)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T351 — Registry/protocol delta evidence side-channel (1)</summary>
+
+<a id="d-0a6f2acf014ab67d9688"></a>
+- [ ] **D-0a6f2acf014ab67d9688** - This evidence never outranks direct target symbols/registries or official migration behavior. A network-protocol mapping is evidence that an identifier changed, not proof that a mo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This evidence never outranks direct target symbols/registries or official migration behavior. A network-protocol mapping is evidence that an identifier changed, not proof that a mod API migration has identical semantics. Preserve provenance/version/hash for every imported delta and turn disagreements into explicit review/fixtures instead of guessing.
+  - **Binding context:** G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T351 — Registry/protocol delta evidence side-channel
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 571-571](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L571-L571)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (1)</summary>
 
 <a id="d-d32cfadd631792cdd757"></a>
@@ -3238,6 +3459,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 42. Golden acceptance fixtures
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1555-1555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1555-L1555)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
+
+<a id="d-88c8d84f2f22b9321e98"></a>
+- [ ] **D-88c8d84f2f22b9321e98** - · Differentially compare Tiny Remapper, Fabric Loom migration behavior, Ravel, AutoRenamingTool/SrgUtils, ModForge evidence, and Enderloom&#x27;s own resolver on representative fix...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Differentially compare Tiny Remapper, Fabric Loom migration behavior, Ravel, AutoRenamingTool/SrgUtils, ModForge evidence, and Enderloom&#x27;s own resolver on representative fixtures.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T046 : 326-326](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L326-L326)
 
 </details>
 

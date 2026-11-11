@@ -10,12 +10,16 @@
 [**PERF-01**](Checklist.md#perf-01)
 
 <details>
-<summary>Source clauses and aliases (149 distinct blocks)</summary>
+<summary>Source clauses and aliases (157 distinct blocks)</summary>
 
 - [2. CLI executable contract / Stable exit-code families](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L106-L106) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Core commands](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L355-L355) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / JFR](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L504-L506) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [8. Profiler CLI adapters / Spark](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L513-L513) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1314-L1314) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T210 — Bounded parallel fanout](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1332-L1334) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
+- [G071 — Observability, crash recovery, profiling and supply-chain safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2379-L2379) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T275 — Make performance work profiler-driven](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2395-L2395) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.7 Results surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L382-L382) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [13. Premium Testing workspace — Performance Lab / 13.3 Per-mod metrics / Server](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L578-L583) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L770-L770) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -36,6 +40,7 @@
 - [46. Final product philosophy](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1773-L1773) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [9. Universal Minecraft Intermediate Representation (UMIR)](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L475-L475) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [31. Cross-integration requirements for these newly added domains](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1115-L1115) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — performance and rendering architecture](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L50-L50) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.10 Worlds workspace, World Detail, and Forever World Guard / 13.10.14 Performance and world diagnostics](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1600-L1604) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.20 Enderloom features that should beat both major launchers / Performance Clinic](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1847-L1854) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.5 Mod behavior, side, vanilla-impact, and Forever World intelligence / 13.5.11 Performance and scale](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1187-L1189) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 2 distinct blocks.
@@ -45,6 +50,7 @@
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.2 Client metrics where applicable](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L354-L354) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.3 Server metrics where applicable](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L366-L372) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L374-L388) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Physics and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L230-L230) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave C — Performance Lab continuity](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L249-L249) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Gap-audit domains — mandatory coverage](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L165-L165) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.5 Task Manager-style client profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L159-L159) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
@@ -100,6 +106,7 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L928-L928) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T047 — Establish real comparator baselines and profile every major Enderloom latency path](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L969-L975) - ENDERLOOM_GET_DONE_NOW_QOL.md; 3 distinct blocks.
 - [8. Performance Optimization Without Regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L429-L449) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
+- [GATE - Semantic migration rule engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L344-L344) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [9. Startup / Boot-Time Profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L239-L239) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L937-L937) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L978-L978) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
@@ -113,7 +120,7 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Preserve real simulation](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L590-L594) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 3 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.4 Optimization rules learned from real mod repairs / Replace polling with write/lifecycle events](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L570-L574) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 3 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_STUDIO_EXECUTION.md::T143`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T047`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G071`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T210`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T275`, `ENDERLOOM_STUDIO_EXECUTION.md::T143`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T047`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T059`
 
 </details>
 
@@ -123,10 +130,12 @@
 [**PERF-02**](Checklist.md#perf-02)
 
 <details>
-<summary>Source clauses and aliases (50 distinct blocks)</summary>
+<summary>Source clauses and aliases (52 distinct blocks)</summary>
 
 - [8. Profiler CLI adapters / JFR](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L502-L508) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
 - [8. Profiler CLI adapters / Spark](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L510-L515) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
+- [Canonical evidence / upstream references from the completed research / Additional implementation/reference authorities](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2773-L2806) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [Canonical evidence / upstream references from the completed research / App-wide native architecture and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2635-L2635) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.2 Truthful behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L84-L84) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [11. Logs, diagnostics, storage, system visibility / Diagnostics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L486-L486) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [14. Out-of-game Quick Scan / static analysis](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L672-L672) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -172,9 +181,15 @@
 [**PERF-03**](Checklist.md#perf-03)
 
 <details>
-<summary>Source clauses and aliases (76 distinct blocks)</summary>
+<summary>Source clauses and aliases (88 distinct blocks)</summary>
 
 - [15. Implementation order for Codex / Phase CLI-5 — profiler adapters + whole-pack intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L877-L877) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Context: existing repository truth to preserve and migrate](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L62-L62) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G040 — Repository preflight and authority freeze](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L243-L243) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1318-L1318) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2049-L2052) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T251 — Define browse/search latency and completeness gates](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2168-L2168) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2312-L2312) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L643-L643) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.2 Java Flight Recorder](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L787-L787) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.5 Profiler-overhead challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L821-L821) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -185,7 +200,11 @@
 - [37. Implementation roadmap / Phase Testing-2 — direct A/B](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1530-L1530) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [1. The Integration Law — absolutely non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L47-L47) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [16. Premium Performance Lab — evidence everywhere](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L715-L715) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L162-L164) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 2 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.2 Stress proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L212-L212) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2231-L2231) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Physics and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L232-L236) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / Performance promise](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L103-L103) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Bedrock / Marketplace rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L131-L131) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [11. Evidence Brain Integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L730-L734) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
 - [12. Research Snapshot — 2026-09-07](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L746-L764) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
@@ -236,10 +255,11 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / PHASE 2 — MINECRAFT-RUNNING ZERO-IMPACT PROTECTION — EXECUTE ONLY AFTER PHASE 1](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1111-L1111) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [3. Configuration Intelligence — make Enderloom absurdly good at configs / 3.5 Config + Performance Lab integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L259-L263) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 1 distinct blocks.
 - [8. Performance Optimization Without Regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L431-L431) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [GATE - Performance and no-loss challenge pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L490-L490) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [11. Performance Patch Acceptance Contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L275-L294) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.1 Diagnose earliest cause, not loudest warning](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L377-L380) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
-**Original aliases:** `ENDERLOOM_GET_DONE_NOW_QOL.md::T045`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T067`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T091`
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G040`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T241`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T045`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T067`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T091`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T150`
 
 </details>
 
@@ -249,12 +269,14 @@
 [**PERF-04**](Checklist.md#perf-04)
 
 <details>
-<summary>Source clauses and aliases (118 distinct blocks)</summary>
+<summary>Source clauses and aliases (125 distinct blocks)</summary>
 
 - [10. GitHub projects to learn from — current research / HeadlessMc — `headlesshq/headlessmc`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L576-L578) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Runtime modes](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L328-L328) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [7. Performance Lab CLI / Quick/static analysis](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L451-L451) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / Spark](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L514-L514) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T333 — Current frontend toolchain bakeoff before framework rewrite](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2058-L2058) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2245-L2245) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.5 Runtime and metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L370-L370) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [13. Premium Testing workspace — Performance Lab / 13.3 Per-mod metrics / Client/render](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L566-L574) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [13. Premium Testing workspace — Performance Lab / 13.4 Whole-pack dashboard](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L608-L608) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -271,6 +293,10 @@
 - [5. Right-click / Power Context Menu — obsessive QOL / 5.3 `Performance` submenu](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L293-L293) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [31. Cross-integration requirements for these newly added domains](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1107-L1107) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
 - [33. Updated implementation waves after the original backlog / Wave C — Performance Lab continuity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1167-L1167) - ENDERLOOM_GAP_AUDIT_2026-09-07.md; 1 distinct blocks.
+- [Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / IK / rigging freshness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L237-L239) - ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md; 1 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 15. Acceptance fixtures / HF-05 Crowd performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L412-L418) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L166-L166) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
+- [Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.2 Stress proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L210-L210) - ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.2 Client metrics where applicable](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L356-L362) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave C — Performance Lab continuity](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L247-L247) - CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md; 1 distinct blocks.
 - [2. Current High-Value Minecraft Diagnostic Integrations / 2.5 Task Manager-style client profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L165-L179) - ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md; 1 distinct blocks.
@@ -305,6 +331,7 @@
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.3 Metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L906-L912) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L285-L293) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L198-L199) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 1 distinct blocks.
+- [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L380-L380) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L61-L63) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L67-L81) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 10 distinct blocks.
 - [3. Render / GPU / Client Frame-Time Lab / 3.2 GPU/render-backend awareness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L83-L91) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 4 distinct blocks.
@@ -314,6 +341,8 @@
 - [14. QA CHECKLIST — AUTOMATE THESE / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L935-L939) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 3 distinct blocks.
 - [8. NORTHPOINT ZERO-LAG PERFORMANCE GATE / 8.3 Metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L502-L508) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T259`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T333`
+
 </details>
 
 <a id="perf-05"></a>
@@ -322,9 +351,12 @@
 [**PERF-05**](Checklist.md#perf-05)
 
 <details>
-<summary>Source clauses and aliases (9 distinct blocks)</summary>
+<summary>Source clauses and aliases (13 distinct blocks)</summary>
 
 - [8. Profiler CLI adapters / JFR](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L507-L507) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1316-L1316) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1340-L1340) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T276 — Bake off PGO only against representative real workloads](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2399-L2399) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.2 Java Flight Recorder](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L789-L789) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [33. Performance requirements for Enderloom itself](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1380-L1380) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [16. Premium Performance Lab — evidence everywhere](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L732-L732) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
@@ -332,7 +364,10 @@
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.10 Make it very fast without cheating / Parallel shards](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4473-L4473) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. Profiler integration / JFR](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L473-L473) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.10 Make it very fast without cheating / Parallel shards](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4473-L4473) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [GATE - Performance and no-loss challenge pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L485-L485) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [9. Startup / Boot-Time Profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L235-L249) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 2 distinct blocks.
+
+**Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G054`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T276`
 
 </details>
 
@@ -342,8 +377,9 @@
 [**PERF-06**](Checklist.md#perf-06)
 
 <details>
-<summary>Source clauses and aliases (44 distinct blocks)</summary>
+<summary>Source clauses and aliases (47 distinct blocks)</summary>
 
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T239 — Use Tauri channels for high-throughput streams](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2035-L2039) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.5 Runtime and metrics](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L371-L372) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 2 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.7 Results surface](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L383-L385) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 2 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.1 Enderloom native telemetry](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L780-L780) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
@@ -376,8 +412,11 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T082 — Automated Minecraft coexistence benchmark harness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1244-L1253) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T093 — Compio / Windows IoRing high-throughput file data-plane challenger](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L215-L215) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L654-L658) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [GATE - Performance and no-loss challenge pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L492-L492) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [2. Heap / Memory-Leak Lab](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L45-L45) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L940-L940) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
+
+**Original aliases:** `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T152`
 
 </details>
 
@@ -387,8 +426,11 @@
 [**PERF-07**](Checklist.md#perf-07)
 
 <details>
-<summary>Source clauses and aliases (13 distinct blocks)</summary>
+<summary>Source clauses and aliases (16 distinct blocks)</summary>
 
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T209 — Single-flight external/tool work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1326-L1326) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T210 — Bounded parallel fanout](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1330-L1330) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T211 — Fast local invalidation/indexing](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1336-L1336) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L555-L555) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [18. Profiler/instrumentation stack / 18.3 Spark adapter](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L807-L809) - ENDERLOOM_MASTER_REQUIREMENTS.md; 2 distinct blocks.
 - [30. Server Studio](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1221-L1222) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 2 distinct blocks.
@@ -411,8 +453,11 @@
 [**PERF-08**](Checklist.md#perf-08)
 
 <details>
-<summary>Source clauses and aliases (137 distinct blocks)</summary>
+<summary>Source clauses and aliases (142 distinct blocks)</summary>
 
+- [G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L741-L748) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T241 — Keep, optimize or migrate the frontend based on evidence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2047-L2047) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T275 — Make performance work profiler-driven](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2393-L2393) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [25. Performance / anti-stall requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L1075-L1079) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 2 distinct blocks.
 - [7. PHASE D — CORE PRODUCT HARDENING + PREMIUM MOD MEDIA / 7.1 Core QOL/performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L313-L313) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.1 User flows](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L346-L346) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -445,6 +490,7 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.20 Enderloom features that should beat both major launchers / Performance Clinic](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1841-L1845) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.15 Performance testing through the same engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4634-L4634) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L402-L402) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Variant Foundry &amp; High-Fidelity Java Models / Performance promise](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L101-L101) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
 - [11. PERFORMANCE / QOL CHALLENGE PASS](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L431-L446) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md; 2 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Improve Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L180-L180) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L711-L713) - ENDERLOOM_STUDIO_EXECUTION.md; 2 distinct blocks.
@@ -483,8 +529,9 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1301-L1301) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1322-L1323) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / PHASE 1 — PERFORMANCE / STACK SUPREMACY — EXECUTE FIRST](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L24-L24) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
-- [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L784-L788) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
+- [9. Performance / Testing becomes the Minecraft Control Plane / 9.4 CLI command families / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L791-L795) - ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md; 2 distinct blocks.
 - [14. Test Matrix for “Full Functioning Mod” / Performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L652-L652) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
+- [Evidence ledger — third deep scour / Build/performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1711-L1711) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [25. Performance / anti-stall requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L1110-L1114) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md; 2 distinct blocks.
 - [25. Performance / anti-stall requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L1203-L1207) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md; 2 distinct blocks.
 - [11. Performance Patch Acceptance Contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L273-L291) - ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md; 9 distinct blocks.
@@ -506,9 +553,10 @@
 [**PERF-09**](Checklist.md#perf-09)
 
 <details>
-<summary>Source clauses and aliases (12 distinct blocks)</summary>
+<summary>Source clauses and aliases (13 distinct blocks)</summary>
 
-- [18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L612-L612) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
+- [Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L68-L73) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L618-L618) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
 - [5. Performance acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L553-L557) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 3 distinct blocks.
 - [5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / D. World safety, proof and delivery](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L710-L710) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.
 - [5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L793-L793) - ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md; 1 distinct blocks.

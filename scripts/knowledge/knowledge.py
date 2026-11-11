@@ -158,7 +158,7 @@ def render(state,corpus):
 
 ### One studio. Four clear beginnings. Two immediate outcomes.
 
-**[Complete Advent of Ascension](Advent-of-Ascension.md) &nbsp; | &nbsp; [Ship the beautiful studio](Studio.md)**
+**[Complete Advent of Ascension](Advent-of-Ascension.md) &nbsp; | &nbsp; [Ship the beautiful studio](Studio.md)**\n\n**[Variant Foundry & High-Fidelity Java Models](Variant-Foundry-and-High-Fidelity-Java-Models.md)**
 
 </div>
 
@@ -470,6 +470,62 @@ All Markdown/text/JSON sources under `docs/`, excluding generated knowledge page
  'mcbeet/beet':('Packs/commands','Current Beet/Mecha source pipeline and command validation.'),
  'SpyglassMC/Spyglass':('Diagnostics','Structured data-pack language diagnostics linked to real runtime tests.'),
  'JannisX11/blockbench':('Visual codecs','Model/UV/animation round-trip reference and real assets.'),
+ 'VAST-AI-Research/AniGen':('Concept -> rig','Single-image animate-ready mesh/skeleton/skinning challenger; exact third-party/model licenses remain gated.'),
+ 'VAST-AI-Research/SkinTokens':('Auto-rigging','Current TokenRig skeleton + skin-weight challenger and UniRig successor; benchmark on Minecraft creature fixtures.'),
+ 'Isabella98Liu/RigAnything':('Auto-rigging','Independent template-free skeleton/skinning oracle for unusual assets.'),
+ 'microsoft/TRELLIS.2':('3D generation','Current high-fidelity image-to-3D/PBR challenger; Minecraftization remains a separate measured stage.'),
+ 'VAST-AI-Research/TripoSG':('3D generation','High-fidelity image/scribble-to-3D challenger with face-budget control.'),
+ 'Tencent-Hunyuan/Hunyuan3D-Part':('Part decomposition','Semantic part segmentation/decomposition proposal stage before editable Minecraft hierarchy.'),
+ 'wgsxm/PartCrafter':('Part generation','Structured multi-part generation challenger for separable creature/prop components.'),
+ 'buaacyw/MeshAnythingV2':('Retopology','Artist-like low-face topology challenger; compare against deterministic remesh/simplification.'),
+ 'MopicMP/gltf-to-minecraft':('Minecraftization','glTF/GLB -> Minecraft cubes/GeckoLib/Bedrock/CPM bridge with animation and atlas handling.'),
+ 'toxicity188/BetterModel':('Model runtime','Bedrock-style Java model benchmark for meshes, Molang, IK, locators, player/armor and synchronization.'),
+ 'tomalbrc/blockbench-import-library':('Model runtime','bbmodel/ajmodel + Molang/effects/variants/locators and efficient virtual-display compatibility reference.'),
+ 'Animated-Java/animated-java':('Animation tooling','Rich Java Blockbench animation semantics; AGPL means adapter/oracle unless distribution deliberately complies.'),
+ 'Engine-Room/Flywheel':('Rendering performance','GPU instancing/shader architecture challenger for high-detail crowds.'),
+ 'FoundryMC/Veil':('Advanced rendering','Optional advanced rendering/tooling challenger; verify exact target compatibility.'),
+ 'zeux/meshoptimizer':('Mesh performance','Offline mesh cache/fetch/overdraw/simplification/LOD preprocessing candidate.'),
+ 'jpcy/xatlas':('UV tooling','Deterministic UV chart/unwrap/atlas candidate for mesh-assisted assets.'),
+ 'vrm-c/vrm-specification':('Secondary motion','SpringBone semantics baseline for hair/vines/tails/cloth plus Enderloom extensions.'),
+ 'xloveee/jiggle-physics':('Secondary motion','Weight-painted soft-region + damped spring reference for optional mesh deformation.'),
+ 'Low-Drag-MC/Photon':('VFX reference','Powerful VFX/editor benchmark; current non-commercial licensing makes source reuse rights-gated.'),
+ 'team-abnormals/blueprint':('Animation runtime','Endimator is a lightweight native animation lane/oracle for simpler Java entities.'),
+ 'FoundationGames/JsonEM':('Model introspection','JSON entity model dump/load reference for live model inventory and resource-defined fixtures.'),
+ 'Gamepiaynmo/CustomPlayerModel':('Model physics','Independent Java JSON model/scripting/particle/physics runtime for players and other entities.'),
+ 'mchorse/bbs-mod':('Animation studio reference','Archived Minecraft animation studio; mine behavior/fixtures, do not adopt as current runtime dependency.'),
+ 'BBS-Engine/bbs':('Animation studio','Active Java voxel animation-studio architecture for timeline/camera/model-preview ideas.'),
+ 'FiguraMC/figura-core':('Avatar architecture','Minecraft-independent Figura core is a portability/reference lane for Enderloom model runtime.'),
+ 'FiguraMC/figura-client':('Avatar architecture','Thin Minecraft/version integration reference for portable model/avatar logic.'),
+ 'FiguraMC/figura-molang':('Expressions','Current Figura Molang-like expression module is a differential parser/evaluator reference.'),
+ 'AlexModGuy/Citadel':('Legacy animation reference','Mature hierarchical/default-pose model utilities; reference/fixture rather than preferred modern backend.'),
+ 'Seed3D/Puppeteer':('Rig + motion','Automatic rigging plus video-guided animation challenger; map generated motion into canonical gameplay-safe animation contracts.'),
+ 'jasongzy/Make-It-Animatable':('Auto-rigging','MIT MIA v2 challenger for joints, weights and pose generation on mesh inputs.'),
+ 'vlongle/articulate-anything':('Articulation','Joint/link/axis inference challenger for props, machinery and nonstandard articulated assets.'),
+ 'Anytop2025/Anytop':('Motion generation','Arbitrary-topology motion generation/inpainting after a valid canonical rig exists.'),
+ 'Patbox/polymer':('Server-side export','Virtual-entity/resource-pack compatibility backend; optional export, not native-client runtime authority.'),
+ 'MehVahdJukaar/polytone':('Biome phenotype','Colormap/biome-effect/resource-pack compatibility reference for modded-biome atmosphere.'),
+ 'SuperMartijn642/Fusion':('Resource models','Additional texture/model-type compatibility lane for generated blocks/items/environments.'),
+ 'IrisShaders/Iris':('PBR/shaders','Shader compatibility and performance lane; preserve rich materials with vanilla fallback.'),
+ 'minecraft-library/vanilla-reference-harness':('Visual QA','Deterministic real-client reference-render pattern for byte/image-diff regression fixtures.'),
+ 'jasonjgardner/blockbench-mcp-plugin':('Blockbench automation','Live + headless bbmodel edit/validate/convert/render architecture; GPL source reuse must remain license-compatible.'),
+ 'sosadly/blockbench-mcp':('Blockbench automation','MIT modeling/texture/rig/animation toolset with procedural detail and measurable reference/rig/animation QA gates.'),
+ 'velthoric/Velthoric':('Optional physics','Minecraft Jolt integration challenger for real soft-body/rope/joint workloads; not the default cosmetic motion path.'),
+ 'stephengold/jolt-jni':('Optional physics','MIT low-level JVM Jolt/V-HACD bindings for capability-selected native physics.'),
+ 'felippeomgt/mymeshy':('Asset pipeline','Local-first generation/texturing/UV/PBR/export/MCP and VRAM-aware provider execution patterns.'),
+ 'OpenX-Inc/clay':('Asset pipeline','Swappable provider registry plus game-ready retopo/LOD/collision/bake/rig/material/texture/export stages.'),
+ 'InFaNsO/AssetForge':('Asset pipeline','Stage-separated game-asset core with Blender shell, resolver/provenance and headless-testable contracts.'),
+ '3DTopia/MVPaint':('Texturing','Multi-view synchronized generation, inpainting and UV seam refinement challenger.'),
+ 'LIU-Yuxin/SyncMVD':('Texturing','MIT synchronized multi-view texture challenger and seam-consistency oracle.'),
+ 'OpenTexture/Paint3D':('Texturing','Apache-2.0 lighting-less UV texturing reference for relightable materials.'),
+ 'CVMI-Lab/TEXGen':('Texturing','UV-domain generative texture challenger; exact model rights gated before promotion.'),
+ 'Joey-Jang/StableMaterials':('Materials','Tileable PBR material proposal challenger; exact model/code rights gated before promotion.'),
+ 'bytedance/Hi3DGen':('3D generation','MIT high-fidelity image-to-geometry challenger using normal bridging.'),
+ 'donmccurdy/glTF-Transform':('Interchange','MIT reproducible glTF editing/optimization/resampling SDK and CLI.'),
+ 'KhronosGroup/glTF-Validator':('Interchange','Official structural/binary/animation/material glTF validation gate.'),
+ 'Glitchfiend/TerraBlender':('Biome discovery','Major multi-loader biome-placement ecosystem with current 26.3 lineage.'),
+ 'TerraformersMC/Biolith':('Biome discovery','Multi-loader biome/sub-biome/surface-rule enrichment adapter.'),
+ 'Apollounknowndev/lithostitched':('Worldgen discovery','Data-driven worldgen compatibility/configuration enrichment adapter.'),
+ 'PolyhedralDev/Terra':('Worldgen discovery','Config-driven/nonstandard biome-provider fixture and discovery enrichment source.'),
  'unnamed/mocha':('Molang','Parser/evaluator/compiler comparisons with state/timing/thread correctness.'),
  'HiveGamesOSS/Chunker':('Worlds','Staged exact-pair world translation, full field reconciliation and rollback.'),
  'kbinani/je2be-core':('Worlds','Alternative/differential world backend; never a mod-code translator.'),
@@ -509,8 +565,22 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
   pages['Reference-Index']+='\n</details>\n\n'
  pages['Reference-Index']+='## Other documentation and providers\n\n'
  for u in other:pages['Reference-Index']+=f'- [{html.escape(u)}]({u})\n'
+ authored_wiki={}
+ authored_dir=ROOT/'docs/wiki'
+ if authored_dir.is_dir():
+  for source in sorted(authored_dir.glob('*.md')):
+   name=source.stem
+   if name in pages:raise ValueError('Authored Wiki page collides with generated page: '+name)
+   body=source.read_text(encoding='utf-8')
+   match=re.search(r'^#\s+(.+)$',body,re.M)
+   title=match.group(1).strip() if match else name.replace('-',' ')
+   pages[name]=body
+   authored_wiki[name]=title
  pages['_Sidebar']='## Enderloom\n\n[Home](Home.md)\n\n[Execution checklist](Checklist.md)\n\n'
  for g in groups:pages['_Sidebar']+=f"- [{g['title']}]({g['page']}.md)\n"
+ if authored_wiki:
+  pages['_Sidebar']+='\n## Feature guides\n\n'
+  for name,title in authored_wiki.items():pages['_Sidebar']+=f'- [{title}]({name}.md)\n'
  pages['_Sidebar']+='\n[Architecture](Architecture.md) / [Ecosystem](Ecosystem.md)\n\n[Source map](Source-Map.md) / [Working agreement](Working-Agreement.md)\n'
  pages['_Footer']='**Enderloom** - Fast at the loss of nothing. [Checklist](Checklist.md) / [Source map](Source-Map.md) / [Repository]('+REPO+')\n'
  fidelity.augment(ROOT,state,corpus,pages)

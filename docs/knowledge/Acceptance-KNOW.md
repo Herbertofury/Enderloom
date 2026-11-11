@@ -9,7 +9,7 @@
 <a id="know-01-details"></a>
 ## KNOW-01 - Premium in-app Wiki
 
-[Outcome](Checklist.md#know-01) / 17 source-derived details.
+[Outcome](Checklist.md#know-01) / 19 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT (1)</summary>
@@ -80,6 +80,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G073 — Combined implementation order (1)</summary>
+
+<a id="d-bd5e52f17189fed8123b"></a>
+- [ ] **D-bd5e52f17189fed8123b** - GATE — Execute the full contract depth-first without turning this new app-wide work into a second disconnected roadmap.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G073 — Combined implementation order
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G073 : 2582-2582](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2582-L2582)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu (2)</summary>
 
 <a id="d-ed13bd0f17e8c2d159fa"></a>
@@ -143,10 +154,22 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-51a3c98647d31f2bee9f"></a>
+- [ ] **D-51a3c98647d31f2bee9f** - GATE — Run the full convergence loop after implementation: rescan every unchecked, blocked, stale, or invalidated task; compare the production Create / Convert / Repair / Port work...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Run the full convergence loop after implementation: rescan every unchecked, blocked, stale, or invalidated task; compare the production Create / Convert / Repair / Port workflows against this contract; inspect real generated diffs and receipts; rerun only gates invalidated by later changes; repair every missing/partial/contradictory behavior in the shared engine; and repeat until no accepted requirement is missing, no production path bypasses the canonical SemanticProject + VersionGraph, no performance gain comes from reduced work, and no target is marked verified without its required evidence.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: G001 : 511-511](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L511-L511)
+
+</details>
+
 <a id="know-02-details"></a>
 ## KNOW-02 - Why installed and contextual explanations
 
-[Outcome](Checklist.md#know-02) / 21 source-derived details.
+[Outcome](Checklist.md#know-02) / 25 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -210,7 +233,7 @@
 - [ ] **D-109260793cf93924189c** - Canonical installed mod: Phase B exit.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-01 : 655-655](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L655-L655)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-01 : 661-661](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L661-L661)
 
 </details>
 
@@ -267,6 +290,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 20. Enderloom Probe — Minecraft test control plane
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 885-885](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L885-L885)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T086 — Merge its knowledge base into Enderloom&#x27;s provenance-bearing rule store (1)</summary>
+
+<a id="d-e9d61c3a9209e63a24f3"></a>
+- [ ] **D-e9d61c3a9209e63a24f3** - — Import verified facts into the canonical T071 learned-port knowledge base.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T086 — Merge its knowledge base into Enderloom&#x27;s provenance-bearing rule store
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T086 : 845-845](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L845-L845)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T374 — Cross-ecosystem vulnerability scanning with offline-safe evidence (1)</summary>
+
+<a id="d-c62a99eeb6f23b19d8eb"></a>
+- [ ] **D-c62a99eeb6f23b19d8eb** - Cross-check critical release findings with the ecosystem-native sources already used (cargo audit/RustSec, Gradle/Maven locks, GitHub advisories where available). Any call-analysis...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Cross-check critical release findings with the ecosystem-native sources already used (cargo audit/RustSec, Gradle/Maven locks, GitHub advisories where available). Any call-analysis mode that executes build.rs, compiler plugins or other dependency code must run under the untrusted-build sandbox and is opt-in/explicitly isolated.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T374 — Cross-ecosystem vulnerability scanning with offline-safe evidence
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2428-2428](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2428-L2428)
 
 </details>
 
@@ -366,20 +412,43 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - direct user/author choice; - required dependency chain; - optional integration actively used by another installed project; - script/quest/datapack/resource reference; - config reference; - world registry/content footprint; - server/client role; - performance/compatibility purpose; - tool/developer/test-only role; - unknown/manual artifact.
   - **Binding context:** 12. “Why is this installed?” as a first-class graph question
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1005-1014](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1005-L1014)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1012-1021](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1012-L1021)
 
 <a id="d-735b3b7d0cd9c59100dd"></a>
 - [ ] **D-735b3b7d0cd9c59100dd** - Can I remove it? must perform an impact plan:
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 12. “Why is this installed?” as a first-class graph question
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1016-1016](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1016-L1016)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1023-1023](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1023-L1023)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-af2e5cb2c45720280f89"></a>
+- [ ] **D-af2e5cb2c45720280f89** - · Hash and record the exact current files listed in the Context section; if any hash has changed, inspect the delta and update this contract&#x27;s baseline notes before implementa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Hash and record the exact current files listed in the Context section; if any hash has changed, inspect the delta and update this contract&#x27;s baseline notes before implementation.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T002 : 257-257](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L257-L257)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (1)</summary>
+
+<a id="d-3e666e9ccfe90fc19d2f"></a>
+- [ ] **D-3e666e9ccfe90fc19d2f** - · Expose a machine-readable explanation for every invalidation/rebuild: what changed -&gt; which node invalidated -&gt; which cells affected -&gt; why.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Incremental task graph, change ownership, and zero-waste rebuilds
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T041 : 316-316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L316-L316)
 
 </details>
 
 <a id="know-03-details"></a>
 ## KNOW-03 - Adaptive ecosystem contracts
 
-[Outcome](Checklist.md#know-03) / 15 source-derived details.
+[Outcome](Checklist.md#know-03) / 16 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (4)</summary>
@@ -388,25 +457,25 @@
 - [ ] **D-3a7534b37fe35136ef39** - Storage/equipment: Sophisticated Backpacks/Core/Storage, Curios, Trinkets/Accessories-family.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-010 : 572-572](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L572-L572)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-010 : 578-578](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L578-L578)
 
 <a id="d-0a989930f82b488e6ae3"></a>
 - [ ] **D-0a989930f82b488e6ae3** - Recipe/info: JEI, EMI, REI, Jade/WTHIT-style overlays.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-011 : 573-573](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L573-L573)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-011 : 579-579](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L579-L579)
 
 <a id="d-352ee439411342c95fcc"></a>
 - [ ] **D-352ee439411342c95fcc** - Engineering: Create, Registrate/Ponder/Flywheel where appropriate; loader-standard item/fluid/energy APIs; AE2, Refined Storage, Mekanism/transport when meaningful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-012 : 574-574](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L574-L574)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-012 : 580-580](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L580-L580)
 
 <a id="d-daf9678a2dad14ce0201"></a>
 - [ ] **D-daf9678a2dad14ce0201** - RPG/content: Apotheosis/Apothic-Curios-style affix/category/socket paths, Farmer’s Delight, Patchouli, FTB Quests where meaningful.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-013 : 575-575](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L575-L575)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-013 : 581-581](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L581-L581)
 
 </details>
 
@@ -418,25 +487,25 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** Container/accessory: equip, quick-move, nested safety, handler insertion/extraction, automation, filters/sorting, death/drop, state preservation, save/reload, multiplayer, no dupes/loss.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-020 : 581-581](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L581-L581)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-020 : 587-587](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L587-L587)
 
 <a id="d-1dcb9075da52136a3b73"></a>
 - [ ] **D-1dcb9075da52136a3b73** - Machinery: processing, sided automation, speed/stress/rotation where relevant, contraptions, render, chunk persistence, multiplayer, Ponder when supplied.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-021 : 582-582](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L582-L582)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-021 : 588-588](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L588-L588)
 
 <a id="d-1ac1344ca3876cd493c3"></a>
 - [ ] **D-1ac1344ca3876cd493c3** - RPG: categories/attributes/affixes/sockets/accessory combination/persistence/provider-present-absent lanes.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-022 : 583-583](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L583-L583)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-022 : 589-589](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L589-L589)
 
 <a id="d-f19b6de9b3cb7ef5e346"></a>
 - [ ] **D-f19b6de9b3cb7ef5e346** - when a contract is missing, Enderloom/AI may draft one from current public API/docs/source/observed behavior, but runtime evidence decides pass/fail.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.3 Behavioral tests
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-023 : 584-584](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L584-L584)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-023 : 590-590](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L590-L590)
 
 </details>
 
@@ -486,6 +555,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff (1)</summary>
+
+<a id="d-181463fadafc84b4c5b9"></a>
+- [ ] **D-181463fadafc84b4c5b9** - Use ASM where it is stronger or required by ecosystem libraries; do not force replacement for fashion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 750-750](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L750-L750)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 15. Compatibility Lab (1)</summary>
 
 <a id="d-caf0c88e1729943cb710"></a>
@@ -516,7 +596,7 @@
 <a id="know-04-details"></a>
 ## KNOW-04 - Compatibility execution and matrix
 
-[Outcome](Checklist.md#know-04) / 63 source-derived details.
+[Outcome](Checklist.md#know-04) / 79 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 14. Mod page integration (1)</summary>
@@ -548,17 +628,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 50-50](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L50-L50)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog (1)</summary>
-
-<a id="d-7d881e49951f103f8f1f"></a>
-- [ ] **D-7d881e49951f103f8f1f** - Render stack: Embeddium/Sodium, Oculus/Iris, Distant Horizons, Create/Flywheel and pack-specific culling/render stacks when target pack actually uses them.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.2 Living contract catalog
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-015 : 577-577](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L577-L577)
 
 </details>
 
@@ -843,6 +912,132 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture (1)</summary>
+
+<a id="d-886dd3c4f190be2f9899"></a>
+- [ ] **D-886dd3c4f190be2f9899** - — Treat Sinytra Connector as a first-class compatibility research corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T049 : 157-157](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L157-L157)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T053 — Add MixinTransmogrifier and MixinExtras compatibility knowledge (1)</summary>
+
+<a id="d-34fc0f1b97eea342c504"></a>
+- [ ] **D-34fc0f1b97eea342c504** - — Include Sinytra/MixinTransmogrifier and MixinExtras in the mixin compatibility corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G015 — Loader/API translation corpus: learn from runtime compatibility systems / T049 — Mine Sinytra Connector&#x27;s Adapter architecture / T053 — Add MixinTransmogrifier and MixinExtras compatibility knowledge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T053 : 203-203](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L203-L203)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector (1)</summary>
+
+<a id="d-9530136b30eefb0bf979"></a>
+- [ ] **D-9530136b30eefb0bf979** - — Add Kilt and Twill to the active compatibility corpus.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T091 : 928-928](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L928-L928)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries (1)</summary>
+
+<a id="d-34ad468f50128a0bb838"></a>
+- [ ] **D-34ad468f50128a0bb838** - Do not repeatedly rediscover these until a write or external version refresh invalidates them.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G040 — Repository preflight and authority freeze / T134 — Resolve authoritative worktree and dirty-state boundaries
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 260-260](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L260-L260)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests (1)</summary>
+
+<a id="d-b8f1a209a9f1142ddf7a"></a>
+- [ ] **D-b8f1a209a9f1142ddf7a** - Unrepresentable concepts must become explicit compatibility notes/blockers, never silent deletion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` / T150 — IR round-trip tests
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 483-483](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L483-L483)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora (2)</summary>
+
+<a id="d-3b7b0fddbe0ba00e12e7"></a>
+- [ ] **D-3b7b0fddbe0ba00e12e7** - — Ingest generalized evidence from:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T175 : 859-859](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L859-L859)
+
+<a id="d-ee6f62c610942560d98f"></a>
+- [ ] **D-ee6f62c610942560d98f** - Do not make converted mods depend on a compatibility layer when a clean native target implementation is available and verifiable.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T175 — Mine bidirectional compatibility corpora
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 871-871](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L871-L871)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion (2)</summary>
+
+<a id="d-114aa709cecd8acf76c6"></a>
+- [ ] **D-114aa709cecd8acf76c6** - — Expand LoaderCapabilityGraph from concrete compatibility implementations, not documentation alone:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T317 : 881-881](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L881-L881)
+
+<a id="d-eda38d9728c5f60b9117"></a>
+- [ ] **D-eda38d9728c5f60b9117** - For every mined correspondence store direction, version bounds, fidelity caveats, required runtime shim, and a target-native replacement path. Compatibility-layer behavior is evide...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For every mined correspondence store direction, version bounds, fidelity caveats, required runtime shim, and a target-native replacement path. Compatibility-layer behavior is evidence, not permission to force converted mods to depend on that layer.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T317 — Bidirectional loader-semantic corpus expansion
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 889-889](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L889-L889)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T363 — First-class Quilt target and historical compatibility lane (1)</summary>
+
+<a id="d-02273e7f8944d948d1a4"></a>
+- [ ] **D-02273e7f8944d948d1a4** - — Treat Quilt as an explicit loader/version target where supported, not as a synonym for Fabric. Parse/emit quilt.mod.json losslessly and model Quilt Loader dependency/version sema...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Treat Quilt as an explicit loader/version target where supported, not as a synonym for Fabric. Parse/emit quilt.mod.json losslessly and model Quilt Loader dependency/version semantics, provides/aliases, JiJ, transitive access wideners/interface injection, Quilt-specific entrypoints/metadata and Fabric compatibility classes with exact version bounds.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` / T363 — First-class Quilt target and historical compatibility lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T363 : 899-899](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L899-L899)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T348 — Modernized 1.12.2 Forge/Cleanroom specialist lane (1)</summary>
+
+<a id="d-44140b4a79bdb8e90279"></a>
+- [ ] **D-44140b4a79bdb8e90279** - — Add a dedicated 1.12.2 capability lane that can target normal Forge and, when explicitly selected/useful, the current Cleanroom ecosystem. Evaluate CleanroomGradle/Foundation/Cle...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add a dedicated 1.12.2 capability lane that can target normal Forge and, when explicitly selected/useful, the current Cleanroom ecosystem. Evaluate CleanroomGradle/Foundation/CleanMix/MixinBooter/Fugue as compatibility and modernization corpora; preserve original Forge as a separate target and never relabel Cleanroom compatibility as vanilla Forge compatibility.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T348 — Modernized 1.12.2 Forge/Cleanroom specialist lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T348 : 997-997](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L997-L997)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T271 — Signed extension manifests, compatibility and rollback (1)</summary>
+
+<a id="d-d2af3847b9db659336a1"></a>
+- [ ] **D-d2af3847b9db659336a1** - — Every extension declares ID/version/ABI version/capabilities/providers/provenance/hash/signature. Host validates before load, supports safe disable/rollback and never auto-grants...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Every extension declares ID/version/ABI version/capabilities/providers/provenance/hash/signature. Host validates before load, supports safe disable/rollback and never auto-grants new permissions during update.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T271 — Signed extension manifests, compatibility and rollback
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T271 : 2369-2369](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2369-L2369)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 1. Shared tab principles (1)</summary>
 
 <a id="d-254706a523f28cee7a55"></a>
@@ -1033,6 +1228,64 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 18. Capability closure and worldgen enrichment (1)</summary>
+
+<a id="d-504ed656f28daf043e2c"></a>
+- [ ] **D-504ed656f28daf043e2c** - Variant Foundry must satisfy the machine-readable closure contract in docs/variant-foundry-capability-matrix.json and the human-readable contract in docs/ENDERLOOM_VARIANT_FOUNDRY_...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Variant Foundry must satisfy the machine-readable closure contract in docs/variant-foundry-capability-matrix.json and the human-readable contract in docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 18. Capability closure and worldgen enrichment
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 395-395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L395-L395)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Migration from current Stonecutter-specific worker without regression (1)</summary>
+
+<a id="d-68fe44bc3c2e2ef33f2e"></a>
+- [ ] **D-68fe44bc3c2e2ef33f2e** - · Wrap the current devkit_multiversion.py behavior behind a compatibility adapter first; do not rewrite and delete simultaneously.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T124 : 454-454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L454-L454)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-6d0676203d86cd0cfd25"></a>
+- [ ] **D-6d0676203d86cd0cfd25** - · Update the main Enderloom implementation/knowledge hub to point at this contract as the dedicated multi-version Create/Convert/Repair/Port execution specification without duplica...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Update the main Enderloom implementation/knowledge hub to point at this contract as the dedicated multi-version Create/Convert/Repair/Port execution specification without duplicating the entire text.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T160 : 505-505](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L505-L505)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-23ab5a6ac84073efcf7f"></a>
+- [ ] **D-23ab5a6ac84073efcf7f** - · Reconcile tool/method coverage against the integration map: every accepted tool or technique must end as an active backend, differential oracle, imported knowledge source, compat...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Reconcile tool/method coverage against the integration map: every accepted tool or technique must end as an active backend, differential oracle, imported knowledge source, compatibility/export adapter, or evidence-backed rejected/superseded entry. Unknown/disappeared tools stay unresolved until traced.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T162 : 513-513](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L513-L513)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 7. Render compatibility matrix (1)</summary>
+
+<a id="d-14d848e509f650d802e7"></a>
+- [ ] **D-14d848e509f650d802e7** - A compatibility issue triggers an adapter/fallback or causal fix, never automatic feature removal.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 7. Render compatibility matrix
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 197-197](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L197-L197)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 2. CLI executable contract / Stable exit-code families (1)</summary>
 
 <a id="d-9fbc80d1c2fa5d17f375"></a>
@@ -1079,7 +1332,7 @@
 <a id="know-05-details"></a>
 ## KNOW-05 - Source refresh and typed extensions
 
-[Outcome](Checklist.md#know-05) / 9 source-derived details.
+[Outcome](Checklist.md#know-05) / 14 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.3 Continuous-run behavior (1)</summary>
@@ -1099,7 +1352,7 @@
 - [ ] **D-f4fc4f91cf3030098a13** - inventory plugin/extension descriptors without executing untrusted JARs; resolve families/aliases/dependencies/config/source/resource packs; triage unknown plugins explicitly.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.1 Lawful intake and ecosystem inventory
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-002 : 501-501](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L501-L501)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-002 : 504-504](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L504-L504)
 
 </details>
 
@@ -1172,6 +1425,39 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains (1)</summary>
+
+<a id="d-514d6e4224de6b69ed5e"></a>
+- [ ] **D-514d6e4224de6b69ed5e** - — After this pass, new ecosystem research is triggered by one of:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T121 — Expand only when a named capability gap remains
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T121 : 1409-1409](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1409-L1409)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T122 — Require primary-source freshness at promotion time (1)</summary>
+
+<a id="d-426155ed9afe34dda0ad"></a>
+- [ ] **D-426155ed9afe34dda0ad** - — Before integrating a candidate from this file, refresh its exact release/commit, maintenance status, license and relevant upstream API state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G032 — Search/source coverage honesty and research stop condition / T120 — Preserve Codeberg/SourceHut as unresolved-by-direct-crawler, not empty ecosystems / T122 — Require primary-source freshness at promotion time
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T122 : 1422-1422](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1422-L1422)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters (1)</summary>
+
+<a id="d-22ebbd8ad908707b304a"></a>
+- [ ] **D-22ebbd8ad908707b304a** - — Refresh exact versions/licenses/current status of technologies actually selected for production before final lockfile/vendor decisions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T234 : 1969-1969](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1969-L1969)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 41. Verification contract (1)</summary>
 
 <a id="d-30a8b92331f7c5032e43"></a>
@@ -1179,6 +1465,29 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 41. Verification contract
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1544-1544](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1544-L1544)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints (1)</summary>
+
+<a id="d-85d2b4c5c86f1d6d4687"></a>
+- [ ] **D-85d2b4c5c86f1d6d4687** - 8. Every named tool receives an explicit disposition. - Integrate useful behavior as one of: native adapter, embedded/ported algorithm, differential oracle, imported knowledge/rule...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 8. Every named tool receives an explicit disposition. - Integrate useful behavior as one of: native adapter, embedded/ported algorithm, differential oracle, imported knowledge/rule source, or reference-only with written reason. - Do not silently omit a previously accepted useful tool just because another tool overlaps it. - Do not create redundant runtime dependencies when a small stable algorithm can be safely ported behind Enderloom&#x27;s own contract.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Non-negotiable constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 103-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L103-L106)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Product UI, CLI, and agent surfaces use one canonical service (1)</summary>
+
+<a id="d-2525410b688810ca465c"></a>
+- [ ] **D-2525410b688810ca465c** - · Provide Add target, Remove target, Rebase/refresh target profile, Build affected, Verify affected, Explain differences, Promote fix, and Export actions with real backend wiring.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Product UI, CLI, and agent surfaces use one canonical service
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T119 : 444-444](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L444-L444)
 
 </details>
 

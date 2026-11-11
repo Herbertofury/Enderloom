@@ -43,9 +43,9 @@
     {
       "id": "S-24626601a0",
       "path": "docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
-      "sha256": "d2a5ac5329d28f409fe5a9d3c2482a2b303fd53ee40759ce5bf53b1f2e757601",
-      "bytes": 51391,
-      "lines": 707,
+      "sha256": "3f0da92702af51a96fe272c3043cdff7d6217f50e3a4eb7f4b5b644f28e36ad8",
+      "bytes": 54773,
+      "lines": 715,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md",
       "source_checked": 0
@@ -161,6 +161,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-36d560497f",
+      "path": "docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
+      "sha256": "c8a7bc1dd347a24fc73218df14499e348d2868af8a70faaafed07750292d1c62",
+      "bytes": 26672,
+      "lines": 577,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-2886991cd9",
       "path": "docs/ENDERLOOM_MASTER_REQUIREMENTS.md",
       "sha256": "0c393c5cfdc0b71135362e22bafa6a00d37b5ad5f0e972bf716409db70db6c6a",
@@ -188,6 +198,26 @@
       "lines": 776,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-bfdbedc364",
+      "path": "docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md",
+      "sha256": "f5b912fc16ecc57567fa87b9b1fdab9cceffeaab7663c09502dfc312e9355b35",
+      "bytes": 98115,
+      "lines": 1918,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-127e417c46",
+      "path": "docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
+      "sha256": "43903e59ac3070987e6b75e5175ea81c7c80bab206c1e1e2921654326e810bcb",
+      "bytes": 177573,
+      "lines": 2873,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md",
       "source_checked": 0
     },
     {
@@ -243,19 +273,59 @@
     {
       "id": "S-ace9d00dca",
       "path": "docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
-      "sha256": "3affbfd34834cc7f246b63fa2a5937c45bb8a1c176c4ef844c30cc9446673020",
-      "bytes": 43282,
-      "lines": 1173,
+      "sha256": "6f883c603d711c3426ea020fc20846adacc29f904451dfc2c867b039cc4bd5e8",
+      "bytes": 44791,
+      "lines": 1182,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md",
       "source_checked": 0
     },
     {
+      "id": "S-c4d365cd40",
+      "path": "docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "sha256": "003c29ebf66fe00c094e1611da38d1a8f3ee70062051ca5cbea7021d875cfb9c",
+      "bytes": 18665,
+      "lines": 419,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-d7e44d6622",
+      "path": "docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md",
+      "sha256": "b31e3a3598d433e6fab70df4c333366f95aee3e5ccb1298a1e8739a97862eb00",
+      "bytes": 50706,
+      "lines": 522,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-9dee4caa55",
+      "path": "docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md",
+      "sha256": "f914dd7ed204d5c5847200b4f74a652dd6bfb07879165c6ce08e56a67d61d133",
+      "bytes": 15379,
+      "lines": 266,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-36920e7906",
+      "path": "docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md",
+      "sha256": "75e5223c7059d8314e776d0e9597d28b02466edfe878f0772a27f853aa9de0b0",
+      "bytes": 30663,
+      "lines": 321,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-2a4d588670",
       "path": "docs/LAUNCHER_PARITY_MATRIX.md",
-      "sha256": "1ee4be3b0cdb48c77f868500b1a114910bb06dd5108ebc2a68e8b222be1df4ac",
-      "bytes": 10197,
-      "lines": 54,
+      "sha256": "38737cf48d2fdefabc44cb20c48f60504d8d08e60ee74da758d742fc91ce4d10",
+      "bytes": 12994,
+      "lines": 68,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md",
       "source_checked": 0
@@ -469,17 +539,57 @@
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/MC-26.3-APEX-HARDENING-2026-09-22.md",
       "source_checked": 0
+    },
+    {
+      "id": "S-6c84bcf95d",
+      "path": "docs/variant-foundry-capability-matrix.json",
+      "sha256": "68b3d01f8e4ed5b84fee2f208511daca8b51eb4dd33293155e9902e0645beb0a",
+      "bytes": 9354,
+      "lines": 316,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/variant-foundry-capability-matrix.json",
+      "source_checked": 0
+    },
+    {
+      "id": "S-3e931ba161",
+      "path": "docs/wiki/Horizon-Rust-Compatibility.md",
+      "sha256": "36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a",
+      "bytes": 2195,
+      "lines": 15,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-e86ec4837d",
+      "path": "docs/wiki/Variant-Foundry-Capability-Closure.md",
+      "sha256": "70e42041e2b8433e90abfed8ff1905392bbdf12573e67648f19e78693e590bc8",
+      "bytes": 5183,
+      "lines": 103,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-Capability-Closure.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-3a3df7e216",
+      "path": "docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
+      "sha256": "f499fca1233cb36036bfd4872cfc3c28e8fb749bbef14e525e0e91d2636b7931",
+      "bytes": 16202,
+      "lines": 315,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md",
+      "source_checked": 0
     }
   ],
   "stats": {
-    "source_files": 47,
-    "source_bytes": 1886422,
-    "source_lines": 38597,
-    "source_blocks": 13896,
-    "unique_blocks": 10980,
-    "exact_duplicate_occurrences": 2916,
+    "source_files": 58,
+    "source_bytes": 2344817,
+    "source_lines": 46273,
+    "source_blocks": 16076,
+    "unique_blocks": 13159,
+    "exact_duplicate_occurrences": 2917,
     "source_checked": 235,
-    "source_unchecked": 5073,
-    "alias_occurrences": 544
+    "source_unchecked": 5649,
+    "alias_occurrences": 1112
   }
 }

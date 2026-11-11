@@ -9,7 +9,7 @@
 <a id="ai-01-details"></a>
 ## AI-01 - Authorized provider lanes
 
-[Outcome](Checklist.md#ai-01) / 57 source-derived details.
+[Outcome](Checklist.md#ai-01) / 60 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -156,7 +156,7 @@
 - [ ] **D-e4b7c78b6facd1caabc9** - artifact hash/signature/provider/source provenance/license/dependency-SBOM/capability-change diff/quarantine/path-safety model.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 18. PHASE O — SECURITY, SUPPLY CHAIN, UPDATE POLICY
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 609-609](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L609-L609)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PO-001 : 615-615](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L615-L615)
 
 </details>
 
@@ -168,13 +168,13 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** OpenAI Responses/tool calling, Agents SDK where appropriate, embedded Codex SDK/app-server/noninteractive lane, authenticated in-app ChatGPT browser lane, Enderloom MCP, optional local providers behind the same acceptance rules.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 620-620](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L620-L620)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-001 : 626-626](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L626-L626)
 
 <a id="d-f6952a3822dc71bafa0b"></a>
 - [ ] **D-f6952a3822dc71bafa0b** - no provider lane bypasses login/quota/CAPTCHA/paywall/entitlement/access controls.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.1 Provider/operator lanes
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 621-621](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L621-L621)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-002 : 627-627](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L627-L627)
 
 </details>
 
@@ -350,6 +350,30 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T336 — SQLite FTS5 trigram vs Tantivy scope boundary (1)</summary>
+
+<a id="d-f6c2018330a3b855bce1"></a>
+- [ ] **D-f6c2018330a3b855bce1** - — Benchmark SQLite FTS5 trigram for smaller/local substring search and identity lookup workloads before creating a second full-text authority. Keep Tantivy for large ranked/full-te...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Benchmark SQLite FTS5 trigram for smaller/local substring search and identity lookup workloads before creating a second full-text authority. Keep Tantivy for large ranked/full-text corpora only where it materially outperforms SQLite while returning equivalent logical results. Persist one canonical project/provider identity model regardless of index backend.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T336 — SQLite FTS5 trigram vs Tantivy scope boundary
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T336 : 2183-2183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2183-L2183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T272 — Turn provider breakages into adapter regression fixtures (1)</summary>
+
+<a id="d-98d85530971f331e8a9c"></a>
+- [ ] **D-98d85530971f331e8a9c** - — Capture sanitized provider responses/DOM/network contracts where lawful and convert every real breakage into an adapter-level deterministic fixture so fixes improve the platform ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Capture sanitized provider responses/DOM/network contracts where lawful and convert every real breakage into an adapter-level deterministic fixture so fixes improve the platform instead of becoming one-off patches.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T272 — Turn provider breakages into adapter regression fixtures
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T272 : 2373-2373](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2373-L2373)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (2)</summary>
 
 <a id="d-1d981acd9029f9f57c5f"></a>
@@ -474,6 +498,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective (1)</summary>
+
+<a id="d-20efdf40aaf1c3c9d254"></a>
+- [ ] **D-20efdf40aaf1c3c9d254** - This contract must be executable directly by Codex or another coding agent. Do not reduce it to a planning document.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Objective
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L20-L20)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 12. AI / Codex-ready diagnostic CLI (1)</summary>
 
 <a id="d-b22432f18d03b22ae692"></a>
@@ -545,7 +580,7 @@
 <a id="ai-02-details"></a>
 ## AI-02 - Natural-language job compiler
 
-[Outcome](Checklist.md#ai-02) / 27 source-derived details.
+[Outcome](Checklist.md#ai-02) / 28 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -724,6 +759,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T270 — Bake off Extism as a convenience host, not as a second architecture (1)</summary>
+
+<a id="d-142e63e451458a9c48a0"></a>
+- [ ] **D-142e63e451458a9c48a0** - — Evaluate Extism if it materially simplifies packaging/versioning/cross-language plugins while preserving the same WIT/capability/security model. Otherwise use Wasmtime directly.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G070 — Sandboxed extension/provider adapter platform / T269 — Prototype a Wasmtime Component Model/WIT extension boundary / T270 — Bake off Extism as a convenience host, not as a second architecture
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T270 : 2365-2365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2365-L2365)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.2 Hand Off (1)</summary>
 
 <a id="d-16b07163f34a7253ee32"></a>
@@ -793,7 +839,7 @@
 <a id="ai-03-details"></a>
 ## AI-03 - Quarantined changes and repair loop
 
-[Outcome](Checklist.md#ai-03) / 24 source-derived details.
+[Outcome](Checklist.md#ai-03) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (2)</summary>
@@ -928,6 +974,17 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T063 — SootUp is conditional deep static analysis (1)</summary>
+
+<a id="d-d5c932a1437ea96688d5"></a>
+- [ ] **D-d5c932a1437ea96688d5** - Trigger only for genuinely hard cases; do not add its cost to normal conversions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G017 — API-delta and compiled-code intelligence / T059 — Revapi as the rich API compatibility classifier / T063 — SootUp is conditional deep static analysis
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 325-325](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L325-L325)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB (1)</summary>
 
 <a id="d-9675a3707d823da029a7"></a>
@@ -1040,6 +1097,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - One SemanticProject for Create, Convert, Repair, and Port (1)</summary>
+
+<a id="d-44946fb6e49300f1b5ab"></a>
+- [ ] **D-44946fb6e49300f1b5ab** - · Ensure every target-visible difference can answer: what changed, which ownership layer caused it, why the difference exists, which rule/evidence justified it, and which cells inh...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Ensure every target-visible difference can answer: what changed, which ownership layer caused it, why the difference exists, which rule/evidence justified it, and which cells inherit it.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T018 : 283-283](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L283-L283)
+
+</details>
+
+<details>
 <summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
 
 <a id="d-785a97f7bddaaa537512"></a>
@@ -1054,7 +1123,7 @@
 <a id="ai-04-details"></a>
 ## AI-04 - Approval, privacy and quality controls
 
-[Outcome](Checklist.md#ai-04) / 8 source-derived details.
+[Outcome](Checklist.md#ai-04) / 9 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
@@ -1124,6 +1193,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck (1)</summary>
+
+<a id="d-a44628f4454f451f7d80"></a>
+- [ ] **D-a44628f4454f451f7d80** - — Keep the OS resolver by default. Evaluate Hickory DNS/DoH/DoQ only if measured provider latency/failure evidence points to resolver behavior and the privacy/enterprise-network im...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Keep the OS resolver by default. Evaluate Hickory DNS/DoH/DoQ only if measured provider latency/failure evidence points to resolver behavior and the privacy/enterprise-network implications are acceptable.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T267 — Do not replace DNS unless profiling proves DNS is a bottleneck
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T267 : 2314-2314](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2314-L2314)
+
+</details>
+
+<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 9. OPENAI / CODEX / CHATGPT INTEGRATION: HAND OFF AND TAKE BACK WITHOUT LOSING THE JOB / 9.1 Authentication (1)</summary>
 
 <a id="d-0ef799c7820db3e82311"></a>
@@ -1148,7 +1229,7 @@
 <a id="ai-05-details"></a>
 ## AI-05 - Parallel specialists and context reuse
 
-[Outcome](Checklist.md#ai-05) / 14 source-derived details.
+[Outcome](Checklist.md#ai-05) / 15 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.1 Canonical project state (1)</summary>
@@ -1286,10 +1367,22 @@
 
 </details>
 
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (1)</summary>
+
+<a id="d-bb09763c197e417a3c44"></a>
+- [ ] **D-bb09763c197e417a3c44** - · Use Spoon/GumTree/RefactoringMiner where their structural or historical change models add evidence; normalize findings into Enderloom&#x27;s API-delta/rule model instead of addin...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Use Spoon/GumTree/RefactoringMiner where their structural or historical change models add evidence; normalize findings into Enderloom&#x27;s API-delta/rule model instead of adding parallel truth stores.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T054 : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L339-L339)
+
+</details>
+
 <a id="ai-06-details"></a>
 ## AI-06 - Evidence Brain promotion and rollback
 
-[Outcome](Checklist.md#ai-06) / 95 source-derived details.
+[Outcome](Checklist.md#ai-06) / 113 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1521,7 +1614,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** loop: contract -&gt; source/reference -&gt; implementation -&gt; cheap decisive check -&gt; causal failure evidence -&gt; patch -&gt; invalidated gates -&gt; strongest runtime proof -&gt; challenge -&gt; package/install/release; after two no-progress candidates change strategy/evidence/repro/model.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 628-628](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L628-L628)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-013 : 634-634](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L634-L634)
 
 </details>
 
@@ -1533,7 +1626,7 @@
   - **State:** unverified. **Kind:** source task.
   - **Full requirement:** returned files are hashed/inventoried/unknown-file checked/provenance checked/built/tested/compared before install; installed target is smoke-tested and rolled back on failure. AI cannot close its own acceptance contract.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.3 AI quarantine
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 632-632](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L632-L632)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-020 : 638-638](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L638-L638)
 
 </details>
 
@@ -1544,19 +1637,19 @@
 - [ ] **D-3d3d113121f4d4732e06** - promotion path: observation -&gt; hypothesis -&gt; candidate -&gt; verified -&gt; generalized.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 636-636](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L636-L636)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-030 : 642-642](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L642-L642)
 
 <a id="d-cc146e292dc3cd705b0d"></a>
 - [ ] **D-cc146e292dc3cd705b0d** - evidence/version/hash/environment scope, contradictions and negative results are retained; user correction outranks stale inference.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 637-637](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L637-L637)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-031 : 643-643](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L643-L643)
 
 <a id="d-39cb0d381b00c8104078"></a>
 - [ ] **D-39cb0d381b00c8104078** - AI/web/community text cannot self-promote; candidate rules use shadow/challenge validation with rollback/demotion/staleness review.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.4 Evidence Brain
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 638-638](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L638-L638)
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-032 : 644-644](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L644-L644)
 
 </details>
 
@@ -1748,6 +1841,111 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 15. First-Class Enderloom Objects Required
   - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 693-693](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L693-L693)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Evidence ledger — second deep scour (1)</summary>
+
+<a id="d-913461fa97a4c4679ccd"></a>
+- [ ] **D-913461fa97a4c4679ccd** - Version-sensitive facts must be rechecked at implementation time. Upstream self-benchmarks are discovery evidence, not promotion proof.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Evidence ledger — second deep scour
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 579-579](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L579-L579)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti (1)</summary>
+
+<a id="d-5a8fa8a8727869b1770c"></a>
+- [ ] **D-5a8fa8a8727869b1770c** - — Generalize Connector/Adapter, Kilt, FFAPI, Porting Lib and historical Patchwork evidence into a shared model:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T093 — Build bidirectional transformation families rather than loader-pair spaghetti
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T093 : 957-957](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L957-L957)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze (1)</summary>
+
+<a id="d-3c0b63843ae46312767b"></a>
+- [ ] **D-3c0b63843ae46312767b** - GATE — The hidden-infrastructure challenge pass is reconciled into the candidate matrix, no newly found candidate silently replaces a stronger proven path without A/B evidence, and...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — The hidden-infrastructure challenge pass is reconciled into the candidate matrix, no newly found candidate silently replaces a stronger proven path without A/B evidence, and broad ecosystem searching stops until an actual invalidator or uncovered capability appears.
+  - **Binding context:** Final hidden-infrastructure challenge pass — material additions only / G039 — Fourth-pass convergence / research frontier freeze
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G039 : 1879-1879](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1879-L1879)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Architecture decision — production end state (1)</summary>
+
+<a id="d-403a033581ba10ae8c29"></a>
+- [ ] **D-403a033581ba10ae8c29** - Language is not the acceptance criterion for this data path. The authoritative path must be singular, fast, resumable and evidence-backed. Retain JS/TS components only where they a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Language is not the acceptance criterion for this data path. The authoritative path must be singular, fast, resumable and evidence-backed. Retain JS/TS components only where they are the best fit and do not duplicate canonical state/business rules; move hot or integrity-critical stages to Rust/JVM when measured evidence supports it.
+  - **Binding context:** Architecture decision — production end state
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 237-237](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L237-L237)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T163 — OpenRewrite primary recipe engine (1)</summary>
+
+<a id="d-9c55a4a2cc3fee43cbf1"></a>
+- [ ] **D-9c55a4a2cc3fee43cbf1** - Promote a recipe only with positive and negative fixtures. Use OpenRewrite DataTables (or an equivalent structured export) for recipe findings, provenance, skipped/ambiguous sites ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Promote a recipe only with positive and negative fixtures. Use OpenRewrite DataTables (or an equivalent structured export) for recipe findings, provenance, skipped/ambiguous sites and before/after evidence where useful; do not scrape free-form recipe logs when the engine can emit typed result data.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T163 — OpenRewrite primary recipe engine
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 682-682](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L682-L682)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T372 — Independent API/signature compatibility oracle (1)</summary>
+
+<a id="d-41d35fda3157ce463cd6"></a>
+- [ ] **D-41d35fda3157ce463cd6** - — Add current OpenJDK SigTest as another independent source/binary API-signature oracle beside NeoForge JarCompatibilityChecker, Revapi and japicmp for fixtures where its signature...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add current OpenJDK SigTest as another independent source/binary API-signature oracle beside NeoForge JarCompatibilityChecker, Revapi and japicmp for fixtures where its signature-file/API-coverage model adds unique evidence. Normalize results into the same API-delta graph and keep disagreement visible.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T372 — Independent API/signature compatibility oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T372 : 826-826](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L826-L826)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T356 — Exact artifact identity before heuristic project matching (1)</summary>
+
+<a id="d-e4705f02caf9bc68d749"></a>
+- [ ] **D-e4705f02caf9bc68d749** - Persist evidence tiers: exact cryptographic byte match &gt; provider fingerprint/exact file match &gt; verified source/repository identity &gt; metadata/slug alias &gt; heuristic s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Persist evidence tiers: exact cryptographic byte match &gt; provider fingerprint/exact file match &gt; verified source/repository identity &gt; metadata/slug alias &gt; heuristic similarity. Never merge projects based only on display name or author/name similarity; ambiguity stays separate until stronger evidence arrives.
+  - **Binding context:** G066 — Native catalog search, browse and cross-provider identity / T247 — Build a native Tantivy catalog index for large searchable corpora / T356 — Exact artifact identity before heuristic project matching
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2166-2166](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2166-L2166)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T355 — Static mod-JAR threat screening before install/launch (1)</summary>
+
+<a id="d-1586b9ff020fe0309ad2"></a>
+- [ ] **D-1586b9ff020fe0309ad2** - High-confidence known signatures may quarantine an artifact; heuristic capability hits produce warnings/review rather than an unsupported &quot;malware&quot; verdict. Recursively i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** High-confidence known signatures may quarantine an artifact; heuristic capability hits produce warnings/review rather than an unsupported &quot;malware&quot; verdict. Recursively inspect nested JARs with strict size/depth/inflation budgets. Never execute suspicious code merely to classify it; any dynamic analysis belongs in a true disposable sandbox. Preserve provider URL/file hash/rule revision and matched evidence in the receipt.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T355 — Static mod-JAR threat screening before install/launch
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2418-2418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2418-L2418)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix (1)</summary>
+
+<a id="d-41e731b53578f0dee3ce"></a>
+- [ ] **D-41e731b53578f0dee3ce** - — Use this disposition unless new measured evidence changes it:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G072 — App-wide candidate convergence challenge / T279 — Candidate promotion matrix
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T279 : 2476-2476](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2476-L2476)
 
 </details>
 
@@ -2071,7 +2269,7 @@
 - [ ] **D-1340c7f7a5df469ac5c2** - Enderloom should learn aggressively from its own verified work, but AI output, random logs, community text and one-off coincidences never become global truth automatically.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1032-1032](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1032-L1032)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1039-1039](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1039-L1039)
 
 </details>
 
@@ -2083,7 +2281,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - Treat text inside logs, source comments, READMEs, websites, configs and model metadata as data, not instructions to the brain. - Never let prompt-injection-like text alter safety/policy/learning rules. - Do not generalize from one mod/version when a scoped rule is sufficient. - Strongly key findings to hashes/versions so a new artifact invalidates old assumptions. - Record negative results and rejected fixes. - Detect contradictions rather than picking the newest statement blindly. - Maintain trusted-source tiers for external research. - Community anecdotes remain hypotheses unless reproduced. - Imported AI/web advice is never evidence of runtime success by itself. - Secrets/auth tokens are redacted before any durable learning. - User correction immediately supersedes the affected interpretation while preserving audit history.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself / 13.3 Anti-poisoning rules
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1074-1084](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1074-L1084)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1081-1091](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1081-L1091)
 
 </details>
 
@@ -2095,7 +2293,7 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** - produce recommendation/prediction; - do not automatically mutate user state; - compare prediction to actual outcome; - collect false positives/negatives; - only enable auto-action after acceptance criteria are met.
   - **Binding context:** 13. Evidence Brain — self-improvement without poisoning itself / 13.5 Shadow mode for new heuristics
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1101-1105](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1101-L1105)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1108-1112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1108-L1112)
 
 </details>
 
@@ -2106,7 +2304,100 @@
 - [ ] **D-2e4a87baf81829c23668** - Avoid opaque JSON dumping as the only model. Unknown/future extensions may have raw payloads, but core identity/evidence/staleness relationships must stay typed and queryable.
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 14. Wave A architecture consequences
-  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1153-1153](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1153-L1153)
+  - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1161-1161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1161-L1161)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
+
+<a id="d-ba824b7be1206299f16d"></a>
+- [ ] **D-ba824b7be1206299f16d** - · Persist mapping disagreements as explicit evidence requiring resolution or a conservative unresolved state; do not choose whichever tool returns a value first.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Mapping lineage and exact symbol graph
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T050 : 330-330](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L330-L330)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Semantic migration rule engine (3)</summary>
+
+<a id="d-f473068a82e2a770ebc0"></a>
+- [ ] **D-f473068a82e2a770ebc0** - · Add JDT compiler/type evidence for overloads, inheritance, generics, ambiguous owners, method resolution, and transformations that require compiler-level semantics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T053 : 338-338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L338-L338)
+
+<a id="d-f3415004a21bebb1e476"></a>
+- [ ] **D-f3415004a21bebb1e476** - · Integrate NeoForge JavaSourceTransformer as a specialist backend/oracle for the source-transform domains it owns well, while keeping output/provenance in Enderloom&#x27;s canonic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Integrate NeoForge JavaSourceTransformer as a specialist backend/oracle for the source-transform domains it owns well, while keeping output/provenance in Enderloom&#x27;s canonical rule/evidence model.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T056 : 341-341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L341-L341)
+
+<a id="d-3c102fa69e118846aa24"></a>
+- [ ] **D-3c102fa69e118846aa24** - · Keep project-specific rules separate from globally reusable rules until cross-project evidence supports promotion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Semantic migration rule engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T061 : 346-346](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L346-L346)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Compiled-artifact and reconstruction lane (1)</summary>
+
+<a id="d-b420dd9d15cb0a3b7161"></a>
+- [ ] **D-b420dd9d15cb0a3b7161** - · Use the JDK Class-File API and ASM as exact structural/linkage evidence for owners, members, descriptors, handles, invokedynamic, access, signatures, annotations, modules, servic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Use the JDK Class-File API and ASM as exact structural/linkage evidence for owners, members, descriptors, handles, invokedynamic, access, signatures, annotations, modules, services, Kotlin metadata relationships, and nested artifacts.
+  - **Binding context:** GATE - Compiled-artifact and reconstruction lane
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T073 : 368-368](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L368-L368)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-adce36bf14c789c51069"></a>
+- [ ] **D-adce36bf14c789c51069** - · When multiple existing versions of the same mod are supplied, use them as differential evidence to recover common semantics and version-specific deltas rather than selecting one ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · When multiple existing versions of the same mod are supplied, use them as differential evidence to recover common semantics and version-specific deltas rather than selecting one and discarding the rest.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T090 : 395-395](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L395-L395)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-7e60a737ead2f32a19cd"></a>
+- [ ] **D-7e60a737ead2f32a19cd** - · Add-target fixture: add a new configured cell and prove existing intact cells keep artifact hashes/attempt counts/evidence when their inputs did not change.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T137 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L472-L472)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Performance and no-loss challenge pass (1)</summary>
+
+<a id="d-4be81ab964f63283cdb9"></a>
+- [ ] **D-4be81ab964f63283cdb9** - · Compare new engine against the current multiversion baseline on equivalent projects and prove a material improvement or at minimum no regression in planning/materialization overh...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Compare new engine against the current multiversion baseline on equivalent projects and prove a material improvement or at minimum no regression in planning/materialization overhead while preserving full output/evidence.
+  - **Binding context:** GATE - Performance and no-loss challenge pass
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T147 : 487-487](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L487-L487)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 8. Benchmark/promotion matrix (1)</summary>
+
+<a id="d-ee5bbd04749f0f010c89"></a>
+- [ ] **D-ee5bbd04749f0f010c89** - Every swappable candidate is scored by separate evidence dimensions, never one opaque “best” score:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 8. Benchmark/promotion matrix
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 201-201](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L201-L201)
 
 </details>
 
