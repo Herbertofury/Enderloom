@@ -93,20 +93,28 @@ def property_mod_id(root: pathlib.Path) -> str | None:
     return None
 
 
+def normalize_java_major(value: str) -> int | None:
+    """Normalize a complete Java version literal, including legacy 1.8 / 1_8."""
+    match = re.fullmatch(r'(?:1[._])?([1-9]\d*)', value.strip())
+    return int(match.group(1)) if match else None
+
+
 def parse_java_hint(text: str) -> int | None:
     pats = [
-        r'JavaVersion\.VERSION_(\d+)',
-        r'options\.release\s*=\s*(\d+)',
+        r'JavaVersion\.VERSION_((?:1_)?[1-9]\d*)(?![\w.])',
+        r'options\.release\s*=\s*(\d+)(?![\w.])',
         r'options\.release\.set\(\s*(\d+)\s*\)',
         r'JavaLanguageVersion\.of\(\s*(\d+)\s*\)',
-        r'<maven\.compiler\.release>\s*(\d+)\s*</maven\.compiler\.release>',
-        r'<maven\.compiler\.source>\s*(\d+)\s*</maven\.compiler\.source>',
-        r'<release>\s*(\d+)\s*</release>',
+        r'<maven\.compiler\.release>\s*([\d.]+)\s*</maven\.compiler\.release>',
+        r'<maven\.compiler\.source>\s*([\d.]+)\s*</maven\.compiler\.source>',
+        r'<release>\s*([\d.]+)\s*</release>',
     ]
     for pat in pats:
         m = re.search(pat, text, re.I)
         if m:
-            return int(m.group(1))
+            major = normalize_java_major(m.group(1))
+            if major is not None:
+                return major
     return None
 
 
@@ -236,8 +244,10 @@ def detect_source_version_and_java(root: pathlib.Path) -> tuple[str | None, int 
                     break
     java = None
     for key in ('java_version', 'javaVersion', 'java_version_major', 'java.version'):
-        if key in props and str(props[key]).strip().isdigit():
-            java = int(str(props[key]).strip()); break
+        if key in props:
+            java = normalize_java_major(props[key])
+            if java is not None:
+                break
     if java is None:
         java = parse_java_hint(build_text)
     return mc, java, props

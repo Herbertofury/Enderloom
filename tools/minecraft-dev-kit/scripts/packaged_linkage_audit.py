@@ -64,6 +64,31 @@ def _manifest_attributes(text: str) -> dict[str, str]:
     return out
 
 
+
+def _service_subtype(classes: dict, provider: str, service: str) -> bool | None:
+    """Return unknown rather than disproving assignability with incomplete indexes."""
+    if service not in classes:
+        return None
+    pending = [provider]
+    seen = set()
+    incomplete = False
+    while pending:
+        owner = pending.pop()
+        if owner == service:
+            return True
+        if owner in seen or owner == "java/lang/Object":
+            continue
+        seen.add(owner)
+        cls = classes.get(owner)
+        if cls is None:
+            incomplete = True
+            continue
+        pending.extend(cls.get("interfaces") or [])
+        if cls.get("super"):
+            pending.append(cls["super"])
+    return None if incomplete else False
+
+
 def _packaging_audit(bundle: Bundle, candidate_index: dict, universe: dict, prefixes: tuple[str, ...]) -> tuple[list[dict], list[dict]]:
     names = set(bundle.names())
     classes = candidate_index.get("classes") or {}
@@ -140,7 +165,10 @@ def _packaging_audit(bundle: Bundle, candidate_index: dict, universe: dict, pref
 
     # ServiceLoader files are executable linkage declarations even though no Java call site names
     # the provider directly. Missing providers otherwise survive compilation and fail at runtime.
-    all_known = set(classes) | set(runtime_classes)
+    # This checks classpath descriptor providers only. JPMS module-info provides declarations
+    # may use static provider() factories and must not be subjected to these constructor rules.
+    service_classes = {**classes, **runtime_classes}
+    all_known = set(service_classes)
     for name in sorted(n for n in names if n.startswith("META-INF/services/") and not n.endswith("/")):
         try:
             text = bundle.read(name).decode("utf-8", errors="replace")
@@ -154,6 +182,28 @@ def _packaging_audit(bundle: Bundle, candidate_index: dict, universe: dict, pref
             owner = _internal(provider)
             if owner not in all_known:
                 blockers.append({"id": "missing-service-provider-class", "path": name, "line": lineno, "message": f"Service provider {provider} is absent from the packaged candidate and supplied dependency indexes."})
+                continue
+            service = _internal(name[len("META-INF/services/"):])
+            location = {"path": name, "line": lineno, "provider": provider, "service": service}
+            if "module-info" in classes:
+                warnings.append({**location, "id": "service-provider-launch-mode-unknown", "message": f"Modular candidate also declares classpath provider {provider}. META-INF/services constructor and subtype rules apply on the classpath, while named modules may use provider() factories; verify the intended launch mode."})
+                continue
+            subtype = _service_subtype(service_classes, owner, service)
+            if subtype is False:
+                blockers.append({**location, "id": "service-provider-not-subtype", "message": f"Service provider {provider} is not assignable to {service}."})
+            elif subtype is None:
+                warnings.append({**location, "id": "service-provider-hierarchy-incomplete", "message": f"Cannot prove whether {provider} is assignable to {service}: the service or an ancestor is absent from the supplied indexes."})
+            cls = service_classes[owner]
+            flags = int(cls.get("access") or 0)
+            if not flags & ACC_PUBLIC:
+                blockers.append({**location, "id": "service-provider-not-public", "message": f"Classpath service provider {provider} must be public."})
+            if flags & (ACC_INTERFACE | 0x0400):  # ACC_ABSTRACT
+                blockers.append({**location, "id": "service-provider-not-concrete", "message": f"Classpath service provider {provider} must be a concrete class."})
+            if not any(method.get("name") == "<init>" and method.get("descriptor") == "()V"
+                       and int(method.get("access") or 0) & ACC_PUBLIC
+                       for method in cls.get("methods") or []):
+                blockers.append({**location, "id": "service-provider-no-public-noarg-constructor", "message": f"Classpath service provider {provider} must declare a public no-argument constructor; constructors are not inherited."})
+
 
     return blockers, warnings
 

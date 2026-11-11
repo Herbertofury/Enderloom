@@ -66,8 +66,7 @@ def detect_metadata(bundle: Bundle, names: list[str], text_files: dict[str, str]
     loaders: list[str] = []
     metadata: dict = {}
     minecraft_candidates: list[dict] = []
-    fabric_name = next((n for n in names if n.endswith("fabric.mod.json")), None)
-    quilt_name = next((n for n in names if n.endswith("quilt.mod.json")), None)
+    fabric_name = next((n for n in ("fabric.mod.json", "src/main/resources/fabric.mod.json") if n in names), None)
     if fabric_name:
         loaders.append("fabric")
         data = _json(bundle, fabric_name) or {}
@@ -85,6 +84,7 @@ def detect_metadata(bundle: Bundle, names: list[str], text_files: dict[str, str]
         }
         if (v := _first_mc_version(fabric_mc)):
             minecraft_candidates.append({"version": v, "source": f"{fabric_name}:depends.minecraft"})
+    quilt_name = next((n for n in ("quilt.mod.json", "src/main/resources/quilt.mod.json") if n in names), None)
     if quilt_name:
         loaders.append("quilt")
         data = _json(bundle, quilt_name) or {}

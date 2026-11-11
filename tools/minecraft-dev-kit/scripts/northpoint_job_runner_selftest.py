@@ -2,6 +2,8 @@
 from __future__ import annotations
 import hashlib, json, pathlib, shutil, subprocess, sys, tempfile, zipfile
 
+from northpoint_job_runner import input_fingerprint
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RUNNER = ROOT / 'scripts' / 'northpoint_job_runner.py'
 DRIVER = ROOT / 'scripts' / 'northpoint_fixture_driver.py'
@@ -51,10 +53,21 @@ def jar_runtime_marker(jar: pathlib.Path) -> str:
 
 
 def main() -> int:
+    from northpoint_driver_receipt_selftest import main as receipt_selftest
+    assert receipt_selftest() == 0, 'driver receipt regression'
+    from northpoint_attempt_state_selftest import main as attempt_state_tests
+    assert attempt_state_tests() == 0
+    from northpoint_manifest_scope_selftest import main as manifest_scope_tests
+    assert manifest_scope_tests() == 0
     with tempfile.TemporaryDirectory(prefix='northpoint-job-selftest-') as td:
         base = pathlib.Path(td); project = base / 'project'; state = base / 'state'
         fixture(project)
-        mf = base / 'manifest.json'; mf.write_text(json.dumps(manifest(project), indent=2), encoding='utf-8')
+        manifest_value = manifest(project)
+        probe_cell = manifest_value['cells'][0]
+        fp_a = input_fingerprint(project, probe_cell, DRIVER, manifest_value['config'], {'artifact_fingerprint': 'engine-a'})
+        fp_b = input_fingerprint(project, probe_cell, DRIVER, manifest_value['config'], {'artifact_fingerprint': 'engine-b'})
+        assert fp_a != fp_b, 'artifact-engine changes must invalidate reusable passed artifacts'
+        mf = base / 'manifest.json'; mf.write_text(json.dumps(manifest_value, indent=2), encoding='utf-8')
         cmd = [sys.executable, str(RUNNER), '--manifest', str(mf), '--driver', str(DRIVER), '--state-dir', str(state), '--max-workers', '4']
         first = run_json(cmd)
         assert first['status'] == 'PASS', first

@@ -17,7 +17,7 @@ concurrency:
 jobs:
   northpoint:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -33,10 +33,14 @@ jobs:
         with:
           python-version: "3.13"
 
+      # Current Fabric Loom for the maintained 1.21 example branch requires a Java 25
+      # Gradle runtime even though the mod's target/source compatibility remains Java 21.
+      # Keep the build runtime modern; northpoint_public_mod_smoke --java 21 still enforces
+      # the target's minimum Java contract rather than forcing Gradle itself down to 21.
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "25"
 
       - uses: dtolnay/rust-toolchain@stable
 
@@ -48,7 +52,8 @@ jobs:
             libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            patchelf
+            patchelf \
+            xvfb
 
       - name: Install shell dependencies
         run: npm ci
@@ -59,8 +64,25 @@ jobs:
       - name: Build launcher frontend
         run: npm run build:launcher
 
-      - name: Check native launcher service
-        run: cargo check --manifest-path native/Cargo.toml --bin enderloom-service
+      - name: Build native launcher service
+        run: cargo build --manifest-path native/Cargo.toml --bin enderloom-service
+
+      - name: Browse provider identity regression
+        run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
+
+      - name: Browse provider pane static QA
+        run: node scripts/workspace-tabs-qa.js
+
+      - name: Configure Electron sandbox helper for CI
+        run: |
+          node -e "require('electron')"
+          test -f node_modules/electron/dist/chrome-sandbox
+          sudo chown root:root node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+          test "$(stat -c '%U:%G %a' node_modules/electron/dist/chrome-sandbox)" = "root:root 4755"
+
+      - name: Browse provider pane Electron runtime QA
+        run: xvfb-run -a npm run electron-self-test
 
       - name: Northpoint compose config QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_compose_selftest.py
@@ -95,24 +117,25 @@ jobs:
           --java 21
           --timeout 600
 
-      - name: Switch to Java 25 for Minecraft 26.3 public graduation
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: "25"
+      - name: Official Fabric 1.21 to 26.3 production conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/fabric-example-mod"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 1.21
+          --expect-rewrite fabric-metadata-target-dependencies
+          --expect-rewrite resource-location-to-identifier
+          --expect-rewrite legacy-mixin-java-level
+          --timeout 600
 
-      - name: Provision Gradle 9.6 for converted-source graduation
+      - name: Provision Gradle for simple source conversion
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "9.6.0"
 
-      - name: Northpoint full 26.3 conversion engine QA
-        run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
-
-      - name: Northpoint source materialization QA
-        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
-
-      - name: Northpoint simple 1.20.1 to 26.3 production conversion smoke
+      - name: Simple 1.20.1 source conversion build smoke
         run: python tools/minecraft-dev-kit/scripts/northpoint_simple_conversion_smoke.py
 
       - name: Fetch official Fabric 26.3 example mod
@@ -137,4 +160,339 @@ jobs:
           --minecraft 26.3
           --loader neoforge
           --java 25
+          --timeout 600
+
+  port-engine-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Northpoint full 26.3 conversion engine QA
+        run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
+
+      - name: Source materializer compatibility QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
+
+      - name: Northpoint 26.3 target materialization QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
+
+
+      - name: Package exact tested source
+        run: |
+          mkdir -p "$RUNNER_TEMP/devkit-source"
+          git archive --format=zip --output="$RUNNER_TEMP/devkit-source/Enderloom-source.zip" HEAD
+          git rev-parse HEAD > "$RUNNER_TEMP/devkit-source/COMMIT.txt"
+          cd "$RUNNER_TEMP/devkit-source"
+          sha256sum Enderloom-source.zip > SHA256SUMS.txt
+
+      - name: Retain exact tested source
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-source-${{ github.run_id }}
+          path: ${{ runner.temp }}/devkit-source/
+          if-no-files-found: error
+          retention-days: 30
+
+  neoforge-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Source materializer compatibility QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
+
+      - name: Northpoint 26.3 target materialization QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
+
+      - name: Fetch official NeoForge 1.21.1 MDK mod
+        run: git clone --depth 1 https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle.git "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+
+      - name: Cache NeoForge Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: neoforge-263-${{ runner.os }}-src-1.21.1-target-26.3.0.7-beta-gradle-9.2.1
+          restore-keys: |
+            neoforge-263-${{ runner.os }}-
+
+      - name: Official NeoForge 1.21.1 to 26.3 production conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/neoforge-mdk-1.21.1"
+          --minecraft 26.3
+          --loader neoforge
+          --java 25
+          --expect-source-minecraft 1.21.1
+          --expect-rewrite neoforge-metadata-target-schema
+          --expect-rewrite neoforge-register-simple-block-properties-factory
+          --expect-rewrite neoforge-register-simple-item-properties-factory
+          --expect-rewrite resource-location-to-identifier
+          --timeout 600
+
+  fabric-dependency-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch real Fabric dependency-bearing mod
+        run: git clone --depth 1 https://github.com/PotatoPresident/PetOwner.git "$RUNNER_TEMP/petowner"
+
+      - name: Cache Fabric dependency graduation Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-dependency-263-${{ runner.os }}-petowner-src-26.1.2-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-dependency-263-${{ runner.os }}-
+
+      - name: Real Fabric dependency-preservation 26.3 conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/petowner"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 26.1.2
+          --expect-rewrite fabric-metadata-target-dependencies
+          --expect-rewrite fabric-preserve-unsplit-source-layout
+          --expect-preserved-property modmenu_version
+          --expect-preserved-property midnightlib_version
+          --expect-preserved-build-block repositories
+          --expect-preserved-build-block dependencies
+          --timeout 600
+
+
+  fabric-keyevent-materialization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch frozen Aoba 26.2 source
+        run: |
+          git init "$RUNNER_TEMP/aoba"
+          git -C "$RUNNER_TEMP/aoba" remote add origin https://github.com/Cocolots/Aoba-Client.git
+          git -C "$RUNNER_TEMP/aoba" fetch --depth 1 origin c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
+          git -C "$RUNNER_TEMP/aoba" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/aoba" rev-parse HEAD)" = "c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0"
+
+      - name: Materialize frozen Aoba source to 26.3
+        run: |
+          python tools/minecraft-dev-kit/scripts/northpoint_target_26_3.py \
+            --source "$RUNNER_TEMP/aoba" \
+            --output "$RUNNER_TEMP/aoba-26.3" \
+            --loader fabric > "$RUNNER_TEMP/aoba-receipt.jsonl"
+          grep -F '"status": "PASS"' "$RUNNER_TEMP/aoba-receipt.jsonl"
+          grep -F 'minecraft-26.3-keyevent-scancode-to-keycode' "$RUNNER_TEMP/aoba-receipt.jsonl"
+          grep -F 'keyEvent.keycode()' "$RUNNER_TEMP/aoba-26.3/src/main/java/net/aoba/mixin/KeyboardHandlerMixin.java"
+          if grep -F 'keyEvent.scancode()' "$RUNNER_TEMP/aoba-26.3/src/main/java/net/aoba/mixin/KeyboardHandlerMixin.java"; then
+            echo "legacy KeyEvent.scancode() survived materialization" >&2
+            exit 1
+          fi
+
+  fabric-aoba-production-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch frozen Aoba 26.2 source
+        run: |
+          git init "$RUNNER_TEMP/aoba"
+          git -C "$RUNNER_TEMP/aoba" remote add origin https://github.com/Cocolots/Aoba-Client.git
+          git -C "$RUNNER_TEMP/aoba" fetch --depth 1 origin c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
+          git -C "$RUNNER_TEMP/aoba" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/aoba" rev-parse HEAD)" = "c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0"
+
+      - name: Cache Aoba 26.3 conversion Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-aoba-263-${{ runner.os }}-src-26.2-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-aoba-263-${{ runner.os }}-
+
+      - name: Real Aoba 26.2 to 26.3 production conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/aoba"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 26.2
+          --expect-rewrite minecraft-26.3-renderpearl-api-relocations
+          --expect-rewrite minecraft-26.3-renderpearl-sampler-uniforms
+          --expect-rewrite minecraft-26.3-renderpearl-compiled-pipeline
+          --expect-rewrite minecraft-26.3-keyevent-scancode-to-keycode
+          --expect-rewrite minecraft-26.3-sdl-input-core
+          --expect-rewrite minecraft-26.3-glfw-text-input-helpers
+          --expect-rewrite minecraft-26.3-glfw-standard-cursor-wrapper
+          --expect-rewrite minecraft-26.3-authlib-service-package-relocations
+          --expect-rewrite minecraft-26.3-authlib-discovery-service-constructor
+          --expect-rewrite minecraft-26.3-blockstate-blocks-motion
+          --expect-rewrite minecraft-26.3-submit-node-collector-signatures
+          --expect-rewrite minecraft-26.3-inputconstants-signatures
+          --expect-rewrite minecraft-26.3-platform-and-options-signatures
+          --expect-rewrite minecraft-26.3-blockpos-within-manhattan
+          --expect-rewrite minecraft-26.3-posestack-axis-rotation
+          --expect-rewrite minecraft-26.3-vertexconsumer-uv3
+          --expect-rewrite minecraft-26.3-rendertarget-has-depth
+          --expect-rewrite minecraft-26.3-serverbound-swing-to-punch-packet
+          --expect-rewrite minecraft-26.3-bonemeal-source-interaction
+          --expect-rewrite minecraft-26.3-entity-should-render-partial-tick
+          --expect-rewrite minecraft-26.3-item-container-item-copies
+          --expect-rewrite minecraft-26.3-final-record-mixin-accessor-cast
+          --expect-rewrite minecraft-26.3-axeitem-to-item-tag
+          --expect-preserved-property sodium_version
+          --expect-preserved-property lithium_version
+          --expect-preserved-property iris_version
+          --expect-preserved-property modmenu_version
+          --expect-preserved-build-block repositories
+          --expect-preserved-build-block dependencies
+          --expect-preserved-build-block loom_access_widener
+          --timeout 600
+
+  fabric-ui-access-widener-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch frozen LibrarianTradeFinder 26.1.2 source
+        run: |
+          git init "$RUNNER_TEMP/librariantradefinder"
+          git -C "$RUNNER_TEMP/librariantradefinder" remote add origin https://github.com/itzwrld/LibrarianTradeFinder-26.2.git
+          git -C "$RUNNER_TEMP/librariantradefinder" fetch --depth 1 origin 285757d72aab0db76a5c9bc985e6cc968793601a
+          git -C "$RUNNER_TEMP/librariantradefinder" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/librariantradefinder" rev-parse HEAD)" = "285757d72aab0db76a5c9bc985e6cc968793601a"
+
+      - name: Cache LibrarianTradeFinder 26.3 conversion Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-ui-aw-263-${{ runner.os }}-librarian-src-26.1.2-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-ui-aw-263-${{ runner.os }}-
+
+      - name: Real Fabric UI and access-widener 26.3 conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/librariantradefinder"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 26.1.2
+          --expect-rewrite fabric-preserve-access-widener-path
+          --expect-rewrite minecraft-26.3-screen-renderables-to-super-extract
+          --expect-rewrite minecraft-26.3-axeitem-to-item-tag
+          --expect-rewrite minecraft-26.3-swing-animation-argument
+          --expect-rewrite minecraft-26.3-serverbound-swing-to-punch-packet
+          --expect-preserved-property modmenu_version
+          --expect-preserved-build-block loom_access_widener
+          --timeout 600
+
+  fabric-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Fetch official Fabric 1.21 example mod
+        run: git clone --depth 1 --branch 1.21 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod"
+
+      - name: Cache Fabric 26.3 conversion Gradle state
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: fabric-263-${{ runner.os }}-src-1.21-target-26.3-gradle-9.6.0
+          restore-keys: |
+            fabric-263-${{ runner.os }}-
+
+      - name: Official Fabric 1.21 to 26.3 production conversion
+        run: >-
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py
+          --project "$RUNNER_TEMP/fabric-example-mod"
+          --minecraft 26.3
+          --loader fabric
+          --java 25
+          --expect-source-minecraft 1.21
+          --expect-rewrite fabric-metadata-target-dependencies
+          --expect-rewrite resource-location-to-identifier
+          --expect-rewrite legacy-mixin-java-level
           --timeout 600

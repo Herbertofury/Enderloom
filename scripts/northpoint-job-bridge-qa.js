@@ -35,14 +35,58 @@ for (const mc of ['1.21.1','26.3']) write(`overlays/version/${mc}/src/main/java/
     /QA conversion drivers are disabled/
   );
   const first = await bridge.runSession({sessionId:'qa-session-v62',sourceRoot:project,primaryCell:'mc-1.21.1-fabric',cells,driverProfile:'production',maxWorkers:2,timeout:90});
-  assert.equal(first.ok,false,JSON.stringify(first));
-  assert.equal(first.partial,true,JSON.stringify(first));
-  assert.equal(first.receipt.status,'PARTIAL');
+  // Both targets configure a real javac/JVM smoke command, so neither is
+  // runtime-unverified merely because it targets Minecraft 26.3.
+  assert.equal(first.ok,true,JSON.stringify(first));
+  assert.equal(first.partial,false,JSON.stringify(first));
+  assert.equal(first.receipt.status,'PASS');
   assert.match(first.python.version,/Python 3/);
   assert.deepEqual(first.receipt.run.built,['mc-1.21.1-fabric','mc-26.3-fabric']);
-  assert.deepEqual(first.receipt.run.blocked,['mc-26.3-fabric']);
+  assert.deepEqual(first.receipt.run.blocked,[]);
+  assert.deepEqual(first.receipt.run.failed,[]);
+  assert.ok(first.matrix.cells.every(row => row.state === 'passed'),JSON.stringify(first.matrix));
   const second = await bridge.runSession({sessionId:'qa-session-v62',sourceRoot:project,primaryCell:'mc-1.21.1-fabric',cells,driverProfile:'production',maxWorkers:2,timeout:90});
+  assert.equal(second.ok,true,JSON.stringify(second));
+  assert.equal(second.partial,false,JSON.stringify(second));
+  assert.equal(second.receipt.status,'PASS');
+  assert.deepEqual(second.receipt.run.failed,[]);
+  assert.deepEqual(second.receipt.run.blocked,[]);
   assert.deepEqual(second.receipt.run.built,[]);
   assert.deepEqual(second.receipt.run.reused,['mc-1.21.1-fabric','mc-26.3-fabric']);
-  console.log(JSON.stringify({status:'PASS',first:first.receipt.run,second:second.receipt.run,driver:first.driver_profile},null,2));
+  // Keep genuine partial-failure coverage: make only the secondary target's
+  // JVM smoke fail, then repair it without invalidating the primary target.
+  const failingSmoke = 'overlays/version/26.3/src/main/java/example/Smoke.java';
+  write(failingSmoke,'package example; public final class Smoke { public static void main(String[] a){ throw new IllegalStateException("EXPECTED_SECONDARY_RUNTIME_FAILURE"); } }\n');
+  const failed = await bridge.runSession({sessionId:'qa-session-v62',sourceRoot:project,primaryCell:'mc-1.21.1-fabric',cells,driverProfile:'production',maxWorkers:2,timeout:90});
+  assert.equal(failed.ok,false,JSON.stringify(failed));
+  assert.equal(failed.partial,true,JSON.stringify(failed));
+  assert.equal(failed.receipt.status,'PARTIAL');
+  assert.deepEqual(failed.receipt.run.built,['mc-26.3-fabric']);
+  assert.deepEqual(failed.receipt.run.reused,['mc-1.21.1-fabric']);
+  assert.deepEqual(failed.receipt.run.failed,['mc-26.3-fabric']);
+  assert.deepEqual(failed.receipt.run.blocked,[]);
+  const failedRow = failed.matrix.cells.find(row => row.cell_id === 'mc-26.3-fabric');
+  assert.equal(failedRow.state,'failed',JSON.stringify(failedRow));
+  assert.match(failedRow.reason,/EXPECTED_SECONDARY_RUNTIME_FAILURE/);
+  // The matrix retains the last artifact for diagnosis; only passed cells
+  // may appear in the releasable checksum list.
+  const failedSums = fs.readFileSync(path.join(failed.state_dir,'release','SHA256SUMS.txt'),'utf8');
+  assert.match(failedSums,/mc-1\.21\.1-fabric\.jar/);
+  assert.doesNotMatch(failedSums,/mc-26\.3-fabric\.jar/);
+  assert.equal(failed.matrix.cells.find(row => row.cell_id === 'mc-1.21.1-fabric').artifact.sha256,
+    first.matrix.cells.find(row => row.cell_id === 'mc-1.21.1-fabric').artifact.sha256);
+
+  fs.unlinkSync(path.join(project,failingSmoke));
+  const recovered = await bridge.runSession({sessionId:'qa-session-v62',sourceRoot:project,primaryCell:'mc-1.21.1-fabric',cells,driverProfile:'production',maxWorkers:2,timeout:90});
+  assert.equal(recovered.ok,true,JSON.stringify(recovered));
+  assert.equal(recovered.partial,false,JSON.stringify(recovered));
+  assert.equal(recovered.receipt.status,'PASS');
+  assert.deepEqual(recovered.receipt.run.built,['mc-26.3-fabric']);
+  assert.deepEqual(recovered.receipt.run.reused,['mc-1.21.1-fabric']);
+  assert.deepEqual(recovered.receipt.run.failed,[]);
+  assert.deepEqual(recovered.receipt.run.blocked,[]);
+  assert.ok(recovered.matrix.cells.every(row => row.state === 'passed'),JSON.stringify(recovered.matrix));
+  console.log(JSON.stringify({status:'PASS',first:first.receipt.run,second:second.receipt.run,
+    failed:failed.receipt.run,recovered:recovered.receipt.run,driver:first.driver_profile,
+    runtime_scope:'REAL-JAVAC-AND-JVM-FIXTURE-ONLY; MINECRAFT-NOT-RUN'},null,2));
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1;});

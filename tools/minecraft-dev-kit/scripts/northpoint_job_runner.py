@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, concurrent.futures, hashlib, json, os, pathlib, shutil, subprocess, sys, tempfile, time
+import argparse, concurrent.futures, hashlib, json, os, pathlib, re, shutil, subprocess, sys, tempfile, threading, time
 from dataclasses import dataclass
 from northpoint_compose import inventory
+from northpoint_execution import new_run_id, run_logged, workspace_lock
 
 STATE_SCHEMA = 1
+# Invalidate pre-fix cached receipts without discarding their session history.
+ATTEMPT_SCHEMA = 1
 FINAL_STATES = {'passed', 'blocked', 'runtime-unverified', 'failed', 'cancelled'}
 REUSABLE_STATES = {'passed', 'blocked', 'runtime-unverified'}
 
@@ -37,6 +40,8 @@ def load_json(path: pathlib.Path) -> dict:
 
 
 def normalized_cell(cell: dict) -> dict:
+    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', str(cell['id'])):
+        raise ValueError('unsafe cell id: ' + str(cell['id']))
     return {
         'id': str(cell['id']),
         'minecraft': str(cell['minecraft']),
@@ -75,12 +80,15 @@ def driver_probe(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_r
     return value if isinstance(value, dict) else {'protocol': 0, 'available': False}
 
 
-def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict) -> str:
+def input_fingerprint(project: pathlib.Path, cell: dict, driver: pathlib.Path, config: dict, probe: dict | None = None) -> str:
     inv = inventory(project, cell)
     driver_sha = sha256_file(driver)
+    artifact_fingerprint = str((probe or {}).get('artifact_fingerprint') or '')
     payload = {
+        'attempt_schema': ATTEMPT_SCHEMA,
         'compose': inv['sha256'],
         'driver_sha256': driver_sha,
+        'artifact_fingerprint': artifact_fingerprint,
         'cell': normalized_cell(cell),
         'config': config,
     }
@@ -97,8 +105,8 @@ def artifact_ok(record: dict, release_dir: pathlib.Path) -> bool:
     expected = artifact.get('sha256')
     if not rel or not expected:
         return False
-    path = release_dir / rel
-    return path.is_file() and sha256_file(path) == expected
+    path = (release_dir / rel).resolve()
+    return path.is_relative_to(release_dir.resolve()) and path.is_file() and sha256_file(path) == expected
 
 
 def load_runtime_proofs(path: pathlib.Path | None) -> dict[str, dict]:
@@ -123,7 +131,10 @@ def load_runtime_proofs(path: pathlib.Path | None) -> dict[str, dict]:
 
 def apply_runtime_proofs(state: dict, release_dir: pathlib.Path, proofs: dict[str, dict]) -> list[str]:
     promoted: list[str] = []
+    active_cells = set(state.get('active_cells', state.get('cells', {})))
     for cid, proof in proofs.items():
+        if cid not in active_cells:
+            continue
         rec = state.get('cells', {}).get(cid)
         if not rec or rec.get('state') != 'runtime-unverified' or proof.get('passed') is not True:
             continue
@@ -173,13 +184,22 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
     cid = cell['id']
     work = work_root / cid
     if work.exists():
-        shutil.rmtree(work)
+        history = work_root / 'history' / cid / new_run_id()
+        history.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(work), str(history))
     work.mkdir(parents=True, exist_ok=True)
     cell_file = work / 'cell.json'
     cell_file.write_text(json.dumps(cell, indent=2) + '\n', encoding='utf-8')
     raw_output = work / 'driver-output'
     raw_output.mkdir(parents=True, exist_ok=True)
-    cp = subprocess.run(driver_command(driver, cell_file, project, work, raw_output), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
+    command = driver_command(driver, cell_file, project, work, raw_output)
+    if driver.name == 'northpoint_production_driver.py':
+        command += ['--timeout', str(timeout)]
+    cp = run_logged(command, directory=work, name='driver', timeout=timeout + 15)
+    if cp.returncode in {124, 130}:
+        return {'state': 'failed' if cp.returncode == 124 else 'cancelled',
+                'reason': f'driver timed out or was interrupted (exit {cp.returncode}); full evidence: {work}',
+                'evidence': [{'kind': 'process-failure', 'exit': cp.returncode, 'workspace': str(work)}]}
     if cp.returncode != 0:
         return {'state': 'failed', 'reason': (cp.stderr.strip() or cp.stdout.strip() or f'driver exited {cp.returncode}')[-12000:], 'evidence': []}
     lines = [line.strip() for line in cp.stdout.splitlines() if line.strip()]
@@ -189,12 +209,17 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
         result = json.loads(lines[-1])
     except Exception as exc:
         return {'state': 'failed', 'reason': f'driver receipt invalid JSON: {exc}: {lines[-1][:500]}', 'evidence': []}
+    atomic_json(work / 'receipt.json', result)
+    if not isinstance(result, dict):
+        return {'state': 'failed', 'reason': 'driver receipt must be a JSON object', 'evidence': []}
     state = str(result.get('state') or 'failed')
+    if state not in FINAL_STATES:
+        return {'state': 'failed', 'reason': f'unknown driver state: {state}', 'evidence': []}
     artifact_name = result.get('artifact')
     if state not in {'passed', 'runtime-unverified'}:
-        return {'state': state, 'reason': result.get('reason') or f'driver returned {state}', 'evidence': result.get('evidence') or []}
+        return {'state': state, 'reason': result.get('reason') or f'driver returned {state}', 'evidence': result.get('evidence') or [], 'conversion': result.get('conversion')}
     if state == 'runtime-unverified' and not artifact_name:
-        return {'state': state, 'reason': result.get('reason') or 'runtime verification is pending', 'evidence': result.get('evidence') or []}
+        return {'state': state, 'reason': result.get('reason') or 'runtime verification is pending', 'evidence': result.get('evidence') or [], 'conversion': result.get('conversion')}
     artifact = pathlib.Path(str(artifact_name or ''))
     if not artifact.is_absolute():
         artifact = raw_output / artifact
@@ -216,6 +241,7 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
         'reason': None if state == 'passed' else (result.get('reason') or 'runtime verification is pending'),
         'artifact': {'file': name, 'sha256': sha256_file(final), 'size': final.stat().st_size},
         'evidence': result.get('evidence') or [],
+        'conversion': result.get('conversion'),
         'driver_stdout_tail': '\n'.join(lines[-20:]),
     }
 
@@ -223,7 +249,10 @@ def run_driver(driver: pathlib.Path, cell: dict, project: pathlib.Path, work_roo
 def write_release_outputs(state: dict, release_dir: pathlib.Path) -> None:
     rows = []
     sums = []
+    active_cells = set(state.get('active_cells', state['cells']))
     for cid, rec in sorted(state['cells'].items()):
+        if cid not in active_cells:
+            continue
         artifact = rec.get('artifact') or {}
         row = {
             'cell_id': cid,
@@ -231,6 +260,7 @@ def write_release_outputs(state: dict, release_dir: pathlib.Path) -> None:
             'fingerprint': rec.get('fingerprint'),
             'environment_fingerprint': rec.get('environment_fingerprint'),
             'artifact': artifact,
+            'conversion': rec.get('conversion'),
             'reason': rec.get('reason'),
         }
         rows.append(row)
@@ -249,34 +279,49 @@ def main() -> int:
     p.add_argument('--timeout', type=int, default=180)
     p.add_argument('--runtime-proofs', type=pathlib.Path)
     args = p.parse_args()
+    if args.timeout <= 0:
+        raise SystemExit('--timeout must be positive')
     manifest = load_json(args.manifest.resolve())
+    project = pathlib.Path(manifest['project_root']).resolve()
+    state_dir = args.state_dir.resolve()
+    if state_dir == project or state_dir.is_relative_to(project) or project.is_relative_to(state_dir):
+        raise ValueError('state directory and source project must be disjoint')
+    with workspace_lock(state_dir):
+        return run_manifest(args, manifest)
+
+
+def run_manifest(args: argparse.Namespace, manifest: dict) -> int:
     project = pathlib.Path(manifest['project_root']).resolve()
     driver = args.driver.resolve()
     state_dir = args.state_dir.resolve()
+    if state_dir == project or state_dir.is_relative_to(project) or project.is_relative_to(state_dir):
+        raise ValueError('state directory and source project must be disjoint')
     release_dir = state_dir / 'release'
     work_root = state_dir / 'work'
     state_path = state_dir / 'session.json'
     cells = {str(c['id']): normalized_cell(c) for c in manifest['cells']}
+    if len(cells) != len(manifest['cells']):
+        raise ValueError('duplicate cell ids are not allowed')
     primary_id = str(manifest['primary_cell'])
     if primary_id not in cells:
         raise SystemExit('primary_cell is not in cells')
     cells[primary_id]['primary'] = True
     state = load_state(state_path, manifest)
+    # Retain prior cells and release bytes for recovery, but only the current
+    # manifest is eligible for proof promotion and release publication.
+    state['active_cells'] = sorted(cells)
+    state['primary_cell'] = primary_id
     config = manifest.get('config') or {}
     runtime_proofs = load_runtime_proofs(args.runtime_proofs.resolve() if args.runtime_proofs else None)
-    promoted = apply_runtime_proofs(state, release_dir, runtime_proofs)
-    if promoted:
-        state['updated_at'] = now()
-        atomic_json(state_path, state)
-    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': sorted(promoted)}
+    run = {'started_at': now(), 'built': [], 'reused': [], 'failed': [], 'blocked': [], 'runtime_promoted': []}
 
     probes = {cid: driver_probe(driver, cell, project, work_root, args.timeout) for cid, cell in cells.items()}
-    fps = {cid: input_fingerprint(project, cell, driver, config) for cid, cell in cells.items()}
+    fps = {cid: input_fingerprint(project, cell, driver, config, probes[cid]) for cid, cell in cells.items()}
     env_fps = {cid: environment_fingerprint(probes[cid]) for cid in cells}
     for cid, cell in cells.items():
         rec = state['cells'].setdefault(cid, {
             'state': 'pending', 'attempts': 0, 'fingerprint': None,
-            'environment_fingerprint': None, 'artifact': None, 'evidence': [], 'reason': None,
+            'environment_fingerprint': None, 'artifact': None, 'evidence': [], 'conversion': None, 'reason': None,
         })
         if rec.get('fingerprint') != fps[cid]:
             rec.update({
@@ -285,6 +330,7 @@ def main() -> int:
                 'environment_fingerprint': env_fps[cid],
                 'reason': 'inputs changed',
                 'artifact': rec.get('artifact'),
+                'conversion': None,
             })
         elif rec.get('state') in {'blocked', 'runtime-unverified'} and rec.get('environment_fingerprint') != env_fps[cid]:
             rec.update({
@@ -294,8 +340,12 @@ def main() -> int:
             })
         elif rec.get('state') == 'passed' and not artifact_ok(rec, release_dir):
             rec.update({'state': 'stale', 'reason': 'promoted artifact missing or hash mismatch'})
+    # A proof is usable only after the current inputs/environment are validated.
+    run['runtime_promoted'] = sorted(apply_runtime_proofs(state, release_dir, runtime_proofs))
     state['updated_at'] = now()
     atomic_json(state_path, state)
+
+    state_lock = threading.RLock()
 
     def execute(cid: str) -> tuple[str, dict, bool]:
         rec = state['cells'][cid]
@@ -303,12 +353,21 @@ def main() -> int:
             artifact = rec.get('artifact') or {}
             if not artifact or artifact_ok(rec, release_dir):
                 return cid, rec, False
-        rec['state'] = 'building'; rec['attempts'] = int(rec.get('attempts') or 0) + 1; rec['reason'] = None
+        with state_lock:
+            rec['state'] = 'building'; rec['attempts'] = int(rec.get('attempts') or 0) + 1; rec['reason'] = None
+            # Missing fields in a new receipt must not inherit old build output.
+            # Prior work/receipts and release bytes remain available for recovery.
+            rec.update({'artifact': None, 'conversion': None, 'evidence': []})
+            rec.pop('driver_stdout_tail', None)
+            state['updated_at'] = now()
+            atomic_json(state_path, state)
         result = run_driver(driver, cells[cid], project, work_root, release_dir, args.timeout)
-        rec.update(result)
-        rec['fingerprint'] = fps[cid]
-        rec['environment_fingerprint'] = env_fps[cid]
-        rec['updated_at'] = now()
+        with state_lock:
+            rec.update(result)
+            rec['fingerprint'] = fps[cid]
+            rec['environment_fingerprint'] = env_fps[cid]
+            rec['updated_at'] = now()
+            atomic_json(state_path, state)
         return cid, rec, True
 
     cid, rec, built = execute(primary_id)
@@ -334,7 +393,8 @@ def main() -> int:
                 run['blocked'].append(cid)
             else:
                 run['failed'].append(cid)
-            atomic_json(state_path, state)
+            with state_lock:
+                atomic_json(state_path, state)
 
     run['built'].sort(); run['reused'].sort(); run['failed'].sort(); run['blocked'].sort(); run['finished_at'] = now()
     state['runs'].append(run); state['updated_at'] = now(); atomic_json(state_path, state)

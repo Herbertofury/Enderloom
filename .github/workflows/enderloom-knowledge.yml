@@ -1,0 +1,154 @@
+name: Enderloom knowledge
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/enderloom-knowledge.yml'
+      - '.github/enderloom-knowledge-seed.json'
+      - 'scripts/knowledge/**'
+      - 'docs/**'
+      - 'tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py'
+      - 'README.md'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: enderloom-knowledge
+  cancel-in-progress: false
+jobs:
+  knowledge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ github.token }}
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+    steps:
+      - name: Read current repository without overwriting concurrent work
+        run: |
+          git clone --depth 2 "https://github.com/$REPO.git" source
+          git -C source config user.name 'Enderloom Knowledge'
+          git -C source config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          git -C source config http.https://github.com/.extraheader "AUTHORIZATION: basic $AUTH"
+      - name: Restore verified authored documentation payload
+        id: seed
+        working-directory: source
+        run: python3 scripts/knowledge/bootstrap.py
+      - name: Generate and regression-test source-level acceptance
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: |
+          set -euo pipefail
+          mkdir -p build/knowledge
+          python3 scripts/knowledge/fidelity.py install
+          python3 tools/minecraft-dev-kit/scripts/variant_foundry_capability_gate.py | tee build/knowledge/variant-foundry-capability-gate.json
+          python3 scripts/knowledge/knowledge.py build | tee build/knowledge/validation.json
+          python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
+          cat build/knowledge/regression-tests.txt
+          python3 scripts/knowledge/fidelity.py test > build/knowledge/fidelity-tests.txt 2>&1
+          cat build/knowledge/fidelity-tests.txt
+      - name: Install isolated documentation render tools
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: |
+          mkdir -p .knowledge-tools
+          npm install --prefix .knowledge-tools --no-audit --no-fund @mermaid-js/mermaid-cli@11.17.0 markdown-it@14.1.0
+          cp .knowledge-tools/package-lock.json build/knowledge/render-tool-lock.json
+      - name: Render every Mermaid diagram and inspect page layouts
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: node scripts/knowledge/render.mjs
+      - name: Publish repository knowledge without changing app source
+        if: steps.seed.outputs.ready == 'true'
+        working-directory: source
+        run: |
+          set -euo pipefail
+          BASE=$(git rev-parse HEAD)
+          git add docs/knowledge docs/specifications docs/ENDERLOOM_STUDIO_EXECUTION.md scripts/knowledge README.md
+          if git ls-files --error-unmatch .github/enderloom-knowledge-seed.json >/dev/null 2>&1; then git add -u .github/enderloom-knowledge-seed.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: generate source-complete Enderloom acceptance and progress hub'
+            git fetch origin main
+            if [ "$BASE" != "$(git rev-parse origin/main)" ]; then
+              git rebase origin/main
+              python3 scripts/knowledge/fidelity.py install
+              python3 scripts/knowledge/knowledge.py build > build/knowledge/validation.json
+              python3 scripts/knowledge/test_knowledge.py > build/knowledge/regression-tests.txt 2>&1
+              python3 scripts/knowledge/fidelity.py test > build/knowledge/fidelity-tests.txt 2>&1
+              node scripts/knowledge/render.mjs
+              git add docs/knowledge scripts/knowledge README.md
+              if ! git diff --cached --quiet; then git commit -m 'docs: reconcile source-level acceptance against latest project'; fi
+            fi
+            python3 scripts/knowledge/knowledge.py check
+            git push origin HEAD:main
+          fi
+          python3 - <<'PY'
+          import subprocess,pathlib,json
+          local=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          remote=subprocess.check_output(['git','ls-remote','origin','refs/heads/main'],text=True).split()[0]
+          if local!=remote:raise SystemExit('Remote repository verification mismatch')
+          pathlib.Path('build/knowledge/repository-publication.json').write_text(json.dumps({'status':'verified','commit':local},indent=2)+'\n')
+          print('Repository publication verified:',local)
+          PY
+      - name: Publish and read back native GitHub Wiki
+        if: steps.seed.outputs.ready == 'true'
+        id: wiki
+        continue-on-error: true
+        env:
+          WIKI_TOKEN: ${{ secrets.ENDERLOOM_WIKI_TOKEN || github.token }}
+        working-directory: source
+        run: |
+          AUTH=$(printf 'x-access-token:%s' "$WIKI_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH" clone --depth 2 "https://github.com/$REPO.wiki.git" ../wiki
+          git -C ../wiki config user.name 'Enderloom Knowledge'
+          git -C ../wiki config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C ../wiki config http.https://github.com/.extraheader "AUTHORIZATION: basic $AUTH"
+          python3 - <<'PY'
+          import pathlib,json,hashlib
+          src=pathlib.Path('build/knowledge/wiki');dst=pathlib.Path('../wiki');mf=dst/'.enderloom-knowledge-manifest.json'
+          previous=json.loads(mf.read_text()) if mf.exists() else {};current={}
+          for p in sorted(src.glob('*.md')):
+              target=dst/p.name
+              if target.exists():
+                  old=target.read_bytes()
+                  if p.name in previous:
+                      if hashlib.sha256(old).hexdigest()!=previous[p.name] and old!=p.read_bytes():raise SystemExit('Unmerged Wiki edit: '+p.name)
+                  elif old!=p.read_bytes() and not (p.name=='Home.md' and old.decode().strip()=='Welcome to the Enderloom wiki!'):raise SystemExit('Unowned Wiki page collision: '+p.name)
+              target.write_bytes(p.read_bytes());current[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
+          mf.write_text(json.dumps(current,indent=2)+'\n')
+          PY
+          git -C ../wiki add '*.md' .enderloom-knowledge-manifest.json
+          if ! git -C ../wiki diff --cached --quiet; then
+            git -C ../wiki commit -m 'Publish Enderloom Studio source-level acceptance and canonical progress'
+            git -C ../wiki push origin HEAD
+          fi
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH" clone --depth 1 "https://github.com/$REPO.wiki.git" ../wiki-readback
+          python3 - <<'PY'
+          import pathlib,json,hashlib,subprocess
+          expected=json.loads(pathlib.Path('../wiki/.enderloom-knowledge-manifest.json').read_text());readback=pathlib.Path('../wiki-readback')
+          for name,sha in expected.items():
+              if hashlib.sha256((readback/name).read_bytes()).hexdigest()!=sha:raise SystemExit('Wiki readback mismatch: '+name)
+          commit=subprocess.check_output(['git','-C','../wiki-readback','rev-parse','HEAD'],text=True).strip()
+          pathlib.Path('build/knowledge/wiki-publication.json').write_text(json.dumps({'status':'verified','commit':commit,'pages':len(expected)},indent=2)+'\n')
+          print('Native Wiki verified:',commit,'pages:',len(expected))
+          PY
+      - name: Preserve full source, documentation and publication evidence
+        if: always() && steps.seed.outputs.ready == 'true'
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: enderloom-knowledge-complete
+          path: |
+            source/docs/
+            source/scripts/knowledge/
+            source/README.md
+            source/build/knowledge/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Require truthful native Wiki publication result
+        if: steps.seed.outputs.ready == 'true' && steps.wiki.outcome != 'success'
+        run: |
+          echo 'Repository-backed knowledge and evidence remain preserved. Native Wiki publication did not pass; inspect its exact failure. Wiki authorization is not inferred or self-granted.'
+          exit 1

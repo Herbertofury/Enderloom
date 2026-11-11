@@ -1,5 +1,15 @@
 # Enderloom 2.9.5
 
+<!-- ENDERLOOM-KNOWLEDGE:START -->
+## Enderloom Studio - product hub
+
+**[Explore the Studio Wiki](https://github.com/Herbertofury/Enderloom/wiki)** | **[Track implementation](docs/knowledge/Checklist.md)** | **[Architecture](docs/knowledge/Architecture.md)** | **[Ecosystem](docs/knowledge/Ecosystem.md)**
+
+Complete **Advent of Ascension** and ship a beautiful studio for **Create / Convert / Repair / Improve Performance**. One requirements ledger connects the full specifications, proof and practical workflows. **Fast at the loss of nothing.**
+
+[Repository-backed hub](docs/knowledge/Home.md) / [Complete Studio execution](docs/ENDERLOOM_STUDIO_EXECUTION.md) / [Source coverage](docs/knowledge/Source-Map.md)
+<!-- ENDERLOOM-KNOWLEDGE:END -->
+
 Enderloom combines the protected **Minecraft Catalog Companion** research browser with a real Rust-backed Minecraft launcher and mod manager in one Electron/Chromium application. Catalog, Source, Browser, Full and Split research flows remain first-class; the top-level Mod Manager adds real instances, accounts, Java/loaders, downloads, content, worlds, servers, backups, repair, logs and diagnostics without opening a second app.
 
 ## Run Enderloom now

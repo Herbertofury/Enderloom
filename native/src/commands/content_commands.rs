@@ -279,6 +279,19 @@ pub async fn get_project_details(
 
 #[tauri::command]
 #[tracing::instrument(skip(state), err)]
+pub async fn find_project_mirrors(
+    state: State<'_, AppState>,
+    provider: String,
+    project_id: String,
+    kind: String,
+) -> Result<Vec<search::ProjectMirror>> {
+    let provider = search::Provider::parse(&provider)?;
+    let kind = search::ContentKind::parse(&kind)?;
+    search::project_mirrors(&state, provider, &project_id, kind).await
+}
+
+#[tauri::command]
+#[tracing::instrument(skip(state), err)]
 pub async fn list_project_versions(
     state: State<'_, AppState>,
     provider: String,

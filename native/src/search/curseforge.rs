@@ -340,7 +340,7 @@ pub async fn search(
     }
 
     let cache_key = format!("cf:search:{}:{:?}", kind.as_str(), params);
-    let response: Paged<Mod> = cache::fetch(
+    let response: Paged<Mod> = cache::fetch_swr(
         state,
         &cache_key,
         cache::TTL_SEARCH,
@@ -364,28 +364,28 @@ pub async fn search(
 
 pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
     let api_key = key(state)?;
-    let detail: Wrapped<Mod> = cache::fetch(
+    let detail_cache_key = format!("cf:project:{project_id}");
+    let body_cache_key = format!("cf:body:{project_id}");
+    let detail_request = cache::fetch_swr(
         state,
-        &format!("cf:project:{project_id}"),
+        &detail_cache_key,
         cache::TTL_PROJECT,
         request(state, format!("{API}/mods/{project_id}"), &api_key),
-    )
-    .await?;
-    let detail = detail.data;
-
-    let body = cache::fetch::<Wrapped<String>>(
+    );
+    let body_request = cache::fetch_swr::<Wrapped<String>>(
         state,
-        &format!("cf:body:{project_id}"),
+        &body_cache_key,
         cache::TTL_PROJECT,
         request(
             state,
             format!("{API}/mods/{project_id}/description"),
             &api_key,
         ),
-    )
-    .await
-    .map(|d| d.data)
-    .unwrap_or_default();
+    );
+    let (detail, body) = tokio::join!(detail_request, body_request);
+    let detail: Wrapped<Mod> = detail?;
+    let detail = detail.data;
+    let body = body.map(|d| d.data).unwrap_or_default();
 
     let website_url = detail.links.as_ref().and_then(|l| l.website_url.clone());
     let mut links = Vec::new();

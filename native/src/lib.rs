@@ -269,6 +269,7 @@ pub fn run() {
             commands::accounts::remove_account,
             commands::content_commands::search_content,
             commands::content_commands::get_project_details,
+            commands::content_commands::find_project_mirrors,
             commands::content_commands::list_project_versions,
             commands::content_commands::get_version_changelog,
             commands::content_commands::resolve_projects,

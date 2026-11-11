@@ -14,12 +14,41 @@ import sys
 import zipfile
 from typing import Any
 
+from northpoint_execution import run_logged
+
+COMMAND_LOG_DIR: pathlib.Path | None = None
+COMMAND_SEQUENCE = 0
+
 from northpoint_compose import compose
-from northpoint_source_intake import infer_config
+from northpoint_source_intake import infer_config, inspect_project
+from northpoint_target_26_3 import ConversionBlock, materialize_port
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'scripts'
 CONFIG_NAME = 'northpoint.project.json'
+ARTIFACT_ENGINE_FILES = (
+    'scripts/devkit_multiversion.py',
+    'scripts/northpoint_compose.py',
+    'scripts/northpoint_source_intake.py',
+    'scripts/northpoint_target_26_3.py',
+    'scripts/port_26_3_pipeline.py',
+    'scripts/port_scaffold_26_3.py',
+    'scripts/port_intake.py',
+    'scripts/port_26_3_common.py',
+    'scripts/port_semantic_planner.py',
+    'scripts/mapping_lineage.py',
+    'scripts/mixin_surface_audit.py',
+    'scripts/content_identity_inventory.py',
+    'scripts/content_parity_audit.py',
+    'scripts/registration_identity_inventory.py',
+    'scripts/registration_parity_audit.py',
+    'scripts/classfile_symbol_index.py',
+    'scripts/packaged_linkage_audit.py',
+    'references/minecraft-26.3-port-rules.json',
+    'references/minecraft-26.3-semantic-migrations.json',
+    'references/minecraft-mapping-prewarm-profiles.json',
+    'references/minecraft-mapping-sources.json',
+)
 
 
 def sha256_file(path: pathlib.Path) -> str:
@@ -31,6 +60,15 @@ def sha256_file(path: pathlib.Path) -> str:
 
 
 def run(cmd: list[str], *, cwd: pathlib.Path | None = None, timeout: int = 180, env: dict[str, str] | None = None, check: bool = True) -> subprocess.CompletedProcess:
+    global COMMAND_SEQUENCE
+    if COMMAND_LOG_DIR is not None:
+        COMMAND_SEQUENCE += 1
+        cp = run_logged(cmd, directory=COMMAND_LOG_DIR, name=f"command-{COMMAND_SEQUENCE:03d}",
+                        cwd=cwd, env=env, timeout=timeout)
+        if check and cp.returncode:
+            raise RuntimeError(f"command exited {cp.returncode}; full logs: {COMMAND_LOG_DIR}\n" +
+                               (cp.stderr or cp.stdout or f"command failed: {cmd}").strip()[-16000:])
+        return cp
     cp = subprocess.run(
         cmd,
         cwd=str(cwd) if cwd else None,
@@ -114,6 +152,20 @@ def stable_hash(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
+def artifact_engine_fingerprint(cell: dict[str, Any]) -> str:
+    if str(cell.get('minecraft') or '').strip() != '26.3':
+        return ''
+    h = hashlib.sha256()
+    for rel in ARTIFACT_ENGINE_FILES:
+        path = ROOT / rel
+        if not path.is_file():
+            h.update(f'missing:{rel}'.encode('utf-8')); h.update(b'\0')
+            continue
+        h.update(rel.encode('utf-8')); h.update(b'\0')
+        h.update(sha256_file(path).encode('ascii')); h.update(b'\0')
+    return h.hexdigest()
+
+
 def load_config(project: pathlib.Path, cell: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     # The canonical config is composed too, so loader/version/cell overlays can
     # replace build/runtime rules without branching the entire project.
@@ -137,6 +189,35 @@ def deep_merge(base: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
         else:
             out[key] = value
     return out
+
+
+def materialize_legacy_target(project: pathlib.Path, cell: dict[str, Any], work: pathlib.Path) -> tuple[pathlib.Path, dict[str, Any] | None]:
+    # Explicit Northpoint projects already own their target composition. Automatic
+    # migration is only for an ordinary legacy source tree selected by the user.
+    if (project / CONFIG_NAME).is_file():
+        return project, None
+    if str(cell.get('minecraft') or '').strip() != '26.3':
+        return project, None
+
+    source = inspect_project(project)
+    source_mc = str(source.get('minecraft') or '').strip()
+    source_loader = str(source.get('loader') or '').strip()
+    target_loader = str(cell.get('loader') or '').strip()
+    if not source_loader:
+        raise ConversionBlock('source loader could not be determined uniquely; explicit Northpoint target configuration is required')
+    if source_loader != target_loader:
+        raise ConversionBlock(
+            f'source loader {source_loader!r} does not match target loader {target_loader!r}; '
+            'cross-loader conversion requires an explicit target adapter/overlay'
+        )
+    if not source_mc:
+        raise ConversionBlock('source Minecraft version could not be determined exactly; refusing an unchanged 26.3 false pass')
+    if source_mc == '26.3':
+        return project, None
+
+    target = work / 'materialized-target'
+    manifest = materialize_port(project, target, target_loader)
+    return target, manifest
 
 
 def render_token(value: Any, context: dict[str, str]) -> str:
@@ -174,12 +255,15 @@ def build_probe(project: pathlib.Path, cell: dict[str, Any]) -> dict[str, Any]:
         'java_major': java_major(cell_java_binary(cell)),
         'javac_major': javac_major(cell_javac_binary(cell)),
         'java_path': str(cell.get('java_path') or ''),
-        'gradle': tool_version('gradle', ['--version']),
-        'maven': tool_version('mvn', ['-version']),
+        # Direct javac builds do not depend on global Gradle/Maven installations.
+        # Their first-run banners must not invalidate a verified javac artifact.
+        'gradle': None if mode == 'javac' else tool_version('gradle', ['--version']),
+        'maven': None if mode == 'javac' else tool_version('mvn', ['-version']),
         'wrapper': wrapper,
         'requested_java': int(cell.get('java') or 0),
         'build_mode': mode,
         'config_sha256': stable_hash(cfg),
+        'artifact_fingerprint': artifact_engine_fingerprint(cell),
     }
 
 
@@ -462,6 +546,7 @@ def runtime_gate(composed: pathlib.Path, jar: pathlib.Path, work: pathlib.Path, 
 
 
 def main() -> int:
+    global COMMAND_LOG_DIR
     p = argparse.ArgumentParser(description='Build and verify a real Northpoint composed mod target.')
     p.add_argument('--probe', action='store_true')
     p.add_argument('--cell-json', type=pathlib.Path, required=True)
@@ -478,18 +563,30 @@ def main() -> int:
     if not args.work or not args.output:
         raise RuntimeError('--work and --output are required outside --probe')
     work = args.work.resolve(); out = args.output.resolve(); out.mkdir(parents=True, exist_ok=True)
+    COMMAND_LOG_DIR = work / 'evidence' / 'commands'
+    try:
+        conversion_root, conversion_manifest = materialize_legacy_target(project, cell, work)
+    except ConversionBlock as exc:
+        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': ['conversion-block'], 'conversion': None}))
+        return 0
+
     composed = work / 'composed'
-    inv = compose(project, cell, composed, clean=True)
+    inv = compose(conversion_root, cell, composed, clean=True)
     _, cfg = load_config(composed, cell)
     if not cfg:
         # Support root config that intentionally lives outside overlays.
         _, cfg = load_config(project, cell)
     evidence_dir = work / 'evidence'; evidence_dir.mkdir(parents=True, exist_ok=True)
     evidence: list[Any] = [f'compose:{inv["sha256"]}', f'project-config:{stable_hash(cfg)}']
+    if conversion_manifest:
+        source_meta = conversion_manifest.get('source') or {}
+        target_meta = conversion_manifest.get('target') or {}
+        evidence.insert(0, f"conversion:{source_meta.get('minecraft') or 'unknown'}->{target_meta.get('minecraft') or cell.get('minecraft')}")
+        evidence.append(f"conversion-target:{conversion_manifest.get('target_sha256')}")
     try:
         jar = build_project(composed, work, cfg, cell, args.timeout)
     except ToolchainBlock as exc:
-        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': evidence + ['toolchain-block']}))
+        print(json.dumps({'state': 'blocked', 'reason': str(exc), 'evidence': evidence + ['toolchain-block'], 'conversion': conversion_manifest}))
         return 0
     evidence.append(f'build-artifact:{sha256_file(jar)}')
     evidence += inspect_metadata(jar, cfg, cell)
@@ -500,8 +597,14 @@ def main() -> int:
     if link_row: evidence.append(link_row)
     if link_blocker: blockers.append(link_blocker)
     if blockers:
-        print(json.dumps({'state': 'failed', 'reason': 'static release blockers: ' + ', '.join(sorted(set(blockers))), 'evidence': evidence}))
+        print(json.dumps({'state': 'failed', 'reason': 'static release blockers: ' + ', '.join(sorted(set(blockers))), 'evidence': evidence, 'conversion': conversion_manifest}))
         return 0
+
+    if conversion_manifest:
+        from devkit_multiversion import export_conversion
+        reusable = export_conversion(project, conversion_root, work, conversion_manifest)
+        conversion_manifest['multiversion'] = reusable
+        evidence.append('multiversion-project:' + reusable['archive']['sha256'])
 
     state, runtime_evidence, runtime_reason = runtime_gate(composed, jar, work, cfg, cell, args.timeout)
     evidence.extend(runtime_evidence)
@@ -513,15 +616,16 @@ def main() -> int:
             'reason': runtime_reason,
             'artifact': final.name,
             'evidence': evidence + ['candidate-artifact-preserved'],
+            'conversion': conversion_manifest,
         }))
         return 0
     if state != 'passed':
-        print(json.dumps({'state': state, 'reason': runtime_reason, 'evidence': evidence}))
+        print(json.dumps({'state': state, 'reason': runtime_reason, 'evidence': evidence, 'conversion': conversion_manifest}))
         return 0
 
     final = out / jar.name
     shutil.copy2(jar, final)
-    print(json.dumps({'state': 'passed', 'artifact': final.name, 'evidence': evidence}))
+    print(json.dumps({'state': 'passed', 'artifact': final.name, 'evidence': evidence, 'conversion': conversion_manifest}))
     return 0
 
 

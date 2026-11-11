@@ -41,9 +41,9 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def scaffold(root: Path, name: str, loader: str = "fabric") -> Path:
+def scaffold(root: Path, name: str, loader: str = "fabric", mod_id: str = "testmod") -> Path:
     p = root / name
-    run(str(HERE / "port_scaffold_26_3.py"), "--loader", loader, "--output", str(p), "--mod-id", "testmod")
+    run(str(HERE / "port_scaffold_26_3.py"), "--loader", loader, "--output", str(p), "--mod-id", mod_id)
     return p
 
 
@@ -62,6 +62,15 @@ tasks.named(\"remapJar\") {}
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import org.lwjgl.glfw.GLFW;
 class Old { int key = GLFW.GLFW_KEY_R; Object fuel = FuelRegistry.INSTANCE; Object group = ItemGroupEvents.class; Object trade = TradeOfferHelper.class; }
+""")
+    write(p / "src/main/java/example/LegacyListEntry.java", """package example;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+public class LegacyListEntry extends AbstractSelectionList.Entry<LegacyListEntry> {}
+""")
+    write(p / "src/main/java/example/LegacyScreen.java", """package example;
+class LegacyScreen extends Screen {
+  void draw() { for (Renderable r : this.renderables) { r.toString(); } }
+}
 """)
     write(p / "src/main/java/example/Registrations.java", """package example;
 class Registrations {
@@ -374,7 +383,21 @@ def main() -> int:
             assert guard["target"]["java"] == 25
             if loader == "fabric":
                 assert guard["intake"]["mapping_plan"]["source"]["unobfuscated"] is True
-                assert "0.160.7+26.3" in (target / "gradle.properties").read_text()
+                assert "0.161.0+26.3" in (target / "gradle.properties").read_text()
+
+        # Fabric IDs may contain hyphens and must retain exact identity through the target scaffold.
+        hyphen_fabric = scaffold(root, "hyphen-fabric", "fabric", "hyphen-mod")
+        hyphen_meta = json.loads((hyphen_fabric / "src/main/resources/fabric.mod.json").read_text(encoding="utf-8"))
+        assert hyphen_meta["id"] == "hyphen-mod"
+        assert "archives_base_name=hyphen-mod" in (hyphen_fabric / "gradle.properties").read_text(encoding="utf-8")
+        assert any(x.name == "HyphenModMod.java" for x in (hyphen_fabric / "src/main/java").rglob("*.java"))
+        run(
+            str(HERE / "port_scaffold_26_3.py"),
+            "--loader", "neoforge",
+            "--output", str(root / "hyphen-neoforge"),
+            "--mod-id", "hyphen-mod",
+            expect=1,
+        )
 
         # Regression: stale direct GLFW in an otherwise clean 26.3 Fabric target must fail.
         dirty_glfw = scaffold(root, "dirty-glfw")
@@ -439,6 +462,8 @@ import net.minecraft.Target;
         assert "fabric-item-group-events-rename" in sem_ids
         assert "fabric-trade-offer-helper-data-driven" in sem_ids
         assert "legacy-fuel-compost-brewing-registry" in sem_ids
+        assert "abstract-selection-list-top-level-entry" in sem_ids
+        assert "screen-private-renderables-access" in sem_ids
 
         # Zero-loss content identity treats known 26.3 path migrations as the same semantic content.
         src_content = content_inventory(old_fabric)
@@ -463,6 +488,8 @@ class Registrations {
 
         # Exact class hierarchy/Mixin/access/packaged linkage proof.
         assert_exact_symbol_tools(root)
+        # Keep real-world literal/Shadow selector regressions in the existing CI gate.
+        run(str(HERE / "mixin_selector_selftest.py"))
         # Whole-mod bytecode API references are mapping-bridged and checked against exact 26.3 symbols.
         assert_api_reference_migration(root)
 

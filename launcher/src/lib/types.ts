@@ -276,6 +276,12 @@ export interface SearchPage {
   limit: number;
 }
 
+export interface ProjectMirror {
+  provider: SearchProvider;
+  project: ProjectSummary;
+  confidence: number;
+}
+
 export interface FilterOption {
   id: string;
   name: string;

@@ -123,11 +123,11 @@ def main() -> int:
             timeout=180,
         )
         conversion = json.loads(pipeline.stdout)
-        assert conversion["materialization"]["unresolved_count"] == 0, conversion
+        assert conversion["materialization"]["source_unchanged"], conversion
 
-        guard = run([sys.executable, str(GUARD), str(target), "--loader", "fabric"], timeout=180)
-        guard_receipt = json.loads(guard.stdout)
-        assert guard_receipt["status"] == "PASS", guard_receipt
+        # Compilation is not zero-loss/runtime graduation. Keep unresolved ledger rows.
+        ledger = json.loads((target / "porting-ledger.json").read_text())
+        assert any(row["status"] == "missing" for row in ledger["items"]), ledger
 
         run(
             [gradle, "wrapper", "--gradle-version", "9.6.0", "--distribution-type", "bin", "--no-daemon"],
@@ -164,10 +164,10 @@ def main() -> int:
                     "source_minecraft": "1.20.1",
                     "target_minecraft": "26.3",
                     "loader": "fabric",
-                    "guard": guard_receipt["status"],
+                    "ledger": "unresolved obligations retained",
                     "production_smoke": "PASS",
-                    "materialized_files": conversion["materialization"]["copied_count"],
-                    "safe_rewrites": conversion["materialization"]["rewrite_count"],
+                    "materialized_files": sum(conversion["materialization"]["copied_source_roots"].values()) + sum(conversion["materialization"]["copied_resource_roots"].values()),
+                    "safe_rewrites": len(conversion["materialization"]["applied_rewrites"]),
                 },
                 indent=2,
             )

@@ -1,0 +1,86 @@
+name: Minecraft Dev Kit Native Runtime
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/minecraft-dev-kit/**'
+      - '.github/workflows/devkit-native-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: devkit-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  fabric-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: librariantradefinder
+            repository: itzwrld/LibrarianTradeFinder-26.2
+            source: 285757d72aab0db76a5c9bc985e6cc968793601a
+          - name: aoba
+            repository: Cocolots/Aoba-Client
+            source: c698b09d4f4e76db4b1dee0a0d6b2051324b9ce0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Mixin scope and native proof orchestration regressions
+        run: |
+          python tools/minecraft-dev-kit/scripts/devkit_mixin_selftest.py
+          python tools/minecraft-dev-kit/scripts/devkit_resume_selftest.py
+      - name: Prepare real graphics and audio runtime
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri mesa-vulkan-drivers libopenal1 libflite1 flite1-dev
+      - uses: actions/cache/restore@v4
+        id: cache
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: devkit-native-${{ runner.os }}-26.3-${{ matrix.name }}-v3
+          restore-keys: |
+            devkit-native-${{ runner.os }}-26.3-
+            fabric-${{ matrix.name }}-263-${{ runner.os }}-
+            fabric-ui-aw-263-${{ runner.os }}-
+      - name: Retrieve exact source and build through the production converter
+        env:
+          SOURCE_REPO: ${{ matrix.repository }}
+          SOURCE_SHA: ${{ matrix.source }}
+        run: |
+          git init "$RUNNER_TEMP/source"
+          git -C "$RUNNER_TEMP/source" remote add origin "https://github.com/$SOURCE_REPO.git"
+          git -C "$RUNNER_TEMP/source" fetch --depth=1 origin "$SOURCE_SHA"
+          git -C "$RUNNER_TEMP/source" checkout --detach FETCH_HEAD
+          python tools/minecraft-dev-kit/scripts/northpoint_public_mod_smoke.py --project "$RUNNER_TEMP/source" --minecraft 26.3 --loader fabric --java 25 --workspace "$RUNNER_TEMP/candidate" --timeout 900
+      - name: Verify production JAR, resolve dependencies, exercise world sync and save-reopen
+        run: |
+          JAR=$(python -c "import json,os;from pathlib import Path;print(json.loads((Path(os.environ['RUNNER_TEMP'])/'candidate/summary.json').read_text())['artifact_path'])")
+          python tools/minecraft-dev-kit/scripts/devkit_native.py --jar "$JAR" --workspace "$RUNNER_TEMP/native" --timeout 900
+      - name: Preserve native logs, exact artifact, screenshots, dependency locks and harness
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: devkit-native-${{ matrix.name }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/candidate/
+            ${{ runner.temp }}/native/
+            !${{ runner.temp }}/native/**/.gradle/**
+          if-no-files-found: error
+          retention-days: 30
+      - name: Retain Gradle downloads after diagnostic failures too
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ steps.cache.outputs.cache-primary-key }}

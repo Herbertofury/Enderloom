@@ -36,6 +36,217 @@ pub async fn project_details(
     }
 }
 
+fn identity_key(value: &str) -> String {
+    value
+        .chars()
+        .filter(|ch| ch.is_ascii_alphanumeric())
+        .flat_map(char::to_lowercase)
+        .collect()
+}
+
+fn title_tokens(value: &str) -> Vec<String> {
+    value
+        .split(|ch: char| !ch.is_ascii_alphanumeric())
+        .filter(|part| !part.is_empty())
+        .map(str::to_lowercase)
+        .collect()
+}
+
+fn title_similarity(left: &str, right: &str) -> u8 {
+    let left_key = identity_key(left);
+    let right_key = identity_key(right);
+    if left_key.is_empty() || right_key.is_empty() {
+        return 0;
+    }
+    if left_key == right_key {
+        return 100;
+    }
+
+    let left_tokens = title_tokens(left);
+    let right_tokens = title_tokens(right);
+    if left_tokens.is_empty() || right_tokens.is_empty() {
+        return 0;
+    }
+
+    let shorter = left_tokens.len().min(right_tokens.len());
+    if left_tokens[0] == right_tokens[0]
+        && left_tokens
+            .iter()
+            .zip(right_tokens.iter())
+            .take(shorter)
+            .all(|(a, b)| a == b)
+    {
+        return if shorter == 1 { 80 } else { 90 };
+    }
+
+    let common = left_tokens
+        .iter()
+        .filter(|token| right_tokens.contains(token))
+        .count();
+    ((common * 100) / left_tokens.len().max(right_tokens.len())) as u8
+}
+
+fn short_identity_query(title: &str) -> Option<String> {
+    title_tokens(title)
+        .into_iter()
+        .find(|token| token.len() >= 4)
+}
+
+fn normalized_source(details: &ProjectDetails) -> Option<String> {
+    let source = details
+        .links
+        .iter()
+        .find(|link| link.label.eq_ignore_ascii_case("View source"))?
+        .url
+        .trim()
+        .trim_end_matches('/')
+        .trim_end_matches(".git")
+        .to_ascii_lowercase()
+        .replace("https://", "")
+        .replace("http://", "");
+    (!source.is_empty()).then_some(source)
+}
+
+fn mirror_confidence(
+    current_title: &str,
+    current_author: &str,
+    candidate_title: &str,
+    candidate_author: &str,
+) -> u8 {
+    let title_score = title_similarity(current_title, candidate_title);
+    let current_author = identity_key(current_author);
+    let candidate_author = identity_key(candidate_author);
+    let same_author = !current_author.is_empty()
+        && !candidate_author.is_empty()
+        && current_author == candidate_author;
+
+    if same_author && title_score >= 75 {
+        95
+    } else if same_author && title_score >= 55 {
+        88
+    } else {
+        0
+    }
+}
+
+pub async fn project_mirrors(
+    state: &AppState,
+    provider: Provider,
+    project_id: &str,
+    kind: ContentKind,
+) -> Result<Vec<ProjectMirror>> {
+    let mapping_key = format!(
+        "provider-map:{}:{}:{}",
+        kind.as_str(),
+        provider.as_str(),
+        project_id
+    );
+    if let Some(cached) = cache::local_json::<Vec<ProjectMirror>>(state, &mapping_key) {
+        return Ok(cached);
+    }
+
+    let current = project_details(state, provider, project_id).await?;
+    let other = match provider {
+        Provider::Modrinth => Provider::Curseforge,
+        Provider::Curseforge => Provider::Modrinth,
+    };
+    let mut queries = vec![current.title.clone()];
+    if let Some(short) = short_identity_query(&current.title) {
+        if identity_key(&short) != identity_key(&current.title) {
+            queries.push(short);
+        }
+    }
+
+    let searches = queries.into_iter().map(|query_text| async move {
+        let query = SearchQuery {
+            query: query_text,
+            limit: 50,
+            ..SearchQuery::default()
+        };
+        search(state, other, kind, &query).await
+    });
+
+    let search_results = futures::future::join_all(searches).await;
+    let successful_searches = search_results.iter().filter(|result| result.is_ok()).count();
+    if successful_searches == 0 {
+        return Err(Error::other(format!(
+            "Could not resolve the {} mirror for this project yet.",
+            other.as_str()
+        )));
+    }
+
+    let mut candidates = std::collections::HashMap::<String, ProjectSummary>::new();
+    for page in search_results.into_iter().flatten() {
+        for candidate in page.hits {
+            candidates.entry(candidate.id.clone()).or_insert(candidate);
+        }
+    }
+
+    let current_source = normalized_source(&current);
+    let mut mirrors = Vec::new();
+    let mut source_checks = Vec::new();
+
+    for candidate in candidates.into_values() {
+        let confidence = mirror_confidence(
+            &current.title,
+            &current.author,
+            &candidate.title,
+            &candidate.author,
+        );
+
+        if confidence > 0 {
+            mirrors.push(ProjectMirror {
+                provider: other.as_str().to_string(),
+                project: candidate,
+                confidence,
+            });
+            continue;
+        }
+
+        if current_source.is_some() && title_similarity(&current.title, &candidate.title) >= 55 {
+            source_checks.push(candidate);
+        }
+    }
+
+    if let Some(current_source) = current_source {
+        let checks = source_checks.into_iter().map(|candidate| {
+            let current_source = current_source.clone();
+            async move {
+                let details = project_details(state, other, &candidate.id).await.ok()?;
+                (normalized_source(&details).as_deref() == Some(current_source.as_str())).then_some(
+                    ProjectMirror {
+                        provider: other.as_str().to_string(),
+                        project: candidate,
+                        confidence: 100,
+                    },
+                )
+            }
+        });
+        mirrors.extend(
+            futures::future::join_all(checks)
+                .await
+                .into_iter()
+                .flatten(),
+        );
+    }
+
+    mirrors.sort_by(|a, b| {
+        b.confidence
+            .cmp(&a.confidence)
+            .then_with(|| b.project.downloads.cmp(&a.project.downloads))
+    });
+
+    let ttl = if mirrors.is_empty() {
+        cache::TTL_PROVIDER_MAP_MISS
+    } else {
+        cache::TTL_PROVIDER_MAP
+    };
+    if let Err(error) = cache::put_local_json(state, &mapping_key, ttl, &mirrors) {
+        tracing::warn!(%error, "could not persist provider mirror mapping");
+    }
+    Ok(mirrors)
+}
+
 pub async fn project_versions(
     state: &AppState,
     provider: Provider,
@@ -162,7 +373,7 @@ pub fn download_url(version: &ProjectVersion) -> Result<(String, VersionFile)> {
 
 #[cfg(test)]
 mod tests {
-    use super::{pick_best, ProjectVersion};
+    use super::{mirror_confidence, pick_best, title_similarity, ProjectVersion};
 
     fn version(id: &str, channel: &str, date: &str, compatible: bool) -> ProjectVersion {
         ProjectVersion {
@@ -183,6 +394,29 @@ mod tests {
             dependencies: Vec::new(),
             files: Vec::new(),
         }
+    }
+
+    #[test]
+    fn provider_title_matching_handles_subtitle_drift() {
+        assert_eq!(
+            title_similarity("Punchy! - First person animations", "Punchy!"),
+            80
+        );
+        assert_eq!(title_similarity("Grimoire of Gaia", "Grimoire of Gaia"), 100);
+        assert!(title_similarity("Sodium", "Completely Different Mod") < 50);
+        assert_eq!(
+            mirror_confidence(
+                "Punchy! - First person animations",
+                "DevPunchyMan",
+                "Punchy!",
+                "DevPunchyMan",
+            ),
+            95
+        );
+        assert_eq!(
+            mirror_confidence("Example Mod", "Alice", "Example Mod", "Bob"),
+            0
+        );
     }
 
     #[test]

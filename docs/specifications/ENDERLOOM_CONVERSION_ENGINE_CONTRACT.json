@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "name": "Enderloom Apex Universal Mod Conversion Engine",
+  "companionToolkit": "Minecraft-26.3-Port-Toolkit-v5",
+  "invariants": {
+    "primaryTargetFirst": true,
+    "silentContentRemovalAllowed": false,
+    "compileOnlyMayEqualPassed": false,
+    "manualSourcePatchAllowedDuringCleanRoomGraduation": false,
+    "sourceAuthorityMustBeHashed": true,
+    "exactPackagedArtifactRuntimeProof": true
+  },
+  "stages": [
+    {"id": "source-authority", "outputs": ["conversion-source-manifest.json"], "required": true},
+    {"id": "umir", "outputs": ["umir.json", "parity-source.json"], "required": true},
+    {"id": "mapping-lineage", "outputs": ["mapping-plan.json", "abi-plan.json"], "required": true},
+    {"id": "semantic-plan", "outputs": ["semantic-plan.json", "adapter-plan.json"], "required": true},
+    {"id": "dependency-lock", "outputs": ["dependency-lock.json"], "required": true},
+    {"id": "target-generate", "outputs": ["target-workspace"], "required": true},
+    {"id": "static-exact-symbol", "gates": ["mixin", "access", "reflection", "content-parity", "registration-parity"], "required": true},
+    {"id": "build-datagen", "outputs": ["candidate-artifact"], "required": true},
+    {"id": "packaged-linkage", "gates": ["owner-name-descriptor", "constructor-owner", "static-instance", "class-interface", "constant-pool-kind", "member-access", "class-access", "final-field-write", "final-superclass", "method-handle-kind", "multi-release", "nested-jars", "metadata-entrypoints", "service-loader"], "required": true},
+    {"id": "runtime", "gates": ["dedicated-server-if-applicable", "native-client-if-applicable", "integrated-server-if-applicable", "restart-persistence-if-applicable"], "required": true},
+    {"id": "target-receipt", "outputs": ["conversion-receipt.json", "artifact-sha256"], "required": true},
+    {"id": "northpoint-fanout", "requires": ["target-receipt"], "required": false},
+    {"id": "matrix-report", "outputs": ["release-matrix.json", "SHA256SUMS.txt"], "requiredWhenFanout": true}
+  ],
+  "cellStates": ["pending", "blocked", "building", "built", "testing", "passed", "runtime-unverified", "failed", "cancelled", "stale"],
+  "graduation": {
+    "project": "AoA Savior",
+    "requiresHistoricalUnion": true,
+    "requiresAllValidConfiguredCells": true,
+    "requiresPreservedUnfinishedCheckpoint": true,
+    "requiresCleanRoomReplay": true
+  }
+}

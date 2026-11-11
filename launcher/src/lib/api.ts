@@ -46,6 +46,7 @@ import type {
   PackPreview,
   PlayStats,
   ProjectDetails,
+  ProjectMirror,
   RemovalPlan,
   RepairReport,
   SnapshotSummary,
@@ -280,6 +281,8 @@ export const api = {
     }),
   getProjectDetails: (provider: string, projectId: string) =>
     call<ProjectDetails>("get_project_details", { provider, projectId }),
+  findProjectMirrors: (provider: string, projectId: string, kind: string) =>
+    call<ProjectMirror[]>("find_project_mirrors", { provider, projectId, kind }),
   listProjectVersions: (
     provider: string,
     projectId: string,

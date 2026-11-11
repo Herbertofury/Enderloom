@@ -1,0 +1,4491 @@
+# Authoring and real assets - detailed source acceptance
+
+[Home](Home.md) / [Checklist](Checklist.md) / [Architecture](Architecture.md) / [Ecosystem](Ecosystem.md) / [Source map](Source-Map.md)
+
+> Exact source requirements, independently checkable through the same ledger. Source checkmarks are historical claims, not current certification.
+
+**[Detail progress commands](Working-Agreement.md#detailed-source-progress)** / **[All-source acceptance index](Detailed-Acceptance.md)**
+
+<a id="make-01-details"></a>
+## MAKE-01 - Arbitrary native mod creation
+
+[Outcome](Checklist.md#make-01) / 72 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 20. CLI/API parity (1)</summary>
+
+<a id="d-abe7f5b71c2bc05b315b"></a>
+- [ ] **D-abe7f5b71c2bc05b315b** - enderloom repair create
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 20. CLI/API parity
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 586-586](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L586-L586)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
+
+<a id="d-20b5ad4907816a951ceb"></a>
+- [ ] **D-20b5ad4907816a951ceb** - DEC-R06 Do not create hidden recurring testing/watchdog/monitoring jobs unless the user explicitly enables them.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 128-128](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L128-L128)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery (2)</summary>
+
+<a id="d-3eab3a322138af67ae22"></a>
+- [ ] **D-3eab3a322138af67ae22** - Visual layer: geometry/hierarchy/pivots/UV/textures/emissives/variants/transforms/animations/particles/sounds/fonts/HUD.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-010 : 508-508](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L508-L508)
+
+<a id="d-d715e980b629620120e6"></a>
+- [ ] **D-d715e980b629620120e6** - Model-runtime layer: hitboxes/seats/held-item bones/locators/nameplate-leash anchors/controller states/per-player sync/root motion when proven.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.2 Semantic recovery
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-011 : 509-509](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L509-L509)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (1)</summary>
+
+<a id="d-e6d5fcc97611756c325a"></a>
+- [ ] **D-e6d5fcc97611756c325a** - author editable geometry/UV/textures/materials/emissives/variants/rig/animation/secondary motion/animated textures/VFX/SFX/hitboxes/seats/locators with the least-lossy appropriate ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** author editable geometry/UV/textures/materials/emissives/variants/rig/animation/secondary motion/animated textures/VFX/SFX/hitboxes/seats/locators with the least-lossy appropriate renderer/runtime.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-011 : 551-551](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L551-L551)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 6. Native Asset Authoring (1)</summary>
+
+<a id="d-f27948366fddb308f97a"></a>
+- [ ] **D-f27948366fddb308f97a** - The Studio must support or orchestrate native creation of:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 6. Native Asset Authoring
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 215-215](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L215-L215)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence (1)</summary>
+
+<a id="d-f7fadf36e7ad4e6e32b7"></a>
+- [ ] **D-f7fadf36e7ad4e6e32b7** - block-entity render timing/volume;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 75-75](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L75-L75)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management (1)</summary>
+
+<a id="d-c15312285b4a5f0a9ccf"></a>
+- [ ] **D-c15312285b4a5f0a9ccf** - Test-world creation/reset/snapshot.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 123-123](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L123-L123)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.4 Bedrock Editor integration (1)</summary>
+
+<a id="d-ec41c34ce9f25b561af1"></a>
+- [ ] **D-ec41c34ce9f25b561af1** - Editor Extension project creation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.4 Bedrock Editor integration
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 161-161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L161-L161)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 4. Enderloom Developer IDE — actual coding workbench / 4.4 Git/source control (1)</summary>
+
+<a id="d-467a3cc578e321f42d1c"></a>
+- [ ] **D-467a3cc578e321f42d1c** - Create patch from selected changes.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. Enderloom Developer IDE — actual coding workbench / 4.4 Git/source control
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 228-228](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L228-L228)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements (28)</summary>
+
+<a id="d-51495ba5b72b2ab13b06"></a>
+- [ ] **D-51495ba5b72b2ab13b06** - blocks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 298-298](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L298-L298)
+
+<a id="d-0f7e07f9a85c2fc0f7f1"></a>
+- [ ] **D-0f7e07f9a85c2fc0f7f1** - items;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 299-299](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L299-L299)
+
+<a id="d-accf306151fc3443c214"></a>
+- [ ] **D-accf306151fc3443c214** - tools/weapons;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 300-300](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L300-L300)
+
+<a id="d-43440985dff5dab39a00"></a>
+- [ ] **D-43440985dff5dab39a00** - armor;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 301-301](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L301-L301)
+
+<a id="d-527e35860932afbd1e1a"></a>
+- [ ] **D-527e35860932afbd1e1a** - fluids;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 302-302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L302-L302)
+
+<a id="d-2b0aac1563fbd0264eaf"></a>
+- [ ] **D-2b0aac1563fbd0264eaf** - plants/crops;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 303-303](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L303-L303)
+
+<a id="d-74f14bc09128f8419d9f"></a>
+- [ ] **D-74f14bc09128f8419d9f** - projectiles;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 305-305](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L305-L305)
+
+<a id="d-9c4b53a4330fd08a9229"></a>
+- [ ] **D-9c4b53a4330fd08a9229** - particles;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 306-306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L306-L306)
+
+<a id="d-06ccaa342e1cf5b60dff"></a>
+- [ ] **D-06ccaa342e1cf5b60dff** - sounds/music;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 307-307](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L307-L307)
+
+<a id="d-245a56271843c9b5d94f"></a>
+- [ ] **D-245a56271843c9b5d94f** - effects;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 308-308](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L308-L308)
+
+<a id="d-f075c6fb742a4ca985aa"></a>
+- [ ] **D-f075c6fb742a4ca985aa** - attributes;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 309-309](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L309-L309)
+
+<a id="d-c87817b659f790b5270c"></a>
+- [ ] **D-c87817b659f790b5270c** - enchantments;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 310-310](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L310-L310)
+
+<a id="d-6f7e57d3350e23f3dc37"></a>
+- [ ] **D-6f7e57d3350e23f3dc37** - recipes;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 311-311](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L311-L311)
+
+<a id="d-dd6aa3d1db9b08616f71"></a>
+- [ ] **D-dd6aa3d1db9b08616f71** - loot tables;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 312-312](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L312-L312)
+
+<a id="d-27fd43db6ae54312b281"></a>
+- [ ] **D-27fd43db6ae54312b281** - tags;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 313-313](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L313-L313)
+
+<a id="d-325508bddb68cf8bfcd0"></a>
+- [ ] **D-325508bddb68cf8bfcd0** - advancements;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 314-314](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L314-L314)
+
+<a id="d-6f59d71ff9815ea236e8"></a>
+- [ ] **D-6f59d71ff9815ea236e8** - villager professions/trades;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L315-L315)
+
+<a id="d-9a0f657928fc6606aeaa"></a>
+- [ ] **D-9a0f657928fc6606aeaa** - commands;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 316-316](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L316-L316)
+
+<a id="d-b3f6576b7a6f6568a362"></a>
+- [ ] **D-b3f6576b7a6f6568a362** - gamerules;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 317-317](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L317-L317)
+
+<a id="d-01b72762f45f4e0f019e"></a>
+- [ ] **D-01b72762f45f4e0f019e** - keybindings;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 318-318](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L318-L318)
+
+<a id="d-83d33309e412689f955c"></a>
+- [ ] **D-83d33309e412689f955c** - dimensions/biomes/worldgen;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 319-319](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L319-L319)
+
+<a id="d-c539337ae9501c9a8c54"></a>
+- [ ] **D-c539337ae9501c9a8c54** - structures;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 320-320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L320-L320)
+
+<a id="d-e2da6e7a7854f8023916"></a>
+- [ ] **D-e2da6e7a7854f8023916** - paintings/banner/decorative content;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 321-321](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L321-L321)
+
+<a id="d-f9b762942769f8c7314e"></a>
+- [ ] **D-f9b762942769f8c7314e** - menus/screens/HUD overlays;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 322-322](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L322-L322)
+
+<a id="d-15091d7e1bde71215f4c"></a>
+- [ ] **D-15091d7e1bde71215f4c** - containers/machines;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 323-323](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L323-L323)
+
+<a id="d-27f408f2b8000392db0f"></a>
+- [ ] **D-27f408f2b8000392db0f** - energy/capability/component systems;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 324-324](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L324-L324)
+
+<a id="d-3596b3e5f2faf359cccd"></a>
+- [ ] **D-3596b3e5f2faf359cccd** - accessories/Curios/Trinkets-style slots;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 325-325](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L325-L325)
+
+<a id="d-8e48e2f521c9a9bbded9"></a>
+- [ ] **D-8e48e2f521c9a9bbded9** - mounts/vehicles;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 326-326](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L326-L326)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 17. Multiplayer / Chaos / Soak Test Matrix (1)</summary>
+
+<a id="d-d4e2670386b6f14ac02e"></a>
+- [ ] **D-d4e2670386b6f14ac02e** - entity spawn/despawn stress;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 17. Multiplayer / Chaos / Soak Test Matrix
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 819-819](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L819-L819)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 5. Launcher / Mod Manager / 5.2 Instance creation/import (2)</summary>
+
+<a id="d-7c4a064bba3cd94d30a2"></a>
+- [ ] **D-7c4a064bba3cd94d30a2** - Create vanilla instances.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Launcher / Mod Manager / 5.2 Instance creation/import
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 246-246](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L246-L246)
+  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+<a id="d-6743753d5b18afea865b"></a>
+- [ ] **D-6743753d5b18afea865b** - Create loader instances.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Launcher / Mod Manager / 5.2 Instance creation/import
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 247-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L247-L247)
+  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 10. Snapshots, backups, repair, recovery (1)</summary>
+
+<a id="d-cbc5b241addfafee259c"></a>
+- [ ] **D-cbc5b241addfafee259c** - Create snapshot.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Snapshots, backups, repair, recovery
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 450-450](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L450-L450)
+  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 14. Out-of-game Quick Scan / static analysis (1)</summary>
+
+<a id="d-7fdecfc9156a67f0fa0b"></a>
+- [ ] **D-7fdecfc9156a67f0fa0b** - entity/block-entity ticking registration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Out-of-game Quick Scan / static analysis
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 658-658](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L658-L658)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 18. Profiler/instrumentation stack / 18.4 Observable adapter (1)</summary>
+
+<a id="d-9c8a9e95cf9acb2bc1be"></a>
+- [ ] **D-9c8a9e95cf9acb2bc1be** - spatial entity/block-entity/scheduled-tick hotspot evidence;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 18. Profiler/instrumentation stack / 18.4 Observable adapter
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 815-815](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L815-L815)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 26. Noise/confidence engine (1)</summary>
+
+<a id="d-cd7a1f06beb9500bbe98"></a>
+- [ ] **D-cd7a1f06beb9500bbe98** - entity-count drift;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 26. Noise/confidence engine
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1176-1176](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1176-L1176)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G022 — Final second-pass completion gate (1)</summary>
+
+<a id="d-27d41aeed86a19e60427"></a>
+- [ ] **D-27d41aeed86a19e60427** - — For every BAKEOFF NOW / INTEGRATE NOW candidate above, create at least one production-shaped Enderloom fixture before promotion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G022 — Final second-pass completion gate
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T075 : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L663-L663)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T088 — Preserve adjacent-hop migration semantics while allowing proven direct jumps (1)</summary>
+
+<a id="d-5e44bd0186080d98ab2e"></a>
+- [ ] **D-5e44bd0186080d98ab2e** - — Represent MC Mod Porter&#x27;s adjacent-version model as graph edges, not a hardcoded requirement to rewrite the entire project once per hop.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T088 — Preserve adjacent-hop migration semantics while allowing proven direct jumps
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T088 : 888-888](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L888-L888)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker (1)</summary>
+
+<a id="d-c0fdebe9fe38842e4575"></a>
+- [ ] **D-c0fdebe9fe38842e4575** - — Create one headless JVM tool/service invoked by Rust through versioned JSON/CBOR/protobuf-like structured messages.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T162 : 648-648](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L648-L648)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T266 — Bake off BITS for large Windows background transfers only (1)</summary>
+
+<a id="d-27717453926d1ea0980d"></a>
+- [ ] **D-27717453926d1ea0980d** - — Evaluate Windows BITS as an optional backend for large, low-priority assets/update downloads that should survive app restart/reboot. Keep ordinary interactive metadata/small mod ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate Windows BITS as an optional backend for large, low-priority assets/update downloads that should survive app restart/reboot. Keep ordinary interactive metadata/small mod requests on the native HTTP stack.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T266 — Bake off BITS for large Windows background transfers only
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T266 : 2310-2310](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2310-L2310)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES (1)</summary>
+
+<a id="d-34329021f1e7d7edd674"></a>
+- [ ] **D-34329021f1e7d7edd674** - The user can Create a mod and Enderloom carries it through build/runtime/performance/artifact without babysitting.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2221-2221](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2221-L2221) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2221-2221](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2221-L2221)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 16. Required Wave A Architecture Slots (1)</summary>
+
+<a id="d-1e021d087837ed7f823a"></a>
+- [ ] **D-1e021d087837ed7f823a** - Do not create a separate AI shadow database.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 16. Required Wave A Architecture Slots
+  - **Original specification:** [ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md : 741-741](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L741-L741)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 6. Quick Scan — out-of-game static mod analysis (1)</summary>
+
+<a id="d-26548b73f3ae1cc92e48"></a>
+- [ ] **D-26548b73f3ae1cc92e48** - entity/block-entity ticking hooks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Quick Scan — out-of-game static mod analysis
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 273-273](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L273-L273)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 17. Noise/confidence engine (1)</summary>
+
+<a id="d-d2ebc4a9e5c046cc4a7f"></a>
+- [ ] **D-d2ebc4a9e5c046cc4a7f** - Flag entity-count drift.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 17. Noise/confidence engine
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 610-610](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L610-L610)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks (1)</summary>
+
+<a id="d-510973de16db678c8769"></a>
+- [ ] **D-510973de16db678c8769** - - Finish Create a Mod from blank/starter/existing projects with minimal user setup, real workspace provisioning, meaningful functional content, editable source, play-test and expor...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Finish Create a Mod from blank/starter/existing projects with minimal user setup, real workspace provisioning, meaningful functional content, editable source, play-test and exported artifacts. Do not ship an empty scaffold as a finished mod.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T144 : 258-258](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L258-L258)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 1. The Integration Law — absolutely non-negotiable (1)</summary>
+
+<a id="d-c024259e6eed361f74a1"></a>
+- [ ] **D-c024259e6eed361f74a1** - A world hotspot can link back to the mod/entity/block/entity type responsible for it.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. The Integration Law — absolutely non-negotiable
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 49-49](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L49-L49)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 4. Universal Project / Mod Detail Surface (1)</summary>
+
+<a id="d-44a2bffca6c469d8be2f"></a>
+- [ ] **D-44a2bffca6c469d8be2f** - Assets
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. Universal Project / Mod Detail Surface
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 200-200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L200-L200)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 5. Right-click / Power Context Menu — obsessive QOL / 5.5 `Developer` submenu (2)</summary>
+
+<a id="d-6c50a522e9814e2383a5"></a>
+- [ ] **D-6c50a522e9814e2383a5** - Create patch workspace
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.5 `Developer` submenu
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 325-325](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L325-L325)
+
+<a id="d-70e029a31dde2271037f"></a>
+- [ ] **D-70e029a31dde2271037f** - Create compatibility project
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.5 `Developer` submenu
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 333-333](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L333-L333)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (1)</summary>
+
+<a id="d-d028869f4100ebab67b5"></a>
+- [ ] **D-d028869f4100ebab67b5** - geometry.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 409-409](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L409-L409)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 12. Stonecutter-style Multi-Version Workspace (1)</summary>
+
+<a id="d-8537fd7e5e523ce010ae"></a>
+- [ ] **D-8537fd7e5e523ce010ae** - Create Enderloom multiversion projects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 12. Stonecutter-style Multi-Version Workspace
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 597-597](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L597-L597)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 16. Premium Performance Lab — evidence everywhere (1)</summary>
+
+<a id="d-0d2e1faa5c7e4a7a8d5d"></a>
+- [ ] **D-0d2e1faa5c7e4a7a8d5d** - entity/block-entity/scheduled-tick hotspots.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 16. Premium Performance Lab — evidence everywhere
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 725-725](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L725-L725)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 38. Micro-QOL saturation pass (1)</summary>
+
+<a id="d-5e7ef295da84c02e0822"></a>
+- [ ] **D-5e7ef295da84c02e0822** - Find mod that owns this block/entity/item from IDs/NBT/logs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 38. Micro-QOL saturation pass
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1448-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1448-L1448)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Create flow uses the same version-family engine (3)</summary>
+
+<a id="d-d2284465a56d5f7776d9"></a>
+- [ ] **D-d2284465a56d5f7776d9** - · New Mod / Create must begin with a SemanticProject plus selected target family, not a single version that later gets copied into forks.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T081 : 381-381](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L381-L381)
+
+<a id="d-4dedcbd518e1ca115061"></a>
+- [ ] **D-4dedcbd518e1ca115061** - · The creation UI/CLI must let the user choose one primary target and additional version/loader cells while keeping one common project.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T082 : 382-382](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L382-L382)
+
+<a id="d-c4aef5fb8d8b3a9772a2"></a>
+- [ ] **D-c4aef5fb8d8b3a9772a2** - · New features added later to an existing created mod must propagate through the same ownership/invalidation system without recreating targets from scratch.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Create flow uses the same version-family engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T085 : 385-385](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L385-L385)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 3. Full launcher CLI parity checklist / Snapshots / backups / recovery (1)</summary>
+
+<a id="d-20c254acbf08c762c2bd"></a>
+- [ ] **D-20c254acbf08c762c2bd** - enderloom snapshot create
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Full launcher CLI parity checklist / Snapshots / backups / recovery
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 220-220](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L220-L220)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 17. Enderloom service architecture / Electron main / native service (1)</summary>
+
+<a id="d-0457192757f4d4809976"></a>
+- [ ] **D-0457192757f4d4809976** - Use the Rust native service for process/download/runtime responsibilities it already owns; do not create a competing renderer-side process manager.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 17. Enderloom service architecture / Electron main / native service
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md : 817-817](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L817-L817) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md : 843-843](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L843-L843) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 919-919](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L919-L919) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 919-919](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L919-L919)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 4. CREATE / CONVERT FLOW — TARGET FIRST, THEN MATRIX / Existing mod conversion (1)</summary>
+
+<a id="d-a8bc1d46195c1dac06e6"></a>
+- [ ] **D-a8bc1d46195c1dac06e6** - - Convert the requested primary target first. - Treat that working target as the behavioral reference for matrix fan-out. - Reuse the inventory instead of rescanning the original m...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Convert the requested primary target first. - Treat that working target as the behavioral reference for matrix fan-out. - Reuse the inventory instead of rescanning the original mod for every cell. - Preserve every intended content surface across supported cells. - If an old/new vanilla feature is missing, create an explicit compatibility adapter/fallback or mark the cell blocked. Do not silently omit the feature.
+  - **Binding context:** 4. CREATE / CONVERT FLOW — TARGET FIRST, THEN MATRIX / Existing mod conversion
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 173-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L173-L177)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 8. UI — ONE MATRIX, EASY TO READ (1)</summary>
+
+<a id="d-e2d67f748ded9deeebe5"></a>
+- [ ] **D-e2d67f748ded9deeebe5** - Do not build a giant wizard. Keep the create/convert flow simple:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 8. UI — ONE MATRIX, EASY TO READ
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 348-348](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L348-L348)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 12. IMPLEMENTATION PLACEMENT IN CURRENT ENDERLOOM (1)</summary>
+
+<a id="d-aa25d5e6ec12f7334412"></a>
+- [ ] **D-aa25d5e6ec12f7334412** - Use the Rust native service for operations already owned there; do not create a second competing process/download/runtime manager in renderer JavaScript.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 12. IMPLEMENTATION PLACEMENT IN CURRENT ENDERLOOM
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L486-L486)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 13. ENDERLOOM IMPLEMENTATION PLACEMENT / Main/native service (1)</summary>
+
+<a id="d-d2d73960d039c12eb06b"></a>
+- [ ] **D-d2d73960d039c12eb06b** - Reuse the native service for process/download/runtime duties it already owns. Do not create competing managers in renderer JavaScript.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 13. ENDERLOOM IMPLEMENTATION PLACEMENT / Main/native service
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 888-888](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L888-L888) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1292-1292](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1292-L1292)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-05 — Implement the primary-target-first executor (1)</summary>
+
+<a id="d-db91d7931a756d4553f0"></a>
+- [ ] **D-db91d7931a756d4553f0** - Build/repair/create the requested target before any secondary matrix cell is allowed to start.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-05 — Implement the primary-target-first executor
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 141-141](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L141-L141)
+
+</details>
+
+<a id="make-02-details"></a>
+## MAKE-02 - Safe visual and code round-tripping
+
+[Outcome](Checklist.md#make-02) / 46 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
+
+<a id="d-4daa9ab5e17f6ae032f5"></a>
+- [ ] **D-4daa9ab5e17f6ae032f5** - screenshots/runtime captures only when they materially establish a visual failure;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Automatic evidence bundle
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 229-229](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L229-L229)
+
+</details>
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
+
+<a id="d-382072ce6b568f5a5924"></a>
+- [ ] **D-382072ce6b568f5a5924** - explicitly forbid feature/content/visual-quality deletion as a shortcut unless the user asked for it;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Prompt compiler
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 272-272](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L272-L272)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 4. Minecraftization / Style Adaptation (1)</summary>
+
+<a id="d-0a1e0231b38207f3b49d"></a>
+- [ ] **D-0a1e0231b38207f3b49d** - Enderloom should never silently simplify distinctive visual traits merely to make implementation easier.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 4. Minecraftization / Style Adaptation
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 184-184](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L184-L184)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 12. Actual Minecraft Visual QA (1)</summary>
+
+<a id="d-4940ab20b3c0120ca2d2"></a>
+- [ ] **D-4940ab20b3c0120ca2d2** - For visual content, Enderloom must run the real target Minecraft client when feasible and validate:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 12. Actual Minecraft Visual QA
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 410-410](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L410-L410)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph (6)</summary>
+
+<a id="d-c113779f44daa81c8c0e"></a>
+- [ ] **D-c113779f44daa81c8c0e** - Visual nodes for lifecycle/events/conditions/actions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 331-331](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L331-L331)
+
+<a id="d-0647d8f35e7c516c562b"></a>
+- [ ] **D-0647d8f35e7c516c562b** - Typed ports.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 332-332](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L332-L332)
+
+<a id="d-d45dcdc4e8770943dfa3"></a>
+- [ ] **D-d45dcdc4e8770943dfa3** - Loops/functions/subgraphs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 334-334](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L334-L334)
+
+<a id="d-65258592575b0f116429"></a>
+- [ ] **D-65258592575b0f116429** - Generated source is always visible and editable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 338-338](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L338-L338)
+
+<a id="d-1cb5566182e646d92ad3"></a>
+- [ ] **D-1cb5566182e646d92ad3** - Round-trip model preserves manual code regions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 339-339](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L339-L339)
+
+<a id="d-1df86346ec11538f15fd"></a>
+- [ ] **D-1df86346ec11538f15fd** - Explain generated API usage.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 340-340](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L340-L340)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring (6)</summary>
+
+<a id="d-7bdb634d9ab4c97e7680"></a>
+- [ ] **D-7bdb634d9ab4c97e7680** - Goal/brain behavior graph.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 345-345](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L345-L345)
+
+<a id="d-76f6206b062612b5554c"></a>
+- [ ] **D-76f6206b062612b5554c** - Target selectors.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 346-346](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L346-L346)
+
+<a id="d-dee31385f612b7abf06d"></a>
+- [ ] **D-dee31385f612b7abf06d** - Sensors/memories.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 347-347](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L347-L347)
+
+<a id="d-343df4f10568bb134040"></a>
+- [ ] **D-343df4f10568bb134040** - State machines.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 348-348](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L348-L348)
+
+<a id="d-1aad72bc951453754ed9"></a>
+- [ ] **D-1aad72bc951453754ed9** - Navigation/movement modes.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 350-350](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L350-L350)
+
+<a id="d-bc535ff65f07f0c69d7c"></a>
+- [ ] **D-bc535ff65f07f0c69d7c** - Summons/phases/enrage.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 351-351](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L351-L351)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 29. Ecosystem Challenge Matrix — expanded benchmark set (1)</summary>
+
+<a id="d-e9a15739e1464ed397e7"></a>
+- [ ] **D-e9a15739e1464ed397e7** - MCreator visual authoring.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 29. Ecosystem Challenge Matrix — expanded benchmark set
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1052-1052](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1052-L1052)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 30. Architecture additions required in Wave A (1)</summary>
+
+<a id="d-aa28206ceca5fd0da518"></a>
+- [ ] **D-aa28206ceca5fd0da518** - Graph design must permit unknown/future entity types through versioned extensions without collapsing everything into untyped JSON blobs.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 30. Architecture additions required in Wave A
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1095-1095](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1095-L1095)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 32. New golden fixtures required (1)</summary>
+
+<a id="d-298e9aa81384be51b11a"></a>
+- [ ] **D-298e9aa81384be51b11a** - MCreator-like visual logic project compiled to native target source.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 32. New golden fixtures required
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1137-1137](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1137-L1137)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation (1)</summary>
+
+<a id="d-ea688715513030a150e3"></a>
+- [ ] **D-ea688715513030a150e3** - Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rou...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Integrate the exact authorized CurseForge download-start animation implementation/assets/code where available under the user&#x27;s stated permission grant; do not substitute a rough lookalike when the authorized source is available.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1454-1454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1454-L1454)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass (1)</summary>
+
+<a id="d-8aa2316c47da0425b6cf"></a>
+- [ ] **D-8aa2316c47da0425b6cf** - · Visual/performance regression pass
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T020 — Visual/performance regression pass
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T020 : 2452-2452](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2452-L2452)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 23. Full CLI everywhere / 23.3 CLI parity CI gate (1)</summary>
+
+<a id="d-78534354c94cb0518b99"></a>
+- [ ] **D-78534354c94cb0518b99** - explicit visual-only exception reason if applicable.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Full CLI everywhere / 23.3 CLI parity CI gate
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1069-1069](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1069-L1069)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 39. Definition of done — whole Enderloom vision (1)</summary>
+
+<a id="d-b509d5ef712bd12c648a"></a>
+- [ ] **D-b509d5ef712bd12c648a** - Every meaningful domain operation is CLI-addressable or has a reviewed purely visual exception.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 39. Definition of done — whole Enderloom vision
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1603-1603](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1603-L1603)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission (1)</summary>
+
+<a id="d-0ae11981e1176e1e007e"></a>
+- [ ] **D-0ae11981e1176e1e007e** - GATE — Enderloom has ingested the useful code, data model and verified migration knowledge from reqsery/mc-mod-porter without creating a second competing source of truth or losing ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom has ingested the useful code, data model and verified migration knowledge from reqsery/mc-mod-porter without creating a second competing source of truth or losing provenance.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: G024 : 822-822](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L822-L822)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T090 — Record license/permission boundaries mechanically (1)</summary>
+
+<a id="d-bd581a1c389194783f98"></a>
+- [ ] **D-bd581a1c389194783f98** - Do not infer rights beyond the permission actually granted. If Enderloom later redistributes upstream-derived code outside that grant&#x27;s known scope, require a recorded license...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not infer rights beyond the permission actually granted. If Enderloom later redistributes upstream-derived code outside that grant&#x27;s known scope, require a recorded license/permission review rather than silently assuming the public license alone permits every distribution model.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T090 — Record license/permission boundaries mechanically
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 918-918](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L918-L918)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker (1)</summary>
+
+<a id="d-61a039d31f48fe249286"></a>
+- [ ] **D-61a039d31f48fe249286** - No user-facing daemon is required; Rust owns lifecycle.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L663-L663)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T261 — Implement clone/link/copy strategy with safe fallbacks (1)</summary>
+
+<a id="d-87632390bedb9fe21bbf"></a>
+- [ ] **D-87632390bedb9fe21bbf** - — For immutable artifacts and instance creation, attempt in order only where safe/supported:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T261 — Implement clone/link/copy strategy with safe fallbacks
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T261 : 2258-2258](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2258-L2258)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations (1)</summary>
+
+<a id="d-e028753e8453f13e8042"></a>
+- [ ] **D-e028753e8453f13e8042** - Never improve benchmarks by lowering visual/gameplay fidelity.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 7. PERFORMANCE: EVERY MOD ENDERLOOM TOUCHES SHOULD COME OUT AS FAST AS POSSIBLE WITHOUT LOSING ANYTHING / 7.4 Common automatic optimizations
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 400-400](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L400-L400) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 400-400](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L400-L400)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 12. IMPLEMENTATION ORDER — BUILD THE PRODUCT, DO NOT WRITE MORE PLANS (1)</summary>
+
+<a id="d-d79bdf942102bca98aa9"></a>
+- [ ] **D-d79bdf942102bca98aa9** - Use this as the implementation order. Do not create another 30-task meta-plan before touching code.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 12. IMPLEMENTATION ORDER — BUILD THE PRODUCT, DO NOT WRITE MORE PLANS
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 619-619](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L619-L619) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 619-619](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L619-L619)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 18. Definition of Done (1)</summary>
+
+<a id="d-dfdb42f3c102c8b37cda"></a>
+- [ ] **D-dfdb42f3c102c8b37cda** - - understand the exact target; - research current APIs/source when needed; - create or modify real source/assets; - preserve source/reference provenance; - build successfully; - ru...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - understand the exact target; - research current APIs/source when needed; - create or modify real source/assets; - preserve source/reference provenance; - build successfully; - run the strongest applicable server/client/integrated/visual/performance gates; - diagnose and repair its own failed candidates; - avoid repeating rejected routes; - prove content/visual/config/network/save parity where required; - create a complete runnable artifact/source package; - generate evidence/wiki/release data; - install/publish only under the user’s approval policy; - record useful verified learning without poisoning the Evidence Brain; - perform the same workflow headlessly through CLI/CI/MCP; - expose the same job in the GUI with live task/evidence status.
+  - **Binding context:** 18. Definition of Done
+  - **Original specification:** [ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md : 770-784](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L770-L784)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 22. Performance research/reference ideas already discussed (1)</summary>
+
+<a id="d-37d7154fe27e17aa621d"></a>
+- [ ] **D-37d7154fe27e17aa621d** - Do not blindly copy external implementations or incompatible-license code into the Premium feature.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 22. Performance research/reference ideas already discussed
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 774-774](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L774-L774)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks (1)</summary>
+
+<a id="d-08d4fcd02c400c8b871e"></a>
+- [ ] **D-08d4fcd02c400c8b871e** - - Wire behavior/procedure editing, advanced source and optional existing AI assistance into the same canonical project. Test source/visual round-trips, unknown constructs, scoped c...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Wire behavior/procedure editing, advanced source and optional existing AI assistance into the same canonical project. Test source/visual round-trips, unknown constructs, scoped changes and test execution; prevent generated edits from erasing user code.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T146 : 260-260](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L260-L260)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 12. Stonecutter-style Multi-Version Workspace (1)</summary>
+
+<a id="d-bae3dd73564b7022b3d6"></a>
+- [ ] **D-bae3dd73564b7022b3d6** - Visual merge/conflict assistant.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 12. Stonecutter-style Multi-Version Workspace
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 606-606](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L606-L606)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (7)</summary>
+
+<a id="d-35baf2a17020386742a7"></a>
+- [ ] **D-35baf2a17020386742a7** - fixed camera/lighting/weather/time;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1081-1081](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1081-L1081)
+
+<a id="d-cf62c54e20c7a2766196"></a>
+- [ ] **D-cf62c54e20c7a2766196** - front/side/back/3/4 views;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1082-1082](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1082-L1082)
+
+<a id="d-f652afd6407d00c618fd"></a>
+- [ ] **D-f652afd6407d00c618fd** - grounding/floating checks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1086-1086](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1086-L1086)
+
+<a id="d-ab720527cd6322b49ca0"></a>
+- [ ] **D-ab720527cd6322b49ca0** - clipping/intersection checks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1087-1087](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1087-L1087)
+
+<a id="d-58063622f84e92422e0b"></a>
+- [ ] **D-58063622f84e92422e0b** - culling/LOD checks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1088-1088](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1088-L1088)
+
+<a id="d-4f575165d19935a5219b"></a>
+- [ ] **D-4f575165d19935a5219b** - state/entity count assertions;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1090-1090](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1090-L1090)
+
+<a id="d-da02e28b9826427f8db1"></a>
+- [ ] **D-da02e28b9826427f8db1** - fresh log warnings.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1091-1091](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1091-L1091)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 26. Shader / Render Pipeline Manager (1)</summary>
+
+<a id="d-d0fe69c9fba2ef9bfea5"></a>
+- [ ] **D-d0fe69c9fba2ef9bfea5** - Screenshot/visual regression fixtures.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 26. Shader / Render Pipeline Manager
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1123-1123](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1123-L1123)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 41. Verification contract (1)</summary>
+
+<a id="d-e1377a6ddabcaa3a49f4"></a>
+- [ ] **D-e1377a6ddabcaa3a49f4** - visual checks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 41. Verification contract
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1538-1538](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1538-L1538)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 45. Definition of done — ultimate Enderloom (1)</summary>
+
+<a id="d-c8934caa7893a4b55ded"></a>
+- [ ] **D-c8934caa7893a4b55ded** - Every meaningful operation is shared between GUI and CLI/CI or has a justified visual-only exception.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 45. Definition of done — ultimate Enderloom
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1746-1746](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1746-L1746)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Convert flow factors existing projects into one maintainable family (1)</summary>
+
+<a id="d-d989de657f3ce3b523cd"></a>
+- [ ] **D-d989de657f3ce3b523cd** - · Preserve exact donor/original lineage for assets, data, code, and behavior recovered from older/newer authorized versions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Convert flow factors existing projects into one maintainable family
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T092 : 397-397](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L397-L397)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Port flow is adding graph cells, not cloning projects (1)</summary>
+
+<a id="d-9ccb4b0268e7bb13298f"></a>
+- [ ] **D-9ccb4b0268e7bb13298f** - · Adding a target must preserve all existing user edits, common changes, cell overrides, artifacts, and proofs; create a recoverable checkpoint before structural migration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Port flow is adding graph cells, not cloning projects
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T106 : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L421-L421)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-01 — Create the Northpoint service/module and canonical state model (1)</summary>
+
+<a id="d-c2996002091ce1dae1e3"></a>
+- [ ] **D-c2996002091ce1dae1e3** - Create .enderloom/northpoint/ persistence with safe atomic writes and schema/version handling.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-01 — Create the Northpoint service/module and canonical state model
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 75-75](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L75-L75)
+
+</details>
+
+<a id="make-03-details"></a>
+## MAKE-03 - Items, blocks and equipment editors
+
+[Outcome](Checklist.md#make-03) / 5 source-derived details.
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 6. Verification gates (1)</summary>
+
+<a id="d-9483b3cee046713f45c0"></a>
+- [ ] **D-9483b3cee046713f45c0** - GATE — Enderloom has one canonical mapping/symbol truth path with differential proof against ModForge/Mapping-IO/Tiny Remapper/ART/JST/Ravel as applicable; exact mappings are targe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE — Enderloom has one canonical mapping/symbol truth path with differential proof against ModForge/Mapping-IO/Tiny Remapper/ART/JST/Ravel as applicable; exact mappings are target-artifact verified.
+  - **Binding context:** 6. Verification gates
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: G002 : 799-799](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L799-L799) / [ENDERLOOM_STUDIO_EXECUTION.md :: G002 : 960-960](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L960-L960)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T167 — Remove regex authority from the target converter (1)</summary>
+
+<a id="d-5aefa6c0617fad0dcf7b"></a>
+- [ ] **D-5aefa6c0617fad0dcf7b** - — Audit current target-26.3 regex/string rewrites.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T167 — Remove regex authority from the target converter
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T167 : 711-711](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L711-L711)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Create a Mod (1)</summary>
+
+<a id="d-848d2fa1775ab7b39809"></a>
+- [ ] **D-848d2fa1775ab7b39809** - Provide version-aware editors for items/blocks/materials, tools/armor/equipment, recipes/loot/tags, entities/mobs/bosses and behaviors, structures/biomes/dimensions/worldgen, parti...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Provide version-aware editors for items/blocks/materials, tools/armor/equipment, recipes/loot/tags, entities/mobs/bosses and behaviors, structures/biomes/dimensions/worldgen, particles/sounds/models/textures/animations, interfaces/configuration and gameplay systems. Link relevant event/procedure or behavior graphs, references and validation to the canonical source/semantic model. Starter templates are examples, not the limit of what users can build. Advanced users can implement arbitrary custom systems through the real source editor and extension interfaces; do not force every mod into a few generated block/item categories.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Create a Mod
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 190-190](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L190-L190)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 6. Verification gates (1)</summary>
+
+<a id="d-ee6862479bc2b31c52e4"></a>
+- [ ] **D-ee6862479bc2b31c52e4** - GATE - T139-T156/T160 prove fully working Create, Convert to Version, Repair / Fix Issues and Improve Performance workflows, real editors/play-testing, automatic dependency handlin...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE - T139-T156/T160 prove fully working Create, Convert to Version, Repair / Fix Issues and Improve Performance workflows, real editors/play-testing, automatic dependency handling, novice-friendly actions and persistent recovery through shared services.
+  - **Binding context:** 6. Verification gates
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: G016 : 975-975](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L975-L975)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-a4889264018ee6841299"></a>
+- [ ] **D-a4889264018ee6841299** - Locked progress/QoL direction: - One shared hierarchical progress engine for Performance tests, repairs, AI jobs, mod creation, conversions, ports, whole-pack migration, world repa...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Locked progress/QoL direction: - One shared hierarchical progress engine for Performance tests, repairs, AI jobs, mod creation, conversions, ports, whole-pack migration, world repair and releases. - Honest progress bars derive from known work units/gates, never elapsed-time fake percentages. - Unknown-duration work uses indeterminate state with concrete live events. - Content-aware progress for conversions/mod creation: items/blocks/entities/models/animations/recipes/scripts/compatibility scenarios/unknown files. - Simple / Detailed / Expert density modes in the same workflow surface. - Plain-English current action card explains exactly what Enderloom is doing and why. - Findings rail surfaces culprit confidence, failed gates, visual/performance/config/world/security findings and automated response without interrupting the job. - Repair candidate history explains what changed, why the last candidate failed, and which gates are retained vs invalidated. - Why-this? explanations are generated from the actual acceptance/evidence graph, not canned copy. - GUI, interactive CLI, JSON/JSONL, MCP and AI all consume the same structured progress stream. - No job reaches 100% until every mandatory acceptance gate really passes.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 210-221](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L210-L221)
+
+</details>
+
+<a id="make-04-details"></a>
+## MAKE-04 - Entities, bosses and gameplay graphs
+
+[Outcome](Checklist.md#make-04) / 12 source-derived details.
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring (1)</summary>
+
+<a id="d-fb7c97ffea973457c8a6"></a>
+- [ ] **D-fb7c97ffea973457c8a6** - visual gameplay/procedure and AI behavior graphs; command/data/worldgen generation at Misode/MCStacker-grade schema awareness.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-030 : 469-469](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L469-L469)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 2. Observed vs Inferred vs Authored Truth (1)</summary>
+
+<a id="d-af5b28ad99e67c295582"></a>
+- [ ] **D-af5b28ad99e67c295582** - Enderloom must never claim unseen geometry, hidden texture detail, animation behavior, gameplay, lore, stats, or mechanics were recovered exactly if the source did not show them.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 2. Observed vs Inferred vs Authored Truth
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 70-70](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L70-L70)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements (2)</summary>
+
+<a id="d-865f494980b040805b72"></a>
+- [ ] **D-865f494980b040805b72** - entities/mobs;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 304-304](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L304-L304)
+
+<a id="d-7b505ee234aa2110574c"></a>
+- [ ] **D-7b505ee234aa2110574c** - bosses/minibosses.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.1 Native mod elements
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 327-327](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L327-L327)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph (2)</summary>
+
+<a id="d-120c6abc92266160512a"></a>
+- [ ] **D-120c6abc92266160512a** - Network sync nodes where needed.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 336-336](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L336-L336)
+
+<a id="d-64a4f9a3a27ab1d5798c"></a>
+- [ ] **D-64a4f9a3a27ab1d5798c** - Compile-time validation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 337-337](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L337-L337)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring (2)</summary>
+
+<a id="d-41a1531f85bbf9e37785"></a>
+- [ ] **D-41a1531f85bbf9e37785** - Combat attacks/telegraphs/cooldowns.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 349-349](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L349-L349)
+
+<a id="d-55ef8503066047b13570"></a>
+- [ ] **D-55ef8503066047b13570** - Multiplayer/server-authoritative validation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 354-354](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L354-L354)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 31. Cross-integration requirements for these newly added domains (1)</summary>
+
+<a id="d-91f23448f060bbe9424d"></a>
+- [ ] **D-91f23448f060bbe9424d** - Gameplay visual graphs generate/edit normal project source and run through normal tests.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 31. Cross-integration requirements for these newly added domains
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1109-1109](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1109-L1109)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs (1)</summary>
+
+<a id="d-3fb71448488cb453a51f"></a>
+- [ ] **D-3fb71448488cb453a51f** - · Keep Enderloom genuinely useful during gameplay without paying for that capability in game performance
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T081 : 1198-1198](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1198-L1198)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.1 Simulation model (1)</summary>
+
+<a id="d-c34d75e721d6e2fdc8b9"></a>
+- [ ] **D-c34d75e721d6e2fdc8b9** - Secondary motion is a render/visual system, not gameplay authority. The server sends normal entity state; clients derive most cosmetic motion locally from that state. Do not networ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Secondary motion is a render/visual system, not gameplay authority. The server sends normal entity state; clients derive most cosmetic motion locally from that state. Do not network every physics bone.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.1 Simulation model
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 135-135](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L135-L135)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 15. Compatibility Lab (1)</summary>
+
+<a id="d-6cb01dd35c2f53b27684"></a>
+- [ ] **D-6cb01dd35c2f53b27684** - Apotheosis and other deep gameplay integration scenarios where relevant.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Compatibility Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 702-702](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L702-L702)
+
+</details>
+
+<a id="make-05-details"></a>
+## MAKE-05 - Recipes, loot, tags and data editing
+
+[Outcome](Checklist.md#make-05) / 16 source-derived details.
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation (1)</summary>
+
+<a id="d-283507d6ae9f01493728"></a>
+- [ ] **D-283507d6ae9f01493728** - scaffold/build complete target projects with registries, data generation, networking, configs, content, recipes/loot/tags, worldgen, UI, sounds/particles, models/animation, compati...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** scaffold/build complete target projects with registries, data generation, networking, configs, content, recipes/loot/tags, worldgen, UI, sounds/particles, models/animation, compatibility and scenario tests.
+  - **Binding context:** 12. PHASE I — NATIVE JAVA MOD CREATION, PORTS, BINARY REPAIR / 12.1 Native mod creation
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PI-001 : 483-483](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L483-L483)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.1 Complete Bedrock inventory (1)</summary>
+
+<a id="d-e1d474b96206c227d078"></a>
+- [ ] **D-e1d474b96206c227d078** - account for manifest/modules/dependencies, behavior/resource packs, Script API JS/TS, Molang, entity components/groups/events/properties/goals/spawn rules, geometry, animations/con...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** account for manifest/modules/dependencies, behavior/resource packs, Script API JS/TS, Molang, entity components/groups/events/properties/goals/spawn rules, geometry, animations/controllers/render controllers/attachables, items, blocks/permutations, recipes, loot/trades, particles, sounds, textures/atlases/texture sets, UI/fonts/localization, structures, features/rules, biomes/worldgen/dimensions, commands/functions, experiments/min-engine-version, subpacks; unknown-file target = 0.
+  - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.1 Complete Bedrock inventory
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-001 : 525-525](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L525-L525)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang (2)</summary>
+
+<a id="d-ee83bc11b1db83f73635"></a>
+- [ ] **D-ee83bc11b1db83f73635** - - Integrate ResourcePack Migrator&#x27;s useful item-model transforms with tests for legacy CustomModelData, damage combinations, conditional/range/select fallbacks, GUI sizing and...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Integrate ResourcePack Migrator&#x27;s useful item-model transforms with tests for legacy CustomModelData, damage combinations, conditional/range/select fallbacks, GUI sizing and untouched non-item resources. Unknown model shapes remain preserved and queued, never discarded.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / C. Assets, packs, models and Molang
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T098 : 692-692](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L692-L692) / [ENDERLOOM_STUDIO_EXECUTION.md :: T098 : 854-854](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L854-L854)
+
+<a id="d-3b699b811c60d3ec106c"></a>
+- [ ] **D-3b699b811c60d3ec106c** - - Integrate current Beet/Mecha and suitable Spyglass components for structured command/data-pack transformation and diagnostics. Resolve the exact game command/schema version and f...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Integrate current Beet/Mecha and suitable Spyglass components for structured command/data-pack transformation and diagnostics. Resolve the exact game command/schema version and follow the Beet monorepo; prove round-trips, resource references, macro handling and actual target command execution.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / C. Assets, packs, models and Molang
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T100 : 694-694](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L694-L694) / [ENDERLOOM_STUDIO_EXECUTION.md :: T100 : 856-856](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L856-L856)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring (1)</summary>
+
+<a id="d-cc0f88193194f2706621"></a>
+- [ ] **D-cc0f88193194f2706621** - Loot/reward conditions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 352-352](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L352-L352)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 10. Registry / Recipe / Content Explorer (1)</summary>
+
+<a id="d-72f497043933aac36a73"></a>
+- [ ] **D-72f497043933aac36a73** - Item tags/block tags/entity tags.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Registry / Recipe / Content Explorer
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 557-557](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L557-L557)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 13. Collaboration / Shared Instances / Team Pack Authoring / 13.3 Portable/offline workflows (1)</summary>
+
+<a id="d-15b297d7fd8333fbb1cd"></a>
+- [ ] **D-15b297d7fd8333fbb1cd** - Portable Enderloom data-root option.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.3 Portable/offline workflows
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 695-695](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L695-L695)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus (1)</summary>
+
+<a id="d-9ff441ad636f9f9f95fe"></a>
+- [ ] **D-9ff441ad636f9f9f95fe** - — Ingest misode/mcmeta as a highly useful secondary corpus of version-controlled Minecraft generated data/assets from 1.14 onward.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G028 — Data/resource migration intelligence, not just Java migration / T105 — Use `misode/mcmeta` as the primary versioned generated-data diff corpus
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T105 : 1162-1162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1162-L1162)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G031 — Optional accelerator/comparator integrations that do not own truth / T117 — Optional Everything IPC fast path on Windows / T118 — Keep packwiz as a modpack manifest/import-export reference (1)</summary>
+
+<a id="d-16c54e6da5020147f90d"></a>
+- [ ] **D-16c54e6da5020147f90d** - Promote data-model/provider patterns that improve Enderloom&#x27;s pack handling; do not replace Enderloom&#x27;s GUI/domain engine with packwiz or create a duplicate pack database...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Promote data-model/provider patterns that improve Enderloom&#x27;s pack handling; do not replace Enderloom&#x27;s GUI/domain engine with packwiz or create a duplicate pack database.
+  - **Binding context:** G031 — Optional accelerator/comparator integrations that do not own truth / T117 — Optional Everything IPC fast path on Windows / T118 — Keep packwiz as a modpack manifest/import-export reference
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 1371-1371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1371-L1371)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T164 — JDT semantic/compiler oracle (1)</summary>
+
+<a id="d-079cce0c00974fcd50cf"></a>
+- [ ] **D-079cce0c00974fcd50cf** - — Use Eclipse JDT/compiler services for:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T164 — JDT semantic/compiler oracle
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T164 : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L686-L686)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T188 — Data/resource version edges (1)</summary>
+
+<a id="d-82e5ac58234d59aa45c0"></a>
+- [ ] **D-82e5ac58234d59aa45c0** - — Add pack-format, registry, command-tree, model/render definition, worldgen/data-pack path and data-component capability changes to VersionGraph.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T188 — Data/resource version edges
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T188 : 1088-1088](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1088-L1088)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T319 — First-class versioned data/resource delta graph (1)</summary>
+
+<a id="d-1945bfcc5826845d8c69"></a>
+- [ ] **D-1945bfcc5826845d8c69** - — Elevate misode/mcmeta from a reference corpus to a structured cached input for DataResourceDeltaGraph: registries, generated data/assets, commands, item components, block states,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Elevate misode/mcmeta from a reference corpus to a structured cached input for DataResourceDeltaGraph: registries, generated data/assets, commands, item components, block states, sounds, atlases and published version diffs. Re-derive load-bearing facts from official game JAR/data generators before promoting them to conversion rules.
+  - **Binding context:** G050 — Data, resources, datagen and persistent-data migration / T187 — Versioned Minecraft data corpus / T319 — First-class versioned data/resource delta graph
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T319 : 1116-1116](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1116-L1116)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 25. Resource Pack / Data Pack Studio (1)</summary>
+
+<a id="d-cf85c62c471270152984"></a>
+- [ ] **D-cf85c62c471270152984** - Font/sound/particle/shader assets.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 25. Resource Pack / Data Pack Studio
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1103-1103](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1103-L1103)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical VersionGraph and target-cell identity (1)</summary>
+
+<a id="d-3eedea54649bff8bae40"></a>
+- [ ] **D-3eedea54649bff8bae40** - · Support dynamic version-profile refresh while keeping a reproducible frozen profile in each active job/receipt. New upstream data may create a newer profile; it must not mutate a...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Support dynamic version-profile refresh while keeping a reproducible frozen profile in each active job/receipt. New upstream data may create a newer profile; it must not mutate an in-progress verified job invisibly.
+  - **Binding context:** GATE - Canonical VersionGraph and target-cell identity
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T012 : 272-272](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L272-L272)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 14. QA CHECKLIST — AUTOMATE THESE / Runtime/release (1)</summary>
+
+<a id="d-b9846650a0221f88c530"></a>
+- [ ] **D-b9846650a0221f88c530** - actual Electron app exercises create/convert/repair -&gt; primary target -&gt; matrix flow end-to-end.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Runtime/release
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 956-956](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L956-L956) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1360-1360](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1360-L1360)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
+
+<a id="d-022544306475feea118d"></a>
+- [ ] **D-022544306475feea118d** - Add the Northpoint module, canonical data model, and persisted/resumable state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-01 : 1398-1398](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1398-L1398)
+
+</details>
+
+<a id="make-06-details"></a>
+## MAKE-06 - World, biome, structure and dimension authoring
+
+[Outcome](Checklist.md#make-06) / 52 source-derived details.
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence (1)</summary>
+
+<a id="d-85cfa907bc6ddd964563"></a>
+- [ ] **D-85cfa907bc6ddd964563** - noise engine accounts for warmup, order, spread/noise floor, thermal/background load, power mode, shader compile, worldgen/JIT/GC/cache/entity drift and reports low confidence inst...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** noise engine accounts for warmup, order, spread/noise floor, thermal/background load, power mode, shader compile, worldgen/JIT/GC/cache/entity drift and reports low confidence instead of false culprit certainty.
+  - **Binding context:** 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.6 A/B, whole-pack isolation, confidence
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PE-052 : 378-378](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L378-L378)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring (4)</summary>
+
+<a id="d-e35df2c2ef729a92c29d"></a>
+- [ ] **D-e35df2c2ef729a92c29d** - particle/audio/UI/HUD/font/material/PBR/Vibrant-Visuals-aware authoring.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-032 : 471-471](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L471-L471)
+
+<a id="d-0e54a95c6ccf2d60da11"></a>
+- [ ] **D-0e54a95c6ccf2d60da11** - runtime registry/recipe/content explorer with owner/source backlinks and museum/QA generation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-033 : 472-472](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L472-L472)
+
+<a id="d-df833f533b7aef77ab59"></a>
+- [ ] **D-df833f533b7aef77ab59** - Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a se...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Variant Foundry workspace + high-fidelity model/secondary-motion authoring/preview/optimization UX follows the two canonical Variant Foundry/runtime specs rather than becoming a separate shadow tool.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-035 : 474-474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L474-L474)
+
+<a id="d-81efd2abb185ebc854ec"></a>
+- [ ] **D-81efd2abb185ebc854ec** - Blockbench Automation backend supports live-editor + headless .bbmodel authoring/validation/render/convert, capability discovery, deterministic multi-view/reference QA and batch bi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Blockbench Automation backend supports live-editor + headless .bbmodel authoring/validation/render/convert, capability discovery, deterministic multi-view/reference QA and batch biome generation through the same canonical operation registry.\n- [ ] PH-037 Minecraft Texture Compiler + provider execution plane: pixel-grid/texel-density/palette/alpha/PBR style compilation, VRAM-aware local/remote provider jobs, cancellation and resume-from-stage with exact seed/hash receipts.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.4 Visual/data/world authoring
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-036 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L475-L475)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.1 Semantic profile (1)</summary>
+
+<a id="d-663c3ff67d5219b20285"></a>
+- [ ] **D-663c3ff67d5219b20285** - classify applicable semantics: inventory/container, wearable/accessory, machine/automation/kinetic/energy/fluid, RPG equipment, food/farming/cooking, entity/pet/mount, worldgen/str...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** classify applicable semantics: inventory/container, wearable/accessory, machine/automation/kinetic/energy/fluid, RPG equipment, food/farming/cooking, entity/pet/mount, worldgen/structure/dimension/portal, magic, quests/progression, guidebook, model/animation, server custom content, Bedrock addon, client rendering, performance patch.
+  - **Binding context:** 16. PHASE M — ADAPTIVE ECOSYSTEM COMPATIBILITY / 16.1 Semantic profile
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PM-001 : 572-572](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L572-L572)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 21. GOLDEN CHALLENGE MATRIX (1)</summary>
+
+<a id="d-37a11a54d95339b1f704"></a>
+- [ ] **D-37a11a54d95339b1f704** - Blockbench Automation: create one Bloom &amp; Boom source, generate multiple biome variants headlessly, open a selected candidate live, run reference/rig/animation/multi-view QA, e...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Blockbench Automation: create one Bloom &amp; Boom source, generate multiple biome variants headlessly, open a selected candidate live, run reference/rig/animation/multi-view QA, export to the promoted Java backend and prove the exact result in Minecraft with no manual source surgery.\n- [ ] GX-18 Variant Foundry capability closure: pass variant_foundry_capability_gate.py, prove an unknown-biome family, provider failover/resume, TextureStyleProfile compilation, ModelBundle reproducibility and applicable render-stack compatibility without losing approved near-field fidelity.
+  - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-17 : 677-677](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L677-L677)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 4. Concurrency Correctness Lab (1)</summary>
+
+<a id="d-a639120a60714a1b5ef3"></a>
+- [ ] **D-a639120a60714a1b5ef3** - detect world/entity/registry/render API access from suspicious worker threads using version-aware rules;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. Concurrency Correctness Lab
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 115-115](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L115-L115)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 7. Gorgeous Live Progress UX — every long job explains itself (1)</summary>
+
+<a id="d-15b46dd6fc6576788318"></a>
+- [ ] **D-15b46dd6fc6576788318** - Performance tests, repairs, mod creation, conversions, ports, pack migrations, AI jobs, world repairs and release builds must use one shared hierarchical job-progress system.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 7. Gorgeous Live Progress UX — every long job explains itself
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 431-431](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L431-L431)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph (2)</summary>
+
+<a id="d-a0a0d675c819cdc660a3"></a>
+- [ ] **D-a0a0d675c819cdc660a3** - Variables/local/global/player/world/entity persistence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 333-333](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L333-L333)
+
+<a id="d-6ff9dd0e11aba3dc514a"></a>
+- [ ] **D-6ff9dd0e11aba3dc514a** - Server/client side semantics shown explicitly.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 335-335](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L335-L335)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring (10)</summary>
+
+<a id="d-8eafe994ea4ba35fdb32"></a>
+- [ ] **D-8eafe994ea4ba35fdb32** - Modular structure pieces.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 358-358](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L358-L358)
+
+<a id="d-2299ffdce205e16790eb"></a>
+- [ ] **D-2299ffdce205e16790eb** - Room connection graph.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 359-359](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L359-L359)
+
+<a id="d-84d94540e1d4b8efe405"></a>
+- [ ] **D-84d94540e1d4b8efe405** - Pools/weights/conditions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 360-360](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L360-L360)
+
+<a id="d-e7b4aa177b87a5d20c3a"></a>
+- [ ] **D-e7b4aa177b87a5d20c3a** - Loot zones.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L361-L361)
+
+<a id="d-d95aa4d107b76cbe3371"></a>
+- [ ] **D-d95aa4d107b76cbe3371** - Traps.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 362-362](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L362-L362)
+
+<a id="d-28450c6745ab3f8b3280"></a>
+- [ ] **D-28450c6745ab3f8b3280** - Spawners.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 363-363](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L363-L363)
+
+<a id="d-464c56e2dcec52c8ead5"></a>
+- [ ] **D-464c56e2dcec52c8ead5** - Miniboss/boss rooms.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 364-364](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L364-L364)
+
+<a id="d-bb2354626ecb3874576e"></a>
+- [ ] **D-bb2354626ecb3874576e** - Keys/locks/progression gates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 365-365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L365-L365)
+
+<a id="d-fc26ecfa69385ac727de"></a>
+- [ ] **D-fc26ecfa69385ac727de** - Environment triggers.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 366-366](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L366-L366)
+
+<a id="d-c113a2f5926032ec05c3"></a>
+- [ ] **D-c113a2f5926032ec05c3** - Preview placement in deterministic QA world.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.4 Dungeon/structure gameplay authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 367-367](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L367-L367)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 10. Registry / Recipe / Content Explorer (1)</summary>
+
+<a id="d-ed4f44639a2b011d215c"></a>
+- [ ] **D-ed4f44639a2b011d215c** - Enumerate every registered item/block/entity/fluid/effect/enchantment/biome/dimension/structure/etc.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Registry / Recipe / Content Explorer
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 555-555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L555-L555)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances (6)</summary>
+
+<a id="d-b955be1c9979467b093d"></a>
+- [ ] **D-b955be1c9979467b093d** - Recipient sees diff before accepting.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 674-674](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L674-L674)
+
+<a id="d-7a06fe7d94e6e08a089d"></a>
+- [ ] **D-7a06fe7d94e6e08a089d** - Identify who/what introduced each change.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 675-675](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L675-L675)
+
+<a id="d-d44f376e156f4ffbaca7"></a>
+- [ ] **D-d44f376e156f4ffbaca7** - External/manual files clearly labeled.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 676-676](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L676-L676)
+
+<a id="d-f902a3d819de33287272"></a>
+- [ ] **D-f902a3d819de33287272** - Never sync auth tokens/secrets.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 677-677](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L677-L677)
+
+<a id="d-fc0230a410701aaa047e"></a>
+- [ ] **D-fc0230a410701aaa047e** - Resolve divergent edits.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 679-679](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L679-L679)
+
+<a id="d-7fdeeea4f1a2a0b8c592"></a>
+- [ ] **D-7fdeeea4f1a2a0b8c592** - Rollback shared update.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.1 Shared instances
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 680-680](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L680-L680)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 13. Collaboration / Shared Instances / Team Pack Authoring / 13.2 Team modpack projects (4)</summary>
+
+<a id="d-339b52a7d68af67a489e"></a>
+- [ ] **D-339b52a7d68af67a489e** - Roles/permissions when backend supports them.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.2 Team modpack projects
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 684-684](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L684-L684)
+
+<a id="d-b53b81f6a052b0ae3336"></a>
+- [ ] **D-b53b81f6a052b0ae3336** - comments/notes/todos.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.2 Team modpack projects
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 685-685](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L685-L685)
+
+<a id="d-462481f7f3b99681b58f"></a>
+- [ ] **D-462481f7f3b99681b58f** - review queue.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.2 Team modpack projects
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 686-686](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L686-L686)
+
+<a id="d-c27a8a0ff701f39c0f8b"></a>
+- [ ] **D-c27a8a0ff701f39c0f8b** - shared reproducible manifest.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.2 Team modpack projects
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 690-690](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L690-L690)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 13. Collaboration / Shared Instances / Team Pack Authoring / 13.3 Portable/offline workflows (1)</summary>
+
+<a id="d-4016efe3d3bec68b9c2d"></a>
+- [ ] **D-4016efe3d3bec68b9c2d** - Export/import complete project metadata.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Collaboration / Shared Instances / Team Pack Authoring / 13.3 Portable/offline workflows
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 696-696](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L696-L696)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 19. World Snapshot Version Control (1)</summary>
+
+<a id="d-dbffd1831bd3273fd484"></a>
+- [ ] **D-dbffd1831bd3273fd484** - Player/entity/block-entity change summary.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 19. World Snapshot Version Control
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 854-854](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L854-L854)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 29. Ecosystem Challenge Matrix — expanded benchmark set (1)</summary>
+
+<a id="d-8388d0f688a6076f6f10"></a>
+- [ ] **D-8388d0f688a6076f6f10** - bridge. Bedrock authoring workflows.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 29. Ecosystem Challenge Matrix — expanded benchmark set
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1051-1051](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1051-L1051)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 31. Cross-integration requirements for these newly added domains (1)</summary>
+
+<a id="d-00e5ce47a6ff045cd66c"></a>
+- [ ] **D-00e5ce47a6ff045cd66c** - World selected block/entity can open its registry/project page.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 31. Cross-integration requirements for these newly added domains
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1112-1112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1112-L1112)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 14. Out-of-game Quick Scan / static analysis (1)</summary>
+
+<a id="d-cfbd22b353dea388e8eb"></a>
+- [ ] **D-cfbd22b353dea388e8eb** - level/world/entity scans.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Out-of-game Quick Scan / static analysis
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 651-651](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L651-L651)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane (1)</summary>
+
+<a id="d-164fb67ffacd27972f61"></a>
+- [ ] **D-164fb67ffacd27972f61** - They discover candidate rules; they do not blindly replay edit scripts.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 701-701](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L701-L701)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract (1)</summary>
+
+<a id="d-216474eaa8869c7a3891"></a>
+- [ ] **D-216474eaa8869c7a3891** - Do not fork separate rules for conversion vs repair vs authoring when the underlying Minecraft fact is the same.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1417-1417](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1417-L1417)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.2 One test model, many runners (1)</summary>
+
+<a id="d-2694e6bf1a8062e7502b"></a>
+- [ ] **D-2694e6bf1a8062e7502b** - - start world; - spawn entity; - wait ticks; - move player; - attack entity; - use item; - place/break block; - enter portal; - change dimension; - kill boss; - inspect inventory; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - start world; - spawn entity; - wait ticks; - move player; - attack entity; - use item; - place/break block; - enter portal; - change dimension; - kill boss; - inspect inventory; - inspect scoreboard/property/component/state; - force/generate chunk; - save/restart/rejoin; - assert entity count/type/state; - assert block/structure/biome/feature presence; - assert loot/drop; - assert recipe/crafting result; - assert advancement/achievement-equivalent progression where applicable; - assert packet/event/state transition; - assert persistence after restart; - request a rendered-frame assertion when visual proof is actually required.
+  - **Binding context:** 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.2 One test model, many runners
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 3992-4013](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L3992-L4013) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 3992-4013](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L3992-L4013)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 6. Quick Scan — out-of-game static mod analysis (1)</summary>
+
+<a id="d-59462614369f899f09e4"></a>
+- [ ] **D-59462614369f899f09e4** - broad world/entity scans;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Quick Scan — out-of-game static mod analysis
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 274-274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L274-L274)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 22. Performance research/reference ideas already discussed (1)</summary>
+
+<a id="d-15347d13ba91d949c809"></a>
+- [ ] **D-15347d13ba91d949c809** - Observable — deep world/entity/block-entity/scheduled-tick diagnostics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Performance research/reference ideas already discussed
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 764-764](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L764-L764)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 19. World Studio — beat standalone world tools through integration / 19.3 Selection/filter engine (1)</summary>
+
+<a id="d-f75013dedf365f9708d0"></a>
+- [ ] **D-f75013dedf365f9708d0** - - coordinates/polygon/rectangle/radius; - inhabited time; - timestamp; - status; - biome; - structures; - block/entity presence; - mod namespace; - data version; - size; - generate...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - coordinates/polygon/rectangle/radius; - inhabited time; - timestamp; - status; - biome; - structures; - block/entity presence; - mod namespace; - data version; - size; - generated version; - distance from player/spawn/waypoints; - never-visited heuristics; - performance hotspot evidence.
+  - **Binding context:** 19. World Studio — beat standalone world tools through integration / 19.3 Selection/filter engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 865-878](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L865-L878)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 42. Golden acceptance fixtures (1)</summary>
+
+<a id="d-36f33be2f724b2d81984"></a>
+- [ ] **D-36f33be2f724b2d81984** - world with corrupt chunk/entity fixture.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 42. Golden acceptance fixtures
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1567-1567](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1567-L1567)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 1. Product goal (1)</summary>
+
+<a id="d-4ddc9d7048ab9217c3f2"></a>
+- [ ] **D-4ddc9d7048ab9217c3f2** - This is not only a Bloom &amp; Boom tool. It must work for:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 1. Product goal
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 15-15](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L15-L15)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 3. Dynamic biome/dimension discovery — hard requirement (1)</summary>
+
+<a id="d-9b16ec95a572bc3c4b36"></a>
+- [ ] **D-9b16ec95a572bc3c4b36** - Unknown/new custom biomes become unresolved profiles to characterize, never silently fall back to generic green/brown.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 3. Dynamic biome/dimension discovery — hard requirement
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L91-L91)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 6. Minecraft-native authoring (1)</summary>
+
+<a id="d-a70152ee2c14df5f6458"></a>
+- [ ] **D-a70152ee2c14df5f6458** - A dense AI-generated mesh may be used as a scaffold/reference, but never becomes the final Minecraft deliverable by default. Enderloom must fit/adapt it into the chosen Minecraft a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A dense AI-generated mesh may be used as a scaffold/reference, but never becomes the final Minecraft deliverable by default. Enderloom must fit/adapt it into the chosen Minecraft art-direction and renderer constraints.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 6. Minecraft-native authoring
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 151-151](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L151-L151)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 7. Variant intelligence (1)</summary>
+
+<a id="d-e89354d463d6d9c4bac3"></a>
+- [ ] **D-e89354d463d6d9c4bac3** - The tool must support: - Generate one; - Generate N candidates; - Generate every biome; - Generate every biome in this dimension; - Generate every biome in this installed modpack; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The tool must support: - Generate one; - Generate N candidates; - Generate every biome; - Generate every biome in this dimension; - Generate every biome in this installed modpack; - Generate only missing variants; - Regenerate this region only; - Keep geometry, reroll texture; - Keep face/horns, reroll growths.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 7. Variant intelligence
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 171-180](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L171-L180)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates (1)</summary>
+
+<a id="d-d7089a105e48626f9a0e"></a>
+- [ ] **D-d7089a105e48626f9a0e** - Every approved variant must pass:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 10. Quality gates
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 220-220](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L220-L220)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0/P1 — third sweep: motion authoring, server-side export, biome/material systems, and visual QA / Rig + motion generation (1)</summary>
+
+<a id="d-dcff7bc319243279c209"></a>
+- [ ] **D-dcff7bc319243279c209** - - Seed3D/Puppeteer — automatic skeleton + skinning followed by video-guided animation. This is a useful challenger beyond static auto-rigging because Enderloom can test whether an ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Seed3D/Puppeteer — automatic skeleton + skinning followed by video-guided animation. This is a useful challenger beyond static auto-rigging because Enderloom can test whether an approved reference clip can become a reusable motion while keeping the Minecraft rig editable. The source repository is Apache-2.0; checkpoint/dataset licenses still require separate verification. - https://github.com/Seed3D/Puppeteer - jasongzy/Make-It-Animatable — efficient animation-ready character authoring; the current project documents an upgraded MIA v2 mesh pipeline with improved joint/weight/pose prediction and Blender integration. Source is MIT. Use as a fast auto-rig/pose challenger beside SkinTokens, RigAnything and Puppeteer rather than assuming one model wins every creature topology. - https://github.com/jasongzy/Make-It-Animatable - vlongle/articulate-anything — automatic articulation from text, images or videos. This is especially relevant for articulated props, mechanical mobs, doors/furniture, wing assemblies and other assets where the main problem is deciding joints/links/axes rather than humanoid skinning. - https://github.com/vlongle/articulate-anything - Anytop2025/Anytop — motion generation/retargeting for arbitrary character topology. Candidate for motion synthesis/inpainting once Enderloom already has a valid rig; do not use it to replace the canonical rig or gameplay state machine. - https://github.com/Anytop2025/Anytop
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0/P1 — third sweep: motion authoring, server-side export, biome/material systems, and visual QA / Rig + motion generation
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 176-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L176-L183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Third-sweep architecture consequences (1)</summary>
+
+<a id="d-947e0bc6050ae6e3db07"></a>
+- [ ] **D-947e0bc6050ae6e3db07** - 1. Motion authoring becomes a separate challenge lane. A model may come from AniGen/SkinTokens/RigAnything/MIA, while motion can come from authored Blockbench clips, approved video...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Motion authoring becomes a separate challenge lane. A model may come from AniGen/SkinTokens/RigAnything/MIA, while motion can come from authored Blockbench clips, approved video guidance, AnyTop-style synthesis or gameplay procedural controllers. 2. Do not conflate server-side compatibility with native-client optimality. Polymer/display-entity backends are excellent export targets, but the native Enderloom client renderer can still use a lower-overhead skeletal path. 3. Biome variation includes atmosphere/material phenotype. BiomeDNA should carry optional colormap, fog/sky/water/particle/sound and PBR/material hints as well as model growths. 4. PBR is capability-negotiated. Preserve rich material data in the IR; emit LabPBR/Iris-compatible assets when available and a visually coherent vanilla fallback when not. 5. Reference-image QA becomes generated and deterministic. Every promoted model backend should be able to emit locked multi-view/state reference captures for regression diffs, not rely only on human screenshots. 6. Animation-generation models never become gameplay authority. Generated motion must be mapped to named Enderloom animation/state contracts, clipped/retimed as needed and validated for hitbox/gameplay event timing.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Third-sweep architecture consequences
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 208-213](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L208-L213)
+
+</details>
+
+<details>
+<summary>variant-foundry-capability-matrix.json /  (1)</summary>
+
+<a id="d-bd3f0fa8d8ef31121b8a"></a>
+- [ ] **D-bd3f0fa8d8ef31121b8a** - { &quot;schema_version&quot;: 1, &quot;updated&quot;: &quot;2026-09-27&quot;, &quot;purpose&quot;: &quot;Machine-readable required capability inventory for Enderloom Variant Foundr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** { &quot;schema_version&quot;: 1, &quot;updated&quot;: &quot;2026-09-27&quot;, &quot;purpose&quot;: &quot;Machine-readable required capability inventory for Enderloom Variant Foundry.&quot;, &quot;rules&quot;: { &quot;completion&quot;: &quot;Every required capability needs an implemented owner plus the listed proof class before Variant Foundry can be called capability-complete.&quot;, &quot;provider_policy&quot;: &quot;Candidates are challengers until exact version, rights, target compatibility, quality and runtime gates pass.&quot;, &quot;unknown_policy&quot;: &quot;Unknown biome/provider/backend state remains unresolved-active; it is never silently treated as unsupported or complete.&quot; }, &quot;capabilities&quot;: [ { &quot;id&quot;: &quot;VF-INTAKE-01&quot;, &quot;area&quot;: &quot;intake&quot;, &quot;name&quot;: &quot;Reference and existing-asset intake&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;reference_intake&quot;, &quot;proof&quot;: &quot;reference hash + parse receipt&quot; }, { &quot;id&quot;: &quot;VF-DNA-01&quot;, &quot;area&quot;: &quot;identity&quot;, &quot;name&quot;: &quot;SubjectDNA and immutable identity locks&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;subject_dna&quot;, &quot;proof&quot;: &quot;identity-lock regression&quot; }, { &quot;id&quot;: &quot;VF-SHAPE-01&quot;, &quot;area&quot;: &quot;generation&quot;, &quot;name&quot;: &quot;Concept/image to geometry provider registry&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;shape_provider_registry&quot;, &quot;proof&quot;: &quot;same-reference candidate benchmark&quot; }, { &quot;id&quot;: &quot;VF-PARTS-01&quot;, &quot;area&quot;: &quot;generation&quot;, &quot;name&quot;: &quot;Semantic part decomposition&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;part_decomposition&quot;, &quot;proof&quot;: &quot;landmark/part reconciliation&quot; }, { &quot;id&quot;: &quot;VF-RETOPO-01&quot;, &quot;area&quot;: &quot;geometry&quot;, &quot;name&quot;: &quot;Cleanup/retopo/simplification&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;geometry_preprocess&quot;, &quot;proof&quot;: &quot;topology + silhouette report&quot; }, { &quot;id&quot;: &quot;VF-GLTF-01&quot;, &quot;area&quot;: &quot;interchange&quot;, &quot;name&quot;: &quot;Validated glTF/GLB canonical interchange&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;gltf_interchange&quot;, &quot;proof&quot;: &quot;Khronos validation + round trip&quot; }, { &quot;id&quot;: &quot;VF-MCIZE-01&quot;, &quot;area&quot;: &quot;minecraftization&quot;, &quot;name&quot;: &quot;Editable Minecraft geometry compiler&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;minecraft_model_compiler&quot;, &quot;proof&quot;: &quot;approximation ledger + Blockbench round trip&quot; }, { &quot;id&quot;: &quot;VF-UV-01&quot;, &quot;area&quot;: &quot;texture&quot;, &quot;name&quot;: &quot;UV unwrap/atlas/retention&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;uv_pipeline&quot;, &quot;proof&quot;: &quot;UV overlap/seam audit&quot; }, { &quot;id&quot;: &quot;VF-TEX-01&quot;, &quot;area&quot;: &quot;texture&quot;, &quot;name&quot;: &quot;Multi-view seam-safe texturing providers&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;texture_provider_registry&quot;, &quot;proof&quot;: &quot;multi-view seam/reference benchmark&quot; }, { &quot;id&quot;: &quot;VF-MAT-01&quot;, &quot;area&quot;: &quot;material&quot;, &quot;name&quot;: &quot;PBR/material synthesis and preservation&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;material_pipeline&quot;, &quot;proof&quot;: &quot;channel/round-trip audit&quot; }, { &quot;id&quot;: &quot;VF-PIXEL-01&quot;, &quot;area&quot;: &quot;texture&quot;, &quot;name&quot;: &quot;Minecraft TextureStyleProfile compiler&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;minecraft_texture_compiler&quot;, &quot;proof&quot;: &quot;pixel-grid/palette/alpha/UV visual QA&quot; }, { &quot;id&quot;: &quot;VF-RIG-01&quot;, &quot;area&quot;: &quot;rig&quot;, &quot;name&quot;: &quot;Rig + skin proposal providers&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;rig_provider_registry&quot;, &quot;proof&quot;: &quot;skeleton/weight differential benchmark&quot; }, { &quot;id&quot;: &quot;VF-IK-01&quot;, &quot;area&quot;: &quot;rig&quot;, &quot;name&quot;: &quot;Editable IK constraints and export baking&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;ik_ir&quot;, &quot;proof&quot;: &quot;live-vs-baked pose parity&quot; }, { &quot;id&quot;: &quot;VF-ANIM-01&quot;, &quot;area&quot;: &quot;animation&quot;, &quot;name&quot;: &quot;Authored/retargeted/generated motion&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;animation_pipeline&quot;, &quot;proof&quot;: &quot;state/loop/pose parity&quot; }, { &quot;id&quot;: &quot;VF-EVENT-01&quot;, &quot;area&quot;: &quot;animation&quot;, &quot;name&quot;: &quot;Sound/particle/custom event preservation&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;animation_event_ir&quot;, &quot;proof&quot;: &quot;timing/event regression&quot; }, { &quot;id&quot;: &quot;VF-MOTION-01&quot;, &quot;area&quot;: &quot;physics&quot;, &quot;name&quot;: &quot;Deterministic lightweight secondary motion&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;secondary_motion_graph&quot;, &quot;proof&quot;: &quot;replay + native crowd benchmark&quot; }, { &quot;id&quot;: &quot;VF-PHYSICS-01&quot;, &quot;area&quot;: &quot;physics&quot;, &quot;name&quot;: &quot;Optional heavy physics backend&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;physics_backend_registry&quot;, &quot;proof&quot;: &quot;capability + performance promotion gate&quot; }, { &quot;id&quot;: &quot;VF-BIOME-01&quot;, &quot;area&quot;: &quot;biome&quot;, &quot;name&quot;: &quot;Dynamic biome/dimension discovery&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;biome_discovery&quot;, &quot;proof&quot;: &quot;unknown synthetic biome fixture&quot; }, { &quot;id&quot;: &quot;VF-WORLDGEN-01&quot;, &quot;area&quot;: &quot;biome&quot;, &quot;name&quot;: &quot;Worldgen enrichment adapters&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;worldgen_adapter_registry&quot;, &quot;proof&quot;: &quot;TerraBlender/Biolith/Lithostitched/Terra fixtures&quot; }, { &quot;id&quot;: &quot;VF-BIOMEDNA-01&quot;, &quot;area&quot;: &quot;biome&quot;, &quot;name&quot;: &quot;BiomeDNA/DimensionDNA synthesis&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;biome_profile_engine&quot;, &quot;proof&quot;: &quot;profile confidence/evidence report&quot; }, { &quot;id&quot;: &quot;VF-CATALOG-01&quot;, &quot;area&quot;: &quot;biome&quot;, &quot;name&quot;: &quot;Versioned curated accelerator catalog&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;biome_catalog&quot;, &quot;proof&quot;: &quot;registry-id/version reconciliation&quot; }, { &quot;id&quot;: &quot;VF-VARIANT-01&quot;, &quot;area&quot;: &quot;variant&quot;, &quot;name&quot;: &quot;Seeded region-lock-aware variant planning&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;variant_planner&quot;, &quot;proof&quot;: &quot;reroll/lock determinism&quot; }, { &quot;id&quot;: &quot;VF-ATMOS-01&quot;, &quot;area&quot;: &quot;variant&quot;, &quot;name&quot;: &quot;Atmosphere/material phenotype&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;atmosphere_profile&quot;, &quot;proof&quot;: &quot;resource-pack/native visual fixture&quot; }, { &quot;id&quot;: &quot;VF-BUNDLE-01&quot;, &quot;area&quot;: &quot;compile&quot;, &quot;name&quot;: &quot;Immutable ModelBundle runtime compiler&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;model_bundle_compiler&quot;, &quot;proof&quot;: &quot;hash/reproducibility/round-trip&quot; }, { &quot;id&quot;: &quot;VF-HOT-01&quot;, &quot;area&quot;: &quot;compile&quot;, &quot;name&quot;: &quot;Dependency-aware content cache/hot reload&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;asset_cache&quot;, &quot;proof&quot;: &quot;changed-node-only rebuild test&quot; }, { &quot;id&quot;: &quot;VF-RENDER-01&quot;, &quot;area&quot;: &quot;runtime&quot;, &quot;name&quot;: &quot;Capability-selected runtime backend&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;render_backend_registry&quot;, &quot;proof&quot;: &quot;native render parity&quot; }, { &quot;id&quot;: &quot;VF-SERVER-01&quot;, &quot;area&quot;: &quot;runtime&quot;, &quot;name&quot;: &quot;Optional server/resource-pack export&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;server_model_export&quot;, &quot;proof&quot;: &quot;server-client compatibility fixture&quot; }, { &quot;id&quot;: &quot;VF-NET-01&quot;, &quot;area&quot;: &quot;runtime&quot;, &quot;name&quot;: &quot;Variant/state persistence and sync&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;variant_runtime_binding&quot;, &quot;proof&quot;: &quot;client/server/restart proof&quot; }, { &quot;id&quot;: &quot;VF-BLOCKBENCH-01&quot;, &quot;area&quot;: &quot;authoring&quot;, &quot;name&quot;: &quot;Live + headless Blockbench automation&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;blockbench_backend&quot;, &quot;proof&quot;: &quot;headless batch + live handoff fixture&quot; }, { &quot;id&quot;: &quot;VF-GPU-01&quot;, &quot;area&quot;: &quot;execution&quot;, &quot;name&quot;: &quot;VRAM-aware local/remote provider jobs&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;provider_job_scheduler&quot;, &quot;proof&quot;: &quot;cancel/retry/resume/resource test&quot; }, { &quot;id&quot;: &quot;VF-QA-EDITOR-01&quot;, &quot;area&quot;: &quot;qa&quot;, &quot;name&quot;: &quot;Deterministic editor/reference QA&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;model_visual_qa&quot;, &quot;proof&quot;: &quot;multi-view/landmark/rig/animation report&quot; }, { &quot;id&quot;: &quot;VF-QA-NATIVE-01&quot;, &quot;area&quot;: &quot;qa&quot;, &quot;name&quot;: &quot;Exact native Minecraft visual/runtime QA&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;native_model_qa&quot;, &quot;proof&quot;: &quot;fixed-world capture + log proof&quot; }, { &quot;id&quot;: &quot;VF-VISREG-01&quot;, &quot;area&quot;: &quot;qa&quot;, &quot;name&quot;: &quot;Deterministic visual regression&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;visual_regression&quot;, &quot;proof&quot;: &quot;reference-image diff fixture&quot; }, { &quot;id&quot;: &quot;VF-PERF-01&quot;, &quot;area&quot;: &quot;performance&quot;, &quot;name&quot;: &quot;Equivalent-work performance gate&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;model_performance_gate&quot;, &quot;proof&quot;: &quot;CPU/GPU/frame/allocation benchmark&quot; }, { &quot;id&quot;: &quot;VF-RENDERCOMPAT-01&quot;, &quot;area&quot;: &quot;compatibility&quot;, &quot;name&quot;: &quot;Modern render/culling/shader compatibility&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;render_compat_matrix&quot;, &quot;proof&quot;: &quot;co-install matrix&quot; }, { &quot;id&quot;: &quot;VF-PROV-01&quot;, &quot;area&quot;: &quot;provenance&quot;, &quot;name&quot;: &quot;Source/provider/model/license/seed derivation&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;artifact_provenance&quot;, &quot;proof&quot;: &quot;manifest + hash audit&quot; }, { &quot;id&quot;: &quot;VF-WIKI-01&quot;, &quot;area&quot;: &quot;documentation&quot;, &quot;name&quot;: &quot;Native Wiki Variant Atlas projection&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;variant_wiki_projection&quot;, &quot;proof&quot;: &quot;native wiki readback&quot; }, { &quot;id&quot;: &quot;VF-RECOVERY-01&quot;, &quot;area&quot;: &quot;recovery&quot;, &quot;name&quot;: &quot;Stage-preserving failure recovery&quot;, &quot;required&quot;: true, &quot;owner&quot;: &quot;variant_recovery&quot;, &quot;proof&quot;: &quot;failure injection + resume test&quot; } ] }
+  - **Binding context:** 
+  - **Original specification:** [variant-foundry-capability-matrix.json : 1-316](https://github.com/Herbertofury/Enderloom/blob/main/docs/variant-foundry-capability-matrix.json#L1-L316)
+
+</details>
+
+<a id="make-07-details"></a>
+## MAKE-07 - Model, UV and texture fidelity
+
+[Outcome](Checklist.md#make-07) / 138 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
+
+<a id="d-fcbe66b8af2382ec607e"></a>
+- [ ] **D-fcbe66b8af2382ec607e** - data/resource/model/texture/animation failure;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Intake: &quot;Hey, fix this&quot;
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 195-195](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L195-L195)
+
+</details>
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 10. Sandbox test engine (1)</summary>
+
+<a id="d-45237507bd9286412c74"></a>
+- [ ] **D-45237507bd9286412c74** - model/texture/animation QA when visuals changed;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Sandbox test engine
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 360-360](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L360-L360)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
+
+<a id="d-05ef9b4d969af332cefc"></a>
+- [ ] **D-05ef9b4d969af332cefc** - Full model/texture/animation/MCModels/reference-reconstruction workflow.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DEC-007 : 110-110](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L110-L110)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families (2)</summary>
+
+<a id="d-6ea05251f9f62ef17ee7"></a>
+- [ ] **D-6ea05251f9f62ef17ee7** - The data model must support these families without opaque catch-all JSON or future shadow stores:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 240-240](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L240-L240)
+
+<a id="d-34c4ba9e63ec0600ecb2"></a>
+- [ ] **D-34c4ba9e63ec0600ecb2** - Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/a...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Concept/reference: reference roles/landmarks/observations/inference/design dossier/art direction/asset plan/geometry/texture/rig/animation/gameplay/fidelity/native visual/failure/acceptance objects; Variant Foundry and high-fidelity runtime objects defined by docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md and docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md attach to the same canonical graph.
+  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.6 Typed extension families
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-055 : 247-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L247-L247)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (1)</summary>
+
+<a id="d-461c9d401404019c011a"></a>
+- [ ] **D-461c9d401404019c011a** - high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using pe...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** high-detail model acceptance is dual: preserve approved near-field fidelity and pass the runtime/performance budget; optimize architecture rather than flattening detail or using per-bone server-entity hacks.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-014 : 554-554](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L554-L554)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance (2)</summary>
+
+<a id="d-d83ba6017b14e474e07b"></a>
+- [ ] **D-d83ba6017b14e474e07b** - compare silhouette/proportions/landmarks/palette/material/value/texture placement/pose/joints/animation timing/scale/grounding/clipping/culling/hitbox alignment/non-obvious frames/...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** compare silhouette/proportions/landmarks/palette/material/value/texture placement/pose/joints/animation timing/scale/grounding/clipping/culling/hitbox alignment/non-obvious frames/bind-pose reset using deterministic renders plus actual Minecraft.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-020 : 559-559](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L559-L559)
+
+<a id="d-0bb5d9050c3ea8acadb0"></a>
+- [ ] **D-0bb5d9050c3ea8acadb0** - no single opaque similarity score can mask a failed fidelity dimension.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.3 Fidelity acceptance
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-021 : 560-560](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L560-L560)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md / Enderloom — Concept Art Workflow Handoff Addendum / Required consequences (1)</summary>
+
+<a id="d-76c620f218ae410780f5"></a>
+- [ ] **D-76c620f218ae410780f5** - - The workflow lives inside the single top-level Studio, not a new top-level Concept Studio. - Original references remain immutable/hash-addressed and all derived assets retain lin...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - The workflow lives inside the single top-level Studio, not a new top-level Concept Studio. - Original references remain immutable/hash-addressed and all derived assets retain lineage. - Observed, constrained, inferred, authored and user-approved details remain distinct. - Generate a durable ConceptDesignDossier, not disposable AI prose. - Support native editable model/texture/rig/animation source; no generated-asset prison. - Concept interpretation may propose gameplay, but visual implication never silently becomes canonical gameplay. - Multi-reference projects can assign separate shape, texture, motion, gameplay and style authority. - Use the normal semantic CompatibilityProfile and ecosystem compatibility contracts. - Deterministic renders/metrics complement but never replace actual Minecraft native-client proof. - Visual work must test scale, grounding, culling, texture/atlas integrity, animation-state synchronization, transform accumulation, hitbox alignment and non-obvious frames. - Gameplay work still requires appropriate server/client/integrated-server/persistence/multiplayer gates. - The shared progress system must expose concept intake, dossier, geometry, UV/texture, rig, animation, gameplay, compatibility, native QA and release stages. - AI may perform the workflow headlessly through the same operation/task/evidence layer, but cannot self-declare acceptance. - Synthetic image generation is not required and must never be silently used as the workflow. If Enderloom supports such providers, they are explicitly user-enabled per job and generated pictures remain authored references, never proof of fidelity.
+  - **Binding context:** Enderloom — Concept Art Workflow Handoff Addendum / Required consequences
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md : 23-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L23-L36)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 12. Actual Minecraft Visual QA (1)</summary>
+
+<a id="d-960b0333f5ba5100fe81"></a>
+- [ ] **D-960b0333f5ba5100fe81** - - target loader/version actually loads the packaged artifact; - model appears at correct scale; - texture / atlas resolves; - animation state runs; - state synchronization works; -...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - target loader/version actually loads the packaged artifact; - model appears at correct scale; - texture / atlas resolves; - animation state runs; - state synchronization works; - geometry remains grounded; - hitbox / rendered body align; - culling bounds are correct; - shadows / lighting are acceptable; - emissive / transparency paths work; - items / armor render in all required contexts; - first / third person where applicable; - GUI / inventory representation where applicable; - non-obvious animation frames; - no transform accumulation; - no missing texture / model warnings; - no render-thread violations.
+  - **Binding context:** 12. Actual Minecraft Visual QA
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 412-428](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L412-L428)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 18. Optional Synthetic Image Tools (1)</summary>
+
+<a id="d-5bc7ca6911e31a1a82ef"></a>
+- [ ] **D-5bc7ca6911e31a1a82ef** - Synthetic image-generation/editing is not required for this workflow and is not a substitute for native model / texture / animation work.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 18. Optional Synthetic Image Tools
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 573-573](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L573-L573)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang (1)</summary>
+
+<a id="d-49ad2e0bf12851e75346"></a>
+- [ ] **D-49ad2e0bf12851e75346** - - Differential-test existing Blockbench codecs/importers with native exported fixtures, including rotated/flipped per-face UVs, planes/meshes, pivots, hierarchy, locators, multiple...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Differential-test existing Blockbench codecs/importers with native exported fixtures, including rotated/flipped per-face UVs, planes/meshes, pivots, hierarchy, locators, multiple textures, display transforms and animation tracks. Repair the shared importer rather than hand-editing one output model.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / C. Assets, packs, models and Molang
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T102 : 696-696](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L696-L696) / [ENDERLOOM_STUDIO_EXECUTION.md :: T102 : 858-858](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L858-L858)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence (1)</summary>
+
+<a id="d-f96f77601ce92351acf3"></a>
+- [ ] **D-f96f77601ce92351acf3** - texture upload/atlas rebuild events where observable;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 79-79](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L79-L79)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 3. Render / GPU / Client Frame-Time Lab / 3.2 GPU/render-backend awareness (1)</summary>
+
+<a id="d-3f8f0434d4243a2871fb"></a>
+- [ ] **D-3f8f0434d4243a2871fb** - resource-pack/model-renderer identity;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Render / GPU / Client Frame-Time Lab / 3.2 GPU/render-backend awareness
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 90-90](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L90-L90)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 9. Startup / Boot-Time Profiler (1)</summary>
+
+<a id="d-21eeff29e56cbe531261"></a>
+- [ ] **D-21eeff29e56cbe531261** - resource reload/model bake/atlas timing;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 9. Startup / Boot-Time Profiler
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 241-241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L241-L241)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md / 7. Gorgeous Live Progress UX — every long job explains itself / 7.3 Current-action card (1)</summary>
+
+<a id="d-fc274f3ea59143bb4571"></a>
+- [ ] **D-fc274f3ea59143bb4571** - Testing entity rendering in real Minecraft Scenario 3/7 — Sprint animation, east camera “Checking that the model remains grounded, textures load, and animation transforms do not ac...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Testing entity rendering in real Minecraft Scenario 3/7 — Sprint animation, east camera “Checking that the model remains grounded, textures load, and animation transforms do not accumulate.”
+  - **Binding context:** 7. Gorgeous Live Progress UX — every long job explains itself / 7.3 Current-action card
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 476-478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L476-L478)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.5 Creator Tools interoperability (1)</summary>
+
+<a id="d-6fe2d4b9ba4ffed7a44d"></a>
+- [ ] **D-6fe2d4b9ba4ffed7a44d** - Model/block/mob/item render output import/export.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.5 Creator Tools interoperability
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 170-170](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L170-L170)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators (1)</summary>
+
+<a id="d-ac409a87baf727ef48de"></a>
+- [ ] **D-ac409a87baf727ef48de** - model/item definitions;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 400-400](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L400-L400)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 10. Registry / Recipe / Content Explorer (1)</summary>
+
+<a id="d-935fdf6ab251878e0307"></a>
+- [ ] **D-935fdf6ab251878e0307** - Resource/model/texture association.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Registry / Recipe / Content Explorer
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 564-564](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L564-L564)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 14. AI / MCP / Local-Model Integration / 14.1 Enderloom MCP server (2)</summary>
+
+<a id="d-26c7d7464be6d49863c2"></a>
+- [ ] **D-26c7d7464be6d49863c2** - create repair job;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. AI / MCP / Local-Model Integration / 14.1 Enderloom MCP server
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 711-711](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L711-L711)
+
+<a id="d-c4410c5b2e822a452757"></a>
+- [ ] **D-c4410c5b2e822a452757** - inspect assets/models;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. AI / MCP / Local-Model Integration / 14.1 Enderloom MCP server
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 719-719](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L719-L719)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 15. Legacy Archaeology / Truly Broad Version Support / 15.3 Historical game semantics (2)</summary>
+
+<a id="d-db1701b77cb7d312b81f"></a>
+- [ ] **D-db1701b77cb7d312b81f** - old recipe/resource/model schemas.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.3 Historical game semantics
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 775-775](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L775-L775)
+
+<a id="d-b49773f3748e1e71d858"></a>
+- [ ] **D-b49773f3748e1e71d858** - old texture atlases/resource packs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.3 Historical game semantics
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 778-778](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L778-L778)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 20. Cross-Edition Resource-Pack Conversion (2)</summary>
+
+<a id="d-a4ef0ed848a9a49da25d"></a>
+- [ ] **D-a4ef0ed848a9a49da25d** - texture path/name translation;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 20. Cross-Edition Resource-Pack Conversion
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 868-868](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L868-L868)
+
+<a id="d-8f62c7257cea60438f4f"></a>
+- [ ] **D-8f62c7257cea60438f4f** - block/item model translation;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 20. Cross-Edition Resource-Pack Conversion
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 869-869](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L869-L869)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 21. Replay / Capture / Showcase Studio (1)</summary>
+
+<a id="d-5219d9d14e3151d217c6"></a>
+- [ ] **D-5219d9d14e3151d217c6** - model/animation sequence capture.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 21. Replay / Capture / Showcase Studio
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 894-894](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L894-L894)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable (1)</summary>
+
+<a id="d-c2a0e32682b327e197b6"></a>
+- [ ] **D-c2a0e32682b327e197b6** - This is a platform invariant, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host mo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This is a platform invariant, not a Mod Manager exception. New substantial Enderloom tools must use this contract unless a measured technical requirement proves a different host model is necessary.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G013 — Enderloom Tool Platform: every substantial tool can be standalone, tabbed, popped out, and fully interoperable
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 761-761](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L761-L761)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal (1)</summary>
+
+<a id="d-2396ef68fc2aefc7f554"></a>
+- [ ] **D-2396ef68fc2aefc7f554** - Enderloom must make highly detailed Bedrock/server-model/CPM/Figura-class visual fidelity a normal native Java mod capability, not something reserved for Bedrock Add-Ons or server-...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom must make highly detailed Bedrock/server-model/CPM/Figura-class visual fidelity a normal native Java mod capability, not something reserved for Bedrock Add-Ons or server-side model plugins.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 1. Goal
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 11-11](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L11-L11)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer (1)</summary>
+
+<a id="d-6c0b654684fdd94d790b"></a>
+- [ ] **D-6c0b654684fdd94d790b** - The canonical high-fidelity intermediate representation must preserve:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 3. Native Java high-fidelity renderer
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 46-46](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L46-L46)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax (1)</summary>
+
+<a id="d-d8c7b5657af86ecd8d21"></a>
+- [ ] **D-d8c7b5657af86ecd8d21** - Required techniques:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 168-168](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L168-L168)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule (2)</summary>
+
+<a id="d-f679557576fac219cf85"></a>
+- [ ] **D-f679557576fac219cf85** - LOD may remove work only when the removed detail is below the target visual observability threshold at that camera distance. It must not become “faster by visibly making the model ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** LOD may remove work only when the removed detail is below the target visual observability threshold at that camera distance. It must not become “faster by visibly making the model worse.”
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 192-192](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L192-L192)
+
+<a id="d-aab67283b3efb96e3b94"></a>
+- [ ] **D-aab67283b3efb96e3b94** - Near-field approved reference views always use the full-fidelity model and required secondary motion.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 6. Performance contract — detail without a visible performance tax / 6.1 LOD quality rule
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 194-194](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L194-L194)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 7. High-detail variant generation (1)</summary>
+
+<a id="d-b292edd69d6d4c51782f"></a>
+- [ ] **D-b292edd69d6d4c51782f** - Variant plans must specify both: - appearance mutation, and - motion phenotype.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 7. High-detail variant generation
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 228-230](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L228-L230)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 8. Player/avatar lane (1)</summary>
+
+<a id="d-585b82ae757f30be5a1b"></a>
+- [ ] **D-585b82ae757f30be5a1b** - This lane must remain optional for mods that do not need custom player avatars.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 8. Player/avatar lane
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 250-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L250-L250)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 14. Challenger/integration policy (1)</summary>
+
+<a id="d-9ca5f2b982a66ba86781"></a>
+- [ ] **D-9ca5f2b982a66ba86781** - Current required comparison set:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 14. Challenger/integration policy
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 361-361](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L361-L361)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates (1)</summary>
+
+<a id="d-8bb3af3e4c664cfa4062"></a>
+- [ ] **D-8bb3af3e4c664cfa4062** - The runtime/authoring plan must now explicitly challenge itself against:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 441-441](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L441-L441)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep (1)</summary>
+
+<a id="d-743f0b2e04083bfe29bb"></a>
+- [ ] **D-743f0b2e04083bfe29bb** - - glTF/GLB becomes a first-class typed interchange format. Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-s...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - glTF/GLB becomes a first-class typed interchange format. Preserve nodes/bones, skin weights, animations, materials/PBR attributes, texture provenance and units before Minecraft-specific reduction. - IK becomes part of the animation IR. Preserve IK targets/chains/constraints when a backend supports them; otherwise bake with explicit loss evidence. - Part segmentation is an evidence source, not truth. Generated semantic parts must reconcile against SubjectDNA, source landmarks and editable Blockbench hierarchy. - Mesh-assisted output gets an approximation ledger. If the target backend requires cuboids/planes, report exactly which mesh regions were approximated and how much silhouette/texture fidelity changed. - Secondary motion uses portable spring-bone semantics. Support rest pose, stiffness, drag/damping, gravity, inertia, angle limits and sphere/capsule collision, then extend with Bloom &amp; Boom wind/water/material phenotypes. - Offline preprocessing is preferred over per-frame waste. UV packing, atlas generation, mesh optimization/LOD candidates, expression compilation and immutable pose/controller data are built/cached ahead of runtime when safe. - License/model-weight checks are machine-readable gates. A source-code license does not automatically cover bundled third-party code or model weights.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.1 New hard requirements from the sweep
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 455-461](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L455-L461)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures (1)</summary>
+
+<a id="d-a0eec4ed0f625c71e057"></a>
+- [ ] **D-a0eec4ed0f625c71e057** - Use source only under the exact project&#x27;s license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable j...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use source only under the exact project&#x27;s license. Cobblemon code and Cobblemon art are different rights surfaces; the model assets must not be treated as generally reusable just because the runtime source is open.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.3 Mature Java differential fixtures
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L481-L481)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers (2)</summary>
+
+<a id="d-b81e6f36271d952532f5"></a>
+- [ ] **D-b81e6f36271d952532f5** - The third sweep adds the following required comparison lanes:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L486-L486)
+
+<a id="d-66ecaeced54e7db791f3"></a>
+- [ ] **D-66ecaeced54e7db791f3** - - Generated motion is never allowed to redefine gameplay authority. It maps onto named animation/state contracts and must preserve event/hitbox timing. - BiomeDNA may include atmos...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Generated motion is never allowed to redefine gameplay authority. It maps onto named animation/state contracts and must preserve event/hitbox timing. - BiomeDNA may include atmosphere/material fields in addition to geometry motifs: colormap, fog/sky/water hints, particle/sound phenotype and optional PBR material intent. - HighFidelityModel preserves rich material channels even when the active backend cannot display all of them; exporters choose the richest compatible path and emit an explicit fallback. - Model backend acceptance requires deterministic locked-view/state reference captures suitable for automatic image diffs in addition to live runtime inspection. - Server-side virtual/display backends are export compatibility routes, not automatic replacements for the native client renderer.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.4 Motion-generation, server-export, material and QA challengers
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 499-503](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L499-L503)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.5 Blockbench automation, richer IK and optional native physics (3)</summary>
+
+<a id="d-af6ae00fc45cbce3c83f"></a>
+- [ ] **D-af6ae00fc45cbce3c83f** - Required challenger/integration lanes:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.5 Blockbench automation, richer IK and optional native physics
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 510-510](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L510-L510)
+
+<a id="d-f4c438f0082ea0eb34df"></a>
+- [ ] **D-f4c438f0082ea0eb34df** - - jasonjgardner/blockbench-mcp-plugin for live Blockbench + headless .bbmodel edit/validate/convert/render architecture and plugin capability registration; - sosadly/blockbench-mcp...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - jasonjgardner/blockbench-mcp-plugin for live Blockbench + headless .bbmodel edit/validate/convert/render architecture and plugin capability registration; - sosadly/blockbench-mcp for procedural detail, reference matching, measured rig/animation QA, multi-view inspection and artist-review workflow; - current Blockbench IK evolution including two-bone/FABRIK/spline/aim IK, pole guidance and IK/FK blending semantics; - Velthoric/Jolt JNI only as an optional heavy physics backend where actual rope/cloth/soft-body/rigid-body interaction is required.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.5 Blockbench automation, richer IK and optional native physics
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 512-515](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L512-L515)
+
+<a id="d-8498018aa631157ac140"></a>
+- [ ] **D-8498018aa631157ac140** - - headless and live Blockbench use the same canonical Enderloom model/variant graph; - batch biome generation defaults to headless-safe operations and opens the live editor only wh...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - headless and live Blockbench use the same canonical Enderloom model/variant graph; - batch biome generation defaults to headless-safe operations and opens the live editor only when useful; - reference/editor proof never replaces native Minecraft proof; - IK data stays editable and semantic until an output format forces baking; - heavy native physics is opt-in/capability-selected and never replaces the cheaper secondary-motion path without measured benefit; - third-party MCP/Blockbench integrations obey exact licenses and are wrapped/reimplemented when direct source reuse would make distribution incompatible.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 17. Fresh 2026 challenger sweep and promoted architecture candidates / 17.5 Blockbench automation, richer IK and optional native physics
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 531-536](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L531-L536)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 18. Capability closure, Texture Compiler and runtime asset compilation / 18.1 Minecraft Texture Compiler (1)</summary>
+
+<a id="d-87f8030c9daa94446a15"></a>
+- [ ] **D-87f8030c9daa94446a15** - The texture compiler must support reference-preserving and deliberate vanilla/32x/64x/custom-mod styles. Naive downsampling is not an acceptable finalization strategy.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 18. Capability closure, Texture Compiler and runtime asset compilation / 18.1 Minecraft Texture Compiler
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 550-550](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L550-L550)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 18. Capability closure, Texture Compiler and runtime asset compilation / 18.4 Render-stack promotion (1)</summary>
+
+<a id="d-c5d8afa643d3d2cb655c"></a>
+- [ ] **D-c5d8afa643d3d2cb655c** - A model backend is not promoted until the applicable render matrix proves it with vanilla plus relevant Sodium/Embeddium, Iris/Oculus, ImmediatelyFast, EntityCulling, MoreCulling, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A model backend is not promoted until the applicable render matrix proves it with vanilla plus relevant Sodium/Embeddium, Iris/Oculus, ImmediatelyFast, EntityCulling, MoreCulling, EMF/ETF/CEM and resource-reload lanes. Compatibility failure triggers repair/fallback, never silent removal of approved model detail.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 18. Capability closure, Texture Compiler and runtime asset compilation / 18.4 Render-stack promotion
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 577-577](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L577-L577)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 14. Out-of-game Quick Scan / static analysis (1)</summary>
+
+<a id="d-a9d9b0e2419670fc5455"></a>
+- [ ] **D-a9d9b0e2419670fc5455** - resource/texture/model/audio footprint.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Out-of-game Quick Scan / static analysis
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 641-641](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L641-L641)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 33. Performance requirements for Enderloom itself (1)</summary>
+
+<a id="d-d47b5fffcae43d99ee67"></a>
+- [ ] **D-d47b5fffcae43d99ee67** - Avoid unbounded synthetic model copies/duplicate library records.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 33. Performance requirements for Enderloom itself
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1388-1388](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1388-L1388)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable (1)</summary>
+
+<a id="d-e22386605735c5ddf8fc"></a>
+- [ ] **D-e22386605735c5ddf8fc** - 7. One canonical model per concept. - One version/loader graph. - One learned-rule store. - One manifest/dependency/access IR family. - One job/session state owner. - One evidence/...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 7. One canonical model per concept. - One version/loader graph. - One learned-rule store. - One manifest/dependency/access IR family. - One job/session state owner. - One evidence/receipt model. - Compatibility tools feed evidence into these models; they do not become parallel truth stores.
+  - **Binding context:** Enderloom — Next-Generation App + Conversion Stack Full Implementation Contract / Constraints — non-negotiable
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 98-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L98-L104)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G042 — Canonical conversion IR family / T144 — Implement `ProjectIR` (1)</summary>
+
+<a id="d-2ab2428f68faf57236c3"></a>
+- [ ] **D-2ab2428f68faf57236c3** - — Build a canonical project model covering:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G042 — Canonical conversion IR family / T144 — Implement `ProjectIR`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T144 : 403-403](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L403-L403)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker (1)</summary>
+
+<a id="d-d5f093ec9fd209e5498c"></a>
+- [ ] **D-d5f093ec9fd209e5498c** - It must support:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 650-650](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L650-L650)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph` (1)</summary>
+
+<a id="d-0a0bef760ee2477f46c1"></a>
+- [ ] **D-0a0bef760ee2477f46c1** - — Model at least:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G047 — Loader capability translation knowledge / T174 — Build `LoaderCapabilityGraph`
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T174 : 838-838](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L838-L838)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies (1)</summary>
+
+<a id="d-cc29e1e00fc656b4740e"></a>
+- [ ] **D-cc29e1e00fc656b4740e** - GATE — Enderloom emits target-native, reproducible, fast Gradle projects from a canonical model rather than copying fragile source build scripts wholesale.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: G048 : 926-926](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L926-L926)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane (2)</summary>
+
+<a id="d-91506cca003b15ec6711"></a>
+- [ ] **D-91506cca003b15ec6711** - — Use the Gradle Tooling API or the strongest supported structured model path to inspect projects without regex-parsing build files as the primary authority.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T177 : 930-930](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L930-L930)
+
+<a id="d-391123679fef001729ff"></a>
+- [ ] **D-391123679fef001729ff** - Fallback parsing is allowed only when the model cannot expose required information and must preserve unknown build logic for review.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 942-942](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L942-L942)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T344 — Updater trust defense-in-depth is threat-model gated (1)</summary>
+
+<a id="d-d44bd7885c8ffdb489c3"></a>
+- [ ] **D-d44bd7885c8ffdb489c3** - — Evaluate TUF (tough) and Sigstore verification only if Enderloom&#x27;s update/distribution threat model benefits from rollback/freeze/delegation or keyless provenance beyond Tau...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate TUF (tough) and Sigstore verification only if Enderloom&#x27;s update/distribution threat model benefits from rollback/freeze/delegation or keyless provenance beyond Tauri&#x27;s mandatory signature verification. Do not introduce a second fragile updater control plane merely because the tooling exists.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T344 — Updater trust defense-in-depth is threat-model gated
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T344 : 2462-2462](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2462-L2462)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.22 Coordinated parallel implementation — do the work together, not one tiny feature at a time (1)</summary>
+
+<a id="d-8b483d9b8f8caf8587ee"></a>
+- [ ] **D-8b483d9b8f8caf8587ee** - Parallel work still shares one canonical schema/job/history model and one accepted product behavior. Do not merge six competing task systems, notification systems, databases, backu...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Parallel work still shares one canonical schema/job/history model and one accepted product behavior. Do not merge six competing task systems, notification systems, databases, backup formats or settings stores.
+  - **Binding context:** 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.22 Coordinated parallel implementation — do the work together, not one tiny feature at a time
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 1903-1903](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1903-L1903) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 1903-1903](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1903-L1903)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 8. Maximum-Quality Model Policy (1)</summary>
+
+<a id="d-aa2bd91aab450b5d0124"></a>
+- [ ] **D-aa2bd91aab450b5d0124** - Do not hardcode Enderloom to one model name forever.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 8. Maximum-Quality Model Policy
+  - **Original specification:** [ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md : 493-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L493-L493)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 8. Maximum-Quality Model Policy / Fast Iteration (1)</summary>
+
+<a id="d-a868543abe430174d490"></a>
+- [ ] **D-a868543abe430174d490** - Invariant: model policy may change cost/latency; it may not change the user’s required content/fidelity/runtime acceptance contract.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 8. Maximum-Quality Model Policy / Fast Iteration
+  - **Original specification:** [ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md : 518-518](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L518-L518)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 6. Quick Scan — out-of-game static mod analysis (1)</summary>
+
+<a id="d-3371ac0e2bd6794904f1"></a>
+- [ ] **D-3371ac0e2bd6794904f1** - resource/texture/model/audio footprint;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Quick Scan — out-of-game static mod analysis
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 264-264](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L264-L264)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks (1)</summary>
+
+<a id="d-5b66c8d5281b6f177c48"></a>
+- [ ] **D-5b66c8d5281b6f177c48** - - Finish the real model/texture/UV/animation/audio/recipe/structure workspace from 0.7, including timeline and inspector behavior, native asset fidelity, import/export and undo. No...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Finish the real model/texture/UV/animation/audio/recipe/structure workspace from 0.7, including timeline and inspector behavior, native asset fidelity, import/export and undo. No generated showcase imagery or fake preview state.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T147 : 261-261](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L261-L261)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 0. North-star product promise (1)</summary>
+
+<a id="d-322957062257204ec0fd"></a>
+- [ ] **D-322957062257204ec0fd** - See any installed Java mod, Bedrock add-on, resource pack, shader, data pack, world, server, model, texture, animation, or pack as a first-class project inside Enderloom.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. North-star product promise
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 23-23](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L23-L23)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 2. Canonical Minecraft Knowledge Graph (2)</summary>
+
+<a id="d-0be243ea4a26a24cc5e3"></a>
+- [ ] **D-0be243ea4a26a24cc5e3** - Model
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Canonical Minecraft Knowledge Graph
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 98-98](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L98-L98)
+
+<a id="d-beaa2e632ac385c8cd40"></a>
+- [ ] **D-beaa2e632ac385c8cd40** - Texture
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Canonical Minecraft Knowledge Graph
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L99-L99)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (1)</summary>
+
+<a id="d-4a18c33bb977b700604b"></a>
+- [ ] **D-4a18c33bb977b700604b** - textures/atlases/terrain/item texture maps.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 416-416](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L416-L416)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 10. Bedrock -&gt; Java Conversion Engine (1)</summary>
+
+<a id="d-17ede6fb2fcdf65ebeb9"></a>
+- [ ] **D-17ede6fb2fcdf65ebeb9** - Geometry/animation controllers -&gt; Java model + GeckoLib/AzureLib/native adapter selected by fidelity needs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 548-548](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L548-L548)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability (6)</summary>
+
+<a id="d-ba4f12cd54da5ff11802"></a>
+- [ ] **D-ba4f12cd54da5ff11802** - Open/import/export .bbmodel.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 971-971](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L971-L971)
+
+<a id="d-3f417ccc04fd5963246a"></a>
+- [ ] **D-3f417ccc04fd5963246a** - Launch selected asset in installed Blockbench.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 972-972](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L972-L972)
+
+<a id="d-1a8dc06136b36bc578af"></a>
+- [ ] **D-1a8dc06136b36bc578af** - Optional embedded/integrated Blockbench-compatible editing surface where licensing/architecture permits.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 973-973](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L973-L973)
+
+<a id="d-82ad06c710117f6eb227"></a>
+- [ ] **D-82ad06c710117f6eb227** - Plugin bridge for round-trip updates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L974-L974)
+
+<a id="d-8ba6e5c77c0686ed0857"></a>
+- [ ] **D-8ba6e5c77c0686ed0857** - Watch model file and refresh Enderloom preview/runtime workspace.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 975-975](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L975-L975)
+
+<a id="d-280ab017eb12af985235"></a>
+- [ ] **D-280ab017eb12af985235** - Preserve project metadata, pivots, UVs, textures, animations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.1 Blockbench interoperability
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 976-976](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L976-L976)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.2 Native model formats (9)</summary>
+
+<a id="d-0ee5323923a02ae650b9"></a>
+- [ ] **D-0ee5323923a02ae650b9** - Java baked/block/item models.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 982-982](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L982-L982)
+
+<a id="d-cca8bffe819acb778a9a"></a>
+- [ ] **D-cca8bffe819acb778a9a** - Java entity model source representations.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 983-983](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L983-L983)
+
+<a id="d-a6c8a5a578067e686763"></a>
+- [ ] **D-a6c8a5a578067e686763** - Bedrock geometry JSON.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 984-984](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L984-L984)
+
+<a id="d-25fb0719037ff6b4817f"></a>
+- [ ] **D-25fb0719037ff6b4817f** - GeckoLib.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 985-985](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L985-L985)
+
+<a id="d-0f06065541cc1ff1f79d"></a>
+- [ ] **D-0f06065541cc1ff1f79d** - AzureLib.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 986-986](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L986-L986)
+
+<a id="d-18456797fe8555bbe2a2"></a>
+- [ ] **D-18456797fe8555bbe2a2** - CEM/OptiFine-style routes when legally/technically appropriate.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 987-987](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L987-L987)
+
+<a id="d-5e0c50f080a0f4c38b8e"></a>
+- [ ] **D-5e0c50f080a0f4c38b8e** - ModelEngine/Mythic-style authorized server assets via conversion adapters.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 988-988](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L988-L988)
+
+<a id="d-f33eeade6a0cbc8eda0e"></a>
+- [ ] **D-f33eeade6a0cbc8eda0e** - Custom armor/cosmetic/accessory models.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 989-989](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L989-L989)
+
+<a id="d-95823256eb813666d5eb"></a>
+- [ ] **D-95823256eb813666d5eb** - Block/entity/item/furniture models.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.2 Native model formats
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 990-990](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L990-L990)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.3 Rigging (11)</summary>
+
+<a id="d-eb6bc6ea426f0810e75b"></a>
+- [ ] **D-eb6bc6ea426f0810e75b** - bone hierarchy editor;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 994-994](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L994-L994)
+
+<a id="d-466feadf08d3abdfc1ee"></a>
+- [ ] **D-466feadf08d3abdfc1ee** - pivots/origins;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 995-995](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L995-L995)
+
+<a id="d-fd9a6288fab71b4a4f6d"></a>
+- [ ] **D-fd9a6288fab71b4a4f6d** - mirroring;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 996-996](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L996-L996)
+
+<a id="d-3250bc9e4bd89cbf403b"></a>
+- [ ] **D-3250bc9e4bd89cbf403b** - constraints/IK helpers;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 997-997](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L997-L997)
+
+<a id="d-1a6ac31b09b7cfb67777"></a>
+- [ ] **D-1a6ac31b09b7cfb67777** - attachment locators;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 998-998](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L998-L998)
+
+<a id="d-76a4151f64ad74006647"></a>
+- [ ] **D-76a4151f64ad74006647** - hitbox/interaction locators;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 999-999](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L999-L999)
+
+<a id="d-a0b88a00351532ccc434"></a>
+- [ ] **D-a0b88a00351532ccc434** - seats/mount points;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1000-1000](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1000-L1000)
+
+<a id="d-2b7ab6bcf729db017c5a"></a>
+- [ ] **D-2b7ab6bcf729db017c5a** - item hand points;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1001-1001](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1001-L1001)
+
+<a id="d-1d9b2ef133c2099800fb"></a>
+- [ ] **D-1d9b2ef133c2099800fb** - custom special bones;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1002-1002](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1002-L1002)
+
+<a id="d-7897a1d28315ef8360a0"></a>
+- [ ] **D-7897a1d28315ef8360a0** - bind-pose validation;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1003-1003](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1003-L1003)
+
+<a id="d-ec6b1c9cea214a108bad"></a>
+- [ ] **D-ec6b1c9cea214a108bad** - detect transform accumulation hazards.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.3 Rigging
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1004-1004](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1004-L1004)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.4 Texturing (14)</summary>
+
+<a id="d-d8d0107fffefab78bf7b"></a>
+- [ ] **D-d8d0107fffefab78bf7b** - pixel editor;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1008-1008](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1008-L1008)
+
+<a id="d-c120e987f997249428fd"></a>
+- [ ] **D-c120e987f997249428fd** - UV editor;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1009-1009](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1009-L1009)
+
+<a id="d-aa9c8e4f5eb4905a00c6"></a>
+- [ ] **D-aa9c8e4f5eb4905a00c6** - box UV/per-face UV;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1010-1010](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1010-L1010)
+
+<a id="d-8bc0f80b1bc5c84f892c"></a>
+- [ ] **D-8bc0f80b1bc5c84f892c** - texture atlas layout;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1011-1011](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1011-L1011)
+
+<a id="d-ba0116305964e69e162c"></a>
+- [ ] **D-ba0116305964e69e162c** - layers;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1012-1012](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1012-L1012)
+
+<a id="d-03d5749c9d57b4607db4"></a>
+- [ ] **D-03d5749c9d57b4607db4** - palette tools;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1013-1013](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1013-L1013)
+
+<a id="d-1028a42185de6cc4eb7b"></a>
+- [ ] **D-1028a42185de6cc4eb7b** - symmetry;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1014-1014](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1014-L1014)
+
+<a id="d-40b195c33dff296efad3"></a>
+- [ ] **D-40b195c33dff296efad3** - emissive maps;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1015-1015](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1015-L1015)
+
+<a id="d-86f15a5ee616d7594924"></a>
+- [ ] **D-86f15a5ee616d7594924** - normal/PBR-related maps where target pipeline supports them;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1016-1016](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1016-L1016)
+
+<a id="d-2209bb403839c0b4dbd1"></a>
+- [ ] **D-2209bb403839c0b4dbd1** - animated textures;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1017-1017](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1017-L1017)
+
+<a id="d-e06989e21d2d1012482b"></a>
+- [ ] **D-e06989e21d2d1012482b** - texture resolution conversion;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1018-1018](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1018-L1018)
+
+<a id="d-939615a458f1e34f25f6"></a>
+- [ ] **D-939615a458f1e34f25f6** - seam/bleed detection;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1019-1019](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1019-L1019)
+
+<a id="d-72accfe942d50ed33c44"></a>
+- [ ] **D-72accfe942d50ed33c44** - missing-pixel/transparent-island inspection;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1020-1020](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1020-L1020)
+
+<a id="d-db9f4fda77123a0792d0"></a>
+- [ ] **D-db9f4fda77123a0792d0** - native Minecraft texture preview lighting.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.4 Texturing
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1021-1021](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1021-L1021)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.5 Animation (10)</summary>
+
+<a id="d-8526163f28c3e791412c"></a>
+- [ ] **D-8526163f28c3e791412c** - timeline/dope sheet;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1025-1025](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1025-L1025)
+
+<a id="d-15d1a522dd44118fe365"></a>
+- [ ] **D-15d1a522dd44118fe365** - keyframes/interpolation;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1026-1026](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1026-L1026)
+
+<a id="d-cbd8d94e954480886a65"></a>
+- [ ] **D-cbd8d94e954480886a65** - loop/hold/one-shot;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1027-1027](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1027-L1027)
+
+<a id="d-0e69703ec2e66358878e"></a>
+- [ ] **D-0e69703ec2e66358878e** - state machine/controller graph;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1028-1028](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1028-L1028)
+
+<a id="d-3359809e8b8435dedeb4"></a>
+- [ ] **D-3359809e8b8435dedeb4** - retargeting between rigs;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1031-1031](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1031-L1031)
+
+<a id="d-abf319a1a92a910a4a16"></a>
+- [ ] **D-abf319a1a92a910a4a16** - root motion analysis;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1034-1034](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1034-L1034)
+
+<a id="d-5e384919585537c90239"></a>
+- [ ] **D-5e384919585537c90239** - procedural look/head tracking;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1035-1035](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1035-L1035)
+
+<a id="d-546e84b88118bdefbac1"></a>
+- [ ] **D-546e84b88118bdefbac1** - idle/walk/run/attack/hurt/death/sit/sleep/fly/swim presets;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1036-1036](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1036-L1036)
+
+<a id="d-798eb8083fc546a1a24b"></a>
+- [ ] **D-798eb8083fc546a1a24b** - tail/ear/wing secondary-motion helpers;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1037-1037](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1037-L1037)
+
+<a id="d-3b9eb7dfa6914f917d52"></a>
+- [ ] **D-3b9eb7dfa6914f917d52** - frame-by-frame parity viewer.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1038-1038](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1038-L1038)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (1)</summary>
+
+<a id="d-c881efb6f3ef07da946d"></a>
+- [ ] **D-c881efb6f3ef07da946d** - texture/material checks;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1085-1085](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1085-L1085)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 25. Resource Pack / Data Pack Studio (1)</summary>
+
+<a id="d-6a747760d29ef120ed05"></a>
+- [ ] **D-6a747760d29ef120ed05** - Texture/model override graph.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 25. Resource Pack / Data Pack Studio
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1102-1102](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1102-L1102)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 36. Extension / Adapter SDK (1)</summary>
+
+<a id="d-c2124d9095e28391bbd6"></a>
+- [ ] **D-c2124d9095e28391bbd6** - model/animation runtime adapter;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 36. Extension / Adapter SDK
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1359-1359](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1359-L1359)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 42. Golden acceptance fixtures (1)</summary>
+
+<a id="d-489b7b579b9014392643"></a>
+- [ ] **D-489b7b579b9014392643** - model/animation fixture with known ground/clipping/transform faults.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 42. Golden acceptance fixtures
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1569-1569](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1569-L1569)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 45. Definition of done — ultimate Enderloom (1)</summary>
+
+<a id="d-efe7c4ce3cde2d520a3b"></a>
+- [ ] **D-efe7c4ce3cde2d520a3b** - Model/texture/animation workflows support professional Minecraft asset production and reference parity QA.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 45. Definition of done — ultimate Enderloom
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1742-1742](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1742-L1742)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA (1)</summary>
+
+<a id="d-cafd89518a6cc3258257"></a>
+- [ ] **D-cafd89518a6cc3258257** - - silhouette and proportions; - required face/recognition landmarks; - horn/ear/tail/limb/body anchors; - rig hierarchy and pivots; - texture/material identity; - palette anchors; ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - silhouette and proportions; - required face/recognition landmarks; - horn/ear/tail/limb/body anchors; - rig hierarchy and pivots; - texture/material identity; - palette anchors; - required animation behaviors; - gameplay identity and hitbox constraints; - allowed and forbidden mutation zones; - provenance and source hashes.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 2. Core pipeline / SubjectDNA
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 45-54](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L45-L54)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 5. Variant modes (1)</summary>
+
+<a id="d-e5106a4095cee89b80b7"></a>
+- [ ] **D-e5106a4095cee89b80b7** - Per-region locks must allow a user to freeze the face, horns, body, legs, item silhouette, logo, UV region, animation, or any other identity-critical zone.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 5. Variant modes
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 137-137](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L137-L137)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 15. Non-negotiable invariants (1)</summary>
+
+<a id="d-a605cb1bb532044f9109"></a>
+- [ ] **D-a605cb1bb532044f9109** - - Preserve the original concept/model/assets immutably. - Never trade identity, fidelity or content away for speed. - No hardcoded “supported biomes only” wall for modded content. ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Preserve the original concept/model/assets immutably. - Never trade identity, fidelity or content away for speed. - No hardcoded “supported biomes only” wall for modded content. - Unknown modded biome != unsupported; characterize it. - Curated profiles accelerate quality but dynamic discovery provides coverage. - No fake Minecraft model from a pretty dense mesh; output must be editable and target-runtime-valid. - Model providers are swappable challengers. - Every generation keeps exact provider/model/version/seed/input hashes and derivation lineage. - Generated variants are reproducible. - Native/runtime proof remains stronger than editor-only proof. - Existing concept-art-to-native-mod work is extended, not duplicated.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 15. Non-negotiable invariants
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 347-357](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L347-L357)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md / Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration (2)</summary>
+
+<a id="d-4d94dddcca6a6610239c"></a>
+- [ ] **D-4d94dddcca6a6610239c** - Variant Foundry output must implement the canonical requirements in:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 362-362](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L362-L362)
+
+<a id="d-f840627dacfe885fcf5e"></a>
+- [ ] **D-f840627dacfe885fcf5e** - The same approved source identity must survive both appearance and motion variation. Region locks apply to secondary-motion generation as well as geometry/texture generation.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 16. High-fidelity Java runtime and motion phenotype integration
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md : 376-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L376-L376)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
+
+<a id="d-8513d1c3f84cbd136ef0"></a>
+- [ ] **D-8513d1c3f84cbd136ef0** - · Document the mental model in plain language: one mod, shared core, version/loader adapters, exact target exceptions, native builds, and repair promotion.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Documentation, migration UX, and durable receipts
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T155 : 500-500](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L500-L500)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure (1)</summary>
+
+<a id="d-b0ba1b6339ec30fe955f"></a>
+- [ ] **D-b0ba1b6339ec30fe955f** - Status: Canonical completeness contract for the Universal Biome &amp; Model Variator / High-Fidelity Java Model Runtime Updated: 2026-09-27 Purpose: Make sure Enderloom has every c...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Status: Canonical completeness contract for the Universal Biome &amp; Model Variator / High-Fidelity Java Model Runtime Updated: 2026-09-27 Purpose: Make sure Enderloom has every capability required to turn concept art or an existing Minecraft asset into beautiful, editable, biome-aware, animated, performant Java content without depending on one fragile model/provider/editor/runtime.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 3-5](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L3-L5)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 2. Canonical capability stack (1)</summary>
+
+<a id="d-5d503d59b3572a5e598a"></a>
+- [ ] **D-5d503d59b3572a5e598a** - | ID | Capability | Required behavior | Primary challengers / references | |---|---|---|---| | VF-INTAKE-01 | Reference intake | Images, turntables, GIF/video, .bbmodel, GLB/glTF, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | ID | Capability | Required behavior | Primary challengers / references | |---|---|---|---| | VF-INTAKE-01 | Reference intake | Images, turntables, GIF/video, .bbmodel, GLB/glTF, OBJ/FBX, Bedrock geo/animation, Java model assets, authorized server-model assets | Existing Enderloom reference pipeline, Blockbench | | VF-DNA-01 | Subject identity | Preserve face, silhouette, proportions, horns/limbs/anchors, material identity, rig/animation/gameplay locks | SubjectDNA + VariantIdentityAnchor | | VF-SHAPE-01 | Concept -&gt; 3D | Multiple candidate shapes with deterministic seed/provenance; no provider lock-in | TRELLIS.2, Hi3DGen, Hunyuan3D, TripoSG, AniGen | | VF-PARTS-01 | Semantic parts | Propose separable limbs/horns/petals/plates/props without overriding reference truth | Hunyuan3D-Part, PartCrafter | | VF-RETOPO-01 | Topology cleanup | Deterministic cleanup, simplification, retopo, normals, non-manifold/degenerate repair | Blender/QuadriFlow, MeshAnythingV2, meshoptimizer, OpenX Clay, MyMeshy | | VF-GLTF-01 | Interchange IR | Preserve nodes, bones, weights, animations, PBR materials, textures, scale and provenance through GLB/glTF | glTF Transform, glTF Validator, Assimp fallback | | VF-MCIZE-01 | Minecraftization | Convert scaffold meshes into editable Minecraft cubes/planes/allowed mesh primitives with explicit approximation report | glTF-to-Minecraft, Blockbench, Enderloom fitting | | VF-UV-01 | UV authoring | Stable unwrap/atlas, rotated/flipped/per-face UV retention, overlap/seam audit | xatlas, Blockbench, Blender | | VF-TEX-01 | Multi-view texturing | Seam-safe, view-consistent albedo/texture synthesis from concept/prompt | Hunyuan3D-Paint, MVPaint, SyncMVD, Paint3D, TEXGen | | VF-MAT-01 | Material synthesis | Preserve/generate base color, normal/height, roughness/smoothness, metalness, AO, emissive, opacity | TRELLIS.2, Hunyuan3D 2.1, StableMaterials, Iris/LabPBR | | VF-PIXEL-01 | Minecraft texture compiler | Convert high-res working materials into deliberate Minecraft pixel art without naive blur/downsample | Enderloom TextureStyleProfile + Blockbench/PBR tooling | | VF-RIG-01 | Auto rig | Skeleton + skin weights as proposals, with differential challengers and artist locks | SkinTokens/TokenRig, RigAnything, Make-It-Animatable, Puppeteer | | VF-IK-01 | IK | Preserve targets, poles, constraints, chain length, aim/spline/FABRIK/two-bone semantics and IK/FK blend until export | Blockbench evolution, BetterModel semantics | | VF-ANIM-01 | Animation | Authored, retargeted, procedural and video-guided clips mapped to named gameplay states | Blockbench, GeckoLib/AzureLib, Puppeteer, AnyTop, BBS | | VF-EVENT-01 | Animation events | Preserve sound/particle/custom/event markers, loop/delay/blend/override/easing/Molang semantics | GeckoLib, Bedrock controllers, BetterModel, Animated Java | | VF-MOTION-01 | Secondary motion | Cheap deterministic vines/hair/leaves/tails/cloth/crystals with material/environment phenotype | VRM SpringBone semantics + Enderloom extensions | | VF-PHYSICS-01 | Heavy physics escape hatch | Optional soft-body/rope/rigid collision only when truly needed and benchmarked | Jolt JNI, Velthoric | | VF-BIOME-01 | Dynamic biome discovery | Discover unknown vanilla/modded/datapack biomes/dimensions from actual installed instance; never hardcode-only | Registry probe + JAR/datapack scan | | VF-WORLDGEN-01 | Worldgen adapters | Understand major placement/config systems so custom biomes get richer profiles | TerraBlender 26.3, Biolith, Lithostitched, Terra, Fabric/NeoForge biome APIs | | VF-BIOMEDNA-01 | Biome/Dimension DNA | Climate, palette, blocks, flora, structures, ambient effects, sound, lighting, hazards, material/motion cues | Canonical BiomeDNA / DimensionDNA | | VF-CATALOG-01 | Curated accelerators | Versioned vanilla + popular biome/dimension packs + official upcoming/experimental channel | Aether, Twilight Forest, Blue Skies, Undergarden, Bumblezone, Deeper and Darker, Eternal Starlight, Tropicraft, Dimensional Doors, Ad Astra, Voidscape, biome-heavy packs | | VF-VARIANT-01 | Variant planner | Texture/surface/geometry/rig-aware/full phenotype; region locks; deterministic seeds; only-missing/reroll-region operations | VariantPlan / VariantFamily | | VF-ATMOS-01 | Atmosphere phenotype | Optional grass/foliage/water/fog/sky/particle/sound/resource-pack context | Polytone compatibility lane | | VF-BUNDLE-01 | Runtime asset compiler | Compile canonical model family to target-specific immutable bundles with hashes, shared data, variant deltas and fallbacks | Enderloom ModelBundle compiler | | VF-HOT-01 | Dev hot reload | Content-addressed cache + dependency invalidation + safe dev reload; never block render/game thread on disk/network | Enderloom compiler/cache | | VF-RENDER-01 | Runtime backend | Least-lossy backend per target: native, GeckoLib, AzureLib, player/avatar, EMF/ETF/CEM, Enderloom skeletal renderer | Backend capability report | | VF-SERVER-01 | Server-compatible export | Optional resource-pack/virtual-entity route without making server-display hacks the native client architecture | Polymer, blockbench-import-library, BetterModel semantics | | VF-NET-01 | Multiplayer/state | Persist/sync small variant/state IDs; clients derive cosmetic pose/physics locally; graceful unknown-version fallback | Enderloom runtime binding | | VF-BLOCKBENCH-01 | Live + headless authoring | Same canonical operations in interactive Blockbench and headless batch generation/validation | Jason Gardner Blockbench MCP, sosadly Blockbench MCP | | VF-GPU-01 | Provider scheduler | Capability discovery, VRAM budget, local/remote workers, cancellation, queueing, stage unloading, reproducible job receipts | MyMeshy, OpenX Clay, AssetForge patterns | | VF-QA-EDITOR-01 | Deterministic editor QA | Locked multiview renders, silhouette/landmarks, texture/UV/rig/loop measurements | Blockbench automation quality gates | | VF-QA-NATIVE-01 | Native Minecraft QA | Exact candidate loaded; fixed world/camera/time/weather; state captures; logs; reload/persistence | Minecraft Dev Kit native visual QA | | VF-VISREG-01 | Visual regression | Machine-diffable fixed-view/state reference images plus human-review escape hatch | vanilla-reference-harness pattern | | VF-PERF-01 | Performance | Near-field fidelity preserved while culling/LOD/cache/sleep/batching reduce invisible work | Spark, Flywheel ideas, ImmediatelyFast/EntityCulling/MoreCulling compatibility | | VF-RENDERCOMPAT-01 | Render-mod compatibility | Test vanilla + major modern render/culling/shader stacks and fall back without visual corruption | Sodium/Embeddium, Iris/Oculus, ImmediatelyFast, EntityCulling, MoreCulling | | VF-PROV-01 | Provenance/rights | Every generated/converted artifact records source hashes, provider/model/weights/license, seed, params and derivation | Evidence graph | | VF-WIKI-01 | Variant Atlas | Interactive model, variants, rig/animations/motion, biome DNA, backend, proof, compatibility/performance summary | Native Enderloom Wiki | | VF-RECOVERY-01 | Failure recovery | Provider/tool/backend failure resumes from last valid stage, never restarts whole asset or hides missing work | Durable task/evidence system |
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 2. Canonical capability stack
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 31-70](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L31-L70)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Concept/reference -&gt; animate-ready asset (1)</summary>
+
+<a id="d-0b6da11963b8f473c3c4"></a>
+- [ ] **D-0b6da11963b8f473c3c4** - - VAST-AI-Research/AniGen — single image -&gt; coherent mesh + skeleton + skinning in one animate-ready pipeline. This is the strongest new direct challenger for concept-art blocko...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - VAST-AI-Research/AniGen — single image -&gt; coherent mesh + skeleton + skinning in one animate-ready pipeline. This is the strongest new direct challenger for concept-art blockout/rig hypotheses. Source is MIT, but its repository documents third-party components with additional restrictions, so Enderloom must license-gate the exact dependency path rather than treating the whole stack as unrestricted. - https://github.com/VAST-AI-Research/AniGen - VAST-AI-Research/SkinTokens / TokenRig — successor to UniRig; mesh -&gt; unified skeleton hierarchy + skin weights. Prefer it as the current auto-rig challenger while retaining UniRig and RigAnything as differential oracles. - https://github.com/VAST-AI-Research/SkinTokens - Isabella98Liu/RigAnything — template-free mesh rigging; useful differential rig oracle for unusual mobs, quadrupeds and non-humanoid assets. - https://github.com/Isabella98Liu/RigAnything - Microsoft TRELLIS.2 — current high-fidelity image-to-3D candidate with PBR attributes, opacity and difficult topology support. It supersedes the first-pass TRELLIS-only comparison lane; keep both only where the older pipeline still wins an exact fixture. - https://github.com/microsoft/TRELLIS.2 - VAST-AI-Research/TripoSG — high-fidelity image-to-3D challenger with controllable face limits and a scribble+prompt route useful for concept correction. - https://github.com/VAST-AI-Research/TripoSG
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Concept/reference -&gt; animate-ready asset
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 14-23](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L14-L23)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Java/server runtime semantics (1)</summary>
+
+<a id="d-a6278d28d0a4c04745b6"></a>
+- [ ] **D-a6278d28d0a4c04745b6** - - toxicity188/BetterModel — current Bedrock-style Java model engine benchmark with Blockbench cubes/meshes/nulls/locators, Molang, IK, player models/custom armor, syncing and perfo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - toxicity188/BetterModel — current Bedrock-style Java model engine benchmark with Blockbench cubes/meshes/nulls/locators, Molang, IK, player models/custom armor, syncing and performance-oriented packet rendering. Its mesh/IK/Molang architecture is a major challenger for Enderloom&#x27;s high-fidelity IR/runtime decisions. - https://github.com/toxicity188/BetterModel - tomalbrc/blockbench-import-library — imports .bbmodel/.ajmodel, supports animations/Molang/effect keyframes/variants/locators, virtual Item Displays, asynchronous transforms, culling boxes and many vanilla entity behaviors. Use as an adapter/fixture/reference for efficient server-model compatibility. - https://github.com/tomalbrc/blockbench-import-library - Animated-Java/animated-java — rich Java display-entity animation semantics: variants, easing, tweening, locators, cameras and Molang. Its AGPL licensing means Enderloom must not silently vendor source into an incompatible distribution; use an adapter, subprocess/export boundary or behavioral oracle unless the chosen distribution intentionally complies. - https://github.com/Animated-Java/animated-java - toxicity188/java-mesh, DynamicUV, ArmorModel, and Ocelot5836/molang-compiler — BetterModel&#x27;s component ecosystem is worth evaluating independently for mesh rendering, dynamic UV/player skin handling, armor and compiled Molang. - https://github.com/toxicity188/java-mesh - https://github.com/toxicity188/DynamicUV - https://github.com/toxicity188/ArmorModel - https://github.com/Ocelot5836/molang-compiler
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — integrate/study first / Java/server runtime semantics
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 38-48](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L38-L48)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Architecture decisions from this sweep (1)</summary>
+
+<a id="d-88e1fa0b481ff4154862"></a>
+- [ ] **D-88e1fa0b481ff4154862** - 1. Make glTF a first-class interchange lane. Concept-generation and auto-rig challengers commonly emit GLB/glTF. Enderloom should preserve rig, skin, material and provenance throug...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Make glTF a first-class interchange lane. Concept-generation and auto-rig challengers commonly emit GLB/glTF. Enderloom should preserve rig, skin, material and provenance through a typed glTF intake before Minecraftization. 2. Separate shape, part decomposition, rigging and Minecraftization. Do not let one generative model become an all-or-nothing dependency. AniGen can propose all three, but Hunyuan3D-Part, SkinTokens/RigAnything and glTF-to-Minecraft provide independent challenge lanes. 3. Add IK to the high-fidelity animation IR. BetterModel proves this is useful in the Minecraft model ecosystem; Enderloom should support authored/solved IK constraints and bake only when the target backend requires it. 4. Support mesh-assisted Java without abandoning cuboid-native output. Preserve mesh primitives where the selected renderer can actually handle them; otherwise use measured cuboid/plane fitting with an explicit approximation report. 5. Adopt a portable spring-bone semantics layer. VRM SpringBone concepts + Enderloom extensions for water/wind/material phenotype are a better baseline than bespoke one-off vine code. 6. Optimize offline before spending frame time. Atlas/UV generation, mesh simplification, cache/fetch ordering, expression compilation and immutable shared data should be preprocessing steps whenever possible. 7. Crowd performance needs GPU/renderer challengers. Benchmark Flywheel-style instancing and optional custom GPU skinning/matrix upload against normal GeckoLib/native paths; promote only when compatibility and actual frame-time improve. 8. License is part of the adapter contract. AGPL/non-commercial/research-only components stay isolated or reference-only unless the chosen Enderloom distribution and user authorization make direct integration lawful. 9. Blockbench plugin parity is a QoL floor. Enderloom Studio should import/export or expose equivalent/better workflows for the useful plugin features above while keeping one canonical Enderloom model/animation truth. 10. Every candidate becomes a regression fixture. The Bloom &amp; Boom creature family should benchmark concept -&gt; shape -&gt; parts -&gt; rig -&gt; Minecraft model -&gt; secondary motion -&gt; native runtime -&gt; crowd performance so future challengers can be compared without subjective replacement.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Architecture decisions from this sweep
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 108-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L108-L117)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Blockbench as an automatable production backend (1)</summary>
+
+<a id="d-10aeba4e1db71f0d1167"></a>
+- [ ] **D-10aeba4e1db71f0d1167** - - jasonjgardner/blockbench-mcp-plugin — live Blockbench MCP plus a separate headless server that can edit, validate, convert and render .bbmodel files without the editor open. It a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - jasonjgardner/blockbench-mcp-plugin — live Blockbench MCP plus a separate headless server that can edit, validate, convert and render .bbmodel files without the editor open. It also exposes a plugin-extension surface so other Blockbench plugins can register tools. This is a strong architecture reference for Enderloom&#x27;s live-editor + headless-batch dual path. - https://github.com/jasonjgardner/blockbench-mcp-plugin - License: GPL-3.0; direct source reuse must respect copyleft compatibility. The live/headless protocol can also be treated as an adapter boundary. - sosadly/blockbench-mcp — MIT-licensed Blockbench automation with broad modeling, texture, rig and animation tooling plus unusually useful quality gates: procedural detail generators, rig validation, silhouette/reference IoU comparison, measured animation analysis, orientation validation, multi-view screenshots, texture inspection, plugin setup and explicit human-review gates. - https://github.com/sosadly/blockbench-mcp - Strong direct integration/reuse candidate for Enderloom&#x27;s internal Blockbench automation layer.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Blockbench as an automatable production backend
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 226-231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L226-L231)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Fifth-sweep architecture consequences (1)</summary>
+
+<a id="d-c1d3ac49721d5a3075a6"></a>
+- [ ] **D-c1d3ac49721d5a3075a6** - 1. Add a Minecraft Texture Compiler after high-resolution texturing/material generation; never treat a photorealistic DCC texture as automatically final Minecraft art. 2. Add a con...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Add a Minecraft Texture Compiler after high-resolution texturing/material generation; never treat a photorealistic DCC texture as automatically final Minecraft art. 2. Add a content-addressed ModelBundle compiler so geometry, material pages, skeletons, animations, motion graphs and variant deltas are precompiled/shared rather than rebuilt per entity. 3. Add a provider job scheduler with VRAM budgets, cancellation, local/remote workers, stage receipts and resume-from-stage semantics. 4. Validate/normalize every GLB/glTF through a deterministic interchange gate before Minecraftization. 5. Treat worldgen frameworks as enrichment adapters while preserving generic registry/JAR/datapack discovery for private/future content. 6. Maintain a machine-readable capability matrix and gate so a new flashy provider cannot hide a missing boring-but-essential stage such as alpha bleed, persistence, hot reload or renderer compatibility. 7. Provider/model rights are separate from source-code rights and are checked on the exact selected version/weights before promotion.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / Fifth-sweep architecture consequences
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 315-321](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L315-L321)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md / 8. Mixin, access and reflection gates / 8.2 Access rules (1)</summary>
+
+<a id="d-be3deb80de3f269a4cc2"></a>
+- [ ] **D-be3deb80de3f269a4cc2** - For final packaged proof, Enderloom must also model the effect of the shipped access rule instead of only proving that the target exists. Valid packaged rules can intentionally cha...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For final packaged proof, Enderloom must also model the effect of the shipped access rule instead of only proving that the target exists. Valid packaged rules can intentionally change legality:
+  - **Binding context:** 8. Mixin, access and reflection gates / 8.2 Access rules
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md : 421-421](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L421-L421) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 497-497](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L497-L497) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 497-497](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L497-L497)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 9. RUNTIME / PARITY GATES PER MOD AND PER MATRIX CELL / Native client (1)</summary>
+
+<a id="d-b07c779cf084e880e350"></a>
+- [ ] **D-b07c779cf084e880e350** - Required for render/model/texture/animation/UI/input/sound/client integrations.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 9. RUNTIME / PARITY GATES PER MOD AND PER MATRIX CELL / Native client
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 661-661](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L661-L661) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1065-1065](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1065-L1065)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-01 — Create the Northpoint service/module and canonical state model (1)</summary>
+
+<a id="d-dc4ceb4227d2245e5ab0"></a>
+- [ ] **D-dc4ceb4227d2245e5ab0** - Make resume load existing valid state instead of recomputing unchanged stages.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-01 — Create the Northpoint service/module and canonical state model
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 76-76](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L76-L76)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-08 — Implement one data-driven Minecraft x loader support registry (1)</summary>
+
+<a id="d-774d612d833280419f41"></a>
+- [ ] **D-774d612d833280419f41** - Model stable, experimental, blocked, and unsupported distinctly.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-08 — Implement one data-driven Minecraft x loader support registry
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 197-197](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L197-L197)
+
+</details>
+
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / Variant controls (1)</summary>
+
+<a id="d-a95f73ec6ec8d760fbb1"></a>
+- [ ] **D-a95f73ec6ec8d760fbb1** - Identity-critical regions can be locked so rerolls never destroy the approved face, silhouette, horns, rig or UV regions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / Variant controls
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 178-178](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L178-L178)
+
+</details>
+
+<a id="make-08-details"></a>
+## MAKE-08 - Animation, Molang, effects and audio
+
+[Outcome](Checklist.md#make-08) / 19 source-derived details.
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules (1)</summary>
+
+<a id="d-fa13606252b95b688256"></a>
+- [ ] **D-fa13606252b95b688256** - Models and scripts. No automatic geometry simplification, lost UVs, numeric replacement of Molang expressions, dropped sound/particle tracks, empty method bodies, disabled Mixin li...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Models and scripts. No automatic geometry simplification, lost UVs, numeric replacement of Molang expressions, dropped sound/particle tracks, empty method bodies, disabled Mixin lists, or ignored unknown components may count as success. Native target limitations require an equivalent implementation or explicit unresolved work. Script execution is isolated and never needed merely to enumerate an untrusted input archive.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules / 5A. Specialized engines and integration tasks / 5A.6 Required corrections and anti-false-positive rules
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 639-639](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L639-L639) / [ENDERLOOM_STUDIO_EXECUTION.md : 801-801](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L801-L801)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang (1)</summary>
+
+<a id="d-0d9861d1019d81348b16"></a>
+- [ ] **D-0d9861d1019d81348b16** - - Evaluate Mocha as a Molang parser/evaluator/compiler backend against the current implementation. Preserve expression ASTs, query/variable scope, time semantics, effects and threa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Evaluate Mocha as a Molang parser/evaluator/compiler backend against the current implementation. Preserve expression ASTs, query/variable scope, time semantics, effects and thread isolation; benchmark equivalent full expressions instead of replacing them with sampled constants.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / C. Assets, packs, models and Molang
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T103 : 697-697](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L697-L697) / [ENDERLOOM_STUDIO_EXECUTION.md :: T103 : 859-859](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L859-L859)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence (1)</summary>
+
+<a id="d-0deba9a9051052414220"></a>
+- [ ] **D-0deba9a9051052414220** - entity render timing/volume;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Render / GPU / Client Frame-Time Lab / 3.1 Frame-time evidence
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 74-74](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L74-L74)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 4. Enderloom Developer IDE — actual coding workbench / 4.1 Editors/languages (1)</summary>
+
+<a id="d-8d6023414bdaa949f859"></a>
+- [ ] **D-8d6023414bdaa949f859** - Molang.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. Enderloom Developer IDE — actual coding workbench / 4.1 Editors/languages
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 189-189](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L189-L189)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring (1)</summary>
+
+<a id="d-ee9c9cc731b8c730d904"></a>
+- [ ] **D-ee9c9cc731b8c730d904** - Animation/sound/particle event hooks.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.3 AI/behavior authoring
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 353-353](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L353-L353)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 9. Particle / Audio / UI / Font / Material Studio / 9.1 Particle editor (1)</summary>
+
+<a id="d-011f175c6b7efe340694"></a>
+- [ ] **D-011f175c6b7efe340694** - curves/gradients/colors/UV animation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 9. Particle / Audio / UI / Font / Material Studio / 9.1 Particle editor
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 501-501](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L501-L501)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 20. Cross-Edition Resource-Pack Conversion (1)</summary>
+
+<a id="d-1cabc6733b9c6e3a7e70"></a>
+- [ ] **D-1cabc6733b9c6e3a7e70** - animation metadata;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 20. Cross-Edition Resource-Pack Conversion
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 874-874](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L874-L874)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation (2)</summary>
+
+<a id="d-a226249c259810f5bd6b"></a>
+- [ ] **D-a226249c259810f5bd6b** - · Add the authorized CurseForge-style download-start animation
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T003 : 1452-1452](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1452-L1452)
+
+<a id="d-18e60f3413b50b42b71a"></a>
+- [ ] **D-18e60f3413b50b42b71a** - - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; anim...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Preserve required copyright/attribution/provenance. - Use it consistently for mod installs/updates and other appropriate content downloads. - Start the transfer immediately; animation must never gate or delay network I/O. - Keep animation/compositing off blocking main-thread work and honor reduced-motion settings. - Fall back gracefully if the visual asset cannot load; the download still starts.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T003 — Add the authorized CurseForge-style download-start animation
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1456-1460](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1456-L1460)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 2. Canonical Minecraft Knowledge Graph (1)</summary>
+
+<a id="d-6376c25f32c4b20ee8b0"></a>
+- [ ] **D-6376c25f32c4b20ee8b0** - Animation
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Canonical Minecraft Knowledge Graph
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 100-100](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L100-L100)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (2)</summary>
+
+<a id="d-9eb447c5c0ed773a3361"></a>
+- [ ] **D-9eb447c5c0ed773a3361** - animation controllers.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 407-407](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L407-L407)
+
+<a id="d-2da454a059c80f2fc594"></a>
+- [ ] **D-2da454a059c80f2fc594** - Molang expressions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 419-419](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L419-L419)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 10. Bedrock -&gt; Java Conversion Engine (1)</summary>
+
+<a id="d-bdc4bf3087ed1ff41780"></a>
+- [ ] **D-bdc4bf3087ed1ff41780** - Molang -&gt; target-side expression/state logic or animation framework mapping.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 547-547](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L547-L547)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 22. Model / Texture / Animation Studio / 22.5 Animation (4)</summary>
+
+<a id="d-3b1f4f83b09e5ceee1b3"></a>
+- [ ] **D-3b1f4f83b09e5ceee1b3** - Bedrock animation-controller import;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1029-1029](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1029-L1029)
+
+<a id="d-2f9da1c1ce60f5e71a28"></a>
+- [ ] **D-2f9da1c1ce60f5e71a28** - GeckoLib animation export;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1030-1030](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1030-L1030)
+
+<a id="d-5400190cd528378781a3"></a>
+- [ ] **D-5400190cd528378781a3** - animation blending;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1032-1032](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1032-L1032)
+
+<a id="d-119863520c2b5f0d9071"></a>
+- [ ] **D-119863520c2b5f0d9071** - additive animation safety;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Model / Texture / Animation Studio / 22.5 Animation
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1033-1033](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1033-L1033)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (1)</summary>
+
+<a id="d-98f0b86825064a94155e"></a>
+- [ ] **D-98f0b86825064a94155e** - animation key poses;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1083-1083](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1083-L1083)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-f38f40414f64e659240b"></a>
+- [ ] **D-f38f40414f64e659240b** - BEDROCK / MARKETPLACE BOUNDARY Enderloom should deeply understand behavior packs, resource packs, manifest v2/v3, dependencies, Script API, Molang, items, blocks, entities, recipes...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** BEDROCK / MARKETPLACE BOUNDARY Enderloom should deeply understand behavior packs, resource packs, manifest v2/v3, dependencies, Script API, Molang, items, blocks, entities, recipes, loot, spawn rules, structures, worldgen, geometry, animations, animation controllers, render controllers, particles, sounds, textures, localization and related content. Marketplace PDPs can be researched/viewed in-app. Conversion requires user-authorized accessible source bytes. Never decrypt or bypass DRM/paywalls/entitlement to obtain protected Marketplace content.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 36-37](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L36-L37)
+
+</details>
+
+<a id="make-09-details"></a>
+## MAKE-09 - Reference and concept reconstruction
+
+[Outcome](Checklist.md#make-09) / 49 source-derived details.
+
+<details>
+<summary>README.md / Enderloom 2.9.5 / Built-in test catalogs (1)</summary>
+
+<a id="d-17cf1b9e6010b0503205"></a>
+- [ ] **D-17cf1b9e6010b0503205** - - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob ...
+  - **State:** unverified. **Kind:** documented behavior to preserve.
+  - **Full requirement:** - Minecraft Mob Variety - 293 entries and 19 collections. All 293 projects are live-media capable through their exact off-site project homes. - Minecraft Mob Girl &amp; Female Mob Vault - 312 ranked entries plus the current master Sheet and its Doc/PDF reference layers. All 312 entries are live-media capable through exact off-site project/creator homes; it intentionally has no fabricated score field.
+  - **Binding context:** Enderloom 2.9.5 / Built-in test catalogs
+  - **Original specification:** [README.md : 23-24](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L23-L24)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law (2)</summary>
+
+<a id="d-5f9a8781db13020e9eb3"></a>
+- [ ] **D-5f9a8781db13020e9eb3** - Later phases reference the owning requirement/phase instead of copying its bullet list.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 31-31](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L31-L31)
+
+<a id="d-dbc328b0d3a6d6f2bbe2"></a>
+- [ ] **D-dbc328b0d3a6d6f2bbe2** - Golden challenges reference phase exit gates rather than repeating implementation requirements.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. ASTRA RUN CONTRACT / 0.2 No-repeat document law
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md : 32-32](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L32-L32)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
+
+<a id="d-f3593143fde091e76bc2"></a>
+- [ ] **D-f3593143fde091e76bc2** - Full Minecraft workflow parity: native mod creation, ports/backports, JAR repair, optimization, server-&gt;mod, Bedrock-&gt;Java, world repair, reference/concept-&gt;mod, compatibi...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Full Minecraft workflow parity: native mod creation, ports/backports, JAR repair, optimization, server-&gt;mod, Bedrock-&gt;Java, world repair, reference/concept-&gt;mod, compatibility, testing, and release.
+  - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DEC-015 : 118-118](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L118-L118)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.2 Project contexts (1)</summary>
+
+<a id="d-d89b9a7fd7c97a03687d"></a>
+- [ ] **D-d89b9a7fd7c97a03687d** - Java mods; Bukkit/Paper/Velocity plugins; Bedrock behavior/resource/script packs; modpacks; datapacks/resource packs/shaders; server/plugin packs; Blockbench/model projects; worldg...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** Java mods; Bukkit/Paper/Velocity plugins; Bedrock behavior/resource/script packs; modpacks; datapacks/resource packs/shaders; server/plugin packs; Blockbench/model projects; worldgen/data; quests/docs; ports/conversions; authorized server and reference reconstruction.
+  - **Binding context:** 11. PHASE H — UNIFIED STUDIO + IDE + AUTHORING / 11.2 Project contexts
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PH-010 : 458-458](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L458-L458)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.1 Reference intake and authority (2)</summary>
+
+<a id="d-387e0ba37a5fa493304d"></a>
+- [ ] **D-387e0ba37a5fa493304d** - support authorized single/multi-view art, turnarounds, orthographic/model sheets, sketches/paintovers, item/weapon/armor, blocks/furniture/machines, environment/structure, UI/HUD, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** support authorized single/multi-view art, turnarounds, orthographic/model sheets, sketches/paintovers, item/weapon/armor, blocks/furniture/machines, environment/structure, UI/HUD, VFX, sprite/texture sheets, GIF/video, supplied models/Blockbench and server-delivered reference assets.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.1 Reference intake and authority
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-001 : 545-545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L545-L545)
+
+<a id="d-924bd7d86404928c9555"></a>
+- [ ] **D-924bd7d86404928c9555** - source remains immutable/hash-addressed; classify observed/constrained/inferred/authored/user-approved details; unseen geometry stays inferred; conflicting references remain explic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** source remains immutable/hash-addressed; classify observed/constrained/inferred/authored/user-approved details; unseen geometry stays inferred; conflicting references remain explicit; separate shape/texture/motion/gameplay/style authority.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.1 Reference intake and authority
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-002 : 546-546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L546-L546)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (3)</summary>
+
+<a id="d-c8edbebba049d9f2dcd8"></a>
+- [ ] **D-c8edbebba049d9f2dcd8** - durable design dossier captures content class, silhouette/proportions/landmarks, palette/materials/texture regions, scale/moving parts, rig/pivots, motion, must-preserve traits, ga...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** durable design dossier captures content class, silhouette/proportions/landmarks, palette/materials/texture regions, scale/moving parts, rig/pivots, motion, must-preserve traits, gameplay interpretation, ambiguity and compatibility intent.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-010 : 550-550](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L550-L550)
+
+<a id="d-6d774df70ce2cfb7060d"></a>
+- [ ] **D-6d774df70ce2cfb7060d** - concept-implied gameplay becomes canonical only after explicit approval/contract.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-012 : 552-552](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L552-L552)
+
+<a id="d-e2a0b4c5918b68be7214"></a>
+- [ ] **D-e2a0b4c5918b68be7214** - preserve editable IK constraints/targets/poles/IK-FK blend until backend export; optional Jolt/Velthoric-class physics is capability-selected and benchmarked, while lightweight det...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** preserve editable IK constraints/targets/poles/IK-FK blend until backend export; optional Jolt/Velthoric-class physics is capability-selected and benchmarked, while lightweight deterministic secondary motion remains the default.\n- [ ] PL-016 ModelBundle compiler precompiles/hash-addresses shared geometry/materials/rig/animation/motion/LOD/variant deltas; dev hot reload invalidates only dependencies and release output is immutable/reproducible.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-015 : 555-555](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L555-L555)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration (1)</summary>
+
+<a id="d-9243e6cb536f828a5ad1"></a>
+- [ ] **D-9243e6cb536f828a5ad1** - compile requests into AiMinecraftJob + AcceptanceContract for native mod creation, reference/concept work, server conversion, Bedrock conversion, Java ports, repairs, optimization,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** compile requests into AiMinecraftJob + AcceptanceContract for native mod creation, reference/concept work, server conversion, Bedrock conversion, Java ports, repairs, optimization, pack migration, world repair, assets, compatibility and testing.
+  - **Binding context:** 19. PHASE P — AI OPERATOR + EVIDENCE BRAIN / 19.2 Natural-language jobs and orchestration
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PP-010 : 631-631](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L631-L631)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 21. GOLDEN CHALLENGE MATRIX (1)</summary>
+
+<a id="d-e69079247e7b1ed29825"></a>
+- [ ] **D-e69079247e7b1ed29825** - Concept/reference -&gt; complete mod: Phase L exit.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 21. GOLDEN CHALLENGE MATRIX
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: GX-08 : 668-668](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L668-L668)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md / Enderloom — Concept Art Workflow Handoff Addendum (1)</summary>
+
+<a id="d-35a848928dde47457d7a"></a>
+- [ ] **D-35a848928dde47457d7a** - Future Enderloom implementation work must treat:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Concept Art Workflow Handoff Addendum
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md : 6-6](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L6-L6)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md / Enderloom — Concept Art Workflow Handoff Addendum / Locked product law (1)</summary>
+
+<a id="d-bc03d7b9bc2bbf7177fb"></a>
+- [ ] **D-bc03d7b9bc2bbf7177fb** - Concept art is a valid first-class Minecraft project source. Enderloom must be able to take authorized concept/reference material through analysis, native asset authoring, gameplay...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Concept art is a valid first-class Minecraft project source. Enderloom must be able to take authorized concept/reference material through analysis, native asset authoring, gameplay implementation, ecosystem compatibility, actual Minecraft visual/runtime QA, repair iteration and release packaging.
+  - **Binding context:** Enderloom — Concept Art Workflow Handoff Addendum / Locked product law
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md : 19-19](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L19-L19)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md / Enderloom — Concept Art Workflow Handoff Addendum / Exact implementation ordering (1)</summary>
+
+<a id="d-97e8664ac09bed5b351a"></a>
+- [ ] **D-97e8664ac09bed5b351a** - Do not interrupt the current Wave A Integration Spine to build broad concept-art UI first. Wave A must make the canonical Project / Artifact / Evidence / Task / Operation / Progres...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not interrupt the current Wave A Integration Spine to build broad concept-art UI first. Wave A must make the canonical Project / Artifact / Evidence / Task / Operation / Progress structures capable of representing this workflow. Concept Art -&gt; Native Mod becomes a later vertical built on those primitives and the existing Minecraft Dev Kit reconstruction/runtime-acceptance rules.
+  - **Binding context:** Enderloom — Concept Art Workflow Handoff Addendum / Exact implementation ordering
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md : 48-48](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_HANDOFF_ADDENDUM.md#L48-L48)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / Enderloom — Concept Art -&gt; Native Minecraft Mod Specification (1)</summary>
+
+<a id="d-56c17ab8f28e6349ef1b"></a>
+- [ ] **D-56c17ab8f28e6349ef1b** - The pipeline must work without depending on synthetic image generation. Image-generation providers may only be optional user-selected tools when the user explicitly enables them; E...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The pipeline must work without depending on synthetic image generation. Image-generation providers may only be optional user-selected tools when the user explicitly enables them; Enderloom&#x27;s canonical workflow is reference analysis + native asset authoring/editing + deterministic reconstruction + Minecraft runtime verification.
+  - **Binding context:** Enderloom — Concept Art -&gt; Native Minecraft Mod Specification
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 15-15](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L15-L15)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 1. Concept Source Intake (1)</summary>
+
+<a id="d-a2165c75a966fb70cf3d"></a>
+- [ ] **D-a2165c75a966fb70cf3d** - Never erase or overwrite the original reference.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 1. Concept Source Intake
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 56-56](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L56-L56)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 3. Concept Analysis -&gt; Design Dossier / Visual identity (1)</summary>
+
+<a id="d-89516b5a020b9342e48e"></a>
+- [ ] **D-89516b5a020b9342e48e** - - subject category; - silhouette; - scale estimate; - proportions; - symmetry / asymmetry; - major forms; - material groups; - color palette; - emissive / translucent / glowing fea...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - subject category; - silhouette; - scale estimate; - proportions; - symmetry / asymmetry; - major forms; - material groups; - color palette; - emissive / translucent / glowing features; - wear / dirt / organic detail; - decorative motifs; - key identity traits that must not be lost; - negative space / silhouette rules; - target Minecraft art direction.
+  - **Binding context:** 3. Concept Analysis -&gt; Design Dossier / Visual identity
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 84-97](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L84-L97)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 4. Minecraftization / Style Adaptation (1)</summary>
+
+<a id="d-aa00936cf59600e50379"></a>
+- [ ] **D-aa00936cf59600e50379** - Enderloom must distinguish concept fidelity from medium adaptation.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 4. Minecraftization / Style Adaptation
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 153-153](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L153-L153)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 5. Reference Reconstruction Pipeline (1)</summary>
+
+<a id="d-232c2a6ff4b21d5505f1"></a>
+- [ ] **D-232c2a6ff4b21d5505f1** - A later layer must not be distorted to conceal an earlier error. Example: do not warp textures to hide wrong geometry, and do not fake foot placement with animation offsets when th...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A later layer must not be distorted to conceal an earlier error. Example: do not warp textures to hide wrong geometry, and do not fake foot placement with animation offsets when the pivot / limb proportions are wrong.
+  - **Binding context:** 5. Reference Reconstruction Pipeline
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 209-209](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L209-L209)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback (1)</summary>
+
+<a id="d-628f304bc4778602db86"></a>
+- [ ] **D-628f304bc4778602db86** - - Build a narrowly privileged helper/service only if required for volume/MFT/USN access; never elevate the whole Enderloom Electron app. - Initial registered-root discovery may use...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Build a narrowly privileged helper/service only if required for volume/MFT/USN access; never elevate the whole Enderloom Electron app. - Initial registered-root discovery may use NTFS MFT enumeration to construct path/file identity quickly instead of recursive per-entry directory walking. - Persist volume identity, file/reference identity, path mapping, size, timestamps, relevant USN/journal position, and Enderloom index generation. - After the initial trusted snapshot, consume the NTFS USN Change Journal to identify exactly which relevant files/directories changed since the stored checkpoint. - Opening Mods/Instance views uses the last verified index immediately; delta reconciliation runs in the background and patches only changed records.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T058 — WizTree/Everything-style MFT + USN incremental filesystem engine with safe fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 501-505](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L501-L505)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md / 2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary (1)</summary>
+
+<a id="d-e2de1bbf437a53f1ddb6"></a>
+- [ ] **D-e2de1bbf437a53f1ddb6** - When hidden server-only semantics are not available, Enderloom may reconstruct from authorized observable behavior/reference evidence, but it must label inferred/unknown behavior i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** When hidden server-only semantics are not available, Enderloom may reconstruct from authorized observable behavior/reference evidence, but it must label inferred/unknown behavior instead of claiming exact recovery.
+  - **Binding context:** 2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary
+  - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L99-L99)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T302 — First-class asset/model/animation/content creation modules (1)</summary>
+
+<a id="d-38b868f8d9a5b3cd0b85"></a>
+- [ ] **D-38b868f8d9a5b3cd0b85** - — Wire the already-developed Minecraft Dev Kit capabilities (model/animation/reference reconstruction, Blockbench-compatible/source-aware asset flows, premium mob/entity workflows,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Wire the already-developed Minecraft Dev Kit capabilities (model/animation/reference reconstruction, Blockbench-compatible/source-aware asset flows, premium mob/entity workflows, server-asset conversion, textures/VFX/SFX where applicable) into the same authoring project/session model with provenance and native runtime proof.
+  - **Binding context:** G077 — Mod-making / authoring capability is production-ready before AoA / T297 — Authoring project/scaffold model / T302 — First-class asset/model/animation/content creation modules
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T302 : 1570-1570](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1570-L1570)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md / 10. Reference-Driven Premium Mod Creation (1)</summary>
+
+<a id="d-8d0ef2ecdd9e54e60555"></a>
+- [ ] **D-8d0ef2ecdd9e54e60555** - For “build this from image/GIF/video/reference” workflows, AI must combine vision/reasoning with Enderloom’s deterministic reconstruction and Minecraft runtime tools rather than ey...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For “build this from image/GIF/video/reference” workflows, AI must combine vision/reasoning with Enderloom’s deterministic reconstruction and Minecraft runtime tools rather than eyeballing everything in text.
+  - **Binding context:** 10. Reference-Driven Premium Mod Creation
+  - **Original specification:** [ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md : 554-554](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md#L554-L554)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 14. Fast Launch Engine for testing (1)</summary>
+
+<a id="d-d3a4d15f2e4c79055943"></a>
+- [ ] **D-d3a4d15f2e4c79055943** - Reuse Minecraft assets/libraries.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Fast Launch Engine for testing
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 512-512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L512-L512)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 22. Performance research/reference ideas already discussed (1)</summary>
+
+<a id="d-9d1d55e0885c14eff5f6"></a>
+- [ ] **D-9d1d55e0885c14eff5f6** - Mineflayer — optional synthetic-player load lane.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Performance research/reference ideas already discussed
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 769-769](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L769-L769)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (2)</summary>
+
+<a id="d-af9ad66e12ae664ad49a"></a>
+- [ ] **D-af9ad66e12ae664ad49a** - Search every identifier/reference.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 430-430](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L430-L430)
+
+<a id="d-1766ebe57f9426513e39"></a>
+- [ ] **D-1766ebe57f9426513e39** - Jump-to-definition/reference.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 431-431](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L431-L431)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 23. Reference Reconstruction Lab (20)</summary>
+
+<a id="d-397826cf4d83ca61c3ec"></a>
+- [ ] **D-397826cf4d83ca61c3ec** - user-authorized image;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1048-1048](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1048-L1048)
+
+<a id="d-ff6a9e7cc8c379c0f0d1"></a>
+- [ ] **D-ff6a9e7cc8c379c0f0d1** - multiple views;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1049-1049](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1049-L1049)
+
+<a id="d-a504338fb32c0fdb7e14"></a>
+- [ ] **D-a504338fb32c0fdb7e14** - GIF;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1050-1050](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1050-L1050)
+
+<a id="d-d484fd8e8900f90f5e42"></a>
+- [ ] **D-d484fd8e8900f90f5e42** - video;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1051-1051](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1051-L1051)
+
+<a id="d-108652a5aeddecb3b69a"></a>
+- [ ] **D-108652a5aeddecb3b69a** - existing model preview;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1052-1052](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1052-L1052)
+
+<a id="d-255b6d246a3c2ed8c16e"></a>
+- [ ] **D-255b6d246a3c2ed8c16e** - Marketplace/MCModels public reference media for study when licensing permits reconstruction/use.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1053-1053](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1053-L1053)
+
+<a id="d-8fdb336b109fe0335f38"></a>
+- [ ] **D-8fdb336b109fe0335f38** - Preserve/hash references.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1057-1057](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1057-L1057)
+
+<a id="d-20c24ee44f51dfc9e928"></a>
+- [ ] **D-20c24ee44f51dfc9e928** - Camera estimation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1058-1058](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1058-L1058)
+
+<a id="d-11e63353061591bbd71d"></a>
+- [ ] **D-11e63353061591bbd71d** - Silhouette measurements.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1059-1059](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1059-L1059)
+
+<a id="d-5c65c9aa899c7012aed2"></a>
+- [ ] **D-5c65c9aa899c7012aed2** - Cuboid/mesh blockout.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1060-1060](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1060-L1060)
+
+<a id="d-4441829c90f03e0eff9b"></a>
+- [ ] **D-4441829c90f03e0eff9b** - Pivot inference.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1061-1061](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1061-L1061)
+
+<a id="d-dfc6ded8e45c2979fc50"></a>
+- [ ] **D-dfc6ded8e45c2979fc50** - UV/material inference.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1062-1062](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1062-L1062)
+
+<a id="d-7d838868d87c3ffe9492"></a>
+- [ ] **D-7d838868d87c3ffe9492** - Texture back-projection/reference sampling where permitted.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1063-1063](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1063-L1063)
+
+<a id="d-2b4b422585950a881f9e"></a>
+- [ ] **D-2b4b422585950a881f9e** - Rig proposal.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1064-1064](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1064-L1064)
+
+<a id="d-6d58bec1a094848284f8"></a>
+- [ ] **D-6d58bec1a094848284f8** - Animation pose fitting from GIF/video.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1065-1065](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1065-L1065)
+
+<a id="d-60b9f4fb75167de59e1a"></a>
+- [ ] **D-60b9f4fb75167de59e1a** - Coverage/confidence map for observed vs inferred surfaces.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1066-1066](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1066-L1066)
+
+<a id="d-26b5c36c95d1af9e7723"></a>
+- [ ] **D-26b5c36c95d1af9e7723** - Side-by-side deterministic render comparison.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1067-1067](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1067-L1067)
+
+<a id="d-1a0c303defe6bc5411f2"></a>
+- [ ] **D-1a0c303defe6bc5411f2** - Pixel/silhouette error metrics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1068-1068](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1068-L1068)
+
+<a id="d-5018ac19c825bd90dff5"></a>
+- [ ] **D-5018ac19c825bd90dff5** - Human adjustment loop.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1069-1069](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1069-L1069)
+
+<a id="d-5af3f23c8499e9d354e4"></a>
+- [ ] **D-5af3f23c8499e9d354e4** - Never claim unseen surfaces were recovered exactly. Distinguish observed, inferred and artist-authored regions.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 23. Reference Reconstruction Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1072-1072](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1072-L1072)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 33. File / Storage Intelligence (1)</summary>
+
+<a id="d-17f9ac0aced40d9e26f6"></a>
+- [ ] **D-17f9ac0aced40d9e26f6** - Never remove shared bytes without reference-count safety.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 33. File / Storage Intelligence
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1277-1277](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1277-L1277)
+
+</details>
+
+<a id="make-10-details"></a>
+## MAKE-10 - Compound content and ecosystem integration
+
+[Outcome](Checklist.md#make-10) / 31 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 8. Returned artifact quarantine (1)</summary>
+
+<a id="d-63fea300f3c5765a88c3"></a>
+- [ ] **D-63fea300f3c5765a88c3** - Detect removed registries/assets/content.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 8. Returned artifact quarantine
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 301-301](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L301-L301)
+
+</details>
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
+
+<a id="d-f4e6285a88587667a262"></a>
+- [ ] **D-f4e6285a88587667a262** - create a compact failure packet;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 9. Build engine integration
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 328-328](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L328-L328)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.7 Migration (1)</summary>
+
+<a id="d-4d72d9b59eb2b56addf1"></a>
+- [ ] **D-4d72d9b59eb2b56addf1** - Version migrations and recovery/rollback; tests prove aliases do not create duplicated objects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.7 Migration
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-061 : 253-253](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L253-L253)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / Enderloom — Concept Art -&gt; Native Minecraft Mod Specification (1)</summary>
+
+<a id="d-2d4d46b906b53567245b"></a>
+- [ ] **D-2d4d46b906b53567245b** - Enderloom must be able to take authorized visual concept material and carry it all the way to a verified, installable, native Minecraft project. The workflow does not end at a mood...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom must be able to take authorized visual concept material and carry it all the way to a verified, installable, native Minecraft project. The workflow does not end at a moodboard, prompt, picture, .bbmodel, or generated Java source. It ends only when the requested content exists in Minecraft, behaves correctly, preserves the accepted concept intent, integrates with the target ecosystem, and passes the strongest applicable runtime acceptance gates.
+  - **Binding context:** Enderloom — Concept Art -&gt; Native Minecraft Mod Specification
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 9-9](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L9-L9)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md / 8. Content-Family Expansion (1)</summary>
+
+<a id="d-72d0c5524ed34d0e17f7"></a>
+- [ ] **D-72d0c5524ed34d0e17f7** - The expansion must preserve the original art direction rather than becoming unrelated filler.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 8. Content-Family Expansion
+  - **Original specification:** [ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md : 330-330](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L330-L330)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.4 Resource, model, Bedrock, and data-pack pipeline additions (1)</summary>
+
+<a id="d-7e4ab3a2c1d7f05cefe5"></a>
+- [ ] **D-7e4ab3a2c1d7f05cefe5** - | ID | Primary source and observed status | Integration decision and important limit | | --- | --- | --- | | N14 | [GeyserMC/PackConverter](https://github.com/GeyserMC/PackConverte...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | ID | Primary source and observed status | Integration decision and important limit | | --- | --- | --- | | N14 | [GeyserMC/PackConverter](https://github.com/GeyserMC/PackConverter), MIT; Java resource-pack to Bedrock library with Thunder front end/CLI. Upstream explicitly says WIP, not production-ready, and custom item conversion/mappings are incomplete. | Managed resource-conversion backend plus regression oracle. Wrap usable converters and harden missing paths. Never report custom mappings as produced when only textures were converted. Use a separate behavior-conversion stage. | | N15 | [GeyserMC/Rainbow](https://github.com/GeyserMC/Rainbow), experimental Fabric client tool for MC 26.2; GPL/LGPL notices require module-level review. Generates Geyser mappings and Bedrock packs from runtime/resource-pack evidence. | High-value custom-content extraction/conversion lane. Reuse block/item/model/sound/locale mapping knowledge and runtime discovery where source data is insufficient. Inventory menus and observed items are only partial discovery; reconcile against an authoritative full input census. A converted visual does not reproduce server-side gameplay. | | N16 | [BrilliantTeam/Minecraft-ResourcePack-Migrator](https://github.com/BrilliantTeam/Minecraft-ResourcePack-Migrator), GPL-3.0; canonical source reached from [RICE0707 ItemModel_PackConverter](https://hangar.papermc.io/RICE0707/ItemModel_PackConverter/versions/1.4.6). Version 1.4.6 is a dated observed release, not asserted as latest. | Item-model migration component. Import useful CustomModelData/damage predicate transformations for older item-model JSON to 1.21.4+ structures. The tool explicitly limits processing to particular models/item JSONs. Preserve and account for everything else; test order, fallbacks, range boundaries, display contexts, and GUI behavior. | | N17 | [Bedrock-OSS/regolith](https://github.com/Bedrock-OSS/regolith), MIT; non-destructive Bedrock add-on build/filter pipeline. | Bedrock build backend. Use for generated BP/RP packaging and composable transforms after semantic migration. Filters may execute code; inspect and sandbox them. Do not confuse successful compilation with gameplay fidelity or install untrusted filters during passive intake. | | N18 | [bridge-core/dash-compiler](https://github.com/bridge-core/dash-compiler), MIT; platform-agnostic add-on compiler. Its actual standalone route is [bridge-core/deno-dash-compiler](https://github.com/bridge-core/deno-dash-compiler). | Alternative embedded/headless Bedrock compiler. Compare Dash and Regolith on the same packs, preserving format versions, manifest IDs, dependencies, custom components, and diagnostics. No need to fork the entire bridge editor just to obtain compiler logic. | | N19 | [mcbeet/beet](https://github.com/mcbeet/beet), MIT; current resource/data-pack pipeline. [Mecha&#x27;s old repository](https://github.com/mcbeet/mecha) explicitly moved into this monorepo. | Structured pack and command pipeline. Use the current Mecha implementation for command AST transformations/diagnostics and Beet for pack composition. Resolve exact target command schemas and macros. Do not copy stale old-repository support tables or mistake parser success for command behavior equivalence. | | N20 | [SpyglassMC/Spyglass](https://github.com/SpyglassMC/Spyglass), MIT; Java data-pack language tooling, diagnostics, navigation and refactoring. | Diagnostic/semantic validation adapter. Reuse suitable packages headlessly where their APIs permit it; otherwise adapt the real language-server contract. Validate references and commands after transforms, then verify through actual Minecraft loading and execution. | | N21 | [misode/mcmeta](https://github.com/misode/mcmeta), versioned generated Minecraft data/assets/reports history. | Version-atlas evidence, not a converter. Import only appropriately licensed metadata/derived facts, record version/branch/hash, and keep Mojang asset rights distinct from repository tooling. Use official artifacts for final target validation; a dataset lookup is not runtime proof. | | N22 | [Mojang/bedrock-samples](https://github.com/Mojang/bedrock-samples), official sample packs/assets. | Versioned Bedrock schema/fixture authority. Compare generated structures against the exact target&#x27;s examples and documented API/schema, retaining the relevant license. Do not bundle arbitrary vanilla assets or assume preview-only components are stable. | | N23 | [JannisX11/blockbench](https://github.com/JannisX11/blockbench), GPL-3.0 with separate plugin terms; Java/Bedrock model formats and export code. | Codec and visual round-trip authority. Reuse format-specific behavior or test exported fixtures against it. Preserve cubes, planes, meshes where supported, pivots, per-face UVs, textures, hierarchy, locators, display transforms, and animation data. Do not require manual editor work as the normal Enderloom path. | | N24 | [unnamed/mocha](https://github.com/unnamed/mocha), MIT; Molang lexer/parser/interpreter/compiler for Java. | Molang backend/differential oracle. Compare it with Enderloom&#x27;s existing evaluator under identical query bindings and state. Prove short-circuiting, scopes, deterministic seeded randomness where needed, time units, loops, errors, and thread isolation rather than trusting numeric outputs in a trivial example. | | N25 | [unnamed/hephaestus-engine](https://github.com/unnamed/hephaestus-engine), MIT; model/animation/runtime library with a reader-blockbench module and Bukkit/Minestom runtimes. | Server-model semantic reference and optional importer component. Useful for authorized server-model inputs, not a replacement for native target-mod behavior. Account separately for geometry/animation, hitboxes/interactions, and gameplay rules absent from the visual source. | | N26 | [CloudburstMC/NBT](https://github.com/CloudburstMC/NBT), Apache-2.0; NBT library with Bedrock VarInt support. README dependency example is 3.0.5.Final, not a latest-version claim. | Binary-data parser/round-trip oracle. Compare numeric types, endian/VarInt variants, lists, arrays, names and compression boundaries against the actual input format. Never treat a successful NBT parse as semantic block/entity migration. |
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.4 Resource, model, Bedrock, and data-pack pipeline additions / 5A. Specialized engines and integration tasks / 5A.4 Resource, model, Bedrock, and data-pack pipeline
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 602-616](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L602-L616) / [ENDERLOOM_STUDIO_EXECUTION.md : 764-778](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L764-L778)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules (1)</summary>
+
+<a id="d-0abc3e9424157c1df229"></a>
+- [ ] **D-0abc3e9424157c1df229** - Permission preservation. MC Mod Porter remains fully eligible under the user&#x27;s separate permission in this document. Do not make the user reauthorize it. That permission is pr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Permission preservation. MC Mod Porter remains fully eligible under the user&#x27;s separate permission in this document. Do not make the user reauthorize it. That permission is project-specific and is not an authorization to copy PyMCTranslate, EpikBoxxy&#x27;s PortKit, paid server assets, or third-party model weights.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.6 Required corrections and anti-false-positive rules / 5A. Specialized engines and integration tasks / 5A.6 Required corrections and anti-false-positive rules
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 631-631](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L631-L631) / [ENDERLOOM_STUDIO_EXECUTION.md : 793-793](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L793-L793)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.7 Coverage ledger and remaining research boundaries (1)</summary>
+
+<a id="d-9b93d797ecd699a364f1"></a>
+- [ ] **D-9b93d797ecd699a364f1** - Use this as a broad, evidence-bounded second pass, not a claim that the entire internet has been exhausted. The on-demand refresh operation in T004 must preserve host, query, times...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use this as a broad, evidence-bounded second pass, not a claim that the entire internet has been exhausted. The on-demand refresh operation in T004 must preserve host, query, timestamp, page/cursor, result identities, deduplication lineage, observed limits, and dispositions. Do not create an always-on scraper or scheduled watchdog. A future result can append a stable new candidate/task without resetting the accepted work.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.7 Coverage ledger and remaining research boundaries
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 659-659](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L659-L659)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.4 Bedrock Editor integration (2)</summary>
+
+<a id="d-39c43953fee44c555c02"></a>
+- [ ] **D-39c43953fee44c555c02** - Create/open Editor projects.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.4 Bedrock Editor integration
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 154-154](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L154-L154)
+
+<a id="d-43acfdc0d4c9a65b7d7a"></a>
+- [ ] **D-43acfdc0d4c9a65b7d7a** - Entity Inspector.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.4 Bedrock Editor integration
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 158-158](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L158-L158)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 22. Hardware / JVM / Render Advisor (1)</summary>
+
+<a id="d-a649d61c476705094879"></a>
+- [ ] **D-a649d61c476705094879** - quality/performance Pareto presets are optional suggestions; never delete content/cap gameplay to manufacture a score.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 22. Hardware / JVM / Render Advisor
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 918-918](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L918-L918)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy (1)</summary>
+
+<a id="d-832799ffdf3766c851ad"></a>
+- [ ] **D-832799ffdf3766c851ad** - - Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order. - Reuse verified shared JRE/Mi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Creating a basic instance should render the editable instance shell immediately and pipeline metadata/runtime/assets/libraries in dependency order. - Reuse verified shared JRE/Minecraft libraries/assets/content-addressed artifacts rather than redownloading identical bytes. - Dependency/runtime preparation stays off the renderer and shows truthful granular progress. - Cancel/retry/resume must not leave fake complete profiles.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 2362-2365](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2362-L2365)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 13. Profiler integration / Observable (1)</summary>
+
+<a id="d-a1e5781141af42932ff4"></a>
+- [ ] **D-a1e5781141af42932ff4** - Capture spatial entity/block-entity/scheduled-tick hotspots where supported.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Profiler integration / Observable
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 499-499](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L499-L499)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Create a Mod (1)</summary>
+
+<a id="d-01c03fbcb7d298319914"></a>
+- [ ] **D-01c03fbcb7d298319914** - A creation result is a functioning mod with editable assets, behavior, source, a built package and verified in-game use, not an empty starter JAR. Preview, Play Test, Build and Exp...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** A creation result is a functioning mod with editable assets, behavior, source, a built package and verified in-game use, not an empty starter JAR. Preview, Play Test, Build and Export are integrated. A compound creation acceptance project must include interacting custom content and gameplay, not just an isolated decorative block.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Create a Mod
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 194-194](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L194-L194)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks (1)</summary>
+
+<a id="d-1de696933563c71ecb15"></a>
+- [ ] **D-1de696933563c71ecb15** - - Implement version-aware visual content editors for the creation families in 0.7 with reference validation, import/duplicate/undo and meaningful previews. Preserve arbitrary custo...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Implement version-aware visual content editors for the creation families in 0.7 with reference validation, import/duplicate/undo and meaningful previews. Preserve arbitrary custom source and extend schema adapters rather than limiting creation to a few templates.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T145 : 259-259](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L259-L259)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 5A. Specialized engines and integration tasks (1)</summary>
+
+<a id="d-ac88955779a301fd2c7d"></a>
+- [ ] **D-ac88955779a301fd2c7d** - Use these specialized capabilities through the same Northpoint services and active projects. Each backend must earn its stated production, comparison or reference role with evidenc...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use these specialized capabilities through the same Northpoint services and active projects. Each backend must earn its stated production, comparison or reference role with evidence; a recommendation or upstream claim is not integration proof.
+  - **Binding context:** 5A. Specialized engines and integration tasks
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 723-723](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L723-L723)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 5A. Specialized engines and integration tasks / 5A.7 Source coverage and provenance (1)</summary>
+
+<a id="d-d3a3c8f87f5151f13741"></a>
+- [ ] **D-d3a3c8f87f5151f13741** - must retain host, query, timestamp, page/cursor, result identities, deduplication lineage, access limits and dispositions. Do not create an always-on scraper or scheduled watchdog....
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** must retain host, query, timestamp, page/cursor, result identities, deduplication lineage, access limits and dispositions. Do not create an always-on scraper or scheduled watchdog. Append genuinely useful capabilities without resetting accepted jobs; unverified discovery never licenses a universal success claim.
+  - **Binding context:** 5A. Specialized engines and integration tasks / 5A.7 Source coverage and provenance
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 821-821](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L821-L821)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 1. The Integration Law — absolutely non-negotiable (2)</summary>
+
+<a id="d-615c6d537cb559481829"></a>
+- [ ] **D-615c6d537cb559481829** - A model/animation QA failure appears on the same project/mod asset graph and can be opened in the asset editor/reconstruction workflow.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. The Integration Law — absolutely non-negotiable
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 51-51](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L51-L51)
+
+<a id="d-750a16027046aa8fd3c1"></a>
+- [ ] **D-750a16027046aa8fd3c1** - Every new domain entity declares which existing views/actions consume it.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. The Integration Law — absolutely non-negotiable
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 60-60](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L60-L60)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 19. World Studio — beat standalone world tools through integration / 19.2 Interactive map (1)</summary>
+
+<a id="d-6d10abc4959afaea9a50"></a>
+- [ ] **D-6d10abc4959afaea9a50** - entity/block-entity density.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 19. World Studio — beat standalone world tools through integration / 19.2 Interactive map
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 853-853](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L853-L853)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - One SemanticProject for Create, Convert, Repair, and Port (1)</summary>
+
+<a id="d-a7df14493c6d0b204b65"></a>
+- [ ] **D-a7df14493c6d0b204b65** - · Implement a canonical SemanticProject/Project IR that is shared by Create, Convert, Repair, and Port rather than maintaining four private project models.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - One SemanticProject for Create, Convert, Repair, and Port
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T015 : 280-280](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L280-L280)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-16783a3433111363de10"></a>
+- [ ] **D-16783a3433111363de10** - · Create fixture: one small mod created through Enderloom, then built across at least two Minecraft versions and two loader families supported by the current environment.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T132 : 467-467](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L467-L467)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation (1)</summary>
+
+<a id="d-99749ea69740bb5ee502"></a>
+- [ ] **D-99749ea69740bb5ee502** - Create one machine-readable capability/command registry that can drive service dispatch, CLI mapping, parity QA, generated help/docs, and future agent integration.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 39-39](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L39-L39)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 11. Fast Launch Engine CLI integration (1)</summary>
+
+<a id="d-670eeec474422cc6a112"></a>
+- [ ] **D-670eeec474422cc6a112** - Reuse immutable assets/libraries safely rather than full-copying profiles per run.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 11. Fast Launch Engine CLI integration
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 720-720](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L720-L720)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md / CODEX EXECUTION LOCK — sole mission / 0. Resume contract — do not restart this project (1)</summary>
+
+<a id="d-9670ae63fc26217e03d7"></a>
+- [ ] **D-9670ae63fc26217e03d7** - Implementation crossing: once the current Enderloom repo and Create/Convert execution path are resolved, make the smallest coherent backend mutation, run targeted tests, checkpoint...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Implementation crossing: once the current Enderloom repo and Create/Convert execution path are resolved, make the smallest coherent backend mutation, run targeted tests, checkpoint, and continue. Do not spend repeated waves rewriting execution instructions.
+  - **Binding context:** CODEX EXECUTION LOCK — sole mission / 0. Resume contract — do not restart this project
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L106-L106)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md / 28. Exact next implementation action (1)</summary>
+
+<a id="d-36456dde8f7cee853cc3"></a>
+- [ ] **D-36456dde8f7cee853cc3** - Resume inside the canonical Enderloom repository at the existing Create/Convert backend boundary. Do not create a replacement plan before executing. Use the current repository/chec...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Resume inside the canonical Enderloom repository at the existing Create/Convert backend boundary. Do not create a replacement plan before executing. Use the current repository/checkpoint as the delta watermark and continue the first unfinished dependency-satisfied action.
+  - **Binding context:** 28. Exact next implementation action
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 1317-1317](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L1317-L1317) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 1317-1317](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L1317-L1317)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS (1)</summary>
+
+<a id="d-cffb6493b9a7663e9943"></a>
+- [ ] **D-cffb6493b9a7663e9943** - Both Create Mod and Convert Mod use the same version-matrix engine.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 494-494](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L494-L494)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG (1)</summary>
+
+<a id="d-ccf6a158e7074de9f688"></a>
+- [ ] **D-ccf6a158e7074de9f688** - This handoff is both the specification and the live implementation ledger. Do not create a second planning document that drifts away from it.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L20-L20)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
+
+<a id="d-64ac811749ff00cfd49c"></a>
+- [ ] **D-64ac811749ff00cfd49c** - Finish integration across real Create + Convert + Repair flows.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-15 : 1412-1412](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1412-L1412)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (2)</summary>
+
+<a id="d-795ac18a203a900f764d"></a>
+- [ ] **D-795ac18a203a900f764d** - Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Spellbrook-class conversion rule: A downloaded/client-delivered resource pack alone is visual evidence, not proof of hidden server gameplay semantics. Enderloom should capture legitimately delivered assets and author-supplied source/configs, inventory every relevant plugin/content family, recover visual/model-runtime/gameplay layers independently, and reconstruct unknown hidden behavior only from authorized observable evidence while labeling inference/unknowns. Never bypass DRM, protected delivery, server authorization, paywalls or proprietary licensing.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 255-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L255-L256)
+
+<a id="d-cbadb38eb448305d7167"></a>
+- [ ] **D-cbadb38eb448305d7167** - Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Current-source challenge pass confirms why version pinning is mandatory: Sophisticated Backpacks is still publishing Forge/NeoForge 1.20.1 builds in September 2026, while Create&#x27;s own 1.20.1 developer page pins exact Create/Ponder/Flywheel/Registrate versions and explicitly warns that 1.20.1 no longer receives feature updates or bug fixes. Enderloom must always resolve exact compatible artifacts rather than use newest library versions blindly.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 277-277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L277-L277)
+
+</details>
+
+<a id="make-11-details"></a>
+## MAKE-11 - Real preview and native comparison
+
+[Outcome](Checklist.md#make-11) / 26 source-derived details.
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance (1)</summary>
+
+<a id="d-fbc48d2783914e67366e"></a>
+- [ ] **D-fbc48d2783914e67366e** - semantic coverage/unknowns/rights/dependency closure plus deterministic visual, dedicated-server, native-client, multiplayer/integrated, persistence, gameplay-scenario and performa...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** semantic coverage/unknowns/rights/dependency closure plus deterministic visual, dedicated-server, native-client, multiplayer/integrated, persistence, gameplay-scenario and performance proof.
+  - **Binding context:** 13. PHASE J — AUTHORIZED SERVER / SPELLBROOK-CLASS -&gt; NATIVE MOD / 13.3 Native target and acceptance
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PJ-021 : 515-515](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L515-L515)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets (1)</summary>
+
+<a id="d-4432bf4fc4be4a32f6dd"></a>
+- [ ] **D-4432bf4fc4be4a32f6dd** - implement docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation con...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** implement docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md: Bedrock/server-model/CPM/Figura-class detail can become editable native Java assets with deep rigs, animation controllers/events and efficient secondary motion.
+  - **Binding context:** 15. PHASE L — CONCEPT ART / MCMODELS / REFERENCE -&gt; NATIVE MOD / 15.2 Design + native assets
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PL-013 : 553-553](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L553-L553)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang (1)</summary>
+
+<a id="d-a775ab8a5bd87a9bbcaf"></a>
+- [ ] **D-a775ab8a5bd87a9bbcaf** - - Automate Rainbow&#x27;s required native-client discovery only when runtime evidence is needed. Use an isolated QA world and deterministic complete fixture inventory, capture the ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** - Automate Rainbow&#x27;s required native-client discovery only when runtime evidence is needed. Use an isolated QA world and deterministic complete fixture inventory, capture the produced files/report, and reconcile inventory-based discovery against source-defined IDs. Do not claim scanning a few containers finds all content.
+  - **Binding context:** 5A. Second-sweep integration expansion - revision 2 / 5A.8 Executable additions for Codex / C. Assets, packs, models and Molang / 5A. Specialized engines and integration tasks / 5A.8 Specialized integration implementation / C. Assets, packs, models and Molang
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T097 : 691-691](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L691-L691) / [ENDERLOOM_STUDIO_EXECUTION.md :: T097 : 853-853](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L853-L853)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md / 2. Heap / Memory-Leak Lab (1)</summary>
+
+<a id="d-defcc80dee7d9fbf2466"></a>
+- [ ] **D-defcc80dee7d9fbf2466** - texture/image/native/direct-buffer pressure tracking where measurable;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Heap / Memory-Leak Lab
+  - **Original specification:** [ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md : 52-52](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DEVKIT_WORKFLOW_GAP_PASS.md#L52-L52)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph (1)</summary>
+
+<a id="d-4e5be9685f1ef774e707"></a>
+- [ ] **D-4e5be9685f1ef774e707** - Version/loader adapters choose native API equivalents.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. Visual Gameplay Authoring / Logic Graph Studio / 6.2 Procedure/event graph
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 341-341](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L341-L341)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 7. Command / Data / Worldgen Generator Studio / 7.4 Specialized utilities (1)</summary>
+
+<a id="d-23bee2ff79346caf0a1f"></a>
+- [ ] **D-23bee2ff79346caf0a1f** - Display entity transform preview/editor.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.4 Specialized utilities
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 424-424](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L424-L424)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.3 Determinism and replay (1)</summary>
+
+<a id="d-3558ff2f67d2ccef2ffe"></a>
+- [ ] **D-3558ff2f67d2ccef2ffe** - Record simulation parameters and variant seed. Native QA fixtures must be able to replay a deterministic motion path for screenshot/video comparison.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 5. Secondary Motion / “living detail” physics / 5.3 Determinism and replay
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 160-160](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L160-L160)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md / Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 16. Non-negotiable invariants (1)</summary>
+
+<a id="d-a5d66b291053e69ffe8f"></a>
+- [ ] **D-a5d66b291053e69ffe8f** - - Highly detailed Java models are a first-class capability, not a special-case hack. - Approved model detail is never silently flattened to vanilla cuboids just to make conversion ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Highly detailed Java models are a first-class capability, not a special-case hack. - Approved model detail is never silently flattened to vanilla cuboids just to make conversion easy. - Physics/secondary motion must not become server-authoritative per-bone spam. - No one-armor-stand-per-bone architecture for native mod runtime. - Performance and detail are simultaneous acceptance requirements. - No “optimization” that visibly reduces the approved near-field model. - Preserve editable source and provenance. - Preserve animation/keyframe event semantics. - Preserve gameplay separately from visuals. - Runtime proof beats editor preview. - Existing concept/variant systems are extended, not duplicated.
+  - **Binding context:** Enderloom — High-Fidelity Java Model Runtime &amp; Secondary Motion Specification / 16. Non-negotiable invariants
+  - **Original specification:** [ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md : 422-432](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_HIGH_FIDELITY_JAVA_MODEL_RUNTIME_SPEC.md#L422-L432)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 19. Fast Launch Engine (1)</summary>
+
+<a id="d-a9b588f0724ab707c406"></a>
+- [ ] **D-a9b588f0724ab707c406** - Keep reusable immutable libraries/assets warm.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 19. Fast Launch Engine
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 832-832](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L832-L832)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane (1)</summary>
+
+<a id="d-123f7312e3948f4fc5f4"></a>
+- [ ] **D-123f7312e3948f4fc5f4** - — Use these tools to mine/generalize transformations from verified before/after ports.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G045 — JVM semantic worker / T162 — Create the dedicated JVM worker / T165 — Spoon/GumTree/RefactoringMiner mining lane
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T165 : 699-699](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L699-L699)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index (1)</summary>
+
+<a id="d-c07ad371476009daa511"></a>
+- [ ] **D-c07ad371476009daa511** - Prefer an explicit classpath from the Gradle/tooling model over reflective classloader discovery. Do not enable encapsulation-bypass/native reflection hacks merely to make a scanne...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Prefer an explicit classpath from the Gradle/tooling model over reflective classloader discovery. Do not enable encapsulation-bypass/native reflection hacks merely to make a scanner work when Enderloom already knows the authoritative classpath.
+  - **Binding context:** G046 — Bytecode, decompilation and compiled-artifact reconstruction / T168 — JDK 25 Class-File API bakeoff / T352 — Exact classpath/module/duplicate-class index
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 816-816](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L816-L816)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Information architecture and screen contracts (1)</summary>
+
+<a id="d-0c384c0c4a6e1df01053"></a>
+- [ ] **D-0c384c0c4a6e1df01053** - | Surface | Required default composition | Required working behavior | | --- | --- | --- | | Studio Home | Four clear action tiles/buttons, one import/drop area, recent projects wi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Surface | Required default composition | Required working behavior | | --- | --- | --- | | Studio Home | Four clear action tiles/buttons, one import/drop area, recent projects with real covers, compact ongoing work | Start a task or resume the exact project/job without navigating a document or settings maze | | Project workspace | Project identity and target selector in a concise header; left content tree/library; large center editor/preview; contextual right inspector; collapsible bottom jobs/details tray | Open/edit real content, switch target, run Repair/Convert/Optimize/Play Test/Build actions, retain selection and unsaved changes | | Convert | Source preview and detected identity, destination edition/version/loader selector, concise preservation/dependency plan, prominent Convert button | Create version outputs in the same canonical project, show per-target progress and real final artifacts; retry failed cells without rebuilding unrelated green cells | | Repair | Readable issue groups by root cause/impact, affected asset/mod links, recommended fixes and one primary Fix Issues action | Diagnose automatically, stage correct fixes, fetch requirements, verify, report what changed and provide rollback; logs secondary | | Performance | Reproducible scenario choice, prominent Analyze Performance/Optimize action, before/after timing charts and identified bottlenecks | Profile real work, apply reversible lossless improvements, retest identical scenarios, show tradeoffs/results honestly | | Create | Short name/goal/target setup, optional starter examples, prominent Create Project action | Produce a real editable project with functioning content, then allow visual creation, advanced code, play-test and packaging | | Content and assets | Searchable thumbnail library, category filters, content dependency links, real model/texture/audio previews | Add/edit/duplicate/import content, inspect references, reveal/fix missing dependencies, undo changes and retain original data | | Versions and builds | Compact target matrix, tested-state chips, output cards with meaningful names | Add a target, build/test/convert selected targets, open/export/install exact verified artifacts; never turn a version label into proof | | Test lab | Scenario controls, real run state, latest native captures and plain-language results | Launch isolated target runtimes, exercise behavior and persist exact proof; editor preview and native runtime remain distinct | | History and recovery | Human-readable change history and snapshots, source/target associations, concise comparisons | Resume interrupted work, undo a scoped transformation, restore a project snapshot or compare artifacts without losing unrelated edits |
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Information architecture and screen contracts
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 151-162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L151-L162)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Real visual asset workspace (1)</summary>
+
+<a id="d-f6639dff62470ada4bd8"></a>
+- [ ] **D-f6639dff62470ada4bd8** - Texture, recipe, audio and structure views must suit their content: pixel-correct zoom/checkerboard for textures, visual slots for recipes, real playback for sound, and a meaningfu...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Texture, recipe, audio and structure views must suit their content: pixel-correct zoom/checkerboard for textures, visual slots for recipes, real playback for sound, and a meaningful structural preview where supported. Label editor approximations honestly and validate final visuals in native Minecraft. Import/export and undo cannot silently simplify geometry, omit effects or substitute generic assets. Do not use generated images as fake project previews or runtime evidence.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Real visual asset workspace
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 200-200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L200-L200)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (1)</summary>
+
+<a id="d-53352bf0d9a26bafb999"></a>
+- [ ] **D-53352bf0d9a26bafb999** - GIF/video comparison;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1084-1084](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1084-L1084)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 31. Launch Doctor / Fast Launch Engine (1)</summary>
+
+<a id="d-b3d91885ecd532bc1c28"></a>
+- [ ] **D-b3d91885ecd532bc1c28** - Cache immutable assets/libraries safely.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 31. Launch Doctor / Fast Launch Engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1243-1243](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1243-L1243)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 33. File / Storage Intelligence (1)</summary>
+
+<a id="d-968bc663e83be3b78e3e"></a>
+- [ ] **D-968bc663e83be3b78e3e** - Deduplicate identical JARs/assets safely.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 33. File / Storage Intelligence
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1274-1274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1274-L1274)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Canonical repository baseline and migration boundary (1)</summary>
+
+<a id="d-a72b22869977efbe82d0"></a>
+- [ ] **D-a72b22869977efbe82d0** - · Map current ownership among Python Dev Kit, Northpoint JS, Rust/native core, JVM tooling, and target-native Gradle builds. Do not create a third independent authority.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Canonical repository baseline and migration boundary
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T006 : 261-261](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L261-L261)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md / Enderloom — Variant Foundry Capability Closure / 10. No-regression invariants (1)</summary>
+
+<a id="d-7e6b970f8b98761f2bd5"></a>
+- [ ] **D-7e6b970f8b98761f2bd5** - - Canonical editable source always survives provider/backend changes. - High-resolution scaffolds never become an excuse for non-editable final Minecraft assets. - Pixel-art/style ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Canonical editable source always survives provider/backend changes. - High-resolution scaffolds never become an excuse for non-editable final Minecraft assets. - Pixel-art/style quality is deliberate, not a downsample afterthought. - Unknown biome is characterized, not rejected. - Gameplay state and animation events remain authoritative over generated motion. - Near-field approved detail is not removed for performance. - Server-display compatibility is an export path, not the native Java architecture. - Rich material channels are preserved even when a target backend needs a simpler fallback. - Every optional AI stage has a deterministic/manual/alternate-provider escape route. - The Wiki and capability matrix are generated from the same canonical project/evidence state.
+  - **Binding context:** Enderloom — Variant Foundry Capability Closure / 10. No-regression invariants
+  - **Original specification:** [ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md : 257-266](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L257-L266)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep (1)</summary>
+
+<a id="d-4e2f580f4adf74d89d83"></a>
+- [ ] **D-4e2f580f4adf74d89d83** - - Cobblemon runtime + model pipeline — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Cobblemon runtime + model pipeline — a major real-world Java reference because Cobblemon deliberately uses Bedrock-style entity geometry/animation on Java for flexible animation, and its current source has a mature PosableModel/Bedrock animation repository architecture. Use its MPL-2.0 source code as a lawful differential design reference where applicable; do not reuse Cobblemon art assets as general Enderloom source because the separate asset repository is CC BY-NC. - https://gitlab.com/cable-mc/cobblemon - https://gitlab.com/cable-mc/cobblemon-assets - https://wiki.cobblemon.com/index.php/Tutorials/Creating_A_Model - BBS / BBS Engine — McHorse&#x27;s animation-studio lineage is valuable for animation timelines, cameras, model/pose editing and Java voxel-model tooling. The old Minecraft bbs-mod repository is archived, so use it as a behavioral/reference corpus; compare reusable engine ideas with the active standalone BBS engine rather than adopting an archived runtime blindly. - https://github.com/mchorse/bbs-mod - https://github.com/BBS-Engine/bbs - Team Abnormals Blueprint / Endimator — a lightweight native Java animation API in a widely used mod library. Keep it as a simple-animation backend/oracle for projects where GeckoLib-class runtime weight is unnecessary. - https://github.com/team-abnormals/blueprint - FoundationGames/JsonEM — data-driven JSON entity model library that can dump registered vanilla/modded entity models and load JSON bones/cuboids. Useful for model introspection, resource-pack-friendly model editing and regression fixtures. - https://github.com/FoundationGames/JsonEM - Gamepiaynmo/CustomPlayerModel — MIT Java custom-model runtime with JSON models, scripting, particles and physics simulation, and it can target animals/monsters as well as players. This is an important secondary-motion/runtime reference independent of modern CPM. - https://github.com/Gamepiaynmo/CustomPlayerModel - Figura&#x27;s 2026 modular repositories — in addition to the monolithic Figura reference, compare the newer split figura-core, figura-client and figura-molang projects. The separation of Minecraft-independent avatar logic, thin client/version integration and Molang-like expression handling is directly relevant to Enderloom&#x27;s portability goals. - https://github.com/FiguraMC/figura-core - https://github.com/FiguraMC/figura-client - https://github.com/FiguraMC/figura-molang - Citadel — retain as a legacy/mature advanced-model animation reference, especially for default-pose management and hierarchical model utilities; do not prefer it over a stronger modern target merely because many old mods use it. - https://github.com/AlexModGuy/Citadel
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P1 — mature native-Java modeling/animation references found in the second sweep
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 143-161](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L143-L161)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md / Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Optional heavy physics lane (1)</summary>
+
+<a id="d-b35f7ecbc6bfd853e05e"></a>
+- [ ] **D-b35f7ecbc6bfd853e05e** - These are not the default for Bloom &amp; Boom vine/hair motion. Enderloom&#x27;s lightweight deterministic Secondary Motion Graph remains the normal path. Jolt/Velthoric-style phy...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** These are not the default for Bloom &amp; Boom vine/hair motion. Enderloom&#x27;s lightweight deterministic Secondary Motion Graph remains the normal path. Jolt/Velthoric-style physics is optional only for assets that genuinely need soft-body, rope, rigid-body collision or gameplay-grade physical interaction, and must earn promotion through equivalent-work CPU/GPU/native-memory benchmarks.
+  - **Binding context:** Enderloom — Variant Foundry / High-Fidelity Model Challenger Scan — 2026-09-27 / P0 — fourth sweep: Blockbench automation, IK and optional real physics / Optional heavy physics lane
+  - **Original specification:** [ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md : 248-248](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_MODEL_RUNTIME_CHALLENGER_SCAN_2026-09-27.md#L248-L248)
+
+</details>
+
+<details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) (1)</summary>
+
+<a id="d-b393adf600aab19b3363"></a>
+- [ ] **D-b393adf600aab19b3363** - - Discover official releases, platform architecture, hashes, license and asset/ownership prerequisites; stage and verify installation with rollback and isolated profiles. - Model H...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Discover official releases, platform architecture, hashes, license and asset/ownership prerequisites; stage and verify installation with rollback and isolated profiles. - Model Horizon versions and native mod formats separately from Java loaders; clearly classify transferable data/assets versus unsupported Java code. Preserve imported originals and warn of incomplete imports. - Test install, launch, update, mod enable/disable and removal on supported platforms, including offline/error recovery and clean rollback. - Investigate using Horizon&#x27;s documented horizon-ctl for isolated internal automated game tests. This is a candidate backend, not universal Minecraft or Java mod execution. Build a version/loader/capability matrix and route other versions and Java mods to suitable real Minecraft runtimes; record unsupported cases explicitly. - Verify actual mod behavior and real gameplay per target, with logs and evidence, before claiming compatibility. Never mutate user worlds or instances for test fixtures.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 60-64](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L60-L64)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 2. BUILD A REAL STONECUTTER-LIKE MATRIX, BUT MAKE IT ENDERLOOM-NATIVE (1)</summary>
+
+<a id="d-ebb07fe486a7a7d13f3e"></a>
+- [ ] **D-ebb07fe486a7a7d13f3e** - Do not create a pile of copied repositories per Minecraft version.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 2. BUILD A REAL STONECUTTER-LIKE MATRIX, BUT MAKE IT ENDERLOOM-NATIVE
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L43-L43)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS (1)</summary>
+
+<a id="d-b668d339af0398c99865"></a>
+- [ ] **D-b668d339af0398c99865** - Real native Electron app is launched and the create/convert -&gt; target -&gt; all-versions flow is exercised end-to-end.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. DEFINITION OF DONE — DO NOT STOP BEFORE THIS
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 510-510](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L510-L510)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 13. ENDERLOOM IMPLEMENTATION PLACEMENT / Main/native service (1)</summary>
+
+<a id="d-9da4537d3b11f89761e8"></a>
+- [ ] **D-9da4537d3b11f89761e8** - Do not dump Northpoint into the already-large main.js. Create a dedicated service/module and leave main.js mostly as IPC/orchestration wiring.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 13. ENDERLOOM IMPLEMENTATION PLACEMENT / Main/native service
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 886-886](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L886-L886) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1290-1290](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1290-L1290)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-15 — Wire the complete engine through real Create + Convert + Repair workflows (1)</summary>
+
+<a id="d-bbbc2e59ac2a43e77328"></a>
+- [ ] **D-bbbc2e59ac2a43e77328** - Confirm Create uses Northpoint quality/performance gates.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-15 — Wire the complete engine through real Create + Convert + Repair workflows
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 317-317](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L317-L317)
+
+</details>
+
+<details>
+<summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
+
+<a id="d-a3a1831cb131b253c458"></a>
+- [ ] **D-a3a1831cb131b253c458** - Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Locked product law: - Concept art/reference material is a first-class Enderloom project source. - Workflow: immutable/provenanced reference intake -&gt; observed/constrained/inferred/authored design dossier -&gt; native editable geometry/textures/UV/rig/animation -&gt; gameplay implementation -&gt; semantic ecosystem compatibility -&gt; deterministic fidelity compare -&gt; actual Minecraft native-client/server QA -&gt; iterative repair -&gt; packaged release. - Lives inside the one unified Studio; no separate top-level Concept Studio. - Original references remain hash-addressed and derived assets retain lineage. - Unseen/ambiguous details remain explicitly inferred, never falsely claimed exact. - Multi-reference projects can assign separate shape, texture, motion, gameplay and style authority. - Concept visuals may suggest gameplay, but implied mechanics never silently become canonical gameplay. - CompatibilityProfile selects Sophisticated Backpacks/Curios/Create/Apotheosis/Farmer&#x27;s Delight/Patchouli/rendering-stack contracts only where semantically applicable. - Deterministic renders/metrics complement but never replace actual Minecraft runtime proof. - Visual acceptance includes scale, grounding, texture/atlas integrity, animation state, culling, clipping, hitbox alignment, non-obvious frames and no transform accumulation. - Gameplay acceptance still requires applicable dedicated-server/native-client/integrated-server/persistence/multiplayer/performance proof. - Shared progress UI exposes real stages and content-aware completion for reference intake, dossier, geometry, texture, rig, animation, gameplay, compatibility, native QA and release. - Synthetic image generation is not required. If Enderloom ever integrates such providers, use is explicit opt-in per job and generated pictures remain authored references, never proof or substitutes for native assets/runtime evidence. - AI/headless lanes use the same operation/task/evidence graph and cannot self-declare acceptance. - Wave A must preserve typed concept/reference/fidelity/native-visual/acceptance extension paths with no shadow database.
+  - **Binding context:** 
+  - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 294-309](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L294-L309)
+
+</details>
+
