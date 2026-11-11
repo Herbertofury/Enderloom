@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded source/JAR sound-identity and release-parity regressions."""
+"""Bounded source/JAR content-identity and release-parity regressions."""
 from __future__ import annotations
 
 import hashlib
@@ -154,6 +154,175 @@ class SoundInventoryTest(unittest.TestCase):
             self.assertEqual(result["status"], "FAIL")
             self.assertEqual(result["missing"][0]["id"], "fixture:nested/echo")
         self.assertEqual(target.read_bytes(), before)
+
+
+# Directory names are specified in Minecraft Java 1.21's "Directory renames":
+# https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21
+# The byte fixtures below test inventory, not command execution or NBT validity.
+class DataPathInventoryTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+
+    @staticmethod
+    def files(legacy=False, prefix=""):
+        function_dir = "functions" if legacy else "function"
+        structure_dir = "structures" if legacy else "structure"
+        return {
+            prefix + f"data/fixture/{function_dir}/load.mcfunction": b"say inventory fixture\n",
+            prefix + f"data/fixture/{function_dir}/nested/functions/tick.mcfunction": b"# nested identity\n",
+            prefix + f"data/fixture/{structure_dir}/house.nbt": b"\x0a\x00\x00\x00",
+            prefix + f"data/fixture/{structure_dir}/nested/structures/arch.snbt": b"{size:[1,1,1]}",
+        }
+
+    @staticmethod
+    def keys(result):
+        return {(row["category"], row.get("subtype"), row["id"]) for row in result["entries"]}
+
+    def test_legacy_and_modern_paths_across_source_and_archive_layouts(self):
+        expected = {("function", None, "fixture:load"),
+                    ("function", None, "fixture:nested/functions/tick"),
+                    ("structure-template", None, "fixture:house"),
+                    ("structure-template", None, "fixture:nested/structures/arch")}
+        for legacy in (False, True):
+            for prefix in ("", "src/main/resources/", "src/client/resources/", "src/generated/resources/"):
+                for archive in (False, True):
+                    with self.subTest(legacy=legacy, prefix=prefix, archive=archive):
+                        files = self.files(legacy, prefix)
+                        target = self.root / f"layout-{legacy}-{prefix.replace('/', '_') or 'pack'}"
+                        path = write_jar(target.with_suffix('.jar'), files) if archive else write_tree(target, files)
+                        before = path.read_bytes() if archive else {n: (path / n).read_bytes() for n in files}
+                        result = inventory(path)
+                        self.assertEqual(self.keys(result), expected)
+                        self.assertEqual(result["entry_count"], 4)
+                        self.assertEqual(result["counts"]["category"], {"function": 2, "structure-template": 2})
+                        self.assertEqual(result["notes"], [])
+                        for row in result["entries"]:
+                            payload = files[prefix + row["path"]]
+                            self.assertEqual(row["sha256"], hashlib.sha256(payload).hexdigest())
+                            self.assertEqual(row["size"], len(payload))
+                        self.assertEqual(inventory(path), result)
+                        after = path.read_bytes() if archive else {n: (path / n).read_bytes() for n in files}
+                        self.assertEqual(before, after)
+
+    def test_cross_version_parity_and_saved_legacy_inventory(self):
+        for old_source in (False, True):
+            source = inventory(write_tree(self.root / f"source-{old_source}", self.files(old_source)))
+            for old_target in (False, True):
+                with self.subTest(source_legacy=old_source, target_legacy=old_target):
+                    target = write_jar(self.root / f"target-{old_target}.jar", self.files(old_target))
+                    result = audit(source, target)
+                    self.assertEqual(result["status"], "PASS")
+                    self.assertEqual((result["source_count"], result["target_count"]), (4, 4))
+                    self.assertEqual(result["missing"], [])
+                    self.assertEqual(result["extras"], [])
+        # A pre-fix saved inventory already uses these category/id values.
+        legacy = {"input": "historical-source", "entries": [
+            {"category": "function", "id": "fixture:load", "path": "data/fixture/functions/load.mcfunction"},
+            {"category": "structure-template", "id": "fixture:house", "path": "data/fixture/structures/house.nbt"},
+        ]}
+        self.assertEqual(audit(legacy, self.root / "target-False.jar")["status"], "PASS")
+
+    def test_missing_modern_content_blocks_parity(self):
+        source = inventory(write_tree(self.root / "source", self.files()))
+        expected = self.keys(source)
+        self.assertEqual(len(expected), 4)
+        for path in self.files():
+            with self.subTest(missing=path):
+                files = self.files()
+                del files[path]
+                target = write_jar(self.root / "missing.jar", files)
+                result = audit(source, target)
+                self.assertEqual(result["status"], "FAIL")
+                self.assertEqual(result["counts"]["missing"], 1)
+                self.assertEqual(result["missing"][0]["path"], path)
+        empty = write_jar(self.root / "empty.jar", {"pack.mcmeta": b"{}"})
+        result = audit(source, empty)
+        self.assertEqual(result["status"], "FAIL")
+        self.assertEqual(result["counts"]["missing_categories"], {"function": 2, "structure-template": 2})
+
+    def test_duplicate_aliases_preserve_hash_conflict_diagnostics(self):
+        files = self.files(True, "src/main/resources/")
+        files.update(self.files(False, "src/generated/resources/"))
+        path = write_tree(self.root / "source", files)
+        result = inventory(path)
+        self.assertEqual(result["entry_count"], 4)
+        self.assertEqual(result["notes"], [])
+        changed = path / "src/generated/resources/data/fixture/function/load.mcfunction"
+        changed.write_bytes(b"say different payload\n")
+        result = inventory(path)
+        self.assertEqual(result["entry_count"], 4)
+        self.assertEqual(len(result["notes"]), 1)
+        note = result["notes"][0]
+        self.assertEqual(note["id"], "duplicate-identity-different-bytes")
+        self.assertEqual(note["identity"], ["function", None, "fixture:load"])
+        self.assertEqual(set(note["paths"]), {"data/fixture/function/load.mcfunction", "data/fixture/functions/load.mcfunction"})
+
+    def test_exact_families_namespaces_and_prefix_boundaries(self):
+        files = {
+            "data/first/function/same.mcfunction": b"# first",
+            "data/second/function/same.mcfunction": b"# second",
+            "data/first/structure/same.nbt": b"structure bytes",
+            "data/first/worldgen/structure/same.json": b"{}",
+            "data/first/tags/function/same.json": b'{"values":[]}',
+            "data/first/functionality/wrong.mcfunction": b"# ignored",
+            "data/first/structure_extra/wrong.nbt": b"ignored",
+            "data/first/nested/function/wrong.mcfunction": b"# ignored",
+            "data/first/nested/structure/wrong.nbt": b"ignored",
+            "data/first/function/wrong.nbt": b"ignored",
+            "data/first/structure/wrong.mcfunction": b"# ignored",
+            "data/first/function/backup.mcfunction.bak": b"# ignored",
+            "assets/first/function/wrong.mcfunction": b"# ignored",
+            "src/main/java/data/first/function/wrong.mcfunction": b"# ignored",
+        }
+        result = inventory(write_jar(self.root / "families.jar", files))
+        self.assertEqual(self.keys(result), {
+            ("function", None, "first:same"), ("function", None, "second:same"),
+            ("structure-template", None, "first:same"),
+            ("data-registry", "worldgen/structure", "first:same"),
+            ("tag", None, "first:function/same"),
+        })
+        self.assertEqual(result["entry_count"], 5)
+        self.assertEqual(result["notes"], [])
+
+    def test_exclusions_remain_exact_and_evidence_required(self):
+        source = inventory(write_tree(self.root / "source", self.files()))
+        files = self.files()
+        del files["data/fixture/function/load.mcfunction"]
+        target = write_jar(self.root / "missing.jar", files)
+        exclusion = {"category": "function", "id": "fixture:load", "status": "intentionally_excluded",
+                     "reason": "Explicitly excluded by this synthetic test"}
+        self.assertEqual(audit(source, target, [exclusion])["status"], "PASS")
+        for field, value in (("category", "structure-template"), ("id", "other:load"),
+                             ("status", "pending"), ("reason", "")):
+            with self.subTest(field=field):
+                self.assertEqual(audit(source, target, [{**exclusion, field: value}])["status"], "FAIL")
+
+    def test_real_inventory_and_parity_cli(self):
+        source = write_tree(self.root / "source", self.files())
+        source_json = self.root / "source.json"
+        proc = subprocess.run([sys.executable, str(HERE / "content_identity_inventory.py"), str(source),
+                               "--json-out", str(source_json)], capture_output=True, text=True, timeout=30)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertEqual(json.loads(source_json.read_text())["entry_count"], 4)
+        for missing, expected_status, code in ((True, "FAIL", 3), (False, "PASS", 0)):
+            files = self.files()
+            if missing:
+                del files["data/fixture/function/load.mcfunction"]
+                del files["data/fixture/structure/house.nbt"]
+            target = write_jar(self.root / "target.jar", files)
+            before = target.read_bytes()
+            args = [sys.executable, str(HERE / "content_parity_audit.py"), str(source_json), str(target)]
+            for strict in (False, True):
+                with self.subTest(missing=missing, strict=strict):
+                    proc = subprocess.run(args + (["--fail-on-missing"] if strict else []),
+                                          capture_output=True, text=True, timeout=30)
+                    self.assertEqual(proc.returncode, code if strict else 0, proc.stderr)
+                    result = json.loads(proc.stdout)
+                    self.assertEqual(result["status"], expected_status)
+                    self.assertEqual(result["counts"]["missing"], 2 if missing else 0)
+            self.assertEqual(target.read_bytes(), before)
 
 
 if __name__ == "__main__":
