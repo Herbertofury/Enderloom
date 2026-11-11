@@ -406,9 +406,17 @@ class TagPathInventoryTest(unittest.TestCase):
                  "item_types/first", "Items/first", "items", "structures/first", "recipes/first"]
         files = {f"data/fixture/tags/{p}.json": b'{}' for p in paths}
         files["data/fixture/tags/items/nested/items/second.json"] = b'{}'
-        result = inventory(write_tree(self.root / "unlisted", files))
+        # JAR paths preserve distinct Items/items even on case-insensitive hosts.
+        result = inventory(write_jar(self.root / "unlisted.jar", files))
         self.assertEqual({x['id'] for x in result['entries']},
                          {f"fixture:{p}" for p in paths} | {"fixture:item/nested/items/second"})
+        upper = "data/fixture/tags/Items/first.json"
+        tree_files = {name: data for name, data in files.items() if name != upper}
+        tree_result = inventory(write_tree(self.root / "unlisted", tree_files))
+        self.assertEqual({x['id'] for x in tree_result['entries']},
+                         {x['id'] for x in result['entries']} - {"fixture:Items/first"})
+        upper_result = inventory(write_tree(self.root / "uppercase-only", {upper: files[upper]}))
+        self.assertEqual([x['id'] for x in upper_result['entries']], ["fixture:Items/first"])
         # Other content categories with the same spelling must remain distinct.
         source = {"entries": [{"category": "data-json", "id": "fixture:items/first"}]}
         target = write_jar(self.root / 'different-category.jar', {"data/fixture/tags/item/first.json": b'{}'})
