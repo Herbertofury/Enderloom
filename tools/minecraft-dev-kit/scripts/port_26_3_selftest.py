@@ -488,6 +488,8 @@ class Registrations {
 
         # Exact class hierarchy/Mixin/access/packaged linkage proof.
         assert_exact_symbol_tools(root)
+        # Keep real-world literal/Shadow selector regressions in the existing CI gate.
+        run(str(HERE / "mixin_selector_selftest.py"))
         # Whole-mod bytecode API references are mapping-bridged and checked against exact 26.3 symbols.
         assert_api_reference_migration(root)
 

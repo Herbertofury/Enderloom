@@ -38,15 +38,19 @@ def main() -> int:
     def simulated(artifact, directory, **kwargs):
         calls.append(sha256_file(artifact));directory.mkdir(parents=True,exist_ok=True)
         atomic_json(directory/'dependencies/dependency-lock.json',{'downloads':[]})
+        registry_file=directory/'variant-foundry-registry.json'
+        atomic_json(registry_file,{'fixture':'SIMULATED-REGISTRY-RECEIPT-ONLY','biomes':[],'dimensions':[]})
+        registry={'path':str(registry_file),'sha256':sha256_file(registry_file)}
         shots=[]
         for name in ['first.png','reopened.png','restarted.png']:
             image=directory/name;image.write_bytes(b'UNIT-TEST-NOT-A-REAL-SCREENSHOT')
             shots.append({'path':str(image),'sha256':sha256_file(image)})
         proof={'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),'world_reopened':True,'client_server_sync':True,'process_restart':True,'first_process_id':101,'restart_process_id':202}
         proof_file=directory/'devkit-runtime-proof.json';atomic_json(proof_file,proof)
-        result={'proof':proof,'evidence_files':[{'path':str(proof_file),'sha256':sha256_file(proof_file)}],'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),
+        result={'proof':proof,'evidence_files':[{'path':str(proof_file),'sha256':sha256_file(proof_file)},registry],'state':'runtime-smoke-verified','artifact_sha256':sha256_file(artifact),
                 'verifier_sha256':native.verifier_fingerprint(),'platform':[platform.system(),platform.machine()],
                 'jdk':pair,'dependency_lock_sha256':sha256_file(directory/'dependencies/dependency-lock.json'),
+                'runtime_registry_dump':registry,
                 'screenshots':shots,'coverage':['SIMULATED-RECEIPT-ORCHESTRATION-ONLY'],
                 'not_proven':['MINECRAFT-NOT-RUN-IN-THIS-UNIT-TEST']}
         atomic_json(directory/'native-result.json',result);return result
@@ -70,11 +74,21 @@ def main() -> int:
             assert not devkit.status(workspace)['all_passed'],'modified proof file advertised success'
             assert devkit.main(['resume','--workspace',str(workspace),'--offline','--timeout','90'])==0
             assert len(calls)==3,'modified proof file was reused'
+            registry_file=workspace/'native/variant-foundry-registry.json'
+            registry_file.write_text('{}')
+            assert not devkit.status(workspace)['all_passed'],'modified registry evidence advertised success'
+            assert devkit.main(['resume','--workspace',str(workspace),'--offline','--timeout','90'])==0
+            assert len(calls)==4,'modified registry evidence was reused'
+            registry_file.unlink()
+            assert not devkit.status(workspace)['all_passed'],'missing registry evidence advertised success'
+            assert devkit.main(['resume','--workspace',str(workspace),'--offline','--timeout','90'])==0
+            assert len(calls)==5,'missing registry evidence was reused'
         package=root/'candidate-and-evidence.zip';devkit.package(workspace,package)
         with zipfile.ZipFile(package) as archive:
             assert archive.testzip() is None
             assert json.loads(archive.read('VERIFICATION.json'))['all_passed']
             assert 'native/dependencies/dependency-lock.json' in archive.namelist()
+            assert 'native/variant-foundry-registry.json' in archive.namelist()
             assert 'runtime-proofs.json' in archive.namelist()
         artifact=Path(devkit.status(workspace)['cells'][0]['artifact']['path'])
         assert 'productionRuntimeMods fabricApi.module("fabric-client-gametest-api-v1", project.fabric_api_version)' in native.GRADLE
@@ -89,7 +103,7 @@ def main() -> int:
     print(json.dumps({'status':'PASS','workspace':str(root),'native_scope':'SIMULATED-RECEIPT-ONLY',
                       'actual_javac_and_runner':True,'native_reuse_calls':len(calls),
                       'cases':['runtime-unverified-not-complete','sha-bound-promotion-without-rebuild',
-                               'automatic-resume','proof-reuse','tampered-evidence-reverify','package','candidate-corruption',
+                               'automatic-resume','proof-reuse','tampered-evidence-reverify','registry-tampering-reverify','missing-registry-reverify','package','candidate-corruption',
                                'production-test-executor-required']},indent=2))
     return 0
 if __name__=='__main__':raise SystemExit(main())

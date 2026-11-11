@@ -53,6 +53,12 @@ def jar_runtime_marker(jar: pathlib.Path) -> str:
 
 
 def main() -> int:
+    from northpoint_driver_receipt_selftest import main as receipt_selftest
+    assert receipt_selftest() == 0, 'driver receipt regression'
+    from northpoint_attempt_state_selftest import main as attempt_state_tests
+    assert attempt_state_tests() == 0
+    from northpoint_manifest_scope_selftest import main as manifest_scope_tests
+    assert manifest_scope_tests() == 0
     with tempfile.TemporaryDirectory(prefix='northpoint-job-selftest-') as td:
         base = pathlib.Path(td); project = base / 'project'; state = base / 'state'
         fixture(project)

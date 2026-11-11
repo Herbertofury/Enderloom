@@ -255,8 +255,10 @@ def build_probe(project: pathlib.Path, cell: dict[str, Any]) -> dict[str, Any]:
         'java_major': java_major(cell_java_binary(cell)),
         'javac_major': javac_major(cell_javac_binary(cell)),
         'java_path': str(cell.get('java_path') or ''),
-        'gradle': tool_version('gradle', ['--version']),
-        'maven': tool_version('mvn', ['-version']),
+        # Direct javac builds do not depend on global Gradle/Maven installations.
+        # Their first-run banners must not invalidate a verified javac artifact.
+        'gradle': None if mode == 'javac' else tool_version('gradle', ['--version']),
+        'maven': None if mode == 'javac' else tool_version('mvn', ['-version']),
         'wrapper': wrapper,
         'requested_java': int(cell.get('java') or 0),
         'build_mode': mode,

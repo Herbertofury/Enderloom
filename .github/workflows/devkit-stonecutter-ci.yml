@@ -28,6 +28,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.6.0'
+      - name: Exact descriptor remapping and real JVM overload regressions
+        run: python tools/minecraft-dev-kit/scripts/mapping_bridge_selftest.py
       - name: Actual Stonecutter, shared changes, native JVM matrix and target extension
         shell: bash
         run: python tools/minecraft-dev-kit/scripts/devkit_multiversion_selftest.py --real --output "${{ runner.temp }}/multiversion-test"
