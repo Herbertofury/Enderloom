@@ -10,28 +10,12 @@ if errorlevel 1 (
   exit /b 2
 )
 
-if not exist "node_modules\electron\dist\electron.exe" (
-  echo Installing the locked Enderloom JavaScript runtime...
-  call npm ci
-  if errorlevel 1 goto :failed
-)
+echo Preparing current Enderloom source build...
+node scripts\prepare-source.js
+if errorlevel 1 goto :failed
 
-if not exist "launcher\dist\index.html" (
-  echo Installing the locked launcher workspace dependencies...
-  call npm --prefix launcher ci
-  if errorlevel 1 goto :failed
-
-  echo Building the Enderloom launcher workspace...
-  call npm run build:launcher
-  if errorlevel 1 goto :failed
-)
-
-if not exist "native\target\debug\enderloom-service.exe" (
-  echo Building the Enderloom native launcher service...
-  call npm run build:launcher-service
-  if errorlevel 1 goto :failed
-)
-
+rem Launch the service just verified above, not an older release binary.
+set "ENDERLOOM_SERVICE_PATH=%~dp0native\target\debug\enderloom-service.exe"
 echo Starting Enderloom...
 call npm start
 exit /b %errorlevel%
