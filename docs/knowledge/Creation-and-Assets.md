@@ -48,20 +48,25 @@
 
 [**MAKE-11**](Checklist.md#make-11) - Viewport orbit/pan/zoom, orthographic/perspective, texture/UV/material inspection and native captures use actual project assets; clearly separate preview approximations from native runtime proof.
 
+### Selective semantic and asset A/B comparison
+
+[**MAKE-12**](Checklist.md#make-12) - Compare code, textures, models, animations, sounds, recipes, all assets and dependencies with exhaustive changes/unknowns; source-linked previews and selective reversible transfers preserve unrelated content. Acceptance: AB-T017–AB-T019. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-MAKE.md)** / **[Source manifest](Source-Map.md)**
 
 ## Detailed acceptance from your specifications
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [MAKE-01 - Arbitrary native mod creation](Acceptance-MAKE.md#make-01-details): 72 source details.
-- [MAKE-02 - Safe visual and code round-tripping](Acceptance-MAKE.md#make-02-details): 46 source details.
-- [MAKE-03 - Items, blocks and equipment editors](Acceptance-MAKE.md#make-03-details): 5 source details.
+- [MAKE-01 - Arbitrary native mod creation](Acceptance-MAKE.md#make-01-details): 69 source details.
+- [MAKE-02 - Safe visual and code round-tripping](Acceptance-MAKE.md#make-02-details): 41 source details.
+- [MAKE-03 - Items, blocks and equipment editors](Acceptance-MAKE.md#make-03-details): 4 source details.
 - [MAKE-04 - Entities, bosses and gameplay graphs](Acceptance-MAKE.md#make-04-details): 12 source details.
-- [MAKE-05 - Recipes, loot, tags and data editing](Acceptance-MAKE.md#make-05-details): 16 source details.
-- [MAKE-06 - World, biome, structure and dimension authoring](Acceptance-MAKE.md#make-06-details): 52 source details.
-- [MAKE-07 - Model, UV and texture fidelity](Acceptance-MAKE.md#make-07-details): 138 source details.
+- [MAKE-05 - Recipes, loot, tags and data editing](Acceptance-MAKE.md#make-05-details): 14 source details.
+- [MAKE-06 - World, biome, structure and dimension authoring](Acceptance-MAKE.md#make-06-details): 48 source details.
+- [MAKE-07 - Model, UV and texture fidelity](Acceptance-MAKE.md#make-07-details): 135 source details.
 - [MAKE-08 - Animation, Molang, effects and audio](Acceptance-MAKE.md#make-08-details): 19 source details.
-- [MAKE-09 - Reference and concept reconstruction](Acceptance-MAKE.md#make-09-details): 49 source details.
-- [MAKE-10 - Compound content and ecosystem integration](Acceptance-MAKE.md#make-10-details): 31 source details.
-- [MAKE-11 - Real preview and native comparison](Acceptance-MAKE.md#make-11-details): 25 source details.
+- [MAKE-09 - Reference and concept reconstruction](Acceptance-MAKE.md#make-09-details): 48 source details.
+- [MAKE-10 - Compound content and ecosystem integration](Acceptance-MAKE.md#make-10-details): 27 source details.
+- [MAKE-11 - Real preview and native comparison](Acceptance-MAKE.md#make-11-details): 20 source details.
+- [MAKE-12 - Selective semantic and asset A/B comparison](Acceptance-MAKE.md#make-12-details): 34 source details.

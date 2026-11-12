@@ -24,14 +24,30 @@ def main() -> int:
     ap.add_argument("--output", required=True, type=Path)
     ap.add_argument("--mod-id", required=True)
     ap.add_argument("--mod-name")
-    ap.add_argument("--group", default="com.example")
-    ap.add_argument("--mod-version", default="1.0.0")
+    ap.add_argument("--group")
+    ap.add_argument("--mod-version")
+    ap.add_argument("--materialize-source", action="store_true", help="convert with the maintained production engine, preserving source identity and unresolved ledger gates")
     args = ap.parse_args()
 
     source = args.source.resolve()
     out = args.output.resolve()
     if out.exists() and any(out.iterdir()):
         raise SystemExit(f"output must be empty/new for pipeline safety: {out}")
+
+    if args.materialize_source:
+        from port_source_materializer import materialize, ConversionBlock
+        try:
+            manifest = materialize(source, out, args.loader, args.mod_id,
+                                   mod_name=args.mod_name, group=args.group,
+                                   mod_version=args.mod_version)
+        except ConversionBlock as exc:
+            raise SystemExit(str(exc)) from exc
+        ledger = json.loads((out / "porting-ledger.json").read_text(encoding="utf-8"))
+        print(json.dumps({"status": "workspace-created", "output": str(out),
+                          "materialized_source": True, "materialization": manifest,
+                          "initial_missing_surfaces": sum(row.get("status") == "missing" for row in ledger["items"]),
+                          "next": "Resolve remaining ledger obligations, then run port_guard and production/runtime checks."}, indent=2))
+        return 0
 
     intake = inspect(source, args.loader)
     semantics = semantic_plan(source, args.loader)
@@ -40,7 +56,7 @@ def main() -> int:
     cmd = [
         sys.executable, str(SCRIPT_DIR / "port_scaffold_26_3.py"),
         "--loader", args.loader, "--output", str(out), "--mod-id", args.mod_id,
-        "--group", args.group, "--mod-version", args.mod_version,
+        "--group", args.group or "com.example", "--mod-version", args.mod_version or "1.0.0",
     ]
     if args.mod_name:
         cmd += ["--mod-name", args.mod_name]

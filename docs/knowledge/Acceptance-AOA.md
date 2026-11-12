@@ -9,7 +9,7 @@
 <a id="aoa-01-details"></a>
 ## AOA-01 - Source lineage and original identity
 
-[Outcome](Checklist.md#aoa-01) / 320 source-derived details.
+[Outcome](Checklist.md#aoa-01) / 321 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -2591,6 +2591,18 @@
 
 </details>
 
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence (1)</summary>
+
+<a id="d-d98eb7ce508701b6b328"></a>
+- [ ] **D-d98eb7ce508701b6b328** - Continue AoA in its current working tree. This roadmap and source review can be reviewed now. At its safe checkpoint, reconcile the latest source/earned proof, start B01-B04, then ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Continue AoA in its current working tree. This roadmap and source review can be reviewed now. At its safe checkpoint, reconcile the latest source/earned proof, start B01-B04, then implement the version-pinned adapters/update transaction and Studio census/diff. Establish the full Actions &amp; Stuff baseline before target generation; repair each discrepancy in the shared pipeline and replay from the original input. Finish with bidirectional native-runtime and packaged acceptance. No separate mass issue list or duplicate implementation ledger is required.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 241-247](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L241-L247)
+
+</details>
+
 <a id="aoa-02-details"></a>
 ## AOA-02 - Complete semantic port
 
@@ -3815,7 +3827,7 @@
 <a id="aoa-06-details"></a>
 ## AOA-06 - AoA delivered through the studio
 
-[Outcome](Checklist.md#aoa-06) / 127 source-derived details.
+[Outcome](Checklist.md#aoa-06) / 128 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (2)</summary>
@@ -4994,6 +5006,18 @@
   - **Full requirement:** Wave A is still the exact next implementation action. It must not attempt to build all features in this document immediately, but it must avoid architecture choices that make them separate databases later.
   - **Binding context:** 14. Wave A architecture consequences
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 1145-1145](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L1145-L1145)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Implementation sequence and exact next action (1)</summary>
+
+<a id="d-e432bc8dba95446d9b35"></a>
+- [ ] **D-e432bc8dba95446d9b35** - First inspect the existing runtime/window supervision, bridge and durable jobs once; freeze their identities. Implement AB-T001–AB-T003 as a real two-client native vertical slice, ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** First inspect the existing runtime/window supervision, bridge and durable jobs once; freeze their identities. Implement AB-T001–AB-T003 as a real two-client native vertical slice, then AB-T004–AB-T008 for one complete inventory transfer through preview, real build/install and restart without preview. Extend the proven shared pipeline to queued recovery, Marketplace, complete comparison and every cross-edition fixture. This order never reduces accepted scope or displaces active AoA work; use an isolated branch/worktree when implementation overlaps.
+  - **Binding context:** Universal Minecraft A/B Studio / Implementation sequence and exact next action
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 138-138](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L138-L138)
 
 </details>
 

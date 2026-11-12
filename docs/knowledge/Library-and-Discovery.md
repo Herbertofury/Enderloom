@@ -42,18 +42,23 @@
 
 [**LIB-09**](Checklist.md#lib-09) - Support accepted MRPack/CurseForge ZIP/packwiz and CSV/JSON/XLSX/HTML/PDF research interchange with provenance, original fields and clickable links; no cloned proprietary share-code service.
 
+### Complete Bedrock Marketplace and authorized PackDL/McTools
+
+[**LIB-10**](Checklist.md#lib-10) - Full in-app Marketplace browsing beside existing providers, exact normal Bedrock purchase/download handoff, authorized PackDL/McTools shared-job adapters, pinned licenses/versions, manual upstream refresh and tested explicit update adoption/rollback. Acceptance: AB-T013–AB-T016. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-LIB.md)** / **[Source manifest](Source-Map.md)**
 
 ## Detailed acceptance from your specifications
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [LIB-01 - Broad source-aware discovery](Acceptance-LIB.md#lib-01-details): 96 source details.
-- [LIB-02 - Correct premium media and trailers](Acceptance-LIB.md#lib-02-details): 87 source details.
-- [LIB-03 - Real embedded browser](Acceptance-LIB.md#lib-03-details): 91 source details.
+- [LIB-01 - Broad source-aware discovery](Acceptance-LIB.md#lib-01-details): 91 source details.
+- [LIB-02 - Correct premium media and trailers](Acceptance-LIB.md#lib-02-details): 81 source details.
+- [LIB-03 - Real embedded browser](Acceptance-LIB.md#lib-03-details): 90 source details.
 - [LIB-04 - Catalog-to-instance bridge](Acceptance-LIB.md#lib-04-details): 62 source details.
 - [LIB-05 - Dedicated Favorites workspace](Acceptance-LIB.md#lib-05-details): 140 source details.
-- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 111 source details.
+- [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 109 source details.
 - [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 19 source details.
-- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 125 source details.
-- [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 87 source details.
+- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 122 source details.
+- [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 85 source details.
+- [LIB-10 - Complete Bedrock Marketplace and authorized PackDL/McTools](Acceptance-LIB.md#lib-10-details): 26 source details.

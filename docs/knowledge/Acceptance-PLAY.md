@@ -9,7 +9,7 @@
 <a id="play-01-details"></a>
 ## PLAY-01 - External-launcher connection in place
 
-[Outcome](Checklist.md#play-01) / 57 source-derived details.
+[Outcome](Checklist.md#play-01) / 58 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -440,6 +440,18 @@
 </details>
 
 <details>
+<summary>LAUNCHER_PARITY_MATRIX.md / Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft) (1)</summary>
+
+<a id="d-8423189a3aaed4967ad8"></a>
+- [ ] **D-8423189a3aaed4967ad8** - Planned, not implemented or verified in Enderloom. [Horizon](https://github.com/horizon-rust/horizon) is an unofficial native Rust reimplementation targeting Minecraft Java 26.3, w...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Planned, not implemented or verified in Enderloom. [Horizon](https://github.com/horizon-rust/horizon) is an unofficial native Rust reimplementation targeting Minecraft Java 26.3, with its own launcher and client/server. Upstream says it uses files from a legitimately owned Java Edition, supports content mods (.hmod) and native Rust mods (.hnmod), and imports some data/assets from Java modpacks; Java Fabric/Forge/NeoForge mod code does not run. Treat upstream feature and parity claims as unverified until tested. Do not list Horizon as an operational install option until implemented and verified.
+  - **Binding context:** Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)
+  - **Original specification:** [LAUNCHER_PARITY_MATRIX.md : 58-58](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L58-L58)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation (2)</summary>
 
 <a id="d-0fe4b230596f6e2cfc13"></a>
@@ -584,7 +596,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 65 source-derived details.
+[Outcome](Checklist.md#play-02) / 66 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1040,6 +1052,18 @@
 </details>
 
 <details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Constraints (1)</summary>
+
+<a id="d-4e0f7c332142e71c5501"></a>
+- [ ] **D-4e0f7c332142e71c5501** - Use independently owned sandbox instances, worlds, ports, process groups, logs, configs, account/session state, and output directories. Never modify a live user&#x27;s instance/wor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use independently owned sandbox instances, worlds, ports, process groups, logs, configs, account/session state, and output directories. Never modify a live user&#x27;s instance/world for automatic testing. Reuse immutable runtime/download caches safely; two clients must not write to the same world or game directory. An A/B comparison may intentionally use different runtimes; measurement reports must expose those differences.
+  - **Binding context:** Universal Minecraft A/B Studio / Constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 68-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L68-L68)
+
+</details>
+
+<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Existing CLI foundation (1)</summary>
 
 <a id="d-bf1f634ffef086d91d07"></a>
@@ -1142,7 +1166,7 @@
 <a id="play-03-details"></a>
 ## PLAY-03 - Secure Microsoft accounts and appearance
 
-[Outcome](Checklist.md#play-03) / 19 source-derived details.
+[Outcome](Checklist.md#play-03) / 20 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -1307,6 +1331,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 3. Full launcher CLI parity checklist / Accounts / identity / appearance
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 152-152](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L152-L152)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-39055fddb1525e5ed900"></a>
+- [ ] **D-39055fddb1525e5ed900** - B03 acceptance. Show Open in Minecraft Bedrock on an exact product. Use its official product action or a validated, allowlisted product-ID handoff. Purchase, entitlement and downlo...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** B03 acceptance. Show Open in Minecraft Bedrock on an exact product. Use its official product action or a validated, allowlisted product-ID handoff. Purchase, entitlement and download stay in the official Minecraft flow. Verify app present / missing, already running / closed, signed in / out, owned / not owned, free / paid, invalid ID, wrong account and user cancellation. A launched protocol handler is not proof of purchase or installation. Preserve the official web page as the recovery route and never guess a product from its title. No purchase is part of these tests. Microsoft&#x27;s [deep-link documentation](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable) warns that handlers can change and may fail silently; verify actual behavior on each claimed Bedrock release.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 80-89](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L80-L89)
 
 </details>
 

@@ -52,7 +52,7 @@ DEFERRED_GENERIC_RX = re.compile(
 DEFERRED_SPECIAL_RX = re.compile(r"DeferredRegister(?:\.[A-Za-z0-9_]+)?\s+([A-Z][A-Z0-9_]*)\s*=\s*DeferredRegister\.(create[A-Za-z0-9_]+)\s*\(")
 VAR_REGISTER_RX = re.compile(r"\b([A-Z][A-Z0-9_]*)\.register\s*\(\s*[\"']([a-z0-9_./-]+)[\"']")
 DIRECT_REGISTRY_RX = re.compile(
-    r"Registry\.register\s*\(\s*(?:BuiltInRegistries|Registries|Registry)\.([A-Z0-9_]+).*?(?:ResourceLocation|Identifier)(?:\.of)?\s*\(\s*(?:[A-Z][A-Z0-9_]*|[\"'][a-z0-9_.-]+[\"'])\s*,\s*[\"']([a-z0-9_./-]+)[\"']", re.S
+    r"Registry\.register\s*\(\s*(?:BuiltInRegistries|Registries|Registry)\.([A-Z0-9_]+).*?(?:ResourceLocation|Identifier)(?:\.of)?\s*\(\s*(?P<namespace>[A-Z][A-Z0-9_]*|[\"'][a-z0-9_.-]+[\"'])\s*,\s*[\"']([a-z0-9_./-]+)[\"']", re.S
 )
 DIRECT_FULL_ID_RX = re.compile(
     r"Registry\.register\s*\(\s*(?:BuiltInRegistries|Registries|Registry)\.([A-Z0-9_]+).*?(?:ResourceLocation|Identifier)(?:\.parse|\.tryParse|\.of)?\s*\(\s*[\"']([a-z0-9_.-]+):([a-z0-9_./-]+)[\"']", re.S
@@ -114,8 +114,13 @@ def inventory(path: Path) -> dict:
                 entries.append({"category": cat, "id": f"{default_ns}:{m.group(2)}", "path": file_name, "confidence": "high", "evidence": "DeferredRegister.register literal"})
             for m in DIRECT_REGISTRY_RX.finditer(text):
                 cat = REGISTRY_NAMES.get(m.group(1))
-                if cat and default_ns:
-                    entries.append({"category": cat, "id": f"{default_ns}:{m.group(2)}", "path": file_name, "confidence": "high", "evidence": "Registry.register + literal namespace variable/path"})
+                # An explicit namespace is authoritative even when MOD_ID is absent
+                # or several source namespaces are present. Preserve the existing
+                # default inference only for the variable form.
+                token = m.group("namespace")
+                namespace = token[1:-1] if token[0] in "\"'" else default_ns
+                if cat and namespace:
+                    entries.append({"category": cat, "id": f"{namespace}:{m.group(3)}", "path": file_name, "confidence": "high", "evidence": "Registry.register + literal namespace variable/path"})
             for m in DIRECT_FULL_ID_RX.finditer(text):
                 cat = REGISTRY_NAMES.get(m.group(1))
                 if cat:

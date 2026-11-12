@@ -61,7 +61,6 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-cf160be110ef5f198989](Acceptance-LIB.md#d-cf160be110ef5f198989) - - Drop supported files anywhere on the desktop app or use Catalogs, sources &amp; sync -&gt; Import local files. - Smart ingest treats structured data as the row authority and k...
 - [D-1f462dfd1387baba7fd1](Acceptance-LIB.md#d-1f462dfd1387baba7fd1) - Run full release gates before install.
 - [D-b94ea0f812c1f07f84b6](Acceptance-LIB.md#d-b94ea0f812c1f07f84b6) - Version-sensitive APIs/ecosystems are revalidated just-in-time from current primary sources. [REF-003]
-- [D-164c10d0b7394e4140c5](Acceptance-LIB.md#d-164c10d0b7394e4140c5) - External launcher integration: CurseForge/Modrinth discovery, connect-in-place, physical-path/junction identity, explicit clone/copy, safe disconnect/reconciliation. [P0-012]
 - [D-35dbd082483a9ac7fd74](Acceptance-LIB.md#d-35dbd082483a9ac7fd74) - identity/version/hash/provider/source/install locations. [PA-040]
 - [D-ce0e24c275a1542768bd](Acceptance-LIB.md#d-ce0e24c275a1542768bd) - machine options: JSON/JSONL, quiet/verbose/no-color, non-interactive/yes, timeout, trace ID, output, plan/dry-run, stable exit codes, stdout/stderr discipline, schema/ver... [PC-003]
 - [D-081834ba59340525ee57](Acceptance-LIB.md#d-081834ba59340525ee57) - Detect broad home/profile/browser/session/Discord/token path access patterns.
@@ -85,7 +84,6 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-8e670265e0b8c69f845f](Acceptance-LIB.md#d-8e670265e0b8c69f845f) - Login-sensitive/private providers use the real persistent Chromium session rather than exporting cookies or bypassing access controls.
 - [D-12e1b68d5106cddc1975](Acceptance-LIB.md#d-12e1b68d5106cddc1975) - Discover usable Modrinth profiles.
 - [D-8f5b59b09fc00e810868](Acceptance-LIB.md#d-8f5b59b09fc00e810868) - Invalid/unavailable external instances remain untouched.
-- [D-d051d746d152cb0b6de9](Acceptance-LIB.md#d-d051d746d152cb0b6de9) - Explicit clone/copy remains separate from connect.
 - [D-a5153adfe3326b109212](Acceptance-LIB.md#d-a5153adfe3326b109212) - Dependency resolution.
 - [D-50910873e11347cb8f1b](Acceptance-LIB.md#d-50910873e11347cb8f1b) - Download planning.
 - [D-13e62d8efb614b4a7f42](Acceptance-LIB.md#d-13e62d8efb614b4a7f42) - Install planning.
@@ -94,7 +92,6 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-6691dc1ba2ac1807773b](Acceptance-LIB.md#d-6691dc1ba2ac1807773b) - Add capabilities/schema discovery.
 - [D-8fb01c2faf8f373e808d](Acceptance-LIB.md#d-8fb01c2faf8f373e808d) - GATE — Enderloom&#x27;s local mod/project discovery and invalidation can become effectively instant on Windows without correctness loss. [G018]
 - [D-4bdf2aed5dff4a3c4580](Acceptance-LIB.md#d-4bdf2aed5dff4a3c4580) - — JavaParser / ast-grep / similar tools may be used for fast indexing, candidate-rule discovery or cheap prefiltering if benchmarks justify them. [T113]
-- [D-6c2259a7a7f107f0cf24](Acceptance-LIB.md#d-6c2259a7a7f107f0cf24) - — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonical na... [T240]
 - [D-6ece015d2de79f8eb8bb](Acceptance-LIB.md#d-6ece015d2de79f8eb8bb) - GATE — Provider/site adapters and optional extensions can evolve independently without granting arbitrary native-code access or creating another private state architectur... [G070]
 - [D-18c2b96be4456c1e9819](Acceptance-LIB.md#d-18c2b96be4456c1e9819) - — Define a versioned WIT capability contract for provider/site adapter operations such as search, project metadata, versions/files, dependencies, media, links and health ... [T269]
 - [D-f76d1b71cc7c008537d7](Acceptance-LIB.md#d-f76d1b71cc7c008537d7) - - Provider metadata can seed it immediately. - Local static analysis upgrades it after download/install. - Trusted source analysis can refine it. - Runtime observations c...
@@ -107,10 +104,8 @@ Preserve creator enrichment off the first-image critical path, full uncapped gal
 - [D-f409dda86f91d6c89f0f](Acceptance-LIB.md#d-f409dda86f91d6c89f0f) - Modrinth
 - [D-70d218a9378c0e22d992](Acceptance-LIB.md#d-70d218a9378c0e22d992) - GitHub
 - [D-18986b6ce10f8a933dc0](Acceptance-LIB.md#d-18986b6ce10f8a933dc0) - GitLab
-- [D-b7a21168bb48a17b28d0](Acceptance-LIB.md#d-b7a21168bb48a17b28d0) - Planet Minecraft
 - [D-7f3631df0823878580e6](Acceptance-LIB.md#d-7f3631df0823878580e6) - MCPEDL
 - [D-aabc4e29ca24d43844d5](Acceptance-LIB.md#d-aabc4e29ca24d43844d5) - ModBay
-- [D-b36a20684a7e5d318e29](Acceptance-LIB.md#d-b36a20684a7e5d318e29) - Minecraft Marketplace
 - [D-1b24f933c97a09e1867a](Acceptance-LIB.md#d-1b24f933c97a09e1867a) - AFDIAN
 - [D-2f60e527ffac593eb514](Acceptance-LIB.md#d-2f60e527ffac593eb514) - Patreon
 - [D-4180a4912b8e45741f5c](Acceptance-LIB.md#d-4180a4912b8e45741f5c) - Hangar

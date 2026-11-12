@@ -21,6 +21,26 @@
       "source_checked": 0
     },
     {
+      "id": "S-0f37605433",
+      "path": "docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md",
+      "sha256": "4777ebe5b046b5be8062a7ac394bc24e955df6e7d96373ce9013452537c43fda",
+      "bytes": 15276,
+      "lines": 146,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-5529d7fc6e",
+      "path": "docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md",
+      "sha256": "ef45131c6fc9b4f0e92c6f3ac01c69b286b79e4bd483caebf3062d00981a41da",
+      "bytes": 9336,
+      "lines": 119,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-7651c91168",
       "path": "docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md",
       "sha256": "76c72062805bdadee0b48b140359df41ce4a3a73ab448892944251278e4d7fc7",
@@ -263,9 +283,9 @@
     {
       "id": "S-30b908e766",
       "path": "docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
-      "sha256": "1b6249ff79636dd8b201dc1221921bbcaf6b2e0f7fc7a87a288024d4a17e5f29",
-      "bytes": 57582,
-      "lines": 1773,
+      "sha256": "63df236f96affd82880f04185c78db970503a6975efb0d592eeff6cadd99f684",
+      "bytes": 58387,
+      "lines": 1778,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
       "source_checked": 0
@@ -288,6 +308,16 @@
       "lines": 419,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-767396ad87",
+      "path": "docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md",
+      "sha256": "3fe37401388dd556fa9a7c8ddc6dd4ab6344314946a13e030b2f1e340aa84f04",
+      "bytes": 18539,
+      "lines": 140,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md",
       "source_checked": 0
     },
     {
@@ -323,9 +353,9 @@
     {
       "id": "S-2a4d588670",
       "path": "docs/LAUNCHER_PARITY_MATRIX.md",
-      "sha256": "1ee4be3b0cdb48c77f868500b1a114910bb06dd5108ebc2a68e8b222be1df4ac",
-      "bytes": 10197,
-      "lines": 54,
+      "sha256": "38737cf48d2fdefabc44cb20c48f60504d8d08e60ee74da758d742fc91ce4d10",
+      "bytes": 12994,
+      "lines": 68,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md",
       "source_checked": 0
@@ -378,6 +408,16 @@
       "lines": 62,
       "kind": "lineage / reported evidence",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-8bf4d02b7d",
+      "path": "docs/bedrock-third-party-provenance-2026-10-04.json",
+      "sha256": "d125c6977f37d582abf5dc748c640b7d114e683b6fd4a9614f7d34799ad5f50b",
+      "bytes": 4125,
+      "lines": 82,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/bedrock-third-party-provenance-2026-10-04.json",
       "source_checked": 0
     },
     {
@@ -551,6 +591,36 @@
       "source_checked": 0
     },
     {
+      "id": "S-3e931ba161",
+      "path": "docs/wiki/Horizon-Rust-Compatibility.md",
+      "sha256": "36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a",
+      "bytes": 2195,
+      "lines": 15,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-bb0e97e89d",
+      "path": "docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
+      "sha256": "2c4a4c361cfa26112457b89185e575c8506dc06da966e4d620ad4407e98e44fd",
+      "bytes": 17745,
+      "lines": 252,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-29b8396c30",
+      "path": "docs/wiki/Universal-Minecraft-AB-Studio.md",
+      "sha256": "66bf8e1094f6f2f25aa20850afdfed7e367dc0def03cb33c6056d6871dd29194",
+      "bytes": 4286,
+      "lines": 41,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Universal-Minecraft-AB-Studio.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-e86ec4837d",
       "path": "docs/wiki/Variant-Foundry-Capability-Closure.md",
       "sha256": "70e42041e2b8433e90abfed8ff1905392bbdf12573e67648f19e78693e590bc8",
@@ -572,14 +642,14 @@
     }
   ],
   "stats": {
-    "source_files": 57,
-    "source_bytes": 2339825,
-    "source_lines": 46244,
-    "source_blocks": 16065,
-    "unique_blocks": 13148,
-    "exact_duplicate_occurrences": 2917,
+    "source_files": 64,
+    "source_bytes": 2414929,
+    "source_lines": 47058,
+    "source_blocks": 16250,
+    "unique_blocks": 13332,
+    "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
-    "source_unchecked": 5649,
+    "source_unchecked": 5677,
     "alias_occurrences": 1112
   }
 }

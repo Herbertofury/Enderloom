@@ -13,6 +13,7 @@ import json
 import os
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -138,8 +139,7 @@ def write_atomic(path: Path, data: bytes) -> None:
     os.replace(tmp, path)
 
 
-def compile_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any]:
-    output = output.resolve()
+def existing_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any] | None:
     manifest_path = output / "model-bundle.json"
     if manifest_path.is_file():
         existing = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -152,32 +152,65 @@ def compile_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any]:
         return {"state": "reused", "bundle_id": manifest["bundle_id"], "output": str(output), "manifest": str(manifest_path)}
     if output.exists() and any(output.iterdir()):
         raise ValueError(f"output directory is non-empty but has no matching immutable bundle: {output}")
-    output.mkdir(parents=True, exist_ok=True)
+    return None
 
-    copied: set[str] = set()
-    for row in [*manifest["assets"], *manifest.get("evidence", [])]:
-        digest = row["sha256"]
-        if digest in copied:
-            continue
-        src = Path(row["source_path"])
-        dst = output / row["object_path"]
-        if dst.exists():
-            if sha256_file(dst) != digest:
-                raise ValueError(f"content-addressed object collision/corruption: {dst}")
-        else:
+
+def compile_bundle(output: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    output = output.resolve()
+    existing = existing_bundle(output, manifest)
+    if existing is not None:
+        return existing
+    output.parent.mkdir(parents=True, exist_ok=True)
+
+    # Keep incomplete objects and the manifest outside the release directory.
+    # A sibling staging directory keeps final publication on the same filesystem.
+    # Context cleanup removes only this attempt's staging data on normal failure.
+    with tempfile.TemporaryDirectory(prefix=f".{output.name}.build-", dir=output.parent) as td:
+        staged = Path(td) / "bundle"
+        staged.mkdir()
+        copied: set[str] = set()
+        for row in [*manifest["assets"], *manifest.get("evidence", [])]:
+            digest = row["sha256"]
+            if digest in copied:
+                continue
+            src = Path(row["source_path"])
+            dst = staged / row["object_path"]
             dst.parent.mkdir(parents=True, exist_ok=True)
-            tmp = dst.with_name(dst.name + f".tmp-{os.getpid()}")
-            shutil.copyfile(src, tmp)
-            if sha256_file(tmp) != digest:
-                tmp.unlink(missing_ok=True)
+            shutil.copyfile(src, dst)
+            if sha256_file(dst) != digest:
                 raise ValueError(f"copied object failed integrity verification: {src}")
-            os.replace(tmp, dst)
-        copied.add(digest)
+            copied.add(digest)
 
-    release = json.loads(json.dumps(manifest))
-    manifest_bytes = (json.dumps(release, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
-    write_atomic(manifest_path, manifest_bytes)
-    return {"state": "compiled", "bundle_id": manifest["bundle_id"], "output": str(output), "manifest": str(manifest_path)}
+        release = json.loads(json.dumps(manifest))
+        manifest_bytes = (json.dumps(release, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+        write_atomic(staged / "model-bundle.json", manifest_bytes)
+
+        # Windows cannot rename a directory over an existing empty directory.
+        # rmdir is deliberately non-recursive: never remove another publisher's
+        # complete bundle or an unrelated file, even if it appeared after preflight.
+        try:
+            # Retain the existing empty directory's mode and supported metadata;
+            # in particular, do not broaden a private output directory's access.
+            shutil.copystat(output, staged)
+            output.rmdir()
+        except FileNotFoundError:
+            pass
+        except OSError:
+            existing = existing_bundle(output, manifest)
+            if existing is not None:
+                return existing
+            raise
+        try:
+            staged.rename(output)
+        except OSError:
+            # A concurrent identical publisher may have won the rename. Verify
+            # every object before reusing it; different or corrupt output is fatal.
+            existing = existing_bundle(output, manifest)
+            if existing is not None:
+                return existing
+            raise
+
+    return {"state": "compiled", "bundle_id": manifest["bundle_id"], "output": str(output), "manifest": str(output / "model-bundle.json")}
 
 
 def main(argv: list[str] | None = None) -> int:

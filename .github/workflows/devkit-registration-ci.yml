@@ -1,0 +1,32 @@
+name: Dev Kit Registration Identity
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/minecraft-dev-kit/**'
+      - '.github/workflows/devkit-registration-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: devkit-registration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  registration-identity:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Literal registration namespaces, release parity and real JVM oracle
+        run: python tools/minecraft-dev-kit/scripts/registration_identity_inventory_selftest.py --require-java

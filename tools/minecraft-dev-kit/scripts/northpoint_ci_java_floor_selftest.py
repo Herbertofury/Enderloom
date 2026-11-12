@@ -10,7 +10,7 @@ WORKFLOW = ROOT / ".github" / "workflows" / "northpoint-ci.yml"
 def main() -> int:
     text = WORKFLOW.read_text(encoding="utf-8")
     setup = re.search(
-        r"- uses: actions/setup-java@v5\s+with:\s+distribution: temurin\s+java-version: "(\d+)"",
+        r'- uses: actions/setup-java@v5\s+with:\s+distribution: temurin\s+java-version: "(\d+)"',
         text,
         re.S,
     )

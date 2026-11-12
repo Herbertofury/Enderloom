@@ -10,7 +10,7 @@
 [**PLAY-01**](Checklist.md#play-01)
 
 <details>
-<summary>Source clauses and aliases (147 distinct blocks)</summary>
+<summary>Source clauses and aliases (149 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L36-L37) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
 - [10. GitHub projects to learn from — current research / Prism Launcher — `PrismLauncher/PrismLauncher`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L619-L630) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 4 distinct blocks.
@@ -40,6 +40,7 @@
 - [9. Servers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L436-L436) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [Enderloom launcher parity contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L1-L3) - LAUNCHER_PARITY_MATRIX.md; 2 distinct blocks.
 - [Enderloom launcher parity contract / Audited references](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L7-L14) - LAUNCHER_PARITY_MATRIX.md; 2 distinct blocks.
+- [Enderloom launcher parity contract / Planned target: Horizon (Rust Minecraft)](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md#L56-L58) - LAUNCHER_PARITY_MATRIX.md; 2 distinct blocks.
 - [35. CLI / API / CI parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1341-L1341) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [8. Minecraft Marketplace integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L447-L447) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 1 distinct blocks.
 - [1. THE PRODUCT EXPERIENCE / 1.2 No sitting on blockers](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L71-L77) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
@@ -147,7 +148,7 @@
 [**PLAY-02**](Checklist.md#play-02)
 
 <details>
-<summary>Source clauses and aliases (97 distinct blocks)</summary>
+<summary>Source clauses and aliases (98 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing CLI foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L26-L26) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [14. CLI test matrix / Real launcher behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L776-L776) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -204,6 +205,7 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.9 Screenshots and media library](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1298-L1307) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2261-L2289) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
 - [Enderloom Premium Testing Lab / Ecosystem research and ideas to absorb / Task Manager — `Wueffi/TaskManager`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L526-L526) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
+- [Universal Minecraft A/B Studio / Constraints](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L68-L68) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G004 — Instance launching and presentation are polished / T009 — Compact the oversized instance hero/header](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1997-L1999) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2222-L2222) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T054 — First-run / account / create / import / clone performance supremacy](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2343-L2387) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
@@ -224,7 +226,7 @@
 [**PLAY-03**](Checklist.md#play-03)
 
 <details>
-<summary>Source clauses and aliases (30 distinct blocks)</summary>
+<summary>Source clauses and aliases (31 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Accounts / identity / appearance](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L149-L152) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 4 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / App-wide native architecture and performance](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2637-L2673) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -248,6 +250,7 @@
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.5 Mod behavior, side, vanilla-impact, and Forever World intelligence / The key truth Enderloom must preserve](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L829-L829) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.7 Play/Home experience and OS integration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1243-L1243) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2273-L2273) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
+- [Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L80-L89) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 
 </details>
 
@@ -257,7 +260,7 @@
 [**PLAY-04**](Checklist.md#play-04)
 
 <details>
-<summary>Source clauses and aliases (149 distinct blocks)</summary>
+<summary>Source clauses and aliases (151 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing CLI foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L24-L29) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [10. GitHub projects to learn from — current research / PortableMC — `theorzr/portablemc`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L606-L613) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -270,6 +273,7 @@
 - [3. Full launcher CLI parity checklist / App / settings / environment](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L137-L139) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [3. Full launcher CLI parity checklist / Game launch / processes / logs / captures](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L235-L245) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 7 distinct blocks.
 - [5. Minecraft runtime control plane (`enderloom mc`) / Core commands](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L337-L337) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
+- [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Actions &amp; Stuff 1.11.1 fixture identity](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L76-L83) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T367 — Launcher metadata and managed-Java differential authority](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1013-L1019) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 3 distinct blocks.
 - [G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1253-L1259) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G053 — Real target runtime proof / T200 — Use Enderloom native launcher/server path as primary runtime verifier / T202 — Client proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1267-L1267) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -323,6 +327,7 @@
 - [17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.10 Make it very fast without cheating / Warm process reuse only when isolation is provable](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4481-L4481) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [Enderloom verified checkpoint — 2026-09-01 / Launch](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L60-L62) - RELEASE_EVIDENCE_2026-09-01.md; 2 distinct blocks.
 - [Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Concept -&gt; 3D -&gt; rig](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L217-L221) - Variant-Foundry-and-High-Fidelity-Java-Models.md; 1 distinct blocks.
+- [Horizon Rust Compatibility](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Horizon-Rust-Compatibility.md#L5-L5) - Horizon-Rust-Compatibility.md; 1 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L50-L50) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.3 One preflight, then the first real change](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L68-L68) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
 - [0. Codex launch contract - implement, verify, finish / 0.5 Binding integration dispositions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L109-L109) - ENDERLOOM_STUDIO_EXECUTION.md; 1 distinct blocks.
