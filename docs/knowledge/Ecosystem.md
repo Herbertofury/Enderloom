@@ -364,27 +364,3 @@ Keep MC Mod Porter's separate user grant and attribution. Do not transfer it to 
 - [ZerixNetwork/Bridger](https://github.com/ZerixNetwork/Bridger) - [specific cited locations](Reference-Index.md#zerixnetwork-bridger).
 
 **[All original reference links](Reference-Index.md)** / **[Conversion requirements](Conversion.md)** / **[Adaptive mod contracts](Knowledge-and-Compatibility.md)**
-
-
-## Competing apps and product differentiation
-Source review: **2026-11-12**. This product comparison extends the integration catalog above; integration candidates are not automatically competing products.
-
-| Comparable product | Source-backed comparison scope | Enderloom question to prove |
-| --- | --- | --- |
-| [Prism Launcher](https://prismlauncher.org/) | Multiple instances/accounts, mod and modpack management | Can the combined catalog/research/studio workflow preserve launch reliability and make recovery clearer without slower interaction? |
-| [Modrinth App](https://modrinth.com/app) | Discover, play and update modded Minecraft in one launcher | Compare exact-version selection, dependencies, update review and a failed-download recovery using the same pack. |
-| [MCreator](https://mcreator.net/) | Visual/code creation of Java mods, Bedrock add-ons and packs | Compare an actual editable project through build, export and real-game verification, not generated-code volume. |
-
-MCreator's official home page currently lists a **2026.3 pre-release** posted October 31. Treat pre-release status separately from a stable baseline; its advertised performance changes are not Enderloom measurements.
-
-### Acceptance-oriented backlog
-- [ ] Pin exact competitor versions and one small and one large instance/project corpus.
-- [ ] Measure cold/warm startup, full-library search, update recovery, peak memory and launch correctness.
-- [ ] Exercise interrupted downloads, incompatible loaders, world backup/restore and rollback without modifying originals.
-- [ ] Compare Create / Convert / Repair / Improve workflows end to end; conversion success requires target-runtime behavior, not just a build.
-- [ ] Record feature gaps and user friction with screenshots/evidence; prioritize complete workflows over feature-count marketing.
-
-## Evidence and refresh rules
-Review official release notes, documentation and issue trackers daily when the scheduled review runs. Record the source URL, check date, version/commit, relevant change, user impact and next experiment; retain last-good information and mark inaccessible sources. No change is a valid result. A scheduled review is not continuous monitoring.
-
-This is a source-backed research shortlist, **not a head-to-head benchmark or a claim of feature/performance superiority**. Before recommending adoption, compare the current application and candidate on the same real workloads, machine, versions and correctness requirements. Retain raw timings, p50/p95 latency, CPU/memory, failures and rollback evidence. Check licensing and privacy before reuse; an open repository does not grant unrestricted reuse. New features remain proposals until approved, implemented and accepted.
