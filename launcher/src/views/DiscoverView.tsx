@@ -207,7 +207,7 @@ export function DiscoverView() {
     return () => {
       live = false;
     };
-  }, [provider, kind]);
+  }, [provider, kind, hasCfKey]);
 
   const scope = `${provider}:${kind}`;
 
@@ -353,7 +353,12 @@ export function DiscoverView() {
         if (ticket === requestRef.current) setSearching(false);
       }
     }, delay);
-    return () => clearTimeout(debounceRef.current);
+    return () => {
+      clearTimeout(debounceRef.current);
+      // Invalidate in-flight responses too: leaving Browse or losing provider access
+      // must not let an old request repopulate the shared store or start prefetches.
+      ++requestRef.current;
+    };
   }, [provider, kind, query, sort, filters, offset, hasCfKey, signature]);
 
   const connectCurseForge = async () => {
