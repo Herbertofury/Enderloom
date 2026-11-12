@@ -76,4 +76,60 @@ check('corrupt DOCX content rejected by ingestion',()=>{
  const bytes=archive([{name:'word/document.xml',data:'<w:document><w:t>Text</w:t></w:document>',crc:0}]);
  assert.throws(()=>parseSourceBuffer(bytes,{filePath:'test.docx'}), /checksum mismatch/);
 });
+function withComment(bytes, comment) {
+  const result = Buffer.concat([bytes, comment]);
+  result.writeUInt16LE(comment.length, bytes.length - 2);
+  return result;
+}
+for (const name of ['tiny-catalog.xlsx','tiny-guide.docx','tiny-bundle.zip']) {
+  for (const suffix of [0, 7, 65513]) check(`ingest ${name}: embedded end signature comment ${suffix}`, () => {
+    const original = fs.readFileSync(path.join(__dirname,'fixtures',name));
+    const fake = Buffer.alloc(22 + suffix); fake.writeUInt32LE(0x06054b50);
+    // Even a plausible comment length must not hide the actual directory.
+    fake.writeUInt16LE(suffix, 20);
+    const bytes = withComment(original, fake);
+    const before = readZip(original), after = readZip(bytes);
+    assert.deepEqual(after.names, before.names);
+    for (const entry of before.names) assert.deepEqual(after.get(entry), before.get(entry));
+    const parsed = parseSourceBuffer(bytes,{filePath:name});
+    assert((parsed.items?.length || parsed.documents?.length)>0);
+  });
+}
+check('crafted empty end record in comment cannot hide entries', () => {
+  const bytes = archive([{name:'keep.txt',data:'kept'}]);
+  const fake = Buffer.alloc(22); fake.writeUInt32LE(0x06054b50); fake.writeUInt32LE(bytes.length,16);
+  assert.equal(readZip(withComment(bytes, fake)).text('keep.txt'), 'kept');
+});
+check('central directory digital signature remains readable', () => {
+  const bytes = archive([{name:'keep.txt',data:'kept'}]);
+  const end = Buffer.from(bytes.subarray(-22)), signature = Buffer.alloc(10);
+  signature.writeUInt32LE(0x05054b50); signature.writeUInt16LE(4,4); signature.write('test',6);
+  end.writeUInt32LE(end.readUInt32LE(12) + signature.length,12);
+  assert.equal(readZip(Buffer.concat([bytes.subarray(0,-22),signature,end])).text('keep.txt'),'kept');
+});
+check('empty archive with self-extracting prefix remains readable', () => {
+  const prefix = Buffer.from('self extracting prefix'), end = archive([]);
+  end.writeUInt32LE(prefix.length,16);
+  assert.deepEqual(readZip(Buffer.concat([prefix,end])).names,[]);
+});
+check('complete alternate directory inside comment cannot replace real files', () => {
+  const original = archive([{name:'keep.txt',data:'kept'}]);
+  const alternate = archive([{name:'fake.txt',data:'not imported'}]);
+  const end = alternate.length - 22;
+  alternate.writeUInt32LE(alternate.readUInt32LE(end + 16) + original.length, end + 16);
+  const zip = readZip(withComment(original, alternate));
+  assert.deepEqual(zip.names,['keep.txt']); assert.equal(zip.text('keep.txt'),'kept');
+});
+check('ordinary and empty archives retain valid comments', () => {
+  for (const rows of [[], [{name:'x',data:'kept'}]]) {
+    const before = archive(rows);
+    for (const text of ['', 'hello', '雪🌟']) {
+      assert.deepEqual(readZip(withComment(before, Buffer.from(text))).names, readZip(before).names);
+    }
+  }
+});
+check('truncated archive comment is rejected', () => {
+  const bytes = withComment(archive([{name:'x',data:'kept'}]), Buffer.from('comment'));
+  assert.throws(() => readZip(bytes.subarray(0, bytes.length - 1)), /end-of-central-directory/);
+});
 console.log(`${count} ZIP integrity checks passed`);
