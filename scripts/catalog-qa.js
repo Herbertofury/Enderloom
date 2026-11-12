@@ -47,6 +47,28 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  const fake={cookies:{get:async()=>[{name:'SID',value:'fixture'}]}};
  const fakeGoogleRequest=async(_url,opts={})=>{const dynamic=await opts.headersForUrl?.('https://docs.google.com/spreadsheets/d/fixture_sheet/export?format=xlsx');assert(/SID=fixture/.test(dynamic?.Cookie||''));return{status:200,headers:{'content-type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','etag':'"fixture-v1"'},buffer:fixture('tiny-catalog.xlsx')}};
  const authTmp=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-google-auth-')),authStore=new CatalogStore({rootDir:root,userDataDir:authTmp,liveSession:{cookies:{get:async()=>[]}},googleRequest:async()=>({status:401,headers:{},buffer:Buffer.alloc(0)}),testMode:true});await authStore.init();const authResult=await authStore.addGoogleSource('https://docs.google.com/spreadsheets/d/private_fixture/edit',{mode:'new'});check('Private Google source reports sign-in without inventing data',()=>{assert.equal(authResult.status,'sign-in-required');const source=authStore.entry(authResult.catalogId).sources[0];assert.equal(source.status,'sign-in-required');assert.equal(authStore.loadSnapshot(authResult.catalogId).items.length,0)});authStore.dispose();
+ // Cache validators must describe successfully imported data, never a failed response.
+ const retryTmp=fs.mkdtempSync(path.join(os.tmpdir(),'enderloom-refresh-retry-'));
+ let reply={status:200,headers:{etag:'"good"','last-modified':'Wed, 11 Nov 2026 00:00:00 GMT'},buffer:fixture('tiny-catalog.xlsx')};
+ const requests=[];
+ const retryStore=new CatalogStore({rootDir:root,userDataDir:retryTmp,liveSession:fake,testMode:true,googleRequest:async(_url,options)=>{requests.push(options.headers);return reply}});
+ await retryStore.init();
+ const added=await retryStore.addGoogleSource('https://docs.google.com/spreadsheets/d/retry_fixture/edit',{mode:'new'});
+ const retryId=added.catalogId,rs=retryStore.entry(retryId).sources[0];
+ const lastGood=JSON.stringify(retryStore.loadSnapshot(retryId).items);
+ reply={status:200,headers:{etag:'"broken"','last-modified':'Thu, 12 Nov 2026 00:00:00 GMT'},buffer:Buffer.from('not a workbook')};
+ await assert.rejects(retryStore.refreshSource(retryId,rs.id));
+ check('Failed Google parse retains last-good validators and catalog',()=>{assert.equal(rs.etag,'"good"');assert.equal(rs.lastModified,'Wed, 11 Nov 2026 00:00:00 GMT');assert.equal(rs.status,'error');assert.equal(JSON.stringify(retryStore.loadSnapshot(retryId).items),lastGood);const saved=JSON.parse(fs.readFileSync(retryStore.registryFile));assert.equal(saved.catalogs.find(x=>x.id===retryId).sources[0].etag,'"good"')});
+ reply={status:200,headers:{etag:'"login"','content-type':'text/html'},buffer:Buffer.from('<html>Sign in</html>')};
+ await retryStore.refreshSource(retryId,rs.id);
+ check('Google sign-in response cannot poison refresh validators',()=>{assert.equal(rs.etag,'"good"');assert.equal(rs.status,'sign-in-required');assert.equal(requests.at(-1)['If-None-Match'],'"good"')});
+ reply={status:200,headers:{etag:'"recovered"'},buffer:fixture('tiny-catalog.xlsx')};
+ const recovered=await retryStore.refreshSource(retryId,rs.id);
+ check('Successful same-data retry commits new validators and clears obsolete date',()=>{assert.equal(recovered.changed,false);assert.equal(rs.etag,'"recovered"');assert.equal(rs.lastModified,'');assert.equal(rs.status,'current');assert.equal(requests.at(-1)['If-None-Match'],'"good"')});
+ reply={status:304,headers:{},buffer:Buffer.alloc(0)};
+ const cached=await retryStore.refreshSource(retryId,rs.id);
+ check('Validated retry supports subsequent conditional no-op',()=>{assert.equal(cached.conditional,true);assert.equal(requests.at(-1)['If-None-Match'],'"recovered"');assert(!('If-Modified-Since' in requests.at(-1)));assert.equal(JSON.stringify(retryStore.loadSnapshot(retryId).items),lastGood)});
+ retryStore.dispose();
  const legacyTmp=fs.mkdtempSync(path.join(os.tmpdir(),'catalog-companion-legacy-')),legacyDir=path.join(legacyTmp,'catalog-workspace'),legacyData=path.join(legacyDir,'data');fs.mkdirSync(legacyData,{recursive:true});
  const legacyCsv=path.join(legacyTmp,'legacy.csv');fs.writeFileSync(legacyCsv,'Name,Primary URL\nLegacy Project,https://example.com/legacy\n');
  const legacyCustom=path.join(legacyData,'legacy-custom.json');fs.writeFileSync(legacyCustom,JSON.stringify({id:'legacy-custom',title:'Legacy Custom',items:[{id:'legacy-1',name:'Legacy Project',primaryUrl:'https://example.com/legacy'}],assets:{},documents:[]}));
