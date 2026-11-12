@@ -126,6 +126,27 @@ def rewrite_minecraft_26_3_java(output: pathlib.Path) -> list[dict[str, Any]]:
     return _core.rewrite_minecraft_26_3_java(output) + rewrite_network_tick_mixins(output) + rewrite_runtime_mixins(output) + rewrite_mouse_invokers(output) + rewrite_shader_interfaces(output) + rewrite_chunk_packet_mixins(output)
 
 
+def migrate_fabric_metadata(source: pathlib.Path, output: pathlib.Path) -> list[str]:
+    """Retire the legacy aggregate ID only for its unconstrained dependency form.
+
+    Versioned legacy constraints are not equivalent across Fabric API generations.
+    Keep those as explicit conversion work instead of silently weakening them.
+    """
+    source_depends = read_json(source / "src/main/resources/fabric.mod.json").get("depends") or {}
+    legacy = source_depends.get("fabric")
+    if "fabric" in source_depends and legacy != "*":
+        raise ConversionBlock("versioned legacy fabric dependency requires explicit fabric-api migration")
+    rules = _core.migrate_fabric_metadata(source, output)
+    if legacy == "*":
+        path = output / "src/main/resources/fabric.mod.json"
+        metadata = read_json(path)
+        metadata["depends"].pop("fabric", None)
+        metadata["depends"].setdefault("fabric-api", "*")
+        write_json(path, metadata)
+        rules.append("fabric-depends-old-fabric-id")
+    return rules
+
+
 def materialize_port(source: pathlib.Path, output: pathlib.Path, loader: str, *, pipeline_script: pathlib.Path | None = None) -> dict[str, Any]:
     source = source.resolve()
     output = output.resolve()

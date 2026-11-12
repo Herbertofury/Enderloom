@@ -130,6 +130,14 @@ jobs:
           --expect-rewrite legacy-mixin-java-level
           --timeout 600
 
+      - name: Provision Gradle for simple source conversion
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.6.0"
+
+      - name: Simple 1.20.1 source conversion build smoke
+        run: python tools/minecraft-dev-kit/scripts/northpoint_simple_conversion_smoke.py
+
       - name: Fetch official Fabric 26.3 example mod
         run: git clone --depth 1 --branch 26.3 https://github.com/FabricMC/fabric-example-mod.git "$RUNNER_TEMP/fabric-example-mod-26.3"
 
@@ -172,6 +180,9 @@ jobs:
       - name: Northpoint full 26.3 conversion engine QA
         run: python tools/minecraft-dev-kit/scripts/port_26_3_selftest.py
 
+      - name: Source materializer compatibility QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
+
       - name: Northpoint 26.3 target materialization QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py
 
@@ -206,6 +217,9 @@ jobs:
         with:
           distribution: temurin
           java-version: "25"
+
+      - name: Source materializer compatibility QA
+        run: python tools/minecraft-dev-kit/scripts/northpoint_source_materializer_selftest.py
 
       - name: Northpoint 26.3 target materialization QA
         run: python tools/minecraft-dev-kit/scripts/northpoint_target_26_3_selftest.py

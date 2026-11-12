@@ -338,3 +338,28 @@ Candidate/evidence ZIPs are created exclusively rather than overwritten. Packagi
 The canonical worker is `tools/minecraft-dev-kit` in [Enderloom](https://github.com/Herbertofury/Enderloom). In the complete skill bundle, `worker/` isolates this import graph from the preserved model, animation, server-asset, mapping, caching and older runtime tools in `scripts/` and `references/`.
 
 Run `python scripts/devkit_qol_selftest.py` and `python scripts/devkit_workbench_selftest.py` from the repository kit, or replace `scripts/` with `worker/scripts/` in the skill bundle. The workbench fixture uses a real compiler/JVM but explicitly does **not** count as Minecraft. `devkit_setup_selftest.py` performs real provider downloads; the native CI executes real Minecraft independently.
+
+### Materialize legacy source through the pipeline
+
+`python scripts/port_26_3_pipeline.py SOURCE --loader fabric --output NEW_TARGET --mod-id SOURCE_ID --materialize-source`
+
+This optional interface uses the same maintained `northpoint_target_26_3` engine
+as the production driver, including source/build-support preservation and bounded
+API migrations. The standalone `port_source_materializer.py SOURCE --target
+NEW_TARGET --loader fabric --mod-id SOURCE_ID` entry point uses that engine too.
+The source and target must be disjoint; existing nonempty targets are refused.
+Source identity is authoritative: explicit name, group, or version overrides must
+match it. Ordinary scaffold-only pipeline calls retain their existing defaults.
+
+A materialized workspace is **not** a zero-loss or runtime graduation. Its receipt
+is `devkit-evidence/northpoint-conversion.json`; unresolved ledger obligations
+remain open. The legacy unconstrained `fabric: "*"` dependency is translated to
+`fabric-api`; versioned legacy aggregate constraints require explicit migration.
+
+This reconciles the v6.3 source-materialization interface with the newer production
+engine instead of installing a second, older copier. The v6.3 blanket ledger
+closures and broad path-name scan exclusions are intentionally not adopted:
+copying files cannot prove semantic parity, and nested resources named `build` or
+`out` must not silently disappear from intake. The compatibility regression is
+part of full graduation, with a separate hosted 1.20.1-to-26.3 build smoke. A
+successful build smoke does not claim client/server gameplay verification.
