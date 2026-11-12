@@ -15,8 +15,26 @@ function crc32(bytes) {
 function findEocd(buffer) {
   const sig = 0x06054b50;
   const min = Math.max(0, buffer.length - 0xffff - 22);
-  for (let i = buffer.length - 22; i >= min; i--) {
-    if (buffer.readUInt32LE(i) === sig) return i;
+  for (let i = min; i <= buffer.length - 22; i++) {
+    if (buffer.readUInt32LE(i) !== sig) continue;
+    // The signature may occur inside the ZIP comment. Match the complete
+    // record and directory boundary rather than silently selecting that data.
+    // Prefer the first valid record: later complete records may be comment data.
+    const commentLength = buffer.readUInt16LE(i + 20);
+    const directorySize = buffer.readUInt32LE(i + 12);
+    const directoryOffset = buffer.readUInt32LE(i + 16);
+    if (i + 22 + commentLength !== buffer.length || directoryOffset + directorySize !== i) continue;
+    const entries = buffer.readUInt16LE(i + 10);
+    let cursor = directoryOffset, readEntries = 0;
+    for (; readEntries < entries; readEntries++) {
+      if (cursor + 46 > i || buffer.readUInt32LE(cursor) !== 0x02014b50) break;
+      cursor += 46 + buffer.readUInt16LE(cursor + 28) + buffer.readUInt16LE(cursor + 30) + buffer.readUInt16LE(cursor + 32);
+    }
+    // APPNOTE permits one digital signature after the file headers.
+    if (cursor + 6 <= i && buffer.readUInt32LE(cursor) === 0x05054b50) {
+      cursor += 6 + buffer.readUInt16LE(cursor + 4);
+    }
+    if (readEntries === entries && cursor === i) return i;
   }
   throw new Error('ZIP end-of-central-directory record not found');
 }
