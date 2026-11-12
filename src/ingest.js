@@ -54,32 +54,40 @@ function urlsFromText(value) {
   }
   return out;
 }
+// Match DNS label boundaries, not substrings: unrelated lookalike hosts must
+// remain ordinary sources rather than becoming provider-specific links.
+function providerHost(url) {
+  return new URL(url).hostname.toLowerCase().replace(/\.$/, '').replace(/^www\./, '');
+}
+function onDomain(host, domain) {
+  return host === domain || host.endsWith(`.${domain}`);
+}
 function providerLabel(url) {
   try {
-    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
-    if (host.includes('curseforge.com')) return 'CurseForge';
-    if (host.includes('modrinth.com')) return 'Modrinth';
+    const host = providerHost(url);
+    if (onDomain(host, 'curseforge.com')) return 'CurseForge';
+    if (onDomain(host, 'modrinth.com')) return 'Modrinth';
     if (host === 'github.com') return 'GitHub';
     if (host === 'gitlab.com') return 'GitLab';
     if (host === 'hangar.papermc.io') return 'Hangar';
-    if (host.includes('spigotmc.org')) return 'SpigotMC';
-    if (host.includes('dev.bukkit.org')) return 'Bukkit';
-    if (host.includes('builtbybit.com')) return 'BuiltByBit';
-    if (host.includes('nexusmods.com')) return 'Nexus Mods';
-    if (host.includes('moddb.com')) return 'ModDB';
-    if (host.includes('polymart.org')) return 'Polymart';
-    if (host.includes('planetminecraft.com')) return 'Planet Minecraft';
-    if (host.includes('mcpedl.com')) return 'MCPEDL';
-    if (host.includes('modbay.org')) return 'ModBay';
-    if (host.includes('afdian.com')) return 'AFDIAN';
-    if (host.includes('patreon.com')) return 'Patreon';
-    if (host.includes('minecraft.net')) return 'Minecraft Marketplace';
-    if (host.includes('booth.pm')) return 'BOOTH';
-    if (host.includes('fourthwall.com') || host.includes('fourthwall.dev')) return 'Fourthwall';
-    if (host.includes('ko-fi.com')) return 'Ko-fi';
-    if (host.includes('itch.io')) return 'itch.io';
-    if (host.includes('gumroad.com')) return 'Gumroad';
-    if (host.includes('alltheysm.top')) return 'alltheysm';
+    if (onDomain(host, 'spigotmc.org')) return 'SpigotMC';
+    if (onDomain(host, 'dev.bukkit.org')) return 'Bukkit';
+    if (onDomain(host, 'builtbybit.com')) return 'BuiltByBit';
+    if (onDomain(host, 'nexusmods.com')) return 'Nexus Mods';
+    if (onDomain(host, 'moddb.com')) return 'ModDB';
+    if (onDomain(host, 'polymart.org')) return 'Polymart';
+    if (onDomain(host, 'planetminecraft.com')) return 'Planet Minecraft';
+    if (onDomain(host, 'mcpedl.com')) return 'MCPEDL';
+    if (onDomain(host, 'modbay.org')) return 'ModBay';
+    if (onDomain(host, 'afdian.com')) return 'AFDIAN';
+    if (onDomain(host, 'patreon.com')) return 'Patreon';
+    if (onDomain(host, 'minecraft.net')) return 'Minecraft Marketplace';
+    if (onDomain(host, 'booth.pm')) return 'BOOTH';
+    if (onDomain(host, 'fourthwall.com') || onDomain(host, 'fourthwall.dev')) return 'Fourthwall';
+    if (onDomain(host, 'ko-fi.com')) return 'Ko-fi';
+    if (onDomain(host, 'itch.io')) return 'itch.io';
+    if (onDomain(host, 'gumroad.com')) return 'Gumroad';
+    if (onDomain(host, 'alltheysm.top')) return 'alltheysm';
     return host;
   } catch { return 'Source'; }
 }
@@ -90,9 +98,9 @@ function providerFields(urls) {
   result.sources = clean.map((url, index) => ({ provider: providerLabel(url), label: providerLabel(url), url, kind: index === 0 ? 'primary' : 'project', verified: false }));
   for (const u of clean) {
     let host = '';
-    try { host = new URL(u).hostname.toLowerCase(); } catch {}
-    if (!result.curseForgeUrl && host.includes('curseforge.com')) result.curseForgeUrl = u;
-    else if (!result.modrinthUrl && host.includes('modrinth.com')) result.modrinthUrl = u;
+    try { host = providerHost(u); } catch {}
+    if (!result.curseForgeUrl && onDomain(host, 'curseforge.com')) result.curseForgeUrl = u;
+    else if (!result.modrinthUrl && onDomain(host, 'modrinth.com')) result.modrinthUrl = u;
     else if (!result.githubUrl && host === 'github.com') result.githubUrl = u;
     else if (!result.otherUrl && u !== result.primaryUrl) result.otherUrl = u;
   }
