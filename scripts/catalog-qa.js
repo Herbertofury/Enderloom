@@ -130,5 +130,7 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  check('Mob Girl PDF retained as fixed source',()=>{const pdf=mg.sources.find(x=>x.role==='fixed'&&x.format==='pdf');assert(pdf);assert(mg.documents.some(d=>d.sourceId===pdf.id))});
  const allSummary=await store.refreshAllCatalogs();check('Refresh all catalogs command path',()=>assert.equal(allSummary.catalogs.length,store.registry.catalogs.length));
  store.dispose();
+ const watchResult=await require('./catalog-watch-qa')();
+ check('Bounded automatic local watcher recovery and cancellation',()=>assert(watchResult.passed));
  console.log(JSON.stringify({passed:checks.every(x=>x.ok),checks},null,2));
 })().catch(e=>{console.error(JSON.stringify({passed:false,checks,error:e.stack},null,2));process.exit(1)});
