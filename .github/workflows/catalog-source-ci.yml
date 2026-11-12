@@ -1,0 +1,29 @@
+name: Catalog source refresh regression
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
+  pull_request:
+    branches: [main]
+    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  sources:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/catalog-qa.js
