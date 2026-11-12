@@ -17,6 +17,10 @@ if not exist "node_modules\electron\dist\electron.exe" (
 )
 
 if not exist "launcher\dist\index.html" (
+  echo Installing the locked launcher workspace dependencies...
+  call npm --prefix launcher ci
+  if errorlevel 1 goto :failed
+
   echo Building the Enderloom launcher workspace...
   call npm run build:launcher
   if errorlevel 1 goto :failed
