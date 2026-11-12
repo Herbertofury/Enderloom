@@ -49,6 +49,7 @@ function fixture(body = searchBody) {
   for (const outcome of ['resolve', 'reject']) {
     for (const transition of ['unmount', 'access removed', 'new query']) {
       const f = fixture();
+      if (transition === 'access removed') f.context.provider = 'curseforge';
       const cleanup = f.run();
       const done = f.fire();
       cleanup();
