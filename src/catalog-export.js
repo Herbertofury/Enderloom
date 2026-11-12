@@ -25,7 +25,7 @@ function worksheetName(value) {
 function normalizeRows(input) {
   const rows = Array.isArray(input) ? input.slice(0, 20_000) : [];
   return rows.map((row) => {
-    const out = {};
+    const out = Object.create(null);
     for (const [key, value] of Object.entries(row && typeof row === 'object' ? row : {}).slice(0, 80)) {
       const label = String(key).replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 120);
       if (!label) continue;
@@ -45,13 +45,18 @@ function columnsFor(rows) {
   return columns;
 }
 
+// Imported column names are data, including Object.prototype property names.
+function fieldValue(row, key) {
+  return Object.prototype.hasOwnProperty.call(row, key) ? row[key] : '';
+}
+
 function csvCell(value) {
   return `"${String(value ?? '').replace(/"/g, '""')}"`;
 }
 
 function csv(rows) {
   const columns = columnsFor(rows);
-  return '\uFEFF' + [columns.map(csvCell).join(','), ...rows.map((row) => columns.map((key) => csvCell(row[key])).join(','))].join('\r\n');
+  return '\uFEFF' + [columns.map(csvCell).join(','), ...rows.map((row) => columns.map((key) => csvCell(fieldValue(row, key))).join(','))].join('\r\n');
 }
 
 function escapeHtml(value) {
@@ -66,7 +71,7 @@ function linkedHtml(value) {
 function html(rows, title) {
   const columns = columnsFor(rows);
   const head = columns.map((key) => `<th>${escapeHtml(key)}</th>`).join('');
-  const body = rows.map((row) => `<tr>${columns.map((key) => `<td>${linkedHtml(row[key])}</td>`).join('')}</tr>`).join('\n');
+  const body = rows.map((row) => `<tr>${columns.map((key) => `<td>${linkedHtml(fieldValue(row, key))}</td>`).join('')}</tr>`).join('\n');
   return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title><style>body{font:12px system-ui,sans-serif;color:#17171d;margin:24px}h1{font-size:22px}p{color:#5b5b68}table{border-collapse:collapse;width:100%;table-layout:auto}th,td{border:1px solid #d9d9e1;padding:6px 8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eeeef5;position:sticky;top:0}tr:nth-child(even){background:#fafafe}a{color:#5d35d5}@page{size:landscape;margin:10mm}@media print{body{margin:0;font-size:8px}th{position:static}}</style></head><body><h1>${escapeHtml(title)}</h1><p>Enderloom media-enriched catalog export · ${rows.length.toLocaleString()} entries</p><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></body></html>`;
 }
 
@@ -76,8 +81,9 @@ async function xlsx(rows, title) {
   workbook.creator = 'Enderloom';
   workbook.created = new Date();
   const sheet = workbook.addWorksheet(worksheetName(title), { views: [{ state: 'frozen', ySplit: 1 }] });
-  sheet.columns = columns.map((header) => ({ header, key: header, width: Math.min(60, Math.max(12, header.length + 2)) }));
-  for (const row of rows) sheet.addRow(row);
+  sheet.columns = columns.map((header) => ({ header, width: Math.min(60, Math.max(12, header.length + 2)) }));
+  // Positional values avoid ExcelJS's object-key map interpreting user headers.
+  for (const row of rows) sheet.addRow(columns.map((key) => fieldValue(row, key)));
   sheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
   sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4C1D95' } };
   sheet.autoFilter = { from: { row: 1, column: 1 }, to: { row: Math.max(1, sheet.rowCount), column: Math.max(1, columns.length) } };

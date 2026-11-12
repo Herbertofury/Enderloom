@@ -5,7 +5,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const ExcelJS = require('exceljs');
-const { normalizeRows, csv, html, xlsx, writeAtomic } = require('../src/catalog-export');
+const { normalizeRows, csv, html, xlsx, bytesFor, writeAtomic } = require('../src/catalog-export');
 
 (async () => {
   const rows = normalizeRows([{
@@ -48,6 +48,35 @@ const { normalizeRows, csv, html, xlsx, writeAtomic } = require('../src/catalog-
     assert.equal(roundTrip.getWorksheet('Media Links').getCell('D4').value.hyperlink, 'https://example.com/two.png');
     assert(!/[\uD800-\uDBFF]$/.test(catalog.name), `${title}: split surrogate`);
   }
+
+  // Imported headers must remain ordinary data, not prototype lookups. Cover
+  // both normalized IPC input and public format helpers with plain JSON rows.
+  const specialHeaders = ['__proto__', 'constructor', 'toString', 'hasOwnProperty', 'valueOf', '__defineGetter__'];
+  const rawSpecial = [JSON.parse(JSON.stringify(Object.fromEntries([
+    ['Name', 'First'], ...specialHeaders.map((key) => [key, `preserved ${key}`]),
+  ]))), { Name: 'Second' }];
+  for (const specialRows of [rawSpecial, normalizeRows(rawSpecial)]) {
+    const csvText = csv(specialRows);
+    const htmlText = html(specialRows, 'Custom fields');
+    assert(!csvText.includes('[native code]'));
+    assert(!htmlText.includes('[native code]'));
+    assert(csvText.endsWith('"Second",' + specialHeaders.map(() => '""').join(',')));
+    assert(htmlText.includes('<td>Second</td>' + specialHeaders.map(() => '<td></td>').join('')));
+    const jsonRows = JSON.parse(await bytesFor('json', specialRows, 'Custom fields')).rows;
+    const specialBook = new ExcelJS.Workbook();
+    await specialBook.xlsx.load(await xlsx(specialRows, 'Custom fields'));
+    const specialSheet = specialBook.worksheets[0];
+    for (const [index, key] of specialHeaders.entries()) {
+      assert(Object.hasOwn(specialRows[0], key), `${key}: lost during normalization`);
+      assert.equal(jsonRows[0][key], `preserved ${key}`);
+      assert(csvText.includes(`"preserved ${key}"`));
+      assert(htmlText.includes(`<td>preserved ${key}</td>`));
+      assert.equal(specialSheet.getCell(1, index + 2).value, key);
+      assert.equal(specialSheet.getCell(2, index + 2).value, `preserved ${key}`);
+      assert.equal(specialSheet.getCell(3, index + 2).value || '', '');
+    }
+  }
+  assert.equal(Object.prototype.polluted, undefined);
 
   const target = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-export-')), 'catalog.xlsx');
   await writeAtomic(target, workbookBytes);
