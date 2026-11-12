@@ -329,3 +329,8 @@ node scripts/ingest-catalog.js --input Master.xlsx --input Guide.docx --input Gu
 
 ## 2.0.6 native bottom status bar
 The bottom status bar is now a dedicated protected native WebContentsView, matching the protected top browser chrome. It is expanded by default, can collapse to a 10 px reveal rail from its own chevron, the More menu, or Ctrl+Shift+B, and persists across restarts. Every catalog/browser/split content view reserves the status bar height so newly created site tabs cannot blur or steal its input surface.
+
+
+## Competing apps, reusable foundations and interoperability
+
+See [the comparison and foundation research](docs/knowledge/Competing-Apps.md) for sourced candidates, concrete reuse targets, own-project integration proposals and license/correctness gates. This complements the detailed Ecosystem catalog; proposals are not measured superiority claims.
