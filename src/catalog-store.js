@@ -187,8 +187,37 @@ class CatalogStore extends EventEmitter {
   async createFromParsed(parsed,name){const taken=new Set(this.registry.catalogs.map(x=>x.id));const id=uniqueId(name||parsed.title||'catalog',taken);const entry={id,name:name||parsed.title||id,bundled:false,createdAt:now(),updatedAt:now(),snapshotFile:path.join(this.snapDir,`${id}.json`),sources:[]};this.registry.catalogs.push(entry);this.registry.activeCatalogId=id;this.saveRegistry();const snap=normalizeSnapshot({id,name:entry.name,description:`Hot-ingested research catalog from ${parsed.title||entry.name}.`,items:parsed.items||[],assets:parsed.assets||{},documents:parsed.documents||[],sources:[],createdAt:now(),updatedAt:now()});atomicJson(entry.snapshotFile,snap);this.cache.set(id,snap);return entry}
   findSourceByPath(filePath,catalogId){const scan=catalogId?[this.entry(catalogId)]:this.registry.catalogs;for(const e of scan.filter(Boolean)){const s=(e.sources||[]).find(x=>x.location==='local'&&path.resolve(x.path||'')===path.resolve(filePath));if(s)return s}return null}
   startLocalWatches(entry){for(const src of entry.sources||[])this.startLocalWatch(entry,src)}
-  startLocalWatch(entry,src){if(src.location!=='local'||src.autoRefresh===false||!src.path||this.watchers.has(src.id)||!fs.existsSync(src.path))return;let last=0;try{last=fs.statSync(src.path).mtimeMs}catch{}
-    const timer=setInterval(async()=>{try{const st=fs.statSync(src.path);if(st.mtimeMs===last)return;last=st.mtimeMs;await this.refreshSource(entry.id,src.id,{reason:'local-watch'})}catch(err){src.status='error';src.error=String(err.message||err);this.saveRegistry();this.emit('source-health',this.summary())}},LOCAL_WATCH_MS);timer.unref?.();this.watchers.set(src.id,()=>clearInterval(timer));}
+  startLocalWatch(entry,src){
+    if(src.location!=='local'||src.autoRefresh===false||!src.path||this.watchers.has(src.id)||!fs.existsSync(src.path))return;
+    const stamp=()=>{const st=fs.statSync(src.path);return `${st.mtimeMs}:${st.size}`};
+    let observed=stamp(),pending=!!entry.renderPending,failures=0,waitTicks=0,busy=false,stopped=false;
+    // Ten bounded retries per observed file version. Back off up to 51.2 seconds;
+    // a later file edit starts a fresh budget, while manual refresh remains available.
+    const timer=setInterval(async()=>{
+      if(stopped||busy)return;
+      busy=true;
+      try{
+        let current;
+        try{current=stamp()}catch{current='missing'}
+        if(current!==observed){observed=current;pending=true;failures=0;waitTicks=0}
+        if(!pending||failures>10)return;
+        if(waitTicks>0){waitTicks--;return}
+        const result=await this.refreshSource(entry.id,src.id,{reason:'local-watch'});
+        if(stopped)return;
+        // A concurrent manual refresh has not acknowledged this file version.
+        if(result?.skipped)return;
+        pending=false;failures=0;
+      }catch(err){
+        if(stopped)return;
+        failures++;
+        waitTicks=Math.min(2**(failures-1),32);
+        // refreshSource already persists and emits the health failure. Keeping the
+        // observed version pending lets an unchanged file recover without spinning.
+      }finally{busy=false}
+    },LOCAL_WATCH_MS);
+    timer.unref?.();
+    this.watchers.set(src.id,()=>{stopped=true;clearInterval(timer)});
+  }
   async addGoogleSource(url,{catalogId=this.registry.activeCatalogId,role,mode='attach',name}={}){
     const info=inferGoogle(url);if(!info)throw new Error('Use a Google Sheets, Docs, or Drive file URL');
     let e=this.entry(catalogId);if(!e)throw new Error('Catalog not found');
