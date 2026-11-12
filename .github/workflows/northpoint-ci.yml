@@ -44,6 +44,9 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
+      - name: Browse request lifecycle regressions
+        run: node scripts/browse-lifecycle-qa.js
+
       - name: Install Linux native build dependencies
         run: |
           sudo apt-get update
