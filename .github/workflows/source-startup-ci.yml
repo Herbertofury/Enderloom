@@ -2,10 +2,10 @@ name: Clean source startup
 on:
   push:
     branches: [main]
-    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', '.github/workflows/source-startup-ci.yml']
+    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', 'scripts/prepare-source*.js', '.github/workflows/source-startup-ci.yml']
   pull_request:
     branches: [main]
-    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', '.github/workflows/source-startup-ci.yml']
+    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', 'scripts/prepare-source*.js', '.github/workflows/source-startup-ci.yml']
 permissions:
   contents: read
 jobs:
@@ -17,5 +17,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Source update and interrupted-build recovery
+        run: node scripts/prepare-source-qa.js
       - name: Exercise real source entrypoint and prerequisite failures
         run: node scripts/source-startup-qa.js
