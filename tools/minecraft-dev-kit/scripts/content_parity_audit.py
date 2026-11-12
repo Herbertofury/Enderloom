@@ -7,13 +7,16 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from content_identity_inventory import inventory
+from content_identity_inventory import canonical_tag_id, inventory
 from port_26_3_common import write_json
 
 
 def _key(row: dict) -> tuple:
     # Translation values may legitimately change; locale + key identity is what parity cares about.
-    return (row.get("category"), row.get("subtype"), row.get("id"))
+    ident = row.get("id")
+    if row.get("category") == "tag" and isinstance(ident, str):
+        ident = canonical_tag_id(ident)
+    return (row.get("category"), row.get("subtype"), ident)
 
 
 def audit(source_inventory: dict, target: Path, exclusions: list[dict] | None = None) -> dict:
@@ -24,7 +27,7 @@ def audit(source_inventory: dict, target: Path, exclusions: list[dict] | None = 
     for x in exclusions or []:
         if x.get("status") not in {"intentionally_excluded", "superseded"}:
             continue
-        exclusion_map[(x.get("category"), x.get("subtype"), x.get("id"))] = x
+        exclusion_map[_key(x)] = x
     missing = []
     accepted_exclusions = []
     for key, row in src.items():
