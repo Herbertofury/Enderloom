@@ -48,7 +48,8 @@ try {
       if (command === 'run build:launcher-service') touch('native/target/debug/enderloom-service.exe');
       if (command === '--prefix launcher ci') fs.writeFileSync('launcher-dependencies.ready', 'ok');
     `);
-    const result = spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/c', '"' + path.join(cwd, 'START_ENDERLOOM.cmd') + '"'], {
+    const result = spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/c', 'call "' + path.join(cwd, 'START_ENDERLOOM.cmd') + '"'], {
+      windowsVerbatimArguments: true,
       cwd: test.foreign ? fixture : cwd, env: { ...process.env, STARTUP_TEST_FAIL: test.fail || '' }, input: '\r\n', encoding: 'utf8', timeout: 20000,
     });
     assert.ifError(result.error);
