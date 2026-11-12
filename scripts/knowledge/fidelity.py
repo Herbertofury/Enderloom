@@ -42,6 +42,13 @@ def source_text(path, raw):
 
 def owner_hint(text, context, path):
     """Narrow, source-backed overrides; general routing remains navigation only."""
+    if path == 'docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md':
+        # The authored section names explicitly bind each A/B acceptance slice.
+        m = re.search(r'owner (UX-11|PORT-15|DEP-09|LIB-10|MAKE-12|TEST-09|SHIP-06)', context)
+        if m:
+            return m[1]
+        if 'Convergence gate' in context:
+            return 'TEST-09'
     s = (text + ' ' + context).lower()
     if any(x in s for x in ('global promotions','commenter avatars','campaign art','creator avatar','project icon','gallery','post-media','post media','trailer','media-role','media role','promo leakage','image ownership','first-media','first-image','media frontier')):
         if not any(x in s for x in ('model geometry','native asset','texture atlas')):

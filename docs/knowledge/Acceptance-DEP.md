@@ -9,7 +9,7 @@
 <a id="dep-01-details"></a>
 ## DEP-01 - Full dependency closure
 
-[Outcome](Checklist.md#dep-01) / 82 source-derived details.
+[Outcome](Checklist.md#dep-01) / 74 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -45,17 +45,6 @@
 </details>
 
 <details>
-<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 13. Clean install transaction (1)</summary>
-
-<a id="d-96c22546775a24d225cd"></a>
-- [ ] **D-96c22546775a24d225cd** - After all required gates pass:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 13. Clean install transaction
-  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 425-425](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L425-L425)
-
-</details>
-
-<details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 19. Micro-QOL requirements (1)</summary>
 
 <a id="d-b0410f96e8beb6dada2f"></a>
@@ -78,17 +67,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.5 Universal project/mod detail (1)</summary>
-
-<a id="d-a079ca13d7c441f6ec25"></a>
-- [ ] **D-a079ca13d7c441f6ec25** - dependencies/dependents/configs/update lineage.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.5 Universal project/mod detail
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-041 : 234-234](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L234-L234)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.2 Static Quick Scan (1)</summary>
 
 <a id="d-76eb021ccc87ab418b44"></a>
@@ -96,18 +74,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 8. PHASE E — PREMIUM PERFORMANCE / TESTING CONTROL PLANE / 8.2 Static Quick Scan
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PE-010 : 352-352](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L352-L352)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 0. Codex launch contract - implement, verify, finish / 0.4 Dependency-aware execution order (1)</summary>
-
-<a id="d-5dcf21ec2fca05243038"></a>
-- [ ] **D-5dcf21ec2fca05243038** - is an on-demand product feature, not a prerequisite to implement today&#x27;s known integrations. Historical research misses do not block independently ready work. Resume the earli...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** is an on-demand product feature, not a prerequisite to implement today&#x27;s known integrations. Historical research misses do not block independently ready work. Resume the earliest incomplete/invalidated task whose prerequisites are satisfied. Work in bounded execution windows of approximately 6-12 ready leaf tasks when useful; that is context management, not a stopping point or result cap.
-  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.4 Dependency-aware execution order
-  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L106-L106)
 
 </details>
 
@@ -183,18 +149,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md / Tier B — high-value specialized adapters / Neruina — ticking failure isolation (1)</summary>
-
-<a id="d-9522a93f94790f398a69"></a>
-- [ ] **D-9522a93f94790f398a69** - Do not use Neruina suppression as proof a bug is fixed. The final candidate must run without relying on the failure being masked unless that dependency is explicitly part of the in...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Do not use Neruina suppression as proof a bug is fixed. The final candidate must run without relying on the failure being masked unless that dependency is explicitly part of the intended pack.
-  - **Binding context:** Tier B — high-value specialized adapters / Neruina — ticking failure isolation
-  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L226-L226)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 2. Security &amp; Supply-Chain Center — missing critical layer / 2.4 Dependency/SBOM/license risk (4)</summary>
 
 <a id="d-4cea6e72e9ce8142db16"></a>
@@ -246,17 +200,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 16. Hot Reload / Fast Dev Loop (1)</summary>
-
-<a id="d-8f027886c9325df80864"></a>
-- [ ] **D-8f027886c9325df80864** - detect when structural class/registry change requires full restart.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 16. Hot Reload / Fast Dev Loop
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 798-798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L798-L798)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T062 — Tokio async I/O + Rayon CPU work-stealing + foreground-priority scheduler (1)</summary>
 
 <a id="d-19b4241b65f062401872"></a>
@@ -304,18 +247,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 10. Snapshots, backups, repair, recovery (1)</summary>
-
-<a id="d-a520a63186356541deba"></a>
-- [ ] **D-a520a63186356541deba** - Transactional quarantine.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 10. Snapshots, backups, repair, recovery
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L455-L455)
-  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
-
-</details>
-
-<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 13. Premium Testing workspace — Performance Lab / 13.2 Verdict language (1)</summary>
 
 <a id="d-8eceabf97c27e87e66c1"></a>
@@ -345,17 +276,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-2 — direct A/B
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1525-1525](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1525-L1525)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency (1)</summary>
-
-<a id="d-b6e59b383b1c522c0d73"></a>
-- [ ] **D-b6e59b383b1c522c0d73** - Patchwork is archived and version-limited. Do not revive it as a production dependency. Extract only transformations that are revalidated against current loaders.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 953-953](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L953-L953)
 
 </details>
 
@@ -710,17 +630,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine (1)</summary>
-
-<a id="d-b48c595c123c79a125db"></a>
-- [ ] **D-b48c595c123c79a125db** - dependency-safe variant materialization
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 871-871](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L871-L871)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md / Enderloom Northpoint — Apex Conversion v5 Checkpoint / Missing-vanilla and dependency policy (1)</summary>
 
 <a id="d-4213d24aa607540133c4"></a>
@@ -863,7 +772,7 @@
 <a id="dep-03-details"></a>
 ## DEP-03 - Conflict and change-impact graph
 
-[Outcome](Checklist.md#dep-03) / 110 source-derived details.
+[Outcome](Checklist.md#dep-03) / 94 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 21. Security and trust boundaries (1)</summary>
@@ -918,18 +827,6 @@
   - **Full requirement:** Inspect actual script bodies: a name containing &quot;runtime&quot; does not prove the script launches Minecraft. Reuse valid results until their inputs or implementation change. Missing ordinary JDK/Node/Python/Gradle/tools are provisioning work. Provision the target runtime separately from each tool&#x27;s runtime; do not globally raise/lower Enderloom&#x27;s runtime to run one adapter.
   - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.3 One preflight, then the first real change
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 85-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L85-L85) / [ENDERLOOM_STUDIO_EXECUTION.md : 85-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L85-L85)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5B. Production completion hardening - revision 3 / 5B.6 Product workflow and reproducibility (1)</summary>
-
-<a id="d-9fdcb7a2a227aa4b81df"></a>
-- [ ] **D-9fdcb7a2a227aa4b81df** - Prove cold setup in a fresh disposable workspace with an empty managed tool/dependency cache, then replay using the recorded verified offline cache. No developer-global executable,...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Prove cold setup in a fresh disposable workspace with an empty managed tool/dependency cache, then replay using the recorded verified offline cache. No developer-global executable, hidden absolute path, manually copied dependency or previous repaired output may be required. Test Windows first and each other platform the existing product claims for the affected workflow. Do not silently remove platform support or describe untested platforms as proven.
-  - **Binding context:** 5B. Production completion hardening - revision 3 / 5B.6 Product workflow and reproducibility / 5B. Production requirements / 5B.6 Product workflow and reproducibility
-  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 767-767](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L767-L767) / [ENDERLOOM_STUDIO_EXECUTION.md : 928-928](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L928-L928)
 
 </details>
 
@@ -989,17 +886,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 30. Architecture additions required in Wave A (1)</summary>
-
-<a id="d-da5f0980ddec904f290d"></a>
-- [ ] **D-da5f0980ddec904f290d** - Do not postpone all of this until later. Wave A must make the canonical graph extensible enough that these later domains do not force another rewrite.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 30. Architecture additions required in Wave A
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1075-1075](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1075-L1075)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 31. Cross-integration requirements for these newly added domains (1)</summary>
 
 <a id="d-778f0aa4349bd37b99f6"></a>
@@ -1019,17 +905,6 @@
   - **Full requirement:** It is not acceptable to omit a domain because “another tool already does it.” Enderloom may interoperate with another tool where that is the best engineering choice, but the workflow still needs to feel continuous inside Enderloom and its state/evidence must return to the shared project graph.
   - **Binding context:** 34. Definition of done for the gap audit
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1202-1202](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1202-L1202)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback (1)</summary>
-
-<a id="d-e844b1aa9d6cd2f3474f"></a>
-- [ ] **D-e844b1aa9d6cd2f3474f** - · Do not let a bleeding-edge dependency stall Enderloom indefinitely
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T088 : 96-96](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L96-L96)
 
 </details>
 
@@ -1059,17 +934,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G011 — Discovery, repair, bulk management, and first-run workflows are better than both launchers / T052 — Instance Dependency Doctor with explicit Yes / No user control
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T052 : 2254-2254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2254-L2254)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 2. Product principles — non-negotiable / 2.1 Real functionality, not theater (1)</summary>
-
-<a id="d-55653788253700ddd186"></a>
-- [ ] **D-55653788253700ddd186** - Every visible control must perform a real operation.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 2. Product principles — non-negotiable / 2.1 Real functionality, not theater
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 47-47](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L47-L47)
 
 </details>
 
@@ -1282,18 +1146,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G067 — Dependency solving and durable task execution / T252 — Implement one Minecraft-specific solver abstraction and bake off Resolvo vs PubGrub / T253 — Automatic dependency install/update must use the same solver (1)</summary>
-
-<a id="d-a35dba38a7c5e9c8035b"></a>
-- [ ] **D-a35dba38a7c5e9c8035b** - — Browse install, instance repair, mod update and conversion dependency resolution all call the same solver/domain layer. Missing/outdated/incompatible dependencies should be detec...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Browse install, instance repair, mod update and conversion dependency resolution all call the same solver/domain layer. Missing/outdated/incompatible dependencies should be detected before launch and remediated automatically when a valid source is available.
-  - **Binding context:** G067 — Dependency solving and durable task execution / T252 — Implement one Minecraft-specific solver abstraction and bake off Resolvo vs PubGrub / T253 — Automatic dependency install/update must use the same solver
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T253 : 2199-2199](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2199-L2199)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G067 — Dependency solving and durable task execution / T252 — Implement one Minecraft-specific solver abstraction and bake off Resolvo vs PubGrub / T377 — Solver stress oracle beyond Minecraft-native fixtures (1)</summary>
 
 <a id="d-fc58968c1eacac6a7f86"></a>
@@ -1313,17 +1165,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T256 : 2229-2229](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2229-L2229)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles (1)</summary>
-
-<a id="d-8f1deac219ec72b0c4a7"></a>
-- [ ] **D-8f1deac219ec72b0c4a7** - Do not introduce multiple concurrency libraries without a measured owner/use case.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2250-2250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2250-L2250)
 
 </details>
 
@@ -1348,17 +1189,6 @@
   - **Full requirement:** — For JVM/Gradle deliverables, generate CycloneDX from the *resolved* dependency graph (post conflict-resolution/substitution/constraints), not merely declared coordinates; for Rust/native/bundled assets merge this with T343&#x27;s cross-language SBOM. Keep SBOM generation out of unrelated hot build paths when the plugin/tool would otherwise force eager dependency resolution.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T375 — Resolved-dependency SBOM + verifiable build provenance
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T375 : 2432-2432](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2432-L2432)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.3 Optional dependencies must actually be optional (1)</summary>
-
-<a id="d-0510a0ed7b3de50c8635"></a>
-- [ ] **D-0510a0ed7b3de50c8635** - A guard such as isModLoaded() is not enough if the JVM must resolve an optional class from a field/method descriptor or static initializer before the guard runs.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.3 Optional dependencies must actually be optional
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 286-286](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L286-L286) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 286-286](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L286-L286)
 
 </details>
 
@@ -1438,28 +1268,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. AI analysis handoff
   - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 723-723](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L723-L723)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 25. Focused definition of done (1)</summary>
-
-<a id="d-3161ee6c9dba39f36c54"></a>
-- [ ] **D-3161ee6c9dba39f36c54** - A/B tests are dependency-aware and interaction-aware.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 25. Focused definition of done
-  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 894-894](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L894-L894)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 1. The Integration Law — absolutely non-negotiable (1)</summary>
-
-<a id="d-b5d60b4c4d50e46166fa"></a>
-- [ ] **D-b5d60b4c4d50e46166fa** - CI fails if a meaningful new operation has no shared-domain/CLI mapping without an approved reason.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. The Integration Law — absolutely non-negotiable
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 63-63](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L63-L63)
 
 </details>
 
@@ -1707,18 +1515,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Context - current repository truth to preserve (1)</summary>
-
-<a id="d-a8fda2c828003765066c"></a>
-- [ ] **D-a8fda2c828003765066c** - The current repository already proves important multiversion behavior. Do not restart from a greenfield design and do not discard the existing worker before replacement parity is d...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The current repository already proves important multiversion behavior. Do not restart from a greenfield design and do not discard the existing worker before replacement parity is demonstrated.
-  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Context - current repository truth to preserve
-  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 26-26](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L26-L26)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Incremental task graph, change ownership, and zero-waste rebuilds (5)</summary>
 
 <a id="d-176e2443da81bc6a5dc6"></a>
@@ -1790,7 +1586,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (4)</summary>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (3)</summary>
 
 <a id="d-2a90008264ea3522a6de"></a>
 - [ ] **D-2a90008264ea3522a6de** - · Use Maven Resolver or equivalent structured dependency resolution evidence and preserve exact artifacts/checksums/provenance.
@@ -1803,12 +1599,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** GATE - Native build, dependency, and toolchain ownership per cell
   - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T112 : 432-432](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L432-L432)
-
-<a id="d-60e457f56b179eb77237"></a>
-- [ ] **D-60e457f56b179eb77237** - · Support offline/verified cache reuse when exact required artifacts exist; never report a cache/toolchain as available when hashes are missing or wrong.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** GATE - Native build, dependency, and toolchain ownership per cell
-  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T113 : 433-433](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L433-L433)
 
 <a id="d-0798057189e14e25101f"></a>
 - [ ] **D-0798057189e14e25101f** - · Preserve native target wrappers/configuration when importing an existing port and migrate them only after an evidence-backed replacement is stronger.
@@ -1830,17 +1620,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph (1)</summary>
-
-<a id="d-d3f73d9d6ca1b7ac2520"></a>
-- [ ] **D-d3f73d9d6ca1b7ac2520** - A mod may be tested with required libraries preserved. A library should not be blamed merely because disabling it also prevents dependent gameplay mods from loading.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph
-  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L95-L95)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 1. Non-negotiable product invariants / 1.1 Zero content loss / 1.7 Maximum throughput without quality caps (1)</summary>
 
 <a id="d-92d08a1b481daeeec43d"></a>
@@ -1849,28 +1628,6 @@
   - **Full requirement:** Use all safe available parallelism after the primary target passes, but never oversubscribe Gradle/native runtimes so badly that throughput regresses. Parallelism is bounded by observed CPU, RAM, process cost, loader/toolchain locks, and cache contention—not an arbitrary tiny fixed cap.
   - **Binding context:** 1. Non-negotiable product invariants / 1.1 Zero content loss / 1.7 Maximum throughput without quality caps
   - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L99-L99) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md : 101-101](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L101-L101) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 177-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L177-L177) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 177-177](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L177-L177)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 5. Mapping lineage is a graph, not find/replace (1)</summary>
-
-<a id="d-9cd18fef66bca933675e"></a>
-- [ ] **D-9cd18fef66bca933675e** - Object types inside JVM descriptors must be mapped too. Never accept a method merely because its simple name looks right.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 5. Mapping lineage is a graph, not find/replace
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md : 277-277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L277-L277) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md : 279-279](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L279-L279) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 355-355](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L355-L355) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 355-355](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L355-L355)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot; (1)</summary>
-
-<a id="d-873c1736b651260666cc"></a>
-- [ ] **D-873c1736b651260666cc** - A dependency missing on one matrix cell marks it blocked with the correct reason and does not strip the dependent feature from other cells.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot;
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 405-405](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L405-L405)
 
 </details>
 
@@ -1886,7 +1643,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry (2)</summary>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry (1)</summary>
 
 <a id="d-975d9359031632e0ae73"></a>
 - [ ] **D-975d9359031632e0ae73** - Reuse green unchanged cells.
@@ -1894,29 +1651,12 @@
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 246-246](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L246-L246)
 
-<a id="d-651b8184784e8a2e0511"></a>
-- [ ] **D-651b8184784e8a2e0511** - Never overwrite a known-good artifact before replacement certification.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 251-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L251-L251)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
-
-<a id="d-ec84335100d92e3ea055"></a>
-- [ ] **D-ec84335100d92e3ea055** - Wire primary-target-first through a real operation and prohibit premature fan-out.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-05 : 1402-1402](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1402-L1402)
-
 </details>
 
 <a id="dep-04-details"></a>
 ## DEP-04 - Managed immutable toolchains
 
-[Outcome](Checklist.md#dep-04) / 13 source-derived details.
+[Outcome](Checklist.md#dep-04) / 12 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.2 Ingest MC Mod Porter under the granted permission (1)</summary>
@@ -2031,17 +1771,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule (1)</summary>
-
-<a id="d-deaf6d4b7bdda0d0c60e"></a>
-- [ ] **D-deaf6d4b7bdda0d0c60e** - Service path: JSON protocol -&gt; typed request -&gt; same shared domain/service operation.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 45-45](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L45-L45)
-
-</details>
-
-<details>
 <summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 11. Fast Launch Engine CLI integration (1)</summary>
 
 <a id="d-be1fe888ae07fd409f0e"></a>
@@ -2066,7 +1795,7 @@
 <a id="dep-05-details"></a>
 ## DEP-05 - Canonical identity and action registry
 
-[Outcome](Checklist.md#dep-05) / 115 source-derived details.
+[Outcome](Checklist.md#dep-05) / 104 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -2238,7 +1967,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry (5)</summary>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry (4)</summary>
 
 <a id="d-419830ef3de5209f9d63"></a>
 - [ ] **D-419830ef3de5209f9d63** - stable operation ID/domain/read-write-destructive classification.
@@ -2263,12 +1992,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-033 : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L226-L226)
-
-<a id="d-efa4a82405305e6a11d8"></a>
-- [ ] **D-efa4a82405305e6a11d8** - rollback semantics and explicit purely-visual exception when a machine route is inappropriate.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-034 : 227-227](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L227-L227)
 
 </details>
 
@@ -2457,17 +2180,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators (1)</summary>
-
-<a id="d-7bad93fbc3cf24b27ffe"></a>
-- [ ] **D-7bad93fbc3cf24b27ffe** - every supported data/resource schema generated from a versioned schema registry rather than hardcoded forms.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 402-402](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L402-L402)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 7. Command / Data / Worldgen Generator Studio / 7.3 Worldgen lab (1)</summary>
 
 <a id="d-a8433f778b8fac53c4a1"></a>
@@ -2521,17 +2233,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.3 Historical game semantics
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 774-774](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L774-L774)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 25. Pack/Release Permission &amp; Policy Gate (1)</summary>
-
-<a id="d-c7f560a00bf5c39923cd"></a>
-- [ ] **D-c7f560a00bf5c39923cd** - Signing support where Enderloom has a real configured signing identity.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 25. Pack/Release Permission &amp; Policy Gate
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L974-L974)
 
 </details>
 
@@ -2603,18 +2304,6 @@
   - **Full requirement:** Updates - Reuse known installed project identity, compatible-release metadata, dependency plans, and content-addressed artifacts. - Run provider checks in parallel with request coalescing, rate-limit awareness, and stale-while-revalidate UI. - Pipeline independent download/verify/commit stages where safe; do not serialize unrelated mod updates. - Start useful visible progress immediately. - Preserve T001 transactional replacement, rollback, freeze/pin behavior, identity safety, and validation in full.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T048 — Remove whole-app latency at the shared architectural causes
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1035-1040](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1035-L1040)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (1)</summary>
-
-<a id="d-273c005cc7dc2b164e23"></a>
-- [ ] **D-273c005cc7dc2b164e23** - 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where suppor...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads. - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently. - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits. - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others. - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1633-1639](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1633-L1639)
 
 </details>
 
@@ -2741,17 +2430,6 @@
   - **Full requirement:** — Every convert/repair/create session records immutable source/workspace identity, hashes, dependency/toolchain state, target intent, previous attempts, generated artifacts and evidence. Mutations happen in generated/working copies with transactional promotion; original user source is never silently overwritten.
   - **Binding context:** G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract / T286 — Immutable source/workspace authority for all three workflows
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T286 : 1425-1425](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1425-L1425)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T235 — Clean-room installation/replay (1)</summary>
-
-<a id="d-517196c8e702e9d3d350"></a>
-- [ ] **D-517196c8e702e9d3d350** - — From a clean environment/cache state, rebuild Enderloom conversion components and replay the graduation fixtures with only documented/bootstrap dependencies.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T235 — Clean-room installation/replay
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T235 : 1975-1975](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1975-L1975)
 
 </details>
 
@@ -2987,18 +2665,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Generalized shared-source factoring and projection engine (1)</summary>
-
-<a id="d-9a84510472f41c6c4a41"></a>
-- [ ] **D-9a84510472f41c6c4a41** - · When a target is materialized twice from unchanged canonical state and frozen toolchain inputs, require deterministic authored projection hashes and classify unavoidable nondeter...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** · When a target is materialized twice from unchanged canonical state and frozen toolchain inputs, require deterministic authored projection hashes and classify unavoidable nondeterministic build outputs separately.
-  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
-  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T032 : 302-302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L302-L302)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Mapping lineage and exact symbol graph (1)</summary>
 
 <a id="d-21f906bd7f4eb30d920b"></a>
@@ -3018,35 +2684,6 @@
   - **Full requirement:** · Clean-room fixture: delete generated target workspaces/caches that are allowed to be rebuilt, then reproduce selected target artifacts from canonical project + frozen dependencies/rules without manual target edits.
   - **Binding context:** GATE - Acceptance matrix and real workflow proof
   - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T146 : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L481-L481)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
-
-<a id="d-8e4e8346fefe44a26424"></a>
-- [ ] **D-8e4e8346fefe44a26424** - · Perform a final clean-room/restart challenge from the canonical project state, frozen target profiles, dependencies, rule store, and caches allowed by policy; prove resumability ...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** · Perform a final clean-room/restart challenge from the canonical project state, frozen target profiles, dependencies, rule store, and caches allowed by policy; prove resumability and deterministic regeneration without manual generated-target surgery.
-  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
-  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T165 : 516-516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L516-L516)
-
-</details>
-
-<details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule (2)</summary>
-
-<a id="d-f34e76de0d6560205789"></a>
-- [ ] **D-f34e76de0d6560205789** - GUI path: React/Electron -&gt; typed API -&gt; shared domain/service operation.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L43-L43)
-
-<a id="d-a8b208b4130668b5926c"></a>
-- [ ] **D-a8b208b4130668b5926c** - CLI path: Clap -&gt; typed CLI request -&gt; same shared domain/service operation.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 44-44](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L44-L44)
 
 </details>
 
@@ -3115,14 +2752,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 3. CENTRAL VERSION MATRIX — ONE SOURCE OF TRUTH (2)</summary>
-
-<a id="d-e742397cc1e48a3dd814"></a>
-- [ ] **D-e742397cc1e48a3dd814** - - Support registry is updateable without rewriting the UI. - The primary target is always inserted even if it is newer than the cached matrix; resolve it first from current loader ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Support registry is updateable without rewriting the UI. - The primary target is always inserted even if it is newer than the cached matrix; resolve it first from current loader metadata when possible. - Matrix planner computes valid cells from: - Minecraft version availability - loader availability - required Java/toolchain - mod dependency availability - source feature requirements - user includes/excludes - Never label a cell supported until its loader/toolchain/dependencies can actually resolve. - Keep experimental distinct from stable. - Keep blocked distinct from failed: - blocked = known impossible/missing prerequisite before build. - failed = valid cell attempted and did not pass its gates. - Every blocked cell gets an actionable reason such as: - Dependency X has no Fabric build for 1.20.1 - Mod requires vanilla registry introduced after this target - NeoForge not available for this Minecraft version
-  - **Binding context:** 3. CENTRAL VERSION MATRIX — ONE SOURCE OF TRUTH
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 113-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L113-L130)
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 3. CENTRAL VERSION MATRIX — ONE SOURCE OF TRUTH (1)</summary>
 
 <a id="d-f9dc88cc29960eb83011"></a>
 - [ ] **D-f9dc88cc29960eb83011** - Add the current 26.3 lane to this same registry; do not special-case 26.3 elsewhere.
@@ -3200,17 +2830,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry (1)</summary>
-
-<a id="d-393ad9c821847621ebd6"></a>
-- [ ] **D-393ad9c821847621ebd6** - Persist coherent cell state after each success/failure.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L249-L249)
-
-</details>
-
-<details>
 <summary>Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt /  (1)</summary>
 
 <a id="d-7f53487fb9c5de1ca553"></a>
@@ -3225,7 +2844,7 @@
 <a id="dep-06-details"></a>
 ## DEP-06 - Staged transactions and concurrent safety
 
-[Outcome](Checklist.md#dep-06) / 16 source-derived details.
+[Outcome](Checklist.md#dep-06) / 13 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.3 Preservation and safety (1)</summary>
@@ -3296,18 +2915,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit (1)</summary>
-
-<a id="d-84f69f4ec3c80e5f9cb7"></a>
-- [ ] **D-84f69f4ec3c80e5f9cb7** - - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive meta...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive metadata inspection as soon as sufficient validated structure is available. - Plan independent dependency/provider branches concurrently. - While artifact A verifies/commits, artifact B may download/verify when transactions are independent. - Reuse exact validated CAS artifacts/dependency plans/provider metadata instead of repeating work. - No artifact reaches a live instance until all required identity, hash, compatibility, dependency and transaction prerequisites for that commit are satisfied. - Partial/temp files are never exposed as successful artifacts. - Cancellation and failure cleanly release staged resources or preserve resumable state. - Commit is atomic and rollback-capable; same-filename replacement follows T001 rather than in-place overwrite. - Progress reports real pipeline stages/bytes/work and never fabricates &quot;done&quot; while deferred blocking verification remains.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 662-671](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L662-L671)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G054 — Resumability, caching and performance / T207 — Stage-level fingerprints / T208 — Content-addressed artifact/cache store (1)</summary>
 
 <a id="d-553e83e9f555a38157d7"></a>
@@ -3326,18 +2933,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T277 — Enforce Rust dependency policy with cargo-deny/audit/vet
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T277 : 2403-2403](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2403-L2403)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T342 — Rust public API/dependency hygiene (1)</summary>
-
-<a id="d-4e6dc34d28db7e4b73d9"></a>
-- [ ] **D-4e6dc34d28db7e4b73d9** - — Add cargo-semver-checks where Enderloom exposes stable Rust/plugin/SDK APIs, and use cargo-machete (plus cargo metadata verification) to remove genuinely unused dependencies. Use...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Add cargo-semver-checks where Enderloom exposes stable Rust/plugin/SDK APIs, and use cargo-machete (plus cargo metadata verification) to remove genuinely unused dependencies. Use cargo-bloat or equivalent only to explain release-size/codegen hotspots, not as a mandate to remove useful capability.
-  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T342 — Rust public API/dependency hygiene
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T342 : 2454-2454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2454-L2454)
 
 </details>
 
@@ -3377,17 +2972,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 43. Implementation program — Codex waves / Wave A — Integration Spine (1)</summary>
-
-<a id="d-1f35508de8bd8f47ebee"></a>
-- [ ] **D-1f35508de8bd8f47ebee** - Transaction/rollback primitives.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 43. Implementation program — Codex waves / Wave A — Integration Spine
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1585-1585](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1585-L1585)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (1)</summary>
 
 <a id="d-caa3a873f0666a19e856"></a>
@@ -3412,7 +2996,7 @@
 <a id="dep-07-details"></a>
 ## DEP-07 - Durable jobs and cancellation
 
-[Outcome](Checklist.md#dep-07) / 61 source-derived details.
+[Outcome](Checklist.md#dep-07) / 52 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (16)</summary>
@@ -3516,17 +3100,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work (1)</summary>
-
-<a id="d-ff520d8ab77c2f95d9fd"></a>
-- [ ] **D-ff520d8ab77c2f95d9fd** - Recovery/diagnostics: snapshots/restore/quarantine/interrupted-operation recovery, logs/search/redaction, network/system/storage diagnostics.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: P0-016 : 183-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L183-L183)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.3 Durable tasks and transactions (1)</summary>
 
 <a id="d-b8e6023a894cebac4b95"></a>
@@ -3569,30 +3142,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 4. Enderloom Developer IDE — actual coding workbench / 4.3 Build/task/terminal
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 219-219](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L219-L219)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core` (1)</summary>
-
-<a id="d-811ff41f744b8a6f5efe"></a>
-- [ ] **D-811ff41f744b8a6f5efe** - - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest pr...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest production-grade bridge appropriate to the current Electron architecture (for example N-API/native module versus a supervised local sidecar) on startup overhead, IPC throughput, crash isolation, packaging/update complexity, and debugging. - Expose typed versioned commands/events, stable operation IDs, cancellation, progress, structured errors, and compact delta responses. - One end-to-end vertical slice must exercise: renderer action -&gt; thin Electron adapter -&gt; Rust domain operation -&gt; persisted state/files/provider work -&gt; progress/event -&gt; visible UI result -&gt; restart persistence. - Core crash/failure must fail the affected operation truthfully and keep the Electron shell recoverable; never let a native panic corrupt live state or masquerade as success. - Package/sign/distribute the Rust component as part of the normal Enderloom build, not as a developer-only optional binary. - Record exact Rust toolchain/native binary hash/API schema in packaged-runtime evidence.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 460-466](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L460-L466)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes (1)</summary>
-
-<a id="d-6d7cdf5313011144a708"></a>
-- [ ] **D-6d7cdf5313011144a708** - - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration/storage errors, perform cheap integrity checks first and escalate to full integrity verification when warranted. - Never delete the only good database because one cache table is corrupt; distinguish rebuildable caches/indexes from durable user state. - If rebuildable indexes are invalid, reconstruct them from authoritative durable state/files/providers while preserving user data. - Do not weaken SQLite durability/synchronous settings merely to win a benchmark; any tuning must pass crash/power-loss simulation appropriate to the protected data class.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 541-546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L541-L546)
 
 </details>
 
@@ -3722,30 +3271,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T265 — Make downloads resumable and integrity-first (1)</summary>
-
-<a id="d-baab7443e84605b17fed"></a>
-- [ ] **D-baab7443e84605b17fed** - — Support ranged resume/partial files where providers permit it, durable progress/checkpoints, atomic promotion after hash verification, corruption retry from a clean boundary and ...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Support ranged resume/partial files where providers permit it, durable progress/checkpoints, atomic promotion after hash verification, corruption retry from a clean boundary and cleanup of abandoned partials.
-  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T265 — Make downloads resumable and integrity-first
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T265 : 2306-2306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2306-L2306)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 1. THE PRODUCT EXPERIENCE / 1.2 No sitting on blockers (1)</summary>
-
-<a id="d-b056c83c460c8a4ee218"></a>
-- [ ] **D-b056c83c460c8a4ee218** - If all realistic recovery routes are exhausted, preserve the best verified result and report one precise remaining limitation with the exact failed operation and evidence. Do not a...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** If all realistic recovery routes are exhausted, preserve the best verified result and report one precise remaining limitation with the exact failed operation and evidence. Do not abandon the entire job because one secondary target is blocked.
-  - **Binding context:** 1. THE PRODUCT EXPERIENCE / 1.2 No sitting on blockers
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 81-81](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L81-L81) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 81-81](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L81-L81)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.6 Activity/download manager (1)</summary>
 
 <a id="d-8af5a1dc696a097e2a8f"></a>
@@ -3802,19 +3327,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 3. Durable Task Engine (8)</summary>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 3. Durable Task Engine (7)</summary>
 
 <a id="d-d90ddace0a80487bc19f"></a>
 - [ ] **D-d90ddace0a80487bc19f** - Cancellable.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 3. Durable Task Engine
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 129-129](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L129-L129)
-
-<a id="d-307d5e31837077d23ec0"></a>
-- [ ] **D-307d5e31837077d23ec0** - Resumable after Enderloom restart.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. Durable Task Engine
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 130-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L130-L130)
 
 <a id="d-74499bcac3fb47d91464"></a>
 - [ ] **D-74499bcac3fb47d91464** - Exact progress phase.
@@ -3910,17 +3429,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 17. Definition of done (1)</summary>
-
-<a id="d-86ef388120e8d3d76fa5"></a>
-- [ ] **D-86ef388120e8d3d76fa5** - Cancellation, timeouts and crash recovery preserve evidence and clean only owned test state.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 17. Definition of done
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 931-931](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L931-L931)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 16. Parallel build scheduler (1)</summary>
 
 <a id="d-0905075d420700fb1a4b"></a>
@@ -3941,17 +3449,6 @@
   - **Full requirement:** - Content-addressed cell fingerprint from: - shared source hash - relevant loader overlay hash - relevant version overlay hash - exact-cell overlay hash - resolved dependency/toolchain lock - build configuration - Skip rebuilding a green cell when its fingerprint is unchanged. - Rebuild only cells invalidated by changed inputs. - Cache downloaded Gradle/loader/mapping/dependency artifacts across cells. - Never redownload identical toolchains for every target. - Persist each cell state immediately after success/failure so interrupted matrix runs resume instead of restarting. - Retry failed must operate only on failed/invalidated cells. - Do not let one broken secondary cell delete or overwrite successful artifacts. - Never overwrite a known-good artifact until the replacement cell passes verification. - Give every build cell an isolated work directory and log file. - Use bounded parallelism; do not launch more Gradle clients than the machine can sustain. - Cancel should terminate only matrix processes owned by that job.
   - **Binding context:** 6. BUILD ORCHESTRATOR — FAST, RESUMABLE, NO REDOING GOOD WORK
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 247-264](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L247-L264)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules / Progress snapshot — keep these counts current (1)</summary>
-
-<a id="d-82bff19a96ca915022fe"></a>
-- [ ] **D-82bff19a96ca915022fe** - Do not spend a work session only updating these counters. A progress update is valid only after code, tests, runtime evidence, or a durable checkpoint changed.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules / Progress snapshot — keep these counts current
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 50-50](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L50-L50)
 
 </details>
 
@@ -3977,34 +3474,10 @@
 
 </details>
 
-<details>
-<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
-
-<a id="d-b4915881aafe2cc7db7c"></a>
-- [ ] **D-b4915881aafe2cc7db7c** - Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentia...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentials in the existing secure account path and redact errors, receipts and logs. Do not adopt public key-sharing services or access-control, payment or entitlement bypass routes. After normal authorized import, compare every retained member and dependency against the source census. Prove duplicate install, stale entitlement, account switching, missing tools, malformed/nested archives, interrupted downloads, path collisions, disk exhaustion, restart and rollback. Cancellation and failure must preserve original input bytes.
-  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
-  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 106-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L106-L114)
-
-</details>
-
 <a id="dep-08-details"></a>
 ## DEP-08 - Adapter proof and truthful failures
 
-[Outcome](Checklist.md#dep-08) / 14 source-derived details.
-
-<details>
-<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / Enderloom Conversion Ecosystem Integration Directive — 2026-09-23 (1)</summary>
-
-<a id="d-3f06d3598ae31c2239b6"></a>
-- [ ] **D-3f06d3598ae31c2239b6** - &gt; Revision 3 - implementation-ready handoff, September 23, 2026: preserves both research sweeps and T001-T115; adds a dependency-ordered launch contract, T116-T127, four product...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** &gt; Revision 3 - implementation-ready handoff, September 23, 2026: preserves both research sweeps and T001-T115; adds a dependency-ordered launch contract, T116-T127, four production gates, automatic dependency closure, transactional recovery, clean-workspace proof, and a stricter final release gate. The handoff is ready for implementation; unchecked tasks do not claim the app has already been upgraded.
-  - **Binding context:** Enderloom Conversion Ecosystem Integration Directive — 2026-09-23
-  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 3-3](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L3-L3)
-
-</details>
+[Outcome](Checklist.md#dep-08) / 10 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.10 Conversion planner and user experience (2)</summary>
@@ -4047,18 +3520,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority (1)</summary>
-
-<a id="d-398e7612a3b6dbc4e04c"></a>
-- [ ] **D-398e7612a3b6dbc4e04c** - - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonica...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonical identity correctness; - crash/restart behavior; - malformed/hostile input handling where applicable; - data integrity and interrupted-write/operation recovery; - Phase 1 only: when a real running-Minecraft fixture is already available, run a cheap coexistence smoke check so an obvious regression cannot be promoted. Do not run/tune the full G014 suite here; definitive Minecraft zero-impact proof is Phase 2 and does not block Phase 1 stack promotion.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 73-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L73-L85)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior (1)</summary>
 
 <a id="d-3fa64af94b181c15a6c9"></a>
@@ -4067,29 +3528,6 @@
   - **Full requirement:** - No renderer path may synchronously perform filesystem, hashing, archive, DB, network, dependency-solver, or large transform work. - No &quot;migration&quot; is accepted if it merely moves the same blocking algorithm from renderer to Electron main. - For every moved hot path capture old JS vs Rust/native cold/warm timing, CPU, memory, I/O, result counts and correctness. - If JS genuinely wins on a narrow operation, preserve the benchmark fixture and keep it there; &quot;Rust is always faster&quot; is not an assumption. - JS/Rust parity failures are correctness bugs. Do not switch ownership until outputs reconcile or the intended new behavior is explicitly proven better.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T057 — Remove heavy JavaScript work unless JS is proven superior
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 489-493](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L489-L493)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter (1)</summary>
-
-<a id="d-de3a80ce6a3fbae64c93"></a>
-- [ ] **D-de3a80ce6a3fbae64c93** - Unit-testing a build-script renderer is insufficient: the generated project must configure and execute with the real pinned plugin/toolchain in an isolated fixture.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1011-1011](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1011-L1011)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T260 — Keep Foyer conditional on a real hybrid-cache need (1)</summary>
-
-<a id="d-af34f347123ef5b4d4d7"></a>
-- [ ] **D-af34f347123ef5b4d4d7** - — Evaluate Foyer only if the measured workload needs a coordinated memory+disk cache larger/more sophisticated than SQLite/CAS + bounded memory caches. Its adoption requires cross-...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Evaluate Foyer only if the measured workload needs a coordinated memory+disk cache larger/more sophisticated than SQLite/CAS + bounded memory caches. Its adoption requires cross-platform durability/operability proof; otherwise reject it explicitly.
-  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T260 — Keep Foyer conditional on a real hybrid-cache need
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T260 : 2254-2254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2254-L2254)
 
 </details>
 
@@ -4141,6 +3579,633 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 250-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L250-L250)
+
+</details>
+
+<a id="dep-09-details"></a>
+## DEP-09 - A/B transfer queues and restart recovery
+
+[Outcome](Checklist.md#dep-09) / 57 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 13. Clean install transaction (1)</summary>
+
+<a id="d-96c22546775a24d225cd"></a>
+- [ ] **D-96c22546775a24d225cd** - After all required gates pass:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 13. Clean install transaction
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 425-425](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L425-L425)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work (1)</summary>
+
+<a id="d-ff520d8ab77c2f95d9fd"></a>
+- [ ] **D-ff520d8ab77c2f95d9fd** - Recovery/diagnostics: snapshots/restore/quarantine/interrupted-operation recovery, logs/search/redaction, network/system/storage diagnostics.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: P0-016 : 183-183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L183-L183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry (1)</summary>
+
+<a id="d-efa4a82405305e6a11d8"></a>
+- [ ] **D-efa4a82405305e6a11d8** - rollback semantics and explicit purely-visual exception when a machine route is inappropriate.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.4 Canonical operation registry
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-034 : 227-227](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L227-L227)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 4. PHASE A — INTEGRATION SPINE / 4.5 Universal project/mod detail (1)</summary>
+
+<a id="d-a079ca13d7c441f6ec25"></a>
+- [ ] **D-a079ca13d7c441f6ec25** - dependencies/dependents/configs/update lineage.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 4. PHASE A — INTEGRATION SPINE / 4.5 Universal project/mod detail
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PA-041 : 234-234](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L234-L234)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / Enderloom Conversion Ecosystem Integration Directive — 2026-09-23 (1)</summary>
+
+<a id="d-3f06d3598ae31c2239b6"></a>
+- [ ] **D-3f06d3598ae31c2239b6** - &gt; Revision 3 - implementation-ready handoff, September 23, 2026: preserves both research sweeps and T001-T115; adds a dependency-ordered launch contract, T116-T127, four product...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** &gt; Revision 3 - implementation-ready handoff, September 23, 2026: preserves both research sweeps and T001-T115; adds a dependency-ordered launch contract, T116-T127, four production gates, automatic dependency closure, transactional recovery, clean-workspace proof, and a stricter final release gate. The handoff is ready for implementation; unchecked tasks do not claim the app has already been upgraded.
+  - **Binding context:** Enderloom Conversion Ecosystem Integration Directive — 2026-09-23
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 3-3](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L3-L3)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 0. Codex launch contract - implement, verify, finish / 0.4 Dependency-aware execution order (1)</summary>
+
+<a id="d-5dcf21ec2fca05243038"></a>
+- [ ] **D-5dcf21ec2fca05243038** - is an on-demand product feature, not a prerequisite to implement today&#x27;s known integrations. Historical research misses do not block independently ready work. Resume the earli...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** is an on-demand product feature, not a prerequisite to implement today&#x27;s known integrations. Historical research misses do not block independently ready work. Resume the earliest incomplete/invalidated task whose prerequisites are satisfied. Work in bounded execution windows of approximately 6-12 ready leaf tasks when useful; that is context management, not a stopping point or result cap.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.4 Dependency-aware execution order
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L106-L106)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5B. Production completion hardening - revision 3 / 5B.6 Product workflow and reproducibility (1)</summary>
+
+<a id="d-9fdcb7a2a227aa4b81df"></a>
+- [ ] **D-9fdcb7a2a227aa4b81df** - Prove cold setup in a fresh disposable workspace with an empty managed tool/dependency cache, then replay using the recorded verified offline cache. No developer-global executable,...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Prove cold setup in a fresh disposable workspace with an empty managed tool/dependency cache, then replay using the recorded verified offline cache. No developer-global executable, hidden absolute path, manually copied dependency or previous repaired output may be required. Test Windows first and each other platform the existing product claims for the affected workflow. Do not silently remove platform support or describe untested platforms as proven.
+  - **Binding context:** 5B. Production completion hardening - revision 3 / 5B.6 Product workflow and reproducibility / 5B. Production requirements / 5B.6 Product workflow and reproducibility
+  - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md : 767-767](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L767-L767) / [ENDERLOOM_STUDIO_EXECUTION.md : 928-928](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L928-L928)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md / Tier B — high-value specialized adapters / Neruina — ticking failure isolation (1)</summary>
+
+<a id="d-9522a93f94790f398a69"></a>
+- [ ] **D-9522a93f94790f398a69** - Do not use Neruina suppression as proof a bug is fixed. The final candidate must run without relying on the failure being masked unless that dependency is explicitly part of the in...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not use Neruina suppression as proof a bug is fixed. The final candidate must run without relying on the failure being masked unless that dependency is explicitly part of the intended pack.
+  - **Binding context:** Tier B — high-value specialized adapters / Neruina — ticking failure isolation
+  - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L226-L226)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators (1)</summary>
+
+<a id="d-7bad93fbc3cf24b27ffe"></a>
+- [ ] **D-7bad93fbc3cf24b27ffe** - every supported data/resource schema generated from a versioned schema registry rather than hardcoded forms.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 7. Command / Data / Worldgen Generator Studio / 7.2 Datapack/resource generators
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 402-402](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L402-L402)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 16. Hot Reload / Fast Dev Loop (1)</summary>
+
+<a id="d-8f027886c9325df80864"></a>
+- [ ] **D-8f027886c9325df80864** - detect when structural class/registry change requires full restart.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 16. Hot Reload / Fast Dev Loop
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 798-798](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L798-L798)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 25. Pack/Release Permission &amp; Policy Gate (1)</summary>
+
+<a id="d-c7f560a00bf5c39923cd"></a>
+- [ ] **D-c7f560a00bf5c39923cd** - Signing support where Enderloom has a real configured signing identity.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 25. Pack/Release Permission &amp; Policy Gate
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L974-L974)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 30. Architecture additions required in Wave A (1)</summary>
+
+<a id="d-da5f0980ddec904f290d"></a>
+- [ ] **D-da5f0980ddec904f290d** - Do not postpone all of this until later. Wave A must make the canonical graph extensible enough that these later domains do not force another rewrite.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 30. Architecture additions required in Wave A
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1075-1075](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1075-L1075)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority (1)</summary>
+
+<a id="d-398e7612a3b6dbc4e04c"></a>
+- [ ] **D-398e7612a3b6dbc4e04c** - - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonica...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - cold/warm latency; - throughput; - p95/p99 tail latency; - CPU; - memory; - disk/network I/O; - startup/packaging cost; - complete result/output equivalence; - freshness/canonical identity correctness; - crash/restart behavior; - malformed/hostile input handling where applicable; - data integrity and interrupted-write/operation recovery; - Phase 1 only: when a real running-Minecraft fixture is already available, run a cheap coexistence smoke check so an obvious regression cannot be promoted. Do not run/tune the full G014 suite here; definitive Minecraft zero-impact proof is Phase 2 and does not block Phase 1 stack promotion.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 73-85](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L73-L85)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback (1)</summary>
+
+<a id="d-e844b1aa9d6cd2f3474f"></a>
+- [ ] **D-e844b1aa9d6cd2f3474f** - · Do not let a bleeding-edge dependency stall Enderloom indefinitely
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T088 — Hard-failure breaker and automatic stable fallback
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T088 : 96-96](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L96-L96)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core` (1)</summary>
+
+<a id="d-811ff41f744b8a6f5efe"></a>
+- [ ] **D-811ff41f744b8a6f5efe** - - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest pr...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Resolve the existing Enderloom process/module boundaries once; do not invent parallel services if a suitable native bridge already exists. - Choose and benchmark the narrowest production-grade bridge appropriate to the current Electron architecture (for example N-API/native module versus a supervised local sidecar) on startup overhead, IPC throughput, crash isolation, packaging/update complexity, and debugging. - Expose typed versioned commands/events, stable operation IDs, cancellation, progress, structured errors, and compact delta responses. - One end-to-end vertical slice must exercise: renderer action -&gt; thin Electron adapter -&gt; Rust domain operation -&gt; persisted state/files/provider work -&gt; progress/event -&gt; visible UI result -&gt; restart persistence. - Core crash/failure must fail the affected operation truthfully and keep the Electron shell recoverable; never let a native panic corrupt live state or masquerade as success. - Package/sign/distribute the Rust component as part of the normal Enderloom build, not as a developer-only optional binary. - Record exact Rust toolchain/native binary hash/API schema in packaged-runtime evidence.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T056 — Build and production-wire `enderloom-core`
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 460-466](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L460-L466)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes (1)</summary>
+
+<a id="d-6d7cdf5313011144a708"></a>
+- [ ] **D-6d7cdf5313011144a708** - - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Version every schema migration; migrate atomically with rollback/backup path. - Enable/verify relational constraints appropriate to the schema. - On suspicious shutdown/migration/storage errors, perform cheap integrity checks first and escalate to full integrity verification when warranted. - Never delete the only good database because one cache table is corrupt; distinguish rebuildable caches/indexes from durable user state. - If rebuildable indexes are invalid, reconstruct them from authoritative durable state/files/providers while preserving user data. - Do not weaken SQLite durability/synchronous settings merely to win a benchmark; any tuning must pass crash/power-loss simulation appropriate to the protected data class.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T059 — SQLite WAL canonical state store + FTS/search/sort indexes
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 541-546](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L541-L546)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit (1)</summary>
+
+<a id="d-84f69f4ec3c80e5f9cb7"></a>
+- [ ] **D-84f69f4ec3c80e5f9cb7** - - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive meta...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Start network transfer immediately once request/destination/auth are valid. - Stream bytes to staging while computing required hashes/fingerprints; where safe, begin archive metadata inspection as soon as sufficient validated structure is available. - Plan independent dependency/provider branches concurrently. - While artifact A verifies/commits, artifact B may download/verify when transactions are independent. - Reuse exact validated CAS artifacts/dependency plans/provider metadata instead of repeating work. - No artifact reaches a live instance until all required identity, hash, compatibility, dependency and transaction prerequisites for that commit are satisfied. - Partial/temp files are never exposed as successful artifacts. - Cancellation and failure cleanly release staged resources or preserve resumable state. - Commit is atomic and rollback-capable; same-filename replacement follows T001 rather than in-place overwrite. - Progress reports real pipeline stages/bytes/work and never fabricates &quot;done&quot; while deferred blocking verification remains.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T065 — Pipelined transfer -&gt; hash -&gt; inspect -&gt; dependency -&gt; verify -&gt; atomic commit
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 662-671](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L662-L671)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture (1)</summary>
+
+<a id="d-273c005cc7dc2b164e23"></a>
+- [ ] **D-273c005cc7dc2b164e23** - 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where suppor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 5. Request graph, batching, single-flight, and bounded concurrency - Replace serial provider waterfalls with a dependency-aware request DAG. - Batch provider endpoints where supported (project-many/version-many/hash-many) and batch local DB reads. - Coalesce identical in-flight requests so multiple cards/detail panes never fetch the same entity independently. - Run independent providers/metadata branches concurrently with per-provider concurrency/rate limits. - Maintain per-provider circuit/degraded state so one slow provider does not stall already-available data from the others. - Reuse resolved dependency/compatibility/provider identity work instead of recomputing it on every view transition.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1633-1639](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1633-L1639)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 2. Product principles — non-negotiable / 2.1 Real functionality, not theater (1)</summary>
+
+<a id="d-55653788253700ddd186"></a>
+- [ ] **D-55653788253700ddd186** - Every visible control must perform a real operation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Product principles — non-negotiable / 2.1 Real functionality, not theater
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 47-47](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L47-L47)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 10. Snapshots, backups, repair, recovery (1)</summary>
+
+<a id="d-a520a63186356541deba"></a>
+- [ ] **D-a520a63186356541deba** - Transactional quarantine.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Snapshots, backups, repair, recovery
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L455-L455)
+  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency (1)</summary>
+
+<a id="d-b6e59b383b1c522c0d73"></a>
+- [ ] **D-b6e59b383b1c522c0d73** - Patchwork is archived and version-limited. Do not revive it as a production dependency. Extract only transformations that are revalidated against current loaders.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G025 — Bidirectional loader compatibility corpus: Connector is only half the picture / T091 — Mine Kilt + Twill as the inverse of Connector / T092 — Preserve Patchwork as an archived transformation corpus, never a runtime dependency
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 953-953](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L953-L953)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter (1)</summary>
+
+<a id="d-de3a80ce6a3fbae64c93"></a>
+- [ ] **D-de3a80ce6a3fbae64c93** - Unit-testing a build-script renderer is insufficient: the generated project must configure and execute with the real pinned plugin/toolchain in an isolated fixture.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T361 — Functional-test every generated build adapter
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 1011-1011](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1011-L1011)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T235 — Clean-room installation/replay (1)</summary>
+
+<a id="d-517196c8e702e9d3d350"></a>
+- [ ] **D-517196c8e702e9d3d350** - — From a clean environment/cache state, rebuild Enderloom conversion components and replay the graduation fixtures with only documented/bootstrap dependencies.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T235 — Clean-room installation/replay
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T235 : 1975-1975](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1975-L1975)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G067 — Dependency solving and durable task execution / T252 — Implement one Minecraft-specific solver abstraction and bake off Resolvo vs PubGrub / T253 — Automatic dependency install/update must use the same solver (1)</summary>
+
+<a id="d-a35dba38a7c5e9c8035b"></a>
+- [ ] **D-a35dba38a7c5e9c8035b** - — Browse install, instance repair, mod update and conversion dependency resolution all call the same solver/domain layer. Missing/outdated/incompatible dependencies should be detec...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Browse install, instance repair, mod update and conversion dependency resolution all call the same solver/domain layer. Missing/outdated/incompatible dependencies should be detected before launch and remediated automatically when a valid source is available.
+  - **Binding context:** G067 — Dependency solving and durable task execution / T252 — Implement one Minecraft-specific solver abstraction and bake off Resolvo vs PubGrub / T253 — Automatic dependency install/update must use the same solver
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T253 : 2199-2199](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2199-L2199)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles (1)</summary>
+
+<a id="d-8f1deac219ec72b0c4a7"></a>
+- [ ] **D-8f1deac219ec72b0c4a7** - Do not introduce multiple concurrency libraries without a measured owner/use case.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T259 — Use SCC/Papaya/ArcSwap only for measured shared-state roles
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2250-2250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2250-L2250)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T260 — Keep Foyer conditional on a real hybrid-cache need (1)</summary>
+
+<a id="d-af34f347123ef5b4d4d7"></a>
+- [ ] **D-af34f347123ef5b4d4d7** - — Evaluate Foyer only if the measured workload needs a coordinated memory+disk cache larger/more sophisticated than SQLite/CAS + bounded memory caches. Its adoption requires cross-...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Evaluate Foyer only if the measured workload needs a coordinated memory+disk cache larger/more sophisticated than SQLite/CAS + bounded memory caches. Its adoption requires cross-platform durability/operability proof; otherwise reject it explicitly.
+  - **Binding context:** G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T260 — Keep Foyer conditional on a real hybrid-cache need
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T260 : 2254-2254](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2254-L2254)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T265 — Make downloads resumable and integrity-first (1)</summary>
+
+<a id="d-baab7443e84605b17fed"></a>
+- [ ] **D-baab7443e84605b17fed** - — Support ranged resume/partial files where providers permit it, durable progress/checkpoints, atomic promotion after hash verification, corruption retry from a clean boundary and ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Support ranged resume/partial files where providers permit it, durable progress/checkpoints, atomic promotion after hash verification, corruption retry from a clean boundary and cleanup of abandoned partials.
+  - **Binding context:** G069 — Network, download and media pipeline / T264 — Unify transport policy above reqwest/wreq/impit rather than replacing proven transports / T265 — Make downloads resumable and integrity-first
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T265 : 2306-2306](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2306-L2306)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T342 — Rust public API/dependency hygiene (1)</summary>
+
+<a id="d-4e6dc34d28db7e4b73d9"></a>
+- [ ] **D-4e6dc34d28db7e4b73d9** - — Add cargo-semver-checks where Enderloom exposes stable Rust/plugin/SDK APIs, and use cargo-machete (plus cargo metadata verification) to remove genuinely unused dependencies. Use...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Add cargo-semver-checks where Enderloom exposes stable Rust/plugin/SDK APIs, and use cargo-machete (plus cargo metadata verification) to remove genuinely unused dependencies. Use cargo-bloat or equivalent only to explain release-size/codegen hotspots, not as a mandate to remove useful capability.
+  - **Binding context:** G071 — Observability, crash recovery, profiling and supply-chain safety / T273 — Structured tracing with ETW on Windows / T342 — Rust public API/dependency hygiene
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T342 : 2454-2454](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2454-L2454)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 1. THE PRODUCT EXPERIENCE / 1.2 No sitting on blockers (1)</summary>
+
+<a id="d-b056c83c460c8a4ee218"></a>
+- [ ] **D-b056c83c460c8a4ee218** - If all realistic recovery routes are exhausted, preserve the best verified result and report one precise remaining limitation with the exact failed operation and evidence. Do not a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** If all realistic recovery routes are exhausted, preserve the best verified result and report one precise remaining limitation with the exact failed operation and evidence. Do not abandon the entire job because one secondary target is blocked.
+  - **Binding context:** 1. THE PRODUCT EXPERIENCE / 1.2 No sitting on blockers
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 81-81](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L81-L81) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 81-81](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L81-L81)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.3 Optional dependencies must actually be optional (1)</summary>
+
+<a id="d-0510a0ed7b3de50c8635"></a>
+- [ ] **D-0510a0ed7b3de50c8635** - A guard such as isModLoaded() is not enough if the JVM must resolve an optional class from a field/method descriptor or static initializer before the guard runs.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 6. REPAIR INTELLIGENCE ENDERLOOM MUST APPLY AUTOMATICALLY / 6.3 Optional dependencies must actually be optional
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 286-286](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L286-L286) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 286-286](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L286-L286)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 25. Focused definition of done (1)</summary>
+
+<a id="d-3161ee6c9dba39f36c54"></a>
+- [ ] **D-3161ee6c9dba39f36c54** - A/B tests are dependency-aware and interaction-aware.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 25. Focused definition of done
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 894-894](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L894-L894)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 1. The Integration Law — absolutely non-negotiable (1)</summary>
+
+<a id="d-b5d60b4c4d50e46166fa"></a>
+- [ ] **D-b5d60b4c4d50e46166fa** - CI fails if a meaningful new operation has no shared-domain/CLI mapping without an approved reason.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. The Integration Law — absolutely non-negotiable
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 63-63](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L63-L63)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 3. Durable Task Engine (1)</summary>
+
+<a id="d-307d5e31837077d23ec0"></a>
+- [ ] **D-307d5e31837077d23ec0** - Resumable after Enderloom restart.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Durable Task Engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 130-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L130-L130)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 43. Implementation program — Codex waves / Wave A — Integration Spine (1)</summary>
+
+<a id="d-1f35508de8bd8f47ebee"></a>
+- [ ] **D-1f35508de8bd8f47ebee** - Transaction/rollback primitives.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 43. Implementation program — Codex waves / Wave A — Integration Spine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1585-1585](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1585-L1585)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Context and authority (1)</summary>
+
+<a id="d-7c0d29a068bd200cc949"></a>
+- [ ] **D-7c0d29a068bd200cc949** - Existing components to inspect once and reuse: the Rust launcher/service, persistent Electron/Chromium browser, shared project/job/dependency graph, tools/minecraft-dev-kit/scripts...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Existing components to inspect once and reuse: the Rust launcher/service, persistent Electron/Chromium browser, shared project/job/dependency graph, tools/minecraft-dev-kit/scripts/ conversion and runtime control modules, Blockbench/Variant Foundry, and scripts/knowledge/knowledge.py publication pipeline. Resolve exact runtime owners and platform capabilities during implementation preflight; do not invent a parallel launcher, conversion engine, database, or progress owner.
+  - **Binding context:** Universal Minecraft A/B Studio / Context and authority
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 13-13](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L13-L13)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09 (4)</summary>
+
+<a id="d-6e924432c0eb9f1dfd47"></a>
+- [ ] **D-6e924432c0eb9f1dfd47** - AB-T009 Queue multiple transfers using durable job IDs, dependency ordering, conflict detection and resource-aware build concurrency. Continue gameplay/testing while jobs run. Sing...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T009 Queue multiple transfers using durable job IDs, dependency ordering, conflict detection and resource-aware build concurrency. Continue gameplay/testing while jobs run. Single-flight identical source/target transforms and cache by complete input/toolchain/rule fingerprint; never reuse stale results.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 98-98](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L98-L98)
+
+<a id="d-696de836053763b8630c"></a>
+- [ ] **D-696de836053763b8630c** - AB-T010 Expose real phase progress, logs, actionable errors, missing dependencies and needed decisions. Support cancel, undo, retry and rollback, including a failed middle item, di...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T010 Expose real phase progress, logs, actionable errors, missing dependencies and needed decisions. Support cancel, undo, retry and rollback, including a failed middle item, disk exhaustion, engine crash, app crash and re-open. Undo preview and staged project changes independently; restoring an installed artifact must also restore manifests/config/dependencies.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L99-L99)
+
+<a id="d-4cd8bd7f344854e840dd"></a>
+- [ ] **D-4cd8bd7f344854e840dd** - AB-T011 Offer restart now / after batch / later; aggregate compatible pending installs. Stop writers and snapshot safe test state before restart. Preserve world snapshot, player in...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T011 Offer restart now / after batch / later; aggregate compatible pending installs. Stop writers and snapshot safe test state before restart. Preserve world snapshot, player inventory/position, camera, test route, selected inspector and scenario checkpoint where possible. When runtime/edition differences prevent restoration, state exactly what can be restored and replay from a verified checkpoint.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 100-100](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L100-L100)
+
+<a id="d-30e436e27a5d70ba731b"></a>
+- [ ] **D-30e436e27a5d70ba731b** - AB-T012 Test process supervision, destination edits during builds, stale jobs finishing out of order, same-ID collisions, overlapping dependency changes and concurrent batch adopti...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T012 Test process supervision, destination edits during builds, stale jobs finishing out of order, same-ID collisions, overlapping dependency changes and concurrent batch adoption. Use a compare-and-swap project revision and transactional destination ownership so a late result cannot overwrite newer work.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 101-101](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L101-L101)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / Enderloom Universal Version Graph Engine - Full Implementation Contract / Context - current repository truth to preserve (1)</summary>
+
+<a id="d-a8fda2c828003765066c"></a>
+- [ ] **D-a8fda2c828003765066c** - The current repository already proves important multiversion behavior. Do not restart from a greenfield design and do not discard the existing worker before replacement parity is d...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The current repository already proves important multiversion behavior. Do not restart from a greenfield design and do not discard the existing worker before replacement parity is demonstrated.
+  - **Binding context:** Enderloom Universal Version Graph Engine - Full Implementation Contract / Context - current repository truth to preserve
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md : 26-26](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L26-L26)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Generalized shared-source factoring and projection engine (1)</summary>
+
+<a id="d-9a84510472f41c6c4a41"></a>
+- [ ] **D-9a84510472f41c6c4a41** - · When a target is materialized twice from unchanged canonical state and frozen toolchain inputs, require deterministic authored projection hashes and classify unavoidable nondeter...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · When a target is materialized twice from unchanged canonical state and frozen toolchain inputs, require deterministic authored projection hashes and classify unavoidable nondeterministic build outputs separately.
+  - **Binding context:** GATE - Generalized shared-source factoring and projection engine
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T032 : 302-302](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L302-L302)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Native build, dependency, and toolchain ownership per cell (1)</summary>
+
+<a id="d-60e457f56b179eb77237"></a>
+- [ ] **D-60e457f56b179eb77237** - · Support offline/verified cache reuse when exact required artifacts exist; never report a cache/toolchain as available when hashes are missing or wrong.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Native build, dependency, and toolchain ownership per cell
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T113 : 433-433](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L433-L433)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / CONVERGENCE LOOP — prove the engine against the whole contract (1)</summary>
+
+<a id="d-8e4e8346fefe44a26424"></a>
+- [ ] **D-8e4e8346fefe44a26424** - · Perform a final clean-room/restart challenge from the canonical project state, frozen target profiles, dependencies, rule store, and caches allowed by policy; prove resumability ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** · Perform a final clean-room/restart challenge from the canonical project state, frozen target profiles, dependencies, rule store, and caches allowed by policy; prove resumability and deterministic regeneration without manual generated-target surgery.
+  - **Binding context:** CONVERGENCE LOOP — prove the engine against the whole contract
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T165 : 516-516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L516-L516)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule (3)</summary>
+
+<a id="d-f34e76de0d6560205789"></a>
+- [ ] **D-f34e76de0d6560205789** - GUI path: React/Electron -&gt; typed API -&gt; shared domain/service operation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 43-43](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L43-L43)
+
+<a id="d-a8b208b4130668b5926c"></a>
+- [ ] **D-a8b208b4130668b5926c** - CLI path: Clap -&gt; typed CLI request -&gt; same shared domain/service operation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 44-44](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L44-L44)
+
+<a id="d-deaf6d4b7bdda0d0c60e"></a>
+- [ ] **D-deaf6d4b7bdda0d0c60e** - Service path: JSON protocol -&gt; typed request -&gt; same shared domain/service operation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 45-45](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L45-L45)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine (1)</summary>
+
+<a id="d-b48c595c123c79a125db"></a>
+- [ ] **D-b48c595c123c79a125db** - dependency-safe variant materialization
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 871-871](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L871-L871)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 17. Definition of done (1)</summary>
+
+<a id="d-86ef388120e8d3d76fa5"></a>
+- [ ] **D-86ef388120e8d3d76fa5** - Cancellation, timeouts and crash recovery preserve evidence and clean only owned test state.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 17. Definition of done
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 931-931](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L931-L931)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph (1)</summary>
+
+<a id="d-d3f73d9d6ca1b7ac2520"></a>
+- [ ] **D-d3f73d9d6ca1b7ac2520** - A mod may be tested with required libraries preserved. A library should not be blamed merely because disabling it also prevents dependent gameplay mods from loading.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph
+  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L95-L95)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md / 5. Mapping lineage is a graph, not find/replace (1)</summary>
+
+<a id="d-9cd18fef66bca933675e"></a>
+- [ ] **D-9cd18fef66bca933675e** - Object types inside JVM descriptors must be mapped too. Never accept a method merely because its simple name looks right.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 5. Mapping lineage is a graph, not find/replace
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md : 277-277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L277-L277) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md : 279-279](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md#L279-L279) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md : 355-355](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6.md#L355-L355) / [ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md : 355-355](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v6_PRE_SELFREF_FIX.md#L355-L355)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 3. CENTRAL VERSION MATRIX — ONE SOURCE OF TRUTH (1)</summary>
+
+<a id="d-e742397cc1e48a3dd814"></a>
+- [ ] **D-e742397cc1e48a3dd814** - - Support registry is updateable without rewriting the UI. - The primary target is always inserted even if it is newer than the cached matrix; resolve it first from current loader ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Support registry is updateable without rewriting the UI. - The primary target is always inserted even if it is newer than the cached matrix; resolve it first from current loader metadata when possible. - Matrix planner computes valid cells from: - Minecraft version availability - loader availability - required Java/toolchain - mod dependency availability - source feature requirements - user includes/excludes - Never label a cell supported until its loader/toolchain/dependencies can actually resolve. - Keep experimental distinct from stable. - Keep blocked distinct from failed: - blocked = known impossible/missing prerequisite before build. - failed = valid cell attempted and did not pass its gates. - Every blocked cell gets an actionable reason such as: - Dependency X has no Fabric build for 1.20.1 - Mod requires vanilla registry introduced after this target - NeoForge not available for this Minecraft version
+  - **Binding context:** 3. CENTRAL VERSION MATRIX — ONE SOURCE OF TRUTH
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 113-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L113-L130)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot; (1)</summary>
+
+<a id="d-873c1736b651260666cc"></a>
+- [ ] **D-873c1736b651260666cc** - A dependency missing on one matrix cell marks it blocked with the correct reason and does not strip the dependent feature from other cells.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot;
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 405-405](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L405-L405)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules / Progress snapshot — keep these counts current (1)</summary>
+
+<a id="d-82bff19a96ca915022fe"></a>
+- [ ] **D-82bff19a96ca915022fe** - Do not spend a work session only updating these counters. A progress update is valid only after code, tests, runtime evidence, or a durable checkpoint changed.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules / Progress snapshot — keep these counts current
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 50-50](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L50-L50)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry (2)</summary>
+
+<a id="d-393ad9c821847621ebd6"></a>
+- [ ] **D-393ad9c821847621ebd6** - Persist coherent cell state after each success/failure.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L249-L249)
+
+<a id="d-651b8184784e8a2e0511"></a>
+- [ ] **D-651b8184784e8a2e0511** - Never overwrite a known-good artifact before replacement certification.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 251-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L251-L251)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
+
+<a id="d-ec84335100d92e3ea055"></a>
+- [ ] **D-ec84335100d92e3ea055** - Wire primary-target-first through a real operation and prohibit premature fan-out.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md :: NP-05 : 1402-1402](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1402-L1402)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-b4915881aafe2cc7db7c"></a>
+- [ ] **D-b4915881aafe2cc7db7c** - Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentia...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use a scoped process/library adapter behind shared jobs, with bounded resources, progress, cancellation, isolated staging, safe archive paths and destination review. Keep credentials in the existing secure account path and redact errors, receipts and logs. Do not adopt public key-sharing services or access-control, payment or entitlement bypass routes. After normal authorized import, compare every retained member and dependency against the source census. Prove duplicate install, stale entitlement, account switching, missing tools, malformed/nested archives, interrupted downloads, path collisions, disk exhaustion, restart and rollback. Cancellation and failure must preserve original input bytes.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 106-114](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L106-L114)
 
 </details>
 

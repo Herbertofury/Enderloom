@@ -36,6 +36,10 @@
 
 [**DEP-08**](Checklist.md#dep-08) - Probe actual CLI/library contracts and pair-specific fixtures; reject exit-zero/no-output/stale/malformed reports, distinguish unknown from absent and route failed backends to real recovery.
 
+### A/B transfer queues and restart recovery
+
+[**DEP-09**](Checklist.md#dep-09) - Durable concurrent transfer queues preserve playable testing, truthful progress/errors, undo/retry/rollback, restart now/after-batch/later, safe test-state restoration and protection from stale jobs. Acceptance: AB-T009–AB-T012. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-DEP.md)** / **[Source manifest](Source-Map.md)**
 
 ## A download or build failure must not lose the job
@@ -64,11 +68,12 @@ sequenceDiagram
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [DEP-01 - Full dependency closure](Acceptance-DEP.md#dep-01-details): 82 source details.
+- [DEP-01 - Full dependency closure](Acceptance-DEP.md#dep-01-details): 74 source details.
 - [DEP-02 - Automatic safe acquisition](Acceptance-DEP.md#dep-02-details): 1 source details.
-- [DEP-03 - Conflict and change-impact graph](Acceptance-DEP.md#dep-03-details): 110 source details.
-- [DEP-04 - Managed immutable toolchains](Acceptance-DEP.md#dep-04-details): 13 source details.
-- [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 115 source details.
-- [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 16 source details.
-- [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 61 source details.
-- [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 14 source details.
+- [DEP-03 - Conflict and change-impact graph](Acceptance-DEP.md#dep-03-details): 94 source details.
+- [DEP-04 - Managed immutable toolchains](Acceptance-DEP.md#dep-04-details): 12 source details.
+- [DEP-05 - Canonical identity and action registry](Acceptance-DEP.md#dep-05-details): 104 source details.
+- [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 13 source details.
+- [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 52 source details.
+- [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 10 source details.
+- [DEP-09 - A/B transfer queues and restart recovery](Acceptance-DEP.md#dep-09-details): 57 source details.

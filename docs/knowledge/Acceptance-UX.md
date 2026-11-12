@@ -9,7 +9,7 @@
 <a id="ux-01-details"></a>
 ## UX-01 - Four-action Home
 
-[Outcome](Checklist.md#ux-01) / 59 source-derived details.
+[Outcome](Checklist.md#ux-01) / 53 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.10 Conversion planner and user experience (1)</summary>
@@ -112,61 +112,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 21. Replay / Capture / Showcase Studio
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 899-899](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L899-L899)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline (1)</summary>
-
-<a id="d-62573b554d53f28c6680"></a>
-- [ ] **D-62573b554d53f28c6680** - Required behavior:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1093-1093](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1093-L1093)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets (1)</summary>
-
-<a id="d-00af7091bc81c6522962"></a>
-- [ ] **D-00af7091bc81c6522962** - Required:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1183-1183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1183-L1183)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet (1)</summary>
-
-<a id="d-7e9d4479694dca00903b"></a>
-- [ ] **D-7e9d4479694dca00903b** - Required:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1273-1273](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1273-L1273)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting (1)</summary>
-
-<a id="d-4ad66e6c8e3f6ccb95bf"></a>
-- [ ] **D-4ad66e6c8e3f6ccb95bf** - Required UX:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1305-1305](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1305-L1305)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness (1)</summary>
-
-<a id="d-ab50b91c1950b58390c9"></a>
-- [ ] **D-ab50b91c1950b58390c9** - Required A/B while Minecraft is running:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1320-1320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1320-L1320)
 
 </details>
 
@@ -451,17 +396,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule (1)</summary>
-
-<a id="d-f564ed585a0020698f23"></a>
-- [ ] **D-f564ed585a0020698f23** - CLI execution must not require a visible WebView/window.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
-  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 47-47](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L47-L47)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF_v5.md / 27. Definition of Done — Enderloom Apex Conversion Engine / Core conversion / Exact proof (1)</summary>
 
 <a id="d-39acb03b857cd7f80407"></a>
@@ -486,7 +420,7 @@
 <a id="ux-02-details"></a>
 ## UX-02 - One contextual workbench
 
-[Outcome](Checklist.md#ux-02) / 15 source-derived details.
+[Outcome](Checklist.md#ux-02) / 14 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Unified Studio UI law (1)</summary>
@@ -497,17 +431,6 @@
   - **Full requirement:** Do not build endless top-level creation tabs. Enderloom gets one top-level Studio, closer in spirit to Unreal Engine / Unity: a composable workspace with a Project/Content Browser, Outliner/Hierarchy, Inspector/Details, main contextual editor/viewport, code/data/node editors, animation timeline/curves, console, problems, build/test, source control, integrated browser/docs and evidence panes.
   - **Binding context:** Codex Handoff — Enderloom Ultimate Minecraft Workbench / Unified Studio UI law
   - **Original specification:** [CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md : 36-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L36-L36)
-
-</details>
-
-<details>
-<summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave A — Integration Spine — START HERE (1)</summary>
-
-<a id="d-e9b53c3f2b5b0c186180"></a>
-- [ ] **D-e9b53c3f2b5b0c186180** - Do not build broad new UI before this works.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave A — Integration Spine — START HERE
-  - **Original specification:** [CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L226-L226)
 
 </details>
 
@@ -656,7 +579,7 @@
 <a id="ux-03-details"></a>
 ## UX-03 - Finished visual system
 
-[Outcome](Checklist.md#ux-03) / 7 source-derived details.
+[Outcome](Checklist.md#ux-03) / 5 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 2. Security &amp; Supply-Chain Center — missing critical layer / 2.1 Local static artifact scanner (1)</summary>
@@ -711,29 +634,6 @@
   - **Full requirement:** - Implement the cohesive design system from 0.7 across all studio surfaces, including typography, spacing, themes, icons, focus, motion and desktop chrome. Verify both dark and light appearances, not just the landing page.
   - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.9 Immediate product implementation tasks
   - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: T136 : 250-250](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L250-L250)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_STUDIO_EXECUTION.md / 6. Verification gates (1)</summary>
-
-<a id="d-c263d537bc313839bcbf"></a>
-- [ ] **D-c263d537bc313839bcbf** - GATE - T135-T138/T147/T157-T159/T162 prove the actual packaged Enderloom is a beautiful, coherent, accessible visual studio in all required states/themes/layouts. A text wall, gene...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** GATE - T135-T138/T147/T157-T159/T162 prove the actual packaged Enderloom is a beautiful, coherent, accessible visual studio in all required states/themes/layouts. A text wall, generic reskin, mockup or decorative controls cannot pass.
-  - **Binding context:** 6. Verification gates
-  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: G015 : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L974-L974)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (1)</summary>
-
-<a id="d-d01dd08a69677597ba9a"></a>
-- [ ] **D-d01dd08a69677597ba9a** - actual Minecraft window capture;
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 24. Visual QA Showcase
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1089-1089](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1089-L1089)
 
 </details>
 
@@ -836,7 +736,7 @@
 <a id="ux-05-details"></a>
 ## UX-05 - Honest progress and live findings
 
-[Outcome](Checklist.md#ux-05) / 65 source-derived details.
+[Outcome](Checklist.md#ux-05) / 62 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -1143,18 +1043,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode (1)</summary>
-
-<a id="d-419f7624bb8baa81b4d5"></a>
-- [ ] **D-419f7624bb8baa81b4d5** - - During Game Running Mode, use Windows ThreadMemoryPriority/ProcessMemoryPriority on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - During Game Running Mode, use Windows ThreadMemoryPriority/ProcessMemoryPriority on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages. - Keep foreground UI/control-plane memory at normal priority. - Never set Minecraft&#x27;s memory priority for benchmark manipulation. - A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1296-1299](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1296-L1299)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Authoritative execution order (1)</summary>
 
 <a id="d-05d4bf703e8403374b2c"></a>
@@ -1295,19 +1183,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger (2)</summary>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger (1)</summary>
 
 <a id="d-b60e3b07fe09ba32bf0d"></a>
 - [ ] **D-b60e3b07fe09ba32bf0d** - — Bake off/migrate to current official Tauri plugins for single-instance, deep-link and window-state behavior where they supersede current custom/community handling.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T244 : 2086-2086](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2086-L2086)
-
-<a id="d-e3ef8ff95eac802691b8"></a>
-- [ ] **D-e3ef8ff95eac802691b8** - Required behavior:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2088-2088](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2088-L2088)
 
 </details>
 
@@ -1379,19 +1261,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface (4)</summary>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface (3)</summary>
 
 <a id="d-7d38cbda802feb23e2d8"></a>
 - [ ] **D-7d38cbda802feb23e2d8** - Target selection -&gt; primary certification -&gt; ask/automatic fan-out -&gt; results.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 298-298](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L298-L298)
-
-<a id="d-177f332913f62be7ee87"></a>
-- [ ] **D-177f332913f62be7ee87** - Matrix rows = Minecraft versions; columns = loaders.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 299-299](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L299-L299)
 
 <a id="d-90e7b25f1300eeb6f05d"></a>
 - [ ] **D-90e7b25f1300eeb6f05d** - Provide Build all supported, Build selected, Build failed only, Stop secondary builds, Open logs, Open artifacts, Copy report.
@@ -1410,7 +1286,7 @@
 <a id="ux-06-details"></a>
 ## UX-06 - Reliable editing and recovery
 
-[Outcome](Checklist.md#ux-06) / 14 source-derived details.
+[Outcome](Checklist.md#ux-06) / 13 source-derived details.
 
 <details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 8. 3D Build / Schematic / Blueprint Studio / 8.1 Live 3D editing (1)</summary>
@@ -1453,17 +1329,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 23. Accessibility &amp; Localization — both Enderloom and projects / 23.2 Project localization studio
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 939-939](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L939-L939)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work (1)</summary>
-
-<a id="d-59def40f7761cd2e0fd1"></a>
-- [ ] **D-59def40f7761cd2e0fd1** - · Make switching from WebView2 Edition to Electron Edition (or back) a polished recovery path rather than a reinstall/reconfiguration event
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T101 : 390-390](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L390-L390)
 
 </details>
 
@@ -1569,7 +1434,7 @@
 <a id="ux-07-details"></a>
 ## UX-07 - Large-data and bulk usability
 
-[Outcome](Checklist.md#ux-07) / 74 source-derived details.
+[Outcome](Checklist.md#ux-07) / 69 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.2 direct-navigation drag-overlay fix (1)</summary>
@@ -1822,17 +1687,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun (1)</summary>
-
-<a id="d-6ddc814d7ce0abf5a147"></a>
-- [ ] **D-6ddc814d7ce0abf5a147** - · Modernize the web/tool build baseline and A/B the shared UI runtime using Enderloom&#x27;s real large-catalog workloads rather than framework microbenchmarks
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T095 : 255-255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L255-L255)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G012 — PHASE 1 CORE: Rust-native `enderloom-core` owns the performance-critical architecture / T060 — Global content-addressed artifact store with corruption-safe reuse (1)</summary>
 
 <a id="d-2cebed2b94b4c2662af8"></a>
@@ -1877,28 +1731,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets (1)</summary>
-
-<a id="d-2c1b4ab736859fc1b3ea"></a>
-- [ ] **D-2c1b4ab736859fc1b3ea** - · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T080 : 1181-1181](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1181-L1181)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness (1)</summary>
-
-<a id="d-9906828edf7ea0632852"></a>
-- [ ] **D-9906828edf7ea0632852** - · Prove the zero-impact governor protects Minecraft by removing background interference, not by making Enderloom itself feel broken or slow
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T105 : 1318-1318](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1318-L1318)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work (1)</summary>
 
 <a id="d-96b006df590ab134aeab"></a>
@@ -1926,18 +1758,6 @@
   - **Full requirement:** 8. Browse search/filter/sort must be local-first where semantics allow - Debounce only remote query issuance, not keystroke/UI feedback. - Filter/sort already-loaded logical results immediately in local state. - Cache query+facet pages with canonical query keys and reuse them on back/forward. - Preserve scroll position, selected card, filters, sort, provider/source choice, and current instance context. - Under virtualization/pagination, counts/search/filter/bulk semantics must still represent the promised logical dataset, not only rendered rows.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T045 — Make Browse/project opening effectively instant without reducing work / Required architecture
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1655-1660](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1655-L1660)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives (1)</summary>
-
-<a id="d-c7f5d98a4a0f25bc6886"></a>
-- [ ] **D-c7f5d98a4a0f25bc6886** - - Inspect the actual current browser embedding implementation once. - If it already uses WebContentsView, verify it and close this as proven rather than rewriting it. - If it uses ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Inspect the actual current browser embedding implementation once. - If it already uses WebContentsView, verify it and close this as proven rather than rewriting it. - If it uses deprecated BrowserView or the discouraged &lt;webview&gt; path for the main browser surface, migrate to WebContentsView while preserving session, navigation, tabs, split layout, sizing, focus, keyboard, media, downloads, auth and DevTools behavior. - Centralize view lifecycle/ownership so hidden/dead views cannot retain stale privileged references. - Do not perform this migration as a visual rewrite; preserve current accepted Enderloom shell UX while modernizing the browser substrate.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1850-1854](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1850-L1854)
 
 </details>
 
@@ -2207,18 +2027,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now (1)</summary>
-
-<a id="d-57f60edf088dd7d83bf7"></a>
-- [ ] **D-57f60edf088dd7d83bf7** - This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, a...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, and leave Enderloom able to use it immediately.
-  - **Binding context:** ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 8-8](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L8-L8)
-
-</details>
-
-<details>
 <summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
 
 <a id="d-52fe853282281f5fcb10"></a>
@@ -2233,7 +2041,7 @@
 <a id="ux-08-details"></a>
 ## UX-08 - Accessible responsive native UI
 
-[Outcome](Checklist.md#ux-08) / 82 source-derived details.
+[Outcome](Checklist.md#ux-08) / 77 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 22. QA fixtures (1)</summary>
@@ -2276,17 +2084,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 2. Current High-Value Minecraft Diagnostic Integrations / 2.5 Task Manager-style client profiler
   - **Original specification:** [ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md : 181-181](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTERS_PROGRESS_UX_SPEC.md#L181-L181)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management (1)</summary>
-
-<a id="d-ababe86769a8538c61eb"></a>
-- [ ] **D-ababe86769a8538c61eb** - Exact @minecraft/server, @minecraft/server-ui, editor/debug package versions.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 117-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L117-L117)
 
 </details>
 
@@ -2648,17 +2445,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T079 — Game Running Resource Governor: Minecraft always wins resource contention (1)</summary>
-
-<a id="d-3f1a3bca1d5242e8728a"></a>
-- [ ] **D-3f1a3bca1d5242e8728a** - · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T079 — Game Running Resource Governor: Minecraft always wins resource contention
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T079 : 1162-1162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1162-L1162)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 11. Logs, diagnostics, storage, system visibility / Storage (1)</summary>
 
 <a id="d-481b65fb4b7038d98394"></a>
@@ -2775,17 +2561,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md / Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged (1)</summary>
-
-<a id="d-f556dd3eb63088b69029"></a>
-- [ ] **D-f556dd3eb63088b69029** - Do not jump ahead into a giant conversion UI.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged
-  - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L106-L106)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.21 Consistent interaction rules (1)</summary>
 
 <a id="d-7de879423817b4f97735"></a>
@@ -2817,17 +2592,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 418-418](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L418-L418)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 9. Universal Minecraft Intermediate Representation (UMIR) (1)</summary>
-
-<a id="d-9f176a5f556599d72187"></a>
-- [ ] **D-9f176a5f556599d72187** - UI/screens/widgets;
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 9. Universal Minecraft Intermediate Representation (UMIR)
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 478-478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L478-L478)
 
 </details>
 
@@ -2898,17 +2662,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH (1)</summary>
-
-<a id="d-e052363bc5d3a100d1b5"></a>
-- [ ] **D-e052363bc5d3a100d1b5** - Do not build a giant wizard.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 740-740](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L740-L740) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1144-1144](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1144-L1144)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 15. DEFINITION OF DONE (1)</summary>
 
 <a id="d-df22c0960cad998397da"></a>
@@ -2933,7 +2686,7 @@
 <a id="ux-09-details"></a>
 ## UX-09 - First-launch and update experience
 
-[Outcome](Checklist.md#ux-09) / 61 source-derived details.
+[Outcome](Checklist.md#ux-09) / 58 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 5B. Production completion hardening - revision 3 / 5B.8 Executable production hardening (1)</summary>
@@ -2955,17 +2708,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 8. 3D Build / Schematic / Blueprint Studio / 8.1 Live 3D editing
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 455-455](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L455-L455)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority (1)</summary>
-
-<a id="d-20538e9fbd3968354586"></a>
-- [ ] **D-20538e9fbd3968354586** - · Promote the risky challenger only when an apples-to-apples A/B proves it is genuinely better overall
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T087 : 69-69](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L69-L69)
 
 </details>
 
@@ -3056,17 +2798,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / Phase-activation prerequisite
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1125-1125](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1125-L1125)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser (1)</summary>
-
-<a id="d-751513df3d7e9b4c860f"></a>
-- [ ] **D-751513df3d7e9b4c860f** - Required behavior:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1474-1474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1474-L1474)
 
 </details>
 
@@ -3213,18 +2944,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2277-2277](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2277-L2277) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2277-2277](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2277-L2277)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Product experience (1)</summary>
-
-<a id="d-52ad9e9c8f0e98a9fa6e"></a>
-- [ ] **D-52ad9e9c8f0e98a9fa6e** - The product is Enderloom, presented as a professional Minecraft mod studio. Transform the actual existing application, not a separate website, static HTML prototype, screenshots, r...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The product is Enderloom, presented as a professional Minecraft mod studio. Transform the actual existing application, not a separate website, static HTML prototype, screenshots, renamed console or theme-only reskin. Reuse working engine, launcher, catalogue, browser, account and file services; replace the text-heavy studio presentation with intentional visual composition and real workflow controls. Do not remove existing functionality to simplify the screen.
-  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Product experience
-  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 135-135](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L135-L135)
 
 </details>
 
@@ -3450,7 +3169,7 @@
 <a id="ux-10-details"></a>
 ## UX-10 - Real-user journey acceptance
 
-[Outcome](Checklist.md#ux-10) / 26 source-derived details.
+[Outcome](Checklist.md#ux-10) / 22 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 20. PHASE Q — ACCESSIBILITY, LOCALIZATION, ANALYTICS, UX FINISH (1)</summary>
@@ -3527,17 +3246,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 21. Replay / Capture / Showcase Studio (1)</summary>
-
-<a id="d-d46cbe5c4fe3ead7ddc0"></a>
-- [ ] **D-d46cbe5c4fe3ead7ddc0** - capture actual Minecraft window for proof.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 21. Replay / Capture / Showcase Studio
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 897-897](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L897-L897)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T085 — Maintain stable baselines and explicit challenger candidates (1)</summary>
 
 <a id="d-5b0e3ab5afe48b69f1c2"></a>
@@ -3545,40 +3253,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T085 — Maintain stable baselines and explicit challenger candidates
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 53-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L53-L53)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs (1)</summary>
-
-<a id="d-ab3b8971599c68a3c519"></a>
-- [ ] **D-ab3b8971599c68a3c519** - While a game is running the user must still be able to:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1200-1200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1200-L1200)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting (1)</summary>
-
-<a id="d-6675b3835c31dfe1ae6a"></a>
-- [ ] **D-6675b3835c31dfe1ae6a** - · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom&#x27;s always-on efficient baseline
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T104 : 1303-1303](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1303-L1303)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002 (1)</summary>
-
-<a id="d-504aa4d2be4688f5ac8a"></a>
-- [ ] **D-504aa4d2be4688f5ac8a** - The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-brow...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-browser toolbar, backed by the real T004 download model.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1516-1516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1516-L1516)
 
 </details>
 
@@ -3724,6 +3398,365 @@
   - **Full requirement:** The web assistant proposes work. Enderloom is the authority for hashes, builds, runtime tests, acceptance, installation and rollback. The default web-chat lane does not require a separate API key, but it must respect the provider’s normal authentication, subscription quotas, rate limits, UI and terms. Never bypass CAPTCHA, paywalls, DRM, quota controls or access restrictions.
   - **Binding context:** 
   - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 34-34](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L34-L34)
+
+</details>
+
+<a id="ux-11-details"></a>
+## UX-11 - Universal Minecraft A/B playable panes
+
+[Outcome](Checklist.md#ux-11) / 34 source-derived details.
+
+<details>
+<summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave A — Integration Spine — START HERE (1)</summary>
+
+<a id="d-e9b53c3f2b5b0c186180"></a>
+- [ ] **D-e9b53c3f2b5b0c186180** - Do not build broad new UI before this works.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Codex Handoff — Enderloom Ultimate Minecraft Workbench / Exact implementation order / Wave A — Integration Spine — START HERE
+  - **Original specification:** [CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md : 226-226](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L226-L226)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management (1)</summary>
+
+<a id="d-ababe86769a8538c61eb"></a>
+- [ ] **D-ababe86769a8538c61eb** - Exact @minecraft/server, @minecraft/server-ui, editor/debug package versions.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Bedrock Developer Center — full creator/debugger parity / 3.1 Creator project management
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 117-117](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L117-L117)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 21. Replay / Capture / Showcase Studio (1)</summary>
+
+<a id="d-d46cbe5c4fe3ead7ddc0"></a>
+- [ ] **D-d46cbe5c4fe3ead7ddc0** - capture actual Minecraft window for proof.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 21. Replay / Capture / Showcase Studio
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 897-897](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L897-L897)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority (1)</summary>
+
+<a id="d-20538e9fbd3968354586"></a>
+- [ ] **D-20538e9fbd3968354586** - · Promote the risky challenger only when an apples-to-apples A/B proves it is genuinely better overall
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T087 — A/B promotion requires speed + complete-result + reliability superiority
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T087 : 69-69](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L69-L69)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun (1)</summary>
+
+<a id="d-6ddc814d7ce0abf5a147"></a>
+- [ ] **D-6ddc814d7ce0abf5a147** - · Modernize the web/tool build baseline and A/B the shared UI runtime using Enderloom&#x27;s real large-catalog workloads rather than framework microbenchmarks
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T095 — UI/runtime/build challenger: React 19.3 Compiler vs SolidJS; TypeScript 7 + Vite 8/Rolldown + current Bun
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T095 : 255-255](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L255-L255)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work (1)</summary>
+
+<a id="d-59def40f7761cd2e0fd1"></a>
+- [ ] **D-59def40f7761cd2e0fd1** - · Make switching from WebView2 Edition to Electron Edition (or back) a polished recovery path rather than a reinstall/reconfiguration event
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T101 : 390-390](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L390-L390)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline (1)</summary>
+
+<a id="d-62573b554d53f28c6680"></a>
+- [ ] **D-62573b554d53f28c6680** - Required behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1093-1093](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1093-L1093)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T079 — Game Running Resource Governor: Minecraft always wins resource contention (1)</summary>
+
+<a id="d-3f1a3bca1d5242e8728a"></a>
+- [ ] **D-3f1a3bca1d5242e8728a** - · Add a native Windows-aware resource governor that dynamically pushes Enderloom work below Minecraft whenever the game is active
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T079 — Game Running Resource Governor: Minecraft always wins resource contention
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T079 : 1162-1162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1162-L1162)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets (2)</summary>
+
+<a id="d-2c1b4ab736859fc1b3ea"></a>
+- [ ] **D-2c1b4ab736859fc1b3ea** - · Continuously budget Enderloom resource use from measured game headroom rather than fixed arbitrary thread counts
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T080 : 1181-1181](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1181-L1181)
+
+<a id="d-00af7091bc81c6522962"></a>
+- [ ] **D-00af7091bc81c6522962** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T080 — Adaptive CPU / disk / memory / network interference budgets
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1183-1183](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1183-L1183)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs (1)</summary>
+
+<a id="d-ab3b8971599c68a3c519"></a>
+- [ ] **D-ab3b8971599c68a3c519** - While a game is running the user must still be able to:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T081 — Full management remains available while Minecraft runs
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1200-1200](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1200-L1200)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet (1)</summary>
+
+<a id="d-7e9d4479694dca00903b"></a>
+- [ ] **D-7e9d4479694dca00903b** - Required:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T084 — Permanent game-impact ratchet
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1273-1273](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1273-L1273)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode (1)</summary>
+
+<a id="d-419f7624bb8baa81b4d5"></a>
+- [ ] **D-419f7624bb8baa81b4d5** - - During Game Running Mode, use Windows ThreadMemoryPriority/ProcessMemoryPriority on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - During Game Running Mode, use Windows ThreadMemoryPriority/ProcessMemoryPriority on Enderloom background index/hash/cache/media workers so cold Enderloom pages are preferentially trimmed before game-critical hot pages. - Keep foreground UI/control-plane memory at normal priority. - Never set Minecraft&#x27;s memory priority for benchmark manipulation. - A/B low-memory priority against normal priority for page faults, Enderloom reopen latency, Minecraft 1%/0.1% lows and working-set pressure; keep only the winning policy.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T096 — PHASE 2 challenger: BITS + Windows memory-priority for Minecraft Game Running Mode
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1296-1299](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1296-L1299)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting (2)</summary>
+
+<a id="d-6675b3835c31dfe1ae6a"></a>
+- [ ] **D-6675b3835c31dfe1ae6a** - · Add a simple persisted user setting that permanently enables or disables the special Minecraft zero-impact governor without changing Enderloom&#x27;s always-on efficient baseline
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T104 : 1303-1303](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1303-L1303)
+
+<a id="d-4ad66e6c8e3f6ccb95bf"></a>
+- [ ] **D-4ad66e6c8e3f6ccb95bf** - Required UX:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T104 — Persistent Game Performance Protection setting
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1305-1305](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1305-L1305)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness (2)</summary>
+
+<a id="d-9906828edf7ea0632852"></a>
+- [ ] **D-9906828edf7ea0632852** - · Prove the zero-impact governor protects Minecraft by removing background interference, not by making Enderloom itself feel broken or slow
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T105 : 1318-1318](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1318-L1318)
+
+<a id="d-ab50b91c1950b58390c9"></a>
+- [ ] **D-ab50b91c1950b58390c9** - Required A/B while Minecraft is running:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1320-1320](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1320-L1320)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser (1)</summary>
+
+<a id="d-751513df3d7e9b4c860f"></a>
+- [ ] **D-751513df3d7e9b4c860f** - Required behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1474-1474](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1474-L1474)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002 (1)</summary>
+
+<a id="d-504aa4d2be4688f5ac8a"></a>
+- [ ] **D-504aa4d2be4688f5ac8a** - The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-brow...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The current behavior where downloads do not surface from a normal browser-style toolbar control is unacceptable. Implement a polished Downloads button directly in the embedded-browser toolbar, backed by the real T004 download model.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T025 — Chrome-style toolbar Downloads button and automatic pop-out bubble — highest browser/download UX priority within G002
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1516-1516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1516-L1516)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives (1)</summary>
+
+<a id="d-c7f5d98a4a0f25bc6886"></a>
+- [ ] **D-c7f5d98a4a0f25bc6886** - - Inspect the actual current browser embedding implementation once. - If it already uses WebContentsView, verify it and close this as proven rather than rewriting it. - If it uses ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Inspect the actual current browser embedding implementation once. - If it already uses WebContentsView, verify it and close this as proven rather than rewriting it. - If it uses deprecated BrowserView or the discouraged &lt;webview&gt; path for the main browser surface, migrate to WebContentsView while preserving session, navigation, tabs, split layout, sizing, focus, keyboard, media, downloads, auth and DevTools behavior. - Centralize view lifecycle/ownership so hidden/dead views cannot retain stale privileged references. - Do not perform this migration as a visual rewrite; preserve current accepted Enderloom shell UX while modernizing the browser substrate.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T036 — Migrate embedded browsing to WebContentsView/current Electron primitives
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1850-1854](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1850-L1854)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md / Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged (1)</summary>
+
+<a id="d-f556dd3eb63088b69029"></a>
+- [ ] **D-f556dd3eb63088b69029** - Do not jump ahead into a giant conversion UI.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom — Minecraft Workflow Parity Handoff Addendum / Exact implementation order remains unchanged
+  - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_HANDOFF_ADDENDUM.md#L106-L106)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger (1)</summary>
+
+<a id="d-e3ef8ff95eac802691b8"></a>
+- [ ] **D-e3ef8ff95eac802691b8** - Required behavior:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T244 — Move to the official single-instance + deep-link + window-state path where it is stronger
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md : 2088-2088](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2088-L2088)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Product experience (1)</summary>
+
+<a id="d-52ad9e9c8f0e98a9fa6e"></a>
+- [ ] **D-52ad9e9c8f0e98a9fa6e** - The product is Enderloom, presented as a professional Minecraft mod studio. Transform the actual existing application, not a separate website, static HTML prototype, screenshots, r...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The product is Enderloom, presented as a professional Minecraft mod studio. Transform the actual existing application, not a separate website, static HTML prototype, screenshots, renamed console or theme-only reskin. Reuse working engine, launcher, catalogue, browser, account and file services; replace the text-heavy studio presentation with intentional visual composition and real workflow controls. Do not remove existing functionality to simplify the screen.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Product experience
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 135-135](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L135-L135)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 6. Verification gates (1)</summary>
+
+<a id="d-c263d537bc313839bcbf"></a>
+- [ ] **D-c263d537bc313839bcbf** - GATE - T135-T138/T147/T157-T159/T162 prove the actual packaged Enderloom is a beautiful, coherent, accessible visual studio in all required states/themes/layouts. A text wall, gene...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** GATE - T135-T138/T147/T157-T159/T162 prove the actual packaged Enderloom is a beautiful, coherent, accessible visual studio in all required states/themes/layouts. A text wall, generic reskin, mockup or decorative controls cannot pass.
+  - **Binding context:** 6. Verification gates
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md :: G015 : 974-974](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L974-L974)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 9. Universal Minecraft Intermediate Representation (UMIR) (1)</summary>
+
+<a id="d-9f176a5f556599d72187"></a>
+- [ ] **D-9f176a5f556599d72187** - UI/screens/widgets;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 9. Universal Minecraft Intermediate Representation (UMIR)
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 478-478](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L478-L478)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 24. Visual QA Showcase (1)</summary>
+
+<a id="d-d01dd08a69677597ba9a"></a>
+- [ ] **D-d01dd08a69677597ba9a** - actual Minecraft window capture;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 24. Visual QA Showcase
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1089-1089](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1089-L1089)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Playable panes — owner UX-11 (4)</summary>
+
+<a id="d-16342204a4e4c1f2af9a"></a>
+- [ ] **D-16342204a4e4c1f2af9a** - AB-T001 Resolve platform adapters for Java/Java, Java/Bedrock, Bedrock/Java and Bedrock/Bedrock; edition, exact build, loader, Java runtime, account entitlement and launch configur...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T001 Resolve platform adapters for Java/Java, Java/Bedrock, Bedrock/Java and Bedrock/Bedrock; edition, exact build, loader, Java runtime, account entitlement and launch configuration are explicit per pane. Spawn two actual supported native clients and prove their process/window identities.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Playable panes — owner UX-11
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 82-82](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L82-L82)
+
+<a id="d-f40c430fd9569611e9eb"></a>
+- [ ] **D-f40c430fd9569611e9eb** - AB-T002 Embed or host both playable surfaces inside Studio through a validated platform adapter. Exercise mouse look/pointer lock, inventory interaction, keyboard/controller input,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T002 Embed or host both playable surfaces inside Studio through a validated platform adapter. Exercise mouse look/pointer lock, inventory interaction, keyboard/controller input, focus switching, loss of focus, Alt-Tab, IME, clipboard, DPI changes, multiple monitors and window close/crash. Route input only to the selected pane unless the user explicitly enables replay synchronization.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Playable panes — owner UX-11
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 83-83](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L83-L83)
+
+<a id="d-a827b57447b5aaab3469"></a>
+- [ ] **D-a827b57447b5aaab3469** - AB-T003 Implement draggable dividers, resize, maximize one pane, restore split, detached/windowed/borderless/fullscreen layouts and keyboard commands. Persist layout and active pan...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T003 Implement draggable dividers, resize, maximize one pane, restore split, detached/windowed/borderless/fullscreen layouts and keyboard commands. Persist layout and active pane; recover pointer capture and focus after modals or restart. Keep code/asset/behavior inspectors usable next to gameplay.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Playable panes — owner UX-11
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 84-84](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L84-L84)
+
+<a id="d-85a8d6e634a1665d83c4"></a>
+- [ ] **D-85a8d6e634a1665d83c4** - Do not assume Win32 reparenting works identically for GLFW/OpenGL/Vulkan Java windows and packaged Bedrock builds. Validate graphics, input, DPI, lifecycle and supported account be...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Do not assume Win32 reparenting works identically for GLFW/OpenGL/Vulkan Java windows and packaged Bedrock builds. Validate graphics, input, DPI, lifecycle and supported account behavior per platform. Native compositor/window-hosting and capture-based approaches are candidates; capture must preserve input and measured latency and remain explicitly identified. A detached fallback remains visible work until the promised in-Studio experience is proven.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Playable panes — owner UX-11
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 86-86](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L86-L86)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_FULL_CLI_CHECKLIST.md / 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule (1)</summary>
+
+<a id="d-f564ed585a0020698f23"></a>
+- [ ] **D-f564ed585a0020698f23** - CLI execution must not require a visible WebView/window.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule
+  - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 47-47](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L47-L47)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now (1)</summary>
+
+<a id="d-57f60edf088dd7d83bf7"></a>
+- [ ] **D-57f60edf088dd7d83bf7** - This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** This is not a roadmap. Do not stop after architecture notes, mock UI, config files, or one successful target build. Implement the complete working flow below, test it end-to-end, and leave Enderloom able to use it immediately.
+  - **Binding context:** ENDERLOOM NORTHPOINT — UNIVERSAL VERSION MATRIX / Implementation Handoff — Do This Now
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 8-8](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L8-L8)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH (1)</summary>
+
+<a id="d-e052363bc5d3a100d1b5"></a>
+- [ ] **D-e052363bc5d3a100d1b5** - Do not build a giant wizard.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 740-740](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L740-L740) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1144-1144](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1144-L1144)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface (1)</summary>
+
+<a id="d-177f332913f62be7ee87"></a>
+- [ ] **D-177f332913f62be7ee87** - Matrix rows = Minecraft versions; columns = loaders.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-14 — Implement the Northpoint UI as a truthful control surface
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 299-299](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L299-L299)
 
 </details>
 

@@ -53,4 +53,4 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [AOA-03 - Complete gameplay and assets](Acceptance-AOA.md#aoa-03-details): 30 source details.
 - [AOA-04 - Native gameplay and migration proof](Acceptance-AOA.md#aoa-04-details): 33 source details.
 - [AOA-05 - Clean conversion replay](Acceptance-AOA.md#aoa-05-details): 24 source details.
-- [AOA-06 - AoA delivered through the studio](Acceptance-AOA.md#aoa-06-details): 127 source details.
+- [AOA-06 - AoA delivered through the studio](Acceptance-AOA.md#aoa-06-details): 128 source details.

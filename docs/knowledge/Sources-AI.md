@@ -329,7 +329,7 @@
 [**AI-06**](Checklist.md#ai-06)
 
 <details>
-<summary>Source clauses and aliases (288 distinct blocks)</summary>
+<summary>Source clauses and aliases (290 distinct blocks)</summary>
 
 - [Architecture decision — production end state](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L237-L237) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2631-L2631) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -373,6 +373,7 @@
 - [36. Codex / implementation workflow](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1463-L1463) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [39. Definition of done — whole Enderloom vision](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1609-L1609) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
 - [6. Content management / 6.4 Change-impact intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L377-L384) - ENDERLOOM_MASTER_REQUIREMENTS.md; 1 distinct blocks.
+- [Universal Minecraft A/B Studio / Keep ownership and evidence clear](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Universal-Minecraft-AB-Studio.md#L37-L39) - Universal-Minecraft-AB-Studio.md; 2 distinct blocks.
 - [Enderloom release evidence — 2026-08-30](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-30.md#L1-L1) - RELEASE_EVIDENCE_2026-08-30.md; 1 distinct blocks.
 - [Enderloom release evidence — 2026-08-30 / Built artifact SHA-256](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-08-30.md#L19-L19) - RELEASE_EVIDENCE_2026-08-30.md; 1 distinct blocks.
 - [1. The Integration Law — absolutely non-negotiable](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L42-L62) - ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md; 3 distinct blocks.

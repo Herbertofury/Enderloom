@@ -36,17 +36,22 @@
 
 [**TEST-08**](Checklist.md#test-08) - Fail on missing/skipped/stale/wrong-artifact evidence, no-op production paths, partial parity or unjustified demotion; a checklist tick alone cannot satisfy certification.
 
+### Actions & Stuff 1.11.1 full cross-edition gameplay parity
+
+[**TEST-09**](Checklist.md#test-09) - Use the complete authorized Actions & Stuff 1.11.1 census, native Bedrock/Java appearance/animation/behavior/gameplay proof, both conversion directions and round trips plus independent behavior fixtures; keep unsupported/unfinished cells explicit until implemented and verified. Acceptance: AB-T020–AB-T023 and AB-G001. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-TEST.md)** / **[Source manifest](Source-Map.md)**
 
 ## Detailed acceptance from your specifications
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [TEST-01 - Deterministic test sandbox](Acceptance-TEST.md#test-01-details): 392 source details.
+- [TEST-01 - Deterministic test sandbox](Acceptance-TEST.md#test-01-details): 386 source details.
 - [TEST-02 - Scenario and GameTest compiler](Acceptance-TEST.md#test-02-details): 94 source details.
-- [TEST-03 - Runtime supervision and automation](Acceptance-TEST.md#test-03-details): 149 source details.
-- [TEST-04 - Full CLI, JSON and MCP parity](Acceptance-TEST.md#test-04-details): 246 source details.
-- [TEST-05 - Artifact-bound native proof](Acceptance-TEST.md#test-05-details): 64 source details.
+- [TEST-03 - Runtime supervision and automation](Acceptance-TEST.md#test-03-details): 146 source details.
+- [TEST-04 - Full CLI, JSON and MCP parity](Acceptance-TEST.md#test-04-details): 243 source details.
+- [TEST-05 - Artifact-bound native proof](Acceptance-TEST.md#test-05-details): 61 source details.
 - [TEST-06 - Compatibility and hostile fixtures](Acceptance-TEST.md#test-06-details): 22 source details.
-- [TEST-07 - Results and repeatability](Acceptance-TEST.md#test-07-details): 14 source details.
+- [TEST-07 - Results and repeatability](Acceptance-TEST.md#test-07-details): 13 source details.
 - [TEST-08 - Machine-verifiable release gates](Acceptance-TEST.md#test-08-details): 10 source details.
+- [TEST-09 - Actions & Stuff 1.11.1 full cross-edition gameplay parity](Acceptance-TEST.md#test-09-details): 22 source details.

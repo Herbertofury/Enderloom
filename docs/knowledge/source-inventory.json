@@ -283,9 +283,9 @@
     {
       "id": "S-30b908e766",
       "path": "docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
-      "sha256": "1b6249ff79636dd8b201dc1221921bbcaf6b2e0f7fc7a87a288024d4a17e5f29",
-      "bytes": 57582,
-      "lines": 1773,
+      "sha256": "63df236f96affd82880f04185c78db970503a6975efb0d592eeff6cadd99f684",
+      "bytes": 58387,
+      "lines": 1778,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md",
       "source_checked": 0
@@ -308,6 +308,16 @@
       "lines": 419,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-767396ad87",
+      "path": "docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md",
+      "sha256": "3fe37401388dd556fa9a7c8ddc6dd4ab6344314946a13e030b2f1e340aa84f04",
+      "bytes": 18539,
+      "lines": 140,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md",
       "source_checked": 0
     },
     {
@@ -593,11 +603,21 @@
     {
       "id": "S-bb0e97e89d",
       "path": "docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
-      "sha256": "90c47a3cefadf914f60b53ec870c72c833262679627bccc104304ff8cf7739ac",
-      "bytes": 16767,
-      "lines": 247,
+      "sha256": "2c4a4c361cfa26112457b89185e575c8506dc06da966e4d620ad4407e98e44fd",
+      "bytes": 17745,
+      "lines": 252,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-29b8396c30",
+      "path": "docs/wiki/Universal-Minecraft-AB-Studio.md",
+      "sha256": "66bf8e1094f6f2f25aa20850afdfed7e367dc0def03cb33c6056d6871dd29194",
+      "bytes": 4286,
+      "lines": 41,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Universal-Minecraft-AB-Studio.md",
       "source_checked": 0
     },
     {
@@ -622,14 +642,14 @@
     }
   ],
   "stats": {
-    "source_files": 62,
-    "source_bytes": 2390321,
-    "source_lines": 46867,
-    "source_blocks": 16159,
-    "unique_blocks": 13242,
-    "exact_duplicate_occurrences": 2917,
+    "source_files": 64,
+    "source_bytes": 2414929,
+    "source_lines": 47058,
+    "source_blocks": 16250,
+    "unique_blocks": 13332,
+    "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
-    "source_unchecked": 5649,
+    "source_unchecked": 5677,
     "alias_occurrences": 1112
   }
 }

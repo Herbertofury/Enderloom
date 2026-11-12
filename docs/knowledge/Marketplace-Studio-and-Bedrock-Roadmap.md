@@ -2,7 +2,7 @@
 
 **Planned / not implemented by this change. Recorded October 4, 2026.**
 
-[Home](Home.md) / [Implementation checklist](Checklist.md) / [Studio](Studio.md) / [Conversion](Conversion.md)
+[Home](https://github.com/Herbertofury/Enderloom/wiki/Home) / [Implementation checklist](https://github.com/Herbertofury/Enderloom/wiki/Checklist) / [Studio](https://github.com/Herbertofury/Enderloom/wiki/Studio) / [Conversion](https://github.com/Herbertofury/Enderloom/wiki/Conversion)
 
 Build the complete requested experience: browse the Bedrock Marketplace inside
 Enderloom, choose official Minecraft handoff or an integrated authorized-content
@@ -245,3 +245,8 @@ Studio census/diff. Establish the full Actions & Stuff baseline before target
 generation; repair each discrepancy in the shared pipeline and replay from the
 original input. Finish with bidirectional native-runtime and packaged acceptance.
 No separate mass issue list or duplicate implementation ledger is required.
+
+
+## Universal Minecraft A/B Studio — October 5 extension
+
+The [complete A/B Studio contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md) and [A/B Studio feature guide](https://github.com/Herbertofury/Enderloom/wiki/Universal-Minecraft-AB-Studio) extend this roadmap with two playable native clients, inventory drag-and-drop with complete dependencies, honest immediate preview versus certified destination, durable batch transfers and restart recovery, selective semantic/asset comparison, and exhaustive Actions & Stuff 1.11.1 gameplay parity. All new work is planned. Manual refresh and explicit tested update adoption apply; no background watchdog or scheduled polling is requested. Preserve every earlier source and fidelity requirement.

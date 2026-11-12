@@ -44,6 +44,10 @@
 
 [**UX-10**](Checklist.md#ux-10) - Exercise all four journeys in the actual package with clean inputs, real domain services, native runtime, persisted state and rollback; capture real screens, not mockups or generated showcase imagery.
 
+### Universal Minecraft A/B playable panes
+
+[**UX-11**](Checklist.md#ux-11) - Run two real playable native Java/Bedrock clients inside Studio across versions/loaders; prove focus/input, resizing/maximize/fullscreen/windowed/borderless, persistence and gameplay beside code/assets/behavior. Acceptance: AB-T001–AB-T003. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-UX.md)** / **[Source manifest](Source-Map.md)**
 
 ## The workspace, not a wall of text
@@ -76,13 +80,14 @@ Keep **Favorites**, **Performance**, and the dedicated **Hotkeys** tab as first-
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [UX-01 - Four-action Home](Acceptance-UX.md#ux-01-details): 59 source details.
-- [UX-02 - One contextual workbench](Acceptance-UX.md#ux-02-details): 15 source details.
-- [UX-03 - Finished visual system](Acceptance-UX.md#ux-03-details): 7 source details.
+- [UX-01 - Four-action Home](Acceptance-UX.md#ux-01-details): 53 source details.
+- [UX-02 - One contextual workbench](Acceptance-UX.md#ux-02-details): 14 source details.
+- [UX-03 - Finished visual system](Acceptance-UX.md#ux-03-details): 5 source details.
 - [UX-04 - Discoverable contextual actions](Acceptance-UX.md#ux-04-details): 9 source details.
-- [UX-05 - Honest progress and live findings](Acceptance-UX.md#ux-05-details): 65 source details.
-- [UX-06 - Reliable editing and recovery](Acceptance-UX.md#ux-06-details): 14 source details.
-- [UX-07 - Large-data and bulk usability](Acceptance-UX.md#ux-07-details): 74 source details.
-- [UX-08 - Accessible responsive native UI](Acceptance-UX.md#ux-08-details): 82 source details.
-- [UX-09 - First-launch and update experience](Acceptance-UX.md#ux-09-details): 61 source details.
-- [UX-10 - Real-user journey acceptance](Acceptance-UX.md#ux-10-details): 26 source details.
+- [UX-05 - Honest progress and live findings](Acceptance-UX.md#ux-05-details): 62 source details.
+- [UX-06 - Reliable editing and recovery](Acceptance-UX.md#ux-06-details): 13 source details.
+- [UX-07 - Large-data and bulk usability](Acceptance-UX.md#ux-07-details): 69 source details.
+- [UX-08 - Accessible responsive native UI](Acceptance-UX.md#ux-08-details): 77 source details.
+- [UX-09 - First-launch and update experience](Acceptance-UX.md#ux-09-details): 58 source details.
+- [UX-10 - Real-user journey acceptance](Acceptance-UX.md#ux-10-details): 22 source details.
+- [UX-11 - Universal Minecraft A/B playable panes](Acceptance-UX.md#ux-11-details): 34 source details.

@@ -1771,3 +1771,8 @@ The magic comes from **integration**:
 - release knows exactly what was proven.
 
 That is how Enderloom becomes better than “another launcher,” “another world editor,” “another mod manager,” “another profiler,” or “another converter.” It becomes the **Minecraft workbench that connects all of those jobs into one continuous, evidence-driven workflow.**
+
+
+# Universal Minecraft A/B Studio — added 2026-10-05
+
+The full [Universal Minecraft A/B Studio contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md) supplements every existing requirement. Track progress in `docs/knowledge/requirements.json`: UX-11 (playable dual clients), PORT-15 (inventory transfer/preview certification), DEP-09 (queued recovery/restart), LIB-10 (Marketplace + authorized PackDL/McTools), MAKE-12 (complete selective comparison), TEST-09 (Actions & Stuff 1.11.1 parity), SHIP-06 (lineage/live wiki/approved cleanup). All are planned, with implementation and native gameplay proof still open. AB-T001–AB-T027 and AB-G001 retain the complete acceptance details; do not check broad outcomes from preview/build success alone.

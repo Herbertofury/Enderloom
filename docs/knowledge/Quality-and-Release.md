@@ -24,14 +24,19 @@
 
 [**SHIP-05**](Checklist.md#ship-05) - Preserve IDs/jobs/checkpoints, mutate-test-checkpoint, repair after two unchanged failures via a new route, reopen invalid proof and keep required blocked work incomplete; no status ceremony instead of implementation.
 
+### A/B Studio third-party lineage and live progress
+
+[**SHIP-06**](Checklist.md#ship-06) - Organize sources/tools/private fixtures with versions/licenses, compact reports and necessary reproducers; synchronize GitHub and actual live wiki with planned/implemented/gameplay-tested labels; delete obsolete bulky copies only after replacement validation and safe-cleanup approval. Acceptance: AB-T024–AB-T027. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
+
 **[Every linked source clause](Sources-SHIP.md)** / **[Source manifest](Source-Map.md)**
 
 ## Detailed acceptance from your specifications
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [SHIP-01 - Supply-chain and untrusted input safety](Acceptance-SHIP.md#ship-01-details): 92 source details.
-- [SHIP-02 - Preserved product boundaries](Acceptance-SHIP.md#ship-02-details): 49 source details.
-- [SHIP-03 - Platform, locale and accessibility finish](Acceptance-SHIP.md#ship-03-details): 24 source details.
-- [SHIP-04 - Complete reproducible release](Acceptance-SHIP.md#ship-04-details): 52 source details.
-- [SHIP-05 - Continuity, convergence and honest status](Acceptance-SHIP.md#ship-05-details): 33 source details.
+- [SHIP-01 - Supply-chain and untrusted input safety](Acceptance-SHIP.md#ship-01-details): 75 source details.
+- [SHIP-02 - Preserved product boundaries](Acceptance-SHIP.md#ship-02-details): 39 source details.
+- [SHIP-03 - Platform, locale and accessibility finish](Acceptance-SHIP.md#ship-03-details): 19 source details.
+- [SHIP-04 - Complete reproducible release](Acceptance-SHIP.md#ship-04-details): 46 source details.
+- [SHIP-05 - Continuity, convergence and honest status](Acceptance-SHIP.md#ship-05-details): 19 source details.
+- [SHIP-06 - A/B Studio third-party lineage and live progress](Acceptance-SHIP.md#ship-06-details): 56 source details.

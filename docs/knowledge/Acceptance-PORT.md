@@ -9,7 +9,7 @@
 <a id="port-01-details"></a>
 ## PORT-01 - Input and source authority
 
-[Outcome](Checklist.md#port-01) / 148 source-derived details.
+[Outcome](Checklist.md#port-01) / 141 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
@@ -109,17 +109,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. Clean install transaction
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 427-427](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L427-L427)
-
-</details>
-
-<details>
-<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (1)</summary>
-
-<a id="d-21b6a657214ba4c909fe"></a>
-- [ ] **D-21b6a657214ba4c909fe** - Preserve source asset/content inventory and mapping provenance.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 15. Conversion engine integration
-  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L486-L486)
 
 </details>
 
@@ -402,17 +391,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 8. 3D Build / Schematic / Blueprint Studio / 8.4 Blueprint library
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 485-485](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L485-L485)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 10. Registry / Recipe / Content Explorer (1)</summary>
-
-<a id="d-142ecb60743389e79def"></a>
-- [ ] **D-142ecb60743389e79def** - Compare source Bedrock pack vs converted Java target inventory.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 10. Registry / Recipe / Content Explorer
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 568-568](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L568-L568)
 
 </details>
 
@@ -779,17 +757,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff (1)</summary>
-
-<a id="d-1c97aa3c489f3ab2a030"></a>
-- [ ] **D-1c97aa3c489f3ab2a030** - — Compare expected source/target archive inventory and explain every removed/added/relocated entry category.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T199 : 1231-1231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1231-L1231)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G055 — Output workspace strategy and developer QoL / T213 — Clean generated source organization (2)</summary>
 
 <a id="d-bd3135718cf30d628438"></a>
@@ -1007,7 +974,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 14. Source Workbench / JAR Lab (10)</summary>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 14. Source Workbench / JAR Lab (9)</summary>
 
 <a id="d-412056c77a907e62396d"></a>
 - [ ] **D-412056c77a907e62396d** - Decompile to readable source workspace.
@@ -1050,12 +1017,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. Source Workbench / JAR Lab
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 663-663](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L663-L663)
-
-<a id="d-d9d89d3d0b638b28ff84"></a>
-- [ ] **D-d9d89d3d0b638b28ff84** - Show registry content inventory.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 14. Source Workbench / JAR Lab
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L665-L665)
 
 <a id="d-4cc1a1b99fb0251f139e"></a>
 - [ ] **D-4cc1a1b99fb0251f139e** - Create patch project.
@@ -1117,17 +1078,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 41. Verification contract (1)</summary>
-
-<a id="d-44fe918314d4b8dc10ca"></a>
-- [ ] **D-44fe918314d4b8dc10ca** - source content inventory;
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 41. Verification contract
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1533-1533](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1533-L1533)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 43. Implementation program — Codex waves / Wave B — Universal Mod Surface + Context Power (2)</summary>
 
 <a id="d-289fbf128fe164ada39a"></a>
@@ -1152,17 +1102,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 44. Exact Codex handoff rules
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1724-1724](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1724-L1724)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 45. Definition of done — ultimate Enderloom (1)</summary>
-
-<a id="d-b0a44ca3282fb0adbf04"></a>
-- [ ] **D-b0a44ca3282fb0adbf04** - Java and Bedrock content are both first-class inspectable project types.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 45. Definition of done — ultimate Enderloom
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1734-1734](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1734-L1734)
 
 </details>
 
@@ -1390,19 +1329,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory (2)</summary>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory (1)</summary>
 
 <a id="d-5aa7539a55ac3866ca86"></a>
 - [ ] **D-5aa7539a55ac3866ca86** - Detect Minecraft/loader/Java/build/mappings/mod metadata from source or artifact authority, not filename guesses.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 105-105](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L105-L105)
-
-<a id="d-900953b5202fa9e10339"></a>
-- [ ] **D-900953b5202fa9e10339** - Generate source-fingerprint.json, source-inventory.json, and the initial parity-ledger.json.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 107-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L107-L107)
 
 </details>
 
@@ -1448,18 +1381,7 @@
 <a id="port-02-details"></a>
 ## PORT-02 - Universal semantic representation
 
-[Outcome](Checklist.md#port-02) / 10 source-derived details.
-
-<details>
-<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (1)</summary>
-
-<a id="d-eefd076a41647dbc7d35"></a>
-- [ ] **D-eefd076a41647dbc7d35** - Each iteration updates semantic coverage percentages only from actual inventory/runtime evidence.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 15. Conversion engine integration
-  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 484-484](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L484-L484)
-
-</details>
+[Outcome](Checklist.md#port-02) / 9 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.2 Semantic conversion (1)</summary>
@@ -1564,7 +1486,7 @@
 <a id="port-03-details"></a>
 ## PORT-03 - Live version and toolchain atlas
 
-[Outcome](Checklist.md#port-03) / 141 source-derived details.
+[Outcome](Checklist.md#port-03) / 139 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 4. ChatGPT-web-first flow (1)</summary>
@@ -1803,7 +1725,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support (3)</summary>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support (2)</summary>
 
 <a id="d-9cf4cca77391f4879672"></a>
 - [ ] **D-9cf4cca77391f4879672** - old scripting API formats where relevant.
@@ -1816,12 +1738,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 785-785](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L785-L785)
-
-<a id="d-6bd1e5d2dd1870e434a9"></a>
-- [ ] **D-6bd1e5d2dd1870e434a9** - Preview/Retail differences.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 786-786](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L786-L786)
 
 </details>
 
@@ -2836,17 +2752,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-12 — Implement isolated secondary-cell orchestration after primary certification (1)</summary>
-
-<a id="d-407b4d398f20ed639981"></a>
-- [ ] **D-407b4d398f20ed639981** - Bound Java/Gradle concurrency against CPU/RAM.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-12 — Implement isolated secondary-cell orchestration after primary certification
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 266-266](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L266-L266)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-13 — Implement deterministic artifacts, hashes, evidence bundle, and truthful release reports (1)</summary>
 
 <a id="d-1ca33f50fca3442487f2"></a>
@@ -2906,7 +2811,7 @@
 <a id="port-04-details"></a>
 ## PORT-04 - Exact mappings and symbol truth
 
-[Outcome](Checklist.md#port-04) / 68 source-derived details.
+[Outcome](Checklist.md#port-04) / 66 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -2916,18 +2821,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 9. Build engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 317-317](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L317-L317)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center (1)</summary>
-
-<a id="d-b1cb86798dfd04ba2bdf"></a>
-- [ ] **D-b1cb86798dfd04ba2bdf** - project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence ...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence normalization.
-  - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 535-535](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L535-L535)
 
 </details>
 
@@ -3498,18 +3391,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING (1)</summary>
-
-<a id="d-f8a1faed8c9f857af736"></a>
-- [ ] **D-f8a1faed8c9f857af736** - - SHA-256 the exact input. - Detect Minecraft version, loader, loader version, Java class level, mappings/build system and mod metadata from the artifact/source itself. Never trust...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - SHA-256 the exact input. - Detect Minecraft version, loader, loader version, Java class level, mappings/build system and mod metadata from the artifact/source itself. Never trust only the filename. - Record dependencies and optional integrations. - Detect signed archives before mutation. - Inventory code + content surfaces: - registries - blocks/items/entities/effects/enchantments - dimensions/biomes/worldgen/structures/features - recipes/loot/tags/advancements - menus/screens/keybinds/input - renderers/models/textures/animations/shaders - particles/sounds - networking/protocol payloads - configs - capabilities/components/attachments/save state - mixins/access transformers/access wideners - datagen - commands - integrations/compat modules - optional dependencies - side-specific code - Establish public compatibility surfaces before edits: - public/protected class hierarchy where relevant - method/field descriptors - mod metadata - mixin configs/entrypoints - registry/resource IDs - For JAR repairs, preserve the original artifact untouched and generate a new candidate.
-  - **Binding context:** 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 137-164](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L137-L164) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 541-568](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L541-L568)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory (1)</summary>
 
 <a id="d-bf7f2dc93f449e7c796b"></a>
@@ -3569,7 +3450,7 @@
 <a id="port-05-details"></a>
 ## PORT-05 - Source migration and semantic repair
 
-[Outcome](Checklist.md#port-05) / 163 source-derived details.
+[Outcome](Checklist.md#port-05) / 160 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -4648,19 +4529,13 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 14. Source Workbench / JAR Lab (2)</summary>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 14. Source Workbench / JAR Lab (1)</summary>
 
 <a id="d-2eb16b683c23205b8ce5"></a>
 - [ ] **D-2eb16b683c23205b8ce5** - Browse classes/resources.
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. Source Workbench / JAR Lab
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 655-655](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L655-L655)
-
-<a id="d-a6e4a333d6dead067c0d"></a>
-- [ ] **D-a6e4a333d6dead067c0d** - Verify content/assets/classes not accidentally lost.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 14. Source Workbench / JAR Lab
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 669-669](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L669-L669)
 
 </details>
 
@@ -5113,17 +4988,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 1. NORTHPOINT HARD INVARIANTS / 1.4 Target first (1)</summary>
-
-<a id="d-591cedd5007988b3f735"></a>
-- [ ] **D-591cedd5007988b3f735** - Do not fan out 20 builds while the primary target is broken.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 1. NORTHPOINT HARD INVARIANTS / 1.4 Target first
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 78-78](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L78-L78) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 482-482](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L482-L482)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 2. ONE TOUCH PIPELINE FOR CREATE / CONVERT / REPAIR (2)</summary>
 
 <a id="d-59dde06819874d2ec0a5"></a>
@@ -5182,18 +5046,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. DEFINITION OF DONE
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 965-965](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L965-L965) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1369-1369](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1369-L1369)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
-
-<a id="d-b62786769eb7ece1eefe"></a>
-- [ ] **D-b62786769eb7ece1eefe** - 1. Inspect the existing create/convert/repair entry points and process/native boundaries once. 2. Add the Northpoint data model + persisted state. 3. Wire primary-target-first thro...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** 1. Inspect the existing create/convert/repair entry points and process/native boundaries once. 2. Add the Northpoint data model + persisted state. 3. Wire primary-target-first through one real operation immediately. 4. Add source inventory + parity ledger and make that operation fail on unaccounted content. 5. Add the Complete-Lineage resolver for conversions and prove it with a fixture where older/newer branches contain different legitimate features. 6. Add the Northpoint performance baseline/result model and one real performance challenge fixture. 7. Add matrix planning/fan-out + remembered project/global preference. 8. Add caching/fingerprints/resume/failed-only retry. 9. Wire Create + Convert + Repair to the same engine. 10. Add the UI matrix/status badges. 11. Run targeted QA while implementing; do not rerun the entire suite after every edit. 12. At convergence run the broad Enderloom integration/release QA, launch the real app, execute the real workflow, and package the result.
-  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER / Original compact execution order — preserved verbatim
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 991-1002](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L991-L1002) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1425-1436](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1425-L1436)
 
 </details>
 
@@ -6490,7 +6342,7 @@
 <a id="port-08-details"></a>
 ## PORT-08 - Modern and historical build matrix
 
-[Outcome](Checklist.md#port-08) / 64 source-derived details.
+[Outcome](Checklist.md#port-08) / 63 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -7063,18 +6915,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** 5. TARGET-FIRST UNIVERSAL VERSION / LOADER MATRIX / 5.3 Current 26.3 seed lane
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 319-319](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L319-L319) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 723-723](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L723-L723)
-
-</details>
-
-<details>
-<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps (1)</summary>
-
-<a id="d-48da814476a9a1470f17"></a>
-- [ ] **D-48da814476a9a1470f17** - The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical J...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical JSON matrix.
-  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps
-  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L315-L315)
 
 </details>
 
@@ -8234,7 +8074,7 @@
 <a id="port-10-details"></a>
 ## PORT-10 - Complete cross-edition conversion
 
-[Outcome](Checklist.md#port-10) / 70 source-derived details.
+[Outcome](Checklist.md#port-10) / 65 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 5. Intake: &quot;Hey, fix this&quot; (1)</summary>
@@ -8255,18 +8095,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 15. Conversion engine integration
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 481-481](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L481-L481)
-
-</details>
-
-<details>
-<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Dependencies to resolve without narrowing scope (1)</summary>
-
-<a id="d-f2df2372c1b8fbeeada9"></a>
-- [ ] **D-f2df2372c1b8fbeeada9** - The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/addonsreference/packmanifest?view=minecraft-bedrock-stable), [animation controllers](https://learn.microsoft.com/en-us/minecraft/creator/documents/animations/animationcontroller?view=minecraft-bedrock-stable), [Molang](https://learn.microsoft.com/en-us/minecraft/creator/documents/molang/introduction?view=minecraft-bedrock-stable) and [Java rendering](https://docs.fabricmc.net/develop/rendering/basic-concepts). They support format/runtime-specific implementation and testing; they do not certify this fixture&#x27;s conversion or a private API grant. No legal partnership or unrestricted asset redistribution claim is made in public documentation.
-  - **Binding context:** Bedrock third-party source inventory / Dependencies to resolve without narrowing scope
-  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 100-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L100-L107)
 
 </details>
 
@@ -8340,17 +8168,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 9. Particle / Audio / UI / Font / Material Studio / 9.2 Audio studio
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 518-518](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L518-L518)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 12. Protocol / Network / Crossplay Lab / 12.1 Geyser/Floodgate (1)</summary>
-
-<a id="d-354fa45651a186d00f7c"></a>
-- [ ] **D-354fa45651a186d00f7c** - Java+Bedrock dual-client acceptance test.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 12. Protocol / Network / Crossplay Lab / 12.1 Geyser/Floodgate
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 630-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L630-L630)
 
 </details>
 
@@ -8577,17 +8394,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 2. Canonical Minecraft Knowledge Graph (1)</summary>
-
-<a id="d-0c1116e0845de25e183c"></a>
-- [ ] **D-0c1116e0845de25e183c** - Bedrock UUIDs map into the same graph without pretending they are Java project IDs.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 2. Canonical Minecraft Knowledge Graph
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 120-120](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L120-L120)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 4. Universal Project / Mod Detail Surface (2)</summary>
 
 <a id="d-943cc93b68ca69e570a8"></a>
@@ -8627,7 +8433,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 10. Bedrock -&gt; Java Conversion Engine (11)</summary>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 10. Bedrock -&gt; Java Conversion Engine (10)</summary>
 
 <a id="d-1237fa8a3ad7d71f5840"></a>
 - [ ] **D-1237fa8a3ad7d71f5840** - Forge
@@ -8676,12 +8482,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 544-544](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L544-L544)
-
-<a id="d-2794e3759a33030a4a46"></a>
-- [ ] **D-2794e3759a33030a4a46** - Bedrock inventory/container behavior -&gt; Java menus/container APIs.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 545-545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L545-L545)
 
 <a id="d-ceb7d631a3bc2d72ecf4"></a>
 - [ ] **D-ceb7d631a3bc2d72ecf4** - Bedrock Script API -&gt; explicit Java event/listener/tick/network implementations.
@@ -8733,17 +8533,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 38. Micro-QOL saturation pass
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1440-1440](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1440-L1440)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 42. Golden acceptance fixtures (1)</summary>
-
-<a id="d-9a4cef80fcd5706c6bc4"></a>
-- [ ] **D-9a4cef80fcd5706c6bc4** - Bedrock add-on with items/blocks/entities/recipes/loot/spawn/models/animations/scripts.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 42. Golden acceptance fixtures
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1559-1559](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1559-L1559)
 
 </details>
 
@@ -8895,7 +8684,7 @@
 <a id="port-11-details"></a>
 ## PORT-11 - Authorized server content to native mod
 
-[Outcome](Checklist.md#port-11) / 54 source-derived details.
+[Outcome](Checklist.md#port-11) / 52 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -9329,17 +9118,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (1)</summary>
-
-<a id="d-81fb4f3e5c52dceba384"></a>
-- [ ] **D-81fb4f3e5c52dceba384** - Enderloom must understand Bedrock content as deeply as Java content.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 376-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L376-L376)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 11. Java Version Porting Engine (1)</summary>
 
 <a id="d-c1724a0e5adf6911abc8"></a>
@@ -9364,17 +9142,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. Source Workbench / JAR Lab
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 670-670](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L670-L670)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 42. Golden acceptance fixtures (1)</summary>
-
-<a id="d-706d7687108ea11d876a"></a>
-- [ ] **D-706d7687108ea11d876a** - Bedrock add-on with behavior/resource dependency pair.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 42. Golden acceptance fixtures
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1560-1560](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1560-L1560)
 
 </details>
 
@@ -9702,7 +9469,7 @@
 <a id="port-13-details"></a>
 ## PORT-13 - Conversion parity and clean replay
 
-[Outcome](Checklist.md#port-13) / 80 source-derived details.
+[Outcome](Checklist.md#port-13) / 78 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (3)</summary>
@@ -10446,17 +10213,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING (1)</summary>
-
-<a id="d-4843ea9683dbcbc77543"></a>
-- [ ] **D-4843ea9683dbcbc77543** - The inventory becomes the parity ledger. Every meaningful source item/content surface must finish as one of:
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 166-166](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L166-L166) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 570-570](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L570-L570)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
 
 <a id="d-a1f3c6353b7e432a3e1a"></a>
@@ -10480,14 +10236,7 @@
 </details>
 
 <details>
-<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress (2)</summary>
-
-<a id="d-6def721bf86c1565a0e0"></a>
-- [ ] **D-6def721bf86c1565a0e0** - docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Thei...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Their existing outcome owners appear in the tables; existing statuses stay unchanged. Evidence must explicitly name the slice and target cell before its parent outcome can pass. Prior successful Bedrock conversions are valuable reference fixtures when available; their absence does not block planning or reduce the requested scope.
-  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress
-  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 30-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L30-L36)
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress (1)</summary>
 
 <a id="d-ec9ff40ac804b65b99fc"></a>
 - [ ] **D-ec9ff40ac804b65b99fc** - | Priority | Slice | Deliverable | Dependency | Existing outcome owner | | --- | --- | --- | --- | --- | | P0 | B01 | Immutable input/provenance index and safe third-party layout |...
@@ -10594,6 +10343,324 @@
   - **Full requirement:** · Keep existing CI green while adding new backend-neutral CI. Only retire Stonecutter-specific CI coverage after equivalent or stronger tests exist elsewhere; Stonecutter export compatibility may keep its own focused test.
   - **Binding context:** GATE - Migration from current Stonecutter-specific worker without regression
   - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T129 : 459-459](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L459-L459)
+
+</details>
+
+<a id="port-15-details"></a>
+## PORT-15 - Inventory content transfer and preview certification
+
+[Outcome](Checklist.md#port-15) / 31 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 15. Conversion engine integration (2)</summary>
+
+<a id="d-eefd076a41647dbc7d35"></a>
+- [ ] **D-eefd076a41647dbc7d35** - Each iteration updates semantic coverage percentages only from actual inventory/runtime evidence.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Conversion engine integration
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 484-484](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L484-L484)
+
+<a id="d-21b6a657214ba4c909fe"></a>
+- [ ] **D-21b6a657214ba4c909fe** - Preserve source asset/content inventory and mapping provenance.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Conversion engine integration
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 486-486](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L486-L486)
+
+</details>
+
+<details>
+<summary>BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md / Bedrock third-party source inventory / Dependencies to resolve without narrowing scope (1)</summary>
+
+<a id="d-f2df2372c1b8fbeeada9"></a>
+- [ ] **D-f2df2372c1b8fbeeada9** - The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The current primary sources describe [deep links](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/deep-links?view=minecraft-bedrock-stable), [pack manifests](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/addonsreference/packmanifest?view=minecraft-bedrock-stable), [animation controllers](https://learn.microsoft.com/en-us/minecraft/creator/documents/animations/animationcontroller?view=minecraft-bedrock-stable), [Molang](https://learn.microsoft.com/en-us/minecraft/creator/documents/molang/introduction?view=minecraft-bedrock-stable) and [Java rendering](https://docs.fabricmc.net/develop/rendering/basic-concepts). They support format/runtime-specific implementation and testing; they do not certify this fixture&#x27;s conversion or a private API grant. No legal partnership or unrestricted asset redistribution claim is made in public documentation.
+  - **Binding context:** Bedrock third-party source inventory / Dependencies to resolve without narrowing scope
+  - **Original specification:** [BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md : 100-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_THIRD_PARTY_INVENTORY_2026-10-04.md#L100-L107)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center (1)</summary>
+
+<a id="d-b1cb86798dfd04ba2bdf"></a>
+- [ ] **D-b1cb86798dfd04ba2bdf** - project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** project creation/deployment for Retail/Preview, JS/TS development, Content Log, Script Debugger/Profiler, diagnostics, Bedrock Editor and Editor Extensions with canonical evidence normalization.
+  - **Binding context:** 14. PHASE K — BEDROCK -&gt; JAVA + BEDROCK DEVELOPER CENTER / 14.3 Bedrock Developer Center
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PK-020 : 535-535](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L535-L535)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 10. Registry / Recipe / Content Explorer (1)</summary>
+
+<a id="d-142ecb60743389e79def"></a>
+- [ ] **D-142ecb60743389e79def** - Compare source Bedrock pack vs converted Java target inventory.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Registry / Recipe / Content Explorer
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 568-568](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L568-L568)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 12. Protocol / Network / Crossplay Lab / 12.1 Geyser/Floodgate (1)</summary>
+
+<a id="d-354fa45651a186d00f7c"></a>
+- [ ] **D-354fa45651a186d00f7c** - Java+Bedrock dual-client acceptance test.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 12. Protocol / Network / Crossplay Lab / 12.1 Geyser/Floodgate
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 630-630](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L630-L630)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support (1)</summary>
+
+<a id="d-6bd1e5d2dd1870e434a9"></a>
+- [ ] **D-6bd1e5d2dd1870e434a9** - Preview/Retail differences.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 15. Legacy Archaeology / Truly Broad Version Support / 15.4 Bedrock historical support
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 786-786](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L786-L786)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff (1)</summary>
+
+<a id="d-1c97aa3c489f3ab2a030"></a>
+- [ ] **D-1c97aa3c489f3ab2a030** - — Compare expected source/target archive inventory and explain every removed/added/relocated entry category.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G052 — Packaged artifact audit / T197 — Port/strengthen packaged-linkage audit / T199 — Archive inventory diff
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T199 : 1231-1231](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1231-L1231)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 2. Canonical Minecraft Knowledge Graph (1)</summary>
+
+<a id="d-0c1116e0845de25e183c"></a>
+- [ ] **D-0c1116e0845de25e183c** - Bedrock UUIDs map into the same graph without pretending they are Java project IDs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. Canonical Minecraft Knowledge Graph
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 120-120](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L120-L120)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 7. Bedrock Studio — first-class Bedrock support (1)</summary>
+
+<a id="d-81fb4f3e5c52dceba384"></a>
+- [ ] **D-81fb4f3e5c52dceba384** - Enderloom must understand Bedrock content as deeply as Java content.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 7. Bedrock Studio — first-class Bedrock support
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 376-376](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L376-L376)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 10. Bedrock -&gt; Java Conversion Engine (1)</summary>
+
+<a id="d-2794e3759a33030a4a46"></a>
+- [ ] **D-2794e3759a33030a4a46** - Bedrock inventory/container behavior -&gt; Java menus/container APIs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 10. Bedrock -&gt; Java Conversion Engine
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 545-545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L545-L545)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 14. Source Workbench / JAR Lab (2)</summary>
+
+<a id="d-d9d89d3d0b638b28ff84"></a>
+- [ ] **D-d9d89d3d0b638b28ff84** - Show registry content inventory.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Source Workbench / JAR Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 665-665](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L665-L665)
+
+<a id="d-a6e4a333d6dead067c0d"></a>
+- [ ] **D-a6e4a333d6dead067c0d** - Verify content/assets/classes not accidentally lost.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 14. Source Workbench / JAR Lab
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 669-669](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L669-L669)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 41. Verification contract (1)</summary>
+
+<a id="d-44fe918314d4b8dc10ca"></a>
+- [ ] **D-44fe918314d4b8dc10ca** - source content inventory;
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 41. Verification contract
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1533-1533](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1533-L1533)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 42. Golden acceptance fixtures (2)</summary>
+
+<a id="d-9a4cef80fcd5706c6bc4"></a>
+- [ ] **D-9a4cef80fcd5706c6bc4** - Bedrock add-on with items/blocks/entities/recipes/loot/spawn/models/animations/scripts.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 42. Golden acceptance fixtures
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1559-1559](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1559-L1559)
+
+<a id="d-706d7687108ea11d876a"></a>
+- [ ] **D-706d7687108ea11d876a** - Bedrock add-on with behavior/resource dependency pair.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 42. Golden acceptance fixtures
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1560-1560](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1560-L1560)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 45. Definition of done — ultimate Enderloom (1)</summary>
+
+<a id="d-b0a44ca3282fb0adbf04"></a>
+- [ ] **D-b0a44ca3282fb0adbf04** - Java and Bedrock content are both first-class inspectable project types.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 45. Definition of done — ultimate Enderloom
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1734-1734](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1734-L1734)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Context and authority (1)</summary>
+
+<a id="d-3e95ecc39cbee76a0600"></a>
+- [ ] **D-3e95ecc39cbee76a0600** - Canonical repository: https://github.com/Herbertofury/Enderloom. GitHub work item: https://github.com/Herbertofury/Enderloom/issues/22. This specification extends ENDERLOOM_ULTIMAT...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Canonical repository: https://github.com/Herbertofury/Enderloom. GitHub work item: https://github.com/Herbertofury/Enderloom/issues/22. This specification extends ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md, ENDERLOOM_STUDIO_EXECUTION.md, the existing conversion/version-graph contracts, and the Marketplace, Studio comparison and Bedrock roadmap. Use docs/knowledge/requirements.json as the sole editable progress owner. AB task IDs below identify acceptance slices; their checkboxes do not independently certify the product. Do not renumber them. New work is planned (unverified in the existing ledger); implemented requires production wiring; gameplay-tested requires artifact-bound native runtime evidence. Historical claims remain historical.
+  - **Binding context:** Universal Minecraft A/B Studio / Context and authority
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 11-11](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L11-L11)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15 (5)</summary>
+
+<a id="d-dd1f967b170bda97c754"></a>
+- [ ] **D-dd1f967b170bda97c754** - AB-T004 Implement an explicit Studio inventory export/drag gesture in the source client using its version-specific bridge. Resolve the selected runtime registry ID, components/NBT,...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T004 Implement an explicit Studio inventory export/drag gesture in the source client using its version-specific bridge. Resolve the selected runtime registry ID, components/NBT, owning mod/pack and source revision. A normal inventory stack contains identity and state, not the owning code or dependency closure; obtain those from the project/provenance graph. Do not infer ownership from an icon/name.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 90-90](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L90-L90)
+
+<a id="d-0252394dfd15ef37d02f"></a>
+- [ ] **D-0252394dfd15ef37d02f** - AB-T005 Expand a selected weapon/item/block into the complete reachable source, assets, required/optional/nested dependencies, animation/controllers/Molang, sounds, recipes, tags, ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T005 Expand a selected weapon/item/block into the complete reachable source, assets, required/optional/nested dependencies, animation/controllers/Molang, sounds, recipes, tags, networking, scripts and behavior graph. Keep unresolved/reflection/dynamic references visible and require evidence before declaring the closure complete.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 91-91](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L91-L91)
+
+<a id="d-8fc3cb37194e24bcc65c"></a>
+- [ ] **D-8fc3cb37194e24bcc65c** - AB-T006 Translate through the shared UMIR/version-graph pipeline into the exact destination edition/version/loader. Cover 1.20.1 → 1.21.1 and both Java ↔ Bedrock directions. Emit v...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T006 Translate through the shared UMIR/version-graph pipeline into the exact destination edition/version/loader. Cover 1.20.1 → 1.21.1 and both Java ↔ Bedrock directions. Emit versioned semantic transforms and native behavior adapters where required; preserve unsupported source members and concrete next actions.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 92-92](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L92-L92)
+
+<a id="d-36ec18744e4e576dd808"></a>
+- [ ] **D-36ec18744e4e576dd808** - AB-T007 Show supported content promptly in the Universal client using the shared preview runtime while conversion/build/package jobs run off the UI/render threads. States must dist...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T007 Show supported content promptly in the Universal client using the shared preview runtime while conversion/build/package jobs run off the UI/render threads. States must distinguish Preview only, Converting, Built, Installed—restart pending, Gameplay verified, and Failed/needs attention. Unsupported preview behavior is labeled; it is never silently replaced or certified.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 93-93](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L93-L93)
+
+<a id="d-7962fc49a068191a0aa1"></a>
+- [ ] **D-7962fc49a068191a0aa1** - AB-T008 Install the real generated artifact transactionally into the destination sandbox, restart with preview injection disabled, verify selected content and full dependency closu...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T008 Install the real generated artifact transactionally into the destination sandbox, restart with preview injection disabled, verify selected content and full dependency closure, and bind success to output hash/runtime fingerprint. A preview disappearing after restart must fail certification and retain a reproducible case.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Inventory transfer and honest preview — owner PORT-15
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 94-94](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L94-L94)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 1. NORTHPOINT HARD INVARIANTS / 1.4 Target first (1)</summary>
+
+<a id="d-591cedd5007988b3f735"></a>
+- [ ] **D-591cedd5007988b3f735** - Do not fan out 20 builds while the primary target is broken.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 1. NORTHPOINT HARD INVARIANTS / 1.4 Target first
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 78-78](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L78-L78) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 482-482](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L482-L482)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING (2)</summary>
+
+<a id="d-f8a1faed8c9f857af736"></a>
+- [ ] **D-f8a1faed8c9f857af736** - - SHA-256 the exact input. - Detect Minecraft version, loader, loader version, Java class level, mappings/build system and mod metadata from the artifact/source itself. Never trust...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - SHA-256 the exact input. - Detect Minecraft version, loader, loader version, Java class level, mappings/build system and mod metadata from the artifact/source itself. Never trust only the filename. - Record dependencies and optional integrations. - Detect signed archives before mutation. - Inventory code + content surfaces: - registries - blocks/items/entities/effects/enchantments - dimensions/biomes/worldgen/structures/features - recipes/loot/tags/advancements - menus/screens/keybinds/input - renderers/models/textures/animations/shaders - particles/sounds - networking/protocol payloads - configs - capabilities/components/attachments/save state - mixins/access transformers/access wideners - datagen - commands - integrations/compat modules - optional dependencies - side-specific code - Establish public compatibility surfaces before edits: - public/protected class hierarchy where relevant - method/field descriptors - mod metadata - mixin configs/entrypoints - registry/resource IDs - For JAR repairs, preserve the original artifact untouched and generate a new candidate.
+  - **Binding context:** 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 137-164](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L137-L164) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 541-568](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L541-L568)
+
+<a id="d-4843ea9683dbcbc77543"></a>
+- [ ] **D-4843ea9683dbcbc77543** - The inventory becomes the parity ledger. Every meaningful source item/content surface must finish as one of:
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** 3. INTAKE: KNOW EXACTLY WHAT YOU ARE TOUCHING
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 166-166](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L166-L166) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 570-570](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L570-L570)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER (1)</summary>
+
+<a id="d-b62786769eb7ece1eefe"></a>
+- [ ] **D-b62786769eb7ece1eefe** - 1. Inspect the existing create/convert/repair entry points and process/native boundaries once. 2. Add the Northpoint data model + persisted state. 3. Wire primary-target-first thro...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** 1. Inspect the existing create/convert/repair entry points and process/native boundaries once. 2. Add the Northpoint data model + persisted state. 3. Wire primary-target-first through one real operation immediately. 4. Add source inventory + parity ledger and make that operation fail on unaccounted content. 5. Add the Complete-Lineage resolver for conversions and prove it with a fixture where older/newer branches contain different legitimate features. 6. Add the Northpoint performance baseline/result model and one real performance challenge fixture. 7. Add matrix planning/fan-out + remembered project/global preference. 8. Add caching/fingerprints/resume/failed-only retry. 9. Wire Create + Convert + Repair to the same engine. 10. Add the UI matrix/status badges. 11. Run targeted QA while implementing; do not rerun the entire suite after every edit. 12. At convergence run the broad Enderloom integration/release QA, launch the real app, execute the real workflow, and package the result.
+  - **Binding context:** 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER / 16. EXECUTE IN THIS ORDER — NO MILESTONE THEATER / Original compact execution order — preserved verbatim
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 991-1002](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L991-L1002) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1425-1436](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1425-L1436)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory (1)</summary>
+
+<a id="d-900953b5202fa9e10339"></a>
+- [ ] **D-900953b5202fa9e10339** - Generate source-fingerprint.json, source-inventory.json, and the initial parity-ledger.json.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 107-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L107-L107)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-12 — Implement isolated secondary-cell orchestration after primary certification (1)</summary>
+
+<a id="d-407b4d398f20ed639981"></a>
+- [ ] **D-407b4d398f20ed639981** - Bound Java/Gradle concurrency against CPU/RAM.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER / [ ] NP-12 — Implement isolated secondary-cell orchestration after primary certification
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 266-266](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L266-L266)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress (1)</summary>
+
+<a id="d-6def721bf86c1565a0e0"></a>
+- [ ] **D-6def721bf86c1565a0e0** - docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Thei...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** docs/knowledge/requirements.json remains the sole progress owner. The identifiers below identify requirement slices, not a second certification ledger. All slices are planned. Their existing outcome owners appear in the tables; existing statuses stay unchanged. Evidence must explicitly name the slice and target cell before its parent outcome can pass. Prior successful Bedrock conversions are valuable reference fixtures when available; their absence does not block planning or reduce the requested scope.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Implementation contract and progress
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 30-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L30-L36)
+
+</details>
+
+<details>
+<summary>Variant-Foundry-and-High-Fidelity-Java-Models.md / Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps (1)</summary>
+
+<a id="d-48da814476a9a1470f17"></a>
+- [ ] **D-48da814476a9a1470f17** - The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical J...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The complete required-capability inventory is now machine-checkable through the [Variant Foundry Capability Closure](Variant-Foundry-Capability-Closure.md) page and its canonical JSON matrix.
+  - **Binding context:** Variant Foundry &amp; High-Fidelity Java Models / 2026 ecosystem sweep — what Enderloom will reuse or challenge / Fifth sweep: close the boring-but-essential gaps
+  - **Original specification:** [Variant-Foundry-and-High-Fidelity-Java-Models.md : 315-315](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Variant-Foundry-and-High-Fidelity-Java-Models.md#L315-L315)
 
 </details>
 

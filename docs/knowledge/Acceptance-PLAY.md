@@ -596,7 +596,7 @@
 <a id="play-02-details"></a>
 ## PLAY-02 - Instance creation and organization
 
-[Outcome](Checklist.md#play-02) / 65 source-derived details.
+[Outcome](Checklist.md#play-02) / 66 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -1048,6 +1048,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 45. Definition of done — ultimate Enderloom
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1740-1740](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1740-L1740)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Constraints (1)</summary>
+
+<a id="d-4e0f7c332142e71c5501"></a>
+- [ ] **D-4e0f7c332142e71c5501** - Use independently owned sandbox instances, worlds, ports, process groups, logs, configs, account/session state, and output directories. Never modify a live user&#x27;s instance/wor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use independently owned sandbox instances, worlds, ports, process groups, logs, configs, account/session state, and output directories. Never modify a live user&#x27;s instance/world for automatic testing. Reuse immutable runtime/download caches safely; two clients must not write to the same world or game directory. An A/B comparison may intentionally use different runtimes; measurement reports must expose those differences.
+  - **Binding context:** Universal Minecraft A/B Studio / Constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 68-68](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L68-L68)
 
 </details>
 

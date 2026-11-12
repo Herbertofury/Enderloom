@@ -881,7 +881,7 @@
 
 <a id="herbertofury-enderloom"></a>
 <details>
-<summary>Herbertofury/Enderloom (25 cited locations)</summary>
+<summary>Herbertofury/Enderloom (32 cited locations)</summary>
 
 - [https://github.com/Herbertofury/Enderloom](https://github.com/Herbertofury/Enderloom)
 - [https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md](https://github.com/Herbertofury/Enderloom/blob/docs/marketplace-studio-bedrock-roadmap-2026-10-04/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md)
@@ -903,11 +903,18 @@
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_OPENAI_AI_OPERATOR_SPEC.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md)
+- [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md)
 - [https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md](https://github.com/Herbertofury/Enderloom/blob/main/docs/LAUNCHER_PARITY_MATRIX.md)
 - [https://github.com/Herbertofury/Enderloom/issues/1](https://github.com/Herbertofury/Enderloom/issues/1)
+- [https://github.com/Herbertofury/Enderloom/issues/22](https://github.com/Herbertofury/Enderloom/issues/22)
 - [https://github.com/Herbertofury/Enderloom/issues/3](https://github.com/Herbertofury/Enderloom/issues/3)
+- [https://github.com/Herbertofury/Enderloom/wiki/Checklist](https://github.com/Herbertofury/Enderloom/wiki/Checklist)
+- [https://github.com/Herbertofury/Enderloom/wiki/Conversion](https://github.com/Herbertofury/Enderloom/wiki/Conversion)
+- [https://github.com/Herbertofury/Enderloom/wiki/Home](https://github.com/Herbertofury/Enderloom/wiki/Home)
 - [https://github.com/Herbertofury/Enderloom/wiki/Marketplace-Studio-and-Bedrock-Roadmap](https://github.com/Herbertofury/Enderloom/wiki/Marketplace-Studio-and-Bedrock-Roadmap)
+- [https://github.com/Herbertofury/Enderloom/wiki/Studio](https://github.com/Herbertofury/Enderloom/wiki/Studio)
+- [https://github.com/Herbertofury/Enderloom/wiki/Universal-Minecraft-AB-Studio](https://github.com/Herbertofury/Enderloom/wiki/Universal-Minecraft-AB-Studio)
 
 </details>
 
@@ -2823,8 +2830,10 @@
 - [https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view](https://drive.google.com/file/d/1QYPBgsbqHH1_0NZ0EkI7aI8YaiUkfkcJ/view)
 - [https://drive.google.com/file/d/1Xjqi1NaB0IUoT0rEKp-7qdOcG82fqZ5G/view](https://drive.google.com/file/d/1Xjqi1NaB0IUoT0rEKp-7qdOcG82fqZ5G/view)
 - [https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view](https://drive.google.com/file/d/1zyXPOxqu9_Eh2UCgWweGiN0YplDdGJPt/view)
+- [https://git.silica.codes/BedrockReverse/McTools](https://git.silica.codes/BedrockReverse/McTools)
 - [https://git.silica.codes/BedrockReverse/McTools/releases](https://git.silica.codes/BedrockReverse/McTools/releases)
 - [https://git.silica.codes/BedrockReverse/McTools/releases/tag/v12](https://git.silica.codes/BedrockReverse/McTools/releases/tag/v12)
+- [https://git.silica.codes/BedrockReverse/PackDL](https://git.silica.codes/BedrockReverse/PackDL)
 - [https://git.silica.codes/BedrockReverse/PackDL/releases](https://git.silica.codes/BedrockReverse/PackDL/releases)
 - [https://git.silica.codes/BedrockReverse/PackDL/releases/tag/v1.6](https://git.silica.codes/BedrockReverse/PackDL/releases/tag/v1.6)
 - [https://git.silica.codes/api/v1/repos/BedrockReverse/McTools/git/refs/tags/v12](https://git.silica.codes/api/v1/repos/BedrockReverse/McTools/git/refs/tags/v12)

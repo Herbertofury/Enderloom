@@ -9,7 +9,7 @@
 <a id="know-01-details"></a>
 ## KNOW-01 - Premium in-app Wiki
 
-[Outcome](Checklist.md#know-01) / 19 source-derived details.
+[Outcome](Checklist.md#know-01) / 20 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 0. ASTRA RUN CONTRACT (1)</summary>
@@ -151,6 +151,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 41. Verification contract
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1545-1545](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1545-L1545)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / Universal Minecraft A/B Studio — added 2026-10-05 (1)</summary>
+
+<a id="d-ce91d818f1b4522214e7"></a>
+- [ ] **D-ce91d818f1b4522214e7** - The full [Universal Minecraft A/B Studio contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md) supplements every existing r...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The full [Universal Minecraft A/B Studio contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md) supplements every existing requirement. Track progress in docs/knowledge/requirements.json: UX-11 (playable dual clients), PORT-15 (inventory transfer/preview certification), DEP-09 (queued recovery/restart), LIB-10 (Marketplace + authorized PackDL/McTools), MAKE-12 (complete selective comparison), TEST-09 (Actions &amp; Stuff 1.11.1 parity), SHIP-06 (lineage/live wiki/approved cleanup). All are planned, with implementation and native gameplay proof still open. AB-T001–AB-T027 and AB-G001 retain the complete acceptance details; do not check broad outcomes from preview/build success alone.
+  - **Binding context:** Universal Minecraft A/B Studio — added 2026-10-05
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1778-1778](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1778-L1778)
 
 </details>
 

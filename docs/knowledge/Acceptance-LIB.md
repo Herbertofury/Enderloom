@@ -9,7 +9,7 @@
 <a id="lib-01-details"></a>
 ## LIB-01 - Broad source-aware discovery
 
-[Outcome](Checklist.md#lib-01) / 96 source-derived details.
+[Outcome](Checklist.md#lib-01) / 91 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.8.0 universal creator avatars + post-media adapters (1)</summary>
@@ -66,17 +66,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 2. CANONICAL ENGINEERING REFERENCES
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: REF-003 : 162-162](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L162-L162)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work (1)</summary>
-
-<a id="d-164c10d0b7394e4140c5"></a>
-- [ ] **D-164c10d0b7394e4140c5** - External launcher integration: CurseForge/Modrinth discovery, connect-in-place, physical-path/junction identity, explicit clone/copy, safe disconnect/reconciliation.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: P0-012 : 179-179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L179-L179)
 
 </details>
 
@@ -274,7 +263,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection (3)</summary>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection (2)</summary>
 
 <a id="d-12e1b68d5106cddc1975"></a>
 - [ ] **D-12e1b68d5106cddc1975** - Discover usable Modrinth profiles.
@@ -288,13 +277,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 240-240](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L240-L240)
-  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
-
-<a id="d-d051d746d152cb0b6de9"></a>
-- [ ] **D-d051d746d152cb0b6de9** - Explicit clone/copy remains separate from connect.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 241-241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L241-L241)
   - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
 
 </details>
@@ -373,18 +355,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** G029 — Kotlin and semantic-rewrite hardening / T110 — Use the current OpenRewrite Kotlin implementation, not the archived standalone repo / T113 — Keep lightweight structural tools as prefilters, not authorities
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T113 : 1284-1284](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1284-L1284)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration (1)</summary>
-
-<a id="d-6c2259a7a7f107f0cf24"></a>
-- [ ] **D-6c2259a7a7f107f0cf24** - — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonic...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonical native/domain path.
-  - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T240 : 2043-2043](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2043-L2043)
 
 </details>
 
@@ -485,7 +455,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu (22)</summary>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu (20)</summary>
 
 <a id="d-f409dda86f91d6c89f0f"></a>
 - [ ] **D-f409dda86f91d6c89f0f** - Modrinth
@@ -505,12 +475,6 @@
   - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 245-245](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L245-L245)
 
-<a id="d-b7a21168bb48a17b28d0"></a>
-- [ ] **D-b7a21168bb48a17b28d0** - Planet Minecraft
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 246-246](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L246-L246)
-
 <a id="d-7f3631df0823878580e6"></a>
 - [ ] **D-7f3631df0823878580e6** - MCPEDL
   - **State:** unverified. **Kind:** source task.
@@ -522,12 +486,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 248-248](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L248-L248)
-
-<a id="d-b36a20684a7e5d318e29"></a>
-- [ ] **D-b36a20684a7e5d318e29** - Minecraft Marketplace
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L249-L249)
 
 <a id="d-1b24f933c97a09e1867a"></a>
 - [ ] **D-1b24f933c97a09e1867a** - AFDIAN
@@ -800,7 +758,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 87 source-derived details.
+[Outcome](Checklist.md#lib-02) / 81 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1274,30 +1232,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss (1)</summary>
-
-<a id="d-f237d51b59a23418a039"></a>
-- [ ] **D-f237d51b59a23418a039** - PHASE 1 PERFORMANCE GATE — On every technically equivalent benchmarked workflow, Enderloom is measurably faster than BOTH installed CurseForge and Modrinth, not tied with either; a...
-  - **State:** unverified. **Kind:** source task.
-  - **Full requirement:** PHASE 1 PERFORMANCE GATE — On every technically equivalent benchmarked workflow, Enderloom is measurably faster than BOTH installed CurseForge and Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G010 : 924-924](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L924-L924)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression (1)</summary>
-
-<a id="d-fc51ceeea39caca6c078"></a>
-- [ ] **D-fc51ceeea39caca6c078** - For every comparable major workflow, benchmark Enderloom against both installed clients. Enderloom must beat each comparator individually; the faster comparator is therefore the mi...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** For every comparable major workflow, benchmark Enderloom against both installed clients. Enderloom must beat each comparator individually; the faster comparator is therefore the minimum speed target, and the richer comparator is the minimum amount/coverage target.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1071-1071](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1071-L1071)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T050 — Permanent superiority ratchet: never regress below the proven better-than-both baseline (1)</summary>
 
 <a id="d-c7f5e7d596c102005d77"></a>
@@ -1359,28 +1293,6 @@
   - **Full requirement:** - Expose per-tab audible/muted state and quick mute/unmute. - Support picture-in-picture/native media behavior where available without reimplementing site players. - Honor site/user autoplay policy and never surprise-play audio. - Preserve media state appropriately across tab switching. - Do not allow background media to steal global shortcuts or spawn uncontrolled windows.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T040 — Picture-in-picture, media controls, mute/audible state
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1894-1898](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1894-L1898)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T013 — MCreator candidates become a compact filter, not a permanent banner (1)</summary>
-
-<a id="d-5f4b6103d634c5209a0a"></a>
-- [ ] **D-5f4b6103d634c5209a0a** - · MCreator candidates become a compact filter, not a permanent banner
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T013 — MCreator candidates become a compact filter, not a permanent banner
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T013 : 2055-2055](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2055-L2055)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine (1)</summary>
-
-<a id="d-fe6ffb89fb22ca0a6ec8"></a>
-- [ ] **D-fe6ffb89fb22ca0a6ec8** - · One universal guided-install engine
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T016 : 2097-2097](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2097-L2097)
 
 </details>
 
@@ -1535,17 +1447,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge (1)</summary>
-
-<a id="d-45f71691cc980832103a"></a>
-- [ ] **D-45f71691cc980832103a** - — From a clean supported machine/environment, install/build/package the current Enderloom candidate and exercise, using production wiring:
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T283 : 2608-2608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2608-L2608)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.9 Screenshots and media library (1)</summary>
 
 <a id="d-43356f95d8108aaf6a38"></a>
@@ -1662,17 +1563,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
-
-<a id="d-72431ed69ec3c416364d"></a>
-- [ ] **D-72431ed69ec3c416364d** - · Mapping disagreement fixture: make two mapping/oracle sources disagree and prove Enderloom reports unresolved evidence rather than choosing silently.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** GATE - Acceptance matrix and real workflow proof
-  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T140 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L475-L475)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Documentation, migration UX, and durable receipts (1)</summary>
 
 <a id="d-78358d3a46133c93d27d"></a>
@@ -1709,7 +1599,7 @@
 <a id="lib-03-details"></a>
 ## LIB-03 - Real embedded browser
 
-[Outcome](Checklist.md#lib-03) / 91 source-derived details.
+[Outcome](Checklist.md#lib-03) / 90 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.0.10 verified ad blocking + native Windows window ergonomics (1)</summary>
@@ -2404,17 +2294,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 6. Research / Catalog / Embedded Browser 2.0
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 370-370](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L370-L370)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 8. Minecraft Marketplace integration (1)</summary>
-
-<a id="d-1ab8b39ddd365db0fe8e"></a>
-- [ ] **D-1ab8b39ddd365db0fe8e** - Open Marketplace PDPs directly inside Enderloom Browser.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 8. Minecraft Marketplace integration
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 442-442](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L442-L442)
 
 </details>
 
@@ -4113,7 +3992,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 111 source-derived details.
+[Outcome](Checklist.md#lib-06) / 109 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -4282,18 +4161,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 25. Pack/Release Permission &amp; Policy Gate
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 971-971](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L971-L971)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue (1)</summary>
-
-<a id="d-76868f4a2b9d98dfc0ae"></a>
-- [ ] **D-76868f4a2b9d98dfc0ae** - Status: ACTIVE / IMMEDIATE EXECUTION QUEUE Created: 2026-09-24 Repository: Herbertofury/Enderloom Updated: 2026-09-26 Priority: PHASE 1 ABSOLUTE PRIORITY is the performance/stack u...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Status: ACTIVE / IMMEDIATE EXECUTION QUEUE Created: 2026-09-24 Repository: Herbertofury/Enderloom Updated: 2026-09-26 Priority: PHASE 1 ABSOLUTE PRIORITY is the performance/stack upgrade: G015 challenger selection + G012 Rust-native enderloom-core + G013/G016 host/tool architecture where applicable + G010 whole-app speed/coverage supremacy. PHASE 2 is G014 Minecraft-running zero-impact protection only after the Phase 1 stack is already proven fast, stable, feature-complete for the affected paths, and amazing in normal use. Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster and equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be strictly faster than both installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 3-7](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L3-L7)
 
 </details>
 
@@ -4790,18 +4657,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. DEFINITION OF DONE — USER-LEVEL OUTCOMES
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2274-2274](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2274-L2274) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 2274-2274](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2274-L2274)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.5 Build the missing Bedrock headless runner in full / Bedrock BDS manager responsibilities (1)</summary>
-
-<a id="d-c7549807a8d4e679a6d0"></a>
-- [ ] **D-c7549807a8d4e679a6d0** - - acquire/cache the official selected BDS build through the supported official route; - record exact Bedrock version/build/channel and binary hash; - maintain stable and preview ca...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - acquire/cache the official selected BDS build through the supported official route; - record exact Bedrock version/build/channel and binary hash; - maintain stable and preview caches separately; - create isolated per-run working directories from immutable cached templates; - select a free port pair automatically; - set a unique QA level name; - configure deterministic seed/difficulty/game mode/tick/view settings as the test requires; - enable content logging; - install/mount the exact Behavior Pack/Resource Pack/script dependencies; - enable only the experiments actually required by the candidate/test; - launch BDS without a GUI; - parse startup/readiness/failure markers; - send console commands through stdin where appropriate; - stop only the exact process it launched; - preserve stdout/stderr/content logs/crash evidence; - clean disposable state only after evidence has been sealed.
-  - **Binding context:** 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.5 Build the missing Bedrock headless runner in full / Bedrock BDS manager responsibilities
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 4198-4213](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4198-L4213) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 4198-4213](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4198-L4213)
 
 </details>
 
@@ -5381,7 +5236,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 126 source-derived details.
+[Outcome](Checklist.md#lib-08) / 122 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -5414,7 +5269,7 @@
 </details>
 
 <details>
-<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (6)</summary>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (5)</summary>
 
 <a id="d-4fe39cec5661d9599b9e"></a>
 - [ ] **D-4fe39cec5661d9599b9e** - provider_opening
@@ -5445,12 +5300,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 2. One repair job, one durable state machine
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 52-52](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L52-L52)
-
-<a id="d-24fc5cc2ceb113d239fa"></a>
-- [ ] **D-24fc5cc2ceb113d239fa** - provider_complete
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 2. One repair job, one durable state machine
-  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 53-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L53-L53)
 
 </details>
 
@@ -6014,18 +5863,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant (1)</summary>
-
-<a id="d-1ad36f5e2a19e2d49988"></a>
-- [ ] **D-1ad36f5e2a19e2d49988** - - Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel. - Eliminate serial provider waterfalls, duplicate identical fetche...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel. - Eliminate serial provider waterfalls, duplicate identical fetches, hidden full rescans, and modal-blocking metadata work. - Use conditional/delta metadata requests, single-flight request coalescing, bounded provider concurrency, content-addressed download cache reuse, and dependency-plan reuse. - Pipeline independent Update All downloads/verification instead of waiting for each full update to finish serially. - Navigation/cancel must abort abandoned provider/download work without corrupting the batch. - Measure cold and warm: first useful update list, full refresh time, click-to-download-start, aggregate throughput, UI responsiveness, and apply/commit latency. - Benchmark the same instance on the same machine/network against installed CurseForge and Modrinth clients. Enderloom must not be slower than either client on comparable median user-visible update latency, and this task remains open until the key update path is measurably faster than both where the comparison is technically equivalent, while preserving Enderloom&#x27;s stronger checks and complete results. If either client is faster, profile the bottleneck and change architecture rather than weakening validation.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1442-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1442-L1448)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T004 — Chrome-normal downloads in the embedded browser (1)</summary>
 
 <a id="d-e4a069b9f09483a0b553"></a>
@@ -6305,18 +6142,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md / 2. Authorized Minecraft Asset Acquisition / 2.1 Sources (1)</summary>
-
-<a id="d-55d1ed9176015687079c"></a>
-- [ ] **D-55d1ed9176015687079c** - - files/folders/archives supplied by the user; - local launcher instances; - Modrinth project/version downloads; - CurseForge project/version downloads through supported provider a...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - files/folders/archives supplied by the user; - local launcher instances; - Modrinth project/version downloads; - CurseForge project/version downloads through supported provider access; - GitHub source/releases; - Maven/loader dependency repositories; - official Minecraft client/server/version assets required for the selected runtime; - Bedrock .mcpack, .mcaddon, behavior-pack and resource-pack sources; - Java resource packs/datapacks/shader packs; - mod JARs with or without source; - worlds/saves/server packs; - logs/crash reports/JFR/spark/Observable/diagnostic bundles; - authorized server-delivered client resource packs; - author-supplied server plugin/model/config/source bundles; - user-authorized screenshots/GIFs/videos/models/reference media.
-  - **Binding context:** 2. Authorized Minecraft Asset Acquisition / 2.1 Sources
-  - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 51-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L51-L65)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G066 — Native catalog search, browse and cross-provider identity (1)</summary>
 
 <a id="d-11716bd108468fdc7382"></a>
@@ -6549,22 +6374,10 @@
 
 </details>
 
-<details>
-<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
-
-<a id="d-3c28034827f596f709b7"></a>
-- [ ] **D-3c28034827f596f709b7** - Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes P...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes PlayFab, entitlement, download and archive-processing surfaces; McTools includes local archive processing. Source availability alone is not a stable provider API or an entitlement check. Determine which supported provider/account flow proves the exact product authorization. The discovery view must not mark a product owned because a content identifier or download URL exists.
-  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
-  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 98-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L98-L104)
-
-</details>
-
 <a id="lib-09-details"></a>
 ## LIB-09 - Pack and research interchange
 
-[Outcome](Checklist.md#lib-09) / 87 source-derived details.
+[Outcome](Checklist.md#lib-09) / 85 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md / Codex Handoff — Enderloom Ultimate Minecraft Workbench / Objective (1)</summary>
@@ -6738,17 +6551,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 32. New golden fixtures required
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1151-1151](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1151-L1151)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T083 — Best-in-class coexistence comparison against CurseForge and Modrinth (1)</summary>
-
-<a id="d-648cdb494adc1fd65d7e"></a>
-- [ ] **D-648cdb494adc1fd65d7e** - · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T083 : 1259-1259](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1259-L1259)
 
 </details>
 
@@ -7141,17 +6943,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 8. Minecraft Marketplace integration (1)</summary>
-
-<a id="d-eb1eff655d1549c7d36b"></a>
-- [ ] **D-eb1eff655d1549c7d36b** - Keep purchased/user-authorized local pack imports separate from public page metadata.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 8. Minecraft Marketplace integration
-  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 446-446](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L446-L446)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 16. Premium Performance Lab — evidence everywhere (1)</summary>
 
 <a id="d-43be4b9cc882c483b819"></a>
@@ -7342,6 +7133,282 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. Definition of done
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 932-932](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L932-L932)
+
+</details>
+
+<a id="lib-10-details"></a>
+## LIB-10 - Complete Bedrock Marketplace and authorized PackDL/McTools
+
+[Outcome](Checklist.md#lib-10) / 26 source-derived details.
+
+<details>
+<summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
+
+<a id="d-24fc5cc2ceb113d239fa"></a>
+- [ ] **D-24fc5cc2ceb113d239fa** - provider_complete
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 2. One repair job, one durable state machine
+  - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 53-53](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L53-L53)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work (1)</summary>
+
+<a id="d-164c10d0b7394e4140c5"></a>
+- [ ] **D-164c10d0b7394e4140c5** - External launcher integration: CurseForge/Modrinth discovery, connect-in-place, physical-path/junction identity, explicit clone/copy, safe disconnect/reconciliation.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: P0-012 : 179-179](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L179-L179)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue (1)</summary>
+
+<a id="d-76868f4a2b9d98dfc0ae"></a>
+- [ ] **D-76868f4a2b9d98dfc0ae** - Status: ACTIVE / IMMEDIATE EXECUTION QUEUE Created: 2026-09-24 Repository: Herbertofury/Enderloom Updated: 2026-09-26 Priority: PHASE 1 ABSOLUTE PRIORITY is the performance/stack u...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Status: ACTIVE / IMMEDIATE EXECUTION QUEUE Created: 2026-09-24 Repository: Herbertofury/Enderloom Updated: 2026-09-26 Priority: PHASE 1 ABSOLUTE PRIORITY is the performance/stack upgrade: G015 challenger selection + G012 Rust-native enderloom-core + G013/G016 host/tool architecture where applicable + G010 whole-app speed/coverage supremacy. PHASE 2 is G014 Minecraft-running zero-impact protection only after the Phase 1 stack is already proven fast, stable, feature-complete for the affected paths, and amazing in normal use. Enderloom must move filesystem/indexing, provider/data, hashing, archive parsing, dependency solving, download/install, cache/database, image-processing, scheduling, and other heavy/native-capable hot paths out of JavaScript and into the Rust core by default. JavaScript/Electron remains the presentation/browser/native-shell adapter unless an apples-to-apples benchmark proves a specific JS implementation is faster and equally or more correct, complete, fresh, reliable, and crash-safe. On every technically equivalent workflow Enderloom must still be strictly faster than both installed CurseForge and Modrinth while exposing strictly more useful non-duplicate content/capability with no quality, quantity, fidelity, integrity, freshness, or feature loss.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 3-7](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L3-L7)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss (1)</summary>
+
+<a id="d-f237d51b59a23418a039"></a>
+- [ ] **D-f237d51b59a23418a039** - PHASE 1 PERFORMANCE GATE — On every technically equivalent benchmarked workflow, Enderloom is measurably faster than BOTH installed CurseForge and Modrinth, not tied with either; a...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** PHASE 1 PERFORMANCE GATE — On every technically equivalent benchmarked workflow, Enderloom is measurably faster than BOTH installed CurseForge and Modrinth, not tied with either; and across the complete comparable discovery/management experience Enderloom exposes strictly more useful non-duplicate projects/sources/releases/metadata/dependency intelligence/media/context/actions/capability than BOTH, while being no worse than either in correctness, fidelity, compatibility, validation, provenance, rollback safety, or supported behavior.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: G010 : 924-924](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L924-L924)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression (1)</summary>
+
+<a id="d-fc51ceeea39caca6c078"></a>
+- [ ] **D-fc51ceeea39caca6c078** - For every comparable major workflow, benchmark Enderloom against both installed clients. Enderloom must beat each comparator individually; the faster comparator is therefore the mi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** For every comparable major workflow, benchmark Enderloom against both installed clients. Enderloom must beat each comparator individually; the faster comparator is therefore the minimum speed target, and the richer comparator is the minimum amount/coverage target.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1071-1071](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1071-L1071)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T083 — Best-in-class coexistence comparison against CurseForge and Modrinth (1)</summary>
+
+<a id="d-648cdb494adc1fd65d7e"></a>
+- [ ] **D-648cdb494adc1fd65d7e** - · Benchmark the same Minecraft-running coexistence workflows against installed CurseForge and Modrinth clients and make Enderloom the dominant result
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T083 — Best-in-class coexistence comparison against CurseForge and Modrinth
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T083 : 1259-1259](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1259-L1259)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant (1)</summary>
+
+<a id="d-1ad36f5e2a19e2d49988"></a>
+- [ ] **D-1ad36f5e2a19e2d49988** - - Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel. - Eliminate serial provider waterfalls, duplicate identical fetche...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Render cached last-verified compatible releases immediately, then stale-while-revalidate providers in parallel. - Eliminate serial provider waterfalls, duplicate identical fetches, hidden full rescans, and modal-blocking metadata work. - Use conditional/delta metadata requests, single-flight request coalescing, bounded provider concurrency, content-addressed download cache reuse, and dependency-plan reuse. - Pipeline independent Update All downloads/verification instead of waiting for each full update to finish serially. - Navigation/cancel must abort abandoned provider/download work without corrupting the batch. - Measure cold and warm: first useful update list, full refresh time, click-to-download-start, aggregate throughput, UI responsiveness, and apply/commit latency. - Benchmark the same instance on the same machine/network against installed CurseForge and Modrinth clients. Enderloom must not be slower than either client on comparable median user-visible update latency, and this task remains open until the key update path is measurably faster than both where the comparison is technically equivalent, while preserving Enderloom&#x27;s stronger checks and complete results. If either client is faster, profile the bottleneck and change architecture rather than weakening validation.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G001 — Updates behave like a first-class launcher / T002 — Make update discovery and Update All feel instant
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1442-1448](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1442-L1448)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T013 — MCreator candidates become a compact filter, not a permanent banner (1)</summary>
+
+<a id="d-5f4b6103d634c5209a0a"></a>
+- [ ] **D-5f4b6103d634c5209a0a** - · MCreator candidates become a compact filter, not a permanent banner
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G005 — Favorites/catalog identity and quick actions are clean / T013 — MCreator candidates become a compact filter, not a permanent banner
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T013 : 2055-2055](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2055-L2055)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine (1)</summary>
+
+<a id="d-fe6ffb89fb22ca0a6ec8"></a>
+- [ ] **D-fe6ffb89fb22ca0a6ec8** - · One universal guided-install engine
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G006 — Files, logs, addons, and guided installs act like desktop software / T016 — One universal guided-install engine
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T016 : 2097-2097](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2097-L2097)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection (1)</summary>
+
+<a id="d-d051d746d152cb0b6de9"></a>
+- [ ] **D-d051d746d152cb0b6de9** - Explicit clone/copy remains separate from connect.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Launcher / Mod Manager / 5.1 External launcher discovery and in-place connection
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 241-241](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L241-L241)
+  - Historically checked in a source. Preserve the behavior and verify current evidence; do not assume newly completed.
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md / 2. Authorized Minecraft Asset Acquisition / 2.1 Sources (1)</summary>
+
+<a id="d-55d1ed9176015687079c"></a>
+- [ ] **D-55d1ed9176015687079c** - - files/folders/archives supplied by the user; - local launcher instances; - Modrinth project/version downloads; - CurseForge project/version downloads through supported provider a...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - files/folders/archives supplied by the user; - local launcher instances; - Modrinth project/version downloads; - CurseForge project/version downloads through supported provider access; - GitHub source/releases; - Maven/loader dependency repositories; - official Minecraft client/server/version assets required for the selected runtime; - Bedrock .mcpack, .mcaddon, behavior-pack and resource-pack sources; - Java resource packs/datapacks/shader packs; - mod JARs with or without source; - worlds/saves/server packs; - logs/crash reports/JFR/spark/Observable/diagnostic bundles; - authorized server-delivered client resource packs; - author-supplied server plugin/model/config/source bundles; - user-authorized screenshots/GIFs/videos/models/reference media.
+  - **Binding context:** 2. Authorized Minecraft Asset Acquisition / 2.1 Sources
+  - **Original specification:** [ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md : 51-65](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L51-L65)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration (1)</summary>
+
+<a id="d-6c2259a7a7f107f0cf24"></a>
+- [ ] **D-6c2259a7a7f107f0cf24** - — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonic...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** — Implement Browse -&gt; search/filter -&gt; project details -&gt; install/download -&gt; visible progress -&gt; completed instance state through the selected frontend plus canonical native/domain path.
+  - **Binding context:** G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T240 : 2043-2043](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2043-L2043)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md / G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge (1)</summary>
+
+<a id="d-45f71691cc980832103a"></a>
+- [ ] **D-45f71691cc980832103a** - — From a clean supported machine/environment, install/build/package the current Enderloom candidate and exercise, using production wiring:
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md :: T283 : 2608-2608](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2608-L2608)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md / 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.5 Build the missing Bedrock headless runner in full / Bedrock BDS manager responsibilities (1)</summary>
+
+<a id="d-c7549807a8d4e679a6d0"></a>
+- [ ] **D-c7549807a8d4e679a6d0** - - acquire/cache the official selected BDS build through the supported official route; - record exact Bedrock version/build/channel and binary hash; - maintain stable and preview ca...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - acquire/cache the official selected BDS build through the supported official route; - record exact Bedrock version/build/channel and binary hash; - maintain stable and preview caches separately; - create isolated per-run working directories from immutable cached templates; - select a free port pair automatically; - set a unique QA level name; - configure deterministic seed/difficulty/game mode/tick/view settings as the test requires; - enable content logging; - install/mount the exact Behavior Pack/Resource Pack/script dependencies; - enable only the experiments actually required by the candidate/test; - launch BDS without a GUI; - parse startup/readiness/failure markers; - send console commands through stdin where appropriate; - stop only the exact process it launched; - preserve stdout/stderr/content logs/crash evidence; - clean disposable state only after evidence has been sealed.
+  - **Binding context:** 17. FAST HEADLESS QA ENGINE — CLI/API TESTING FOR JAVA + BEDROCK / 17.5 Build the missing Bedrock headless runner in full / Bedrock BDS manager responsibilities
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 4198-4213](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4198-L4213) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md : 4198-4213](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L4198-L4213)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu (2)</summary>
+
+<a id="d-b7a21168bb48a17b28d0"></a>
+- [ ] **D-b7a21168bb48a17b28d0** - Planet Minecraft
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 246-246](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L246-L246)
+
+<a id="d-b36a20684a7e5d318e29"></a>
+- [ ] **D-b36a20684a7e5d318e29** - Minecraft Marketplace
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 5. Right-click / Power Context Menu — obsessive QOL / 5.1 `Open / Sources` submenu
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 249-249](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L249-L249)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md / 8. Minecraft Marketplace integration (2)</summary>
+
+<a id="d-1ab8b39ddd365db0fe8e"></a>
+- [ ] **D-1ab8b39ddd365db0fe8e** - Open Marketplace PDPs directly inside Enderloom Browser.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 8. Minecraft Marketplace integration
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 442-442](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L442-L442)
+
+<a id="d-eb1eff655d1549c7d36b"></a>
+- [ ] **D-eb1eff655d1549c7d36b** - Keep purchased/user-authorized local pack imports separate from public page metadata.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 8. Minecraft Marketplace integration
+  - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 446-446](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L446-L446)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Constraints (1)</summary>
+
+<a id="d-b426b58b31c6226abf6b"></a>
+- [ ] **D-b426b58b31c6226abf6b** - Honor the user&#x27;s authorized PackDL/McTools request without inventing extra authorization demands for planning. Scope adapters to authorized accessible content and normal provi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Honor the user&#x27;s authorized PackDL/McTools request without inventing extra authorization demands for planning. Scope adapters to authorized accessible content and normal provider entitlements. Do not introduce public key-sharing, payment/entitlement bypasses, or publish commercial test assets. Confirm exact upstream identity and distribution license before bundling; missing public license information is unresolved, not permission to copy.
+  - **Binding context:** Universal Minecraft A/B Studio / Constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 70-70](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L70-L70)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10 (5)</summary>
+
+<a id="d-7ab23f718a1acb8c0e81"></a>
+- [ ] **D-7ab23f718a1acb8c0e81** - AB-T013 Add the complete official Marketplace to the existing provider tabs, with normal search/filter/sort/categories/details/media/account navigation, back/forward, pagination, e...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T013 Add the complete official Marketplace to the existing provider tabs, with normal search/filter/sort/categories/details/media/account navigation, back/forward, pagination, errors, refresh and session preservation. Keep identity keyed to product/creator IDs and expose exact contextual links. Retain CurseForge/Modrinth/GitHub behavior.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 105-105](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L105-L105)
+
+<a id="d-7a118724e531d2924ad7"></a>
+- [ ] **D-7a118724e531d2924ad7** - AB-T014 Open the exact product in Minecraft Bedrock using the official product action or validated product-ID deep link for the normal purchase/download flow. Verify installed/miss...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T014 Open the exact product in Minecraft Bedrock using the official product action or validated product-ID deep link for the normal purchase/download flow. Verify installed/missing game, running/closed, signed-in/out, owned/unowned, cancellation, invalid ID and wrong account. Protocol-handler launch does not mean installation succeeded.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 106-106](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L106-L106)
+
+<a id="d-29da7b3e16b151f60a6d"></a>
+- [ ] **D-29da7b3e16b151f60a6d** - AB-T015 Integrate the requested PackDL and McTools behind shared jobs for supported authorized operations. Preserve upstream versions/licenses/notices, securely bind the correct ac...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T015 Integrate the requested PackDL and McTools behind shared jobs for supported authorized operations. Preserve upstream versions/licenses/notices, securely bind the correct account/product entitlement, isolate staging, validate archive paths/members and deterministic packaging, redact secrets and emit artifact/provenance receipts. Review exact API/CLI contracts before adopting any binary.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 107-107](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L107-L107)
+
+<a id="d-873dfaa6dc4fe30616f7"></a>
+- [ ] **D-873dfaa6dc4fe30616f7** - AB-T016 Track upstream releases through manual refresh, diff versions/license/API/dependencies, test candidates on the complete fixtures, and explicitly adopt or reject. Pin a job&...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T016 Track upstream releases through manual refresh, diff versions/license/API/dependencies, test candidates on the complete fixtures, and explicitly adopt or reject. Pin a job&#x27;s version; retain the last known good version and prove rollback. No automatic adoption or unrequested polling.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 108-108](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L108-L108)
+
+<a id="d-1483dffc557ee5eb9049"></a>
+- [ ] **D-1483dffc557ee5eb9049** - Intended upstream identities, recovered from the existing actual wiki: https://git.silica.codes/BedrockReverse/PackDL and https://git.silica.codes/BedrockReverse/McTools. The prior...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Intended upstream identities, recovered from the existing actual wiki: https://git.silica.codes/BedrockReverse/PackDL and https://git.silica.codes/BedrockReverse/McTools. The prior October 4 source inventory recorded PackDL v1.6 and McTools v12; this is historical evidence, not a fresh latest-release assertion. Do not confuse McTools with unrelated RCON or browser utilities.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Complete Marketplace and authorized tools — owner LIB-10
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 110-110](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L110-L110)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md / GATE - Acceptance matrix and real workflow proof (1)</summary>
+
+<a id="d-72431ed69ec3c416364d"></a>
+- [ ] **D-72431ed69ec3c416364d** - · Mapping disagreement fixture: make two mapping/oracle sources disagree and prove Enderloom reports unresolved evidence rather than choosing silently.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** GATE - Acceptance matrix and real workflow proof
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md :: T140 : 475-475](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L475-L475)
+
+</details>
+
+<details>
+<summary>Marketplace-Studio-and-Bedrock-Roadmap.md / Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices (1)</summary>
+
+<a id="d-3c28034827f596f709b7"></a>
+- [ ] **D-3c28034827f596f709b7** - Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes P...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Inventory the actual library/CLI boundaries, authenticated services, local entitlements, formats, dependency notices and build profiles before selecting adapters. PackDL includes PlayFab, entitlement, download and archive-processing surfaces; McTools includes local archive processing. Source availability alone is not a stable provider API or an entitlement check. Determine which supported provider/account flow proves the exact product authorization. The discovery view must not mark a product owned because a content identifier or download URL exists.
+  - **Binding context:** Marketplace, Studio comparison and Bedrock conversion roadmap / Marketplace and the two download choices
+  - **Original specification:** [Marketplace-Studio-and-Bedrock-Roadmap.md : 98-104](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L98-L104)
 
 </details>
 

@@ -9,7 +9,7 @@
 <a id="test-01-details"></a>
 ## TEST-01 - Deterministic test sandbox
 
-[Outcome](Checklist.md#test-01) / 392 source-derived details.
+[Outcome](Checklist.md#test-01) / 386 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (1)</summary>
@@ -486,17 +486,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 31. Cross-integration requirements for these newly added domains (1)</summary>
-
-<a id="d-6b6eae78a671886896f7"></a>
-- [ ] **D-6b6eae78a671886896f7** - New mod version capability diff can trigger canary testing.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 31. Cross-integration requirements for these newly added domains
-  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1104-1104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1104-L1104)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 32. New golden fixtures required (3)</summary>
 
 <a id="d-06a88fe1990a407d997f"></a>
@@ -587,7 +576,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 13. Premium Testing workspace — Performance Lab / 13.1 Core flows (8)</summary>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 13. Premium Testing workspace — Performance Lab / 13.1 Core flows (7)</summary>
 
 <a id="d-4123b5d1a9bf7f1454b9"></a>
 - [ ] **D-4123b5d1a9bf7f1454b9** - Test One Mod — direct paired A/B impact test.
@@ -618,12 +607,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. Premium Testing workspace — Performance Lab / 13.1 Core flows
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 529-529](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L529-L529)
-
-<a id="d-c8f46e3edbb10079fc4a"></a>
-- [ ] **D-c8f46e3edbb10079fc4a** - Lag Spike Hunt.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 13. Premium Testing workspace — Performance Lab / 13.1 Core flows
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L530-L530)
 
 <a id="d-cbe98dc2e2e2a2492d2f"></a>
 - [ ] **D-cbe98dc2e2e2a2492d2f** - Memory Test.
@@ -971,7 +954,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 37. Implementation roadmap / Phase Testing-1 — foundation (4)</summary>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 37. Implementation roadmap / Phase Testing-1 — foundation (2)</summary>
 
 <a id="d-1b2e18ac8eb6760af8fe"></a>
 - [ ] **D-1b2e18ac8eb6760af8fe** - normalized test-session schema
@@ -979,23 +962,11 @@
   - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1516-1516](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1516-L1516)
 
-<a id="d-f8e324b31f5a51f8ee01"></a>
-- [ ] **D-f8e324b31f5a51f8ee01** - fingerprints
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1518-1518](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1518-L1518)
-
 <a id="d-1ed065f2f811c375c34b"></a>
 - [ ] **D-1ed065f2f811c375c34b** - safe test sandbox
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
   - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1519-1519](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1519-L1519)
-
-<a id="d-bdd613bca4671e62fe79"></a>
-- [ ] **D-bdd613bca4671e62fe79** - Quick Scan static analyzer
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1520-1520](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1520-L1520)
 
 </details>
 
@@ -2877,17 +2848,6 @@
 </details>
 
 <details>
-<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Fast test pipeline / 4. Adaptive full-pack sweep (1)</summary>
-
-<a id="d-199d733789b0673aaf8c"></a>
-- [ ] **D-199d733789b0673aaf8c** - Test All Mods must not naively require N + 1 full launches by default.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom Premium Testing Lab / Fast test pipeline / 4. Adaptive full-pack sweep
-  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L99-L99)
-
-</details>
-
-<details>
 <summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Launch acceleration for testing (1)</summary>
 
 <a id="d-59de9e989942880e7604"></a>
@@ -2930,17 +2890,6 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom Premium Testing Lab / Metrics shown per mod
   - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 284-284](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L284-L284)
-
-</details>
-
-<details>
-<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Licensing/integration boundary (1)</summary>
-
-<a id="d-985970d9a430104605d9"></a>
-- [ ] **D-985970d9a430104605d9** - Use external tools through normal installation/integration/export protocols or independently implemented adapters. Do not casually copy code into Enderloom.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** Enderloom Premium Testing Lab / Licensing/integration boundary
-  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 565-565](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L565-L565)
 
 </details>
 
@@ -3808,7 +3757,7 @@
 <a id="test-03-details"></a>
 ## TEST-03 - Runtime supervision and automation
 
-[Outcome](Checklist.md#test-03) / 149 source-derived details.
+[Outcome](Checklist.md#test-03) / 146 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -3851,17 +3800,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.2 Truthful behavior
   - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: TRUTH-005 : 86-86](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L86-L86)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
-
-<a id="d-a0840ea6960a0f07d118"></a>
-- [ ] **D-a0840ea6960a0f07d118** - Premium automated Performance/Testing Control Plane.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DEC-009 : 112-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L112-L112)
 
 </details>
 
@@ -4036,18 +3974,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T089 — Canary/shadow graduation before live user-state authority
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T089 : 109-109](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L109-L109)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / PHASE 1 — performance / stack supremacy (1)</summary>
-
-<a id="d-a866ce6537060f63c225"></a>
-- [ ] **D-a866ce6537060f63c225** - Phase 1 exit gate: the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Phase 1 exit gate: the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal use. Do not enter Phase 2 merely because the architecture compiles.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / PHASE 1 — performance / stack supremacy
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1371-1371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1371-L1371)
 
 </details>
 
@@ -4506,18 +4432,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 24. Implementation order / Phase 4 — Minecraft Probe + rendered testing
   - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 858-858](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L858-L858)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Convert to Version (1)</summary>
-
-<a id="d-a305e7253d10140cdaf7"></a>
-- [ ] **D-a305e7253d10140cdaf7** - Show simple stage labels such as Preparing, Converting, Building, Testing and Fixing an issue. Progress is backed by real events. The final view offers Play Test, Install to Instan...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** Show simple stage labels such as Preparing, Converting, Building, Testing and Fixing an issue. Progress is backed by real events. The final view offers Play Test, Install to Instance, Open Output, and View Changes, plus per-target verification status. Unknown content, unavailable dependencies and failed tests remain visible and actionable, never green with fine print. Cross-edition outputs distinguish code/behavior/assets; compatibility-runtime mode never masquerades as a native port.
-  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Convert to Version
-  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 172-172](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L172-L172)
 
 </details>
 
@@ -5206,7 +5120,7 @@
 <a id="test-04-details"></a>
 ## TEST-04 - Full CLI, JSON and MCP parity
 
-[Outcome](Checklist.md#test-04) / 246 source-derived details.
+[Outcome](Checklist.md#test-04) / 243 source-derived details.
 
 <details>
 <summary>CODEX_HANDOFF_PREMIUM_TESTING_CLI.md / Codex Handoff — Enderloom Premium Testing + Full CLI / Mission (1)</summary>
@@ -5381,13 +5295,7 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity (2)</summary>
-
-<a id="d-93d3e376e211cc5cabf0"></a>
-- [ ] **D-93d3e376e211cc5cabf0** - Normal GUI bootstrap plus no-visible-GUI subcommand mode.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity
-  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PC-002 : 276-276](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L276-L276)
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity (1)</summary>
 
 <a id="d-523cd8ef8def78c86191"></a>
 - [ ] **D-523cd8ef8def78c86191** - CI fails meaningful GUI/service operations lacking CLI mapping or an approved visual-only exception.
@@ -5460,18 +5368,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 29. Ecosystem Challenge Matrix — expanded benchmark set
   - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1048-1048](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1048-L1048)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff (1)</summary>
-
-<a id="d-7630144b821cb7bb3c88"></a>
-- [ ] **D-7630144b821cb7bb3c88** - - Use rawzip as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archi...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Use rawzip as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archive extraction. - Compare zlib-rs and libdeflate on real Forge/NeoForge/Fabric/Quilt/modpack archives. - Prefer zlib-rs for streaming/unknown-length paths when it wins and libdeflate for complete known compressed buffers when its bulk decompression wins; do not force one backend across every pattern. - Retain a current full-featured ZIP implementation for writer/exotic compatibility paths that rawzip deliberately does not own. - Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, and CPU/RAM. If a running-Minecraft fixture is already available, add only a cheap obvious-regression smoke check here; full G014 proof is Phase 2. - Fuzz malformed/truncated/encrypted/Zip64/path-traversal/zip-bomb-style inputs and require equivalent-or-better rejection behavior before promotion. - Persist parsed metadata by content identity so even the winning parser is not called again for unchanged artifacts.
-  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
-  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 245-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L245-L251)
 
 </details>
 
@@ -5924,17 +5820,6 @@
   - **Full requirement:** — Reconcile this delta against ENDERLOOM_NEXTGEN_TECH_STACK_SCOUT.md; deduplicate any item Codex has already implemented since the scout was written and retain the stronger implementation/proof requirement.
   - **Binding context:** G022 — Final second-pass completion gate
   - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md :: T074 : 662-662](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L662-L662)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom (1)</summary>
-
-<a id="d-205316700d61f613aad9"></a>
-- [ ] **D-205316700d61f613aad9** - Promote the strongest implementation per transformation family. The combined engine must be no worse than either input on protected fixtures.
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom
-  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 884-884](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L884-L884)
 
 </details>
 
@@ -7245,7 +7130,7 @@
 <a id="test-05-details"></a>
 ## TEST-05 - Artifact-bound native proof
 
-[Outcome](Checklist.md#test-05) / 64 source-derived details.
+[Outcome](Checklist.md#test-05) / 61 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -7405,17 +7290,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G008 — Whole queue convergence and runtime proof / T022 — Packaged-app workflow proof
   - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md :: T022 : 2464-2464](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2464-L2464)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 13. Premium Testing workspace — Performance Lab / 13.1 Core flows (1)</summary>
-
-<a id="d-e860d514e5e77760bd48"></a>
-- [ ] **D-e860d514e5e77760bd48** - Compare Runs.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 13. Premium Testing workspace — Performance Lab / 13.1 Core flows
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 532-532](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L532-L532)
 
 </details>
 
@@ -7667,17 +7541,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 3. Performance / Testing tab — Premium Performance Lab / 3.1 Workspace identity (1)</summary>
-
-<a id="d-99cc4d7d70ece9cd2d96"></a>
-- [ ] **D-99cc4d7d70ece9cd2d96** - Top-level tab/workspace: Performance or Testing.
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 3. Performance / Testing tab — Premium Performance Lab / 3.1 Workspace identity
-  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 112-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L112-L112)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 8. Test One Mod — direct A/B proof (2)</summary>
 
 <a id="d-2f870a7791313ec39f0a"></a>
@@ -7731,6 +7594,18 @@
   - **Full requirement:** - PortableMC-like launch knows the exact mod/config/world evidence graph. - Ferium/packwiz-like updates automatically invalidate/re-run affected tests. - mcman-like server changes feed the same config/provenance system. - HeadlessMC-like testing can escalate to native rendered-client proof when necessary. - MCC/protocol-bot runs are marked as protocol-only evidence, never visual proof. - MCA-style world operations are transactional and tied to snapshots/rollback. - Chunky-like pregeneration records measured performance/storage evidence. - spark/JFR/heap/render/incident captures attach directly to culprit projects and Repair Jobs. - Creator Tools-like Bedrock validation/deployment feeds the same Studio/CLI/test history.
   - **Binding context:** 9. Performance / Testing becomes the Minecraft Control Plane / 9.7 Why Enderloom should be better than the current tools
   - **Original specification:** [ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md : 867-875](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIFIED_STUDIO_CONFIG_HOTKEY_CLI_BRAIN_SPEC.md#L867-L875)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Constraints (1)</summary>
+
+<a id="d-db2b70db062789c8a301"></a>
+- [ ] **D-db2b70db062789c8a301** - Use real native game clients for playable panes and certification. A screenshot stream, browser renderer, protocol bot, preview scene, or successful build alone is not proof of a p...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Use real native game clients for playable panes and certification. A screenshot stream, browser renderer, protocol bot, preview scene, or successful build alone is not proof of a playable native client or destination mod. Keep platform capability limitations visible and actionable. Do not silently substitute a weaker experience.
+  - **Binding context:** Universal Minecraft A/B Studio / Constraints
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 66-66](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L66-L66)
 
 </details>
 
@@ -7849,18 +7724,6 @@
 </details>
 
 <details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 5. SETTINGS / QOL — MAKE THIS FEEL OBVIOUS, NOT TECHNICAL (1)</summary>
-
-<a id="d-d737e16ae6c927e9ee01"></a>
-- [ ] **D-d737e16ae6c927e9ee01** - - Project setting can override global setting. - User can reset project behavior back to global/default. - User can change the setting before starting a job. - Post-target prompt i...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - Project setting can override global setting. - User can reset project behavior back to global/default. - User can change the setting before starting a job. - Post-target prompt includes a clear estimate/count, e.g. Build 7 additional supported targets. - Show exact versions/loaders before starting fan-out; allow quick uncheck/exclude. - Remember exclusions per project only when the user chooses to remember them. - Headless/CLI/automation mode must never hang waiting for a prompt: - use explicit CLI mode if supplied; - otherwise project setting; - otherwise global setting; - otherwise target-only for noninteractive execution. - Add one-click actions: - Build all supported - Build failed only - Build selected - Open artifacts - Copy matrix report - Let the user stop remaining secondary cells without invalidating the already-verified primary artifact.
-  - **Binding context:** 5. SETTINGS / QOL — MAKE THIS FEEL OBVIOUS, NOT TECHNICAL
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 205-222](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L205-L222)
-
-</details>
-
-<details>
 <summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 10. VERIFICATION — THIS FEATURE IS NOT DONE AT &quot;COMPILES&quot; (1)</summary>
 
 <a id="d-d8ea2e87f88aa7e87ee4"></a>
@@ -7891,18 +7754,6 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Runtime/release
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 950-950](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L950-L950) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1354-1354](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1354-L1354)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules (1)</summary>
-
-<a id="d-213d29ad810ebe67dc55"></a>
-- [ ] **D-213d29ad810ebe67dc55** - - [ ] = not complete. It may be pending, active, or blocked. - [x] = complete only when the stated Done condition is satisfied and evidence is written into the task. - For the one ...
-  - **State:** unverified. **Kind:** binding source prose.
-  - **Full requirement:** - [ ] = not complete. It may be pending, active, or blocked. - [x] = complete only when the stated Done condition is satisfied and evidence is written into the task. - For the one task currently being worked, add State: IN PROGRESS under it. - For a blocked task, leave it unchecked and add State: BLOCKED — &lt;exact reason&gt; plus the exact next action that would unblock it. - Replace every Evidence: TODO with concrete file paths, test names/results, run IDs, hashes, screenshots/log paths, or artifact names before checking the task. - A scaffold, mock, placeholder, dead button, compile-only success, TODO comment, or untested code path does not satisfy a checkbox. - Do not check a parent task while any required child behavior is still missing. - Do not mark work complete because a different version/loader happens to pass. The requested primary target must pass first, and every claimed matrix cell must carry its own evidence. - Keep the detailed rules in Sections 1–15 intact. This board is the execution index; those sections are the acceptance contract. - Do not ask the user to re-decide engineering details already resolved by this file or discoverable from the repository/runtime. Choose the safest complete implementation and keep moving unless a genuinely user-only choice blocks correctness. - Once an NP task has enough evidence to identify the safe edit set, implement it immediately; do not substitute another plan, issue list, architecture memo, or research loop for the work.
-  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules
-  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 26-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L26-L36)
 
 </details>
 
@@ -8148,7 +7999,7 @@
 <a id="test-07-details"></a>
 ## TEST-07 - Results and repeatability
 
-[Outcome](Checklist.md#test-07) / 14 source-derived details.
+[Outcome](Checklist.md#test-07) / 13 source-derived details.
 
 <details>
 <summary>ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md / 3. Execution work / 3.10 Conversion planner and user experience (1)</summary>
@@ -8159,17 +8010,6 @@
   - **Full requirement:** · Add machine-readable conversion status/report output that includes source authority, target cell, content parity counts, transformations, exact/candidate/unresolved items, dependencies, tool versions/hashes, build result, runtime result, performance result, and final artifact hash.
   - **Binding context:** 3. Execution work / 3.10 Conversion planner and user experience
   - **Original specification:** [ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md :: T056 : 532-532](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONVERSION_ECOSYSTEM_INTEGRATION_DIRECTIVE_2026-09-23.md#L532-L532) / [ENDERLOOM_STUDIO_EXECUTION.md :: T056 : 694-694](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L694-L694)
-
-</details>
-
-<details>
-<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 37. Implementation roadmap / Phase Testing-1 — foundation (1)</summary>
-
-<a id="d-01b7cb9be8446418a75c"></a>
-- [ ] **D-01b7cb9be8446418a75c** - persistent history
-  - **State:** unverified. **Kind:** source task.
-  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
-  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1517-1517](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1517-L1517)
 
 </details>
 
@@ -8408,6 +8248,233 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 14. QA CHECKLIST — AUTOMATE THESE / Runtime/release
   - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md : 953-953](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L953-L953) / [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 1357-1357](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1357-L1357)
+
+</details>
+
+<a id="test-09-details"></a>
+## TEST-09 - Actions & Stuff 1.11.1 full cross-edition gameplay parity
+
+[Outcome](Checklist.md#test-09) / 22 source-derived details.
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions (1)</summary>
+
+<a id="d-a0840ea6960a0f07d118"></a>
+- [ ] **D-a0840ea6960a0f07d118** - Premium automated Performance/Testing Control Plane.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: DEC-009 : 112-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L112-L112)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity (1)</summary>
+
+<a id="d-93d3e376e211cc5cabf0"></a>
+- [ ] **D-93d3e376e211cc5cabf0** - Normal GUI bootstrap plus no-visible-GUI subcommand mode.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 6. PHASE C — UNIVERSAL MACHINE SURFACES + PROGRESS / 6.1 CLI/service parity
+  - **Original specification:** [ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md :: PC-002 : 276-276](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L276-L276)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GAP_AUDIT_2026-09-07.md / 31. Cross-integration requirements for these newly added domains (1)</summary>
+
+<a id="d-6b6eae78a671886896f7"></a>
+- [ ] **D-6b6eae78a671886896f7** - New mod version capability diff can trigger canary testing.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 31. Cross-integration requirements for these newly added domains
+  - **Original specification:** [ENDERLOOM_GAP_AUDIT_2026-09-07.md : 1104-1104](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GAP_AUDIT_2026-09-07.md#L1104-L1104)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff (1)</summary>
+
+<a id="d-7630144b821cb7bb3c88"></a>
+- [ ] **D-7630144b821cb7bb3c88** - - Use rawzip as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archi...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Use rawzip as the first serious metadata-inspection challenger because Enderloom primarily needs central-directory discovery and selected manifest entries rather than whole-archive extraction. - Compare zlib-rs and libdeflate on real Forge/NeoForge/Fabric/Quilt/modpack archives. - Prefer zlib-rs for streaming/unknown-length paths when it wins and libdeflate for complete known compressed buffers when its bulk decompression wins; do not force one backend across every pattern. - Retain a current full-featured ZIP implementation for writer/exotic compatibility paths that rawzip deliberately does not own. - Benchmark central-directory scan, selected-entry decode, thousands-of-small-JAR throughput, giant archive behavior, and CPU/RAM. If a running-Minecraft fixture is already available, add only a cheap obvious-regression smoke check here; full G014 proof is Phase 2. - Fuzz malformed/truncated/encrypted/Zip64/path-traversal/zip-bomb-style inputs and require equivalent-or-better rejection behavior before promotion. - Persist parsed metadata by content identity so even the winning parser is not called again for unchanged artifacts.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T094 — rawzip + zlib-rs + libdeflate archive fast-path bakeoff
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 245-251](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L245-L251)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_GET_DONE_NOW_QOL.md / Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / PHASE 1 — performance / stack supremacy (1)</summary>
+
+<a id="d-a866ce6537060f63c225"></a>
+- [ ] **D-a866ce6537060f63c225** - Phase 1 exit gate: the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Phase 1 exit gate: the chosen stack/core/shell/tool architecture is already fast, stable, feature-complete for the affected paths, packaged-runtime proven, and excellent in normal use. Do not enter Phase 2 merely because the architecture compiles.
+  - **Binding context:** Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / PHASE 1 — performance / stack supremacy
+  - **Original specification:** [ENDERLOOM_GET_DONE_NOW_QOL.md : 1371-1371](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1371-L1371)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 13. Premium Testing workspace — Performance Lab / 13.1 Core flows (2)</summary>
+
+<a id="d-c8f46e3edbb10079fc4a"></a>
+- [ ] **D-c8f46e3edbb10079fc4a** - Lag Spike Hunt.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Premium Testing workspace — Performance Lab / 13.1 Core flows
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 530-530](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L530-L530)
+
+<a id="d-e860d514e5e77760bd48"></a>
+- [ ] **D-e860d514e5e77760bd48** - Compare Runs.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 13. Premium Testing workspace — Performance Lab / 13.1 Core flows
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 532-532](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L532-L532)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_MASTER_REQUIREMENTS.md / 37. Implementation roadmap / Phase Testing-1 — foundation (3)</summary>
+
+<a id="d-01b7cb9be8446418a75c"></a>
+- [ ] **D-01b7cb9be8446418a75c** - persistent history
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1517-1517](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1517-L1517)
+
+<a id="d-f8e324b31f5a51f8ee01"></a>
+- [ ] **D-f8e324b31f5a51f8ee01** - fingerprints
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1518-1518](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1518-L1518)
+
+<a id="d-bdd613bca4671e62fe79"></a>
+- [ ] **D-bdd613bca4671e62fe79** - Quick Scan static analyzer
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 37. Implementation roadmap / Phase Testing-1 — foundation
+  - **Original specification:** [ENDERLOOM_MASTER_REQUIREMENTS.md : 1520-1520](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MASTER_REQUIREMENTS.md#L1520-L1520)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md / G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom (1)</summary>
+
+<a id="d-205316700d61f613aad9"></a>
+- [ ] **D-205316700d61f613aad9** - Promote the strongest implementation per transformation family. The combined engine must be no worse than either input on protected fixtures.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** G024 — Full MC Mod Porter ingestion under the user&#x27;s stated permission / T085 — Treat MC Mod Porter as a full-integration candidate, not a link list / T087 — Differentially test MC Mod Porter against Enderloom
+  - **Original specification:** [ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md : 884-884](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L884-L884)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md / 3. Performance / Testing tab — Premium Performance Lab / 3.1 Workspace identity (1)</summary>
+
+<a id="d-99cc4d7d70ece9cd2d96"></a>
+- [ ] **D-99cc4d7d70ece9cd2d96** - Top-level tab/workspace: Performance or Testing.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** 3. Performance / Testing tab — Premium Performance Lab / 3.1 Workspace identity
+  - **Original specification:** [ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md : 112-112](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L112-L112)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_STUDIO_EXECUTION.md / 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Convert to Version (1)</summary>
+
+<a id="d-a305e7253d10140cdaf7"></a>
+- [ ] **D-a305e7253d10140cdaf7** - Show simple stage labels such as Preparing, Converting, Building, Testing and Fixing an issue. Progress is backed by real events. The final view offers Play Test, Install to Instan...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Show simple stage labels such as Preparing, Converting, Building, Testing and Fixing an issue. Progress is backed by real events. The final view offers Play Test, Install to Instance, Open Output, and View Changes, plus per-target verification status. Unknown content, unavailable dependencies and failed tests remain visible and actionable, never green with fine print. Cross-edition outputs distinguish code/behavior/assets; compatibility-runtime mode never masquerades as a native port.
+  - **Binding context:** 0. Codex launch contract - implement, verify, finish / 0.7 Build a beautiful, approachable Enderloom Studio / Primary workflow: Convert to Version
+  - **Original specification:** [ENDERLOOM_STUDIO_EXECUTION.md : 172-172](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_STUDIO_EXECUTION.md#L172-L172)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Actions &amp; Stuff 1.11.1 and cross-edition proof — owner TEST-09 (4)</summary>
+
+<a id="d-8c6c5fc20cde8fa58756"></a>
+- [ ] **D-8c6c5fc20cde8fa58756** - AB-T020 Pin Actions &amp; Stuff 1.11.1 as the complete conversion fixture with original input hashes, product ID, creator, source manifest, all subpacks and exhaustive file/feature...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T020 Pin Actions &amp; Stuff 1.11.1 as the complete conversion fixture with original input hashes, product ID, creator, source manifest, all subpacks and exhaustive file/feature census. Build a source-native Bedrock baseline. The official creator&#x27;s page is the product authority; do not use unofficial free-download mirrors.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Actions &amp; Stuff 1.11.1 and cross-edition proof — owner TEST-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 120-120](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L120-L120)
+
+<a id="d-11e6ddfa74341b500d22"></a>
+- [ ] **D-11e6ddfa74341b500d22** - AB-T021 Compare original Bedrock and generated Java appearance, first/third-person/item views, textures/materials, models/UVs, animations/transitions/Molang queries, particles, aud...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T021 Compare original Bedrock and generated Java appearance, first/third-person/item views, textures/materials, models/UVs, animations/transitions/Molang queries, particles, audio, behavior and actual gameplay. Derive scenarios from everything present in the source; Actions &amp; Stuff alone does not prove arbitrary behavior-pack/Script API conversion. Add independent authorized behavior fixtures for absent capabilities.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Actions &amp; Stuff 1.11.1 and cross-edition proof — owner TEST-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 121-121](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L121-L121)
+
+<a id="d-e176b8d90adebe082094"></a>
+- [ ] **D-e176b8d90adebe082094** - AB-T022 Verify Java → Bedrock and both round-trip directions with version-specific semantic expectations. Use GameTest/control-plane checks plus rendered native evidence; a protoco...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T022 Verify Java → Bedrock and both round-trip directions with version-specific semantic expectations. Use GameTest/control-plane checks plus rendered native evidence; a protocol bot/server test does not prove visuals, audio, UI, input or animation parity.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Actions &amp; Stuff 1.11.1 and cross-edition proof — owner TEST-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 122-122](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L122-L122)
+
+<a id="d-40e6398b013ca9a91300"></a>
+- [ ] **D-40e6398b013ca9a91300** - AB-T023 Maintain a capability matrix per feature × edition/version/loader cell: planned, implemented, build-proven, gameplay-tested, unsupported/unfinished, with precise cause and ...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-T023 Maintain a capability matrix per feature × edition/version/loader cell: planned, implemented, build-proven, gameplay-tested, unsupported/unfinished, with precise cause and next action. Entire conversion remains open while accepted parity gaps remain; do not redefine unsupported as permanently out of scope.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Actions &amp; Stuff 1.11.1 and cross-edition proof — owner TEST-09
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 123-123](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L123-L123)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md / Universal Minecraft A/B Studio / Executable acceptance slices / Convergence gate (1)</summary>
+
+<a id="d-efc5fbc16f61097aa846"></a>
+- [ ] **D-efc5fbc16f61097aa846** - AB-G001 All requested features and all child acceptance slices converge through normal packaged Studio controls. Test Java/Java, Java/Bedrock, Bedrock/Java and Bedrock/Bedrock supp...
+  - **State:** unverified. **Kind:** source task.
+  - **Full requirement:** AB-G001 All requested features and all child acceptance slices converge through normal packaged Studio controls. Test Java/Java, Java/Bedrock, Bedrock/Java and Bedrock/Bedrock supported cells, real restart without preview, batch failures/recovery, persistence, keyboard/focus/layout, exact provider flows and complete Actions &amp; Stuff parity. Measure equivalent-work first useful preview, full conversion latency, p50/p95/p99 frame time, input latency, CPU/GPU/RAM/VRAM, disk and UI responsiveness in single/dual/building states. Publish limitations honestly; preserve fidelity, content and required verification while reducing duplicate work. One material challenge pass must resolve significant gaps before certification.
+  - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Convergence gate
+  - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 134-134](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L134-L134)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Fast test pipeline / 4. Adaptive full-pack sweep (1)</summary>
+
+<a id="d-199d733789b0673aaf8c"></a>
+- [ ] **D-199d733789b0673aaf8c** - Test All Mods must not naively require N + 1 full launches by default.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom Premium Testing Lab / Fast test pipeline / 4. Adaptive full-pack sweep
+  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 99-99](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L99-L99)
+
+</details>
+
+<details>
+<summary>PREMIUM_TESTING_LAB_SPEC.md / Enderloom Premium Testing Lab / Licensing/integration boundary (1)</summary>
+
+<a id="d-985970d9a430104605d9"></a>
+- [ ] **D-985970d9a430104605d9** - Use external tools through normal installation/integration/export protocols or independently implemented adapters. Do not casually copy code into Enderloom.
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Binding context:** Enderloom Premium Testing Lab / Licensing/integration boundary
+  - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 565-565](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L565-L565)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md / 5. SETTINGS / QOL — MAKE THIS FEEL OBVIOUS, NOT TECHNICAL (1)</summary>
+
+<a id="d-d737e16ae6c927e9ee01"></a>
+- [ ] **D-d737e16ae6c927e9ee01** - - Project setting can override global setting. - User can reset project behavior back to global/default. - User can change the setting before starting a job. - Post-target prompt i...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - Project setting can override global setting. - User can reset project behavior back to global/default. - User can change the setting before starting a job. - Post-target prompt includes a clear estimate/count, e.g. Build 7 additional supported targets. - Show exact versions/loaders before starting fan-out; allow quick uncheck/exclude. - Remember exclusions per project only when the user chooses to remember them. - Headless/CLI/automation mode must never hang waiting for a prompt: - use explicit CLI mode if supplied; - otherwise project setting; - otherwise global setting; - otherwise target-only for noninteractive execution. - Add one-click actions: - Build all supported - Build failed only - Build selected - Open artifacts - Copy matrix report - Let the user stop remaining secondary cells without invalidating the already-verified primary artifact.
+  - **Binding context:** 5. SETTINGS / QOL — MAKE THIS FEEL OBVIOUS, NOT TECHNICAL
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md : 205-222](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v1_ARCHIVED.md#L205-L222)
+
+</details>
+
+<details>
+<summary>ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md / 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules (1)</summary>
+
+<a id="d-213d29ad810ebe67dc55"></a>
+- [ ] **D-213d29ad810ebe67dc55** - - [ ] = not complete. It may be pending, active, or blocked. - [x] = complete only when the stated Done condition is satisfied and evidence is written into the task. - For the one ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** - [ ] = not complete. It may be pending, active, or blocked. - [x] = complete only when the stated Done condition is satisfied and evidence is written into the task. - For the one task currently being worked, add State: IN PROGRESS under it. - For a blocked task, leave it unchecked and add State: BLOCKED — &lt;exact reason&gt; plus the exact next action that would unblock it. - Replace every Evidence: TODO with concrete file paths, test names/results, run IDs, hashes, screenshots/log paths, or artifact names before checking the task. - A scaffold, mock, placeholder, dead button, compile-only success, TODO comment, or untested code path does not satisfy a checkbox. - Do not check a parent task while any required child behavior is still missing. - Do not mark work complete because a different version/loader happens to pass. The requested primary target must pass first, and every claimed matrix cell must carry its own evidence. - Keep the detailed rules in Sections 1–15 intact. This board is the execution index; those sections are the acceptance contract. - Do not ask the user to re-decide engineering details already resolved by this file or discoverable from the repository/runtime. Choose the safest complete implementation and keep moving unless a genuinely user-only choice blocks correctness. - Once an NP task has enough evidence to identify the safe edit set, implement it immediately; do not substitute another plan, issue list, architecture memo, or research loop for the work.
+  - **Binding context:** 0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules
+  - **Original specification:** [ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md : 26-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L26-L36)
 
 </details>
 

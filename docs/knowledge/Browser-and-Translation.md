@@ -90,7 +90,6 @@ Real persistent tabs and sessions, user-performed login, source/full/split layou
 - [D-c3cc122b07b914152fc6](Acceptance-LIB.md#d-c3cc122b07b914152fc6) - Ad filtering.
 - [D-d2fd41c40532127f8453](Acceptance-LIB.md#d-d2fd41c40532127f8453) - Use downloaded file as candidate action.
 - [D-c023a090490cd5da13f1](Acceptance-LIB.md#d-c023a090490cd5da13f1) - Task-aware tabs: repair/port/conversion/research jobs remember their browser context.
-- [D-1ab8b39ddd365db0fe8e](Acceptance-LIB.md#d-1ab8b39ddd365db0fe8e) - Open Marketplace PDPs directly inside Enderloom Browser.
 - [D-b8b04e36a1dc75f79106](Acceptance-LIB.md#d-b8b04e36a1dc75f79106) - Default browser-chat lane uses Enderloom’s integrated persistent authenticated browser; no separate API key is required for this lane.
 - [D-ab1c1d45a7b7a5ce9789](Acceptance-LIB.md#d-ab1c1d45a7b7a5ce9789) - Submit inside Enderloom Browser.
 - [D-49fad7895cdb29e2b257](Acceptance-LIB.md#d-49fad7895cdb29e2b257) - Post-install smoke the real connected instance.
