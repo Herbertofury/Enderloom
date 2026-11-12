@@ -68,7 +68,42 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  reply={status:304,headers:{},buffer:Buffer.alloc(0)};
  const cached=await retryStore.refreshSource(retryId,rs.id);
  check('Validated retry supports subsequent conditional no-op',()=>{assert.equal(cached.conditional,true);assert.equal(requests.at(-1)['If-None-Match'],'"recovered"');assert(!('If-Modified-Since' in requests.at(-1)));assert.equal(JSON.stringify(retryStore.loadSnapshot(retryId).items),lastGood)});
+ // Rendering can fail after the imported snapshot and validators are durable.
+ await retryStore.activate(retryId);
+ const render=retryStore.renderActive.bind(retryStore);
+ const updates=[];retryStore.on('active-updated',event=>updates.push(event));
+ const changedBook=new ExcelJS.Workbook();const sheet=changedBook.addWorksheet('Catalog');
+ sheet.addRow(['Name','Primary URL']);sheet.addRow(['Recovered Visible Card','https://example.com/recovered']);
+ reply={status:200,headers:{etag:'"render-retry"'},buffer:Buffer.from(await changedBook.xlsx.writeBuffer())};
+ retryStore.renderActive=async()=>{throw new Error('injected render failure')};
+ await assert.rejects(retryStore.refreshSource(retryId,rs.id),/injected render failure/);
+ check('Render failure preserves durable snapshot without announcing visible update',()=>{assert(retryStore.loadSnapshot(retryId).items.some(x=>x.name==='Recovered Visible Card'));assert(!fs.readFileSync(retryStore.runtimePath(),'utf8').includes('Recovered Visible Card'));assert.equal(updates.length,0)});
+ retryStore.renderActive=render;reply={status:304,headers:{},buffer:Buffer.alloc(0)};
+ await retryStore.refreshSource(retryId,rs.id);
+ check('Conditional refresh repairs persisted-but-unrendered catalog',()=>{assert(fs.readFileSync(retryStore.runtimePath(),'utf8').includes('Recovered Visible Card'));assert.equal(updates.length,1);assert.equal(rs.status,'current');assert(!retryStore.entry(retryId).renderPending)});
+ await retryStore.refreshSource(retryId,rs.id);
+ check('Healthy conditional refresh does not reload visible catalog',()=>assert.equal(updates.length,1));
+
+ sheet.addRow(['Second Recovered Card','https://example.com/second']);
+ reply={status:200,headers:{etag:'"render-second"'},buffer:Buffer.from(await changedBook.xlsx.writeBuffer())};
+ retryStore.renderActive=async()=>{throw new Error('injected second render failure')};
+ await assert.rejects(retryStore.refreshSource(retryId,rs.id),/injected second render failure/);
+ check('Pending render survives in registry after repeated failure',()=>{const saved=JSON.parse(fs.readFileSync(retryStore.registryFile));assert.equal(saved.catalogs.find(x=>x.id===retryId).renderPending,true)});
+ await assert.rejects(retryStore.refreshSource(retryId,rs.id),/injected second render failure/);
+ check('Unchanged retry cannot falsely clear failed render status',()=>{assert.equal(rs.status,'error');assert.equal(updates.length,1);assert.equal(retryStore.entry(retryId).renderPending,true)});
+ retryStore.renderActive=render;await retryStore.refreshSource(retryId,rs.id);
+ check('Same-data 200 retry renders saved snapshot and announces update',()=>{assert(fs.readFileSync(retryStore.runtimePath(),'utf8').includes('Second Recovered Card'));assert.equal(updates.length,2);assert(!retryStore.entry(retryId).renderPending)});
+ // Pending inactive catalogs are repaired when activated, including after restart.
+ await retryStore.activate('mob-girl');sheet.addRow(['Inactive Saved Card','https://example.com/inactive']);
+ reply={status:200,headers:{etag:'"inactive"'},buffer:Buffer.from(await changedBook.xlsx.writeBuffer())};
+ await retryStore.refreshSource(retryId,rs.id);
+ check('Inactive refresh preserves active view and durable pending render',()=>{assert.equal(updates.length,2);assert.equal(retryStore.entry(retryId).renderPending,true);assert.equal(retryStore.entry().id,'mob-girl')});
  retryStore.dispose();
+ const restarted=new CatalogStore({rootDir:root,userDataDir:retryTmp,liveSession:fake,testMode:true,googleRequest:async()=>reply});await restarted.init();
+ await restarted.activate(retryId);
+ check('Restart and activation render latest saved cards and clear pending flag',()=>{assert(fs.readFileSync(restarted.runtimePath(),'utf8').includes('Inactive Saved Card'));assert(!restarted.entry().renderPending);assert(!JSON.parse(fs.readFileSync(restarted.registryFile)).catalogs.find(x=>x.id===retryId).renderPending)});
+ restarted.dispose();
+
  const legacyTmp=fs.mkdtempSync(path.join(os.tmpdir(),'catalog-companion-legacy-')),legacyDir=path.join(legacyTmp,'catalog-workspace'),legacyData=path.join(legacyDir,'data');fs.mkdirSync(legacyData,{recursive:true});
  const legacyCsv=path.join(legacyTmp,'legacy.csv');fs.writeFileSync(legacyCsv,'Name,Primary URL\nLegacy Project,https://example.com/legacy\n');
  const legacyCustom=path.join(legacyData,'legacy-custom.json');fs.writeFileSync(legacyCustom,JSON.stringify({id:'legacy-custom',title:'Legacy Custom',items:[{id:'legacy-1',name:'Legacy Project',primaryUrl:'https://example.com/legacy'}],assets:{},documents:[]}));
