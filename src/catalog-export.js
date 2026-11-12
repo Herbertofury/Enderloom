@@ -8,6 +8,20 @@ function cleanName(value) {
   return String(value || 'Catalog').replace(/[<>:"/\\|?*\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) || 'Catalog';
 }
 
+// Excel worksheet names have stricter rules than export filenames. Keep the
+// dedicated Media Links name available and avoid Excel's reserved History tab.
+function worksheetName(value) {
+  const cleaned = cleanName(value).replace(/[\[\]]/g, ' ').replace(/^[\s']+|[\s']+$/g, '') || 'Catalog';
+  let name = '';
+  for (const character of cleaned) {
+    if (name.length + character.length > 31) break;
+    name += character;
+  }
+  name = name.replace(/[\s']+$/g, '') || 'Catalog';
+  if (/^(media links|history)$/i.test(name)) name += ' (Catalog)';
+  return name;
+}
+
 function normalizeRows(input) {
   const rows = Array.isArray(input) ? input.slice(0, 20_000) : [];
   return rows.map((row) => {
@@ -61,7 +75,7 @@ async function xlsx(rows, title) {
   const workbook = new ExcelJS.Workbook();
   workbook.creator = 'Enderloom';
   workbook.created = new Date();
-  const sheet = workbook.addWorksheet(cleanName(title).slice(0, 31), { views: [{ state: 'frozen', ySplit: 1 }] });
+  const sheet = workbook.addWorksheet(worksheetName(title), { views: [{ state: 'frozen', ySplit: 1 }] });
   sheet.columns = columns.map((header) => ({ header, key: header, width: Math.min(60, Math.max(12, header.length + 2)) }));
   for (const row of rows) sheet.addRow(row);
   sheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
@@ -139,3 +153,4 @@ async function writeAtomic(destination, bytes) {
 }
 
 module.exports = { cleanName, normalizeRows, columnsFor, csv, html, xlsx, bytesFor, writeAtomic };
+

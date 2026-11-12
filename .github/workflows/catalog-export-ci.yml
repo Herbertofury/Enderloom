@@ -1,0 +1,29 @@
+name: Catalog export regression
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/catalog-export.js', 'scripts/catalog-export-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-export-ci.yml']
+  pull_request:
+    branches: [main]
+    paths: ['src/catalog-export.js', 'scripts/catalog-export-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-export-ci.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/catalog-export-qa.js
