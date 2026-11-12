@@ -38,6 +38,7 @@ try {
       const fs = require('node:fs');
       const command = process.argv.slice(2).join(' ');
       fs.appendFileSync('commands.log', command + '\\n');
+      if (command === 'start' && process.env.ENDERLOOM_SERVICE_PATH !== require('node:path').join(process.cwd(), 'native', 'target', 'debug', 'enderloom-service.exe')) throw new Error('startup did not select the prepared service');
       if (command === process.env.STARTUP_TEST_FAIL) process.exit(7);
       if (command === 'run build:launcher' && !fs.existsSync('launcher-dependencies.ready')) {
         console.error('launcher dependencies missing'); process.exit(9);

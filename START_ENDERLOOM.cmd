@@ -14,6 +14,8 @@ echo Preparing current Enderloom source build...
 node scripts\prepare-source.js
 if errorlevel 1 goto :failed
 
+rem Launch the service just verified above, not an older release binary.
+set "ENDERLOOM_SERVICE_PATH=%~dp0native\target\debug\enderloom-service.exe"
 echo Starting Enderloom...
 call npm start
 exit /b %errorlevel%
