@@ -31,6 +31,24 @@ const { normalizeRows, csv, html, xlsx, writeAtomic } = require('../src/catalog-
   assert.equal(links.getCell('D2').value.hyperlink, 'https://modrinth.com/mod/sodium');
   assert.equal(links.getCell('D4').value.hyperlink, 'https://example.com/two.png');
 
+  // Exercise actual workbook round trips for user titles, not only a helper.
+  for (const title of ['Media Links', 'media links', 'History', "'Favorites'", "['Favorites']", '[Forge]/Mods:*?', "'", 'A'.repeat(30) + '🎮', '🎮'.repeat(20)]) {
+    const bytes = await xlsx(rows, title);
+    const roundTrip = new ExcelJS.Workbook();
+    await roundTrip.xlsx.load(bytes);
+    const catalog = roundTrip.worksheets[0];
+    assert(catalog.name.length <= 31, `${title}: worksheet name too long`);
+    assert(!/[\[\]:*?\\/]/.test(catalog.name), `${title}: invalid worksheet character`);
+    assert(!/^'|'$/.test(catalog.name), `${title}: edge apostrophe`);
+    assert.notEqual(catalog.name.toLowerCase(), 'history');
+    assert.notEqual(catalog.name.toLowerCase(), 'media links');
+    assert.equal(catalog.getCell('A2').value, 'Sodium');
+    assert.equal(catalog.getCell('B2').value.hyperlink, rows[0]['Primary URL']);
+    assert.equal(roundTrip.getWorksheet('Media Links').rowCount, 4);
+    assert.equal(roundTrip.getWorksheet('Media Links').getCell('D4').value.hyperlink, 'https://example.com/two.png');
+    assert(!/[\uD800-\uDBFF]$/.test(catalog.name), `${title}: split surrogate`);
+  }
+
   const target = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'enderloom-export-')), 'catalog.xlsx');
   await writeAtomic(target, workbookBytes);
   assert(fs.statSync(target).size > 1_000);
@@ -40,3 +58,4 @@ const { normalizeRows, csv, html, xlsx, writeAtomic } = require('../src/catalog-
   console.error(error.stack || error);
   process.exit(1);
 });
+
