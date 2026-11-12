@@ -1,0 +1,21 @@
+name: Clean source startup
+on:
+  push:
+    branches: [main]
+    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', '.github/workflows/source-startup-ci.yml']
+  pull_request:
+    branches: [main]
+    paths: ['START_ENDERLOOM.cmd', 'scripts/source-startup-qa.js', '.github/workflows/source-startup-ci.yml']
+permissions:
+  contents: read
+jobs:
+  windows-entrypoint:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exercise real source entrypoint and prerequisite failures
+        run: node scripts/source-startup-qa.js
