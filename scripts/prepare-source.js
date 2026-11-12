@@ -56,8 +56,8 @@ function prepare(root, run = args => {
     const completedInputs = [];
     for (const stage of stages) {
       const buildEnv = stage.id === 'native' ? Object.keys(env).filter(k => /^(BASALT_|CARGO_|RUST|GITHUB_RUN_)/.test(k)).sort().map(k => [k, env[k]]) : stage.id === 'launcher' ? Object.keys(env).filter(k => /^(VITE_|TAURI_)/.test(k)).sort().map(k => [k, env[k]]) : [];
-      const input = crypto.createHash('sha256').update(JSON.stringify([runtime, buildEnv, digest(root, stage.input)])).digest('hex');
       const sourceDigest = digest(root, stage.input);
+      const input = crypto.createHash('sha256').update(JSON.stringify([runtime, buildEnv, sourceDigest])).digest('hex');
       completedInputs.push([stage.input, sourceDigest]);
       const previous = receipt[stage.id];
       if (previous?.input === input && fs.existsSync(path.join(root, stage.required)) && previous.output === digest(root, stage.output)) continue;
