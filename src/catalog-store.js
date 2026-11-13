@@ -227,7 +227,7 @@ class CatalogStore extends EventEmitter {
     const src={id:sourceId(),label:info.kind==='sheet'?'Google Sheet':info.kind==='doc'?'Google Doc':'Google Drive file',location:'google',provider:'Google Drive',kind:info.kind,role:role||info.role,format:info.format,url:safeUrl(url)||String(url),googleFileId:info.id,exportUrl:info.exportUrl,autoRefresh:true,status:'pending',lastChecked:''};
     e.sources.push(src);this.saveRegistry();const result=await this.refreshSource(e.id,src.id,{reason:'add-google'});
     if(result?.skipped||this.disposed||this.entry(e.id)!==e||!e.sources.includes(src))return{...result,catalogId:e.id};
-    if(e.id===this.registry.activeCatalogId){await this.renderActive();this.emit('active-changed',{id:e.id,runtime:this.runtimePath(e.id),reason:'add-google'})}
+    if(e.id===this.registry.activeCatalogId){await this.renderActive();if(this.disposed||this.entry(e.id)!==e||!e.sources.includes(src))return{skipped:true,reason:'superseded',catalogId:e.id};if(e.id===this.registry.activeCatalogId)this.emit('active-changed',{id:e.id,runtime:this.runtimePath(e.id),reason:'add-google'})}
     this.emit('catalogs-changed',this.summary());return{...result,catalogId:e.id,summary:this.summary()}
   }
   async refreshGoogleSources(){for(const e of this.registry.catalogs)for(const src of e.sources||[])if(src.location==='google'&&src.autoRefresh!==false)await this.refreshSource(e.id,src.id,{reason:'interval'}).catch(()=>{});}
