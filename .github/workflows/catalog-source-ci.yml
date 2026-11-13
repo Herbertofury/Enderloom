@@ -3,10 +3,10 @@ name: Catalog source refresh regression
 on:
   push:
     branches: [main]
-    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
+    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'scripts/catalog-refresh-lifecycle-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
   pull_request:
     branches: [main]
-    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
+    paths: ['src/catalog-store.js', 'src/ingest.js', 'src/ingest-worker.js', 'scripts/catalog-qa.js', 'scripts/catalog-refresh-lifecycle-qa.js', 'package.json', 'package-lock.json', '.github/workflows/catalog-source-ci.yml']
 
 permissions:
   contents: read
@@ -27,3 +27,4 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: node scripts/catalog-qa.js
+      - run: node scripts/catalog-refresh-lifecycle-qa.js
