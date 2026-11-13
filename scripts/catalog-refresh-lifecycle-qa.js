@@ -78,6 +78,14 @@ async function main(){
   await store.removeSource(entry.id,added.id);const before=bytes();events.length=0;requests[0].resolve({status:403,headers:{}});
   assert.equal((await pending).reason,'superseded');assert.deepEqual(bytes(),before);assert.deepEqual(events,[]);
  });
+ for(const action of ['remove','dispose'])await scenario(`add-google second render ignores ${action}`,async({store,entry,requests,events})=>{
+  const entered=deferred(),gate=deferred();const render=store.renderActive.bind(store);let calls=0;
+  store.renderActive=async()=>{await render();if(++calls===2){entered.resolve();await gate.promise}};
+  const pending=store.addGoogleSource('https://docs.google.com/spreadsheets/d/lifecycle-fixture/edit');const added=entry.sources.at(-1);added.format='csv';
+  requests[0].resolve(response('Added'));await entered.promise;
+  if(action==='remove')await store.removeSource(entry.id,added.id);else store.dispose();events.length=0;gate.resolve();
+  assert.equal((await pending).reason,'superseded');assert.deepEqual(events,[]);
+ });
  console.log(`${checks} lifecycle scenarios passed with real persistence, parsing and HTML rendering`);
 }
 main().catch(err=>{console.error(err);process.exitCode=1});
