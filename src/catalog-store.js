@@ -188,9 +188,10 @@ class CatalogStore extends EventEmitter {
   findSourceByPath(filePath,catalogId){const scan=catalogId?[this.entry(catalogId)]:this.registry.catalogs;for(const e of scan.filter(Boolean)){const s=(e.sources||[]).find(x=>x.location==='local'&&path.resolve(x.path||'')===path.resolve(filePath));if(s)return s}return null}
   startLocalWatches(entry){for(const src of entry.sources||[])this.startLocalWatch(entry,src)}
   startLocalWatch(entry,src){
-    if(src.location!=='local'||src.autoRefresh===false||!src.path||this.watchers.has(src.id)||!fs.existsSync(src.path))return;
+    if(src.location!=='local'||src.autoRefresh===false||!src.path||this.watchers.has(src.id))return;
     const stamp=()=>{const st=fs.statSync(src.path);return `${st.mtimeMs}:${st.size}`};
-    let observed=stamp(),pending=!!entry.renderPending,failures=0,waitTicks=0,busy=false,stopped=false;
+    let observed;try{observed=stamp()}catch{observed='missing'}
+    let pending=!!entry.renderPending,failures=0,waitTicks=0,busy=false,stopped=false;
     // Ten bounded retries per observed file version. Back off up to 32 skipped poll ticks;
     // a later file edit starts a fresh budget, while manual refresh remains available.
     const timer=setInterval(async()=>{
