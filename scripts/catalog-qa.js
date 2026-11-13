@@ -132,5 +132,8 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  store.dispose();
  const watchResult=await require('./catalog-watch-qa')();
  check('Bounded automatic local watcher recovery and cancellation',()=>assert(watchResult.passed));
+ // Keep deterministic watcher timers isolated from the aggregate suite.
+ const missingStartupResult=JSON.parse(require('child_process').execFileSync(process.execPath,[path.join(__dirname,'catalog-missing-startup-qa.js')],{encoding:'utf8',timeout:30000}));
+ check('Missing startup source recovery, bounded retries and cancellation',()=>assert(missingStartupResult.passed));
  console.log(JSON.stringify({passed:checks.every(x=>x.ok),checks},null,2));
 })().catch(e=>{console.error(JSON.stringify({passed:false,checks,error:e.stack},null,2));process.exit(1)});
