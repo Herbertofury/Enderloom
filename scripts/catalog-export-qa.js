@@ -18,6 +18,21 @@ const { normalizeRows, csv, html, xlsx, bytesFor, writeAtomic } = require('../sr
   assert(csv(rows).includes('Gallery URLs'));
   assert(html(rows, 'Enderloom QA').includes('<a href="https://modrinth.com/mod/sodium"'));
 
+  // CSV is opened by spreadsheet software: quoting alone does not keep
+  // imported formula-looking names/notes from executing as formulas.
+  const formulaValues = ['=1+1', '+SUM(1,2)', '-1+2', '@SUM(1,2)', '  =1+1', '\t=1+1', '\r\n=1+1'];
+  for (const value of formulaValues) {
+    const formulaRows = [{ [value]: value }];
+    const expectedCell = `"'${value}"`;
+    assert.equal(csv(formulaRows), '\uFEFF' + expectedCell + '\r\n' + expectedCell);
+    assert.equal(JSON.parse(await bytesFor('json', formulaRows, 'Text')).rows[0][value], value);
+    const literalBook = new ExcelJS.Workbook();
+    await literalBook.xlsx.load(await xlsx(formulaRows, 'Text'));
+    assert.equal(literalBook.worksheets[0].getCell('A2').value, value.replace(/\r\n/g, '\n'));
+  }
+  assert.equal(csv([{ Name: 'Sodium', Notes: 'two, "quoted" values' }]),
+    '\uFEFF"Name","Notes"\r\n"Sodium","two, ""quoted"" values"');
+
   const workbookBytes = await xlsx(rows, 'Enderloom QA');
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(workbookBytes);

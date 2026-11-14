@@ -52,7 +52,12 @@ function fieldValue(row, key) {
 }
 
 function csvCell(value) {
-  return `"${String(value ?? '').replace(/"/g, '""')}"`;
+  const text = String(value ?? '');
+  // CSV quotes protect delimiters, not formula interpretation in spreadsheets.
+  // Prefix formula-looking imported text (including headers) as a literal.
+  // JSON and XLSX retain the original values without a CSV-only marker.
+  const literal = /^\s*[=+@-]/.test(text) ? "'" + text : text;
+  return `"${literal.replace(/"/g, '""')}"`;
 }
 
 function csv(rows) {
