@@ -134,20 +134,28 @@ pub fn dir_for(paths: &Paths, instance_id: &str, kind: &str) -> Result<std::path
     content_dir(paths, instance_id, kind)
 }
 
+pub fn resolve_existing_path(
+    files: &FileManager,
+    dir: &std::path::Path,
+    file_name: &str,
+) -> Option<std::path::PathBuf> {
+    let enabled = dir.join(file_name);
+    if files.is_file(&enabled).unwrap_or(false) {
+        return Some(enabled);
+    }
+    let disabled = dir.join(format!("{file_name}{DISABLED_SUFFIX}"));
+    files
+        .is_file(&disabled)
+        .unwrap_or(false)
+        .then_some(disabled)
+}
+
 pub fn resolve_path(
     files: &FileManager,
     dir: &std::path::Path,
     file_name: &str,
 ) -> std::path::PathBuf {
-    let enabled = dir.join(file_name);
-    if files.is_file(&enabled).unwrap_or(false) {
-        return enabled;
-    }
-    let disabled = dir.join(format!("{file_name}{DISABLED_SUFFIX}"));
-    if files.is_file(&disabled).unwrap_or(false) {
-        return disabled;
-    }
-    enabled
+    resolve_existing_path(files, dir, file_name).unwrap_or_else(|| dir.join(file_name))
 }
 
 pub fn add(

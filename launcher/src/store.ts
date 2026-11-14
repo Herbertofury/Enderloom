@@ -326,6 +326,7 @@ interface AppStore {
   goBack: () => void;
   goBackTo: (index: number) => void;
   refreshContentSources: (instanceId: string, kind: string) => Promise<void>;
+  refreshContentSourcesBatch: (instanceIds: string[], kind: string) => Promise<void>;
   refreshServerContentSources: (serverId: string) => Promise<void>;
   installContent: (params: {
     provider: SearchProvider;
@@ -703,19 +704,29 @@ export const useStore = create<AppStore>((set) => ({
 
   refreshContentSources: async (instanceId, kind) => {
     try {
-      const items = await api.listInstanceContent(instanceId, kind);
-      const map: Record<string, { file_name: string; version_id: string | null }> = {};
-      items.forEach((item) => {
-        if (item.source?.project_id) {
-          map[item.source.project_id] = {
-            file_name: item.file_name,
-            version_id: item.source.version_id,
-          };
-        }
-      });
+      const index = await api.listContentSourceIndex([instanceId], kind);
       set((s) => ({
-        contentSources: { ...s.contentSources, [`${instanceId}:${kind}`]: map },
+        contentSources: {
+          ...s.contentSources,
+          [`${instanceId}:${kind}`]: index[instanceId] ?? {},
+        },
       }));
+    } catch {
+      return;
+    }
+  },
+
+  refreshContentSourcesBatch: async (instanceIds, kind) => {
+    if (instanceIds.length === 0) return;
+    try {
+      const index = await api.listContentSourceIndex(instanceIds, kind);
+      set((s) => {
+        const contentSources = { ...s.contentSources };
+        for (const instanceId of instanceIds) {
+          contentSources[`${instanceId}:${kind}`] = index[instanceId] ?? {};
+        }
+        return { contentSources };
+      });
     } catch {
       return;
     }
@@ -1088,6 +1099,7 @@ export const useStore = create<AppStore>((set) => ({
         servers,
         serverSoftware,
         runningServers,
+        appInfo,
       ] = await Promise.all([
         api.getSettings(),
         api.listInstances(),
@@ -1101,56 +1113,30 @@ export const useStore = create<AppStore>((set) => ({
         api.listServers().catch(() => [] as Server[]),
         api.listServerSoftware().catch(() => [] as ServerSoftware[]),
         api.listRunningServers().catch(() => [] as ServerRunningInfo[]),
+        api.getAppInfo().catch(() => null),
       ]);
-      const bundledCurseforgeKey = await api
-        .getAppInfo()
-        .then((info) => info.bundled_curseforge_key)
-        .catch(() => false);
-      const recoveredConsoles = await Promise.all(
-        runningServers.map(async (info) => [
-          info.server_id,
-          await api.getServerConsole(info.server_id).catch(() => [] as ConsoleLine[]),
-        ] as const),
-      );
-      const recoveredLogs = await Promise.all(
-        recoveredRuns.map(async (run) => [
-          run.running_id,
-          await api.getLogs(run.running_id).catch(() => [] as LogLine[]),
-        ] as const),
-      );
+      const bundledCurseforgeKey = appInfo?.bundled_curseforge_key ?? false;
       log.setLevel(settings.log_level);
       const installedIds = instances
         .filter((i) => isInstanceInstalled(i, installedVersions))
         .map((i) => i.id);
+
+      // Make the usable launcher shell ready as soon as authoritative core state arrives.
+      // Historical log/console backfill is enrichment: it continues immediately in parallel
+      // and merges with any live lines that arrive first, so startup speed improves without
+      // dropping a single recovered line.
       set((s) => {
         const running = pruneSupersededSessions({
           ...Object.fromEntries(recoveredRuns.map((run) => [run.running_id, run])),
           ...s.running,
         });
-        const logs = recoveredLogs.reduce(
-          (logs, [runningId, backfill]) => {
-            if (!(runningId in running)) return logs;
-            const streamed = logs[runningId] ?? [];
-            logs[runningId] = backfill.length >= streamed.length ? backfill : streamed;
-            return logs;
-          },
-          Object.fromEntries(
-            Object.entries(s.logs).filter(([runningId]) => runningId in running),
-          ),
+        const logs = Object.fromEntries(
+          Object.entries(s.logs).filter(([runningId]) => runningId in running),
         );
         const activeRunningId =
           s.activeRunningId && s.activeRunningId in running
             ? s.activeRunningId
             : newestLiveSessionId(running);
-
-        const serverConsole = recoveredConsoles.reduce(
-          (consoles, [serverId, backfill]) => {
-            const streamed = consoles[serverId] ?? [];
-            consoles[serverId] = backfill.length >= streamed.length ? backfill : streamed;
-            return consoles;
-          },
-          { ...s.serverConsole } as Record<string, ConsoleLine[]>,
-        );
 
         return {
           settings,
@@ -1164,7 +1150,7 @@ export const useStore = create<AppStore>((set) => ({
           serverRunning: Object.fromEntries(
             runningServers.map((info) => [info.server_id, info]),
           ),
-          serverConsole,
+          serverConsole: s.serverConsole,
           ready: true,
           error: null,
           selectedInstanceId: s.selectedInstanceId ?? instances[0]?.id ?? null,
@@ -1177,6 +1163,42 @@ export const useStore = create<AppStore>((set) => ({
           activeRunningId,
           appUpdateStatus,
         };
+      });
+
+      void Promise.all([
+        Promise.all(
+          runningServers.map(async (info) => [
+            info.server_id,
+            await api.getServerConsole(info.server_id).catch(() => [] as ConsoleLine[]),
+          ] as const),
+        ),
+        Promise.all(
+          recoveredRuns.map(async (run) => [
+            run.running_id,
+            await api.getLogs(run.running_id).catch(() => [] as LogLine[]),
+          ] as const),
+        ),
+      ]).then(([recoveredConsoles, recoveredLogs]) => {
+        set((s) => {
+          const logs = recoveredLogs.reduce(
+            (current, [runningId, backfill]) => {
+              if (!(runningId in s.running)) return current;
+              const streamed = current[runningId] ?? [];
+              current[runningId] = backfill.length >= streamed.length ? backfill : streamed;
+              return current;
+            },
+            { ...s.logs } as Record<string, LogLine[]>,
+          );
+          const serverConsole = recoveredConsoles.reduce(
+            (current, [serverId, backfill]) => {
+              const streamed = current[serverId] ?? [];
+              current[serverId] = backfill.length >= streamed.length ? backfill : streamed;
+              return current;
+            },
+            { ...s.serverConsole } as Record<string, ConsoleLine[]>,
+          );
+          return { logs, serverConsole };
+        });
       });
 
       if (instances.some((i) => i.pack_project_id && !i.logo)) {

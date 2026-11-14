@@ -278,6 +278,45 @@ impl Db {
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
     }
 
+    pub fn content_source_rows(
+        &self,
+        instance_id: &str,
+        kind: &str,
+    ) -> Result<Vec<(String, String, Option<String>, i64)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare(
+            "SELECT file_name, project_id, version_id, installed_at
+             FROM content_files
+             WHERE instance_id = ?1 AND kind = ?2 AND project_id IS NOT NULL",
+        )?;
+        let rows = stmt.query_map(params![instance_id, kind], |row| {
+            Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?))
+        })?;
+        Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
+    pub fn content_source_rows_for_kind(
+        &self,
+        kind: &str,
+    ) -> Result<Vec<(String, String, String, Option<String>, i64)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare(
+            "SELECT instance_id, file_name, project_id, version_id, installed_at
+             FROM content_files
+             WHERE kind = ?1 AND project_id IS NOT NULL",
+        )?;
+        let rows = stmt.query_map([kind], |row| {
+            Ok((
+                row.get(0)?,
+                row.get(1)?,
+                row.get(2)?,
+                row.get(3)?,
+                row.get(4)?,
+            ))
+        })?;
+        Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
     pub fn content_file(
         &self,
         instance_id: &str,
@@ -629,6 +668,73 @@ mod tests {
         assert_eq!(
             db.content_updates("copy").unwrap()[0].latest_version_id,
             "next"
+        );
+    }
+
+    #[test]
+    fn bulk_content_file_query_preserves_rows_and_scales_better() {
+        let db = Db::open_in_memory().unwrap();
+        let instance_count = 180usize;
+        let files_per_instance = 12usize;
+
+        for instance_index in 0..instance_count {
+            let instance_id = format!("instance-{instance_index:03}");
+            for file_index in 0..files_per_instance {
+                db.record_content_file(
+                    &instance_id,
+                    "mods",
+                    &ContentFile {
+                        file_name: format!("mod-{file_index:02}.jar"),
+                        provider: Some("modrinth".into()),
+                        project_id: Some(format!("project-{file_index:02}")),
+                        version_id: Some(format!("v-{instance_index}-{file_index}")),
+                        origin: "user".into(),
+                        installed_at: (instance_index * files_per_instance + file_index) as i64,
+                        ..Default::default()
+                    },
+                )
+                .unwrap();
+            }
+        }
+
+        let bulk = db.content_source_rows_for_kind("mods").unwrap();
+        assert_eq!(bulk.len(), instance_count * files_per_instance);
+        assert!(bulk.iter().all(|(instance_id, file_name, project_id, version_id, installed_at)| {
+            instance_id.starts_with("instance-")
+                && file_name.ends_with(".jar")
+                && project_id.starts_with("project-")
+                && version_id.as_deref().is_some_and(|id| id.starts_with("v-"))
+                && *installed_at >= 0
+        }));
+
+        let cycles = 4;
+        let legacy_started = std::time::Instant::now();
+        let mut legacy_count = 0usize;
+        for _ in 0..cycles {
+            for instance_index in 0..instance_count {
+                legacy_count += db
+                    .content_files(&format!("instance-{instance_index:03}"), "mods")
+                    .unwrap()
+                    .len();
+            }
+        }
+        let legacy = legacy_started.elapsed();
+
+        let bulk_started = std::time::Instant::now();
+        let mut bulk_count = 0usize;
+        for _ in 0..cycles {
+            bulk_count += db.content_source_rows_for_kind("mods").unwrap().len();
+        }
+        let bulk_elapsed = bulk_started.elapsed();
+
+        assert_eq!(legacy_count, bulk_count);
+        eprintln!(
+            "content source query benchmark: per-instance={legacy:?} bulk={bulk_elapsed:?} speedup={:.1}x",
+            legacy.as_secs_f64() / bulk_elapsed.as_secs_f64().max(f64::EPSILON)
+        );
+        assert!(
+            bulk_elapsed * 2 < legacy,
+            "bulk content query should be at least 2x faster: per-instance={legacy:?}, bulk={bulk_elapsed:?}"
         );
     }
 
