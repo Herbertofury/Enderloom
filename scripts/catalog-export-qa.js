@@ -82,6 +82,41 @@ const { normalizeRows, csv, html, xlsx, bytesFor, writeAtomic } = require('../sr
   await writeAtomic(target, workbookBytes);
   assert(fs.statSync(target).size > 1_000);
   assert(!fs.readdirSync(path.dirname(target)).some((name) => name.endsWith('.tmp')));
+  // Existing temp paths are not owned by this write and must not be clobbered.
+  const collisionTarget = path.join(path.dirname(target), 'collision.json');
+  const originalNow = Date.now;
+  Date.now = () => 123456789;
+  const oldTemp = `${collisionTarget}.${process.pid}.${Date.now()}.tmp`;
+  fs.writeFileSync(oldTemp, 'retained prior work');
+  try {
+    await writeAtomic(collisionTarget, Buffer.from('new export'));
+    assert.equal(fs.readFileSync(oldTemp, 'utf8'), 'retained prior work');
+    assert.equal(fs.readFileSync(collisionTarget, 'utf8'), 'new export');
+  } finally { Date.now = originalNow; }
+  const crypto = require('crypto');
+  const originalUUID = crypto.randomUUID;
+  crypto.randomUUID = () => 'owned-collision-fixture';
+  const occupied = `${collisionTarget}.${process.pid}.${crypto.randomUUID()}.tmp`;
+  fs.writeFileSync(occupied, 'another writer owns this');
+  try {
+    await assert.rejects(writeAtomic(collisionTarget, Buffer.from('must not publish')), { code: 'EEXIST' });
+    assert.equal(fs.readFileSync(occupied, 'utf8'), 'another writer owns this');
+    assert.equal(fs.readFileSync(collisionTarget, 'utf8'), 'new export');
+  } finally { crypto.randomUUID = originalUUID; }
+  const originalWrite = fs.writeFileSync;
+  const beforeFailure = fs.readdirSync(path.dirname(target)).sort();
+  fs.writeFileSync = (file, bytes, ...args) => {
+    if (typeof file === 'number') {
+      originalWrite(file, Buffer.from('partial'));
+      throw new Error('simulated full disk');
+    }
+    return originalWrite(file, bytes, ...args);
+  };
+  try {
+    await assert.rejects(writeAtomic(collisionTarget, Buffer.from('incomplete')), /simulated full disk/);
+    assert.equal(fs.readFileSync(collisionTarget, 'utf8'), 'new export');
+    assert.deepEqual(fs.readdirSync(path.dirname(target)).sort(), beforeFailure);
+  } finally { fs.writeFileSync = originalWrite; }
   console.log(JSON.stringify({ passed:true, formats:['csv','xlsx','html','json','pdf-via-electron'], enrichedMediaLinks:true }, null, 2));
 })().catch((error) => {
   console.error(error.stack || error);

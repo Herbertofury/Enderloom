@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const ExcelJS = require('exceljs');
 
 function cleanName(value) {
@@ -148,12 +149,15 @@ async function bytesFor(format, rows, title) {
 
 async function writeAtomic(destination, bytes) {
   fs.mkdirSync(path.dirname(destination), { recursive: true });
-  const temporary = `${destination}.${process.pid}.${Date.now()}.tmp`;
+  const temporary = `${destination}.${process.pid}.${crypto.randomUUID()}.tmp`;
+  let created = false;
   try {
-    fs.writeFileSync(temporary, bytes);
+    const fd = fs.openSync(temporary, 'wx');
+    created = true;
+    try { fs.writeFileSync(fd, bytes); } finally { fs.closeSync(fd); }
     fs.renameSync(temporary, destination);
   } catch (error) {
-    try { fs.rmSync(temporary, { force: true }); } catch {}
+    if (created) try { fs.rmSync(temporary, { force: true }); } catch {}
     throw error;
   }
 }
