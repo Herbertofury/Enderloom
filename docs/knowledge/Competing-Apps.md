@@ -18,10 +18,10 @@ Reviewed **2026-11-12**. This page complements [Ecosystem](Ecosystem.md); that c
 - [Ferrum](https://github.com/Herbertofury/Ferrum-Browser): reuse evidence formats and applicable real-app acceptance automation, not a simulated success badge.
 
 ## Proof backlog
-- [ ] Inventory actual reusable modules and owners before extracting a shared component.
-- [ ] Version schemas and cancellation/error semantics; keep adapters optional and avoid circular dependencies.
-- [ ] Compare cold/warm latency, correctness, memory, interrupted operations and rollback against current Enderloom on identical corpora.
-- [ ] Track source/release dates, licenses and retained failures. No published improvement claim without target-project evidence.
+- Inventory actual reusable modules and owners before extracting a shared component.
+- Version schemas and cancellation/error semantics; keep adapters optional and avoid circular dependencies.
+- Compare cold/warm latency, correctness, memory, interrupted operations and rollback against current Enderloom on identical corpora.
+- Track source/release dates, licenses and retained failures. No published improvement claim without target-project evidence.
 
 ## 2026-11-15 launcher research refresh: Prism 12 preview
 
