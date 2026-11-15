@@ -342,8 +342,9 @@
 [**PORT-03**](Checklist.md#port-03)
 
 <details>
-<summary>Source clauses and aliases (251 distinct blocks)</summary>
+<summary>Source clauses and aliases (252 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Build on maintained foundations](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L8-L13) - Competing-Apps.md; 1 distinct blocks.
 - [3. Full launcher CLI parity checklist / Versions / loaders](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L175-L175) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / Observable](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L521-L521) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L55-L65) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.

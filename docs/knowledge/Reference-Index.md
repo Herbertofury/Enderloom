@@ -918,6 +918,30 @@
 
 </details>
 
+<a id="herbertofury-ferrum-browser"></a>
+<details>
+<summary>Herbertofury/Ferrum-Browser (1 cited locations)</summary>
+
+- [https://github.com/Herbertofury/Ferrum-Browser](https://github.com/Herbertofury/Ferrum-Browser)
+
+</details>
+
+<a id="herbertofury-hover-app"></a>
+<details>
+<summary>Herbertofury/Hover-App (1 cited locations)</summary>
+
+- [https://github.com/Herbertofury/Hover-App](https://github.com/Herbertofury/Hover-App)
+
+</details>
+
+<a id="herbertofury-minecraft-mod-vault"></a>
+<details>
+<summary>Herbertofury/Minecraft-Mod-Vault (1 cited locations)</summary>
+
+- [https://github.com/Herbertofury/Minecraft-Mod-Vault](https://github.com/Herbertofury/Minecraft-Mod-Vault)
+
+</details>
+
 <a id="hexeption-mcp-reborn"></a>
 <details>
 <summary>Hexeption/MCP-Reborn (1 cited locations)</summary>
@@ -2058,9 +2082,14 @@
 
 <a id="prismlauncher-prismlauncher"></a>
 <details>
-<summary>PrismLauncher/PrismLauncher (1 cited locations)</summary>
+<summary>PrismLauncher/PrismLauncher (6 cited locations)</summary>
 
 - [https://github.com/PrismLauncher/PrismLauncher](https://github.com/PrismLauncher/PrismLauncher)
+- [https://github.com/PrismLauncher/PrismLauncher/blob/12.0.0-pre1/LICENSE](https://github.com/PrismLauncher/PrismLauncher/blob/12.0.0-pre1/LICENSE)
+- [https://github.com/PrismLauncher/PrismLauncher/pull/5933](https://github.com/PrismLauncher/PrismLauncher/pull/5933)
+- [https://github.com/PrismLauncher/PrismLauncher/pull/6066](https://github.com/PrismLauncher/PrismLauncher/pull/6066)
+- [https://github.com/PrismLauncher/PrismLauncher/pull/6371](https://github.com/PrismLauncher/PrismLauncher/pull/6371)
+- [https://github.com/PrismLauncher/PrismLauncher/releases/tag/12.0.0-pre1](https://github.com/PrismLauncher/PrismLauncher/releases/tag/12.0.0-pre1)
 
 </details>
 
@@ -2859,7 +2888,9 @@
 - [https://learn.microsoft.com/windows/win32/fileio/change-journals](https://learn.microsoft.com/windows/win32/fileio/change-journals)
 - [https://legacyport.net](https://legacyport.net)
 - [https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/](https://maven.neoforged.net/releases/net/neoforged/AutoRenamingTool/)
+- [https://mcreator.net/](https://mcreator.net/)
 - [https://modmuss50.github.io/mod-publish-plugin/](https://modmuss50.github.io/mod-publish-plugin/)
+- [https://modrinth.com/app](https://modrinth.com/app)
 - [https://modrinth.com/mod/crash-assistant](https://modrinth.com/mod/crash-assistant)
 - [https://modrinth.com/mod/fugue](https://modrinth.com/mod/fugue)
 - [https://modrinth.com/mod/mixintrace](https://modrinth.com/mod/mixintrace)
@@ -2868,6 +2899,7 @@
 - [https://modrinth.com/mod/spark](https://modrinth.com/mod/spark)
 - [https://modrinth.com/mod/taskmanager](https://modrinth.com/mod/taskmanager)
 - [https://plugins.gradle.org/plugin/dev.kikugie.stonecutter](https://plugins.gradle.org/plugin/dev.kikugie.stonecutter)
+- [https://prismlauncher.org/](https://prismlauncher.org/)
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
 - [https://slsa.dev/spec/v1.0/provenance](https://slsa.dev/spec/v1.0/provenance)

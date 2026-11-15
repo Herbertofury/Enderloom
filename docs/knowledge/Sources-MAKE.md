@@ -277,8 +277,9 @@
 [**MAKE-06**](Checklist.md#make-06)
 
 <details>
-<summary>Source clauses and aliases (105 distinct blocks)</summary>
+<summary>Source clauses and aliases (106 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Proposed own-project interoperation](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L17-L17) - Competing-Apps.md; 1 distinct blocks.
 - [Canonical evidence / upstream references from the completed research / Repair / authoring / multi-version capability references](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2746-L2746) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G075 — Capability-first execution entrypoint / T284 — One shared Minecraft project capability contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1417-L1417) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [6. Native Asset Authoring](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L213-L213) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
@@ -782,8 +783,9 @@
 [**MAKE-12**](Checklist.md#make-12)
 
 <details>
-<summary>Source clauses and aliases (75 distinct blocks)</summary>
+<summary>Source clauses and aliases (76 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L38-L38) - Competing-Apps.md; 1 distinct blocks.
 - [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Bidirectional fidelity matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L38-L53) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Dependency-ordered fixture runs](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L96-L105) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
 - [G045 — JVM semantic worker / T162 — Create the dedicated JVM worker](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L646-L663) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 4 distinct blocks.

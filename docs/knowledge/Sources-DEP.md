@@ -580,8 +580,9 @@
 [**DEP-08**](Checklist.md#dep-08)
 
 <details>
-<summary>Source clauses and aliases (16 distinct blocks)</summary>
+<summary>Source clauses and aliases (17 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Proof backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L20-L24) - Competing-Apps.md; 1 distinct blocks.
 - [9. Protocol-bot / synthetic-player test lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L541-L541) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T347 — Modern 1.7.10 Forge development/runtime lane](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L993-L993) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G048 — Build-model extraction, target workspace generation and dependencies / T177 — Gradle Tooling API build-model lane / T349 — Ancient/legacy toolchain route matrix](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1001-L1001) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.

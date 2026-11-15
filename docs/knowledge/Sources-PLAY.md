@@ -10,8 +10,9 @@
 [**PLAY-01**](Checklist.md#play-01)
 
 <details>
-<summary>Source clauses and aliases (150 distinct blocks)</summary>
+<summary>Source clauses and aliases (151 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L26-L26) - Competing-Apps.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L36-L37) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
 - [10. GitHub projects to learn from — current research / Prism Launcher — `PrismLauncher/PrismLauncher`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L619-L630) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 4 distinct blocks.
 - [14. CLI test matrix / Real launcher behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L773-L783) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
@@ -261,8 +262,9 @@
 [**PLAY-04**](Checklist.md#play-04)
 
 <details>
-<summary>Source clauses and aliases (151 distinct blocks)</summary>
+<summary>Source clauses and aliases (152 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Product comparisons](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L5-L6) - Competing-Apps.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing CLI foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L24-L29) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [10. GitHub projects to learn from — current research / PortableMC — `theorzr/portablemc`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L606-L613) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / Prism Launcher — `PrismLauncher/PrismLauncher`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L625-L632) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
@@ -444,8 +446,9 @@
 [**PLAY-06**](Checklist.md#play-06)
 
 <details>
-<summary>Source clauses and aliases (24 distinct blocks)</summary>
+<summary>Source clauses and aliases (25 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L30-L30) - Competing-Apps.md; 1 distinct blocks.
 - [8. Profiler CLI adapters / Native/system telemetry](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L525-L526) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
 - [2. Enderloom owns orchestration; Minecraft Dev Kit owns conversion proof](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L138-L138) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
 - [1. NON-NEGOTIABLE PRODUCT LAWS / 1.4 Locked product decisions](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L126-L126) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.

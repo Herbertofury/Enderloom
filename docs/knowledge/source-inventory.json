@@ -601,6 +601,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-08dbd9bb4e",
+      "path": "docs/wiki/Competing-Apps.md",
+      "sha256": "51b064e7b1029ea068cb03a37b395e6631a2a539fd2258309abdb58584d66d01",
+      "bytes": 5210,
+      "lines": 40,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-3e931ba161",
       "path": "docs/wiki/Horizon-Rust-Compatibility.md",
       "sha256": "36fe809059582987c8d61381249b33896a3bbede098d50b50c5895569276cd0a",
@@ -652,11 +662,11 @@
     }
   ],
   "stats": {
-    "source_files": 65,
-    "source_bytes": 2418031,
-    "source_lines": 47083,
-    "source_blocks": 16260,
-    "unique_blocks": 13342,
+    "source_files": 66,
+    "source_bytes": 2423241,
+    "source_lines": 47123,
+    "source_blocks": 16274,
+    "unique_blocks": 13356,
     "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
     "source_unchecked": 5677,

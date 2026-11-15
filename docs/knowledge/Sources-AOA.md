@@ -10,8 +10,9 @@
 [**AOA-01**](Checklist.md#aoa-01)
 
 <details>
-<summary>Source clauses and aliases (759 distinct blocks)</summary>
+<summary>Source clauses and aliases (760 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Proposed own-project interoperation](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L15-L15) - Competing-Apps.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L41-L41) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L32-L32) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L663-L667) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.

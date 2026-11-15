@@ -19,7 +19,7 @@
 <a id="aoa-01"></a>
 - [ ] **AOA-01 - Source lineage and original identity**
   - **Accept:** Use the accepted union of authoritative AoA source and content, retain fingerprints, mod name/public IDs and approved migrations, and continue the active project rather than choosing a smaller branch or renamed fork.
-  - **State:** unverified. **Details:** [759 source blocks](Sources-AOA.md#aoa-01); 39 source documents.
+  - **State:** unverified. **Details:** [760 source blocks](Sources-AOA.md#aoa-01); 40 source documents.
 
 **[Open 26 detailed checks](Acceptance-AOA.md#aoa-02-details)**
 
@@ -177,12 +177,12 @@
   - **Accept:** Use visual recipes and structured validated data editors, reference navigation, error repair, target schemas and deterministic datagen without dropping unknown fields.
   - **State:** unverified. **Details:** [31 source blocks](Sources-MAKE.md#make-05); 20 source documents.
 
-**[Open 48 detailed checks](Acceptance-MAKE.md#make-06-details)**
+**[Open 49 detailed checks](Acceptance-MAKE.md#make-06-details)**
 
 <a id="make-06"></a>
 - [ ] **MAKE-06 - World, biome, structure and dimension authoring**
   - **Accept:** Preview and edit world content with source-linked generation rules, safe native testing and full worldgen/structure/dimension semantics.
-  - **State:** unverified. **Details:** [105 source blocks](Sources-MAKE.md#make-06); 20 source documents.
+  - **State:** unverified. **Details:** [106 source blocks](Sources-MAKE.md#make-06); 21 source documents.
 
 **[Open 135 detailed checks](Acceptance-MAKE.md#make-07-details)**
 
@@ -224,7 +224,7 @@
 <a id="make-12"></a>
 - [ ] **MAKE-12 - Selective semantic and asset A/B comparison**
   - **Accept:** Compare code, textures, models, animations, sounds, recipes, all assets and dependencies with exhaustive changes/unknowns; source-linked previews and selective reversible transfers preserve unrelated content. Acceptance: AB-T017–AB-T019. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [75 source blocks](Sources-MAKE.md#make-12); 31 source documents.
+  - **State:** unverified. **Details:** [76 source blocks](Sources-MAKE.md#make-12); 32 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Universal conversion engine
@@ -250,7 +250,7 @@
 <a id="port-03"></a>
 - [ ] **PORT-03 - Live version and toolchain atlas**
   - **Accept:** Enumerate the full actual version/loader catalogue, including historical and preview distinctions, runtime/build JVM constraints and future published metadata; never invent support or impose one backend's limited matrix.
-  - **State:** unverified. **Details:** [251 source blocks](Sources-PORT.md#port-03); 35 source documents.
+  - **State:** unverified. **Details:** [252 source blocks](Sources-PORT.md#port-03); 36 source documents.
 
 **[Open 66 detailed checks](Acceptance-PORT.md#port-04-details)**
 
@@ -395,7 +395,7 @@
 <a id="dep-08"></a>
 - [ ] **DEP-08 - Adapter proof and truthful failures**
   - **Accept:** Probe actual CLI/library contracts and pair-specific fixtures; reject exit-zero/no-output/stale/malformed reports, distinguish unknown from absent and route failed backends to real recovery.
-  - **State:** unverified. **Details:** [16 source blocks](Sources-DEP.md#dep-08); 13 source documents.
+  - **State:** unverified. **Details:** [17 source blocks](Sources-DEP.md#dep-08); 14 source documents.
 
 **[Open 57 detailed checks](Acceptance-DEP.md#dep-09-details)**
 
@@ -623,7 +623,7 @@
 <a id="lib-03"></a>
 - [ ] **LIB-03 - Real embedded browser**
   - **Accept:** Preserve Chromium tabs, persistent authorized sessions, real login, split/full/source modes, filtered networking and safe translation/original toggles without fake static pages.
-  - **State:** unverified. **Details:** [121 source blocks](Sources-LIB.md#lib-03); 14 source documents.
+  - **State:** unverified. **Details:** [122 source blocks](Sources-LIB.md#lib-03); 15 source documents.
 
 **[Open 62 detailed checks](Acceptance-LIB.md#lib-04-details)**
 
@@ -639,12 +639,12 @@
   - **Accept:** Favorites independent of installation, tags/groups/notes, grid/list/table, full-dataset bulk actions, latest/tested/installed states and exact-context actions persist; unfavorite never uninstalls.
   - **State:** unverified. **Details:** [160 source blocks](Sources-LIB.md#lib-05); 10 source documents.
 
-**[Open 109 detailed checks](Acceptance-LIB.md#lib-06-details)**
+**[Open 110 detailed checks](Acceptance-LIB.md#lib-06-details)**
 
 <a id="lib-06"></a>
 - [ ] **LIB-06 - Content lifecycle and provenance**
   - **Accept:** Manage mods/resource packs/shaders/data packs, manual and provider-backed content, enable/disable/remove/update with snapshots, dependents, exact file hashes and preserved local configs.
-  - **State:** unverified. **Details:** [171 source blocks](Sources-LIB.md#lib-06); 32 source documents.
+  - **State:** unverified. **Details:** [173 source blocks](Sources-LIB.md#lib-06); 33 source documents.
 
 **[Open 19 detailed checks](Acceptance-LIB.md#lib-07-details)**
 
@@ -665,7 +665,7 @@
 <a id="lib-09"></a>
 - [ ] **LIB-09 - Pack and research interchange**
   - **Accept:** Support accepted MRPack/CurseForge ZIP/packwiz and CSV/JSON/XLSX/HTML/PDF research interchange with provenance, original fields and clickable links; no cloned proprietary share-code service.
-  - **State:** unverified. **Details:** [140 source blocks](Sources-LIB.md#lib-09); 23 source documents.
+  - **State:** unverified. **Details:** [141 source blocks](Sources-LIB.md#lib-09); 24 source documents.
 
 **[Open 26 detailed checks](Acceptance-LIB.md#lib-10-details)**
 
@@ -684,7 +684,7 @@
 <a id="play-01"></a>
 - [ ] **PLAY-01 - External-launcher connection in place**
   - **Accept:** Discover real CurseForge/Modrinth/accepted launcher instances, identify junctions physically, connect without forced copy, reconcile moves and disconnect without deleting external files.
-  - **State:** unverified. **Details:** [150 source blocks](Sources-PLAY.md#play-01); 20 source documents.
+  - **State:** unverified. **Details:** [151 source blocks](Sources-PLAY.md#play-01); 21 source documents.
 
 **[Open 66 detailed checks](Acceptance-PLAY.md#play-02-details)**
 
@@ -705,7 +705,7 @@
 <a id="play-04"></a>
 - [ ] **PLAY-04 - Java, loaders and real launch**
   - **Accept:** Discover/install correct Java/loaders, configure memory/arguments/environment, launch the actual game and supervise logs/processes with identity-checked termination and restart adoption.
-  - **State:** unverified. **Details:** [151 source blocks](Sources-PLAY.md#play-04); 30 source documents.
+  - **State:** unverified. **Details:** [152 source blocks](Sources-PLAY.md#play-04); 31 source documents.
 
 **[Open 16 detailed checks](Acceptance-PLAY.md#play-05-details)**
 
@@ -719,7 +719,7 @@
 <a id="play-06"></a>
 - [ ] **PLAY-06 - Native sharing and pack distribution**
   - **Accept:** Provide authorized export/import/delta/share workflows from stable identities and hashes while preserving local overlays; do not impersonate proprietary cloud features.
-  - **State:** unverified. **Details:** [24 source blocks](Sources-PLAY.md#play-06); 18 source documents.
+  - **State:** unverified. **Details:** [25 source blocks](Sources-PLAY.md#play-06); 19 source documents.
 
 ## Configuration, hotkeys and progression
 
@@ -903,7 +903,7 @@
 <a id="know-05"></a>
 - [ ] **KNOW-05 - Source refresh and typed extensions**
   - **Accept:** Keep provider/tool/schema/contract registries extensible, versioned, cached and on-demand with pagination/rights/health/provenance and unknown-versus-absent states; no hidden polling watchdog.
-  - **State:** unverified. **Details:** [32 source blocks](Sources-KNOW.md#know-05); 19 source documents.
+  - **State:** unverified. **Details:** [33 source blocks](Sources-KNOW.md#know-05); 20 source documents.
 
 ## Security, preservation and release
 
@@ -949,7 +949,7 @@
 <a id="ship-06"></a>
 - [ ] **SHIP-06 - A/B Studio third-party lineage and live progress**
   - **Accept:** Organize sources/tools/private fixtures with versions/licenses, compact reports and necessary reproducers; synchronize GitHub and actual live wiki with planned/implemented/gameplay-tested labels; delete obsolete bulky copies only after replacement validation and safe-cleanup approval. Acceptance: AB-T024–AB-T027. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [120 source blocks](Sources-SHIP.md#ship-06); 34 source documents.
+  - **State:** unverified. **Details:** [121 source blocks](Sources-SHIP.md#ship-06); 35 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Combined release acceptance

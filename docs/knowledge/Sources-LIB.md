@@ -179,8 +179,9 @@
 [**LIB-03**](Checklist.md#lib-03)
 
 <details>
-<summary>Source clauses and aliases (121 distinct blocks)</summary>
+<summary>Source clauses and aliases (122 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / Proposed own-project interoperation](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L18-L18) - Competing-Apps.md; 1 distinct blocks.
 - [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T335 — Packaged desktop end-to-end automation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2115-L2115) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP / T359 — Browser/WebView substrate and content-filtering convergence](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2119-L2119) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [3. PHASE 0 — PRESERVE AND BASELINE THE EXISTING PRODUCT / 3.2 Existing behavior that must survive all later work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md#L178-L178) - ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md; 1 distinct blocks.
@@ -381,8 +382,10 @@
 [**LIB-06**](Checklist.md#lib-06)
 
 <details>
-<summary>Source clauses and aliases (171 distinct blocks)</summary>
+<summary>Source clauses and aliases (173 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L32-L36) - Competing-Apps.md; 1 distinct blocks.
+- [Competing apps, foundations and shared capabilities / Proposed own-project interoperation](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L16-L16) - Competing-Apps.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / Ferium — `gorilla-devs/ferium`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L678-L678) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [10. GitHub projects to learn from — current research / packwiz — `packwiz/packwiz`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L686-L689) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-1 — launcher domain parity](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L838-L838) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -690,8 +693,9 @@
 [**LIB-09**](Checklist.md#lib-09)
 
 <details>
-<summary>Source clauses and aliases (140 distinct blocks)</summary>
+<summary>Source clauses and aliases (141 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L2-L3) - Competing-Apps.md; 1 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-5 — profiler adapters + whole-pack intelligence](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L879-L879) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L932-L932) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [3. Full launcher CLI parity checklist / Modpacks / interchange](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L197-L207) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 10 distinct blocks.

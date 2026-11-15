@@ -322,8 +322,9 @@
 [**KNOW-05**](Checklist.md#know-05)
 
 <details>
-<summary>Source clauses and aliases (32 distinct blocks)</summary>
+<summary>Source clauses and aliases (33 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L28-L28) - Competing-Apps.md; 1 distinct blocks.
 - [G043 — Version, loader and mapping-era graph / T151 — Implement `VersionGraph` / T153 — Ingest official migration corpora](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L518-L518) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G044 — Permissioned MC Mod Porter integration and learned-rule store / T156 — Snapshot authorized MC Mod Porter source / T158 — Import MC Mod Porter knowledge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L612-L612) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan / T234 — Freshness refresh only where it matters](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1967-L1969) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.

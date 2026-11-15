@@ -3992,7 +3992,7 @@
 <a id="lib-06-details"></a>
 ## LIB-06 - Content lifecycle and provenance
 
-[Outcome](Checklist.md#lib-06) / 109 source-derived details.
+[Outcome](Checklist.md#lib-06) / 110 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 3. Provider Adapter architecture (1)</summary>
@@ -5033,6 +5033,18 @@
   - **Full requirement:** NON-NEGOTIABLE INTEGRATION LAW No feature islands, shadow databases, or duplicated truth. Every relevant subsystem shares one canonical Minecraft knowledge/evidence graph. Performance results must appear directly on mods, Favorites, update planning and repair. Crashes must open the exact culprit mod/source/config. World hotspots should link back to owning mods/entities/blocks. Config and version changes invalidate only evidence that actually depends on them. Conversion failures can enter the same repair/test loop. Returned AI candidates update source history, repair history, compatibility and performance provenance.
   - **Binding context:** 
   - **Original specification:** [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt : 24-25](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L24-L25)
+
+</details>
+
+<details>
+<summary>Competing-Apps.md / Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview (1)</summary>
+
+<a id="d-02898c2c063bc17f6451"></a>
+- [ ] **D-02898c2c063bc17f6451** - | Primary evidence | Enderloom comparison to perform, not an adoption claim | | --- | --- | | [Preserve existing CurseForge game root, #6066](https://github.com/PrismLauncher/Prism...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** | Primary evidence | Enderloom comparison to perform, not an adoption claim | | --- | --- | | [Preserve existing CurseForge game root, #6066](https://github.com/PrismLauncher/PrismLauncher/pull/6066) | On disposable copied instances, update packs with only .minecraft, only minecraft, both, and neither directory. Compare the active root and hashes of worlds/configs/mods before and after update, failure and restart. The upstream report describes old data becoming invisible after extraction selected a different root; it does not establish an Enderloom defect. | | [Modrinth creation cancellation, #5933](https://github.com/PrismLauncher/PrismLauncher/pull/5933) | Cancel during a deliberately stalled local download. Record actual worker/network termination, partial-output cleanup, truthful UI state and successful retry, not merely an enabled Cancel button. | | [Automatic versus manual retry budget, #6371](https://github.com/PrismLauncher/PrismLauncher/pull/6371) | Count actual attempts with a failing local endpoint; separate automatic budget from one explicit user retry and reject work continuing after cancellation. Do not silently adopt a shorter timeout that regresses slow valid transfers. |
+  - **Binding context:** Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview
+  - **Original specification:** [Competing-Apps.md : 32-36](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L32-L36)
 
 </details>
 

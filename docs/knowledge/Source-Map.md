@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 65 |
-| Source lines processed | 47,083 |
-| Non-empty source blocks accounted for | 16,260 |
-| Distinct contextual/exact source blocks | 13,342 |
+| Located source documents | 66 |
+| Source lines processed | 47,123 |
+| Non-empty source blocks accounted for | 16,274 |
+| Distinct contextual/exact source blocks | 13,356 |
 | Exact repeated occurrences sharing an identity | 2,918 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,677 |
@@ -801,6 +801,19 @@ SHA-256: `68b3d01f8e4ed5b84fee2f208511daca8b51eb4dd33293155e9902e0645beb0a`
 Bytes: 9,354. Historical checked occurrences: 0.
 
 **Outcome owners:** [**MAKE-06**](Checklist.md#make-06)
+
+</details>
+
+<a id="s-08dbd9bb4e"></a>
+<details>
+<summary><strong>Competing-Apps.md</strong> - 40 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md) | specification
+
+SHA-256: `51b064e7b1029ea068cb03a37b395e6631a2a539fd2258309abdb58584d66d01`  
+Bytes: 5,210. Historical checked occurrences: 0.
+
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**DEP-08**](Checklist.md#dep-08), [**KNOW-05**](Checklist.md#know-05), [**LIB-03**](Checklist.md#lib-03), [**LIB-06**](Checklist.md#lib-06), [**LIB-09**](Checklist.md#lib-09), [**MAKE-06**](Checklist.md#make-06), [**MAKE-12**](Checklist.md#make-12), [**PLAY-01**](Checklist.md#play-01), [**PLAY-04**](Checklist.md#play-04), [**PLAY-06**](Checklist.md#play-06), [**PORT-03**](Checklist.md#port-03), [**SHIP-06**](Checklist.md#ship-06)
 
 </details>
 

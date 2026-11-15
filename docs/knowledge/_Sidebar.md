@@ -22,6 +22,7 @@
 
 ## Feature guides
 
+- [Competing apps, foundations and shared capabilities](Competing-Apps.md)
 - [Horizon Rust Compatibility](Horizon-Rust-Compatibility.md)
 - [Marketplace, Studio comparison and Bedrock conversion roadmap](Marketplace-Studio-and-Bedrock-Roadmap.md)
 - [Universal Minecraft A/B Studio](Universal-Minecraft-AB-Studio.md)

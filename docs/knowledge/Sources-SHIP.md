@@ -343,8 +343,9 @@
 [**SHIP-06**](Checklist.md#ship-06)
 
 <details>
-<summary>Source clauses and aliases (120 distinct blocks)</summary>
+<summary>Source clauses and aliases (121 distinct blocks)</summary>
 
+- [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L40-L40) - Competing-Apps.md; 1 distinct blocks.
 - [G059 — Final promotion matrix for researched technologies](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1869-L1869) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G062 — Final challenge pass before completion](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1945-L1945) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G062 — Final challenge pass before completion / T233 — Whole-spec acceptance rescan](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1947-L1947) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
