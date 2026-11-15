@@ -54,6 +54,18 @@ class KnowledgeTests(unittest.TestCase):
  def test_single_checkbox_projection(self):
   for p in k.K.glob('*.md'):
    if p.name!='Checklist.md' and not p.name.startswith('Acceptance-'):self.assertIsNone(re.search(r'^- \[[ x]\]',p.read_text(),re.M),p.name)
+ def test_competitive_research_native_wiki_projection(self):
+  source=k.ROOT/'docs'/'wiki'/'Competing-Apps.md'
+  self.assertTrue(source.is_file(), 'Research needs an authored publisher input')
+  original=source.read_text()
+  pages=k.render(self.state,self.corpus)
+  self.assertEqual(pages['Competing-Apps'],original)
+  self.assertEqual((k.K/'Competing-Apps.md').read_text(),original)
+  self.assertIn('(Competing-Apps.md)',pages['_Sidebar'])
+  wiki=(k.ROOT/'build'/'knowledge'/'wiki'/'Competing-Apps.md').read_text()
+  expected=original.replace('(Ecosystem.md)','(https://github.com/Herbertofury/Enderloom/wiki/Ecosystem)')
+  self.assertEqual(wiki,expected)
+  self.assertNotIn('- [ ] ',original)
  def test_variant_foundry_native_wiki_projection(self):
   pages=k.render(self.state,self.corpus)
   authored={p.stem for p in (k.ROOT/'docs'/'wiki').glob('*.md')}
