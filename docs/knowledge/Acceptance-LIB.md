@@ -5236,7 +5236,7 @@
 <a id="lib-08-details"></a>
 ## LIB-08 - Provider downloads and account recovery
 
-[Outcome](Checklist.md#lib-08) / 122 source-derived details.
+[Outcome](Checklist.md#lib-08) / 123 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 1. Product laws (4)</summary>
@@ -5576,6 +5576,18 @@
   - **Full requirement:** The default web-chat lane should not require a separate API key, but it must respect the provider&#x27;s normal login, plan limits, quotas, rate limits, UI, terms, CAPTCHAs, paywalls, DRM, and access controls. Never bypass them.
   - **Binding context:** Codex Handoff — Enderloom Ultimate Minecraft Workbench / In-app browser rule
   - **Original specification:** [CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md : 123-123](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md#L123-L123)
+
+</details>
+
+<details>
+<summary>CURSEFORGE_CREDENTIAL_RECOVERY.md / CurseForge credential preservation and recovery (1)</summary>
+
+<a id="d-e64e23f0691cdc3bb0e6"></a>
+- [ ] **D-e64e23f0691cdc3bb0e6** - The first command makes no changes. The second refuses to overwrite an existing saved key. It does not print the credential or write it to a source file. Restart Enderloom after re...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The first command makes no changes. The second refuses to overwrite an existing saved key. It does not print the credential or write it to a source file. Restart Enderloom after recovery because a running service may have cached the missing-key result. The helper recognizes the installed app layout observed on November 14, 2026; a future app update may require adjusting it. If verification fails, obtain an approved key through CurseForge and use Settings instead. 3. Deployment operators can alternatively supply ENDERLOOM_CURSEFORGE_API_KEY at runtime through a protected environment. Do not commit it or expose it in command history. A bundled deployment credential is another supported route when legitimately provisioned.
+  - **Binding context:** CurseForge credential preservation and recovery
+  - **Original specification:** [CURSEFORGE_CREDENTIAL_RECOVERY.md : 15-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md#L15-L16)
 
 </details>
 

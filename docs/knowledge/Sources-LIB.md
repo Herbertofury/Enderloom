@@ -574,7 +574,7 @@
 [**LIB-08**](Checklist.md#lib-08)
 
 <details>
-<summary>Source clauses and aliases (172 distinct blocks)</summary>
+<summary>Source clauses and aliases (177 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L755-L755) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2076-L2076) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -672,6 +672,7 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T101 — Instant edition fallback / handoff without losing Enderloom work](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L394-L401) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G016 — Dual-shell release resilience: keep Electron as a first-class second edition if WebView2 wins / T102 — Both editions stay healthy; Electron cannot become a rotten fallback](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L409-L417) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Objective](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L11-L11) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [CurseForge credential preservation and recovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md#L1-L18) - CURSEFORGE_CREDENTIAL_RECOVERY.md; 5 distinct blocks.
 - [Enderloom 2.9.5 / 2.0.12 provider-native bulk prime hardening](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L153-L153) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.5.0 universal provider fast lane + measured bandwidth-tail suppression](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L96-L96) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Real research browser](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L263-L263) - README.md; 1 distinct blocks.
@@ -786,7 +787,7 @@
 [**LIB-10**](Checklist.md#lib-10)
 
 <details>
-<summary>Source clauses and aliases (44 distinct blocks)</summary>
+<summary>Source clauses and aliases (45 distinct blocks)</summary>
 
 - [G064 — Frontend architecture and UI-performance convergence / T237 — Benchmark the current React/TypeScript frontend against Rust UI challengers / T240 — Prove one complete vertical slice before any broad frontend migration](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2043-L2043) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G074 — FINAL APP + CONVERSION COMPLETION GATE / T283 — Whole-app clean-room challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2608-L2608) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -813,6 +814,7 @@
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G010 — PHASE 1 PERFORMANCE UMBRELLA: make the entire app feel instant, with zero loss / T049 — Prove Enderloom strictly beats BOTH CurseForge and Modrinth in speed and useful amount without regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1067-L1071) - ENDERLOOM_GET_DONE_NOW_QOL.md; 2 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T083 — Best-in-class coexistence comparison against CurseForge and Modrinth](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1259-L1259) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G014 — PHASE 2: Minecraft-running zero-impact supremacy without making Enderloom slow / T105 — Protection must not regress Enderloom responsiveness](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1327-L1335) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
+- [CurseForge credential preservation and recovery](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md#L7-L8) - CURSEFORGE_CREDENTIAL_RECOVERY.md; 1 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.1 Sources](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L47-L65) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 3 distinct blocks.
 - [2. Authorized Minecraft Asset Acquisition / 2.3 Rights boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L90-L97) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Run Enderloom now](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L19-L19) - README.md; 1 distinct blocks.

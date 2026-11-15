@@ -9,7 +9,7 @@
 <a id="play-01-details"></a>
 ## PLAY-01 - External-launcher connection in place
 
-[Outcome](Checklist.md#play-01) / 58 source-derived details.
+[Outcome](Checklist.md#play-01) / 59 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 6. Automatic evidence bundle (1)</summary>
@@ -19,6 +19,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 6. Automatic evidence bundle
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 225-225](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L225-L225)
+
+</details>
+
+<details>
+<summary>CURSEFORGE_CREDENTIAL_RECOVERY.md / CurseForge credential preservation and recovery (1)</summary>
+
+<a id="d-c52efd06b7c6408994f8"></a>
+- [ ] **D-c52efd06b7c6408994f8** - Enderloom stores its saved CurseForge key in the current Windows user&#x27;s Credential Manager under the service com.megalithofficial.basalt-launcher and account settings/cursefor...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Enderloom stores its saved CurseForge key in the current Windows user&#x27;s Credential Manager under the service com.megalithofficial.basalt-launcher and account settings/curseforge-api-key. The launcher database and a source checkout do not back up that secret. Preserve the Windows account and its credential store during migrations or cleanup; do not delete or reset the entry. Keep a separately secured copy of an approved key in a trusted password manager if one is available. Never commit it to Git, put it in an issue, paste it into logs, or send it to anyone.
+  - **Binding context:** CurseForge credential preservation and recovery
+  - **Original specification:** [CURSEFORGE_CREDENTIAL_RECOVERY.md : 3-3](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md#L3-L3)
 
 </details>
 

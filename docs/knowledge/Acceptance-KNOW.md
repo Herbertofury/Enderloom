@@ -181,7 +181,7 @@
 <a id="know-02-details"></a>
 ## KNOW-02 - Why installed and contextual explanations
 
-[Outcome](Checklist.md#know-02) / 25 source-derived details.
+[Outcome](Checklist.md#know-02) / 26 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 9. Build engine integration (1)</summary>
@@ -202,6 +202,18 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. Source/repository workflow
   - **Original specification:** [AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md : 510-510](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L510-L510)
+
+</details>
+
+<details>
+<summary>CURSEFORGE_CREDENTIAL_RECOVERY.md / CurseForge credential preservation and recovery (1)</summary>
+
+<a id="d-fe605a5e1c8189d84954"></a>
+- [ ] **D-fe605a5e1c8189d84954** - On November 14, 2026, a previously working credential was absent from the Windows vault. An authorized installed-app credential was validated against the official API and restored ...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** On November 14, 2026, a previously working credential was absent from the Windows vault. An authorized installed-app credential was validated against the official API and restored to the vault. Live Enderloom search, project details, versions and filters passed. The original reason the vault entry disappeared was not established; this guide and helper do not guarantee that credentials can never be lost.
+  - **Binding context:** CurseForge credential preservation and recovery
+  - **Original specification:** [CURSEFORGE_CREDENTIAL_RECOVERY.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md#L20-L20)
 
 </details>
 

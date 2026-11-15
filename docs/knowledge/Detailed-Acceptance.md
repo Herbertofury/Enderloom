@@ -4,7 +4,7 @@
 
 > The actual tasks and binding clauses from the specifications, not just an index of headings.
 
-**5,912 source-task occurrences**, **6,924 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
+**5,912 source-task occurrences**, **6,927 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
 
 | Workstream | Detailed requirements |
 | :--- | ---: |
@@ -16,12 +16,12 @@
 | [Repair and forensics](Acceptance-FIX.md) | 272 |
 | [Native testing and control plane](Acceptance-TEST.md) | 997 |
 | [Performance without loss](Acceptance-PERF.md) | 384 |
-| [Discovery, favorites and content](Acceptance-LIB.md) | 825 |
-| [Launcher, accounts and instances](Acceptance-PLAY.md) | 263 |
+| [Discovery, favorites and content](Acceptance-LIB.md) | 826 |
+| [Launcher, accounts and instances](Acceptance-PLAY.md) | 264 |
 | [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 131 |
 | [Worlds, servers and migration](Acceptance-WORLD.md) | 382 |
 | [AI operator and evidence brain](Acceptance-AI.md) | 323 |
-| [Knowledge and compatibility](Acceptance-KNOW.md) | 154 |
+| [Knowledge and compatibility](Acceptance-KNOW.md) | 155 |
 | [Security, preservation and release](Acceptance-SHIP.md) | 254 |
 
 ## Source accounting is not semantic certification

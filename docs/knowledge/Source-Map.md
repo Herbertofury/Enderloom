@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 64 |
-| Source lines processed | 47,058 |
-| Non-empty source blocks accounted for | 16,250 |
-| Distinct contextual/exact source blocks | 13,332 |
+| Located source documents | 65 |
+| Source lines processed | 47,083 |
+| Non-empty source blocks accounted for | 16,260 |
+| Distinct contextual/exact source blocks | 13,342 |
 | Exact repeated occurrences sharing an identity | 2,918 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,677 |
@@ -26,14 +26,14 @@ All Markdown/text/JSON sources under `docs/`, excluding generated knowledge page
 
 <a id="s-b335630551"></a>
 <details>
-<summary><strong>README.md</strong> - 331 lines</summary>
+<summary><strong>README.md</strong> - 336 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/README.md) | specification
 
-SHA-256: `acbbad123ae4bb9a60c0e0564c319a5d3e0567328db9a76155fa5cff604fa7d3`  
-Bytes: 48,683. Historical checked occurrences: 0.
+SHA-256: `8158112b498d855ba41e15d89e991d87186e8e78a58b232c2d989fc72cc1c682`  
+Bytes: 49,035. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**LIB-10**](Checklist.md#lib-10), [**MAKE-09**](Checklist.md#make-09), [**PERF-07**](Checklist.md#perf-07), [**PLAY-06**](Checklist.md#play-06), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**TEST-01**](Checklist.md#test-01), [**UX-01**](Checklist.md#ux-01), [**UX-07**](Checklist.md#ux-07)
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**KNOW-02**](Checklist.md#know-02), [**LIB-01**](Checklist.md#lib-01), [**LIB-02**](Checklist.md#lib-02), [**LIB-03**](Checklist.md#lib-03), [**LIB-04**](Checklist.md#lib-04), [**LIB-05**](Checklist.md#lib-05), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**LIB-10**](Checklist.md#lib-10), [**MAKE-09**](Checklist.md#make-09), [**PERF-07**](Checklist.md#perf-07), [**PLAY-06**](Checklist.md#play-06), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**TEST-01**](Checklist.md#test-01), [**UX-01**](Checklist.md#ux-01), [**UX-07**](Checklist.md#ux-07)
 
 </details>
 
@@ -99,6 +99,19 @@ SHA-256: `4828fdf49e333407347976d4328463d9e8047a11008e3f1f0494f598d413c004`
 Bytes: 25,404. Historical checked occurrences: 0.
 
 **Outcome owners:** [**AI-01**](Checklist.md#ai-01), [**AI-02**](Checklist.md#ai-02), [**AI-03**](Checklist.md#ai-03), [**AI-04**](Checklist.md#ai-04), [**AI-05**](Checklist.md#ai-05), [**AI-06**](Checklist.md#ai-06), [**AI-07**](Checklist.md#ai-07), [**CONFIG-02**](Checklist.md#config-02), [**CONFIG-03**](Checklist.md#config-03), [**CONFIG-04**](Checklist.md#config-04), [**DEP-05**](Checklist.md#dep-05), [**FIX-03**](Checklist.md#fix-03), [**FIX-04**](Checklist.md#fix-04), [**FIX-05**](Checklist.md#fix-05), [**LIB-03**](Checklist.md#lib-03), [**LIB-06**](Checklist.md#lib-06), [**LIB-08**](Checklist.md#lib-08), [**LIB-09**](Checklist.md#lib-09), [**MAKE-08**](Checklist.md#make-08), [**MAKE-12**](Checklist.md#make-12), [**PERF-01**](Checklist.md#perf-01), [**PERF-03**](Checklist.md#perf-03), [**PERF-04**](Checklist.md#perf-04), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**PORT-11**](Checklist.md#port-11), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**TEST-04**](Checklist.md#test-04), [**TEST-05**](Checklist.md#test-05), [**UX-02**](Checklist.md#ux-02), [**UX-08**](Checklist.md#ux-08), [**UX-11**](Checklist.md#ux-11)
+
+</details>
+
+<a id="s-a8aa7d6bfb"></a>
+<details>
+<summary><strong>CURSEFORGE_CREDENTIAL_RECOVERY.md</strong> - 20 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md) | specification
+
+SHA-256: `79dd90493ecbaa7b8630994b87794c8aa876e920a61a0650494c47baeaeb25af`  
+Bytes: 2,750. Historical checked occurrences: 0.
+
+**Outcome owners:** [**KNOW-02**](Checklist.md#know-02), [**LIB-08**](Checklist.md#lib-08), [**LIB-10**](Checklist.md#lib-10), [**PLAY-01**](Checklist.md#play-01)
 
 </details>
 

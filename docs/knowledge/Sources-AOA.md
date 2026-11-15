@@ -10,7 +10,7 @@
 [**AOA-01**](Checklist.md#aoa-01)
 
 <details>
-<summary>Source clauses and aliases (758 distinct blocks)</summary>
+<summary>Source clauses and aliases (759 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L41-L41) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Existing service/domain foundation](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L32-L32) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -353,6 +353,7 @@
 - [Enderloom — Minecraft Workflow Parity Master Specification](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md#L8-L8) - ENDERLOOM_MINECRAFT_WORKFLOW_PARITY_MASTER_SPEC.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 1.2 -&gt; 2.0 zero-loss upgrade](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L257-L257) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / 2.1.0 frontier-first live image scheduler](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L144-L144) - README.md; 1 distinct blocks.
+- [Enderloom 2.9.5 / Competing apps, reusable foundations and interoperability](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L334-L334) - README.md; 1 distinct blocks.
 - [Enderloom 2.9.5 / Keyboard shortcuts](https://github.com/Herbertofury/Enderloom/blob/main/README.md#L282-L282) - README.md; 1 distinct blocks.
 - [Marketplace, Studio comparison and Bedrock conversion roadmap / Next safe execution sequence](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Marketplace-Studio-and-Bedrock-Roadmap.md#L241-L247) - Marketplace-Studio-and-Bedrock-Roadmap.md; 1 distinct blocks.
 - [ENDERLOOM NEXT-GEN TECH STACK CHALLENGERS — FOURTH DEEP-SCOUR DELTA](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L8-L8) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.

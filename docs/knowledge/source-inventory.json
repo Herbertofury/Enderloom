@@ -3,9 +3,9 @@
     {
       "id": "S-b335630551",
       "path": "README.md",
-      "sha256": "acbbad123ae4bb9a60c0e0564c319a5d3e0567328db9a76155fa5cff604fa7d3",
-      "bytes": 48683,
-      "lines": 331,
+      "sha256": "8158112b498d855ba41e15d89e991d87186e8e78a58b232c2d989fc72cc1c682",
+      "bytes": 49035,
+      "lines": 336,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/README.md",
       "source_checked": 0
@@ -58,6 +58,16 @@
       "lines": 320,
       "kind": "specification",
       "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_ULTIMATE_MINECRAFT_WORKBENCH.md",
+      "source_checked": 0
+    },
+    {
+      "id": "S-a8aa7d6bfb",
+      "path": "docs/CURSEFORGE_CREDENTIAL_RECOVERY.md",
+      "sha256": "79dd90493ecbaa7b8630994b87794c8aa876e920a61a0650494c47baeaeb25af",
+      "bytes": 2750,
+      "lines": 20,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/CURSEFORGE_CREDENTIAL_RECOVERY.md",
       "source_checked": 0
     },
     {
@@ -642,11 +652,11 @@
     }
   ],
   "stats": {
-    "source_files": 64,
-    "source_bytes": 2414929,
-    "source_lines": 47058,
-    "source_blocks": 16250,
-    "unique_blocks": 13332,
+    "source_files": 65,
+    "source_bytes": 2418031,
+    "source_lines": 47083,
+    "source_blocks": 16260,
+    "unique_blocks": 13342,
     "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
     "source_unchecked": 5677,

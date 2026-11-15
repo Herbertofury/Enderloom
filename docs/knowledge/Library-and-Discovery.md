@@ -59,6 +59,6 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [LIB-05 - Dedicated Favorites workspace](Acceptance-LIB.md#lib-05-details): 140 source details.
 - [LIB-06 - Content lifecycle and provenance](Acceptance-LIB.md#lib-06-details): 109 source details.
 - [LIB-07 - Exact versions, freeze and upgrades](Acceptance-LIB.md#lib-07-details): 19 source details.
-- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 122 source details.
+- [LIB-08 - Provider downloads and account recovery](Acceptance-LIB.md#lib-08-details): 123 source details.
 - [LIB-09 - Pack and research interchange](Acceptance-LIB.md#lib-09-details): 85 source details.
 - [LIB-10 - Complete Bedrock Marketplace and authorized PackDL/McTools](Acceptance-LIB.md#lib-10-details): 26 source details.

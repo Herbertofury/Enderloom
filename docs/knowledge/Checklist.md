@@ -19,7 +19,7 @@
 <a id="aoa-01"></a>
 - [ ] **AOA-01 - Source lineage and original identity**
   - **Accept:** Use the accepted union of authoritative AoA source and content, retain fingerprints, mod name/public IDs and approved migrations, and continue the active project rather than choosing a smaller branch or renamed fork.
-  - **State:** unverified. **Details:** [758 source blocks](Sources-AOA.md#aoa-01); 39 source documents.
+  - **State:** unverified. **Details:** [759 source blocks](Sources-AOA.md#aoa-01); 39 source documents.
 
 **[Open 26 detailed checks](Acceptance-AOA.md#aoa-02-details)**
 
@@ -653,12 +653,12 @@
   - **Accept:** Search full compatible/incompatible version choices, changelogs, pin/freeze/unfreeze and rollback; frozen content stays fixed unless explicitly changed.
   - **State:** unverified. **Details:** [28 source blocks](Sources-LIB.md#lib-07); 12 source documents.
 
-**[Open 122 detailed checks](Acceptance-LIB.md#lib-08-details)**
+**[Open 123 detailed checks](Acceptance-LIB.md#lib-08-details)**
 
 <a id="lib-08"></a>
 - [ ] **LIB-08 - Provider downloads and account recovery**
   - **Accept:** Respect author-disabled third-party downloads, safe browser handoff and verified adoption, reconnect legitimate sessions and resume exact jobs without guessed identities or bypass.
-  - **State:** unverified. **Details:** [172 source blocks](Sources-LIB.md#lib-08); 18 source documents.
+  - **State:** unverified. **Details:** [177 source blocks](Sources-LIB.md#lib-08); 19 source documents.
 
 **[Open 85 detailed checks](Acceptance-LIB.md#lib-09-details)**
 
@@ -672,19 +672,19 @@
 <a id="lib-10"></a>
 - [ ] **LIB-10 - Complete Bedrock Marketplace and authorized PackDL/McTools**
   - **Accept:** Full in-app Marketplace browsing beside existing providers, exact normal Bedrock purchase/download handoff, authorized PackDL/McTools shared-job adapters, pinned licenses/versions, manual upstream refresh and tested explicit update adoption/rollback. Acceptance: AB-T013–AB-T016. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [44 source blocks](Sources-LIB.md#lib-10); 14 source documents.
+  - **State:** unverified. **Details:** [45 source blocks](Sources-LIB.md#lib-10); 15 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Launcher, accounts and instances
 
 [Keep the existing launcher and catalogue working while the studio grows.](Launcher-and-Instances.md)
 
-**[Open 58 detailed checks](Acceptance-PLAY.md#play-01-details)**
+**[Open 59 detailed checks](Acceptance-PLAY.md#play-01-details)**
 
 <a id="play-01"></a>
 - [ ] **PLAY-01 - External-launcher connection in place**
   - **Accept:** Discover real CurseForge/Modrinth/accepted launcher instances, identify junctions physically, connect without forced copy, reconcile moves and disconnect without deleting external files.
-  - **State:** unverified. **Details:** [149 source blocks](Sources-PLAY.md#play-01); 19 source documents.
+  - **State:** unverified. **Details:** [150 source blocks](Sources-PLAY.md#play-01); 20 source documents.
 
 **[Open 66 detailed checks](Acceptance-PLAY.md#play-02-details)**
 
@@ -877,12 +877,12 @@
   - **Accept:** Build source-grounded project/mod documentation with real media, diagrams, config/hotkey/recipe/progression/evidence links, exports and useful maintenance; this is separate from the GitHub Wiki documenting development.
   - **State:** unverified. **Details:** [68 source blocks](Sources-KNOW.md#know-01); 22 source documents.
 
-**[Open 25 detailed checks](Acceptance-KNOW.md#know-02-details)**
+**[Open 26 detailed checks](Acceptance-KNOW.md#know-02-details)**
 
 <a id="know-02"></a>
 - [ ] **KNOW-02 - Why installed and contextual explanations**
   - **Accept:** Answer dependency/choice/score/change questions from the canonical graph with evidence, distinguish facts/inferences and link to exact actionable objects.
-  - **State:** unverified. **Details:** [49 source blocks](Sources-KNOW.md#know-02); 23 source documents.
+  - **State:** unverified. **Details:** [51 source blocks](Sources-KNOW.md#know-02); 25 source documents.
 
 **[Open 16 detailed checks](Acceptance-KNOW.md#know-03-details)**
 
