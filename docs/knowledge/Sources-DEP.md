@@ -612,7 +612,7 @@
 [**DEP-09**](Checklist.md#dep-09)
 
 <details>
-<summary>Source clauses and aliases (93 distinct blocks)</summary>
+<summary>Source clauses and aliases (94 distinct blocks)</summary>
 
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L43-L45) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 3 distinct blocks.
 - [15. Implementation order for Codex / Phase CLI-4 — direct A/B and Fast Launch Engine](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L871-L871) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -680,6 +680,7 @@
 - [Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L95-L95) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
 - [Universal Minecraft A/B Studio / Context and authority](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L13-L13) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 1 distinct blocks.
 - [Universal Minecraft A/B Studio / Executable acceptance slices / Concurrent conversion and recovery — owner DEP-09](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L96-L101) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 5 distinct blocks.
+- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L13-L13) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [Tier B — high-value specialized adapters / Neruina — ticking failure isolation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L226-L226) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.1 Progress rules / Progress snapshot — keep these counts current](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L50-L50) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-11 — Implement fingerprints, cache reuse, resumability, and failed-only retry](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L249-L251) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.

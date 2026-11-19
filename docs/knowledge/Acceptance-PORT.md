@@ -9,7 +9,7 @@
 <a id="port-01-details"></a>
 ## PORT-01 - Input and source authority
 
-[Outcome](Checklist.md#port-01) / 141 source-derived details.
+[Outcome](Checklist.md#port-01) / 142 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / Hot-drop catalogs + live source refresh / Source authority (1)</summary>
@@ -1214,6 +1214,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 17. Definition of done
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 930-930](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L930-L930)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+
+<a id="d-33fa01e210c7e6eb2ae5"></a>
+- [ ] **D-33fa01e210c7e6eb2ae5** - Reconcile current authoritative source and active work before implementing; existing private or local work may exceed public main.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 12-12](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L12-L12)
 
 </details>
 
@@ -3450,7 +3461,7 @@
 <a id="port-05-details"></a>
 ## PORT-05 - Source migration and semantic repair
 
-[Outcome](Checklist.md#port-05) / 160 source-derived details.
+[Outcome](Checklist.md#port-05) / 161 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 2. One repair job, one durable state machine (1)</summary>
@@ -4889,6 +4900,18 @@
   - **Full requirement:** 1. Primary target first. Finish and verify the requested target before secondary Northpoint fan-out. 2. Zero silent content loss. Adapt/backport/replace semantically or mark a cell Blocked; never delete a feature just to compile. 3. One semantic project. Common source -&gt; loader overlay -&gt; Minecraft-version overlay -&gt; rare exact-cell overlay -&gt; generated workspace. 4. One reusable Conversion IR/UMIR. Inspect source once and reuse provenance, content, behavior, injection, dependency and parity evidence across cells. 5. Exact historical mapping lineage. Carry owner/name/descriptor through MCP/SRG/TSRG/Yarn/Intermediary/Mojang lineage into the real target runtime. 6. Semantic migration intelligence. Answer what replaced an API/hook, not only that the old symbol disappeared. 7. Exact packaged linkage. Dev compile/remap is intermediate evidence only. 8. Runtime truth. A cell is Passed only when its strongest required server/client/integrated/restart gate has passed. 9. Resumable matrix. Fingerprint cells, persist state, reuse green work, retry only failed/invalidated cells. 10. No fake UI. Every visible action must call real backend behavior and report truthful state. 11. Repair causal owners. Fix the earliest causal defect rather than downstream cascades. 12. Promote reusable fixes. General conversion solutions become adapter/migration catalog entries plus regression fixtures.
   - **Binding context:** Enderloom Northpoint — Apex Conversion v5 Checkpoint / Enderloom invariants
   - **Original specification:** [ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md : 98-109](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V5_CHECKPOINT.md#L98-L109)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Relevant local scope (1)</summary>
+
+<a id="d-ba87043ffc1269a3139f"></a>
+- [ ] **D-ba87043ffc1269a3139f** - Preserve protected Catalog/Source/Browser/Full/Split research, independent launcher/accounts/instances and complete source-owned galleries. Extend the existing master workbench gra...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** Preserve protected Catalog/Source/Browser/Full/Split research, independent launcher/accounts/instances and complete source-owned galleries. Extend the existing master workbench graph, never a shadow database. Add unified Relationships plus separate required/optional/conflict/works-with columns with exact Java/Bedrock, loader/version and project/file provenance. Sorting must not change load order. Scope refresh to launch/manual/view/entity changes with bounded workers, missed-event recovery and last-good metadata. Keep provider failures and media completeness explicit; no autoplay by default. Creator/release notifications stay configurable and do not silently install updates. Portable app-owned state and preserved project colors/black default apply. Existing world/game conversion acceptance and original-world safety remain authoritative.
+  - **Binding context:** Shared product pillars: local adoption / Relevant local scope
+  - **Original specification:** [shared-product-pillars-20261119.md : 9-9](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L9-L9)
 
 </details>
 

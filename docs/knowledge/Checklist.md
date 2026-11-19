@@ -19,7 +19,7 @@
 <a id="aoa-01"></a>
 - [ ] **AOA-01 - Source lineage and original identity**
   - **Accept:** Use the accepted union of authoritative AoA source and content, retain fingerprints, mod name/public IDs and approved migrations, and continue the active project rather than choosing a smaller branch or renamed fork.
-  - **State:** unverified. **Details:** [760 source blocks](Sources-AOA.md#aoa-01); 40 source documents.
+  - **State:** unverified. **Details:** [762 source blocks](Sources-AOA.md#aoa-01); 41 source documents.
 
 **[Open 26 detailed checks](Acceptance-AOA.md#aoa-02-details)**
 
@@ -231,12 +231,12 @@
 
 [One semantic project; the strongest proven backend for each real target.](Conversion.md)
 
-**[Open 141 detailed checks](Acceptance-PORT.md#port-01-details)**
+**[Open 142 detailed checks](Acceptance-PORT.md#port-01-details)**
 
 <a id="port-01"></a>
 - [ ] **PORT-01 - Input and source authority**
   - **Accept:** Identify repositories/folders/source archives/JARs/Bedrock/plugin packs by real identity and lineage; inventory before execution, deduplicate identical imports and retain originals.
-  - **State:** unverified. **Details:** [293 source blocks](Sources-PORT.md#port-01); 37 source documents.
+  - **State:** unverified. **Details:** [294 source blocks](Sources-PORT.md#port-01); 38 source documents.
 
 **[Open 9 detailed checks](Acceptance-PORT.md#port-02-details)**
 
@@ -259,12 +259,12 @@
   - **Accept:** Descriptor/owner/hierarchy/overload-aware mappings, classpath/JAR validation and API deltas distinguish exact symbols, candidates and unresolved semantics with source evidence.
   - **State:** unverified. **Details:** [94 source blocks](Sources-PORT.md#port-04); 27 source documents.
 
-**[Open 160 detailed checks](Acceptance-PORT.md#port-05-details)**
+**[Open 161 detailed checks](Acceptance-PORT.md#port-05-details)**
 
 <a id="port-05"></a>
 - [ ] **PORT-05 - Source migration and semantic repair**
   - **Accept:** Apply structured Java/Kotlin/AST/source-range transformations, version-hop rules, metadata/resources/build/config changes and stronger equivalents; do not trust global text replacement.
-  - **State:** unverified. **Details:** [314 source blocks](Sources-PORT.md#port-05); 38 source documents.
+  - **State:** unverified. **Details:** [317 source blocks](Sources-PORT.md#port-05); 39 source documents.
 
 **[Open 70 detailed checks](Acceptance-PORT.md#port-06-details)**
 
@@ -397,12 +397,12 @@
   - **Accept:** Probe actual CLI/library contracts and pair-specific fixtures; reject exit-zero/no-output/stale/malformed reports, distinguish unknown from absent and route failed backends to real recovery.
   - **State:** unverified. **Details:** [17 source blocks](Sources-DEP.md#dep-08); 14 source documents.
 
-**[Open 57 detailed checks](Acceptance-DEP.md#dep-09-details)**
+**[Open 58 detailed checks](Acceptance-DEP.md#dep-09-details)**
 
 <a id="dep-09"></a>
 - [ ] **DEP-09 - A/B transfer queues and restart recovery**
   - **Accept:** Durable concurrent transfer queues preserve playable testing, truthful progress/errors, undo/retry/rollback, restart now/after-batch/later, safe test-state restoration and protection from stale jobs. Acceptance: AB-T009–AB-T012. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [93 source blocks](Sources-DEP.md#dep-09); 33 source documents.
+  - **State:** unverified. **Details:** [94 source blocks](Sources-DEP.md#dep-09); 34 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Repair and forensics
@@ -909,26 +909,26 @@
 
 [A fast result is only a win when the entire intended result survives.](Quality-and-Release.md)
 
-**[Open 75 detailed checks](Acceptance-SHIP.md#ship-01-details)**
+**[Open 76 detailed checks](Acceptance-SHIP.md#ship-01-details)**
 
 <a id="ship-01"></a>
 - [ ] **SHIP-01 - Supply-chain and untrusted input safety**
   - **Accept:** Validate archives/paths/hashes/notices, isolate code/build/filter execution, protect credentials and preserve input on malformed/resource-exhausted runs; external content is data, not instructions.
-  - **State:** unverified. **Details:** [137 source blocks](Sources-SHIP.md#ship-01); 33 source documents.
+  - **State:** unverified. **Details:** [138 source blocks](Sources-SHIP.md#ship-01); 34 source documents.
 
 **[Open 39 detailed checks](Acceptance-SHIP.md#ship-02-details)**
 
 <a id="ship-02"></a>
 - [ ] **SHIP-02 - Preserved product boundaries**
   - **Accept:** Retain established launcher/catalog/browser, full CLI and studio scope; no friend-hosting/P2P/reverse-tunnel or Voice/Social center absent a new explicit user decision.
-  - **State:** unverified. **Details:** [60 source blocks](Sources-SHIP.md#ship-02); 21 source documents.
+  - **State:** unverified. **Details:** [61 source blocks](Sources-SHIP.md#ship-02); 22 source documents.
 
-**[Open 19 detailed checks](Acceptance-SHIP.md#ship-03-details)**
+**[Open 20 detailed checks](Acceptance-SHIP.md#ship-03-details)**
 
 <a id="ship-03"></a>
 - [ ] **SHIP-03 - Platform, locale and accessibility finish**
   - **Accept:** Test all affected claimed platforms, localization/keyboard/focus/high-DPI/native chrome, first-run/update and sustained workload; do not remove support to pass tests.
-  - **State:** unverified. **Details:** [35 source blocks](Sources-SHIP.md#ship-03); 14 source documents.
+  - **State:** unverified. **Details:** [36 source blocks](Sources-SHIP.md#ship-03); 15 source documents.
 
 **[Open 46 detailed checks](Acceptance-SHIP.md#ship-04-details)**
 
@@ -944,12 +944,12 @@
   - **Accept:** Preserve IDs/jobs/checkpoints, mutate-test-checkpoint, repair after two unchanged failures via a new route, reopen invalid proof and keep required blocked work incomplete; no status ceremony instead of implementation.
   - **State:** unverified. **Details:** [45 source blocks](Sources-SHIP.md#ship-05); 26 source documents.
 
-**[Open 56 detailed checks](Acceptance-SHIP.md#ship-06-details)**
+**[Open 57 detailed checks](Acceptance-SHIP.md#ship-06-details)**
 
 <a id="ship-06"></a>
 - [ ] **SHIP-06 - A/B Studio third-party lineage and live progress**
   - **Accept:** Organize sources/tools/private fixtures with versions/licenses, compact reports and necessary reproducers; synchronize GitHub and actual live wiki with planned/implemented/gameplay-tested labels; delete obsolete bulky copies only after replacement validation and safe-cleanup approval. Acceptance: AB-T024–AB-T027. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [121 source blocks](Sources-SHIP.md#ship-06); 35 source documents.
+  - **State:** unverified. **Details:** [123 source blocks](Sources-SHIP.md#ship-06); 36 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Combined release acceptance

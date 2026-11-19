@@ -10,7 +10,7 @@
 [**PORT-01**](Checklist.md#port-01)
 
 <details>
-<summary>Source clauses and aliases (293 distinct blocks)</summary>
+<summary>Source clauses and aliases (294 distinct blocks)</summary>
 
 - [17. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L930-L930) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Actions &amp; Stuff 1.11.1 fixture identity](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L69-L74) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
@@ -181,6 +181,7 @@
 - [Enderloom Northpoint v6 checkpoint — 2026-09-22 / Durable toolkit artifact](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md#L22-L24) - ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md; 2 distinct blocks.
 - [Enderloom Northpoint v6 checkpoint — 2026-09-22 / Verified short-cycle graduation](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md#L5-L5) - ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Ecosystem research and ideas to absorb / spark-analyzer — `imSirr/spark-analyzer`](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L555-L559) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
+- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L12-L12) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [Tier A — first-class adapters / async-profiler](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L122-L122) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-01 — Create the Northpoint service/module and canonical state model](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L74-L74) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-03 — Implement exact intake, hashing, identity detection, and full source/content inventory](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L105-L110) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
@@ -657,7 +658,7 @@
 [**PORT-05**](Checklist.md#port-05)
 
 <details>
-<summary>Source clauses and aliases (314 distinct blocks)</summary>
+<summary>Source clauses and aliases (317 distinct blocks)</summary>
 
 - [3. Full launcher CLI parity checklist / Catalog / research workspace](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L285-L285) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [Bedrock / Java fidelity matrix and Actions &amp; Stuff fixture plan / Unsupported-feature and completion gates](https://github.com/Herbertofury/Enderloom/blob/main/docs/BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md#L133-L139) - BEDROCK_JAVA_CONVERSION_FIDELITY_AND_ACTIONS_STUFF_2026-10-04.md; 1 distinct blocks.
@@ -796,6 +797,9 @@
 - [6. RPG Loot / Affix / Socket Contracts / 6.1 Apotheosis](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L274-L274) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [Enderloom Northpoint v6 checkpoint — 2026-09-22 / Verified short-cycle graduation](https://github.com/Herbertofury/Enderloom/blob/main/docs/northpoint/ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md#L7-L18) - ENDERLOOM_APEX_CONVERSION_V6_CHECKPOINT.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Instrumentation stack / B. Java Flight Recorder (JFR)](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L153-L153) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
+- [Shared product pillars: local adoption](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L3-L3) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L18-L18) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Shared product pillars: local adoption / Relevant local scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L9-L9) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [Tier A — first-class adapters / Java Flight Recorder / jcmd](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L99-L99) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-02 — Put Create, Convert, and Repair behind one Northpoint operation contract](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L86-L86) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [11. UI / QOL — SIMPLE ON TOP, POWERFUL UNDERNEATH](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1159-L1168) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.

@@ -471,6 +471,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-912882fc39",
+      "path": "docs/shared-product-pillars-20261119.md",
+      "sha256": "3963ff8b505ea3551d9b7942e238a99572833a69ce9d768727623f967c167029",
+      "bytes": 2221,
+      "lines": 18,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-24000ef630",
       "path": "docs/specifications/ENDERLOOM_CONVERSION_ENGINE_CONTRACT.json",
       "sha256": "1bfb1376b132731c978fca5887e5cd53be6a6417bc613372cba4f276a5adbea8",
@@ -662,14 +672,14 @@
     }
   ],
   "stats": {
-    "source_files": 66,
-    "source_bytes": 2423241,
-    "source_lines": 47123,
-    "source_blocks": 16274,
-    "unique_blocks": 13356,
+    "source_files": 67,
+    "source_bytes": 2425462,
+    "source_lines": 47141,
+    "source_blocks": 16286,
+    "unique_blocks": 13368,
     "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
-    "source_unchecked": 5677,
+    "source_unchecked": 5682,
     "alias_occurrences": 1112
   }
 }

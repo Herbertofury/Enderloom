@@ -34,9 +34,9 @@
 
 Every source task and binding clause has its own tracked entry, rather than disappearing into the heading above.
 
-- [SHIP-01 - Supply-chain and untrusted input safety](Acceptance-SHIP.md#ship-01-details): 75 source details.
+- [SHIP-01 - Supply-chain and untrusted input safety](Acceptance-SHIP.md#ship-01-details): 76 source details.
 - [SHIP-02 - Preserved product boundaries](Acceptance-SHIP.md#ship-02-details): 39 source details.
-- [SHIP-03 - Platform, locale and accessibility finish](Acceptance-SHIP.md#ship-03-details): 19 source details.
+- [SHIP-03 - Platform, locale and accessibility finish](Acceptance-SHIP.md#ship-03-details): 20 source details.
 - [SHIP-04 - Complete reproducible release](Acceptance-SHIP.md#ship-04-details): 46 source details.
 - [SHIP-05 - Continuity, convergence and honest status](Acceptance-SHIP.md#ship-05-details): 19 source details.
-- [SHIP-06 - A/B Studio third-party lineage and live progress](Acceptance-SHIP.md#ship-06-details): 56 source details.
+- [SHIP-06 - A/B Studio third-party lineage and live progress](Acceptance-SHIP.md#ship-06-details): 57 source details.

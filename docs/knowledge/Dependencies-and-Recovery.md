@@ -76,4 +76,4 @@ Every source task and binding clause has its own tracked entry, rather than disa
 - [DEP-06 - Staged transactions and concurrent safety](Acceptance-DEP.md#dep-06-details): 13 source details.
 - [DEP-07 - Durable jobs and cancellation](Acceptance-DEP.md#dep-07-details): 52 source details.
 - [DEP-08 - Adapter proof and truthful failures](Acceptance-DEP.md#dep-08-details): 10 source details.
-- [DEP-09 - A/B transfer queues and restart recovery](Acceptance-DEP.md#dep-09-details): 57 source details.
+- [DEP-09 - A/B transfer queues and restart recovery](Acceptance-DEP.md#dep-09-details): 58 source details.

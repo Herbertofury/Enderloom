@@ -879,6 +879,14 @@
 
 </details>
 
+<a id="herbertofury-athena"></a>
+<details>
+<summary>Herbertofury/Athena (1 cited locations)</summary>
+
+- [https://github.com/Herbertofury/Athena/blob/main/docs/PRODUCT-PILLARS.md](https://github.com/Herbertofury/Athena/blob/main/docs/PRODUCT-PILLARS.md)
+
+</details>
+
 <a id="herbertofury-enderloom"></a>
 <details>
 <summary>Herbertofury/Enderloom (32 cited locations)</summary>

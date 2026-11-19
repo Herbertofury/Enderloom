@@ -3585,7 +3585,7 @@
 <a id="dep-09-details"></a>
 ## DEP-09 - A/B transfer queues and restart recovery
 
-[Outcome](Checklist.md#dep-09) / 57 source-derived details.
+[Outcome](Checklist.md#dep-09) / 58 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 13. Clean install transaction (1)</summary>
@@ -4121,6 +4121,17 @@
   - **State:** unverified. **Kind:** binding source prose.
   - **Binding context:** Enderloom Premium Testing Lab / Fast test pipeline / 3. Dependency graph
   - **Original specification:** [PREMIUM_TESTING_LAB_SPEC.md : 95-95](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L95-L95)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+
+<a id="d-72d7fdd852cb3d070b43"></a>
+- [ ] **D-72d7fdd852cb3d070b43** - Map applicable pillars to existing owners and tests. Preserve one authoritative state/transaction path; avoid duplicated schedulers, schemas and writers.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 13-13](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L13-L13)
 
 </details>
 

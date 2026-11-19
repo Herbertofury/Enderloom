@@ -9,7 +9,7 @@
 <a id="ship-01-details"></a>
 ## SHIP-01 - Supply-chain and untrusted input safety
 
-[Outcome](Checklist.md#ship-01) / 75 source-derived details.
+[Outcome](Checklist.md#ship-01) / 76 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 7. Prompt compiler (1)</summary>
@@ -485,6 +485,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 13. Security and safety requirements
   - **Original specification:** [PREMIUM_TESTING_FULL_CLI_CHECKLIST.md : 750-750](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L750-L750)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+
+<a id="d-3e8f49fb2269c09b6d21"></a>
+- [ ] **D-3e8f49fb2269c09b6d21** - Carry future owner corrections into this local backlog and the central register without overwriting more specific requirements.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 16-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L16-L16)
 
 </details>
 
@@ -970,7 +981,7 @@
 <a id="ship-03-details"></a>
 ## SHIP-03 - Platform, locale and accessibility finish
 
-[Outcome](Checklist.md#ship-03) / 19 source-derived details.
+[Outcome](Checklist.md#ship-03) / 20 source-derived details.
 
 <details>
 <summary>ENDERLOOM_ASTRA_MASTER_EXECUTION_CHECKLIST.md / 22. FINAL CROSS-CUTTING RELEASE GATE (1)</summary>
@@ -1096,6 +1107,17 @@
   - **State:** unverified. **Kind:** source task.
   - **Binding context:** 41. Verification contract
   - **Original specification:** [ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md : 1512-1512](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ULTIMATE_CODEX_MASTER_BACKLOG.md#L1512-L1512)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+
+<a id="d-867de717004b0467cd93"></a>
+- [ ] **D-867de717004b0467cd93** - Verify relocation/restart, lost events, cancellation, stale results, privacy, accessibility and complete results at representative workload scale where relevant.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 14-14](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L14-L14)
 
 </details>
 
@@ -1797,7 +1819,7 @@
 <a id="ship-06-details"></a>
 ## SHIP-06 - A/B Studio third-party lineage and live progress
 
-[Outcome](Checklist.md#ship-06) / 56 source-derived details.
+[Outcome](Checklist.md#ship-06) / 57 source-derived details.
 
 <details>
 <summary>AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md / 11. Automatic failure feedback loop (1)</summary>
@@ -2252,6 +2274,17 @@
   - **Full requirement:** AB-T027 Inventory obsolete bulky copies and prove replacement hashes, complete member counts, provenance, reproduction value and rollback coverage before proposing cleanup. Retain originals until safe-cleanup approval; no deletion is authorized by this documentation task.
   - **Binding context:** Universal Minecraft A/B Studio / Executable acceptance slices / Organized inputs, proof and publication — owner SHIP-06
   - **Original specification:** [ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md : 130-130](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L130-L130)
+
+</details>
+
+<details>
+<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+
+<a id="d-070f53dc90a464d427d2"></a>
+- [ ] **D-070f53dc90a464d427d2** - Record implementation revision, fixture/build evidence, actual native/game acceptance and deployed state separately. A saved requirement is not implemented functionality.
+  - **State:** unverified. **Kind:** source task.
+  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 15-15](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L15-L15)
 
 </details>
 

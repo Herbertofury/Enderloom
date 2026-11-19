@@ -10,7 +10,7 @@
 [**AOA-01**](Checklist.md#aoa-01)
 
 <details>
-<summary>Source clauses and aliases (760 distinct blocks)</summary>
+<summary>Source clauses and aliases (762 distinct blocks)</summary>
 
 - [Competing apps, foundations and shared capabilities / Proposed own-project interoperation](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L15-L15) - Competing-Apps.md; 1 distinct blocks.
 - [1. Current Enderloom baseline — preserve, expand, do not restart / Architecture rule](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L41-L41) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
@@ -326,6 +326,7 @@
 - [7. Food / Farming / Cooking Contracts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L285-L285) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [7. Food / Farming / Cooking Contracts / 7.1 Farmer’s Delight](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L291-L296) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 1 distinct blocks.
 - [9. Tooltip / Information Overlay Contracts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md#L341-L347) - ENDERLOOM_ECOSYSTEM_COMPATIBILITY_CONTRACT_CATALOG.md; 2 distinct blocks.
+- [Shared product pillars: local adoption](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L1-L5) - shared-product-pillars-20261119.md; 2 distinct blocks.
 - [Auto-selection examples](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L266-L266) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [Tier A — first-class adapters](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L22-L22) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
 - [Tier A — first-class adapters / Observable Remake / maintained descendants](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md#L61-L61) - ENDERLOOM_DIAGNOSTICS_ADAPTER_CATALOG.md; 1 distinct blocks.
