@@ -10,7 +10,7 @@
 [**SHIP-01**](Checklist.md#ship-01)
 
 <details>
-<summary>Source clauses and aliases (138 distinct blocks)</summary>
+<summary>Source clauses and aliases (140 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L744-L750) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 2 distinct blocks.
 - [2. CLI executable contract / Automation ergonomics](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L113-L116) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 4 distinct blocks.
@@ -71,7 +71,9 @@
 - [Enderloom Premium Testing Lab / AI Diagnostic Bundle / Privacy and safety](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L445-L445) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
 - [Enderloom Premium Testing Lab / Licensing/integration boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_LAB_SPEC.md#L563-L563) - PREMIUM_TESTING_LAB_SPEC.md; 1 distinct blocks.
 - [Codex Handoff — Enderloom Premium Testing + Full CLI / Done state for this handoff](https://github.com/Herbertofury/Enderloom/blob/main/docs/CODEX_HANDOFF_PREMIUM_TESTING_CLI.md#L255-L255) - CODEX_HANDOFF_PREMIUM_TESTING_CLI.md; 1 distinct blocks.
-- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L16-L16) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Local requirements and shared-principle adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L20-L20) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Local requirements and shared-principle adoption / Relevant local scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L11-L11) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Local requirements and shared-principle adoption / Scope boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L7-L7) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [15. DEFINITION OF DONE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L1370-L1389) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 4 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Constraints and preservation](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1397-L1397) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L2518-L2518) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
@@ -112,7 +114,7 @@
 [**SHIP-02**](Checklist.md#ship-02)
 
 <details>
-<summary>Source clauses and aliases (61 distinct blocks)</summary>
+<summary>Source clauses and aliases (60 distinct blocks)</summary>
 
 - [22. Definition of Done](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md#L725-L725) - ENDERLOOM_CONCEPT_ART_TO_NATIVE_MOD_SPEC.md; 1 distinct blocks.
 - [1. Non-negotiable product invariants](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md#L34-L34) - ENDERLOOM_NORTHPOINT_APEX_UNIVERSAL_CONVERSION_HANDOFF.md; 1 distinct blocks.
@@ -138,7 +140,6 @@
 - [23. Definition of done](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L659-L671) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 2 distinct blocks.
 - [6. Automatic evidence bundle](https://github.com/Herbertofury/Enderloom/blob/main/docs/AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md#L233-L233) - AI_AUTONOMOUS_REPAIR_LOOP_SPEC.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2217-L2237) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
-- [Shared product pillars: local adoption / Relevant local scope](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L7-L7) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [Enderloom — Variant Foundry Capability Closure / 10. No-regression invariants](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md#L255-L255) - ENDERLOOM_VARIANT_FOUNDRY_CAPABILITY_CLOSURE.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G002 — Browser/download experience behaves like a normal modern browser / T043 — Browser security hardening while adding Chrome-like capability](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L1923-L1923) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
 - [Enderloom — GET DONE NOW: Core UX / QoL Repair Queue / G015 — Bleeding-edge challenger-first technology promotion / T090 — Experimental technology can never weaken G010/G011 or introduce an obvious Minecraft regression](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_GET_DONE_NOW_QOL.md#L125-L125) - ENDERLOOM_GET_DONE_NOW_QOL.md; 1 distinct blocks.
@@ -189,7 +190,7 @@
 - [23. Acceptance tests](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md#L778-L778) - ENDERLOOM_PERFORMANCE_FAVORITES_CHECKLIST.md; 1 distinct blocks.
 - [13. FIRST-CLASS LAUNCHER COMPLETENESS — MAKE ENDERLOOM FEEL FINISHED / 13.13 Signed self-update with automatic rollback](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L1702-L1702) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 1 distinct blocks.
 - [14. DEFINITION OF DONE — USER-LEVEL OUTCOMES](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md#L2228-L2245) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF.md; 3 distinct blocks.
-- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L14-L14) - shared-product-pillars-20261119.md; 1 distinct blocks.
+- [Local requirements and shared-principle adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L18-L18) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.4 RELEASE / HANDOFF — FINISH THE PRODUCT, NOT JUST THE FEATURE](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L383-L383) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.4 RELEASE / HANDOFF — FINISH THE PRODUCT, NOT JUST THE FEATURE /   NP-20 — Run Enderloom regression + real Electron end-to-end acceptance](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L385-L389) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 3 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.4 RELEASE / HANDOFF — FINISH THE PRODUCT, NOT JUST THE FEATURE /   NP-22 — Final acceptance audit + durable checkpoint](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L407-L417) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 2 distinct blocks.
@@ -346,7 +347,7 @@
 [**SHIP-06**](Checklist.md#ship-06)
 
 <details>
-<summary>Source clauses and aliases (123 distinct blocks)</summary>
+<summary>Source clauses and aliases (124 distinct blocks)</summary>
 
 - [Competing apps, foundations and shared capabilities / 2026-11-15 launcher research refresh: Prism 12 preview](https://github.com/Herbertofury/Enderloom/blob/main/docs/wiki/Competing-Apps.md#L40-L40) - Competing-Apps.md; 1 distinct blocks.
 - [G059 — Final promotion matrix for researched technologies](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L1869-L1869) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -411,7 +412,8 @@
 - [Universal Minecraft A/B Studio / Done when](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L74-L74) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 1 distinct blocks.
 - [Universal Minecraft A/B Studio / Executable acceptance slices](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L78-L78) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 1 distinct blocks.
 - [Universal Minecraft A/B Studio / Executable acceptance slices / Organized inputs, proof and publication — owner SHIP-06](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md#L125-L130) - ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md; 5 distinct blocks.
-- [Shared product pillars: local adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L11-L15) - shared-product-pillars-20261119.md; 2 distinct blocks.
+- [Local requirements and shared-principle adoption / Acceptance and maintenance backlog](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L15-L19) - shared-product-pillars-20261119.md; 2 distinct blocks.
+- [Local requirements and shared-principle adoption / Scope boundary](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L9-L9) - shared-product-pillars-20261119.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-00 — Freeze the real Enderloom baseline and implementation boundaries](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L64-L64) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.2 CORE IMPLEMENTATION — KNOCK THESE OUT IN ORDER /   NP-10 — Implement fan-out policy, remembered preferences, and headless behavior](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L234-L234) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.
 - [0. LIVE IMPLEMENTATION COMMAND CENTER — USE THIS AS THE WORK LOG / 0.3 RUNTIME + PERFORMANCE PROOF — THESE ARE NOT OPTIONAL CEREMONY /   NP-19 — Run one adversarial regression/challenge pass](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md#L375-L375) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v3_ARCHIVED.md; 1 distinct blocks.

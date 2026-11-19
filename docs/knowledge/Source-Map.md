@@ -9,9 +9,9 @@
 | Measure | Count |
 | :--- | ---: |
 | Located source documents | 67 |
-| Source lines processed | 47,141 |
-| Non-empty source blocks accounted for | 16,286 |
-| Distinct contextual/exact source blocks | 13,368 |
+| Source lines processed | 47,145 |
+| Non-empty source blocks accounted for | 16,288 |
+| Distinct contextual/exact source blocks | 13,370 |
 | Exact repeated occurrences sharing an identity | 2,918 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,682 |
@@ -637,14 +637,14 @@ Bytes: 1,456. Historical checked occurrences: 0.
 
 <a id="s-912882fc39"></a>
 <details>
-<summary><strong>shared-product-pillars-20261119.md</strong> - 18 lines</summary>
+<summary><strong>shared-product-pillars-20261119.md</strong> - 22 lines</summary>
 
 [Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md) | specification
 
-SHA-256: `3963ff8b505ea3551d9b7942e238a99572833a69ce9d768727623f967c167029`  
-Bytes: 2,221. Historical checked occurrences: 0.
+SHA-256: `ec106cfd83d07302b108d1eccf1a7b0ce059b0d8184e27a1c3fb4d62558c6f82`  
+Bytes: 2,614. Historical checked occurrences: 0.
 
-**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**DEP-09**](Checklist.md#dep-09), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-02**](Checklist.md#ship-02), [**SHIP-03**](Checklist.md#ship-03), [**SHIP-06**](Checklist.md#ship-06)
+**Outcome owners:** [**AOA-01**](Checklist.md#aoa-01), [**DEP-09**](Checklist.md#dep-09), [**PORT-01**](Checklist.md#port-01), [**PORT-05**](Checklist.md#port-05), [**SHIP-01**](Checklist.md#ship-01), [**SHIP-03**](Checklist.md#ship-03), [**SHIP-06**](Checklist.md#ship-06)
 
 </details>
 

@@ -489,13 +489,13 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Acceptance and maintenance backlog (1)</summary>
 
-<a id="d-3e8f49fb2269c09b6d21"></a>
-- [ ] **D-3e8f49fb2269c09b6d21** - Carry future owner corrections into this local backlog and the central register without overwriting more specific requirements.
+<a id="d-3c38faa7ff47372229e3"></a>
+- [ ] **D-3c38faa7ff47372229e3** - Carry future owner corrections into this local backlog and the central register without overwriting more specific requirements.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
-  - **Original specification:** [shared-product-pillars-20261119.md : 16-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L16-L16)
+  - **Binding context:** Local requirements and shared-principle adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 20-20](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L20-L20)
 
 </details>
 
@@ -1111,13 +1111,13 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Acceptance and maintenance backlog (1)</summary>
 
 <a id="d-867de717004b0467cd93"></a>
 - [ ] **D-867de717004b0467cd93** - Verify relocation/restart, lost events, cancellation, stale results, privacy, accessibility and complete results at representative workload scale where relevant.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
-  - **Original specification:** [shared-product-pillars-20261119.md : 14-14](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L14-L14)
+  - **Binding context:** Local requirements and shared-principle adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 18-18](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L18-L18)
 
 </details>
 
@@ -2278,13 +2278,13 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Acceptance and maintenance backlog (1)</summary>
 
 <a id="d-070f53dc90a464d427d2"></a>
 - [ ] **D-070f53dc90a464d427d2** - Record implementation revision, fixture/build evidence, actual native/game acceptance and deployed state separately. A saved requirement is not implemented functionality.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
-  - **Original specification:** [shared-product-pillars-20261119.md : 15-15](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L15-L15)
+  - **Binding context:** Local requirements and shared-principle adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 19-19](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L19-L19)
 
 </details>
 

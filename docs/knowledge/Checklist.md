@@ -914,14 +914,14 @@
 <a id="ship-01"></a>
 - [ ] **SHIP-01 - Supply-chain and untrusted input safety**
   - **Accept:** Validate archives/paths/hashes/notices, isolate code/build/filter execution, protect credentials and preserve input on malformed/resource-exhausted runs; external content is data, not instructions.
-  - **State:** unverified. **Details:** [138 source blocks](Sources-SHIP.md#ship-01); 34 source documents.
+  - **State:** unverified. **Details:** [140 source blocks](Sources-SHIP.md#ship-01); 34 source documents.
 
 **[Open 39 detailed checks](Acceptance-SHIP.md#ship-02-details)**
 
 <a id="ship-02"></a>
 - [ ] **SHIP-02 - Preserved product boundaries**
   - **Accept:** Retain established launcher/catalog/browser, full CLI and studio scope; no friend-hosting/P2P/reverse-tunnel or Voice/Social center absent a new explicit user decision.
-  - **State:** unverified. **Details:** [61 source blocks](Sources-SHIP.md#ship-02); 22 source documents.
+  - **State:** unverified. **Details:** [60 source blocks](Sources-SHIP.md#ship-02); 21 source documents.
 
 **[Open 20 detailed checks](Acceptance-SHIP.md#ship-03-details)**
 
@@ -949,7 +949,7 @@
 <a id="ship-06"></a>
 - [ ] **SHIP-06 - A/B Studio third-party lineage and live progress**
   - **Accept:** Organize sources/tools/private fixtures with versions/licenses, compact reports and necessary reproducers; synchronize GitHub and actual live wiki with planned/implemented/gameplay-tested labels; delete obsolete bulky copies only after replacement validation and safe-cleanup approval. Acceptance: AB-T024–AB-T027. Complete contract: docs/ENDERLOOM_UNIVERSAL_MINECRAFT_AB_STUDIO.md.
-  - **State:** unverified. **Details:** [123 source blocks](Sources-SHIP.md#ship-06); 36 source documents.
+  - **State:** unverified. **Details:** [124 source blocks](Sources-SHIP.md#ship-06); 36 source documents.
   - **Next:** Implement the native two-client slice AB-T001–AB-T003 through existing runtime services; preserve active AoA work.
 
 ## Combined release acceptance

@@ -4125,13 +4125,13 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Acceptance and maintenance backlog (1)</summary>
 
 <a id="d-72d7fdd852cb3d070b43"></a>
 - [ ] **D-72d7fdd852cb3d070b43** - Map applicable pillars to existing owners and tests. Preserve one authoritative state/transaction path; avoid duplicated schedulers, schemas and writers.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
-  - **Original specification:** [shared-product-pillars-20261119.md : 13-13](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L13-L13)
+  - **Binding context:** Local requirements and shared-principle adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 17-17](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L17-L17)
 
 </details>
 

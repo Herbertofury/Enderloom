@@ -1218,13 +1218,13 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Acceptance and maintenance backlog (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Acceptance and maintenance backlog (1)</summary>
 
-<a id="d-33fa01e210c7e6eb2ae5"></a>
-- [ ] **D-33fa01e210c7e6eb2ae5** - Reconcile current authoritative source and active work before implementing; existing private or local work may exceed public main.
+<a id="d-e187976f5680136c2300"></a>
+- [ ] **D-e187976f5680136c2300** - Reconcile current authoritative source and active work before implementing; existing private or local work may exceed public main.
   - **State:** unverified. **Kind:** source task.
-  - **Binding context:** Shared product pillars: local adoption / Acceptance and maintenance backlog
-  - **Original specification:** [shared-product-pillars-20261119.md : 12-12](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L12-L12)
+  - **Binding context:** Local requirements and shared-principle adoption / Acceptance and maintenance backlog
+  - **Original specification:** [shared-product-pillars-20261119.md : 16-16](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L16-L16)
 
 </details>
 
@@ -4904,14 +4904,14 @@
 </details>
 
 <details>
-<summary>shared-product-pillars-20261119.md / Shared product pillars: local adoption / Relevant local scope (1)</summary>
+<summary>shared-product-pillars-20261119.md / Local requirements and shared-principle adoption / Relevant local scope (1)</summary>
 
 <a id="d-ba87043ffc1269a3139f"></a>
 - [ ] **D-ba87043ffc1269a3139f** - Preserve protected Catalog/Source/Browser/Full/Split research, independent launcher/accounts/instances and complete source-owned galleries. Extend the existing master workbench gra...
   - **State:** unverified. **Kind:** binding source prose.
   - **Full requirement:** Preserve protected Catalog/Source/Browser/Full/Split research, independent launcher/accounts/instances and complete source-owned galleries. Extend the existing master workbench graph, never a shadow database. Add unified Relationships plus separate required/optional/conflict/works-with columns with exact Java/Bedrock, loader/version and project/file provenance. Sorting must not change load order. Scope refresh to launch/manual/view/entity changes with bounded workers, missed-event recovery and last-good metadata. Keep provider failures and media completeness explicit; no autoplay by default. Creator/release notifications stay configurable and do not silently install updates. Portable app-owned state and preserved project colors/black default apply. Existing world/game conversion acceptance and original-world safety remain authoritative.
-  - **Binding context:** Shared product pillars: local adoption / Relevant local scope
-  - **Original specification:** [shared-product-pillars-20261119.md : 9-9](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L9-L9)
+  - **Binding context:** Local requirements and shared-principle adoption / Relevant local scope
+  - **Original specification:** [shared-product-pillars-20261119.md : 13-13](https://github.com/Herbertofury/Enderloom/blob/main/docs/shared-product-pillars-20261119.md#L13-L13)
 
 </details>
 
