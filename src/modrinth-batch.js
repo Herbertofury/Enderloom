@@ -1,15 +1,24 @@
 'use strict';
 
+const projectIdPattern=/^[A-Za-z0-9]+$/;
+function modrinthProjectKey(ref='') {
+  // Stable Base62 IDs are case-sensitive. A purely alphanumeric vanity slug can
+  // look exactly like an ID, so preserve spelling even for that ambiguous form.
+  return projectIdPattern.test(ref)?ref:ref.toLowerCase();
+}
 function modrinthSlugFromUrl(rawUrl='') {
-  let u;try{u=new URL(String(rawUrl))}catch{return ''}
-  if(!/(^|\.)modrinth\.com$/i.test(u.hostname))return '';
-  const parts=u.pathname.split('/').filter(Boolean);
-  if(parts.length<2||!['mod','plugin','datapack','shader','resourcepack','modpack'].includes(parts[0].toLowerCase()))return '';
-  return decodeURIComponent(parts[1]);
+  try {
+    const u=new URL(String(rawUrl));
+    if(!['https:','http:'].includes(u.protocol)||u.username||u.password||!/(^|\.)modrinth\.com$/i.test(u.hostname))return '';
+    const parts=u.pathname.split('/').filter(Boolean);
+    if(parts.length<2||!['mod','plugin','datapack','shader','resourcepack','modpack'].includes(parts[0].toLowerCase()))return '';
+    const ref=decodeURIComponent(parts[1]);
+    return !ref||/[\s/\\\x00-\x1f\x7f]/.test(ref)||ref==='.'||ref==='..'?'':ref;
+  }catch{return ''}
 }
 function uniqueSlugs(values=[]) {
   const out=[],seen=new Set();
-  for(const raw of values){const slug=String(raw||'').trim();if(!slug)continue;const key=slug.toLowerCase();if(seen.has(key))continue;seen.add(key);out.push(slug)}
+  for(const raw of values){const slug=String(raw||'').trim();if(!slug)continue;const key=modrinthProjectKey(slug);if(seen.has(key))continue;seen.add(key);out.push(slug)}
   return out;
 }
 // The Modrinth route uses a JSON array in one query parameter. Split only when the
@@ -25,13 +34,28 @@ function chunkSlugsByUrlLength(values=[], maxUrlChars=6800) {
   if(chunk.length)chunks.push(chunk);
   return chunks;
 }
+function matchesProjectRef(row,ref) {
+  return typeof row?.id==='string'&&projectIdPattern.test(row.id)&&(row.id===ref||
+    (typeof row.slug==='string'&&row.slug.toLowerCase()===ref.toLowerCase()));
+}
 function indexProjects(rows=[]) {
-  const map=new Map();
-  for(const project of Array.isArray(rows)?rows:[]){
-    if(!project||typeof project!=='object')continue;
-    for(const key of [project.id,project.slug].filter(Boolean))map.set(String(key).toLowerCase(),project);
+  const ids=new Map(),slugs=new Map();
+  for(const row of Array.isArray(rows)?rows:[]){
+    if(typeof row?.id!=='string'||!projectIdPattern.test(row.id))continue;
+    if(!ids.has(row.id))ids.set(row.id,row);
+    if(typeof row.slug==='string'&&row.slug){
+      const key=row.slug.toLowerCase();
+      if(!slugs.has(key))slugs.set(key,row);
+      else if(slugs.get(key)?.id!==row.id)slugs.set(key,null);
+    }
   }
-  return map;
+  return {get(ref){
+    const id=ids.get(ref),slugKey=ref.toLowerCase(),slug=slugs.get(slugKey);
+    // The bulk response does not say which input matched which namespace.
+    // Ask the existing exact endpoint when two different rows could match.
+    if((slug===null&&slugs.has(slugKey))||(id&&slug&&id.id!==slug.id))return null;
+    return id||slug||null;
+  }};
 }
 
 function safeHttp(raw='') {
@@ -81,4 +105,4 @@ function modrinthProjectMedia(project={}) {
   return out;
 }
 
-module.exports={modrinthSlugFromUrl,uniqueSlugs,chunkSlugsByUrlLength,indexProjects,descriptionImages,modrinthProjectMedia};
+module.exports={modrinthSlugFromUrl,modrinthProjectKey,matchesProjectRef,uniqueSlugs,chunkSlugsByUrlLength,indexProjects,descriptionImages,modrinthProjectMedia};

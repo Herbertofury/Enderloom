@@ -20,6 +20,22 @@ function canonicalCurseForgeProjectUrl(raw='') {
   return url.toString();
 }
 
+// An API search result is useful only if its provider slug matches the
+// requested Minecraft class-scoped route, not just the catalog's display name.
+function exactCurseForgeSearchId(hits, projectSlug) {
+  if(!Array.isArray(hits)||typeof projectSlug!=='string'||!projectSlug)return '';
+  const slug=projectSlug.toLowerCase();
+  let selected='';
+  for(const row of hits){
+    if(typeof row?.slug!=='string'||row.slug.toLowerCase()!==slug)continue;
+    // The existing native search bridge serializes provider IDs as strings.
+    const id=row.id;
+    if(typeof id!=='string'||!/^[1-9]\d{0,9}$/.test(id)||Number(id)>2147483647||(selected&&selected!==id))return '';
+    selected=id;
+  }
+  return selected;
+}
+
 function parseCurseForgeProjectId(raw='') {
   const text=String(raw||'');
   const patterns=[
@@ -62,4 +78,4 @@ function curseForgeInstallation({platform=process.platform,localAppData=process.
   return {installed:!!(command||executable),registered:!!command,command,executable};
 }
 
-module.exports={canonicalCurseForgeProjectUrl,parseCurseForgeProjectId,registryProtocolCommand,executableFromCommand,curseForgeInstallation};
+module.exports={canonicalCurseForgeProjectUrl,parseCurseForgeProjectId,exactCurseForgeSearchId,registryProtocolCommand,executableFromCommand,curseForgeInstallation};

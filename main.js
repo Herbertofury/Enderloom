@@ -23,8 +23,8 @@ const { createProviderParserPool } = require('./src/provider-parser-pool');
 const { createTranslator } = require('./src/translator');
 const { createTranslatorUpdater } = require('./src/translator-updater');
 const pageTranslator = require('./src/page-translator-agent');
-const { modrinthSlugFromUrl, chunkSlugsByUrlLength, indexProjects, modrinthProjectMedia } = require('./src/modrinth-batch');
-const { canonicalCurseForgeProjectUrl, parseCurseForgeProjectId, curseForgeInstallation } = require('./src/provider-launcher-handoff');
+const { modrinthSlugFromUrl, modrinthProjectKey, matchesProjectRef, chunkSlugsByUrlLength, indexProjects, modrinthProjectMedia } = require('./src/modrinth-batch');
+const { canonicalCurseForgeProjectUrl, parseCurseForgeProjectId, exactCurseForgeSearchId, curseForgeInstallation } = require('./src/provider-launcher-handoff');
 const rustHttp = require('./src/rust-http');
 const impitHttp3 = require('./src/impit-http3');
 const { hasMedia:startRaceHasMedia, startParallelRace } = require('./src/parallel-media-race');
@@ -1856,8 +1856,7 @@ async function extractLivePageMediaQuick(url, script, { timeoutMs=3300, foregrou
   }
 }
 
-async function resolveCurseForgeAddonId(rawUrl, fallback='') {
-  if(/^\d{4,12}$/.test(String(fallback||'')))return String(fallback);
+async function resolveCurseForgeAddonId(rawUrl) {
   const url=canonicalCurseForgeProjectUrl(rawUrl);if(!url)return '';
   // Reuse both public and signed-in Chromium transports. The project ID is public,
   // so native handoff never depends on reading another launcher's private credential.
@@ -2047,20 +2046,31 @@ function discoverGithubSeedMedia(url, context={}) {
   return {sourceUrl:url,resolvedProjectUrl:projectUrl,title:repo,gallery,images:gallery,icon:null,author,authorUrl,provider:'github',identity,exclusive:false,discoveredAt:new Date().toISOString(),cachedAt:Date.now(),error:'',liveOnly:true,seed:true};
 }
 
-function cachedModrinthProject(slug='') {
-  const key=String(slug||'').toLowerCase(),entry=modrinthProjectCache.get(key);if(!entry)return null;
+function cachedModrinthProject(ref='') {
+  const key=modrinthProjectKey(ref),entry=modrinthProjectCache.get(key);if(!entry)return null;
   if(Date.now()-Number(entry.at||0)>MODRINTH_PROJECT_CACHE_MS){modrinthProjectCache.delete(key);return null}
-  return entry.promise||Promise.resolve(entry.value||null);
+  return entry;
 }
-function rememberModrinthProject(keys, promise) {
-  const at=Date.now();for(const raw of keys){const key=String(raw||'').toLowerCase();if(key)modrinthProjectCache.set(key,{at,promise});}
-  promise.then(project=>{if(!project)return;const value={at:Date.now(),value:project};for(const raw of [project.id,project.slug,...keys]){const key=String(raw||'').toLowerCase();if(key)modrinthProjectCache.set(key,value)}}).catch(()=>{for(const raw of keys){const key=String(raw||'').toLowerCase();const entry=modrinthProjectCache.get(key);if(entry?.promise===promise)modrinthProjectCache.delete(key)}});
+function rememberModrinthProject(ref,promise,fromBatch=false) {
+  const key=modrinthProjectKey(ref),entry={at:Date.now(),promise,fromBatch};
+  modrinthProjectCache.set(key,entry);
+  const forget=()=>{if(modrinthProjectCache.get(key)===entry)modrinthProjectCache.delete(key)};
+  promise.then(project=>{if(project)entry.at=Date.now();else forget()},forget);
   return promise;
 }
-async function getModrinthProject(slug='') {
-  const existing=cachedModrinthProject(slug);if(existing)return existing;
-  const promise=fetchJsonLive(`https://api.modrinth.com/v2/project/${encodeURIComponent(slug)}`);
-  return rememberModrinthProject([slug],promise);
+async function getModrinthProject(ref='',direct=false) {
+  const existing=cachedModrinthProject(ref);
+  if(existing){
+    if(!existing.fromBatch)return existing.promise;
+    if(!direct){
+      const project=await existing.promise.catch(()=>null);
+      if(project)return project;
+      return getModrinthProject(ref,true);
+    }
+  }
+  const promise=fetchJsonLive(`https://api.modrinth.com/v2/project/${encodeURIComponent(ref)}`)
+    .then(project=>matchesProjectRef(project,ref)?project:null);
+  return rememberModrinthProject(ref,promise);
 }
 function warmModrinthProjectBatches(requests=[]) {
   const slugs=[];
@@ -2068,16 +2078,15 @@ function warmModrinthProjectBatches(requests=[]) {
   for(const chunk of chunkSlugsByUrlLength(slugs)){
     const batchPromise=fetchJsonLive(`https://api.modrinth.com/v2/projects?ids=${encodeURIComponent(JSON.stringify(chunk))}`).then(rows=>indexProjects(rows));
     for(const slug of chunk){
-      const projectPromise=batchPromise.then(index=>index.get(String(slug).toLowerCase())||null);
-      rememberModrinthProject([slug],projectPromise);
+      const projectPromise=batchPromise.then(index=>index.get(slug));
+      rememberModrinthProject(slug,projectPromise,true);
     }
   }
 }
 
 async function discoverModrinthMedia(url, context={}, includeAuthor=false) {
-  let u;try{u=new URL(url)}catch{return null} if(!/(^|\.)modrinth\.com$/i.test(u.hostname))return null;
-  const parts=u.pathname.split('/').filter(Boolean); if(parts.length<2||!['mod','plugin','datapack','shader','resourcepack','modpack'].includes(parts[0]))return null;
-  const slug=parts[1]; const project=await getModrinthProject(slug);if(!project)return null;
+  const slug=modrinthSlugFromUrl(url);if(!slug)return null;
+  const project=await getModrinthProject(slug);if(!project)return null;
   const identity=pageIdentityConfidence({expectedTitle:context.title||'',actualTitle:project?.title||'',sourceUrl:url});if(context.title&&identity<48)return null;
   const gallery=modrinthProjectMedia(project).map(x=>sanitizeMediaItem({...x,identity},'gallery')).filter(Boolean);
   const icon=sanitizeMediaItem({url:project?.icon_url,alt:`${project?.title||slug} project icon`,source:'modrinth-api',provider:'modrinth',confidence:100,identity},'icon');
@@ -3054,33 +3063,29 @@ ipcMain.handle('catalog:open-provider-launcher', async (event, project) => {
   }
 
   const nativeApp=curseForgeInstallation();
-  let addonId = /^\d+$/.test(request.projectId) ? request.projectId : '';
-  if (!addonId) {
-    const query = {
-      query: request.projectId.replace(/[-_]+/g, ' '),
-      game_versions: [],
-      loaders: [],
-      categories: [],
-      environment: null,
-      open_source_only: false,
-      sort: 'relevance',
-      offset: 0,
-      limit: 50,
-    };
-    try {
-      const page = await launcherService.request('search_content', {
-        provider: 'curseforge',
-        kind: request.kind,
-        query,
-      });
-      const exact = (page?.hits || []).find(hit =>
-        String(hit?.slug || '').toLowerCase() === request.projectId.toLowerCase()
-        || String(hit?.title || '').toLowerCase() === request.title.toLowerCase()
-      );
-      addonId = /^\d+$/.test(String(exact?.id || '')) ? String(exact.id) : '';
-    } catch {}
-  }
-  if(!addonId)addonId=await resolveCurseForgeAddonId(request.sourceUrl,request.projectId);
+  // The URL contains the provider slug, even when it consists only of digits.
+  // Search results can share a display title; only the class-scoped slug counts.
+  let addonId = '';
+  const query = {
+    query: request.projectId.replace(/[-_]+/g, ' '),
+    game_versions: [],
+    loaders: [],
+    categories: [],
+    environment: null,
+    open_source_only: false,
+    sort: 'relevance',
+    offset: 0,
+    limit: 50,
+  };
+  try {
+    const page = await launcherService.request('search_content', {
+      provider: 'curseforge',
+      kind: request.kind,
+      query,
+    });
+    addonId = exactCurseForgeSearchId(page?.hits, request.projectId);
+  } catch {}
+  if(!addonId)addonId=await resolveCurseForgeAddonId(request.sourceUrl);
   if (addonId) {
     await shell.openExternal(`curseforge://install?addonId=${encodeURIComponent(addonId)}`);
   } else if(nativeApp.installed) {
