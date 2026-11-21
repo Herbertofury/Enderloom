@@ -56,11 +56,3 @@ stateDiagram-v2
 ```
 
 Cancellation, failed downloads and inaccessible hosts never mean success or absence. Partial and staged outputs stay separate from certified artifacts. A completed symbol mapping is not a completed semantic port.
-
-
-Modrinth's public catalog uses exact, case-sensitive stable project IDs across
-warm batches and direct lookups. A bulk result is not treated as proof of
-ownership if the same lookup token can refer to multiple rows. The ordinary
-single-project endpoint resolves that case; a mismatched response does not
-become the card for another project. This is read-only catalog enrichment and
-does not change launcher dependency installation or update decisions.
