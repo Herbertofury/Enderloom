@@ -293,6 +293,7 @@ pub fn run() {
             commands::content_commands::get_content_dependents,
             commands::content_commands::plan_content_removal,
             commands::content_commands::list_instance_content,
+            commands::content_commands::list_content_source_index,
             commands::content_commands::list_instance_content_bundle,
             commands::content_commands::toggle_instance_content,
             commands::content_commands::set_instance_content_frozen,

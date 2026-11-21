@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -31,19 +31,34 @@ import type {
   ProjectVersion,
   VersionFile,
 } from "../lib/types";
-import { useContentInstaller } from "../components/CurseForgeDownloadModal";
-import { GetServerModal } from "../components/GetServerModal";
+import { useContentInstaller } from "../lib/contentInstaller";
 import { InstanceTargetPicker } from "../components/InstanceTargetPicker";
 import { Markdown } from "../components/project/Markdown";
-import { ProjectGallery } from "../components/project/ProjectGallery";
 import { ProjectHero } from "../components/project/ProjectHero";
 import { ProjectSidebar } from "../components/project/ProjectSidebar";
-import { VersionBrowser } from "../components/project/VersionBrowser";
 import { useActiveProjectIds } from "../lib/useTasks";
 import { serverPackFile } from "../lib/servers";
 import type { InstallTarget } from "../lib/target";
 import { useStore } from "../store";
 
+const loadVersionBrowser = () => import("../components/project/VersionBrowser");
+const loadProjectGallery = () => import("../components/project/ProjectGallery");
+
+const VersionBrowser = lazy(() =>
+  loadVersionBrowser().then((module) => ({
+    default: module.VersionBrowser,
+  })),
+);
+const ProjectGallery = lazy(() =>
+  loadProjectGallery().then((module) => ({
+    default: module.ProjectGallery,
+  })),
+);
+const GetServerModal = lazy(() =>
+  import("../components/GetServerModal").then((module) => ({
+    default: module.GetServerModal,
+  })),
+);
 interface PendingInstall {
   key: string;
   projectId: string;
@@ -86,6 +101,9 @@ function githubSourceFrom(details: Array<ProjectDetails | null>): string | null 
 
 export function ProjectView() {
   const projectRef = useStore((s) => s.projectRef);
+  const hasCurseForgeAccess = useStore(
+    (s) => !!s.settings?.curseforge_api_key || s.bundledCurseforgeKey,
+  );
   const storeKind = useStore((s) => s.searchKind);
   const kind: ContentKind = storeKind ?? "mods";
   const instance = useStore((s) =>
@@ -179,6 +197,8 @@ export function ProjectView() {
   const [pickingTarget, setPickingTarget] = useState(false);
 
   const isPack = kind === "modpacks";
+  const canResolveProviderMirror =
+    projectRef?.provider !== "modrinth" || hasCurseForgeAccess;
   const loader = kind === "mods" ? (destination?.loader ?? null) : null;
   const contentInstaller = useContentInstaller();
 
@@ -225,17 +245,18 @@ export function ProjectView() {
         if (live) setLoading(false);
       });
 
-    void detailRequest
-      .then(() => loadProjectMirrors(projectRef.provider, projectRef.id, kind))
-      .then((value) => {
-        if (live) setMirrors(value);
-      })
-      .catch(() => {});
+    if (canResolveProviderMirror) {
+      void loadProjectMirrors(projectRef.provider, projectRef.id, kind)
+        .then((value) => {
+          if (live) setMirrors(value);
+        })
+        .catch(() => {});
+    }
 
     return () => {
       live = false;
     };
-  }, [projectRef?.provider, projectRef?.id, kind]);
+  }, [projectRef?.provider, projectRef?.id, kind, canResolveProviderMirror]);
 
   useEffect(() => {
     let live = true;
@@ -764,6 +785,14 @@ export function ProjectView() {
         {tabs.map((t) => (
           <button
             key={t.id}
+            onMouseEnter={() => {
+              if (t.id === "versions") void loadVersionBrowser();
+              if (t.id === "gallery") void loadProjectGallery();
+            }}
+            onFocus={() => {
+              if (t.id === "versions") void loadVersionBrowser();
+              if (t.id === "gallery") void loadProjectGallery();
+            }}
             onClick={() => {
               setProviderSurface(null);
               setTab(t.id);
@@ -884,7 +913,8 @@ export function ProjectView() {
                 Loading versions
               </div>
             ) : (
-              <VersionBrowser
+              <Suspense fallback={<div className="py-8" />}>
+                <VersionBrowser
                 versions={versions}
                 kind={kind}
                 isPack={isPack}
@@ -909,23 +939,30 @@ export function ProjectView() {
                   openProject(projectRef.provider, projectId, kind)
                 }
                 onChooseInstance={() => setPickingTarget(true)}
-              />
+                />
+              </Suspense>
             )}
           </div>
         ) : tab === "gallery" ? (
-          <ProjectGallery images={gallery} />
+          <Suspense fallback={<div className="flex-1" />}>
+            <ProjectGallery images={gallery} />
+          </Suspense>
         ) : null}
       </div>
 
-      <GetServerModal
-        open={serverPack !== null}
-        title={details?.title ?? projectRef.title ?? "Modpack"}
-        version={serverPack?.version ?? null}
-        file={serverPack?.file ?? null}
-        fileId={serverPack?.fileId ?? null}
-        projectId={projectRef.id}
-        onClose={() => setServerPack(null)}
-      />
+      {serverPack && (
+        <Suspense fallback={null}>
+          <GetServerModal
+            open
+            title={details?.title ?? projectRef.title ?? "Modpack"}
+            version={serverPack.version}
+            file={serverPack.file}
+            fileId={serverPack.fileId}
+            projectId={projectRef.id}
+            onClose={() => setServerPack(null)}
+          />
+        </Suspense>
+      )}
 
       {(needsTarget || pickingTarget) && (
         <InstanceTargetPicker

@@ -3194,7 +3194,16 @@ async function runSelfTest() {
   check('Enderloom React workspace boots through the Electron preload', launcherUi?.bridge===true && launcherUi?.rootChildren>0 && /Enderloom/i.test(launcherUi?.title||''), JSON.stringify(launcherUi));
   const launcherCoreInfo = await launcherService.request('get_app_info');
   const launcherCoreInstances = await launcherService.request('list_instances');
+  const emptyContentSourceIndex = await launcherService.request('list_content_source_index', {
+    instanceIds: [],
+    kind: 'mods',
+  });
   check('Electron invokes the real Rust launcher core', !!launcherCoreInfo?.version && Array.isArray(launcherCoreInstances), JSON.stringify({version:launcherCoreInfo?.version,instances:launcherCoreInstances?.length}));
+  check(
+    'Browse installed-state index crosses the Electron/Rust IPC boundary',
+    emptyContentSourceIndex && typeof emptyContentSourceIndex==='object' && Object.keys(emptyContentSourceIndex).length===0,
+    JSON.stringify(emptyContentSourceIndex),
+  );
   await command('launcher');
   const launcherBounds = launcherView?.getBounds?.() || {};
   const [launcherW,launcherH] = win.getContentSize();
@@ -3257,16 +3266,49 @@ async function runSelfTest() {
   const launcherProjectEvent = await catalogProjectReceived;
   check('Catalog project handoff resolves a real Modrinth project', catalogLauncherHandoff?.opened===true && catalogLauncherHandoff?.provider==='modrinth' && catalogLauncherHandoff?.projectId==='sodium' && catalogLauncherHandoff?.kind==='mods', JSON.stringify(catalogLauncherHandoff));
   check('Catalog handoff activates the in-app Mod Manager project workflow', activeId===LAUNCHER_ID && launcherProjectEvent?.projectId==='sodium' && launcherProjectEvent?.title==='Sodium', JSON.stringify({activeId,launcherProjectEvent}));
-  await new Promise(resolve => setTimeout(resolve, 180));
-  const catalogInstallUi = await launcherView.webContents.executeJavaScript(`({
-    dialogTitle:document.querySelector('[role="dialog"] #catalog-install-title')?.textContent?.trim()||'',
-    hasInstanceSearch:!![...document.querySelectorAll('input')].find(input=>input.placeholder==='Search instances'),
-    bodyText:document.body.innerText
+  const catalogInstallUi = await launcherView.webContents.executeJavaScript(`new Promise(resolve => {
+    const started=performance.now();
+    let settled=false;
+    let observer=null;
+    let timer=0;
+    const inspect=()=>{
+      const dialogTitle=document.querySelector('[role="dialog"] #catalog-install-title')?.textContent?.trim()||'';
+      const hasInstanceSearch=!![...document.querySelectorAll('input')].find(input=>input.placeholder==='Search instances');
+      const bodyText=document.body.innerText;
+      if(dialogTitle==='Install project' && hasInstanceSearch){
+        if(settled)return true;
+        settled=true;
+        observer?.disconnect();
+        clearTimeout(timer);
+        resolve({dialogTitle,hasInstanceSearch,bodyText,elapsedMs:performance.now()-started,timedOut:false});
+        return true;
+      }
+      return false;
+    };
+    if(inspect())return;
+    observer=new MutationObserver(inspect);
+    observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+    timer=setTimeout(()=>{
+      if(settled)return;
+      settled=true;
+      observer.disconnect();
+      resolve({
+        dialogTitle:document.querySelector('[role="dialog"] #catalog-install-title')?.textContent?.trim()||'',
+        hasInstanceSearch:!![...document.querySelectorAll('input')].find(input=>input.placeholder==='Search instances'),
+        bodyText:document.body.innerText,
+        elapsedMs:performance.now()-started,
+        timedOut:true
+      });
+    },1200);
   })`, true);
   check(
-    'Catalog handoff renders the multi-instance compatibility picker',
-    catalogInstallUi?.dialogTitle==='Install project' && catalogInstallUi?.hasInstanceSearch===true && /compatible instance|Checking every instance/i.test(catalogInstallUi?.bodyText||''),
-    JSON.stringify({dialogTitle:catalogInstallUi?.dialogTitle,hasInstanceSearch:catalogInstallUi?.hasInstanceSearch}),
+    'Catalog handoff renders the multi-instance compatibility picker without a lazy-load stall',
+    catalogInstallUi?.timedOut===false &&
+      catalogInstallUi?.dialogTitle==='Install project' &&
+      catalogInstallUi?.hasInstanceSearch===true &&
+      /compatible instance|Checking every instance/i.test(catalogInstallUi?.bodyText||'') &&
+      Number(catalogInstallUi?.elapsedMs)<250,
+    JSON.stringify({dialogTitle:catalogInstallUi?.dialogTitle,hasInstanceSearch:catalogInstallUi?.hasInstanceSearch,elapsedMs:catalogInstallUi?.elapsedMs,timedOut:catalogInstallUi?.timedOut}),
   );
 
   const providerOpened = openLauncherProviderSurface({
@@ -3378,6 +3420,16 @@ async function runSelfTest() {
       seededProjectPaint?.heading==='Sodium' &&
       Number(seededProjectPaint?.elapsedMs)<300,
     JSON.stringify(seededProjectPaint),
+  );
+  const installedIndexBenchmark = await launcherView.webContents.executeJavaScript(
+    `window.__enderloomBrowseTest?.benchmarkInstalledIndex?.()`,
+    true,
+  );
+  check(
+    'Browse installed-state indexing preserves results and materially reduces repeated render work',
+    installedIndexBenchmark?.equivalent===true &&
+      Number(installedIndexBenchmark?.speedup)>=2,
+    JSON.stringify(installedIndexBenchmark),
   );
   stage('browse-seeded-paint');
   await launcherView.webContents.executeJavaScript(`window.__enderloomBrowseTest?.reset?.(); true`, true);
