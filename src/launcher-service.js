@@ -24,6 +24,7 @@ class LauncherService extends EventEmitter {
     this.readyResolve = null;
     this.readyReject = null;
     this.stopping = false;
+    this.resetDrained = null;
     this.status = { state: 'stopped', version: '', pid: null, error: '' };
   }
 
@@ -43,6 +44,7 @@ class LauncherService extends EventEmitter {
   }
 
   async start() {
+    if (this.resetDrained) throw new Error('Enderloom offline reset is in progress');
     if (this.child && this.status.state === 'ready') return this.snapshot();
     if (this.child && this.status.state === 'failed') throw new Error(this.status.error);
     if (this.ready) return this.ready;
@@ -205,6 +207,14 @@ class LauncherService extends EventEmitter {
   }
 
   async close() {
+    if (this.resetDrained) {
+      await this.resetDrained;
+      return;
+    }
+    await this.closeRunningService();
+  }
+
+  async closeRunningService() {
     this.stopping = true;
     const child = this.child;
     if (!child) {
@@ -238,17 +248,38 @@ class LauncherService extends EventEmitter {
   }
 
   async applyReset(deep = false) {
+    if (this.resetDrained) throw new Error('Enderloom offline reset is in progress');
     const executable = this.executable();
     if (!executable) throw new Error('Enderloom Rust service is unavailable for offline reset');
-    await this.close();
+    // Reserve the portable root before yielding to the normal service shutdown.
+    // Some production entrypoints bypass the launcher IPC handler's reset flag.
+    let release;
+    this.resetDrained = new Promise((resolve) => { release = resolve; });
+    const releaseOwner = () => {
+      this.resetDrained = null;
+      release();
+    };
+    try {
+      await this.closeRunningService();
+    } catch (error) {
+      releaseOwner();
+      throw error;
+    }
     return await new Promise((resolve, reject) => {
       const args = ['--apply-reset', '--data-dir', this.dataDir, ...(deep ? ['--deep'] : [])];
-      const child = spawn(executable, args, {
-        cwd: this.rootDir,
-        env: { ...process.env, ...this.env },
-        windowsHide: true,
-        stdio: ['ignore', 'pipe', 'pipe'],
-      });
+      let child;
+      try {
+        child = spawn(executable, args, {
+          cwd: this.rootDir,
+          env: { ...process.env, ...this.env },
+          windowsHide: true,
+          stdio: ['ignore', 'pipe', 'pipe'],
+        });
+      } catch (error) {
+        releaseOwner();
+        reject(error);
+        return;
+      }
       let output = '';
       let diagnostic = '';
       let settled = false;
@@ -271,7 +302,11 @@ class LauncherService extends EventEmitter {
       child.once('error', (error) => {
         finish(error);
       });
-      child.once('exit', (code) => {
+      child.once('close', (code) => {
+        // Exit alone does not guarantee stdout has drained. On timeout, the
+        // caller can fail promptly but only actual child close frees the root.
+        releaseOwner();
+        if (settled) return;
         if (code !== 0) {
           finish(new Error(diagnostic.trim() || `Enderloom offline reset exited with code ${code}`));
           return;
