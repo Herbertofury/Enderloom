@@ -44,6 +44,7 @@ class LauncherService extends EventEmitter {
 
   async start() {
     if (this.child && this.status.state === 'ready') return this.snapshot();
+    if (this.child && this.status.state === 'failed') throw new Error(this.status.error);
     if (this.ready) return this.ready;
     const executable = this.executable();
     if (!executable) {
@@ -65,17 +66,44 @@ class LauncherService extends EventEmitter {
     this.child = child;
     this.status.pid = child.pid ?? null;
 
+    let protocolFailure;
+    let stopTimer;
+    const rejectService = (error) => {
+      if (this.child !== child || protocolFailure) return;
+      protocolFailure = error;
+      this.status = { ...this.status, state: 'failed', error: error.message };
+      // Keep ownership until actual exit; a second service must not open the same portable data.
+      child.stdin.end();
+      stopTimer = setTimeout(() => {
+        if (this.child === child) child.kill('SIGKILL');
+      }, 2500);
+      stopTimer.unref?.();
+    };
+    const exited = (error) => {
+      if (this.child !== child) return;
+      clearTimeout(stopTimer);
+      this.onExit(protocolFailure || error);
+    };
+
     const output = readline.createInterface({ input: child.stdout, crlfDelay: Infinity });
-    output.on('line', (line) => this.onLine(line));
+    output.on('line', (line) => {
+      if (this.child === child && !protocolFailure) this.onLine(line, rejectService);
+    });
+    child.stdin.on('error', (error) => {
+      if (this.child === child && !this.stopping) rejectService(error);
+    });
     child.stderr.setEncoding('utf8');
     child.stderr.on('data', (chunk) => this.emit('diagnostic', String(chunk)));
-    child.once('error', (error) => this.onExit(error));
+    child.on('error', (error) => {
+      if (!child.pid) exited(error);
+      else if (this.child === child) this.emit('diagnostic', error.message);
+    });
     child.once('exit', (code, signal) => {
-      this.onExit(new Error(`Enderloom Rust service exited (${code ?? signal ?? 'unknown'})`));
+      exited(new Error(`Enderloom Rust service exited (${code ?? signal ?? 'unknown'})`));
     });
 
     const timeout = setTimeout(() => {
-      if (this.status.state !== 'ready') this.onExit(new Error('Enderloom Rust service handshake timed out'));
+      if (this.status.state !== 'ready') rejectService(new Error('Enderloom Rust service handshake timed out'));
     }, 15000);
     timeout.unref?.();
     try {
@@ -85,7 +113,7 @@ class LauncherService extends EventEmitter {
     }
   }
 
-  onLine(line) {
+  onLine(line, rejectService) {
     let message;
     try {
       message = JSON.parse(line);
@@ -94,7 +122,7 @@ class LauncherService extends EventEmitter {
       return;
     }
     if (message?.protocol !== PROTOCOL_VERSION) {
-      this.onExit(new Error('Enderloom Rust service protocol mismatch'));
+      rejectService(new Error('Enderloom Rust service protocol mismatch'));
       return;
     }
     if (message.event) {
