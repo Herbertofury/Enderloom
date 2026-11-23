@@ -1,11 +1,63 @@
 'use strict';
-// Execute the real Windows entrypoint with a deterministic npm stand-in. No network,
-// real game/profile mutation, or dependency installation is performed by this suite.
+// Probe the source runner and run the Windows batch entrypoint with an inert npm
+// fixture. No network, game/profile mutation, or dependency installation.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
+
+// Use copies of the runner's own executable as inert app-entry probes, not
+// shell wrappers or Electron. This exercises actual argv and executable paths
+// on Windows and POSIX without requiring another binary.
+function testSelectedSourceRuntime() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'Enderloom selected runtime '));
+  try {
+    const app = path.join(root, 'source application');
+    const script = path.join(app, 'scripts', 'run.js');
+    const cwd = path.join(root, 'portable folder');
+    const search = path.join(root, 'search path');
+    for (const directory of [path.dirname(script), cwd, search]) {
+      fs.mkdirSync(directory, { recursive: true });
+    }
+    const basename = process.platform === 'win32' ? 'owned runtime.exe' : 'owned runtime';
+    const selected = path.join(cwd, basename);
+    const alternate = path.join(search, basename);
+    fs.copyFileSync(process.execPath, selected, fs.constants.COPYFILE_EXCL);
+    fs.copyFileSync(process.execPath, alternate, fs.constants.COPYFILE_EXCL);
+    fs.copyFileSync(path.join(__dirname, 'run.js'), script);
+    fs.writeFileSync(path.join(app, 'package.json'), JSON.stringify({ main: 'probe.js' }));
+    fs.writeFileSync(path.join(app, 'probe.js'), [
+      "const fs = require('node:fs');",
+      "console.log(JSON.stringify({ executable: fs.realpathSync.native(process.execPath),",
+      "  cwd: fs.realpathSync.native(process.cwd()), args: process.argv.slice(2) }));",
+      "process.exitCode = 7;",
+    ].join('\n'));
+
+    const env = Object.fromEntries(Object.entries(process.env).filter(([key]) =>
+      !['PATH', 'NODE_PATH', 'NODE_OPTIONS', 'ELECTRON_PATH'].includes(key.toUpperCase())));
+    env.PATH = search;
+    env.ELECTRON_PATH = basename;
+    const args = ['--shortcut=Ctrl+Shift+P', 'renamed folder', 'literal "quotes" & $1', 'résumé'];
+    const result = spawnSync(process.execPath, [script, ...args], {
+      cwd, env, encoding: 'utf8', timeout: 12000,
+    });
+    assert.ifError(result.error);
+    assert.equal(result.signal, null);
+    assert.equal(result.status, 7, `source runtime: ${result.stdout}\n${result.stderr}`);
+    assert.deepEqual(JSON.parse(result.stdout), {
+      executable: fs.realpathSync.native(selected),
+      cwd: fs.realpathSync.native(cwd),
+      args,
+    }, 'the actual selected executable must run, not the same basename on PATH');
+    console.log('PASS: selected source executable, literal arguments, working directory and exit status');
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+}
+
+testSelectedSourceRuntime();
+
 if (process.platform !== 'win32') {
   console.log('SKIP: Windows batch startup requires Windows; run the source-startup CI job.');
   process.exit(0);
