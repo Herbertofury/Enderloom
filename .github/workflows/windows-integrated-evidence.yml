@@ -1,0 +1,50 @@
+name: Windows integrated source evidence
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, converted_to_draft]
+    paths:
+      - '.github/workflows/windows-integrated-evidence.yml'
+      - 'scripts/windows-integrated-evidence*.js'
+permissions:
+  contents: read
+jobs:
+  evidence:
+    if: github.event.pull_request.draft && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: windows-2025
+    timeout-minutes: 30
+    env:
+      ENDERLOOM_EVIDENCE_COMMIT: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.23.5'
+          architecture: x64
+      - name: Check the evidence verifier without launching a fixture as the product
+        run: node --test scripts/windows-integrated-evidence.test.js
+      - name: Build exact integrated Electron frontend and Rust service
+        shell: pwsh
+        run: |
+          npm ci
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix launcher ci
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm run build:launcher
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          rustup toolchain install 1.100.0-x86_64-pc-windows-msvc --profile minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo +1.100.0-x86_64-pc-windows-msvc build --locked --manifest-path native/Cargo.toml --bin enderloom-service
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Exercise actual Windows Electron and Rust integration
+        run: node scripts/windows-integrated-evidence.js
+      - name: Retain scoped evidence only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: enderloom-windows-source-evidence-${{ github.event.pull_request.head.sha }}
+          path: ${{ runner.temp }}/enderloom-windows-source-evidence.json
+          if-no-files-found: error
+          retention-days: 14
