@@ -410,7 +410,6 @@ async fn download_once(
     if spec.size == Some(offset) && offset > 0 {
         match verify_partial(files, &partial, spec).await {
             Ok(_) => {
-                files.remove_file_if_exists(&spec.dest)?;
                 files.commit_download_part(&partial, &spec.dest).await?;
                 if let Some(hook) = on_bytes {
                     hook(offset);
@@ -510,7 +509,6 @@ async fn download_once(
     drop(writer);
 
     verify_partial(files, &partial, spec).await?;
-    files.remove_file_if_exists(&spec.dest)?;
     files.commit_download_part(&partial, &spec.dest).await?;
     tracing::trace!(url = %spec.url, dest = %spec.dest.display(), "downloaded");
     Ok(true)
@@ -969,6 +967,7 @@ mod tests {
             std::env::temp_dir().join(format!("basalt-persisted-resume-{}", uuid::Uuid::new_v4()));
         std::fs::create_dir_all(&dir).unwrap();
         let destination = dir.join("file.jar");
+        std::fs::write(&destination, b"oldbytes").unwrap();
         std::fs::write(partial_path(&destination), b"abc").unwrap();
         let spec = DownloadSpec {
             url: format!("http://{address}/file"),
@@ -981,6 +980,29 @@ mod tests {
         assert!(download_one(&network(), &files(&dir), &spec).await.unwrap());
         server.join().unwrap();
         assert_eq!(std::fs::read(&destination).unwrap(), b"abcdefgh");
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[tokio::test]
+    async fn completed_partial_replaces_an_existing_destination() {
+        let dir =
+            std::env::temp_dir().join(format!("basalt-complete-partial-{}", uuid::Uuid::new_v4()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let destination = dir.join("file.jar");
+        let partial = partial_path(&destination);
+        std::fs::write(&destination, b"oldbytes").unwrap();
+        std::fs::write(&partial, b"abcdefgh").unwrap();
+        let spec = DownloadSpec {
+            url: "http://127.0.0.1:1/never".into(),
+            dest: destination.clone(),
+            sha1: Some(sha1_hex(b"abcdefgh")),
+            sha256: None,
+            size: Some(8),
+        };
+
+        assert!(download_one(&network(), &files(&dir), &spec).await.unwrap());
+        assert_eq!(std::fs::read(&destination).unwrap(), b"abcdefgh");
+        assert!(!partial.exists());
         let _ = std::fs::remove_dir_all(&dir);
     }
 
