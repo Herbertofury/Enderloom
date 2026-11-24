@@ -881,9 +881,10 @@
 
 <a id="herbertofury-athena"></a>
 <details>
-<summary>Herbertofury/Athena (1 cited locations)</summary>
+<summary>Herbertofury/Athena (2 cited locations)</summary>
 
 - [https://github.com/Herbertofury/Athena/blob/main/docs/PRODUCT-PILLARS.md](https://github.com/Herbertofury/Athena/blob/main/docs/PRODUCT-PILLARS.md)
+- [https://github.com/Herbertofury/Athena/issues/363](https://github.com/Herbertofury/Athena/issues/363)
 
 </details>
 
@@ -2847,6 +2848,7 @@
 - [https://docs.fabricmc.net/develop/porting/mappings/](https://docs.fabricmc.net/develop/porting/mappings/)
 - [https://docs.fabricmc.net/develop/rendering/basic-concepts](https://docs.fabricmc.net/develop/rendering/basic-concepts)
 - [https://docs.fabricmc.net/develop/serialization/codecs](https://docs.fabricmc.net/develop/serialization/codecs)
+- [https://docs.gitlab.com/api/projects/](https://docs.gitlab.com/api/projects/)
 - [https://docs.gradle.org/current/javadoc/org/gradle/testkit/runner/GradleRunner.html](https://docs.gradle.org/current/javadoc/org/gradle/testkit/runner/GradleRunner.html)
 - [https://docs.gradle.org/current/userguide/best_practices_performance.html](https://docs.gradle.org/current/userguide/best_practices_performance.html)
 - [https://docs.gradle.org/current/userguide/configuration_cache.html](https://docs.gradle.org/current/userguide/configuration_cache.html)
@@ -2911,6 +2913,7 @@
 - [https://projects.neoforged.net/neoforged/javasourcetransformer](https://projects.neoforged.net/neoforged/javasourcetransformer)
 - [https://projects.neoforged.net/neoforged/neoformruntime](https://projects.neoforged.net/neoforged/neoformruntime)
 - [https://slsa.dev/spec/v1.0/provenance](https://slsa.dev/spec/v1.0/provenance)
+- [https://spiget.org/documentation/](https://spiget.org/documentation/)
 - [https://stonecutter.kikugie.dev/](https://stonecutter.kikugie.dev/)
 - [https://theupdateframework.io/](https://theupdateframework.io/)
 - [https://v2.tauri.app/develop/calling-frontend/](https://v2.tauri.app/develop/calling-frontend/)

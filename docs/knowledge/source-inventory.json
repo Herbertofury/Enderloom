@@ -421,6 +421,16 @@
       "source_checked": 0
     },
     {
+      "id": "S-f753e7d5cc",
+      "path": "docs/SHARED_PROVIDER_ALIGNMENT.md",
+      "sha256": "4944a28981f8124c4ae18a16e2a813f9a4caec11ee7359b568ea7ffa733329f1",
+      "bytes": 1528,
+      "lines": 5,
+      "kind": "specification",
+      "url": "https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md",
+      "source_checked": 0
+    },
+    {
       "id": "S-8bf4d02b7d",
       "path": "docs/bedrock-third-party-provenance-2026-10-04.json",
       "sha256": "d125c6977f37d582abf5dc748c640b7d114e683b6fd4a9614f7d34799ad5f50b",
@@ -672,11 +682,11 @@
     }
   ],
   "stats": {
-    "source_files": 67,
-    "source_bytes": 2425855,
-    "source_lines": 47145,
-    "source_blocks": 16288,
-    "unique_blocks": 13370,
+    "source_files": 68,
+    "source_bytes": 2427383,
+    "source_lines": 47150,
+    "source_blocks": 16291,
+    "unique_blocks": 13373,
     "exact_duplicate_occurrences": 2918,
     "source_checked": 235,
     "source_unchecked": 5682,

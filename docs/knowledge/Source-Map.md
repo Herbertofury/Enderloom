@@ -8,10 +8,10 @@
 
 | Measure | Count |
 | :--- | ---: |
-| Located source documents | 67 |
-| Source lines processed | 47,145 |
-| Non-empty source blocks accounted for | 16,288 |
-| Distinct contextual/exact source blocks | 13,370 |
+| Located source documents | 68 |
+| Source lines processed | 47,150 |
+| Non-empty source blocks accounted for | 16,291 |
+| Distinct contextual/exact source blocks | 13,373 |
 | Exact repeated occurrences sharing an identity | 2,918 |
 | Original checked occurrences retained as source claims | 235 |
 | Original unchecked occurrences | 5,682 |
@@ -567,6 +567,19 @@ SHA-256: `9aa2c0eabf7b07d565ec80b7a6a8babe8fc2f0c67b20f2fd383bdd234b313983`
 Bytes: 4,876. Historical checked occurrences: 0.
 
 **Outcome owners:** [**AOA-02**](Checklist.md#aoa-02), [**AOA-04**](Checklist.md#aoa-04), [**AOA-06**](Checklist.md#aoa-06), [**LIB-02**](Checklist.md#lib-02), [**LIB-04**](Checklist.md#lib-04), [**LIB-09**](Checklist.md#lib-09), [**PLAY-04**](Checklist.md#play-04), [**PORT-05**](Checklist.md#port-05), [**SHIP-06**](Checklist.md#ship-06), [**UX-11**](Checklist.md#ux-11)
+
+</details>
+
+<a id="s-f753e7d5cc"></a>
+<details>
+<summary><strong>SHARED_PROVIDER_ALIGNMENT.md</strong> - 5 lines</summary>
+
+[Open full source](https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md) | specification
+
+SHA-256: `4944a28981f8124c4ae18a16e2a813f9a4caec11ee7359b568ea7ffa733329f1`  
+Bytes: 1,528. Historical checked occurrences: 0.
+
+**Outcome owners:** [**LIB-02**](Checklist.md#lib-02), [**LIB-08**](Checklist.md#lib-08)
 
 </details>
 

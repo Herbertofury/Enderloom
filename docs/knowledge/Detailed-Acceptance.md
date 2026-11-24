@@ -4,7 +4,7 @@
 
 > The actual tasks and binding clauses from the specifications, not just an index of headings.
 
-**5,917 source-task occurrences**, **6,935 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
+**5,917 source-task occurrences**, **6,937 unique detail records**, **23 individually named provider families**. Exact duplicate occurrences share a record; short clauses retain context. No fuzzy merging removes qualifiers.
 
 | Workstream | Detailed requirements |
 | :--- | ---: |
@@ -16,7 +16,7 @@
 | [Repair and forensics](Acceptance-FIX.md) | 272 |
 | [Native testing and control plane](Acceptance-TEST.md) | 997 |
 | [Performance without loss](Acceptance-PERF.md) | 384 |
-| [Discovery, favorites and content](Acceptance-LIB.md) | 827 |
+| [Discovery, favorites and content](Acceptance-LIB.md) | 829 |
 | [Launcher, accounts and instances](Acceptance-PLAY.md) | 264 |
 | [Configuration, hotkeys and progression](Acceptance-CONFIG.md) | 131 |
 | [Worlds, servers and migration](Acceptance-WORLD.md) | 382 |

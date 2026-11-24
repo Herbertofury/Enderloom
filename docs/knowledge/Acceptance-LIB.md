@@ -758,7 +758,7 @@
 <a id="lib-02-details"></a>
 ## LIB-02 - Correct premium media and trailers
 
-[Outcome](Checklist.md#lib-02) / 81 source-derived details.
+[Outcome](Checklist.md#lib-02) / 83 source-derived details.
 
 <details>
 <summary>README.md / Enderloom 2.9.5 / 2.9.5 CurseForge gallery terminal-state repair (1)</summary>
@@ -1593,6 +1593,25 @@
   - **Full requirement:** - Added provider-aware Catalog export to XLSX, CSV, JSON, HTML and PDF. The XLSX contains a second Media Links sheet so every discovered gallery, author and source URL remains individually clickable. - Added Google Sheets, Docs and Drive-PDF source intake from the current Enderloom browser page. Private sources return an explicit sign-in-required state and never substitute invented data. - Tested the private JetSetCraft master sheet in the user&#x27;s signed-in Chrome session without exporting cookies, passwords or OAuth tokens. The authenticated XLSX was attached as a watched local source while the canonical Google source remains registered for in-app refresh. - Corrected multi-sheet XLSX ingestion to prefer Master Rankings/Master Index, preserve canonical master rows, merge category/scour provenance, ignore repeated internal headers and recognize research-atlas field names. - Added real content version switching, searchable compatible/incompatible versions, changelog display, pre-change snapshot creation, exact-version install and persistent per-project version freeze/unfreeze. - Added Modrinth-style content row actions: Show file, Copy link, Freeze version, enable/disable and safe removal.
   - **Binding context:** Enderloom verified checkpoint — 2026-09-01 / Delivered in this checkpoint
   - **Original specification:** [RELEASE_EVIDENCE_2026-09-01.md : 7-12](https://github.com/Herbertofury/Enderloom/blob/main/docs/RELEASE_EVIDENCE_2026-09-01.md#L7-L12)
+
+</details>
+
+<details>
+<summary>SHARED_PROVIDER_ALIGNMENT.md / Shared provider improvements — 2026-11-24 (2)</summary>
+
+<a id="d-3d283545b779f0b136ed"></a>
+- [ ] **D-3d283545b779f0b136ed** - [Athena M1](https://github.com/Herbertofury/Athena/issues/363) compares overlapping real implementations. This slice adopts the exact identity pattern already used by Modhunter and...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** [Athena M1](https://github.com/Herbertofury/Athena/issues/363) compares overlapping real implementations. This slice adopts the exact identity pattern already used by Modhunter and Athena: Spiget resource ID, Hangar namespace owner/slug and GitLab project ID/path must bind to the requested project before the fast icon is shown. Missing/mismatched metadata does not suppress existing complete page/gallery routes. This uses [Spiget API docs](https://spiget.org/documentation/), [GitLab projects docs](https://docs.gitlab.com/api/projects/) and the existing Hangar namespace contract in Minecraft Mod Vault. The Hangar live endpoint was not reachable during review; verify a live permitted sample before acceptance.
+  - **Binding context:** Shared provider improvements — 2026-11-24
+  - **Original specification:** [SHARED_PROVIDER_ALIGNMENT.md : 3-3](https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md#L3-L3)
+
+<a id="d-021b4760a1df99b16944"></a>
+- [ ] **D-021b4760a1df99b16944** - The existing Modrinth batching route is retained, not replaced with another API request. It already handles case-sensitive Base62 IDs, ambiguous slugs, URL-length chunking and exac...
+  - **State:** unverified. **Kind:** binding source prose.
+  - **Full requirement:** The existing Modrinth batching route is retained, not replaced with another API request. It already handles case-sensitive Base62 IDs, ambiguous slugs, URL-length chunking and exact fallback. This change stops deduplication from collapsing different image names or extensions; the explicit gallery raw/preview relation and exact URL identify duplicates. A distinct media URL is not guaranteed distinct content, so further content-hash deduplication belongs after verified bytes, not before discovery. Tests: provider-api-fastlane-qa, provider-api-race-qa and modrinth-project-identity-qa. Real rendered-card performance and live provider validation remain required. Reuse the maintained code and test evidence via Athena; do not create a second Modrinth resolver.
+  - **Binding context:** Shared provider improvements — 2026-11-24
+  - **Original specification:** [SHARED_PROVIDER_ALIGNMENT.md : 5-5](https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md#L5-L5)
 
 </details>
 

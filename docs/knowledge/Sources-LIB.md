@@ -82,7 +82,7 @@
 [**LIB-02**](Checklist.md#lib-02)
 
 <details>
-<summary>Source clauses and aliases (124 distinct blocks)</summary>
+<summary>Source clauses and aliases (126 distinct blocks)</summary>
 
 - [G068 — Cache, CAS, archive and filesystem acceleration / T256 — Use BLAKE3 for internal fingerprints; retain SHA-256 for external receipts / T258 — Add role-specific in-memory caches instead of one generic cache](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2241-L2241) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
 - [G069 — Network, download and media pipeline](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2284-L2286) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 2 distinct blocks.
@@ -168,6 +168,7 @@
 - [Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/Enderloom%20Ultimate%20Minecraft%20Workbench%20%E2%80%94%20Codex%20Handoff%20Checkpoint%20%E2%80%94%202026-09-07.txt#L343-L362) - Enderloom Ultimate Minecraft Workbench — Codex Handoff Checkpoint — 2026-09-07.txt; 2 distinct blocks.
 - [Enderloom — Universal Biome &amp; Model Variator / Variant Foundry / 9. UX: “it just works”](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md#L200-L214) - ENDERLOOM_UNIVERSAL_BIOME_MODEL_VARIATOR_SPEC.md; 1 distinct blocks.
 - [GATE - Documentation, migration UX, and durable receipts](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md#L504-L504) - ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md; 1 distinct blocks.
+- [Shared provider improvements — 2026-11-24](https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md#L3-L5) - SHARED_PROVIDER_ALIGNMENT.md; 2 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G069`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T258`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T264`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T268`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G012`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T040`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T066`, `ENDERLOOM_UNIVERSAL_VERSION_GRAPH_ENGINE_FULL_IMPLEMENTATION.md::T159`
 
@@ -577,7 +578,7 @@
 [**LIB-08**](Checklist.md#lib-08)
 
 <details>
-<summary>Source clauses and aliases (177 distinct blocks)</summary>
+<summary>Source clauses and aliases (178 distinct blocks)</summary>
 
 - [13. Security and safety requirements](https://github.com/Herbertofury/Enderloom/blob/main/docs/PREMIUM_TESTING_FULL_CLI_CHECKLIST.md#L755-L755) - PREMIUM_TESTING_FULL_CLI_CHECKLIST.md; 1 distinct blocks.
 - [G065 — Tauri security, updater and native desktop QoL hardening / T242 — Replace `csp: null` with a restrictive tested CSP](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md#L2076-L2076) - ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md; 1 distinct blocks.
@@ -682,6 +683,7 @@
 - [G034 — Composed next-generation conversion pipeline v3 / T123 — Implement the composed pipeline in this order / T127 — Third-pass completeness challenge](https://github.com/Herbertofury/Enderloom/blob/main/docs/ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md#L1610-L1613) - ENDERLOOM_NEXT_GEN_TECH_STACK_CHALLENGERS.md; 1 distinct blocks.
 - [14. QA CHECKLIST — AUTOMATE THESE / Repair/migration hardening](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L924-L924) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
 - [7. MIGRATION / REPAIR CORRECTNESS GATES — EMBED THE LESSONS / 7.3 Optional dependencies must truly be optional](https://github.com/Herbertofury/Enderloom/blob/main/docs/specifications/ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md#L402-L403) - ENDERLOOM_NORTHPOINT_UNIVERSAL_VERSION_MATRIX_HANDOFF_v2_ARCHIVED.md; 1 distinct blocks.
+- [Shared provider improvements — 2026-11-24](https://github.com/Herbertofury/Enderloom/blob/main/docs/SHARED_PROVIDER_ALIGNMENT.md#L1-L1) - SHARED_PROVIDER_ALIGNMENT.md; 1 distinct blocks.
 
 **Original aliases:** `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::G066`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T247`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T249`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T250`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T251`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T339`, `ENDERLOOM_NEXT_GEN_TECH_STACK_FULL_IMPLEMENTATION.md::T358`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G009`, `ENDERLOOM_GET_DONE_NOW_QOL.md::G013`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T008`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T027`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T046`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T061`, `ENDERLOOM_GET_DONE_NOW_QOL.md::T075`
 

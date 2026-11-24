@@ -611,12 +611,12 @@
   - **Accept:** Preserve the full provider universe and real project identities, source links, creator attribution, all logical results and source health; native APIs/session-aware fallbacks remain truthful.
   - **State:** unverified. **Details:** [99 source blocks](Sources-LIB.md#lib-01); 20 source documents.
 
-**[Open 81 detailed checks](Acceptance-LIB.md#lib-02-details)**
+**[Open 83 detailed checks](Acceptance-LIB.md#lib-02-details)**
 
 <a id="lib-02"></a>
 - [ ] **LIB-02 - Correct premium media and trailers**
   - **Accept:** Keep project icons/avatars/gallery/post/video roles distinct, exact-project ownership, full-resolution media/lightbox and source-grounded autoplay trailer preferences; no synthetic replacements or unrelated promotions.
-  - **State:** unverified. **Details:** [124 source blocks](Sources-LIB.md#lib-02); 21 source documents.
+  - **State:** unverified. **Details:** [126 source blocks](Sources-LIB.md#lib-02); 22 source documents.
 
 **[Open 90 detailed checks](Acceptance-LIB.md#lib-03-details)**
 
@@ -658,7 +658,7 @@
 <a id="lib-08"></a>
 - [ ] **LIB-08 - Provider downloads and account recovery**
   - **Accept:** Respect author-disabled third-party downloads, safe browser handoff and verified adoption, reconnect legitimate sessions and resume exact jobs without guessed identities or bypass.
-  - **State:** unverified. **Details:** [177 source blocks](Sources-LIB.md#lib-08); 19 source documents.
+  - **State:** unverified. **Details:** [178 source blocks](Sources-LIB.md#lib-08); 20 source documents.
 
 **[Open 85 detailed checks](Acceptance-LIB.md#lib-09-details)**
 
