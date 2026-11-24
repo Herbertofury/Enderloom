@@ -1,0 +1,66 @@
+name: Windows normal source wrapper evidence
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, converted_to_draft]
+    paths:
+      - '.github/workflows/windows-source-wrapper-evidence.yml'
+      - 'scripts/windows-source-wrapper-evidence.ps1'
+      - 'scripts/windows-source-wrapper-snapshot.cjs'
+permissions:
+  contents: read
+jobs:
+  evidence:
+    if: github.event.pull_request.number == 84 && github.event.pull_request.draft && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: windows-2025
+    timeout-minutes: 30
+    env:
+      ENDERLOOM_WRAPPER_EVIDENCE_COMMIT: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+          path: 'Enderloom clean source'
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.23.5'
+          architecture: x64
+      - name: Parse normal-wrapper evidence with stock PowerShell 7
+        shell: pwsh
+        run: |
+          $checkout = Join-Path $env:GITHUB_WORKSPACE 'Enderloom clean source'
+          $outside = Join-Path $env:RUNNER_TEMP 'Enderloom wrapper test'
+          New-Item -ItemType Directory -Path $outside -ErrorAction Stop | Out-Null
+          Copy-Item -LiteralPath (Join-Path $checkout 'scripts/windows-source-wrapper-evidence.ps1') -Destination $outside -ErrorAction Stop
+          Copy-Item -LiteralPath (Join-Path $checkout 'scripts/windows-source-wrapper-snapshot.cjs') -Destination $outside -ErrorAction Stop
+          $scriptFile = Join-Path $outside 'windows-source-wrapper-evidence.ps1'
+          $parserTokens = $null
+          $parseErrors = $null
+          $null = [System.Management.Automation.Language.Parser]::ParseFile($scriptFile, [ref]$parserTokens, [ref]$parseErrors)
+          if ($parseErrors.Count) { throw 'Native PowerShell 7 syntax validation failed.' }
+          node --check (Join-Path $outside 'windows-source-wrapper-snapshot.cjs')
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if (-not [Environment]::UserInteractive) { throw 'No interactive desktop; normal wrapper evidence not available.' }
+      - name: Select stock MSVC Rust (do not prebuild any application stage)
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.100.0-x86_64-pc-windows-msvc --profile minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run actual clean and warm batch launches with ordinary window closure
+        shell: pwsh
+        env:
+          RUSTUP_TOOLCHAIN: 1.100.0-x86_64-pc-windows-msvc
+        run: |
+          $checkout = Join-Path $env:GITHUB_WORKSPACE 'Enderloom clean source'
+          $scriptFile = Join-Path $env:RUNNER_TEMP 'Enderloom wrapper test/windows-source-wrapper-evidence.ps1'
+          $evidence = Join-Path $env:RUNNER_TEMP 'enderloom-normal-source-wrapper-evidence.json'
+          & $scriptFile -Checkout $checkout -EvidencePath $evidence
+      - name: Retain complete scoped evidence only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: enderloom-normal-source-wrapper-evidence-${{ github.event.pull_request.head.sha }}
+          path: ${{ runner.temp }}/enderloom-normal-source-wrapper-evidence.json
+          if-no-files-found: error
+          retention-days: 14

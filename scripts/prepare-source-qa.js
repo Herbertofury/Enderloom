@@ -6,12 +6,24 @@ const path = require('node:path');
 const { prepare } = require('./prepare-source');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'Enderloom source freshness '));
 const write = (name, text = 'fixture') => { const file = path.join(root, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, text); };
-let commands = [], fail = '', mutate = false, lateMutate = false;
+let commands = [], fail = '', mutate = false, lateMutate = false, lazy = 'success';
 const exe = process.platform === 'win32' ? '.exe' : '';
 function run(args) {
   const command = args.join(' '); commands.push(command);
   if (command === fail) throw new Error('injected failure');
-  if (command === 'ci') write(`node_modules/electron/dist/electron${exe}`);
+  if (command === 'ci') {
+    fs.rmSync(path.join(root, 'node_modules/electron'), { recursive: true, force: true });
+    if (lazy === 'eager') write(`node_modules/electron/dist/electron${exe}`);
+    else write('node_modules/electron/index.js', `
+      const fs = require('node:fs');
+      const path = require('node:path');
+      const file = path.join(__dirname, 'dist', 'electron${exe}');
+      fs.appendFileSync(path.resolve(__dirname, '../../resolver.log'), 'resolve\\n');
+      ${lazy === 'error' ? "throw new Error('injected resolver failure');" : ''}
+      ${lazy === 'success' ? "fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, 'fixture');" : ''}
+      module.exports = file;
+    `);
+  }
   if (command === 'run build:launcher') { write('launcher/dist/index.html'); if (mutate) write('launcher/src/app.ts', 'changed during build'); }
   if (command === 'run build:launcher-service') { write(`native/target/debug/enderloom-service${exe}`); if (lateMutate) write('launcher/src/app.ts', 'late edit'); }
 }
@@ -20,6 +32,23 @@ try {
   write('package-lock.json'); write('launcher/src/app.ts'); write('native/src/main.rs');
   const shell = ['ci'], frontend = ['--prefix launcher ci', 'run build:launcher'], native = ['run build:launcher-service'];
   check([...shell, ...frontend, ...native]); check([]);
+  const resolutionCount = () => fs.readFileSync(path.join(root, 'resolver.log'), 'utf8').trim().split('\n').length;
+  assert.equal(resolutionCount(), 1, 'warm start never runs the package resolver');
+  write('package-lock.json', 'resolver failure');
+  lazy = 'error'; commands = [];
+  assert.throws(() => prepare(root, run, {}), /Electron runtime/);
+  assert.deepEqual(commands, shell);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, '.enderloom-runtime/source-build.json'))).shell, undefined);
+  assert.equal(fs.existsSync(path.join(root, '.enderloom-runtime/source-build.lock')), false);
+  lazy = 'missing'; commands = [];
+  assert.throws(() => prepare(root, run, {}), /did not produce/);
+  assert.deepEqual(commands, shell);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, '.enderloom-runtime/source-build.json'))).shell, undefined);
+  lazy = 'success'; check(shell); check([]);
+  assert.equal(resolutionCount(), 4, 'failure cannot write a valid receipt, and retry resolves again');
+  lazy = 'eager'; write('package-lock.json', 'eager distribution'); check(shell); check([]);
+  assert.equal(resolutionCount(), 4, 'an eager installation does not need the package resolver');
+  lazy = 'success';
   write('launcher/src/app.ts', 'updated'); check(frontend); check([]);
   write('native/src/main.rs', 'updated'); check(native);
   write('package-lock.json', 'updated'); check(shell);
@@ -32,7 +61,7 @@ try {
   fs.writeFileSync(path.join(root, '.enderloom-runtime/source-build.json'), 'broken json'); check([...shell, ...frontend, ...native]);
   for (const invalid of ['null', '[]', 'true', '42']) { write('.enderloom-runtime/source-build.json', invalid); check([...shell, ...frontend, ...native]); }
   write('native/.cargo/config.toml'); check(native);
-  write('package.json', 'changed build commands'); check([...shell, ...frontend, ...native]);
+  write('package.json', '{"name":"updated-enderloom"}'); check([...shell, ...frontend, ...native]);
   write('native/src/main.rs', 'late build'); lateMutate = true;
   assert.throws(() => prepare(root, run, {}), /Source changed during preparation/); lateMutate = false; check(frontend);
   write('.enderloom-runtime/source-build.lock'); assert.throws(() => prepare(root, run, {}), /already running/);

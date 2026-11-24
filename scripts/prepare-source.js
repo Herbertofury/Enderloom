@@ -28,6 +28,15 @@ function digest(root, paths) {
   paths.forEach(visit);
   return hash.digest('hex');
 }
+function resolveProjectElectron(root) {
+  // Recent Electron packages acquire the binary on first require, not npm ci.
+  // Resolve this checkout's installed package in a fresh process, with no PATH lookup.
+  const result = spawnSync(process.execPath, ['-e', 'require(process.argv[1])', path.resolve(root, 'node_modules/electron')], {
+    cwd: root, stdio: 'inherit',
+  });
+  if (result.error) throw result.error;
+  if (result.status !== 0) throw new Error(`Could not resolve the project Electron runtime (${result.signal || result.status})`);
+}
 function prepare(root, run = args => {
   const result = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', args, {
     cwd: root, stdio: 'inherit', shell: process.platform === 'win32',
@@ -65,7 +74,9 @@ function prepare(root, run = args => {
       delete receipt[stage.id];
       fs.writeFileSync(receiptPath, JSON.stringify(receipt));
       for (const command of stage.commands) run(command);
-      if (!fs.existsSync(path.join(root, stage.required))) throw new Error(`${stage.id} build did not produce ${stage.required}`);
+      const required = path.join(root, stage.required);
+      if (stage.id === 'shell' && !fs.existsSync(required)) resolveProjectElectron(root);
+      if (!fs.existsSync(required)) throw new Error(`${stage.id} build did not produce ${stage.required}`);
       if (digest(root, stage.input) !== sourceDigest) throw new Error('Source changed during build; retry preparation.');
       receipt[stage.id] = { input, output: digest(root, stage.output) };
       fs.writeFileSync(receiptPath, JSON.stringify(receipt));

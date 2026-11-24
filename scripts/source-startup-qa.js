@@ -66,7 +66,8 @@ const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'Enderloom clean start '))
 const entry = fs.readFileSync(path.join(__dirname, '..', 'START_ENDERLOOM.cmd'));
 const all = ['ci', '--prefix launcher ci', 'run build:launcher', 'run build:launcher-service', 'start'];
 const cases = [
-  { name: 'clean checkout', expected: all },
+  { name: 'clean checkout with lazy Electron', lazy: 'success', expected: all },
+  { name: 'lazy Electron resolution fails before launcher preparation', lazy: 'error', expected: ['ci'], code: 1 },
   { name: 'foreign working directory', foreign: true, expected: all },
   { name: 'shell install fails', fail: 'ci', expected: ['ci'], code: 1 },
   { name: 'launcher install fails', fail: '--prefix launcher ci', expected: all.slice(0, 2), code: 1 },
@@ -96,18 +97,33 @@ try {
         console.error('launcher dependencies missing'); process.exit(9);
       }
       function touch(name) { const path = require('node:path'); fs.mkdirSync(path.dirname(name), { recursive: true }); fs.writeFileSync(name, 'fixture'); }
-      if (command === 'ci') touch('node_modules/electron/dist/electron.exe');
+      if (command === 'ci') {
+        if (process.env.STARTUP_TEST_LAZY) {
+          touch('node_modules/electron/index.js');
+          fs.writeFileSync('node_modules/electron/index.js', [
+            "const fs = require('node:fs');",
+            "const path = require('node:path');",
+            "const executable = path.join(__dirname, 'dist', 'electron.exe');",
+            "fs.writeFileSync('electron-resolved.log', 'resolver called');",
+            "if (process.env.STARTUP_TEST_LAZY === 'error') throw new Error('injected Electron error');",
+            "fs.mkdirSync(path.dirname(executable), { recursive: true });",
+            "fs.writeFileSync(executable, 'fixture');",
+            "module.exports = executable;",
+          ].join('\\n'));
+        } else touch('node_modules/electron/dist/electron.exe');
+      }
       if (command === 'run build:launcher') touch('launcher/dist/index.html');
       if (command === 'run build:launcher-service') touch('native/target/debug/enderloom-service.exe');
       if (command === '--prefix launcher ci') fs.writeFileSync('launcher-dependencies.ready', 'ok');
     `);
     const result = spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/c', 'call "' + path.join(cwd, 'START_ENDERLOOM.cmd') + '"'], {
       windowsVerbatimArguments: true,
-      cwd: test.foreign ? fixture : cwd, env: { ...process.env, STARTUP_TEST_FAIL: test.fail || '' }, input: '\r\n', encoding: 'utf8', timeout: 20000,
+      cwd: test.foreign ? fixture : cwd, env: { ...process.env, STARTUP_TEST_FAIL: test.fail || '', STARTUP_TEST_LAZY: test.lazy || '' }, input: '\r\n', encoding: 'utf8', timeout: 20000,
     });
     assert.ifError(result.error);
     assert.equal(result.status, test.code || 0, `${test.name}: ${result.stdout}\n${result.stderr}`);
     assert.deepEqual(fs.readFileSync(path.join(cwd, 'commands.log'), 'utf8').trim().split('\n'), test.expected, test.name);
+    assert.equal(fs.existsSync(path.join(cwd, 'electron-resolved.log')), Boolean(test.lazy), test.name);
     console.log(`PASS: ${test.name}`);
   }
 } finally {
