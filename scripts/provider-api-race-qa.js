@@ -11,7 +11,7 @@ const {apiSeedFromJson}=require('../src/provider-api-fastlane');
   const server=http.createServer((req,res)=>{
     if(req.url==='/api'){
       apiRequests++;res.setHeader('content-type','application/json');
-      setTimeout(()=>res.end(JSON.stringify({name:'WorldEdit',icon:{url:'/data/resource_icons/53/53036.jpg'}})),7);return;
+      setTimeout(()=>res.end(JSON.stringify({id:53036,name:'WorldEdit',icon:{url:'/data/resource_icons/53/53036.jpg'}})),7);return;
     }
     if(req.url==='/page'){
       pageRequests++;res.setHeader('content-type','text/html');
@@ -26,7 +26,7 @@ const {apiSeedFromJson}=require('../src/provider-api-fastlane');
   const pageFlow=requestProgressiveTextShared(`${base}/page`,{timeoutMs:2500,mediaMinBytes:64,mediaMaxBytes:128*1024,prefixMaxBytes:512*1024});
   const apiPromise=requestJsonShared(`${base}/api`,{timeoutMs:2500,cacheTtlMs:0});
   const apiJson=await apiPromise;const apiMs=performance.now()-started;
-  const desc={provider:'spigot',kind:'spiget-resource',sourceUrl:'https://www.spigotmc.org/resources/worldedit.53036/',apiUrl:'https://api.spiget.org/v2/resources/53036'};
+  const desc={provider:'spigot',kind:'spiget-resource',id:'53036',sourceUrl:'https://www.spigotmc.org/resources/worldedit.53036/',apiUrl:'https://api.spiget.org/v2/resources/53036'};
   const seed=apiSeedFromJson(desc,apiJson,{title:'WorldEdit'});
   const media=await pageFlow.media;const pageMediaMs=performance.now()-started;
   const full=await pageFlow.full;const fullMs=performance.now()-started;

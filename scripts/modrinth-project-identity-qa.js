@@ -60,3 +60,10 @@ test('duplicate batch rows are deterministic, but shared ambiguous namespaces us
  assert.equal((await good.discover(canonical(rowA.slug)))?.title,rowA.title);
  assert.equal(good.calls.length,1);
 });
+test('media variants retain distinct files unless exact source URL or explicit preview alias proves duplication',()=>{
+ const base='https://cdn.modrinth.com/data/AbCdEf12/images/';
+ const original=base+'scene.png', preview=base+'scene_400.webp', distinct=base+'scene_1.png', other=base+'scene_2.png', caseVariant=base+'Scene.png';
+ const rows=batch.modrinthProjectMedia({title:'Fixture',gallery:[{raw_url:original,url:preview},{url:distinct},{url:other},{url:caseVariant}],body:'![same preview]('+preview+') ![same original]('+original+') ![unique]('+base+'scene.webp)'});
+ assert.deepEqual(rows.map(x=>x.url),[original,distinct,other,caseVariant,base+'scene.webp']);
+ assert.equal(rows[0].previewUrl,preview);
+});

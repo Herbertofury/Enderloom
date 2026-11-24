@@ -67,13 +67,11 @@ function safeHttp(raw='') {
 
 function modrinthImageKey(raw='') {
   const url=safeHttp(raw);if(!url)return '';
-  try {
-    const parsed=new URL(url);
-    return `${parsed.hostname.toLowerCase()}${decodeURIComponent(parsed.pathname)}`
-      .replace(/_\d+(?=\.(?:webp|png|jpe?g|gif|avif)$)/i,'')
-      .replace(/\.(?:webp|png|jpe?g|gif|avif)$/i,'')
-      .toLowerCase();
-  } catch { return url.toLowerCase(); }
+  const parsed=new URL(url);
+  parsed.hash='';
+  // Do not collapse unrelated paths, extensions or size-suffixed filenames.
+  // A gallery's explicit raw/preview relationship is the only variant proof.
+  return parsed.toString();
 }
 
 function descriptionImages(markdown='') {
@@ -92,7 +90,7 @@ function descriptionImages(markdown='') {
 // A Modrinth project's visual story is split between the formal gallery and images
 // embedded in its Markdown description. Return both, in source order, without a cap.
 function modrinthProjectMedia(project={}) {
-  const out=[],seen=new Set(),fallback=String(project.title||project.slug||'Modrinth project');
+  const out=[],seen=new Set(),previewAliases=new Set(),fallback=String(project.title||project.slug||'Modrinth project');
   const add=(row)=>{
     const url=safeHttp(row?.url),previewUrl=safeHttp(row?.previewUrl),key=modrinthImageKey(url);
     if(!url||!key||seen.has(key))return;seen.add(key);
@@ -100,8 +98,9 @@ function modrinthProjectMedia(project={}) {
   };
   for(const row of Array.isArray(project.gallery)?project.gallery:[]){
     add({url:row?.raw_url||row?.url,previewUrl:row?.raw_url&&row?.url?row.url:'',alt:row?.title||row?.description||fallback,source:'modrinth-gallery-api'});
+    if(row?.raw_url&&row?.url&&modrinthImageKey(row.url))previewAliases.add(modrinthImageKey(row.url));
   }
-  for(const row of descriptionImages(project.body))add({...row,alt:row.alt||fallback});
+  for(const row of descriptionImages(project.body))if(!previewAliases.has(modrinthImageKey(row.url)))add({...row,alt:row.alt||fallback});
   return out;
 }
 
