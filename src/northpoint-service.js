@@ -263,6 +263,21 @@ class NorthpointService extends EventEmitter {
     return { minecraft: String(minecraft), java, profile, errors };
   }
 
+  cachedProfileFor(cached, minecraft) {
+    const resolved = cached?.resolved;
+    const profile = resolved?.profile;
+    if (!minecraft || cached?.schema_version !== PROFILE_SCHEMA ||
+        resolved?.minecraft !== minecraft || profile?.minecraft !== minecraft) return null;
+    return profile;
+  }
+
+  previousProfileFor(minecraft, cached) {
+    const current = this.registry.versions.find((row) => String(row.minecraft) === minecraft) || null;
+    // Keep the latest in-memory observation, including authoritative absences. After startup
+    // the bundled registry is only a seed; the exact on-disk observation supersedes it.
+    return current?.dynamic ? current : this.cachedProfileFor(cached, minecraft) || current;
+  }
+
   async refreshVersionProfile(minecraft, { force = false, allowStale = true } = {}) {
     const mc = String(minecraft || '').trim();
     if (!mc) throw new Error('Minecraft version is required');
@@ -270,8 +285,9 @@ class NorthpointService extends EventEmitter {
     let cached = null;
     try { cached = readJson(cachePath); } catch {}
     const now = Date.now();
-    if (!force && cached?.resolved?.profile && now - Number(cached.fetched_at_ms || 0) < this.metadataTtlMs) {
-      this.upsertVersionProfile(cached.resolved.profile);
+    const cachedProfile = this.cachedProfileFor(cached, mc);
+    if (!force && cachedProfile && now - Number(cached.fetched_at_ms || 0) < this.metadataTtlMs) {
+      this.upsertVersionProfile(cachedProfile);
       return { ...cached.resolved, source: 'version-metadata-cache', fresh: true };
     }
     try {
@@ -279,15 +295,15 @@ class NorthpointService extends EventEmitter {
       const versionRow = (manifest.json?.versions || []).find((row) => String(row?.id) === mc);
       if (!versionRow?.url) throw new Error(`Mojang version manifest does not contain ${mc}`);
       const details = await this.fetchMetadataJson(versionRow.url);
-      const existing = this.registry.versions.find((row) => String(row.minecraft) === mc) || null;
+      const existing = this.previousProfileFor(mc, cached);
       const resolved = await this.buildDynamicProfile(mc, versionRow, details.json, existing);
       this.upsertVersionProfile(resolved.profile);
       const fetchedAt = new Date().toISOString();
       atomicJson(cachePath, { schema_version: 1, fetched_at: fetchedAt, fetched_at_ms: now, resolved });
       return { ...resolved, source: 'live-version-metadata', fresh: true };
     } catch (error) {
-      if (allowStale && cached?.resolved?.profile) {
-        this.upsertVersionProfile(cached.resolved.profile);
+      if (allowStale && cachedProfile) {
+        this.upsertVersionProfile(cachedProfile);
         return { ...cached.resolved, source: 'stale-version-metadata-cache', fresh: false, error: String(error.message || error) };
       }
       throw error;
@@ -370,7 +386,7 @@ class NorthpointService extends EventEmitter {
       const versionRow = (manifest.json?.versions || []).find((row) => String(row?.id) === minecraft);
       if (!versionRow?.url) throw new Error(`Mojang manifest is missing metadata URL for ${minecraft}`);
       const details = await this.fetchMetadataJson(versionRow.url);
-      const existing = this.registry.versions.find((row) => String(row.minecraft) === minecraft) || null;
+      const existing = this.previousProfileFor(minecraft, cached);
       const resolved = await this.buildDynamicProfile(minecraft, versionRow, details.json, existing);
       const { java, profile, errors } = resolved;
       this.upsertVersionProfile(profile, { latest: true });
