@@ -111,6 +111,126 @@ const dataDir = path.join(root, 'data');
   assert.equal(stale.source, 'stale-metadata-cache');
   assert.equal(stale.fresh, false);
 
+  // Exercise both public Studio routes after all in-memory profiles have gone away.
+  const retryObservations = [];
+  for (const test of [
+    { lane: 'exact', version: '1.19.2', command: 'conversion_resolve_version', args: { minecraft: '1.19.2' },
+      loaderUrl: 'https://meta.fabricmc.net/v2/versions/loader/1.19.2', otherUrl: 'https://meta.quiltmc.org/v3/versions/loader/1.19.2',
+      initialVersion: '0.14.25', otherLoader: 'quilt', otherUpdated: '0.19.1' },
+    { lane: 'latest', version: '26.4', command: 'conversion_refresh_profiles', args: {},
+      loaderUrl: 'https://meta.fabricmc.net/v2/versions/loader/26.4', otherUrl: 'https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml',
+      initialVersion: '0.20.0', otherLoader: 'neoforge', otherUpdated: '26.4.0.3' },
+  ]) {
+    const laneDir = path.join(root, `retry-${test.lane}`);
+    const bodies = new Map(metadataBodies);
+    const calls = [];
+    const reopen = () => new NorthpointService({ rootDir: root, dataDir: laneDir, metadataFetch: async (url) => {
+      calls.push(url);
+      const value = bodies.get(url);
+      if (value instanceof Error) throw value;
+      if (!value) throw new Error(`unexpected metadata URL ${url}`);
+      return value;
+    } });
+    const initial = await reopen().request(test.command, { ...test.args, force: true });
+    const lastGood = initial.profile.loaders.fabric;
+    assert.equal(lastGood.loader_version, test.initialVersion);
+    assert.equal(lastGood.metadata_state, undefined);
+    assert.deepEqual(initial.errors, []);
+    const cachePath = test.lane === 'exact' ? reopen().versionMetadataCachePath(test.version) : reopen().metadataCachePath();
+    const expired = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+    expired.fetched_at_ms -= 24 * 60 * 60 * 1000;
+    fs.writeFileSync(cachePath, JSON.stringify(expired));
+    bodies.set(test.loaderUrl, new Error('fixture fabric transport unavailable'));
+    bodies.set(test.otherUrl, test.lane === 'exact'
+      ? { json: [{ loader: { version: test.otherUpdated } }] }
+      : { text: `<metadata><versioning><versions><version>${test.otherUpdated}</version></versions></versioning></metadata>` });
+    calls.length = 0;
+    const partial = await reopen().request(test.command, test.args);
+    assert.ok(calls.includes(test.loaderUrl), 'expiration still checks the live provider');
+    assert.equal(partial.minecraft, test.version);
+    assert.equal(partial.profile.minecraft, test.version);
+    assert.deepEqual(partial.errors, [{ loader: 'fabric', error: 'fixture fabric transport unavailable' }]);
+    assert.equal(partial.profile.loaders[test.otherLoader].loader_version, test.otherUpdated);
+    calls.length = 0;
+    const cachedPartial = await reopen().request(test.command, test.args);
+    assert.deepEqual(calls, []);
+    assert.deepEqual(cachedPartial.profile, partial.profile);
+    assert.deepEqual(cachedPartial.errors, partial.errors);
+    retryObservations.push({
+      lane: test.lane,
+      actual: partial.profile.loaders.fabric ?? null,
+      expected: { ...lastGood, metadata_state: 'stale-unverified' },
+    });
+    bodies.set(test.loaderUrl, { json: [] });
+    const absent = await reopen().request(test.command, { ...test.args, force: true });
+    assert.deepEqual(absent.errors, []);
+    assert.equal(absent.profile.loaders.fabric, undefined);
+    bodies.set(test.loaderUrl, new Error('fixture fabric transport unavailable again'));
+    const afterAbsence = await reopen().request(test.command, { ...test.args, force: true });
+    assert.equal(afterAbsence.profile.loaders.fabric, undefined, 'an authoritative empty provider reply stays empty');
+    const restoredVersion = `${test.initialVersion}-recovered`;
+    bodies.set(test.loaderUrl, { json: [{ loader: { version: restoredVersion, stable: true } }] });
+    const recovered = await reopen().request(test.command, { ...test.args, force: true });
+    assert.deepEqual(recovered.errors, []);
+    assert.equal(recovered.profile.loaders.fabric.loader_version, restoredVersion);
+    assert.equal(recovered.profile.loaders.fabric.metadata_state, undefined);
+  }
+  assert.deepEqual(retryObservations.map(({ lane, actual }) => ({ lane, actual })),
+    retryObservations.map(({ lane, expected }) => ({ lane, actual: expected })),
+    'both Studio routes keep the exact previously verified loader on a partial refresh after reopening');
+
+  // A latest alias move is not an exact game-version match, even when every other field is suitable.
+  const movedDir = path.join(root, 'retry-latest');
+  const movedBodies = new Map(metadataBodies);
+  movedBodies.set(manifestUrl, { json: { latest: { release: '1.19.2' }, versions: [{ id: '1.19.2', url: legacyVersionUrl }] } });
+  movedBodies.set('https://meta.fabricmc.net/v2/versions/loader/1.19.2', new Error('fixture fabric network unavailable'));
+  const moved = new NorthpointService({ rootDir: root, dataDir: movedDir, metadataFetch: async (url) => {
+    const value = movedBodies.get(url);
+    if (value instanceof Error) throw value;
+    if (!value) throw new Error(`unexpected metadata URL ${url}`);
+    return value;
+  } });
+  const aliasMoved = await moved.request('conversion_refresh_profiles', { force: true });
+  assert.equal(aliasMoved.profile.minecraft, '1.19.2');
+  assert.equal(aliasMoved.profile.loaders.fabric, undefined);
+  assert.equal(aliasMoved.profile.loaders.forge.loader_version, '43.4.0');
+
+  // A persisted negative observation supersedes a bundled registry hint after restart.
+  const knownVersion = '1.20.1';
+  const knownUrl = 'https://fixture.invalid/1.20.1.json';
+  const knownLoaderUrl = 'https://meta.fabricmc.net/v2/versions/loader/1.20.1';
+  const knownBodies = new Map(metadataBodies);
+  knownBodies.set(manifestUrl, { json: { versions: [{ id: knownVersion, url: knownUrl }] } });
+  knownBodies.set(knownUrl, { json: { javaVersion: { majorVersion: 17 } } });
+  knownBodies.set(knownLoaderUrl, new Error('fixture unknown for known loader'));
+  knownBodies.set('https://meta.quiltmc.org/v3/versions/loader/1.20.1', { json: [] });
+  const openKnown = () => new NorthpointService({ rootDir: root, dataDir: path.join(root, 'known-cache'), metadataFetch: async (url) => {
+    const value = knownBodies.get(url);
+    if (value instanceof Error) throw value;
+    if (!value) throw new Error(`unexpected metadata URL ${url}`);
+    return value;
+  } });
+  const resolveKnown = (force = true) => openKnown().request('conversion_resolve_version', { minecraft: knownVersion, force });
+  const seed = await resolveKnown();
+  assert.equal(seed.profile.loaders.fabric.metadata_state, 'stale-unverified');
+  assert.equal(seed.profile.loaders.fabric.resolver, 'fabric-cli');
+  knownBodies.set(knownLoaderUrl, { json: [] });
+  const knownAbsent = await resolveKnown();
+  assert.equal(knownAbsent.profile.loaders.fabric, undefined);
+  knownBodies.set(knownLoaderUrl, new Error('fixture unknown after known absence'));
+  const stillAbsent = await resolveKnown();
+  assert.equal(stillAbsent.profile.loaders.fabric, undefined);
+  const knownCache = openKnown().versionMetadataCachePath(knownVersion);
+  const mismatched = JSON.parse(fs.readFileSync(knownCache, 'utf8'));
+  // Even with the requested response identity, a mismatched nested owner must not hydrate.
+  mismatched.resolved.profile = refreshed.profile;
+  fs.writeFileSync(knownCache, JSON.stringify(mismatched));
+  const mismatchIgnored = await resolveKnown(false);
+  assert.equal(mismatchIgnored.source, 'live-version-metadata');
+  assert.equal(mismatchIgnored.profile.minecraft, knownVersion);
+  assert.equal(mismatchIgnored.profile.loaders.fabric.loader_version, undefined);
+  assert.equal(mismatchIgnored.profile.loaders.fabric.resolver, 'fabric-cli');
+
   const session = await service.request('conversion_create_session', {
     source: { kind: 'fixture', name: 'hello-mod' },
     targetMc: '1.21.1', targetLoader: 'fabric', matrix: 'all', includeExperimental: false,
@@ -170,6 +290,7 @@ const dataDir = path.join(root, 'data');
   const report = {
     status: 'PASS',
     latest: plan.latest_resolution,
+    metadata_retry_lanes: retryObservations.map(({ lane }) => lane),
     dynamic_latest: { resolved: dynamicPlan.primary.minecraft, source: dynamicPlan.latest_resolution.source, stale_fallback: stale.source },
     arbitrary_version: { minecraft: legacyPlan.primary.minecraft, loader: legacyPlan.primary.loader, java: legacyResolved.java },
     primary: plan.primary,
