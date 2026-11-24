@@ -48,6 +48,19 @@ function ownedPath(root, relative, regular) {
   return resolved;
 }
 
+function resolveStockElectron(root, lockedVersion) {
+  const packagePath = ownedPath(root, path.normalize('node_modules/electron'), false);
+  const installed = JSON.parse(fs.readFileSync(path.join(packagePath, 'package.json'), 'utf8'));
+  assert.equal(installed.version, lockedVersion, 'Installed Electron package differs from the repository lock');
+  // Electron 44 installs its version-pinned binary at its first API lookup, not npm ci.
+  // Use the same upstream resolver as scripts/run.js before recording any build bytes.
+  const returned = require(packagePath);
+  const expected = ownedPath(root, path.normalize(ELECTRON), true);
+  assert.ok(typeof returned === 'string' && path.isAbsolute(returned), 'Electron did not return an absolute runtime path');
+  assert.equal(fs.realpathSync.native(returned), expected, 'Electron returned a different runtime than the owned build');
+  return expected;
+}
+
 function assertWindowsX64(file) {
   const fd = fs.openSync(file, 'r');
   try {
@@ -109,7 +122,8 @@ function buildReceipt(root) {
 function run() {
   assert.equal(process.platform, 'win32');
   assert.equal(process.arch, 'x64');
-  assert.ok(!process.env.ELECTRON_RUN_AS_NODE && !process.env.ELECTRON_DISABLE_SANDBOX, 'Unexpected Electron environment');
+  assert.ok(!process.env.ELECTRON_RUN_AS_NODE && !process.env.ELECTRON_DISABLE_SANDBOX &&
+    !process.env.ELECTRON_OVERRIDE_DIST_PATH, 'Unexpected Electron environment');
   const root = fs.realpathSync.native(path.resolve(__dirname, '..'));
   const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
   const commit = process.env.ENDERLOOM_EVIDENCE_COMMIT;
@@ -122,12 +136,13 @@ function run() {
   const report = path.join(process.env.RUNNER_TEMP, 'enderloom-windows-source-evidence.json');
   assert.ok(!fs.existsSync(report), 'Refusing to reuse an existing evidence file');
 
+  const electron = resolveStockElectron(root, expectElectron);
   const inputsBefore = buildReceipt(root);
   // Same entry point and only flag as npm run electron-self-test. Pin the two
   // exact observed build outputs, like the regular source launcher does for the service.
   const result = smokeEvidence(spawnSync(process.execPath, ['scripts/run.js', '--self-test'], {
     cwd: root,
-    env: { ...process.env, ELECTRON_PATH: path.join(root, ELECTRON), ENDERLOOM_SERVICE_PATH: path.join(root, SERVICE) },
+    env: { ...process.env, ELECTRON_PATH: electron, ENDERLOOM_SERVICE_PATH: path.join(root, SERVICE) },
     encoding: 'utf8',
     timeout: 180000,
     maxBuffer: 4 * 1024 * 1024,
@@ -148,5 +163,5 @@ function run() {
   console.log('Passing Windows integrated source evidence for ' + commit + ' (not an installer)');
 }
 
-module.exports = { smokeEvidence, buildReceipt, assertWindowsX64, STAGES };
+module.exports = { smokeEvidence, buildReceipt, assertWindowsX64, resolveStockElectron, STAGES };
 if (require.main === module) run();

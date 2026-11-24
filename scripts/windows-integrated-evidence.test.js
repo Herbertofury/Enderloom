@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { test } = require('node:test');
-const { smokeEvidence, buildReceipt, assertWindowsX64, STAGES } = require('./windows-integrated-evidence');
+const { smokeEvidence, buildReceipt, assertWindowsX64, resolveStockElectron, STAGES } = require('./windows-integrated-evidence');
 
 const lock = require('../package-lock.json').packages['node_modules/electron'].version;
 const stdout = (changes = {}, stages = STAGES) => [
@@ -106,4 +106,42 @@ test('startup evidence binds both binaries, all frontend assets and the exact lo
   fs.rmSync(service);
   fs.mkdirSync(service);
   assert.throws(() => buildReceipt(root), /type/);
+});
+
+
+test('a lock-installed lazy Electron shim resolves before the first byte receipt', t => {
+  const root = temp(t);
+  const relative = 'node_modules/electron/dist/electron.exe';
+  const original = path.join(root, relative);
+  put(root, 'node_modules/electron/package.json', JSON.stringify({ main: 'index.js', version: lock }));
+  put(root, 'node_modules/electron/index.js', `
+    const fs = require('node:fs');
+    const path = require('node:path');
+    const binary = path.join(__dirname, 'dist', 'electron.exe');
+    fs.mkdirSync(path.dirname(binary), { recursive: true });
+    fs.writeFileSync(binary, Buffer.from(${JSON.stringify(pe().toString('hex'))}, 'hex'));
+    module.exports = binary;
+  `);
+  put(root, 'native/target/debug/enderloom-service.exe', pe());
+  put(root, 'launcher/dist/index.html', 'html');
+  put(root, 'launcher/dist/assets/index.js', 'bundle');
+  for (const name of ['package-lock.json', 'launcher/package-lock.json', 'native/Cargo.lock']) put(root, name, 'lock');
+
+  assert.equal(fs.existsSync(original), false);
+  assert.throws(() => buildReceipt(root), { code: 'ENOENT' }); // original evidence order
+  const resolved = resolveStockElectron(root, lock);
+  assert.equal(resolved, fs.realpathSync.native(original));
+  assert.equal(buildReceipt(root).executables[0].path, relative);
+  fs.writeFileSync(original, 'not a PE');
+  assert.throws(() => buildReceipt(root), /DOS header/); // unchanged executable gate
+});
+
+test('stock Electron resolution refuses package-version changes and alternate runtime paths', t => {
+  const root = temp(t);
+  put(root, 'node_modules/electron/package.json', JSON.stringify({ main: 'index.js', version: lock }));
+  put(root, 'node_modules/electron/dist/electron.exe', pe());
+  const alternate = put(root, 'not-the-locked-dist/electron.exe', pe());
+  put(root, 'node_modules/electron/index.js', 'module.exports = ' + JSON.stringify(alternate));
+  assert.throws(() => resolveStockElectron(root, '0.0.0'), /differs from the repository lock/);
+  assert.throws(() => resolveStockElectron(root, lock), /different runtime than the owned build/);
 });
