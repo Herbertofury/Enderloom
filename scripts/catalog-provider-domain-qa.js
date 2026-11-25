@@ -96,6 +96,7 @@ async function catalogLinkScope() {
   const code = [
     part('DATA.forEach(p=>','const byId='),
     part('function itemUrls','function mediaItemUrls'),
+    part('function verifiedUrls','function siteInfo'),
     part('function providerProjectUrls','function launcherButton'),
     part('const linkQueue=','window.__mobExplorerTest'),
     '({launcherProjectUrl,itemUrls,enrichProviderLinks})',
@@ -137,6 +138,36 @@ async function catalogLinkScope() {
     const expired={...old,[project.id]:{...old[project.id],at}};
     const aged=mount(project,expired);await aged.enrichProviderLinks();
     assert.deepEqual(JSON.parse(JSON.stringify(aged.requestList[0].urls)),[corrected]);
+  }
+  {
+    const declaredCf='https://www.curseforge.com/minecraft/mc-mods/declared-cf';
+    const discoveredMr='https://modrinth.com/mod/same-name-not-proof';
+    const declaredBoth={...project,primaryUrl:declaredCf,sources:[{url:corrected},{url:declaredCf}]};
+    assert.equal(mount(declaredBoth,{}).launcherProjectUrl(declaredBoth),declaredCf,
+      'when both providers are declared, the original primary chooses the main install button');
+    const acts=[],declared={...project,_key:project.id,primaryUrl:declaredCf,
+      _enrichedLinks:[{url:discoveredMr,source:'modrinth-project'}]};
+    const rendered=vm.runInNewContext([
+      part('function itemUrls','function mediaItemUrls'),
+      part('function verifiedUrls','function siteInfo'),
+      part('function siteInfo','function catalogLinkRow'),
+      '({launcherProjectUrl,launcherShortcuts,sourceButtons,sendToLauncher,sendToProviderLauncher})',
+    ].join('\n'),{URL,esc:x=>String(x),uniq:x=>[...new Set(x.filter(Boolean))],
+      toast(){},markRecent(){},window:{mobCompanion:{
+        async installToLauncher(p){acts.push(['native',p.urls])},
+        async openProviderLauncher(p){acts.push(['provider',p.urls])},
+      }}});
+    assert.equal(rendered.launcherProjectUrl(declared),declaredCf);
+    assert.match(rendered.sourceButtons(declared),/Research lead only/);
+    assert.ok(rendered.sourceButtons(declared).includes(discoveredMr));
+    assert.ok(!rendered.launcherShortcuts(declared).includes(discoveredMr));
+    await rendered.sendToLauncher(declared);
+    await rendered.sendToProviderLauncher(declared,discoveredMr);
+    await rendered.sendToProviderLauncher(declared,declaredCf);
+    assert.deepEqual(JSON.parse(JSON.stringify(acts)),[['native',[declaredCf]],['provider',[declaredCf]]]);
+    const noRoute={...declared,primaryUrl:'https://example.test/demo'};
+    assert.equal(rendered.launcherProjectUrl(noRoute),'');
+    assert.ok(rendered.sourceButtons(noRoute).includes(discoveredMr));
   }
   const unrelated={...project,primaryUrl:'https://example.test/demo'};
   const weak=mount(unrelated,old);await weak.enrichProviderLinks();

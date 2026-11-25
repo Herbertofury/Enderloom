@@ -37,7 +37,11 @@ const {html: generatedCatalog} = require('../src/catalog-renderer').renderCatalo
 const catalogHtml = generatedCatalog.replace('<head>',`<head><script>
 window.sourceChecks = [];
 window.finishSource = {};
-window.mobCompanion = {enrichProjectLinks(input) {
+window.launchChoices = [];
+window.mobCompanion = {
+installToLauncher(input){window.launchChoices.push({kind:'native',urls:input.urls});},
+openProviderLauncher(input){window.launchChoices.push({kind:'provider',urls:input.urls});},
+enrichProjectLinks(input) {
   window.sourceChecks.push(input);
   return new Promise(resolve => { window.finishSource[input.id] = resolve; });
 }};
@@ -195,6 +199,16 @@ const watchdog = setTimeout(() => {
   })()`);
   assert.deepEqual(refreshed,{same:true,focused:true,text:'Still editing',status:'Source links refreshed.',
     link:'https://modrinth.com/mod/confirmed-fixture',stored:'Still editing'});
+  const authority = await run(`(() => {
+    const modal = document.querySelector('#projectModal');
+    const research = modal.querySelector('a[href="https://modrinth.com/mod/confirmed-fixture"]');
+    modal.querySelector('[data-install-project]').click();
+    modal.querySelector('button.curseforge-shortcut').click();
+    return {launchChoices, unexpectedShortcut:!!modal.querySelector('button.modrinth-shortcut'),
+      researchLabel:research.dataset.discoveredSource!==undefined&&research.textContent.includes('Discovered')};
+  })()`);
+  assert.deepEqual(authority,{launchChoices:[{kind:'native',urls:[primaryLink]},
+    {kind:'provider',urls:[primaryLink]}],unexpectedShortcut:false,researchLabel:true});
   const bulk = await run(`(() => {
     document.querySelector('#projectModal [data-close]').click();
     const button = document.querySelector('#refreshSourceLinks');
@@ -211,7 +225,7 @@ const watchdog = setTimeout(() => {
 
   console.log(JSON.stringify({pass: true, electron: process.versions.electron,
     chrome: process.versions.chrome, staleDecodeRemainedHidden: true,
-    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, startupLinkDiscoveryIdle: true, openedRowOnlyAndNotesPreserved: true, explicitBulkRefresh: true, fixtureOnly: true}));
+    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, startupLinkDiscoveryIdle: true, openedRowOnlyAndNotesPreserved: true, explicitBulkRefresh: true, declaredInstallRoutePreserved: true, discoveredLinksStayResearchOnly: true, fixtureOnly: true}));
 })().then(() => finish(0), error => {
   console.error(error);
   finish(1);
