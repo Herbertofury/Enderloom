@@ -114,23 +114,34 @@
   // image path. These are only connection hints; every displayed byte still comes live
   // from the real provider/CDN and no image is bundled or substituted.
   ['https://media.forgecdn.net/','https://edge.forgecdn.net/','https://static.planetminecraft.com/','https://cdn.modrinth.com/','https://avatars.githubusercontent.com/','https://opengraph.githubassets.com/','https://gitlab.com/','https://hangar.papermc.io/','https://api.spiget.org/','https://www.spigotmc.org/','https://dev.bukkit.org/','https://builtbybit.com/','https://www.nexusmods.com/','https://staticdelivery.nexusmods.com/','https://www.moddb.com/','https://media.moddb.com/','https://polymart.org/','https://r2.mcpedl.com/','https://modbay.org/','https://pic1.afdiancdn.com/','https://c10.patreonusercontent.com/','https://www.minecraft.net/','https://store-images.s-microsoft.com/','https://booth.pximg.net/','https://imgproxy.fourthwall.dev/','https://storage.ko-fi.com/','https://img.itch.zone/'].forEach(preconnect);
+  // Bind asynchronous media callbacks to the active item, not to the reused DOM node.
+  const slotLoads = new WeakMap();
   function setImage(slot,item,label,s){
     if(!slot)return;const img=slot.querySelector('.live-media-image')||slot.matches('img')&&slot;const loading=slot.querySelector?.('.live-media-loading');
     if(!img)return;
     const oldVideo=slot.querySelector?.('.live-media-video');
-    if(!item?.url){img.hidden=true;if(oldVideo){oldVideo.pause?.();oldVideo.hidden=true}if(loading){const curseForgePending=slot?.dataset?.liveMediaRole==='gallery'&&!s?.deepLoaded&&!s?.galleryAbsent&&!s?.sourceGalleryAbsent&&(s?.urls||[]).some(u=>/curseforge\.com/i.test(String(u||'')));loading.hidden=false;loading.textContent=(slot?.dataset?.liveMediaRole==='gallery'&&s?.galleryAbsent)?'Live source has no gallery':(slot?.dataset?.liveMediaRole==='gallery'&&s?.sourceGalleryAbsent)?'Gallery tab empty — checking project post…':curseForgePending?'Checking exact CurseForge gallery…':s?.loaded?'Live source did not expose this media yet':'Loading live media…'}return}
-    const isVideo=item.mediaType==='video';
+    if(!item?.url){slotLoads.delete(slot);img.hidden=true;if(oldVideo){oldVideo.pause?.();oldVideo.hidden=true}if(loading){const curseForgePending=slot?.dataset?.liveMediaRole==='gallery'&&!s?.deepLoaded&&!s?.galleryAbsent&&!s?.sourceGalleryAbsent&&(s?.urls||[]).some(u=>/curseforge\.com/i.test(String(u||'')));loading.hidden=false;loading.textContent=(slot?.dataset?.liveMediaRole==='gallery'&&s?.galleryAbsent)?'Live source has no gallery':(slot?.dataset?.liveMediaRole==='gallery'&&s?.sourceGalleryAbsent)?'Gallery tab empty — checking project post…':curseForgePending?'Checking exact CurseForge gallery…':s?.loaded?'Live source did not expose this media yet':'Loading live media…'}return}
+    const isVideo=item.mediaType==='video',previous=slotLoads.get(slot);
     if(isVideo){
       img.hidden=true;let video=oldVideo;
       if(!video){video=document.createElement('video');video.className='live-media-video';video.muted=true;video.playsInline=true;video.preload='metadata';video.controls=false;slot.appendChild(video)}
       const poster=isHttp(item.posterUrl)?item.posterUrl:isHttp(item.previewUrl)?item.previewUrl:'';if(poster){preconnect(poster);video.poster=poster}
-      if(video.dataset.liveSrc!==item.url){preconnect(item.url);video.hidden=true;video.dataset.liveSrc=item.url;video.setAttribute('aria-label',item.alt||label||'Live project video');video.onloadedmetadata=()=>{video.hidden=false;if(loading)loading.hidden=true};video.onerror=()=>{video.hidden=true;if(s){s.badUrls.add(item.url);s.gallery=s.gallery.filter(x=>x.url!==item.url)}if(loading){loading.hidden=false;loading.textContent='Refreshing from another live source…'};if(s&&!s.forceRefresh){s.forceRefresh=true;enqueue(s,true,true,true)}};video.src=item.url;video.load()}else if(video.readyState>=1){video.hidden=false;if(loading)loading.hidden=true}
+      if(previous?.kind!=='video'||previous.original!==item.url){
+        const load={kind:'video',original:item.url};slotLoads.set(slot,load);
+        preconnect(item.url);video.hidden=true;video.dataset.liveSrc=item.url;video.setAttribute('aria-label',item.alt||label||'Live project video');
+        video.onloadedmetadata=()=>{if(slotLoads.get(slot)!==load)return;video.hidden=false;if(loading)loading.hidden=true};
+        video.onerror=()=>{if(slotLoads.get(slot)!==load)return;video.hidden=true;if(s){s.badUrls.add(item.url);s.gallery=s.gallery.filter(x=>x.url!==item.url)}if(loading){loading.hidden=false;loading.textContent='Refreshing from another live source…'};if(s&&!s.forceRefresh){s.forceRefresh=true;enqueue(s,true,true,true)}};
+        video.src=item.url;video.load()
+      }else if(video.readyState>=1){video.hidden=false;if(loading)loading.hidden=true}
       return;
     }
     if(oldVideo){oldVideo.pause?.();oldVideo.hidden=true}
     const original=item.url,display=isHttp(item.previewUrl)?item.previewUrl:original;
     const priority=s?(Number(s.priority)||statePriority(s)):0,aboveFold=priority>=750_000,nearViewport=priority>0;
-    if(img.dataset.liveSrc!==display){preconnect(display);preconnect(original);predecode(display,priority);img.hidden=true;img.decoding='async';img.loading=priority>1?'eager':'lazy';img.fetchPriority=aboveFold?'high':nearViewport?'auto':'low';img.dataset.liveSrc=display;img.dataset.liveOriginal=original;img.alt=item.alt||label||'';img.onload=()=>{img.hidden=false;if(loading)loading.hidden=true;img.classList.add('media-zoomable')};img.onerror=()=>{if(display!==original){item.previewUrl='';img.dataset.liveSrc='';setImage(slot,item,label,s);return}img.hidden=true;if(s){s.badUrls.add(original);s.gallery=s.gallery.filter(x=>x.url!==original);if(s.icon?.url===original)s.icon=null;if(s.author?.url===original)s.author=null;}if(loading){loading.hidden=false;loading.textContent='Refreshing from another live source…'};if(s&&!s.forceRefresh){s.forceRefresh=true;enqueue(s,true,true,true)}};img.src=display}else if(img.complete&&img.naturalWidth){img.hidden=false;if(loading)loading.hidden=true}
+    if(previous?.kind!=='image'||previous.original!==original||previous.display!==display){
+      const load={kind:'image',original,display};slotLoads.set(slot,load);
+      preconnect(display);preconnect(original);predecode(display,priority);img.hidden=true;img.decoding='async';img.loading=priority>1?'eager':'lazy';img.fetchPriority=aboveFold?'high':nearViewport?'auto':'low';img.dataset.liveSrc=display;img.dataset.liveOriginal=original;img.alt=item.alt||label||'';img.onload=()=>{if(slotLoads.get(slot)!==load)return;img.hidden=false;if(loading)loading.hidden=true;img.classList.add('media-zoomable')};img.onerror=()=>{if(slotLoads.get(slot)!==load)return;if(display!==original){item.previewUrl='';img.dataset.liveSrc='';setImage(slot,item,label,s);return}img.hidden=true;if(s){s.badUrls.add(original);s.gallery=s.gallery.filter(x=>x.url!==original);if(s.icon?.url===original)s.icon=null;if(s.author?.url===original)s.author=null;}if(loading){loading.hidden=false;loading.textContent='Refreshing from another live source…'};if(s&&!s.forceRefresh){s.forceRefresh=true;enqueue(s,true,true,true)}};img.src=display
+    }else if(img.complete&&img.naturalWidth){img.hidden=false;if(loading)loading.hidden=true}
   }
 
   function applyState(s){
