@@ -97,7 +97,7 @@ async function catalogLinkScope() {
     part('DATA.forEach(p=>','const byId='),
     part('function itemUrls','function mediaItemUrls'),
     part('function providerProjectUrls','function launcherButton'),
-    part('async function enrichProviderLinks','window.__mobExplorerTest'),
+    part('const linkQueue=','window.__mobExplorerTest'),
     '({launcherProjectUrl,itemUrls,enrichProviderLinks})',
   ].join('\n');
   const corrected='https://modrinth.com/mod/corrected', former='https://modrinth.com/mod/former', cross='https://www.curseforge.com/minecraft/mc-mods/confirmed';
@@ -141,6 +141,30 @@ async function catalogLinkScope() {
   const unrelated={...project,primaryUrl:'https://example.test/demo'};
   const weak=mount(unrelated,old);await weak.enrichProviderLinks();
   assert.equal(weak.requestList.length,0,'cached paths cannot create a new provider identity from an unrelated catalog row');
+  assert.ok(!app.includes('render();void enrichProviderLinks()'),'no automatic startup discovery');
+  {
+    const pending=[];
+    let active=0,max=0,resolved=0;
+    const DATA=Array.from({length:19},(_,idx)=>({...project,id:'bounded-'+idx}));
+    const scoped=vm.runInNewContext(code,{DATA,linkCache:{},norm:v=>String(v),uniq:values=>[...new Set(values.filter(Boolean))],
+      render(){},safeStorage:{set(){}},STORE:{links:'bulk-scope'},window:{mobCompanion:{enrichProjectLinks(input){
+        active++;max=Math.max(max,active);
+        return new Promise((resolve,reject)=>pending.push({id:input.id,settle(){active--;resolved++;if(input.id.endsWith('-4'))reject(Error('fixture unavailable'));else resolve({links:response});}}));
+      }}}});
+    assert.equal(pending.length,0);
+    const task=scoped.enrichProviderLinks(DATA.slice(0,14));
+    const duplicate=scoped.enrichProviderLinks([DATA[0]]);
+    assert.equal(active,6);
+    while(pending.length){pending.shift().settle();await Promise.resolve();await Promise.resolve()}
+    const result=await task;
+    await duplicate;
+    assert.equal(resolved,14,'no off-slice requests or duplicate active check');
+    assert.equal(max,6);
+    assert.equal(result.checked,13);
+    assert.equal(result.failed,1);
+    assert.equal(DATA[4]._linksFresh,false,'failure must remain retryable');
+    assert.ok(DATA.slice(14).every(row=>!row._linksFresh));
+  }
   console.log('PASS Catalog launcher identity: cache seeds, declared-source priority, and unpolluted refresh inputs');
 }
 catalogLinkScope().then(()=>console.log(JSON.stringify({passed:true, checks},null,2)))

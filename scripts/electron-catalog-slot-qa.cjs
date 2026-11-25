@@ -21,15 +21,27 @@ const issuesLink = 'https://github.com/sample/project/issues';
 const alternateLink = 'https://github.com/sample/project/releases';
 const legacyNotes = {'previous-a':'First retained note','previous-b':'Second retained note'};
 const root = path.join(__dirname, '..');
-const {html: catalogHtml} = require('../src/catalog-renderer').renderCatalog({
+const {html: generatedCatalog} = require('../src/catalog-renderer').renderCatalog({
   id: 'mob-variety',
   name: 'Catalog runtime fixture',
   legacyIdMap: {'previous-a':'current', 'previous-b':'current'},
   items: [{
     id: 'current', name: 'Fixture mod', primaryUrl: primaryLink,
     sources: [{url:primaryLink}, {url:fileLink}, {url:issuesLink}, {url:alternateLink}],
+  },{
+    id: 'next', name: 'Z Second fixture', primaryUrl: 'https://modrinth.com/mod/another',
+    sources:[{url:'https://modrinth.com/mod/another'}],
   }],
 }, root);
+
+const catalogHtml = generatedCatalog.replace('<head>',`<head><script>
+window.sourceChecks = [];
+window.finishSource = {};
+window.mobCompanion = {enrichProjectLinks(input) {
+  window.sourceChecks.push(input);
+  return new Promise(resolve => { window.finishSource[input.id] = resolve; });
+}};
+</script>`);
 
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/X6kAAAAASUVORK5CYII=', 'base64');
 const queued = new Map();
@@ -160,9 +172,46 @@ const watchdog = setTimeout(() => {
   assert.match(card.migration.current, /First retained note/);
   assert.match(card.migration.current, /Second retained note/);
   assert.deepEqual(card.original, legacyNotes);
+  assert.equal(await run('sourceChecks.length'), 0, 'catalog launch requested off-screen discovery');
+  const initial = await run(`(() => {
+    document.querySelector('[data-action="details"][data-id="current"]').click();
+    const note = document.querySelector('#projectNotes');
+    note.value = 'Still editing';
+    note.focus();
+    note.dispatchEvent(new Event('input', {bubbles:true}));
+    window.editingNote = note;
+    return {calls:sourceChecks.map(row=>row.id),status:document.querySelector('#projectLinkStatus').textContent};
+  })()`);
+  assert.deepEqual(initial.calls, ['current']);
+  assert.match(initial.status, /Checking links for this project/);
+  const refreshed = await run(`(async () => {
+    finishSource.current({links:[{url:'https://modrinth.com/mod/confirmed-fixture'}]});
+    await new Promise(resolve => setTimeout(resolve, 0));
+    const note = document.querySelector('#projectNotes');
+    return {same:note===editingNote,focused:document.activeElement===note,text:note.value,
+      status:document.querySelector('#projectLinkStatus').textContent,
+      link:document.querySelector('#projectModal a[href="https://modrinth.com/mod/confirmed-fixture"]')?.href,
+      stored:JSON.parse(localStorage.getItem('catalog:mob-variety:notes:v2')).current};
+  })()`);
+  assert.deepEqual(refreshed,{same:true,focused:true,text:'Still editing',status:'Source links refreshed.',
+    link:'https://modrinth.com/mod/confirmed-fixture',stored:'Still editing'});
+  const bulk = await run(`(() => {
+    document.querySelector('#projectModal [data-close]').click();
+    const button = document.querySelector('#refreshSourceLinks');
+    button.click();button.click();
+    return {calls:sourceChecks.map(row=>row.id),disabled:button.disabled};
+  })()`);
+  assert.deepEqual(bulk,{calls:['current','next'],disabled:true});
+  const completed = await run(`(async () => {
+    finishSource.next({links:[]});
+    await new Promise(resolve => setTimeout(resolve,0));
+    return {calls:sourceChecks.map(row=>row.id),enabled:!document.querySelector('#refreshSourceLinks').disabled};
+  })()`);
+  assert.deepEqual(completed,{calls:['current','next'],enabled:true});
+
   console.log(JSON.stringify({pass: true, electron: process.versions.electron,
     chrome: process.versions.chrome, staleDecodeRemainedHidden: true,
-    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, fixtureOnly: true}));
+    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, startupLinkDiscoveryIdle: true, openedRowOnlyAndNotesPreserved: true, explicitBulkRefresh: true, fixtureOnly: true}));
 })().then(() => finish(0), error => {
   console.error(error);
   finish(1);
