@@ -82,17 +82,21 @@ function renderCatalog(snapshot, rootDir) {
   const appJs = fs.readFileSync(path.join(catalogDir, 'app.js'), 'utf8');
   const enhanceJs = fs.readFileSync(path.join(catalogDir, 'enhance.js'), 'utf8');
   const data = normalizeSnapshot(snapshot);
-  let html = template
-    .replaceAll('__TITLE__', htmlEscape(`${data.name} - Explorer`))
-    .replaceAll('__BRAND__', htmlEscape(data.brand || brandFor(data.name)))
-    .replaceAll('__HEADING__', htmlEscape(data.name))
-    .replaceAll('__LEDE__', htmlEscape(data.description))
-    .replace('__STYLES__', styles)
-    .replace('__BUILD_JSON__', jsonForScript(data.build))
-    .replace('__ASSETS_JSON__', jsonForScript(data.assets))
-    .replace('__DATA_JSON__', jsonForScript(data.items))
-    .replace('__APP_JS__', appJs)
-    .replace('__ENHANCE_JS__', enhanceJs);
+  const slots = {
+    __TITLE__: htmlEscape(`${data.name} - Explorer`),
+    __BRAND__: htmlEscape(data.brand || brandFor(data.name)),
+    __HEADING__: htmlEscape(data.name),
+    __LEDE__: htmlEscape(data.description),
+    __STYLES__: styles,
+    __BUILD_JSON__: jsonForScript(data.build),
+    __ASSETS_JSON__: jsonForScript(data.assets),
+    __DATA_JSON__: jsonForScript(data.items),
+    __APP_JS__: appJs,
+    __ENHANCE_JS__: enhanceJs
+  };
+  // Match only slots in the template. Callback results are literal, so
+  // imported dollar sequences or slot-like text are not expanded again.
+  const html = template.replace(new RegExp(Object.keys(slots).join('|'), 'g'), slot => slots[slot]);
   return { html, snapshot:data };
 }
 function writeCatalog(snapshot, outputPath, rootDir) {
