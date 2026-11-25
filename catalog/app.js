@@ -3,7 +3,38 @@ const DATA=Array.isArray(window.MOB_VARIETY_DATA)?window.MOB_VARIETY_DATA:[],ASS
 const safeStorage={get(k){try{return window.localStorage.getItem(k)}catch{return null}},set(k,v){try{window.localStorage.setItem(k,v);return true}catch{return false}}};
 const catalogId=String(BUILD.catalogId||BUILD.id||'default').replace(/[^a-z0-9_-]/gi,'-'),NS='catalog:'+catalogId+':';const STORE={favorites:NS+'favorites:v2',notes:NS+'notes:v2',theme:'catalog-explorer:theme:v2',recent:NS+'recent:v2',links:NS+'provider-links:v1'};
 const readJSON=(k,d)=>{try{return JSON.parse(safeStorage.get(k)||'')||d}catch{return d}};
-(function migrateLegacySavedState(){if(safeStorage.get(STORE.favorites)!==null||safeStorage.get(STORE.notes)!==null)return;const map=BUILD.legacyIdMap||{},translate=id=>map[id]||id;let oldFav=[],oldNotes={},oldRecent=[];if(catalogId==='mob-variety'){oldFav=readJSON('mob-variety-explorer:favorites:v1',[]);oldNotes=readJSON('mob-variety-explorer:notes:v1',{});oldRecent=readJSON('mob-variety-explorer:recent:v1',[])}else{const oldId=catalogId==='mob-girl'?'mob-girls':catalogId;oldFav=readJSON('cc:favorites:'+oldId,[]);oldNotes=readJSON('cc:notes:'+oldId,{})}const fav=[...new Set((oldFav||[]).map(translate))],notesOut={};for(const [id,value] of Object.entries(oldNotes||{}))notesOut[translate(id)]=value;if(fav.length)safeStorage.set(STORE.favorites,JSON.stringify(fav));if(Object.keys(notesOut).length)safeStorage.set(STORE.notes,JSON.stringify(notesOut));if(oldRecent.length)safeStorage.set(STORE.recent,JSON.stringify([...new Set(oldRecent.map(translate))].slice(0,24)))}());
+(function migrateLegacySavedState(){
+  const map=BUILD.legacyIdMap||{},translate=id=>Object.hasOwn(map,id)&&typeof map[id]==='string'&&map[id]?map[id]:id;
+  const oldId=catalogId==='mob-girl'?'mob-girls':catalogId;
+  const old=catalogId==='mob-variety'?
+    {favorites:'mob-variety-explorer:favorites:v1',notes:'mob-variety-explorer:notes:v1',recent:'mob-variety-explorer:recent:v1'}:
+    {favorites:'cc:favorites:'+oldId,notes:'cc:notes:'+oldId};
+  // Each store can fail independently. Never overwrite a currently saved v2 key.
+  for(const kind of ['favorites','recent']){
+    if(!old[kind]||safeStorage.get(STORE[kind])!==null)continue;
+    const ids=readJSON(old[kind],[]);
+    if(!Array.isArray(ids))continue;
+    const mapped=[...new Set(ids.filter(id=>typeof id==='string'&&id).map(translate))];
+    const retained=kind==='recent'?mapped.slice(0,24):mapped;
+    if(retained.length)safeStorage.set(STORE[kind],JSON.stringify(retained));
+  }
+  if(safeStorage.get(STORE.notes)!==null)return;
+  const legacy=readJSON(old.notes,{});
+  if(!legacy||typeof legacy!=='object'||Array.isArray(legacy))return;
+  const grouped=new Map();
+  for(const [id,text] of Object.entries(legacy)){
+    if(typeof text!=='string')continue;
+    const key=translate(id),notes=grouped.get(key)||new Map();
+    if(!notes.has(text))notes.set(text,id);
+    grouped.set(key,notes);
+  }
+  const notes=Object.create(null);
+  for(const [key,variants] of grouped){
+    notes[key]=variants.size===1?variants.keys().next().value:
+      [...variants].map(([text,id])=>`Imported note from ${id}:\n${text}`).join('\n\n');
+  }
+  if(grouped.size)safeStorage.set(STORE.notes,JSON.stringify(notes));
+}());
 const favorites=new Set(readJSON(STORE.favorites,[])),notes=readJSON(STORE.notes,{}),recent=readJSON(STORE.recent,[]).filter(Boolean).slice(0,24),compare=new Set(),linkCache=readJSON(STORE.links,{});
 const norm=v=>String(v??'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,''),esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])),num=v=>Number.isFinite(Number(v))?Number(v):0,uniq=a=>[...new Set(a.filter(Boolean))],asset=k=>{const v=k&&ASSETS[k]?ASSETS[k]:k;return /^https?:\/\//i.test(String(v||''))?String(v):'';};
 DATA.forEach(p=>{p._key=p.id;const cached=linkCache[p._key];p._linksFresh=!!(cached&&Date.now()-Number(cached.at||0)<14*86400000&&Array.isArray(cached.links));p._enrichedLinks=p._linksFresh?cached.links:[];p._sourceCount=uniq([...(p.sources||[]).map(x=>x?.url),...(p._enrichedLinks||[]).map(x=>x?.url),p.primaryUrl,p.curseForgeUrl,p.modrinthUrl,p.githubUrl,...String(p.otherUrl||'').match(/https?:\/\/[^\s;]+/g)||[]].filter(Boolean)).length;p._search=norm([p.name,p.primaryCategory,p.edition,p.type,p.minecraftVersions,p.loader,p.varietyCount,p.status,(p.tags||[]).join(' '),p.whyItMatters,p.caution,p.author,p.scour,(p.collections||[]).join(' '),p.evidence,JSON.stringify(p.extra||{})].join(' '))});
