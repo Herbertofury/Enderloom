@@ -209,6 +209,13 @@ const watchdog = setTimeout(() => {
   })()`);
   assert.deepEqual(authority,{launchChoices:[{kind:'native',urls:[primaryLink]},
     {kind:'provider',urls:[primaryLink]}],unexpectedShortcut:false,researchLabel:true});
+  const reopened = await run(`(() => {
+    document.querySelector('#projectModal [data-close]').click();
+    document.querySelector('[data-action="details"][data-id="current"]').click();
+    return {urls:JSON.parse(document.querySelector('#projectModal .detail-gallery').dataset.projectUrls),
+      note:document.querySelector('#projectNotes').value,calls:sourceChecks.length};
+  })()`);
+  assert.deepEqual(reopened,{urls:[primaryLink,fileLink],note:'Still editing',calls:1});
   const bulk = await run(`(() => {
     document.querySelector('#projectModal [data-close]').click();
     const button = document.querySelector('#refreshSourceLinks');
@@ -225,7 +232,7 @@ const watchdog = setTimeout(() => {
 
   console.log(JSON.stringify({pass: true, electron: process.versions.electron,
     chrome: process.versions.chrome, staleDecodeRemainedHidden: true,
-    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, startupLinkDiscoveryIdle: true, openedRowOnlyAndNotesPreserved: true, explicitBulkRefresh: true, declaredInstallRoutePreserved: true, discoveredLinksStayResearchOnly: true, fixtureOnly: true}));
+    currentDecodePainted: true, actualCatalogMoreLinks: true, retainedLegacyAliasNotes: true, exactShortcutPreserved: true, startupLinkDiscoveryIdle: true, openedRowOnlyAndNotesPreserved: true, explicitBulkRefresh: true, declaredInstallRoutePreserved: true, discoveredLinksStayResearchOnly: true, galleryUsesDeclaredMediaSources: true, fixtureOnly: true}));
 })().then(() => finish(0), error => {
   console.error(error);
   finish(1);

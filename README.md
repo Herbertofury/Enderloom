@@ -32,7 +32,8 @@ startup. Declared links, existing notes and the current detail focus stay intact
 A failed link check can be retried from the same controls. Install and separate
 provider actions use the declared project routes. Discovered links are labeled
 research leads under More; a similar name on another provider is not proof
-of the same project.
+of the same project. Catalog images, gallery and creator media use the declared
+project sources too, so a research lead cannot supply another project’s art.
 
 
 

@@ -148,10 +148,10 @@ async function catalogLinkScope() {
     const acts=[],declared={...project,_key:project.id,primaryUrl:declaredCf,
       _enrichedLinks:[{url:discoveredMr,source:'modrinth-project'}]};
     const rendered=vm.runInNewContext([
-      part('function itemUrls','function mediaItemUrls'),
+      part('function itemUrls','function finite'),
       part('function verifiedUrls','function siteInfo'),
       part('function siteInfo','function catalogLinkRow'),
-      '({launcherProjectUrl,launcherShortcuts,sourceButtons,sendToLauncher,sendToProviderLauncher})',
+      '({launcherProjectUrl,launcherShortcuts,sourceButtons,sendToLauncher,sendToProviderLauncher,mediaItemUrls})',
     ].join('\n'),{URL,esc:x=>String(x),uniq:x=>[...new Set(x.filter(Boolean))],
       toast(){},markRecent(){},window:{mobCompanion:{
         async installToLauncher(p){acts.push(['native',p.urls])},
@@ -161,6 +161,10 @@ async function catalogLinkScope() {
     assert.match(rendered.sourceButtons(declared),/Research lead only/);
     assert.ok(rendered.sourceButtons(declared).includes(discoveredMr));
     assert.ok(!rendered.launcherShortcuts(declared).includes(discoveredMr));
+    assert.deepEqual(Array.from(rendered.mediaItemUrls(declared)),[declaredCf],
+      'derived project titles cannot contribute artwork or creator metadata');
+    assert.deepEqual(Array.from(rendered.mediaItemUrls(declaredBoth)),[declaredCf,corrected],
+      'both declared project media sources remain available');
     await rendered.sendToLauncher(declared);
     await rendered.sendToProviderLauncher(declared,discoveredMr);
     await rendered.sendToProviderLauncher(declared,declaredCf);
