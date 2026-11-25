@@ -1,0 +1,37 @@
+name: Catalog media slot ownership
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'catalog/enhance.js'
+      - 'scripts/catalog-media-slot-race-qa.js'
+      - 'scripts/electron-catalog-slot-qa.cjs'
+      - '.github/workflows/catalog-media-slot-ci.yml'
+      - 'package-lock.json'
+  push:
+    branches: [main]
+    paths:
+      - 'catalog/enhance.js'
+      - 'scripts/catalog-media-slot-race-qa.js'
+      - 'scripts/electron-catalog-slot-qa.cjs'
+      - '.github/workflows/catalog-media-slot-ci.yml'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+
+jobs:
+  windows-media-slot:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node node_modules/electron/install.js
+      - run: node scripts/catalog-media-slot-race-qa.js
+      - run: node node_modules/electron/cli.js scripts/electron-catalog-slot-qa.cjs

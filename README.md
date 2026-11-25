@@ -25,6 +25,12 @@ The launcher discovers CurseForge and Modrinth profiles in place. Connecting a p
 
 Use the toolbar catalog picker to switch immediately. Favorites, notes, filters, source health, and refresh targets are catalog-scoped.
 
+Source-link discovery is separate from gallery/media loading. Opening a project
+checks only that project’s missing or stale links. **Refresh visible source links**
+checks the current filtered set rather than starting a catalog-wide scan at
+startup. Declared links, existing notes and the current detail focus stay intact.
+A failed link check can be retried from the same controls.
+
 
 
 
