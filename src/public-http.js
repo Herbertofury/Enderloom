@@ -3,6 +3,7 @@ const http = require('http');
 const https = require('https');
 const zlib = require('zlib');
 const dns = require('dns');
+const { createHash } = require('crypto');
 const APP_VERSION = require('../package.json').version;
 const {firstTrustedMediaUrl,mediaMarkerMatched:providerMediaMarkerMatched}=require('./provider-fastlane');
 
@@ -19,6 +20,7 @@ const httpsAgent = new https.Agent({ keepAlive:true, maxSockets:128, maxFreeSock
 const sharedResponseCache = new Map();
 const sharedInflight = new Map();
 const progressiveInflight = new Map();
+const progressivePromises = new WeakSet();
 const SHARED_CACHE_MAX_BYTES = 64 * 1024 * 1024;
 let sharedCacheBytes = 0;
 let sharedHits = 0;
@@ -27,14 +29,17 @@ let sharedNetwork = 0;
 const dnsCache = new Map();
 const dnsInflight = new Map();
 const DNS_CACHE_MS = 60_000;
+const patternIdentities = new WeakMap();
+let nextPatternIdentity = 1;
 
 function cachedLookup(hostname, options, callback) {
   if(typeof options==='function'){callback=options;options={};}
   if(typeof options==='number')options={family:options};
   const opts=options||{},family=Number(opts.family)||0,all=!!opts.all,key=`${hostname}|${family}|${all?'all':'one'}`,now=Date.now();
   const hit=dnsCache.get(key);if(hit&&now-hit.at<DNS_CACHE_MS){queueMicrotask(()=>{if(all)callback(null,hit.rows);else callback(null,hit.rows[0].address,hit.rows[0].family)});return;}
-  const waiting=dnsInflight.get(key);if(waiting){waiting.push(callback);return;}dnsInflight.set(key,[callback]);
-  dns.lookup(hostname,{family,all:true,verbatim:false},(err,rows)=>{const waiters=dnsInflight.get(key)||[];dnsInflight.delete(key);const list=Array.isArray(rows)?rows:rows?[rows]:[];if(!err&&list.length){dnsCache.set(key,{at:Date.now(),rows:list});while(dnsCache.size>512)dnsCache.delete(dnsCache.keys().next().value)}for(const cb of waiters){if(err||!list.length)cb(err||new Error(`DNS lookup returned no addresses for ${hostname}`));else if(all)cb(null,list);else cb(null,list[0].address,list[0].family)}});
+  const waiting=dnsInflight.get(key);if(waiting){waiting.push(callback);return;}
+  const waiters=[callback];dnsInflight.set(key,waiters);
+  dns.lookup(hostname,{family,all:true,verbatim:false},(err,rows)=>{const owns=dnsInflight.get(key)===waiters;if(owns)dnsInflight.delete(key);const list=Array.isArray(rows)?rows:rows?[rows]:[];if(owns&&!err&&list.length){dnsCache.set(key,{at:Date.now(),rows:list});while(dnsCache.size>512)dnsCache.delete(dnsCache.keys().next().value)}for(const cb of waiters){if(err||!list.length)cb(err||new Error(`DNS lookup returned no addresses for ${hostname}`));else if(all)cb(null,list);else cb(null,list[0].address,list[0].family)}});
 }
 
 function isByteString(value) {
@@ -70,8 +75,30 @@ function defaultHeaders() {
     'Connection': 'keep-alive'
   };
 }
-function sharedKey(rawUrl, variant='buffer') {
-  try { const u=new URL(String(rawUrl));u.hash='';return `${variant}:${u.toString()}`; } catch { return `${variant}:${String(rawUrl||'')}`; }
+function requestRedirects(options={}) {
+  return Math.max(0, Number(options.redirects === undefined ? 7 : options.redirects) || 0);
+}
+function sharedKey(rawUrl, variant='buffer', options={}, phases=null) {
+  let url=String(rawUrl||'');
+  try { const u=new URL(url);u.hash='';url=u.toString(); } catch {}
+  // Match Node's case-insensitive, last-header-wins behavior. Hash the complete
+  // request identity so credentials never appear in cache/debug keys.
+  const headers=new Map();
+  for(const [name,value] of Object.entries(sanitizeRequestHeaders({...defaultHeaders(),...(options.headers||{})})))headers.set(name.toLowerCase(),value);
+  const identity={url,headers:[...headers].sort(([a],[b])=>a.localeCompare(b)),
+    timeoutMs:String(Math.max(500,Number(options.timeoutMs)||(variant==='headtext'?2600:6500))),
+    redirects:String(requestRedirects(options))};
+  if(variant==='headtext')identity.maxBytes=String(Math.max(64*1024,Number(options.maxBytes)||512*1024));
+  if(phases)identity.phases=phases;
+  return `${variant}:${createHash('sha256').update(JSON.stringify(identity)).digest('hex')}`;
+}
+function mediaPatternIdentity(pattern) {
+  if(pattern instanceof RegExp)return ['regexp',pattern.source,pattern.flags];
+  if(typeof pattern==='function'){
+    if(!patternIdentities.has(pattern))patternIdentities.set(pattern,nextPatternIdentity++);
+    return ['function',patternIdentities.get(pattern)];
+  }
+  return pattern==null?null:['text',String(pattern)];
 }
 function estimatedSharedBytes(value) {
   if(!value)return 0;if(Buffer.isBuffer(value.buffer))return value.buffer.length;
@@ -85,7 +112,8 @@ function rememberShared(key, value) {
   while(sharedCacheBytes>SHARED_CACHE_MAX_BYTES&&sharedResponseCache.size>1){const oldestKey=sharedResponseCache.keys().next().value,old=sharedResponseCache.get(oldestKey);sharedResponseCache.delete(oldestKey);sharedCacheBytes-=old?.bytes||0;}
 }
 function sharedStats() {
-  return { cacheEntries:sharedResponseCache.size, cacheBytes:Math.max(0,sharedCacheBytes), inflight:sharedInflight.size+progressiveInflight.size, progressiveInflight:progressiveInflight.size, dnsEntries:dnsCache.size, hits:sharedHits, coalesced:sharedCoalesced, network:sharedNetwork };
+  const ordinaryInflight=[...sharedInflight.values()].filter(promise=>!progressivePromises.has(promise)).length;
+  return { cacheEntries:sharedResponseCache.size, cacheBytes:Math.max(0,sharedCacheBytes), inflight:ordinaryInflight+progressiveInflight.size, progressiveInflight:progressiveInflight.size, dnsEntries:dnsCache.size, hits:sharedHits, coalesced:sharedCoalesced, network:sharedNetwork };
 }
 function clearSharedCache() { sharedResponseCache.clear(); sharedInflight.clear(); progressiveInflight.clear(); sharedCacheBytes=0;dnsCache.clear();dnsInflight.clear();sharedHits=sharedCoalesced=sharedNetwork=0; }
 
@@ -193,10 +221,11 @@ function requestProgressiveTextShared(rawUrl, options={}) {
   const stopAfterMedia=!!opts.stopAfterMedia,stopAfterPrefix=!!opts.stopAfterPrefix;
   delete opts.cacheTtlMs;delete opts.bypassCache;delete opts.force;delete opts.headMaxBytes;delete opts.mediaMaxBytes;delete opts.mediaMinBytes;delete opts.mediaPattern;delete opts.prefixMaxBytes;delete opts.stopAfterMedia;delete opts.stopAfterPrefix;
   const cacheable=!opts.headersForUrl&&!stopAfterMedia&&!stopAfterPrefix;
-  const textKey=sharedKey(rawUrl,'text'),flowKey=sharedKey(rawUrl,'progressive-text');
+  const textKey=sharedKey(rawUrl,'text',opts),headKey=sharedKey(rawUrl,'headtext',{...opts,timeoutMs:Math.max(500,Number(opts.timeoutMs)||6500),maxBytes:headMax});
+  const flowKey=sharedKey(rawUrl,'progressive-text',opts,{headMax,mediaMax,mediaMin,prefixMax,mediaPattern:mediaPatternIdentity(mediaPattern)});
   if(cacheable&&!bypass){
     const hit=sharedResponseCache.get(textKey);
-    if(hit&&Date.now()-hit.at<=ttl){
+    if(ttl>0&&hit&&Date.now()-hit.at<=ttl){
       sharedHits++;
       const full={...hit.value,memoryCacheHit:true,memoryCacheAgeMs:Date.now()-hit.at};
       const text=String(full.text||''),end=text.search(/<\/head\s*>/i),headText=end>=0?text.slice(0,end+text.slice(end).indexOf('>')+1):text.slice(0,headMax),mediaText=text.slice(0,mediaMax),prefixText=text.slice(0,prefixMax);
@@ -215,7 +244,8 @@ function requestProgressiveTextShared(rawUrl, options={}) {
   const prefix=new Promise((resolve,reject)=>{resolvePrefix=resolve;rejectPrefix=reject});
   const full=new Promise((resolve,reject)=>{resolveFull=resolve;rejectFull=reject});
   head.catch(()=>{});media.catch(()=>{});prefix.catch(()=>{});full.catch(()=>{});
-  const flow={head,media,prefix,full,cacheHit:false};if(cacheable)progressiveInflight.set(flowKey,flow);
+  const flow={head,media,prefix,full,cacheHit:false};
+  if(cacheable){progressiveInflight.set(flowKey,flow);progressivePromises.add(full);progressivePromises.add(head);sharedInflight.set(textKey,full);sharedInflight.set(headKey,head);}
   sharedNetwork++;
   (async()=>{
     const initial=new URL(String(rawUrl));if(!/^https?:$/.test(initial.protocol))throw new Error(`Unsupported protocol: ${initial.protocol}`);
@@ -228,7 +258,7 @@ function requestProgressiveTextShared(rawUrl, options={}) {
           const status=Number(res.statusCode||0);
           if(status>=300&&status<400&&res.headers.location&&remaining>0){let next;try{next=new URL(String(res.headers.location),u)}catch(err){res.resume();reject(err);return}res.resume();visit(next,remaining-1).then(resolve,reject);return}
           const stream=decodeStream(res),chunks=[];let bytes=0,headDone=false,mediaDone=false,prefixDone=false,headTail='',mediaTail='',settled=false,probeStopped=false;
-          const snapshot=(limit)=>{const buffer=Buffer.concat(chunks);return decodeTextBuffer(buffer.length>limit?buffer.subarray(0,limit):buffer,res.headers)};
+          const snapshot=(limit)=>decodeTextBuffer(Buffer.concat(chunks,Math.trunc(Math.min(bytes,limit))),res.headers);
           const base=(text,limit,truncated=false)=>({url:u.toString(),status,headers:res.headers,rawHeaders:res.rawHeaders||[],text,bytesRead:Math.min(bytes,limit),truncated});
           const emitHead=(truncated=false)=>{if(headDone)return;headDone=true;let text=snapshot(headMax);const match=/<\/head\s*>/i.exec(text);if(match){const close=text.indexOf('>',match.index);if(close>=0)text=text.slice(0,close+1)}resolveHead(base(text,headMax,truncated||!match));};
           const finishResponse=(reason='')=>{if(settled)return;settled=true;probeStopped=!!reason;if(!headDone)emitHead(!!reason);if(!mediaDone)emitMedia(!!reason,false);if(!prefixDone)emitPrefix(!!reason,false);const buffer=Buffer.concat(chunks);resolve({url:u.toString(),status,headers:res.headers,rawHeaders:res.rawHeaders||[],text:decodeTextBuffer(buffer,res.headers),bytesRead:bytes,bufferLength:buffer.length,complete:!reason,abortedAfterMedia:reason==='media',abortedAfterPrefix:reason==='prefix'});if(reason){try{stream.destroy()}catch{}try{res.destroy()}catch{}}};
@@ -247,8 +277,17 @@ function requestProgressiveTextShared(rawUrl, options={}) {
         req.setTimeout(Math.max(500,Number(opts.timeoutMs)||6500),()=>req.destroy(new Error(`HTTP timeout after ${opts.timeoutMs||6500}ms: ${u}`)));req.once('error',reject);req.end();
       });
     };
-    return visit(initial,Math.max(0,Number(opts.redirects)||7));
-  })().then(value=>{if(cacheable&&ttl>0)rememberShared(textKey,value);if(cacheable&&progressiveInflight.get(flowKey)===flow)progressiveInflight.delete(flowKey);resolveFull(value);},err=>{if(cacheable&&progressiveInflight.get(flowKey)===flow)progressiveInflight.delete(flowKey);rejectHead(err);rejectMedia(err);rejectPrefix(err);rejectFull(err);});
+    return visit(initial,requestRedirects(opts));
+  })().then(value=>{
+    if(cacheable&&sharedInflight.get(textKey)===full&&ttl>0)rememberShared(textKey,value);
+    cleanup();resolveFull(value);
+  },err=>{cleanup();rejectHead(err);rejectMedia(err);rejectPrefix(err);rejectFull(err);});
+  function cleanup(){
+    if(!cacheable)return;
+    if(progressiveInflight.get(flowKey)===flow)progressiveInflight.delete(flowKey);
+    if(sharedInflight.get(textKey)===full)sharedInflight.delete(textKey);
+    if(sharedInflight.get(headKey)===head)sharedInflight.delete(headKey);
+  }
   return flow;
 }
 
@@ -274,26 +313,24 @@ async function sharedRequest(kind, url, options, worker) {
   // Dynamic per-URL auth/cookies must never be globally cached because the result can
   // depend on the active account. Shared discovery calls do not use headersForUrl.
   const cacheable=!opts.headersForUrl;
-  const key=sharedKey(url,kind);
+  const key=sharedKey(url,kind,opts);
   if(cacheable&&!bypass){
     const hit=sharedResponseCache.get(key);
-    if(hit&&Date.now()-hit.at<=ttl){sharedHits++;return {...hit.value,memoryCacheHit:true,memoryCacheAgeMs:Date.now()-hit.at};}
+    if(ttl>0&&hit&&Date.now()-hit.at<=ttl){sharedHits++;return {...hit.value,memoryCacheHit:true,memoryCacheAgeMs:Date.now()-hit.at};}
     const flight=sharedInflight.get(key);
     if(flight){sharedCoalesced++;return flight;}
   }
-  const promise=(async()=>{sharedNetwork++;const value=await worker(url,opts);if(cacheable&&ttl>0)rememberShared(key,value);return value;})();
+  const promise=(async()=>{sharedNetwork++;const value=await worker(url,opts);if(cacheable&&sharedInflight.get(key)===promise&&ttl>0)rememberShared(key,value);return value;})();
   if(cacheable)sharedInflight.set(key,promise);
   try{return await promise;}finally{if(cacheable&&sharedInflight.get(key)===promise)sharedInflight.delete(key);}
 }
 function requestBufferShared(url, options={}) { return sharedRequest('buffer',url,options,requestBuffer); }
 function requestHeadTextShared(url, options={}) {
-  if(!options?.bypassCache&&!options?.force){const flow=progressiveInflight.get(sharedKey(url,'progressive-text'));if(flow){sharedCoalesced++;return flow.head;}}
   return sharedRequest('headtext',url,options,requestHeadText);
 }
 function requestTextShared(url, options={}) {
   // If a progressive first-paint request already owns this URL, reuse its eventual
   // full body instead of racing a duplicate GET from an interactive/background path.
-  if(!options?.bypassCache&&!options?.force){const flow=progressiveInflight.get(sharedKey(url,'progressive-text'));if(flow){sharedCoalesced++;return flow.full;}}
   return sharedRequest('text',url,options,async(u,o)=>{const r=await requestText(u,o);const {buffer,...light}=r;return light;});
 }
 async function requestJsonShared(url, options={}) {

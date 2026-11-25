@@ -49,6 +49,7 @@
     "provider-api-fastlane-qa": "node scripts/provider-api-fastlane-qa.js",
     "provider-api-race-qa": "node scripts/provider-api-race-qa.js",
     "parser-pool-qa": "node scripts/parser-pool-qa.js",
+    "provider-lifecycle-qa": "node --test --test-timeout=10000 scripts/public-http-lifecycle-qa.js scripts/parser-pool-lifecycle-qa.js",
     "translator-qa": "node scripts/translator-qa.js",
     "instant-frontier-qa": "node scripts/instant-frontier-qa.js",
     "site-adapter-registry-qa": "node scripts/site-adapter-registry-qa.js",
