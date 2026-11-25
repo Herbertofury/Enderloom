@@ -20,6 +20,34 @@ async function waitFor(predicate,{timeout=7000,interval=100}={}){const deadline=
  check('Mob Girl scores absent',()=>assert(mg.items.every(x=>x.overallScore===null||x.overallScore===undefined||x.overallScore==='')));
  check('Unique stable IDs',()=>{for(const x of [mv,mg])assert.equal(new Set(x.items.map(i=>i.id)).size,x.items.length)});
  check('Exact HTTP primary links',()=>{for(const x of [mv,mg])assert(x.items.every(i=>/^https?:\/\//.test(i.primaryUrl||'')))});
+ check('Generated Catalog keeps alternate links on the same provider reachable',()=>{
+  const {runInNewContext}=require('node:vm');
+  const renderer=require('../src/catalog-renderer');
+  const {html}=renderer.renderCatalog({id:'source-links-fixture',name:'Link coverage',items:[]},root);
+  const line=(a,b)=>{const start=html.indexOf(a),end=html.indexOf(b,start);assert(start>=0&&end>start);return html.slice(start,end)};
+  const functions=line('const norm=','\n')
+   +'\n'+line('function itemUrls','function mediaItemUrls')+line('function siteInfo','function providerProjectUrls');
+  const {itemUrls,sourceButtons}=runInNewContext(functions+';({itemUrls,sourceButtons})',{URL});
+  const decode=s=>s.replace(/&(?:amp|lt|gt|quot|#39);/g,x=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"})[x]);
+  const links=markup=>[...markup.matchAll(/\bhref="([^"]*)"/g)].map(x=>decode(x[1]));
+  const a='https://github.com/team/primary',b='https://github.com/team/primary/issues',c='https://github.com/team/alternative/releases';
+  const mr='https://modrinth.com/mod/primary',cf='https://www.curseforge.com/minecraft/mc-mods/primary';
+  const versions=mr+'/versions',file=cf+'/files/123',normal='https://example.com/guide?chapter=one&part=two';
+  const sample={sources:[{url:a},{url:b},{url:c},{url:mr},{url:versions},{url:cf},{url:file},{url:normal},{url:a},{url:'javascript:alert(1)'}]};
+  const markup=sourceButtons(sample),at=markup.indexOf('<details class="source-more">');
+  assert(at>0);
+  assert.deepStrictEqual(links(markup.slice(0,at)),[a,mr,cf]);
+  assert.deepStrictEqual(links(markup.slice(at)),[b,c,versions,file,normal]);
+  assert(markup.includes('GitHub · team/primary/issues')&&markup.includes('GitHub · team/alternative/releases'));
+  assert(!markup.includes('javascript:'));
+  let tested=0;
+  for(const catalog of [mv,mg])for(const item of catalog.items){
+   const expected=Array.from(itemUrls(item)),observed=links(sourceButtons(item));
+   assert.equal(observed.length,expected.length,item.name);
+   assert.deepStrictEqual([...observed].sort(),[...expected].sort(),item.name);tested++;
+  }
+  assert.equal(tested,605);
+ });
  check('Google URL inference',()=>{const x=inferGoogle('https://docs.google.com/spreadsheets/d/abc_DEF-123/edit');assert.equal(x.format,'xlsx');assert.equal(x.id,'abc_DEF-123')});
  check('JetSetCraft Google URL inference',()=>{const x=inferGoogle('https://docs.google.com/spreadsheets/d/1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68/edit?gid=349919569#gid=349919569');assert.equal(x.id,'1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68');assert.equal(x.exportUrl,'https://docs.google.com/spreadsheets/d/1XMz9w0BZexT9WhU66WmGQeaBsbPxuPYoqkZ3L0AVf68/export?format=xlsx')});
  check('Declared ingest extensions',()=>{for(const ext of ['.xlsx','.xlsm','.csv','.tsv','.json','.docx','.pdf','.md','.markdown','.txt','.html','.htm','.zip'])assert(ACCEPTED_EXTENSIONS.has(ext),ext)});

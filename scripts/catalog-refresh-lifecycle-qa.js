@@ -25,7 +25,51 @@ async function scenario(name, run) {
   checks++; console.log(`PASS ${name}`);
  } finally {store.dispose();fs.rmSync(tmp,{recursive:true,force:true});}
 }
+function legacySavedState() {
+ const {runInNewContext}=require('node:vm');
+ const rendered=require('../src/catalog-renderer').renderCatalog({id:'mob-variety',name:'Fixture',items:[]},rootDir).html;
+ const start=rendered.indexOf('(function migrateLegacySavedState');
+ const end=rendered.indexOf('const favorites=',start);
+ assert.ok(start>=0&&end>start,'extract the migration embedded in real generated Catalog HTML');
+ const code=rendered.slice(start,end);
+ const STORE={favorites:'catalog:mob-variety:favorites:v2',notes:'catalog:mob-variety:notes:v2',recent:'catalog:mob-variety:recent:v2'};
+ const legacy={favorites:'mob-variety-explorer:favorites:v1',notes:'mob-variety-explorer:notes:v1',recent:'mob-variety-explorer:recent:v1'};
+ const original={oldA:'First historical note',oldB:'Second historical note',oldC:'First historical note'};
+ const saved=new Map([[legacy.favorites,'["oldA","oldB"]'],[legacy.notes,JSON.stringify(original)],[legacy.recent,'["oldB","oldA","some-other"]']]);
+ let failNotesOnce=true;
+ function migrate(){
+  const safeStorage={get:k=>saved.get(k)??null,set(k,v){if(k===STORE.notes&&failNotesOnce){failNotesOnce=false;return false;}saved.set(k,v);return true;}};
+  runInNewContext(code,{catalogId:'mob-variety',STORE,BUILD:{legacyIdMap:{oldA:'current',oldB:'current',oldC:'current'}},safeStorage,readJSON:(key,fallback)=>{try{return JSON.parse(safeStorage.get(key))??fallback;}catch{return fallback;}}});
+ }
+ migrate();
+ assert.equal(saved.get(STORE.favorites),'["current"]');
+ assert.equal(saved.has(STORE.notes),false);
+ // A partial storage write followed by user edit must never replace the new state.
+ saved.set(STORE.recent,'["manual-recent"]');
+ migrate();
+ assert.equal(saved.get(STORE.recent),'["manual-recent"]');
+ assert.ok(saved.has(STORE.notes),'retry must restore the missing notes independently');
+ const notes=JSON.parse(saved.get(STORE.notes));
+ assert.match(notes.current,/First historical note/);
+ assert.match(notes.current,/Second historical note/);
+ assert.equal(notes.current.split('First historical note').length-1,1);
+ assert.equal(saved.get(legacy.notes),JSON.stringify(original));
+ saved.set(STORE.notes,JSON.stringify({current:'Edited after migration'}));
+ migrate();assert.equal(JSON.parse(saved.get(STORE.notes)).current,'Edited after migration');
+ saved.delete(STORE.favorites);saved.set(legacy.favorites,'{"not":"an array"}');
+ saved.delete(STORE.recent);migrate();assert.equal(saved.get(STORE.recent),'["current","some-other"]');
+ const otherStore={favorites:'catalog:mob-girl:favorites:v2',notes:'catalog:mob-girl:notes:v2',recent:'catalog:mob-girl:recent:v2'};
+ saved.set('cc:favorites:mob-girls','["solo"]');saved.set('cc:notes:mob-girls','{"solo":"Other catalog note"}');
+ const copied={get:k=>saved.get(k)??null,set:(k,v)=>saved.set(k,v)};
+ runInNewContext(code,{catalogId:'mob-girl',STORE:otherStore,BUILD:{legacyIdMap:{}},safeStorage:copied,
+  readJSON:(key,fallback)=>JSON.parse(saved.get(key)??'null')??fallback});
+ assert.equal(saved.get(otherStore.favorites),'["solo"]');
+ assert.deepEqual(JSON.parse(saved.get(otherStore.notes)),{solo:'Other catalog note'});
+ assert.equal(JSON.parse(saved.get(STORE.notes)).current,'Edited after migration');
+ console.log('PASS generated Catalog legacy rehydration preserves alias notes, partial writes and newer values');
+}
 async function main(){
+ legacySavedState();
  for(const outcome of ['success','failure','unauthorized','not-modified'])await scenario(`removed source ignores late ${outcome}`,async({store,entry,src,requests,bytes,events})=>{
   const pending=store.refreshSource(entry.id,src.id);await store.removeSource(entry.id,src.id);events.length=0;const before=bytes();
   if(outcome==='failure')requests[0].reject(Error('late transport error'));else requests[0].resolve(outcome==='success'?response('Stale'): {status:outcome==='unauthorized'?403:304,headers:{}});
