@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import {
@@ -25,13 +25,19 @@ import {
 import { cn } from "../lib/cn";
 import { logoSrc, mediaSrc } from "../lib/media";
 import { openFolder } from "../lib/reveal";
+import { preloadView } from "../lib/view-modules";
 import type { Instance, VersionMedia, View } from "../lib/types";
 import { PlayerHead } from "./Avatar";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { ContextMenu, useContextMenu, type MenuItem } from "./ContextMenu";
-import { EditInstanceModal } from "./EditInstanceModal";
-import { ExportPackModal } from "./ExportPackModal";
 import { useStore } from "../store";
+
+const EditInstanceModal = lazy(() =>
+  import("./EditInstanceModal").then((module) => ({ default: module.EditInstanceModal })),
+);
+const ExportPackModal = lazy(() =>
+  import("./ExportPackModal").then((module) => ({ default: module.ExportPackModal })),
+);
 
 const MAX_TILES = 8;
 const TILE_SIZE = 44;
@@ -58,12 +64,14 @@ function RailButton({
   label,
   active,
   onClick,
+  onIntent,
   disabled,
   children,
 }: {
   label: string;
   active?: boolean;
   onClick?: () => void;
+  onIntent?: () => void;
   disabled?: boolean;
   children: React.ReactNode;
 }) {
@@ -78,6 +86,8 @@ function RailButton({
       )}
       <button
         onClick={onClick}
+        onMouseEnter={onIntent}
+        onFocus={onIntent}
         disabled={disabled}
         aria-label={label}
         aria-current={active ? "page" : undefined}
@@ -105,6 +115,7 @@ function RecentTile({
   pinned,
   onClick,
   onContextMenu,
+  onIntent,
 }: {
   instance: Instance;
   media: VersionMedia | null;
@@ -113,6 +124,7 @@ function RecentTile({
   pinned: boolean;
   onClick: () => void;
   onContextMenu: (e: React.MouseEvent) => void;
+  onIntent?: () => void;
 }) {
   const [broken, setBroken] = useState<string[]>([]);
   const logo = logoSrc(instance.logo);
@@ -133,6 +145,8 @@ function RecentTile({
       <button
         onClick={onClick}
         onContextMenu={onContextMenu}
+        onMouseEnter={onIntent}
+        onFocus={onIntent}
         aria-label={instance.name}
         aria-current={active ? "page" : undefined}
         className="group relative grid size-11 place-items-center rounded-xl outline-none transition-transform duration-150 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-(--accent)"
@@ -245,10 +259,11 @@ export function Sidebar() {
 
   const tiles = [...dock.pinned, ...dock.recents];
   const shownTiles = tiles.slice(0, capacity);
+  const shownTileIds = shownTiles.map((instance) => instance.id).join("|");
 
   useEffect(() => {
-    tiles.forEach((i) => void loadMedia(i.id));
-  }, [instances, pins, loadMedia]);
+    for (const instance of shownTiles) void loadMedia(instance.id);
+  }, [shownTileIds, loadMedia]);
 
   const tileMenu = (instance: Instance): MenuItem[] => {
     const isRunning = runningIds.has(instance.id);
@@ -399,7 +414,16 @@ export function Sidebar() {
 
       <nav className="flex w-full flex-col items-center gap-2">
         {NAV.map(({ id, label, icon: Icon }) => (
-          <RailButton key={id} label={label} active={view === id} onClick={() => setView(id)}>
+          <RailButton
+            key={id}
+            label={label}
+            active={view === id}
+            onIntent={() => preloadView(id)}
+            onClick={() => {
+              preloadView(id);
+              setView(id);
+            }}
+          >
             <Icon className="size-5" />
           </RailButton>
         ))}
@@ -416,7 +440,11 @@ export function Sidebar() {
               active={view === "instance" && detailInstanceId === instance.id}
               running={runningIds.has(instance.id)}
               pinned={pins.includes(instance.id)}
-              onClick={() => openInstance(instance.id)}
+              onIntent={() => preloadView("instance")}
+              onClick={() => {
+                preloadView("instance");
+                openInstance(instance.id);
+              }}
               onContextMenu={(e) =>
                 openMenu(e, tileMenu(instance), instance.name, { fromElement: true })
               }
@@ -424,7 +452,12 @@ export function Sidebar() {
           ))}
           <div className="relative flex w-full justify-center">
             <button
-              onClick={startInstanceCreate}
+              onMouseEnter={() => preloadView("instances")}
+              onFocus={() => preloadView("instances")}
+              onClick={() => {
+                preloadView("instances");
+                startInstanceCreate();
+              }}
               aria-label="New instance"
               className="group relative grid size-11 place-items-center rounded-xl border border-dashed border-border text-content-faint outline-none transition-colors hover:border-(--accent)/50 hover:bg-surface-2 hover:text-content focus-visible:ring-2 focus-visible:ring-(--accent)"
             >
@@ -441,7 +474,11 @@ export function Sidebar() {
         <RailButton
           label={anyRunning ? "Logs (running)" : "Logs"}
           active={view === "logs"}
-          onClick={() => setView("logs")}
+          onIntent={() => preloadView("logs")}
+          onClick={() => {
+            preloadView("logs");
+            setView("logs");
+          }}
         >
           <span className="relative">
             <SquareChartGantt className="size-5" />
@@ -454,7 +491,11 @@ export function Sidebar() {
         <RailButton
           label="Stats"
           active={view === "stats"}
-          onClick={() => setView("stats")}
+          onIntent={() => preloadView("stats")}
+          onClick={() => {
+            preloadView("stats");
+            setView("stats");
+          }}
         >
           <ChartNoAxesColumn className="size-5" />
         </RailButton>
@@ -462,7 +503,11 @@ export function Sidebar() {
         <RailButton
           label="Settings"
           active={view === "settings"}
-          onClick={() => setView("settings")}
+          onIntent={() => preloadView("settings")}
+          onClick={() => {
+            preloadView("settings");
+            setView("settings");
+          }}
         >
           <Settings className="size-5" />
         </RailButton>
@@ -470,7 +515,11 @@ export function Sidebar() {
         <RailButton
           label={activeAccount ? activeAccount.name : "Sign in"}
           active={view === "accounts"}
-          onClick={() => setView("accounts")}
+          onIntent={() => preloadView("accounts")}
+          onClick={() => {
+            preloadView("accounts");
+            setView("accounts");
+          }}
         >
           {activeAccount ? (
             <PlayerHead uuid={activeAccount.id} name={activeAccount.name} size={28} />
@@ -482,8 +531,16 @@ export function Sidebar() {
 
       <ContextMenu menu={menu} onClose={closeMenu} />
 
-      <EditInstanceModal instance={editing} onClose={() => setEditing(null)} />
-      <ExportPackModal instance={exporting} onClose={() => setExporting(null)} />
+      {editing && (
+        <Suspense fallback={null}>
+          <EditInstanceModal instance={editing} onClose={() => setEditing(null)} />
+        </Suspense>
+      )}
+      {exporting && (
+        <Suspense fallback={null}>
+          <ExportPackModal instance={exporting} onClose={() => setExporting(null)} />
+        </Suspense>
+      )}
 
       <ConfirmDialog
         open={!!removing}

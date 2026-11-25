@@ -12,6 +12,7 @@ import type {
   ConnectionOutcome,
   ExternalReconcileReport,
   ContentItem,
+  ContentSourceIndex,
   ContentUpdate,
   DeviceCodeInfo,
   Diagnosis,
@@ -209,6 +210,8 @@ export const api = {
     call<string[]>("list_loader_versions", { loader, gameVersion }),
   listInstanceContent: (instanceId: string, kind: string, reconcile = false) =>
     call<ContentItem[]>("list_instance_content", { instanceId, kind, reconcile }),
+  listContentSourceIndex: (instanceIds: string[], kind: string) =>
+    call<ContentSourceIndex>("list_content_source_index", { instanceIds, kind }),
   listInstanceDatapacks: (instanceId: string) =>
     call<WorldPacks[]>("list_instance_datapacks", { instanceId }),
   toggleDatapack: (instanceId: string, world: string, fileName: string) =>

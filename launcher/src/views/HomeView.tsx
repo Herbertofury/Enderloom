@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import {
@@ -18,13 +18,26 @@ import { loaderLabel } from "../lib/loader";
 import { formatPlaytime, relativeTime } from "../lib/time";
 import { useUptime } from "../lib/useUptime";
 import type { JavaStatus, VersionMedia } from "../lib/types";
-import { CreateInstanceModal } from "../components/CreateInstanceModal";
-import { UploadModal } from "../components/UploadModal";
-import { ImportPackModal } from "../components/ImportPackModal";
-import { InstanceSheet } from "../components/InstanceSheet";
 import { instanceTaskLabel, taskFraction, useInstanceTask } from "../lib/useTasks";
 import type { PackImportSource } from "../lib/packs";
 import { useStore } from "../store";
+
+const InstanceSheet = lazy(() =>
+  import("../components/InstanceSheet").then((module) => ({ default: module.InstanceSheet })),
+);
+const CreateInstanceModal = lazy(() =>
+  import("../components/CreateInstanceModal").then((module) => ({
+    default: module.CreateInstanceModal,
+  })),
+);
+const UploadModal = lazy(() =>
+  import("../components/UploadModal").then((module) => ({ default: module.UploadModal })),
+);
+const ImportPackModal = lazy(() =>
+  import("../components/ImportPackModal").then((module) => ({
+    default: module.ImportPackModal,
+  })),
+);
 
 const gridStyle: React.CSSProperties = {
   backgroundImage: `
@@ -116,8 +129,8 @@ export function HomeView() {
   const installed = selected ? installedIds.includes(selected.id) : false;
 
   useEffect(() => {
-    instances.forEach((i) => loadMedia(i.id));
-  }, [instances, loadMedia]);
+    if (selected) void loadMedia(selected.id);
+  }, [selected?.id, loadMedia]);
 
   const refreshJava = useCallback(async () => {
     const request = ++javaRequest.current;
@@ -379,37 +392,53 @@ export function HomeView() {
         </div>
       )}
 
-      <InstanceSheet
-        open={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        onCreate={() => setModalOpen(true)}
-      />
+      {sheetOpen && (
+        <Suspense fallback={null}>
+          <InstanceSheet
+            open
+            onClose={() => setSheetOpen(false)}
+            onCreate={() => setModalOpen(true)}
+          />
+        </Suspense>
+      )}
 
-      <CreateInstanceModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onCreated={(id) => selectInstance(id)}
-        onImportFile={() => setPicking(true)}
-        onImportPackwiz={setPackSource}
-      />
-      <UploadModal
-        open={picking}
-        onClose={() => setPicking(false)}
-        title="Import a modpack"
-        subtitle="An .mrpack, CurseForge zip, or local pack.toml"
-        extensions={["mrpack", "zip", "toml"]}
-        filterName="Modpack"
-        confirmLabel="Import"
-        onConfirm={(paths) => {
-          setPicking(false);
-          setPackSource({ kind: "file", value: paths[0] });
-        }}
-      />
-      <ImportPackModal
-        source={packSource}
-        onClose={() => setPackSource(null)}
-        onImported={(instance) => selectInstance(instance.id)}
-      />
+      {modalOpen && (
+        <Suspense fallback={null}>
+          <CreateInstanceModal
+            open
+            onClose={() => setModalOpen(false)}
+            onCreated={(id) => selectInstance(id)}
+            onImportFile={() => setPicking(true)}
+            onImportPackwiz={setPackSource}
+          />
+        </Suspense>
+      )}
+      {picking && (
+        <Suspense fallback={null}>
+          <UploadModal
+            open
+            onClose={() => setPicking(false)}
+            title="Import a modpack"
+            subtitle="An .mrpack, CurseForge zip, or local pack.toml"
+            extensions={["mrpack", "zip", "toml"]}
+            filterName="Modpack"
+            confirmLabel="Import"
+            onConfirm={(paths) => {
+              setPicking(false);
+              setPackSource({ kind: "file", value: paths[0] });
+            }}
+          />
+        </Suspense>
+      )}
+      {packSource && (
+        <Suspense fallback={null}>
+          <ImportPackModal
+            source={packSource}
+            onClose={() => setPackSource(null)}
+            onImported={(instance) => selectInstance(instance.id)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

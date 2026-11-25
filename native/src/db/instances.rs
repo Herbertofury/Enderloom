@@ -6,6 +6,64 @@ use crate::{config::Instance, error::Result, files::FileManager};
 
 use super::{Db, ExternalInstanceLink};
 
+const INSTANCE_COLUMNS: &str = "id, name, version_id, created_at, min_memory_mb, max_memory_mb,
+    java_path, last_played_at, playtime_secs, loader, loader_version,
+    launch_version_id, pack_provider, pack_project_id, pack_version_id,
+    jvm_args, jvm_args_mode, env_vars, env_vars_mode,
+    import_source, import_source_id, banner_id, notes,
+    wrapper_command, pre_launch_command, post_exit_command,
+    external_dir";
+
+fn read_instance_row(
+    files: &FileManager,
+    logos: Option<&std::collections::HashMap<String, String>>,
+    row: &rusqlite::Row<'_>,
+) -> rusqlite::Result<Instance> {
+    let id: String = row.get(0)?;
+    let created_at: String = row.get(3)?;
+    let external_dir: Option<String> = row.get(26)?;
+    let logo = logos
+        .and_then(|index| index.get(&id).cloned())
+        .or_else(|| logos.is_none().then(|| crate::meta::media::instance_logo(files, &id)).flatten());
+    Ok(Instance {
+        dir: external_dir
+            .filter(|value| !value.trim().is_empty())
+            .map(PathBuf::from)
+            .unwrap_or_else(|| files.paths().instance_dir(&id))
+            .display()
+            .to_string(),
+        logo,
+        id,
+        name: row.get(1)?,
+        version_id: row.get(2)?,
+        created_at: chrono::DateTime::parse_from_rfc3339(&created_at)
+            .map(|dt| dt.with_timezone(&chrono::Utc))
+            .unwrap_or_else(|_| chrono::Utc::now()),
+        min_memory_mb: row.get(4)?,
+        max_memory_mb: row.get(5)?,
+        java_path: row.get(6)?,
+        last_played_at: row.get(7)?,
+        playtime_secs: row.get(8)?,
+        loader: row.get(9)?,
+        loader_version: row.get(10)?,
+        launch_version_id: row.get(11)?,
+        pack_provider: row.get(12)?,
+        pack_project_id: row.get(13)?,
+        pack_version_id: row.get(14)?,
+        jvm_args: row.get(15)?,
+        jvm_args_mode: row.get(16)?,
+        env_vars: row.get(17)?,
+        env_vars_mode: row.get(18)?,
+        import_source: row.get(19)?,
+        import_source_id: row.get(20)?,
+        banner_id: row.get(21)?,
+        notes: row.get(22)?,
+        wrapper_command: row.get(23)?,
+        pre_launch_command: row.get(24)?,
+        post_exit_command: row.get(25)?,
+    })
+}
+
 fn record_playtime_tx(
     tx: &Transaction<'_>,
     instance_id: &str,
@@ -71,61 +129,27 @@ impl Db {
     }
 
     pub fn list_instances(&self, files: &FileManager) -> Result<Vec<Instance>> {
-        let paths = files.paths();
+        let logos = crate::meta::media::instance_logo_index(files);
         let conn = self.0.lock().unwrap();
-        let mut stmt = conn.prepare(
-            "SELECT id, name, version_id, created_at, min_memory_mb, max_memory_mb,
-                    java_path, last_played_at, playtime_secs, loader, loader_version,
-                    launch_version_id, pack_provider, pack_project_id, pack_version_id,
-                    jvm_args, jvm_args_mode, env_vars, env_vars_mode,
-                    import_source, import_source_id, banner_id, notes,
-                    wrapper_command, pre_launch_command, post_exit_command,
-                    external_dir
-             FROM instances ORDER BY created_at",
-        )?;
-        let rows = stmt.query_map([], |row| {
-            let id: String = row.get(0)?;
-            let created_at: String = row.get(3)?;
-            let external_dir: Option<String> = row.get(26)?;
-            Ok(Instance {
-                dir: external_dir
-                    .filter(|value| !value.trim().is_empty())
-                    .map(PathBuf::from)
-                    .unwrap_or_else(|| paths.instance_dir(&id))
-                    .display()
-                    .to_string(),
-                logo: crate::meta::media::instance_logo(files, &id),
-                id,
-                name: row.get(1)?,
-                version_id: row.get(2)?,
-                created_at: chrono::DateTime::parse_from_rfc3339(&created_at)
-                    .map(|dt| dt.with_timezone(&chrono::Utc))
-                    .unwrap_or_else(|_| chrono::Utc::now()),
-                min_memory_mb: row.get(4)?,
-                max_memory_mb: row.get(5)?,
-                java_path: row.get(6)?,
-                last_played_at: row.get(7)?,
-                playtime_secs: row.get(8)?,
-                loader: row.get(9)?,
-                loader_version: row.get(10)?,
-                launch_version_id: row.get(11)?,
-                pack_provider: row.get(12)?,
-                pack_project_id: row.get(13)?,
-                pack_version_id: row.get(14)?,
-                jvm_args: row.get(15)?,
-                jvm_args_mode: row.get(16)?,
-                env_vars: row.get(17)?,
-                env_vars_mode: row.get(18)?,
-                import_source: row.get(19)?,
-                import_source_id: row.get(20)?,
-                banner_id: row.get(21)?,
-                notes: row.get(22)?,
-                wrapper_command: row.get(23)?,
-                pre_launch_command: row.get(24)?,
-                post_exit_command: row.get(25)?,
-            })
-        })?;
+        let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances ORDER BY created_at");
+        let mut stmt = conn.prepare(&sql)?;
+        let rows = stmt.query_map([], |row| read_instance_row(files, Some(&logos), row))?;
         Ok(rows.collect::<std::result::Result<Vec<_>, _>>()?)
+    }
+
+    pub fn instance(&self, files: &FileManager, instance_id: &str) -> Result<Option<Instance>> {
+        let conn = self.0.lock().unwrap();
+        let sql = format!("SELECT {INSTANCE_COLUMNS} FROM instances WHERE id = ?1");
+        Ok(conn
+            .query_row(&sql, params![instance_id], |row| read_instance_row(files, None, row))
+            .optional()?)
+    }
+
+    pub fn instance_ids(&self) -> Result<std::collections::HashSet<String>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare("SELECT id FROM instances")?;
+        let rows = stmt.query_map([], |row| row.get::<_, String>(0))?;
+        Ok(rows.collect::<std::result::Result<std::collections::HashSet<_>, _>>()?)
     }
 
     pub fn set_instance_launch_tools(
@@ -577,5 +601,115 @@ impl Db {
         )?;
         tx.commit()?;
         Ok(true)
+    }
+}
+
+
+#[cfg(test)]
+mod direct_instance_lookup_tests {
+    use super::*;
+    use crate::{files::FileManager, paths::Paths};
+    use std::time::Instant;
+
+    fn fixture_instance(id: &str, created_at: chrono::DateTime<chrono::Utc>) -> Instance {
+        Instance {
+            id: id.to_string(),
+            name: format!("Instance {id}"),
+            version_id: "1.20.1".to_string(),
+            created_at,
+            min_memory_mb: Some(1024),
+            max_memory_mb: Some(4096),
+            java_path: None,
+            last_played_at: None,
+            playtime_secs: 0,
+            dir: String::new(),
+            logo: None,
+            loader: Some("fabric".to_string()),
+            loader_version: Some("0.16.0".to_string()),
+            launch_version_id: None,
+            pack_provider: None,
+            pack_project_id: None,
+            pack_version_id: None,
+            jvm_args: None,
+            jvm_args_mode: None,
+            env_vars: None,
+            env_vars_mode: None,
+            import_source: None,
+            import_source_id: None,
+            banner_id: None,
+            notes: None,
+            wrapper_command: None,
+            pre_launch_command: None,
+            post_exit_command: None,
+        }
+    }
+
+    #[test]
+    fn direct_instance_lookup_matches_full_listing_and_scales_better() {
+        let root = std::env::temp_dir().join(format!(
+            "enderloom-direct-instance-{}",
+            uuid::Uuid::new_v4()
+        ));
+        std::fs::create_dir_all(&root).unwrap();
+        let files = FileManager::new(Paths::plain(root.clone())).unwrap();
+        let db = Db::open_in_memory().unwrap();
+
+        let count = 320;
+        let base = chrono::Utc::now();
+        for index in 0..count {
+            let instance = fixture_instance(
+                &format!("instance-{index:04}"),
+                base + chrono::Duration::seconds(index as i64),
+            );
+            db.insert_instance(&instance).unwrap();
+        }
+
+        let target_id = "instance-0319";
+        let direct = db.instance(&files, target_id).unwrap().unwrap();
+        let listed = db
+            .list_instances(&files)
+            .unwrap()
+            .into_iter()
+            .find(|instance| instance.id == target_id)
+            .unwrap();
+        assert_eq!(direct.id, listed.id);
+        assert_eq!(direct.name, listed.name);
+        assert_eq!(direct.version_id, listed.version_id);
+        assert_eq!(direct.loader, listed.loader);
+        assert_eq!(direct.logo, listed.logo);
+        assert_eq!(direct.dir, listed.dir);
+
+        let cycles = 12;
+        let legacy_started = Instant::now();
+        for _ in 0..cycles {
+            let found = db
+                .list_instances(&files)
+                .unwrap()
+                .into_iter()
+                .find(|instance| instance.id == target_id)
+                .unwrap();
+            std::hint::black_box(found);
+        }
+        let legacy = legacy_started.elapsed();
+
+        let direct_started = Instant::now();
+        for _ in 0..cycles {
+            let found = db.instance(&files, target_id).unwrap().unwrap();
+            std::hint::black_box(found);
+        }
+        let direct_elapsed = direct_started.elapsed();
+
+        eprintln!(
+            "direct instance lookup benchmark: legacy={legacy:?} direct={direct_elapsed:?} speedup={:.1}x",
+            legacy.as_secs_f64() / direct_elapsed.as_secs_f64().max(f64::EPSILON)
+        );
+        assert!(
+            direct_elapsed * 4 < legacy,
+            "direct lookup should be at least 4x faster: legacy={legacy:?}, direct={direct_elapsed:?}"
+        );
+
+        drop(db);
+        drop(files);
+        std::fs::remove_dir_all(root).unwrap();
     }
 }
