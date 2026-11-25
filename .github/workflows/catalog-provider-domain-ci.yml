@@ -3,10 +3,10 @@ name: Catalog provider domain regression
 on:
   push:
     branches: [main]
-    paths: ['src/ingest.js', 'src/zip-lite.js', 'scripts/catalog-provider-domain-qa.js', '.github/workflows/catalog-provider-domain-ci.yml']
+    paths: ['src/ingest.js', 'src/zip-lite.js', 'src/public-http.js', 'src/provider-parser-pool.js', 'scripts/catalog-provider-domain-qa.js', 'scripts/public-http-lifecycle-qa.js', 'scripts/parser-pool-lifecycle-qa.js', '.github/workflows/catalog-provider-domain-ci.yml']
   pull_request:
     branches: [main]
-    paths: ['src/ingest.js', 'src/zip-lite.js', 'scripts/catalog-provider-domain-qa.js', '.github/workflows/catalog-provider-domain-ci.yml']
+    paths: ['src/ingest.js', 'src/zip-lite.js', 'src/public-http.js', 'src/provider-parser-pool.js', 'scripts/catalog-provider-domain-qa.js', 'scripts/public-http-lifecycle-qa.js', 'scripts/parser-pool-lifecycle-qa.js', '.github/workflows/catalog-provider-domain-ci.yml']
 
 permissions:
   contents: read
@@ -26,3 +26,4 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node scripts/catalog-provider-domain-qa.js
+      - run: node --test --test-timeout=10000 scripts/public-http-lifecycle-qa.js scripts/parser-pool-lifecycle-qa.js
