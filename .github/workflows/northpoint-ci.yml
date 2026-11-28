@@ -76,6 +76,11 @@ jobs:
       - name: Verify native Modrinth exact-version ownership
         run: cargo test --manifest-path native/Cargo.toml --lib search::modrinth::exact_identity_tests
 
+      - name: Verify exact repairs and staged Modrinth SHA-512
+        run: |
+          cargo test --manifest-path native/Cargo.toml --lib modrinth_repair_identity_tests
+          cargo test --manifest-path native/Cargo.toml --lib sha512_verifies_before_replacing_a_modrinth_repair_destination
+
       - name: Browse provider pane static QA
         run: node scripts/workspace-tabs-qa.js
 
