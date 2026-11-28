@@ -332,7 +332,7 @@ pub async fn fetch_version(
 ) -> Result<ProjectVersion> {
     match (provider, version_id) {
         (Provider::Modrinth, Some(id)) => {
-            let raw = modrinth::version(state, id).await?;
+            let raw = modrinth::exact_project_version(state, project_id, id).await?;
             Ok(modrinth::to_version(raw, game_version, loader, kind))
         }
         (Provider::Curseforge, Some(id)) => {
