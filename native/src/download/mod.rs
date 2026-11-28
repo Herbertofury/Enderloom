@@ -10,7 +10,7 @@ use std::{
 use futures::stream::{self, StreamExt};
 use serde::Serialize;
 use sha1_smol::Sha1;
-use sha2::{Digest, Sha256};
+use sha2::{Digest, Sha256, Sha512};
 use tokio::io::AsyncWriteExt;
 use tokio::sync::{Mutex as AsyncMutex, OwnedMutexGuard};
 use tokio_util::sync::CancellationToken;
@@ -84,9 +84,11 @@ pub async fn copy_verified(
     result
 }
 
-async fn already_valid(files: &FileManager, spec: &DownloadSpec) -> bool {
+async fn already_valid(files: &FileManager, spec: &DownloadSpec, sha512: Option<&str>) -> bool {
     files.is_file(&spec.dest).unwrap_or(false)
-        && verify_partial(files, &spec.dest, spec).await.is_ok()
+        && verify_partial(files, &spec.dest, spec, sha512)
+            .await
+            .is_ok()
 }
 
 const RETRY_BASE: Duration = Duration::from_millis(300);
@@ -174,11 +176,36 @@ pub async fn download_one_reporting(
     on_retry: RetryHook<'_>,
     on_bytes: ByteHook<'_>,
 ) -> Result<bool> {
+    download_one_reporting_checked(client, files, spec, None, on_retry, on_bytes).await
+}
+
+/// Verifies an exact provider SHA-512 before publishing the staged file.
+pub(crate) async fn download_one_reporting_sha512(
+    client: &NetworkManager,
+    files: &FileManager,
+    spec: &DownloadSpec,
+    sha512: &str,
+    on_retry: RetryHook<'_>,
+) -> Result<bool> {
+    if sha512.len() != 128 || !sha512.bytes().all(|b| b.is_ascii_hexdigit()) {
+        return Err(Error::other("Invalid provider SHA-512"));
+    }
+    download_one_reporting_checked(client, files, spec, Some(sha512), on_retry, None).await
+}
+
+async fn download_one_reporting_checked(
+    client: &NetworkManager,
+    files: &FileManager,
+    spec: &DownloadSpec,
+    sha512: Option<&str>,
+    on_retry: RetryHook<'_>,
+    on_bytes: ByteHook<'_>,
+) -> Result<bool> {
     let _guard = destination_lock(&spec.dest).await;
     let attempts = client.attempts();
     let mut attempt = 0;
     loop {
-        match download_once(client, files, spec, on_bytes).await {
+        match download_once(client, files, spec, sha512, on_bytes).await {
             Ok(created) => return Ok(created),
             Err(e) => {
                 attempt += 1;
@@ -314,16 +341,23 @@ async fn send_download_request(
     }
 }
 
-async fn verify_partial(files: &FileManager, path: &Path, spec: &DownloadSpec) -> Result<u64> {
+async fn verify_partial(
+    files: &FileManager,
+    path: &Path,
+    spec: &DownloadSpec,
+    sha512: Option<&str>,
+) -> Result<u64> {
     let files = files.clone();
     let path = path.to_path_buf();
     let expected_size = spec.size;
     let expected_sha1 = spec.sha1.clone();
     let expected_sha256 = spec.sha256.clone();
+    let expected_sha512 = sha512.map(str::to_owned);
     tokio::task::spawn_blocking(move || {
         let mut file = files.open(&path)?;
         let mut sha1 = expected_sha1.as_ref().map(|_| Sha1::new());
         let mut sha256 = expected_sha256.as_ref().map(|_| Sha256::new());
+        let mut sha512 = expected_sha512.as_ref().map(|_| Sha512::new());
         let mut actual_size = 0_u64;
         let mut buffer = [0_u8; 64 * 1024];
         loop {
@@ -336,6 +370,9 @@ async fn verify_partial(files: &FileManager, path: &Path, spec: &DownloadSpec) -
                 hasher.update(&buffer[..read]);
             }
             if let Some(hasher) = &mut sha256 {
+                hasher.update(&buffer[..read]);
+            }
+            if let Some(hasher) = &mut sha512 {
                 hasher.update(&buffer[..read]);
             }
         }
@@ -376,6 +413,21 @@ async fn verify_partial(files: &FileManager, path: &Path, spec: &DownloadSpec) -
                 });
             }
         }
+        if let Some(expected) = expected_sha512 {
+            let actual = format!(
+                "{:x}",
+                sha512
+                    .expect("SHA-512 hasher exists when expected")
+                    .finalize()
+            );
+            if !actual.eq_ignore_ascii_case(&expected) {
+                return Err(Error::Checksum {
+                    path: path.display().to_string(),
+                    expected,
+                    actual,
+                });
+            }
+        }
         Ok(actual_size)
     })
     .await
@@ -386,9 +438,10 @@ async fn download_once(
     client: &NetworkManager,
     files: &FileManager,
     spec: &DownloadSpec,
+    sha512: Option<&str>,
     on_bytes: ByteHook<'_>,
 ) -> Result<bool> {
-    if already_valid(files, spec).await {
+    if already_valid(files, spec, sha512).await {
         if let Some(hook) = on_bytes {
             hook(spec.size.unwrap_or_else(|| {
                 files
@@ -408,9 +461,11 @@ async fn download_once(
         offset = 0;
     }
     if spec.size == Some(offset) && offset > 0 {
-        match verify_partial(files, &partial, spec).await {
+        match verify_partial(files, &partial, spec, sha512).await {
             Ok(_) => {
-                files.remove_file_if_exists(&spec.dest)?;
+                if sha512.is_none() {
+                    files.remove_file_if_exists(&spec.dest)?;
+                }
                 files.commit_download_part(&partial, &spec.dest).await?;
                 if let Some(hook) = on_bytes {
                     hook(offset);
@@ -509,8 +564,10 @@ async fn download_once(
     writer.sync_all().await?;
     drop(writer);
 
-    verify_partial(files, &partial, spec).await?;
-    files.remove_file_if_exists(&spec.dest)?;
+    verify_partial(files, &partial, spec, sha512).await?;
+    if sha512.is_none() {
+        files.remove_file_if_exists(&spec.dest)?;
+    }
     files.commit_download_part(&partial, &spec.dest).await?;
     tracing::trace!(url = %spec.url, dest = %spec.dest.display(), "downloaded");
     Ok(true)
@@ -1124,6 +1181,49 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn sha512_verifies_before_replacing_a_modrinth_repair_destination() {
+        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let address = listener.local_addr().unwrap();
+        let worker = std::thread::spawn(move || {
+            let (mut socket, _) = listener.accept().unwrap();
+            read_request(&mut socket);
+            std::io::Write::write_all(
+                &mut socket,
+                b"HTTP/1.1 200 OK\r\nContent-Length: 3\r\nConnection: close\r\n\r\nbad",
+            )
+            .unwrap();
+        });
+        let dir =
+            std::env::temp_dir().join(format!("enderloom-sha512-repair-{}", uuid::Uuid::new_v4()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let dest = dir.join("chosen-optional.jar");
+        std::fs::write(&dest, b"previous").unwrap();
+        let parts = files(&dir);
+        let net = network();
+        let spec = DownloadSpec {
+            url: format!("http://{address}/file"),
+            dest: dest.clone(),
+            sha1: None,
+            sha256: None,
+            size: Some(3),
+        };
+        let sha512 = format!("{:x}", Sha512::digest(b"new"));
+        assert!(matches!(
+            download_once(&net, &parts, &spec, Some(&sha512), None).await,
+            Err(Error::Checksum { .. })
+        ));
+        worker.join().unwrap();
+        assert_eq!(std::fs::read(&dest).unwrap(), b"previous");
+        std::fs::write(partial_path(&dest), b"new").unwrap();
+        assert!(download_once(&net, &parts, &spec, Some(&sha512), None)
+            .await
+            .unwrap());
+        assert_eq!(std::fs::read(&dest).unwrap(), b"new");
+        assert!(!partial_path(&dest).exists());
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[tokio::test]
     async fn verifies_sha256_downloads() {
         let dir = std::env::temp_dir().join(format!("basalt-sha256-{}", uuid::Uuid::new_v4()));
         std::fs::create_dir_all(&dir).unwrap();
@@ -1139,12 +1239,14 @@ mod tests {
         let files = files(&dir);
 
         assert_eq!(
-            verify_partial(&files, &destination, &spec).await.unwrap(),
+            verify_partial(&files, &destination, &spec, None)
+                .await
+                .unwrap(),
             3
         );
         spec.sha256 = Some("wrong".into());
         assert!(matches!(
-            verify_partial(&files, &destination, &spec).await,
+            verify_partial(&files, &destination, &spec, None).await,
             Err(Error::Checksum { .. })
         ));
         let _ = std::fs::remove_dir_all(&dir);
