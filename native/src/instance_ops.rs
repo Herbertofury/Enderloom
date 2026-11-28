@@ -93,6 +93,110 @@ async fn content_valid(
     .map_err(|error| Error::other(format!("checksum task failed: {error}")))?
 }
 
+fn encoded_segment_matches(raw: &str, expected: &str) -> bool {
+    let mut incoming = raw.bytes();
+    for want in expected.bytes() {
+        let Some(byte) = incoming.next() else {
+            return false;
+        };
+        let got = if byte == b'%' {
+            let hex = |byte: u8| (byte as char).to_digit(16).map(|digit| digit as u8);
+            let Some(high) = incoming.next().and_then(hex) else {
+                return false;
+            };
+            let Some(low) = incoming.next().and_then(hex) else {
+                return false;
+            };
+            high * 16 + low
+        } else {
+            byte
+        };
+        if got != want {
+            return false;
+        }
+    }
+    incoming.next().is_none()
+}
+
+fn modrinth_repair_url(url: &str, version: &search::ProjectVersion, name: &str) -> bool {
+    if url.len() > 2048
+        || !url.starts_with("https://cdn.modrinth.com/data/")
+        || name.contains(['/', '\\'])
+        || name == "."
+        || name == ".."
+    {
+        return false;
+    }
+    let Ok(url) = reqwest::Url::parse(url) else {
+        return false;
+    };
+    if url.scheme() != "https"
+        || url.host_str() != Some("cdn.modrinth.com")
+        || !url.username().is_empty()
+        || url.password().is_some()
+        || url.port().is_some()
+        || url.query().is_some()
+        || url.fragment().is_some()
+    {
+        return false;
+    }
+    let Some(mut path) = url.path_segments() else {
+        return false;
+    };
+    if path.next() != Some("data")
+        || path.next() != Some(version.project_id.as_str())
+        || path.next() != Some("versions")
+    {
+        return false;
+    }
+    let Some(route_version) = path.next() else {
+        return false;
+    };
+    let legacy = &version.version_number;
+    let matches_version = route_version == version.id
+        || (!legacy.is_empty()
+            && legacy != "."
+            && legacy != ".."
+            && !legacy.contains(['/', '\\'])
+            && encoded_segment_matches(route_version, legacy));
+    matches_version
+        && path
+            .next()
+            .is_some_and(|segment| encoded_segment_matches(segment, name))
+        && path.next().is_none()
+}
+
+fn modrinth_repair_file<'a>(
+    files: &'a [search::VersionFile],
+    name: &str,
+    sha1: Option<&str>,
+    sha512: Option<&str>,
+) -> Result<&'a search::VersionFile> {
+    let valid_sha512 =
+        |hash: &str| hash.len() == 128 && hash.bytes().all(|b| b.is_ascii_hexdigit());
+    let mut matching = files.iter().filter(|row| {
+        row.file_name == name
+            && row.sha512.as_deref().is_some_and(valid_sha512)
+            && sha1.is_none_or(|hash| {
+                row.sha1
+                    .as_deref()
+                    .is_some_and(|value| value.eq_ignore_ascii_case(hash))
+            })
+            && sha512.is_none_or(|hash| {
+                row.sha512
+                    .as_deref()
+                    .is_some_and(|value| value.eq_ignore_ascii_case(hash))
+            })
+    });
+    let error =
+        || Error::other("No unique Modrinth file matches the recorded file name and hashes.");
+    let file = matching.next().ok_or_else(error)?;
+    if matching.next().is_some() {
+        return Err(error());
+    }
+    Ok(file)
+}
+
 async fn repair_content(
     state: &AppState,
     instance: &Instance,
@@ -169,7 +273,25 @@ async fn repair_content(
                 Some(version_id),
             )
             .await?;
-            let (url, remote) = search::download_url(&version)?;
+            let exact_modrinth = provider == Provider::Modrinth;
+            let (url, remote) = if exact_modrinth {
+                let exact = modrinth_repair_file(
+                    &version.files,
+                    &file.file_name,
+                    file.sha1.as_deref(),
+                    file.sha512.as_deref(),
+                )?;
+                let url = exact
+                    .url
+                    .as_deref()
+                    .filter(|url| modrinth_repair_url(url, &version, &exact.file_name))
+                    .ok_or_else(|| {
+                        Error::other("The recorded Modrinth file has no verified CDN route.")
+                    })?;
+                (url.to_string(), exact.clone())
+            } else {
+                search::download_url(&version)?
+            };
             state.files.ensure_dir(&directory)?;
             let retry = |attempt, max, reason: &str| task.note_retry(attempt, max, reason);
             let spec = DownloadSpec {
@@ -179,26 +301,46 @@ async fn repair_content(
                 sha256: None,
                 size: remote.size,
             };
-            let download = download::download_one_reporting(
-                &state.network,
-                &state.files,
-                &spec,
-                Some(&retry),
-                None,
-            );
+            let download = async {
+                if exact_modrinth {
+                    let sha512 = remote.sha512.as_deref().ok_or_else(|| {
+                        Error::other("The recorded Modrinth file has no SHA-512.")
+                    })?;
+                    download::download_one_reporting_sha512(
+                        &state.network,
+                        &state.files,
+                        &spec,
+                        sha512,
+                        Some(&retry),
+                    )
+                    .await
+                } else {
+                    download::download_one_reporting(
+                        &state.network,
+                        &state.files,
+                        &spec,
+                        Some(&retry),
+                        None,
+                    )
+                    .await
+                }
+            };
             tokio::pin!(download);
             let cancellation = task.token();
             tokio::select! {
                 result = &mut download => { result?; }
                 () = cancellation.cancelled() => return Err(Error::Cancelled),
             }
-            if !content_valid(
-                &state.files,
-                &path,
-                remote.sha1.as_deref().or(file.sha1.as_deref()),
-                remote.sha512.as_deref().or(file.sha512.as_deref()),
-            )
-            .await?
+            // The Modrinth repair's SHA-512 was checked on the staged file.
+            // Keep the existing extra postcheck for other provider paths.
+            if !exact_modrinth
+                && !content_valid(
+                    &state.files,
+                    &path,
+                    remote.sha1.as_deref().or(file.sha1.as_deref()),
+                    remote.sha512.as_deref().or(file.sha512.as_deref()),
+                )
+                .await?
             {
                 let _ = state.files.remove_file_if_exists(&path);
                 return Err(Error::other("downloaded file failed verification"));
@@ -461,4 +603,78 @@ async fn duplicate_with_target(
         .into_iter()
         .find(|instance| instance.id == id)
         .ok_or_else(|| Error::NotFound("duplicated instance".to_string()))
+}
+
+#[cfg(test)]
+mod modrinth_repair_identity_tests {
+    use super::{modrinth_repair_file, modrinth_repair_url};
+    use crate::search::{ProjectVersion, VersionFile};
+
+    fn fixture(name: &str, hash: &str, primary: bool) -> VersionFile {
+        VersionFile {
+            url: None,
+            file_name: name.into(),
+            sha1: None,
+            sha512: Some(hash.repeat(128)),
+            size: Some(3),
+            primary,
+        }
+    }
+
+    #[test]
+    fn repair_cdn_route_matches_exact_project_version_and_encoded_name() {
+        let version = ProjectVersion {
+            id: "S7r4WOXY".into(),
+            project_id: "AANobbMI".into(),
+            version_number: "2.0+fabric".into(),
+            name: String::new(),
+            channel: String::new(),
+            date: String::new(),
+            downloads: 0,
+            file_name: "optional+blue.jar".into(),
+            size: None,
+            game_versions: vec![],
+            loaders: vec![],
+            compatible: true,
+            changelog: None,
+            dependencies: vec![],
+            files: vec![],
+            server_pack_file_id: None,
+        };
+        let origin = "https://cdn.modrinth.com/data/AANobbMI/versions";
+        let exact = format!("{origin}/S7r4WOXY/optional%2Bblue.jar");
+        let legacy = format!("{origin}/2.0%2Bfabric/optional+blue.jar");
+        assert!(modrinth_repair_url(&exact, &version, &version.file_name));
+        assert!(modrinth_repair_url(&legacy, &version, &version.file_name));
+        for route in [
+            exact.replace("S7r4WOXY", "OTHERID7"),
+            exact.replace("AANobbMI", "OTHERID8"),
+            exact.replace("cdn.modrinth.com", "cdn.modrinth.com.invalid"),
+            exact.replace("optional", "primary"),
+            format!("{exact}?unexpected=1"),
+        ] {
+            assert!(!modrinth_repair_url(&route, &version, &version.file_name));
+        }
+    }
+
+    #[test]
+    fn supplemental_file_is_not_replaced_by_a_primary_sibling() {
+        let primary = fixture("primary.jar", "a", true);
+        let wanted = fixture("optional.jar", "b", false);
+        let files = [primary, wanted.clone()];
+        let digest = "B".repeat(128);
+        assert_eq!(
+            modrinth_repair_file(&files, "optional.jar", None, Some(&digest))
+                .unwrap()
+                .file_name,
+            "optional.jar"
+        );
+        assert!(modrinth_repair_file(&files, "deleted.jar", None, Some(&digest)).is_err());
+        assert!(
+            modrinth_repair_file(&files, "optional.jar", None, Some(&"a".repeat(128))).is_err()
+        );
+        assert!(
+            modrinth_repair_file(&[wanted.clone(), wanted], "optional.jar", None, None).is_err()
+        );
+    }
 }
