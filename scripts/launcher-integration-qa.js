@@ -1469,7 +1469,26 @@ function runOfflineReset(executable, root, deep = false) {
     versionId: olderSodiumVersion.id,
     withDependencies: true,
   };
+  const beforePlan = treeFingerprint(modded.dir);
+  const readOnlyContent = { instanceId: modded.id, kind: 'mods', reconcile: false };
+  const beforeContent = await service.request('list_instance_content', readOnlyContent);
   const installPlan = await service.request('plan_content_install', installArgs, { timeoutMs: 120000 });
+  assert.equal(installPlan?.primary?.project_id, 'sodium', 'exact plan lost the selected project route');
+  assert.equal(installPlan?.primary?.version_id, olderSodiumVersion.id, 'exact plan substituted a different file');
+  const sibling = sodiumVersions.find((entry) => entry.id !== olderSodiumVersion.id);
+  assert(sibling, 'same-project fixture requires a distinct provider version ID');
+  const siblingPlan = await service.request('plan_content_install', {
+    ...installArgs, versionId: sibling.id,
+  }, { timeoutMs: 120000 });
+  assert.equal(siblingPlan?.primary?.project_id, installPlan.primary.project_id);
+  assert.equal(siblingPlan?.primary?.version_id, sibling.id, 'same-project file selection collapsed to another file');
+  await assert.rejects(service.request('plan_content_install', {
+    ...installArgs, projectId: 'fabric-api', versionId: olderSodiumVersion.id,
+  }, { timeoutMs: 120000 }), /version belongs to a different project/i,
+    'the planner must refuse an exact version from another Modrinth project');
+  assert.equal(treeFingerprint(modded.dir), beforePlan, 'planning writes must not change instance files');
+  assert.deepEqual(await service.request('list_instance_content', readOnlyContent), beforeContent,
+    'planning must not claim that either file was installed');
   assert(installPlan?.primary?.file_name?.endsWith('.jar'), 'Modrinth dependency planning did not resolve Sodium');
   const installedContent = await service.request('install_content', installArgs, { timeoutMs: 240000 });
   assert(installedContent.some((item) => item.file_name.endsWith('.jar')), 'planned Modrinth content was not installed');
