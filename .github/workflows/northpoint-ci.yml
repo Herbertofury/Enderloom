@@ -73,6 +73,9 @@ jobs:
       - name: Browse provider identity regression
         run: cargo test --manifest-path native/Cargo.toml --lib provider_title_matching_handles_subtitle_drift
 
+      - name: Verify native Modrinth exact-version ownership
+        run: cargo test --manifest-path native/Cargo.toml --lib search::modrinth::exact_identity_tests
+
       - name: Browse provider pane static QA
         run: node scripts/workspace-tabs-qa.js
 
