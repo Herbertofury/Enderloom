@@ -251,15 +251,29 @@ struct User {
     username: String,
 }
 
-pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
-    let project_cache_key = format!("mr:project:{project_id}");
-    let members_cache_key = format!("mr:members:{project_id}");
-    let project_request = cache::fetch_swr(
+async fn project_record(state: &AppState, project_ref: &str) -> Result<Project> {
+    // Slugs may contain punctuation; append one encoded path segment.
+    if project_ref.is_empty() || matches!(project_ref, "." | "..") {
+        return Err(crate::error::Error::other("Invalid Modrinth project reference"));
+    }
+    let mut endpoint = reqwest::Url::parse(&format!("{API}/project"))
+        .expect("Modrinth project endpoint must be a valid HTTPS URL");
+    endpoint
+        .path_segments_mut()
+        .expect("Modrinth project endpoint must accept path segments")
+        .push(project_ref);
+    cache::fetch_swr(
         state,
-        &project_cache_key,
+        &format!("mr:project:{project_ref}"),
         cache::TTL_PROJECT,
-        state.network.get(format!("{API}/project/{project_id}")),
-    );
+        state.network.get(endpoint.to_string()),
+    )
+    .await
+}
+
+pub async fn project_details(state: &AppState, project_id: &str) -> Result<ProjectDetails> {
+    let members_cache_key = format!("mr:members:{project_id}");
+    let project_request = project_record(state, project_id);
     let members_request = cache::fetch_swr::<Vec<Member>>(
         state,
         &members_cache_key,
@@ -497,6 +511,77 @@ pub async fn version(state: &AppState, version_id: &str) -> Result<Version> {
         state.network.get(format!("{API}/version/{version_id}")),
     )
     .await
+}
+
+fn stable_modrinth_id(value: &str) -> bool {
+    !value.is_empty() && value.len() <= 64 && value.bytes().all(|byte| byte.is_ascii_alphanumeric())
+}
+
+fn project_alias_matches(reference: &str, owner: &str, id: &str, slug: Option<&str>) -> bool {
+    id == owner
+        && stable_modrinth_id(id)
+        && slug.is_some_and(|value| value.eq_ignore_ascii_case(reference))
+}
+
+fn version_response_matches(requested: &str, version_id: &str, owner: &str) -> bool {
+    stable_modrinth_id(requested) && version_id == requested && stable_modrinth_id(owner)
+}
+
+pub(super) async fn exact_project_version(
+    state: &AppState,
+    project_ref: &str,
+    requested_version: &str,
+) -> Result<Version> {
+    if !stable_modrinth_id(requested_version) {
+        return Err(crate::error::Error::other("Invalid exact Modrinth version ID"));
+    }
+    let selected = version(state, requested_version).await?;
+    if !version_response_matches(requested_version, &selected.id, &selected.project_id) {
+        return Err(crate::error::Error::other(
+            "Modrinth returned a different or incomplete version identity",
+        ));
+    }
+    // Stable IDs compare case-sensitively. Only aliases need another lookup.
+    if selected.project_id != project_ref {
+        let project = project_record(state, project_ref).await?;
+        if !project_alias_matches(
+            project_ref,
+            &selected.project_id,
+            &project.id,
+            project.slug.as_deref(),
+        ) {
+            return Err(crate::error::Error::other(
+                "The selected Modrinth version belongs to a different project",
+            ));
+        }
+    }
+    Ok(selected)
+}
+
+#[cfg(test)]
+mod exact_identity_tests {
+    use super::{project_alias_matches, stable_modrinth_id, version_response_matches};
+
+    #[test]
+    fn exact_response_requires_provider_version_and_owner_ids() {
+        assert!(version_response_matches("AbCdEf12", "AbCdEf12", "AANobbMI"));
+        assert!(!version_response_matches("AbCdEf12", "abcdef12", "AANobbMI"));
+        assert!(!version_response_matches("AbCdEf12", "AbCdEf12", ""));
+        assert!(!version_response_matches("AbCdEf12", "AbCdEf12", "wrong/owner"));
+        assert!(!version_response_matches("../other", "../other", "AANobbMI"));
+    }
+
+    #[test]
+    fn aliases_require_the_exact_stable_owner_and_matching_slug() {
+        assert!(project_alias_matches("SODIUM", "AANobbMI", "AANobbMI", Some("sodium")));
+        assert!(!project_alias_matches("sodium", "AANobbMI", "AANOBBMI", Some("sodium")));
+        assert!(!project_alias_matches("different", "AANobbMI", "AANobbMI", Some("sodium")));
+        assert!(!project_alias_matches("sodium", "AANobbMI", "AANobbMI", None));
+        assert!(stable_modrinth_id("IzngD3Cy"));
+        for invalid in ["", "foo/bar", "foo?bar", "foo%2Fbar"] {
+            assert!(!stable_modrinth_id(invalid));
+        }
+    }
 }
 
 #[derive(Deserialize)]
